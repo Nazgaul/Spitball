@@ -117,7 +117,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_QueryWithNode_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(14, Guid.Parse("3d49e348-33e2-4281-b763-d981b9bd0000"), 1);
+            var query = new GetLibraryNodeQuery(14, 2282, 1);
             try
             {
                 m_ZboxReadService.GetLibraryNode(query);

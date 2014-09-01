@@ -57,7 +57,8 @@
 
     <many-to-one column="UniversityId2" class="University2" name="University" foreign-key="UniversityUser"/>
     <many-to-one column="UniversityId" class="University" name="University2" foreign-key="UniversityUser2"/>
-    <many-to-one column="Department" class="Department" name="Department" foreign-key="DeparetmentUser" not-null="false"/>
+    <many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>
+    <many-to-one column="MainDepartment" class="Department" name="Department" foreign-key="DeparetmentMainUser" not-null="false"/>
     <property name="GroupNumber"/>
     <property name="RegisterNumber"/>
 

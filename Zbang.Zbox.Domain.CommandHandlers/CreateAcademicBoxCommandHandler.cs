@@ -70,8 +70,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, department,
-                  academicCommand.CourseCode, academicCommand.Professor,  
-                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath));
+                  academicCommand.CourseCode, academicCommand.Professor,
+                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath), universityUser);
 
             //m_LibraryRepository.Save(library);
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));

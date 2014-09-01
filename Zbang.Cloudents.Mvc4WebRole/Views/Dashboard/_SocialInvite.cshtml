@@ -1,0 +1,25 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<section class="socialInvite  js-cloudState js--fbState js--gmState">
+    <header>@IndexResources.InviteFriends</header>
+
+    <div class="socialWpr">
+        <button class="cloudentsBtn"></button>
+        <button class="fbBtn"></button>
+        <button class="gmailBtn"></button>
+    </div>
+
+    <div class="socialContentWpr">
+        @*<label class="input" data-cloud-txt="@IndexResources.SearchCloudents" data-fb-txt="@IndexResources.SearchFb" data-gm-txt="@IndexResources.SearchGmail">
+                <input  />
+            </label>*@
+        <input class="cloudInput" type="search" placeholder="@IndexResources.SearchCloudents" />
+        <input class="fbInput" type="search" placeholder="@IndexResources.SearchFb" />
+        <input class="gmInput" type="search" placeholder="@IndexResources.SearchGmail" />
+    </div>
+    <div class="btnWpr">
+        <input type="submit" class="btn1" value="@DialogResources.Continue" />
+        <button type="reset" class="btn2" ng-click="cancel()">@SharedResources.Back</button>
+    </div>
+</section>

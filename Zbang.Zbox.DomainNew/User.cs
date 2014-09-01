@@ -127,7 +127,10 @@ namespace Zbang.Zbox.Domain
         public virtual UserFirstTime FirstTime { get; set; }
         public virtual int Reputation { get; set; }
 
-        public virtual RussianDepartment Department { get; set; }
+        public virtual RussianDepartment RussianDepartment { get; set; }
+
+        public Department Department { get; set; }
+
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
 
@@ -216,7 +219,7 @@ namespace Zbang.Zbox.Domain
         {
             University2 = university;
             Code = userCode;
-            Department = department;
+            RussianDepartment = department;
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
 

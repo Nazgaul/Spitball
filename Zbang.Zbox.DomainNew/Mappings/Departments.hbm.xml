@@ -27,7 +27,9 @@
     <many-to-one column="UniversityId" class="University" name="University" not-null="true" foreign-key="DepartmentUniversity"/>
     <many-to-one column="UniversityId2" class="University" name="University2" not-null="false" foreign-key="DepartmentUniversity2"/>
 
-    <property name="Name"  not-null="true"/>
+    <property name="Name"  not-null="true" length ="100"/>
+    <property name="Url" not-null="true"/>
+    <property name="NoOfBoxes" not-null="true"/>
   </class>
 
 </hibernate-mapping>

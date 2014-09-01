@@ -14,19 +14,19 @@ namespace Zbang.Zbox.Domain
             Boxes = new HashSet<Box>();
             AmountOfNodes = 0;
         }
-        public Library(Guid id, string name, Library parent, University2 university)
-            : this()
-        {
-            Id = id;
-            if (name.Contains('.'))
-            {
-                throw new ArgumentException("name cannot contain dot", "name");
-            }
-            Name = name;
-            Parent = parent;
-            University = university;
-            GenerateUrl();
-        }
+        //public Library(Guid id, string name, Library parent, University2 university)
+        //    : this()
+        //{
+        //    Id = id;
+        //    if (name.Contains('.'))
+        //    {
+        //        throw new ArgumentException("name cannot contain dot", "name");
+        //    }
+        //    Name = name;
+        //    Parent = parent;
+        //    University = university;
+        //    GenerateUrl();
+        //}
 
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
@@ -43,63 +43,63 @@ namespace Zbang.Zbox.Domain
         public virtual string Url { get; protected set; }
 
 
-        public virtual void GenerateUrl()
-        {
-            Url = UrlConsts.BuildLibraryUrl(Id, Name);
-        }
+        //public virtual void GenerateUrl()
+        //{
+        //    Url = UrlConsts.BuildLibraryUrl(Id, Name);
+        //}
 
 
-        public Library CreateSubLibrary(Guid id, string nodeName)
-        {
-            if (nodeName == null)
-            {
-                throw new ArgumentNullException("nodeName");
-            }
-            nodeName = nodeName.Trim();
-            if (CheckIfBoxesExists())
-            {
-                throw new ArgumentException("Cannot add library to box node");
-            }
-            if (Children.Any(a => a.Name == nodeName))
-            {
-                throw new ArgumentException("cannot have node with the same name");
-            }
-            var libraryNode = new Library(id, nodeName, this, University);
+        //public Library CreateSubLibrary(Guid id, string nodeName)
+        //{
+        //    if (nodeName == null)
+        //    {
+        //        throw new ArgumentNullException("nodeName");
+        //    }
+        //    nodeName = nodeName.Trim();
+        //    if (CheckIfBoxesExists())
+        //    {
+        //        throw new ArgumentException("Cannot add library to box node");
+        //    }
+        //    if (Children.Any(a => a.Name == nodeName))
+        //    {
+        //        throw new ArgumentException("cannot have node with the same name");
+        //    }
+        //    var libraryNode = new Library(id, nodeName, this, University);
 
-            Children.Add(libraryNode);
-            AmountOfNodes = Children.Count;
-            return libraryNode;
-        }
+        //    Children.Add(libraryNode);
+        //    AmountOfNodes = Children.Count;
+        //    return libraryNode;
+        //}
 
-        public void ChangeName(string newName)
-        {
-            if (newName == null)
-            {
-                throw new ArgumentNullException("newName");
-            }
-            if (newName.Contains('.'))
-            {
-                throw new ArgumentException(@"name cannot contain dot", "newName");
-            }
-            newName = newName.Trim();
+        //public void ChangeName(string newName)
+        //{
+        //    if (newName == null)
+        //    {
+        //        throw new ArgumentNullException("newName");
+        //    }
+        //    if (newName.Contains('.'))
+        //    {
+        //        throw new ArgumentException(@"name cannot contain dot", "newName");
+        //    }
+        //    newName = newName.Trim();
 
-            if (Parent == null && University.Libraries.Any(a => a.Name == newName))
-            {
-                throw new ArgumentException("cannot have the same name as siblings");
-            }
-            if (Parent != null && Parent.Children.Any(a => a.Name == newName))
-            {
-                throw new ArgumentException("cannot have the same name as siblings");
-            }
+        //    if (Parent == null && University.Libraries.Any(a => a.Name == newName))
+        //    {
+        //        throw new ArgumentException("cannot have the same name as siblings");
+        //    }
+        //    if (Parent != null && Parent.Children.Any(a => a.Name == newName))
+        //    {
+        //        throw new ArgumentException("cannot have the same name as siblings");
+        //    }
 
-            Name = newName;
-            GenerateUrl();
-        }
+        //    Name = newName;
+        //    GenerateUrl();
+        //}
 
-        private bool CheckIfBoxesExists()
-        {
-            return Boxes.Count != 0;
-        }
+        //private bool CheckIfBoxesExists()
+        //{
+        //    return Boxes.Count != 0;
+        //}
 
 
 

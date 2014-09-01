@@ -104,11 +104,11 @@ app.config([
                     + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName) + '/';
             }
         }).
-        when('/library/:libraryId/:libraryName/', {
+        when('/department/:uniname/:libraryId/:libraryName/', {
             params: {
                 type: 'library'
             },
-            templateUrl: '/library/' 
+            templateUrl: '/library/'
         }).
         when('/library/choose/', {
             params: {
@@ -116,7 +116,7 @@ app.config([
             },
             templateUrl: '/library/choose/'
         }).
-        when('/library/', {
+        when('/department/', {
             params: {
                 type: 'library'
             },

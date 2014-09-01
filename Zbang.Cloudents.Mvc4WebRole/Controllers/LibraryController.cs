@@ -16,8 +16,6 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
 
@@ -193,33 +191,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         //[AjaxCache(TimeConsts.Minute * 30)]
-        public ActionResult Nodes(string section)
+        public ActionResult Nodes(long? section)
         {
-            var guid = TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, guid, GetUserId());
+            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId());
             var result = ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
-
-        }
-
-        private Guid? TryParseNullableGuid(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return null;
-            }
-            Guid guid;
-            if (Guid.TryParse(str, out guid))
-            {
-                return guid;
-            }
-            return GuidEncoder.Decode(str);
 
         }
 
@@ -268,36 +250,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region Create
-        //[HttpPost, Ajax]
-        //public ActionResult Create(CreateLibraryItem model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetModelStateErrors()));
-        //    }
-        //    var userDetail = FormsAuthenticationService.GetUserData();
 
-        //    if (!userDetail.UniversityId.HasValue)
-        //    {
-        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-        //    }
-        //    if (userDetail.UniversityId.Value != GetUserId())
-        //    {
-        //        return Json(new JsonResponse(false, "you unauthorized to add departments"));
-        //    }
-        //    try
-        //    {
-        //        var id = m_IdGenerator.Value.GetId();
-        //        var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
-        //        ZboxWriteService.AddNodeToLibrary(command);
-        //        var result = new NodeDto { Id = id, Name = model.Name };
-        //        return Json(new JsonResponse(true, result));
-        //    }
-        //    catch (ArgumentException)
-        //    {
-        //        return Json(new JsonResponse(false, "unspecified error"));
-        //    }
-        //}
+
+        [HttpPost, Ajax]
+        public ActionResult Create(CreateLibraryItem model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, GetModelStateErrors()));
+            }
+            var userDetail = FormsAuthenticationService.GetUserData();
+
+            if (!userDetail.UniversityId.HasValue)
+            {
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+            }
+           
+            try
+            {
+                //var id = m_IdGenerator.Value.GetId();
+                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value);
+                ZboxWriteService.CreateDepartment(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (ArgumentException)
+            {
+                return Json(new JsonResponse(false, "unspecified error"));
+            }
+        }
 
 
 

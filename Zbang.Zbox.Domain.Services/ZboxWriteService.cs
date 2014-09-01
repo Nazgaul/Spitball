@@ -613,6 +613,13 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
+        public void CreateDepartment(CreateDepartmentCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
     }
 }

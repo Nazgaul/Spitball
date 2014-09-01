@@ -91,42 +91,25 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public NodeBoxesDto GetLibraryNode(GetLibraryNodeQuery query)
         {
+
             using (UnitOfWork.Start())
             {
-                var dbNode = UnitOfWork.CurrentSession.GetNamedQuery(query.LibraryQuery);
-                dbNode.SetProperties(query);
-                dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                var fNodeResult = dbNode.Future<NodeDto>();
-
-                IEnumerable<BoxDto> fBoxesResult = new List<BoxDto>();
-                if (query.ParentNode.HasValue)
+                if (!query.ParentNode.HasValue)
                 {
-                    var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
-                    boxesQuery.SetParameter("ParentNode", query.ParentNode);
-                    boxesQuery.SetParameter("UserId", query.UserId);
-                    boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
-                    fBoxesResult = boxesQuery.Future<BoxDto>();
+                    var dbNode = UnitOfWork.CurrentSession.GetNamedQuery("GetLibraryNode");
+                    dbNode.SetInt64("UniversityId", query.UniversityId);
+                    dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
+                    var nodeResult = dbNode.List<NodeDto>();
+                    return new NodeBoxesDto(nodeResult, null);
                 }
 
-                IFutureValue<NodeDto> fParent = null;
-                if (query.ParentNode.HasValue)
-                {
-                    var dbQueryParentNode = UnitOfWork.CurrentSession.GetNamedQuery("GetParentNode");
-                    dbQueryParentNode.SetParameter("ParentNode", query.ParentNode);
-                    dbQueryParentNode.SetParameter("UserId", query.UniversityId);
-                    dbQueryParentNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                    fParent = dbQueryParentNode.FutureValue<NodeDto>();
-                }
-                var nodes = fNodeResult.ToList();
-                var boxes = fBoxesResult.ToList();
-                var parent = fParent == null ? null : fParent.Value;
+                var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
+                boxesQuery.SetParameter("ParentNode", query.ParentNode);
+                boxesQuery.SetParameter("UserId", query.UserId);
+                boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
 
-                if (nodes.Any() && boxes.Any())
-                {
-                    throw new InvalidOperationException("cannot have boxes and subnodes in the same node");
-                }
-                var result = new NodeBoxesDto(nodes, boxes, parent);
-                return result;
+                var boxesResult = boxesQuery.List<BoxDto>();
+                return new NodeBoxesDto(null, boxesResult);
 
             }
         }
@@ -872,7 +855,7 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
         }
-       
+
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())

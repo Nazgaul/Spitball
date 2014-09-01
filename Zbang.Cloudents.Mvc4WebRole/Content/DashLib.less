@@ -285,17 +285,21 @@
 
 /*#region new dashboard */
 
-.js-newDash {
+.jsNewDash {
+    .setupCourse {
+        display: block;
+    }
     .unionCourses, .groupBoxes {
         display: none;
     }
 }
-.js-dark {
+.jsDark {
     .dashboard{
         display: none!important; //override js
     }
 }
 .setupCourse {
+    display: none;
     color: #fff;
     margin-left: -14px; //rtl
     .topWpr {
@@ -604,12 +608,19 @@
             display: block;
         }
     }
-    &.js-addDept {
+    &.js-addDept, &.js-social {
         display: block;
         .courseType {
             display: none;
         }
+    }
+    &.js-addDept {
         .createDept {
+            display: block;
+        }
+    }
+    &.js-social {
+        .socialInvite {
             display: block;
         }
     }
@@ -649,6 +660,141 @@
         margin: 0 0 -200px 0; //override
         min-height: 200px;
     }
+}
+
+.socialInvite {
+    display: none;
+    text-align: center;
+    header {
+        font-size: 20px;
+        color: @txtColor;
+    }
+    &.js-cloudState, &.js-fbState, &.js-gmState {
+        .socialContentWpr {
+            display: block;
+        }
+    }
+    .btnWpr {
+        display: inline-block;
+        position: relative;
+    }
+    .btn1, .btn2 {
+        margin: 0 6px;
+    }
+    &.js-cloudState {
+        .cloudentsBtn {
+            background-position: 0 -598px;
+        }
+        .socialContentWpr:before {
+            right: auto;
+            left:145px;
+        }
+        /*.input:before {
+            content: attr(data-cloud-txt);
+        }*/
+        .cloudInput {
+            display: block;
+        }
+    }
+    &.js-fbState {
+        .fbBtn {
+            background-position: 0 -780px;
+        }
+        /*.input:before {
+            content: attr(data-fb-txt);
+        }*/
+        .fbInput {
+            display: block;
+        }
+    }
+    &.js-gmState {
+        .gmailBtn {
+            background-position: 0 -871px;
+        }
+        .socialContentWpr:before {
+            left: auto;
+            right:145px;
+        }
+        /*.input:before {
+            content: attr(data-gm-txt);
+        }*/
+        .gmInput {
+            display: block;
+        }
+    }
+}
+.socialWpr {
+    display: inline-block;
+    width: 100%;
+    button {
+        width: 91px;
+	    height: 91px;
+	    background: @site-sprite no-repeat;
+        margin: 40px 0;
+    }
+    .cloudentsBtn {
+        background-position: 0 -507px;
+    }
+    .fbBtn {
+        margin: 40px 60px;
+        background-position: 0 -689px;
+    }
+    .gmailBtn {
+        background-position: 0 -962px;
+    }
+}
+.socialContentWpr {
+    min-height: 405px;
+    display: none;
+    background: #eee;
+    margin: -3px -25px -53px -25px;
+    position: relative;
+    &:before {
+        .pseudo;
+        top: -28px;
+        position: absolute;
+        left:0;right:0;
+        margin: auto;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 24px 28px 24px;
+        border-color: transparent transparent #eee transparent;
+    }
+    input {
+        display: none;
+        color: #676767;
+        width: 420px;
+        margin: 0 auto;
+        height: 35px;
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        padding: 6px 12px;
+        .boxSizing;
+        position: relative;
+        background: #fff;
+        text-align: left;
+        font-weight: normal;
+        font-size: 15px;
+        top: 20px;
+    }
+
+    /*input {
+        background: transparent;
+        left: 0;
+        position: absolute; 
+        top: 0;   
+        z-index: 1;
+        width: 100%;
+        height: 33px;
+        padding: 0 10px;
+        display: block;
+        .boxSizing;
+        &:focus, &:first-line {
+            background: #fff;
+        }
+        
+    }*/
 }
 /*#endregion */
 

@@ -1546,6 +1546,7 @@
     <Content Include="Views\Shared\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
+    <Content Include="Views\Dashboard\_SocialInvite.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

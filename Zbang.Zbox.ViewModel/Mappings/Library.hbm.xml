@@ -26,13 +26,13 @@
   </resultset>
 
   <resultset name="NodeDto">
-    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="Id" type="long"/>
     <return-scalar column="Name" type="string"/>
     <!--<return-scalar column="Color" type="string"/>-->
   </resultset>
 
   <resultset name="ParentNodeDetails">
-    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="Id" type="long"/>
     <return-scalar column="Name" type="string"/>
     <return-scalar column="Url" type="string"/>
   </resultset>
@@ -78,17 +78,15 @@
     from University2 uu join uu.Libraries l
     where uu.Id = :UserId
     and l.Id = :ParentNode-->
-  <sql-query name="GetParentNode" read-only="true" resultset-ref="ParentNodeDetails">
+  <!--<sql-query name="GetParentNode" read-only="true" resultset-ref="ParentNodeDetails">
     <![CDATA[
     select l.LibraryId as Id, l.Name as Name, l.Url as Url
 from
 zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
  where uu.UserId = :UserId
- and l.LibraryId = (select libraryid from zbox.Library where ParentId =  :ParentNode)
- 
- 
-    ]]>
-  </sql-query>
+ and l.LibraryId = (select libraryid from zbox.Library where ParentId = :ParentNode)
+     ]]>
+  </sql-query>-->
 
 
   <!--Get children of root-->
@@ -99,9 +97,8 @@ zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
     order by Name-->
   <sql-query name="GetLibraryNode" read-only="1" resultset-ref="ParentNodeDetails">
     <![CDATA[
-     select l.LibraryId as Id, l.Name as Name, l.Url as Url from zbox.Library l
-  where  userid = :UniversityId
-  and ParentId is null
+     select l.Id as Id, l.Name as Name, l.Url as Url from zbox.maindepartment l
+  where l.universityId = :UniversityId
   order by name
     ]]>
   </sql-query>
@@ -112,14 +109,14 @@ zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
     where l.University.Id = :UniversityId
     and l.Parent.Id = :ParentNode 
     order by Name-->
-  <sql-query name="GetLibraryNodeWithId" read-only="1" resultset-ref="ParentNodeDetails">
+  <!--<sql-query name="GetLibraryNodeWithId" read-only="1" resultset-ref="ParentNodeDetails">
     <![CDATA[
      select l.LibraryId as Id, l.Name as Name, l.Url as Url from zbox.Library l
   where  userid = :UniversityId
   and ParentId = :ParentNode 
   order by name
     ]]>
-  </sql-query>
+  </sql-query>-->
 
 
 </hibernate-mapping>

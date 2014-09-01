@@ -17,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.AppendTrailingSlash = true;
 
             var constraintsResolver = new DefaultInlineConstraintResolver();
-            constraintsResolver.ConstraintMap.Add("desktop", typeof (DesktopConstraint));
+            constraintsResolver.ConstraintMap.Add("desktop", typeof(DesktopConstraint));
             routes.MapMvcAttributeRoutes(constraintsResolver);
 
 
@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { isDesktop = new DesktopConstraint() }
             );
 
-          
+
 
             #region Box
             routes.MapRoute("PrivateBoxDesktop",
@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
               new { boxId = new LongRouteConstraint() }
-          ); 
+          );
             #endregion
 
             routes.MapRoute(
@@ -79,15 +79,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             #region library
             routes.MapRoute("LibraryDesktop",
-                "library/{LibId}/{LibName}",
-                new { controller = "Home", action = "Index" , LibId = UrlParameter.Optional, LibName= UrlParameter.Optional },
-                new { isDesktop = new DesktopConstraint(), LibId = new NullGuidConstrait() }
+                "department",
+                new { controller = "Home", action = "Index"},
+                new { isDesktop = new DesktopConstraint() }
+            );
+            routes.MapRoute("LibraryDesktop2",
+                "department/{universityName}/{LibId}/{LibName}",
+                new { controller = "Home", action = "Index" },
+                new { isDesktop = new DesktopConstraint(), LibId = new LongRouteConstraint()}
             );
 
-            routes.MapRoute("LibraryNode",
-                "Library/{LibId}/{LibName}",
-                new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
-                new { LibId = new NullGuidConstrait() }); 
+            //routes.MapRoute("LibraryNode",
+            //    "department/{LibId}/{LibName}",
+            //    new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
+            //    new { LibId = new NullGuidConstrait() });
             #endregion
 
             //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
@@ -95,13 +100,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("UserDesktop",
                 "user/{userId}/{userName}",
                 new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint() , userId = new LongRouteConstraint() }
+                new { isDesktop = new DesktopConstraint(), userId = new LongRouteConstraint() }
             );
 
             routes.MapRoute("User",
                 "user/{userId}/{userName}",
                 new { controller = "User", action = "Index", userId = UrlParameter.Optional, userName = UrlParameter.Optional },
-                new { userId = new LongRouteConstraint()});
+                new { userId = new LongRouteConstraint() });
             #endregion
 
             //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]

@@ -87,9 +87,11 @@
 /// <reference path="../js/directives/departmentstooltip.js" />
 /// <reference path="../js/directives/facebookfeed.js" />
 /// <reference path="../js/directives/focuson.js" />
+/// <reference path="../js/directives/lazysrc.js" />
 /// <reference path="../js/directives/loadspinner.js" />
 /// <reference path="../js/directives/mloader.js" />
 /// <reference path="../js/directives/ngplaceholder.js" />
+/// <reference path="../js/directives/quizgraph.js" />
 /// <reference path="../js/directives/scrolltotop.js" />
 /// <reference path="../js/directives/selectonclick.js" />
 /// <reference path="../js/directives/usertooltip.js" />
@@ -114,6 +116,7 @@
 /// <reference path="../js/mobile/mupload.js" />
 /// <reference path="../js/mobile/mwallviewmodel.js" />
 /// <reference path="../js/mobile/welcome.js" />
+/// <reference path="../js/modules/angular-timer.js" />
 /// <reference path="../js/modules/carousel.js" />
 /// <reference path="../js/modules/displaytime.js" />
 /// <reference path="../js/modules/textdirection.js" />
@@ -157,7 +160,9 @@
 /// <reference path="../js/controllers/item/itemctrl.js" />
 /// <reference path="../js/controllers/library/createboxlibctrl.js" />
 /// <reference path="../js/controllers/library/createdepartmentctrl.js" />
+/// <reference path="../js/controllers/library/libchoosectrl.js" />
 /// <reference path="../js/controllers/library/libraryctrl.js" />
+/// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/controllers/quiz/quizclosectrl.js" />
 /// <reference path="../js/controllers/quiz/quizcreatectrl.js" />
 /// <reference path="../js/controllers/quiz/quizctrl.js" />
@@ -174,6 +179,7 @@
 /// <reference path="../js/directives/store/categorylink.js" />
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
+<<<<<<< HEAD
 /// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/directives/quizgraph.js" />
 /// <reference path="../js/modules/angular-timer.js" />
@@ -181,6 +187,8 @@
 /// <reference path="../js/directives/lazysrc.js" />
 /// <reference path="../js/modules/wizard.js" />
 /// <reference path="../js/controllers/dashboard/createboxwizardctrl.js" />
+=======
+>>>>>>> a3e7a82d2537c582253102e0657ecde3bdcc2c03
 <<<<<<< HEAD
 /// <reference path="../js/directives/backbutton.js" />
 /// <reference path="../js/directives/focuson.js" />

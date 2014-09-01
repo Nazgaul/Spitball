@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Dapper;
 using NHibernate;
@@ -6,6 +7,7 @@ using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 
 
@@ -31,26 +33,28 @@ namespace Zbang.Zbox.Domain.Services
             {
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    var blobProvider = Infrastructure.Ioc.IocFactory.Unity.Resolve<IBlobProvider>();
-                    var files = UnitOfWork.CurrentSession.QueryOver<File>()
-                        .Where(w => w.IsDeleted == false)
-                        .Where(w => w.Size == -1).List();
 
-                    foreach (var file in files)
-                    {
-                        var blob = blobProvider.GetFile(file.ItemContentUrl);
-                        blob.FetchAttributes();
-                        file.Size = blob.Properties.Length;
-                        var extension = Path.GetExtension(file.ItemContentUrl);
-                        if (string.IsNullOrEmpty(extension))
-                        {
-                            extension = Path.GetExtension(file.Name);
-                            blobProvider.RenameBlob(file.ItemContentUrl, file.ItemContentUrl + extension);
-                            file.ItemContentUrl = file.ItemContentUrl + extension;
-                        }
-                        UnitOfWork.CurrentSession.Save(file);
-                    }
-                    tx.Commit();
+                    //var files = UnitOfWork.CurrentSession.QueryOver<File>()
+                    //    .Where(w => w.IsDeleted == false)
+                    //    .Where(w => w.Size == -1).List();
+
+                    //foreach (var file in files)
+                    //{
+                    //    var blob = blobProvider.GetFile(file.ItemContentUrl);
+                    //    blob.FetchAttributes();
+                    //    file.Size = blob.Properties.Length;
+                    //    var extension = Path.GetExtension(file.ItemContentUrl);
+                    //    if (string.IsNullOrEmpty(extension))
+                    //    {
+                    //        extension = Path.GetExtension(file.Name);
+                    //        blobProvider.RenameBlob(file.ItemContentUrl, file.ItemContentUrl + extension);
+                    //        file.ItemContentUrl = file.ItemContentUrl + extension;
+                    //    }
+                    //    UnitOfWork.CurrentSession.Save(file);
+                    //}
+                    //tx.Commit();
+
+
                 }
             }
 
@@ -61,36 +65,94 @@ namespace Zbang.Zbox.Domain.Services
             var retVal = false;
             using (UnitOfWork.Start())
             {
-                //using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                //{
-
-                //    //box members
-                //    var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                //                         .Where(w => w.IsDeleted == false).Skip(100 * index).Take(100)
-                //                         .List();
-                //    foreach (var box in boxes)
-                //    {
-                //        retVal = true;
-                //        box.GenerateUrl();
-                //        UnitOfWork.CurrentSession.Save(box);
-                //    }
-
-                //    tx.Commit();
-                //}
-                //var files =
-                //          UnitOfWork.CurrentSession.QueryOver<Item>()
-                //              .Where(w => w.IsDeleted == false).Skip(100 * index)
-                //              .Take(100).List();
+               
 
 
-                //foreach (var file in files)
-                //{
-                //    file.GenerateUrl();
-                //    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Item set Url = @Url where itemId = @Id"
-                //        , new { file.Url, file.Id });
 
-                //    retVal = true;
-                //}
+                var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+                var boxes = UnitOfWork.CurrentSession.QueryOver<AcademicBox>().Where(w => w.IsDeleted == false)
+                   .Where(w => w.Department == null)
+                   .List();
+                foreach (var box in boxes)
+                {
+                    using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    {
+                        var libraryCollection = box.Library; //.FirstOrDefault();
+                        var library = libraryCollection.FirstOrDefault();
+                        if (library == null)
+                        {
+                            continue;
+                        }
+                        while (library.Parent != null)
+                        {
+                            library = library.Parent;
+                        }
+                        var department =
+                            UnitOfWork.CurrentSession.QueryOver<Department>()
+                                .Where(w => w.Name == library.Name)
+                                .SingleOrDefault();
+                        var university =
+                            UnitOfWork.CurrentSession.QueryOver<University>()
+                                .Where(w => w.Id == library.University.Id)
+                                .SingleOrDefault();
+                        if (department == null)
+                        {
+                            department = new Department(idGenerator.GetId(IdGenerator.DepartmentScope), library.Name,
+                                university);
+                            UnitOfWork.CurrentSession.Save(department);
+                        }
+                        box.UpdateDepartment(department, university);
+                        UnitOfWork.CurrentSession.Save(box);
+
+                        tx.Commit();
+                    }
+                }
+                var departments = UnitOfWork.CurrentSession.QueryOver<Department>()
+                  .List();
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var department in departments)
+                    {
+                        var count = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+                             .Where(w => w.Department == department)
+                             .RowCount();
+                        department.UpdateNumberOfBoxes(count);
+                        UnitOfWork.CurrentSession.Save(department);
+                    }
+                    tx.Commit();
+                }
+
+
+                var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                       .Where(w => w.University != null)
+                       .Skip(100 * index)
+                       .Take(100).List();
+                foreach (var user in users)
+                {
+                    retVal = true;
+
+                    UnitOfWork.CurrentSession.Connection.Execute(
+                   "update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
+                    var x = UnitOfWork.CurrentSession.Connection.Query(@"
+                                    select top(1) b.Department,count(*)  from zbox.UserBoxRel ub 
+                join zbox.Box b on ub.BoxId = b.BoxId and b.Discriminator = 2 and IsDeleted = 0
+                join zbox.users u on ub.UserId = u.UserId
+                where b.university = u.UniversityId
+                and u.userid = @id
+                group by b.Department
+                order by 2 desc", new { id = user.Id });
+                    if (x.Count() == 0)
+                    {
+                        continue;
+                    }
+                    var department = x.FirstOrDefault().Department;
+
+                    UnitOfWork.CurrentSession.Connection.Execute(
+                     "update zbox.users set MainDepartment= CONVERT(bigint, @depart) where userid = @Id", new { user.Id, depart = department });
+                }
+
+
+
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     var oldUniversities = UnitOfWork.CurrentSession.QueryOver<University2>()
@@ -123,15 +185,6 @@ namespace Zbang.Zbox.Domain.Services
 
                 }
 
-                var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.University != null)
-                        .Skip(100 * index)
-                        .Take(100).List();
-                foreach (var user in users)
-                {
-                    retVal = true;
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
-                }
 
 
 

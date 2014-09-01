@@ -370,8 +370,8 @@
 /*#region chairman - only displayed for hebrew */
 .chairman {
     width: 450px;
-    min-height: 100vh;
-    margin-top: -@header-height; 
+    min-height: ~'-webkit-calc(100vh - 50px)';
+    min-height: ~'calc(100vh - 50px)';
     float: right; //NO rtl!!
     position: relative;
     top:0;
@@ -381,7 +381,7 @@
     .boxSizing;
     background: #ebeced;
     box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
-    padding: 100px 33px 50px 33px;
+    padding: 50px 33px;
     &:before {
         .pseudo;
         background: url(/Images/national-union-pic.png?v=1) no-repeat;
