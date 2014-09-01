@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
 {
     public class GetLibraryNodeQuery : QueryBase
     {
-        public GetLibraryNodeQuery(long universityId, long parentNode, long userId)
+        public GetLibraryNodeQuery(long universityId, long? parentNode, long userId)
             : base(userId)
         {
             UniversityId = universityId;
@@ -13,13 +13,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
         public long UniversityId { get; private set; }
         public long? ParentNode { get; private set; }
 
-        public string LibraryQuery
-        {
-            get
-            {
-                return ParentNode.HasValue ? "GetLibraryNodeWithId" : "GetLibraryNode";
-            }
-        }
+      
 
     }
 }

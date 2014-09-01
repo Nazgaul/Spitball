@@ -25,9 +25,9 @@
      u.Url as Url,
      u.Email as Email,
      u.Reputation as Score,
-     uu.Name as LibName,
+     uu.OrgName as LibName,
      uu.Image as LibImage
-     from User u left join u.University uu
+     from User u left join u.University2 uu
      where u.Id = :UserId
     ]]>
   </query>
@@ -42,10 +42,10 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Name as LibName,
+    uu.OrgName as LibName,
     uu.Image as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University uu
+    from User u left join u.University2 uu
     where u.MembershipId= :MembershipUserId
     ]]>
   </query>
@@ -59,10 +59,10 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Name as LibName,
+    uu.OrgName as LibName,
     uu.Image as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University uu
+    from User u left join u.University2 uu
     where u.FacebookId = :FacebookId
     and u.IsRegisterUser =1
     ]]>
@@ -77,10 +77,10 @@
     u.FirstTime.Item as FirstTimeItem,
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
-    uu.Name as LibName,
+    uu.OrgName as LibName,
     uu.Image as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University uu
+    from User u left join u.University2 uu
     where u.Email= :Email
     and (MembershipId is not null or FacebookId is not null)
     ]]>

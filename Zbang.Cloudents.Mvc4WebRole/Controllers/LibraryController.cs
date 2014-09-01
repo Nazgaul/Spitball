@@ -193,33 +193,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         //[AjaxCache(TimeConsts.Minute * 30)]
-        public ActionResult Nodes(string section)
+        public ActionResult Nodes(long? section)
         {
-            var guid = TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, guid, GetUserId());
+            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId());
             var result = ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
-
-        }
-
-        private Guid? TryParseNullableGuid(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return null;
-            }
-            Guid guid;
-            if (Guid.TryParse(str, out guid))
-            {
-                return guid;
-            }
-            return GuidEncoder.Decode(str);
 
         }
 
