@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
 
                 if (product == null)
                 {
-                    if (productStore.IsActive)
+                    if (!productStore.IsActive) continue;
                     product = new StoreProduct(productStore.Id,
                         productStore.Name,
                         productStore.ExtraDetails,
@@ -49,8 +49,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                         productStore.CatalogNumber,
                         productStore.DeliveryPrice,
                         productStore.ProducerName,
-                        productStore.Upgrades, productStore.UniversityId, productStore.CategoryOrder, productStore.Order, productStore.ProducerId);
-
+                        productStore.Upgrades, productStore.UniversityId, productStore.CategoryOrder,
+                        productStore.Order, productStore.ProducerId);
+                    m_ProductRepository.Save(product);
                 }
                 else
                 {
@@ -70,14 +71,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
                             productStore.ProducerName,
                             productStore.Upgrades, productStore.UniversityId, productStore.Description, productStore.CategoryOrder,
                             productStore.Order, productStore.PictureUrl, productStore.ProducerId);
+                        m_ProductRepository.Save(product);
                     }
                     else
                     {
                         m_ProductRepository.Delete(product);
-                        continue;
                     }
                 }
-                m_ProductRepository.Save(product);
+
             }
         }
 

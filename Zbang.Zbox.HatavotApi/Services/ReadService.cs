@@ -51,7 +51,6 @@ namespace Zbang.Zbox.Store.Services
       ,[designNum] as UniversityId -- Which University to show --> Can be to all or to one specific
       ,[wideImage] as WideImage
   FROM [bizpoin_bizpointDB].[products] p where catcode like '%' + cast( @catId as varchar) + '%' 
-and productid = 6562
   and updatetime > @diffTime ";
                 foreach (var category in categories)
                 {

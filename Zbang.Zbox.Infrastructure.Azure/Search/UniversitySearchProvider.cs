@@ -24,8 +24,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class UniversitySearchProvider : IUniversityWriteSearchProvider, IUniversityReadSearchProvider, IDisposable
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
-        private readonly AzureDirectory m_AzureUniversiesDirectory;
-        private readonly AzureDirectory m_AzureUniversiesSpellerDirectory;
+        private readonly AzureDirectory m_AzureUniversitiesDirectory;
+        private readonly AzureDirectory m_AzureUniversitiesSpellerDirectory;
 
         const string UniversityCatalog = "UniversityCatalog";
         const string UniversitySuggestionCatalog = "UniversitySuggestionCatalog";
@@ -41,17 +41,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public UniversitySearchProvider(IZboxReadServiceWorkerRole dbReadService)
         {
-            m_AzureUniversiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
-            m_AzureUniversiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
+            m_AzureUniversitiesDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversityCatalog);
+            m_AzureUniversitiesSpellerDirectory = new AzureDirectory(StorageProvider.ZboxCloudStorage, UniversitySuggestionCatalog);
             m_DbReadService = dbReadService;
-            //m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
 
             m_Timer = new Timer(TimeSpan.FromHours(1).TotalMilliseconds);
             m_Timer.Elapsed += (s, e) =>
             {
                 m_IndexService.Dispose();
                 m_IndexService = null;
-            //    m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
             };
             m_Timer.Enabled = true;
 
@@ -69,7 +67,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
                 universitiesExtra = universitiesExtra.ToList();
-                using (var indexWriter = new IndexWriter(m_AzureUniversiesDirectory,
+                using (var indexWriter = new IndexWriter(m_AzureUniversitiesDirectory,
                         analyzer,
                         new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
                 {
@@ -81,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                         var extraDetail = universitiesExtra.FirstOrDefault(f => f.Id == university.Id);
                         //var searchQuery = new TermQuery(new Term("id", university.Id.ToString(CultureInfo.InvariantCulture)));
                         //indexWriter.DeleteDocuments(searchQuery);
-                       
+
 
                         var doc = new Document();
                         doc.Add(new Field(IdField, university.Id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO));
@@ -104,11 +102,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     {
                         using (
                             var speller =
-                                new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                                new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversitiesSpellerDirectory))
                         {
                             speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), NameField));
                             speller.Close();
-                            //m_AzureUniversiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
+                            //m_AzureUniversitiesSpellerDirectory.speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra1"));
                             //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra2"));
                             //speller.IndexDictionary(new LuceneDictionary(indexWriter.GetReader(), "extra3"));
 
@@ -137,17 +135,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 "college",
                 "university",
                 "אוניברסיטה",
-                "ה",
-                "מכללת"
+                "מכללת",
+                "האקדמית",
+                "המכללה",
+                "מכללה",
+                "אקדמית"
             };
 
 
-            //using (var searcher = new IndexSearcher(m_AzureUniversiesDirectory, false))
+            //using (var searcher = new IndexSearcher(m_AzureUniversitiesDirectory, false))
             //{
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30, extraWords))
             {
 
-                //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversiesSpellerDirectory))
+                //using (SpellChecker.Net.Search.Spell.SpellChecker speller = new SpellChecker.Net.Search.Spell.SpellChecker(m_AzureUniversitiesSpellerDirectory))
                 //{
                 //    string[] suggestions = speller.SuggestSimilar(term, 5);
                 //    Debug.WriteLine(string.Join(",", suggestions));
@@ -155,51 +156,52 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 // search by multiple fields (ordered by RELEVANCE)
                 var parser = new MultiFieldQueryParser
-                    (Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer)
-                {
-                    AllowLeadingWildcard = true
-                };
-
-                //term = term.Replace(" ", "* *");
-                var searchTerm = term + "*";
-                var query = parseQuery(searchTerm, parser);
-                var values = ProcessHits(query);
-                //var hits = m_IndexService.Search(query, 50).ScoreDocs;
-                //var retVal = new List<UniversityByPrefixDto>();
-                //for (int i = 0; i < hits.Length; i++)
+                    (Version.LUCENE_30, new[] {"name", "extra1", "extra2", "extra3"}, analyzer);
                 //{
+                //    AllowLeadingWildcard = true
+                //};
 
-                //    Document doc2 = m_IndexService.Doc(hits[i].Doc);//.Doc(i);
-                //    var university = new UniversityByPrefixDto(
-                //        doc2.GetField(NameField).StringValue,
-                //        doc2.GetField(ImageField).StringValue,
-                //       Convert.ToInt64(doc2.GetField(IdField).StringValue),
-                //      Convert.ToInt64(doc2.GetField(MembersCountField).StringValue)
-                //        );
-
-                //    retVal.Add(university);
-                //    //Console.WriteLine(doc2.GetField("University").StringValue);
-
-
-                //}
-                if (values.Count != 0) return values;
-                var similarSearchTerm = term.Replace(" ", "* *");
-                similarSearchTerm = "*" + similarSearchTerm + "*";
-                var extendQuery = parseQuery(similarSearchTerm, parser);
-                values = ProcessHits(extendQuery);
+               
+                var splitWords = term.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var terms = new List<string>();
+                foreach (var splitWord in splitWords)
+                {
+                    if (extraWords.Any(x => x == splitWord))
+                    {
+                        terms.Add(splitWord);
+                        continue;
+                    }
+                    terms.Add(splitWord.Trim() + "*");
+                }
+                var query = ParseQuery(string.Join(" ", terms) + "*", parser);
+                var values = ProcessHits(query);
+                
+                terms.Clear();
+                foreach (var splitWord in splitWords)
+                {
+                    if (extraWords.Any(x => x == splitWord))
+                    {
+                        terms.Add(splitWord);
+                        continue;
+                    }
+                    terms.Add("*" + splitWord.Trim() + "*");
+                }
+                parser.AllowLeadingWildcard = true;
+                var extendQuery = ParseQuery(string.Join(" ", terms) + "*", parser);
+                values = values.Union(ProcessHits(extendQuery));
                 return values;
             }
             // }
             //return new List<SampleData>();
         }
 
-        private IList<UniversityByPrefixDto> ProcessHits(Lucene.Net.Search.Query query)
+        private IEnumerable<UniversityByPrefixDto> ProcessHits(Lucene.Net.Search.Query query)
         {
             if (m_IndexService == null)
             {
-                m_IndexService = new IndexSearcher(m_AzureUniversiesDirectory, false);
+                m_IndexService = new IndexSearcher(m_AzureUniversitiesDirectory, true);
             }
-            var hits = m_IndexService.Search(query, 20).ScoreDocs;
+            var hits = m_IndexService.Search(query, 50).ScoreDocs;
             var retVal = new List<UniversityByPrefixDto>();
             for (int i = 0; i < hits.Length; i++)
             {
@@ -213,14 +215,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     );
 
                 retVal.Add(university);
-                //Console.WriteLine(doc2.GetField("University").StringValue);
 
 
             }
             return retVal;
         }
-        private Lucene.Net.Search.Query parseQuery(string searchQuery, QueryParser parser)
+        private Lucene.Net.Search.Query ParseQuery(string searchQuery, QueryParser parser)
         {
+
             Lucene.Net.Search.Query query;
             try
             {
@@ -281,11 +283,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 m_IndexService.Dispose();
             }
-            m_AzureUniversiesDirectory.Dispose();
-            m_AzureUniversiesSpellerDirectory.Dispose();
+            m_AzureUniversitiesDirectory.Dispose();
+            m_AzureUniversitiesSpellerDirectory.Dispose();
             m_Timer.Dispose();
         }
-        
+
     }
 
 
