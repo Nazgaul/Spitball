@@ -67,7 +67,6 @@
     <Compile Include="AddLinkToBoxCommand.cs" />
     <Compile Include="AddLinkToBoxCommandResult.cs" />
     <Compile Include="AddNewUpdatesCommand.cs" />
-    <Compile Include="AddNodeToLibraryCommand.cs" />
     <Compile Include="AddCommentCommand.cs" />
     <Compile Include="AddReplyToAnnotationCommand.cs" />
     <Compile Include="AddStudentCommand.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
+    <Compile Include="CreateDepartmentCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
     <Compile Include="CreateItemTabCommand.cs" />
@@ -88,7 +88,6 @@
     <Compile Include="DeleteReplyCommand.cs" />
     <Compile Include="DeleteFileFromQnACommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
-    <Compile Include="DeleteNodeFromLibraryCommand.cs" />
     <Compile Include="DeleteCommentCommand.cs" />
     <Compile Include="DeleteUpdatesCommand.cs" />
     <Compile Include="DeleteUserFromBoxCommand.cs" />
@@ -113,7 +112,6 @@
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
-    <Compile Include="RenameNodeCommand.cs" />
     <Compile Include="SendMessageCommand.cs" />
     <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />

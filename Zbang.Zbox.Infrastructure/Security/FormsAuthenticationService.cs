@@ -66,13 +66,12 @@ namespace Zbang.Zbox.Infrastructure.Security
             userDetail.Language = newLanguage;
             SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
         }
-        public void ChangeUniversity(long? universityId, long? universityWrapperId)
+        public void ChangeUniversity(long? universityId)
         {
             var ident = (FormsIdentity)HttpContext.Current.User.Identity;
             var ticket = ident.Ticket;
             var userDetail = UserDetail.Deserialize(ticket.UserData);
             userDetail.UniversityId = universityId;
-            userDetail.UniversityWrapperId = universityWrapperId;
             SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
         }
 

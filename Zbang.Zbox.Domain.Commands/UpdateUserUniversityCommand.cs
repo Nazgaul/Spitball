@@ -24,9 +24,8 @@ namespace Zbang.Zbox.Domain.Commands
         public long UserId { get; private set; }
         public string Code { get; private set; }
 
-        public long? UniversityWrapperId { get; set; }
 
-        public long DepartmentId { get; set; }
+        public long DepartmentId { get; private set; }
 
         public string GroupNumber { get; private set; }
         public string RegisterNumber { get; private set; }

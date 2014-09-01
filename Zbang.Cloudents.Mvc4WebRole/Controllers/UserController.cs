@@ -144,7 +144,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return Json(new JsonResponse(false));
                 }
-                var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+                var universityId = userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
                 return Json(new JsonResponse(true, model));
@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
 
-            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var universityId = userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);
             var result = await ZboxReadService.GetUniversityUsers(query);
             return Json(new JsonResponse(true, result));

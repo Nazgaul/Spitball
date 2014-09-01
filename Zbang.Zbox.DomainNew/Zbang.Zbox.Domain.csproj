@@ -76,13 +76,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Department.cs" />
+    <Compile Include="RussianDepartment.cs" />
     <Compile Include="Discussion.cs" />
     <Compile Include="FirstTime.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemComment.cs" />
     <Compile Include="ItemRate.cs" />
     <Compile Include="ItemTab.cs" />
-    <Compile Include="Library.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="PrivacySettings.cs" />
     <Compile Include="StoreBanner.cs" />
@@ -165,9 +165,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Library.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\ItemTab.hbm.xml" />

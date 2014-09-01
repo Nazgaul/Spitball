@@ -3,10 +3,9 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="User" table="Users" discriminator-value="0" >
+  <class name="User" table="Users"  discriminator-value="0">
     <id name="Id" column="UserId" type="long">
       <generator class="native"></generator>
-
     </id>
     <discriminator column="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />
 
@@ -24,7 +23,7 @@
 
 
     <property name="Culture" column="Culture" not-null="false"/>
-    
+
 
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
@@ -56,7 +55,8 @@
       <property name="UsedSpace"/>
     </component>
 
-    <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityUser"/>
+    <many-to-one column="UniversityId2" class="University2" name="University" foreign-key="UniversityUser"/>
+    <many-to-one column="UniversityId" class="University" name="University2" foreign-key="UniversityUser2"/>
     <many-to-one column="Department" class="Department" name="Department" foreign-key="DeparetmentUser" not-null="false"/>
     <property name="GroupNumber"/>
     <property name="RegisterNumber"/>
@@ -76,12 +76,11 @@
 
 
 
-    <subclass name="University" discriminator-value="1">
-      <!--<property name="AliasName" />-->
+    <subclass name="University2" discriminator-value="1">
       <property name="UniversityName"/>
-      
+
       <property name="NeedCode" />
-      
+
       <property name="WebSiteUrl" />
       <property name="MailAddress" />
       <property name="FacebookUrl" />
@@ -91,13 +90,43 @@
       <property name="LetterUrl" />
       <property name="AdvertismentUrl" />
       <property name="Country" length="2" type="string" column="Country" not-null="false"/>
-      
-      <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
+
+      <!--<bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
         <key column="UserId" foreign-key="UnitveristyLibraries"/>
         <one-to-many class="Library"/>
-      </bag>
-      <many-to-one column="DataUnversityId" class="University" name="DataUnversity" foreign-key="DataUniversityUniversity" not-null="false" lazy="proxy"></many-to-one>
+      </bag>-->
+      <many-to-one column="DataUnversityId" class="University2" name="DataUnversity" foreign-key="DataUniversityUniversity" not-null="false" lazy="proxy"></many-to-one>
     </subclass>
+  </class>
+
+  <class name="University" table="University">
+    <id name="Id" type="long">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="OrgName" not-null="false"/>
+    <property name="Url" not-null="false"/>
+    <property name="Image"  not-null="false"/>
+    <property name="LargeImage"  not-null="false"/>
+    <property name="UniversityName"/>
+
+    <component name="UserTime" class="UserTimeDetails">
+      <property name="CreationTime" not-null="true" insert="true" update="false" />
+      <property name="UpdateTime"  not-null="true" insert="true"  />
+      <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
+      <property name="UpdatedUser"  not-null="true" insert="true" />
+    </component>
+
+    <property name="NeedCode" />
+
+    <property name="WebSiteUrl" />
+    <property name="MailAddress" />
+    <property name="FacebookUrl" />
+    <property name="TwitterUrl" />
+    <property name="TwitterWidgetId" />
+    <property name="YouTubeUrl" />
+    <property name="LetterUrl" />
+    <property name="AdvertisementUrl" />
+    <property name="Country" length="2" type="string" column="Country" not-null="false"/>
   </class>
 
 </hibernate-mapping>

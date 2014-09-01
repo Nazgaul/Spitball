@@ -33,7 +33,7 @@
     @Html.AntiForgeryToken()
 
     <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
-        @Html.LabelFor(m => m.Department)
+        @Html.LabelFor(m => m.DepartmentId)
         <span class="error">Department name required</span>
         @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.courseName", required = "required", disabled="disabled" })
         <button class="changeDeptBtn" type="button">@IndexResources.ChangeDept</button>

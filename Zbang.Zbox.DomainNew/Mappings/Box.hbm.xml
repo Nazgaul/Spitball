@@ -73,11 +73,7 @@
     <subclass name="AcademicBox" discriminator-value="Academic">
       <property name="CourseCode"/>
       <property name="Professor" column="ProfessorName"/>
-      <set name="Library" table="LibraryBox">
-        <key column="BoxId"/>
-        <many-to-many column="LibraryId" foreign-key="BoxesLibraries"
-            class="Library"/>
-      </set>
+      <many-to-one name="Department" class="Department" not-null="false" foreign-key="DepartmentBoxes"/>
     </subclass>
   </class>
 </hibernate-mapping>

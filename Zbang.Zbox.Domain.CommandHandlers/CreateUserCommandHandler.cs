@@ -58,26 +58,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-        
+
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
             if (result == null) throw new ArgumentNullException("result");
             if (user == null) throw new ArgumentNullException("user");
-            University university = m_UniversityRepository.Get(universityId);
+            var university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {
                 return;
             }
-            if (university.DataUnversity != null)
-            {
-
-                result.UniversityId = university.DataUnversity.Id;
-                result.UniversityWrapperId = university.Id;
-            }
-            else
-            {
-                result.UniversityId = university.Id;
-            }
+            result.UniversityId = university.Id;
             user.UpdateUserUniversity(university, string.Empty, null, null, null);
         }
 

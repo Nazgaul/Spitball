@@ -28,7 +28,7 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var universityId = 4;
             var universityDataId = 3;
 
-            var userDetail = new UserDetail(language, universityId, universityDataId);
+            var userDetail = new UserDetail(language, universityDataId);
 
             var result = UserDetail.Serialize(userDetail);
 
@@ -58,12 +58,11 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var data = language + "@" + universityId + "@" + universityDataId;
 
             var userDetail = UserDetail.Deserialize(data);
-            var userExpectedResult = new UserDetail(language, universityId, universityDataId);
+            var userExpectedResult = new UserDetail(language,  universityDataId);
 
             //Assert.AreEqual(userExpectedResult.Name, userDetail.Name, "Name should be the same");
             Assert.AreEqual(userExpectedResult.UniversityId, userDetail.UniversityId, "university should be the same");
             Assert.AreEqual(userExpectedResult.Language, userDetail.Language, "Language should be the same");
-            Assert.AreEqual(userExpectedResult.UniversityWrapperId, userDetail.UniversityWrapperId, "UniversityDataId should be the same");
             //Assert.AreEqual(userExpectedResult.Uid, userDetail.Uid, "Uid should be the same");
         }
 

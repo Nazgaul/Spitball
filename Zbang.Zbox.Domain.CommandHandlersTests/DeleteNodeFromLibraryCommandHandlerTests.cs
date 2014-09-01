@@ -33,10 +33,10 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someLibraryId = Guid.NewGuid();
             var someCommand = new DeleteNodeFromLibraryCommand(someLibraryId, 1L);
-            var someUniversity = new University("some name", "some image", "some largeimage", "some User name");
+            var someUniversity = new University2("some name", "some image", "some largeimage", "some User name");
             someUniversity.GetType().GetProperty("Id").SetValue(someUniversity, 1L);
 
-            var someOtherUniversity = new University("some name", "some image", "some largeimage", "some User name2");
+            var someOtherUniversity = new University2("some name", "some image", "some largeimage", "some User name2");
             someOtherUniversity.GetType().GetProperty("Id").SetValue(someOtherUniversity, 2L);
             var someLibraryNode = new Library(someLibraryId, "some name", null, someOtherUniversity);
 
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someLibraryId = Guid.NewGuid();
             var someCommand = new DeleteNodeFromLibraryCommand(someLibraryId, 1L);
 
-            var someUniversity = new University("some name", "some image", "some largeimage", "some User name");
+            var someUniversity = new University2("some name", "some image", "some largeimage", "some User name");
             someUniversity.GetType().GetProperty("Id").SetValue(someUniversity, 1L);
 
             var someLibraryNode = new Library(someLibraryId, "some name", null, someUniversity);
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someLibraryId = Guid.NewGuid();
             var someCommand = new DeleteNodeFromLibraryCommand(someLibraryId, 1L);
 
-            var someUniversity = new University("some name", "some image", "some largeimage", "some User name");
+            var someUniversity = new University2("some name", "some image", "some largeimage", "some User name");
             someUniversity.GetType().GetProperty("Id").SetValue(someUniversity, 1L);
 
             var someLibraryNode = new Library(someLibraryId, "some name", null, someUniversity);
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someLibraryId = Guid.NewGuid();
             var someCommand = new DeleteNodeFromLibraryCommand(someLibraryId, 1L);
-            var someUniversity = new University("some name", "some image", "some largeimage", "some User name");
+            var someUniversity = new University2("some name", "some image", "some largeimage", "some User name");
             someUniversity.GetType().GetProperty("Id").SetValue(someUniversity, 1L);
 
             var someLibraryNode = new Library(someLibraryId, "some name", null, someUniversity);

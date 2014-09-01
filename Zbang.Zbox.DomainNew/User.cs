@@ -117,14 +117,17 @@ namespace Zbang.Zbox.Domain
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
-        public virtual University University { get; protected set; }
+        public virtual University2 University { get; protected set; }
+
+
+        public virtual University University2 { get; protected set; }
         public virtual string Code { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
         public virtual UserFirstTime FirstTime { get; set; }
         public virtual int Reputation { get; set; }
 
-        public virtual Department Department { get; set; }
+        public virtual RussianDepartment Department { get; set; }
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
 
@@ -208,10 +211,10 @@ namespace Zbang.Zbox.Domain
         }
 
         public void UpdateUserUniversity(University university,
-            string userCode, Department department, string groupNumber,
+            string userCode, RussianDepartment department, string groupNumber,
             string registerNumber)
         {
-            University = university;
+            University2 = university;
             Code = userCode;
             Department = department;
             GroupNumber = groupNumber;

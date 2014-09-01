@@ -256,32 +256,32 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void AddNodeToLibrary(AddNodeToLibraryCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void AddNodeToLibrary(AddNodeToLibraryCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void RenameNodeLibrary(RenameNodeCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void RenameNodeLibrary(RenameNodeCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
         public void UpdateUserUniversity(UpdateUserUniversityCommand command)
         {
