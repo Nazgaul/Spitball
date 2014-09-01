@@ -197,7 +197,7 @@
     *@
 
 @*js-academic | js-private | js-addDept*@
-<div class="formWpr js--addDept js--academic js--private"> 
+<div class="formWpr js--addDept js--academic js--private js-social"> 
     <div class="actionTxt">@IndexResources.CreateCourse</div>
 
     <div class="courseType">
@@ -233,14 +233,10 @@
 
     @{
         Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+        Html.RenderPartial("_SocialInvite");
     }
 
 
-    @*<div class="newDepartment">
-            @{
-                Html.RenderPartial("~/Library/_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
-            }
-        </div>*@
 
 </div>
 
