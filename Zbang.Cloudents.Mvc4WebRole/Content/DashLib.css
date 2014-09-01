@@ -266,14 +266,18 @@
 }
 /*#endregion */
 /*#region new dashboard */
-.js-newDash .unionCourses,
-.js-newDash .groupBoxes {
+.jsNewDash .setupCourse {
+  display: block;
+}
+.jsNewDash .unionCourses,
+.jsNewDash .groupBoxes {
   display: none;
 }
-.js-dark .dashboard {
+.jsDark .dashboard {
   display: none!important;
 }
 .setupCourse {
+  display: none;
   color: #fff;
   margin-left: -14px;
 }
@@ -591,13 +595,18 @@
 .formWpr.js-academic .newAcademic {
   display: block;
 }
-.formWpr.js-addDept {
+.formWpr.js-addDept,
+.formWpr.js-social {
   display: block;
 }
-.formWpr.js-addDept .courseType {
+.formWpr.js-addDept .courseType,
+.formWpr.js-social .courseType {
   display: none;
 }
 .formWpr.js-addDept .createDept {
+  display: block;
+}
+.formWpr.js-social .socialInvite {
   display: block;
 }
 .courseType {
@@ -631,6 +640,144 @@
   top: -200px;
   margin: 0 0 -200px 0;
   min-height: 200px;
+}
+.socialInvite {
+  display: none;
+  text-align: center;
+}
+.socialInvite header {
+  font-size: 20px;
+  color: #39434a;
+}
+.socialInvite.js-cloudState .socialContentWpr,
+.socialInvite.js-fbState .socialContentWpr,
+.socialInvite.js-gmState .socialContentWpr {
+  display: block;
+}
+.socialInvite .btnWpr {
+  display: inline-block;
+  position: relative;
+}
+.socialInvite .btn1,
+.socialInvite .btn2 {
+  margin: 0 6px;
+}
+.socialInvite.js-cloudState {
+  /*.input:before {
+            content: attr(data-cloud-txt);
+        }*/
+}
+.socialInvite.js-cloudState .cloudentsBtn {
+  background-position: 0 -598px;
+}
+.socialInvite.js-cloudState .socialContentWpr:before {
+  right: auto;
+  left: 145px;
+}
+.socialInvite.js-cloudState .cloudInput {
+  display: block;
+}
+.socialInvite.js-fbState {
+  /*.input:before {
+            content: attr(data-fb-txt);
+        }*/
+}
+.socialInvite.js-fbState .fbBtn {
+  background-position: 0 -780px;
+}
+.socialInvite.js-fbState .fbInput {
+  display: block;
+}
+.socialInvite.js-gmState {
+  /*.input:before {
+            content: attr(data-gm-txt);
+        }*/
+}
+.socialInvite.js-gmState .gmailBtn {
+  background-position: 0 -871px;
+}
+.socialInvite.js-gmState .socialContentWpr:before {
+  left: auto;
+  right: 145px;
+}
+.socialInvite.js-gmState .gmInput {
+  display: block;
+}
+.socialWpr {
+  display: inline-block;
+  width: 100%;
+}
+.socialWpr button {
+  width: 91px;
+  height: 91px;
+  background: url(/Images/site.png) no-repeat;
+  margin: 40px 0;
+}
+.socialWpr .cloudentsBtn {
+  background-position: 0 -507px;
+}
+.socialWpr .fbBtn {
+  margin: 40px 60px;
+  background-position: 0 -689px;
+}
+.socialWpr .gmailBtn {
+  background-position: 0 -962px;
+}
+.socialContentWpr {
+  min-height: 405px;
+  display: none;
+  background: #eee;
+  margin: -3px -25px -53px -25px;
+  position: relative;
+  /*input {
+        background: transparent;
+        left: 0;
+        position: absolute; 
+        top: 0;   
+        z-index: 1;
+        width: 100%;
+        height: 33px;
+        padding: 0 10px;
+        display: block;
+        .boxSizing;
+        &:focus, &:first-line {
+            background: #fff;
+        }
+        
+    }*/
+}
+.socialContentWpr:before {
+  content: '';
+  display: inline-block;
+  top: -28px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 24px 28px 24px;
+  border-color: transparent transparent #eee transparent;
+}
+.socialContentWpr input {
+  display: none;
+  color: #676767;
+  width: 420px;
+  margin: 0 auto;
+  height: 35px;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  padding: 6px 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+  text-align: left;
+  font-weight: normal;
+  font-size: 15px;
+  top: 20px;
 }
 /*#endregion */
 /*#region IframeProducts*/

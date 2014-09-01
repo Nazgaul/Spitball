@@ -4,9 +4,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 
-@*Guy: when user has just come from select uni - add class js-newDash*@
+@*Guy: when user has just come from select uni - add class jsNewDash*@
 
-<div id="dashboard" class="page dashboard js-newDash" ng-controller="DashboardCtrl">
+<div id="dashboard" class="page dashboard jsNewDash" ng-controller="DashboardCtrl">
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.GenerateUrl("Index", "Library")">
@@ -197,7 +197,7 @@
     *@
 
 @*js-academic | js-private | js-addDept*@
-<div class="formWpr js--addDept js--academic js--private"> 
+<div class="formWpr js--addDept js--academic js--private js--social"> 
     <div class="actionTxt">@IndexResources.CreateCourse</div>
 
     <div class="courseType">
@@ -233,14 +233,10 @@
 
     @{
         Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+        Html.RenderPartial("_SocialInvite");
     }
 
 
-    @*<div class="newDepartment">
-            @{
-                Html.RenderPartial("~/Library/_CreateLibraryItem", new Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem());
-            }
-        </div>*@
 
 </div>
 
