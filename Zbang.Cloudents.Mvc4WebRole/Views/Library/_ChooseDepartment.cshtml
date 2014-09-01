@@ -2,16 +2,14 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
-<div class="chooseDept">
+<div class="chooseDept" ng-style="{display: display.choose ? 'block' : 'none'}">
     <form>
-        @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
-        @Html.ValidationSummary(true)
-
         @Html.LabelFor(m => m.Name)
+
         @Html.ValidationMessageFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })
-        <button type="submit" class="btn1 rFloat">@SharedResources.Choose</button>
-        <button type="button" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText", ng_model = "params.departmentSearch", ng_keyup = "searchDepartment()" })
+        <button type="submit" class="btn1 rFloat" ng-click="chooseDepartment()" ng-disabled="!selectedDepartment">@SharedResources.Choose</button>
+        <button type="button" class="btn2 rFloat" ng-click="backDepartment()">@SharedResources.Back</button>
     </form>
     @_ChooseDeptAC.deptList()
 </div>

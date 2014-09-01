@@ -26,18 +26,18 @@
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
 
-        <div class="uniWpr" bindonce>
+        <div class="uniWpr" ng-style="{display: display.searchUniversity ? 'block' : 'none'}" bindonce>
             <input type="text" class="inputText uniSearch" ng-placeholder="@MainViewResources.SearchFor" autocomplete="off"
                    ng-model="formData.searchInput" ng-keyup="search()"/>
         </div>
         <ul class="fbUniList" bindonce ng-style="{display: display.facebook ? 'block' : 'none'}">
             <li ng-repeat="university in FBUniversities">
-                <div class="schoolItem">
-                    <img bo-src="university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+                <div class="schoolItem" ng-click="selectUniversity(university)">
+                    <img bo-src=" university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
                     <div class="uniDetails">
-                        <button type="button" class="btn3 rFloat" ng-click="chooseUniversity(university)">@SharedResources.Choose</button>
+                        <button type="button" class="btn3 rFloat">@SharedResources.Choose</button>
                         <div class="uniName elps boldFont" bo-text="university.name"></div>
-                        <div class="friendsCount" bo-attr bo-attr-data-friendscount="university.friendsCount">@MainViewResources.FriendsRegistered</div>
+                        @*<div class="friendsCount" bo-attr bo-attr-data-friendscount="university.friendsCount">@MainViewResources.FriendsRegistered</div>*@
                     </div>
                 </div>
                 <ul class="fbFriendsList">
@@ -49,8 +49,8 @@
         </ul>
 
         <ul class="uniList" ng-class="{noResults : universities.length === 0 }" bindonce ng-style="{display: display.search ? 'block' : 'none'}">
-            <li class="schoolItem" ng-repeat="university in universities">
-                <img bo-src="university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+            <li class="schoolItem" ng-repeat="university in universities" ng-click="selectUniversity(university)">
+                <img bo-src=" university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
                 <span class="uniDetails">
                     <span class="uniName elps boldFont" bo-text="university.name"></span>
                     <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@ bo-text="university.membersCount"></span>
@@ -60,25 +60,25 @@
             <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>
-                <button type="button" class="createUni" ng-click="createNew()">@SharedResources.CreateNew</button>
+                <button type="button" class="createUni" ng-click="createUniversity()">@SharedResources.CreateNew</button>
             </li>
         </ul>
 
-        @*@{
+        @{
             Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
-        }*@
+        }
 
-        @*<div class="completeRegistration">
+        <div class="completeRegistration" ng-style="{display: display.complete ? 'block' : 'none'}" bindonce>
             <div class="top">
-                <img class="uniImg" src="http://placehold.it/66x66" alt="" width="66" height="66" />
-                <div class="uniRegTxt1" data-school="{UNINAME}">@MainViewResources.YouStudyAt</div>
-                <div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>
+                <img class="uniImg" ng-src="{{selectedUni.image}}" alt="" width="66" height="66" />
+                <div class="uniRegTxt1" data-school="{{selectedUni.name}}">@MainViewResources.YouStudyAt</div>
+                @*<div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>*@
             </div>
             @{
                 Html.RenderPartial("_ChooseDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment());
                 Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
             }
-        </div>*@
+        </div>
     </div>
 </div>
 

@@ -3,15 +3,14 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
 
-<div class="createDept">
-    <form>
+<div class="createDept" ng-style="{display: display.createDep ? 'block' : 'none'}">
+    <form novalidate name="createDepartmentForm" ng-submit="createDepSubmit(createDepartmentForm.$valid)">
         @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
-        @Html.ValidationSummary(true)
+        @*@Html.ValidationSummary(true)*@
 
-        @Html.LabelFor(m => m.Name)
-        @Html.ValidationMessageFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" })
-        <button type="submit" class="btn1 rFloat">@DialogResources.Create</button>
-        <button type="button" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
+        @Html.LabelFor(m => m.Name)        
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" , ng_model = "formData.createDepartment.name", required="required"})
+        <button type="submit" class="btn1 rFloat" ng-disabled="createDepartmentForm.$invalid">@DialogResources.Create</button>
+        <button type="button" class="btn2 rFloat" ng-click="backCreateDepartment()">@SharedResources.Back</button>
     </form>
 </div>

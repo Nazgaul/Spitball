@@ -1,6 +1,7 @@
 ﻿app.factory('sFacebook',
    ['$document', '$q', '$window',
-   function ($document, $q, $window) {      
+   function ($document, $q, $window) {
+       var facebookLoaded;
        window.fbAsyncInit = function () {
            FB.init({
                appId: '450314258355338',
@@ -8,7 +9,8 @@
                cookie: true,
                xfbml: true,
                oauth: true
-           });          
+           });
+           facebookLoaded = true;
        };
        (function (d) {
            var js, id = 'facebook-jssdk';
@@ -56,14 +58,20 @@
            getToken: function () {
                var dfd = $q.defer();
 
-               if (!window.FB) {
-                   setTimeout(getLoginStatus, 50);
+               if (!facebookLoaded) {
+                   var interval = setInterval(function () {
+                       if (!facebookLoaded) {
+                           return;
+                       }
+                       clearInterval(interval);
+                       getLoginStatus();
+                   }, 20);
                    return dfd.promise;
                }
-            
+
 
                getLoginStatus();
-               
+
                return dfd.promise;
 
                function getLoginStatus() {
@@ -76,6 +84,9 @@
 
                            dfd.resolve(token);
                        }
+                   },
+                   function (a) {
+                       console.log(a)
                    });
                }
            }
