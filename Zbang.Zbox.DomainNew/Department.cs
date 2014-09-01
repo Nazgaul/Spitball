@@ -30,5 +30,10 @@ namespace Zbang.Zbox.Domain
 
         public string Url { get; private set; }
         public int NoOfBoxes { get; private set; }
+
+        public void UpdateNumberOfBoxes(int count)
+        {
+            NoOfBoxes = count;
+        }
     }
 }

@@ -113,5 +113,7 @@ namespace Zbang.Zbox.Domain.Common
         void AddBanners(AddBannersCommand command);
 
 
+
+        void CreateDepartment(global::Zbang.Zbox.Domain.Commands.CreateDepartmentCommand command);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Dapper;
 using NHibernate;
@@ -64,11 +65,13 @@ namespace Zbang.Zbox.Domain.Services
             var retVal = false;
             using (UnitOfWork.Start())
             {
+               
+
+
 
                 var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
                 var boxes = UnitOfWork.CurrentSession.QueryOver<AcademicBox>().Where(w => w.IsDeleted == false)
                    .Where(w => w.Department == null)
-                   .Where(w => w.Owner.Id == 920)
                    .List();
                 foreach (var box in boxes)
                 {
@@ -104,7 +107,49 @@ namespace Zbang.Zbox.Domain.Services
                         tx.Commit();
                     }
                 }
+                var departments = UnitOfWork.CurrentSession.QueryOver<Department>()
+                  .List();
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var department in departments)
+                    {
+                        var count = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+                             .Where(w => w.Department == department)
+                             .RowCount();
+                        department.UpdateNumberOfBoxes(count);
+                        UnitOfWork.CurrentSession.Save(department);
+                    }
+                    tx.Commit();
+                }
 
+
+                var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                       .Where(w => w.University != null)
+                       .Skip(100 * index)
+                       .Take(100).List();
+                foreach (var user in users)
+                {
+                    retVal = true;
+
+                    UnitOfWork.CurrentSession.Connection.Execute(
+                   "update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
+                    var x = UnitOfWork.CurrentSession.Connection.Query(@"
+                                    select top(1) b.Department,count(*)  from zbox.UserBoxRel ub 
+                join zbox.Box b on ub.BoxId = b.BoxId and b.Discriminator = 2 and IsDeleted = 0
+                join zbox.users u on ub.UserId = u.UserId
+                where b.university = u.UniversityId
+                and u.userid = @id
+                group by b.Department
+                order by 2 desc", new { id = user.Id });
+                    if (x.Count() == 0)
+                    {
+                        continue;
+                    }
+                    var department = x.FirstOrDefault().Department;
+
+                    UnitOfWork.CurrentSession.Connection.Execute(
+                     "update zbox.users set MainDepartment= CONVERT(bigint, @depart) where userid = @Id", new { user.Id, depart = department });
+                }
 
 
 
@@ -140,15 +185,6 @@ namespace Zbang.Zbox.Domain.Services
 
                 }
 
-                var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.University != null)
-                        .Skip(100 * index)
-                        .Take(100).List();
-                foreach (var user in users)
-                {
-                    retVal = true;
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
-                }
 
 
 

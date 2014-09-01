@@ -85,41 +85,41 @@ mLibrary.controller('LibraryCtrl',
                 });
             };
 
-            $scope.createDepartment = function () {
-                var modalInstance = $modal.open({
-                    //windowClass: "boxSettings dashMembers",
-                    templateUrl: partials.createDepartment,
-                    controller: 'CreateDepartmentCtrl',
-                    backdrop: 'static',
-                });
+            //$scope.createDepartment = function () {
+            //    var modalInstance = $modal.open({
+            //        //windowClass: "boxSettings dashMembers",
+            //        templateUrl: partials.createDepartment,
+            //        controller: 'CreateDepartmentCtrl',
+            //        backdrop: 'static',
+            //    });
 
-                modalInstance.result.then(function (result) {
-                    result.parentId = $scope.info.libraryId;
+            //    modalInstance.result.then(function (result) {
+            //        result.parentId = $scope.info.libraryId;
 
-                    var item = _.find($scope.info.items, function (item) {
-                        return item.name === result.name;
-                    });
+            //        var item = _.find($scope.info.items, function (item) {
+            //            return item.name === result.name;
+            //        });
 
-                    if (item) {
-                        alert('already exists');                      
-                        return;
-                    }
+            //        if (item) {
+            //            alert('already exists');                      
+            //            return;
+            //        }
 
-                    sLibrary.department.create(result).then(function (response) {
-                        $scope.info.items.push(response.payload);
-                    });
-                }, function () {
-                    //dismiss
-                });
+            //        sLibrary.department.create(result).then(function (response) {
+            //            $scope.info.items.push(response.payload);
+            //        });
+            //    }, function () {
+            //        //dismiss
+            //    });
 
 
-            };
+            //};
 
-            $scope.deleteDepartment = function () {
-                sLibrary.department.delete({ id: $scope.info.libraryId }).then(function (response) {
-                    //TODO: nav to parent
-                });
-            };
+            //$scope.deleteDepartment = function () {
+            //    sLibrary.department.delete({ id: $scope.info.libraryId }).then(function (response) {
+            //        //TODO: nav to parent
+            //    });
+            //};
 
             $scope.subscribe = function (box) {
                 box.userType = 'subscribe';
@@ -163,29 +163,29 @@ mLibrary.controller('LibraryCtrl',
 
             //#region privileges
 
-            $scope.isAdmin = function () {
-                if (parseInt($scope.info.universityId, 10) === sUserDetails.getDetails().id) {
-                    return true;
-                }
+            //$scope.isAdmin = function () {
+            //    if (parseInt($scope.info.universityId, 10) === sUserDetails.getDetails().id) {
+            //        return true;
+            //    }
 
-                return false;
-            };
+            //    return false;
+            //};
 
-            $scope.createDepartmentVisible = function () {
-                if (!$scope.isAdmin()) {
-                    return false;
-                }
+            //$scope.createDepartmentVisible = function () {
+            //    if (!$scope.isAdmin()) {
+            //        return false;
+            //    }
 
-                if (!$scope.info.items.length) {
-                    return true;
-                }
+            //    if (!$scope.info.items.length) {
+            //        return true;
+            //    }
 
-                if ($scope.info.type === types.department) {
-                    return true;
-                }
+            //    if ($scope.info.type === types.department) {
+            //        return true;
+            //    }
 
-                return false;
-            };
+            //    return false;
+            //};
 
             $scope.createBoxVisible = function () {
                 if (!$scope.info.libraryId) {
@@ -203,20 +203,20 @@ mLibrary.controller('LibraryCtrl',
                 return false;
             };
 
-            $scope.renameBox = function (newName) {
-                if (!(newName && newName.length)) {
-                    return;
-                }
+            //$scope.renameBox = function (newName) {
+            //    if (!(newName && newName.length)) {
+            //        return;
+            //    }
 
-                $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
+            //    $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
 
-                sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
-                    if (!(response.success || response.Success)) {
-                        alert(response.Payload);
-                        return;
-                    }
-                });
-            };
+            //    sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
+            //        if (!(response.success || response.Success)) {
+            //            alert(response.Payload);
+            //            return;
+            //        }
+            //    });
+            //};
 
 
             //#endregion

@@ -88,35 +88,35 @@
                      return;
                  }
 
-                 $timeout(function () {
-                     var departments = [{
-                         id: 1,
-                         image: 'http://placehold.it/66x66',
-                         name: 'adep1'
-                     }, {
-                         id: 2,
-                         image: 'http://placehold.it/66x66',
-                         name: 'bdep2'
-                     }, {
-                         id: 3,
-                         image: 'http://placehold.it/66x66',
-                         name: 'cdep3'
-                     }, {
-                         id: 4,
-                         image: 'http://placehold.it/66x66',
-                         name: 'ddep4'
-                     }, ]
+                 //$timeout(function () {
+                 //    var departments = [{
+                 //        id: 1,
+                 //        image: 'http://placehold.it/66x66',
+                 //        name: 'adep1'
+                 //    }, {
+                 //        id: 2,
+                 //        image: 'http://placehold.it/66x66',
+                 //        name: 'bdep2'
+                 //    }, {
+                 //        id: 3,
+                 //        image: 'http://placehold.it/66x66',
+                 //        name: 'cdep3'
+                 //    }, {
+                 //        id: 4,
+                 //        image: 'http://placehold.it/66x66',
+                 //        name: 'ddep4'
+                 //    }, ]
 
-                     $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
+                 //    $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
 
-                 }, 100);
+                 //}, 100);
 
 
-                 //    sLibrary.searchDepartment({}).then(function (response) {
-                 //        var data = response.success ? response.payload : {};
-                 //        $scope.departments = data;
-                 //        $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
-                 //    });                 
+                 sLibrary.items().then(function (response) {
+                         var data = response.success ? response.payload : {};
+                         var departments = data.nodes;
+                         $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
+                     });                 
              }, 200);
 
              $scope.selectDepartment = function (department) {
