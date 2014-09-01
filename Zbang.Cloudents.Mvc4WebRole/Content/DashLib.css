@@ -518,6 +518,7 @@
 /*#endregion */
 /*#region setup course 'popups' */
 .formWpr {
+  display: none;
   width: 650px;
   margin: 115px auto 0;
   padding: 25px;
@@ -576,10 +577,19 @@
 .formWpr .department {
   position: relative;
 }
+.formWpr.js-private {
+  display: block;
+}
 .formWpr.js-private .newPrivate {
   display: block;
 }
+.formWpr.js-academic {
+  display: block;
+}
 .formWpr.js-academic .newAcademic {
+  display: block;
+}
+.formWpr.js-addDept {
   display: block;
 }
 .formWpr.js-addDept .courseType {

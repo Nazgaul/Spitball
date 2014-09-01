@@ -205,7 +205,6 @@
 .createSchool,
 .completeRegistration {
   width: 646px;
-  overflow: hidden;
   border-radius: 3px;
   border: 1px solid #c2c2c2;
   position: relative;
@@ -232,7 +231,7 @@
 }
 .createSchool .inputText,
 .completeRegistration .inputText {
-  width: 100%;
+  width: 98%;
   height: 37px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

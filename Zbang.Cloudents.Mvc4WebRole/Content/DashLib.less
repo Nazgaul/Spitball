@@ -535,6 +535,7 @@
 
 /*#region setup course 'popups' */
 .formWpr {
+    display: none;
     width: 650px;
     margin: 115px auto 0;
     padding: 25px;
@@ -588,16 +589,19 @@
         position: relative; //for change department name
     }
     &.js-private {
+        display: block;
         .newPrivate {
             display: block;
         }
     }
     &.js-academic {
+        display: block;
         .newAcademic {
             display: block;
         }
     }
     &.js-addDept {
+        display: block;
         .courseType {
             display: none;
         }

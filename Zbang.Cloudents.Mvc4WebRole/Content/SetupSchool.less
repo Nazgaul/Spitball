@@ -197,7 +197,8 @@
 }
 .createSchool, .completeRegistration {
     width: 646px;
-    overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
+    //overflow: hidden; //this fixes the issue where width:100% on inputText breaks the layout at certain viewport widths
+    //....problem is, that it hides the autocomplete popup. 
     border-radius: 3px;
     border: 1px solid @borderColor;
     position: relative;
@@ -218,7 +219,8 @@
         margin-bottom: 5px;
     }
     .inputText {
-        width: 100%;
+        //width: 100%;
+        width: 98%;
         height: 37px;
         .boxSizing;
     }
