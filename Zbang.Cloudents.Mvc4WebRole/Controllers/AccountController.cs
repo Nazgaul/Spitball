@@ -133,7 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Image = facebookUserData.Image,
                         Name = facebookUserData.name,
                         UniversityId = commandResult.UniversityId,
-                        UniversityWrapperId = commandResult.UniversityWrapperId,
                         Score = commandResult.User.Reputation
                     };
                     isNew = true;
@@ -141,8 +140,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 FormsAuthenticationService.SignIn(user.Uid, false, new UserDetail(
                     user.Culture,
-                    user.UniversityId,
-                    user.UniversityWrapperId));
+                    user.UniversityId
+                    ));
                 TempData[UserProfile.UserDetail] = new UserDetailDto(user);
                 return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) }) }));
             }
@@ -189,8 +188,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         FormsAuthenticationService.SignIn(result.Uid, model.RememberMe,
                             new UserDetail(
                                 result.Culture,
-                                result.UniversityId,
-                                result.UniversityWrapperId));
+                                result.UniversityId));
                         TempData[UserProfile.UserDetail] = new UserDetailDto(result);
                         var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                         return Json(new JsonResponse(true, url));
@@ -280,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
                             result.User.Culture,
-                            result.UniversityId, result.UniversityWrapperId));
+                            result.UniversityId));
                     return Json(new JsonResponse(true, Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) })));
 
                 }
@@ -423,7 +421,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
-                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityWrapperId);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId);
                 return Json(new JsonResponse(true, new { redirect = Url.Action("Index", "Library") }));
             }
             catch (ArgumentException)
@@ -644,8 +642,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             FormsAuthenticationService.SignIn(result.Uid, false,
                 new UserDetail(
                     result.Culture,
-                    result.UniversityId,
-                    result.UniversityWrapperId));
+                    result.UniversityId
+                    ));
 
             return RedirectToAction("Index", "Dashboard");
 

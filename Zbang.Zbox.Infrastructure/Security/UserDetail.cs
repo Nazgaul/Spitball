@@ -9,17 +9,15 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public UserDetail(
             string language,
-            long? universityId,
-            long? universityWrapperId)
+            long? universityId
+            )
         {
             Language = language;
             UniversityId = universityId;
-            UniversityWrapperId = universityWrapperId;
 
         }
         public string Language { get; set; }
         public long? UniversityId { get; set; }
-        public long? UniversityWrapperId { get; set; }
 
         public static string Serialize(UserDetail user)
         {
@@ -27,11 +25,11 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 return string.Empty;
             }
-            return string.Format("{1}{0}{2}{0}{3}",
+            return string.Format("{1}{0}{2}{0}",
                 Delimiter,
                 user.Language,
-                user.UniversityId,
-                user.UniversityWrapperId);
+                user.UniversityId
+               );
         }
 
         public static UserDetail Deserialize(string data)
@@ -44,22 +42,17 @@ namespace Zbang.Zbox.Infrastructure.Security
             }
             string language = array[0];
             long? universityId = null;
-            long? universityWrapperId = null;
             long temp;
 
             if (long.TryParse(array[1], out temp))
             {
                 universityId = temp;
             }
-            if (long.TryParse(array[2], out temp))
-            {
-                universityWrapperId = temp;
-            }
 
 
             return new UserDetail(
                 language,
-                universityId, universityWrapperId);
+                universityId);
         }
     }
 }

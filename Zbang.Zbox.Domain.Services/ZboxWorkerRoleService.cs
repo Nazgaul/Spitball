@@ -2,6 +2,7 @@
 using System.Linq;
 using Dapper;
 using NHibernate;
+using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
@@ -90,22 +91,64 @@ namespace Zbang.Zbox.Domain.Services
 
                 //    retVal = true;
                 //}
-
-
-                var libraryNodes =
-                          UnitOfWork.CurrentSession.QueryOver<Library>()
-                              .Skip(100 * index)
-                              .Take(100).List();
-
-
-                foreach (var node in libraryNodes)
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    node.GenerateUrl();
-                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Library set Url = @Url where libraryid = @Id"
-                        , new { node.Url, node.Id });
+                    var oldUniversities = UnitOfWork.CurrentSession.QueryOver<University2>()
+                        .Skip(100 * index)
+                        .Take(100).List();
+                    foreach (var oldUniversity in oldUniversities)
+                    {
+                        retVal = true;
+                        var newUniversity = new University(oldUniversity.Id,
+                            oldUniversity.UniversityName,
+                            oldUniversity.Country,
+                            oldUniversity.Image,
+                            oldUniversity.ImageLarge,
+                            "sys")
+                        {
+                            LetterUrl = oldUniversity.LetterUrl,
+                            MailAddress = oldUniversity.MailAddress,
+                            NeedCode = oldUniversity.NeedCode,
+                            OrgName = oldUniversity.Name,
+                            TwitterUrl = oldUniversity.TwitterUrl,
+                            TwitterWidgetId = oldUniversity.TwitterWidgetId,
+                            WebSiteUrl = oldUniversity.WebSiteUrl,
+                            YouTubeUrl = oldUniversity.YouTubeUrl,
 
-                    retVal = true;
+                        };
+                        UnitOfWork.CurrentSession.SaveOrUpdate(newUniversity);
+                    }
+                    tx.Commit();
+
+
                 }
+
+                var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                        .Where(w => w.University != null)
+                        .Skip(100 * index)
+                        .Take(100).List();
+                foreach (var user in users)
+                {
+                    retVal = true;
+                    UnitOfWork.CurrentSession.Connection.Execute("update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
+                }
+
+
+
+                //var libraryNodes =
+                //          UnitOfWork.CurrentSession.QueryOver<Library>()
+                //              .Skip(100 * index)
+                //              .Take(100).List();
+
+
+                //foreach (var node in libraryNodes)
+                //{
+                //    node.GenerateUrl();
+                //    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Library set Url = @Url where libraryid = @Id"
+                //        , new { node.Url, node.Id });
+
+                //    retVal = true;
+                //}
 
                 var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                               .Where(w => w.Publish).Skip(100 * index)

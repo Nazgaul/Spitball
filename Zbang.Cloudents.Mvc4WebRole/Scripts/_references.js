@@ -178,6 +178,7 @@
 /// <reference path="../js/directives/quizgraph.js" />
 /// <reference path="../js/modules/angular-timer.js" />
 /// <reference path="../js/controllers/library/libchoosectrl.js" />
+/// <reference path="../js/directives/lazysrc.js" />
 <<<<<<< HEAD
 /// <reference path="../js/directives/backbutton.js" />
 /// <reference path="../js/directives/focuson.js" />

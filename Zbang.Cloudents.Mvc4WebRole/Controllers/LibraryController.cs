@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Choose");
             }
 
-            var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var universityWrapper = userDetail.UniversityId.Value;
 
             var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value,
                 universityWrapper);
@@ -224,80 +224,80 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region DeleteNode
-        [HttpPost, Ajax]
-        public JsonResult DeleteNode(Guid id)
-        {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (!userDetail.UniversityId.HasValue)
-            {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-            }
+        //[HttpPost, Ajax]
+        //public JsonResult DeleteNode(Guid id)
+        //{
+        //    var userDetail = FormsAuthenticationService.GetUserData();
+        //    if (!userDetail.UniversityId.HasValue)
+        //    {
+        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+        //    }
 
-            var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
-            ZboxWriteService.DeleteNodeLibrary(command);
-            return Json(new JsonResponse(true));
+        //    var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
+        //    ZboxWriteService.DeleteNodeLibrary(command);
+        //    return Json(new JsonResponse(true));
 
-        }
+        //}
         #endregion
 
         #region RenameNode
-        [HttpPost, Ajax]
-        public JsonResult RenameNode(RenameLibraryNode model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
-            }
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (!userDetail.UniversityId.HasValue)
-            {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-            }
-            try
-            {
-                var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
+        //[HttpPost, Ajax]
+        //public JsonResult RenameNode(RenameLibraryNode model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
+        //    }
+        //    var userDetail = FormsAuthenticationService.GetUserData();
+        //    if (!userDetail.UniversityId.HasValue)
+        //    {
+        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+        //    }
+        //    try
+        //    {
+        //        var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
 
-                ZboxWriteService.RenameNodeLibrary(command);
-                return Json(new JsonResponse(true));
-            }
-            catch (ArgumentException ex)
-            {
-                return Json(new JsonResponse(false, ex.Message));
-            }
-        }
+        //        ZboxWriteService.RenameNodeLibrary(command);
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return Json(new JsonResponse(false, ex.Message));
+        //    }
+        //}
         #endregion
 
         #region Create
-        [HttpPost, Ajax]
-        public ActionResult Create(CreateLibraryItem model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            var userDetail = FormsAuthenticationService.GetUserData();
+        //[HttpPost, Ajax]
+        //public ActionResult Create(CreateLibraryItem model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    var userDetail = FormsAuthenticationService.GetUserData();
 
-            if (!userDetail.UniversityId.HasValue)
-            {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-            }
-            if (userDetail.UniversityId.Value != GetUserId())
-            {
-                return Json(new JsonResponse(false, "you unauthorized to add departments"));
-            }
-            try
-            {
-                var id = m_IdGenerator.Value.GetId();
-                var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
-                ZboxWriteService.AddNodeToLibrary(command);
-                var result = new NodeDto { Id = id, Name = model.Name };
-                return Json(new JsonResponse(true, result));
-            }
-            catch (ArgumentException)
-            {
-                return Json(new JsonResponse(false, "unspecified error"));
-            }
-        }
+        //    if (!userDetail.UniversityId.HasValue)
+        //    {
+        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+        //    }
+        //    if (userDetail.UniversityId.Value != GetUserId())
+        //    {
+        //        return Json(new JsonResponse(false, "you unauthorized to add departments"));
+        //    }
+        //    try
+        //    {
+        //        var id = m_IdGenerator.Value.GetId();
+        //        var command = new AddNodeToLibraryCommand(model.Name, id, userDetail.UniversityId.Value, model.ParentId);
+        //        ZboxWriteService.AddNodeToLibrary(command);
+        //        var result = new NodeDto { Id = id, Name = model.Name };
+        //        return Json(new JsonResponse(true, result));
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return Json(new JsonResponse(false, "unspecified error"));
+        //    }
+        //}
 
 
 
@@ -321,7 +321,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userId = GetUserId();
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, model.ParentId);
+                                                           model.CourseId, model.Professor, model.DepartmentId);
                 var result = ZboxWriteService.CreateBox(command);
                 return Json(new JsonResponse(true, new { result.NewBox.Url }));
             }
@@ -464,7 +464,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
             var userDetail = FormsAuthenticationService.GetUserData();
-            var universityId = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var universityId = userDetail.UniversityId.Value;
 
             var retVal = await ZboxReadService.GetDepartmentList(universityId);
             return Json(new JsonResponse(true, retVal));

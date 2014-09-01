@@ -31,21 +31,13 @@
     <!--<return-scalar column="Color" type="string"/>-->
   </resultset>
 
-  <!--Get list of universities - used in university choose page-->
-  <!--<sql-query name="GetUniversitiesList" read-only="1">
-    <![CDATA[
-    select u.userid as Uid , 
-    coalesce(AliasName,userName) as Name,
-    u.userimage as Image,u.NeedCode as NeedCode,
-    (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
-    from zbox.users u 
-    where u.usertype = 1 
-    and u.Country = :Country
-    and (:prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
-      like '%' + :prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + :prefixHeb + '%'))
-    order by MemberCount desc
-      ]]>
-  </sql-query>-->
+  <resultset name="ParentNodeDetails">
+    <return-scalar column="Id" type="Guid"/>
+    <return-scalar column="Name" type="string"/>
+    <return-scalar column="Url" type="string"/>
+  </resultset>
+
+ 
 
   <!--Lib page-->
   <sql-query name="GetUniversityDataByUserId" read-only="true" resultset-ref="LibraryDetails">
@@ -82,37 +74,52 @@
   
 
   <!--Get the parent of a specific node-->
-  <query name="GetParentNode" read-only="true">
-    <![CDATA[
-    select l.Parent.Id as Id, l.Parent.Name as Name, l.Parent.Url as Url
-    from University uu join uu.Libraries l
+  <!--   select l.Parent.Id as Id, l.Parent.Name as Name, l.Parent.Url as Url
+    from University2 uu join uu.Libraries l
     where uu.Id = :UserId
-    and l.Id = :ParentNode
+    and l.Id = :ParentNode-->
+  <sql-query name="GetParentNode" read-only="true" resultset-ref="ParentNodeDetails">
+    <![CDATA[
+    select l.LibraryId as Id, l.Name as Name, l.Url as Url
+from
+zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
+ where uu.UserId = :UserId
+ and l.LibraryId = (select libraryid from zbox.Library where ParentId =  :ParentNode)
+ 
+ 
     ]]>
-  </query>
+  </sql-query>
 
 
   <!--Get children of root-->
-  <query name="GetLibraryNode" read-only="1">
-    <![CDATA[
-   select l.Id as Id, l.Name as Name, l.Url as Url
+  <!--select l.Id as Id, l.Name as Name, l.Url as Url
     from Library l
     where l.University.Id = :UniversityId
     and l.Parent.Id IS NULL
-    order by Name
+    order by Name-->
+  <sql-query name="GetLibraryNode" read-only="1" resultset-ref="ParentNodeDetails">
+    <![CDATA[
+     select l.LibraryId as Id, l.Name as Name, l.Url as Url from zbox.Library l
+  where  userid = :UniversityId
+  and ParentId is null
+  order by name
     ]]>
-  </query>
+  </sql-query>
 
   <!--Get children of specific node-->
-  <query name="GetLibraryNodeWithId" read-only="1">
-    <![CDATA[
-   select l.Id as Id, l.Name as Name, l.Url as Url
+  <!-- select l.Id as Id, l.Name as Name, l.Url as Url
     from Library l
     where l.University.Id = :UniversityId
     and l.Parent.Id = :ParentNode 
-    order by Name
+    order by Name-->
+  <sql-query name="GetLibraryNodeWithId" read-only="1" resultset-ref="ParentNodeDetails">
+    <![CDATA[
+     select l.LibraryId as Id, l.Name as Name, l.Url as Url from zbox.Library l
+  where  userid = :UniversityId
+  and ParentId = :ParentNode 
+  order by name
     ]]>
-  </query>
+  </sql-query>
 
 
 </hibernate-mapping>

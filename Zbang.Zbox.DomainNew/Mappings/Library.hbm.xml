@@ -11,7 +11,7 @@
     <property name="Url" column="Url" not-null="true"/>
 
     <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />
-    <many-to-one name="University" class="University" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>
+    <many-to-one name="University" class="University2" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>
 
     <bag name="Children" cascade="all-delete-orphan" inverse="false" lazy="true" >
       <key column="ParentId" foreign-key="LibraryParentId"/>

@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no univeristy attribute
-            var universityWrapper = userDetail.UniversityWrapperId ?? userDetail.UniversityId.Value;
+            var universityWrapper = userDetail.UniversityId.Value;
 
             var query = new GetDashboardQuery(universityWrapper);
             var model = await ZboxReadService.GetMyData(query);
@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetDashboard(query);
-                return this.Json(new JsonResponse(true, data));
+                return Json(new JsonResponse(true, data));
             }
             catch (Exception ex)
             {

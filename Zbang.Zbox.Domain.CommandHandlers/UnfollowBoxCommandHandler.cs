@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (userType == UserRelationshipType.Subscribe)
             {
-                UnfollowBox(box, message.UserId);
+                UnFollowBox(box, message.UserId);
             }
 
 
@@ -52,15 +52,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void DeleteBox(Box box)
         {
-            var acadmicBox = box as AcademicBox;
-            if (acadmicBox != null)
-            {
-                foreach (var library in acadmicBox.Library)
-                {
-                    library.Boxes.Remove(box);
+            //var acadmicBox = box as AcademicBox;
+            //if (acadmicBox != null)
+            //{
+            //    foreach (var library in acadmicBox.Library)
+            //    {
+            //        library.Boxes.Remove(box);
 
-                }
-            }
+            //    }
+            //}
             var users = box.UserBoxRelationship.Select(s => s.User);
             foreach (var userInBox in users)
             {
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.UserTime.UpdateUserTime(box.Owner.Email);
             m_BoxRepository.Save(box);
         }
-        private void UnfollowBox(Box box, long userId)
+        private void UnFollowBox(Box box, long userId)
         {
             var userBoxRel = box.UserBoxRelationship.FirstOrDefault(w => w.User.Id == userId);
             if (userBoxRel == null) //TODO: this happen when user decline invite of a box that is public

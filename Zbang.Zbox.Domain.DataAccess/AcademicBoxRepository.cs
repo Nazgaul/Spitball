@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class AcademicBoxRepository : NHibernateRepository<AcademicBox>, IAcademicBoxRepository
     {
-        public AcademicBox CheckIfExists(string courseCode, User universityUser, string professor, string courseName)
+        public AcademicBox CheckIfExists(string courseCode, Department department, string professor, string courseName)
         {
             if (!string.IsNullOrWhiteSpace(professor))
             {
@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 courseCode = courseCode.Trim().ToLower();
             }
             var query = UnitOfWork.CurrentSession.QueryOver<AcademicBox>();
-            query.Where(b => b.Owner == universityUser);
+            query.Where(b => b.Department == department);
             query.Where(b => b.IsDeleted == false);
             query.Where(b => b.CourseCode.TrimStr().Lower() == courseCode);
             query.Where(b => b.Professor.TrimStr().Lower() == professor);

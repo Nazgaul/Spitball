@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain
             Boxes = new HashSet<Box>();
             AmountOfNodes = 0;
         }
-        public Library(Guid id, string name, Library parent, University university)
+        public Library(Guid id, string name, Library parent, University2 university)
             : this()
         {
             Id = id;
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
         public virtual int AmountOfNodes { get; set; } //TODO: do we need this
         public virtual Library Parent { get; protected set; }
 
-        public virtual University University { get; protected set; }
+        public virtual University2 University { get; protected set; }
 
         public virtual ICollection<Library> Children { get; protected set; }
 
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))
             {
-                 throw new ArgumentException("cannot have the same name as siblings");
+                throw new ArgumentException("cannot have the same name as siblings");
             }
             if (Parent != null && Parent.Children.Any(a => a.Name == newName))
             {

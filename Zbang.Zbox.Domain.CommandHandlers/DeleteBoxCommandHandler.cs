@@ -50,15 +50,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-            var acadmicBox = box as AcademicBox;
-            if (acadmicBox != null)
-            {
-                foreach (var library in acadmicBox.Library)
-                {
-                    library.Boxes.Remove(box);
+            //var acadmicBox = box as AcademicBox;
+            //if (acadmicBox != null)
+            //{
+            //    foreach (var library in acadmicBox.Library)
+            //    {
+            //        library.Boxes.Remove(box);
 
-                }
-            }
+            //    }
+            //}
             //Delete blobs
 
             //foreach (var item in box.Items)

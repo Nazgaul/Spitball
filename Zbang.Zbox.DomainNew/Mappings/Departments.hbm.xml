@@ -2,22 +2,32 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="Department" table="Department" >
+  <class name="RussianDepartment" table="Department" >
     <id name="Id" column="Id" type="long">
       <generator class="native"></generator>
     </id>
-    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser"/>
+    <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityUser2"/>
 
     <property name="Name" />
     <property name="Year" />
   </class>
-  
+
   <class name="Student" table="Student" >
     <id name="StudentId" column="StudentId" type="long">
       <generator class="native"></generator>
     </id>
-    <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityStudent"/>
+    <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityStudent2"/>
     <property name="ID" />
+  </class>
+
+  <class name="Department" table="MainDepartment">
+    <id name="Id" column="Id" type="long">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one column="UniversityId" class="University" name="University" not-null="true" foreign-key="DepartmentUniversity"/>
+    <many-to-one column="UniversityId2" class="University" name="University2" not-null="false" foreign-key="DepartmentUniversity2"/>
+
+    <property name="Name"  not-null="true"/>
   </class>
 
 </hibernate-mapping>
