@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
 {
@@ -17,6 +18,8 @@ namespace Zbang.Zbox.Domain
             Id = id;
             Name = name;
             University = university;
+            Url = UrlConsts.BuildDepartmentUrl(id, name, university.UniversityName);
+            NoOfBoxes = 0;
         }
 
         public long Id { get; private set; }
@@ -24,5 +27,8 @@ namespace Zbang.Zbox.Domain
         public University University { get; private set; }
         public University University2 { get; private set; }
         public string Name { get; private set; }
+
+        public string Url { get; private set; }
+        public int NoOfBoxes { get; private set; }
     }
 }

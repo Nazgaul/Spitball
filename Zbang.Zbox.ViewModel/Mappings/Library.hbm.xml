@@ -84,10 +84,8 @@
 from
 zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
  where uu.UserId = :UserId
- and l.LibraryId = (select libraryid from zbox.Library where ParentId =  :ParentNode)
- 
- 
-    ]]>
+ and l.LibraryId = (select libraryid from zbox.Library where ParentId = :ParentNode)
+     ]]>
   </sql-query>
 
 

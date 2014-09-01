@@ -4,11 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class NullGuidConstrait : IRouteConstraint
-
     {
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
@@ -27,7 +27,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return true;
             }
             Guid guid;
-            return Guid.TryParse(input, out guid);
+            if (Guid.TryParse(input, out guid))
+            {
+                return true;
+            }
+            guid = GuidEncoder.Decode(input);
+            return guid != Guid.Empty;
+            //
         }
     }
 }
