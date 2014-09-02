@@ -129,7 +129,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual RussianDepartment RussianDepartment { get; set; }
 
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
 
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }

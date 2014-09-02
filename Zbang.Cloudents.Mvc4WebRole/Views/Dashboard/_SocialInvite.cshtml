@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<section class="socialInvite  js-cloudState js--fbState js--gmState">
+<section class="socialInvite  js--cloudState js--fbState js--gmState">
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
@@ -10,13 +10,114 @@
         <button class="gmailBtn"></button>
     </div>
 
+
+    @*Guy: If not connected to gmail or fb then add class 'jsNotConnected' here*@
     <div class="socialContentWpr">
-        @*<label class="input" data-cloud-txt="@IndexResources.SearchCloudents" data-fb-txt="@IndexResources.SearchFb" data-gm-txt="@IndexResources.SearchGmail">
-                <input  />
-            </label>*@
         <input class="cloudInput" type="search" placeholder="@IndexResources.SearchCloudents" />
         <input class="fbInput" type="search" placeholder="@IndexResources.SearchFb" />
         <input class="gmInput" type="search" placeholder="@IndexResources.SearchGmail" />
+
+        @*Guy: Add class 'noResults' if user has no friends in current social category*@
+        <ul class="socialList">
+            @*Guy: Add class 'jsInviteSent' to li when user presses the Invite button*@
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            <li class="lFloat">
+                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
+                <div>Shlomi Kastoryano</div>
+                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
+            </li>
+            
+            <li class="emptySearch">@SharedResources.NoResults</li>
+        </ul>
+
+        <div class="socialConnect">
+            <div class="socialConnectTxt" data-find-fb="@IndexResources.FindFb" data-find-gm="@IndexResources.FindGmail"></div>
+            <button class="btn3">@SharedResources.Connect</button>
+        </div>
     </div>
     <div class="btnWpr">
         <input type="submit" class="btn1" value="@DialogResources.Continue" />

@@ -21,38 +21,11 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.myCourses = jsResources.CoursesFollow;
 
-    if ($scope.firstTime.dashboard) { //viewbag
-        //sDashboard.recommendedCourses({}).then(function (response) {
-        //var data = response.success ? response.payload : {};
-        //$scope.recommendedCourses = data;
-        //});
-
-        $scope.recommendedCourses = [{
-            url: '/someurl/',
-            friends: 30,
-            files: 30,
-            image: 'http://placehold.it/68x68',
-            name: 'camping',
-            id: 12345,
-            professor: 'Shlomi Kastoryano'
-
-        }, {
-            url: '/someurl/',
-            friends: 30,
-            files: 30,
-            image: 'http://placehold.it/68x68',
-            name: 'camping',
-            id: 12345,
-            professor: 'Shlomi Kastoryano'
-        }, {
-            url: '/someurl/',
-            friends: 30,
-            files: 30,
-            image: 'http://placehold.it/68x68',
-            name: 'camping',
-            id: 12345,
-            professor: 'Shlomi Kastoryano'
-        }];
+    if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
+        sDashboard.recommendedCourses({}).then(function (response) {
+        var data = response.success ? response.payload : {};
+        $scope.recommendedCourses = data;
+        });
     }
 
     $scope.openCreateBoxWizard = function () {

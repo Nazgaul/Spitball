@@ -107,5 +107,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<BannerDto>> GetBanners(int? universityId);
         Task<bool> ValidateCoupon(int coupon);
         Task<int?> CloudentsUniversityToStoreUniversity(long universityId);
+
+
+        Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query);
     }
 }

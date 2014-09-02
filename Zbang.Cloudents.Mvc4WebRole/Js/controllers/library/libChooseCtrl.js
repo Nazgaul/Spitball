@@ -33,7 +33,7 @@
              //#endregion
 
              //#region search
-            var lastQuery;
+             var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
 
@@ -64,14 +64,21 @@
              $scope.selectUniversity = function (university) {
                  $scope.selectedUni = university;
                  $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                 $scope.display.complete = $scope.display.choose = true;
+
 
                  sLibrary.updateUniversity(
-                     [{ name: 'UniversityId', value: universityId }]
+                     {
+                         UniversityId : university.id
+                     }
 
-                     ).then(function () {
-
-                 });
+                     ).then(function (response) {
+                         var data = response.success ? response.payload : [];
+                         if (!data) {
+                             $scope.display.complete = $scope.display.choose = true;
+                         } else {
+                             //some pop up
+                         }
+                     });
              }
 
              //#endregion
@@ -92,9 +99,9 @@
                  }
 
                  sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-                     if (resposne.success) {
+                     if (response.success) {
                          $location.path('/dashboard/');
-                     }                     
+                     }
                  });
              };
 
@@ -106,12 +113,11 @@
                      $scope.departments = null;
                      return;
                  }
-
                  sLibrary.items().then(function (response) {
-                         var data = response.success ? response.payload : {};
-                         var departments = data.nodes;
-                         $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
-                     });                 
+                     var data = response.success ? response.payload : {};
+                     var departments = data.nodes;
+                     $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
+                 });
              }, 200);
 
              $scope.selectDepartment = function (department) {
@@ -121,22 +127,22 @@
 
              };
 
-             $scope.chooseDepartment = function (department) {
-                 sLibrary.chooseDeparment({id : department.id}).then(function (response) {
+             $scope.chooseDepartment = function () {
+                 sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
                          $location.path('/dashboard/');
-                     }                     
-                 });                 
+                     }
+                 });
              };
 
              $scope.backDepartment = function () {
                  $scope.selectedDepartment = null;
-                 $scope.departments = $scope.params.departmentSearch= null;                 
-                 $scope.display.choose = $scope.display.complete = false;                 
+                 $scope.departments = $scope.params.departmentSearch = null;
+                 $scope.display.choose = $scope.display.complete = false;
                  $scope.display.searchUniversity = $scope.display.facebook = true;
              };
 
-             $scope.backCreateDepartment = function () {                 
+             $scope.backCreateDepartment = function () {
                  $scope.formData.createDepartment = {};
                  $scope.display.createDep = false;
                  $scope.display.choose = true;
@@ -191,4 +197,4 @@
 
              //cd.analytics.trackEvent('Library Choose', 'Search', term);
          }
-]);
+        ]);

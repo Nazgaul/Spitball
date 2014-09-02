@@ -259,7 +259,7 @@
   border-color: transparent transparent transparent #fff;
 }
 .formWpr .actionTxt {
-  right: -176px;
+  right: -190px;
   left: auto;
 }
 .formWpr .btn1 {
@@ -275,6 +275,38 @@
   left: 8px;
   right: auto;
 }
+/*#region social invite */
+.socialInvite .btnWpr {
+  margin: 25px -25px -25px 0;
+}
+.socialInvite.js-cloudState .socialContentWpr:before {
+  left: auto;
+  right: 145px;
+}
+.socialInvite.js-gmState .socialContentWpr:before {
+  right: auto;
+  left: 145px;
+}
+.socialContentWpr input {
+  text-align: right;
+}
+.socialList {
+  width: 635px;
+}
+.socialList li {
+  margin: 0 0 0 22px;
+}
+.socialList li:nth-child(7n + 1) {
+  padding: 0 8px 0 0;
+}
+.socialList li:nth-child(7n) {
+  margin-left: 0;
+  padding: 0 0 0 8px;
+}
+.socialList li.jsInviteSent button:after {
+  top: 3px;
+}
+/*#endregion */
 /*#endregion */
 .contentWpr {
   margin: 0 290px 0 0;

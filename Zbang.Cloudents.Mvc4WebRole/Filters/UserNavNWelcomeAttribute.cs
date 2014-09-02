@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using Newtonsoft.Json;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
@@ -20,16 +22,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             }
             var context = filterContext.Controller;
 
-           // context.ViewBag.welcome = (bool)(context.TempData[Zbang.Cloudents.Mvc4WebRole.Controllers.BaseController.TempDataNameUserRegisterFirstTime] ?? false);
+            // context.ViewBag.welcome = (bool)(context.TempData[Zbang.Cloudents.Mvc4WebRole.Controllers.BaseController.TempDataNameUserRegisterFirstTime] ?? false);
 
             var userDetail = m_UserProfile.GetUserData(context.ControllerContext);
-            if (userDetail != null)
-            {
-                context.ViewBag.fLib = userDetail.FirstTimeLibrary;
-                context.ViewBag.fDash = userDetail.FirstTimeDashboard;
-                context.ViewBag.fBox = userDetail.FirstTimeBox;
-                context.ViewBag.fItem = userDetail.FirstTimeItem;
-            }
+            if (userDetail == null) return;
+
+            var serializer = new JsonNetSerializer();
+            var retVal = serializer.Serialize(new
+              {
+                  dashboard = userDetail.FirstTimeDashboard,
+                  box = userDetail.FirstTimeBox,
+                  library = userDetail.FirstTimeLibrary,
+                  item = userDetail.FirstTimeItem
+              });
+            context.ViewBag.firstTime = retVal;
         }
     }
 }

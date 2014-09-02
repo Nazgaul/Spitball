@@ -6,7 +6,7 @@
 
 @*Guy: when user has just come from select uni - add class jsNewDash*@
 
-<div id="dashboard" class="page dashboard jsNewDash" ng-controller="DashboardCtrl">
+<div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
@@ -61,8 +61,6 @@
                     </div>
                 </div>
             </div>
-
-
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
@@ -89,12 +87,12 @@
                             <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
                                 <a bo-href="course.url" class="courseLink">
                                     <div class="rFloat">
-                                        <div class="friends" bo-attr bo-attr-data-friends-count="course.friends">@SharedResources.Friends</div>
-                                        <div class="files" bo-attr bo-attr-data-files-count="course.files">@SharedResources.Files</div>
+                                        <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                                        <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
                                     </div>
-                                    <img bo-src="course.image" alt="" width="68" height="68" />
+                                    <img bo-src="course.picture" alt="" width="68" height="68" />
                                     <div class="elps courseName" bo-text="course.name"></div>
-                                    <div class="elps" bo-text="course.id"></div>
+                                    <div class="elps" bo-text="course.courseCode"></div>
                                     <div class="prof elps" bo-text="course.professor"></div>
                                 </a>
                             </li>                            
@@ -103,7 +101,7 @@
                 </div>                
             </section>
 
-            <section class="unionCourses">
+            <section class="unionCourses" ng-if="!firstTime.dashboard">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
                 <div ng-if="!academicBoxes.length" class="emptyDash">
@@ -126,7 +124,7 @@
 
             </section>
 
-            <section class="groupBoxes">
+            <section class="groupBoxes" ng-if="!firstTime.dashboard">
                 <header class="boxesHeader">@IndexResources.MyGroup</header>
                 <div ng-hide="groupBoxes.length > 0" class="emptyDash">
                     <div class="groupEmpty">
@@ -180,12 +178,12 @@
 </div>
 </div>
 
-<span ng-if="$root.params.createBoxWizard">
+<div class="formWpr jsUpload"> @*ng-if="$root.params.createBoxWizard"*@
     <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
-        <div class="formWpr"
+        @*<div class="formWpr"
               ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
-             wizard on-finish=" completewizard()" template="'wizard.html'">
-            <div wz-step template="'step.html'">
+             wizard on-finish=" completewizard()" template="'wizard.html'" >*@
+            <div>   @*wz-step template="'step.html'"*@
                 <div class="actionTxt">@IndexResources.CreateCourse</div>
                 <div class="courseType">
                     <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
@@ -214,13 +212,14 @@
 
                 @{
                     Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
-        Html.RenderPartial("_SocialInvite");
+                    Html.RenderPartial("_SocialInvite");
+                    Html.RenderPartial("_UploadFiles");
                 }
             </div>
 
-        </div>
+        @*</div>*@
     </div>
-</span>
+</div>
 @*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here
      When user clicks the 'open course' radio btn - add class 'js-academic' here
     When user clicks the 'Create a new Department' btn - add class 'js-addDept' here

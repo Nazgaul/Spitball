@@ -277,7 +277,6 @@
   display: none!important;
 }
 .setupCourse {
-  display: none;
   color: #fff;
   margin-left: -14px;
 }
@@ -551,7 +550,7 @@
 .formWpr .actionTxt {
   color: #fff;
   position: absolute;
-  left: -176px;
+  left: -190px;
   top: -30px;
   text-align: center;
 }
@@ -596,17 +595,22 @@
   display: block;
 }
 .formWpr.js-addDept,
-.formWpr.js-social {
+.formWpr.js-social,
+.formWpr.jsUpload {
   display: block;
 }
 .formWpr.js-addDept .courseType,
-.formWpr.js-social .courseType {
+.formWpr.js-social .courseType,
+.formWpr.jsUpload .courseType {
   display: none;
 }
 .formWpr.js-addDept .createDept {
   display: block;
 }
 .formWpr.js-social .socialInvite {
+  display: block;
+}
+.formWpr.jsUpload .uploadFiles {
   display: block;
 }
 .courseType {
@@ -641,6 +645,7 @@
   margin: 0 0 -200px 0;
   min-height: 200px;
 }
+/*#region social invite */
 .socialInvite {
   display: none;
   text-align: center;
@@ -655,17 +660,18 @@
   display: block;
 }
 .socialInvite .btnWpr {
-  display: inline-block;
-  position: relative;
+  width: 650px;
+  margin: 25px 0 -25px -25px;
+  background: #eee;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 25px 0;
+  border-radius: 0 0 5px 5px;
 }
 .socialInvite .btn1,
 .socialInvite .btn2 {
   margin: 0 6px;
-}
-.socialInvite.js-cloudState {
-  /*.input:before {
-            content: attr(data-cloud-txt);
-        }*/
 }
 .socialInvite.js-cloudState .cloudentsBtn {
   background-position: 0 -598px;
@@ -677,30 +683,28 @@
 .socialInvite.js-cloudState .cloudInput {
   display: block;
 }
-.socialInvite.js-fbState {
-  /*.input:before {
-            content: attr(data-fb-txt);
-        }*/
-}
 .socialInvite.js-fbState .fbBtn {
   background-position: 0 -780px;
 }
 .socialInvite.js-fbState .fbInput {
   display: block;
 }
-.socialInvite.js-gmState {
-  /*.input:before {
-            content: attr(data-gm-txt);
-        }*/
+.socialInvite.js-fbState .socialConnectTxt:before {
+  content: attr(data-find-fb);
+  display: block;
 }
 .socialInvite.js-gmState .gmailBtn {
-  background-position: 0 -871px;
+  background-position: 0 -962px;
 }
 .socialInvite.js-gmState .socialContentWpr:before {
   left: auto;
   right: 145px;
 }
 .socialInvite.js-gmState .gmInput {
+  display: block;
+}
+.socialInvite.js-gmState .socialConnectTxt:before {
+  content: attr(data-find-gm);
   display: block;
 }
 .socialWpr {
@@ -721,30 +725,14 @@
   background-position: 0 -689px;
 }
 .socialWpr .gmailBtn {
-  background-position: 0 -962px;
+  background-position: 0 -871px;
 }
 .socialContentWpr {
-  min-height: 405px;
+  min-height: 250px;
   display: none;
   background: #eee;
-  margin: -3px -25px -53px -25px;
+  margin: 0 -25px -25px -25px;
   position: relative;
-  /*input {
-        background: transparent;
-        left: 0;
-        position: absolute; 
-        top: 0;   
-        z-index: 1;
-        width: 100%;
-        height: 33px;
-        padding: 0 10px;
-        display: block;
-        .boxSizing;
-        &:focus, &:first-line {
-            background: #fff;
-        }
-        
-    }*/
 }
 .socialContentWpr:before {
   content: '';
@@ -759,6 +747,16 @@
   border-style: solid;
   border-width: 0 24px 28px 24px;
   border-color: transparent transparent #eee transparent;
+}
+.socialContentWpr.jsNotConnected .fbInput,
+.socialContentWpr.jsNotConnected .gmInput {
+  visibility: hidden;
+}
+.socialContentWpr.jsNotConnected .socialList {
+  display: none;
+}
+.socialContentWpr.jsNotConnected .socialConnect {
+  display: block;
 }
 .socialContentWpr input {
   display: none;
@@ -779,6 +777,139 @@
   font-size: 15px;
   top: 20px;
 }
+.socialContentWpr .btn3 {
+  display: inline-block;
+}
+.socialContentWpr .noResults {
+  background: none;
+  margin-top: 50px;
+}
+.socialConnect {
+  display: none;
+}
+.socialConnectTxt {
+  margin: 75px 0 10px;
+  font-size: 15px;
+}
+.socialList {
+  width: 620px;
+  max-height: 300px;
+  overflow: auto;
+  display: block;
+  margin: 50px auto 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.socialList li {
+  margin-right: 22px;
+  font-size: 13px;
+  width: 66px;
+  height: 136px;
+  overflow: hidden;
+}
+.socialList li:nth-child(7n + 1) {
+  padding-left: 8px;
+}
+.socialList li:nth-child(7n) {
+  margin-right: 0;
+  padding-right: 8px;
+}
+.socialList li:nth-child(n + 8) {
+  margin-top: 18px;
+}
+.socialList li.jsInviteSent button {
+  cursor: default;
+  pointer-events: none;
+}
+.socialList li.jsInviteSent button:after {
+  top: 1px;
+}
+.socialList img {
+  border: 1px solid #c2c2c2;
+  border-radius: 6px;
+}
+.socialList button {
+  color: #0371c8;
+  border: 1px solid #c2c2c2;
+  width: 100%;
+  height: 23px;
+  border-radius: 8px;
+  margin-top: 7px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+}
+.socialList button:after {
+  content: attr(data-sent-txt);
+  width: 100%;
+  height: 23px;
+  display: block;
+  position: absolute;
+  top: 23px;
+  background: #fff;
+  color: #0f9d58;
+  -webkit-transition: top 0.5s ease-in;
+  -moz-transition: top 0.5s ease-in;
+  -o-transition: top 0.5s ease-in;
+  transition: top 0.5s ease-in;
+}
+.socialList .emptySearch {
+  width: auto;
+  height: auto;
+}
+/*#endregion */
+/*#region Upload files */
+/*<section class="uploadFiles">
+    <header>@DialogResources.UploadFiles</header>
+
+    <div class="dragDropArea">@DialogResources.DragAndDrop</div>
+
+    <div class="uploadSrcWpr">
+        <button type="button" class="driveBtn"></button>
+        <button type="button" class="dropBoxBtn"></button>
+        <button type="button" class="linkBtn"></button>
+    </div>
+</section>*/
+.uploadFiles {
+  display: none;
+  text-align: center;
+}
+.uploadFiles header {
+  font-size: 20px;
+  color: #39434a;
+}
+.dragDropArea {
+  height: 250px;
+  border: 1px solid #39434a;
+  border-radius: 3px;
+  margin: 20px 0;
+  font-size: 18px;
+}
+.dragDropArea:before {
+  content: '';
+  display: block;
+  width: 126px;
+  height: 98px;
+  background: url(/Images/site.png) 0 -1142px no-repeat;
+  margin: 55px auto 20px;
+}
+.uploadSrcWpr {
+  height: 275px;
+  margin: 0 -25px -25px -25px;
+  background: #eee;
+  border-radius: 0 0 5px 5px;
+}
+.uploadSrcWpr button {
+  display: inline-block;
+  font-size: 18px;
+}
+.uploadSrcWpr button:before {
+  content: '';
+  background: url(/Images/site.png) no-repeat;
+  margin: 85px 0 10px;
+}
+/*#endregion */
 /*#endregion */
 /*#region IframeProducts*/
 .products {
