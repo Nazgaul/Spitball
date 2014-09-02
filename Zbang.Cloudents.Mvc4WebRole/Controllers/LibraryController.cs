@@ -249,6 +249,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
         #endregion
 
+        //[Ajax, HttpGet]
+        //public async Task<ActionResult> Departments(long universityId)
+        //{
+        //    var retVal = await ZboxReadService.GetDepartmentList(universityId);
+        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
+        //}
+
+
+        [HttpPost, Ajax]
+        public ActionResult SelectDepartment(long id)
+        {
+            var command = new SelectDepartmentCommand(id, GetUserId());
+            ZboxWriteService.SelectDepartment(command);
+            return Json(new JsonResponse(true));
+        }
+
         #region Create
 
 
@@ -424,12 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
-        [Ajax, HttpGet]
-        public async Task<ActionResult> SelectDepartment(long universityId)
-        {
-            var retVal = await ZboxReadService.GetDepartmentList(universityId);
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
-        }
+       
 
         [Ajax, HttpGet]
         public async Task<ActionResult> Departments()

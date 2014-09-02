@@ -73,12 +73,12 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(userEmail);
         }
 
-        public long Id { get; set; }
+        public virtual long Id { get; set; }
         public string OrgName { get; set; }
         public string Url { get; set; }
         public string Image { get; set; }
         public string LargeImage { get; set; }
-        public string UniversityName { get; set; }
+        public virtual string UniversityName { get; set; }
         public bool NeedCode { get; set; }
         public string WebSiteUrl { get; set; }
         public string MailAddress { get; set; }
