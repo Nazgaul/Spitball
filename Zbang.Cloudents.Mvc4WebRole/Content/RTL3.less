@@ -275,7 +275,7 @@
         border-color: transparent transparent transparent #fff;
     }
     .actionTxt {
-        right: -176px;
+        right: -190px;
         left: auto;
     }
     .btn1 {
@@ -296,6 +296,53 @@
     left: 8px; //rtl
     right: auto;
 }
+
+/*#region social invite */
+.socialInvite {
+    .btnWpr {
+        margin: 25px -25px -25px 0; //rtl
+    }
+    &.js-cloudState {
+        .socialContentWpr:before {
+            left: auto;
+            right:145px; //rtl
+        }
+    }
+    &.js-gmState {
+        .socialContentWpr:before {
+            right: auto;
+            left:145px; //rtl
+        }
+    }
+}
+.socialContentWpr {
+    input {
+        text-align: right; //rtl
+    }
+}
+.socialList {
+    width: 635px; //diff rtl
+    li {
+        margin: 0 0 0 22px; //rtl
+        &:nth-child(7n + 1) {
+            padding: 0 8px 0 0; //rtl
+        }
+        &:nth-child(7n) {
+            margin-left: 0; //rtl
+            padding: 0 0 0 8px; //rtl
+        }
+        &.jsInviteSent {
+            button {
+                &:after {
+                    top:3px; //diff rtl
+                }
+            }
+        }
+    }
+}
+
+
+/*#endregion */
 /*#endregion */
 
 

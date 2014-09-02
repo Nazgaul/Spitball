@@ -566,7 +566,7 @@
     .actionTxt {
         color: #fff;
         position: absolute;
-        left: -176px; //rtl
+        left: -190px; //rtl
         top: -30px;
         text-align: center;
     }
@@ -661,7 +661,7 @@
         min-height: 200px;
     }
 }
-
+/*#region social invite */
 .socialInvite {
     display: none;
     text-align: center;
@@ -675,8 +675,12 @@
         }
     }
     .btnWpr {
-        display: inline-block;
-        position: relative;
+        width: 650px;
+        margin: 25px 0 -25px -25px; //rtl
+        background: #eee;
+        .boxSizing;
+        padding: 25px 0;
+        border-radius: 0 0 5px 5px;
     }
     .btn1, .btn2 {
         margin: 0 6px;
@@ -687,11 +691,8 @@
         }
         .socialContentWpr:before {
             right: auto;
-            left:145px;
+            left:145px; //rtl
         }
-        /*.input:before {
-            content: attr(data-cloud-txt);
-        }*/
         .cloudInput {
             display: block;
         }
@@ -700,25 +701,27 @@
         .fbBtn {
             background-position: 0 -780px;
         }
-        /*.input:before {
-            content: attr(data-fb-txt);
-        }*/
         .fbInput {
+            display: block;
+        }
+        .socialConnectTxt:before {
+            content: attr(data-find-fb);
             display: block;
         }
     }
     &.js-gmState {
         .gmailBtn {
-            background-position: 0 -871px;
+            background-position: 0 -962px;
         }
         .socialContentWpr:before {
             left: auto;
-            right:145px;
+            right:145px; //rtl
         }
-        /*.input:before {
-            content: attr(data-gm-txt);
-        }*/
         .gmInput {
+            display: block;
+        }
+        .socialConnectTxt:before {
+            content: attr(data-find-gm);
             display: block;
         }
     }
@@ -740,15 +743,16 @@
         background-position: 0 -689px;
     }
     .gmailBtn {
-        background-position: 0 -962px;
+        background-position: 0 -871px;
     }
 }
 .socialContentWpr {
-    min-height: 405px;
+    min-height: 250px;
     display: none;
     background: #eee;
-    margin: -3px -25px -53px -25px;
+    margin: 0 -25px -25px -25px;
     position: relative;
+    
     &:before {
         .pseudo;
         top: -28px;
@@ -760,6 +764,17 @@
         border-style: solid;
         border-width: 0 24px 28px 24px;
         border-color: transparent transparent #eee transparent;
+    }
+    &.jsNotConnected {
+        .fbInput, .gmInput {
+            visibility: hidden;
+        }
+        .socialList {
+            display: none;
+        }
+        .socialConnect {
+            display: block;
+        }
     }
     input {
         display: none;
@@ -773,29 +788,94 @@
         .boxSizing;
         position: relative;
         background: #fff;
-        text-align: left;
+        text-align: left; //rtl
         font-weight: normal;
         font-size: 15px;
         top: 20px;
     }
-
-    /*input {
-        background: transparent;
-        left: 0;
-        position: absolute; 
-        top: 0;   
-        z-index: 1;
-        width: 100%;
-        height: 33px;
-        padding: 0 10px;
-        display: block;
-        .boxSizing;
-        &:focus, &:first-line {
-            background: #fff;
-        }
-        
-    }*/
+    .btn3 {
+        display: inline-block;
+    }
+    .noResults {
+        background: none;
+        margin-top: 50px;
+    }
 }
+.socialConnect {
+    display: none;
+}
+.socialConnectTxt {
+    margin: 75px 0 10px;
+    font-size: 15px;
+}
+.socialList {
+    width: 620px; //diff rtl
+    max-height: 300px;
+    overflow: auto;
+    display: block;
+    margin: 50px auto 0;
+    .boxSizing;
+    li {
+        margin-right: 22px; //rtl
+        font-size: 13px;
+        width: 66px;
+        height: 136px;
+        overflow: hidden;
+        &:nth-child(7n + 1) {
+            padding-left: 8px; //rtl
+        }
+        &:nth-child(7n) {
+            margin-right: 0; //rtl
+            padding-right: 8px; //rtl
+        }
+        &:nth-child(n + 8) {
+            margin-top: 18px;
+        }
+        &.jsInviteSent {
+            button {
+                cursor: default;
+                pointer-events: none;
+                &:after {
+                    top:1px; //diff rtl
+                }
+            }
+        }
+    }
+    img {
+        border: 1px solid @borderColor;
+        border-radius: 6px;
+    }
+    button {
+        color: @attentionBlue;
+        border: 1px solid @borderColor;
+        width: 100%;
+        height: 23px;
+        border-radius: 8px;
+        margin-top: 7px;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+        &:after {
+            content: attr(data-sent-txt);
+            width: 100%;
+            height: 23px;
+            display: block;
+            position: absolute;
+            top: 23px;
+            background: #fff;
+            color: @color;
+            .transition(top .5s ease-in);
+        }
+    }
+    .emptySearch {
+        width: auto; //override
+        height: auto; //override
+    } 
+}
+
+
+/*#endregion */
+
 /*#endregion */
 
 
