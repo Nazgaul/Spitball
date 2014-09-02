@@ -178,7 +178,7 @@
 </div>
 </div>
 
-<div class="formWpr js-social"> @*ng-if="$root.params.createBoxWizard"*@
+<div class="formWpr jsUpload"> @*ng-if="$root.params.createBoxWizard"*@
     <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
         @*<div class="formWpr"
               ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
@@ -213,6 +213,7 @@
                 @{
                     Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
                     Html.RenderPartial("_SocialInvite");
+                    Html.RenderPartial("_UploadFiles");
                 }
             </div>
 
