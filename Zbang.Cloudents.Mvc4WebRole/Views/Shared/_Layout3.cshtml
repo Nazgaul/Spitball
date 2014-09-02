@@ -4,11 +4,11 @@
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
-    ViewBag.fLib = ViewBag.fLib ?? false;
-    ViewBag.fDash = ViewBag.fDash ?? false;
+    //ViewBag.fLib = ViewBag.fLib ?? false;
+    //ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
-    ViewBag.fItem = ViewBag.fItem ?? false;
-    ViewBag.firstTime = "{\"dashboard\":true,\"box\":false,\"library\":false,\"item\":false}";
+    //ViewBag.fItem = ViewBag.fItem ?? false;
+    //ViewBag.firstTime = "{\"dashboard\":true,\"box\":false,\"library\":false,\"item\":false}";
 }
 <!DOCTYPE html>
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
@@ -72,7 +72,8 @@
         </div>
         <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
     </header>
-    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl" bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
+    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
+          bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
 
         <div id="fb-root"></div>

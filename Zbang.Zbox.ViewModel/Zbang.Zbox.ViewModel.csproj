@@ -68,6 +68,7 @@
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxToFriendDto.cs" />
+    <Compile Include="Dto\BoxDtos\RecommendBoxDto.cs" />
     <Compile Include="Dto\BoxSettingsDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto.cs" />
     <Compile Include="Dto\Dashboard\DashboardDto.cs" />

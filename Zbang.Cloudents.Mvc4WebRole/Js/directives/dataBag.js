@@ -5,8 +5,10 @@
             restrict: "A",
             scope: false,
             link: function (scope, elem, attrs) {
-
-                scope[attrs.bagDataProperty] = JSON.parse(elem.attr('bag-data'));
+                var str = elem.attr('bag-data');
+                if (str) {
+                    scope[attrs.bagDataProperty] = JSON.parse(str);
+                }
             }
         };
     }

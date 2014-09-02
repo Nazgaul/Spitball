@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.User;
 
@@ -120,6 +121,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         #endregion
+
+        [Ajax, HttpGet]
+        public async Task<JsonResponse> RecommendedCourses()
+        {
+            var query = new QueryBase(GetUserId());
+            var result = await ZboxReadService.GetRecommendedCourses(query);
+            return new JsonResponse(true, result);
+        }
 
     }
 }
