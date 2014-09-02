@@ -20,7 +20,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
-        [UserNavNWelcome]
         [NoCache]
         public async Task<ActionResult> Index()
         {

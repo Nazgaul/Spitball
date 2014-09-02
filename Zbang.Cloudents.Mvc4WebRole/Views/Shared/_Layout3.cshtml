@@ -37,7 +37,8 @@
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
 </head>
-<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(), 'jsDark' : $root.params.createBoxWizard}">@*class="jsDark"*@
+<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(), 
+      'jsDark' : $root.params.createBoxWizard}">@*class="jsDark"*@
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {

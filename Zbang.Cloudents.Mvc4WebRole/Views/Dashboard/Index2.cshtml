@@ -6,7 +6,7 @@
 
 @*Guy: when user has just come from select uni - add class jsNewDash*@
 
-<div id="dashboard" class="page dashboard jsNewDash" ng-controller="DashboardCtrl">
+<div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
@@ -101,7 +101,7 @@
                 </div>                
             </section>
 
-            <section class="unionCourses">
+            <section class="unionCourses" ng-if="!firstTime.dashboard">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
                 <div ng-if="!academicBoxes.length" class="emptyDash">
@@ -124,7 +124,7 @@
 
             </section>
 
-            <section class="groupBoxes">
+            <section class="groupBoxes" ng-if="!firstTime.dashboard">
                 <header class="boxesHeader">@IndexResources.MyGroup</header>
                 <div ng-hide="groupBoxes.length > 0" class="emptyDash">
                     <div class="groupEmpty">
