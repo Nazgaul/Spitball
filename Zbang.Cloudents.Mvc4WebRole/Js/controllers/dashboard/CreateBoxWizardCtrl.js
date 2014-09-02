@@ -1,8 +1,10 @@
 ﻿mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', 'sDashboard', 'sLibrary', 'sBox', 'sUser', '$location',
-    function ($scope, sDashboard, sLibrary, sBox, sUser, $location) {
+     ['$scope', 'sDashboard', 'sLibrary', 'sBox', 'sUser', '$location','$filter', 'debounce',
+    function ($scope, sDashboard, sLibrary, sBox, sUser, $location,$filter,debounce) {
 
-        $scope.params = {};
+        $scope.params = {
+            changeDepartment: false
+        };
 
         $scope.formData = {
             privacySettings: 'AnyoneWithUrl'
@@ -12,13 +14,28 @@
             $scope.params.changeDepartment = true;
         };
 
-        $scope.selectDepartment = function () {
-
+        $scope.selectDepartment = function (department) {
+            $scope.formData.department = department;
+            $scope.params.changeDepartment = false;
         };
 
-        $scope.searchDepartment = function () {
+        $scope.searchDepartment = debounce(function () {
+            if (!$scope.formData.department.name) {
+                $scope.departments = null;
+                return;
+            }
 
+            sLibrary.items().then(function (response) {
+                var data = response.success ? response.payload : {};
+                var departments = data.nodes;
+                $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.formData.department.name });
+            });
+        }, 200);
+
+        $scope.create = function (isValid) {
+            sBox.create($scope.formData).then(function () {
+
+            });
         };
-
-    }]
+         }]
     );

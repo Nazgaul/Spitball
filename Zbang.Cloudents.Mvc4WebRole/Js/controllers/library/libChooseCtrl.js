@@ -107,30 +107,6 @@
                      return;
                  }
 
-                 //$timeout(function () {
-                 //    var departments = [{
-                 //        id: 1,
-                 //        image: 'http://placehold.it/66x66',
-                 //        name: 'adep1'
-                 //    }, {
-                 //        id: 2,
-                 //        image: 'http://placehold.it/66x66',
-                 //        name: 'bdep2'
-                 //    }, {
-                 //        id: 3,
-                 //        image: 'http://placehold.it/66x66',
-                 //        name: 'cdep3'
-                 //    }, {
-                 //        id: 4,
-                 //        image: 'http://placehold.it/66x66',
-                 //        name: 'ddep4'
-                 //    }, ]
-
-                 //    $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
-
-                 //}, 100);
-
-
                  sLibrary.items().then(function (response) {
                          var data = response.success ? response.payload : {};
                          var departments = data.nodes;
