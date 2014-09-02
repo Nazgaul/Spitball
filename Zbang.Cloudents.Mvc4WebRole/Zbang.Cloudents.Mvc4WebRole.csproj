@@ -733,6 +733,7 @@
     <Content Include="Images\dic.png" />
     <Content Include="Images\document.png" />
     <Content Include="Images\drive_upload.png" />
+    <Content Include="Images\earth.png" />
     <Content Include="Images\eco.png" />
     <Content Include="Images\EmptyState\my_default.png" />
     <Content Include="Images\EmptyState\my_default2.png" />
