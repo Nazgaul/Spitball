@@ -22,14 +22,14 @@ namespace Zbang.Zbox.Domain
             NoOfBoxes = 0;
         }
 
-        public long Id { get; private set; }
-
-        public University University { get; private set; }
-        public University University2 { get; private set; }
-        public string Name { get; private set; }
-
-        public string Url { get; private set; }
-        public int NoOfBoxes { get; private set; }
+        public virtual long Id { get; private set; }
+               
+        public virtual University University { get; private set; }
+        public virtual University University2 { get; private set; }
+        public virtual string Name { get; private set; }
+               
+        public  string Url { get; private set; }
+        public  int NoOfBoxes { get; private set; }
 
         public void UpdateNumberOfBoxes(int count)
         {

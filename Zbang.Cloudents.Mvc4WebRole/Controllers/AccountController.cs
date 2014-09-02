@@ -422,7 +422,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
                 FormsAuthenticationService.ChangeUniversity(command.UniversityId);
-                return Json(new JsonResponse(true, new { redirect = Url.Action("Index", "Library") }));
+                return Json(new JsonResponse(true));
             }
             catch (ArgumentException)
             {

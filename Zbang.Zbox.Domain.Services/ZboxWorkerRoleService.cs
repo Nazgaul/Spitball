@@ -31,11 +31,48 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            var dicUniversity = new Dictionary<long, University>();
-            var dicDepartment = new Dictionary<KeyValuePair<long, string>, Department>();
             using (UnitOfWork.Start())
             {
+                TraceLog.WriteInfo("Processing universities");
+
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    var oldUniversities = UnitOfWork.CurrentSession.QueryOver<University2>()
+                        .List();
+                    foreach (var oldUniversity in oldUniversities)
+                    {
+                        var newUniversity = new University(oldUniversity.Id,
+                            oldUniversity.UniversityName,
+                            oldUniversity.Country,
+                            oldUniversity.Image,
+                            oldUniversity.ImageLarge,
+                            "sys")
+                        {
+                            LetterUrl = oldUniversity.LetterUrl,
+                            MailAddress = oldUniversity.MailAddress,
+                            NeedCode = oldUniversity.NeedCode,
+                            OrgName = oldUniversity.Name,
+                            TwitterUrl = oldUniversity.TwitterUrl,
+                            TwitterWidgetId = oldUniversity.TwitterWidgetId,
+                            WebSiteUrl = oldUniversity.WebSiteUrl,
+                            YouTubeUrl = oldUniversity.YouTubeUrl,
+
+                        };
+                        UnitOfWork.CurrentSession.SaveOrUpdate(newUniversity);
+                    }
+                    tx.Commit();
+
+
+                }
+            }
+           
+            using (UnitOfWork.Start())
+            {
+                TraceLog.WriteInfo("Processing boxes");
                 var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+                var dicUniversity = new Dictionary<long, University>();
+                var dicDepartment = new Dictionary<KeyValuePair<long, string>, Department>();
+
                 var boxes = UnitOfWork.CurrentSession.QueryOver<AcademicBox>().Where(w => w.IsDeleted == false)
                    .Where(w => w.Department == null)
                     .List();
@@ -99,6 +136,7 @@ namespace Zbang.Zbox.Domain.Services
             }
             using (UnitOfWork.Start())
             {
+                TraceLog.WriteInfo("Processing departments");
                 var departments = UnitOfWork.CurrentSession.QueryOver<Department>()
                  .List();
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
@@ -118,6 +156,7 @@ namespace Zbang.Zbox.Domain.Services
             }
             using (UnitOfWork.Start())
             {
+                TraceLog.WriteInfo("Processing users");
                 int index = 0;
                 bool needContinue = true;
                 while (needContinue)
@@ -154,40 +193,7 @@ namespace Zbang.Zbox.Domain.Services
                     }
                 }
             }
-            using (UnitOfWork.Start())
-            {
-
-
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var oldUniversities = UnitOfWork.CurrentSession.QueryOver<University2>()
-                        .List();
-                    foreach (var oldUniversity in oldUniversities)
-                    {
-                        var newUniversity = new University(oldUniversity.Id,
-                            oldUniversity.UniversityName,
-                            oldUniversity.Country,
-                            oldUniversity.Image,
-                            oldUniversity.ImageLarge,
-                            "sys")
-                        {
-                            LetterUrl = oldUniversity.LetterUrl,
-                            MailAddress = oldUniversity.MailAddress,
-                            NeedCode = oldUniversity.NeedCode,
-                            OrgName = oldUniversity.Name,
-                            TwitterUrl = oldUniversity.TwitterUrl,
-                            TwitterWidgetId = oldUniversity.TwitterWidgetId,
-                            WebSiteUrl = oldUniversity.WebSiteUrl,
-                            YouTubeUrl = oldUniversity.YouTubeUrl,
-
-                        };
-                        UnitOfWork.CurrentSession.SaveOrUpdate(newUniversity);
-                    }
-                    tx.Commit();
-
-
-                }
-            }
+            
 
 
 

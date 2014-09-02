@@ -126,6 +126,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //library
             ioc.RegisterType(typeof(ICommandHandler<CreateDepartmentCommand>),
                 typeof(CreateDepartmentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<SelectDepartmentCommand>),
+               typeof(SelectDepartmentCommandHandler));
 
         }
     }

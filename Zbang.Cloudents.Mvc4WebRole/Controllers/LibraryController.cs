@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [HttpGet,Ajax]
+        [HttpGet, Ajax]
         [ActionName("Choose")]
         public ActionResult ChooseIndex()
         {
@@ -249,6 +249,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
         #endregion
 
+        //[Ajax, HttpGet]
+        //public async Task<ActionResult> Departments(long universityId)
+        //{
+        //    var retVal = await ZboxReadService.GetDepartmentList(universityId);
+        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
+        //}
+
+
+        [HttpPost, Ajax]
+        public ActionResult SelectDepartment(long id)
+        {
+            var command = new SelectDepartmentCommand(id, GetUserId());
+            ZboxWriteService.SelectDepartment(command);
+            return Json(new JsonResponse(true));
+        }
+
         #region Create
 
 
@@ -265,15 +281,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
             }
-           
+
             try
             {
                 //var id = m_IdGenerator.Value.GetId();
-                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value);
+                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value, GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 return Json(new JsonResponse(true));
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
                 return Json(new JsonResponse(false, "unspecified error"));
             }
@@ -424,12 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
-        [Ajax, HttpGet]
-        public async Task<ActionResult> SelectDepartment(long universityId)
-        {
-            var retVal = await ZboxReadService.GetDepartmentList(universityId);
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
-        }
+       
 
         [Ajax, HttpGet]
         public async Task<ActionResult> Departments()

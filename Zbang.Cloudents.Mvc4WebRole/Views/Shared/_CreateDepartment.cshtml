@@ -4,12 +4,12 @@
 
 
 <div class="createDept" ng-style="{display: display.createDep ? 'block' : 'none'}">
-    <form novalidate name="createDepartmentForm" ng-submit="createDepSubmit(createDepartmentForm.$valid)">
+    <form novalidate name="createDepartmentForm" ng-submit="createDepartmentSubmit(createDepartmentForm.$valid)">
         @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
         @*@Html.ValidationSummary(true)*@
 
-        @Html.LabelFor(m => m.Name)        
-        @Html.TextBoxFor(m => m.Name, new { @class = "inputText" , ng_model = "formData.createDepartment.name", required="required"})
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText", ng_model = "formData.createDepartment.name", required = "required" })
         <button type="submit" class="btn1 rFloat" ng-disabled="createDepartmentForm.$invalid">@DialogResources.Create</button>
         <button type="button" class="btn2 rFloat" ng-click="backCreateDepartment()">@SharedResources.Back</button>
     </form>
