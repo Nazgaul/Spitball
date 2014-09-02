@@ -595,17 +595,22 @@
   display: block;
 }
 .formWpr.js-addDept,
-.formWpr.js-social {
+.formWpr.js-social,
+.formWpr.jsUpload {
   display: block;
 }
 .formWpr.js-addDept .courseType,
-.formWpr.js-social .courseType {
+.formWpr.js-social .courseType,
+.formWpr.jsUpload .courseType {
   display: none;
 }
 .formWpr.js-addDept .createDept {
   display: block;
 }
 .formWpr.js-social .socialInvite {
+  display: block;
+}
+.formWpr.jsUpload .uploadFiles {
   display: block;
 }
 .courseType {
@@ -852,6 +857,57 @@
 .socialList .emptySearch {
   width: auto;
   height: auto;
+}
+/*#endregion */
+/*#region Upload files */
+/*<section class="uploadFiles">
+    <header>@DialogResources.UploadFiles</header>
+
+    <div class="dragDropArea">@DialogResources.DragAndDrop</div>
+
+    <div class="uploadSrcWpr">
+        <button type="button" class="driveBtn"></button>
+        <button type="button" class="dropBoxBtn"></button>
+        <button type="button" class="linkBtn"></button>
+    </div>
+</section>*/
+.uploadFiles {
+  display: none;
+  text-align: center;
+}
+.uploadFiles header {
+  font-size: 20px;
+  color: #39434a;
+}
+.dragDropArea {
+  height: 250px;
+  border: 1px solid #39434a;
+  border-radius: 3px;
+  margin: 20px 0;
+  font-size: 18px;
+}
+.dragDropArea:before {
+  content: '';
+  display: block;
+  width: 126px;
+  height: 98px;
+  background: url(/Images/site.png) 0 -1142px no-repeat;
+  margin: 55px auto 20px;
+}
+.uploadSrcWpr {
+  height: 275px;
+  margin: 0 -25px -25px -25px;
+  background: #eee;
+  border-radius: 0 0 5px 5px;
+}
+.uploadSrcWpr button {
+  display: inline-block;
+  font-size: 18px;
+}
+.uploadSrcWpr button:before {
+  content: '';
+  background: url(/Images/site.png) no-repeat;
+  margin: 85px 0 10px;
 }
 /*#endregion */
 /*#endregion */
