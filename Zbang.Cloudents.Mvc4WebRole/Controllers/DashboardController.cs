@@ -122,11 +122,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         [Ajax, HttpGet]
-        public async Task<JsonResponse> RecommendedCourses()
+        public async Task<JsonResult> RecommendedCourses()
         {
             var query = new QueryBase(GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
-            return new JsonResponse(true, result);
+            return Json(new JsonResponse(true, result));
         }
 
     }
