@@ -79,13 +79,14 @@
 
     </div>
     <div class="searchCategoriesWpr">
-        @*(I think this is historic)Add class "showResults" to show the results of the search query (and hide original product list)*@
         <button type="button" class="lFloat">@StoreResources.Categories</button>
         <form class="searchForm rFloat">
             <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
             <button type="submit" class="searchProducts" ng-click="search($event)" ng-disabled="params.isSearching || !params.search.length">@StoreResources.Search</button>
         </form>
-    </div>
+
+        @*Ram: Add the categoryDD div (as in _Navigation or in the _Categories helper) HERE*@ 
+</div>
     <div class="productsListWpr">
         <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
             <li ng-repeat="product in products | limitTo: params.maxProducts">
