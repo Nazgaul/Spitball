@@ -16,7 +16,7 @@
     <nav class="storeNav">
         <ul class="navLinks">
             <li ng-class="{current : info.currentTab === 'home'}"><a href="@Url.RouteUrl("StoreRoot", new { universityid = Request.QueryString["universityId"] })">@StoreResources.Home</a></li>
-            <li ng-class="{current : info.currentTab === 'products'}"><button type="button" products-menu>@StoreResources.Products</button></li>
+            <li ng-class="{current : info.currentTab === 'products'}"><button type="button" products-menu>@StoreResources.Categories</button></li>
             <li ng-class="{current : info.currentTab === 'sales'}"><a href="@Url.RouteUrl("storeCategory", new { categoryid = 646, universityid = Request.QueryString["universityId"] })">@StoreResources.HotSales</a></li>
             <li ng-class="{current : info.currentTab === 'about'}"><a href="@Url.RouteUrl("StoreAbout", new { universityid = Request.QueryString["universityId"] })">@StoreResources.About</a></li>
             <li ng-class="{current : info.currentTab === 'contact'}"><a href="@Url.RouteUrl("StoreContact", new { universityid = Request.QueryString["universityId"] })">@StoreResources.ContactUs</a></li>
