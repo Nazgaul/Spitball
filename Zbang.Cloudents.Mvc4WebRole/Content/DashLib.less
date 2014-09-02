@@ -285,14 +285,6 @@
 
 /*#region new dashboard */
 
-.jsNewDash {
-    .setupCourse {
-        display: block;
-    }
-    .unionCourses, .groupBoxes {
-        display: none;
-    }
-}
 .jsDark {
     .dashboard{
         display: none!important; //override js
@@ -912,7 +904,7 @@
         display: block;
         width: 126px;
 	    height: 98px;
-	    background: @site-sprite  0 -1142px no-repeat;  //drive: width: 86px;height: 76px; 0 -431px
+	    background: @site-sprite  0 -1142px no-repeat;
         margin: 55px auto 20px;
     } 
 }
@@ -927,8 +919,27 @@
         &:before {
             content: '';
             background: @site-sprite no-repeat;
-            margin: 85px 0 10px;
+            margin: 85px auto 10px;
+            display: block;
         }
+    }
+    .linkBtn:before {
+        width: 82px;
+	    height: 79px;
+	    background-position: 0 -1240px;
+    }
+    .dropBoxBtn {
+        margin: 0 90px;
+        &:before {
+            width: 82px;
+	        height: 79px;
+	        background-position: 0 -1240px;
+        }
+    }
+    .driveBtn:before {
+        width: 86px;
+        height: 76px;
+        background-position: 0 -431px;
     }
 }
 /*#endregion */

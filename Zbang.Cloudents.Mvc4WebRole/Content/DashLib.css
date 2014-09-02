@@ -266,13 +266,6 @@
 }
 /*#endregion */
 /*#region new dashboard */
-.jsNewDash .setupCourse {
-  display: block;
-}
-.jsNewDash .unionCourses,
-.jsNewDash .groupBoxes {
-  display: none;
-}
 .jsDark .dashboard {
   display: none!important;
 }
@@ -907,7 +900,26 @@
 .uploadSrcWpr button:before {
   content: '';
   background: url(/Images/site.png) no-repeat;
-  margin: 85px 0 10px;
+  margin: 85px auto 10px;
+  display: block;
+}
+.uploadSrcWpr .linkBtn:before {
+  width: 82px;
+  height: 79px;
+  background-position: 0 -1240px;
+}
+.uploadSrcWpr .dropBoxBtn {
+  margin: 0 90px;
+}
+.uploadSrcWpr .dropBoxBtn:before {
+  width: 82px;
+  height: 79px;
+  background-position: 0 -1240px;
+}
+.uploadSrcWpr .driveBtn:before {
+  width: 86px;
+  height: 76px;
+  background-position: 0 -431px;
 }
 /*#endregion */
 /*#endregion */
