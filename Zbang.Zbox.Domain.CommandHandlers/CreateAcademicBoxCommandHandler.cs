@@ -44,22 +44,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             User user = UserRepository.Load(command.UserId);
             var department = m_DepartmentRepository.Load(academicCommand.DepartmentId);
-            //Library library = m_LibraryRepository.Get(academicCommand.NodeId);
+            var universityUser = user.University2;
 
-            //if (library == null)
-            //{
-            //    throw new NullReferenceException("library");
-            //}
-
-            //if (library.AmountOfNodes > 0)
-            //{
-            //    throw new ArgumentException("cannot add box to library with nodes");
-            //}
-            var universityUser =  user.University2;
-            //if (!Equals(universityUser, library.University))
-            //{
-            //    throw new ArgumentException("library user is not user university");
-            //}
 
 
             var box = m_AcademicRepository.CheckIfExists(academicCommand.CourseCode, department, academicCommand.Professor
@@ -68,22 +54,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new BoxNameAlreadyExistsException();
             }
+
             var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, department,
                   academicCommand.CourseCode, academicCommand.Professor,
                   picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath), universityUser);
 
-            //m_LibraryRepository.Save(library);
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
-            if (universityUser.Id != user.Id)
-            {
-                box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Subscribe));
-                SaveRepositories(user, box);
-
-            }
             SaveRepositories(user, box);
+
             box.CalculateMembers();
-            m_AcademicRepository.Save(box,true);
+            m_AcademicRepository.Save(box, true);
             box.GenerateUrl();
             m_AcademicRepository.Save(box);
             var result = new CreateBoxCommandResult(box, universityUser.UniversityName);
@@ -92,6 +73,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-       
+
     }
 }
