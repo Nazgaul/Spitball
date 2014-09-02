@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    interface IDepartmentRepository : Zbang.Zbox.Infrastructure.Repositories.IRepository<Department>
+    public interface IDepartmentRepository : Infrastructure.Repositories.IRepository<Department>
     {
         int GetBoxesInDepartment(Department dep);
     }

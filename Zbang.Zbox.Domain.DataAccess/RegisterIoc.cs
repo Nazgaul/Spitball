@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IUpdatesRepository, UpdatesRepository>();
             ioc.RegisterType<IMessageBaseRepository, MessageBaseRepository>();
             ioc.RegisterType<IQuizRepository, QuizRepository>();
+            ioc.RegisterType<IDepartmentRepository, DepartmentRepository>();
 
         }
     }

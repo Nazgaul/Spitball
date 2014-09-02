@@ -114,6 +114,9 @@ namespace Zbang.Zbox.Domain.Common
 
 
 
-        void CreateDepartment(global::Zbang.Zbox.Domain.Commands.CreateDepartmentCommand command);
+        void CreateDepartment(CreateDepartmentCommand command);
+
+
+        void CreateUniversity(CreateUniversityCommand command);
     }
 }

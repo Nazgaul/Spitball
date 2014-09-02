@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IAcademicBoxRepository m_AcademicRepository;
         private readonly IAcademicBoxThumbnailProvider m_AcademicBoxThumbnailProvider;
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IRepository<Department> m_DepartmentRepository;
+        private readonly IDepartmentRepository m_DepartmentRepository;
 
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<UserBoxRel> userBoxRelRepository,
             IAcademicBoxRepository academicRepository,
             IAcademicBoxThumbnailProvider academicBoxThumbnailProvider,
-            IBlobProvider blobProvider, IRepository<Department> departmentRepository)
+            IBlobProvider blobProvider, IDepartmentRepository departmentRepository)
             : base(boxRepository, userRepository, userBoxRelRepository)
         {
             m_AcademicRepository = academicRepository;
@@ -67,6 +67,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AcademicRepository.Save(box, true);
             box.GenerateUrl();
             m_AcademicRepository.Save(box);
+
+            department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
+
+            m_DepartmentRepository.Save(department);
+
             var result = new CreateBoxCommandResult(box, universityUser.UniversityName);
 
             return result;

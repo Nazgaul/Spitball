@@ -12,7 +12,6 @@ namespace Zbang.Zbox.Domain.Services
 
             ioc.RegisterType<Common.IZboxWriteService, ZboxWriteService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Common.IZboxServiceBootStrapper, ZboxWriteService>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Common.IZboxServiceBackgroundApp, ZboxWriteService>(LifeTimeManager.PerHttpRequest);
         }
     }
 }

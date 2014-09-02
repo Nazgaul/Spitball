@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {
-    public partial class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper, IZboxServiceBackgroundApp
+    public partial class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper
     {
         private readonly ICommandBus m_CommandBus;
 
