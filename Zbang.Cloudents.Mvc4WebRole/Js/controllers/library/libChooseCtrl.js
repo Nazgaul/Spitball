@@ -33,7 +33,7 @@
              //#endregion
 
              //#region search
-             var lastQuery;
+            var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
 
@@ -65,6 +65,13 @@
                  $scope.selectedUni = university;
                  $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                  $scope.display.complete = $scope.display.choose = true;
+
+                 sLibrary.updateUniversity(
+                     [{ name: 'UniversityId', value: universityId }]
+
+                     ).then(function () {
+
+                 });
              }
 
              //#endregion
@@ -77,6 +84,18 @@
              $scope.createDepartment = function () {
                  $scope.display.createDep = true;
                  $scope.display.choose = false;
+             };
+
+             $scope.createDepartmentSubmit = function (isValid) {
+                 if (!isValid) {
+                     return;
+                 }
+
+                 sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
+                     if (resposne.success) {
+                         $location.path('/dashboard/');
+                     }                     
+                 });
              };
 
              //#endregion
@@ -126,8 +145,12 @@
 
              };
 
-             $scope.chooseDepartment = function () {
-                 $location.path('/dashboard/');
+             $scope.chooseDepartment = function (department) {
+                 sLibrary.chooseDeparment({id : department.id}).then(function (response) {
+                     if (response.success) {
+                         $location.path('/dashboard/');
+                     }                     
+                 });                 
              };
 
              $scope.backDepartment = function () {
@@ -163,6 +186,24 @@
 
              };
 
+             $scope.createUniversitySubmit = function (isValid) {
+                 if (!isValid) {
+                     return;
+                 }
+
+                 sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
+                     var university = response.success ? response.payload : null;
+
+                     if (!univeristy) {
+                         //error
+                     }
+
+                     $scope.selectedUni = university;
+                     $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                     $scope.display.complete = $scope.display.createDep = true;
+                 });
+             };
+
              $scope.backUniversity = function () {
                  $scope.formData.createUniversity = {};
                  $scope.display.createUniversity = false;
@@ -174,4 +215,4 @@
 
              //cd.analytics.trackEvent('Library Choose', 'Search', term);
          }
-        ]);
+]);

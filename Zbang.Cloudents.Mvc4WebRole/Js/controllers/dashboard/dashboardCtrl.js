@@ -1,4 +1,4 @@
-﻿var mDashboard = angular.module('mDashboard', []);
+﻿var mDashboard = angular.module('mDashboard', ['wizard']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
@@ -10,7 +10,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
-
+    $scope.params = {};
     cd.pubsub.publish('dash_boxes');//statistics
     cd.analytics.setLibrary($('.uniText').text());
         
@@ -21,6 +21,44 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.myCourses = jsResources.CoursesFollow;
 
+    if ($scope.firstTime.dashboard) { //viewbag
+        //sDashboard.recommendedCourses({}).then(function (response) {
+        //var data = response.success ? response.payload : {};
+        //$scope.recommendedCourses = data;
+        //});
+
+        $scope.recommendedCourses = [{
+            url: '/someurl/',
+            friends: 30,
+            files: 30,
+            image: 'http://placehold.it/68x68',
+            name: 'camping',
+            id: 12345,
+            professor: 'Shlomi Kastoryano'
+
+        }, {
+            url: '/someurl/',
+            friends: 30,
+            files: 30,
+            image: 'http://placehold.it/68x68',
+            name: 'camping',
+            id: 12345,
+            professor: 'Shlomi Kastoryano'
+        }, {
+            url: '/someurl/',
+            friends: 30,
+            files: 30,
+            image: 'http://placehold.it/68x68',
+            name: 'camping',
+            id: 12345,
+            professor: 'Shlomi Kastoryano'
+        }];
+    }
+
+    $scope.openCreateBoxWizard = function () {
+        $rootScope.params.createBoxWizard = true;
+    };
+    
     sDashboard.boxList().then(function (data) {
         $scope.wall = data.payload.wall;
         $scope.friends = data.payload.friends;

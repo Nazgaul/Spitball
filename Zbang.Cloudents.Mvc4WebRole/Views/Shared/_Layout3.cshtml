@@ -8,6 +8,7 @@
     ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
     ViewBag.fItem = ViewBag.fItem ?? false;
+    ViewBag.firstTime = "{\"dashboard\":true,\"box\":false,\"library\":false,\"item\":false}";
 }
 <!DOCTYPE html>
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
@@ -36,7 +37,7 @@
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
 </head>
-<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz()}" >@*class="js-dark"*@
+<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(), 'js-dark' : $root.params.createBoxWizard}">@*class="js-dark"*@
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
@@ -71,15 +72,15 @@
         </div>
         <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
     </header>
-    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
+    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl" bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
 
         <div id="fb-root"></div>
 
-        <span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
+        @*<span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
               data-myf="@ViewBag.fDash.ToString().ToLower()"
               data-boxf="@ViewBag.fBox.ToString().ToLower()"
-              data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>
+              data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>*@
     </div>
 
     <div id="mLoading" class="loading" data-loader>

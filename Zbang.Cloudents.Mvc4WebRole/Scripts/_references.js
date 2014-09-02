@@ -180,6 +180,16 @@
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
 <<<<<<< HEAD
+/// <reference path="../js/controllers/quiz/challengectrl.js" />
+/// <reference path="../js/directives/quizgraph.js" />
+/// <reference path="../js/modules/angular-timer.js" />
+/// <reference path="../js/controllers/library/libchoosectrl.js" />
+/// <reference path="../js/directives/lazysrc.js" />
+/// <reference path="../js/modules/wizard.js" />
+/// <reference path="../js/controllers/dashboard/createboxwizardctrl.js" />
+=======
+>>>>>>> a3e7a82d2537c582253102e0657ecde3bdcc2c03
+<<<<<<< HEAD
 /// <reference path="../js/directives/backbutton.js" />
 /// <reference path="../js/directives/focuson.js" />
 /// <reference path="../js/directives/mloader.js" />
