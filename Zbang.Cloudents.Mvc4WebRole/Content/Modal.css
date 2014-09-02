@@ -7,7 +7,6 @@
 }
 /*#region BOOTSTRAP CLASSES*/
 .modal {
-  width: 600px;
   overflow: auto;
   position: fixed;
   top: 0;
