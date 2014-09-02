@@ -64,6 +64,15 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCourses(QueryBase query)
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = new DashboardDto();
+                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses, new { query.UserId });
+            }
+        }
+
 
 
         /// <summary>

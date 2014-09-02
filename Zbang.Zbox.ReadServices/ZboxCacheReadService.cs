@@ -337,5 +337,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
         }
+
+        public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query)
+        {
+            return m_ReadService.GetRecommendedCourses(query);
+        }
     }
 }
