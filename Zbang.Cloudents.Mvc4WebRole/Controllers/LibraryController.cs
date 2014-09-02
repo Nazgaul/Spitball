@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [HttpGet,Ajax]
+        [HttpGet, Ajax]
         [ActionName("Choose")]
         public ActionResult ChooseIndex()
         {
@@ -265,15 +265,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
             }
-           
+
             try
             {
                 //var id = m_IdGenerator.Value.GetId();
-                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value);
+                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value, GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 return Json(new JsonResponse(true));
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
                 return Json(new JsonResponse(false, "unspecified error"));
             }

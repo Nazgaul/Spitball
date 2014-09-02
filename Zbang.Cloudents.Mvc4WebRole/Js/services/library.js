@@ -70,7 +70,7 @@
 
                 return dfd.promise;
             },
-            searchUniversities : function(data){
+            searchUniversities: function (data) {
                 var dfd = $q.defer();
                 $http.get(Lib + 'SearchUniversity/', { params: data }).success(function (response) {
                     dfd.resolve(response);
@@ -93,6 +93,26 @@
             searchDepartment: function (data) {
                 var dfd = $q.defer();
                 $http.get(Lib + 'SearchDepartment/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            updateUniversity: function (data) {
+                var dfd = $q.defer();
+                $http.post('/Account/UpdateUniversity/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
+            createDepartment: function (data) {
+                var dfd = $q.defer();
+                $http.post(Lib + 'Create/', data).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);
