@@ -98,7 +98,7 @@
                     return;
                 }
                 cd.resetErrors($form);
-                cd.displayErrors($form, data.Payload);
+                cd.displayErrors($form, data.payload);
                 $submit.removeAttr(c);
             },
             error: function () {
@@ -126,16 +126,16 @@
             data: d,
             type: 'POST',
             success: function (data) {
-                if (data.Success) {
-                    if (data.Payload) {
-                        window.location.href = data.Payload;
+                if (data.success) {
+                    if (data.payload) {
+                        window.location.href = data.payload;
                         return;
                     }
                     window.location.reload();
                     return;
                 }
                 cd.resetErrors($form);
-                cd.displayErrors($form, data.Payload);
+                cd.displayErrors($form, data.payload);
                 $submit.removeAttr('disabled');
 
             },
@@ -164,11 +164,11 @@
                 returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
             },
             success: function (data) {
-                if (!data.Success) {
+                if (!data.success) {
                     cd.notification('there is a problem signing you in with facebook');
                     return;
                 }
-                var obj = data.Payload;
+                var obj = data.payload;
                 if (obj.isnew) {
                     FB.api('/me', function (response) {
                         var locale = response.locale.substr(0, response.locale.indexOf('_')),

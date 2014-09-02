@@ -24,11 +24,12 @@
                          $scope.display.facebook = true;
                      }
 
-                     $timeout(function () {
-                         $scope.$emit('viewContentLoaded');
-                     });
+                    
                  });
 
+             });
+             $timeout(function () {
+                 $scope.$emit('viewContentLoaded');
              });
              //#endregion
 

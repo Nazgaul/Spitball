@@ -30,13 +30,13 @@
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>*@
 <form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)">
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
 
     <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.DepartmentId)
         <span class="error">Department name required</span>
-        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.courseName", required = "required", disabled="disabled" })
-        <button class="changeDeptBtn" type="button">@IndexResources.ChangeDept</button>
+        @Html.TextBoxFor(m => m.DepartmentId, new { @class = "inputText", ng_model = "formData.department.name", required = "required", ng_disabled="!params.changeDepartment", ng_keyup="searchDepartment()"})
+        <button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>
     </div>
 
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">

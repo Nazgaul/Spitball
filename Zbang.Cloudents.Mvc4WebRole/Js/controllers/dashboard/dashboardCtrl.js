@@ -26,6 +26,8 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         var data = response.success ? response.payload : {};
         $scope.recommendedCourses = data;
         });
+
+        sDashboard.disableFirstTime();
     }
 
     $scope.openCreateBoxWizard = function () {
