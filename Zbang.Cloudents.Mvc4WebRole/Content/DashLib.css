@@ -297,7 +297,7 @@
   margin-bottom: 12px;
 }
 .setupCourse .closeDialog {
-  background: url(/Images/site.png) 0 -94px no-repeat;
+  background: url(/Images/site.png?v=1) 0 -94px no-repeat;
   width: 19px;
   height: 19px;
 }
@@ -331,7 +331,7 @@
   position: absolute;
   width: 65px;
   height: 59px;
-  background: url(/Images/site.png) 0 -35px no-repeat;
+  background: url(/Images/site.png?v=1) 0 -35px no-repeat;
   top: 63px;
   left: 7px;
 }
@@ -382,7 +382,7 @@
   display: block;
   width: 130px;
   height: 128px;
-  background: url(/Images/site.png) 0 -113px no-repeat;
+  background: url(/Images/site.png?v=1) 0 -113px no-repeat;
   margin: 0 auto;
 }
 .browseCourses {
@@ -476,7 +476,7 @@
   display: inline-block;
   width: 21px;
   height: 21px;
-  background: url(/Images/site.png) 0 -1405px no-repeat;
+  background: url(/Images/site.png?v=1) 0 -1405px no-repeat;
   position: absolute;
   left: -25px;
   top: 0;
@@ -714,7 +714,7 @@
 .socialWpr button {
   width: 91px;
   height: 91px;
-  background: url(/Images/site.png) no-repeat;
+  background: url(/Images/site.png?v=1) no-repeat;
   margin: 40px 0;
 }
 .socialWpr .cloudentsBtn {
@@ -891,7 +891,7 @@
   display: block;
   width: 126px;
   height: 98px;
-  background: url(/Images/site.png) 0 -1142px no-repeat;
+  background: url(/Images/site.png?v=1) 0 -1142px no-repeat;
   margin: 55px auto 20px;
 }
 .uploadSrcWpr {
@@ -906,7 +906,7 @@
 }
 .uploadSrcWpr button:before {
   content: '';
-  background: url(/Images/site.png) no-repeat;
+  background: url(/Images/site.png?v=1) no-repeat;
   margin: 85px 0 10px;
 }
 /*#endregion */
