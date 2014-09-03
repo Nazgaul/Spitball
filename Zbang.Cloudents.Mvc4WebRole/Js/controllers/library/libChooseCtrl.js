@@ -24,7 +24,7 @@
                          $scope.display.facebook = true;
                      }
 
-                    
+
                  });
 
              });
@@ -69,7 +69,7 @@
 
                  sLibrary.updateUniversity(
                      {
-                         UniversityId : university.id
+                         UniversityId: university.id
                      }
 
                      ).then(function (response) {
@@ -173,20 +173,12 @@
                  if (!isValid) {
                      return;
                  }
-                 console.log($scope.formData.createUniversity);
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
                      var university = response.success ? response.payload : null;
-
-                     
-                     /*id: 920
-                 //    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/a58b4e80-1cba-4905-9c67-a0a880c09f41.jpg"
-                 //    name: "האוניברסיטה הפתוחה"*/
-                     if (!univeristy) {
-                         //error
+                     if (!university) {
                      }
-
                      $scope.selectedUni = university;
-                     $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                     $scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                      $scope.display.complete = $scope.display.createDep = true;
                  });
              };

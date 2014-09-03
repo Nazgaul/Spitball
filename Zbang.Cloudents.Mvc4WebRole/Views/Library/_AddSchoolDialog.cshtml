@@ -20,7 +20,7 @@
 
         <div class="lFloat countryWpr">
             @Html.LabelFor(m => m.Country)
-            @Html.EditorFor(m=>m.Country)
+            @Html.EditorFor(m=>m.Country, new { ng_init = "formData.createUniversity.country="+ Model.Country})
             @*<select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.country"  required>
 
                 </select>*@
