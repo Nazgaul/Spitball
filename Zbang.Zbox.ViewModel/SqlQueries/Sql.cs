@@ -43,7 +43,7 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 	                                      ) t
 	                                      order by t.date desc;";
         //todo: check if we can improve this sql query
-        public const string GetUniversityDataByUserId = @"  select  uu.UserId as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
+        public const string GetUniversityDataByUserId = @" select  uu.Id as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
                             uWrap.FacebookUrl,
@@ -52,12 +52,12 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             uWrap.YouTubeUrl,
                             uWrap.LetterUrl,
                             (select count(*) from zbox.Box b 
-                            where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
+                            where b.University = uu.Id and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
                             (select sum(itemcount) from zbox.Box b 
-                            where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId in ( uu.UserId , uWrap.Id)) as MemberCount
-                            from zbox.Users uu , zbox.University uWrap  
-                            where uu.UserId = @UserId
+                            where b.University = uu.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
+                            (select count(*) from zbox.Users u where u.UniversityId in ( uu.Id , uWrap.Id)) as MemberCount
+                            from zbox.University uu , zbox.University uWrap  
+                            where uu.Id = @UserId
                             and uWrap.Id =@UniversityWrapper";
 
         /// <summary>
