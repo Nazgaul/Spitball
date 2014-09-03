@@ -1,10 +1,10 @@
 ﻿mLibrary.controller('CreateBoxLibCtrl',
         ['$scope',
          '$modalInstance',
-         'sLibrary',
+         'sBox',
          'parentId',
 
-         function ($scope, $modalInstance, sLibrary, parentId) {
+         function ($scope, $modalInstance, sBox, parentId) {
              $scope.formData = {
                  parentId: parentId
              };
@@ -14,7 +14,7 @@
                      return;
                  }
 
-                 sLibrary.box.create($scope.formData).then(function (response) {
+                 sBox.createAcademic($scope.formData).then(function (response) {
                      if (!response.success) {
                          alert(response.payload || response.Payload);
                          return;
