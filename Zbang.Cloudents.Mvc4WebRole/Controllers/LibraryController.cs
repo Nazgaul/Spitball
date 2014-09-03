@@ -297,6 +297,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
+
+
         [HttpPost]
         [Ajax]
         //[ValidateAntiForgeryToken]
@@ -375,14 +377,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [Ajax]
-        public async Task<ActionResult> UniversityRequest(CreateUniversity model)
+        public ActionResult CreateUniversity(CreateUniversity model)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            await m_TableProvider.Value.InsertUserRequestAsync(new Zbox.Infrastructure.Storage.Entities.NewUniversity(model.Name, GetUserId(), model.Country, model.SchoolType));
-            return Json(new JsonResponse(true));
+            var id = m_IdGenerator.Value.GetId(IdGenerator.UniversityScope);
+            var command = new CreateUniversityCommand(id, model.Name, model.Country,
+                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
+                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
+            ZboxWriteService.CreateUniversity(command);
+
+            return Json(new JsonResponse(true, new
+            {
+                id,
+                image = "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
+                name = model.Name
+            }));
         }
 
         [Ajax, HttpGet]
@@ -440,7 +452,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
-       
+
 
         [Ajax, HttpGet]
         public async Task<ActionResult> Departments()

@@ -117,6 +117,16 @@
                 });
 
                 return dfd.promise;
+            },
+            createUniversity: function (data) {
+                var dfd = $q.defer();
+                $http.post(Lib + 'CreateUniversity/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             }
         };
     }

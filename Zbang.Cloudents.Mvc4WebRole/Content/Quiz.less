@@ -664,7 +664,7 @@ body {
     }
     .backWpr {
         &:before {
-            background: url(/Images/site.png) 0 0 no-repeat;
+            background: @site-sprite 0 0 no-repeat;
         }
         &:hover:before {
             background-position: 0 0;
@@ -675,7 +675,7 @@ body {
         &:before {
             width: 22px;
 	        height: 18px;
-	        background: url(/Images/site.png) 0 -1090px;
+	        background: @site-sprite 0 -1090px;
         }
         &:hover:before {
             background-position: 0 -1124px;
@@ -1027,8 +1027,8 @@ body {
 /*#endregion */
 /*#region Quiz Dialog */
 
-.modal-dialog {
-    &.quizPopup {
+.modal {
+    &.quizPopup .modal-dialog {
         width: 700px;
         height: 350px;
         background: #fff;

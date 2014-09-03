@@ -24,7 +24,7 @@
                          $scope.display.facebook = true;
                      }
 
-                    
+
                  });
 
              });
@@ -69,7 +69,7 @@
 
                  sLibrary.updateUniversity(
                      {
-                         UniversityId : university.id
+                         UniversityId: university.id
                      }
 
                      ).then(function (response) {
@@ -98,7 +98,7 @@
                  if (!isValid) {
                      return;
                  }
-
+                 $scope.createDepartmentForm.$invalid = true;
                  sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
                      if (response.success) {
                          $location.path('/dashboard/');
@@ -173,16 +173,12 @@
                  if (!isValid) {
                      return;
                  }
-
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
                      var university = response.success ? response.payload : null;
-
-                     if (!univeristy) {
-                         //error
+                     if (!university) {
                      }
-
                      $scope.selectedUni = university;
-                     $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                     $scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                      $scope.display.complete = $scope.display.createDep = true;
                  });
              };

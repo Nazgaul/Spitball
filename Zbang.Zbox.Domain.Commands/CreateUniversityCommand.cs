@@ -6,6 +6,8 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public CreateUniversityCommand(long id, string name, string country, string smallImage, string largeImage, long userId)
         {
+            //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
+            //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg"
             UserId = userId;
             LargeImage = largeImage;
             SmallImage = smallImage;

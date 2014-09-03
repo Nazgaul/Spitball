@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Infrastructure.IdGenerator
         public const string ItemAnnotationReplyScope = "ItemReply";
         public const string QuizScope = "Quiz";
         public const string DepartmentScope = "Department";
+        public const string UniversityScope = "University";
 
 
         // private readonly SnowMaker.BlobOptimisticDataStore m_DataStorage;

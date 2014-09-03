@@ -48,7 +48,7 @@ select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and Use
 
         public const string TopUsers = @"  select username as Name, userimage as Image 
   from zbox.users where userid in (
-  select top(3) userid from zbox.[SolvedQuiz] where quizid = 342 order by score desc)";
+  select top(3) userid from zbox.[SolvedQuiz] where quizid = @QuizId order by score desc)";
 
         public const string Discussion = @"select qd.Id,
 u.UserName,

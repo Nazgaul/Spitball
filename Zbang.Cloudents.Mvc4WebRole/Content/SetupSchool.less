@@ -9,8 +9,8 @@
     margin: 70px auto 0;
     text-align: left; /*rtl*/
     &.libraryChoose {
-        //margin-top: 132px; //diff rtl
-        margin-top: @header-height;
+        margin-top: 0; //override
+        padding-top: @header-height;
     }
     h2 {
         font-size: 18px;
@@ -171,7 +171,7 @@
             .pseudo;
             width: 41px;
 	        height: 34px;
-	        background: url(/Images/site.png) 0 -1108px #fff;
+	        background: @site-sprite 0 -1108px #fff;
             position: absolute;
             top: 23px;
             left: 28px; //rtl
@@ -200,7 +200,7 @@
     top: -110px;
     left: -49px; //rtl
     font-size: 15px;
-    margin: 0 auto;
+    margin: 130px auto 0;
     background: #fff;
     .top {
         height: 80px;
@@ -236,7 +236,7 @@
     border-radius: 3px;
     border: 1px solid @borderColor;
     font-size: 15px;
-    margin: 0 auto;
+    //margin: 0 auto;
     background: #fff;
     
     .uniImg {

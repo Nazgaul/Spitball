@@ -19,6 +19,9 @@ mQuiz.controller('QuizCtrl',
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
                 $scope.quiz = response.payload.quiz;
+
+               
+
                 questions = angular.copy(response.payload.quiz.questions, questions);
 
 
@@ -37,7 +40,7 @@ mQuiz.controller('QuizCtrl',
                     }
                 }
 
-
+                populateTopUsers();
                 if (response.payload.sheet) {
                     response.payload.sheet.answerSheet = response.payload.sheet.questions;
                     $scope.formData = response.payload.sheet;
@@ -58,6 +61,12 @@ mQuiz.controller('QuizCtrl',
                         setResults();
                     }
                 }
+                function populateTopUsers() {
+                    var topUsers = $scope.quiz.topUsers || [];
+                    for (var i = topUsers.length; i < 3; i++) {
+                        topUsers.push({ name: '', image: '' });
+                    }
+                }
 
                 $timeout(function () {
                     $scope.$emit('viewContentLoaded');
@@ -75,10 +84,17 @@ mQuiz.controller('QuizCtrl',
                         windowClass: 'quizPopup',
                         templateUrl: '/Quiz/ChallengePartial/?quizid=' + $scope.quiz.id,
                         controller: 'ChallengeCtrl',
-                        backdrop: 'static'
+                        backdrop: 'static',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    users: $scope.quiz.topUsers
+                                };
+                            }
+                        }
                     });
 
-                    modalInstance.result.then(function (response) {                        
+                    modalInstance.result.then(function () {                        
                         solveQuiz();
                         getDiscussion();
                         $scope.quiz.afraid = true;
@@ -204,7 +220,7 @@ mQuiz.controller('QuizCtrl',
                     userAnswer, question;
                 for (var i = 0; i < $scope.quiz.questions.length; i++) {
                     question = $scope.quiz.questions[i];
-                    var userAnswer = _.find(answerSheet, function (item) {
+                    userAnswer = _.find(answerSheet, function (item) {
                         return item.question.id === question.id;
                     });
                     if (userAnswer) {
@@ -249,7 +265,7 @@ mQuiz.controller('QuizCtrl',
                 $scope.formData.answers = _.map($scope.formData.answerSheet, function (answer) {
                     return { questionId: answer.question.id, answerId: answer.answer.id }
                 });
-                sQuiz.saveAnswers($scope.formData).then(function (response) { });
+                sQuiz.saveAnswers($scope.formData).then(function () { });
             }
 
             function resetQuiz() {
@@ -317,7 +333,6 @@ mQuiz.controller('QuizCtrl',
 
                 if (comments.length === 1) {
                     return comments.length + ' ' + JsResources.Comment;
-                    return;
                 }
 
                 return comments.length + ' ' + JsResources.Comments;
@@ -337,13 +352,14 @@ mQuiz.controller('QuizCtrl',
                     question.comments = [];
                 }
 
-                question.comments.push(comment)
+                question.comments.push(comment);
                 question.newComment = '';
                 sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(
                     function (response) {
                         comment.id = response.payload;
-                    },
-                    function (response) { }
+                    }
+                    //,
+                    //function (response) { }
                    );
             };
 
@@ -352,8 +368,8 @@ mQuiz.controller('QuizCtrl',
                 question.comments.splice(index, 1);
 
                 sQuiz.discussion.deleteDiscussion({ id: comment.id }).then(
-                    function (response) { },
-                    function (response) { }
+                    //function (response) { },
+                    //function (response) { }
                    );
             };
             function getDiscussion() {
@@ -387,7 +403,14 @@ mQuiz.controller('QuizCtrl',
             //#region share
 
             $scope.shareFB = function () {
-
+                //Facebook.share($scope.info.url, //url
+                //      $scope.info.name, //title
+                //       $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
+                //       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
+                //        null //picture
+                //   ).then(function () {
+                //       cd.pubsub.publish('addPoints', { type: 'shareFb' });
+                //   });
             };
 
             $scope.shareEmail = function () {

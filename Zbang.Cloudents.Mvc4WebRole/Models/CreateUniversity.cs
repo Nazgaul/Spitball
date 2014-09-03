@@ -13,9 +13,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         [Required(ErrorMessageResourceType = typeof(CreateUniversityResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateUniversityResources), Name = "Country")]
+        [MaxLength(2)]
+        [UIHint("Countries")]
         public string Country { get; set; }
 
         [Display(ResourceType = typeof(CreateUniversityResources), Name = "Type")]
-        public SchoolType SchoolType { get; set; }
+        public SchoolType Type { get; set; }
     }
 }
