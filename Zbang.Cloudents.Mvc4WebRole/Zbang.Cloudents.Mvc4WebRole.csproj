@@ -1549,6 +1549,7 @@
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Dashboard\_SocialInvite.cshtml" />
     <Content Include="Views\Shared\_UploadFiles.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

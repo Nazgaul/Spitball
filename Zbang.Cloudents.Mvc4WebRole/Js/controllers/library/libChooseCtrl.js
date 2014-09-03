@@ -98,7 +98,7 @@
                  if (!isValid) {
                      return;
                  }
-
+                 $scope.createDepartmentForm.$invalid = true;
                  sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
                      if (response.success) {
                          $location.path('/dashboard/');
@@ -173,10 +173,14 @@
                  if (!isValid) {
                      return;
                  }
-
+                 console.log($scope.formData.createUniversity);
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
                      var university = response.success ? response.payload : null;
 
+                     
+                     /*id: 920
+                 //    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/a58b4e80-1cba-4905-9c67-a0a880c09f41.jpg"
+                 //    name: "האוניברסיטה הפתוחה"*/
                      if (!univeristy) {
                          //error
                      }

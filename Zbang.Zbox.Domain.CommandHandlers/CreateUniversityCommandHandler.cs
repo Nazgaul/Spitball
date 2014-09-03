@@ -25,8 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(message.UserId);
             var university = new University(message.Id, message.Name, message.Country,
                 message.SmallImage, message.LargeImage, user.Email
-                //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
-                //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg"
+               
                 );
             m_UniversityRepository.Save(university);
 

@@ -161,12 +161,12 @@
     u.LastName as LastName,
     
     u.ImageLarge as Image, 
-    v.Name as University,
+    v.OrgName as University,
     v.Image as UniversityPic,
     u.Email as Email,
     u.Culture as Language,
     u.Quota.AllocatedSize as AllocatedSize, u.Quota.UsedSpace as UsedSpace
-    from User u left join u.University v
+    from User u left join u.University2 v
     where u.Id = :UserId
     ]]>
   </query>

@@ -65,7 +65,7 @@
         </ul>
 
         @{
-            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity());
+            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity { Country = ViewBag.country });
         }
 
         <div class="completeRegistration" ng-style="{display: display.complete ? 'block' : 'none'}" bindonce>
