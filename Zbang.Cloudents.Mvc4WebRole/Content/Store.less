@@ -287,16 +287,18 @@ main {
     display: none;
     width: 940px;
     height: 390px;
-    position: absolute;
-    top: 79px;
-    left: -50px; /*rtl*/
+    position: fixed;
+    top: 115px;
+    left: 0; /*rtl*/
+    right:0;
+    margin:auto;
     background: @shopping-black;
     //border-radius: 5px 5px 0 0;
     padding: 20px;
     .boxSizing;
     z-index: 2;
 
-    &:before {
+    /*&:before {
         .pseudo;
         width: 0;
         height: 0;
@@ -305,9 +307,9 @@ main {
         border-color: transparent transparent @shopping-black transparent;
         position: absolute;
         top: -18px;
-        //left: 240px; /*rtl*/
-        left: 269px; /*diff rtl*/
-    }
+        //left: 240px; 
+        left: 269px; 
+    }*/
     &:after {
         .pseudo;
         position: absolute;

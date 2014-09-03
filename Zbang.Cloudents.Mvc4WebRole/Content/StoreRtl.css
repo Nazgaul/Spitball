@@ -46,14 +46,11 @@ header h1 {
 /*#endregion */
 /*#region products drop down */
 .categoryDD {
-  right: -50px;
-  /*rtl*/
-  left: auto;
-}
-.categoryDD:before {
-  right: 267px;
-  /* diff rtl*/
-  left: auto;
+  /*&:before {
+        //right: 260px; 
+        right: 267px; 
+        left: auto;
+    }*/
 }
 .categoryDD:after {
   left: 0;

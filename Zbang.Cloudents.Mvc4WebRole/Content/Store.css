@@ -264,29 +264,30 @@ main {
   display: none;
   width: 940px;
   height: 390px;
-  position: absolute;
-  top: 79px;
-  left: -50px;
+  position: fixed;
+  top: 115px;
+  left: 0;
   /*rtl*/
+  right: 0;
+  margin: auto;
   background: #39434a;
   padding: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   z-index: 2;
-}
-.categoryDD:before {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 19px 18px 19px;
-  border-color: transparent transparent #39434a transparent;
-  position: absolute;
-  top: -18px;
-  left: 269px;
-  /*diff rtl*/
+  /*&:before {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 19px 18px 19px;
+        border-color: transparent transparent @shopping-black transparent;
+        position: absolute;
+        top: -18px;
+        //left: 240px; 
+        left: 269px; 
+    }*/
 }
 .categoryDD:after {
   content: '';

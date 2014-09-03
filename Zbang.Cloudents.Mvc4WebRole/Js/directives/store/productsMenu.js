@@ -6,7 +6,7 @@
             restrict: "A",
             link: function (scope, elem, attrs) {
                 var $nav = $('nav');
-                //$body = $('body');
+                $body = $('body');
 
                 elem.on('click', function (e) {
                     e.stopPropagation();
@@ -19,6 +19,9 @@
 
                 $nav.on('mouseleave', function (e) {
 
+                    $nav.removeClass('showProducts');
+                });
+                $(window).scroll(function () {
                     $nav.removeClass('showProducts');
                 });
 
