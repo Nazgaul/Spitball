@@ -180,9 +180,7 @@
 <div class="formWpr" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
      wizard-on-finish="completewizard()" template="'wizard.html'" ng-if="$root.params.createBoxWizard">
     <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
-
-        <div>
-            @*wz-step template="'step.html'"*@
+        <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
                 <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
@@ -211,12 +209,18 @@
 
             @{
                 Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }
+        </div>
+        <div wz-step template="'step.html'">
+            @{
                 Html.RenderPartial("_SocialInvite");
+            }
+        </div>
+        <div wz-step template="'step.html'">
+            @{
                 Html.RenderPartial("_UploadFiles");
             }
         </div>
-
-        @*</div>*@
     </div>
 </div>
 
