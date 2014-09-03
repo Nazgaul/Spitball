@@ -29,32 +29,33 @@
     </form>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>*@
-<form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)">
+<form name="createAcademicBox" novalidate ng-submit="createAcademixBox(createAcademicBox.$valid)">
     @*@Html.AntiForgeryToken()*@
 
     <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
-        @Html.LabelFor(m => m.DepartmentId)
+        @*@Html.LabelFor(m => m.DepartmentId)*@
+        <label for="DepartmentId">Department</label>
         <span class="error">Department name required</span>
-        @Html.TextBoxFor(m => m.DepartmentId, new { @class = "inputText", ng_model = "formData.department.name", required = "required", ng_disabled="!params.changeDepartment", ng_keyup="searchDepartment()"})
+        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch" required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
+        @*@Html.TextBoxFor(m => m.DepartmentId, new { @class = "inputText", ng_model = "formData.departmentName", required = "required", ng_disabled="!params.changeDepartment", ng_keyup="searchDepartment()"})*@
         <button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>
     </div>
 
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.CourseName)
         <span class="error">CourseName required</span>
-        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.courseName", required = "required" })
+        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.academicBox.courseName", required = "required" })
     </div>
     <div class="lFloat courseId">
         @Html.LabelFor(m => m.CourseId)
-        @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.courseId" })
+        @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.academicBox.courseId" })
     </div>
-
 
     <div class="professor rFloat">
         @Html.LabelFor(m => m.Professor)
-        @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.professor" })
+        @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
     </div>
-
+    <input type="hidden" ng-model="formData.academicBox.departmentId" required />
     <input type="submit" class="btn1 next rFloat" value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 cancel rFloat" ng-click="cancel()">@SharedResources.Back</button>
 

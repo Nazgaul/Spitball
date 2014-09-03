@@ -177,7 +177,7 @@
 </div>
 </div>
 
-<div class="formWpr jsUpload"> @*ng-if="$root.params.createBoxWizard"*@
+<div class="formWpr js-academic"> @*ng-if="$root.params.createBoxWizard"*@
     <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
         @*<div class="formWpr"
               ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
@@ -185,13 +185,13 @@
             <div>   @*wz-step template="'step.html'"*@
                 <div class="actionTxt">@IndexResources.CreateCourse</div>
                 <div class="courseType">
-                    <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
+                    <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privateBox.privacySettings" />
                     <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
                     <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
                 </div>
 
                 <div class="courseType">
-                    <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
+                    <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privateBox.privacySettings"/>
                     <label for="OpenCourse">@IndexResources.OpenCourse</label>
                     <div class="labelExplain">@IndexResources.AnyoneUrl</div>
                 </div>

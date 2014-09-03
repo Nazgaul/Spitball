@@ -3,7 +3,7 @@
          '$modalInstance',
          'sBox',
 
-         function ($scope, $modalInstance, Box) {
+         function ($scope, $modalInstance, sBox) {
              $scope.formData = {
                  privacySettings: 'AnyoneWithUrl'
              };
@@ -13,7 +13,7 @@
                      return;
                  }
 
-                 Box.create($scope.formData).then(function (box) {
+                 sBox.createPrivate($scope.formData).then(function (box) {
                      $modalInstance.close(box.payload || box.Payload);
                  });
              };
