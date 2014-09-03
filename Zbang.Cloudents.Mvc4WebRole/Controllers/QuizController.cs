@@ -35,27 +35,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
-            var query = new GetQuizSeoQuery(quizId);
-
-            var model = await ZboxReadService.GetQuizSeo(query);
-
-            if (Request.Url != null && model.Url != Request.Url.AbsolutePath)
+            try
             {
-                throw new ItemNotFoundException();
+                var query = new GetQuizSeoQuery(quizId);
+
+                var model = await ZboxReadService.GetQuizSeo(query);
+
+                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                {
+                    throw new ItemNotFoundException();
+                }
+
+                if (model == null || string.IsNullOrEmpty(model.Country)) return View("Empty");
+
+                var culture = Languages.GetCultureBaseOnCountry(model.Country);
+                BaseControllerResources.Culture = culture;
+                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
+                    model.Name,
+                    BaseControllerResources.QuizTitleText,
+                    model.BoxName,
+                    model.UniversityName,
+                    BaseControllerResources.Cloudents);
+                ViewBag.metaDescription = model.FirstQuestion;
+                return View("Empty");
             }
+            catch (ItemNotFoundException)
+            {
 
-            if (model == null || string.IsNullOrEmpty(model.Country)) return View("Empty");
-
-            var culture = Languages.GetCultureBaseOnCountry(model.Country);
-            BaseControllerResources.Culture = culture;
-            ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
-                model.Name,
-                BaseControllerResources.QuizTitleText,
-                model.BoxName,
-                model.UniversityName,
-                BaseControllerResources.Cloudents);
-            ViewBag.metaDescription = model.FirstQuestion;
-            return View("Empty");
+                return RedirectToAction("index", "error");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("quiz ", ex);
+                return RedirectToAction("index", "error");
+            }
         }
 
 
@@ -115,12 +128,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        public ActionResult ChallengePartial()
+        //[OutputCache(Duration = TimeConsts.Hour, 
+        //    Location = OutputCacheLocation.Any, VaryByParam = "none",
+        //    VaryByCustom = CustomCacheKeys.Lang)]
+        public async Task<ActionResult> ChallengePartial(long quizId)
         {
             try
             {
-                return PartialView("_QuizDialog");
+                var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
+                if (numberOfSolvers > 3)
+                {
+                    numberOfSolvers -= 3;
+                }
+                return PartialView("_QuizDialog", numberOfSolvers);
             }
             catch (Exception ex)
             {

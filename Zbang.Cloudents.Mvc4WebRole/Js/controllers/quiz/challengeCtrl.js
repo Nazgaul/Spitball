@@ -1,15 +1,14 @@
 ﻿mDashboard.controller('ChallengeCtrl',
         ['$scope',
-         '$modalInstance',  
-
+         '$modalInstance',
          function ($scope, $modalInstance) {
 
              $scope.afraidTry = function () {
-                 $modalInstance.close(); 
+                 $modalInstance.close();
              };
 
              $scope.takeChance = function () {
                  $modalInstance.dismiss();
-             };             
+             };
          }
         ]);

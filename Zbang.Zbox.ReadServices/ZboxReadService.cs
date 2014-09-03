@@ -68,7 +68,6 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = new DashboardDto();
                 return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses, new { query.UserId });
             }
         }
@@ -897,6 +896,15 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
 
+        }
+
+        public async Task<int> GetNumberOfSolvers(long quizId)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<int>(Sql.Quiz.NumberOfQuizSolved, new {QuizId = quizId});
+                return retVal.FirstOrDefault();
+            }
         }
         #endregion
 

@@ -133,3 +133,9 @@
 	height: 98px;
 	background: url('site.png') 0 -1426px;
 }
+@mixin sprite-Images-earth() {
+/* You may have to set 'display: block' */
+	width: 79px;
+	height: 78px;
+	background: url('site.png') 0 -1524px;
+}
