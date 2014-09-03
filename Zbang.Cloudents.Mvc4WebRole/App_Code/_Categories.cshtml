@@ -1,18 +1,19 @@
-﻿@*@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Zbox.ViewModel.Dto.Store
-@{
-    var model = ViewBag.categories as IList<CategoryDto> ?? new List<CategoryDto>();
-}
+
 @helper Category(IEnumerable<CategoryDto> categories)
 {
+    var url = new System.Web.Mvc.UrlHelper(Context.Request.RequestContext);
     <ul>
         @foreach (var sub in categories)
         {
-            <li><a href="@Url.RouteUrl("storeCategory",new {categoryid = sub.Id,universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@sub.Name</a></li>
+            
+            <li><a href="@url.RouteUrl("storeCategory", new { categoryid = sub.Id, universityId = Request.QueryString["universityId"], producerId = Request.QueryString["producerId"] })">@sub.Name</a></li>
         }
     </ul>
 }
-@helper ProductCategories() {
+@helper ProductCategories(IList<CategoryDto> model) {
     <div class="categoryDD">
         <ul class="categoryList">
             <li class="spr-computer">
@@ -95,4 +96,4 @@
             </li>
         </ul>
     </div>
-}*@
+}

@@ -1,6 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@model IList<Zbang.Zbox.ViewModel.Dto.Store.BannerDto>
+@using Zbang.Zbox.ViewModel.Dto.Store
+@model IList<BannerDto>
 
 <div class="storeWpr page" ng-class="{noBanners : hideBanners()}">
     @{Html.RenderPartial("_Navigation");}
@@ -79,13 +80,18 @@
 
     </div>
     <div class="searchCategoriesWpr">
-        <button type="button" class="lFloat">@StoreResources.Categories</button>
+        <button type="button" class="lFloat" products-menu>@StoreResources.Categories</button>
         <form class="searchForm rFloat">
             <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
             <button type="submit" class="searchProducts" ng-click="search($event)" ng-disabled="params.isSearching || !params.search.length">@StoreResources.Search</button>
         </form>
-
-        @*Ram: Add the categoryDD div (as in _Navigation or in the _Categories helper) HERE*@ 
+       @{
+           var model = ViewBag.categories as IList<CategoryDto>
+                       ?? new List<CategoryDto>
+                           ();
+           @_Categories.ProductCategories(model)
+       }
+      
 </div>
     <div class="productsListWpr">
         <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
