@@ -83,9 +83,9 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sqlQuery = @"select uWrap.userName as Name, uWrap.UserImageLarge as Img  , uWrap.AdvertismentUrl as AdvertismentUrl
-                  from zbox.users uWrap  
-                  where uWrap.UserId = @universityDbQuery";
+                const string sqlQuery = @"select uWrap.OrgName as Name, uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertismentUrl
+                  from zbox.university uWrap  
+                  where uWrap.Id = @universityDbQuery";
 
                 var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(sqlQuery, new { universityDbQuery = query.UniversityId });
                 return retVal.FirstOrDefault();

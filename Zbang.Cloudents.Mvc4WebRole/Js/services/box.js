@@ -6,7 +6,7 @@ mBox.factory('sBox',
     function ($http, $q) {
         var Box = '/Box/';
         return {
-            create: function (data) {
+            createPrivate: function (data) {
                 var dfd = $q.defer();
                 $http.post('/Dashboard/Create/', data).success(function (response) {
                     dfd.resolve(response);
@@ -16,13 +16,14 @@ mBox.factory('sBox',
 
                 return dfd.promise;
             },
-            remove: function (data) {
+            createAcademic: function (data) {
                 var dfd = $q.defer();
-                $http.post(Box + 'Delete2/', data).success(function (response) {
+                $http.post('/Library/CreateBox/', data).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);
                 });
+
                 return dfd.promise;
             },
             update: function (data) {

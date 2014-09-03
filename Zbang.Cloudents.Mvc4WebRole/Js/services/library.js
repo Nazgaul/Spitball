@@ -16,18 +16,6 @@
 
                 return dfd.promise;
             },
-            box: {
-                create: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Lib + 'CreateBox/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
-                }
-            },
             department: {
                 create: function (data) {
                     var dfd = $q.defer();
