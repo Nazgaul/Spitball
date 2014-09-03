@@ -73,7 +73,7 @@ mQuiz.controller('QuizCtrl',
 
                     var modalInstance = $modal.open({
                         windowClass: 'quizPopup',
-                        templateUrl: '/Quiz/ChallengePartial/',
+                        templateUrl: '/Quiz/ChallengePartial/?quizid=' + $scope.quiz.id,
                         controller: 'ChallengeCtrl',
                         backdrop: 'static'
                     });
@@ -90,7 +90,7 @@ mQuiz.controller('QuizCtrl',
             $scope.timer = {
                 state: 'Play'
             };
-
+       
             //#region quiz
             $scope.takeQuiz = function () {
                 if ($scope.quiz.afraid) {
@@ -153,6 +153,9 @@ mQuiz.controller('QuizCtrl',
                 startTimer();
 
             };
+            $scope.$on('$destroy', function () {
+                $timeout.cancel(challengeTimeout);
+            });
 
 
             $scope.$on('timer-stopped', function (event, data) {

@@ -60,5 +60,9 @@ qd.QuestionId
 from zbox.QuizDiscussion qd
 left join zbox.Users u on u.UserId = qd.UserId
 where qd.QuizId = @QuizId";
+
+
+        public const string NumberOfQuizSolved = @"select count(*) from zbox.SolvedQuiz
+where quizid = @QuizId";
     }
 }

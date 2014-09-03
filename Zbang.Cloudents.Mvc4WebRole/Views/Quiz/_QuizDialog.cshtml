@@ -1,17 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-@*THIS IS THE ANGULAR/BOOTSTRAP DIALOG STRUCTURE*@
-@*<div class="modal-backdrop fade in"  style="z-index: 1051;"></div> <- TO REMOVE
-
-    <div class="modal-dialog"><- TO REMOVE
-        <div class="modal-content"><- TO REMOVE
-            <div class="modal-body"><- KEEP THIS
-
-            </div>
-        </div>
-    </div>*@
-
-@*<div class="modal-backdrop fade in" style="z-index: 1051;"></div>*@
+@model int
 
 @*Guy: please add the class 'quizPopup' on the modal-dialog*@
 
@@ -22,7 +10,7 @@
         @*Guy:  (1) please add the class 'plus' to friendsPics are > 3 classmates who took the quiz
             (2) set a value to the data-plus-count attribute
             (3) Set the img src to /Images/user-img.png if there are < 3 classmates who took the quiz*@
-        <div class="friendsPics plus" data-plus-count="32">
+        <div class="friendsPics @(Model > 3 ? "plus" : "")" data-plus-count="@Model">
             <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
             <img alt="" src="http://placehold.it/51x51" width="51" height="51" />
             <img alt="" src="http://placehold.it/51x51" width="51" height="51" />

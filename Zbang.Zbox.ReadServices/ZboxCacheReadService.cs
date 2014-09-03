@@ -342,5 +342,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetRecommendedCourses(query);
         }
+
+
+        public Task<int> GetNumberOfSolvers(long quizId)
+        {
+            return m_ReadService.GetNumberOfSolvers(quizId);
+        }
     }
 }
