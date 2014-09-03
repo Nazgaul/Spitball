@@ -73,10 +73,8 @@
 
             <div class="topUsersWpr">
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
-                <ol>
-                    <li class="topUser star"><img alt="" /></li>
-                    <li class="topUser"></li>
-                    <li class="topUser"></li>
+                <ol >
+                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser"><img ng- alt="" ng-src="{{user.image}}" /></li>
                 </ol>
             </div>
 

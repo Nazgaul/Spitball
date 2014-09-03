@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1050,7 +1050,7 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz Dialog */
-.modal-dialog.quizPopup {
+.modal.quizPopup .modal-dialog {
   width: 700px;
   height: 350px;
   background: #fff;
@@ -1156,4 +1156,3 @@ body.quiz .shareBtn {
   background: #4f5d67;
 }
 /*#endregion */
-/*# sourceMappingURL=Quiz.css.map */
