@@ -19,6 +19,9 @@ mQuiz.controller('QuizCtrl',
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
                 $scope.quiz = response.payload.quiz;
+
+               
+
                 questions = angular.copy(response.payload.quiz.questions, questions);
 
 
@@ -37,7 +40,7 @@ mQuiz.controller('QuizCtrl',
                     }
                 }
 
-
+                populateTopUsers();
                 if (response.payload.sheet) {
                     response.payload.sheet.answerSheet = response.payload.sheet.questions;
                     $scope.formData = response.payload.sheet;
@@ -58,6 +61,12 @@ mQuiz.controller('QuizCtrl',
                         setResults();
                     }
                 }
+                function populateTopUsers() {
+                    var topUsers = $scope.quiz.topUsers || [];
+                    for (var i = topUsers.length; i < 3; i++) {
+                        topUsers.push({ name: '', image: '' });
+                    }
+                }
 
                 $timeout(function () {
                     $scope.$emit('viewContentLoaded');
@@ -75,7 +84,14 @@ mQuiz.controller('QuizCtrl',
                         windowClass: 'quizPopup',
                         templateUrl: '/Quiz/ChallengePartial/?quizid=' + $scope.quiz.id,
                         controller: 'ChallengeCtrl',
-                        backdrop: 'static'
+                        backdrop: 'static',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    users: $scope.quiz.topUsers
+                                };
+                            }
+                        }
                     });
 
                     modalInstance.result.then(function (response) {                        

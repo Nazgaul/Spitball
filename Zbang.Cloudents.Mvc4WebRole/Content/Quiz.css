@@ -1050,7 +1050,7 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz Dialog */
-.modal-dialog.quizPopup {
+.modal.quizPopup .modal-dialog {
   width: 700px;
   height: 350px;
   background: #fff;

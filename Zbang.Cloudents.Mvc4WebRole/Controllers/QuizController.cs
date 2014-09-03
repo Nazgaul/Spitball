@@ -136,10 +136,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
-                if (numberOfSolvers > 3)
-                {
-                    numberOfSolvers -= 3;
-                }
                 return PartialView("_QuizDialog", numberOfSolvers);
             }
             catch (Exception ex)
