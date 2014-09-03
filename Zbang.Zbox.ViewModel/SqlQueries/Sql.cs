@@ -42,7 +42,8 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 	                                       where ub.UserId = @UserId  and author.userid != @UserId
 	                                      ) t
 	                                      order by t.date desc;";
-        public const string GetUniversityDataByUserId = @" select  uu.UserId as Id, uWrap.userName as Name, uWrap.UserImageLarge as Image,
+        //todo: check if we can improve this sql query
+        public const string GetUniversityDataByUserId = @"  select  uu.UserId as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
                             uWrap.FacebookUrl,
@@ -54,10 +55,10 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
                             (select sum(itemcount) from zbox.Box b 
                             where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId2 in ( uu.UserId , uWrap.userid)) as MemberCount
-                            from zbox.Users uu , zbox.users uWrap  
+                            (select count(*) from zbox.Users u where u.UniversityId in ( uu.UserId , uWrap.Id)) as MemberCount
+                            from zbox.Users uu , zbox.University uWrap  
                             where uu.UserId = @UserId
-                            and uWrap.UserId = @UniversityWrapper";
+                            and uWrap.Id =@UniversityWrapper";
 
         /// <summary>
         /// Used in user page to bring friends
