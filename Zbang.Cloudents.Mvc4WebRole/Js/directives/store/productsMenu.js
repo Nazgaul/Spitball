@@ -24,6 +24,14 @@
                     $nav.removeClass('showProducts');
                 });
 
+                $('.categoryList').children('li').click(function() {
+                    var $this = $(this);
+                    $this.addClass('removeDelay');
+                    window.setTimeout(function () {
+                        $this.removeClass('removeDelay');
+                    }, 500);
+                });
+
 
             }
         };

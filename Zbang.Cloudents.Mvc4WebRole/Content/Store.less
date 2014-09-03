@@ -360,11 +360,11 @@ main {
 
         li {
             font-size: 15px;
+
             &:hover {
                 color: @color;
             }
         }
-
     }
 
     > li {
@@ -380,6 +380,14 @@ main {
         position: relative;
         vertical-align: top;
         line-height: 13px;
+        cursor:pointer;
+
+        &.removeDelay:hover ul {
+            -moz-transition-delay: 0;
+            -o-transition-delay: 0;
+            -webkit-transition-delay: 0;
+            transition-delay: 0;
+        }
 
         &:hover {
             ul {
