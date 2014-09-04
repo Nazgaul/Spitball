@@ -3,14 +3,16 @@
     function ($scope, sDashboard, sLibrary, sBox, sUser, $location, $filter, debounce) {
 
         $scope.params = {
-            changeDepartment: false
+            changeDepartment: false,
+            
         };
 
         $scope.formData = {
             privateBox: {
                 privacySettings: 'AnyoneWithUrl'
             },
-            academicBox : null
+            academicBox: null,
+            isAcademicBox : true
         };
 
         $scope.changeDepartment = function () {
