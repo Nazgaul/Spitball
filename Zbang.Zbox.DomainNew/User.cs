@@ -222,7 +222,7 @@ namespace Zbang.Zbox.Domain
             RussianDepartment = department;
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
-
+            Department = null;
         }
 
         #region firstTime

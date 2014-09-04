@@ -7,7 +7,6 @@
 
 
             $scope.firstTime = $scope.viewBag;
-            $scope.x = 'x';
 
             $rootScope.options = {
                 quizOpen: false

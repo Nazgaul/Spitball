@@ -99,6 +99,7 @@ zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
     <![CDATA[
      select l.Id as Id, l.Name as Name, l.Url as Url from zbox.maindepartment l
   where l.universityId = :UniversityId
+  and l.NoOfBoxes > 0
   order by name
     ]]>
   </sql-query>

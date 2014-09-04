@@ -1,25 +1,22 @@
-﻿mDashboard.controller('CreateBoxCtrl',
+﻿mWizardBoxCreate.controller('CreateBoxCtrl',
         ['$scope',
-         '$modalInstance',
          'sBox',
-
-         function ($scope, $modalInstance, sBox) {
-             $scope.formData = {
-                 privacySettings: 'AnyoneWithUrl'
-             };
-
+         'WizardHandler',
+         function ($scope, sBox, WizardHandler) {
              $scope.create = function (isValid) {
+                 //TODO: add disabled state
                  if (!isValid) {
                      return;
                  }
-
                  sBox.createPrivate($scope.formData).then(function (box) {
-                     $modalInstance.close(box.payload || box.Payload);
+                     
+                     //$modalInstance.close(box.payload || box.Payload);
                  });
              };
 
              $scope.cancel = function () {
-                 $modalInstance.dismiss();
+                 // WizardHandler.wizard().finish();
+                 WizardHandler.wizard().finish();
              };
          }
         ]);

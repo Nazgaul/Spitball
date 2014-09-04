@@ -1,6 +1,7 @@
-﻿mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', 'sDashboard', 'sLibrary', 'sBox', 'sUser', '$location', '$filter', 'debounce',
-    function ($scope, sDashboard, sLibrary, sBox, sUser, $location, $filter, debounce) {
+﻿var mWizardBoxCreate = mDashboard.controller('CreateBoxWizardCtrl',
+     ['$scope', 'sDashboard', 'sLibrary', 'sBox', 'sUser', '$location', '$filter', 'debounce', 'WizardHandler', '$rootScope',
+    function ($scope, sDashboard, sLibrary, sBox, sUser, $location, $filter, debounce, WizardHandler, $rootScope) {
+
 
         $scope.params = {
             changeDepartment: false,
@@ -42,14 +43,14 @@
             });
         }, 200);
 
-        $scope.createPrivateBox = function (isValid) {
-            if (!isValid) {
-                return;
-            }
-            sBox.createPrivate($scope.formData.privateBox).then(function () {
+        //$scope.createPrivateBox = function (isValid) {
+        //    if (!isValid) {
+        //        return;
+        //    }
+        //    sBox.createPrivate($scope.formData.privateBox).then(function () {
 
-            });
-        };
+        //    });
+        //};
         $scope.createAcademiceBox = function (isValid) {
             if (!isValid) {
                 return;
@@ -58,5 +59,9 @@
 
             });
         };
+
+        $scope.completewizard = function () {
+            $rootScope.params.createBoxWizard = false;
+        }
     }]
     );

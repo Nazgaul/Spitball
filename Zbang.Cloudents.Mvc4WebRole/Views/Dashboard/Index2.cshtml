@@ -178,10 +178,10 @@
 </div>
 
 <div class="formWpr js-private" 
-     ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
-     wizard-on-finish="completewizard()" template="'wizard.html'" ng-if="$root.params.createBoxWizard">
-    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard>
-        <div wz-step template="'step.html'">
+     @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
+      ng-if="$root.params.createBoxWizard">
+    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard on-finish="completewizard()">
+        <div wz-step>
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
                 <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-init="isAcademicBox=true" ng-value="false" ng-model="isAcademicBox" />
@@ -204,7 +204,7 @@
 
             <div class="newPrivate clearfix" ng-show="!(isAcademicBox)">
                 @{
-                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = BoxPrivacySettings.AnyoneWithUrl });
+                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
                 }
             </div>
 
@@ -212,12 +212,12 @@
                 Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
             }
         </div>
-        <div wz-step template="'step.html'">
+        <div wz-step>
             @{
                 Html.RenderPartial("_SocialInvite");
             }
         </div>
-        <div wz-step template="'step.html'">
+        <div wz-step>
             @{
                 Html.RenderPartial("_UploadFiles");
             }

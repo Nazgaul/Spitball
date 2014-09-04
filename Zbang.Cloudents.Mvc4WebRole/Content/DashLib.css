@@ -613,7 +613,6 @@
 }
 /*#region social invite */
 .socialInvite {
-  display: none;
   text-align: center;
 }
 .socialInvite header {
@@ -827,7 +826,6 @@
 /*#endregion */
 /*#region Upload files */
 .uploadFiles {
-  display: none;
   text-align: center;
 }
 .uploadFiles header {

@@ -26,13 +26,14 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             var data = response.success ? response.payload : {};
             $scope.recommendedCourses = data;
         });
-
+        $scope.firstTime.dashboard = false;
         sDashboard.disableFirstTime();
     }
 
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
     };
+    
 
     sDashboard.boxList().then(function (data) {
         $scope.wall = data.payload.wall;

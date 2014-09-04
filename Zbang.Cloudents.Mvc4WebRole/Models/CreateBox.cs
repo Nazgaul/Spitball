@@ -19,12 +19,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         //[Display(ResourceType = typeof(CreateBoxResources), Name = "BoxDescription")]
 
 
-        public BoxPrivacySettings privacySettings { get; set; }
-        public string Description { get; set; }
+       // public BoxPrivacySettings privacySettings { get; set; }
+        //public string Description { get; set; }
 
         public override string ToString()
         {
-            return string.Format("BoxName {0} Description {1} ", BoxName, Description);
+            return string.Format("BoxName {0} Description {1} ", BoxName);
         }
     }
 }
