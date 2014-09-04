@@ -177,33 +177,35 @@
 </div>
 </div>
 
-<div class="formWpr js-private" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
+<div class="formWpr js-private" 
+     ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
      wizard-on-finish="completewizard()" template="'wizard.html'" ng-if="$root.params.createBoxWizard">
     <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard>
         <div wz-step template="'step.html'">
+            <div>{{!(formData.isAcademicBox)}}</div>
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
-                    <input class="radio" type="radio" id="PrivateCourse" name="courseType" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privateBox.privacySettings" />
+                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-value="false" ng-model="formData.isAcademicBox" />
                 <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
                 <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
             </div>
 
             <div class="courseType">
-                    <input class="radio" type="radio" id="OpenCourse" name="courseType" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privateBox.privacySettings"/>
+                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-value="true" ng-model="formData.isAcademicBox" />
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
 
             @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
-            <div class="newAcademic clearfix">
+            <div class="newAcademic clearfix" ng-show="formData.isAcademicBox">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }
             </div>
 
-            <div class="newPrivate clearfix">
+            <div class="newPrivate clearfix" ng-show="!(formData.isAcademicBox)">
                 @{
-                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });
+                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = BoxPrivacySettings.AnyoneWithUrl });
                 }
             </div>
 
