@@ -11,9 +11,25 @@ body
 }
 /*#region radio input */
 input[type="radio"] {
-    + label {
+    + label, + .field-validation-error + label {
         &:before {
             margin: -2px 0 0 4px; /*rtl*/
+        }
+    }
+    &.radio { 
+        + label {
+            &:before {
+                margin: -2px 0 0 8px; /*rtl*/
+            }
+        }
+        &:checked {
+            + label {
+                &:after {
+                    top: 3px; //diff rtl
+                    right: 4px; //rtl
+                    left: auto;
+                }
+            }
         }
     }
 }

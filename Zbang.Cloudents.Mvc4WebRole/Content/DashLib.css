@@ -527,6 +527,34 @@
   background: #fff;
   position: relative;
   min-height: 150px;
+  /*&.js-private {
+        display: block;
+        .newPrivate {
+            display: block;
+        }
+    }
+    &.js-academic {
+        display: block;
+        .newAcademic {
+            display: block;
+        }
+    }
+    &.js-addDept, &.js-social, &.jsUpload {
+        display: block;
+        .courseType {
+            display: none;
+        }
+    }*/
+  /*&.js-social {
+        .socialInvite {
+            display: block;
+        }
+    }
+    &.jsUpload {
+        .uploadFiles {
+            display: block;
+        }
+    }*/
 }
 .formWpr:after {
   content: '';
@@ -575,35 +603,10 @@
 .formWpr .department {
   position: relative;
 }
-.formWpr.js-private {
+.formWpr.js-addDept {
   display: block;
-}
-.formWpr.js-private .newPrivate {
-  display: block;
-}
-.formWpr.js-academic {
-  display: block;
-}
-.formWpr.js-academic .newAcademic {
-  display: block;
-}
-.formWpr.js-addDept,
-.formWpr.js-social,
-.formWpr.jsUpload {
-  display: block;
-}
-.formWpr.js-addDept .courseType,
-.formWpr.js-social .courseType,
-.formWpr.jsUpload .courseType {
-  display: none;
 }
 .formWpr.js-addDept .createDept {
-  display: block;
-}
-.formWpr.js-social .socialInvite {
-  display: block;
-}
-.formWpr.jsUpload .uploadFiles {
   display: block;
 }
 .courseType {
@@ -617,10 +620,9 @@
   width: 140px;
   padding-left: 30px;
 }
-.newPrivate,
-.newAcademic {
-  display: none;
-}
+/*.newPrivate, .newAcademic {
+    display: none;
+}*/
 .changeDeptBtn {
   position: absolute;
   right: 8px;

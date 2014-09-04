@@ -12,9 +12,19 @@ body {
   font-family: Arial;
 }
 /*#region radio input */
-input[type="radio"] + label:before {
+input[type="radio"] + label:before,
+input[type="radio"] + .field-validation-error + label:before {
   margin: -2px 0 0 4px;
   /*rtl*/
+}
+input[type="radio"].radio + label:before {
+  margin: -2px 0 0 8px;
+  /*rtl*/
+}
+input[type="radio"].radio:checked + label:after {
+  top: 3px;
+  right: 4px;
+  left: auto;
 }
 /*#endregion */
 /*#region checkbox */
