@@ -177,9 +177,9 @@
 </div>
 </div>
 
-<div class="formWpr" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
+<div class="formWpr js-private" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
      wizard-on-finish="completewizard()" template="'wizard.html'" ng-if="$root.params.createBoxWizard">
-    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
+    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard>
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
