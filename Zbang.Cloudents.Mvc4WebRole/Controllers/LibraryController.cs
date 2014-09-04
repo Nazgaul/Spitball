@@ -78,6 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //TODO: put output cache
         [HttpGet, NonAjax]
+        [NoCache]
         public ActionResult Choose()
         {
             return View("Empty");

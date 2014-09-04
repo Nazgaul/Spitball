@@ -8,23 +8,23 @@
         <div class="libEmpty union-sprite">
             <h2 class="semiFont">@MainViewResources.FillGap</h2>
             <h2 class="semiFont">@MainViewResources.CreateCourse</h2>
-            <form name="createAcademicBoxForm" ng-submit="submit(createAcademicBoxForm.$valid)" ng-class="{submitted : submitted }" novalidate>                                                
-                <label for="createAcademicBoxCourseName">res_Name</label>
-                <span id="createAcademicBoxCourseName" class="validateMsg" ng-show="submitted && createAcademicBoxForm.courseName.$error.required">res_Invalid</span>
-                <input type="text" name="courseName" class="inputText" ng-model="formData.courseName" required/>
+            <form name="createAcademicBoxForm" ng-submit="submit(createAcademicBoxForm.$valid)" ng-class="{submitted : submitted }" novalidate>
+                @Html.LabelFor(m=>m.CourseName)
+                @Html.ValidationMessageFor(m => m.CourseName, string.Empty, new { @class = "validateMsg",ng_show="submitted && createAcademicBoxForm.courseName.$error.required"> })
+                @Html.TextBoxFor(m=>m.CourseName, new {@class="inputText", ng_model="formData.courseName", required="required"})
 
-                <label for="createAcademicBoxCourseId">res_Course_Id</label>
-                <input id="createAcademicBoxCourseId" type="text" name="courseId" class="inputText" ng-model="formData.courseId" />
+                
+                @Html.LabelFor(m => m.CourseId)
+                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText" ng_model="formData.courseId" })
 
-                <label for="createAcademicBoxCourseProf">res_Proffesor</label>
-                <input id="createAcademicBoxCourseProf" type="text" name="courseId" class="inputText" ng-model="formData.professor" />                
-
+                @Html.LabelFor(m => m.Professor)
+                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText" ng_model="formData.professor" })
 
                 <input type="submit" class="btn1" value="@DialogResources.Create" />
             </form>
         </div>
     </div>
-    <div class="erase">
+    @*<div class="erase">
         @SharedResources.Or&nbsp;<button class="actionText" type="button" data-bind="click: deleteNode">@SharedResources.Delete</button>&nbsp;@MainViewResources.ThisDepartment
-    </div>
+    </div>*@
 </div>
