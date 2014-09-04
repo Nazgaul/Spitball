@@ -1,42 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @model Zbang.Cloudents.Mvc4WebRole.Models.CreateBox
-
-@*<div class="modal-header">
-    <h3 class="modal-title"><span>@DialogResources.AddPrivateBox</span></h3>
-</div>
-<div class="modal-body">
-    <form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
-        @Html.LabelFor(m => m.BoxName)
-        
-        <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required autocomplete="off" />
-
-        <input type="radio" id="membersOnlyPrivacy" name="privacySettings" value="@BoxPrivacySettings.MembersOnly" ng-model="formData.privacySettings" />
-        <label for="membersOnlyPrivacy">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
-        <div class="labelExplain explain1">@SharedResources.OnlyPeople</div>
-
-        <input type="radio" id="AnyoneWithUrlPrivacy" name="privacySettings" value="@BoxPrivacySettings.AnyoneWithUrl" ng-model="formData.privacySettings" />
-        <label for="AnyoneWithUrlPrivacy">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
-        <div class="labelExplain">@SharedResources.AnyoneWho</div>
-
-        @Html.AntiForgeryToken() add ng-model attribute
-
-        <input type="submit" class="btn1 next" ng-disabled="createBoxForm.$invalid" value="@DialogResources.Create" />
-        <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
-
-    </form>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
-</div>*@
-
 <form name="createBoxForm" ng-submit="createPrivateBox(createBoxForm.$valid)" novalidate>
 
     @Html.LabelFor(m => m.BoxName)
 
     <input type="text" name="boxName" class="inputText boxName" ng-model="formData.privateBox.boxName" required autocomplete="off" />
 
-    @Html.AntiForgeryToken()
-
+    @*@Html.AntiForgeryToken()*@
     <input type="submit" class="btn1 wz-next rFloat" ng-disabled="createBoxForm.$invalid" value="@DialogResources.Create" />
     <button type="reset" class="btn2 cancel rFloat" ng-click="cancel()">@SharedResources.Back</button>
-
 </form>

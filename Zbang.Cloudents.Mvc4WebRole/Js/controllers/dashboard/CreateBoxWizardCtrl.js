@@ -6,13 +6,12 @@
             changeDepartment: false,
             
         };
-
+        $scope.isAcademicBox=true;
         $scope.formData = {
             privateBox: {
                 privacySettings: 'AnyoneWithUrl'
             },
             academicBox: null,
-            isAcademicBox : true
         };
 
         $scope.changeDepartment = function () {
