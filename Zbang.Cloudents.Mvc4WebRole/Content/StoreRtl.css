@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -131,14 +131,6 @@ header h1 {
 }
 /*#endregion */
 /*#region product page */
-.right {
-  padding: 0 10px 0 0;
-  /*rtl*/
-}
-.left {
-  padding: 0 0 0 10px;
-  /*rtl*/
-}
 .productPrice {
   text-align: right;
   /*rtl*/
@@ -147,6 +139,14 @@ header h1 {
   right: 16px;
   /*rtl*/
   left: auto;
+}
+.productPrice .right {
+  padding: 0 10px 0 0;
+  /*rtl*/
+}
+.productPrice .left {
+  padding: 0 0 0 10px;
+  /*rtl*/
 }
 .productPrice td:nth-child(3) {
   padding: 0 4px 0 0;
@@ -219,3 +219,4 @@ header h1 {
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=StoreRtl.css.map */

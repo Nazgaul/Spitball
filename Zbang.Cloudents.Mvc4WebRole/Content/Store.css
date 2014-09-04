@@ -688,16 +688,22 @@ main {
   vertical-align: top;
   padding-bottom: 30px;
 }
-.right {
+.productWpr .left {
+  text-align: center;
+  position: relative;
+  padding-right: 10px;
+  /*rtl*/
+}
+.productWpr .right {
   padding-left: 10px;
   /*rtl*/
 }
-.right h3 {
+.productWpr .right h3 {
   font-size: 18px;
   font-weight: normal;
   margin: 8px 0 20px;
 }
-.right .imgWpr {
+.productWpr .right .imgWpr {
   width: 425px;
   height: 281px;
   border: 1px solid #0f9d58;
@@ -711,7 +717,7 @@ main {
   /* align vertical */
   overflow: hidden;
 }
-.right img {
+.productWpr .right img {
   max-width: 425px;
   max-height: 281px;
 }
@@ -731,12 +737,6 @@ main {
   padding: 14px 10px;
   background: #f6f6f6;
   border-radius: 5px;
-}
-.left {
-  text-align: center;
-  position: relative;
-  padding-right: 10px;
-  /*rtl*/
 }
 .productInfoWpr {
   border: 1px solid #0371c8;
