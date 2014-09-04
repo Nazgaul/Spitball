@@ -151,17 +151,19 @@ header {
 /*#endregion */
 
 /*#region product page */
-.right {
-    padding: 0 10px 0 0; /*rtl*/
-}
-.left {
-    padding: 0 0 0 10px; /*rtl*/
-}
+
 .productPrice {
     text-align: right; /*rtl*/
+
     &:before {
         right: 16px; /*rtl*/
         left: auto;
+    }
+    .right {
+        padding: 0 10px 0 0; /*rtl*/
+    }
+    .left {
+        padding: 0 0 0 10px; /*rtl*/
     }
     td {
         &:nth-child(3) {

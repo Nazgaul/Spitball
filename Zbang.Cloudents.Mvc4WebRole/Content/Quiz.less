@@ -476,7 +476,6 @@ body {
     font-size: 22px;
     width: 800px;
     margin: 100px auto 20px;
-    color: #fff;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -962,6 +961,7 @@ body {
     visibility: hidden;
     .btn1 {
         margin-top: 10px;
+        max-width: 140px;
     }
 }
 .quizTimerResult {
@@ -1013,6 +1013,11 @@ body {
             top: -9px;
             right: -12px; //rtl
         }
+    }
+    img {
+        border-radius: 5px;
+        height: 47px;
+        width: 47px;
     }
 }
 .distributionWpr {

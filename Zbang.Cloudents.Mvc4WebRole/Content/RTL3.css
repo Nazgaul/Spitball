@@ -856,7 +856,7 @@
   left: auto;
 }
 .listItem .itemContent {
-  max-height: 51px;
+  max-height: 46px;
   /* diff rtl*/
 }
 .listItem .views {

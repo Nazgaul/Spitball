@@ -34,6 +34,12 @@
   width: 49%;
   display: inline-block;
 }
+.modal.privateBox,
+.modal.createTab,
+.modal.uploader,
+.modal.uploadLink {
+  width: 600px;
+}
 .modal.quitQuiz {
   width: 560px;
 }
