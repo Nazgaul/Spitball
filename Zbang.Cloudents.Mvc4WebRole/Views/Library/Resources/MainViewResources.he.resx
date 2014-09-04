@@ -190,7 +190,7 @@
     <value>מוסדות לימוד מ</value>
   </data>
   <data name="CantFind" xml:space="preserve">
-    <value>לא נמצא מוסד הלימודים שלך</value>
+    <value>לא נמצא מוסד הלימודים שלך?</value>
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>הקלד את מוסד הלימודים שלך </value>
