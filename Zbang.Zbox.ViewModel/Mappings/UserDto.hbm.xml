@@ -161,7 +161,7 @@
     u.LastName as LastName,
     
     u.ImageLarge as Image, 
-    v.OrgName as University,
+    coalesce( v.OrgName , v.UniversityName) as University,
     v.Image as UniversityPic,
     u.Email as Email,
     u.Culture as Language,

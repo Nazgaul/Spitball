@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             DeleteAsset(assetOut);
 
             // DeleteAccessPolicy(policy.Id);
-            return blobName;
+            return await blobName;
         }
 
 
@@ -78,12 +78,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         }
 
-        public string DownloadEncodedVideoToStorage(Uri originalBlob, string encodeAssetId)
+        public async Task<string> DownloadEncodedVideoToStorage(Uri originalBlob, string encodeAssetId)
         {
             if (originalBlob == null) throw new ArgumentNullException("originalBlob");
             if (originalBlob.Host == "127.0.0.1")
             {
-                return DownloadToLocalStorage(originalBlob, encodeAssetId);
+                return await DownloadToLocalStorage(originalBlob, encodeAssetId);
             }
             return DownloadToAzureStorage(originalBlob, encodeAssetId);
         }
@@ -116,7 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             return newBlobName;
         }
 
-        private string DownloadToLocalStorage(Uri originalBlob, string streamingAssetId)
+        private async Task<string> DownloadToLocalStorage(Uri originalBlob, string streamingAssetId)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
             string locationToSave;
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             streamingAssetFile.Download(locationToSave);
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
-            m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
+             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
 
             m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
             return newBlobName;

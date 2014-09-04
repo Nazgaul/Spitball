@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [NoUniversity]
         [NoCache]
-        public async Task<ActionResult> Index(Guid? libId)
+        public async Task<ActionResult> Index()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail == null || !userDetail.UniversityId.HasValue)

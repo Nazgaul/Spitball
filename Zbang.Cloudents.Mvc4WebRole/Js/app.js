@@ -108,7 +108,7 @@ app.config([
             params: {
                 type: 'library'
             },
-            templateUrl: '/library/'
+            templateUrl: '/department/'
         }).
         when('/library/choose/', {
             params: {
@@ -120,7 +120,7 @@ app.config([
             params: {
                 type: 'library'
             },
-            templateUrl: '/library/'
+            templateUrl: '/department/'
         }).
         when('/search/', {
             params: {

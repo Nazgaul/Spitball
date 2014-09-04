@@ -74,13 +74,13 @@
                     <span class="featureTxt3">@IndexResources.SwapBooks</span>
                 </div>
                 <div class="chooseActionWpr">
-                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses">
+                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses" ng-if="!newUniversity">
                         <div class="actionTxt">@IndexResources.BrowseCourses</div>
                     </a>
                     <div class="createCourse">
                         <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
                     </div>
-                    <section class="recommendedWpr">
+                    <section class="recommendedWpr" ng-if="recommendedCourses.length">
                         <header>@IndexResources.RecommendedCourses</header>
                         <ul>
                             <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
@@ -94,7 +94,7 @@
                                     <div class="elps" bo-text="course.courseCode"></div>
                                     <div class="prof elps" bo-text="course.professor"></div>
                                 </a>
-                            </li>                            
+                            </li>
                         </ul>
                     </section>
                 </div>                
@@ -112,7 +112,7 @@
                 <ol class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse"
-                           href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
+                           href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
 
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <ol class="myAreaList clearfix">
-                    <li ng-click="openCreateBox()" class="box">
+                    <li ng-click="openCreateBoxWizard()" class="box">
                         <button class="addBtn">@SharedResources.CreateNew</button>
                     </li>
                     <li ng-repeat="box in groupBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
@@ -177,9 +177,9 @@
 </div>
 </div>
 
-<div class="formWpr" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
+<div class="formWpr js-private" ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"
      wizard-on-finish="completewizard()" template="'wizard.html'" ng-if="$root.params.createBoxWizard">
-    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl">
+    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard>
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">

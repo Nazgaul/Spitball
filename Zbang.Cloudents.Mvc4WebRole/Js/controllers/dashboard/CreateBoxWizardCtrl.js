@@ -20,7 +20,7 @@
             $scope.selectedDepartment = null;
         };
 
-        $scope.selectDepartment = function (dpartment) {
+        $scope.selectDepartment = function (deparment) {
             $scope.selectedDepartment = deparment;
             $scope.formData.departmentId = $scope.selectedDepartment.id;
             $scope.params.departmentSearch = $scope.selectedDepartment.name;
@@ -45,7 +45,7 @@
             if (!isValid) {
                 return;
             }
-            sBox.createPrivateBox($scope.formData.privateBox).then(function () {
+            sBox.createPrivate($scope.formData.privateBox).then(function () {
 
             });
         };

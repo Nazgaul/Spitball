@@ -28,11 +28,11 @@
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>*@
 
-<form name="createBoxForm" ng-submit="create(createBoxForm.$valid)" novalidate>
+<form name="createBoxForm" ng-submit="createPrivateBox(createBoxForm.$valid)" novalidate>
 
     @Html.LabelFor(m => m.BoxName)
 
-    <input type="text" name="boxName" class="inputText boxName" ng-model="formData.boxName" required autocomplete="off" />
+    <input type="text" name="boxName" class="inputText boxName" ng-model="formData.privateBox.boxName" required autocomplete="off" />
 
     @Html.AntiForgeryToken()
 

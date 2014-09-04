@@ -13,18 +13,18 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.params = {};
     cd.pubsub.publish('dash_boxes');//statistics
     cd.analytics.setLibrary($('.uniText').text());
-        
+
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
         createBox: '/Dashboard/PrivateBoxPartial/'
     };
 
     $scope.myCourses = jsResources.CoursesFollow;
-
     if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
+
         sDashboard.recommendedCourses({}).then(function (response) {
-        var data = response.success ? response.payload : {};
-        $scope.recommendedCourses = data;
+            var data = response.success ? response.payload : {};
+            $scope.recommendedCourses = data;
         });
 
         sDashboard.disableFirstTime();
@@ -33,7 +33,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
     };
-    
+
     sDashboard.boxList().then(function (data) {
         $scope.wall = data.payload.wall;
         $scope.friends = data.payload.friends;
@@ -156,7 +156,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         $scope.academicBoxes = academic;
         $scope.groupBoxes = group;
 
-    }    
+    }
 
     $scope.productStore = function () {
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
