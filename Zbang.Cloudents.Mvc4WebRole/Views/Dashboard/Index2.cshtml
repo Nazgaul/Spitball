@@ -74,13 +74,13 @@
                     <span class="featureTxt3">@IndexResources.SwapBooks</span>
                 </div>
                 <div class="chooseActionWpr">
-                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses">
+                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses" ng-if="!newUniversity">
                         <div class="actionTxt">@IndexResources.BrowseCourses</div>
                     </a>
                     <div class="createCourse">
                         <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
                     </div>
-                    <section class="recommendedWpr">
+                    <section class="recommendedWpr" ng-if="recommendedCourses.length">
                         <header>@IndexResources.RecommendedCourses</header>
                         <ul>
                             <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
@@ -94,7 +94,7 @@
                                     <div class="elps" bo-text="course.courseCode"></div>
                                     <div class="prof elps" bo-text="course.professor"></div>
                                 </a>
-                            </li>                            
+                            </li>
                         </ul>
                     </section>
                 </div>                
@@ -112,7 +112,7 @@
                 <ol class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse"
-                           href="@Url.Action("Index","Library")">@SharedResources.BrowseCourses</a>
+                           href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
 
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
