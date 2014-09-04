@@ -6,5 +6,7 @@ disallow: /user/
 disallow: /invite/
 disallow: /Account/ChangeLanguage
 disallow: /Account/ForgotPassword
+disallow: /account/resetpassword/
+disallow: /account/welcome
 
 Sitemap: https://www.cloudents.com/sitemap.xml
