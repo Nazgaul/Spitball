@@ -88,6 +88,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "Index" },
                 new { isDesktop = new DesktopConstraint(), LibId = new LongRouteConstraint()}
             );
+            routes.MapRoute("LibraryAjax",
+               "department",
+               new { controller = "Library", action = "Index" },
+               new { isDesktop = new AjaxConstaint() }
+           );
 
             //routes.MapRoute("LibraryNode",
             //    "department/{LibId}/{LibName}",
