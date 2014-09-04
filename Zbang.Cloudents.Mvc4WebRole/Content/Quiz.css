@@ -981,6 +981,7 @@ body.quiz .shareBtn {
 }
 .timeRetakeWpr .btn1 {
   margin-top: 10px;
+  max-width: 140px;
 }
 .quizTimerResult {
   color: #9AC6E9;
@@ -1035,6 +1036,11 @@ body.quiz .shareBtn {
   background: url(/Images/quizSprite.png?v=1) 0 -136px no-repeat;
   top: -9px;
   right: -12px;
+}
+.topUser img {
+  border-radius: 5px;
+  height: 47px;
+  width: 47px;
 }
 .distributionWpr {
   position: relative;
