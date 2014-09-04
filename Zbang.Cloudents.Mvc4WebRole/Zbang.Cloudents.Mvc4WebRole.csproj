@@ -525,6 +525,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainViewResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Resources\CountryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountryResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
       <DependentUpon>ErrorResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1993,6 +1998,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\CountryResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CountryResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />

@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //[ZboxAuthorize]
-        [NoUniversityAttribute]
+        [NoUniversity]
         [NonAjax]
         [NoCache]
         [UserNavNWelcome]

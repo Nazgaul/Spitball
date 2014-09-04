@@ -29,6 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, NonAjax]
+        [NoUniversity]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store/terms", Name = "StoreTerms")]
@@ -43,6 +44,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (User.Identity.IsAuthenticated && !universityId.HasValue)
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
+                if (!userDetail.UniversityId.HasValue)
+                {
+                    return View("Empty");
+                }
                 var universityWrapper = userDetail.UniversityId.Value;
                 var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
                 if (storeUniversityId.HasValue)
