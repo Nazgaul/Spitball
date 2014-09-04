@@ -35,8 +35,6 @@
 .schoolItem {
   padding: 5px 8px 8px 0;
   /*rtl*/
-  margin: 0 8px 8px 3px;
-  /*rtl*/
 }
 .uniDetails {
   padding: 10px 8px 0 5px;
@@ -44,16 +42,17 @@
 }
 /*#endregion */
 /*#region Create new school */
-.createSchool {
-  right: -49px;
-  left: auto;
-}
 .createSchool .top:before {
   right: 15px;
   left: auto;
 }
 .createSchool .top:after {
   right: 28px;
+  left: auto;
+}
+.createSchool,
+.completeRegistration {
+  right: -49px;
   left: auto;
 }
 .createSchool .top,
