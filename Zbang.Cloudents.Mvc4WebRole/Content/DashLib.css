@@ -580,6 +580,9 @@
 .formWpr.js-addDept .createDept {
   display: block;
 }
+.formWpr.js-addDept .courseType {
+  display: none;
+}
 .courseType {
   display: inline-block;
   margin-bottom: 25px;
