@@ -1,8 +1,12 @@
 ﻿var mWizardBoxCreate = mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', 'sDashboard', 'sLibrary', 'sBox', 'sUser', '$location', '$filter', 'debounce', 'WizardHandler', '$rootScope',
-    function ($scope, sDashboard, sLibrary, sBox, sUser, $location, $filter, debounce, WizardHandler, $rootScope) {
+     ['$scope',  'sLibrary', 'sBox',  '$location',
+         '$filter', 'debounce', '$modalInstance',
+    function ($scope,  sLibrary, sBox,  $location, $filter, debounce,
+          $modalInstance) {
 
-
+        $scope.box = {
+           // id: 0
+        }
         $scope.params = {
             changeDepartment: false,
             
@@ -61,7 +65,9 @@
         };
 
         $scope.completewizard = function () {
-            $rootScope.params.createBoxWizard = false;
+            //console.log($scope.box.id);
+            $modalInstance.close($scope.box.url);
+            //$rootScope.params.createBoxWizard = false;
         }
     }]
     );

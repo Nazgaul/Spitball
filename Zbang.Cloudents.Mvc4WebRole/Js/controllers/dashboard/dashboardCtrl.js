@@ -23,7 +23,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.myCourses = jsResources.CoursesFollow;
     if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
 
-        sDashboard.recommendedCourses({}).then(function (response) {
+        sDashboard.recommendedCourses().then(function (response) {
             var data = response.success ? response.payload : {};
             $scope.recommendedCourses = data;
         });
@@ -34,14 +34,20 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
         var modalInstance = $modal.open({
-            windowClass: "createBoxWizard",
             templateUrl: $scope.partials.createBoxWized,
-            controller: 'CreateBoxWizardCtrl',
+            controller: 'CreateBoxWizardCtrl'
             //backdrop: 'static',
-            resolve: {
+           // resolve: {
                 //friends: function () {
                     //return data.payload.my;
                 //}
+           // }
+        });
+        modalInstance.result.then(function (url) {
+            
+            $rootScope.params.createBoxWizard = false;
+            if (url) {
+                $location.path(url);
             }
         });
     };
@@ -79,19 +85,19 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         });
     };
 
-    $scope.openCreateBox = function () {
-        var modalInstance = $modal.open({
-            windowClass: "privateBox",
-            templateUrl: $scope.partials.createBox,
-            controller: 'CreateBoxCtrl',
-            backdrop: 'static'
-        });
+    //$scope.openCreateBox = function () {
+    //    var modalInstance = $modal.open({
+    //        windowClass: "privateBox",
+    //        templateUrl: $scope.partials.createBox,
+    //        controller: 'CreateBoxCtrl',
+    //        backdrop: 'static'
+    //    });
 
-        modalInstance.result.then(function (box) {
-            $location.path(box.url);
-        }, function () {
-        });
-    };
+    //    modalInstance.result.then(function (box) {
+    //        $location.path(box.url);
+    //    }, function () {
+    //    });
+    //};
 
     $scope.openShowFriends = function () {
         sUser.friends().then(function (data) {

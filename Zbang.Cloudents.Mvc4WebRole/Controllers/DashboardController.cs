@@ -38,9 +38,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-
-
-
         [Ajax]
         [HttpGet]
         public async Task<ActionResult> BoxList()
@@ -85,23 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
         }
-
-
-        [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        public ActionResult PrivateBoxPartial()
-        {
-            try
-            {
-                return PartialView("_PrivateBoxDialog2");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("PrivateBoxPartial ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-
+       
         #endregion
 
         #region Friends
@@ -130,9 +111,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Ajax,HttpGet]
-        public PartialViewResult CreateBox()
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult CreateBox()
         {
-            return PartialView("_CreateBoxWizard");
+            try
+            {
+                return PartialView("_CreateBoxWizard");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("PrivateBoxPartial ", ex);
+                return Json(new JsonResponse(false));
+            }
         }
 
     }

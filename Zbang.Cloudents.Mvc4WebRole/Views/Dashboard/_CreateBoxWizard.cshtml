@@ -3,7 +3,7 @@
 <div class="formWpr"
      @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
      >
-    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard on-finish="completewizard()">
+    <div class="dashboardCreateBoxWizard" wizard on-finish="completewizard()">
         <div wz-step>
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
