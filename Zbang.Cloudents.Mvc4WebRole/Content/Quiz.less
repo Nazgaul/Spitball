@@ -18,11 +18,11 @@ body {
             color: #fff;
             position: absolute;
             left: 0; //rtl
-            margin-top: 5px;
+            margin-top: 16px;
             height: 40px;
             padding-left: 45px;
             &:before {
-                top: -5px;
+                top: -4px;
             }
         }
         .shareBtn {
@@ -477,9 +477,9 @@ body {
 }
 .quizTitle{
     font-size: 22px;
-    width: 800px;
-    //margin: 100px auto 20px;
-    text-align: center;
+    padding-top: 22px;
+    max-width: 500px;
+    display: inline-block;
     color: #fff;
     &:before
     {
@@ -653,6 +653,7 @@ body {
         margin: 0 auto;
         position: relative;
         height: @header-height;
+        text-align: center;
     }
     .sectionHeader {
         color: transparent;
@@ -679,13 +680,18 @@ body {
         &:hover:before {
             background-position: 0 -1602px;
         }
+        h2 {
+            max-width: 120px; 
+        }
     }
     .shareBtnTxt {
         color: #fff;
+        padding: 22px 0 0 0; //override
         &:before {
             width: 22px;
 	        height: 18px;
 	        background: @site-sprite 0 -1090px;
+            margin:0; //override
         }
         &:hover:before {
             background-position:  0 -1090px;//0 -1124px;
@@ -926,6 +932,7 @@ body {
         font-size: 56px;
         color: #fff;
         margin: -11px 0;
+        font-weight: 600;
     }
     &:after {
         .pseudo;

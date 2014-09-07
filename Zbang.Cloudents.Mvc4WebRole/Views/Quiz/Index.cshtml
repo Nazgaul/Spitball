@@ -2,11 +2,6 @@
 
 <div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone, afraid: quiz.afraid}">
 
-    @*<div class="itemActions topBar barShadow">
-        <div class="quizActionsWpr">
-        </div>
-    </div>*@
-
     <div class="leftPanel lFloat" bindonce>
         <div class="itemTop">
             <div tooltip="@SharedResources.Views" class="rFloat quizViews">{{quiz.numberOfViews}}</div>
@@ -89,7 +84,7 @@
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
             </a>
-            <div class="quizTitle">{{quiz.name}}</div>
+            <div class="quizTitle elps">{{quiz.name}}</div>
         </div>
 
         
