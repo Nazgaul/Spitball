@@ -2784,6 +2784,7 @@ body.quiz .shareBtn {
   left: auto;
 }
 .quizPage .itemRight {
+  padding: 0 343px 0 0;
   text-align: right;
   /*rtl*/
 }
@@ -2795,10 +2796,10 @@ body.quiz .shareBtn {
   border-right: 1px solid #fff;
 }
 .quizPage .itemNameWpr {
-  padding: 28px 90px 15px 20px;
+  padding: 16px 56px 8px 15px;
 }
 .quizPage .itemNameWpr:before {
-  right: 20px;
+  right: 8px;
   left: auto;
 }
 .userCorrect .quizQuestion:before,
@@ -2834,19 +2835,16 @@ body.quiz .shareBtn {
   right: auto;
 }
 .results {
-  padding: 0 45px 0 0;
+  padding: 0 20px 0 0;
 }
 .results.wrong {
-  padding: 0 0 0 45px;
+  padding: 0 0 0 20px;
   border: none;
   border-right: 1px solid #fff;
 }
 .results.wrong:after {
   left: 0;
   right: auto;
-}
-.results:before {
-  margin: -10px 0 -20px;
 }
 .results:after {
   right: 0;
@@ -2857,7 +2855,7 @@ body.quiz .shareBtn {
   top: 10px;
 }
 .topUser.star:after {
-  left: -12px;
+  left: -10px;
   right: auto;
 }
 /*#endregion */

@@ -2,44 +2,15 @@
 
 <div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone, afraid: quiz.afraid}">
 
-    <div class="itemActions topBar barShadow">
+    @*<div class="itemActions topBar barShadow">
         <div class="quizActionsWpr">
-            <section class="shareBtn rFloat">
-                <input class="checkbox" type="checkbox" id="quizShare" />
-                <label for="quizShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                <div class="dropDown shareDD" data-dropdown="quizShare">
-                    <label class="closeItem rFloat" for="quizShare"></label>
-                    <div class="arrow shareArrow"></div>
-                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
-                    <div class="shareTxt">@SharedResources.ShareUsing</div>
-                    <ul class="shareList">
-                        <li class="shareItem">
-                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="shareItem">
-                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button>
-                            </li>
-                        }
-                    </ul>
-                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                    <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
-                </div>
-            </section>
-            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps lFloat">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">{{quiz.boxName}}</h2>
-            </a>
-            @*<button type="button" class="itemPrint iconTop" id="quiz_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
         </div>
-    </div>
+    </div>*@
 
     <div class="leftPanel lFloat" bindonce>
         <div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat quizViews quizSprite">{{quiz.numberOfViews}}</div>
-            <div class="itemNameWpr quizSprite">
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews">{{quiz.numberOfViews}}</div>
+            <div class="itemNameWpr">
                 <div class="item-name semiFont elps">{{quiz.name}}</div>
                 <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.owner}}</div>
                 <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
@@ -80,14 +51,48 @@
 
             <div class="distributionWpr">
                 <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
-                <canvas width="308" height="202" quiz-graph user-done="{{quiz.userDone}}"></canvas>
+                <canvas width="223" height="120" quiz-graph user-done="{{quiz.userDone}}"></canvas>
             </div>
 
         </div>
     </div>
 
     <div class="itemRight" bindonce>
-        <div class="quizTitle">{{quiz.name}}</div>
+
+        <div class="quizActionsWpr">
+
+            <section class="shareBtn">
+                <input class="checkbox" type="checkbox" id="quizShare" />
+                <label for="quizShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop"></label>
+                <div class="dropDown shareDD" data-dropdown="quizShare">
+                    <label class="closeItem rFloat" for="quizShare"></label>
+                    <div class="arrow shareArrow"></div>
+                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                    <div class="shareTxt">@SharedResources.ShareUsing</div>
+                    <ul class="shareList">
+                        <li class="shareItem">
+                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="shareItem">
+                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button>
+                            </li>
+                        }
+                    </ul>
+                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                    <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
+                </div>
+            </section>
+            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps">
+                <div>@SharedResources.Backto</div>
+                <h2 class="semiFont elps">{{quiz.boxName}}</h2>
+            </a>
+            <div class="quizTitle">{{quiz.name}}</div>
+        </div>
+
+        
         <div class="quizPrevWpr">
             <ul class="quizQList">
                 <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
