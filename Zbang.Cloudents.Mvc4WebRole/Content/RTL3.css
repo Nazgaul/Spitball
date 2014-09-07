@@ -2784,6 +2784,7 @@ body.quiz .shareBtn {
   left: auto;
 }
 .quizPage .itemRight {
+  padding: 0 343px 0 0;
   text-align: right;
   /*rtl*/
 }

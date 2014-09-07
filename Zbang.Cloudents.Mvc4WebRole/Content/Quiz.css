@@ -17,13 +17,11 @@ body.quiz .topBar {
 body.quiz .backWpr {
   color: #fff;
   left: 0;
+  margin-top: 5px;
 }
 body.quiz .shareBtn {
   right: 0;
-}
-.quizSprite:before {
-  content: '';
-  background: url(/Images/quizSprite.png?v=1) no-repeat;
+  margin-top: 5px;
 }
 /*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
@@ -457,7 +455,8 @@ body.quiz .shareBtn {
 .quizTitle {
   font-size: 22px;
   width: 800px;
-  margin: 100px auto 20px;
+  text-align: center;
+  color: #fff;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";
@@ -638,6 +637,7 @@ body.quiz .shareBtn {
   width: 800px;
   margin: 0 auto;
   position: relative;
+  height: 50px;
 }
 .quizPage .sectionHeader {
   color: transparent;
@@ -646,17 +646,19 @@ body.quiz .shareBtn {
   position: fixed;
   left: 0;
   /*rtl*/
-  top: 130px;
+  top: 50px;
   height: 100%;
   background: none;
   border: none;
   width: 343px;
 }
 .quizPage .backWpr:before {
-  background: url(/Images/site.png?v=2) 0 0 no-repeat;
+  width: 43px;
+  height: 42px;
+  background: url(/Images/site.png?v=2) 0 -1602px no-repeat;
 }
 .quizPage .backWpr:hover:before {
-  background-position: 0 0;
+  background-position: 0 -1602px;
 }
 .quizPage .shareBtnTxt {
   color: #fff;
@@ -675,6 +677,7 @@ body.quiz .shareBtn {
 .quizPage .itemRight {
   text-align: left;
   /*rtl*/
+  padding-left: 343px;
 }
 .quizPage .topBar {
   position: fixed;
@@ -703,13 +706,14 @@ body.quiz .shareBtn {
   height: auto;
 }
 .quizPage .itemNameWpr:before {
+  content: '';
   display: inline-block;
   position: absolute;
   left: 20px;
   top: 15px;
-  width: 66px;
-  height: 64px;
-  background-position: 0 -72px;
+  width: 45px;
+  height: 45px;
+  background: url(/Images/quizSprite.png?v=2) 0 -61px no-repeat;
 }
 .quizPage .quizViews {
   margin-top: 29px;
@@ -721,11 +725,12 @@ body.quiz .shareBtn {
   border-left: 1px solid #fff;
 }
 .quizPage .quizViews:before {
+  content: '';
   margin: auto;
   display: block;
-  width: 37px;
+  width: 38px;
   height: 23px;
-  background-position: 0 -49px;
+  background: url(/Images/quizSprite.png?v=2) 0 -38px no-repeat;
   margin-bottom: 5px;
 }
 .quizPage .item-name {
@@ -850,9 +855,9 @@ body.quiz .shareBtn {
 .quizTime:before {
   content: '';
   display: inline-block;
-  background: url(/Images/quizSprite.png?v=1) 0 -161px no-repeat;
   width: 233px;
   height: 264px;
+  background: url(/Images/quizSprite.png?v=2) 0 -124px no-repeat;
   position: absolute;
   left: 0;
   right: 0;
@@ -907,9 +912,9 @@ body.quiz .shareBtn {
   border-left: 1px solid #fff;
 }
 .results.wrong:after {
-  width: 56px;
-  height: 47px;
-  background-position: 0 -515px;
+  width: 40px;
+  height: 34px;
+  background-position: 0 -468px;
   right: 0;
   left: auto;
 }
@@ -924,9 +929,11 @@ body.quiz .shareBtn {
   content: '';
   display: inline-block;
   position: absolute;
-  background: url(/Images/quizSprite.png?v=1) 0 0 no-repeat;
-  width: 51px;
-  height: 49px;
+  background: url(/Images/quizSprite.png?v=2) 0 0 no-repeat;
+  /*width: 51px;
+	    height: 49px;*/
+  width: 38px;
+  height: 38px;
   left: 0;
   top: 20px;
 }
@@ -988,9 +995,12 @@ body.quiz .shareBtn {
   margin-top: 4px;
 }
 .quizTimerResult:before {
-  background: url(/Images/quizSprite.png?v=1) 0 -425px no-repeat;
+  /*background: @quiz-sprite 0 -425px no-repeat;
+        width: 39px;
+	    height: 43px;*/
   width: 39px;
   height: 43px;
+  background: url(/Images/quizSprite.png?v=2) 0 -388px no-repeat;
   position: relative;
   top: -4px;
 }
@@ -1016,9 +1026,12 @@ body.quiz .shareBtn {
   margin: 20px 0;
 }
 .topUser {
-  width: 47px;
-  height: 47px;
-  background: url(/Images/quizSprite.png?v=1) 0 -468px no-repeat;
+  /*width: 47px;
+	height: 47px;
+	background: @quiz-sprite 0 -468px no-repeat;*/
+  width: 36px;
+  height: 37px;
+  background: url(/Images/quizSprite.png?v=2) 0 -431px no-repeat;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -1030,9 +1043,12 @@ body.quiz .shareBtn {
   content: '';
   display: inline-block;
   position: absolute;
-  width: 25px;
-  height: 25px;
-  background: url(/Images/quizSprite.png?v=1) 0 -136px no-repeat;
+  /*width: 25px;
+	        height: 25px;
+	        background: @quiz-sprite 0 -136px no-repeat;*/
+  width: 20px;
+  height: 18px;
+  background: url(/Images/quizSprite.png?v=2) 0 -106px no-repeat;
   top: -9px;
   right: -12px;
 }
@@ -1090,7 +1106,7 @@ body.quiz .shareBtn {
   top: -30px;
   width: 111px;
   height: 111px;
-  background: url(/Images/quizSprite.png?v=1) 0 -562px no-repeat;
+  background: url(/Images/quizSprite.png?v=2) 0 -502px no-repeat;
 }
 .quizPopupHeader:after {
   content: '';

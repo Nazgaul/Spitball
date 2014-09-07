@@ -160,6 +160,13 @@
       "height": 78,
       "offsetX": 0,
       "offsetY": 1524
+    },
+    {
+      "name": "/Images/back-icon.png",
+      "width": 43,
+      "height": 42,
+      "offsetX": 0,
+      "offsetY": 1602
     }
   ]
 }

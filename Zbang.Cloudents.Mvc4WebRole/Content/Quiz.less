@@ -17,19 +17,15 @@ body {
         .backWpr {
             color: #fff;
             left: 0; //rtl
+            margin-top: 5px;
         }
         .shareBtn {
             right: 0; //rtl
+            margin-top: 5px;
         }
     }
 }
 
-.quizSprite {
-    &:before {
-        content: '';
-        background: @quiz-sprite no-repeat;
-    }   
-}
 /*#region Create Quiz */
 .bodyContent{
     &.noQuiz
@@ -475,7 +471,9 @@ body {
 .quizTitle{
     font-size: 22px;
     width: 800px;
-    margin: 100px auto 20px;
+    //margin: 100px auto 20px;
+    text-align: center;
+    color: #fff;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -647,6 +645,7 @@ body {
         width: 800px;
         margin: 0 auto;
         position: relative;
+        height: @header-height;
     }
     .sectionHeader {
         color: transparent;
@@ -655,7 +654,8 @@ body {
     .leftPanel {
         position: fixed;
         left: 0; /*rtl*/
-        top: 130px;
+        //top: 130px;
+        top: @header-height;
         height: 100%;
         background: none;
         border: none;
@@ -663,10 +663,13 @@ body {
     }
     .backWpr {
         &:before {
-            background: @site-sprite 0 0 no-repeat;
+            //background: @site-sprite 0 0 no-repeat;
+            width: 43px;
+	        height: 42px;
+	        background: @site-sprite 0 -1602px no-repeat;
         }
         &:hover:before {
-            background-position: 0 0;
+            background-position: 0 -1602px;
         }
     }
     .shareBtnTxt {
@@ -686,6 +689,7 @@ body {
 
     .itemRight {
         text-align: left; /*rtl*/
+        padding-left: 343px; //rtl
     }
     .topBar{
         position:fixed;
@@ -712,13 +716,13 @@ body {
         height: auto; //override
 
         &:before {
-            display: inline-block;
+            .pseudo;
             position: absolute;
             left:20px;
             top: 15px;
-            width: 66px;
-	        height: 64px;
-	        background-position: 0 -72px;
+            width: 45px;
+            height: 45px;
+            background:  @quiz-sprite 0 -61px no-repeat;
         }
     }
     .quizViews {
@@ -730,14 +734,19 @@ body {
         position: relative;
         border-left: 1px solid #fff; //rtl
         &:before {
-            margin: auto;
+            content: '';
+            margin: auto; //
             display: block;
-            width: 37px;
+            //width: 37px;
+	        //height: 23px;
+	        //background:  0 -49px;
+            width: 38px;
 	        height: 23px;
-	        background-position: 0 -49px;
+	        background: @quiz-sprite 0 -38px no-repeat;
             margin-bottom: 5px;
         }
-    }
+    }  
+
     .item-name {
         font-weight: bold;
         color: #fff;
@@ -843,9 +852,9 @@ body {
     text-align: center;
     &:before {
         .pseudo;
-        background: @quiz-sprite 0 -161px no-repeat;
         width: 233px;
 	    height: 264px;
+	    background: @quiz-sprite 0 -124px no-repeat;
         position: absolute;
         left:0;right:0;
         top: 100px;
@@ -895,9 +904,9 @@ body {
         padding: 0 45px 0 0; //rtl
         border-left: 1px solid #fff;//rtl
         &:after {
-            width: 56px;
-	        height: 47px;
-	        background-position: 0 -515px;
+            width: 40px;
+	        height: 34px;
+	        background-position:  0 -468px;
             right: 0; //rtl
             left: auto; //override
         } 
@@ -914,8 +923,10 @@ body {
         .pseudo;
         position: absolute;
         background: @quiz-sprite 0 0 no-repeat;
-        width: 51px;
-	    height: 49px;
+        /*width: 51px;
+	    height: 49px;*/
+        width: 38px;
+	    height: 38px;
         left: 0; //rtl
         top: 20px;
     }
@@ -969,9 +980,12 @@ body {
     font-size: 24px;
     margin-top: 4px;
     &:before {
-        background: @quiz-sprite 0 -425px no-repeat;
+        /*background: @quiz-sprite 0 -425px no-repeat;
+        width: 39px;
+	    height: 43px;*/
         width: 39px;
 	    height: 43px;
+	    background: @quiz-sprite 0 -388px no-repeat;
         position: relative;
         top: -4px;
     }
@@ -994,9 +1008,12 @@ body {
     margin: 20px 0;
 }
 .topUser {
-    width: 47px;
+    /*width: 47px;
 	height: 47px;
-	background: @quiz-sprite 0 -468px no-repeat;
+	background: @quiz-sprite 0 -468px no-repeat;*/
+    width: 36px;
+	height: 37px;
+	background: @quiz-sprite 0 -431px no-repeat;
     display: inline-block;
     position: relative;
     vertical-align: top;
@@ -1007,9 +1024,12 @@ body {
         &:after {
             .pseudo;
             position: absolute;
-            width: 25px;
+            /*width: 25px;
 	        height: 25px;
-	        background: @quiz-sprite 0 -136px no-repeat;
+	        background: @quiz-sprite 0 -136px no-repeat;*/
+            width: 20px;
+	        height: 18px;
+	        background: @quiz-sprite 0 -106px no-repeat;
             top: -9px;
             right: -12px; //rtl
         }
@@ -1069,7 +1089,7 @@ body {
         top: -30px;
         width: 111px;
 	    height: 111px;
-	    background: @quiz-sprite 0 -562px no-repeat;
+        background: @quiz-sprite 0 -502px no-repeat;
     }
     &:after { //needed to trigger new block
         content: '';

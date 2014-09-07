@@ -697,6 +697,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
     <Content Include="Images\ball.png" />
     <Content Include="Images\bg4.jpg" />
