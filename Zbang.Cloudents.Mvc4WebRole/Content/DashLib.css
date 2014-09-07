@@ -269,9 +269,6 @@
 .jsCreateDashboard .dashboard {
   display: none!important;
 }
-.jsCreateDashboard .modal-backdrop {
-  display: none;
-}
 .jsCreateDashboard .modal-dialog {
   background: none;
   border: none;

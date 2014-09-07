@@ -35,8 +35,8 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         $rootScope.params.createBoxWizard = true;
         var modalInstance = $modal.open({
             templateUrl: $scope.partials.createBoxWized,
-            controller: 'CreateBoxWizardCtrl'
-            //backdrop: 'static',
+            controller: 'CreateBoxWizardCtrl',
+            backdrop: false,
            // resolve: {
                 //friends: function () {
                     //return data.payload.my;
