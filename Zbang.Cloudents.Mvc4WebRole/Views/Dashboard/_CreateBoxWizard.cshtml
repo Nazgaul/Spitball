@@ -1,0 +1,58 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+
+<div class="formWpr"
+     @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
+     >
+    <div class="dashboardCreateBoxWizard" ng-controller="CreateBoxWizardCtrl" wizard on-finish="completewizard()">
+        <div wz-step>
+            <div class="actionTxt">@IndexResources.CreateCourse</div>
+            <div class="courseType">
+                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-init="isAcademicBox=true" ng-value="false" ng-model="isAcademicBox" />
+                <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
+                <div class="labelExplain explain1">@IndexResources.InviteOnly</div>
+            </div>
+
+            <div class="courseType">
+                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-value="true" ng-model="isAcademicBox" />
+                <label for="OpenCourse">@IndexResources.OpenCourse</label>
+                <div class="labelExplain">@IndexResources.AnyoneUrl</div>
+            </div>
+
+            @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
+            <div class="newAcademic clearfix" ng-show="isAcademicBox">
+                @{
+                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+                }
+            </div>
+
+            <div class="newPrivate clearfix" ng-show="!(isAcademicBox)">
+                @{
+                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
+                }
+            </div>
+
+            @{
+                Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }
+        </div>
+        <div wz-step>
+            @{
+                Html.RenderPartial("_SocialInvite");
+            }
+        </div>
+        <div wz-step>
+            @{
+                Html.RenderPartial("_UploadFiles");
+            }
+        </div>
+    </div>
+</div>
+
+@*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here
+     When user clicks the 'open course' radio btn - add class 'js-academic' here
+    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
+*@
+
+@*js-academic | js-private | js-addDept*@
+
+

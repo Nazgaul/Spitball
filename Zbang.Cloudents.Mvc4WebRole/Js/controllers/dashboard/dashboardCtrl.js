@@ -16,7 +16,8 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
-        createBox: '/Dashboard/PrivateBoxPartial/'
+        //createBox: '/Dashboard/PrivateBoxPartial/',
+        createBoxWized: '/Dashboard/CreateBox/'
     };
 
     $scope.myCourses = jsResources.CoursesFollow;
@@ -32,8 +33,19 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
+        var modalInstance = $modal.open({
+            windowClass: "createBoxWizard",
+            templateUrl: $scope.partials.createBoxWized,
+            controller: 'CreateBoxWizardCtrl',
+            //backdrop: 'static',
+            resolve: {
+                //friends: function () {
+                    //return data.payload.my;
+                //}
+            }
+        });
     };
-    
+
 
     sDashboard.boxList().then(function (data) {
         $scope.wall = data.payload.wall;
@@ -101,7 +113,6 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             });
         });
     };
-
 
     $scope.removeConfirm = function (box) {
         if (box.userType === 'none') {

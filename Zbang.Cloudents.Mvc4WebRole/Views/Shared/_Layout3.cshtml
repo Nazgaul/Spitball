@@ -37,8 +37,9 @@
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
 </head>
-<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(), 
-      'jsDark' : $root.params.createBoxWizard}">@*class="jsDark"*@
+<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),
+      'jsDark' : $root.params.createBoxWizard, jsCreateDashboard: $root.params.createBoxWizard}">
+    @*class="jsDark"*@
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
@@ -74,15 +75,15 @@
         <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
-          bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
+         bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
 
         <div id="fb-root"></div>
 
         @*<span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
-              data-myf="@ViewBag.fDash.ToString().ToLower()"
-              data-boxf="@ViewBag.fBox.ToString().ToLower()"
-              data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>*@
+            data-myf="@ViewBag.fDash.ToString().ToLower()"
+            data-boxf="@ViewBag.fBox.ToString().ToLower()"
+            data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>*@
     </div>
 
     <div id="mLoading" class="loading" data-loader>

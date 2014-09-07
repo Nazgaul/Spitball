@@ -266,8 +266,16 @@
 }
 /*#endregion */
 /*#region new dashboard */
-.jsDark .dashboard {
+.jsCreateDashboard .dashboard {
   display: none!important;
+}
+.jsCreateDashboard .modal-backdrop {
+  display: none;
+}
+.jsCreateDashboard .modal-dialog {
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 .setupCourse {
   color: #fff;
