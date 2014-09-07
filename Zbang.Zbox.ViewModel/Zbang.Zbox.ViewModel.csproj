@@ -98,7 +98,7 @@
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
-    <Compile Include="Dto\Library\DepartmentDto.cs" />
+    <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
     <Compile Include="Dto\Library\NodeBoxesDto.cs" />
     <Compile Include="Dto\Library\NodeDto.cs" />
@@ -161,8 +161,8 @@
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
     <Compile Include="Queries\Library\GetAdminUsersQuery.cs" />
+    <Compile Include="Queries\Library\GetDepartmentsByTermQuery.cs" />
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
-    <Compile Include="Queries\Library\GetUniversityByPrefixQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
     <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
     <Compile Include="Queries\QueryBase.cs" />

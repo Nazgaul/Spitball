@@ -2,13 +2,7 @@
 {
     public static class Sql
     {
-//        public const string GetUniversitiesList = @" select u.userid as Uid , 
-//                        coalesce(AliasName,userName) as Name,
-//                        u.userimage as Image,u.NeedCode as NeedCode, u.Country as Country,
-//                        (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
-//                        from zbox.users u 
-//                        where u.usertype = 1 
-//                        order by MemberCount desc";
+
         public const string GetWallList = @"
 select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action,  Url as Url
                                     from (	 
@@ -59,6 +53,10 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             from zbox.University uu , zbox.University uWrap  
                             where uu.Id = @UserId
                             and uWrap.Id =@UniversityWrapper";
+
+        public const string GetDepartmentByUserId =
+            @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
+where userid = @UserId";
 
         /// <summary>
         /// Used in user page to bring friends

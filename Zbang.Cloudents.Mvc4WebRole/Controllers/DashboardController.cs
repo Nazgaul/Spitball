@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
         }
-       
+
         #endregion
 
         #region Friends
@@ -110,13 +110,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, result));
         }
 
-        [Ajax,HttpGet]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        public ActionResult CreateBox()
+        [Ajax, HttpGet]
+        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public async Task<ActionResult> CreateBox()
         {
             try
             {
-                return PartialView("_CreateBoxWizard");
+                var query = new QueryBase(GetUserId());
+                var result = await ZboxReadService.GetDepartmentByUser(query);
+                return PartialView("_CreateBoxWizard", result);
             }
             catch (Exception ex)
             {

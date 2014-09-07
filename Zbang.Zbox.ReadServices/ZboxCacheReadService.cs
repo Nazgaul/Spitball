@@ -224,11 +224,16 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
+        public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
         {
-            return m_ReadService.GetDepartmentList(universityId);
+            return m_ReadService.GetRussianDepartmentList(universityId);
         }
 
+
+        public Task<NodeDto> GetDepartmentByUser(QueryBase query)
+        {
+            return m_ReadService.GetDepartmentByUser(query);
+        }
 
         public Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
         {
@@ -347,6 +352,12 @@ namespace Zbang.Zbox.ReadServices
         public Task<int> GetNumberOfSolvers(long quizId)
         {
             return m_ReadService.GetNumberOfSolvers(quizId);
+        }
+
+
+        public Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
+        {
+            return m_ReadService.GetDepartments(query);
         }
     }
 }
