@@ -8,10 +8,14 @@
                  if (!isValid) {
                      return;
                  }
-                 sBox.createPrivate($scope.formData).then(function (box) {
-                     
+                 sBox.createPrivate($scope.formData).then(function (response) {
+                     var data = response.success ? response.payload : [];
+                     $scope.box.url = data.url;
+                     WizardHandler.wizard().finish();
                      //$modalInstance.close(box.payload || box.Payload);
                  });
+                
+                
              };
 
              $scope.cancel = function () {

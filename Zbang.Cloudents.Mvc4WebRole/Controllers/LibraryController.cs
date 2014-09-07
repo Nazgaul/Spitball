@@ -25,20 +25,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [ZboxAuthorize]
     public class LibraryController : BaseController
     {
-        private readonly Lazy<ITableProvider> m_TableProvider;
         private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(
-            Lazy<ITableProvider> tableProvider,
             Lazy<IUserProfile> userProfile,
             Lazy<IIdGenerator> idGenerator,
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
         {
-            m_TableProvider = tableProvider;
             m_UserProfile = userProfile;
             m_IdGenerator = idGenerator;
             m_UniversitySearch = universitySearch;
@@ -353,20 +350,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        public ActionResult CreateAcademicBoxPartial()
-        {
-            try
-            {
-                return PartialView("_UploadCreateAcademicBox");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_UploadCreateAcademicBox", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet, Ajax]
+        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        //public ActionResult CreateAcademicBoxPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_UploadCreateAcademicBox");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_UploadCreateAcademicBox", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
         #endregion
 
         [Ajax]

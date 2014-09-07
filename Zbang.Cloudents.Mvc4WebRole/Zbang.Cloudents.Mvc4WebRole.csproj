@@ -1558,6 +1558,7 @@
     <Content Include="Views\Dashboard\_SocialInvite.cshtml" />
     <Content Include="Views\Shared\_UploadFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
+    <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
