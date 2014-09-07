@@ -122,6 +122,28 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        /// <summary>
+        /// AutoComplete drop down in library choose and in create box
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm, new { universityId = query.UniversityId, term = query.Term });
+            }
+        }
+
+        public async Task<NodeDto> GetDepartmentByUser(QueryBase query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<NodeDto>(Sql.Sql.GetDepartmentByUserId, new { query.UserId });
+                return retVal.FirstOrDefault();
+            }
+        }
+
 
         /// <summary>
         /// University page - the header with all the details
@@ -135,20 +157,7 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { query.UserId, UniversityWrapper = query.UniversityWrapperId });
                 return retVal.FirstOrDefault();
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUniversityDataByUserId");
-            //    dbQuery.SetInt64("UserId", query.UserId);
-            //    dbQuery.SetInt64("UniversityWrapper", query.UniversityWrapperId);
 
-            //    dbQuery.SetReadOnly(true);
-            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<UniversityInfoDto>());
-            //    var fdbQuery = dbQuery.FutureValue<UniversityInfoDto>();
-
-
-            //    var result = fdbQuery.Value ?? new UniversityInfoDto();
-            //    return result;
-            //}
         }
 
         /// <summary>
@@ -524,11 +533,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId)
+        public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<DepartmentDto>(Sql.LibraryChoose.GetDepartments, new
+                return await conn.QueryAsync<RussianDepartmentDto>(Sql.LibraryChoose.GetRussianDepartments, new
                 {
                     universityId
                 });
@@ -902,7 +911,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<int>(Sql.Quiz.NumberOfQuizSolved, new {QuizId = quizId});
+                var retVal = await conn.QueryAsync<int>(Sql.Quiz.NumberOfQuizSolved, new { QuizId = quizId });
                 return retVal.FirstOrDefault();
             }
         }

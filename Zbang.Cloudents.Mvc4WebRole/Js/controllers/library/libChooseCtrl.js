@@ -116,10 +116,10 @@
                      return;
                  }
 
-                 sLibrary.items().then(function (response) {
+                 sLibrary.searchDepartment({ term: $scope.params.departmentSearch }).then(function (response) {
                      var data = response.success ? response.payload : {};
-                     var departments = data.nodes;
-                     $scope.departments = $filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
+                     var departments = data;
+                     $scope.departments = departments; //$filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
                  });
              }, 200);
 

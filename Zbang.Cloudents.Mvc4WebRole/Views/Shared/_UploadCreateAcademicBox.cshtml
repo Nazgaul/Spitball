@@ -2,41 +2,16 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 
-@*<div class="modal-header">
-    <h3 class="modal-title"><span>@DialogResources.CreateCourse</span></h3>
-</div>
-<div class="modal-body">
-    <form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)">
-        Html.AntiForgeryToken()        
-        <div class="section">
-            <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
-                @Html.LabelFor(m => m.CourseName)
-                <span class="error">CourseName required</span>
-                @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.courseName", required = "required" })
-            </div>
-            <div>
-                @Html.LabelFor(m => m.CourseId)
-                @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.courseId" })
-            </div>
-        </div>
-        <div class="section">
-            <div class="professor">
-                @Html.LabelFor(m => m.Professor)
-                @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.professor" })
-            </div>
-        </div>
-        <input type="submit" class="btn1 next" value="@DialogResources.Create" ng-click="submitted=true" />
-    </form>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
-</div>*@
+
 <form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)" ng-controller="createAcademicBoxCtrl">
     @*@Html.AntiForgeryToken()*@
 
     <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
-        @*@Html.LabelFor(m => m.DepartmentId)*@
-        <label for="DepartmentId">Department</label>
+        @Html.LabelFor(m => m.DepartmentId)
+        @*<label for="DepartmentId">Department</label>*@
         @*<span class="error">Department name required</span>*@
-        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch" required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
+        <input class="inputText" type="text" ng-init="params.departmentSearch='@ViewBag.depName'" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch"
+               required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
         @*@Html.TextBoxFor(m => m.DepartmentId, new { @class = "inputText", ng_model = "formData.departmentName", required = "required", ng_disabled="!params.changeDepartment", ng_keyup="searchDepartment()"})*@
         <button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>
     </div>
@@ -55,7 +30,8 @@
         @Html.LabelFor(m => m.Professor)
         @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
     </div>
-    <input type="hidden" ng-model="formData.academicBox.departmentId" required />
+    @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
+    
     <input type="submit" class="btn1  rFloat" wz-next value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 cancel rFloat" ng-click="cancel()">@SharedResources.Back</button>
 

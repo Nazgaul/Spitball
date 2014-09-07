@@ -86,9 +86,15 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 
-        Task<IEnumerable<DepartmentDto>> GetDepartmentList(long universityId);
+        Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
+
+        Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query);
+
+
         Task<bool> GetUniversityNeedId(long universityId);
         Task<bool> GetUniversityNeedCode(long universityId);
+
+        Task<NodeDto> GetDepartmentByUser(QueryBase query);
 
         Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query);
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);

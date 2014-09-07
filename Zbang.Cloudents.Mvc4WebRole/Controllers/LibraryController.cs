@@ -453,7 +453,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [Ajax, HttpGet]
-        public async Task<ActionResult> Departments()
+        public async Task<ActionResult> RussianDepartments()
         {
 
             var query = new GetUserMinProfileQuery(GetUserId());
@@ -467,7 +467,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userDetail = FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityId.Value;
 
-            var retVal = await ZboxReadService.GetDepartmentList(universityId);
+            var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
+            return Json(new JsonResponse(true, retVal));
+        }
+
+        public async Task<JsonResult> Departments(string term)
+        {
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (userDetail.UniversityId == null)
+            {
+                return Json(new JsonResponse(false));
+            }
+            var universityId = userDetail.UniversityId.Value;
+            var query = new GetDepartmentsByTermQuery(universityId, term);
+            var retVal = await ZboxReadService.GetDepartments(query);
             return Json(new JsonResponse(true, retVal));
         }
 

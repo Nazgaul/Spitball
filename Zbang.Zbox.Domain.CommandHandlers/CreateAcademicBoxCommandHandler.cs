@@ -46,6 +46,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var department = m_DepartmentRepository.Load(academicCommand.DepartmentId);
             var universityUser = user.University2;
 
+            if (department.University != universityUser)
+            {
+                throw new UnauthorizedAccessException("Department is not part of the university");
+            }
+
 
 
             var box = m_AcademicRepository.CheckIfExists(academicCommand.CourseCode, department, academicCommand.Professor
