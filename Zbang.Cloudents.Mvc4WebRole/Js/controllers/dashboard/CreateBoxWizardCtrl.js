@@ -12,12 +12,6 @@
             
         };
         $scope.isAcademicBox=true;
-        $scope.formData = {
-            privateBox: {
-                privacySettings: 'AnyoneWithUrl'
-            },
-            academicBox: null,
-        };
 
         $scope.changeDepartment = function () {
             $scope.params.changeDepartment = true;
@@ -55,14 +49,14 @@
 
         //    });
         //};
-        $scope.createAcademiceBox = function (isValid) {
-            if (!isValid) {
-                return;
-            }
-            sBox.createAcademic($scope.formData.academicBox).then(function () {
+        //$scope.createAcademiceBox = function (isValid) {
+        //    if (!isValid) {
+        //        return;
+        //    }
+        //    sBox.createAcademic($scope.formData.academicBox).then(function () {
 
-            });
-        };
+        //    });
+        //};
 
         $scope.completewizard = function () {
             //console.log($scope.box.id);

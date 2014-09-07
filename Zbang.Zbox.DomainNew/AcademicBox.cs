@@ -9,17 +9,17 @@ namespace Zbang.Zbox.Domain
     public class AcademicBox : Box
     {
         public AcademicBox(string boxName, Department department,
-            string courseCode, string professor,  string picture, User creator, string pictureUrl, University university)
+            string courseCode, string professor, string picture, User creator, string pictureUrl, University university)
             :
             base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
         {
             University = university;
             if (creator == null) throw new ArgumentNullException("creator");
             CourseCode = courseCode;
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
 
             Professor = professor;
-           // Picture = picture;
+            // Picture = picture;
             AddPicture(picture, pictureUrl);
             UserTime.CreatedUser = creator.Email;
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
@@ -31,10 +31,10 @@ namespace Zbang.Zbox.Domain
         }
 
         protected AcademicBox()
-// ReSharper disable once RedundantBaseConstructorCall nhibernate
+            // ReSharper disable once RedundantBaseConstructorCall nhibernate
             : base()
         {
-           
+
         }
 
 
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain
             {
                 return;
             }
-            Url = UrlConsts.BuildBoxUrl(Id, Name, Owner.GetUniversityName());
+            Url = UrlConsts.BuildBoxUrl(Id, Name, University.UniversityName);
         }
     }
 }

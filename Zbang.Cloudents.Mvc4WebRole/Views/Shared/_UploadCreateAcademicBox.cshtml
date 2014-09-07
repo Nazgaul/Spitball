@@ -30,7 +30,7 @@
         @Html.LabelFor(m => m.Professor)
         @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
     </div>
-    @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
+    @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required", ng_init = "formData.academicBox.departmentId=" + Model.DepartmentId  })
     
     <input type="submit" class="btn1  rFloat" wz-next value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 cancel rFloat" ng-click="cancel()">@SharedResources.Back</button>
