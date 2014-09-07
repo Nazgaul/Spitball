@@ -16,10 +16,17 @@ body.quiz .topBar {
 }
 body.quiz .backWpr {
   color: #fff;
+  position: absolute;
   left: 0;
   margin-top: 5px;
+  height: 40px;
+  padding-left: 45px;
+}
+body.quiz .backWpr:before {
+  top: -5px;
 }
 body.quiz .shareBtn {
+  position: absolute;
   right: 0;
   margin-top: 5px;
 }
@@ -650,7 +657,7 @@ body.quiz .shareBtn {
   height: 100%;
   background: none;
   border: none;
-  width: 343px;
+  width: 248px;
 }
 .quizPage .backWpr:before {
   width: 43px;
@@ -677,7 +684,7 @@ body.quiz .shareBtn {
 .quizPage .itemRight {
   text-align: left;
   /*rtl*/
-  padding-left: 343px;
+  padding-left: 248px;
 }
 .quizPage .topBar {
   position: fixed;
@@ -699,7 +706,7 @@ body.quiz .shareBtn {
 }
 .quizPage .itemNameWpr {
   position: relative;
-  padding: 16px 15px 8px 65px;
+  padding: 16px 15px 8px 56px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -709,7 +716,7 @@ body.quiz .shareBtn {
   content: '';
   display: inline-block;
   position: absolute;
-  left: 20px;
+  left: 8px;
   top: 15px;
   width: 45px;
   height: 45px;
@@ -719,7 +726,7 @@ body.quiz .shareBtn {
   margin-top: 16px;
   text-align: center;
   line-height: 11px;
-  width: 70px;
+  width: 46px;
   height: 45px;
   position: relative;
   border-left: 1px solid #fff;
@@ -738,14 +745,16 @@ body.quiz .shareBtn {
   color: #fff;
   font-size: 16px;
   display: block;
+  padding: 0;
+  margin-top: 2px;
 }
 .quizPage .itemOwner {
   font-size: 12px;
-  max-width: 130px;
+  max-width: 75px;
+  margin-top: 0;
 }
 .quizPage .itemOwner + .rFloat {
   font-size: 12px;
-  margin-top: 6px;
 }
 .quizPage ~ .modal-backdrop.in {
   opacity: 0.8;
@@ -902,13 +911,13 @@ body.quiz .shareBtn {
   font-size: 15px;
   position: relative;
   height: 75px;
-  padding-left: 45px;
+  padding-left: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .results.wrong {
-  padding: 0 45px 0 0;
+  padding: 0 20px 0 0;
   border-left: 1px solid #fff;
 }
 .results.wrong:after {
@@ -921,25 +930,22 @@ body.quiz .shareBtn {
 .results:before {
   content: attr(data-results);
   display: block;
-  font-size: 70px;
+  font-size: 56px;
   color: #fff;
-  margin: -20px 0;
+  margin: -11px 0;
 }
 .results:after {
   content: '';
   display: inline-block;
   position: absolute;
   background: url(/Images/quizSprite.png?v=2) 0 0 no-repeat;
-  /*width: 51px;
-	    height: 49px;*/
   width: 38px;
   height: 38px;
   left: 0;
   top: 12px;
 }
 .userScoreWpr {
-  margin: 20px 15px 0;
-  height: 100px;
+  margin: 20px 5px 0;
   font-size: 20px;
   background: #282828;
   position: relative;
@@ -964,11 +970,12 @@ body.quiz .shareBtn {
 .userScore:after {
   content: attr(data-user-score);
   display: block;
-  font-size: 70px;
-  margin-top: -20px;
+  font-size: 56px;
+  margin-top: -12px;
+  font-weight: 600;
 }
 .timeRetakeWpr {
-  padding: 20px 25px 0;
+  padding: 20px 10px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -991,13 +998,11 @@ body.quiz .shareBtn {
 }
 .quizTimerResult {
   color: #9AC6E9;
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 4px;
 }
 .quizTimerResult:before {
-  /*background: @quiz-sprite 0 -425px no-repeat;
-        width: 39px;
-	    height: 43px;*/
+  margin: 0;
   width: 39px;
   height: 43px;
   background: url(/Images/quizSprite.png?v=2) 0 -388px no-repeat;
@@ -1026,9 +1031,6 @@ body.quiz .shareBtn {
   margin: 20px 0;
 }
 .topUser {
-  /*width: 47px;
-	height: 47px;
-	background: @quiz-sprite 0 -468px no-repeat;*/
   width: 36px;
   height: 37px;
   background: url(/Images/quizSprite.png?v=2) 0 -431px no-repeat;
@@ -1043,19 +1045,16 @@ body.quiz .shareBtn {
   content: '';
   display: inline-block;
   position: absolute;
-  /*width: 25px;
-	        height: 25px;
-	        background: @quiz-sprite 0 -136px no-repeat;*/
   width: 20px;
   height: 18px;
   background: url(/Images/quizSprite.png?v=2) 0 -106px no-repeat;
-  top: -9px;
-  right: -12px;
+  top: -7px;
+  right: -10px;
 }
 .topUser img {
   border-radius: 5px;
-  height: 47px;
-  width: 47px;
+  height: 37px;
+  width: 36px;
 }
 .distributionWpr {
   position: relative;

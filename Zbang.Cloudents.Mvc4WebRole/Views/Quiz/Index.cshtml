@@ -51,7 +51,7 @@
 
             <div class="distributionWpr">
                 <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
-                <canvas width="308" height="202" quiz-graph user-done="{{quiz.userDone}}"></canvas>
+                <canvas width="223" height="120" quiz-graph user-done="{{quiz.userDone}}"></canvas>
             </div>
 
         </div>
@@ -61,7 +61,7 @@
 
         <div class="quizActionsWpr">
 
-            <section class="shareBtn rFloat">
+            <section class="shareBtn">
                 <input class="checkbox" type="checkbox" id="quizShare" />
                 <label for="quizShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop"></label>
                 <div class="dropDown shareDD" data-dropdown="quizShare">
@@ -85,7 +85,7 @@
                     <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
                 </div>
             </section>
-            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps lFloat">
+            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
             </a>

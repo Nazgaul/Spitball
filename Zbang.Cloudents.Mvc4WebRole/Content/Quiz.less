@@ -16,10 +16,17 @@ body {
 
         .backWpr {
             color: #fff;
+            position: absolute;
             left: 0; //rtl
             margin-top: 5px;
+            height: 40px;
+            padding-left: 45px;
+            &:before {
+                top: -5px;
+            }
         }
         .shareBtn {
+            position: absolute;
             right: 0; //rtl
             margin-top: 5px;
         }
@@ -659,7 +666,8 @@ body {
         height: 100%;
         background: none;
         border: none;
-        width: 343px;
+        //width: 343px;
+        width: 248px;
     }
     .backWpr {
         &:before {
@@ -689,7 +697,7 @@ body {
 
     .itemRight {
         text-align: left; /*rtl*/
-        padding-left: 343px; //rtl
+        padding-left: 248px; //rtl
     }
     .topBar{
         position:fixed;
@@ -712,15 +720,14 @@ body {
     }
     .itemNameWpr {
         position: relative;
-        //padding: 28px 20px 15px 90px; //rtl
-        padding: 16px 15px 8px 65px; //rtl
+        padding: 16px 15px 8px 56px; //rtl
         .boxSizing;
         height: auto; //override
 
         &:before {
             .pseudo;
             position: absolute;
-            left:20px;
+            left:8px; //rtl
             top: 15px;
             width: 45px;
             height: 45px;
@@ -728,12 +735,10 @@ body {
         }
     }
     .quizViews {
-        //margin-top: 29px;
         margin-top: 16px;
         text-align: center;
         line-height: 11px;
-        //width: 80px;
-        width: 70px;
+        width: 46px;
         height: 45px;
         position: relative;
         border-left: 1px solid #fff; //rtl
@@ -741,9 +746,6 @@ body {
             content: '';
             margin: auto; //
             display: block;
-            //width: 37px;
-	        //height: 23px;
-	        //background:  0 -49px;
             width: 38px;
 	        height: 23px;
 	        background: @quiz-sprite 0 -38px no-repeat;
@@ -756,14 +758,15 @@ body {
         color: #fff;
         font-size: 16px;
         display: block; // for ellipsis
+        padding: 0;
+        margin-top: 2px;
     }
     .itemOwner {
         font-size: 12px;
-        //max-width: 90px;
-        max-width: 130px;
+        max-width: 75px;
+        margin-top: 0;
         + .rFloat {
             font-size: 12px;
-            margin-top: 6px;
         }
     }
     ~ .modal-backdrop.in {
@@ -902,12 +905,11 @@ body {
     display: inline-block;
     font-size: 15px;
     position: relative;
-    //height: 90px;
     height: 75px;
-    padding-left: 45px; //rtl
+    padding-left: 20px; //rtl
     .boxSizing;
     &.wrong {
-        padding: 0 45px 0 0; //rtl
+        padding: 0 20px 0 0; //rtl
         border-left: 1px solid #fff;//rtl
         &:after {
             width: 40px;
@@ -921,18 +923,14 @@ body {
     &:before {
         content: attr(data-results);
         display: block;
-        //font-size: 90px;
-        font-size: 70px;
+        font-size: 56px;
         color: #fff;
-        //margin: -30px 0 -20px; //diff rtl
-        margin: -20px 0;
+        margin: -11px 0;
     }
     &:after {
         .pseudo;
         position: absolute;
         background: @quiz-sprite 0 0 no-repeat;
-        /*width: 51px;
-	    height: 49px;*/
         width: 38px;
 	    height: 38px;
         left: 0; //rtl
@@ -941,9 +939,9 @@ body {
     }
 }
 .userScoreWpr {
-    margin: 20px 15px 0;
+    margin: 20px 5px 0;
     //height: 120px;
-    height: 100px;
+    //height: 100px;
     font-size: 20px;
     background: #282828;
     position: relative;
@@ -956,23 +954,21 @@ body {
 .userScore {
     background: #797979;
     border-radius: 12px;
-    //padding-top: 5px;
     padding-top: 3px;
     .boxSizing;
     color:#fff;
     &:after {
         content: attr(data-user-score);
         display: block;
-        //font-size: 90px;
-        font-size: 70px;
-        //margin-top: -25px;
-        margin-top: -20px;
+        font-size: 56px;
+        margin-top: -12px;
+        font-weight: 600;
         //diff rtl
     }
 }
 
 .timeRetakeWpr {
-    padding: 20px 25px 0;
+    padding: 20px 10px 0;
     .boxSizing;
     border-bottom: 1px solid #797979;
     background: #282828;
@@ -990,12 +986,10 @@ body {
 }
 .quizTimerResult {
     color: #9AC6E9;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 4px;
     &:before {
-        /*background: @quiz-sprite 0 -425px no-repeat;
-        width: 39px;
-	    height: 43px;*/
+        margin:0; //override;
         width: 39px;
 	    height: 43px;
 	    background: @quiz-sprite 0 -388px no-repeat;
@@ -1021,9 +1015,6 @@ body {
     margin: 20px 0;
 }
 .topUser {
-    /*width: 47px;
-	height: 47px;
-	background: @quiz-sprite 0 -468px no-repeat;*/
     width: 36px;
 	height: 37px;
 	background: @quiz-sprite 0 -431px no-repeat;
@@ -1037,20 +1028,17 @@ body {
         &:after {
             .pseudo;
             position: absolute;
-            /*width: 25px;
-	        height: 25px;
-	        background: @quiz-sprite 0 -136px no-repeat;*/
             width: 20px;
 	        height: 18px;
 	        background: @quiz-sprite 0 -106px no-repeat;
-            top: -9px;
-            right: -12px; //rtl
+            top: -7px;
+            right: -10px; //rtl
         }
     }
     img {
         border-radius: 5px;
-        height: 47px;
-        width: 47px;
+        height: 37px;
+        width: 36px;
     }
 }
 .distributionWpr {
