@@ -15,7 +15,7 @@
         <div class="timeWpr">
             <div class="quizTime" id="quizTimer">
 
-                <timer interval="1000" autostart="false">{{hours}}:{{mminutes}}:{{sseconds}}</timer>
+                <timer interval="1000" autostart="false">{{mminutes}}:{{sseconds}}</timer>
             </div>
             <button type="button" ng-click="takeQuiz()">{{timer.state}}</button>
         </div>
@@ -56,7 +56,7 @@
 
         <div class="quizActionsWpr">
 
-            <section class="shareBtn">
+            @*<section class="shareBtn">
                 <input class="checkbox" type="checkbox" id="quizShare" />
                 <label for="quizShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop"></label>
                 <div class="dropDown shareDD" data-dropdown="quizShare">
@@ -79,7 +79,7 @@
                     <div class="shareTxt">@SharedResources.OrCopyLink</div>
                     <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
                 </div>
-            </section>
+            </section>*@
             <a ng-href="{{quiz.boxUrl}}" class="backWpr elps">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
@@ -91,11 +91,11 @@
         <div class="quizPrevWpr">
             <ul class="quizQList">
                 <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
-                    <div class="quizQuestion" bo-text="question.text"></div>
+                    <div class="quizQuestion" bo-html="question.text"></div>
                     <ul class="quizAList">
                         <li ng-repeat="answer in question.answers" ng-class="{correct: answer.correct, wrong : answer.wrong}">
                             <input id="quizTestRadio{{$index+ $parent.$index.toString()}}" ng-checked="answer.isChecked" type="radio" name="quizTestRadio{{$parent.$index}}" ng-click="markCorrect(question,answer)" ng-disabled="quiz.userDone || quiz.afraid" />
-                            <label for="quizTestRadio{{$index+ $parent.$index.toString()}}" bo-text="answer.text"></label>
+                            <label for="quizTestRadio{{$index+ $parent.$index.toString()}}" bo-html="answer.text"></label>
                         </li>
                     </ul>
 

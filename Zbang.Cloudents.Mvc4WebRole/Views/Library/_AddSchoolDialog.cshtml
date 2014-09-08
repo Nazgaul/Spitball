@@ -6,7 +6,7 @@
 
 <div class="createSchool" ng-style="{display: display.createUniversity ? 'block' : 'none'}">
     <div class="top">
-        <button type="button">@MainViewResources.UploadLogo</button>
+        <button type="button" style="display:none">@MainViewResources.UploadLogo</button>
     </div>
     <form class="clearfix" novalidate name="createUniversityForm" ng-submit="createUniversitySubmit(createUniversityForm.$valid)">
         @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
