@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2345,7 +2345,7 @@ select.inputText {
   display: block;
   width: 108px;
   height: 98px;
-  background: url(/Images/site.png?v=2) 0 -1426px no-repeat;
+  background: url(/Images/site.png?v=3) 0 -1426px no-repeat;
   margin: 0 auto;
 }
 .emptySearchAdmin:after {
@@ -2722,4 +2722,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */

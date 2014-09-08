@@ -475,7 +475,8 @@ body {
     border-radius: 5px;
     padding: 0 20px 15px 20px;
     .boxSizing;
-    border: 1px solid @borderColor;
+    //border: 2px solid @color;
+    //box-shadow: inset 0 0 3px @color;
 }
 .quizTitle{
     font-size: 18px;
@@ -500,11 +501,11 @@ body {
         clear: both;
     }
     .splitHR {
-        
-        text-align: left; /*rtl*/
-        padding: 10px 0 0 14px; /*rtl*/
+
+        text-align: left; //rtl
+        padding: 10px 0 0 42px; //rtl
         font-size: 13px;
-        margin: 0 20px -4px 0; /*rtl*/
+        margin: 0 -34px -4px -34px;
     }
     .splitHRText:before, .splitHRText:after {
         border-color: @borderColor;
@@ -526,10 +527,10 @@ body {
 }*/
 .commentWpr {
     //margin: 10px 40px 0 34px; /*rtl*/
-    margin: 10px -25px 0 -25px;
+    margin: 10px -34px 0 -34px;
     position: relative;
     display: none;
-    background: #f4f4f4;
+    background: #f1f1f1;
     padding-left: 10px; /*rtl*/
     .closeDialog {
         background-position: -68px -26px;
@@ -550,6 +551,7 @@ body {
     }
     li:hover .closeDialog {
             display: block;
+            top: 15px;
     }
     /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
@@ -562,9 +564,8 @@ body {
     font-size: 13px;
     /*display: none;*/ //ram request
     li{
-        padding-left: 42px; /*rtl*/
         position: relative;
-        margin-top: 20px;
+        padding: 10px 0 0 42px; //rtl
     }
     
     .createTime {
@@ -583,14 +584,15 @@ body {
 }
 .cTextAreaWpr {
     //display: none;
-    margin-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
     overflow: hidden; //for comment button to take up space
     .imgBorder {
         left: 10px; /*rtl*/
     }
 }
 .cTextArea {
-    width: 575px;
+    width: 595px;
     margin-left: 42px; /*rtl*/
     border-radius: 3px;
     font-size: 15px;
@@ -630,7 +632,7 @@ body {
 
         label {
             position: relative;
-            top: -35px;
+            top: -36px;
             left: 5px; /*rtl*/
             line-height: 20px;
 
@@ -748,35 +750,37 @@ body {
         margin-top: 16px;
         text-align: center;
         line-height: 11px;
-        width: 46px;
+        width: 53px;
         height: 45px;
         position: relative;
         border-left: 1px solid #797979; //rtl
+        color: @borderColor;
+        margin-right: -5px; //rtl
         &:before {
             content: '';
-            margin: auto; //
             display: block;
             width: 38px;
 	        height: 23px;
 	        background: @quiz-sprite 0 -38px no-repeat;
-            margin-bottom: 5px;
+            margin: 2px auto 5px;
         }
     }  
 
     .item-name {
-        font-weight: bold;
         color: #fff;
         font-size: 16px;
         display: block; // for ellipsis
         padding: 0;
-        margin-top: 2px;
+        margin: 2px 0 3px;
     }
     .itemOwner {
         font-size: 12px;
         max-width: 75px;
         margin-top: 0;
+        color: @borderColor;
         + .rFloat {
             font-size: 12px;
+            color: @borderColor;
         }
     }
     ~ .modal-backdrop.in {
@@ -804,7 +808,7 @@ body {
             background-color: none;
             background: @common-sprite -18px -121px no-repeat;
             opacity: 1 !important; //override disabled radio half opacity on label. TODO: See if there is another way!
-            margin: -3px 0 0 -3px; /*rtl*/
+            margin: -5px 0 0 -3px; /*rtl*/
         }
     }
 
@@ -927,6 +931,7 @@ body {
 	        background-position:  0 -468px;
             right: 0; //rtl
             left: auto; //override
+            top: 16px;
         } 
     }
 
@@ -968,10 +973,11 @@ body {
     padding-top: 3px;
     .boxSizing;
     color:#fff;
+    height: 94px;
     &:after {
         content: attr(data-user-score);
         display: block;
-        font-size: 56px;
+        font-size: 60px;
         margin-top: -12px;
         font-weight: 600;
         //diff rtl
@@ -1026,9 +1032,10 @@ body {
     margin: 13px 0;
 }
 .topUser {
-    width: 36px;
+    width: 37px;
 	height: 37px;
-	background: @quiz-sprite 0 -431px no-repeat;
+    border-radius: 3px;
+	background: @quiz-sprite 0 -613px no-repeat;
     display: inline-block;
     position: relative;
     vertical-align: top;
@@ -1047,9 +1054,9 @@ body {
         }
     }
     img {
-        border-radius: 5px;
+        border-radius: 3px;
         height: 37px;
-        width: 36px;
+        width: 37px;
     }
 }
 .distributionWpr {

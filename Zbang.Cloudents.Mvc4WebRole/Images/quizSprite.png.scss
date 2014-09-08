@@ -55,3 +55,9 @@
 	height: 111px;
 	background: url('quizSprite.png') 0 -502px;
 }
+@mixin sprite-Images-user-icon() {
+/* You may have to set 'display: block' */
+	width: 37px;
+	height: 37px;
+	background: url('quizSprite.png') 0 -613px;
+}

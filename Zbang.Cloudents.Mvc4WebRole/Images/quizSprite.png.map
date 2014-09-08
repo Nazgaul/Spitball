@@ -62,6 +62,13 @@
       "height": 111,
       "offsetX": 0,
       "offsetY": 502
+    },
+    {
+      "name": "/Images/user-icon.png",
+      "width": 37,
+      "height": 37,
+      "offsetX": 0,
+      "offsetY": 613
     }
   ]
 }

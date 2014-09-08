@@ -2714,9 +2714,7 @@ body.quiz .shareBtn {
 .quizQList .splitHR {
   text-align: right;
   /*rtl*/
-  padding: 10px 14px 0 0;
-  /*rtl*/
-  margin: 0 0 -4px 20px;
+  padding: 10px 42px 0 0;
   /*rtl*/
 }
 .commentWpr {
@@ -2738,8 +2736,7 @@ body.quiz .shareBtn {
   /*rtl*/
 }
 .quizComments li {
-  padding: 0 42px 0 0;
-  /*rtl*/
+  padding: 10px 42px 0 0;
 }
 .commentTxt {
   padding: 0 0 0 22px;
@@ -2799,6 +2796,7 @@ body.quiz .shareBtn {
 .quizPage .quizViews {
   border: none;
   border-right: 1px solid #797979;
+  margin: 0 0 0 -5px;
 }
 .quizPage .itemNameWpr {
   padding: 16px 56px 8px 15px;
@@ -2830,7 +2828,7 @@ body.quiz .shareBtn {
 .afraid .correct.correct label:before,
 .checkQuiz .wrong.wrong label:before,
 .afraid .wrong.wrong label:before {
-  margin: -3px -3px 0 0;
+  margin: -5px -3px 0 0;
   /*rtl*/
 }
 .checkQuiz .quizQList .noAnswer:after,
