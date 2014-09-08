@@ -86,6 +86,7 @@
     <Compile Include="IQuestionRepository.cs" />
     <Compile Include="IQuizRepository.cs" />
     <Compile Include="ItemTabRepository.cs" />
+    <Compile Include="IUniversityRepository.cs" />
     <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
     <Compile Include="IUserRepository.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ItemRateRepository.cs" />
     <Compile Include="QuizRepository.cs" />
     <Compile Include="RegisterIoc.cs" />
+    <Compile Include="UniversityRepository.cs" />
     <Compile Include="UpdatesRepository.cs" />
     <Compile Include="UserBoxRelRepository.cs" />
     <Compile Include="UserRepository.cs" />

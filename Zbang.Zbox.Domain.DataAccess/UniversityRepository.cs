@@ -1,24 +1,17 @@
-﻿using Zbang.Zbox.Infrastructure.Data.NHibernameUnitOfWork;
+﻿using NHibernate.Criterion;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
-    class UniversityRepository : NHibernateRepository<University>, IUniversityRepository
+   public class UniversityRepository : NHibernateRepository<University>, IUniversityRepository
     {
-        public University GetUniversity(string name)
+        public int GetNumberOfBoxes(University universityId)
         {
             //this cant be done with query over
-            var query = UnitOfWork.CurrentSession.CreateQuery("from University where Coalesce(AliasName,Name) = :name");
-            query.SetString("name", name.Trim());
-            //.QueryOver<University>();
-            //query.Where(w => w.AliasName.Coalesce(string.Empty) ==  name.Trim().Lower());
-            //query.Where()
-            //query.OrderBy()
-            //      .SqlFunction("coalesce",
-            //                            NHibernateUtil.String,
-            //                            Projections.Property<University>(x => x.AliasName),
-            //                            Projections.Property<University>(x => x.Name)));
-            return query.UniqueResult<University>();
+            return UnitOfWork.CurrentSession.QueryOver<Department>()
+                            .Where(w => w.University == universityId)
+                            .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
             // return query.SingleOrDefault<University>();
         }
     }

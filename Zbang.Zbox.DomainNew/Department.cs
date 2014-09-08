@@ -29,9 +29,9 @@ namespace Zbang.Zbox.Domain
         public virtual string Name { get; private set; }
                
         public  string Url { get; private set; }
-        public  int NoOfBoxes { get; private set; }
+        public virtual  int NoOfBoxes { get; private set; }
 
-        public void UpdateNumberOfBoxes(int count)
+        public virtual void UpdateNumberOfBoxes(int count)
         {
             NoOfBoxes = count;
         }

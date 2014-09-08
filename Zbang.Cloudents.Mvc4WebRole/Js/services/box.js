@@ -136,6 +136,16 @@ mBox.factory('sBox',
 
                 return dfd.promise;
             },
+            remove: function (data) {
+                var dfd = $q.defer();
+                $http.post(Box + 'Delete2/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
+            },
             notification: function (data) {
                 var dfd = $q.defer();
                 $http.get(Box + 'GetNotification/', { params: data }).success(function (response) {

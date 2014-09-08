@@ -93,10 +93,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual UserTimeDetails UserTime { get; set; }
 
-        public int NoOfBoxes { get; private set; }
+        public virtual int NoOfBoxes { get; private set; }
 
 
-        public void UpdateNumberOfBoxes(int boxesCount)
+        public virtual void UpdateNumberOfBoxes(int boxesCount)
         {
             NoOfBoxes = boxesCount;
         }
