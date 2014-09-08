@@ -13,9 +13,9 @@
                 </span>
                 <span class="uniName"><span class="uniText">@Model.Name</span></span>
             </a>
-            @if (!string.IsNullOrEmpty(Model.AdvertismentUrl))
+            @if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
             {
-                <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertismentUrl'" ng-click="productStore()">
+                <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertisementUrl'" ng-click="productStore()">
                     <h2 class="productsHeader">חנות האגודה</h2>
                     <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
                     <div class="closeProducts"></div>
@@ -64,7 +64,7 @@
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
 
             @*NEW COURSE SECTION*@
-            <section class="setupCourse" ng-if="firstTime.dashboard">
+            <section class="setupCourse" ng-init="newUniversity='@Model.NoOfBoxes'" ng-if="!academicBoxes.length && !groupBoxes.length">
                 <div class="topWpr">
                     <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
                     <div class="setupCourseTxt2">@HomeResources.StudyPlatform</div>
@@ -96,10 +96,10 @@
                             </li>
                         </ul>
                     </section>
-                </div>                
+                </div>
             </section>
 
-            <section class="unionCourses" ng-if="!firstTime.dashboard">
+            <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
 
                 <div ng-if="!academicBoxes.length" class="emptyDash">
@@ -122,7 +122,7 @@
 
             </section>
 
-            <section class="groupBoxes" ng-if="!firstTime.dashboard">
+            <section class="groupBoxes" ng-if="academicBoxes.length || groupBoxes.length">
                 <header class="boxesHeader">@IndexResources.MyGroup</header>
                 <div ng-hide="groupBoxes.length > 0" class="emptyDash">
                     <div class="groupEmpty">

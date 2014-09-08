@@ -226,7 +226,7 @@ namespace Testing
 
             var i = 0;
 
-            writeService.OneTimeDbi();
+            writeService.Dbi(0);
             //            //var command = new UpdateUserProfileCommand(1, "ramy", null, null, "המרכז האקדמי פרס");
 
             //            //writeService.Dbi();

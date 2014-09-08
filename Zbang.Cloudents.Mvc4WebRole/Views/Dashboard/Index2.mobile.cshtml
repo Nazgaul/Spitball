@@ -3,7 +3,7 @@
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div id="dashboard" data-header="My area" class="page dashboard">
-    @{Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox() { privacySettings = Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl });}
+    @{Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());}
     
     <div class="topBtns">
         <a class="browseBtn lFloat" href="@Url.GenerateUrl("Index","Library")" data-navigation="Library">

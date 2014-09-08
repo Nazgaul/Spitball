@@ -71,6 +71,7 @@ namespace Zbang.Zbox.Domain
             Image = image;
             LargeImage = largeImage;
             UserTime = new UserTimeDetails(userEmail);
+            NoOfBoxes = 0;
         }
 
         public virtual long Id { get; set; }
@@ -92,6 +93,12 @@ namespace Zbang.Zbox.Domain
 
         public virtual UserTimeDetails UserTime { get; set; }
 
+        public int NoOfBoxes { get; private set; }
 
+
+        public void UpdateNumberOfBoxes(int boxesCount)
+        {
+            NoOfBoxes = boxesCount;
+        }
     }
 }
