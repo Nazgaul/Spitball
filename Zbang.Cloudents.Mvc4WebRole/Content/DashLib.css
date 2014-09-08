@@ -269,6 +269,9 @@
 .jsCreateDashboard .dashboard {
   display: none!important;
 }
+.jsCreateDashboard .union {
+  display: none!important;
+}
 .jsCreateDashboard .modal-dialog {
   background: none;
   border: none;
