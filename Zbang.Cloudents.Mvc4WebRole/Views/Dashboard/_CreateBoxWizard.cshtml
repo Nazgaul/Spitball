@@ -4,8 +4,8 @@
 <div class="formWpr"
      @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
      >
-    <div  wizard on-finish="completewizard()">
-        <div wz-step>
+    <div wizard on-finish="completewizard()" template="'wizard.html'">
+        <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType">
                 <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-init="isAcademicBox=true" ng-value="false" ng-model="isAcademicBox" />
@@ -23,7 +23,7 @@
             <div class="newAcademic clearfix editDept" ng-show="isAcademicBox">
                 @{
                     ViewBag.depName = Model.Name;
-                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox {DepartmentId = Model.Id});
+                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox { DepartmentId = Model.Id });
                 }
             </div>
 
@@ -34,16 +34,16 @@
             </div>
 
             @{
-               
+
                 Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
             }
         </div>
-        <div wz-step>
+        <div wz-step template="'step.html'">
             @{
                 Html.RenderPartial("_SocialInvite");
             }
         </div>
-        <div wz-step>
+        <div wz-step template="'step.html'">
             @{
                 Html.RenderPartial("_UploadFiles");
             }

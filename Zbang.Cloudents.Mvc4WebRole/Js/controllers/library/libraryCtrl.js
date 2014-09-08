@@ -67,23 +67,23 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     $scope.createBox = function () {
         $rootScope.params.createBoxWizard = true;
-        //var modalInstance = $modal.open({
-        //    templateUrl: '/Dashboard/CreateBox/',
-        //    controller: 'CreateBoxWizardCtrl',
-        //    backdrop: false,
-        //    // resolve: {
-        //    //friends: function () {
-        //    //return data.payload.my;
-        //    //}
-        //    // }
-        //});
-        //modalInstance.result.then(function (url) {
+        var modalInstance = $modal.open({
+            templateUrl: '/Dashboard/CreateBox/',
+            controller: 'CreateBoxWizardCtrl',
+            backdrop: false,
+            // resolve: {
+            //friends: function () {
+            //return data.payload.my;
+            //}
+            // }
+        });
+        modalInstance.result.then(function (url) {
 
-        //    $rootScope.params.createBoxWizard = false;
-        //    if (url) {
-        //        $location.path(url);
-        //    }
-        //});
+            $rootScope.params.createBoxWizard = false;
+            if (url) {
+                $location.path(url);
+            }
+        });
     };
 
     //$scope.createDepartment = function () {

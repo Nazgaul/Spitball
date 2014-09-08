@@ -2,7 +2,7 @@
 {
     public class UniversitySearchDto
     {
-        public string Image { get; private set; }
+        public string Image { get; set; }
 
         public string Name { get; set; }
 

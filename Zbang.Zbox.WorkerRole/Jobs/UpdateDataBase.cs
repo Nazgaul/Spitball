@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     if (!m_ZboxService.Dbi(index))
                     {
                         index = 0;
-                        Thread.Sleep(TimeSpan.FromHours(3));
+                        Thread.Sleep(TimeSpan.FromHours(5));
                     }
                     index++;
                 }

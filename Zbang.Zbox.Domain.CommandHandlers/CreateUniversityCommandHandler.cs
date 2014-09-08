@@ -3,6 +3,8 @@ using System;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -10,11 +12,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IRepository<User> m_UserRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
-        public CreateUniversityCommandHandler(IRepository<University> universityRepository, IRepository<User> userRepository)
+        public CreateUniversityCommandHandler(IRepository<University> universityRepository, IRepository<User> userRepository, IQueueProvider queueProvider)
         {
             m_UniversityRepository = universityRepository;
             m_UserRepository = userRepository;
+            m_QueueProvider = queueProvider;
         }
 
         public void Handle(CreateUniversityCommand message)
@@ -28,6 +32,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                
                 );
             m_UniversityRepository.Save(university);
+
+            m_QueueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
 
 
         }

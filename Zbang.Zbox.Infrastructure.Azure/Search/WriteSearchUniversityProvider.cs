@@ -122,6 +122,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
+       
+
         private async Task<bool> CheckIndexExits()
         {
             using (var httpClient = new HttpClient())
