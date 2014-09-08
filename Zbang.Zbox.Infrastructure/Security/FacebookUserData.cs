@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text;
 namespace Zbang.Zbox.Infrastructure.Security
 {
@@ -31,7 +32,7 @@ namespace Zbang.Zbox.Infrastructure.Security
    "updated_time": "2014-03-24T11:51:33+0000",
    "username": "yang.tomer"
            */
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         public long id { get; set; } //yes. the user id is of type long...dont use int
 
         public string first_name { get; set; }
@@ -45,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string LargeImage { get; set; }
 
         public string gender { get; set; }
-    // ReSharper restore InconsistentNaming
+        // ReSharper restore InconsistentNaming
         public bool GetGender()
         {
             if (string.IsNullOrEmpty(gender))
@@ -74,4 +75,51 @@ namespace Zbang.Zbox.Infrastructure.Security
             return sb.ToString();
         }
     }
+
+    public class FacebookUserData2
+    {
+        public long id { get; set; }
+        public Education[] education { get; set; }
+        public string email { get; set; }
+        public string first_name { get; set; }
+
+        public string middle_name { get; set; }
+        public string gender { get; set; }
+        public string last_name { get; set; }
+        public string link { get; set; }
+        public string locale { get; set; }
+        public string name { get; set; }
+        public int timezone { get; set; }
+        public bool verified { get; set; }
+
+        public string Image { get; set; }
+        public string LargeImage { get; set; }
+
+        public bool GetGender()
+        {
+            if (string.IsNullOrEmpty(gender))
+            {
+                return true;
+            }
+            return gender.ToLower() == "male";
+        }
+    }
+
+    public class Education
+    {
+        public School school { get; set; }
+        public string type { get; set; }
+    }
+
+    public class School
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("id: {0} name: {1}", id, name);
+        }
+    }
+
 }

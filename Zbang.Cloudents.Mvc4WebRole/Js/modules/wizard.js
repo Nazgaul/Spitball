@@ -1,5 +1,5 @@
-﻿angular.module('wizard',[]).
-    directive('wzStep',['$templateCache', function ($templateCache) {
+﻿angular.module('wizard', []).
+    directive('wzStep', ['$templateCache', function ($templateCache) {
         return {
             restrict: 'EA',
             replace: true,
@@ -44,7 +44,7 @@
 
         return service;
     }).
-    directive('wizard',[ '$templateCache', function ($templateCache) {
+    directive('wizard', ['$templateCache', function ($templateCache) {
         return {
             restrict: 'EA',
             replace: true,
@@ -57,6 +57,7 @@
                 name: '@'
             },
             templateUrl: function (element, attributes) {
+
                 return $templateCache.get(attributes.template) || "wizard.html";
             },
             controller: ['$scope', '$element', 'WizardHandler', function ($scope, $element, WizardHandler) {

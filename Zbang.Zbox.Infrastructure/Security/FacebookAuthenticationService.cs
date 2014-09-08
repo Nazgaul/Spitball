@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,26 @@ namespace Zbang.Zbox.Infrastructure.Security
         const string FacebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
 
 
-        public async Task<FacebookUserData> FacebookLogIn(string token)
+        public async Task<FacebookUserData2> FacebookLogIn(string token)
         {
-            FacebookUserData user;
+            FacebookUserData2 user;
             using (var client = new HttpClient())
             {
+                //var str = await client.GetStringAsync("https://graph.facebook.com/me?access_token=" + token);
+                //dynamic o = JObject.Parse(str);
+
+                //if (o.user == null)
+                //{
+                //    throw new NullReferenceException("user");
+                //}
 
 
                 using (var sr = await client.GetStreamAsync("https://graph.facebook.com/me?access_token=" + token))
                 {
+                    
+                    var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData2));
 
-                    var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData));
-
-                    user = dataContractJsonSerializer.ReadObject(sr) as FacebookUserData;
+                    user = dataContractJsonSerializer.ReadObject(sr) as FacebookUserData2;
 
                     if (user == null)
                     {
@@ -41,6 +49,11 @@ namespace Zbang.Zbox.Infrastructure.Security
                     user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
                     user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);
 
+                    if (user.education != null)
+                    {
+                        TraceLog.WriteInfo("facebook user education: " +
+                                           string.Join(" ", user.education.Select(s => s.school)));
+                    }
                 }
             }
 
