@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -184,6 +184,12 @@ body {
   /*-webkit-backface-visibility: hidden;*/
   font-family: 'Open Sans', Arial;
   /*rtl*/
+}
+body.jsDark {
+  background: #282828;
+}
+body.jsDark .siteHeader {
+  background: #0f0f0f;
 }
 body,
 h1,
@@ -2713,3 +2719,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

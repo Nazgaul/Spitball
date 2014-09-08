@@ -1,13 +1,11 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-body.quiz,
-body.jsDark {
+body.quiz {
   background: #282828;
 }
-body.quiz .siteHeader,
-body.jsDark .siteHeader {
+body.quiz .siteHeader {
   background: #0f0f0f;
 }
 body.quiz .topBar {
@@ -1184,4 +1182,3 @@ body.quiz .shareBtn {
   background: #4f5d67;
 }
 /*#endregion */
-/*# sourceMappingURL=Quiz.css.map */
