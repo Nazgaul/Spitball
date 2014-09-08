@@ -191,6 +191,9 @@ body.jsDark {
 body.jsDark .siteHeader {
   background: #0f0f0f;
 }
+body.jsDark .dashLibSearchInput {
+  display: none;
+}
 body,
 h1,
 h2,

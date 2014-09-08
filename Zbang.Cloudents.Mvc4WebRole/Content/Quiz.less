@@ -8,7 +8,9 @@ body {
         .siteHeader {
             background: #0f0f0f;//
         }
-
+        .dashLibSearchInput {
+            display: none;//
+        }
         .topBar {
             background: #1e1e1e;
             border: none; //override
@@ -476,9 +478,9 @@ body {
     border: 1px solid @borderColor;
 }
 .quizTitle{
-    font-size: 22px;
-    padding-top: 22px;
-    max-width: 500px;
+    font-size: 18px;
+    padding-top: 27px;
+    max-width: 430px;
     display: inline-block;
     color: #fff;
     &:before
@@ -505,7 +507,7 @@ body {
         margin: 0 20px -4px 0; /*rtl*/
     }
     .splitHRText:before, .splitHRText:after {
-        border-color: #eee;
+        border-color: @borderColor;
     }
     .iconTxt {
         color: @attentionBlue;
@@ -523,10 +525,11 @@ body {
     padding-right: 80px;
 }*/
 .commentWpr {
-    margin: 10px 40px 0 34px; /*rtl*/
+    //margin: 10px 40px 0 34px; /*rtl*/
+    margin: 10px -25px 0 -25px;
     position: relative;
     display: none;
-    background: #f6f7f9;
+    background: #f4f4f4;
     padding-left: 10px; /*rtl*/
     .closeDialog {
         background-position: -68px -26px;
@@ -542,7 +545,7 @@ body {
     .askBtn {
         padding: 4px 15px;
         height: auto;
-        margin: 2px 25px 10px 0; /*rtl*/ 
+        margin: 2px 12px 10px 0; /*rtl*/ 
         display: block;
     }
     li:hover .closeDialog {
@@ -587,7 +590,7 @@ body {
     }
 }
 .cTextArea {
-    width: 430px;
+    width: 575px;
     margin-left: 42px; /*rtl*/
     border-radius: 3px;
     font-size: 15px;
@@ -668,7 +671,7 @@ body {
         background: none;
         border: none;
         //width: 343px;
-        width: 248px;
+        width: @leftSideBarWidth;
     }
     .backWpr {
         &:before {
@@ -676,6 +679,7 @@ body {
             width: 43px;
 	        height: 42px;
 	        background: @site-sprite 0 -1602px no-repeat;
+            .flipH; //rtl
         }
         &:hover:before {
             background-position: 0 -1602px;
@@ -703,7 +707,7 @@ body {
 
     .itemRight {
         text-align: left; /*rtl*/
-        padding-left: 248px; //rtl
+        padding-left: @leftSideBarWidth; //rtl
     }
     .topBar{
         position:fixed;
@@ -747,7 +751,7 @@ body {
         width: 46px;
         height: 45px;
         position: relative;
-        border-left: 1px solid #fff; //rtl
+        border-left: 1px solid #797979; //rtl
         &:before {
             content: '';
             margin: auto; //
@@ -897,7 +901,7 @@ body {
 
 .resultsWpr {
     background: #282828;
-    padding: 20px 8px 0;
+    padding: 14px 8px 0;
     position: relative; //for animation
     .transition(all .5s ease-in);
     opacity:0;
@@ -912,11 +916,11 @@ body {
     font-size: 15px;
     position: relative;
     height: 75px;
-    padding-left: 20px; //rtl
+    padding-left: 38px; //rtl
     .boxSizing;
     &.wrong {
-        padding: 0 20px 0 0; //rtl
-        border-left: 1px solid #fff;//rtl
+        padding: 0 35px 0 0; //rtl
+        border-left: 1px solid #797979;//rtl
         &:after {
             width: 40px;
 	        height: 34px;
@@ -975,11 +979,11 @@ body {
 }
 
 .timeRetakeWpr {
-    padding: 20px 10px 0;
+    padding: 10px 10px 0;
     .boxSizing;
     border-bottom: 1px solid #797979;
     background: #282828;
-    height: 84px;
+    height: 70px;
     position: relative;
     top: -73px;
     z-index: 3;
@@ -1019,7 +1023,7 @@ body {
 }
 .topUsersTxt, .distributionTxt {
     font-size: 18px;
-    margin: 20px 0;
+    margin: 13px 0;
 }
 .topUser {
     width: 36px;

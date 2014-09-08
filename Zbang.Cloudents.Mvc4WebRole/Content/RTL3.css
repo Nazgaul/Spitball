@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2720,8 +2720,6 @@ body.quiz .shareBtn {
   /*rtl*/
 }
 .commentWpr {
-  margin: 10px 34px 0 40px;
-  /*rtl*/
   padding: 0 10px 0 0;
   /*rtl*/
 }
@@ -2736,7 +2734,7 @@ body.quiz .shareBtn {
   left: auto;
 }
 .commentWpr .askBtn {
-  margin: 2px 0 10px 25px;
+  margin: 2px 0 10px 12px;
   /*rtl*/
 }
 .quizComments li {
@@ -2778,13 +2776,20 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage .backWpr {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
 .quizPage .leftPanel {
   right: 0;
   /*rtl*/
   left: auto;
 }
 .quizPage .itemRight {
-  padding: 0 343px 0 0;
+  padding: 0 290px 0 0;
   text-align: right;
   /*rtl*/
 }
@@ -2793,7 +2798,7 @@ body.quiz .shareBtn {
 }
 .quizPage .quizViews {
   border: none;
-  border-right: 1px solid #fff;
+  border-right: 1px solid #797979;
 }
 .quizPage .itemNameWpr {
   padding: 16px 56px 8px 15px;
@@ -2835,12 +2840,12 @@ body.quiz .shareBtn {
   right: auto;
 }
 .results {
-  padding: 0 20px 0 0;
+  padding: 0 38px 0 0;
 }
 .results.wrong {
-  padding: 0 0 0 20px;
+  padding: 0 0 0 35px;
   border: none;
-  border-right: 1px solid #fff;
+  border-right: 1px solid #797979;
 }
 .results.wrong:after {
   left: 0;
@@ -2880,3 +2885,4 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
+/*# sourceMappingURL=RTL3.css.map */

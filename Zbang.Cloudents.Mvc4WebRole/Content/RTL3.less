@@ -2317,7 +2317,7 @@ body.quiz {
 }
 
 .commentWpr {
-    margin: 10px 34px 0 40px; /*rtl*/
+    //margin: 10px 34px 0 40px; /*rtl*/
     padding: 0 10px 0 0; /*rtl*/
     .closeDialog {
         left: 20px; /*rtl*/
@@ -2329,7 +2329,7 @@ body.quiz {
     }
 
     .askBtn {
-        margin: 2px 0 10px 25px; /*rtl*/
+        margin: 2px 0 10px 12px; /*rtl*/
     }
 }
 
@@ -2372,13 +2372,16 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
+    .backWpr {
+        .flipH(1); //rtl
+    }
     .leftPanel {
         right: 0; /*rtl*/
         left: auto;
     }
 
     .itemRight {
-        padding: 0 343px 0 0;
+        padding: 0 @leftSideBarWidth 0 0;
         text-align: right; /*rtl*/
     }
     .topBar.topBar {
@@ -2386,7 +2389,7 @@ body.quiz {
     }
     .quizViews {
         border: none;
-        border-right: 1px solid #fff; //rtl
+        border-right: 1px solid #797979; //rtl
     }
     .itemNameWpr {
         padding: 16px 56px 8px 15px; //rtl
@@ -2425,11 +2428,11 @@ body.quiz {
 }
 
 .results {
-    padding: 0 20px 0 0; //rtl
+    padding: 0 38px 0 0; //rtl
     &.wrong {
-        padding: 0 0 0 20px;
+        padding: 0 0 0 35px;
         border: none;
-        border-right: 1px solid #fff; //rtl
+        border-right: 1px solid #797979; //rtl
         &:after {
             left: 0; //rtl
             right: auto; //override

@@ -98,9 +98,9 @@
                             <label for="quizTestRadio{{$index+ $parent.$index.toString()}}" bo-text="answer.text"></label>
                         </li>
                     </ul>
-                    <div class="commentWpr">
-                        <div class="splitHR"><button class="splitHRText" type="button"><span class="iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>
 
+                    <div class="splitHR"><button class="splitHRText" type="button"><span class="iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>
+                    <div class="commentWpr">
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
                                 <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="comment.isDelete"></button>
