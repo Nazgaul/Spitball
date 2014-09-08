@@ -21,15 +21,15 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     };
 
     $scope.myCourses = jsResources.CoursesFollow;
-    if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
+    //if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
 
-        sDashboard.recommendedCourses().then(function (response) {
-            var data = response.success ? response.payload : {};
-            $scope.recommendedCourses = data;
-        });
-        $scope.firstTime.dashboard = false;
-        sDashboard.disableFirstTime();
-    }
+    //    sDashboard.recommendedCourses().then(function (response) {
+    //        var data = response.success ? response.payload : {};
+    //        $scope.recommendedCourses = data;
+    //    });
+    //    $scope.firstTime.dashboard = false;
+    //    sDashboard.disableFirstTime();
+    //}
 
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
@@ -51,6 +51,15 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             }
         });
     };
+    function firstTimeDashboard() {
+        sDashboard.recommendedCourses().then(function (response) {
+            var data = response.success ? response.payload : {};
+            $scope.recommendedCourses = data;
+        });
+
+        $scope.firstTime.dashboard = false;
+        sDashboard.disableFirstTime();
+    }
 
 
     sDashboard.boxList().then(function (data) {
@@ -58,11 +67,12 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         $scope.friends = data.payload.friends;
 
         mapBoxes(data.payload.boxes);
+        if (!data.payload.boxes.length) {
+            firstTimeDashboard();
+        }
 
         $scope.contentLoaded = true;
-
         $scope.$broadcast('update-scroll');
-
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });

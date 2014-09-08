@@ -2,14 +2,13 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 @helper deptList()
 {
-    <div style="display:none;">
-        <ul class="chooseDeptList" ng-class="{noResults : departments.length === 0}" ng-style="{display: params.departmentSearch.length  > 0 && !selectedDepartment ? 'block' : 'none'}">
-            <li class="emptySearch">@SharedResources.NoResults</li>
-            <li ng-repeat="department in departments" class="chooseDeptItem" ng-bind-html="department.name | highlight:params.departmentSearch:false:'mark'" ng-click="selectDepartment(department)"></li>
-            <li class="newDept">
-                <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
-                <button type="button" class="createDeptBtn" ng-click="createDepartment()">@MainViewResources.CreateNewDept</button>
-            </li>
-        </ul>
-    </div>
+    <ul class="chooseDeptList" ng-class="{noResults : departments.length === 0}" ng-style="{display: params.departmentSearch.length  > 0 && !selectedDepartment ? 'block' : 'none'}">
+        <li class="emptySearch">@SharedResources.NoResults</li>
+        <li ng-repeat="department in departments" class="chooseDeptItem" ng-bind-html="department.name | highlight:params.departmentSearch:false:'mark'" ng-click="selectDepartment(department)"></li>
+        <li class="newDept">
+            <span class="newDeptTxt">@MainViewResources.CantFindDept</span>
+            <button type="button" class="createDeptBtn" ng-click="createDepartment()">@MainViewResources.CreateNewDept</button>
+        </li>
+    </ul>
+
 }

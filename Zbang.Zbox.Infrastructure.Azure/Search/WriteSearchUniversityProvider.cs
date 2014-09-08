@@ -17,8 +17,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class WriteSearchUniversityProvider : IUniversityWriteSearchProvider
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
-        const string CloudentssearchSearchWindowsNet = "cloudentssearch.search.windows.net";
-        const string ApiKey = "3631C973B9E89471C33C9BA7CD98475B";
+        internal const string CloudentssearchSearchWindowsNet = "cloudents.search.windows.net";
+        internal const string ApiKey = "5B0433BFBBE625C9D60F7330CFF103F0";
+        internal const string CloudentsSearchApiPrefix = "https://cloudents.search.windows.net";
 
         public WriteSearchUniversityProvider(IZboxReadServiceWorkerRole dbReadService)
         {
@@ -111,11 +112,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 using (var bodyContent = new StringContent(output, Encoding.UTF8, "application/json"))
                 {
-                    using (await httpClient.PostAsync(
-                        "https://cloudentssearch.search.windows.net/indexes/universities/docs/index?api-version=2014-07-31-Preview",
+                    using (var retVal = await httpClient.PostAsync(
+                       CloudentsSearchApiPrefix + "/indexes/universities/docs/index?api-version=2014-07-31-Preview",
                         bodyContent))
                     {
-                        // var x = await retVal.Content.ReadAsStringAsync();
+                         var x = await retVal.Content.ReadAsStringAsync();
                     }
                 }
             }
@@ -126,10 +127,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Add("Host", CloudentssearchSearchWindowsNet);
-                httpClient.DefaultRequestHeaders.Add("api-key", "ApiKey");
+                httpClient.DefaultRequestHeaders.Add("api-key", ApiKey);
 
                 using (var retVal = await httpClient.GetAsync(
-                    "https://cloudentssearch.search.windows.net/indexes/universities?api-version=2014-07-31-Preview"))
+                    CloudentsSearchApiPrefix + "/indexes/universities?api-version=2014-07-31-Preview"))
                 {
                     return retVal.IsSuccessStatusCode;
                 }
@@ -168,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 using (var bodyContent = new StringContent(output, Encoding.UTF8, "application/json"))
                 {
                     using (await httpClient.PutAsync(
-                        "https://cloudentssearch.search.windows.net/indexes/universities?api-version=2014-07-31-Preview",
+                        CloudentsSearchApiPrefix + "/indexes/universities?api-version=2014-07-31-Preview",
                         bodyContent))
                     {
                     }

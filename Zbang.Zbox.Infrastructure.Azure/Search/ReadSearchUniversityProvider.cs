@@ -13,16 +13,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class ReadSearchUniversityProvider : IUniversityReadSearchProvider, IDisposable
     {
-        const string CloudentssearchSearchWindowsNet = "cloudentssearch.search.windows.net";
-        const string ApiKey = "3631C973B9E89471C33C9BA7CD98475B";
 
         private readonly HttpClient m_HttpClient;
 
         public ReadSearchUniversityProvider()
         {
             m_HttpClient = new HttpClient();
-            m_HttpClient.DefaultRequestHeaders.Host = CloudentssearchSearchWindowsNet;
-            m_HttpClient.DefaultRequestHeaders.Add("api-key", ApiKey);
+            m_HttpClient.DefaultRequestHeaders.Host = WriteSearchUniversityProvider.CloudentssearchSearchWindowsNet;
+            m_HttpClient.DefaultRequestHeaders.Add("api-key", WriteSearchUniversityProvider.ApiKey);
             m_HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
@@ -36,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             var retVal = new List<UniversityByPrefixDto>();
             using (var httpResponse = await m_HttpClient.GetAsync(
-                string.Format("https://cloudentssearch.search.windows.net/indexes/universities/docs?search={0}&api-version=2014-07-31-Preview&$select=id,name,imageField,membersCount", BuildQuery(term))))
+                string.Format("{1}/indexes/universities/docs?search={0}&api-version=2014-07-31-Preview&$select=id,name,imageField", BuildQuery(term), WriteSearchUniversityProvider.CloudentsSearchApiPrefix)))
             {
                 var str = await httpResponse.Content.ReadAsStringAsync();
                 ConvertToDto(retVal, str);
@@ -72,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             var retVal = new List<UniversityByPrefixDto>();
             using (var httpResponse = await m_HttpClient.GetAsync(
-                string.Format("https://cloudentssearch.search.windows.net/indexes/universities/docs/suggest?search={0}&fuzzy=true&api-version=2014-07-31-Preview&$select=id,name,imageField,membersCount", term)))
+                string.Format("{1}/indexes/universities/docs/suggest?search={0}&fuzzy=true&api-version=2014-07-31-Preview&$select=id,name,imageField", term, WriteSearchUniversityProvider.CloudentsSearchApiPrefix)))
             {
                 var str = await httpResponse.Content.ReadAsStringAsync();
                 ConvertToDto(retVal, str);

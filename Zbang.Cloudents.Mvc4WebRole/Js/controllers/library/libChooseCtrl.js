@@ -66,7 +66,6 @@
              $scope.selectUniversity = function (university) {
                  $scope.selectedUni = university;
                  $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                 $rootScope.newUniversity = false;
 
                  sLibrary.updateUniversity(
                      {
@@ -170,7 +169,6 @@
                      if (!university) {
                      }
                      $scope.selectedUni = university;
-                     $rootScope.newUniversity = true;
                      $scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                      $scope.display.complete = $scope.display.createDep = true;
                  });

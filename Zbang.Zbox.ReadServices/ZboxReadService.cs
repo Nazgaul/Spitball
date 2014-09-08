@@ -83,7 +83,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sqlQuery = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name, uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertismentUrl
+                const string sqlQuery = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
+                uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
                   from zbox.university uWrap  
                   where uWrap.Id = @universityDbQuery";
 

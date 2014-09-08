@@ -65,7 +65,17 @@ namespace Zbang.Zbox.Domain.Services
 
                 }
             }
-           
+
+            InternalDbi();
+
+
+
+
+        }
+
+        private bool InternalDbi()
+        {
+            var retVal = false;
             using (UnitOfWork.Start())
             {
                 TraceLog.WriteInfo("Processing boxes");
@@ -81,6 +91,7 @@ namespace Zbang.Zbox.Domain.Services
 
                 foreach (var box in boxes)
                 {
+                   
                     using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                     {
                         var libraryCollection = box.Library; //.FirstOrDefault();
@@ -129,7 +140,7 @@ namespace Zbang.Zbox.Domain.Services
                         }
                         box.UpdateDepartment(department, university);
                         UnitOfWork.CurrentSession.Save(box);
-
+                        retVal = true;
                         tx.Commit();
                     }
                 }
@@ -152,7 +163,24 @@ namespace Zbang.Zbox.Domain.Services
                     }
                     tx.Commit();
                 }
+                
 
+            }
+            using (UnitOfWork.Start())
+            {
+                var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var university in universities)
+                    {
+                        var count = UnitOfWork.CurrentSession.QueryOver<Department>()
+                            .Where(w => w.University == university)
+                            .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
+                        university.UpdateNumberOfBoxes(count);
+                        UnitOfWork.CurrentSession.Save(university);
+                    }
+                    tx.Commit();
+                }
             }
             using (UnitOfWork.Start())
             {
@@ -163,16 +191,16 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     needContinue = false;
                     var users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.University != null)
-                        .Take(100).Skip(100*index)
+                        .Where(w => w.University.Id != w.University2.Id)
+                        .Take(100).Skip(100 * index)
                         .List();
                     index++;
                     foreach (var user in users)
                     {
                         needContinue = true;
-                       
+                        retVal = true;
                         UnitOfWork.CurrentSession.Connection.Execute(
-                            "update zbox.users set UniversityId = UniversityId2 where userid = @Id", new {user.Id});
+                            "update zbox.users set UniversityId = UniversityId2 where userid = @Id", new { user.Id });
                         var x = UnitOfWork.CurrentSession.Connection.Query(@"
                                     select top(1) b.Department,count(*)  from zbox.UserBoxRel ub 
                 join zbox.Box b on ub.BoxId = b.BoxId and b.Discriminator = 2 and IsDeleted = 0
@@ -180,7 +208,7 @@ namespace Zbang.Zbox.Domain.Services
                 where b.university = u.UniversityId
                 and u.userid = @id
                 group by b.Department
-                order by 2 desc", new {id = user.Id});
+                order by 2 desc", new { id = user.Id });
                         if (x.Count() == 0)
                         {
                             continue;
@@ -189,22 +217,16 @@ namespace Zbang.Zbox.Domain.Services
 
                         UnitOfWork.CurrentSession.Connection.Execute(
                             "update zbox.users set MainDepartment= CONVERT(bigint, @depart) where userid = @Id",
-                            new {user.Id, depart = department});
+                            new { user.Id, depart = department });
                     }
                 }
             }
-            
-
-
-
+            return retVal;
         }
 
         public bool Dbi(int index)
         {
-            var retVal = false;
-
-
-
+            bool retVal = InternalDbi();
 
 
             //var libraryNodes =
@@ -250,6 +272,7 @@ namespace Zbang.Zbox.Domain.Services
 
                     retVal = true;
                 }
+
                 return retVal;
             }
         }
