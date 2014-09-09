@@ -28,7 +28,6 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
         $scope.selectDepartment(dep);
     });
 
-
     $scope.changeDepartment = function () {
         $scope.params.changeDepartment = true;
         $scope.formData.departmentId = null;
@@ -43,9 +42,9 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
         $scope.departments = null;
         $scope.params.changeDepartment = false;
     };
-    $scope.createDepartment = function () {
+    $scope.createDepartment = function() {
         $scope.display.createDep = true;
-    }
+    };
 
     $scope.searchDepartment = debounce(function () {
         if (!$scope.params.departmentSearch) {

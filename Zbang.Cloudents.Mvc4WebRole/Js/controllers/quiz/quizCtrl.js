@@ -101,7 +101,7 @@ mQuiz.controller('QuizCtrl',
                     }); //cancel doesn't do anything
 
                     return;
-                }, 5000);
+                }, 3000);
             });
             $scope.timer = {
                 state: 'Play'

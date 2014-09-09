@@ -92,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
 
-// ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - azure media services doesn't support first or default
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - azure media services doesn't support first or default
             var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
             var assetFiles = streamingAsset.AssetFiles.ToList();
             var streamingAssetFile = assetFiles.FirstOrDefault(f => f.Name.ToLower().EndsWith(".mp4"));
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
 
             }
-// ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default
             var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
 
             var assetFiles = streamingAsset.AssetFiles.ToList();
@@ -135,9 +135,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             streamingAssetFile.Download(locationToSave);
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
-             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
+            await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
 
-            m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
+            await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
             return newBlobName;
 
         }

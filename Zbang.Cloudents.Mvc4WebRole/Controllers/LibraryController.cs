@@ -55,10 +55,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Choose");
             }
 
-            var universityWrapper = userDetail.UniversityId.Value;
 
-            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value,
-                universityWrapper);
+            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value
+                );
 
             var result = await ZboxReadService.GetUniversityDetail(query);
             if (result.Id == 0)

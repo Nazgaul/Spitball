@@ -5,8 +5,9 @@
           $modalInstance) {
 
         $scope.box = {
-           // id: 0
-        }
+            // id: 0
+        
+        };
 
         $scope.formData = {};
         //$scope.params = {
@@ -39,8 +40,6 @@
                 }
             });
         };
-
-
        
         //$scope.createPrivateBox = function (isValid) {
         //    if (!isValid) {
@@ -59,10 +58,10 @@
         //    });
         //};
 
-        $scope.completewizard = function () {
+        $scope.completewizard = function() {
             //console.log($scope.box.id);
             $modalInstance.close($scope.box.url);
             //$rootScope.params.createBoxWizard = false;
-        }
+        };
     }]
     );
