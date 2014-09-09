@@ -6,16 +6,16 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
     $scope.selectedDepartment = true;
     $scope.create = function (isValid) {
 
-        //TODO: add disabled state
         if (!isValid) {
             return;
         }
+        $scope.formSubmit = true;
         sBox.createAcademic($scope.formData.academicBox).then(function (response) {
+            $scope.formSubmit = false;
             var data = response.success ? response.payload : [];
             $scope.box.url = data.url;
             wizardHandler.wizard().finish();
             //WizardHandler.wizard().next();
-            //    //$modalInstance.close(box.payload || box.Payload);
         });
     };
 
@@ -23,6 +23,12 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
         // WizardHandler.wizard().finish();
         wizardHandler.wizard().finish();
     };
+
+    $scope.$on('newDep',function(response,dep) {
+        $scope.selectDepartment(dep);
+    });
+
+
     $scope.changeDepartment = function () {
         $scope.params.changeDepartment = true;
         $scope.formData.departmentId = null;
@@ -32,11 +38,14 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
 
     $scope.selectDepartment = function (deparment) {
         $scope.selectedDepartment = deparment;
-        $scope.formData.departmentId = $scope.selectedDepartment.id;
+        $scope.formData.academicBox.departmentId = $scope.selectedDepartment.id;
         $scope.params.departmentSearch = $scope.selectedDepartment.name;
         $scope.departments = null;
         $scope.params.changeDepartment = false;
     };
+    $scope.createDepartment = function () {
+        $scope.display.createDep = true;
+    }
 
     $scope.searchDepartment = debounce(function () {
         if (!$scope.params.departmentSearch) {
@@ -47,8 +56,9 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary) {
         sLibrary.searchDepartment({ term: $scope.params.departmentSearch }).then(function (response) {
             var data = response.success ? response.payload : {};
             var departments = data;
-            $scope.departments = departments; //$filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
+            $scope.departments = departments;
         });
     }, 200);
+   
 }
-        ]);
+]);

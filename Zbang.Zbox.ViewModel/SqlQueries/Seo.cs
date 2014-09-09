@@ -5,7 +5,7 @@
     {
 
 
-
+        //todo:change that
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string GetSeoItemsByPage = @"select b.Url as url
 from zbox.box b 
@@ -33,6 +33,7 @@ order by 1
 offset (@pageNumber-1)*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY";
 
+        //todo:change that
         public const string GetSeoItemsCount = @"
 select count(*) from (
 select b.Url as url

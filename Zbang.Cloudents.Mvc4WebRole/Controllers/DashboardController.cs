@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.User;
@@ -24,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no univeristy attribute
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = userDetail.UniversityId.Value;
 
             var query = new GetDashboardQuery(universityWrapper);
@@ -119,7 +120,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new QueryBase(GetUserId());
                 var result = await ZboxReadService.GetDepartmentByUser(query);
-                return PartialView("_CreateBoxWizard", result);
+                return PartialView("_CreateBoxWizard", result ?? new NodeDto());
             }
             catch (Exception ex)
             {

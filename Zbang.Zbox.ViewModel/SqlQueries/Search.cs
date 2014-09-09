@@ -18,6 +18,7 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only; ";
 
+        //todo:change that
         public const string UniversityBoxes = @"select b.pictureurl as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
@@ -35,6 +36,7 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
+        //todo:change that
         public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
 from zbox.users u
 where u.UniversityId2 = @universityId
@@ -43,7 +45,7 @@ order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-
+        //todo: change that
         public const string Items = @"select 
 i.thumbnailurl as image,
 i.Name as name,
@@ -65,6 +67,7 @@ order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
+        //todo:change that
         public const string ItemFromOtherUniversities = @"
 select i.thumbnailurl as image,
 i.Name as name,

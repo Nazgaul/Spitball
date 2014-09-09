@@ -58,6 +58,7 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
             @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
 where userid = @UserId";
 
+        //todo:change that
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>

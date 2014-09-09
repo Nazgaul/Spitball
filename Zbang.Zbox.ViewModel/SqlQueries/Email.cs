@@ -2,6 +2,7 @@
 {
     public static class Email
     {
+        //todo:change that
         public const string Partners = @"
 --NEW USERS--
 Select Count(*) from zbox.users where creationtime>getdate()-7

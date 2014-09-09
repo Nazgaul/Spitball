@@ -7,14 +7,41 @@
         $scope.box = {
            // id: 0
         }
+
+        $scope.formData = {};
         //$scope.params = {
         //    changeDepartment: false,
             
         //};
         //$scope.isAcademicBox=true;
 
-        //$scope.display = { createDep: true };
+        $scope.display = { createDep: false };
 
+        $scope.backCreateDepartment = function () {
+            $scope.department = false;
+            $scope.display = { createDep: false };
+        };
+
+        //$scope.createDepartmentSubmit = function () {
+        //    $scope.display.createDep = false;
+        //    $scope.$broadcast('newDep', {id :1 , name:'ram'});
+        //}
+
+        $scope.createDepartmentSubmit = function (isValid) {
+            if (!isValid) {
+                return;
+            }
+            //$scope.createDepartmentForm.$invalid = true;
+            sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
+                if (response.success) {
+                    $scope.display.createDep = false;
+                    $scope.$broadcast('newDep', { id: response.payload.id, name: $scope.formData.createDepartment.name });
+                }
+            });
+        };
+
+
+       
         //$scope.createPrivateBox = function (isValid) {
         //    if (!isValid) {
         //        return;

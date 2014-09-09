@@ -15,8 +15,10 @@
         public const string GetNeedId = @"select  count(*) from zbox.student
               where UniversityId = @universityId";
 
+        //todo:change that
         public const string GetNeedCode = @"select needcode from zbox.users where userid = @universityId";
 
+        //todo:change taht
         public const string GetUniversityDetail = @"select
                          u.Userid as Id,  
                          u.UniversityName as Name,
@@ -24,6 +26,7 @@
                          from zbox.users u 
                          where u.usertype = 1";
 
+        //todo:change that
         public const string GetUniversityByFriendIds = @"
 with users_cte(username,userimage,universityid2) as (
 select username,userimage,universityid2 from zbox.users where facebookuserid in @FriendsIds
@@ -35,6 +38,7 @@ order by count(*) desc
 )
 select userid as id,universityname as name, userimage as image  from university_cte u;";
 
+        //todo:change that
         public const string GetFriendsInUniversitiesByFriendsIds = 
         @"with users_cte(universityid2,facebookuserid) as (
 select universityid2,facebookuserid from zbox.users where facebookuserid in @FriendsIds

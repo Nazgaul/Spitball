@@ -2,17 +2,8 @@
 {
     public static class Quiz
     {
-//        public const string QuizQuery = @"select q.name, q.id, q.UserId as ownerid,q.BoxId,
-//(select u.UserName from zbox.Users u where u.userid = q.UserId) as Owner,
-//q.CreationTime as date,
-//q.NumberOfViews,
-//q.Rate,
-//q.Publish
-//
-// from zbox.Quiz q 
-//where q.id = @QuizId;";
 
-        //
+        //todo:change that
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string QuizSeoQuery = @"
 select u.country as Country
