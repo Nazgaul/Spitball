@@ -1,39 +1,36 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University
 
-<div id="libEnterCode" title="">
-    <div class="popupWrppr enterCode">
-        <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
-        <button class="closeDialog" id="closeNeedCodePopup"></button>
-        @using (Html.BeginForm("UpdateUniversity","Account"))
-        {
-            Html.RenderAction("AntiForgeryToken", "Home", true);
-            <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" style="visibility:hidden" />
-            <div>ההצטרפות לקבוצת הלימוד של "@ViewBag.AgudaName" נעשית ע"י
-הזנת קוד משתמש אישי הניתן דרך אגודת הסטודנטים.</div>
-            
-            @Html.HiddenFor(m=>m.UniversityId)
-            @Html.ValidationMessageFor(m=>m.Code)
-            @Html.LabelFor(m => m.Code)
-            @Html.TextBoxFor(m=>m.Code, new { @class = "inputText", placeholder="הזן את הקוד כאן" , id="insertCode", autofocus="autofocus"})
+<div class="enterCode">
+    <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
+    <button class="closeDialog" id="closeNeedCodePopup" ng-click="cancel()"></button>
+    <form name="insertId" novalidate ng-submit="create(insertId.$valid)">
+        <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" style="visibility:hidden" />
+        <div>
+            ההצטרפות לקבוצת הלימוד של "@ViewBag.AgudaName" נעשית ע"י
+            הזנת קוד משתמש אישי הניתן דרך אגודת הסטודנטים.
+        </div>
 
-            <input id="codeSubmit"  type="submit" class="btn1" disabled="disabled" value="המשך"/>
-        }
-        <div class="noCode">
-            <div class="boldFont">אין לך קוד משתמש?</div>
-            <div>
-                לקבלת קוד משתמש אישי יש לשלוח מייל ל<a class="mailTo" href="mailto:@ViewBag.AgudaMail" target="_blank">@ViewBag.AgudaMail</a>
-                <br />
+        @Html.ValidationMessageFor(m => m.Code)
+        @Html.LabelFor(m => m.Code)
+        @Html.TextBoxFor(m => m.Code, new { ng_model = "formData.Code", @class = "inputText", placeholder = "הזן את הקוד כאן", id = "insertCode", autofocus = "autofocus" })
+
+        <input id="codeSubmit" type="submit" class="btn1" ng-click="submitted=true" value="המשך" />
+    </form>
+
+    <div class="noCode">
+        <div class="boldFont">אין לך קוד משתמש?</div>
+        <div>
+            לקבלת קוד משתמש אישי יש לשלוח מייל ל<a class="mailTo" href="mailto:@ViewBag.AgudaMail" target="_blank">@ViewBag.AgudaMail</a>
+            <br />
             עם <span class="boldFont">הפרטים הבאים</span> :
-            </div>  
-            <div>      
-               - שם פרטי ומשפחה<br />
-               - כתובת מייל (אליו ישלח הקוד)<br />
-               - תעודת זהות<br />
-               - מספר טלפון<br /><br />
+        </div>
+        <div>
+            - שם פרטי ומשפחה<br />
+            - כתובת מייל (אליו ישלח הקוד)<br />
+            - תעודת זהות<br />
+            - מספר טלפון<br /><br />
 
-                @ViewBag.AgudaPhone
-            </div>
+            @ViewBag.AgudaPhone
         </div>
     </div>
-    <div class="modal2"></div>
 </div>

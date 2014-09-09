@@ -5,18 +5,16 @@
     'data',
     'sLibrary',
     function ($scope, $modalInstance, data, sLibrary) {
-        //$scope.formData = {
-        //    parentId: parentId
-        //};
         $scope.formData = {
             UniversityId: data.university.id
         };
+        $scope.formData1 = {};
+        $scope.russainStep2 = false;
 
         $scope.create = function (isValid) {
             if (!isValid) {
                 return;
             }
-            console.log($scope.formData);
             sLibrary.updateUniversity($scope.formData).then(function (response) {
                 if (!response.success) {
                     alert(response.payload[0].value[0]);
@@ -25,21 +23,20 @@
                 
                  $modalInstance.close();
             });
-            //    sBox.createAcademic($scope.formData).then(function (response) {
-            //        if (!response.success) {
-            //            alert(response.payload || response.Payload);
-            //            return;
-            //        }
-            //        $modalInstance.close(response.payload || response.Payload);
-            //    },
-            //    function () {
-            //        alert('error creating box');
-            //    }
-            //    );
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
+
+        $scope.russianStep1 = function(isValid) {
+            if (!isValid) {
+                return;
+            }
+            if ($scope.formData1.russianCode === "cloudvivt") {
+                $scope.russainStep2 = true;
+            }
+        };
+
     }
 ]);

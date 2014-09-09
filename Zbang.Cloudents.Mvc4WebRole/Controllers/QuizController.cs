@@ -194,11 +194,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
+            if (model.Answers == null)
+            {
+                ModelState.AddModelError(string.Empty, "Answers is requeried");
+                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+            }
             try
             {
                 var command =
                     new SaveUserQuizCommand(
-                        model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
+                      model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
                         GetUserId(), model.QuizId, model.EndTime - model.StartTime);
                 ZboxWriteService.SaveUserAnswers(command);
 

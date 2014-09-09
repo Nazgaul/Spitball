@@ -38,6 +38,9 @@
              var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
+                 if (!query) {
+                     return;
+                 }
                  if (query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
@@ -81,7 +84,6 @@
                                  windowClass: 'libChoosePopUp',
                                  template: data.html,
                                  controller: 'restrictionPopUpCtrl',
-                                 backdrop: 'static',
                                  resolve: {
                                      data: function () {
                                          return {

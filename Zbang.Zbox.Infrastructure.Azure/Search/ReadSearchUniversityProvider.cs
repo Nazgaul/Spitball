@@ -51,6 +51,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private void ConvertToDto(List<UniversityByPrefixDto> retVal, string str)
         {
             dynamic o = JObject.Parse(str);
+            if (o == null)
+            {
+                return;
+            }
             foreach (dynamic university in o.value)
             {
                 retVal.Add(new UniversityByPrefixDto(

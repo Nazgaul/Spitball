@@ -511,8 +511,8 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string sql = @"select u.userid as Id, u.username as name, u.UserImageLarge as image,
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
-                            from zbox.users u left join zbox.users uu on u.UniversityId2 = uu.UserId
-                            where u.userid = @UserId";
+                            from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
+                            where u.userid =@UserId";
                 var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
                 return retVal.FirstOrDefault();
 

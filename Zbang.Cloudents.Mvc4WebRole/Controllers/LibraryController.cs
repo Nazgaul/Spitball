@@ -246,12 +246,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
         #endregion
 
-        //[Ajax, HttpGet]
-        //public async Task<ActionResult> Departments(long universityId)
-        //{
-        //    var retVal = await ZboxReadService.GetDepartmentList(universityId);
-        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
-        //}
+        [ActionName("SelectDepartment")]
+        [Ajax, HttpGet]
+        public async Task<ActionResult> SelectDepartmentRussian(long universityId)
+        {
+            var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
+            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
+        }
 
 
         [HttpPost, Ajax]
