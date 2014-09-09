@@ -875,6 +875,7 @@
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
+    <Content Include="Js\controllers\library\restrictionPopUpCtrl.js" />
     <Content Include="Js\controllers\quiz\challengeCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />

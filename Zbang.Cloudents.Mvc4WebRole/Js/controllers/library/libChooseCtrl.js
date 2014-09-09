@@ -1,4 +1,4 @@
-﻿mLibrary.controller('LibChooseCtrl',
+﻿var libChoose = mLibrary.controller('LibChooseCtrl',
         ['$scope',
             '$timeout',
             '$filter',
@@ -38,7 +38,6 @@
              var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
-
                  if (query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
@@ -65,7 +64,7 @@
 
              $scope.selectUniversity = function (university) {
                  $scope.selectedUni = university;
-                 $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+
 
                  sLibrary.updateUniversity(
                      {
@@ -75,9 +74,26 @@
                      ).then(function (response) {
                          var data = response.success ? response.payload : [];
                          if (!data) {
+                             $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                              $scope.display.complete = $scope.display.choose = true;
                          } else {
-                             //some pop up
+                             var modalInstance = $modal.open({
+                                 //windowClass: 'libChoosePopUp',
+                                 template: data.html,
+                                 controller: 'restrictionPopUpCtrl',
+                                 backdrop: 'static',
+                                 resolve: {
+                                     data: function () {
+                                         return {
+                                             university: university
+                                         };
+                                     }
+                                 }
+                             });
+                             modalInstance.result.then(function() {
+                                 $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                                 $scope.display.complete = $scope.display.choose = true;
+                             });
                          }
                      });
              }
@@ -151,7 +167,7 @@
              };
              //#endregion
 
-             
+
 
              $scope.createUniversity = function () {
                  $scope.display.createUniversity = true;

@@ -386,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (UserNotFoundException)
             {
-                return Json(new JsonResponse(false, new { error = "User doen't exists" }));
+                return Json(new JsonResponse(false, new { error = "User doesn't exists" }));
             }
         }
         [HttpPost, Ajax, ZboxAuthorize]

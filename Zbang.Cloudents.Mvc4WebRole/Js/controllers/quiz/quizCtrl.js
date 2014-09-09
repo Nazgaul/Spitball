@@ -5,7 +5,7 @@ mQuiz.controller('QuizCtrl',
             cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
             var questions,
-                challengeTimeout;
+                challengeTimeout, modalInstance;
 
             $scope.profile = {
                 userImage: sUserDetails.getDetails().image
@@ -80,7 +80,7 @@ mQuiz.controller('QuizCtrl',
                         return;
                     }
 
-                    var modalInstance = $modal.open({
+                    modalInstance = $modal.open({
                         windowClass: 'quizPopup',
                         templateUrl: '/Quiz/ChallengePartial/?quizid=' + $scope.quiz.id,
                         controller: 'ChallengeCtrl',
@@ -173,6 +173,9 @@ mQuiz.controller('QuizCtrl',
             };
             $scope.$on('$destroy', function () {
                 $timeout.cancel(challengeTimeout);
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                }
             });
 
 

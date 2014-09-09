@@ -182,6 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/library/libChooseCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/createBoxLibCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/createDepartmentCtrl.js"),
+                new JsFileWithCdn("/js/controllers/library/restrictionPopUpCtrl.js"),
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
@@ -235,7 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("/js/pubsub.js"),
                 new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
+                new JsFileWithCdn("~/scripts/knockout-delegatedEvents.js"),
                 new JsFileWithCdn("~/js/Bindings.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
@@ -257,7 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
                 new JsFileWithCdn("/js/ItemViewModel4.js"),
-                new JsFileWithCdn("/Scripts/stopwatch.js")
+                new JsFileWithCdn("/scripts/stopwatch.js")
              );
 
             RegisterJsRegular("angular-store",
@@ -385,16 +386,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             RegisterJsRegular("General",
-                new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
-                new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
-                new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),// the script is too small
-                new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"), // the script is too small
-                new JsFileWithCdn("~/Scripts/Modernizr.js"),
+                new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
+                new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
+                new JsFileWithCdn("~/scripts/Modernizr.js"),
 
                 //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
                 new JsFileWithCdn("~/Js/Utils2.js"),
-                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+                new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
                 new JsFileWithCdn("~/Js/pubsub2.js"),
 

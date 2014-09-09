@@ -90,7 +90,7 @@
                        context.moveTo(userAverage, 0);
                        context.lineTo(userAverage, averageHeight);
                        context.fillStyle = '#e6ad20';
-                       context.fillRect(userAverage - 0.03, averageHeight, 1, 0.1);
+                       context.fillRect(userAverage - 0.03, averageHeight, 0.8, 0.1);
                        context.closePath();
                        context.restore();
                        context.strokeStyle = '#e6ad20';
@@ -108,7 +108,7 @@
                        context.font = '12pt arial';
                        context.textBaseline = 'middle';
                        context.textAlign = 'center';
-                       context.fillText(scope.quiz.result, userAverage * scaleX + 20, -averageHeight * scaleY - 10.5); //23 half flag width, 15.5 half flag height
+                       context.fillText(scope.quiz.result, userAverage * scaleX + 17, -averageHeight * scaleY - 9.5); //23 half flag width, 15.5 half flag height
                        context.restore();
                    }
 
