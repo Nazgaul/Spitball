@@ -17,6 +17,8 @@
   -webkit-overflow-scrolling: touch;
   outline: 0;
   margin: auto;
+  /*#region departmentChoose*/
+  /*#endregion*/
 }
 .modal .closeDialog {
   right: 0;
@@ -119,6 +121,89 @@
 .modal .enterCode .mailTo {
   color: #0f9d58;
   text-decoration: underline;
+}
+.modal .departmentChoose {
+  font-size: 15px;
+}
+.modal .departmentChoose .error {
+  display: none;
+  color: #d1294d;
+}
+.modal .departmentChoose .step1Wpr h3 {
+  font-weight: normal;
+  font-size: 18px;
+}
+.modal .departmentChoose .step1Wpr .inputText {
+  margin: 4px 0 0 8px;
+  display: inline-block;
+  width: 250px;
+}
+.modal .departmentChoose .step1Wpr .ruTxt {
+  margin: 10px 0;
+  line-height: 24px;
+}
+.modal .departmentChoose .step1Wpr .ruMail {
+  color: #676767;
+}
+.modal .departmentChoose .step2Wpr {
+  display: none;
+}
+.modal .departmentChoose.step2 .step1Wpr {
+  display: none;
+}
+.modal .departmentChoose.step2 .step2Wpr {
+  display: block;
+}
+.modal .departmentChoose label {
+  display: block;
+  font-size: 15px;
+  color: #383838;
+  margin-bottom: 8px;
+}
+.modal .departmentChoose .chooseDptTxt {
+  margin: 22px 0 12px;
+}
+.modal .departmentChoose select {
+  display: block;
+  font-size: 13px;
+  color: #383838;
+  width: 310px;
+  padding: 3px 3px 5px 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.modal .departmentChoose .statusLabel {
+  display: inline-block;
+}
+.modal .departmentChoose .statusLabel.first {
+  margin-right: 20px;
+  /*rtl*/
+}
+.modal .departmentChoose .dptDetail {
+  width: 310px;
+  display: inline-block;
+}
+.modal .departmentChoose .dptDetail.first {
+  margin: 20px 34px 0 0;
+  /*rtl*/
+}
+.modal .departmentChoose .inputText {
+  display: block;
+}
+.modal .departmentChoose #department {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.modal .departmentChoose .btn1 {
+  font-size: 13px;
+  display: block;
+}
+.modal .departmentChoose .modal2 {
+  z-index: 11;
+}
+.modal .departmentChoose.codeError .error {
+  display: block;
 }
 .fade {
   opacity: 0;

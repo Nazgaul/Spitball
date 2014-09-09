@@ -129,6 +129,103 @@
             text-decoration: underline;
         }
     }
+    /*#region departmentChoose*/
+    .departmentChoose {
+        //width: 700px;
+        //z-index:12;
+        font-size: 15px;
+        .error {
+            display:none;
+            color: @errorColor;
+        }
+        .step1Wpr {
+            h3 {
+                font-weight: normal;
+                font-size: 18px;
+            }
+            .inputText {
+                margin: 4px 0 0 8px;
+                display: inline-block;
+                width: 250px;
+            }
+            .ruTxt {
+                margin: 10px 0;
+                line-height: 24px;
+            }
+            .ruMail {
+                color: #676767;
+            }
+        }
+        .step2Wpr {
+            display: none;
+        }
+        &.step2 {
+            .step1Wpr {
+                display: none;
+            }
+            .step2Wpr {
+                display: block;
+            }
+        }
+        label {
+            display: block;
+            font-size: 15px;
+            color: #383838;
+            margin-bottom: 8px;
+        }
+        .chooseDptTxt
+        {
+            margin: 22px 0 12px;
+        }
+        select {
+            display: block;
+            font-size: 13px;
+            color: #383838;
+            width: 310px;
+            padding: 3px 3px 5px 2px;
+            .boxSizing;
+        }
+        .statusLabel
+        {
+            display: inline-block;
+            &.first
+            {
+                margin-right: 20px; /*rtl*/
+            }
+        }
+        .dptDetail{
+            width: 310px;
+            display: inline-block;
+            &.first
+            {
+                margin: 20px 34px 0 0; /*rtl*/
+            }
+        }
+        .inputText
+        {
+            display: block;
+        }
+        #department {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .btn1 {
+            font-size: 13px;
+            display: block;
+        }
+
+        .modal2 {
+            z-index: 11;
+        }
+
+        &.codeError {
+            .error {
+                display:block;
+            }
+        }
+    }
+    /*#endregion*/
 }
 .fade {
     opacity: 0;

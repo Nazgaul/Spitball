@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -807,8 +807,6 @@ input[type="radio"][disabled] + label:before {
   -moz-animation: fadein 0.5s 0 ease;
   -o-animation: fadein 0.5s 0 ease;
   animation: fadein 0.5s 0 ease;
-  /*#region departmentChoose*/
-  /*#endregion*/
 }
 .popupWrppr.addSchool {
   text-align: left;
@@ -848,90 +846,6 @@ input[type="radio"][disabled] + label:before {
 }
 .popupWrppr.requestSent .closeDialog {
   background-position: -68px -14px;
-}
-.popupWrppr.departmentChoose {
-  width: 700px;
-  font-size: 15px;
-}
-.popupWrppr.departmentChoose .error {
-  display: none;
-  color: #d1294d;
-}
-.popupWrppr.departmentChoose .step1Wpr h3 {
-  font-weight: normal;
-  font-size: 18px;
-}
-.popupWrppr.departmentChoose .step1Wpr .inputText {
-  margin: 4px 0 0 8px;
-  display: inline-block;
-  width: 250px;
-}
-.popupWrppr.departmentChoose .step1Wpr .ruTxt {
-  margin: 10px 0;
-  line-height: 24px;
-}
-.popupWrppr.departmentChoose .step1Wpr .ruMail {
-  color: #676767;
-}
-.popupWrppr.departmentChoose .step2Wpr {
-  display: none;
-}
-.popupWrppr.departmentChoose.step2 .step1Wpr {
-  display: none;
-}
-.popupWrppr.departmentChoose.step2 .step2Wpr {
-  display: block;
-}
-.popupWrppr.departmentChoose label {
-  display: block;
-  font-size: 15px;
-  color: #383838;
-  margin-bottom: 8px;
-}
-.popupWrppr.departmentChoose .chooseDptTxt {
-  margin: 22px 0 12px;
-}
-.popupWrppr.departmentChoose select {
-  display: block;
-  font-size: 13px;
-  color: #383838;
-  width: 310px;
-  padding: 3px 3px 5px 2px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.popupWrppr.departmentChoose .statusLabel {
-  display: inline-block;
-}
-.popupWrppr.departmentChoose .statusLabel.first {
-  margin-right: 20px;
-  /*rtl*/
-}
-.popupWrppr.departmentChoose .dptDetail {
-  width: 310px;
-  display: inline-block;
-}
-.popupWrppr.departmentChoose .dptDetail.first {
-  margin: 20px 34px 0 0;
-  /*rtl*/
-}
-.popupWrppr.departmentChoose .inputText {
-  display: block;
-}
-.popupWrppr.departmentChoose #department {
-  width: 100%;
-  margin-bottom: 15px;
-}
-.popupWrppr.departmentChoose .btn1 {
-  font-size: 13px;
-  display: block;
-}
-.popupWrppr.departmentChoose .modal2 {
-  z-index: 11;
-}
-.popupWrppr.departmentChoose.codeError .error {
-  display: block;
 }
 .lecturerRadio:checked ~ label,
 .lecturerRadio:checked ~ select,
@@ -2667,3 +2581,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

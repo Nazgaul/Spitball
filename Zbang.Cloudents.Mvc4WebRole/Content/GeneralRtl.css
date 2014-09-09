@@ -111,33 +111,12 @@ input[type="radio"].radio:checked + label:after {
   padding: 8px 11px 5px 8px;
   /*rtl*/
 }
-.popupWrppr.enterCode form,
-.popupWrppr.enterCode .noCode {
-  padding: 0 9px 25px 19px;
-  /*rtl*/
-}
-.popupWrppr.enterCode .noCode {
-  padding: 0 9px 25px 0;
-  /*rtl*/
-}
-.popupWrppr.enterCode .btn1 {
-  margin: 0 8px 0 0;
-  /*rtl*/
-}
 .popupWrppr.addSchool {
   text-align: right;
   /*rtl*/
 }
 .popupWrppr.addSchool .country {
   margin: 0 0 0 13px;
-  /*rtl*/
-}
-.popupWrppr.departmentChoose .statusLabel.first {
-  margin: 0 0 0 20px;
-  /*rtl*/
-}
-.popupWrppr.departmentChoose .dptDetail.first {
-  margin: 20px 0 0 34px;
   /*rtl*/
 }
 .requestSentDiv {
