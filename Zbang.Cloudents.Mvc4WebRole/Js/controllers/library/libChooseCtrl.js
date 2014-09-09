@@ -78,7 +78,7 @@
                              $scope.display.complete = $scope.display.choose = true;
                          } else {
                              var modalInstance = $modal.open({
-                                 //windowClass: 'libChoosePopUp',
+                                 windowClass: 'libChoosePopUp',
                                  template: data.html,
                                  controller: 'restrictionPopUpCtrl',
                                  backdrop: 'static',

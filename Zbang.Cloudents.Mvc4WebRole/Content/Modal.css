@@ -22,6 +22,16 @@
   right: 0;
   /*rtl*/
 }
+.modal.libChoosePopUp {
+  width: 600px;
+  margin: 0 auto;
+}
+.modal.libChoosePopUp .modal-dialog {
+  padding: 0;
+}
+.modal.libChoosePopUp .modal-content {
+  width: 600px;
+}
 .modal.boxSettings {
   width: 700px;
   max-height: none;
@@ -53,6 +63,62 @@
 .modal.quitQuiz .quitQuizTxt {
   font-size: 15px;
   margin: 15px 0;
+}
+.modal .enterCode {
+  font-size: 13px;
+  background: #faf9fa;
+  direction: rtl;
+  padding: 0;
+  text-align: right;
+}
+.modal .enterCode .popupHeader,
+.modal .enterCode .modal-title {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 0 15px;
+  padding: 0 20px 0 0;
+}
+.modal .enterCode .closeDialog {
+  left: 20px;
+  right: auto;
+}
+.modal .enterCode .lFloat {
+  float: left;
+}
+.modal .enterCode .inputText {
+  width: 268px;
+}
+.modal .enterCode label {
+  display: block;
+  margin: 17px 0 0 0;
+}
+.modal .enterCode form,
+.modal .enterCode .noCode {
+  padding: 0 9px 25px 19px;
+  border-bottom: 1px solid #c7c7c7;
+}
+.modal .enterCode .noCode {
+  clear: both;
+  padding: 0 9px 25px 0;
+  background: #e8e8e8;
+}
+.modal .enterCode .noCode .boldFont {
+  font-size: 20px;
+  padding: 15px 0;
+}
+.modal .enterCode .noCode span.boldFont {
+  font-size: 16px;
+  padding: 0;
+}
+.modal .enterCode .btn1 {
+  width: 110px;
+  margin: 0 8px 0 0;
+  /*rtl*/
+}
+.modal .enterCode .mailTo {
+  color: #0f9d58;
+  text-decoration: underline;
 }
 .fade {
   opacity: 0;
