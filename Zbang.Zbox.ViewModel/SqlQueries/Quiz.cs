@@ -12,7 +12,7 @@ select u.country as Country
         from 
 		zbox.quiz q
 		join zbox.box b on q.boxid= b.boxid
-		join zbox.University u on b.University = u.Id
+		left join zbox.University u on b.University = u.Id
 		where q.id = @QuizId
         and q.publish = 1;";
 

@@ -98,7 +98,9 @@ mQuiz.controller('QuizCtrl',
                         solveQuiz();
                         getDiscussion();
                         $scope.quiz.afraid = true;
-                    }); //cancel doesn't do anything
+                    },function() {
+                        startTimer();
+                    }); 
 
                     return;
                 }, 3000);
