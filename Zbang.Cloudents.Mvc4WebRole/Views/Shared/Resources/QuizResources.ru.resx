@@ -208,4 +208,25 @@
     <value>Редактировать Тест
 </value>
   </data>
+  <data name="Afraid" xml:space="preserve">
+    <value>Пока нет, я боюсь</value>
+  </data>
+  <data name="OfYourMates" xml:space="preserve">
+    <value>из ваших товарищей по учебе прошли этот тест</value>
+  </data>
+  <data name="QuizTime" xml:space="preserve">
+    <value>Время пройти тест</value>
+  </data>
+  <data name="ScoreDistribution" xml:space="preserve">
+    <value>Распределение очков:</value>
+  </data>
+  <data name="TakeChance" xml:space="preserve">
+    <value>Воспользуйтесь шансом</value>
+  </data>
+  <data name="TopThree" xml:space="preserve">
+    <value>Три лидера в этом тесте:</value>
+  </data>
+  <data name="YouReady" xml:space="preserve">
+    <value>Готовы протестировать себя?</value>
+  </data>
 </root>

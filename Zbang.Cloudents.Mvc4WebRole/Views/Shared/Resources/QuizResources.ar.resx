@@ -205,4 +205,25 @@
     <value>تحرير مسابقة
 </value>
   </data>
+  <data name="Afraid" xml:space="preserve">
+    <value>خائف</value>
+  </data>
+  <data name="OfYourMates" xml:space="preserve">
+    <value>من شركائك</value>
+  </data>
+  <data name="QuizTime" xml:space="preserve">
+    <value>وقت الاختبار</value>
+  </data>
+  <data name="ScoreDistribution" xml:space="preserve">
+    <value>توزيع الدرجات</value>
+  </data>
+  <data name="TakeChance" xml:space="preserve">
+    <value>خذ فرصة</value>
+  </data>
+  <data name="TopThree" xml:space="preserve">
+    <value>أعلى ثلاثة</value>
+  </data>
+  <data name="YouReady" xml:space="preserve">
+    <value>أنت مستعد</value>
+  </data>
 </root>

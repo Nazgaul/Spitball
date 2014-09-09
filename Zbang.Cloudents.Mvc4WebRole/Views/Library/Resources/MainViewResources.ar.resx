@@ -211,4 +211,22 @@
     <value> من أصدقائك مسجلون
 </value>
   </data>
+  <data name="CantFindDept" xml:space="preserve">
+    <value>لا يمكن العثور على قسم</value>
+  </data>
+  <data name="CreateDept" xml:space="preserve">
+    <value> إنشاء قسم</value>
+  </data>
+  <data name="CreateNewDept" xml:space="preserve">
+    <value>إنشاء قسم جديد</value>
+  </data>
+  <data name="OfYourFriends" xml:space="preserve">
+    <value>من أصدقائك</value>
+  </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>رفع شعار</value>
+  </data>
+  <data name="YouStudyAt" xml:space="preserve">
+    <value>أنت تدرس في</value>
+  </data>
 </root>

@@ -158,7 +158,7 @@
 .searchPage .upArrow {
   top: -16px;
   /*rtl (font issue)*/
-  height: 12px;
+  height: 13px;
 }
 .searchPage .upArrow:before {
   left: 19px;
@@ -254,13 +254,14 @@
 }
 .sTabContent.noResults.noResults .emptySearch {
   font-size: 15px;
-}
-.sTabContent.noResults.noResults .emptySearch:before {
-  display: block;
-  width: 64px;
-  height: 64px;
-  border-radius: 32px;
-  margin: 38px auto 12px;
+  /*&:before
+            {
+                display: block;
+                width: 64px;
+                height: 64px;
+                border-radius: 32px;
+                margin: 38px auto 12px;
+            }*/
 }
 .sTabContent.noResults.noResults .emptySearch:after {
   width: 32px;
