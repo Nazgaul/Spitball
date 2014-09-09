@@ -228,4 +228,61 @@
   <data name="PostedComment" xml:space="preserve">
     <value>оставил/а комментарий</value>
   </data>
+  <data name="AnyoneUrl" xml:space="preserve">
+    <value>Любой человек со ссылкой может получить доступ. Вход в систему не требуется.</value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>Обзор курса</value>
+  </data>
+  <data name="ChangeDept" xml:space="preserve">
+    <value>Изменить факультет</value>
+  </data>
+  <data name="CommaSeparate" xml:space="preserve">
+    <value>Добавьте адреса элеектронной почты, разделенные запятыми</value>
+  </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>Создать курс</value>
+  </data>
+  <data name="CreateQuizzes" xml:space="preserve">
+    <value>Создавайте свои собственные тесты</value>
+  </data>
+  <data name="FindFb" xml:space="preserve">
+    <value>Найдите друзей из своего аккаунта Facebook</value>
+  </data>
+  <data name="FindGmail" xml:space="preserve">
+    <value>Найдите друзей из своего аккаунта Gmail</value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>Пригласить друзей</value>
+  </data>
+  <data name="InviteOnly" xml:space="preserve">
+    <value>Для просмотра этого контента вы должны быть членом или иметь приглашение</value>
+  </data>
+  <data name="InviteViaEmail" xml:space="preserve">
+    <value>Пригласить по электронной почте</value>
+  </data>
+  <data name="OpenCourse" xml:space="preserve">
+    <value>Курс</value>
+  </data>
+  <data name="PrivateCourse" xml:space="preserve">
+    <value>Учебная группа</value>
+  </data>
+  <data name="RecommendedCourses" xml:space="preserve">
+    <value>Рекомендованные курсы</value>
+  </data>
+  <data name="SearchCloudents" xml:space="preserve">
+    <value>Поиск ваших друзей на Cloudents</value>
+  </data>
+  <data name="SearchFb" xml:space="preserve">
+    <value>Поиск друзей на Facebook</value>
+  </data>
+  <data name="SearchGmail" xml:space="preserve">
+    <value>Поиск контактов Gmail</value>
+  </data>
+  <data name="ShareFiles" xml:space="preserve">
+    <value>Поделитесь файлами со своими товарищами по учебе</value>
+  </data>
+  <data name="SwapBooks" xml:space="preserve">
+    <value>Обменивайтесь учебниками</value>
+  </data>
 </root>

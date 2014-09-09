@@ -207,4 +207,22 @@
   <data name="FriendsRegistered" xml:space="preserve">
     <value>из ваших друзей зарегистрированы</value>
   </data>
+  <data name="CantFindDept" xml:space="preserve">
+    <value>Не можете найти свой факультет?</value>
+  </data>
+  <data name="CreateDept" xml:space="preserve">
+    <value>Создать факультет</value>
+  </data>
+  <data name="CreateNewDept" xml:space="preserve">
+    <value>Создать новый факультет</value>
+  </data>
+  <data name="OfYourFriends" xml:space="preserve">
+    <value>из ваших друзей зарегистрировалось</value>
+  </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>Загрузить логотип учебного заведения</value>
+  </data>
+  <data name="YouStudyAt" xml:space="preserve">
+    <value>Вы учитесь в </value>
+  </data>
 </root>

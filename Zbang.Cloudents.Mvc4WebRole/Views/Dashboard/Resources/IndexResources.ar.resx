@@ -163,7 +163,7 @@
     <value>اعضاء</value>
   </data>
   <data name="MyGroup" xml:space="preserve">
-    <value>صناديق مجموعتي</value>
+    <value>مجموعتي</value>
   </data>
   <data name="MyPrivate" xml:space="preserve">
     <value>خصوصية</value>
@@ -227,5 +227,65 @@
   </data>
   <data name="PostedComment" xml:space="preserve">
     <value>تم نشر تعليق</value>
+  </data>
+  <data name="AnyoneUrl" xml:space="preserve">
+    <value>أي رابط</value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>تصفح الدورات</value>
+  </data>
+  <data name="ChangeDept" xml:space="preserve">
+    <value>تغيير القسم</value>
+  </data>
+  <data name="CommaSeparate" xml:space="preserve">
+    <value>فاصلة</value>
+  </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>أنشيء دورة</value>
+  </data>
+  <data name="CreateQuizzes" xml:space="preserve">
+    <value>أنشيء اختبارات</value>
+  </data>
+  <data name="FindFb" xml:space="preserve">
+    <value>اعثر على الفيس بوك</value>
+  </data>
+  <data name="FindGmail" xml:space="preserve">
+    <value>اعثر على Gmail</value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>دعوة الأصدقاء</value>
+  </data>
+  <data name="InviteOnly" xml:space="preserve">
+    <value>دعوة فقط</value>
+  </data>
+  <data name="InviteViaEmail" xml:space="preserve">
+    <value>دعوة عبر البريد الإلكتروني</value>
+  </data>
+  <data name="OpenCourse" xml:space="preserve">
+    <value>دورة مفتوحة</value>
+  </data>
+  <data name="PrivateCourse" xml:space="preserve">
+    <value>دورة خاصة</value>
+  </data>
+  <data name="RecommendedCourses" xml:space="preserve">
+    <value>دورات موصى بها</value>
+  </data>
+  <data name="SearchCloudents" xml:space="preserve">
+    <value>ابحث عن Cloudents</value>
+  </data>
+  <data name="SearchFb" xml:space="preserve">
+    <value>بحث الفيس بوك</value>
+  </data>
+  <data name="SearchGmail" xml:space="preserve">
+    <value>بحث Gmail</value>
+  </data>
+  <data name="ShareFiles" xml:space="preserve">
+    <value>شارك الملفات</value>
+  </data>
+  <data name="SwapBooks" xml:space="preserve">
+    <value>تصفح الكتب</value>
+  </data>
+  <data name="WelcomeCloudents" xml:space="preserve">
+    <value>مرحبا Cloudents</value>
   </data>
 </root>
