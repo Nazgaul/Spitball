@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -22,6 +22,27 @@
   left: 0;
   /*rtl*/
   right: auto;
+}
+.modal .enterCode form,
+.modal .enterCode .noCode {
+  padding: 0 9px 25px 19px;
+  /*rtl*/
+}
+.modal .enterCode .noCode {
+  padding: 0 9px 25px 0;
+  /*rtl*/
+}
+.modal .enterCode .btn1 {
+  margin: 0 8px 0 0;
+  /*rtl*/
+}
+.modal .departmentChoose .statusLabel.first {
+  margin: 0 0 0 20px;
+  /*rtl*/
+}
+.modal .departmentChoose .dptDetail.first {
+  margin: 20px 0 0 34px;
+  /*rtl*/
 }
 .modal2 {
   right: 0;
@@ -2900,3 +2921,4 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
+/*# sourceMappingURL=RTL3.css.map */

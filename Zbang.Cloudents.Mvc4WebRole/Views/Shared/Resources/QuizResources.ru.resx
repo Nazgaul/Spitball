@@ -178,7 +178,7 @@
     <value>Обзор теста</value>
   </data>
   <data name="RetakeQuiz" xml:space="preserve">
-    <value>Пройти тест повторно</value>
+    <value>Повторный тест</value>
   </data>
   <data name="SaveDraft" xml:space="preserve">
     <value>Сохранить черновик</value>
