@@ -99,7 +99,7 @@ mBox.controller('QnACtrl',
 
         $scope.canDelete = function (obj) { //question || answer
             var userId = sUserDetails.getDetails().id;
-            return obj.userId === userId || $scope.info.ownerId === userId;
+            return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().score > 1000000;
         };
 
         $scope.showAllAnswers = function (question) {

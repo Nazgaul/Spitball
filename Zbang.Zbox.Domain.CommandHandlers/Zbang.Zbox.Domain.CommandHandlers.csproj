@@ -118,7 +118,6 @@
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />
     <Compile Include="DeleteItemCommandHandler.cs" />
-    <Compile Include="DeleteBoxCommandHandler.cs" />
     <Compile Include="CreateUserCommandHandler.cs" />
     <Compile Include="CreateBoxCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

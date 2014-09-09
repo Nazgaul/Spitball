@@ -8,17 +8,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class DeleteFileFromQnACommandHandler : ICommandHandler<DeleteFileFromQnACommand>
     {
         private readonly IRepository<Item> m_ItemRepository;
-        public DeleteFileFromQnACommandHandler(IRepository<Item> itemRepository)
+        private readonly IRepository<User> m_UserRepository;
+        public DeleteFileFromQnACommandHandler(IRepository<Item> itemRepository, IRepository<User> userRepository)
         {
             m_ItemRepository = itemRepository;
+            m_UserRepository = userRepository;
         }
+
         public void Handle(DeleteFileFromQnACommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
             var item = m_ItemRepository.Load(message.ItemId);
+            var user = m_UserRepository.Load(message.UserId);
             var box = item.Box;
 
-            var authorize = item.Uploader.Id == message.UserId || box.Owner.Id == message.UserId;
+            const int reputationNeedToDeleteItem = 1000000;
+
+
+            var authorize = item.Uploader.Id == message.UserId || box.Owner.Id == message.UserId || user.Reputation > reputationNeedToDeleteItem;
             if (!authorize)
             {
                 throw new UnauthorizedAccessException("User is unauthorized to unlink file");

@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Comment> m_BoxCommentRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Updates> m_Updates;
 
@@ -19,21 +20,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Comment> boxCommentRepository,
             IBoxRepository boxRepository,
             IRepository<Reputation> reputationRepository,
-            IRepository<Updates> updates)
+            IRepository<Updates> updates, IUserRepository userRepository)
         {
             m_BoxCommentRepository = boxCommentRepository;
             m_BoxRepository = boxRepository;
             m_Updates = updates;
+            m_UserRepository = userRepository;
             m_ReputationRepository = reputationRepository;
         }
         public void Handle(DeleteCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
             var question = m_BoxCommentRepository.Load(message.QuestionId);
+            var user = m_UserRepository.Load(message.UserId);
             var box = question.Box;
 
+            const int reputationNeedToDeleteItem = 1000000;
 
-            bool isAuthorize = question.User.Id == message.UserId || box.Owner.Id == message.UserId;
+            bool isAuthorize = question.User.Id == message.UserId || box.Owner.Id == message.UserId || user.Reputation > reputationNeedToDeleteItem;
+            
             if (!isAuthorize)
             {
                 throw new UnauthorizedAccessException("User didn't ask the question");

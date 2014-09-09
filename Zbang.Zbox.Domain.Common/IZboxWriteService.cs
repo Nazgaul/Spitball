@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
-        void DeleteBox(DeleteBoxCommand command);
+        //void DeleteBox(DeleteBoxCommand command);
         void UnfollowBox(UnfollowBoxCommand command);
 
         AddFileToBoxCommandResult AddFileToBox(AddFileToBoxCommand command);

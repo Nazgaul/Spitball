@@ -131,7 +131,6 @@
     <Compile Include="UpdateUserProfileCommand.cs" />
     <Compile Include="ShareBoxCommand.cs" />
     <Compile Include="DeleteItemCommand.cs" />
-    <Compile Include="DeleteBoxCommand.cs" />
     <Compile Include="CreateUserCommandResult.cs" />
     <Compile Include="CreateUserCommand.cs" />
     <Compile Include="CreateBoxCommand.cs" />
