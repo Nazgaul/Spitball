@@ -125,9 +125,19 @@
 .modal .departmentChoose {
   font-size: 15px;
 }
+.modal .departmentChoose .popupHeader {
+  margin: 0 0 15px;
+}
+.modal .departmentChoose .closeDialog {
+  right: 20px;
+}
 .modal .departmentChoose .error {
   display: none;
   color: #d1294d;
+}
+.modal .departmentChoose .step1Wpr,
+.modal .departmentChoose .step2Wpr {
+  padding: 0 20px 20px;
 }
 .modal .departmentChoose .step1Wpr h3 {
   font-weight: normal;
@@ -181,7 +191,7 @@
   /*rtl*/
 }
 .modal .departmentChoose .dptDetail {
-  width: 310px;
+  width: 260px;
   display: inline-block;
 }
 .modal .departmentChoose .dptDetail.first {

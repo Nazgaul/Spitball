@@ -134,9 +134,18 @@
         //width: 700px;
         //z-index:12;
         font-size: 15px;
+        .popupHeader {
+            margin: 0 0 15px; //overide
+        }
+        .closeDialog {
+            right:20px; //rtl
+        }
         .error {
             display:none;
             color: @errorColor;
+        }
+        .step1Wpr, .step2Wpr {
+            padding: 0 20px 20px;
         }
         .step1Wpr {
             h3 {
@@ -194,7 +203,7 @@
             }
         }
         .dptDetail{
-            width: 310px;
+            width: 260px;
             display: inline-block;
             &.first
             {
