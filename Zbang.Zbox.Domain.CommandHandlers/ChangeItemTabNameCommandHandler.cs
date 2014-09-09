@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (itemTab == null)
             {
-                throw new System.NullReferenceException("itemTab");
+                throw new NullReferenceException("itemTab");
             }
 
 

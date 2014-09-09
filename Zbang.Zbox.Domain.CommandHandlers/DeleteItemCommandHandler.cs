@@ -50,7 +50,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Item item = m_ItemRepository.Get(command.ItemId);
             User user = m_UserRepository.Load(command.UserId);
 
-            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user);
+            const int reputationNeedToDeleteItem = 1000000;
+
+            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user) || user.Reputation > reputationNeedToDeleteItem;
 
             if (!isAuthorize)
             {
@@ -118,5 +120,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(itemToTakePicture.ThumbnailBlobName);
             box.AddPicture(itemToTakePicture.ThumbnailBlobName, thumbnailUrl);
         }
+
+
     }
 }

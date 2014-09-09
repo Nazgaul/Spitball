@@ -130,7 +130,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUniversityDetail_Query_ReturnResult()
         {
-            var query = new GetUniversityDetailQuery(1, 1);
+            var query = new GetUniversityDetailQuery(1);
             try
             {
                 var x = m_ZboxReadService.GetUniversityDetail(query).Result;

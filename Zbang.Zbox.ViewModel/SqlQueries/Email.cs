@@ -5,20 +5,20 @@
         public const string Partners = @"
 --NEW USERS--
 Select Count(*) from zbox.users where creationtime>getdate()-7
-and universityid2=@userid
+and universityid=@userid
 
 --ALL USERS--
-Select Count(*) from zbox.users where universityid2=@userid
+Select Count(*) from zbox.users where universityid=@userid
 
 --NEW COURSES--
-select Count(*) from zbox.box  where creationtime>getdate()-7 and ownerid=@userid
+select Count(*) from zbox.box  where creationtime>getdate()-7 and University=@userid
 
 --ALL COURSES--
-select Count(*) from zbox.box  where ownerid=@userid
+select Count(*) from zbox.box  where University=@userid
 
 --NEW ITEMS--
 select Count(*) from zbox.item  where creationtime>getdate()-7
-and userid in (Select userid from zbox.users where universityid2=@userid)
+and userid in (Select userid from zbox.users where universityid=@userid)
 
 
 
@@ -26,17 +26,17 @@ and userid in (Select userid from zbox.users where universityid2=@userid)
 
 --ALL ITEMS--
 select Count(*) from zbox.item  where 
-userid in (Select userid from zbox.users where universityid2=@userid)
+userid in (Select userid from zbox.users where universityid=@userid)
 
 ---NEW Q&A--
 		select countQ+countA from (
 		SELECT  (
         select Count(*) from zbox.Question  where creationtime>getdate()-7
-		and userid in (Select userid from zbox.users where universityid2=@userid)
+		and userid in (Select userid from zbox.users where universityid=@userid)
         ) AS countQ,
         (
         select Count(*) from zbox.Answer  where creationtime>getdate()-7
-		and userid in (Select userid from zbox.users where universityid2=@userid)
+		and userid in (Select userid from zbox.users where universityid=@userid)
         ) AS countA
 		) t
 
@@ -44,18 +44,18 @@ userid in (Select userid from zbox.users where universityid2=@userid)
 		select countQ+countA from (
 		SELECT  (
         select Count(*) from zbox.Question  where 
-		userid in (Select userid from zbox.users where universityid2=@userid)
+		userid in (Select userid from zbox.users where universityid=@userid)
         ) AS countQ,
         (
         select Count(*) from zbox.Answer  where 
-		userid in (Select userid from zbox.users where universityid2=@userid)
+		userid in (Select userid from zbox.users where universityid=@userid)
         ) AS countA
 		) t
 		
 --National Cloudents Top 10--
-select top 10 u.username as Name, (select count(*) from zbox.users where universityid2 = u.userid) as students
-from zbox.users u where usertype = 1
-and country = 'NL'
+select top 10 u.UniversityName as Name, (select count(*) from zbox.users where universityid = u.id) as students
+from zbox.University u
+where country = 'NL'
 order by Students desc  ";
     }
 }

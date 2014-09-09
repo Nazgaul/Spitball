@@ -16,7 +16,7 @@
                     maxY = 0,
                     rangeX = maxX - minX,
                     rangeY = maxY - minY,
-                    centerY = Math.round(Math.abs(minY / rangeY) * canvasHeight - 20),
+                    centerY = Math.round(Math.abs(minY / rangeY) * canvasHeight - 25),
                     centerX = Math.round(Math.abs(minX / rangeX) * canvasWidth),
                     iteration = (maxX - minX) / canvasWidth,
                     scaleX = canvasWidth / rangeX,
@@ -36,8 +36,8 @@
                    context.beginPath();
                    context.moveTo(2, 0);
 
-                   context.lineTo(2, canvasHeight - 20);
-                   context.lineTo(canvasWidth, canvasHeight - 20);                   
+                   context.lineTo(2, canvasHeight - 25);
+                   context.lineTo(canvasWidth, canvasHeight - 25);                   
                    context.strokeStyle = '#797979';
                    context.lineWidth = 1;
                    context.stroke();
@@ -64,7 +64,7 @@
 
                        context.restore();
                        context.lineJoin = 'round';
-                       context.lineWidth = 3;
+                       context.lineWidth = 2;
                        context.strokeStyle = color;
                        context.stroke();
                    };
@@ -95,7 +95,7 @@
                        context.restore();
                        context.strokeStyle = '#e6ad20';
                        context.lineWidth = 3;
-                       context.setLineDash([10]);
+                       context.setLineDash([10,5]);
                        context.stroke();
                        context.setLineDash([]);
 
@@ -105,10 +105,10 @@
                        context.save();
                        context.fillStyle = 'white';
                        context.translate(centerX, centerY);
-                       context.font = '14pt arial';
+                       context.font = '12pt arial';
                        context.textBaseline = 'middle';
                        context.textAlign = 'center';
-                       context.fillText(scope.quiz.result, userAverage * scaleX + 23, -averageHeight * scaleY - 15.5); //23 half flag width, 15.5 half flag height
+                       context.fillText(scope.quiz.result, userAverage * scaleX + 20, -averageHeight * scaleY - 10.5); //23 half flag width, 15.5 half flag height
                        context.restore();
                    }
 

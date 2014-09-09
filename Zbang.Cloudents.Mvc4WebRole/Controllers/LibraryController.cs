@@ -55,10 +55,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Choose");
             }
 
-            var universityWrapper = userDetail.UniversityId.Value;
 
-            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value,
-                universityWrapper);
+            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value
+                );
 
             var result = await ZboxReadService.GetUniversityDetail(query);
             if (result.Id == 0)
@@ -282,13 +281,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                //var id = m_IdGenerator.Value.GetId();
                 var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value, GetUserId());
                 ZboxWriteService.CreateDepartment(command);
-                return Json(new JsonResponse(true));
+                return Json(new JsonResponse(true, new { id = command.Id }));
             }
             catch (ArgumentException ex)
             {
+                TraceLog.WriteError("Library Create", ex);
                 return Json(new JsonResponse(false, "unspecified error"));
             }
         }
@@ -383,14 +382,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = m_IdGenerator.Value.GetId(IdGenerator.UniversityScope);
             var command = new CreateUniversityCommand(id, model.Name, model.Country,
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
+                "https://az32006.vo.msecnd.net/zboxprofilepic/S50X50/Lib1.jpg",
+                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
             return Json(new JsonResponse(true, new
             {
                 id,
-                image = "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
+                image = command.SmallImage,
                 name = model.Name
             }));
         }

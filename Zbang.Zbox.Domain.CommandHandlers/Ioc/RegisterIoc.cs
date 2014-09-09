@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
-            ioc.RegisterType(typeof(ICommandHandler<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
+            //ioc.RegisterType(typeof(ICommandHandler<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnfollowBoxCommandHandler));
             
 

@@ -17,5 +17,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         public string RegisterNumber { get; set; }
 
         public string studentID { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format(
+                "University id {0} code {1} DepartmentId {2} GroupNumber {3} RegisterNumber {4} studentID {5}",
+                UniversityId, Code, DepartmentId, GroupNumber, RegisterNumber, studentID);
+            
+        }
     }
 }

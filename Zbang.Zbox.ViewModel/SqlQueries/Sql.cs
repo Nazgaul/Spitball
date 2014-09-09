@@ -36,8 +36,7 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 	                                       where ub.UserId = @UserId  and author.userid != @UserId
 	                                      ) t
 	                                      order by t.date desc;";
-        //todo: check if we can improve this sql query
-        public const string GetUniversityDataByUserId = @" select  uu.Id as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
+        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
                             uWrap.FacebookUrl,
@@ -45,14 +44,13 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             uWrap.TwitterWidgetId,
                             uWrap.YouTubeUrl,
                             uWrap.LetterUrl,
-                            (select count(*) from zbox.Box b 
-                            where b.University = uu.Id and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
+                            uWrap.NoOfBoxes as BoxesCount,
                             (select sum(itemcount) from zbox.Box b 
-                            where b.University = uu.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId in ( uu.Id , uWrap.Id)) as MemberCount
-                            from zbox.University uu , zbox.University uWrap  
-                            where uu.Id = @UserId
-                            and uWrap.Id =@UniversityWrapper";
+                            where b.University = uWrap.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
+                            (select count(*) from zbox.Users u where u.UniversityId in ( uWrap.Id , uWrap.Id)) as MemberCount
+                            from zbox.University uWrap  
+                            where 
+                             uWrap.Id =@UniversityWrapper";
 
         public const string GetDepartmentByUserId =
             @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
@@ -65,7 +63,7 @@ where userid = @UserId";
                                 u.userid as Uid,u.UserName as Name,u.UserImage as Image , u.Url as Url,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
-								from zbox.Users u where userid =( select universityid2 from zbox.users where userid = @userid)
+								from zbox.Users u where userid =( select universityid from zbox.users where userid = @userid)
 								union 
 								select u.userid as Uid,u.UserName as Name ,u.UserImage as Image ,u.url as Url,
                                 u.UserImageLarge as LargeImage,

@@ -681,7 +681,7 @@ mBox.controller('BoxCtrl',
 
             $scope.deleteAllow = function (item) {
                 return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
-                       ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id);
+                       ($scope.info.userType === 'owner' || item.ownerId === UserDetails.getDetails().id || UserDetails.getDetails().score > 1000000);
             };
 
             $scope.downloadItem = function (item) {
@@ -717,13 +717,13 @@ mBox.controller('BoxCtrl',
                 } else {
                     return 1;
                 }
-                if (a.name < b.name) {
-                    return 1;
-                }
-                else {
-                    return -1;
-                }
-                return 0;
+                //if (a.name < b.name) {
+                //    return 1;
+                //}
+                //else {
+                //    return -1;
+                //}
+                //return 0;
             }
             //#endregion
 

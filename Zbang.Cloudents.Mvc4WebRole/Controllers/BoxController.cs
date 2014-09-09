@@ -374,9 +374,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Obsolete]
         public ActionResult Delete(long boxUid)
         {
-            var userId = GetUserId();
-
-            return DeleteOwnedBox(boxUid, userId);
+            return Delete2(boxUid);
 
 
         }
@@ -392,30 +390,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpPost]
-        [Ajax]
-        [ZboxAuthorize]
-        [Obsolete]
-        public ActionResult Unfollow(long boxUid)
-        {
-            return DeleteUserFomBox(boxUid, GetUserId());
-        }
-        [NonAction]
-        private ActionResult DeleteOwnedBox(long boxId, long userId)
-        {
-            try
-            {
-
-                var query = new DeleteBoxCommand(boxId, userId);
-                ZboxWriteService.DeleteBox(query);
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("DeleteBox user: {0} boxid: {1}", GetUserId(), boxId), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpPost]
+        //[Ajax]
+        //[ZboxAuthorize]
+        //[Obsolete]
+        //public ActionResult Unfollow(long boxUid)
+        //{
+        //    return DeleteUserFomBox(boxUid, GetUserId());
+        //}
 
         [NonAction]
         private ActionResult DeleteUserFomBox(long boxId, long userToDeleteId)

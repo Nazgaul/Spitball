@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IRepository<Comment> m_StubQuestionRepository;
         private IRepository<Reputation> m_StubReputationRepository;
         private IBoxRepository m_StubBoxRepository;
+        private IUserRepository m_UserRepository;
 
         [TestInitialize]
         public void Setup()
@@ -21,6 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubQuestionRepository = MockRepository.GenerateStub<IRepository<Comment>>();
             m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
             m_StubBoxRepository = MockRepository.GenerateStub<IBoxRepository>();
+            m_UserRepository = MockRepository.GenerateStub<IUserRepository>();
 
 
         }
@@ -40,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubQuestionRepository.Stub(x => x.Load(questionId)).Return(question);
 
-            var commandHanlder = new DeleteCommentCommandHandler(m_StubQuestionRepository, m_StubBoxRepository, m_StubReputationRepository, null);
+            var commandHanlder = new DeleteCommentCommandHandler(m_StubQuestionRepository, m_StubBoxRepository, m_StubReputationRepository, null, m_UserRepository);
 
             commandHanlder.Handle(command);
         }

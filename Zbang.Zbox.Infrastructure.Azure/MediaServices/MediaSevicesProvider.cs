@@ -91,7 +91,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         private string DownloadToAzureStorage(Uri originalBlob, string streamingAssetId)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
-            var streamingAsset = m_Context.Assets.FirstOrDefault(a => a.Id == streamingAssetId);
+
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - azure media services doesn't support first or default
+            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
             var assetFiles = streamingAsset.AssetFiles.ToList();
             var streamingAssetFile = assetFiles.FirstOrDefault(f => f.Name.ToLower().EndsWith(".mp4"));
 
@@ -125,16 +127,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 locationToSave = m_LocalProvider.SaveFileToStorage(ms, blobName);
 
             }
-            var streamingAsset = m_Context.Assets.FirstOrDefault(a => a.Id == streamingAssetId);
+            // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault -azure media services doesn't support first or default
+            var streamingAsset = m_Context.Assets.Where(a => a.Id == streamingAssetId).FirstOrDefault();
 
             var assetFiles = streamingAsset.AssetFiles.ToList();
             var streamingAssetFile = assetFiles.FirstOrDefault(f => f.Name.ToLower().EndsWith(".mp4"));
             streamingAssetFile.Download(locationToSave);
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
-             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
+            await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
 
-            m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
+            await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
             return newBlobName;
 
         }

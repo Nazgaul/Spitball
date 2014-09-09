@@ -41,12 +41,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var model = await ZboxReadService.GetQuizSeo(query);
 
+                if (model == null)
+                {
+                    throw new ItemNotFoundException();
+                }
                 if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
                 {
                     throw new ItemNotFoundException();
                 }
 
-                if (model == null || string.IsNullOrEmpty(model.Country)) return View("Empty");
+                if (string.IsNullOrEmpty(model.Country)) return View("Empty");
+
+                
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 BaseControllerResources.Culture = culture;

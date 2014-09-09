@@ -41,7 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject)
-           
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
@@ -357,7 +356,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 Session[SessionKey] = model;
 
-                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture), 
+                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                     model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return Json(new JsonResponse(true, new { code = true }));
             }
@@ -438,7 +437,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("update university", ex);
+                TraceLog.WriteError("update university model " + model, ex);
                 ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }

@@ -98,10 +98,12 @@ mQuiz.controller('QuizCtrl',
                         solveQuiz();
                         getDiscussion();
                         $scope.quiz.afraid = true;
-                    }); //cancel doesn't do anything
+                    },function() {
+                        startTimer();
+                    }); 
 
                     return;
-                }, 5000);
+                }, 3000);
             });
             $scope.timer = {
                 state: JsResources.Play
