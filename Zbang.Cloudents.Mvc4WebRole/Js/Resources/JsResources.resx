@@ -634,4 +634,10 @@ Sign up for FREE</value>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>

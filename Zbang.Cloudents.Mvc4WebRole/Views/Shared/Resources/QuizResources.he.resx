@@ -210,4 +210,19 @@
   <data name="TopThree" xml:space="preserve">
     <value>שלשת המובילים במבחן זה:</value>
   </data>
+  <data name="Afraid" xml:space="preserve">
+    <value>מפחד לנסות</value>
+  </data>
+  <data name="OfYourMates" xml:space="preserve">
+    <value>סטודנטים מהכיתה שלך כבר בחנו את עצמם</value>
+  </data>
+  <data name="QuizTime" xml:space="preserve">
+    <value>הגיע הזמן לבדוק כמה אתה טוב</value>
+  </data>
+  <data name="TakeChance" xml:space="preserve">
+    <value>הולך על זה</value>
+  </data>
+  <data name="YouReady" xml:space="preserve">
+    <value>אתה מוכן לבחון את עצמך?</value>
+  </data>
 </root>

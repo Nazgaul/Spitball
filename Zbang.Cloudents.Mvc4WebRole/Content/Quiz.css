@@ -31,6 +31,9 @@ body.quiz .shareBtn {
   right: 0;
   margin-top: 5px;
 }
+body.quiz .modal-backdrop.in {
+  opacity: .7;
+}
 /*#region Create Quiz */
 .bodyContent.noQuiz .quizSideBar {
   right: -390px;
@@ -472,23 +475,28 @@ body.quiz .shareBtn {
 }
 .quizQList {
   list-style-type: decimal;
-  font-size: 19px;
+  font-size: 15px;
   padding: 0 25px;
+  /*.splitHR {
+
+        text-align: left; //rtl
+        padding: 10px 0 0 42px; //rtl
+        font-size: 13px;
+        margin: 0 -34px -4px -34px;
+    }
+    .splitHRText:before, .splitHRText:after {
+        border-color: @borderColor;
+    }*/
 }
 .quizQList > li {
   position: relative;
-  padding-top: 20px;
   clear: both;
+  border-bottom: 1px dashed #c2c2c2;
+  padding: 20px 0 10px;
 }
-.quizQList .splitHR {
-  text-align: left;
-  padding: 10px 0 0 42px;
-  font-size: 13px;
-  margin: 0 -34px -4px -34px;
-}
-.quizQList .splitHRText:before,
-.quizQList .splitHRText:after {
-  border-color: #c2c2c2;
+.quizQList > li:last-child {
+  border: none;
+  margin-bottom: 20px;
 }
 .quizQList .iconTxt {
   color: #0371c8;
@@ -499,7 +507,8 @@ body.quiz .shareBtn {
   background-position: -55px -121px;
 }
 .quizQList ~ .btn1 {
-  margin-top: 30px;
+  margin-top: -25px;
+  position: relative;
 }
 /*.quizQuestion {
     padding-right: 80px;
@@ -532,11 +541,12 @@ body.quiz .shareBtn {
   /*display: none;*/
 }
 .commentWpr .askBtn {
-  padding: 4px 15px;
+  padding: 5px 15px 6px;
   height: auto;
-  margin: 2px 12px 10px 0;
+  margin: 0 12px 10px 0;
   /*rtl*/
   display: block;
+  width: 100px;
 }
 .commentWpr li:hover .closeDialog {
   display: block;
@@ -585,12 +595,12 @@ body.quiz .shareBtn {
 .qPreview,
 .quizQuestion {
   white-space: pre-line;
-  line-height: 27px;
+  line-height: 21px;
 }
 .quizAList {
   list-style-type: lower-latin;
   font-size: 15px;
-  padding: 10px 20px;
+  padding: 18px 20px;
 }
 .quizAList li {
   margin: 0 0 -27px 13px;
@@ -841,6 +851,12 @@ body.quiz .shareBtn {
 .checkQuiz .timeWpr {
   display: none;
 }
+.checkQuiz .quizQList > li {
+  border: none;
+}
+.checkQuiz .quizQList > li:last-child {
+  margin-bottom: 0;
+}
 .userCorrect .quizQuestion,
 .userWrong .quizQuestion,
 .userCorrect .quizAList,
@@ -857,7 +873,7 @@ body.quiz .shareBtn {
   left: -45px;
   /*rtl*/
   top: 0;
-  width: 3px;
+  width: 7px;
   height: 100%;
   background: #0f9d58;
 }
@@ -1154,6 +1170,10 @@ body.quiz .shareBtn {
 }
 .friendsPics img {
   display: inline-block;
+  margin-bottom: 1px;
+}
+.friendsPics img:nth-child(odd) {
+  margin-right: 5px;
 }
 .quizPopupTxtWpr {
   display: inline-block;

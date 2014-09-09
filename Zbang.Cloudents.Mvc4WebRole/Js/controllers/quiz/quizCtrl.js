@@ -104,7 +104,7 @@ mQuiz.controller('QuizCtrl',
                 }, 5000);
             });
             $scope.timer = {
-                state: 'Play'
+                state: JsResources.Play
             };
        
             //#region quiz
@@ -274,7 +274,7 @@ mQuiz.controller('QuizCtrl',
                 $scope.formData.startTime = null;
                 $scope.quiz.testInProgress = false;
                 $scope.quiz.userDone = false;
-                $scope.timer.state = 'Play';
+                $scope.timer.state = JsResources.Play;
                 $scope.$broadcast('timer-clear');
 
                 angular.copy(questions, $scope.quiz.questions);
@@ -304,7 +304,7 @@ mQuiz.controller('QuizCtrl',
 
             function startTimer() {
                 $scope.$broadcast('timer-start');
-                $scope.timer.state = 'Pause';
+                $scope.timer.state = JsResources.Pause;
                 $scope.quiz.testInProgress = true;
                 $scope.formData.startTime = new Date();
             }
@@ -313,13 +313,13 @@ mQuiz.controller('QuizCtrl',
                 $scope.quiz.paused = true;
                 $scope.$broadcast('timer-stop');
                 $scope.quiz.testInProgress = false;
-                $scope.timer.state = 'Play';
+                $scope.timer.state = JsResources.Play;
             }
             function resumeTimer() {
                 $scope.$broadcast('timer-resume');
                 $scope.quiz.paused = false;
                 $scope.quiz.testInProgress = true;
-                $scope.timer.state = 'Pause';
+                $scope.timer.state = JsResources.Pause;
             }
             //#endregion
 

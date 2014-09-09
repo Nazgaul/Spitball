@@ -2165,7 +2165,8 @@
 body.quiz {
     .backWpr {
         right: 0; //rtl
-        left: auto
+        left: auto;
+        padding: 0 45px 0 0; //rtl
     }
     .shareBtn {
         left: 0; //rtl
@@ -2308,12 +2309,12 @@ body.quiz {
         }
     }
 }
-.quizQList {
+/*.quizQList {
     .splitHR {
-        text-align: right; /*rtl*/
-        padding: 10px 42px 0 0; /*rtl*/
+        text-align: right; //rtl
+        padding: 10px 42px 0 0; //rtl
     }
-}
+}*/
 
 .commentWpr {
     //margin: 10px 34px 0 40px; /*rtl*/
@@ -2328,7 +2329,8 @@ body.quiz {
     }
 
     .askBtn {
-        margin: 2px 0 10px 12px; /*rtl*/
+        padding: 6px 15px 7px; //diff rtl
+        margin: 0 0 10px 12px; /*rtl*/
     }
 }
 
@@ -2371,7 +2373,7 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
-    .backWpr {
+    .backWpr:before {
         .flipH(1); //rtl
     }
     .leftPanel {
@@ -2383,13 +2385,16 @@ body.quiz {
         padding: 0 @leftSideBarWidth 0 0;
         text-align: right; /*rtl*/
     }
+    .itemTop {
+        height: 73px; //diff rtl
+    }
     .topBar.topBar {
         padding: 0 290px 0 0; //diff rtl!!
     }
     .quizViews {
         border: none;
         border-right: 1px solid #797979; //rtl
-        margin: 0 0 0 -5px; //rtl
+        margin: 10px 0 0 -5px; // diff rtl
     }
     .itemNameWpr {
         padding: 16px 56px 8px 15px; //rtl
@@ -2409,11 +2414,14 @@ body.quiz {
         }
     }
 }
-
+.quizTime {
+    margin-top: 146px; //diff rtl
+}
 .checkQuiz, .afraid {
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
-            padding: 0 0 0 80px; /*rtl*/////
+            //padding: 0 0 0 80px; /*rtl*/////
+            padding: 0 20px 18px 80px; //rtl
         }
     }
     .correct.correct label, .wrong.wrong label {
@@ -2429,6 +2437,7 @@ body.quiz {
 
 .results {
     padding: 0 38px 0 0; //rtl
+    height: 66px; // diff rtl
     &.wrong {
         padding: 0 0 0 35px;
         border: none;
@@ -2440,6 +2449,7 @@ body.quiz {
     }
     &:before {
         //margin: -10px 0 -20px; //diff rtl
+        margin: -8px 0; // diff rtl
     }
     &:after {
         right: 0; //rtl
@@ -2474,7 +2484,11 @@ body.quiz {
 }
 .friendsPics {
     margin: 0 0 0 12px; //rtl
-
+    img {
+        &:nth-child(odd) {
+            margin: 0 0 1px 5px; //rtl
+        }
+    }
     &.plus:after {
         right: 56px; //rtl
         left: auto;
@@ -2482,6 +2496,9 @@ body.quiz {
 }
 .quizPopupTxtWpr {
     text-align: right; //rtl
+    line-height: 20px; //diff rtl
+    width: 200px; //diff rtl
+    margin-top: 10px; //diff rtl
 }
 /*#endregion */
 

@@ -1,7 +1,6 @@
 ﻿@import "varsAndMixins";
 
 body {
-    
     &.quiz {
         //with jsDark on body this is not necessary//
         background: #282828;//
@@ -31,6 +30,9 @@ body {
             position: absolute;
             right: 0; //rtl
             margin-top: 5px;
+        }
+        .modal-backdrop.in {
+            opacity: .7;
         }
     }
 }
@@ -493,14 +495,19 @@ body {
 .quizQList
 {
     list-style-type: decimal;
-    font-size: 19px;
+    font-size: 15px;
     padding: 0 25px;
     > li{
         position:relative; //for item view
-        padding-top: 20px;
         clear: both;
+        border-bottom: 1px dashed @borderColor;
+        padding: 20px 0 10px;
+        &:last-child {
+            border: none;
+            margin-bottom: 20px;
+        }
     }
-    .splitHR {
+    /*.splitHR {
 
         text-align: left; //rtl
         padding: 10px 0 0 42px; //rtl
@@ -509,7 +516,7 @@ body {
     }
     .splitHRText:before, .splitHRText:after {
         border-color: @borderColor;
-    }
+    }*/
     .iconTxt {
         color: @attentionBlue;
         &:before {
@@ -519,7 +526,9 @@ body {
         }
     }
     ~ .btn1 {
-        margin-top: 30px;
+        //margin-top: 30px;
+        margin-top: -25px;
+        position: relative;
     }
 }
 /*.quizQuestion {
@@ -544,10 +553,11 @@ body {
         /*display: none;*/
     }
     .askBtn {
-        padding: 4px 15px;
+        padding: 5px 15px 6px; //diff rtl
         height: auto;
-        margin: 2px 12px 10px 0; /*rtl*/ 
+        margin: 0 12px 10px 0; /*rtl*/ 
         display: block;
+        width: 100px;
     }
     li:hover .closeDialog {
             display: block;
@@ -603,12 +613,13 @@ body {
 }
 .qPreview, .quizQuestion {
     white-space: pre-line;
-    line-height: 27px;
+    line-height: 21px;
+    //font-size: 15px;
 }
 .quizAList {
     list-style-type: lower-latin;
     font-size: 15px;
-    padding: 10px 20px;
+    padding: 18px 20px;
 
     li {
         margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
@@ -727,7 +738,7 @@ body {
         font-size: 15px;
         margin: 0;
         //height: 95px;
-        height: 75px;
+        height: 75px; //diff rtl
         border-bottom: 1px solid #797979;
     }
     .itemNameWpr {
@@ -842,6 +853,12 @@ body {
     .timeWpr {
         display: none;
     }
+    .quizQList > li {
+        border: none;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .userCorrect, .userWrong {
@@ -853,7 +870,7 @@ body {
             position: absolute;
             left: -45px; /*rtl*/
             top:0;
-            width: 3px;
+            width: 7px;
             height: 100%;
             background: @color;
         }
@@ -870,7 +887,7 @@ body {
 .quizTime {
     color: #fff;
     font-size: 55px;
-    margin-top: 133px;
+    margin-top: 133px; //diff rtl
     text-align: center;
     &:before {
         .pseudo;
@@ -1143,6 +1160,10 @@ body {
     }
     img {
         display: inline-block;
+        margin-bottom: 1px;
+        &:nth-child(odd) {
+            margin-right: 5px; //rtl
+        }
     }
 }
 .quizPopupTxtWpr {

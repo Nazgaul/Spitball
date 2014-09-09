@@ -254,8 +254,7 @@ textarea:invalid {
   height: 24px;
 }
 .askBtn:disabled {
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(3, 113, 200, 0.5);
+  background: #aaa;
 }
 .attachBtn {
   width: 15px;

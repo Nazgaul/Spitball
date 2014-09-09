@@ -14,7 +14,6 @@
 
         <div class="timeWpr">
             <div class="quizTime" id="quizTimer">
-
                 <timer interval="1000" autostart="false">{{mminutes}}:{{sseconds}}</timer>
             </div>
             <button type="button" ng-click="takeQuiz()">{{timer.state}}</button>
@@ -99,7 +98,7 @@
                         </li>
                     </ul>
 
-                    <div class="splitHR"><button class="splitHRText" type="button"><span class="iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>
+                    @*<div class="splitHR"><button class="splitHRText" type="button"><span class="iconTxt" ng-bind="getCommentsLength(question.comments)"></span></button></div>*@
                     <div class="commentWpr">
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
@@ -119,7 +118,7 @@
                     </div>
 
             </ul>
-            <button type="button" class="btn1" ng-disabled="!quiz.testInProgress" ng-click="checkAnswers()">@QuizResources.CheckAnswers</button>
+            <button type="button" class="btn1 rFloat" ng-disabled="!quiz.testInProgress" ng-click="checkAnswers()">@QuizResources.CheckAnswers</button>
         </div>
     </div>
 </div>

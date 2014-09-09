@@ -640,4 +640,10 @@
   <data name="RenameError" xml:space="preserve">
     <value>خطأ في إعادة تسمية المجلد</value>
   </data>
+  <data name="Pause" xml:space="preserve">
+    <value>إيقاف مؤقت</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>تشغيل</value>
+  </data>
 </root>

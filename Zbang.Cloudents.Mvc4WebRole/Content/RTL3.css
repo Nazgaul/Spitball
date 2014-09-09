@@ -2560,6 +2560,7 @@
 body.quiz .backWpr {
   right: 0;
   left: auto;
+  padding: 0 45px 0 0;
 }
 body.quiz .shareBtn {
   left: 0;
@@ -2711,12 +2712,12 @@ body.quiz .shareBtn {
   margin: 0 5px 0 0;
   /*rtl*/
 }
-.quizQList .splitHR {
-  text-align: right;
-  /*rtl*/
-  padding: 10px 42px 0 0;
-  /*rtl*/
-}
+/*.quizQList {
+    .splitHR {
+        text-align: right; //rtl
+        padding: 10px 42px 0 0; //rtl
+    }
+}*/
 .commentWpr {
   padding: 0 10px 0 0;
   /*rtl*/
@@ -2732,7 +2733,8 @@ body.quiz .shareBtn {
   left: auto;
 }
 .commentWpr .askBtn {
-  margin: 2px 0 10px 12px;
+  padding: 6px 15px 7px;
+  margin: 0 0 10px 12px;
   /*rtl*/
 }
 .quizComments li {
@@ -2773,7 +2775,7 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage .backWpr {
+.quizPage .backWpr:before {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
   -o-transform: scaleX(1);
@@ -2790,13 +2792,16 @@ body.quiz .shareBtn {
   text-align: right;
   /*rtl*/
 }
+.quizPage .itemTop {
+  height: 73px;
+}
 .quizPage .topBar.topBar {
   padding: 0 290px 0 0;
 }
 .quizPage .quizViews {
   border: none;
   border-right: 1px solid #797979;
-  margin: 0 0 0 -5px;
+  margin: 10px 0 0 -5px;
 }
 .quizPage .itemNameWpr {
   padding: 16px 56px 8px 15px;
@@ -2813,6 +2818,9 @@ body.quiz .shareBtn {
   /*rtl*/
   left: auto;
 }
+.quizTime {
+  margin-top: 146px;
+}
 .checkQuiz .userCorrect .quizQuestion,
 .afraid .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,
@@ -2821,8 +2829,7 @@ body.quiz .shareBtn {
 .afraid .userCorrect .quizAList,
 .checkQuiz .userWrong .quizAList,
 .afraid .userWrong .quizAList {
-  padding: 0 0 0 80px;
-  /*rtl*/
+  padding: 0 20px 18px 80px;
 }
 .checkQuiz .correct.correct label:before,
 .afraid .correct.correct label:before,
@@ -2839,6 +2846,7 @@ body.quiz .shareBtn {
 }
 .results {
   padding: 0 38px 0 0;
+  height: 66px;
 }
 .results.wrong {
   padding: 0 0 0 35px;
@@ -2848,6 +2856,9 @@ body.quiz .shareBtn {
 .results.wrong:after {
   left: 0;
   right: auto;
+}
+.results:before {
+  margin: -8px 0;
 }
 .results:after {
   right: 0;
@@ -2874,12 +2885,18 @@ body.quiz .shareBtn {
 .friendsPics {
   margin: 0 0 0 12px;
 }
+.friendsPics img:nth-child(odd) {
+  margin: 0 0 1px 5px;
+}
 .friendsPics.plus:after {
   right: 56px;
   left: auto;
 }
 .quizPopupTxtWpr {
   text-align: right;
+  line-height: 20px;
+  width: 200px;
+  margin-top: 10px;
 }
 /*#endregion */
 /*#endregion */

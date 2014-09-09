@@ -650,4 +650,10 @@
   <data name="RenameError" xml:space="preserve">
     <value>Ошибка при переименовании папки</value>
   </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Пуск</value>
+  </data>
 </root>

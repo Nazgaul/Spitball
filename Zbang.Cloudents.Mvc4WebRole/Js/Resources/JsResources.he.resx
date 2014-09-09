@@ -647,4 +647,10 @@
   <data name="RenameError" xml:space="preserve">
     <value>שינוי השם נכשל</value>
   </data>
+  <data name="Pause" xml:space="preserve">
+    <value>עצור</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>התחל</value>
+  </data>
 </root>
