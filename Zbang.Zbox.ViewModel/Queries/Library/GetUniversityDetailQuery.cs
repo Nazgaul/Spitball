@@ -6,17 +6,16 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
 {
     public class GetUniversityDetailQuery : QueryBase , IQueryCache
     {
-        public GetUniversityDetailQuery(long universityId,long universityWrapperId)
+        public GetUniversityDetailQuery(long universityId)
             : base(universityId)
         {
-            UniversityWrapperId = universityWrapperId;
+           
         }
 
-        public long UniversityWrapperId { get; private set; }
 
         public string CacheKey
         {
-            get { return string.Format("{0}_{1}", UserId, UniversityWrapperId); }
+            get { return string.Format("{0}", UserId); }
         }
 
         public string CacheRegion

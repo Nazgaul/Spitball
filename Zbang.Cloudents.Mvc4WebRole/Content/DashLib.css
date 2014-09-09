@@ -582,14 +582,8 @@
 .formWpr .department {
   position: relative;
 }
-.formWpr.js-addDept {
-  display: block;
-}
-.formWpr.js-addDept .createDept {
-  display: block;
-}
-.formWpr.js-addDept .courseType {
-  display: none;
+.formWpr .createDept button {
+  margin-top: 0;
 }
 .formWpr .chooseDeptList.chooseDeptList {
   top: -225px;

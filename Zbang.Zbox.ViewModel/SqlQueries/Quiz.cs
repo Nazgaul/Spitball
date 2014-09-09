@@ -3,7 +3,6 @@
     public static class Quiz
     {
 
-        //todo:change that
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string QuizSeoQuery = @"
 select u.country as Country
@@ -13,8 +12,8 @@ select u.country as Country
         from 
 		zbox.quiz q
 		join zbox.box b on q.boxid= b.boxid
-		join zbox.users u on b.ownerid = u.userid
-		where id = @QuizId
+		join zbox.University u on b.University = u.Id
+		where q.id = @QuizId
         and q.publish = 1;";
 
         public const string QuizQuery =

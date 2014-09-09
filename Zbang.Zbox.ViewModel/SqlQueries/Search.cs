@@ -18,7 +18,6 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only; ";
 
-        //todo:change that
         public const string UniversityBoxes = @"select b.pictureurl as image,
  b.BoxName as name,
  b.ProfessorName as proffessor,
@@ -27,7 +26,7 @@ fetch next @pageSize rows only; ";
 b.Url as url
 from zbox.box b
 where b.IsDeleted = 0
-and b.OwnerId = @universityId
+and b.University = @universityId
 and b.Discriminator = 2
 and (b.BoxName like '%' + @query + '%'
 	or b.CourseCode like '%' + @query + '%'
@@ -36,16 +35,14 @@ order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, l
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-        //todo:change that
         public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
 from zbox.users u
-where u.UniversityId2 = @universityId
+where u.UniversityId = @universityId
 and u.username like '%' +@query + '%'
 order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-        //todo: change that
         public const string Items = @"select 
 i.thumbnailurl as image,
 i.Name as name,
@@ -60,14 +57,13 @@ i.url as Url
 from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 where i.IsDeleted = 0
-and b.OwnerId = @universityId
+and b.University = @universityId
 and b.Discriminator = 2
 and (i.Name like '%' +@query + '%')
 order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
 offset @offsetV rows
 fetch next @pageSize rows only;";
 
-        //todo:change that
         public const string ItemFromOtherUniversities = @"
 select i.thumbnailurl as image,
 i.Name as name,
@@ -83,12 +79,12 @@ from zbox.item i
 join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
 join zbox.users u2 on u2.UserId = b.OwnerId
 where i.IsDeleted = 0
-and b.OwnerId in (
-select userid from 
-zbox.users u 
-where u.NeedCode = 0 and u.UserType = 1 
-and u.country = (select country from zbox.users where userid = @universityId)
-and u.userid != @universityid
+and b.University in (
+select id from 
+zbox.University u 
+where u.NeedCode = 0 
+and u.country = (select country from zbox.University where Id = @universityId)
+and u.Id != @universityid
 )
 and b.Discriminator = 2
 and (i.Name like '%' +@query + '%')
