@@ -30,10 +30,10 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     //    $scope.firstTime.dashboard = false;
     //    sDashboard.disableFirstTime();
     //}
-
+    var modalInstance;
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
-        var modalInstance = $modal.open({
+        modalInstance = $modal.open({
             templateUrl: $scope.partials.createBoxWized,
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
@@ -51,6 +51,11 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             }
         });
     };
+    $scope.$on('$destroy', function () {
+        if (modalInstance) {
+            modalInstance.close();
+        }
+    });
     function firstTimeDashboard() {
         sDashboard.recommendedCourses().then(function (response) {
             var data = response.success ? response.payload : {};
