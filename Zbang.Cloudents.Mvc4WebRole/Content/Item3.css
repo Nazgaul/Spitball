@@ -418,6 +418,14 @@
   border: 1px solid #C2C2C2;
   letter-spacing: 1px;
 }
+.moreFilesThumb.quiz {
+  background-color: none;
+  border: none;
+  border-radius: 0;
+  background: url(/Images/quizSprite.png?v=4) 0 -650px no-repeat;
+  position: relative;
+  top: 2px;
+}
 .fourLetterExtension {
   font-size: 8px;
 }
