@@ -5,9 +5,10 @@
 
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
-    <div class="dashContent">
+    <div class="dashContent" ng-init="newUniversity=@Model.NoOfBoxes">
+        @*<button type="button" analytics-on analytics-event="test">aslkdjalsdkj</button>*@
         <aside class="asideDash lFloat">
-            <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
+            <a class="dashTop" ng-class="{aDisbled: !newUniversity}" href="@Url.RouteUrl("LibraryDesktop",null)">
                 <span class="uniLogo">
                     <img alt="University logo" width="70" height="70" src="@Model.Img" />
                 </span>
@@ -64,7 +65,7 @@
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
 
             @*NEW COURSE SECTION*@
-            <section class="setupCourse" ng-init="newUniversity='@Model.NoOfBoxes'" ng-if="!academicBoxes.length && !groupBoxes.length">
+            <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">
                 <div class="topWpr">
                     <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
                     <div class="setupCourseTxt2">@IndexResources.FreeOnline</div>
@@ -100,15 +101,15 @@
             </section>
 
             <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
+                <header class="boxesHeader" ng-show="contentLoaded && academicBoxes.length">{{myCourses}}</header>
 
-                <div ng-if="!academicBoxes.length" class="emptyDash">
-                    <div class="followEmpty">
-                        <h2 class="boldFont">@IndexResources.FollowCourses</h2>
-                        <div>@IndexResources.FindCourses</div>
-                    </div>
-                </div>
-                <ol class="myAreaList clearfix">
+                @*<div ng-if="!academicBoxes.length" class="emptyDash">
+                        <div class="followEmpty">
+                            <h2 class="boldFont">@IndexResources.FollowCourses</h2>
+                            <div>@IndexResources.FindCourses</div>
+                        </div>
+                    </div>*@
+                <ol class="myAreaList clearfix" ng-if="academicBoxes.length">
                     <li class="box">
                         <a class="addBtn browse"
                            href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>

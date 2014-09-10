@@ -28,7 +28,7 @@ namespace Zbang.Zbox.ViewModel.Queries.User
 
         public System.TimeSpan Expiration
         {
-            get { return System.TimeSpan.FromMinutes(20); }
+            get { return System.TimeSpan.FromMinutes(1); }
         }
     }
 }

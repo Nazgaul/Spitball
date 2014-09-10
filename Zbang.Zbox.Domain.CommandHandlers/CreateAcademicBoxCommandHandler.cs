@@ -76,7 +76,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AcademicRepository.Save(box);
 
             department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
-            universityUser.UpdateNumberOfBoxes(m_UniversityRepository.GetNumberOfBoxes(universityUser));
+            universityUser.UpdateNumberOfBoxes(m_UniversityRepository.GetNumberOfBoxes(universityUser) + 1);
 
             m_UniversityRepository.Save(universityUser);
             m_DepartmentRepository.Save(department);

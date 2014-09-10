@@ -62,6 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
                 }
                 var uploadedfile = HttpContext.Request.Files[0];
+                if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
 
                 FileUploadDetails fileUploadedDetails = GetCookieUpload(fileSize, fileName, uploadedfile);

@@ -383,8 +383,9 @@ mBox.controller('BoxCtrl',
                     TabId: tab.id
                 }
                 Box.deleteTab(data).then(function (response) {
-                    if (!response.Success) {
+                    if (!response.success) {
                         alert(jsResources.DeleteError);
+                        return;
                     }
                 });
 
