@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afraid to try.
+        ///   Looks up a localized string similar to Not yet, I&apos;m scared.
         /// </summary>
         public static string Afraid {
             get {
