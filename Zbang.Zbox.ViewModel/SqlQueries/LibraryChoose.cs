@@ -15,8 +15,7 @@
         public const string GetNeedId = @"select  count(*) from zbox.student
               where UniversityId = @universityId";
 
-        //todo:change that
-        public const string GetNeedCode = @"select needcode from zbox.users where userid = @universityId";
+        public const string GetNeedCode = @"select needcode from zbox.university where id = @universityId";
 
         public const string GetUniversityDetail = @"select
                          u.Id as Id,  
