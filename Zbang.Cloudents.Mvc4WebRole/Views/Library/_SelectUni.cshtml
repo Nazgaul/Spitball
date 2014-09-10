@@ -32,7 +32,7 @@
         </div>
         <ul class="fbUniList" bindonce ng-style="{display: display.facebook ? 'block' : 'none'}">
             <li ng-repeat="university in FBUniversities">
-                <div class="schoolItem" ng-click="selectUniversity(university)">
+                <div class="schoolItem" ng-click="selectUniversity(university,true)">
                     <img bo-src=" university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
                     <div class="uniDetails">
                         <button type="button" class="btn3 rFloat">@SharedResources.Choose</button>
@@ -59,7 +59,7 @@
             <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>
-                <button type="button" class="createUni" ng-click="createUniversity()">@SharedResources.CreateNew</button>
+                <button type="button" class="createUni" ng-click="createUniversity()" analytics-on analytics-category="Select university" analytics-label="Create new university">@SharedResources.CreateNew</button>
             </li>
         </ul>
 

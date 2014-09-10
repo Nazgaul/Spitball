@@ -10,7 +10,7 @@
          '$analytics',
          '$rootScope',
 
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook , $analytics, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, $analytics, $rootScope) {
 
              $scope.formData = {};
              $scope.display = {
@@ -20,8 +20,15 @@
 
              sFacebook.getToken().then(function (token) {
                  sLibrary.facebookFriends({ authToken: token }).then(function (response) {
-                     var data = response.success ? response.payload : {};
+                     var data = response.success ? response.payload : [];
                      $scope.FBUniversities = data;
+
+                     if (!data.length) {
+                         $analytics.eventTrack('no facebook', {
+                             category: 'Select university'                             
+                         });
+                     }
+
                      if (!$scope.display.search || $scope.formData.searchInput) {
                          $scope.display.facebook = true;
                      }
@@ -60,40 +67,59 @@
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
+
+                     if (data.length) {
+                         $analytics.eventTrack('search ' + query, {
+                             category: 'Select university',
+                             label: _.map(data, function (university) {
+                                 return university.name;
+                             }).toString()
+                         });
+                         return;
+                     }
+                     
+                     $analytics.eventTrack('empty search', {
+                         category: 'Select university',
+                         label: query
+                     });
                  });
              }, 200);
 
 
-             $scope.selectUniversity = function (university) {
+             $scope.selectUniversity = function (university,isFacebook) {
                  $scope.selectedUni = university;
-
-
-                 sLibrary.updateUniversity({UniversityId: university.id}).then(function (response) {
-                         var data = response.success ? response.payload : [];
-                         if (!data) {
+                 sLibrary.updateUniversity({ UniversityId: university.id }).then(function (response) {
+                     var data = response.success ? response.payload : [];
+                     if (!data) {
+                         $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                         $scope.display.complete = $scope.display.choose = true;
+                         $analytics.setVariable('dimension1', university.name);
+                         if (isFacebook) {
+                             $analytics.eventTrack('Facebook choose', {
+                                 category: 'Select university',
+                                 label: university.name                                 
+                             });
+                         }
+                     } else {
+                         var modalInstance = $modal.open({
+                             windowClass: 'libChoosePopUp',
+                             template: data.html,
+                             controller: 'restrictionPopUpCtrl',
+                             resolve: {
+                                 data: function () {
+                                     return {
+                                         university: university
+                                     };
+                                 }
+                             }
+                         });
+                         modalInstance.result.then(function () {
                              $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                              $scope.display.complete = $scope.display.choose = true;
                              $analytics.setVariable('dimension1', university.name);
-                         } else {
-                             var modalInstance = $modal.open({
-                                 windowClass: 'libChoosePopUp',
-                                 template: data.html,
-                                 controller: 'restrictionPopUpCtrl',
-                                 resolve: {
-                                     data: function () {
-                                         return {
-                                             university: university
-                                         };
-                                     }
-                                 }
-                             });
-                             modalInstance.result.then(function() {
-                                 $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                                 $scope.display.complete = $scope.display.choose = true;
-                                 $analytics.setVariable('dimension1', university.name);
-                             });
-                         }
-                     });
+                         });
+                     }
+                 });
              }
 
              //#endregion
@@ -171,7 +197,7 @@
                  $scope.display.createUniversity = true;
                  $scope.display.search = $scope.display.searchUniversity = $scope.display.facebook
                      = $scope.display.complete = $scope.display.choose = false;
-
+                 
              };
 
              $scope.createUniversitySubmit = function (isValid) {
