@@ -3,7 +3,7 @@
     function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
 
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
-        $scope.products = $scope.viewBag;
+        $scope.product = $scope.viewBag;
 
         $timeout(function () {
             $scope.product.categories = _.groupBy($scope.product.features, 'category');

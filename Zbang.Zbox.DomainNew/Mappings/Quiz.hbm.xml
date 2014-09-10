@@ -13,8 +13,8 @@
     <property name="Rate" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
     <property name="NumberOfComments" not-null="true"></property>
-    <property name="Average" not-null="true"></property>
-    <property name="Stdevp" not-null="true"></property>
+    <property name="Average" not-null="false"></property>
+    <property name="Stdevp" not-null="false"></property>
     <property name="Url" not-null="false" length="8000"></property>
 
     <many-to-one name="Owner" class="User" column="UserId" not-null="true" foreign-key="userIdQuiz"/>
