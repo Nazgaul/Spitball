@@ -121,14 +121,14 @@
                     return;
                 }
 
-                $scope.params.store.currentTab = current.$$route.params.type;
+                $rootScope.params.store.currentTab = current.$$route.params.type;
 
-                if (current.$$route.type === 'products' && current.params.categoryId === '646') {
-                    $scope.params.currentTab = 'sales';
+                if (current.$$route.params.type === 'products' && current.params.categoryId === '646') {
+                    $rootScope.params.store.currentTab = 'sales';
                 }
 
                 if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
-                    current.$$route.params.type === 'products' && !$scope.params.store.showRegisterPopup) {
+                     !$scope.params.store.showRegisterPopup) {
                     $scope.params.store.showRegisterPopup = true;
                     cd.pubsub.publish('register', { action: true });
                 }
