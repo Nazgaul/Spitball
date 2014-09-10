@@ -27,14 +27,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         /// </summary>
         public bool IsAuthenticationRequired { get; set; }
 
-        protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
-        {
-            // var id = (httpContext.Request.RequestContext.RouteData.Values["id"] as string)
-            //??
-            //(httpContext.Request["id"] as string);
-            var result = base.AuthorizeCore(httpContext);
-            return result;
-        }
+        //protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
+        //{
+        //    // var id = (httpContext.Request.RequestContext.RouteData.Values["id"] as string)
+        //    //??
+        //    //(httpContext.Request["id"] as string);
+        //    var result = base.AuthorizeCore(httpContext);
+        //    return result;
+        //}
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
@@ -48,6 +48,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 {
                     filterContext.HttpContext.Response.Clear();
                     filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+                    
+                    //TODO: use suppress formauthentication redirect
                     //401 asp.net get this status code and redirect to login page                
                     filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     filterContext.HttpContext.Response.Flush();

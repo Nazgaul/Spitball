@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -859,9 +859,9 @@ input[type="radio"][disabled] + label:before {
 .popupWrppr.requestSent .closeDialog {
   background-position: -68px -14px;
 }
-.lecturerRadio:checked ~ label,
-.lecturerRadio:checked ~ select,
-.lecturerRadio:checked ~ .dptDetail {
+.modal .lecturerRadio:checked ~ label:not(.statusLabel),
+.modal .lecturerRadio:checked ~ select,
+.modal .lecturerRadio:checked ~ .dptDetail {
   display: none;
 }
 .requestSentDiv {
@@ -2593,4 +2593,3 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
-/*# sourceMappingURL=General.css.map */
