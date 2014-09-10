@@ -275,7 +275,7 @@
 
             uploader.bind('FileUploaded', function (up, file, data) {
                 var result = JSON.parse(data.response);
-                if (result.Success) {
+                if (result.success) {
                     smallimg = result.urlSmall;
                     largeimg = result.urlLarge;
                     $('#accountSettingsThumb').attr('src', largeimg);

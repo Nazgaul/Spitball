@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 Extra4 = String.Join(
                 " ",
                 university.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                .Where(w => w.StartsWith("ה"))
+                .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
                 .Select(s => s.Remove(0, 1)))
             };
             await UpdateDocuments(new[] { item });
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Extra4 = String.Join(
                     " ",
                     university.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(w => w.StartsWith("ה"))
+                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
                     .Select(s => s.Remove(0, 1)))
                 };
                 if (extraDetail != null)

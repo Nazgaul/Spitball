@@ -47,6 +47,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             
             $rootScope.params.createBoxWizard = false;
             if (url) {
+                $scope.newUniversity = 0;
                 $location.path(url);
             }
         });
