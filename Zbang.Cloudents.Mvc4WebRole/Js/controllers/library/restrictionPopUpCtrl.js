@@ -9,6 +9,9 @@
             UniversityId: data.university.id
         };
         $scope.formData1 = {};
+        $scope.params = {
+            isStudent: true
+        };
         $scope.russainStep2 = false;
 
         $scope.create = function (isValid) {
@@ -20,8 +23,8 @@
                     alert(response.payload[0].value[0]);
                     return;
                 }
-                
-                 $modalInstance.close();
+
+                $modalInstance.close();
             });
         };
 
@@ -29,7 +32,7 @@
             $modalInstance.dismiss();
         };
 
-        $scope.russianStep1 = function(isValid) {
+        $scope.russianStep1 = function (isValid) {
             if (!isValid) {
                 return;
             }
