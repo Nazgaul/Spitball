@@ -83,10 +83,9 @@
   padding: 0 8px 0 0;
   /*rtl*/
 }
-/*.labelExplain {
-    color: rgba(56,56,56,.75);
-    margin: 0 17px 0 0; //rtl
-}*/
+.private .labelExplain {
+  margin: 0 17px 0 0;
+}
 .join.next {
   left: 165px;
   /*diff rtl*/
@@ -297,7 +296,7 @@
 .courseType + .courseType {
   margin: 0 70px 0 0;
 }
-.labelExplain {
+.courseType .labelExplain {
   padding: 0 30px 0 0;
 }
 .changeDeptBtn {

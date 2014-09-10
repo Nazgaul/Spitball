@@ -49,14 +49,13 @@
         </ul>
 
         <ul class="uniList" ng-class="{noResults : universities.length === 0 }" bindonce ng-style="{display: display.search ? 'block' : 'none'}">
-            <li class="schoolItem" ng-repeat="university in universities" ng-click="selectUniversity(university)">
+            <li class="schoolItem" ng-repeat="university in universities track by university.id" ng-click="selectUniversity(university)">
                 <img bo-src=" university.image" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
                 <span class="uniDetails">
                     <span class="uniName elps boldFont" bo-text="university.name"></span>
                     <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@ bo-text="university.membersCount"></span>
                 </span>
             </li>
-
             <li class="emptySearch">@SharedResources.NoResults</li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>

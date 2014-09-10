@@ -49,7 +49,8 @@
 .modal.privateBox,
 .modal.createTab,
 .modal.uploader,
-.modal.uploadLink {
+.modal.uploadLink,
+.modal.invite {
   width: 600px;
 }
 .modal.quitQuiz {
@@ -438,15 +439,11 @@
             margin-top: -3px;
         }
     }
-}
-.labelExplain {
-    color: rgba(56,56,56,.75);
-    margin-left: 17px; //rtl
-    &.explain1
-    {
-        margin-bottom: 15px;
-    }
 }*/
+.private .labelExplain {
+  color: rgba(56, 56, 56, 0.75);
+  margin-left: 17px;
+}
 .join.next {
   right: 120px;
   /*rtl*/

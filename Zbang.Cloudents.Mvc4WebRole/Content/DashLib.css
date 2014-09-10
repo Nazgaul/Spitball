@@ -606,7 +606,7 @@
 .courseType + .courseType {
   margin-left: 70px;
 }
-.labelExplain {
+.courseType .labelExplain {
   width: 140px;
   padding-left: 30px;
 }

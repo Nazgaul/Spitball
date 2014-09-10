@@ -56,6 +56,22 @@ angular.module('angulartics.google.analytics', ['angulartics'])
       }
     }
   });
+  $analyticsProvider.registerSocialTrack(function (action, properties) {
+      if (properties.value) {
+          var parsed = parseInt(properties.value, 10);
+          properties.value = isNaN(parsed) ? 0 : parsed;
+      }
+      else if (window.ga) {
+          if (properties.noninteraction) {
+              ga('send', 'social', properties.category, action, properties.label, properties.value, { nonInteraction: 1 });
+          } else {
+              ga('send', 'social', properties.category, action, properties.label, properties.value);
+          }
+      }
+  });
+  $analyticsProvider.registerSetVariable(function (variable,value) {
+      ga('set', variable, value);
+  });
 
 }]);
 })(angular);
