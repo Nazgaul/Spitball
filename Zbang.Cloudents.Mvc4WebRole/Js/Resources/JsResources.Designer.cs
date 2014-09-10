@@ -1379,7 +1379,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this tab?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this folder?.
         /// </summary>
         public static string SureDeleteTab {
             get {
@@ -1460,7 +1460,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This tab already exists.
+        ///   Looks up a localized string similar to This folder already exists.
         /// </summary>
         public static string TabExists {
             get {

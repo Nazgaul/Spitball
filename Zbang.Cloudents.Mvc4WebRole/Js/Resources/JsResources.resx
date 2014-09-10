@@ -510,7 +510,7 @@ for this file type.</value>
     <value>Are you sure you want to delete this reply?</value>
   </data>
   <data name="SureDeleteTab" xml:space="preserve">
-    <value>Are you sure you want to delete this tab?</value>
+    <value>Are you sure you want to delete this folder?</value>
   </data>
   <data name="SureToDecline0" xml:space="preserve">
     <value>Are you sure that you are not interested in following this box ('{0}')?</value>
@@ -534,7 +534,7 @@ for this file type.</value>
     <value>Are you sure you want to delete</value>
   </data>
   <data name="TabExists" xml:space="preserve">
-    <value>This tab already exists</value>
+    <value>This folder already exists</value>
   </data>
   <data name="ThisBox" xml:space="preserve">
     <value>this box</value>
