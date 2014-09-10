@@ -236,6 +236,12 @@ body {
         .dashLibSearchInput {
             display: none;
         }
+        .bodyContent ~ .fade {
+            .transition(none); //TODO: consider removing these transitions alltogether
+            .modal-dialog {
+                .transition(none);
+            }
+        }
     }
 }
 

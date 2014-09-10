@@ -56,6 +56,10 @@ body.quiz .modal-backdrop.in {
 }
 .bodyContent.previewQuiz .quizTitle {
   margin: 20px auto;
+  width: 800px;
+  color: #383838;
+  display: block;
+  max-width: none;
 }
 .quizAnswer .removeAnswer {
   display: none;

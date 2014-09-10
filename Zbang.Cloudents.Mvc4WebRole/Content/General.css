@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -193,6 +193,18 @@ body.jsDark .siteHeader {
 }
 body.jsDark .dashLibSearchInput {
   display: none;
+}
+body.jsDark .bodyContent ~ .fade {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+body.jsDark .bodyContent ~ .fade .modal-dialog {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 body,
 h1,
@@ -2581,3 +2593,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */
