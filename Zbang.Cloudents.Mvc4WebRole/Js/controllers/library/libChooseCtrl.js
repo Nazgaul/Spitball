@@ -7,9 +7,10 @@
            'debounce',
          'sLibrary',
          'sFacebook',
+         '$analytics',
          '$rootScope',
 
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook , $analytics, $rootScope) {
 
              $scope.formData = {};
              $scope.display = {
@@ -38,9 +39,7 @@
              var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
-                 if (!query) {
-                     return;
-                 }
+
                  if (query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
@@ -69,16 +68,12 @@
                  $scope.selectedUni = university;
 
 
-                 sLibrary.updateUniversity(
-                     {
-                         UniversityId: university.id
-                     }
-
-                     ).then(function (response) {
+                 sLibrary.updateUniversity({UniversityId: university.id}).then(function (response) {
                          var data = response.success ? response.payload : [];
                          if (!data) {
                              $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                              $scope.display.complete = $scope.display.choose = true;
+                             $analytics.setVariable('dimension1', university.name);
                          } else {
                              var modalInstance = $modal.open({
                                  windowClass: 'libChoosePopUp',
@@ -95,6 +90,7 @@
                              modalInstance.result.then(function() {
                                  $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                                  $scope.display.complete = $scope.display.choose = true;
+                                 $analytics.setVariable('dimension1', university.name);
                              });
                          }
                      });
