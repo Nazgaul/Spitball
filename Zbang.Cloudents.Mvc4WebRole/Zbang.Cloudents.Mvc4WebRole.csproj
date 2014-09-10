@@ -1400,10 +1400,6 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
-    <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\require.min.js">
-      <DependentUpon>require.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
