@@ -47,6 +47,10 @@
 .dashTop:hover .uniName {
   background: #fff;
 }
+.aDisbled {
+  pointer-events: none;
+  cursor: default;
+}
 .uniLogo {
   border-radius: 5px;
   display: block;

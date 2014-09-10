@@ -33,6 +33,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateNumberOfBoxes(int count)
         {
+            if (count < 0)
+            {
+                count = 0;
+            }
             NoOfBoxes = count;
         }
     }

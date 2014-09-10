@@ -23,7 +23,7 @@
             line-height: 1.1;
             display: inline-block;
             vertical-align: middle;
-            margin-top:-3px;
+            margin-top: -3px;
         }
     }
 }
@@ -46,7 +46,13 @@
     &:hover .uniName {
         background: #fff;
     }
+
+   
 }
+ .aDisbled {
+        pointer-events: none;
+        cursor: default;
+    }
 
 .uniLogo {
     border-radius: 5px;
@@ -69,7 +75,7 @@
     border-top: 1px solid #c2c2c2;
     position: relative; //for the arrow and X btns
     // checked class added in js
-    &.checked .closeProducts  {
+    &.checked .closeProducts {
         display: block;
     }
 
@@ -137,23 +143,24 @@
         padding: 11px 7px 7px 11px; /*rtl*/
     }
 }
+
 .friendItem {
     margin: 0 6px 6px 0; /*rtl*/
     display: inline-block;
     vertical-align: top;
+
     &:nth-child(7) {
         margin: 0;
     }
-
     /*if < 5 items: float friendBtn right.*/
     &:last-child:nth-child(-n + 5) {
         float: right; /*rtl*/
     }
-
     /*if > 11 items hide all further items*/
     &:nth-child(n+12) {
         display: none;
     }
+
     &:last-child {
         display: inline-block;
         margin: 0;
@@ -187,7 +194,7 @@
 
     .friendItem {
         //if there are no friends - just the invite btn...
-        &.friendBtn:first-child  {
+        &.friendBtn:first-child {
             float: none;
             width: 266px;
 
@@ -236,7 +243,6 @@
     ~ .feedList .dash {
         //margin-top: -@ActivityListOffset2Lines;
         //padding-top: @ActivityListOffset2Lines;
-
         /*height: ~'-webkit-calc(100vh - @{ActivityListOffset2Lines})';
         height: ~'calc(100vh - @{ActivityListOffset2Lines})';*/
     }
@@ -257,8 +263,8 @@
         }
 
         &:last-child {
-            border:none;
-            margin-bottom:0;
+            border: none;
+            margin-bottom: 0;
         }
     }
 }
@@ -336,12 +342,12 @@
     margin-bottom: 40px;
 }
 
-    .asideLib > .students:before {
-        width: 43px;
-        height: 27px;
-        background-position: -34px -1px;
-        margin: 0 10px 0 2px; /*rtl*/
-    }
+.asideLib > .students:before {
+    width: 43px;
+    height: 27px;
+    background-position: -34px -1px;
+    margin: 0 10px 0 2px; /*rtl*/
+}
 
 .statCategory {
     font-size: 15px;
@@ -352,14 +358,14 @@
     margin-bottom: 12px;
 }
 
-    .libHeader:before {
-        content: '';
-        display: inline-block;
-        margin-right: 4px; /*rtl*/
-        background: url(/Images/lib_sprite.png?v=1) -122px -1px no-repeat;
-        width: 27px;
-        height: 32px;
-    }
+.libHeader:before {
+    content: '';
+    display: inline-block;
+    margin-right: 4px; /*rtl*/
+    background: url(/Images/lib_sprite.png?v=1) -122px -1px no-repeat;
+    width: 27px;
+    height: 32px;
+}
 
 /*#endregion */
 
@@ -478,6 +484,7 @@
         height: 21px;
         vertical-align: middle;
     }
+
     &.u-Website:before {
         width: 23px;
         height: 20px;
