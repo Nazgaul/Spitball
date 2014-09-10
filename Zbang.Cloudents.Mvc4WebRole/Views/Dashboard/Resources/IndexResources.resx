@@ -290,4 +290,7 @@ dashboard</value>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>Welcome to Cloudents</value>
   </data>
+  <data name="FreeOnline" xml:space="preserve">
+    <value>The free online and mobile social studying platform</value>
+  </data>
 </root>

@@ -233,6 +233,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The free online and mobile social studying platform.
+        /// </summary>
+        public static string FreeOnline {
+            get {
+                return ResourceManager.GetString("FreeOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friends.
         /// </summary>
         public static string Friends {
