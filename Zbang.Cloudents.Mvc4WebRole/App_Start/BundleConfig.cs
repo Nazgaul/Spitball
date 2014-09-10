@@ -12,9 +12,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
-/*
-        private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
-*/
+        /*
+                private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
+        */
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
         public static string CssLink(string key)
@@ -123,18 +123,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/angular.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
 
+
                 new JsFileWithCdn("~/scripts/angular-route.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),                   
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),
                 new JsFileWithCdn("~/js/services/cookies.js"),
-                    
+
             new JsFileWithCdn("~/scripts/angular-sanitize.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
 
                     new JsFileWithCdn("~/scripts/angular-animate.js",
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
-
-                                    new JsFileWithCdn("~/scripts/stacktrace.js"),
-                                    new JsFileWithCdn("~/scripts/underscore.js")
+                    new JsFileWithCdn("~/scripts/angulartics.js"),
+                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),
+                new JsFileWithCdn("~/scripts/stacktrace.js"),
+                new JsFileWithCdn("~/scripts/underscore.js")
 
                                     );
 
@@ -163,7 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/modules/textDirection.js"),
 
                 new JsFileWithCdn("~/js/app.js"),
-                
+
                 new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
                 new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),
@@ -198,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/box.js"),
                 new JsFileWithCdn("/js/services/item.js"),
                 new JsFileWithCdn("/js/services/library.js"),
-                new JsFileWithCdn("/js/services/share.js"),                
+                new JsFileWithCdn("/js/services/share.js"),
                 new JsFileWithCdn("/js/services/library.js"),
                 new JsFileWithCdn("/js/services/search.js"),
                 new JsFileWithCdn("/js/services/quiz.js"),
@@ -212,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("/js/directives/scrollToTop.js"),
                 //new JsFileWithCdn("/js/directives/lazySrc.js"),
-                
+
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/quizGraph.js"),
@@ -220,12 +222,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/directives/countTo.js"),
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),
                 new JsFileWithCdn("~/js/directives/departmentsTooltip.js"),
-                
+
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/contentEditable.js"),
-                
+
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
                 new JsFileWithCdn("/js/filters/extToClass.js"),
@@ -246,9 +248,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
                 new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                  new JsFileWithCdn("~/js/Logon.js"),
-                
+
                   new JsFileWithCdn("/js/Cache.js"),
-                 new JsFileWithCdn("/js/DataContext.js"),                  
+                 new JsFileWithCdn("/js/DataContext.js"),
                  new JsFileWithCdn("~/js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
@@ -270,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),
                 new JsFileWithCdn("/js/controllers/store/carouselCtrl.js"),
                 new JsFileWithCdn("/js/services/store.js"),
-                
+
                 new JsFileWithCdn("/js/directives/store/productsMenu.js"),
                 new JsFileWithCdn("/js/directives/dataBag.js"),
                 new JsFileWithCdn("/js/directives/store/categoryLink.js"),
@@ -613,18 +615,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
-/*
-        private static void RegisterJsRoutes(string key, params string[] jsFiles)
-        {
-            JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
-        }
-*/
+        /*
+                private static void RegisterJsRoutes(string key, params string[] jsFiles)
+                {
+                    JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
+                }
+        */
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-           // jsBundle.ForceRelease();
+            // jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
