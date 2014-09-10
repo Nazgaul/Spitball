@@ -14,7 +14,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
-using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -80,8 +79,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
+
+        //TODO: seperate in ajax
         [HttpGet, Ajax]
         [ActionName("Choose")]
+        [NoCache]
         public ActionResult ChooseIndex()
         {
             var country = GetUserCountryByIp();
