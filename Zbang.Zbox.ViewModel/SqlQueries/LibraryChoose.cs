@@ -10,6 +10,7 @@
             @"  select l.Id as Id, l.Name as Name from zbox.maindepartment l
   where l.universityId = @universityId
   and l.name like '%'+ @term +'%'
+  and l.NoOfBoxes > 0
   order by name";
 
         public const string GetNeedId = @"select  count(*) from zbox.student
