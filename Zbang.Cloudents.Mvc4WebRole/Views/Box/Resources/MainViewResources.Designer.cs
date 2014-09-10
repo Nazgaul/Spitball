@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -113,7 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new tab.
+        ///   Looks up a localized string similar to Create new folder.
         /// </summary>
         public static string CreateTab {
             get {

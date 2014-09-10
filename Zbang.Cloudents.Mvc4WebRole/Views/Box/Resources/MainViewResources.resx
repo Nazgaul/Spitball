@@ -137,7 +137,7 @@ Be the first to upload study material...</value>
     <value>Choose the files that you want to add</value>
   </data>
   <data name="CreateTab" xml:space="preserve">
-    <value>Create new tab</value>
+    <value>Create new folder</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
