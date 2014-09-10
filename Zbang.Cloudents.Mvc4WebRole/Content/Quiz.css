@@ -742,7 +742,7 @@ body.quiz .modal-backdrop.in {
   top: 15px;
   width: 45px;
   height: 45px;
-  background: url(/Images/quizSprite.png?v=3) 0 -61px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -61px no-repeat;
 }
 .quizPage .quizViews {
   margin-top: 16px;
@@ -760,7 +760,7 @@ body.quiz .modal-backdrop.in {
   display: block;
   width: 38px;
   height: 23px;
-  background: url(/Images/quizSprite.png?v=3) 0 -38px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -38px no-repeat;
   margin: 2px auto 5px;
 }
 .quizPage .item-name {
@@ -896,7 +896,7 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   width: 233px;
   height: 264px;
-  background: url(/Images/quizSprite.png?v=3) 0 -124px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -124px no-repeat;
   position: absolute;
   left: 0;
   right: 0;
@@ -970,7 +970,7 @@ body.quiz .modal-backdrop.in {
   content: '';
   display: inline-block;
   position: absolute;
-  background: url(/Images/quizSprite.png?v=3) 0 0 no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 0 no-repeat;
   width: 38px;
   height: 38px;
   left: 0;
@@ -1038,7 +1038,7 @@ body.quiz .modal-backdrop.in {
   margin: 0;
   width: 39px;
   height: 43px;
-  background: url(/Images/quizSprite.png?v=3) 0 -388px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -388px no-repeat;
   position: relative;
   top: -4px;
 }
@@ -1067,7 +1067,7 @@ body.quiz .modal-backdrop.in {
   width: 37px;
   height: 37px;
   border-radius: 3px;
-  background: url(/Images/quizSprite.png?v=3) 0 -613px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -613px no-repeat;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -1081,7 +1081,7 @@ body.quiz .modal-backdrop.in {
   position: absolute;
   width: 20px;
   height: 18px;
-  background: url(/Images/quizSprite.png?v=3) 0 -106px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -106px no-repeat;
   top: -7px;
   right: -10px;
 }
@@ -1139,7 +1139,7 @@ body.quiz .modal-backdrop.in {
   top: -30px;
   width: 111px;
   height: 111px;
-  background: url(/Images/quizSprite.png?v=3) 0 -502px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0 -502px no-repeat;
 }
 .quizPopupHeader:after {
   content: '';

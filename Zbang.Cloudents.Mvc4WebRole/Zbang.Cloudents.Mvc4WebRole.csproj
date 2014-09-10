@@ -801,6 +801,7 @@
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
     <Content Include="Images\quiz-eye.png" />
+    <Content Include="Images\quiz-icon-tt.png" />
     <Content Include="Images\quiz-icon.png" />
     <Content Include="Images\quiz-star.png" />
     <Content Include="Images\quiz-stopwatch.png" />

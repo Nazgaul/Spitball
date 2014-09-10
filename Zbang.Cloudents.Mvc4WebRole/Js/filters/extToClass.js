@@ -7,7 +7,7 @@
             }
 
             //if (item.type === 'Quiz') {
-            //    return;
+            //    return 'quiz';
             //}
 
             var prefix = 'mF';
