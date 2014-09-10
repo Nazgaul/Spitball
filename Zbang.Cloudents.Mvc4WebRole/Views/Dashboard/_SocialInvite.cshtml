@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Share.Resources
 
 <section class="socialInvite  js--cloudState js--fbState js--gmState">
     <header>@IndexResources.InviteFriends</header>
@@ -124,3 +125,22 @@
         <button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>
     </div>
 </section>
+@*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
+<aside class="invSidebar rFloat">
+    <form id="" class="invForm">
+        <h3>@IndexResources.InviteViaEmail</h3>
+
+        <div class="inputText emailUser">
+            <div class="inviteEmailListWpr">
+                <ul id="" class="emailList"></ul>
+                <input id="" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate">
+            </div>
+        </div>
+        <div class="invSent">
+            <h4>@InviteResources.Success!</h4>
+            <div>@InviteResources.MailSent</div>
+        </div>
+
+        <button id="" type="submit" class="rFloat btn1">@DialogResources.Send</button>
+    </form>
+</aside>

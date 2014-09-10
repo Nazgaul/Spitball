@@ -588,6 +588,17 @@
 .formWpr .chooseDeptList.chooseDeptList {
   top: -225px;
 }
+.formWpr .invSidebar {
+  position: absolute;
+  right: -290px;
+  top: 0;
+}
+.formWpr .invForm .btn1 {
+  margin-top: 0;
+}
+.formWpr .invForm h3 {
+  color: #fff;
+}
 .courseType {
   display: inline-block;
   margin-bottom: 25px;
