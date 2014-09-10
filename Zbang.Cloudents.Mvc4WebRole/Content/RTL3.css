@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -286,6 +286,10 @@
 .formWpr .actionTxt {
   right: -190px;
   left: auto;
+}
+.formWpr .invSidebar {
+  left: -290px;
+  right: auto;
 }
 .formWpr .btn1 {
   margin: 0 10px 0 0;
@@ -2925,4 +2929,3 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
-/*# sourceMappingURL=RTL3.css.map */
