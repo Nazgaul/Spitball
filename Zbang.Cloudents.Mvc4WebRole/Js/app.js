@@ -276,8 +276,7 @@ app.config([
 
 app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, $location, sUserDetails, sNewUpdates) {
     $rootScope.initDetails = function (userData) {        
-        var userDataObj = JSON.parse(userData);
-        sUserDetails.setDetails(userDataObj);
+        sUserDetails.setDetails(userData);
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {

@@ -4,7 +4,7 @@
 
 @if (User != null && User.Identity.IsAuthenticated)
 {
-    <li class="navItem navUser" ng-init="initDetails('@ViewBag.userDetail')">
+    <li class="navItem navUser" ng-init="initDetails(@ViewBag.userDetail)">
         @*//uid*@
         <a href="@Model.Url" class="userAnchor">
             <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="32" height="32" />

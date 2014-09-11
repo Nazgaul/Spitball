@@ -691,7 +691,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(GetUserId()));
                 //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
                 var serializer = new JsonNetSerializer();
-                ViewBag.userDetail = serializer.Serialize(retVal);
+                var jsonRetVal  = serializer.Serialize(retVal);
+                ViewBag.userDetail = jsonRetVal;
                 return PartialView(userDatailView, retVal);
             }
             catch (UserNotFoundException)

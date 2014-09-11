@@ -75,15 +75,15 @@
             for (var i = 0; i < errors.length; i++) {
                 var label = $form.find('label[for=' + errors[i].Key + ']').first();
                 if (label.length) {
-                    generateFieldError(label, errors[i].Value[0]);
+                    generateFieldError(label, errors[i].value[0]);
                     continue;
                 }
                 var input = $form.find('input[name=' + errors[i].Key + ']').first();
                 if (input.length) {
-                    generateFieldError(input, errors[i].Value[0]);
+                    generateFieldError(input, errors[i].value[0]);
                     continue;
                 }
-                generateSummaryError($form.find(':first:not(.' + validationSummaryErrorClassName + ')'), errors[i].Value[0]);
+                generateSummaryError($form.find(':first:not(.' + validationSummaryErrorClassName + ')'), errors[i].value[0]);
             }
         }
         function generateFieldError(elem, error) {
