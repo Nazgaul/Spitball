@@ -118,9 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new QueryBase(GetUserId());
-                var result = await ZboxReadService.GetDepartmentByUser(query);
-                return PartialView("_CreateBoxWizard", result ?? new NodeDto());
+                return PartialView("_CreateBoxWizard");
             }
             catch (Exception ex)
             {

@@ -270,6 +270,8 @@
         .libraryList{
             min-width: 0;
             padding-right: 315px; /*rtl*/
+            min-height: ~'-webkit-calc(100vh - 165px)';
+            min-height: ~'calc(100vh - 165px)';
         }
         .emptyLib
         {
@@ -588,9 +590,10 @@
     }
     .btn1 {
         margin-left: 10px; //rtl
+        margin-top: 10px; //override
     }
     .btn2 {
-        margin-top:0; //override
+        margin-top: 10px; //override
     }
     .courseId, .professor {
         width: 290px;

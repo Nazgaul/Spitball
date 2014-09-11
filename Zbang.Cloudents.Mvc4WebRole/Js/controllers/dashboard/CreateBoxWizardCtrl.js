@@ -8,10 +8,10 @@
             // id: 0
         
         };
-
+        console.log(sUserDetails.getDetails().department.id);
         $scope.formData = {
             academicBox: {
-                departmentId: sUserDetails.getDetails().department.id                
+                departmentId: sUserDetails.getDetails().department.id
             }
         };
         //$scope.params = {
