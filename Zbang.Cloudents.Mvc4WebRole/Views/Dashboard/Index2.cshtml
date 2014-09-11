@@ -5,10 +5,10 @@
 
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
-    <div class="dashContent" ng-init="newUniversity=@Model.NoOfBoxes">
+    <div class="dashContent" ng-init="notNewUniversity=@Model.NoOfBoxes">
         @*<button type="button" analytics-on analytics-event="test">aslkdjalsdkj</button>*@
         <aside class="asideDash lFloat">
-            <a class="dashTop" ng-class="{aDisbled: !newUniversity}" href="@Url.RouteUrl("LibraryDesktop",null)">
+            <a class="dashTop" ng-class="{aDisbled: !(notNewUniversity)}" href="@Url.RouteUrl("LibraryDesktop",null)">
                 <span class="uniLogo">
                     <img alt="University logo" width="70" height="70" src="@Model.Img" />
                 </span>
@@ -63,7 +63,6 @@
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
-
             @*NEW COURSE SECTION*@
             <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">
                 <div class="topWpr">
@@ -73,8 +72,10 @@
                     <span class="featureTxt2">@IndexResources.CreateQuizzes</span>
                     <span class="featureTxt3">@IndexResources.SwapBooks</span>
                 </div>
+
                 <div class="chooseActionWpr">
-                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses" ng-if="!newUniversity">
+
+                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses" ng-if="notNewUniversity">
                         <div class="actionTxt">@IndexResources.BrowseCourses</div>
                     </a>
                     <div class="createCourse">
