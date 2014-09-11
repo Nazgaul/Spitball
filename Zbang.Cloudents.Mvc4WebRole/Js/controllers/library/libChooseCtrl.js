@@ -40,8 +40,9 @@
              });
 
              sLibrary.items().then(function (response) {
-                 var data = response.success ? response.payload : {};
-                 allDepartments = data;
+                 var data = response.success ? response.payload : [];
+                 allDepartments = data.nodes;
+                 $scope.departments = allDepartments;
              });
 
              $timeout(function () {
@@ -161,10 +162,17 @@
              //#region choose department
              $scope.searchDepartment = debounce(function () {                 
                  if (!$scope.params.departmentSearch) {
-                     $scope.departments = allDepartments;
+                     if ($scope.selectDepartment) {
+                         $scope.selectDepartment = null;
+                     }
+                     $scope.departments = $filter('orderBy')(allDepartments, 'name');
+
                      return;
-                 }                 
-                 $scope.departments = $filter('orderByFilter')(allDepartments, { field:'name', input: $scope.params.departmentSearch});
+                 }
+                 if (allDepartments.length) {
+                     $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
+                 }
+                 
 
              }, 200);
 

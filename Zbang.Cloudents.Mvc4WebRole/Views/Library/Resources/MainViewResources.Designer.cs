@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please complete registration by choosing your current school.
+        ///   Looks up a localized string similar to Please complete registration by filing in the following information.
         /// </summary>
         public static string ChooseSchool {
             get {

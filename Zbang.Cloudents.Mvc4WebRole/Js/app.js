@@ -275,8 +275,9 @@ app.config([
 ]);
 
 app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, $location, sUserDetails, sNewUpdates) {
-    $rootScope.initDetails = function (userData) {        
+    $rootScope.initDetails = function (userData) {
         sUserDetails.setDetails(userData);
+          
     };
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -286,7 +287,7 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
             return;
         }
         if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
-            $location.path('/library/choose');
+            $location.path('/library/choose/');
         }
         sNewUpdates.loadUpdates();
     });

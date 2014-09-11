@@ -199,7 +199,7 @@
     <value>Добро пожаловать в Cloudents!</value>
   </data>
   <data name="ChooseSchool" xml:space="preserve">
-    <value>Пожалуйста завершите регистрацию с помощью выбора вашего университета</value>
+    <value>Пожалуйста завершите регистрацию с помощью заполнения следующей информации</value>
   </data>
   <data name="Student" xml:space="preserve">
     <value>студент</value>
