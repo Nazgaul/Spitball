@@ -280,12 +280,14 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
         sUserDetails.setDetails(userDataObj);
     };
 
-    $rootScope.$on('$routeChangeStart', function () {
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
         $window.scrollTo(0, 0);
 
-        if (!sUserDetails.getDepartment()) {
+        
+        if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
             $location.path('/library/choose');
         }
+        sNewUpdates.loadUpdates();
     });
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {

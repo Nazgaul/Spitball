@@ -1,7 +1,7 @@
 ﻿app.factory('sUserDetails',
- ['sNewUpdates',
+ [
 
- function (sNewUpdates) {
+ function () {
      var userData = {
          id: null,
          name: null,
@@ -16,10 +16,10 @@
 
      return {
          setDetails: function (data) {
-             if (data.id) {
-                 isAuthenticated = true;
-                 sNewUpdates.loadUpdates();
+             if (!data.id) {
+                 return;   
              }
+             isAuthenticated = true;
              userData = {
                  id: parseInt(data.id, 10),
                  name: data.name,

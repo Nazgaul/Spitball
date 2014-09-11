@@ -589,6 +589,9 @@
     .btn1 {
         margin-left: 10px; //rtl
     }
+    .btn2 {
+        margin-top:0; //override
+    }
     .courseId, .professor {
         width: 290px;
     }
@@ -612,6 +615,16 @@
         }
         h3 {
             color: #fff;
+        }
+    }
+    .error {
+        display: none;
+        &.department, &.courseName, &.createPrivateBox {
+            display: block;
+            .error {
+                display: inline-block;
+                color: @errorColor;
+            }
         }
     }
 }

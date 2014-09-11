@@ -52,6 +52,10 @@ function ($http, sUserDetails) {
     return response;
 
     function loadUpdates() {
+        if (!sUserDetails.isAuthenticated()) {
+            return;
+        }
+
         var update;
         $http.get('/User/Updates/').success(function (response2) {
             var data = response2.payload;

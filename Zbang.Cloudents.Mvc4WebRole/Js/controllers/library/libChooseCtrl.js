@@ -18,6 +18,7 @@
                  searchUniversity: true
              };
 
+             var allDepartments;
 
              sFacebook.getToken().then(function (token) {
                  sLibrary.facebookFriends({ authToken: token }).then(function (response) {
@@ -36,8 +37,13 @@
 
 
                  });
-
              });
+
+             sLibrary.items().then(function (response) {
+                 var data = response.success ? response.payload : {};
+                 allDepartments = data;
+             });
+
              $timeout(function () {
                  $scope.$emit('viewContentLoaded');
              });
@@ -153,17 +159,13 @@
              //#endregion
 
              //#region choose department
-             $scope.searchDepartment = debounce(function () {
+             $scope.searchDepartment = debounce(function () {                 
                  if (!$scope.params.departmentSearch) {
-                     $scope.departments = null;
+                     $scope.departments = allDepartments;
                      return;
-                 }
+                 }                 
+                 $scope.departments = $filter('orderByFilter')(allDepartments, { field:'name', input: $scope.params.departmentSearch});
 
-                 sLibrary.searchDepartment({ term: $scope.params.departmentSearch }).then(function (response) {
-                     var data = response.success ? response.payload : {};
-                     var departments = data;
-                     $scope.departments = departments; //$filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
-                 });
              }, 200);
 
              $scope.selectDepartment = function (department) {

@@ -214,7 +214,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to of your classmates took this quiz.
+        ///   Looks up a localized string similar to of your classmates
+        ///took this quiz.
         /// </summary>
         public static string OfYourMates {
             get {
@@ -367,7 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you ready to test yourself?.
+        ///   Looks up a localized string similar to Are you ready to
+        ///test yourself?.
         /// </summary>
         public static string YouReady {
             get {

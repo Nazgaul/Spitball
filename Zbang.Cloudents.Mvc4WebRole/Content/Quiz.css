@@ -1191,15 +1191,16 @@ body.quiz .modal-backdrop.in {
   text-align: left;
   font-size: 20px;
   line-height: 20px;
-  width: 200px;
   margin-top: 10px;
 }
 .quizPopupTxt1 {
   color: #0f9d58;
   font-weight: bold;
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 .quizPopupTxt2 {
+  white-space: pre-wrap;
   color: #39434a;
 }
 .quizPopupBtnWpr {

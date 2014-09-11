@@ -214,7 +214,8 @@
     <value>מפחד לנסות</value>
   </data>
   <data name="OfYourMates" xml:space="preserve">
-    <value>סטודנטים מהכיתה שלך כבר בחנו את עצמם</value>
+    <value>סטודנטים מהכיתה שלך
+כבר בחנו את עצמם</value>
   </data>
   <data name="QuizTime" xml:space="preserve">
     <value>הגיע הזמן לבדוק כמה אתה טוב</value>
@@ -223,6 +224,7 @@
     <value>הולך על זה</value>
   </data>
   <data name="YouReady" xml:space="preserve">
-    <value>אתה מוכן לבחון את עצמך?</value>
+    <value>אתה מוכן לבחון את
+עצמך?</value>
   </data>
 </root>

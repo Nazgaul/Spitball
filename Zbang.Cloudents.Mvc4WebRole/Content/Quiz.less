@@ -988,8 +988,6 @@ body {
 }
 .userScoreWpr {
     margin: 20px 5px 0;
-    //height: 120px;
-    //height: 100px;
     font-size: 20px;
     background: #282828;
     position: relative;
@@ -1002,7 +1000,6 @@ body {
 .userScore {
     background: #797979;
     border-radius: 12px;
-    //padding-top: 3px;
     padding-top: 7px;
     .boxSizing;
     color:#fff;
@@ -1013,9 +1010,8 @@ body {
         font-size: 60px;
         margin-top: -12px;
         font-weight: 600;
-        //diff rtl
-        position: relative;//diff rtl
-        top: 10px;//diff rtl
+        position: relative;
+        top: 10px;
     }
 }
 
@@ -1116,9 +1112,6 @@ body {
         -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
         box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
         .boxSizing;
-        //position: absolute;
-        //top: 0; bottom: 0;
-        //left: 0; right: 0;
         margin: auto;
         z-index: 1052; //TODO: CHECK THIS
         text-align: center;
@@ -1189,19 +1182,17 @@ body {
     vertical-align: top;
     text-align: left; //rtl
     font-size: 20px;
-    //line-height: 24px;
-    //width: 178px;
-    line-height: 20px; //diff rtl
-    width: 200px; //diff rtl
-    margin-top: 10px; //diff rtl
+    line-height: 20px;
+    margin-top: 10px;
 }
 .quizPopupTxt1 {
     color: @color;
     font-weight: bold;
     margin-bottom: 10px;
+    white-space: pre-wrap;
 }
 .quizPopupTxt2 {
-    
+    white-space: pre-wrap;
     color: @txtColor;
 }
 .quizPopupBtnWpr {
@@ -1209,6 +1200,7 @@ body {
     margin-top: 30px;
     .btn1 {
         width: 220px;
+        //min-width: 220px; //for Russian
         height: 40px;
         font-size: 18px;
         border: none;
