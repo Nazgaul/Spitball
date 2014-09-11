@@ -275,7 +275,10 @@ app.config([
 ]);
 
 app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, $location, sUserDetails, sNewUpdates) {
-    $rootScope.initDetails = function (userData) {        
+    $rootScope.initDetails = function (userData) {
+        if (!userData) {
+            return;
+        }
         var userDataObj = JSON.parse(userData);
         sUserDetails.setDetails(userDataObj);
     };
@@ -287,7 +290,7 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
             return;
         }
         if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
-            $location.path('/library/choose');
+            $location.path('/library/choose/');
         }
         sNewUpdates.loadUpdates();
     });
