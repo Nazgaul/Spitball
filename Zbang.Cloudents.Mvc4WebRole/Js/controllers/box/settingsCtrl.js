@@ -58,6 +58,22 @@ mBox.controller('SettingsCtrl',
              });
          };
 
+         $scope.deleteOrUnfollow = function () {
+
+             if ($scope.info.userType === 'none') {
+                 return;
+             }
+             if ($scope.info.userType === 'owner') {
+                 return JsResources.Delete;
+             }
+
+             if ($scope.info.membersLength <= 2 && $scope.info.comments < 2 && !$scope.info.itemsLength) {
+                 return JsResources.Delete;
+             }
+
+             return JsResources.LeaveGroup;
+         };
+
          $scope.userStatus = function (status) {
              switch (status) {
                  case 'Subscribe':

@@ -66,10 +66,8 @@
              return userData.university;
              
          },
-         setDepartment: function (depName) {
-             if (depName) {
-                 userData.university = depName;
-             }
+         setDepartment: function (department) {             
+             userData.department = department;
          }
      };
  }

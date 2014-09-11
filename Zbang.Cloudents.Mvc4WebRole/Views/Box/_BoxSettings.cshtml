@@ -73,7 +73,7 @@
 
         <input type="submit" class="btn1 next" value="@SharedResources.Save" />
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
-        <button type="button" class="btn2 rFloat" ng-click="delete()">@SharedResources.Delete</button>
+        <button type="button" class="btn2 rFloat" ng-click="delete()" ng-bind="deleteOrUnfollow()">@SharedResources.Delete</button>
     </form>
     <div class="membersContent">
         <div class="membersTop">
