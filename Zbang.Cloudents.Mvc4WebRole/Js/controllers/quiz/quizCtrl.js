@@ -62,7 +62,7 @@ mQuiz.controller('QuizCtrl',
                     }
                 }
                 function populateTopUsers() {
-                    var topUsers = $scope.quiz.topUsers || [];
+                    var topUsers = $scope.quiz.topUsers || [];                    
                     for (var i = topUsers.length; i < 3; i++) {
                         topUsers.push({ name: '', image: '' });
                     }

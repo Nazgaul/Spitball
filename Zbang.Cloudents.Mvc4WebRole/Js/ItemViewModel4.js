@@ -771,7 +771,7 @@
                         description: JsResources.IShared + ' {0}.{1} '.format(self.itemName(), self.extension()) + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin,
                         picture: null
                     };
-
+                    $itemShare[0].checked = false;
                     angular.element(document).scope().$broadcast('messageFB',obj);
                 });
 
@@ -782,6 +782,7 @@
 
                 $itemMsg.click(function () {
                     angular.element(document).scope().$broadcast('message');
+                    $itemShare[0].checked = false;
                 });
             }
             function settingsEvents() {

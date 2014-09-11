@@ -7,16 +7,18 @@
            'debounce',
          'sLibrary',
          'sFacebook',
+         'sUserDetails',
          '$analytics',
          '$rootScope',
 
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, $analytics, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails,$analytics, $rootScope) {
 
              $scope.formData = {};
              $scope.display = {
                  searchUniversity: true
              };
 
+             var allDepartments;
 
              sFacebook.getToken().then(function (token) {
                  sLibrary.facebookFriends({ authToken: token }).then(function (response) {
@@ -35,8 +37,13 @@
 
 
                  });
-
              });
+
+             sLibrary.items().then(function (response) {
+                 var data = response.success ? response.payload : {};
+                 allDepartments = data;
+             });
+
              $timeout(function () {
                  $scope.$emit('viewContentLoaded');
              });
@@ -100,6 +107,9 @@
                                  label: university.name                                 
                              });
                          }
+
+                         sUserDetails.setUniversity(university);
+
                      } else {
                          var modalInstance = $modal.open({
                              windowClass: 'libChoosePopUp',
@@ -149,17 +159,13 @@
              //#endregion
 
              //#region choose department
-             $scope.searchDepartment = debounce(function () {
+             $scope.searchDepartment = debounce(function () {                 
                  if (!$scope.params.departmentSearch) {
-                     $scope.departments = null;
+                     $scope.departments = allDepartments;
                      return;
-                 }
+                 }                 
+                 $scope.departments = $filter('orderByFilter')(allDepartments, { field:'name', input: $scope.params.departmentSearch});
 
-                 sLibrary.searchDepartment({ term: $scope.params.departmentSearch }).then(function (response) {
-                     var data = response.success ? response.payload : {};
-                     var departments = data;
-                     $scope.departments = departments; //$filter('orderByFilter')(departments, { field: 'name', input: $scope.params.departmentSearch });
-                 });
              }, 200);
 
              $scope.selectDepartment = function (department) {
@@ -172,6 +178,7 @@
              $scope.chooseDepartment = function () {
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
+                         sUserDetails.setDepartment($scope.selectedDepartment);
                          $location.path('/dashboard/');
                      }
                  });
