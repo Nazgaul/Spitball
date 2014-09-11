@@ -212,7 +212,8 @@
     <value>Пока нет, я боюсь</value>
   </data>
   <data name="OfYourMates" xml:space="preserve">
-    <value>из ваших товарищей по учебе прошли этот тест</value>
+    <value>из ваших товарищей
+по учебе прошли этот тест</value>
   </data>
   <data name="QuizTime" xml:space="preserve">
     <value>Время пройти тест</value>
@@ -221,7 +222,7 @@
     <value>Распределение очков:</value>
   </data>
   <data name="TakeChance" xml:space="preserve">
-    <value>Воспользуйтесь шансом</value>
+    <value>Попробовать</value>
   </data>
   <data name="TopThree" xml:space="preserve">
     <value>Три лидера в этом тесте:</value>
