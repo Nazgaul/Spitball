@@ -105,6 +105,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private void ChangeBoxPicture(Box box, long itemId)
         {
             //TODO: LINQ NHIBERNATE
+            
             var itemToTakePicture = box.Items.OfType<File>().Where(w => w.Id != itemId && w.IsDeleted == false)
                 .OrderBy(o => o.DateTimeUser.CreationTime).FirstOrDefault();
             if (itemToTakePicture == null)
