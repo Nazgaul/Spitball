@@ -2740,12 +2740,6 @@ body.quiz .shareBtn {
   margin: 0 5px 0 0;
   /*rtl*/
 }
-/*.quizQList {
-    .splitHR {
-        text-align: right; //rtl
-        padding: 10px 42px 0 0; //rtl
-    }
-}*/
 .commentWpr {
   padding: 0 10px 0 0;
   /*rtl*/
@@ -2761,7 +2755,6 @@ body.quiz .shareBtn {
   left: auto;
 }
 .commentWpr .askBtn {
-  padding: 6px 15px 7px;
   margin: 0 0 10px 12px;
   /*rtl*/
 }
@@ -2795,14 +2788,17 @@ body.quiz .shareBtn {
   left: auto;
 }
 .quizAList li label:before {
-  top: 5px;
-  /* need this */
   right: -19px;
   /*rtl*/
   left: auto;
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage {
+  /*.topBar.topBar {
+        padding: 0 290px 0 0; //diff rtl!!
+    }*/
+}
 .quizPage .backWpr:before {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
@@ -2819,12 +2815,6 @@ body.quiz .shareBtn {
   padding: 0 290px 0 0;
   text-align: right;
   /*rtl*/
-}
-.quizPage .itemTop {
-  height: 73px;
-}
-.quizPage .topBar.topBar {
-  padding: 0 290px 0 0;
 }
 .quizPage .quizViews {
   border: none;
@@ -2845,9 +2835,6 @@ body.quiz .shareBtn {
   right: -45px;
   /*rtl*/
   left: auto;
-}
-.quizTime {
-  margin-top: 146px;
 }
 .checkQuiz .userCorrect .quizQuestion,
 .afraid .userCorrect .quizQuestion,
@@ -2874,7 +2861,6 @@ body.quiz .shareBtn {
 }
 .results {
   padding: 0 38px 0 0;
-  height: 66px;
 }
 .results.wrong {
   padding: 0 0 0 35px;
@@ -2885,17 +2871,16 @@ body.quiz .shareBtn {
   left: 0;
   right: auto;
 }
-.results:before {
-  margin: -8px 0;
-}
 .results:after {
   right: 0;
   left: auto;
 }
-.userScore:after {
-  position: relative;
-  top: 10px;
-}
+/*.userScore {
+    &:after {
+        position: relative;//diff rtl
+        top: 10px;//diff rtl
+    }
+}*/
 .topUser.star:after {
   left: -10px;
   right: auto;
@@ -2922,9 +2907,6 @@ body.quiz .shareBtn {
 }
 .quizPopupTxtWpr {
   text-align: right;
-  line-height: 20px;
-  width: 200px;
-  margin-top: 10px;
 }
 /*#endregion */
 /*#endregion */
