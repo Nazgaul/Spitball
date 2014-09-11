@@ -256,6 +256,8 @@
   min-width: 0;
   padding-right: 315px;
   /*rtl*/
+  min-height: -webkit-calc(100vh - 165px);
+  min-height: calc(100vh - 165px);
 }
 .contentWpr.featured .emptyLib {
   padding-right: 290px;
@@ -574,9 +576,10 @@
 }
 .formWpr .btn1 {
   margin-left: 10px;
+  margin-top: 10px;
 }
 .formWpr .btn2 {
-  margin-top: 0;
+  margin-top: 10px;
 }
 .formWpr .courseId,
 .formWpr .professor {
