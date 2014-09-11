@@ -135,6 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
                     new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
+                        new JsFileWithCdn("/scripts/angular-appinsights.js"),
                 new JsFileWithCdn("~/scripts/stacktrace.js"),
                 new JsFileWithCdn("~/scripts/underscore.js")
 
