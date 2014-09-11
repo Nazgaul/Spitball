@@ -283,6 +283,9 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         $window.scrollTo(0, 0);
 
+        if (!next.$$route) {
+            return;
+        }
         if (!next.$$route.params) {
             return;
         }

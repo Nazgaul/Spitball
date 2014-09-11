@@ -26,8 +26,16 @@
                  image: data.image,
                  score: parseInt(data.score, 10),
                  url: data.url,
-                 university: data.university,
-                 department: data.department
+                 university:  {
+                    // id: data.universityId,
+                     name: data.libName,
+                     image: data.libImage
+                 },
+                 department: {
+                     id:data.departmentId,
+                     name: data.departmentName
+
+                 }
              };
 
          },
@@ -40,23 +48,23 @@
          },
 
          getUniversity: function () {
-             if (userData.university) {
-                 return userData.university;
+             if (_.isEmpty(userData.university))  {
+                 return false;
              }
-
-             return false;
+             return userData.university;
+            
          },
-         setUniversity: function (uniName) {
-             if (uniName) {
-                 userData.university = uniName;
-             }
-         },
+         //setUniversity: function (uniName) {
+         //    if (uniName) {
+         //        userData.university = uniName;
+         //    }
+         //},
          getDepartment: function () {
-             if (userData.department) {
-                 return userData.university;
+             if (_.isEmpty(userData.department)) {
+                 return false;
              }
-
-             return false;
+             return userData.university;
+             
          },
          setDepartment: function (depName) {
              if (depName) {
