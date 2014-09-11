@@ -160,12 +160,16 @@
              //#endregion
 
              //#region choose department
-             $scope.searchDepartment = debounce(function () {                 
+             $scope.searchDepartment = debounce(function () {
                  if (!$scope.params.departmentSearch) {                     
                      $scope.departments = $filter('orderBy')(allDepartments, 'name');
-
                      return;
                  }
+
+                 if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
+                     $scope.selectedDepartment = null;
+                 }
+
                  if (allDepartments.length) {
                      $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
                  }
