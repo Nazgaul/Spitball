@@ -1,9 +1,12 @@
 ﻿mWizardBoxCreate.controller('createAcademicBoxCtrl',
         ['$scope',
          'sBox',
-         'WizardHandler', 'debounce', 'sLibrary',
-function ($scope, sBox, wizardHandler, debounce, sLibrary) {
+         'WizardHandler', 'debounce', 'sLibrary','sUserDetails',
+function ($scope, sBox, wizardHandler, debounce, sLibrary, sUserDetails) {
     $scope.selectedDepartment = true;
+
+    $scope.params.departmentSearch = sUserDetails.getDetails().department.name;
+
     $scope.create = function (isValid) {
 
         if (!isValid) {

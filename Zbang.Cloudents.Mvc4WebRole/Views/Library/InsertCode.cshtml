@@ -1,7 +1,7 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University
 
 <div class="enterCode">
-    <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
+    <header class="popupHeader">שלום, <span user-details="name"></span></header>
     <button class="closeDialog" id="closeNeedCodePopup" ng-click="cancel()"></button>
     <form name="insertId" novalidate ng-submit="create(insertId.$valid)">
         <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" style="visibility:hidden" />
