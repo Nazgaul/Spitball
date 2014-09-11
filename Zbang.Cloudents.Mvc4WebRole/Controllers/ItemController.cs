@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         [NonAjax]
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

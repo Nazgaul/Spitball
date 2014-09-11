@@ -56,6 +56,7 @@ namespace Zbang.Zbox.Domain.Services
                             TwitterWidgetId = oldUniversity.TwitterWidgetId,
                             WebSiteUrl = oldUniversity.WebSiteUrl,
                             YouTubeUrl = oldUniversity.YouTubeUrl,
+                            FacebookUrl = oldUniversity.FacebookUrl
 
                         };
                         UnitOfWork.CurrentSession.SaveOrUpdate(newUniversity);

@@ -15,7 +15,7 @@
  
   <!--Get user data for user detail in all the pages.-->
   <!--TODO:Do we need left join in here-->
-  <query name="GetUserData" read-only="1">
+  <!--<query name="GetUserData" read-only="1">
     <![CDATA[
      select u.id as Uid, u.Name as Name, u.Image as Image,
      u.FirstTime.Dashboard as FirstTimeDashboard,
@@ -30,7 +30,7 @@
      from User u left join u.University2 uu
      where u.Id = :UserId
     ]]>
-  </query>
+  </query>-->
 
   <!--Used for log in -->
   <query name="GetUserByMembershipId" read-only="1">

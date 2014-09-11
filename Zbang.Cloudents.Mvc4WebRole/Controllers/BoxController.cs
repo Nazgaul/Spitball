@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         [NoCache]
         public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
         {
@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);

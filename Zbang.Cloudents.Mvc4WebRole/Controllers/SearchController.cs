@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         [HttpGet]
         public /*async Task<ActionResult>*/ ActionResult Index(string q)
         {

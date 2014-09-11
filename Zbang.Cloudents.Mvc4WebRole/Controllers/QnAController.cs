@@ -45,10 +45,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var answerId = m_IdGenerator.Value.GetId();
-            var command = new AddAnswerToQuestionCommand(GetUserId(), model.BoxUid, model.Content, answerId, model.QuestionId, model.Files);
-            await ZboxWriteService.AddAnswer(command);
-            return Json(new JsonResponse(true, answerId));
+            try
+            {
+                var answerId = m_IdGenerator.Value.GetId();
+                var command = new AddAnswerToQuestionCommand(GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
+                await ZboxWriteService.AddAnswer(command);
+                return Json(new JsonResponse(true, answerId));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Add answer model: " + model, ex);
+                 return Json(new JsonResponse(false));
+            }
         }
         [ZboxAuthorize]
         [Ajax, HttpPost]

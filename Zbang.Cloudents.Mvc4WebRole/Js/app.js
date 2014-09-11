@@ -283,7 +283,9 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         $window.scrollTo(0, 0);
 
-        
+        if (!next.$$route.params) {
+            return;
+        }
         if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
             $location.path('/library/choose');
         }

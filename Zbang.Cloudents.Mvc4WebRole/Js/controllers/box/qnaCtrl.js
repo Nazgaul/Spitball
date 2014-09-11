@@ -165,8 +165,8 @@ mBox.controller('QnACtrl',
 
             sQnA.post.question($scope.qFormData).then(function (response) {
                 var questionId;
-                if (response.Success) {
-                    questionId = response.Payload;
+                if (response.success) {
+                    questionId = response.payload;
                 }
                 var obj = {
                     id: questionId,
@@ -207,7 +207,7 @@ mBox.controller('QnACtrl',
             cd.pubsub.publish('addPoints', { type: 'answer' });
 
             question.aFormData.questionId = question.id;
-            question.aFormData.boxUid = $scope.boxId;
+            question.aFormData.boxId = $scope.boxId;
             var fileDisplay = question.aFormData.files;
             if (question.aFormData.files && question.aFormData.files.length) {
                 question.aFormData.files = question.aFormData.files.map(function (file) {
