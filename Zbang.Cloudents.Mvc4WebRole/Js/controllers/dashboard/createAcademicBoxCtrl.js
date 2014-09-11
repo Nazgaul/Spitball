@@ -1,9 +1,16 @@
 ﻿mWizardBoxCreate.controller('createAcademicBoxCtrl',
         ['$scope',
-         'sBox',
+         'sBox','$filter',
          'WizardHandler', 'debounce', 'sLibrary','sUserDetails',
-function ($scope, sBox, wizardHandler, debounce, sLibrary, sUserDetails) {
+function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails) {
     $scope.selectedDepartment = true;
+    var allDepartments;
+
+    sLibrary.items().then(function (response) {
+        var data = response.success ? response.payload : [];
+        allDepartments = data.nodes;
+        $scope.departments = allDepartments;
+    });
 
     $scope.params.departmentSearch = sUserDetails.getDetails().department.name;
 
@@ -36,6 +43,8 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary, sUserDetails) {
         $scope.formData.departmentId = null;
         $scope.params.departmentSearch = null;
         $scope.selectedDepartment = null;
+        $scope.departments = $filter('orderBy')(allDepartments, 'name');
+
     };
 
     $scope.selectDepartment = function (deparment) {
@@ -51,15 +60,18 @@ function ($scope, sBox, wizardHandler, debounce, sLibrary, sUserDetails) {
 
     $scope.searchDepartment = debounce(function () {
         if (!$scope.params.departmentSearch) {
-            $scope.departments = null;
+            $scope.departments = $filter('orderBy')(allDepartments, 'name');
             return;
         }
 
-        sLibrary.searchDepartment({ term: $scope.params.departmentSearch }).then(function (response) {
-            var data = response.success ? response.payload : {};
-            var departments = data;
-            $scope.departments = departments;
-        });
+        if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
+            $scope.selectedDepartment = null;
+        }
+
+        if (allDepartments.length) {
+            $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
+        }
+
     }, 200);
    
 }
