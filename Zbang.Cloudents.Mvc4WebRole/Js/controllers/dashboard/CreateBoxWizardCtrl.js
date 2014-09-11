@@ -1,15 +1,19 @@
 ﻿var mWizardBoxCreate = mDashboard.controller('CreateBoxWizardCtrl',
      ['$scope',  'sLibrary', 'sBox',  '$location',
-         '$filter', 'debounce', '$modalInstance',
+         '$filter', 'debounce', '$modalInstance', 'sUserDetails',
     function ($scope,  sLibrary, sBox,  $location, $filter, debounce,
-          $modalInstance) {
+          $modalInstance, sUserDetails) {
 
         $scope.box = {
             // id: 0
         
         };
 
-        $scope.formData = {};
+        $scope.formData = {
+            academicBox: {
+                departmentId: sUserDetails.getDetails().department.id                
+            }
+        };
         //$scope.params = {
         //    changeDepartment: false,
             
