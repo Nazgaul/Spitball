@@ -575,6 +575,9 @@
 .formWpr .btn1 {
   margin-left: 10px;
 }
+.formWpr .btn2 {
+  margin-top: 0;
+}
 .formWpr .courseId,
 .formWpr .professor {
   width: 290px;
@@ -598,6 +601,20 @@
 }
 .formWpr .invForm h3 {
   color: #fff;
+}
+.formWpr .error {
+  display: none;
+}
+.formWpr .error.department,
+.formWpr .error.courseName,
+.formWpr .error.createPrivateBox {
+  display: block;
+}
+.formWpr .error.department .error,
+.formWpr .error.courseName .error,
+.formWpr .error.createPrivateBox .error {
+  display: inline-block;
+  color: #d1294d;
 }
 .courseType {
   display: inline-block;
