@@ -225,6 +225,12 @@ mBox.controller('BoxCtrl',
                     backdrop: 'static'
                 });
 
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
+                });
+
                 modalInstance.result.then(function (response) {
                     if (response.url) {
                         modalInstance = $modal.open({
@@ -283,6 +289,8 @@ mBox.controller('BoxCtrl',
                 }, function () {
                     //dismiss
                 });
+
+
 
                 if (defer) {
                     return defer.promise;
@@ -421,6 +429,12 @@ mBox.controller('BoxCtrl',
                 }, function () {
                     //dismiss
                 });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
+                });
             };
 
             $scope.createTab = function () {
@@ -446,6 +460,8 @@ mBox.controller('BoxCtrl',
                             };
                         }
                     }
+
+
                 });
 
                 modalInstance.result.then(function (tab) {
@@ -454,6 +470,12 @@ mBox.controller('BoxCtrl',
 
                 }, function () {
                     //dismiss
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
                 });
             };
 
@@ -550,6 +572,12 @@ mBox.controller('BoxCtrl',
                 modalInstance.result.then(function () {
                 }, function () {
                     //dismiss
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
                 });
             };
 
@@ -791,6 +819,12 @@ mBox.controller('BoxCtrl',
 
                     }, function () {
                         //dismiss
+                    });
+
+                    $scope.$on('$destroy', function () {
+                        if (modalInstance) {
+                            modalInstance.close();
+                        }
                     });
                 });
             };

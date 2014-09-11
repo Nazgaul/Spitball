@@ -104,7 +104,7 @@ app.config([
                     + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName) + '/';
             }
         }).
-        when('/department/:uniname/:libraryId/:libraryName/', {
+        when('/department/:uniName/:libraryId/:libraryName/', {
             params: {
                 type: 'library'
             },
@@ -343,7 +343,7 @@ app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', fun
             switch (previous.$$route.params.type) {
                 case 'library':
                     $rootScope.back.title = previous.pathParams.libraryName;
-                    $rootScope.back.url = previous.loadedTemplateUrl;
+                    $rootScope.back.url = '/department/' + previous.pathParams.libraryName + '/' + previous.pathParams.libraryId + '/' + previous.pathParams.libraryName;
                     break;
                 case 'user':
                     $rootScope.back.title = previous.pathParams.userName;

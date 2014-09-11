@@ -99,7 +99,7 @@ mBox.controller('SettingsCtrl',
                      data: function () {
                          return {
                              singleMessage: true,
-                             user: member
+                             users: [member]
                          };
                      }
                  }
@@ -124,6 +124,8 @@ mBox.controller('SettingsCtrl',
 
              });
          };
+
+ 
      }
     ]);
 mBox.controller('MemberCtrl', ['$scope', function ($scope) {

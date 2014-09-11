@@ -854,6 +854,10 @@
                     $itemRename.hide();
                 });
 
+                $itemRename.find('.closeDialog').click(function () {
+                    $itemRename.hide();
+                });
+
             }
             function fullScreenEvents() {
                 $('#exitFulscrn,#itemModel').click(function () {

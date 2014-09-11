@@ -6,8 +6,7 @@
     var key = 'statistics',
     items = [];
 
-    pubsub.subscribe('item', function (data) {
-        console.log(data);
+    pubsub.subscribe('item', function (data) {        
         items = JSON.parse(cd.localStorageWrapper.getItem(key)) || [];
         if (!findById(items,data)) {
             items.push({Uid: data, Action: 1});
