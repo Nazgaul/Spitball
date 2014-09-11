@@ -2,7 +2,7 @@
 
 @*<div id="libEnterId" title="">*@
     <div class="enterCode">
-        <header class="popupHeader">שלום, <span>@ViewBag.userName</span></header>
+        <header class="popupHeader">שלום, <span user-details="name"></span></header>
         <button id="closeRegIdPopup" class="closeDialog" ng-click="cancel()"></button>
         <form name="insertId" novalidate ng-submit="create(insertId.$valid)">
 

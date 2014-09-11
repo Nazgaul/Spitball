@@ -109,7 +109,7 @@
                              });
                          }
 
-                         sUserDetails.setUniversity(university);
+                         //sUserDetails.setUniversity(university);
 
                      } else {
                          var modalInstance = $modal.open({
@@ -161,10 +161,7 @@
 
              //#region choose department
              $scope.searchDepartment = debounce(function () {                 
-                 if (!$scope.params.departmentSearch) {
-                     if ($scope.selectDepartment) {
-                         $scope.selectDepartment = null;
-                     }
+                 if (!$scope.params.departmentSearch) {                     
                      $scope.departments = $filter('orderBy')(allDepartments, 'name');
 
                      return;
