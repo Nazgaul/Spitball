@@ -5,13 +5,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {
     public class Profile 
     {
-        //[Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "UsernameEmpty")]
-        //[DataType(DataType.Text)]
-        //[Display(ResourceType = typeof(AccountSettingsResources), Name = "Name")]
-        //[RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
-        //public string Name { get; set; }
-
-        //public string Language { get; set; }
+       
 
         //readonly fields
         [Display(ResourceType = typeof(AccountSettingsResources), Name = "School")]
@@ -33,16 +27,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         public string MiddleName { get; set; }
         [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "LastNameRequired")]
         public string LastName { get; set; }
-
-        //public long? UniversityCode { get; set; }
-
-
-        //public System.Collections.Generic.IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (!Zbang.Zbox.Infrastructure.Culture.Languages.CheckIfLanguageIsSupported(Language))
-        //    {
-        //        yield return new ValidationResult(AccountSettingsResources.LanguageNotSupported, new[] { "Language" });
-        //    }
-        //}
     }
 }

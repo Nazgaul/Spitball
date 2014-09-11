@@ -23,7 +23,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <ApplicationInsightsResourceId />
+    <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/zboxInsights</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,8 +71,10 @@
     <Reference Include="Microsoft.ApplicationInsights.RuntimeTelemetry">
       <HintPath>..\packages\Microsoft.ApplicationInsights.RuntimeTelemetry.0.10.0-build17704\lib\net45\Microsoft.ApplicationInsights.RuntimeTelemetry.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Web">
+    <Reference Include="Microsoft.ApplicationInsights.Web, Version=0.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.ApplicationInsights.Web.0.10.0-build17704\lib\net45\Microsoft.ApplicationInsights.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationServer.Caching.AzureClientHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.Caching.2.3.1.0\lib\net40-full\Microsoft.ApplicationServer.Caching.AzureClientHelper.dll</HintPath>
@@ -1117,6 +1119,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="robots.txt" />
+    <Content Include="Scripts\ai.js" />
+    <Content Include="Scripts\ai.min.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-mocks.js" />
