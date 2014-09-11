@@ -598,21 +598,34 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public User.UserDetailDto GetUserData(GetUserDetailsQuery query)
+        public  User.UserDetailDto GetUserData(GetUserDetailsQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = DapperConnection.OpenConnection())
             {
-                var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserData");
-
-                queryUser.SetInt64("UserId", query.UserId);
-                queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserDetailDto>());
-                var user = queryUser.UniqueResult<User.UserDetailDto>();
-                if (user == null)
+                var retVal =
+                    
+                        conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
+                            new {UserId = query.UserId});
+                var userDetailDtos = retVal as User.UserDetailDto[] ?? retVal.ToArray();
+                if (retVal == null || !userDetailDtos.Any())
                 {
                     throw new UserNotFoundException("user is null");
                 }
-                return user;
+                return userDetailDtos.FirstOrDefault();
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserData");
+
+            //    queryUser.SetInt64("UserId", query.UserId);
+            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserDetailDto>());
+            //    var user = queryUser.UniqueResult<User.UserDetailDto>();
+            //    if (user == null)
+            //    {
+            //        throw new UserNotFoundException("user is null");
+            //    }
+            //    return user;
+            //}
         }
 
 

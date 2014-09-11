@@ -35,44 +35,4 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
     }
-
-    [Serializable]
-    public class UserDetailDto : UserDto
-    {
-        public UserDetailDto()
-        {
-
-        }
-        public UserDetailDto(UserDetailDto t)
-        {
-            if (t == null) throw new ArgumentNullException("t");
-
-            FirstTimeDashboard = t.FirstTimeDashboard;
-            FirstTimeLibrary = t.FirstTimeLibrary;
-            FirstTimeItem = t.FirstTimeItem;
-            FirstTimeBox = t.FirstTimeBox;
-
-            Email = t.Email;
-            LibName = t.LibName;
-            LibImage = t.LibImage;
-
-            Image = t.Image;
-            Name = t.Name;
-            Uid = t.Uid;
-            Score = t.Score;
-
-        }
-        public bool FirstTimeDashboard { get; set; }
-        public bool FirstTimeLibrary { get; set; }
-        public bool FirstTimeItem { get; set; }
-        public bool FirstTimeBox { get; set; }
-
-        public int Score { get; set; }
-
-        // for Mobile
-        public string Email { get; set; }
-        public string LibName { get; set; }
-        public string LibImage { get; set; }
-    }
-
 }

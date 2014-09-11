@@ -132,6 +132,7 @@
     <Compile Include="Dto\UpdatesDto.cs" />
     <Compile Include="Dto\UserDtos\AdminUserDto.cs" />
     <Compile Include="Dto\UserDtos\LogInUserDto.cs" />
+    <Compile Include="Dto\UserDtos\UserDetailDto.cs" />
     <Compile Include="Dto\UserDtos\UserDto.cs" />
     <Compile Include="Dto\UserDtos\UserAccountDto.cs" />
     <Compile Include="Dto\UserDtos\UserInviteDto.cs" />

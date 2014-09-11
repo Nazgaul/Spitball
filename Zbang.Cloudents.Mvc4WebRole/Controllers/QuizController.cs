@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NonAjax]
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         [NoCache]
         public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
             string boxName)
@@ -333,9 +333,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult DeleteQuestion(Guid id)
         {
-            var command = new DeleteQuestionCommand(GetUserId(), id);
-            ZboxWriteService.DeleteQuestion(command);
-            return Json(new JsonResponse(true));
+            try
+            {
+                var command = new DeleteQuestionCommand(GetUserId(), id);
+                ZboxWriteService.DeleteQuestion(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Delete Question id: " + id, ex);
+                return Json(new JsonResponse(false));
+            }
         }
         #endregion
 

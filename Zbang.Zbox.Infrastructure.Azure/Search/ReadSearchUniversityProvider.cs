@@ -70,6 +70,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
 
             var retVal = new List<UniversityByPrefixDto>();
+            if (term.Length < 3)
+            {
+                return retVal;
+            }
             using (var httpResponse = await m_HttpClient.GetAsync(
                 string.Format("{1}/indexes/universities/docs/suggest?search={0}&fuzzy=true&api-version=2014-07-31-Preview&$select=id,name,imageField", term, WriteSearchUniversityProvider.CloudentsSearchApiPrefix)))
             {

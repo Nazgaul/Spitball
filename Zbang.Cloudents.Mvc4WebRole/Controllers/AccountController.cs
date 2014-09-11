@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
@@ -30,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
         private readonly Lazy<IFacebookService> m_FacebookService;
-        private readonly Lazy<IUserProfile> m_UserProfile;
+        // private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
@@ -38,13 +39,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
-            Lazy<IUserProfile> userProfile,
+            //  Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject)
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
-            m_UserProfile = userProfile;
+            //  m_UserProfile = userProfile;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
         }
@@ -127,7 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var commandResult = ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
                     user = new LogInUserDto
                     {
-                        Uid = commandResult.User.Id,
+                        Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
                         Image = facebookUserData.Image,
                         Name = facebookUserData.name,
@@ -137,11 +138,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     isNew = true;
                 }
 
-                FormsAuthenticationService.SignIn(user.Uid, false, new UserDetail(
+                FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
                     user.Culture,
                     user.UniversityId
                     ));
-                TempData[UserProfile.UserDetail] = new UserDetailDto(user);
+                //TODO: bring it back
+                // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
                 return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) }) }));
             }
             catch (ArgumentException)
@@ -184,11 +186,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         var query = new GetUserByMembershipQuery(membershipUserId);
                         var result = ZboxReadService.GetUserDetailsByMembershipId(query);
 
-                        FormsAuthenticationService.SignIn(result.Uid, model.RememberMe,
+                        FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
                                 result.Culture,
                                 result.UniversityId));
-                        TempData[UserProfile.UserDetail] = new UserDetailDto(result);
+                        // TempData[UserProfile.UserDetail] = new UserDetailDto(result);
                         var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                         return Json(new JsonResponse(true, url));
                     }
@@ -292,7 +294,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region AccountSettings
-        [ZboxAuthorize, UserNavNWelcome, NoUniversity]
+        [ZboxAuthorize, NoUniversity]
         [NoCache]
         public ActionResult Settings()
         {
@@ -638,7 +640,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = ZboxReadService.GetUserDetailsByMembershipId(query);
             Session.Abandon();
-            FormsAuthenticationService.SignIn(result.Uid, false,
+            FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
                     result.Culture,
                     result.UniversityId
@@ -686,8 +688,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-                return PartialView(userDatailView, userData);
+                var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(GetUserId()));
+                //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+                var serializer = new JsonNetSerializer();
+                ViewBag.userDetail = serializer.Serialize(retVal);
+                return PartialView(userDatailView, retVal);
             }
             catch (UserNotFoundException)
             {

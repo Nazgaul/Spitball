@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         //[Route("user/{userId:long:min(0)}/{userName}", Name = "User")]
-        [UserNavNWelcome]
+        //[UserNavNWelcome]
         [NoCache]
         public async Task<ActionResult> Index(long userId, string userName)
         {

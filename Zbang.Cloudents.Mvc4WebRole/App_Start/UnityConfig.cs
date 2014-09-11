@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            iocContainer.RegisterType<IUserProfile, UserProfile>();
+            //iocContainer.RegisterType<IUserProfile, UserProfile>();
 
 
             //we need that for blob getting the blob container url

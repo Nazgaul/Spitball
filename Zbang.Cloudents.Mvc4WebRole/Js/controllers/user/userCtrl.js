@@ -55,7 +55,7 @@ mUser.controller('UserCtrl',
 
         sUser.minProfile({ userId: $routeParams.userId }).then(function (response) {
             $scope.profile = response.payload;
-            $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id
+            $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id;
 
             getData();
             //$timeout(function () {
@@ -92,7 +92,7 @@ mUser.controller('UserCtrl',
         //#region admin
         $scope.admin = {
             visible: function () {
-                return $scope.profile.score >= userConstants.admin.score && $scope.profile.isSelf
+                return $scope.profile.score >= userConstants.admin.score && $scope.profile.isSelf;
             },
             members: {
                 limit: userConstants.admin.membersLimit,
@@ -235,10 +235,10 @@ mUser.controller('UserCtrl',
                 }
                 $scope.boxes.showAll = false;
                 $scope.boxes.common.limit = userConstants.boxes.common.init;
-                $scope.boxes.following.limit = userConstants.boxes.following.init
+                $scope.boxes.following.limit = userConstants.boxes.following.init;
             },
             followBox: function (box) {
-                sBox.follow({ boxUid: box.id }).then(function () {
+                sBox.follow({ boxId: box.id }).then(function () {
                     $location.path(box.url);
                 });
             }

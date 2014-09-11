@@ -213,5 +213,23 @@ from zbox.Box b
 where Department = (select MainDepartment from zbox.Users where userid = @userid)
 and b.isdeleted = 0
 order by rank desc";
+
+        public const string UserAuthenticationDetail =
+            @"  select u.UserId as Id, u.UserName as Name, u.UserImage as Image,
+     u.FirstTimeDashboard as FirstTimeDashboard,
+     u.FirstTimeLibrary as FirstTimeLibrary,
+     u.FirstTimeItem as FirstTimeItem,
+     u.FirstTimeBox as FirstTimeBox, 
+     u.Url as Url,
+     u.Email as Email,
+     u.UserReputation as Score,
+	 d.Id as DepartmentId,
+	 d.Name as DepartmentName,
+     uu.OrgName as LibName,
+     uu.Image as LibImage
+     from zbox.Users u 
+	 left join zbox.MainDepartment d on u.MainDepartment = d.Id
+	 left join zbox.University uu on u.UniversityId = uu.Id
+     where u.userid = @UserId";
     }
 }
