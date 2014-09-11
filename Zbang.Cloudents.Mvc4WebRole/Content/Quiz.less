@@ -481,6 +481,7 @@ body {
     border-radius: 5px;
     padding: 0 20px 15px 20px;
     .boxSizing;
+    letter-spacing: 0;
     //border: 2px solid @color;
     //box-shadow: inset 0 0 3px @color;
 }
@@ -557,7 +558,8 @@ body {
         /*display: none;*/
     }
     .askBtn {
-        padding: 5px 15px 6px; //diff rtl
+        //padding: 5px 15px 6px; //diff rtl
+        padding: 6px 15px 7px; //diff rtl
         height: auto;
         margin: 0 12px 10px 0; /*rtl*/ 
         display: block;
@@ -612,7 +614,8 @@ body {
     font-size: 15px;
     resize: none;
     height: 22px;
-    padding: 4px;
+    //padding: 4px;
+    padding: 7px 5px 1px 5px;
     border: 1px solid #a9a9a9;
 }
 .qPreview, .quizQuestion {
@@ -626,7 +629,9 @@ body {
     padding: 18px 20px;
 
     li {
-        margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        //margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        //margin: 0 13px -26px 0; /*diff rtl for bottom*/
+        margin: 0 0 -26px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
         list-style-position: inside; //force left-align on the list style type
         position: relative; //TODO:not sure if this is necessary anymore
         white-space: pre-line;
@@ -654,7 +659,8 @@ body {
             &:before {
                 position: absolute;
                 left: -19px; /*rtl*/
-                top: 7px;
+                //top: 7px;
+                top: 5px; /* diff rtl - need this! */
             }
         }
     }
@@ -663,6 +669,8 @@ body {
 
 /*#region Quiz item page */
 .quizPage {
+    font-family: Arial;
+    letter-spacing: 0.05em;
     &:not(.checkQuiz) {
         .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
             .transition(none);
@@ -726,7 +734,7 @@ body {
         text-align: left; /*rtl*/
         padding-left: @leftSideBarWidth; //rtl
     }
-    .topBar{
+    /*.topBar{
         position:fixed;
         
         top: @header-height;
@@ -735,14 +743,14 @@ body {
         &.topBar {
             padding-left: 340px; // leftPanel = 340px //rtl
         }
-    }
+    }*/
 
     .itemTop {
         color: #fff;
         font-size: 15px;
         margin: 0;
-        //height: 95px;
-        height: 75px; //diff rtl
+        //height: 75px; //diff rtl
+        height: 73px;
         border-bottom: 1px solid #797979;
     }
     .itemNameWpr {
@@ -762,7 +770,6 @@ body {
         }
     }
     .quizViews {
-        margin-top: 16px;
         text-align: center;
         line-height: 11px;
         width: 53px;
@@ -770,7 +777,8 @@ body {
         position: relative;
         border-left: 1px solid #797979; //rtl
         color: @borderColor;
-        margin-right: -5px; //rtl
+        //margin: 16px -5px 0 0; //rtl
+        margin: 10px 0 0 -5px; // diff rtl
         &:before {
             content: '';
             display: block;
@@ -891,7 +899,8 @@ body {
 .quizTime {
     color: #fff;
     font-size: 55px;
-    margin-top: 133px; //diff rtl
+    //margin-top: 133px; //diff rtl
+    margin-top: 146px; //diff rtl
     text-align: center;
     &:before {
         .pseudo;
@@ -940,7 +949,8 @@ body {
     display: inline-block;
     font-size: 15px;
     position: relative;
-    height: 75px;
+    //height: 75px;
+    height: 66px; // diff rtl
     padding-left: 38px; //rtl
     .boxSizing;
     &.wrong {
@@ -961,7 +971,8 @@ body {
         display: block;
         font-size: 56px;
         color: #fff;
-        margin: -11px 0;
+        //margin: -11px 0; //diff rtl
+        margin: -8px 0; // diff rtl
         font-weight: 600;
     }
     &:after {
@@ -991,7 +1002,8 @@ body {
 .userScore {
     background: #797979;
     border-radius: 12px;
-    padding-top: 3px;
+    //padding-top: 3px;
+    padding-top: 7px;
     .boxSizing;
     color:#fff;
     height: 94px;
@@ -1002,6 +1014,8 @@ body {
         margin-top: -12px;
         font-weight: 600;
         //diff rtl
+        position: relative;//diff rtl
+        top: 10px;//diff rtl
     }
 }
 
@@ -1172,11 +1186,14 @@ body {
 }
 .quizPopupTxtWpr {
     display: inline-block;
-    width: 178px;
     vertical-align: top;
     text-align: left; //rtl
     font-size: 20px;
-    line-height: 24px;
+    //line-height: 24px;
+    //width: 178px;
+    line-height: 20px; //diff rtl
+    width: 200px; //diff rtl
+    margin-top: 10px; //diff rtl
 }
 .quizPopupTxt1 {
     color: @color;

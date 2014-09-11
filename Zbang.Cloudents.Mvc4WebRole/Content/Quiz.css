@@ -465,6 +465,7 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  letter-spacing: 0;
 }
 .quizTitle {
   font-size: 18px;
@@ -545,7 +546,7 @@ body.quiz .modal-backdrop.in {
   /*display: none;*/
 }
 .commentWpr .askBtn {
-  padding: 5px 15px 6px;
+  padding: 6px 15px 7px;
   height: auto;
   margin: 0 12px 10px 0;
   /*rtl*/
@@ -593,7 +594,7 @@ body.quiz .modal-backdrop.in {
   font-size: 15px;
   resize: none;
   height: 22px;
-  padding: 4px;
+  padding: 7px 5px 1px 5px;
   border: 1px solid #a9a9a9;
 }
 .qPreview,
@@ -607,7 +608,7 @@ body.quiz .modal-backdrop.in {
   padding: 18px 20px;
 }
 .quizAList li {
-  margin: 0 0 -27px 13px;
+  margin: 0 0 -26px 13px;
   /*rtl*/
   list-style-position: inside;
   position: relative;
@@ -637,10 +638,25 @@ body.quiz .modal-backdrop.in {
   position: absolute;
   left: -19px;
   /*rtl*/
-  top: 7px;
+  top: 5px;
+  /* diff rtl - need this! */
 }
 /*#endregion */
 /*#region Quiz item page */
+.quizPage {
+  font-family: Arial;
+  letter-spacing: 0.05em;
+  /*.topBar{
+        position:fixed;
+        
+        top: @header-height;
+        .boxSizing;
+        width: 100%;
+        &.topBar {
+            padding-left: 340px; // leftPanel = 340px //rtl
+        }
+    }*/
+}
 .quizPage:not(.checkQuiz) .resultsWpr,
 .quizPage:not(.checkQuiz) .userScoreWpr,
 .quizPage:not(.checkQuiz) .timeRetakeWpr,
@@ -708,22 +724,11 @@ body.quiz .modal-backdrop.in {
   /*rtl*/
   padding-left: 290px;
 }
-.quizPage .topBar {
-  position: fixed;
-  top: 50px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-}
-.quizPage .topBar.topBar {
-  padding-left: 340px;
-}
 .quizPage .itemTop {
   color: #fff;
   font-size: 15px;
   margin: 0;
-  height: 75px;
+  height: 73px;
   border-bottom: 1px solid #797979;
 }
 .quizPage .itemNameWpr {
@@ -745,7 +750,6 @@ body.quiz .modal-backdrop.in {
   background: url(/Images/quizSprite.png?v=4) 0 -61px no-repeat;
 }
 .quizPage .quizViews {
-  margin-top: 16px;
   text-align: center;
   line-height: 11px;
   width: 53px;
@@ -753,7 +757,7 @@ body.quiz .modal-backdrop.in {
   position: relative;
   border-left: 1px solid #797979;
   color: #c2c2c2;
-  margin-right: -5px;
+  margin: 10px 0 0 -5px;
 }
 .quizPage .quizViews:before {
   content: '';
@@ -888,7 +892,7 @@ body.quiz .modal-backdrop.in {
 .quizTime {
   color: #fff;
   font-size: 55px;
-  margin-top: 133px;
+  margin-top: 146px;
   text-align: center;
 }
 .quizTime:before {
@@ -940,7 +944,7 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   font-size: 15px;
   position: relative;
-  height: 75px;
+  height: 66px;
   padding-left: 38px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -963,7 +967,7 @@ body.quiz .modal-backdrop.in {
   display: block;
   font-size: 56px;
   color: #fff;
-  margin: -11px 0;
+  margin: -8px 0;
   font-weight: 600;
 }
 .results:after {
@@ -993,7 +997,7 @@ body.quiz .modal-backdrop.in {
 .userScore {
   background: #797979;
   border-radius: 12px;
-  padding-top: 3px;
+  padding-top: 7px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1006,6 +1010,8 @@ body.quiz .modal-backdrop.in {
   font-size: 60px;
   margin-top: -12px;
   font-weight: 600;
+  position: relative;
+  top: 10px;
 }
 .timeRetakeWpr {
   padding: 10px 10px 0;
@@ -1181,11 +1187,12 @@ body.quiz .modal-backdrop.in {
 }
 .quizPopupTxtWpr {
   display: inline-block;
-  width: 178px;
   vertical-align: top;
   text-align: left;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 20px;
+  width: 200px;
+  margin-top: 10px;
 }
 .quizPopupTxt1 {
   color: #0f9d58;
