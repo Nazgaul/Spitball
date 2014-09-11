@@ -274,20 +274,18 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, sUserDetails, sNewUpdates) {
-    $rootScope.initDetails = function (id, name, image, score, url) {
-
-        if (id) {
-            sUserDetails.setDetails(id, name, image, score, url);
-            sNewUpdates.loadUpdates();
-            return;
-        }
-        sUserDetails.setDetails(null, '', $('body').data('pic'), 0, null);
-
+app.run(['$rootScope', '$window','$location', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, $location, sUserDetails, sNewUpdates) {
+    $rootScope.initDetails = function (userData) {        
+        var userDataObj = JSON.parse(userData);
+        sUserDetails.setDetails(userDataObj);
     };
 
     $rootScope.$on('$routeChangeStart', function () {
         $window.scrollTo(0, 0);
+
+        if (!sUserDetails.getDepartment()) {
+            $location.path('/library/choose');
+        }
     });
 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {

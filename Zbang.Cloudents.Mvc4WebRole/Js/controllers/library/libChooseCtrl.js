@@ -7,10 +7,11 @@
            'debounce',
          'sLibrary',
          'sFacebook',
+         'sUserDetails',
          '$analytics',
          '$rootScope',
 
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, $analytics, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails,$analytics, $rootScope) {
 
              $scope.formData = {};
              $scope.display = {
@@ -100,6 +101,9 @@
                                  label: university.name                                 
                              });
                          }
+
+                         sUserDetails.setUniversity(university);
+
                      } else {
                          var modalInstance = $modal.open({
                              windowClass: 'libChoosePopUp',
@@ -172,6 +176,7 @@
              $scope.chooseDepartment = function () {
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
+                         sUserDetails.setDepartment($scope.selectedDepartment);
                          $location.path('/dashboard/');
                      }
                  });

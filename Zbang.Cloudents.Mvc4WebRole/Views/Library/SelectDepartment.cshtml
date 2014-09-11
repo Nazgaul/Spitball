@@ -18,38 +18,41 @@
     <form class="step2Wpr" novalidate name="selectDepartmentForm" ng-submit="create(selectDepartmentForm.$valid)">
         <div class="chooseDptTxt">Пожалуйста заполните подробности ниже:</div>
 
-        <input type="radio" id="studentRadio" name="userStatus" ng-checked="params.isStudent" />
+        <input type="radio" id="studentRadio" name="userStatus" checked ng-click="params.isStudent = true" />
         <label class="statusLabel first" for="studentRadio">Я студент</label>
-        <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" />
+        <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" ng-click="params.isStudent = false" />
         <label class="statusLabel" for="lecturerRadio">Я преподаватель</label>
 
-        <label for="department">Ваш раздел</label>
+        <span ng-if="params.isStudent">
+            <label for="department">Ваш раздел</label>
 
-        <select id="department" ng-model="params.departmentName">
-            <option class="placeholder" selected="selected" value="">выберите раздел</option>
-            @foreach (var item in Model.Select(s => s.Name).Distinct())
-            {
-                <option value="@item">@item</option>
-            }
-        </select>
-        <label for="year">
-            период обучения
-        </label>
-        <select id="year" ng-model="formData.departmentId" ng-disabled="!params.departmentName" required>
-            <option class="placeholder" value="" selected="selected">выберите период обучения</option>
-            @foreach (var item in Model)
-            {
-                <option ng-if="params.departmentName === '@item.Name'" value="@item.Id">@item.Year</option>
-            }
-        </select>
-        <div class="dptDetail first">
-            <label for="group">Номер группы</label>
-            <input id="group" type="text" class="inputText" ng-model="formData.groupNumber" required />
-        </div>
-        <div class="dptDetail">
-            <label for="registration">Номер зачетной книжки</label>
-            <input id="registration" type="text" class="inputText" ng-model="formData.registerNumber" required/>
-        </div>
-        <input id="depSubmit" type="submit" class="btn1" value="Продолжить" ng-disabled="params.isStudent && selectDepartmentForm.$invalid" />
+            <select id="department" ng-model="params.departmentName">
+                <option class="placeholder" selected="selected" value="">выберите раздел</option>
+                @foreach (var item in Model.Select(s => s.Name).Distinct())
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <label for="year">
+                период обучения
+            </label>
+            <select id="year" ng-model="formData.departmentId" ng-disabled="!params.departmentName" required>
+                <option class="placeholder" value="" selected="selected">выберите период обучения</option>
+                @foreach (var item in Model)
+                {
+                    <option ng-if="params.departmentName === '@item.Name'" value="@item.Id">@item.Year</option>
+                }
+            </select>
+            <div class="dptDetail first">
+                <label for="group">Номер группы</label>
+                <input id="group" type="text" class="inputText" ng-model="formData.groupNumber" required />
+            </div>
+            <div class="dptDetail">
+                <label for="registration">Номер зачетной книжки</label>
+                <input id="registration" type="text" class="inputText" ng-model="formData.registerNumber" required />
+            </div>
+        </span>
+        <input id="depSubmit" type="submit" class="btn1" value="Продолжить" ng-disabled="selectDepartmentForm.$invalid" />
+
     </form>
 </div>

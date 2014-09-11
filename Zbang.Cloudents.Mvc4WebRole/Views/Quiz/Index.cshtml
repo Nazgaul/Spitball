@@ -39,7 +39,7 @@
             <div class="topUsersWpr">
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
                 <ol >
-                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser"><img ng- alt="" ng-src="{{user.image}}" /></li>
+                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true"><img ng- alt=" " ng-src=" {{user.image}}" /></li>
                 </ol>
             </div>
 
