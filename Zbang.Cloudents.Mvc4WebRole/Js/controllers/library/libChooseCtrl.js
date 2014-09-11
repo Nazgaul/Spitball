@@ -39,12 +39,6 @@
                  });
              });
 
-             sLibrary.items().then(function (response) {
-                 var data = response.success ? response.payload : [];
-                 allDepartments = data.nodes;
-                 $scope.departments = allDepartments;
-             });
-
              $timeout(function () {
                  $scope.$emit('viewContentLoaded');
              });
@@ -109,6 +103,8 @@
                              });
                          }
 
+                         sUserDetails.setDepartment(null);
+                         getDepartments();
                          //sUserDetails.setUniversity(university);
 
                      } else {
@@ -128,6 +124,8 @@
                              $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                              $scope.display.complete = $scope.display.choose = true;
                              $analytics.setVariable('dimension1', university.name);
+                             getDepartments();
+                             sUserDetails.setDepartment(null);
                          });
                      }
                  });
@@ -163,6 +161,7 @@
              $scope.searchDepartment = debounce(function () {
                  if (!$scope.params.departmentSearch) {                     
                      $scope.departments = $filter('orderBy')(allDepartments, 'name');
+                     $scope.selectedDepartment = null;
                      return;
                  }
 
@@ -240,5 +239,12 @@
 
 
              //cd.analytics.trackEvent('Library Choose', 'Search', term);
+             function getDepartments() {
+                 sLibrary.items().then(function (response) {
+                     var data = response.success ? response.payload : [];
+                     allDepartments = data.nodes;
+                     $scope.departments = allDepartments;
+                 });
+             }
          }
         ]);
