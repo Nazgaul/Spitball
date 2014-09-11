@@ -1,5 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
-@model Zbang.Zbox.ViewModel.Dto.Library.NodeDto
 
 <div class="formWpr"
     @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
@@ -21,8 +20,7 @@
             @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
             <div class="newAcademic clearfix editDept" ng-show="isAcademicBox && !(display.createDep)">
                 @{
-                    ViewBag.depName = Model.Name;
-                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox { DepartmentId = Model.Id });
+                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }
             </div>
             <div class="clearfix" ng-show="!(isAcademicBox)">
