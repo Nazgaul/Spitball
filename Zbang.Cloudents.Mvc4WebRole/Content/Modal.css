@@ -50,7 +50,8 @@
 .modal.createTab,
 .modal.uploader,
 .modal.uploadLink,
-.modal.invite {
+.modal.invite,
+.modal.personalMsg {
   width: 600px;
 }
 .modal.quitQuiz {

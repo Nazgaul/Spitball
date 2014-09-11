@@ -71,6 +71,7 @@
                 }
 
                 var modalInstance = $modal.open({
+                    windowClass: "personalMsg",
                     templateUrl: $scope.partials.shareEmail,
                     controller: 'ShareCtrl',
                     backdrop: 'static',
