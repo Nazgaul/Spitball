@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet]
         [Route("dashboard/CreateBox")]
         //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        public async Task<ActionResult> CreateBox()
+        public ActionResult CreateBox()
         {
             try
             {
