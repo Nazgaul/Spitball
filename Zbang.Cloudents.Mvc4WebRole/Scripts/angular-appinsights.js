@@ -54,7 +54,7 @@
 
         })
 
-        .run(function($rootScope, $route, $location, insights) {
+        .run(['$rootScope','$route','$location','insights',function($rootScope, $route, $location, insights) {
             $rootScope.$on('$locationChangeSuccess', function() {
 
                 var pagePath;
@@ -66,6 +66,6 @@
                     insights.logPageView(pagePath);
                 }
             });
-        });
+        }]);
 
 }());
