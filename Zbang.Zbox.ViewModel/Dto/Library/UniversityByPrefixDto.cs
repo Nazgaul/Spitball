@@ -34,13 +34,5 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
             return Id.GetHashCode();
 
         }
-        }
-
-        public override int GetHashCode()
-        {
-            //Get hash code for the Code field.
-            return Id.GetHashCode();
-
-        }
     }
 }
