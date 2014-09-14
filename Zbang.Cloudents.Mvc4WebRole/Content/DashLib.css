@@ -527,7 +527,7 @@
 /*#region setup course 'popups' */
 .formWpr {
   width: 650px;
-  margin: 115px auto 0;
+  margin: -32px auto 0;
   padding: 25px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -592,7 +592,7 @@
   margin-top: 0;
 }
 .formWpr .chooseDeptList.chooseDeptList {
-  top: -225px;
+  top: -213px;
 }
 .formWpr .invSidebar {
   position: absolute;
