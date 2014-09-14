@@ -992,8 +992,7 @@ iframe .registerFirst.store {
 .registerFirst.store {
   width: 860px;
   height: 613px;
-  top: 0;
-  bottom: 0;
+  top: 100px;
   margin: auto;
   background-color: transparent;
   border: none;
