@@ -86,7 +86,7 @@
 
                return dfd.promise;
 
-               function egtLoginStatus() {
+               function getLoginStatus() {
                    FB.getLoginStatus(function (response) {
                        if (response.status === 'connected') {
                            var token = response.authResponse.accessToken;
