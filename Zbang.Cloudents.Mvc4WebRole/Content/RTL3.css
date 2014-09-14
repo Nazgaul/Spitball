@@ -156,6 +156,11 @@
   margin: 0 10px 0 0;
   /*rtl*/
 }
+.reinvite,
+.uninvite {
+  right: 0;
+  left: auto;
+}
 .messageBtn {
   margin: 0 26px 0 0;
   /*rtl*/
@@ -1589,6 +1594,9 @@
   right: 9px;
   /*rtl*/
   left: auto;
+}
+.enterAnswer .textareaWpr {
+  margin: 0 40px 5px 0;
 }
 .QAfloatButton {
   left: 27px;
