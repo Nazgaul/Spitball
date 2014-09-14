@@ -35,6 +35,11 @@
 .headingTexts .email {
   width: 302px;
 }
+/*#region dashLib page */
+.courseType .labelExplain {
+  width: 200px;
+}
+/*#endregion */
 /*#region item page */
 .previewWrapper h2 {
   line-height: 12px;
@@ -45,6 +50,23 @@
 }
 /*#endregion */
 /*#region box page */
+/*#region box item tool tips */
+.boxItemTt.boxItemTt .itemName {
+  padding: 10px 12px 0 12px;
+}
+.boxItemTt.boxItemTt.ttLink .ttTop {
+  padding: 18px 12px 0 12px;
+}
+.boxItemTt.boxItemTt .ttTop {
+  padding: 32px 12px 17px 12px;
+}
+.boxItemTt.boxItemTt .ttTop > .ttDetail {
+  font-size: 12px;
+}
+.boxItemTt.boxItemTt .ttPreview {
+  padding: 10px 12px;
+}
+/*#endregion */
 .inviteFriendBtn.btn3 {
   width: 150px;
   padding: 7px 13px;
@@ -96,6 +118,9 @@
 }
 .cTextArea {
   width: 565px;
+}
+.commentWpr .askBtn {
+  width: 127px;
 }
 /*#endregion*/
 /*#region invite page*/

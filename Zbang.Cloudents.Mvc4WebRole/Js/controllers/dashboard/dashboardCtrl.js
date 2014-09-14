@@ -94,7 +94,9 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                     index = $scope.groupBoxes.indexOf(box);
                     $scope.groupBoxes.splice(index, 1);
                 }
-
+                if ($scope.academicBoxes.length === 0 && $scope.groupBoxes.length === 0) {
+                    firstTimeDashboard();
+                }
             });
         });
     };

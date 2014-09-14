@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnyoneUrl" xml:space="preserve">
+    <value>To share things with your whole class</value>
+  </data>
   <data name="BrowseCourses" xml:space="preserve">
     <value>Browse modules</value>
   </data>
@@ -135,6 +138,9 @@ interest with the:</value>
   </data>
   <data name="InlineSearch" xml:space="preserve">
     <value>Search module name or instructor</value>
+  </data>
+  <data name="InviteOnly" xml:space="preserve">
+    <value>To work on things in a group</value>
   </data>
   <data name="OpenCourse" xml:space="preserve">
     <value>Module</value>

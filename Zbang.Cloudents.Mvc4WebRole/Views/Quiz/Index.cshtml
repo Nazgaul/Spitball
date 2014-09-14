@@ -106,7 +106,7 @@
                                 <img class="imgBorder" user-tooltip-popup="{{comment.userId}}" width=" 32" height="32" alt="" bo-src="comment.userPicture" />
                                 <span class="semiFont" bo-text="comment.userName"></span>
                                 <span class="createTime" display-time="{{comment.date}}"></span>
-                                <div class="commentTxt" bo-text="comment.text"></div>
+                                <div class="commentTxt" bo-html="comment.text"></div>
                             </li>
                         </ul>
 
@@ -122,6 +122,3 @@
         </div>
     </div>
 </div>
-@{
- //   Html.RenderPartial("_QuizDialog");
-}
