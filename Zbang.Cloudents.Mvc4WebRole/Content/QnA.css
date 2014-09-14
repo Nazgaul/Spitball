@@ -651,7 +651,6 @@ textarea:invalid {
   margin: 0;
 }
 .question .deleteBtn {
-  position: absolute;
   top: 9px;
   right: 5px;
   /*rtl*/
@@ -671,6 +670,7 @@ textarea:invalid {
   padding: 8px 0;
   border-top: 1px solid #c2c2c2;
   position: relative;
+  margin-right: -25px;
 }
 .AItem.best {
   border-top: none;
@@ -702,6 +702,8 @@ textarea:invalid {
 .AItem .deleteBtn {
   margin: 6px 7px 0 0;
   /*rtl*/
+  top: 9px;
+  right: 0;
 }
 .question:hover .deleteBtn,
 .AItem:hover .deleteBtn {
@@ -712,6 +714,7 @@ textarea:invalid {
   border: none;
   opacity: 0.65;
   display: none;
+  position: absolute;
 }
 .question .deleteBtn:hover,
 .AItem .deleteBtn:hover {

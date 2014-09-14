@@ -162,12 +162,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 // search by multiple fields (ordered by RELEVANCE)
                 var parser = new MultiFieldQueryParser
-                    (Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer);
+                    (Version.LUCENE_30, new[] { "name", "extra1", "extra2", "extra3" }, analyzer)
                 //{
                 //    AllowLeadingWildcard = true
                 //};
 
-
+               
                 var splitWords = term.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 var terms = new List<string>();
                 foreach (var splitWord in splitWords)
@@ -181,7 +181,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 }
                 var query = ParseQuery(string.Join(" ", terms) + "*", parser);
                 var values = ProcessHits(query);
-
+                
                 terms.Clear();
                 foreach (var splitWord in splitWords)
                 {

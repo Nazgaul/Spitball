@@ -227,17 +227,31 @@ main {
 /*#endregion */
 
 /*#region search form */
+.searchCategoriesWpr {
+    height: 60px;
+    width: 100%;
+    margin: 25px 0;
+    position: relative;
+    > button {
+        width: 220px;
+        height: 60px;
+        font-size: 22px;
+        text-align: center;
+        color: #fff;
+        background: @txtColor;
+    }
+}
 
 .searchForm {
-    width: 100%;
+    //width: 100%;
+    width: 710px;
+    height: 60px;
     .boxSizing;
-    border: 10px solid @shopping-black;
-    margin: 25px 0;
-    height: 80px;
+    border: 5px solid @shopping-black;
     position: relative;
     font-size: 0;
 
-    &.showResults {
+    /*&.showResults {
         ~ .productsList {
             display: none;
 
@@ -245,7 +259,7 @@ main {
                 display: block;
             }
         }
-    }
+    }*/
 }
 
 .inputSearch {
@@ -273,16 +287,18 @@ main {
     display: none;
     width: 940px;
     height: 390px;
-    position: absolute;
-    top: 79px;
-    left: -50px; /*rtl*/
+    position: fixed;
+    top: 115px;
+    left: 0; /*rtl*/
+    right:0;
+    margin:auto;
     background: @shopping-black;
     //border-radius: 5px 5px 0 0;
     padding: 20px;
     .boxSizing;
     z-index: 2;
 
-    &:before {
+    /*&:before {
         .pseudo;
         width: 0;
         height: 0;
@@ -291,9 +307,9 @@ main {
         border-color: transparent transparent @shopping-black transparent;
         position: absolute;
         top: -18px;
-        //left: 240px; /*rtl*/
-        left: 269px; /*diff rtl*/
-    }
+        //left: 240px; 
+        left: 269px; 
+    }*/
     &:after {
         .pseudo;
         position: absolute;
@@ -344,11 +360,11 @@ main {
 
         li {
             font-size: 15px;
+
             &:hover {
                 color: @color;
             }
         }
-
     }
 
     > li {
@@ -364,6 +380,14 @@ main {
         position: relative;
         vertical-align: top;
         line-height: 13px;
+        cursor:pointer;
+
+        &.removeDelay:hover ul {
+            -moz-transition-delay: 0;
+            -o-transition-delay: 0;
+            -webkit-transition-delay: 0;
+            transition-delay: 0;
+        }
 
         &:hover {
             ul {

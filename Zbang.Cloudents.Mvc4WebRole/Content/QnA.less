@@ -726,7 +726,6 @@ textarea:invalid {
     }
 
     .deleteBtn {
-        position: absolute;
         top: 9px;
         right: 5px; /*rtl*/
     }
@@ -747,6 +746,7 @@ textarea:invalid {
     padding: 8px 0;
     border-top: 1px solid @borderColor;
     position: relative; // used for bestanswer and mark as anser btn
+    margin-right: -25px; //rtl for the delete btn
     &.best {
         border-top: none;
         padding-top: 0;
@@ -781,6 +781,9 @@ textarea:invalid {
 
     .deleteBtn {
         margin: 6px 7px 0 0; /*rtl*/
+        top: 9px;
+        right: 0; //rtl
+
     }
 }
 
@@ -793,6 +796,7 @@ textarea:invalid {
         border: none; //override box deletebtn
         opacity: 0.65;
         display: none;
+        position: absolute;
 
         &:hover {
             opacity: 1;

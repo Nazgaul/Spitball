@@ -28,8 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ChangeThreadLanguage("he-IL");
         }
 
-        [HttpGet, NonAjax]
-        [NoUniversity]
+        [HttpGet, NonAjax, NoUniversity]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store/terms", Name = "StoreTerms")]

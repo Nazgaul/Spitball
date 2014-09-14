@@ -1081,6 +1081,9 @@ body.quiz .modal-backdrop.in {
 .topUser:nth-child(2) {
   margin: 0 40px;
 }
+.topUser:nth-child(4) {
+  display: none;
+}
 .topUser.star:after {
   content: '';
   display: inline-block;

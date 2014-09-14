@@ -729,12 +729,6 @@
   /*rtl*/
   opacity: 1;
   visibility: visible;
-  /*&.reinvited {
-        .reinvite {
-            top: 0;
-            display: inline-block;
-        }
-    }*/
 }
 .memberItem.memberItem .cbLabel:before {
   margin-top: 11px;
