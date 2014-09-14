@@ -51,6 +51,27 @@ q {
 
 /*#endregion */
 /*#region box page */
+
+
+/*#region box item tool tips */
+
+//reduced font-size of ttDetail
+
+.boxItemTt.boxItemTt {
+    .ttTop{
+        > .ttDetail {
+            font-size: 12px;
+            &:before {
+                margin: 0 4px 0 18px;
+            }
+            &:last-child:before {
+                margin: 0 4px 0 22px;
+            }
+        }
+    }
+}
+/*#endregion */ 
+
 .inviteFriendBtn.btn3 {
     width: 150px; // invite friends button
     padding: 7px 13px; //override - need this to keep text on one line

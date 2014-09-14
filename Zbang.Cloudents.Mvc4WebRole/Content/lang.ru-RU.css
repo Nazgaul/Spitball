@@ -45,6 +45,17 @@
 }
 /*#endregion */
 /*#region box page */
+/*#region box item tool tips */
+.boxItemTt.boxItemTt .ttTop > .ttDetail {
+  font-size: 12px;
+}
+.boxItemTt.boxItemTt .ttTop > .ttDetail:before {
+  margin: 0 4px 0 18px;
+}
+.boxItemTt.boxItemTt .ttTop > .ttDetail:last-child:before {
+  margin: 0 4px 0 22px;
+}
+/*#endregion */
 .inviteFriendBtn.btn3 {
   width: 150px;
   padding: 7px 13px;
