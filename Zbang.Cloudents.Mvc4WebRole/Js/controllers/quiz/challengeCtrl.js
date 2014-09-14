@@ -5,7 +5,7 @@
          function ($scope, $modalInstance,data) {
              $scope.popupUsers = data.users;
              for (var i = data.users.length; i < 4; i++) {
-                 $scope.users.push({ image: '', name: '' });                 
+                 $scope.popupUsers.splice(1, 0, { image: '', name: '' });
              }
 
              $scope.afraidTry = function () {

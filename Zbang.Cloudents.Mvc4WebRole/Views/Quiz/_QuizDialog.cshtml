@@ -11,7 +11,7 @@
             (2) set a value to the data-plus-count attribute
             (3) Set the img src to /Images/user-img.png if there are < 3 classmates who took the quiz*@
         <div class="friendsPics @(Model > 3 ? "plus" : "")" data-plus-count="@(Model-3) ">
-            <img ng-repeat="user in users" alt="" ng-src="{{user.image || '/Images/user-img.png'}}" tooltip="{{user.name}}" width="51" height="51" />
+            <img ng-repeat="user in popupUsers" alt="" ng-src="{{user.image || '@Url.CdnContent("/Images/user-img.png")'}}"  width="51" height="51" />
         </div>
         <div class="quizPopupTxtWpr">
             <div class="quizPopupTxt1">@QuizResources.OfYourMates</div>
