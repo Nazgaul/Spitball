@@ -772,11 +772,10 @@ textarea:invalid {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 .enterAnswer .QTextarea {
-  width: 300px;
+  width: 280px;
 }
 .enterAnswer .textareaWpr {
-  width: 280px;
-  margin: 0 0 0 3px;
+  margin: 0 0 5px 40px;
 }
 .enterAnswer .attachBtn {
   display: inline-block;

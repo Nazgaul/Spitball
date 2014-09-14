@@ -752,7 +752,7 @@
   color: #fff;
 }
 .memberItem.reinvited .reinvite {
-  top: 0;
+  top: 10px;
 }
 .memberItem.uninvited {
   -webkit-transition: all 1s 2s;
@@ -773,7 +773,7 @@
   opacity: .5;
 }
 .memberItem.uninvited .uninvite {
-  top: 0;
+  top: 10px;
 }
 .reinviteUserBtn {
   padding: 6px 10px;

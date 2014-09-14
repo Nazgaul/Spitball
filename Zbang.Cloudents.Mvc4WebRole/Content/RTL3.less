@@ -179,7 +179,10 @@
         margin: 0 10px 0 0; /*rtl*/ // override other props
     }
 }
-
+.reinvite, .uninvite {
+    right: 0; //rtl
+    left: auto;
+}
 .messageBtn {
     margin: 0 26px 0 0; /*rtl*/
     &:before {
@@ -1316,7 +1319,11 @@
     right: 9px; /*rtl*/
     left: auto;
 }
-
+.enterAnswer {
+    .textareaWpr {
+        margin: 0 40px 5px 0; //rtl overide other values
+    }
+}
 .QAfloatButton {
     left: 27px; /*rtl*/
     right: auto;

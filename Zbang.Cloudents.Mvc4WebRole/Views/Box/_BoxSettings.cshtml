@@ -92,8 +92,7 @@
 
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>
-@*<div class="modal-footer"> ???
-    </div>*@
+
 <script type="text/ng-template" id="memberItem">
     <a bo-href="member.url"><img class="friendImg" alt="" bo-src="member.image" width="34" height="34" /></a>
     <span class="memberName elps" bo-text="member.name"></span>
@@ -103,8 +102,8 @@
         <span class="uninvite" ng-if="member.uninvitedItem">@IndexResources.Uninvited</span>
     </span>
     <span class="rFloat memberActions">
-        <button bo-if="member.uid !== info.user.id" type="button" tooltip="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
+        <button bo-if="member.uid !== info.user.id" type="button"  title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
         <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.action">@IndexResources.Reinvite</button>
     </span>
 </script>
