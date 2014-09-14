@@ -520,7 +520,7 @@ mBox.controller('BoxCtrl',
                 };
 
                 Box.addItemsToTab(data).then(function (response) {
-                    if (!response.Success) {
+                    if (!response.success) {
                         alert(jsResources.FolderItemError);
                     }
                 });
