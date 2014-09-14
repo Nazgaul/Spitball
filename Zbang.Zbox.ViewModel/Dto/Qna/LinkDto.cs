@@ -4,9 +4,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 {
     public class LinkDto : ItemDto
     {
-        public LinkDto(long uid, long ownerId,
+        public LinkDto(long id, long ownerId,
             string boxUid, Guid? questionId, Guid? answerId, string name, string thumbnail, string url)
-            : base(uid, ownerId, boxUid, questionId, answerId, name , url)
+            : base(id, ownerId, boxUid, questionId, answerId, name , url)
         {
             Thumbnail = thumbnail;
         }
