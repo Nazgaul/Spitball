@@ -103,7 +103,7 @@
     </span>
     <span class="rFloat memberActions">
         <button bo-if="member.uid !== info.user.id" type="button"  title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.removed || member.reinvitedItem || member.uninvitedItem"></button>
-        <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.removed || member.reinvitedItem || member.uninvitedItem">@IndexResources.Reinvite</button>
+        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
+        <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.action">@IndexResources.Reinvite</button>
     </span>
 </script>

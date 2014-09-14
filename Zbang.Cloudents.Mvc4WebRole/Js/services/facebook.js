@@ -27,7 +27,7 @@
 
        return {
            share: function (url, name, caption, description, picture) {
-               if (!isAuthenticated()) {
+               if (!this.isAuthenticated()) {
                    return;
                }
 
@@ -60,7 +60,7 @@
                return defer.promise;
            },
            postFeed: function (text, link) {
-               if (!isAuthenticated()) {
+               if (!this.isAuthenticated()) {
                    return;
                }
 
@@ -86,7 +86,7 @@
 
                return dfd.promise;
 
-               function getLoginStatus() {
+               function egtLoginStatus() {
                    FB.getLoginStatus(function (response) {
                        if (response.status === 'connected') {
                            var token = response.authResponse.accessToken;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -58,14 +59,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                  return Json(new JsonResponse(false));
             }
         }
-        [ZboxAuthorize]
-        [Ajax, HttpPost]
-        public JsonResult MarkAnswer(Guid answerId)
-        {
-            var command = new MarkAsAnswerCommand(answerId, GetUserId());
-            ZboxWriteService.MarkCorrectAnswer(command);
-            return Json(new JsonResponse(true));
-        }
+        //[ZboxAuthorize]
+        //[Ajax, HttpPost]
+        //public JsonResult MarkAnswer(Guid answerId)
+        //{
+        //    var command = new MarkAsAnswerCommand(answerId, GetUserId());
+        //    ZboxWriteService.MarkCorrectAnswer(command);
+        //    return Json(new JsonResponse(true));
+        //}
         //[ZboxAuthorize]
         //[Ajax, HttpPost]
         //public JsonResult RateQuestion(Guid answerId)
@@ -125,6 +126,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             //this is a test
             var retVal = ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
+
+
+            var urlBuilder = new UrlBuilder(HttpContext);
+            retVal.ToList().ForEach(f =>
+            {
+                f.Files.ForEach(fi => fi.DownloadUrl = urlBuilder.BuildDownloadUrl(boxId,fi.Id));
+                f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.DownloadUrl = urlBuilder.BuildDownloadUrl(boxId, fi1.Id)));
+            });
             return Json(new JsonResponse(true, retVal));
         }
 

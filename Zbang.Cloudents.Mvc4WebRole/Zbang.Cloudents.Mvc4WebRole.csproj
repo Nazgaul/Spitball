@@ -1077,6 +1077,7 @@
       <DependentUpon>social.png</DependentUpon>
     </Content>
     <Content Include="Images\quizSprite.sprite" />
+    <Content Include="App_Code\_Categories.cshtml" />
     <Content Include="Images\quizSprite.png.map">
       <DependentUpon>quizSprite.png</DependentUpon>
     </Content>

@@ -26,7 +26,7 @@
     <return-scalar column="CreationTime" type="DateTime"/>
   </resultset>
   <resultset name="QnAItems">
-    <return-scalar column="Uid" type="long"/>
+    <return-scalar column="Id" type="long"/>
     <return-scalar column="Name" type="string"/>
     <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Thumbnail" type="string"/>
@@ -73,7 +73,7 @@
   <sql-query name="GetBoxQnAItem" resultset-ref="QnAItems" read-only="true" >
     <![CDATA[
     select
-    i.itemid as Uid,
+    i.itemid as Id,
     i.Name as Name,
     i.UserId as OwnerId,
     i.thumbnailurl as Thumbnail,
