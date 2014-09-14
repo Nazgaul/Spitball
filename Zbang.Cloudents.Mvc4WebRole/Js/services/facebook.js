@@ -1,7 +1,8 @@
 ﻿app.factory('sFacebook',
    ['$document', '$q', '$window',
    function ($document, $q, $window) {
-       var facebookLoaded;
+       var facebookLoaded,
+           isAuthenticated = false;
        window.fbAsyncInit = function () {
            FB.init({
                appId: '450314258355338',
@@ -26,6 +27,10 @@
 
        return {
            share: function (url, name, caption, description, picture) {
+               if (!isAuthenticated()) {
+                   return;
+               }
+
                var defer = $q.defer();
 
 
@@ -54,7 +59,14 @@
 
                return defer.promise;
            },
+           postFeed: function (text, link) {
+               if (!isAuthenticated()) {
+                   return;
+               }
 
+               FB.api('/me/feed', 'post', { message: text, link: link }, function () {                   
+               });
+           },
            getToken: function () {
                var dfd = $q.defer();
 
@@ -77,18 +89,21 @@
                function getLoginStatus() {
                    FB.getLoginStatus(function (response) {
                        if (response.status === 'connected') {
-                           token = response.authResponse.accessToken;
+                           var token = response.authResponse.accessToken;
                            if (!token) {
                                dfd.reject();
                            }
 
                            dfd.resolve(token);
+                           isAuthenticated = true;
                        }
                    },
                    function (a) {
-                       console.log(a)
                    });
                }
+           },
+           isAuthenticated: function () {
+               return isAuthenticated;
            }
        }
    }

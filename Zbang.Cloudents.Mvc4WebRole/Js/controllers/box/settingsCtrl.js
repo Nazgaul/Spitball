@@ -1,8 +1,8 @@
 ﻿//define('manageCtrl',['app'], function (app) {
 mBox.controller('SettingsCtrl',
-    ['$scope', '$modal', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
+    ['$scope', '$modal', '$modalInstance', '$location','$timeout', 'sUserDetails', 'sBox', 'data',
 
-     function ($scope, $modal, $modalInstance, $location, UserDetails, Box, data) {
+     function ($scope, $modal, $modalInstance, $location,$timeout, UserDetails, Box, data) {
          //Settings
          var states = {
              settings: 1,
@@ -77,11 +77,11 @@ mBox.controller('SettingsCtrl',
          $scope.userStatus = function (status) {
              switch (status) {
                  case 'Subscribe':
-                     return JsResources.Member;
+                     return 'Active Member';//add resource
                  case 'Owner':
                      return JsResources.Owner;
                  case 'Invite':
-                     return JsResources.Invite;
+                     return 'Pending'; //add resource
 
              }
          };
@@ -112,14 +112,35 @@ mBox.controller('SettingsCtrl',
          };
 
          $scope.removeUser = function (member) {
-             var index = $scope.info.members.indexOf(member);
-             $scope.info.members.splice(index, 1);
+
+             $scope.reinvited = false;
+             $scope.reinvitedItem = false;
              Box.removeUser({ boxUid: $scope.info.boxId, userId: member.uid }).then(function () { //uid
 
              });
+
+             if (member.sUserStatus === 'Subscribe') {             
+                 remove();
+                 member.removed = true;
+                 return;
+             }
+
+             if (member.sUserStatus === 'Invite') {
+                 $timeout(remove, 3000);
+                 $timeout(function () { member.uninvited = true; }, 10);
+                 member.uninvitedItem = true;
+             }
+
+             function remove() {
+                 var index = $scope.info.allMembers.indexOf(member);
+                 $scope.info.allMembers.splice(index, 1);
+             }
          };
 
          $scope.reinviteUser = function (member) {
+             member.reinvitedItem = true;
+             $timeout(function () { member.reinvited = true; }, 10);
+
              Box.invite({ Recepients: [member.uid], boxUid: $scope.info.boxId }).then(function () { //uid
 
              });

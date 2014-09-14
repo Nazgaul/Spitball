@@ -84,8 +84,8 @@
                 </div>
             </div>
         </div>
-        <ul class="membersList" data-pending="@IndexResources.Pending" data-member="@IndexResources.ActiveMember" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited">
-            <li class="memberItem" ng-controller="MemberCtrl" ng-hide="isExcludedByFilter" ng-repeat="member in info.allMembers | orderByFilter:{field: 'name', input:params.search}" ng-include="'memberItem'">
+        <ul class="membersList" >
+            <li class="memberItem" ng-controller="MemberCtrl" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-hide="isExcludedByFilter" ng-repeat="member in info.allMembers | orderByFilter:{field: 'name', input:params.search}" ng-include="'memberItem'">
             </li>
         </ul>
     </div>
@@ -97,12 +97,14 @@
 <script type="text/ng-template" id="memberItem">
     <a bo-href="member.url"><img class="friendImg" alt="" bo-src="member.image" width="34" height="34" /></a>
     <span class="memberName elps" bo-text="member.name"></span>
-    <span class="memberStatus" bo-class="{memberPending : member.sUserStatus === 'Invite'}" bo-if="member.sUserStatus !== 'Owner'" bo-text="userStatus(member.sUserStatus)">
+    <span class="memberStatus" bo-class="{memberPending : member.sUserStatus === 'Invite'}" bo-if="member.sUserStatus !== 'Owner'">
+        {{userStatus(member.sUserStatus)}}
+        <span class="reinvite" ng-if="member.reinvitedItem">@IndexResources.Reinvited</span>
+        <span class="uninvite" ng-if="member.uninvitedItem">@IndexResources.Uninvited</span>
     </span>
-
     <span class="rFloat memberActions">
         <button bo-if="member.uid !== info.user.id" type="button" tooltip="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)"></button>
-        <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)">@IndexResources.Reinvite</button>
+        <button bo-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" tooltip="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.removed || member.reinvitedItem || member.uninvitedItem"></button>
+        <button bo-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.removed || member.reinvitedItem || member.uninvitedItem">@IndexResources.Reinvite</button>
     </span>
 </script>

@@ -19,12 +19,12 @@ mBox.controller('BoxCtrl',
 
             $rootScope.$broadcast('uploadBox', $scope.boxId);
 
-            $scope.init = function (backUrl, backTitle) {
-                if (angular.equals($rootScope.back, {})) {
-                    $rootScope.back.title = backTitle;
-                    $rootScope.back.url = backUrl;
-                }
-            };
+            //$scope.init = function (backUrl, backTitle) {
+            //    if (angular.equals($rootScope.back, {})) {
+            //        $rootScope.back.title = backTitle;
+            //        $rootScope.back.url = backUrl;
+            //    }
+            //};
 
             var consts = {
                 view: {
@@ -322,6 +322,9 @@ mBox.controller('BoxCtrl',
                         Upload[data.ajax](formData).then(function (response) {
                             uploaded++;
 
+                            if (uploaded === 1) {
+                                Facebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [foemData.fileName]), $scope.info.url);
+                            }
                             if (!response.success) {
                                 alert((data.name || data.url) + ' - ' + response.payload);
                                 return;
@@ -867,8 +870,10 @@ mBox.controller('BoxCtrl',
                 $timeout(function () {
                     $scope.info.showJoinGroup = false;
                 }, 3300);
+                
+                Facebook.postFeed($filter('stringFormat')(jsResources.IJoined,[$scope.info.name]),$scope.info.url);
 
-                if (nonAjax) {
+                if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;
                 }
 
