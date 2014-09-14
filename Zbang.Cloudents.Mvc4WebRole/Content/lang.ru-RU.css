@@ -35,6 +35,11 @@
 .headingTexts .email {
   width: 302px;
 }
+/*#region dashLib page */
+.courseType .labelExplain {
+  width: 200px;
+}
+/*#endregion */
 /*#region item page */
 .previewWrapper h2 {
   line-height: 12px;
@@ -113,6 +118,9 @@
 }
 .cTextArea {
   width: 565px;
+}
+.commentWpr .askBtn {
+  width: 127px;
 }
 /*#endregion*/
 /*#region invite page*/
