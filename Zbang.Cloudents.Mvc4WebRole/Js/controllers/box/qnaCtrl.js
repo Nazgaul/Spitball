@@ -218,8 +218,8 @@ mBox.controller('QnACtrl',
 
             sQnA.post.answer(question.aFormData).then(function (response) {
                 var answerId;
-                if (response.Success) {
-                    answerId = response.Payload;
+                if (response.success) {
+                    answerId = response.payload;
                 }
 
                 var obj = {
@@ -276,8 +276,8 @@ mBox.controller('QnACtrl',
 
         $scope.removeAttachment = function (obj, item) {
             sQnA.delete.attachment({ itemId: item.id }).then(function (response) {
-                if (!response.Success) {
-                    alert(response.Payload);
+                if (!response.success) {
+                    alert(response.payload);
                     return;
                 }
 
