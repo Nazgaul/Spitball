@@ -47,7 +47,7 @@ mBox.controller('QnACtrl',
             that.id = data.uid || data.id; //uid
             that.name = data.name;
             that.thumbnail = data.thumbnail;
-            that.download = "/d/" + $scope.boxId + "/" + that.id;
+            that.download = data.downloadUrl; //"/d/" + $scope.boxId + "/" + that.id;
 
             var userId = sUserDetails.getDetails().id;
             that.isOwner = data.ownerId === userId;
