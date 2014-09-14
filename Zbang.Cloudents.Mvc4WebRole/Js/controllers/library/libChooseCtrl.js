@@ -147,10 +147,18 @@
                  if (!isValid) {
                      return;
                  }
+
+
                  $scope.createDepartmentForm.$invalid = true;
                  sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
                      if (response.success) {
+                        
+                         sUserDetails.setDepartment({
+                             name: $scope.formData.createDepartment.name,
+                             id: response.payload.id
+                         });
                          $location.path('/dashboard/');
+                        
                      }
                  });
              };

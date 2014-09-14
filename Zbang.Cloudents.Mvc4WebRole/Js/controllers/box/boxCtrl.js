@@ -199,9 +199,11 @@ mBox.controller('BoxCtrl',
                     if ($scope.info.currentTab && ($scope.info.currentTab.id !== data.item.tabId)) {
                         return;
                     }
-
+                    
                     $scope.items.unshift(data.item);
                     $scope.filteredItems.unshift(data.item);
+                    $scope.items.sort(sortItems);
+                    $scope.filteredItems.sort(sortItems);
 
                     $scope.followBox(true);
                 });
@@ -338,6 +340,8 @@ mBox.controller('BoxCtrl',
                             var responseItem = response.payload;
                             $scope.items.unshift(responseItem);
                             $scope.filteredItems.unshift(responseItem);
+                            $scope.items.sort(sortItems);
+                            $scope.filteredItems.sort(sortItems);
 
                             if (qna) {
                                 fileList.push(responseItem);
@@ -520,7 +524,7 @@ mBox.controller('BoxCtrl',
                 };
 
                 Box.addItemsToTab(data).then(function (response) {
-                    if (!response.Success) {
+                    if (!response.success) {
                         alert(jsResources.FolderItemError);
                     }
                 });
