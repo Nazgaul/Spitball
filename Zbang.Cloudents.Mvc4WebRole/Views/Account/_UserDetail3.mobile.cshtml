@@ -8,7 +8,7 @@
             <a class="edit" data-modelNav href="@Url.Action("Settings", "Account")" data-navigation="Account">
                 <img class="lFloat" src="@Model.Image" alt="user image" />
                 <div class="userDetails">
-                    <div id="userName" data-id="@Model.Uid" class="userName elps boldFont">@Model.Name.Split(' ')[0]</div>
+                    <div id="userName" data-id="@Model.Id" class="userName elps boldFont">@Model.Name.Split(' ')[0]</div>
                     <div class="sprite1a email elps">@Model.Email</div>
                 </div>
             </a>
@@ -36,7 +36,7 @@
         </li>
         <li><button type="button" data-modelNav="invites" class="sprite1b panelBtn invitesBtn">@SharedResources.Notifications<span id="f_invites" class="numberCircle rFloat"></span></button></li>
         <li><button type="button" data-modelNav="updates" class="sprite1b panelBtn activityBtn elps">@MobileResources.FriendsActivity</button></li>
-        <li>@Html.ActionLink(Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "sprite1b panelBtn tos elps" })</li>
+        <li>@Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "sprite1b panelBtn tos elps" })</li>
     </ul>
     <a id="logOut" class="logout" href="@Url.Action("LogOff","Account")">@UserDetailResources.LogOut</a>
 </div>

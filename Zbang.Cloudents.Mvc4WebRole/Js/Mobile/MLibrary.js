@@ -121,11 +121,11 @@
                 data: { section: getLibraryId()},// page: page, order: self.orderBy() },
                 success: function (result) {
                     //paggingNeed = false;
-                    if (result.nodes.elem.length) {
-                        generateModelDepartment(result.nodes.elem);
+                    if (result.nodes && result.nodes.length) {
+                        generateModelDepartment(result.nodes);
                     }
-                    if (result.boxes.elem.length) {
-                        generateModelCourses(result.boxes.elem);
+                    if (result.boxes && result.boxes.length) {
+                        generateModelCourses(result.boxes);
                     }
                     cd.pubsub.publish('lib_load'/*, actions*/);
                 },
