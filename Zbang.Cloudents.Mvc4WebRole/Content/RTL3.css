@@ -1579,7 +1579,7 @@
   /*rtl*/
 }
 .AItem {
-  margin: 0 0 0 25px;
+  margin: 0 0 0 -25px;
 }
 .AItem .AContent {
   padding: 0 44px 0 0;

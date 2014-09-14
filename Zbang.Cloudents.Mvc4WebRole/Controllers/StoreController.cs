@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, NonAjax, NoUniversity]
-        [NoUniversity]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store/terms", Name = "StoreTerms")]
