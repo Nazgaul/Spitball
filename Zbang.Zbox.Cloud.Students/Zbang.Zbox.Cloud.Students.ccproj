@@ -38,17 +38,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Mvc4Students\Zbang.Zbox.Mvc4Students.csproj">
-      <Name>Zbang.Zbox.Mvc4Students</Name>
-      <Project>{9a10038c-625d-408c-be84-464669d41655}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>Zbang.Zbox.Mvc4Students</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-      <Properties>SkipValidatePackageReferences=true</Properties>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Profiles" />
   </ItemGroup>
   <ItemGroup>
