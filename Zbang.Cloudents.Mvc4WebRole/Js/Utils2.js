@@ -241,7 +241,7 @@
         $form.find('[data-valmsg-summary]').removeClass('validation-summary-errors')
             .addClass('validation-summary-valid').find('ul').empty();
         $form.find('[data-error-msg]').remove();
-        $form.find('span.field-validation-error').remove();
+        $form.find('span.field-validation-error').empty();
         $form.find("[data-valmsg-summary=true]")
             .removeClass("validation-summary-errors")
             .addClass("validation-summary-valid")
