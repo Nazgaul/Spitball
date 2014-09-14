@@ -46,14 +46,20 @@
 /*#endregion */
 /*#region box page */
 /*#region box item tool tips */
+.boxItemTt.boxItemTt .itemName {
+  padding: 10px 12px 0 12px;
+}
+.boxItemTt.boxItemTt.ttLink .ttTop {
+  padding: 18px 12px 0 12px;
+}
+.boxItemTt.boxItemTt .ttTop {
+  padding: 32px 12px 17px 12px;
+}
 .boxItemTt.boxItemTt .ttTop > .ttDetail {
   font-size: 12px;
 }
-.boxItemTt.boxItemTt .ttTop > .ttDetail:before {
-  margin: 0 4px 0 18px;
-}
-.boxItemTt.boxItemTt .ttTop > .ttDetail:last-child:before {
-  margin: 0 4px 0 22px;
+.boxItemTt.boxItemTt .ttPreview {
+  padding: 10px 12px;
 }
 /*#endregion */
 .inviteFriendBtn.btn3 {

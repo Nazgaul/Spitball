@@ -58,16 +58,23 @@ q {
 //reduced font-size of ttDetail
 
 .boxItemTt.boxItemTt {
+    .itemName {
+        padding: 10px 12px 0 12px;
+    }
+    &.ttLink {
+        .ttTop {
+            padding: 18px 12px 0 12px; //override
+        }
+    }
     .ttTop{
+        padding: 32px 12px 17px 12px;
         > .ttDetail {
             font-size: 12px;
-            &:before {
-                margin: 0 4px 0 18px;
-            }
-            &:last-child:before {
-                margin: 0 4px 0 22px;
-            }
         }
+    }
+    .ttPreview
+    {
+        padding: 10px 12px;
     }
 }
 /*#endregion */ 
