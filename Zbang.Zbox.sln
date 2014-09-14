@@ -48,8 +48,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.ReadServices", "Zbang.Zbox.ReadServices\Zbang.Zbox.ReadServices.csproj", "{091BCB44-6764-41CA-A255-C6DA6157092B}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Zbox.Cloud.Students", "Zbang.Zbox.Cloud.Students\Zbang.Zbox.Cloud.Students.ccproj", "{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{EE1FE540-1FCA-4D00-BB0D-590837973724}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.DomainTests", "Zbang.Zbox.DomainTests\Zbang.Zbox.DomainTests.csproj", "{A09FB96C-5029-4DDB-95CA-6A452EB81D0B}"
@@ -75,13 +73,6 @@ EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Web", "Zbang.Cloudents.Cloud.Web\Zbang.Cloudents.Cloud.Web.ccproj", "{0CEACA1C-6246-4118-B6DD-D535594E4DF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Mvc4WebRole", "Zbang.Cloudents.Mvc4WebRole\Zbang.Cloudents.Mvc4WebRole.csproj", "{4FBAAC02-F6D3-4980-91A3-75D3B3B26BB8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AEF33662-4BEA-4476-9A85-1C5087FB1E9A}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.Mail", "Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj", "{F5E270CF-6B83-4879-9B04-773B87F80B0E}"
 EndProject
@@ -458,31 +449,6 @@ Global
 		{091BCB44-6764-41CA-A255-C6DA6157092B}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{091BCB44-6764-41CA-A255-C6DA6157092B}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{091BCB44-6764-41CA-A255-C6DA6157092B}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.Release|x86.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{A09FB96C-5029-4DDB-95CA-6A452EB81D0B}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
 		{A09FB96C-5029-4DDB-95CA-6A452EB81D0B}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{A09FB96C-5029-4DDB-95CA-6A452EB81D0B}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1052,7 +1018,6 @@ Global
 		{13D0B0B1-8C65-4BC4-8192-E6E9F4BAE6D6} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 		{7ACCE531-FF37-41B6-A04B-8BEC2677F59A} = {5DE8FAF5-ED0F-4681-9C50-159B781380D4}
 		{091BCB44-6764-41CA-A255-C6DA6157092B} = {81F68805-46D9-4911-BBA9-3F908CC606EF}
-		{C0FF12D2-216A-4E41-AA18-6DFD35D2B8D2} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 		{EE1FE540-1FCA-4D00-BB0D-590837973724} = {5DE8FAF5-ED0F-4681-9C50-159B781380D4}
 		{A09FB96C-5029-4DDB-95CA-6A452EB81D0B} = {EE1FE540-1FCA-4D00-BB0D-590837973724}
 		{7CB4EFF4-FB2B-4EF4-9A51-B6CAA95CB0A4} = {EE1FE540-1FCA-4D00-BB0D-590837973724}
