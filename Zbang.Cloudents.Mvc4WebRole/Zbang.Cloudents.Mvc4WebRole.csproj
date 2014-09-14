@@ -1959,7 +1959,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_UploadCreateAcademicBox.cshtml" />
+    <Content Include="Views\Dashboard\_UploadCreateAcademicBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_UploadDialog.cshtml" />

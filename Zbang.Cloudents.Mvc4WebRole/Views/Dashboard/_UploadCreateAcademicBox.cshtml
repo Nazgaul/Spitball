@@ -1,0 +1,39 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+
+
+<form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)" ng-controller="createAcademicBoxCtrl">
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
+        @Html.LabelFor(m => m.DepartmentId)
+        @*<label for="DepartmentId">Department</label>*@
+        <span class="error">@DialogResources.RequiredField</span>
+        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch"
+               required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
+        @*@Html.TextBoxFor(m => m.DepartmentId, new { @class = "inputText", ng_model = "formData.departmentName", required = "required", ng_disabled="!params.changeDepartment", ng_keyup="searchDepartment()"})*@
+        <button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>
+    </div>
+
+    <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
+        @Html.LabelFor(m => m.CourseName)
+        <span class="error">@DialogResources.RequiredField</span>
+        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.academicBox.courseName", required = "required" })
+    </div>
+    <div class="lFloat courseId">
+        @Html.LabelFor(m => m.CourseId)
+        @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.academicBox.courseId" })
+    </div>
+
+    <div class="professor rFloat">
+        @Html.LabelFor(m => m.Professor)
+        @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
+    </div>
+    @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
+    
+    <input type="submit" class="btn1  rFloat" wz-next ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
+    <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
+
+    @_ChooseDeptAC.deptList()
+</form>
