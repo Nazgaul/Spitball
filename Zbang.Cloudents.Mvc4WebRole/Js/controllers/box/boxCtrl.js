@@ -1,5 +1,4 @@
-﻿//define('boxCtrl', ['app'], function (app) {
-mBox = angular.module('mBox', ['ngDragDrop']);
+﻿mBox = angular.module('mBox', ['ngDragDrop']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
