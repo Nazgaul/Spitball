@@ -6,19 +6,13 @@
 
         $scope.box = {
             // id: 0
-        
         };
-        console.log(sUserDetails.getDetails().department.id);
         $scope.formData = {
             academicBox: {
                 departmentId: sUserDetails.getDetails().department.id
             }
         };
-        //$scope.params = {
-        //    changeDepartment: false,
-            
-        //};
-        //$scope.isAcademicBox=true;
+        
 
         $scope.display = { createDep: false };
 
@@ -63,7 +57,6 @@
         //};
 
         $scope.completewizard = function() {
-            //console.log($scope.box.id);
             $modalInstance.close($scope.box.url);
             //$rootScope.params.createBoxWizard = false;
         };
