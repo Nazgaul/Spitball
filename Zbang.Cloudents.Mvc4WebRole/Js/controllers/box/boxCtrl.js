@@ -243,7 +243,7 @@ mBox.controller('BoxCtrl',
                         });
 
                         modalInstance.result.then(function (url) {
-                            saveItem({ url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
+                            saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
                         }); //save url
                         return;
                     }
