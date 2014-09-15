@@ -2,22 +2,22 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Share.Resources
 
-<section class="socialInvite" ng-controller="SocialInviteCtrl" ng-class="params.state">
+<section class="socialInvite" ng-controller="SocialInviteCtrl" ng-class="params.stateClass">
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
-        <button class="cloudentsBtn"></button>
-        <button class="fbBtn"></button>
-        <button class="gmailBtn"></button>
+        <button class="cloudentsBtn" ng-click="selectState('cl')"></button>
+        <button class="fbBtn" ng-click="selectState('fb')"></button>
+        <button class="gmailBtn" ng-click="selectState('go')"></button>
     </div>
 
-    <div class="socialContentWpr" ng-class="{jsNotConnected : params.isConnected }">
-        <input class="cloudInput" type="search" placeholder="{{params.searchPlaceholder}}" ng-model="params.contactSearch"/>
+    <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
+        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch"/>
 
-        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}">
-            <li class="lFloat" ng-repeat="contact in params.contacts track by contact.id" ng-class="{jsInviteSent : user.invited}">
+        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+            <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
                 <img width="64" height="64" bo-src="contact.image" alt="" />
-                <div bo-text="user.name"></div>
+                <div bo-text="contact.name"></div>
                 <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
             </li>
 
@@ -34,6 +34,7 @@
         <button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>
         <input type="button" class="btn1 wz-next" value="@DialogResources.Continue" />
     </div>
+    <div fb-block ng-if="params.facebookInvite"></div>
 </section>
 @*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
 <aside class="invSidebar rFloat" ng-class="{invSucces: params.invFormSent }">

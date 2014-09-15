@@ -928,6 +928,7 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\userDetails.js" />
