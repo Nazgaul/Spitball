@@ -600,7 +600,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="1.html" />
     <Content Include="Content\AccountInfo.css">
       <DependentUpon>AccountInfo.less</DependentUpon>
     </Content>

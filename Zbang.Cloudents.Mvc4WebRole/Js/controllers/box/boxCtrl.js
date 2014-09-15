@@ -325,7 +325,7 @@ mBox.controller('BoxCtrl',
                             uploaded++;
 
                             if (uploaded === 1) {
-                                Facebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [foemData.fileName]), $scope.info.url);
+                                Facebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
                             }
                             if (!response.success) {
                                 alert((data.name || data.url) + ' - ' + response.payload);
