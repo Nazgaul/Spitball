@@ -2402,6 +2402,13 @@ select.inputText {
   padding: 0;
 }
 /*#endregion */
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+  input[type="radio"].radio + label:before {
+    margin-top: -3px;
+  }
+}
+/*#endregion */
 /*#region IE only CSS */
 @media screen and (min-width:0\0) {
   .boxItemTt.boxItemTt .ttPreview {

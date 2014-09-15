@@ -231,7 +231,7 @@ dashboard</value>
     <value>Where study groups come together</value>
   </data>
   <data name="AnyoneUrl" xml:space="preserve">
-    <value>Anyone who has the link can access. No sign-in required.</value>
+    <value>To share things with your whole class</value>
   </data>
   <data name="BrowseCourses" xml:space="preserve">
     <value>Browse courses</value>
@@ -258,7 +258,7 @@ dashboard</value>
     <value>Invite friends</value>
   </data>
   <data name="InviteOnly" xml:space="preserve">
-    <value>To view this content you need to be a member or invited</value>
+    <value>To work on things in a group</value>
   </data>
   <data name="InviteViaEmail" xml:space="preserve">
     <value>Invite by email</value>
