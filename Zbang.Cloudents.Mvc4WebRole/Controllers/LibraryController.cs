@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, NonAjax]
         [NoCache]
         public ActionResult Choose()
-        {
+        {   
             return View("Empty");
         }
 
@@ -338,7 +338,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none",
+            VaryByCustom = CustomCacheKeys.Lang)]
         public ActionResult CreateDepartmentPartial()
         {
             try

@@ -157,7 +157,8 @@
                              name: $scope.formData.createDepartment.name,
                              id: response.payload.id
                          });
-                         $location.path('/dashboard/');
+                         window.open('/dashboard', '_self');
+                         //$location.path('/dashboard/');
                         
                      }
                  });
@@ -195,7 +196,8 @@
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
                          sUserDetails.setDepartment($scope.selectedDepartment);
-                         $location.path('/dashboard/');
+                         window.open('/dashboard/', '_self');
+                         //$location.path('/dashboard/');
                      }
                  });
              };
