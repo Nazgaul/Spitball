@@ -43,13 +43,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Imaging.2.5.0\lib\net4.0\Aspose.Imaging.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Pdf, Version=9.5.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Pdf.9.5.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+    <Reference Include="Aspose.Pdf">
+      <HintPath>..\packages\Aspose.Pdf.9.6.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Aspose.Slides, Version=14.6.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Slides.NET.14.6.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
+    <Reference Include="Aspose.Slides">
+      <HintPath>..\packages\Aspose.Slides.NET.14.7.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Aspose.Words, Version=14.8.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

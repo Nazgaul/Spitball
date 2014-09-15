@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [ZboxAuthorize]
     public class LibraryController : BaseController
     {
-       // private readonly Lazy<IUserProfile> m_UserProfile;
+        // private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
         {
-           // m_UserProfile = userProfile;
+            // m_UserProfile = userProfile;
             m_IdGenerator = idGenerator;
             m_UniversitySearch = universitySearch;
             m_FacebookService = facebookService;
@@ -321,7 +321,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, model.DepartmentId);
                 var result = ZboxWriteService.CreateBox(command);
-                return Json(new JsonResponse(true, new { result.NewBox.Url }));
+                return Json(new JsonResponse(true, new { result.NewBox.Url, result.NewBox.Id }));
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -400,7 +400,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet]
         public ActionResult InsertCode(long universityId)
         {
-           // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
             {
                 case 19878:
@@ -432,13 +432,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n072-2220692.";
                     break;
             }
-           // ViewBag.userName = userData.Name;
+            // ViewBag.userName = userData.Name;
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
         }
         [Ajax, HttpGet]
         public ActionResult InsertId(long universityId)
         {
-           // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
             {
                 default:
@@ -448,7 +448,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
                     break;
             }
-          //  ViewBag.userName = userData.Name;
+            //  ViewBag.userName = userData.Name;
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
         }
 
