@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return string.Empty;
         }
 
-
+        //TODO: do a post on log out
         public ActionResult LogOff()
         {
 

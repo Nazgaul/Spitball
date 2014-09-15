@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -11,6 +12,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
@@ -48,41 +50,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [ActionName("Index"), Ajax]
+        [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Index2(long boxId, long itemId)
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+            Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        public ActionResult IndexPartial()
         {
-            try
-            {
-                var userId = GetUserId(false); // not really needs it
-
-                var query = new GetItemQuery(userId, itemId, boxId);
-                var item = ZboxReadService.GetItem(query);
-                if (item.BoxId != boxId)
-                {
-                    throw new ItemNotFoundException();
-                }
-                //var serializer = new JsonNetSerializer();
-                //ViewBag.data = serializer.Serialize(item);
-
-                return PartialView();
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            }
-            catch (ItemNotFoundException)
-            {
-                return HttpNotFound();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemId, ex);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.InternalServerError);
-            }
+            return PartialView("Index");
         }
 
-        [NoCache]
+        //[NoCache]
         public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
             var userId = GetUserId(false); // not really needs it
@@ -135,7 +113,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[UserNavNWelcome]
         [NonAjax]
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -174,10 +151,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var metaDescription = item.Description.RemoveEndOfString(197);
                     ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
                 }
-
-                //var serializer = new JsonNetSerializer();
-                //ViewBag.data = serializer.Serialize(item);
-                //ViewBag.title = item.Name;
                 ViewBag.Description = item.Description;
                 if (Request.IsAjaxRequest())
                 {

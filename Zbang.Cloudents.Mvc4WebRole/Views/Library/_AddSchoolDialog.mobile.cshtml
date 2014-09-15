@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 
-<div id="addSchool" class="addSchool popup">
+<div id="addSchool" class="addSchool popup" style="display:none">
     <div class="popupWpr">
         <div class="addSchoolContent">
             <div class="subTitle topContent">@DialogResources.AddSchool</div>
@@ -20,7 +20,7 @@
                 @Html.LabelFor(m => m.Country)
                 @Html.TextBoxFor(m => m.Country, new { @class = "inputText" })
 
-                @Html.LabelFor(m => m.SchoolType)
+                @Html.LabelFor(m => m.Type)
                 <select class="inputText" name="SchoolType">
                     <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
                     <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
