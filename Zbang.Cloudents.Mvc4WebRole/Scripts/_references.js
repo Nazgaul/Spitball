@@ -183,6 +183,7 @@
 /// <reference path="../js/directives/store/categorylink.js" />
 /// <reference path="../js/directives/store/productsmenu.js" />
 /// <reference path="../js/filters/store/percentage.js" />
+/// <reference path="../js/controllers/dashboard/socialinvitectrl.js" />
 <<<<<<< HEAD
 /// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/directives/quizgraph.js" />

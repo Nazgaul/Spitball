@@ -893,6 +893,7 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
+    <Content Include="Js\controllers\dashboard\socialInviteCtrl.js" />
     <Content Include="Js\controllers\general\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />

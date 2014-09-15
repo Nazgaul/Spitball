@@ -2,7 +2,10 @@
    ['$document', '$q', '$window',
    function ($document, $q, $window) {
        var facebookLoaded,
-           isAuthenticated = false;
+           isAuthenticated = false,
+           accessToken,
+           contacts = [];
+
        window.fbAsyncInit = function () {
            FB.init({
                appId: '450314258355338',
@@ -59,48 +62,89 @@
 
                return defer.promise;
            },
+           send: function (data) {
+               var dfd = $q.defer();
+
+               FB.ui({
+                   method: 'send',
+                   link: data.link,
+                   to: data.to
+               }, function (response) {
+                   dfd.resolve();
+
+                   ///dfd.reject();
+               });
+
+               return dfd.promise;
+           },
+           contacts: function (fields) {
+               var dfd = $q.defer();
+               friend;
+
+               if (contacts.length) {
+                   $timeout(function () {
+                       dfd.resolve(contacts);
+                   });
+                   return dfd.promise;
+               }
+
+               //id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)'
+               FB.api('/me/friends?fields=' + fields.toString(), function (response) {
+                   for (var i = 0, l = response.data.length; i < l; i++) {
+                       if (!response.data) {
+                           dfd.reject();
+                           return;
+                       }
+                       friend = response.data[i];
+                       contacts.push({
+                           id: friend.id,
+                           firstname: cd.escapeHtmlChars(friend.first_name),
+                           middlename: cd.escapeHtmlChars(friend.middle_name),
+                           lastname: cd.escapeHtmlChars(friend.last_name),
+                           name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name,
+                           userImage: 'null',
+                           username: friend.username,
+                           defaultImage: friend.picture.data.url,
+                           gender: friend.gender === 'male' ? 1 : 0
+                       });
+                   }
+                   dfd.resolve(contacts)
+               });
+
+               return dfd.promise;
+
+
+
+           },
            postFeed: function (text, link) {
                if (!this.isAuthenticated()) {
                    return;
                }
 
-               FB.api('/me/feed', 'post', { message: text, link: link }, function () {                   
+               FB.api('/me/feed', 'post', { message: text, link: link }, function () {
                });
            },
            getToken: function () {
+               return accessToken;
+           },
+           login: function () {
                var dfd = $q.defer();
+               FB.login(function (response) {
+                   if (response.status !== 'connected') {
+                       dfd.reject();
+                       return;
+                   }
+                   if (!response.authResponse.accessToken) {
+                       dfd.reject();
+                       return;
+                   }
 
-               if (!facebookLoaded) {
-                   var interval = setInterval(function () {
-                       if (!facebookLoaded) {
-                           return;
-                       }
-                       clearInterval(interval);
-                       getLoginStatus();
-                   }, 20);
-                   return dfd.promise;
-               }
-
-
-               getLoginStatus();
+                   isAuthenticated = true;
+                   accessToken = response.authResponse.authToken;
+                   dfd.resolve(true);
+               });
 
                return dfd.promise;
-
-               function getLoginStatus() {
-                   FB.getLoginStatus(function (response) {
-                       if (response.status === 'connected') {
-                           var token = response.authResponse.accessToken;
-                           if (!token) {
-                               dfd.reject();
-                           }
-
-                           dfd.resolve(token);
-                           isAuthenticated = true;
-                       }
-                   },
-                   function (a) {
-                   });
-               }
            },
            isAuthenticated: function () {
                return isAuthenticated;
