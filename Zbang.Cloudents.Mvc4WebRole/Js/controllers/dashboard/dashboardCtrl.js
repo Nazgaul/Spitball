@@ -1,4 +1,4 @@
-﻿var mDashboard = angular.module('mDashboard', ['wizard']);
+﻿var mDashboard = angular.module('mDashboard', ['wizard','InviteEmail']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',

@@ -1,4 +1,4 @@
-﻿var mWizardBoxCreate = mDashboard.controller('CreateBoxWizardCtrl',
+﻿mDashboard.controller('CreateBoxWizardCtrl',
      ['$scope', '$modalInstance', 'WizardHandler',
         function ($scope, $modalInstance, WizardHandler) {
 

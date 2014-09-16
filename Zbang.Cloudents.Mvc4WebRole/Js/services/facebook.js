@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$document', '$q', '$window',
-   function ($document, $q, $window) {
+   ['$document', '$q', '$window', '$timeout',
+   function ($document, $q, $window, $timeout) {
        var facebookLoaded,
            isAuthenticated = false,
            accessToken,
@@ -67,18 +67,22 @@
 
                FB.ui({
                    method: 'send',
-                   link: data.link,
+                   link: 'https://www.google.com',// window.location.origin + data.link,
                    to: data.to
                }, function (response) {
+                   if (!response) {
+                       dfd.reject();
+                       return;
+                   }
+
                    dfd.resolve();
 
-                   ///dfd.reject();
                });
 
                return dfd.promise;
            },
            contacts: function (fields) {
-               var dfd = $q.defer();
+               var dfd = $q.defer(),
                friend;
 
                if (contacts.length) {
@@ -102,9 +106,8 @@
                            middlename: cd.escapeHtmlChars(friend.middle_name),
                            lastname: cd.escapeHtmlChars(friend.last_name),
                            name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name,
-                           userImage: 'null',
                            username: friend.username,
-                           defaultImage: friend.picture.data.url,
+                           image: friend.picture.data.url,
                            gender: friend.gender === 'male' ? 1 : 0
                        });
                    }
@@ -129,20 +132,39 @@
            },
            login: function () {
                var dfd = $q.defer();
-               FB.login(function (response) {
-                   if (response.status !== 'connected') {
-                       dfd.reject();
-                       return;
-                   }
-                   if (!response.authResponse.accessToken) {
-                       dfd.reject();
+
+               FB.getLoginStatus(function (response) {
+                   if (response.status === 'connected') {
+                       accessToken = response.authResponse.accessToken;
+                       isAuthenticated = true;
+                       dfd.resolve();
                        return;
                    }
 
-                   isAuthenticated = true;
-                   accessToken = response.authResponse.authToken;
-                   dfd.resolve(true);
+                   login();
+
+               },
+               function (a) {
+                   login();
                });
+
+               function login() {
+                   FB.login(function (response) {
+                       if (response.status !== 'connected') {
+                           dfd.reject();
+                           return;
+                       }
+                       if (!response.authResponse.accessToken) {
+                           dfd.reject();
+                           return;
+                       }
+
+                       isAuthenticated = true;
+                       accessToken = response.authResponse.authToken;
+                       dfd.resolve(true);
+                   });
+               }
+
 
                return dfd.promise;
            },
