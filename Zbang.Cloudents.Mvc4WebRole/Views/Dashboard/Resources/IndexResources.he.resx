@@ -288,4 +288,7 @@
   <data name="RecommendedCourses" xml:space="preserve">
     <value>קורסים מומלצים</value>
   </data>
+  <data name="FreeOnline" xml:space="preserve">
+    <value>פלטפורמת הלימודים החברתית המובילה ברשת</value>
+  </data>
 </root>

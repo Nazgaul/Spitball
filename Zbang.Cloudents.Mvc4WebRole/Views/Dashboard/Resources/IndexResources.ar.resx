@@ -288,4 +288,10 @@
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>مرحبا Cloudents</value>
   </data>
+  <data name="FreeOnline" xml:space="preserve">
+    <value>منصة اجتماعية الإنترنت والهاتف المحمول المجانية دراسة</value>
+  </data>
+  <data name="FreeOnline1" xml:space="preserve">
+    <value>منصة اجتماعية الإنترنت والهاتف المحمول المجانية دراسة</value>
+  </data>
 </root>
