@@ -1,10 +1,11 @@
-﻿mWizardBoxCreate.controller('createAcademicBoxCtrl',
+﻿mDashboard.controller('createAcademicBoxCtrl',
         ['$scope',
          'sBox','$filter',
-         'WizardHandler', 'debounce', 'sLibrary','sUserDetails',
-function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails) {
+        'debounce', 'sLibrary','sUserDetails','$analytics',
+function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
     $scope.selectedDepartment = true;
-    var allDepartments;
+
+
 
     sLibrary.items().then(function (response) {
         var data = response.success ? response.payload : [];
@@ -13,6 +14,7 @@ function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails)
     });
 
     $scope.params.departmentSearch = sUserDetails.getDetails().department.name;
+
 
     $scope.create = function (isValid) {
 
@@ -24,27 +26,38 @@ function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails)
             $scope.formSubmit = false;
             var data = response.success ? response.payload : [];
             $scope.box.url = data.url;
-            wizardHandler.wizard().finish();
-            //WizardHandler.wizard().next();
+            $scope.box.id = data.id;
+            $scope.next();
         });
     };
 
-    $scope.cancel = function () {
-        // WizardHandler.wizard().finish();
-        wizardHandler.wizard().finish();
+ 
+    var allDepartments;
+
+
+    $scope.formData = {
+        academicBox: {
+            departmentId: sUserDetails.getDetails().department.id
+        }
     };
 
-    $scope.$on('newDep',function(response,dep) {
-        $scope.selectDepartment(dep);
-    });
+    $scope.backCreateDepartment = function () {
+        $scope.department = false;
+        $scope.display = { createDep: false };
+    };
 
-    $scope.changeDepartment = function () {
-        $scope.params.changeDepartment = true;
-        $scope.formData.departmentId = null;
-        $scope.params.departmentSearch = null;
-        $scope.selectedDepartment = null;
-        $scope.departments = $filter('orderBy')(allDepartments, 'name');
 
+    $scope.createDepartmentSubmit = function (isValid) {
+        if (!isValid) {
+            return;
+        }
+
+        sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
+            if (response.success) {
+                $scope.display.createDep = false;
+                $scope.selectDepartment({ id: response.payload.id, name: $scope.formData.createDepartment.name });                
+            }
+        });
     };
 
     $scope.selectDepartment = function (deparment) {
@@ -54,7 +67,8 @@ function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails)
         $scope.departments = null;
         $scope.params.changeDepartment = false;
     };
-    $scope.createDepartment = function() {
+
+    $scope.createDepartment = function () {
         $scope.display.createDep = true;
     };
 
@@ -73,6 +87,20 @@ function ($scope, sBox,$filter, wizardHandler, debounce, sLibrary, sUserDetails)
         }
 
     }, 200);
+
+    $scope.changeDepartment = function () {
+        $scope.params.changeDepartment = true;
+        $scope.formData.departmentId = null;
+        $scope.params.departmentSearch = null;
+        $scope.selectedDepartment = null;
+        $scope.departments = $filter('orderBy')(allDepartments, 'name');
+        
+        $analytics.eventTrack('Change department', {
+            category: 'Create box wizard',
+            label: 'User clicked change department'
+        });
+    };
+
    
 }
 ]);

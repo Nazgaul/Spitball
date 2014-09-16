@@ -1,4 +1,4 @@
-﻿var mDashboard = angular.module('mDashboard', ['wizard']);
+﻿var mDashboard = angular.module('mDashboard', ['wizard','InviteEmail']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
@@ -37,19 +37,17 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             templateUrl: $scope.partials.createBoxWized,
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
-           // resolve: {
-                //friends: function () {
-                    //return data.payload.my;
-                //}
-           // }
+            keyboard: false
         });
         modalInstance.result.then(function (url) {
-            
+
             $rootScope.params.createBoxWizard = false;
             if (url) {
                 $scope.newUniversity = 0;
                 $location.path(url);
             }
+        }, function () {
+            $rootScope.params.createBoxWizard = false; //user cancelled
         });
     };
     $scope.$on('$destroy', function () {

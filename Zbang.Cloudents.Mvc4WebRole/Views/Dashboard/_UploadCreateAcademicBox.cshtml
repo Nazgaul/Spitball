@@ -32,7 +32,7 @@
     </div>
     @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
     
-    <input type="submit" class="btn1  rFloat" wz-next ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
+    <input type="submit" class="btn1  rFloat" ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
 
     @_ChooseDeptAC.deptList()

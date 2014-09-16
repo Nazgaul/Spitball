@@ -224,7 +224,7 @@
             };
 
             for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
-                if ($scope.formData.emailList[i].name === item.name) {
+                if ($scope.formData.emailList[i].name === item.name || $scope.formData.emailList[i].id === item.id) {
                     alert('Contact already exists'); //translate
                     return;
                 }

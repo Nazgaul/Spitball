@@ -1,4 +1,4 @@
-﻿mWizardBoxCreate.controller('CreateBoxCtrl',
+﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
          'WizardHandler',
@@ -11,16 +11,12 @@
                  sBox.createPrivate($scope.formData).then(function (response) {
                      var data = response.success ? response.payload : [];
                      $scope.box.url = data.url;
-                     WizardHandler.wizard().finish();
+                     $scope.box.id = data.id;
+                     $scope.next();
                      //$modalInstance.close(box.payload || box.Payload);
                  });
                 
                 
-             };
-
-             $scope.cancel = function () {
-                 // WizardHandler.wizard().finish();
-                 WizardHandler.wizard().finish();
-             };
+             }; 
          }
         ]);

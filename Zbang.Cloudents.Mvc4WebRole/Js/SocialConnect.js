@@ -154,7 +154,7 @@
 
 
         var friend;
-        FB.api('/me/friends?fields=id,first_name,middle_name,last_name,gender,username,picture.height(34).width(34)', function (response) {
+        FB.api('/me/friends?fields=id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)', function (response) {
             for (var i = 0, l = response.data.length; i < l; i++) {
                 if (!response.data) {
                     return;

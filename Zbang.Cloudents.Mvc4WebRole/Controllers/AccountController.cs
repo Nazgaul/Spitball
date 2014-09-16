@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return string.Empty;
         }
 
-
+        //TODO: do a post on log out
         public ActionResult LogOff()
         {
 
@@ -681,10 +681,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ChildActionOnly]
         public ActionResult GetUserDetail3()
         {
-            const string userDatailView = "_UserDetail3";
+            const string userDetailView = "_UserDetail3";
             if (User == null || !(User.Identity.IsAuthenticated))
             {
-                return PartialView(userDatailView);
+                return PartialView(userDetailView);
             }
             try
             {
@@ -693,7 +693,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var serializer = new JsonNetSerializer();
                 var jsonRetVal  = serializer.Serialize(retVal);
                 ViewBag.userDetail = jsonRetVal;
-                return PartialView(userDatailView, retVal);
+                return PartialView(userDetailView, retVal);
             }
             catch (UserNotFoundException)
             {

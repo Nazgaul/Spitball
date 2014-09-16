@@ -94,7 +94,7 @@ app.config([
             templateUrl: function (params) {
                 //return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
                 //    + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
-                return '/item/?boxId=' + params.boxId + '&itemId=' + params.itemId;
+                return '/item/IndexPartial/';
             }
         }).
         when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {

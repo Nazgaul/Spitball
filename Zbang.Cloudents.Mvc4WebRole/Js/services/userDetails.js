@@ -60,10 +60,13 @@
          //    }
          //},
          getDepartment: function () {
-             if (_.isEmpty(userData.department)) {
+             if (!userData.department.id) {
                  return false;
              }
-             return userData.university;
+             //if (_.isEmpty(userData.department)) {
+             //    return false;
+             //}
+             return userData.department;
              
          },
          setDepartment: function (department) {             

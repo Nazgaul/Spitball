@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private string BuildQuery(string term)
         {
-            return term.Replace(" ", "+") + "*";
+            return Uri.EscapeDataString(term.Replace(" ", "+") + "*");
         }
 
         public void Dispose()

@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
                 var retVal = result.NewBox.Url;
-                return Json(new JsonResponse(true, new { Url = retVal }));
+                return Json(new JsonResponse(true, new { Url = retVal , result.NewBox.Id }));
 
             }
             catch (Exception ex)

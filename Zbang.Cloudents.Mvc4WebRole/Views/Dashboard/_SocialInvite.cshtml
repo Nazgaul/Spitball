@@ -2,145 +2,60 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Share.Resources
 
-<section class="socialInvite  js--cloudState js--fbState js--gmState">
+<section class="socialInvite" ng-controller="SocialInviteCtrl" ng-class="params.stateClass">
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
-        <button class="cloudentsBtn"></button>
-        <button class="fbBtn"></button>
-        <button class="gmailBtn"></button>
+        <button class="cloudentsBtn" ng-click="selectState('cl')"></button>
+        <button class="fbBtn" ng-click="selectState('fb')"></button>
+        <button class="gmailBtn" ng-click="selectState('go')"></button>
     </div>
 
+    <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
+        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch"/>
 
-    @*Guy: If not connected to gmail or fb then add class 'jsNotConnected' here*@
-    <div class="socialContentWpr">
-        <input class="cloudInput" type="search" placeholder="@IndexResources.SearchCloudents" />
-        <input class="fbInput" type="search" placeholder="@IndexResources.SearchFb" />
-        <input class="gmInput" type="search" placeholder="@IndexResources.SearchGmail" />
+        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+            <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
+                <img width="64" height="64" bo-src="contact.image" alt="" />
+                <div bo-text="contact.name"></div>
+                <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
+            </li>
 
-        @*Guy: Add class 'noResults' if user has no friends in current social category*@
-        <ul class="socialList">
-            @*Guy: Add class 'jsInviteSent' to li when user presses the Invite button*@
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            <li class="lFloat">
-                <img width="64" height="64" src="http://placehold.it/64x64" alt="" />
-                <div>Shlomi Kastoryano</div>
-                <button  data-sent-txt="@SharedResources.Sent">@SharedResources.Invite</button>
-            </li>
-            
+
             <li class="emptySearch">@SharedResources.NoResults</li>
         </ul>
 
         <div class="socialConnect">
             <div class="socialConnectTxt" data-find-fb="@IndexResources.FindFb" data-find-gm="@IndexResources.FindGmail"></div>
-            <button class="btn3">@SharedResources.Connect</button>
+            <button class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>
         </div>
     </div>
     <div class="btnWpr">
-        <input type="submit" class="btn1 wz-next" value="@DialogResources.Continue" />
         <button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>
+        <input type="button" class="btn1 wz-next" ng-click="completeWizard()" value="@DialogResources.Continue" />
     </div>
+    <div fb-block ng-if="params.facebookInvite"></div>
 </section>
 @*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
-<aside class="invSidebar rFloat">
-    <form id="" class="invForm">
+<aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit(inviteByEmailForm)">
         <h3>@IndexResources.InviteViaEmail</h3>
 
         <div class="inputText emailUser">
             <div class="inviteEmailListWpr">
-                <ul id="" class="emailList"></ul>
-                <input id="" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate">
+                <ul class="emailList">
+                    <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
+                        <span class="emailText">{{email.address}}</span><button type="button" class="removeItem" ng-click="remove(email)"></button>
+                    </li>
+                </ul>
+                <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"
+                       ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
             </div>
         </div>
         <div class="invSent">
             <h4>@InviteResources.Success!</h4>
             <div>@InviteResources.MailSent</div>
         </div>
-
-        <button id="" type="submit" class="rFloat btn1">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || params.validEmails === 0 || params.invalidEmails > 0">@DialogResources.Send</button>
     </form>
 </aside>

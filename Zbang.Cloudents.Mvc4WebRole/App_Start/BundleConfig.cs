@@ -179,7 +179,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/dashboard/dashboardCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxWizardCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createBoxCtrl.js"),
+                new JsFileWithCdn("/js/controllers/dashboard/inviteEmailCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createAcademicBoxCtrl.js"),
+                new JsFileWithCdn("/js/controllers/dashboard/SocialInviteCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libChooseCtrl.js"),
@@ -211,6 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/userDetails.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/fbBlock.js"),
                 new JsFileWithCdn("/js/directives/loadSpinner.js"),
 
                 new JsFileWithCdn("/js/directives/scrollToTop.js"),

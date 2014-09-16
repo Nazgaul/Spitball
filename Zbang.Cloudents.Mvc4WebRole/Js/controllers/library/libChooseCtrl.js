@@ -11,7 +11,7 @@
          '$analytics',
          '$rootScope',
 
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails,$analytics, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics, $rootScope) {
 
              $scope.formData = {};
              $scope.display = {
@@ -20,24 +20,26 @@
 
              var allDepartments;
 
-             sFacebook.getToken().then(function (token) {
-                 sLibrary.facebookFriends({ authToken: token }).then(function (response) {
-                     var data = response.success ? response.payload : [];
-                     $scope.FBUniversities = data;
+             if (!sFacebook.isAuthenticated()) {
+                 sFacebook.login().then(function (response) {
+                     sLibrary.facebookFriends({ authToken: sFacebook.getToken() }).then(function (response) {
+                         var data = response.success ? response.payload : [];
+                         $scope.FBUniversities = data;
 
-                     if (!data.length) {
-                         $analytics.eventTrack('no facebook', {
-                             category: 'Select university'                             
-                         });
-                     }
+                         if (!data.length) {
+                             $analytics.eventTrack('no facebook', {
+                                 category: 'Select university'
+                             });
+                         }
 
-                     if (!$scope.display.search || $scope.formData.searchInput) {
-                         $scope.display.facebook = true;
-                     }
+                         if (!$scope.display.search || $scope.formData.searchInput) {
+                             $scope.display.facebook = true;
+                         }
 
 
+                     });
                  });
-             });
+             }
 
              $timeout(function () {
                  $scope.$emit('viewContentLoaded');
@@ -79,7 +81,7 @@
                          });
                          return;
                      }
-                     
+
                      $analytics.eventTrack('empty search', {
                          category: 'Select university',
                          label: query
@@ -88,7 +90,7 @@
              }, 200);
 
 
-             $scope.selectUniversity = function (university,isFacebook) {
+             $scope.selectUniversity = function (university, isFacebook) {
                  $scope.selectedUni = university;
                  sLibrary.updateUniversity({ UniversityId: university.id }).then(function (response) {
                      var data = response.success ? response.payload : [];
@@ -99,7 +101,7 @@
                          if (isFacebook) {
                              $analytics.eventTrack('Facebook choose', {
                                  category: 'Select university',
-                                 label: university.name                                 
+                                 label: university.name
                              });
                          }
 
@@ -152,13 +154,13 @@
                  $scope.createDepartmentForm.$invalid = true;
                  sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
                      if (response.success) {
-                        
+
                          sUserDetails.setDepartment({
                              name: $scope.formData.createDepartment.name,
                              id: response.payload.id
                          });
                          $location.path('/dashboard/');
-                        
+
                      }
                  });
              };
@@ -167,7 +169,7 @@
 
              //#region choose department
              $scope.searchDepartment = debounce(function () {
-                 if (!$scope.params.departmentSearch) {                     
+                 if (!$scope.params.departmentSearch) {
                      $scope.departments = $filter('orderBy')(allDepartments, 'name');
                      $scope.selectedDepartment = null;
                      return;
@@ -180,7 +182,7 @@
                  if (allDepartments.length) {
                      $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
                  }
-                 
+
 
              }, 200);
 
@@ -220,7 +222,7 @@
                  $scope.display.createUniversity = true;
                  $scope.display.search = $scope.display.searchUniversity = $scope.display.facebook
                      = $scope.display.complete = $scope.display.choose = false;
-                 
+
              };
 
              $scope.createUniversitySubmit = function (isValid) {
