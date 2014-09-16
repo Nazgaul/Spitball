@@ -9,9 +9,13 @@
                      return;
                  }
                  sBox.createPrivate($scope.formData).then(function (response) {
-                     var data = response.success ? response.payload : [];
-                     $scope.box.url = data.url;
-                     WizardHandler.wizard().finish();
+                     if (response.success) {
+                         var data =  response.payload || {};
+                         $scope.box.url = data.url;
+                         WizardHandler.wizard().finish();
+                         return;
+                     }
+                     $scope.formData.error = response.payload[0].value[0];
                      //$modalInstance.close(box.payload || box.Payload);
                  });
                 

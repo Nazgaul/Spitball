@@ -254,7 +254,7 @@
             </span>
 
             <section class="upInvites" ng-if="profile.isSelf" ng-class="{empty: !invites.list.length}">
-                <a href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
+                <a href="@Url.RouteUrl("Invite")" target="_self" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
                 <div class="upSectionWpr" ng-class="{ truncated : !((invites.list.length > invites.init) && profile.isSelf)}" load-spinner="invites.loading">
 

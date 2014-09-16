@@ -1,13 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @model Zbang.Cloudents.Mvc4WebRole.Models.CreateBox
-<form name="createPrivateBox" ng-class="{error : submitted && createPrivateBox.BoxName.$error.required}" class="createPrivateBox" ng-controller="CreateBoxCtrl" ng-submit="create(createPrivateBox.$valid)" novalidate>
+<form name="createPrivateBox" ng-class="{error : submitted && formData.error.length}" class="createPrivateBox" ng-controller="CreateBoxCtrl" ng-submit="create(createPrivateBox.$valid)" novalidate>
 
     @Html.LabelFor(m => m.BoxName)
-    <span class="error">@DialogResources.RequiredField</span>
+    <span class="error">{{formData.error}}</span>
     <input type="text" name="BoxName" class="inputText boxName" ng-model="formData.boxName" required autocomplete="off" />
 
     @*@Html.AntiForgeryToken()*@
-    <input type="submit" class="btn1 wz-next rFloat" ng-click="submitted = true" ng-disabled="createBoxForm.$invalid" value="@DialogResources.Create" />
+    <input type="submit" class="btn1 wz-next rFloat" ng-click="submitted = true" ng-disabled="createPrivateBox.$invalid" value="@DialogResources.Create" />
     <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
 </form>

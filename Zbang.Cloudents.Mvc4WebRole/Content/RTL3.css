@@ -2790,6 +2790,7 @@ body.quiz .shareBtn {
 .quizAList li {
   margin: 0 13px -26px 0;
   /*diff rtl for bottom*/
+  list-style-type: decimal;
 }
 .quizAList li:before {
   padding: 0 18px 0 0;
