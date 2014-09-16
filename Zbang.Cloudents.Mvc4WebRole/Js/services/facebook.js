@@ -11,7 +11,7 @@
               xfbml: true,
               oauth: true
           });
-          facebookLoaded = true;
+          
           getLoginStatus();
       };
       (function (d) {
@@ -94,6 +94,7 @@
       }
       function getLoginStatus() {
           FB.getLoginStatus(function (response) {
+              facebookLoaded = true;
               if (response.status === 'connected') {
                   isAuthenticated = true;
               }
