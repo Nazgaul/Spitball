@@ -600,4 +600,7 @@
     <value>رسالة شخصية
 </value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>اكتب تعليقاً...</value>
+  </data>
 </root>

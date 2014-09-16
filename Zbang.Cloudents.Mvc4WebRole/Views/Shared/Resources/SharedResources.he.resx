@@ -586,4 +586,7 @@
   <data name="PersonalMsg" xml:space="preserve">
     <value>הודעה אישית</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>כתוב תגובה</value>
+  </data>
 </root>

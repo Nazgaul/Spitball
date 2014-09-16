@@ -134,49 +134,50 @@
         </div>
     </div>
 
-
     <div class="leftPanel lFloat">
-            @*<span class="lFloat" data-bind="text: update"></span>*@
-            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">
-                <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
-                <span>@ItemsResources.Flag</span>
-            </button>
-            @*<div class="actions">
+        @*<span class="lFloat" data-bind="text: update"></span>*@
+        <button type="button" class="itemFlag" data-bind="click: flagItem, visible: flagAllow()">
+            <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
+            <span>@ItemsResources.Flag</span>
+        </button>
 
-                    <div id="rateContainer" class="rFloat rateContainer">
-                        <span class="stars">
-                            <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
-                        </span>
-                        <button type="button" id="rateBtn" class="rateBtn"></button>
-                        <div id="rateBubble" class="bubble">
-                            <div class="arrow upArrow"></div>
-                            <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
-
-                            <ul class="rateList">
-                                <li id="star5" class="star">5</li>
-                                <li id="star4" class="star star4">4</li>
-                                <li id="star3" class="star star3">3</li>
-                                <li id="star2" class="star star2">2</li>
-                                <li id="star1" class="star star1">1</li>
-                            </ul>
-                        </div>
+        <section class="itemComments">
+            <header>@SharedResources.AddComment</header>
+            <form class="clearfix itemCommentsForm">
+                <div class="textareaWpr">
+                    <textarea text-direction msd-elastic class="commentsTextarea" required ></textarea>
+                    <div class="rFloat">
+                        <button type="submit" class="post">@SharedResources.Post</button>
+                        <button type="button" class="cancel"></button>
                     </div>
-
-                </div>*@
-
-        @*<h3 class="sectionHeader">@ItemsResources.Additional</h3>
-            <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
-                <li data-bind="css: { select: select }" class="moreFilesItem">
-                    <a data-bind="attr: { href: itemUrl }">
-                        <div class="moreFilesThumb" data-bind="text: extension, css: extensionColor"></div>
-                        <div class="moreFilesData">
-                            <div class="elps moreFilesName boldFont" data-bind="text: nameNoType"></div>
-                            <div class="elps" data-bind="text: uploader"></div>
-                        </div>
-                    </a>
+                </div>
+            </form>
+            <ul class="itemCommentsList">
+                <li>
+                    <span>Posted by</span>
+                    <span><a href="#">{User-name}</a></span>
+                    <time>27th August</time>
+                    <p>{the post which the poter posted goes right here!!}</p>
+                    <button type="button">@SharedResources.AddComment</button>
                 </li>
-            </ul>*@
+                <li>
+                    <span>Posted by</span>
+                    <span><a href="#">{User-name}</a></span>
+                    <time>27th August</time>
+                    <p>{the post which the poter posted goes right here!!}</p>
+                    <button type="button">@SharedResources.AddComment</button>
+                </li>
+                <li>
+                    <span>Posted by</span>
+                    <span><a href="#">{User-name}</a></span>
+                    <time>27th August</time>
+                    <p>{the post which the poter posted goes right here!!}</p>
+                    <button type="button">@SharedResources.AddComment</button>
+                </li>
+            </ul>
+        </section>
     </div>
+
     <div class="itemRight">
         @*<div id="ratePopup" class="ratePopup">
                 <div class="rateTxt2">@SharedResources.SweetThanks</div>
@@ -225,7 +226,7 @@
         <div class="itemPreview scrollEffect" id="itemPreview">
             <div class="previewWrapper" id="previewWrapper"></div>
         </div>
-        <form id="AddAnotation" class="addAnotation">
+        @*<form id="AddAnotation" class="addAnotation">
             <img class="lFloat" width="32" height="32" alt="" />
             <div class="annotateContent">
                 <div id="annotator" class="annotator semiFont elps"></div>
@@ -242,7 +243,7 @@
             <div>@ItemsResources.SimplyClick</div>
             <div>@ItemsResources.MouseCursor</div>
             <div>@ItemsResources.OverDoc</div>
-        </div>
+        </div>*@
     </div>
     @*<script type="text/html" id="anotationTmpl" class="anotationTmpl">
             <div class="readView">
@@ -269,10 +270,10 @@
     <div class="modal2" id="itemModel"></div>
 </div>
 
-<script type="text/html" id="rateItemPopup">
+@*<script type="text/html" id="rateItemPopup">
     <div> Rate this item:</div>
     <div><span>* </span><span>* </span><span>* </span><span>* </span><span>* </span></div>
-</script>
+</script>*@
 
 @*@if (Request.IsAjaxRequest())
     {

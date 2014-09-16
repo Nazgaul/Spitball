@@ -133,6 +133,12 @@ body.item {
     height: 21px;
     fill: #fff;
 }
+.svg-flag {
+    width: 21px;
+    height: 30px;
+    fill: #fff;
+    margin-right: 5px;
+}
 /*#endregion */
 
 /*#region item topBars */
@@ -282,7 +288,7 @@ body.item {
         display: inline-block;
     }
     .rateWpr {
-        width: 115px;
+        width: 126px;
         position: relative;
         top: 23px;
         cursor: pointer;
@@ -298,7 +304,7 @@ body.item {
         margin-right: 5px;
     }
     .svg-star {
-        width: 23px; //width=20 but 23px for space between stars
+        width: 25px; //width=20 but 23px for space between stars
         float: right; //rtl
         &:hover
         {
@@ -359,6 +365,7 @@ body.item {
     margin: 10px -24px 0 0;
     position: relative;
     .boxSizing;
+    font-weight: normal;
     /*.itemNameText {
         //line-height: 1.0;
         //display: inline-block;
@@ -383,8 +390,6 @@ body.item {
 
 
 /*#endregion */
-
-
 
 /*#endregion */
 
@@ -683,21 +688,58 @@ body.item {
 }
 
 .itemFlag
-{    
-    &:before
+{   
+    display: block;
+    color: #fff;
+    font-size: 15px;
+    &:hover {
+        .svg-flag {
+            fill: #3399ff;
+        }
+    }
+    /*&:before
     {
         .pseudo;
         width: 15px;
         height: 17px;
         background: @item-sprite1 -70px -2px no-repeat;
         vertical-align: middle;
-        margin-right: 5px; /*rtl*/
+        margin-right: 5px; //rtl
     }
     &:hover:before {
         background-position: -71px -21px;
-    }
+    }*/
 }
-
+.itemComments {
+    color: #fff;
+    border-top: 1px solid #fff;
+    header {
+        font-size: 20px;
+        color: #3399ff;
+        padding: 15px 0 10px;
+    }
+    .textareaWpr {
+        /* background: #fff; */
+        background: none;
+        border: none;
+        overflow: hidden;
+        
+    }
+    textarea {
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        width: 100%;
+    }
+    .post {
+        font-size: 15px;
+        color: #fff;
+    }
+    .cancel {
+        font-size: 15px;
+        color: #3399ff;
+    }
+    
+}
 /*#endregion */
 
 /*#region OBSOLETE: top action buttons and print drop down */
