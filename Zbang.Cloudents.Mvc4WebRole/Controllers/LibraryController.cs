@@ -41,6 +41,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_FacebookService = facebookService;
         }
 
+        public ActionResult DepartmentRedirect()
+        {
+            return RedirectToRoute("Default", new {controller = "Library", Action = "Index"});
+        }
 
         //[UserNavNWelcome]
         [HttpGet]
