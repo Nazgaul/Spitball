@@ -66,12 +66,6 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
         $scope.params.departmentSearch = $scope.selectedDepartment.name;
         $scope.departments = null;
         $scope.params.changeDepartment = false;
-
-        sLibrary.chooseDeparment({ id: deparment.id }).then(function (response) {
-            if (response.success) {
-                sUserDetails.setDepartment($scope.selectedDepartment);           
-            }
-        });
     };
 
     $scope.createDepartment = function () {
