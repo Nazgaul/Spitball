@@ -37,6 +37,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             templateUrl: $scope.partials.createBoxWized,
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
+            keyboard: false
            // resolve: {
                 //friends: function () {
                     //return data.payload.my;
