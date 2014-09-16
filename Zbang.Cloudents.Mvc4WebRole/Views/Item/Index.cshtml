@@ -100,13 +100,13 @@
 
     <div class="secondBar">
         <div class="leftPart">
-            <span class="lFloat">
+            <span class="lFloat views" tooltip="@SharedResources.Views">
                 <svg class="svg-eye"><use xlink:href="~/Images/Defs.svg#eye" /></svg>
-                <span tooltip="@SharedResources.Views" class="views" data-bind="text: numberOfViews"></span>
+                <span data-bind="text: numberOfViews"></span>
             </span>
-            <span class="downloads">
+            <span class="downloads" tooltip="@SharedResources.Downloads">
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
-                <span tooltip="@SharedResources.Downloads" id="item_down" data-bind="text: numberOfDownloads"></span>
+                <span id="item_down" data-bind="text: numberOfDownloads"></span>
             </span>
             <div class="rateWpr rFloat">
                 <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
@@ -117,13 +117,18 @@
             </div>
         </div>
 
-        <div class="mainPart documentTop">
+        <div class="mainPart">
             <button type="button" class="rFloat"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
             <button type="button" class="lFloat"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
             <div class="itemNameWpr">
-                <h2 class="item-name semiFont elps"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span></h2>
-                <div class="itemOwner elps calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
-                <button class="itemRenameBtn" tooltip="@SharedResources.Rename" id="itemSettings" type="button"></button>
+                <h2 class="item-name elps lFloat">
+                    <span data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span>
+                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" id="itemSettings" type="button">
+                        <svg class="svg-pencil"><use xlink:href="~/Images/Defs.svg#pencil" /></svg>
+                    </button>
+                </h2>
+                <div class="itemOwner calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
+                
             </div>
             
         </div>

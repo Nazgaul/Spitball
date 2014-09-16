@@ -1,8 +1,11 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
 /*#region layout */
+body.item .siteHeader {
+  background: #0f0f0f;
+}
 .itemPage,
 .boxPage,
 .quizPage {
@@ -22,9 +25,6 @@
 }
 .itemRight {
   background: #282828;
-  /*.shareDD{
-        right: 0; //rtl
-    }*/
 }
 .itemPage .topBar {
   color: #fff;
@@ -56,6 +56,9 @@
 .itemPage .backWpr:before {
   display: none;
 }
+.itemPage .shareDD {
+  top: 75px;
+}
 .itemPage .leftPanel {
   height: calc(100vh - 200px);
   margin-top: 150px;
@@ -80,60 +83,6 @@
 }
 .itemPage canvas {
   display: none;
-}
-.secondBar {
-  width: 100%;
-  height: 70px;
-  position: fixed;
-  z-index: 1;
-  background: #282828;
-  color: #fff;
-  text-align: center;
-  top: 130px;
-}
-.secondBar .leftPart {
-  height: 70px;
-  text-align: center;
-  line-height: 70px;
-}
-.secondBar .downloads {
-  display: inline-block;
-}
-.secondBar .rateWpr {
-  width: 115px;
-  position: relative;
-  top: 23px;
-  cursor: pointer;
-}
-.secondBar .svg-eye {
-  position: relative;
-  top: 3px;
-}
-.secondBar .svg-download {
-  position: relative;
-  top: 6px;
-}
-.secondBar .svg-star {
-  width: 23px;
-  float: right;
-}
-.secondBar .svg-star:hover {
-  fill: gold;
-}
-.secondBar .svg-star:hover ~ .svg-star {
-  fill: gold;
-}
-.secondBar .mainPart {
-  width: 800px;
-  height: 70px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin-left: 290px;
-  display: inline-block;
-}
-.secondBar .mainPart button {
-  padding-top: 25px;
 }
 /*#endregion */
 /*#region svg icons */
@@ -186,8 +135,14 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.svg-pencil {
+  width: 17px;
+  height: 21px;
+  fill: #fff;
+}
 /*#endregion */
 /*#region item topBars */
+/*#region topBar - main */
 .middleActionList {
   display: inline-block;
   height: 80px;
@@ -288,47 +243,121 @@
   margin-top: 5px;
 }
 /*#endregion */
-.itemRenameBtn {
-  display: none;
-  position: absolute;
-  top: -12px;
-  right: 0;
-  margin: 0;
-  background: url(/Images/common17-sprite.png?v=2) -72px -42px no-repeat;
-  width: 23px;
-  height: 23px;
+/*#endregion */
+/*#region second bar - left */
+.secondBar {
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  z-index: 1;
+  background: #282828;
+  color: #3399ff;
+  text-align: center;
+  top: 130px;
 }
+.secondBar .leftPart {
+  height: 70px;
+  text-align: center;
+  font-size: 15px;
+}
+.secondBar .views {
+  padding-top: 23px;
+}
+.secondBar .downloads {
+  padding-top: 17px;
+  display: inline-block;
+}
+.secondBar .rateWpr {
+  width: 115px;
+  position: relative;
+  top: 23px;
+  cursor: pointer;
+}
+.secondBar .svg-eye {
+  position: relative;
+  top: 3px;
+  margin-right: 5px;
+}
+.secondBar .svg-download {
+  position: relative;
+  top: 6px;
+  margin-right: 5px;
+}
+.secondBar .svg-star {
+  width: 23px;
+  float: right;
+}
+.secondBar .svg-star:hover {
+  fill: #ffc104;
+}
+.secondBar .svg-star:hover ~ .svg-star {
+  fill: #ffc104;
+}
+.secondBar .mainPart {
+  width: 800px;
+  height: 70px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: 290px;
+  display: inline-block;
+}
+.secondBar .mainPart > button {
+  padding-top: 25px;
+}
+.secondBar .mainPart:hover .itemRenameBtn {
+  display: block;
+}
+/*#endregion */
+/*#region second bar - main */
 .itemOwner {
   text-align: left;
+  color: #fff;
+  clear: both;
 }
 .itemNameWpr {
   display: inline-block;
+  position: relative;
+}
+.itemRenameBtn {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 0;
 }
 .item-name {
   text-align: left;
   color: #3399ff;
   font-size: 20px;
   max-width: 750px;
-  margin-top: 10px;
-}
-.item-name .itemNameText {
-  width: 220px;
-  height: 42px;
-  overflow: hidden;
-  vertical-align: middle;
-  -ms-word-break: break-word;
-  word-break: break-word;
-}
-.item-name .itemNameText.editable {
-  border: 1px solid #0f9d58;
+  padding-right: 24px;
+  margin: 10px -24px 0 0;
+  position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 2px 8px 2px 4px;
-  /*rtl*/
-  height: 28px;
-  margin-bottom: 14px;
+  /*.itemNameText {
+        //line-height: 1.0;
+        //display: inline-block;
+        //display: table-cell;
+        //line-height: 22px;
+        width: 220px;
+        height: 42px;
+        overflow: hidden;
+        vertical-align: middle;
+        -ms-word-break: break-word;
+        word-break: break-word;
+
+        &.editable {
+            border: 1px solid @color;
+            .boxSizing;
+            padding: 2px 8px 2px 4px; //rtl
+            height: 28px;
+            margin-bottom: 14px;
+        }
+    }*/
 }
+/*#endregion */
 /*#endregion */
 /*#region rate */
 /*.ratePopup{
@@ -1488,3 +1517,4 @@ body.fulscrn .itemPage {
   top: 50px;
 }
 /*#endregion */
+/*# sourceMappingURL=Item3.css.map */

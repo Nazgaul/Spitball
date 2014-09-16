@@ -1,6 +1,12 @@
 ﻿@import "varsAndMixins";
 
 /*#region layout */
+body.item {
+    .siteHeader {
+        background: #0f0f0f;
+    }
+}
+
 .itemPage, .boxPage, .quizPage {
     width: 100%;
     height: 100%;
@@ -15,9 +21,6 @@
 .itemRight
 {
     background: #282828;
-    /*.shareDD{
-        right: 0; //rtl
-    }*/
 }
 .itemPage {
     .topBar{
@@ -48,6 +51,9 @@
     .backWpr:before {
         display: none;
     }
+    .shareDD{
+        top: 75px;
+    }
     .leftPanel {
         @topOffset: @header-height + @topBarHeight + @secondBarHeight;
         height: ~'calc(100vh - @{topOffset})';
@@ -72,63 +78,7 @@
     }
 }
 
-.secondBar {
-    width: 100%;
-    height: @secondBarHeight;
-    position: fixed;
-    z-index: 1;
-    background: #282828;
-    //background: pink;
-    color: #fff;
-    text-align: center;
-    top: @header-height + @topBarHeight;
-    .leftPart {
-        height: @secondBarHeight;
-        text-align: center;
-        line-height: @secondBarHeight;
-    }
-    .downloads {
-        display: inline-block;
-    }
-    .rateWpr {
-        width: 115px;
-        position: relative;
-        top: 23px;
-        cursor: pointer;
-    }
-    .svg-eye{
-        position: relative;
-        top: 3px;
-    }
-    .svg-download {
-        position: relative;
-        top: 6px;
-    }
-    .svg-star {
-        width: 23px; //width=20 but 23px for space between stars
-        float: right; //rtl
-        &:hover
-        {
-            fill: gold;
-            ~ .svg-star
-            {
-                fill: gold;
-            }
-        }
-    }
-    .mainPart {
-        width: 800px;
-        //text-align: center;
-        height: @secondBarHeight;
-        .boxSizing;
-        margin-left: @leftSideBarWidth;
-        display: inline-block;
-        //vertical-align: top;
-        button {
-            padding-top: 25px;
-        }
-    }
-}
+
 
 /*#endregion */
 
@@ -178,10 +128,16 @@
 .svg-prev {
     .flipH;
 }
+.svg-pencil {
+    width: 17px;
+    height: 21px;
+    fill: #fff;
+}
 /*#endregion */
 
 /*#region item topBars */
 
+/*#region topBar - main */
 .middleActionList{
     //display: table;
     //table-layout: fixed;
@@ -299,36 +255,111 @@
 
 /*#endregion */
 
-.itemRenameBtn{
-    display: none;
-    position: absolute;
-    top: -12px;
-    right: 0; //rtl
-    margin: 0;
-    background: url(/Images/common17-sprite.png?v=2) -72px -42px no-repeat;
-    width: 23px;
-    height: 23px;
+/*#endregion */
+
+/*#region second bar - left */
+.secondBar {
+    width: 100%;
+    height: @secondBarHeight;
+    position: fixed;
+    z-index: 1;
+    background: #282828;
+    //background: pink;
+    color: #3399ff;
+    text-align: center;
+    top: @header-height + @topBarHeight;
+    .leftPart {
+        height: @secondBarHeight;
+        text-align: center;
+        //line-height: @secondBarHeight;
+        font-size: 15px;
+    }
+    .views {
+        padding-top: 23px;
+    }
+    .downloads {
+        padding-top: 17px;
+        display: inline-block;
+    }
+    .rateWpr {
+        width: 115px;
+        position: relative;
+        top: 23px;
+        cursor: pointer;
+    }
+    .svg-eye{
+        position: relative;
+        top: 3px;
+        margin-right: 5px;
+    }
+    .svg-download {
+        position: relative;
+        top: 6px;
+        margin-right: 5px;
+    }
+    .svg-star {
+        width: 23px; //width=20 but 23px for space between stars
+        float: right; //rtl
+        &:hover
+        {
+            fill: #ffc104;
+            ~ .svg-star
+            {
+                fill: #ffc104;
+            }
+        }
+    }
+    .mainPart {
+        width: 800px;
+        //text-align: center;
+        height: @secondBarHeight;
+        .boxSizing;
+        margin-left: @leftSideBarWidth;
+        display: inline-block;
+        
+        > button {
+            padding-top: 25px;
+        }
+        &:hover {
+            .itemRenameBtn {
+                display: block;
+            }
+        }
+    }
 }
 
+
+/*#endregion */
+
+/*#region second bar - main */
 .itemOwner
 {
     text-align: left;
-    //margin: 6px 0;
-    //clear: both; 
+    color: #fff;
+    clear: both;
 }
-.itemNameWpr // this is needed to prevent the itemname - which is a table cell - to overflow height with large names. 
+.itemNameWpr
 {
-    //height: 44px;
-    //overflow: hidden;
     display: inline-block;
+    position: relative;
 }
+.itemRenameBtn{
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 0;
+}
+
 .item-name {
     text-align: left;
     color: #3399ff;
     font-size: 20px;
     max-width: 750px;
-    margin-top: 10px;
-    .itemNameText {
+    padding-right: 24px;
+    margin: 10px -24px 0 0;
+    position: relative;
+    .boxSizing;
+    /*.itemNameText {
         //line-height: 1.0;
         //display: inline-block;
         //display: table-cell;
@@ -343,12 +374,17 @@
         &.editable {
             border: 1px solid @color;
             .boxSizing;
-            padding: 2px 8px 2px 4px; /*rtl*/
+            padding: 2px 8px 2px 4px; //rtl
             height: 28px;
             margin-bottom: 14px;
         }
-    }
+    }*/
 }
+
+
+/*#endregion */
+
+
 
 /*#endregion */
 
