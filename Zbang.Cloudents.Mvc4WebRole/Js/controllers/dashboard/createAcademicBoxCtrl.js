@@ -1,8 +1,8 @@
-﻿mWizardBoxCreate.controller('createAcademicBoxCtrl',
+﻿mDashboard.controller('createAcademicBoxCtrl',
         ['$scope',
          'sBox','$filter',
-        'debounce', 'sLibrary','sUserDetails',
-function ($scope, sBox,$filter,debounce, sLibrary, sUserDetails) {
+        'debounce', 'sLibrary','sUserDetails','$analytics',
+function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
     $scope.selectedDepartment = true;
 
 
@@ -100,7 +100,11 @@ function ($scope, sBox,$filter,debounce, sLibrary, sUserDetails) {
         $scope.params.departmentSearch = null;
         $scope.selectedDepartment = null;
         $scope.departments = $filter('orderBy')(allDepartments, 'name');
-
+        
+        $analytics.eventTrack('Change department', {
+            category: 'Create box wizard',
+            label: 'User clicked change department'
+        });
     };
 
    

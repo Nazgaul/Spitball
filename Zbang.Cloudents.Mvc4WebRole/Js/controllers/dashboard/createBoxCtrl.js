@@ -1,4 +1,4 @@
-﻿mWizardBoxCreate.controller('CreateBoxCtrl',
+﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
          'WizardHandler',

@@ -898,6 +898,7 @@
     <Content Include="Js\controllers\general\shareCtrl.js" />
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
+    <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
@@ -1359,6 +1360,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\Factories\" />
+    <Folder Include="Js\controllers\invite\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

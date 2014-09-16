@@ -37,20 +37,25 @@
     <div fb-block ng-if="params.facebookInvite"></div>
 </section>
 @*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
-<aside class="invSidebar rFloat" ng-class="{invSucces: params.invFormSent }">
-    <form id="" class="invForm">
+<aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit(inviteByEmailForm)">
         <h3>@IndexResources.InviteViaEmail</h3>
 
         <div class="inputText emailUser">
             <div class="inviteEmailListWpr">
-                <ul class="emailList"></ul>
-                <input class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate">
+                <ul class="emailList">
+                    <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
+                        <span class="emailText">{{email.address}}</span><button type="button" class="removeItem" ng-click="remove(email)"></button>
+                    </li>
+                </ul>
+                <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"
+                       ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
             </div>
         </div>
         <div class="invSent">
             <h4>@InviteResources.Success!</h4>
             <div>@InviteResources.MailSent</div>
         </div>
-        <button type="submit" class="rFloat btn1" ng-click="inviteByEmail()">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || params.validEmails === 0 || params.invalidEmails > 0">@DialogResources.Send</button>
     </form>
 </aside>

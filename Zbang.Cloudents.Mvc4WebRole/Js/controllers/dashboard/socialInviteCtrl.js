@@ -1,4 +1,4 @@
-﻿mWizardBoxCreate.controller('SocialInviteCtrl',
+﻿mDashboard.controller('SocialInviteCtrl',
     ['$scope', '$filter', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
          function ($scope, $filter, sUser, sGoogle, sFacebook, sShare) {
 
