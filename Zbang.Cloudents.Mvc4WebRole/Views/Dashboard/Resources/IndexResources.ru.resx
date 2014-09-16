@@ -285,4 +285,7 @@
   <data name="SwapBooks" xml:space="preserve">
     <value>Обменивайтесь учебниками</value>
   </data>
+  <data name="FreeOnline1" xml:space="preserve">
+    <value>Бесплатная онлайн и мобильная социальная платформа изучения</value>
+  </data>
 </root>
