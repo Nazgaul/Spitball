@@ -4,6 +4,7 @@
 
     function ($http, $q) {
         var Item = '/Item/';
+
         return {
 
             'delete': function (data) {
@@ -13,7 +14,6 @@
                 }).error(function (response) {
                     dfd.reject(response);
                 });
-
                 return dfd.promise;
             }
         };

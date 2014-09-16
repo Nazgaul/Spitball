@@ -1001,7 +1001,18 @@ namespace Zbang.Zbox.ReadServices
 
 
         #region Item
-       // public async Task<ItemNavigationDto> GetItemNavigation()
+
+        public async Task<ItemNavigationDto> GetItemNavigation(GetItemQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal =
+                    await
+                        conn.QueryAsync<ItemNavigationDto>(Sql.Item.Navigation,
+                            new {query.BoxId, query.ItemId});
+                return retVal.FirstOrDefault();
+            }
+        }
 
         #endregion
     }

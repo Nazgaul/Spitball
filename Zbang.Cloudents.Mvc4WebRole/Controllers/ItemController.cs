@@ -481,5 +481,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #endregion
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [HttpGet, Ajax]
+        public async Task<JsonResult> Navigation(long id, long boxId)
+        {
+            var query = new GetItemQuery(GetUserId(), id, boxId);
+            var retVal = await ZboxReadService.GetItemNavigation(query);
+            return Json(new JsonResponse(true, retVal));
+        }
     }
 }
