@@ -588,4 +588,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="PersonalMsg" xml:space="preserve">
     <value>Personal message</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add your comment</value>
+  </data>
 </root>

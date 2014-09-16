@@ -140,6 +140,12 @@ body.item .siteHeader {
   height: 21px;
   fill: #fff;
 }
+.svg-flag {
+  width: 21px;
+  height: 30px;
+  fill: #fff;
+  margin-right: 5px;
+}
 /*#endregion */
 /*#region item topBars */
 /*#region topBar - main */
@@ -268,7 +274,7 @@ body.item .siteHeader {
   display: inline-block;
 }
 .secondBar .rateWpr {
-  width: 115px;
+  width: 126px;
   position: relative;
   top: 23px;
   cursor: pointer;
@@ -284,7 +290,7 @@ body.item .siteHeader {
   margin-right: 5px;
 }
 .secondBar .svg-star {
-  width: 23px;
+  width: 25px;
   float: right;
 }
 .secondBar .svg-star:hover {
@@ -336,6 +342,7 @@ body.item .siteHeader {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-weight: normal;
   /*.itemNameText {
         //line-height: 1.0;
         //display: inline-block;
@@ -650,18 +657,53 @@ body.item .siteHeader {
   box-sizing: border-box;
   padding: 0 15px;
 }
-.itemFlag:before {
-  content: '';
-  display: inline-block;
-  width: 15px;
-  height: 17px;
-  background: url(/Images/item13-sprite.png?v=1) -70px -2px no-repeat;
-  vertical-align: middle;
-  margin-right: 5px;
-  /*rtl*/
+.itemFlag {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  /*&:before
+    {
+        .pseudo;
+        width: 15px;
+        height: 17px;
+        background: @item-sprite1 -70px -2px no-repeat;
+        vertical-align: middle;
+        margin-right: 5px; //rtl
+    }
+    &:hover:before {
+        background-position: -71px -21px;
+    }*/
 }
-.itemFlag:hover:before {
-  background-position: -71px -21px;
+.itemFlag:hover .svg-flag {
+  fill: #3399ff;
+}
+.itemComments {
+  color: #fff;
+  border-top: 1px solid #fff;
+}
+.itemComments header {
+  font-size: 20px;
+  color: #3399ff;
+  padding: 15px 0 10px;
+}
+.itemComments .textareaWpr {
+  /* background: #fff; */
+  background: none;
+  border: none;
+  overflow: hidden;
+}
+.itemComments textarea {
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  width: 100%;
+}
+.itemComments .post {
+  font-size: 15px;
+  color: #fff;
+}
+.itemComments .cancel {
+  font-size: 15px;
+  color: #3399ff;
 }
 /*#endregion */
 /*#region OBSOLETE: top action buttons and print drop down */
