@@ -605,7 +605,7 @@ namespace Zbang.Zbox.ReadServices
                 var retVal =
                     
                         conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                            new {UserId = query.UserId});
+                            new { query.UserId});
                 var userDetailDtos = retVal as User.UserDetailDto[] ?? retVal.ToArray();
                 if (retVal == null || !userDetailDtos.Any())
                 {
@@ -613,19 +613,6 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return userDetailDtos.FirstOrDefault();
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserData");
-
-            //    queryUser.SetInt64("UserId", query.UserId);
-            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserDetailDto>());
-            //    var user = queryUser.UniqueResult<User.UserDetailDto>();
-            //    if (user == null)
-            //    {
-            //        throw new UserNotFoundException("user is null");
-            //    }
-            //    return user;
-            //}
         }
 
 
@@ -1010,6 +997,12 @@ namespace Zbang.Zbox.ReadServices
                 return enumerable.FirstOrDefault();
             }
         }
+        #endregion
+
+
+        #region Item
+       // public async Task<ItemNavigationDto> GetItemNavigation()
+
         #endregion
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="Dto\ItemDtos\QuizSeo.cs" />
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
+    <Compile Include="Dto\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
     <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
@@ -173,13 +174,13 @@
     <Compile Include="Queries\GetUserDetailsQuery.cs" />
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
-    <Compile Include="Queries\QueryPrefixBase.cs" />
     <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Email.cs" />
+    <Compile Include="SqlQueries\Item.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Store.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />
