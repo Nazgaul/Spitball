@@ -117,5 +117,8 @@ namespace Zbang.Zbox.ReadServices
 
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query);
+
+        //Item
+        Task<ItemNavigationDto> GetItemNavigation(GetItemQuery query);
     }
 }

@@ -359,5 +359,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetDepartments(query);
         }
+
+
+        public Task<ItemNavigationDto> GetItemNavigation(GetItemQuery query)
+        {
+            return m_ReadService.GetItemNavigation(query);
+        }
     }
 }
