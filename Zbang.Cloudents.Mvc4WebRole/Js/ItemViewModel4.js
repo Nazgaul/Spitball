@@ -1,9 +1,10 @@
 ﻿(function ($, dataContext, ko, cd, JsResources, analytics, Modernizr) {
     "use strict";
 
+    //mF: 'mF', fLtrExt: 'fourLetterExtension ', 
     var consts = {
         item: 'item', dataData: 'data-data', link: 'link', www: 'www', file: 'file', ref: '?r=item&s=items',
-        mF: 'mF', fLtrExt: 'fourLetterExtension ', disabled: 'disabled', starWidth: 96 / 5, register: 'register',
+        disabled: 'disabled', starWidth: 96 / 5, register: 'register',
         itemLoad: 'item_load', itemClear: 'itemclear', perm: 'perm', imagesQuery: 'img.imageContent', rated: 'rated',
         title: '{0} | {1}.{2} | Cloudents', divWrapper: 'divWrapper', checked: 'checked', fetchRate: 'fetchrate',
         flagItemDialog: 'flagItemDialog', fullscreen: 'fulscrn', submit: ':submit', thirdWindowHeight: $(window).height() / 3,
@@ -24,17 +25,20 @@
 
         //#region variables        
         //elements
-        var $itemMoreFiles = $('#item_moreFiles'), $itemPreview = $('#itemPreview'),
+        //$itemMoreFiles = $('#item_moreFiles'), 
+        //$rateContainer = $('#rateContainer'), $rated = $('#item').find('.rated'),
+        //$ratePopup = $('#ratePopup'), 
+        var $itemPreview = $('#itemPreview'),
                         $previewWrapper = $('#previewWrapper'), previewWrapper = $previewWrapper[0], $commentToggle = $('#commentToggle'),
                         $itemShare = $('#itemShare'), $itemPrint = $('#itemPrint'),
                         $previewFailed = $('.previewFailed'), $pageLoader = $('.pageLoader'), $commentBtn = $('.commentBtn'),
-                        $rateContainer = $('#rateContainer'), $rated = $('#item').find('.rated'), $itemRight = $('.itemRight'),
+                        $itemRight = $('.itemRight'),
                         $itemPrev = $('#itemPrev'), $itemNext = $('#itemNext'), $itemFulscrn = $('#itemFulscrn'),
                         $body = $('body'), $itemDL = $('#item_DL'), $itemPrint = $('#itemPrint'), $itemP = $('#item_P'),
                         $otakimP = $('#Otakim_P'), $itemFS = $('#item_FS'), $itemCL = $('#item_CL'), $itemSettings = $('#itemSettings'),
                         $itemRenameSave = $('#itemRenameSave'), $itemName = $('#itemName'), $itemRename = $('#item_rename'),
                         $itemRenameCancel = $('#itemRenameCancel'), $rateBubble = $('#rateBubble'), $rateBtn = $('#rateBtn'),
-                        $ratePopup = $('#ratePopup'), $commentsNumber = $('.commentsNumber'), $itemMsg = $('#item_msg'),
+                        $commentsNumber = $('.commentsNumber'), $itemMsg = $('#item_msg'),
 
         //data
         isLtr = $('html').css('direction') === 'ltr', itemType, userType, blobName, annotationList = [],
@@ -331,7 +335,7 @@
                 //cd.setTitle(consts.title.format(self.boxName(), self.itemName(), self.extension()));
 
                 cd.pubsub.publish(consts.itemLoad, null, function () {
-                    cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top);
+                    //cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top);
                     itemPageLoad.resolve();
 
                     var $rootScope = angular.element(document).scope();
@@ -344,13 +348,13 @@
                 defferedArray.push(getAnnotation());
                 defferedArray.push(getPreview());
 
-                $.data($rateContainer[0], consts.fetchRate, true);
+                //$.data($rateContainer[0], consts.fetchRate, true);
 
                 cd.pubsub.publish(consts.perm, data.userType);
 
-                if ($rated.length) {
-                    $rated.toggleClass(consts.rated).text(5 - $rated.index());
-                }
+                //if ($rated.length) {
+                //    $rated.toggleClass(consts.rated).text(5 - $rated.index());
+                //}
 
                 function fillVariables() {
                     ownerid = data.ownerUid;
@@ -490,52 +494,52 @@
                     });
 
                     //rateitempopup
-                    $ratePopup.show();
-                    if (ratedItems && ratedItems[cd.userDetail().nId]) {
-                        if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
-                            return;
-                        }
-                    }
+                    //$ratePopup.show();
+                    //if (ratedItems && ratedItems[cd.userDetail().nId]) {
+                    //    if (images.length === 0 || ratedItems[cd.userDetail().nId].indexOf(self.itemid()) > -1) {
+                    //        return;
+                    //    }
+                    //}
 
-                    ratePopupTimeout = setTimeout(function () {
-                        $ratePopup.removeClass('changedItem').addClass('show');
+                    //ratePopupTimeout = setTimeout(function () {
+                    //    $ratePopup.removeClass('changedItem').addClass('show');
 
-                        if (!cd.register()) {
-                            $ratePopup.one('click', '.star', function () {
-                                cd.pubsub.publish('register', { action: true });
-                            });
-                            return;
-                        }
+                    //    if (!cd.register()) {
+                    //        $ratePopup.one('click', '.star', function () {
+                    //            cd.pubsub.publish('register', { action: true });
+                    //        });
+                    //        return;
+                    //    }
 
-                        $ratePopup.one('click', '.star', function () {
-                            $ratePopup.addClass('rated');
+                    //    $ratePopup.one('click', '.star', function () {
+                    //        $ratePopup.addClass('rated');
 
-                            var $this = $(this),
-                                startWidth = $('.stars .full').width(),
-                                currentRate = 5 - $this.index(),
-                                fakeRate = calculateFakeRate(startWidth, currentRate);
-                            getItemRate();
-                            self.rate(fakeRate);
-                            setItemRate(currentRate);
-                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
-                                ratedItems[cd.userDetail().nId].push(self.itemid());
-                                cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
-                            }
-                            setTimeout(function () {
-                                $ratePopup.removeClass('show').removeClass('rated');
-                            }, 3000);
+                    //        var $this = $(this),
+                    //            startWidth = $('.stars .full').width(),
+                    //            currentRate = 5 - $this.index(),
+                    //            fakeRate = calculateFakeRate(startWidth, currentRate);
+                    //        getItemRate();
+                    //        self.rate(fakeRate);
+                    //        setItemRate(currentRate);
+                    //        if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
+                    //            ratedItems[cd.userDetail().nId].push(self.itemid());
+                    //            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                    //        }
+                    //        setTimeout(function () {
+                    //            $ratePopup.removeClass('show').removeClass('rated');
+                    //        }, 3000);
 
-                        });
-                        $ratePopup.one('click', '.closeDialog', function () {
-                            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
-                                ratedItems[cd.userDetail().nId].push(self.itemid());
-                                cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
-                            }
-                            $ratePopup.addClass('changedItem').remove('show');
+                    //    });
+                    //    $ratePopup.one('click', '.closeDialog', function () {
+                    //        if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
+                    //            ratedItems[cd.userDetail().nId].push(self.itemid());
+                    //            cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+                    //        }
+                    //        $ratePopup.addClass('changedItem').remove('show');
 
-                        });
+                    //    });
 
-                    }, 3000);//3 seocnds
+                    //}, 3000);//3 seocnds
                     //
 
                     function initializeCanvas(e) {
@@ -645,11 +649,11 @@
             $itemShare.prop(consts.checked, false);
             $itemPrint.prop(consts.checked, false);
             commentShow = false;
-            $ratePopup.hide().removeClass('show');
+            //$ratePopup.hide().removeClass('show');
             clearTimeout(ratePopupTimeout);
-            $rateContainer.find('.star').each(function (i, e) {
-                $(e).removeClass('rated').text(e.id.slice(-1));
-            });
+            //$rateContainer.find('.star').each(function (i, e) {
+            //    $(e).removeClass('rated').text(e.id.slice(-1));
+            //});
 
             oneTime = true;
         });
@@ -663,7 +667,7 @@
             printEvents();
             settingsEvents();
             fullScreenEvents();
-            rateEvents();
+            //rateEvents();
             initializeAnnotation();
 
             function generalEvents() {
@@ -681,30 +685,30 @@
                     }
                 });
 
-                cd.pubsub.subscribe('windowChanged', function () {
-                    cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top - 10);
-                });
+                //cd.pubsub.subscribe('windowChanged', function () {
+                //    cd.innerScroll($itemMoreFiles, $(window).height() - $itemMoreFiles.offset().top - 10);
+                //});
 
                 cd.pubsub.subscribe('item_show', function () {
                     defferedItemShow.resolve();
                 });
 
-                $itemMoreFiles.on('click', 'a', function (e) {
-                    if (self.itemid() === ko.dataFor(e.target).uid()) {
-                        e.preventDefault();
-                        return false;
-                    }
-                    $ratePopup.addClass('changedItem').removeClass('show');
-                    clearTimeout(ratePopupTimeout);
-                    $rateContainer.find('.star').each(function (i, e1) {
-                        $(e1).removeClass('rated').text(e1.id.slice(-1));
-                    });
+                //$itemMoreFiles.on('click', 'a', function (e) {
+                //    if (self.itemid() === ko.dataFor(e.target).uid()) {
+                //        e.preventDefault();
+                //        return false;
+                //    }
+                //    $ratePopup.addClass('changedItem').removeClass('show');
+                //    clearTimeout(ratePopupTimeout);
+                //    $rateContainer.find('.star').each(function (i, e1) {
+                //        $(e1).removeClass('rated').text(e1.id.slice(-1));
+                //    });
 
-                    $commentToggle.prop('checked', false).trigger('change');
+                //    $commentToggle.prop('checked', false).trigger('change');
 
 
-                    trackEvent('move to a different item');
-                });
+                //    trackEvent('move to a different item');
+                //});
                 $itemPreview.on("scroll", '', function () {
                     if ($itemPreview.scrollTop() > 0) {
                         $('html').addClass('scrolling');
@@ -912,97 +916,97 @@
                     }
                 }
             }
-            function rateEvents() {
+        //   function rateEvents() {
 
-                $rateContainer.click(function (e) {
-                    trackEvent('Rate item menu opend', 'User opened the rate menu');
-                    e.stopPropagation();
+        //        $rateContainer.click(function (e) {
+        //            trackEvent('Rate item menu opend', 'User opened the rate menu');
+        //            e.stopPropagation();
 
-                    if (!cd.register()) {
-                        cd.pubsub.publish('register', { action: true });
-                        return;
-                    }
+        //            if (!cd.register()) {
+        //                cd.pubsub.publish('register', { action: true });
+        //                return;
+        //            }
 
-                    if (rateMenuOpen) {
-                        return;
-                    }
+        //            if (rateMenuOpen) {
+        //                return;
+        //            }
 
-                    rateMenuOpen = true;
+        //            rateMenuOpen = true;
 
-                    if ($.data($rateContainer[0], consts.fetchRate)) {
-                        getItemRate();
-                    }
+        //            if ($.data($rateContainer[0], consts.fetchRate)) {
+        //                getItemRate();
+        //            }
 
-                    $rateBtn.toggleClass('clicked');
-                    $bubbleText.text($bubbleText.attr('data-step1'));
-                });
+        //            $rateBtn.toggleClass('clicked');
+        //            $bubbleText.text($bubbleText.attr('data-step1'));
+        //        });
 
-                $rateContainer.on('click', '.star', function (e) {
-                    e.stopPropagation();
-                    var startWidth = $('.stars .full').width();
+        //        $rateContainer.on('click', '.star', function (e) {
+        //            e.stopPropagation();
+        //            var startWidth = $('.stars .full').width();
 
-                    clearTimeout(ratePopupTimeout);
+        //            clearTimeout(ratePopupTimeout);
 
-                    if ($ratePopup.is(':visible')) {
-                        setTimeout(function () {
-                            $ratePopup.removeClass('show').addClass('rated2');
-                        }, 500);
-                    } else {
-                        $ratePopup.removeClass('show');
-                    }
+        //            if ($ratePopup.is(':visible')) {
+        //                setTimeout(function () {
+        //                    $ratePopup.removeClass('show').addClass('rated2');
+        //                }, 500);
+        //            } else {
+        //                $ratePopup.removeClass('show');
+        //            }
 
 
-                    if (choosedRate) {
-                        return;
-                    }
+        //            if (choosedRate) {
+        //                return;
+        //            }
 
-                    var $this = $(this),
-                        $rated = $rateBubble.find('.' + consts.rated),
-                        index = $this.index(),
-                        currentRate = 5 - index;
+        //            var $this = $(this),
+        //                $rated = $rateBubble.find('.' + consts.rated),
+        //                index = $this.index(),
+        //                currentRate = 5 - index;
 
-                    if ($this.index() === $rated.index()) {
-                        return; // don't do anything if user selects rating which is already selected
-                    }
+        //            if ($this.index() === $rated.index()) {
+        //                return; // don't do anything if user selects rating which is already selected
+        //            }
 
-                    choosedRate = true;
+        //            choosedRate = true;
 
-                    setItemRate(currentRate);
+        //            setItemRate(currentRate);
 
-                    self.rate(calculateFakeRate(startWidth, currentRate));
+        //            self.rate(calculateFakeRate(startWidth, currentRate));
 
-                    trackEvent('Rate', 'User rated an item with ' + currentRate + ' stars');
+        //            trackEvent('Rate', 'User rated an item with ' + currentRate + ' stars');
 
-                    toggleStarClass($rated, currentRate);
+        //            toggleStarClass($rated, currentRate);
 
-                    if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
-                        ratedItems[cd.userDetail().nId].push(self.itemid());
-                        cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
-                    }
+        //            if (ratedItems[cd.userDetail().nId].indexOf(self.itemid()) === -1) {
+        //                ratedItems[cd.userDetail().nId].push(self.itemid());
+        //                cd.localStorageWrapper.setItem('ratedItems', JSON.stringify(ratedItems));
+        //            }
 
-                    initialRate = currentRate;
-                    self.rate();
+        //            initialRate = currentRate;
+        //            self.rate();
 
-                    setTimeout(function () {
-                        $bubbleText.text($bubbleText.attr('data-step2'));
-                        $rateBubble.addClass('closing');
-                    }, 1000);
-                    setTimeout(function () {
-                        $rateBtn.removeClass('clicked');
-                        $rateBubble.removeClass('closing');
-                        rateMenuOpen = choosedRate = false;
-                    }, 2000);
-                });
+        //            setTimeout(function () {
+        //                $bubbleText.text($bubbleText.attr('data-step2'));
+        //                $rateBubble.addClass('closing');
+        //            }, 1000);
+        //            setTimeout(function () {
+        //                $rateBtn.removeClass('clicked');
+        //                $rateBubble.removeClass('closing');
+        //                rateMenuOpen = choosedRate = false;
+        //            }, 2000);
+        //        });
 
-                $body.click(function () {
-                    if (choosedRate) {
-                        return;
-                    }
-                    $rateBtn.removeClass('clicked');
-                    $rateBubble.removeClass('closing');
-                    rateMenuOpen = choosedRate = false;
-                });
-            }
+        //        $body.click(function () {
+        //            if (choosedRate) {
+        //                return;
+        //            }
+        //            $rateBtn.removeClass('clicked');
+        //            $rateBubble.removeClass('closing');
+        //            rateMenuOpen = choosedRate = false;
+        //        });
+        //    }
 
 
         }
@@ -1026,8 +1030,6 @@
             }
             return fileName.substring(0, fileName.lastIndexOf('.'));
         }
-
-
 
         function trackEvent(action, label) {
             analytics.trackEvent('Item', action, label);
@@ -1058,18 +1060,18 @@
             $itemPrint.prop('checked', false);
         }
 
-        function getItemRate() {
-            dataContext.getItemRate({
-                data: { itemId: self.itemid() },
-                success: function (data) {
-                    var rate = data.Rate >= 0 ? data.Rate : 0;
-                    initialRate = rate;
-                    $.data($rateContainer[0], consts.fetchRate, false);
-                    var $rated = $rateBubble.find('.' + consts.rated);
-                    toggleStarClass($rated, rate);
-                }
-            });
-        }
+        //function getItemRate() {
+        //    dataContext.getItemRate({
+        //        data: { itemId: self.itemid() },
+        //        success: function (data) {
+        //            var rate = data.Rate >= 0 ? data.Rate : 0;
+        //            initialRate = rate;
+        //            $.data($rateContainer[0], consts.fetchRate, false);
+        //            var $rated = $rateBubble.find('.' + consts.rated);
+        //            toggleStarClass($rated, rate);
+        //        }
+        //    });
+        //}
         function setItemRate(rate) {
             dataContext.rateItem({
                 data: {

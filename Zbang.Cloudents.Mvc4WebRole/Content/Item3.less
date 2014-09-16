@@ -5,18 +5,355 @@
     width: 100%;
     height: 100%;
 }
-.itemPage, .quizPage {
+.itemRight, .boxRight {
+    width: 100%;
+    height: 100%;
+    padding-left: @leftSideBarWidth; /*rtl*/
+    .boxSizing();
+    text-align: center;
+}
+.itemRight
+{
+    background: #282828;
+    /*.shareDD{
+        right: 0; //rtl
+    }*/
+}
+.itemPage {
     .topBar{
+        //text-align: center;
+        color: #fff; //override
+        border: none;
         padding:0; //override
-        text-align: center;
+        background: #1e1e1e;
+        width: 100%;
+        .mainPart {
+            width: 100%;
+            height: 80px;
+            .boxSizing;
+            padding-left: @leftSideBarWidth;
+            text-align: center;
+        }
+    }
+    .leftPart {
+        position: absolute;
+        left:0;
+        top:0;
+        width: @leftSideBarWidth;
+        height: 80px;
+        padding: 0 15px;
+        .boxSizing;
+    }
+    
+    .backWpr:before {
+        display: none;
+    }
+    .leftPanel {
+        @topOffset: @header-height + @topBarHeight + @secondBarHeight;
+        height: ~'calc(100vh - @{topOffset})';
+        margin-top: @topBarHeight + @secondBarHeight;
+        background: #282828;
+        position: fixed;
+    }
+    > h1 {
+        margin-top: -50px;
+        height: 50px;
+        overflow:hidden;
+    }
+    .svg-back {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        .flipH;
+    }
+    canvas {
+        display: none;
     }
 }
-.itemPage > h1 {
-    margin-top: -50px;
-    height: 50px;
-    overflow:hidden;
+
+.secondBar {
+    width: 100%;
+    height: @secondBarHeight;
+    position: fixed;
+    z-index: 1;
+    background: #282828;
+    //background: pink;
+    color: #fff;
+    text-align: center;
+    top: @header-height + @topBarHeight;
+    .leftPart {
+        height: @secondBarHeight;
+        text-align: center;
+        line-height: @secondBarHeight;
+    }
+    .downloads {
+        display: inline-block;
+    }
+    .rateWpr {
+        width: 115px;
+        position: relative;
+        top: 23px;
+        cursor: pointer;
+    }
+    .svg-eye{
+        position: relative;
+        top: 3px;
+    }
+    .svg-download {
+        position: relative;
+        top: 6px;
+    }
+    .svg-star {
+        width: 23px; //width=20 but 23px for space between stars
+        float: right; //rtl
+        &:hover
+        {
+            fill: gold;
+            ~ .svg-star
+            {
+                fill: gold;
+            }
+        }
+    }
+    .mainPart {
+        width: 800px;
+        //text-align: center;
+        height: @secondBarHeight;
+        .boxSizing;
+        margin-left: @leftSideBarWidth;
+        display: inline-block;
+        //vertical-align: top;
+        button {
+            padding-top: 25px;
+        }
+    }
 }
-.ratePopup{
+
+/*#endregion */
+
+/*#region svg icons */
+.svg-download {
+    width: 31px;
+    height: 23px;
+    fill: #fff;
+}
+.svg-back {
+    width: 35px;
+    height: 35px;
+    fill: #fff;
+}
+.svg-print {
+    width: 24px;
+    height: 24px;
+}
+.svg-fullscreen {
+    width: 19px;
+    height: 19px;
+}
+.svg-smallscreen {
+    width: 19px;
+    height: 19px;
+}
+.svg-share {
+    width: 24px;
+    height: 21px;
+}
+
+.svg-eye {
+    width: 29px;
+    height: 17px;
+    fill: #fff;
+}
+.svg-star {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+}
+.svg-prev, .svg-next {
+    width: 13px;
+    height: 18px;
+    fill: #3399ff;
+}
+.svg-prev {
+    .flipH;
+}
+/*#endregion */
+
+/*#region item topBars */
+
+.middleActionList{
+    //display: table;
+    //table-layout: fixed;
+    //margin-top: 12px;
+    //white-space: nowrap; //with this in place the max-width on the middleActions gets ignored
+    display: inline-block;
+    height: 80px;
+    vertical-align: top;
+    //position: relative;
+    svg {
+        display: block;
+        margin-bottom: 5px;
+        fill: #fff;
+        position: absolute;
+        left:0;right:0;
+        top: 20px;
+        margin: auto;
+    }
+}
+
+.middleActionItem{
+    //vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    margin: 0 15px;
+    position: relative;
+    
+    //display: table-cell;
+    //padding: 0 15px;
+    button, > label {
+        color: #fff;
+        padding-top: 45px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    label svg {
+        top: 15px;
+    }
+    &:hover {
+        svg {
+            fill: #3399ff;
+        }
+    }
+}
+/*#region print drop down */
+.printDD.printDD{
+
+    text-align: center;
+    margin-top: 5px;
+    width: 245px;
+    height: 250px;
+    direction: rtl; /*no rtl*/
+
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    box-shadow: 0 2px 9px rgba(0,0,0,.3);
+    
+    left: 122px; /*diff rtl*/
+    top: 66px;
+    /*&:before
+    {
+        height: 43px;
+        background: #f5f5f5;
+        border-radius: 3px 3px 0 0;
+    }*/
+    &:before
+    {
+        display: none;  //override
+    }
+    
+    
+    .iconTxt{
+        color: @attentionBlue;
+        font-size: 13px;
+        width: 100%;
+        position: relative;
+        &:before
+         {
+            margin: 0; // override
+            position: absolute;
+            right: 53px; /*no rtl yet*/
+            top: 2px;
+        }
+    }
+    h4{
+        margin-top: -10px;
+        padding: 10px 0 9px;
+        background: #f5f5f5;
+        border-bottom: 1px solid @borderColor;
+        border-radius: 3px 3px 0 0;
+    }
+    .printTxt{
+        margin-top: 8px;
+        &:after
+        {
+            content: '';
+            width: 107px;
+            height: 57px;
+            background: @item-sprite1 -80px -288px no-repeat;
+            display: block;
+            margin: 10px auto;
+        }
+    }
+    .printTxt2{
+        margin-bottom: 10px;
+        padding: 0 16px;
+        line-height: 16px;
+    }
+    .btn3{
+        padding: 3px 20px 5px 20px;
+        margin-top: 5px;
+    }
+}
+
+/*#endregion */
+
+.itemRenameBtn{
+    display: none;
+    position: absolute;
+    top: -12px;
+    right: 0; //rtl
+    margin: 0;
+    background: url(/Images/common17-sprite.png?v=2) -72px -42px no-repeat;
+    width: 23px;
+    height: 23px;
+}
+
+.itemOwner
+{
+    text-align: left;
+    //margin: 6px 0;
+    //clear: both; 
+}
+.itemNameWpr // this is needed to prevent the itemname - which is a table cell - to overflow height with large names. 
+{
+    //height: 44px;
+    //overflow: hidden;
+    display: inline-block;
+}
+.item-name {
+    text-align: left;
+    color: #3399ff;
+    font-size: 20px;
+    max-width: 750px;
+    margin-top: 10px;
+    .itemNameText {
+        //line-height: 1.0;
+        //display: inline-block;
+        //display: table-cell;
+        //line-height: 22px;
+        width: 220px;
+        height: 42px;
+        overflow: hidden;
+        vertical-align: middle;
+        -ms-word-break: break-word;
+        word-break: break-word;
+
+        &.editable {
+            border: 1px solid @color;
+            .boxSizing;
+            padding: 2px 8px 2px 4px; /*rtl*/
+            height: 28px;
+            margin-bottom: 14px;
+        }
+    }
+}
+
+/*#endregion */
+
+/*#region rate */
+/*.ratePopup{
     .flexAlignH;
     height: 38px;
     font-size: 15px;
@@ -26,7 +363,7 @@
     padding: 10px 30px;
     background: @attentionBlue;
     position: absolute;
-    left:50%; /*rtl*/
+    left:50%; //rtl
     top: 91px;
     z-index:3; // above itemPreview but below topBar. Make sure this works on Ipad as well.(I noticed that it rebders differently to desktop here)
     .transition(top 1s 2s);
@@ -76,7 +413,7 @@
     }
     .starsWpr{
         position: relative;
-        margin-left: 10px; /*rtl*/
+        margin-left: 10px; //rtl
         font-size:0; //remove inline-block white-space
     }
     .star{
@@ -84,7 +421,7 @@
         height: 15px;
         background: @common-sprite -2px -86px;
         display: inline-block;
-        float: right; /*rtl*/
+        float: right; //rtl
         &:hover
         {
             background-position: -2px -103px;
@@ -97,7 +434,7 @@
     .closeDialog
     {
         background-position: -68px -14px;
-        right: 5px; /*rtl*/
+        right: 5px; //rtl
         top: 5px;
         display:none;
     }
@@ -117,141 +454,6 @@
     .transition(top 1s);
 }
 
-.itemRight, .boxRight {
-    width: 100%;
-    height: 100%;
-    padding-left: 290px; /*rtl*/
-    .boxSizing();
-    text-align: center;
-}
-.itemRight
-{
-    .shareDD{
-        right: 0; /*rtl*/
-    }
-}
-/*#endregion */
-
-/*#region left panel */
-
-.leftPanel {
-    
-    width: 290px;
-    background: #fff;
-    border-right: 1px solid @borderColor; /*rtl*/
-    .boxSizing;
-}
-
-.itemRenameBtn{
-    display: none;
-    position: absolute;
-    top: -12px;
-    right: 0; /*rtl*/
-    margin: 0;
-    background: url(/Images/common17-sprite.png?v=2) -72px -42px no-repeat;
-    width: 23px;
-    height: 23px;
-}
-
-.itemTop{
-    margin: 18px 10px 0;
-    height: 146px;  
-    color: #676767;
-    font-size: 13px; 
-    position:relative;
-    > .moreFilesThumb  {
-        width:42px;
-        height:42px;
-        line-height: 42px;
-    }
-    &:hover {
-        .itemRenameBtn {
-            display:block;
-        }
-    }
-}
-.itemNameWpr // this is needed to prevent the itemname - which is a table cell - to overflow height with large names. 
-{
-    height: 44px;
-    overflow: hidden;
-}
-.item-name {
-    color: #383838;
-    font-size: 20px;
-    //display:table-cell;
-    overflow: hidden;
-    display: table;
-    padding-left: 5px;
-    -ms-word-wrap: break-word;
-    word-wrap: break-word;
-    //line-height: 22px;
-    .itemNameText {
-        //line-height: 1.0;
-        //display: inline-block;
-        display: table-cell;
-        line-height: 22px;
-        width: 220px;
-        height: 42px;
-        overflow: hidden;
-        vertical-align: middle;
-        -ms-word-break: break-word;
-        word-break: break-word;
-
-        &.editable {
-            border: 1px solid @color;
-            .boxSizing;
-            padding: 2px 8px 2px 4px; /*rtl*/
-            height: 28px;
-            margin-bottom: 14px;
-        }
-    }
-}
-
-.itemOwner
-{
-    margin: 6px 0;
-    clear: both; 
-}
-.views:before, .downloads:before{
-    .pseudo;
-    width: 16px;
-    height: 11px;
-    margin-right: 5px; /*rtl*/
-    vertical-align: middle;
-    background: @item-sprite1 -121px -21px no-repeat;
-}
-.downloads:before{
-    width: 13px;
-    height: 14px;
-    background-position: -138px -20px;
-}
-.views{
-    margin-right: 12px; /*rtl*/
-}
-
-.actions{
-    border-top: 1px solid @borderColor;
-    line-height: 40px;
-    height: 40px;
-    display: block;
-    margin-top: 36px;
-    position: relative;
-    .stars, .full, .rateBtn{
-        display: inline-block;
-    }
-    .stars{
-        width: 96px;
-        vertical-align: top;
-        margin: 13px 0 0 0; // override other margin values from box .stars
-        height: 15px;
-        background-position: -2px -86px;
-    }
-    .full{
-        height: 15px;
-        background-position: -2px -103px;
-    }
-    
-}
 .rateBtn{
     &.clicked
     {
@@ -282,7 +484,7 @@
     display: none;
     position: absolute;
     top: 38px;
-    left: -31px; /*rtl*/ //TODO CHECK THIS FOR RUSSIAN
+    left: -31px; //rtl //TODO CHECK THIS FOR RUSSIAN
     //left: 10px; //rtl
     min-width: 158px;
     .boxSizing;
@@ -349,9 +551,9 @@
         width: 124px;
         margin-top: 10px;
         //.transition(all, .5s);
-        /*height:140px;
-        opacity:1;
-        visibility: visible;*/
+        //height:140px;
+        //opacity:1;
+        //visibility: visible;
     }
     .star{
         margin-bottom: 10px;
@@ -381,7 +583,7 @@
             width: 96px;
             height: 15px;
             position: absolute;
-            left: 25px; /*rtl*/
+            left: 25px; //rtl
             top: 0;
             background: @common-sprite -2px -86px no-repeat;
         }
@@ -389,7 +591,7 @@
             .pseudo;
             position: absolute;
             top: 0;
-            left: 25px; /*rtl*/
+            left: 25px; //rtl
             width: 96px;
             height: 15px;
             background: @common-sprite -2px -103px no-repeat;
@@ -409,6 +611,41 @@
     }
 }
 
+.actions{
+    border-top: 1px solid @borderColor;
+    line-height: 40px;
+    height: 40px;
+    display: block;
+    margin-top: 36px;
+    position: relative;
+    .stars, .full, .rateBtn{
+        display: inline-block;
+    }
+    .stars{
+        width: 96px;
+        vertical-align: top;
+        margin: 13px 0 0 0; // override other margin values from box .stars
+        height: 15px;
+        background-position: -2px -86px;
+    }
+    .full{
+        height: 15px;
+        background-position: -2px -103px;
+    }
+    
+}*/
+
+/*#endregion */
+
+/*#region left panel */
+
+.leftPanel {
+    width: @leftSideBarWidth;
+    //background: #282828;
+    .boxSizing;
+    padding: 0 15px;
+}
+
 .itemFlag
 {    
     &:before
@@ -424,6 +661,56 @@
         background-position: -71px -21px;
     }
 }
+
+/*#endregion */
+
+/*#region OBSOLETE: top action buttons and print drop down */
+/*.itemTop{
+    margin: 18px 10px 0;
+    height: 146px;  
+    color: #676767;
+    font-size: 13px; 
+    position:relative;
+    > .moreFilesThumb  {
+        width:42px;
+        height:42px;
+        line-height: 42px;
+    }
+    &:hover {
+        .itemRenameBtn {
+            display:block;
+        }
+    }
+    .icon {
+        width: 25px;
+        height: 25px;
+        fill: crimson; 
+        &:hover {
+            .flipH;
+        }
+    }
+    .flipH {
+        .flipH;
+    }
+}
+
+.views:before, .downloads:before{
+    .pseudo;
+    width: 16px;
+    height: 11px;
+    margin-right: 5px;
+    vertical-align: middle;
+    background: @item-sprite1 -121px -21px no-repeat;
+}
+.downloads:before{
+    width: 13px;
+    height: 14px;
+    background-position: -138px -20px;
+}
+.views{
+    margin-right: 12px; //rtl
+}
+
 .moreFiles .mfTitle {
     font-size: 18px;
     color: #111;
@@ -434,34 +721,10 @@
 .moreFilesList {
 
     li {
-        padding: 7px 5px 7px 10px; /*rtl*/
+        padding: 7px 5px 7px 10px; //rtl
         &.select {
             background: #e1e1e1;
         }
-    }
-}
-.moreFilesThumb{
-    background:#6a7a7a;
-    width:32px;
-    height:32px;
-    text-align: center;
-    vertical-align:middle;
-    display: table-cell;
-    color:#fff;
-    font-weight:bold;
-    text-transform:uppercase;
-    font-size:10px;
-    font-family:arial;
-    border-radius:3px;
-    border: 1px solid #C2C2C2;
-    letter-spacing: 1px;
-    &.quiz {
-        background-color: none; //override background color
-        border: none;
-        border-radius: 0;
-        background: @quiz-sprite  0 -650px no-repeat;
-        position: relative;
-        top: 2px;
     }
 }
 
@@ -537,7 +800,7 @@
 
 .moreFilesData{
     display:table-cell;
-    padding-left:5px; /*rtl*/
+    padding-left:5px; //rtl
     > div {
         width:230px;
     }
@@ -547,40 +810,22 @@
     color: #111;
     width:230px;
 }
-/*#endregion */
 
-/*#region top action buttons and print drop down */
-.itemBack, .boxBack {
-    height: 44px;
-    line-height: 44px;
-    background: #fff;
-    border-bottom: 1px solid #e3e3e3;
-    padding-left: 15px; /*rtl*/
-    font-size: 15px;
-    position: absolute;
-    width: 100%;
-    .boxSizing();
-}
 
 .itemActions
 {
     position: relative;
     text-align: center;
-    /*.back{
-        position: absolute;
-        left: 22px;
-    }*/
+
     .shareBtn
     {
         position: absolute;
         top: 0; // IE needs this.
-        right: 22px; /*rtl*/
+        right: 22px; //rtl
     }
     .backWpr{
-        //max-width: ~'-webkit-calc(50% - 225px)'; // (100% - middle actions width (380px) + left offset ~70px) / 2
-        //max-width: ~'calc(50% - 225px)'; // 50% - 450px/2 = 50% - 225px
         position: absolute;
-        left: 19px; /*rtl*/
+        left: 19px; //rtl
         max-width: 20%;
     }
 }
@@ -608,20 +853,10 @@
     display: inline-block;
     position: relative;
     max-width: 50%;
+    
 }
 
-.middleActionList{
-    display: table;
-    table-layout: fixed;
-    margin-top: 12px;
-    //white-space: nowrap; //with this in place the max-width on the middleActions gets ignored
-}
-.middleActionItem{
-    vertical-align: middle;
-    text-align: center;
-    display: table-cell;
-    padding: 0 15px;
-}
+
 .fullscreen{
     &:before {
         background-position: 0 -1px;
@@ -678,104 +913,7 @@
         background-position: -34px -21px;
     }
 }
-
-.printDD.printDD{
-
-    text-align: center;
-    margin-top: 5px;
-    width: 245px;
-    height: 250px;
-    direction: rtl; /*no rtl*/
-
-    background: #fff;
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-    box-shadow: 0 2px 9px rgba(0,0,0,.3);
-    
-    left: 122px; /*diff rtl*/
-    top: 66px;
-    /*&:before
-    {
-        height: 43px;
-        background: #f5f5f5;
-        border-radius: 3px 3px 0 0;
-    }*/
-    &:before
-    {
-        display: none;  //override
-    }
-    
-    
-    .iconTxt{
-        color: @attentionBlue;
-        font-size: 13px;
-        width: 100%;
-        position: relative;
-        &:before
-         {
-            margin: 0; // override
-            position: absolute;
-            right: 53px; /*no rtl yet*/
-            top: 2px;
-        }
-    }
-    h4{
-        margin-top: -10px;
-        padding: 10px 0 9px;
-        background: #f5f5f5;
-        border-bottom: 1px solid @borderColor;
-        border-radius: 3px 3px 0 0;
-    }
-    .printTxt{
-        margin-top: 8px;
-        &:after
-        {
-            content: '';
-            width: 107px;
-            height: 57px;
-            background: @item-sprite1 -80px -288px no-repeat;
-            display: block;
-            margin: 10px auto;
-        }
-    }
-    .printTxt2{
-        margin-bottom: 10px;
-        padding: 0 16px;
-        line-height: 16px;
-    }
-    .btn3{
-        padding: 3px 20px 5px 20px;
-        margin-top: 5px;
-    }
-}
-
-:-webkit-full-screen {
-    overflow: auto;
-    height: 100%;
-
-    img {
-        width: 100%;
-    }
-}
-
-/*#fullView {
-    width: 100%;
-    height: 100%;
-
-    iframe {
-        width:100%;
-        height:100%;
-    }
-}*/
-
-:-moz-full-screen {
-  
-    overflow: auto;
-    img {
-        display:block;
-        margin:0 auto;
-    }  
-}
+*/
 
 /*#endregion */
 
@@ -850,12 +988,7 @@
     }
 }
  
-.previewDenied
-{
-    /*h2{
-        font-size: 22px;
-        font-weight: normal;
-    }*/
+.previewDenied {
     &:before
     {
         .pseudo;
@@ -889,7 +1022,6 @@
         border-left: 10px solid rgba(56, 56, 56,.75);
     }
 }
-
 
 .mediaLoading
 {
@@ -938,10 +1070,10 @@
     height: ~"calc(100% - 130px)";
     .boxSizing;
     padding-top: 10px;  
-    position: fixed;
+    //position: fixed;
     left: 0;
     right: 0;
-    margin-left: 290px; /*rtl*/
+    //margin-left: 290px; /*rtl*/
 }
 //used for links
 .iframeContent {
@@ -979,11 +1111,18 @@
 
 .divWrapper {
     border: 1px solid @borderColor;
+    border-radius: 10px;
     background: #fff;
     width: 800px;
     margin: 0 auto 10px;
     position: relative;
     z-index:0;//bug 581
+    &:first-child {
+        margin-top: 140px;
+        .imageContent {
+            //margin-top: 160px;
+        }
+    }
 }
 
 .imageContent {
@@ -1003,11 +1142,16 @@
     //margin: 0 15px;
     padding: 15px;
     border-top: 1px solid #858585;
+    border-radius: 0 0 10px 10px;
 }
 /*#endregion */
 
-/*#region annotation */
-.commentsToggleCb {
+/*#region * OBSOLETE * annotation */
+.annotationEmpty {
+    display: none;
+}
+
+/*.commentsToggleCb {
     display: none;    
 }
 .commentBtn {
@@ -1021,18 +1165,18 @@
     }
 
     .commentsNumber {
-    position: absolute;
-    left: 35px; /*rtl*/
-    top: -5px;
-    height: 9px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 13px;
-    line-height: 9px;
-    padding: 5px;
-    text-align: center;
-    background-color: #0f9d58;
-    min-width: 9px;
+        position: absolute;
+        left: 35px; //rtl
+        top: -5px;
+        height: 9px;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 13px;
+        line-height: 9px;
+        padding: 5px;
+        text-align: center;
+        background-color: #0f9d58;
+        min-width: 9px;
     }
 
     &:hover:before {
@@ -1046,7 +1190,7 @@
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEEAAAATCAYAAADPsWC5AAADNklEQVRYw+WYT2gTQRTGq4fisRepCopCLh4URU8iimjxUBGh6EFF1JMH0UNRPHhQMUhLiCGSQI2hIqSNVLHaQLRaFQKpoh5UFJOahMRapfUvTWJCJeM38W14mW7a3RIhwYVfoZvh4+23M9+b2QYhRMP/TvGP1WqVLAMB8BMIg/wGj0ELF62mlqJrB5fBfPrfApqVMRpnwSBYwe5pLAK3wSVugiz6h4mC9WiptpbycAfAJEiDI2A9eA48mimKCU9Ja1QxQhrwhn5LchP65M3+/n6Ry+WE0atQKIhQKKQVHuJaPT09IhaLiVQqZYhkMikCgUCZFunNA/vBJ9AGtoE4+AhOg2egXY5TTFgDxhUjuAFZsJGb8Fn+kE6nxVwuh8OhFb9Y04pEIoYN4Njtdq51H7wAOSr6EXhIy6wA7pIZefCKlkolI6SJUW6AHMNNKK5dM7OAXx6PRyt8laZlZhZwXC4X1zK7jN7prH9pxBc25pdmQL2YIN/sewo4+bZPgnvgAzgK3oIIzRA5Ew5VCMEYM2GcZ0Q9mLAWvAbXwC3QCs4AB9gLrgIXLZFTSiaoISiX1Hc1LOvBhCUgBS6ClWAC7AGrwVdwHGyh8W2KCdNCUC8s68GERvCECpZdZwNwggfUJTooODOyZSom9JHOJM8AxYjBmjeBavOBBOilFin3BX6wFZwHQ5QNSxUTDspWqxjAjRjSllBNt0iqrYPe6jq6f4wl/mEKwzBYoJMJszJtszQwMCCmpqZMGTA8PKy7WfL7/SKRSJgyIBgM6m2W9tFyuAF2gCvgJtgEzoGXMjircXawUHiUeq7b7S49aCaT4VO+EjsraTmdztKDRqNRPuVn1CK9zbQNvwO2W/9e18EucAF8k+eEah2gLNSPSw+QzWZFPp8X3d3dMxUc4kUzI8q0RkZGRDweF11dXWa1FlLK91JHaKfZMUHZIHeBrdUygSNdL741n8+nFSgPK816a2omNK1wOCy8Xm+ZltEiMXY3haPMgTHaKo+REfJk2fgvTDghi7XZbHw7urxSsMzyAEWtzs7OMq1a/Z6g4qOifdSvG+ZiAmtzJa1a/qiiR5ORFmPQiKZa/bL0B/3kcv9VQUqUAAAAAElFTkSuQmCC') -1px -1px no-repeat;
     position: absolute;
     z-index: 4;
-    right: 10px; /*rtl*/
+    right: 10px; //rtl
     &:hover {
         background-position: -20px -1px;
     }
@@ -1087,7 +1231,7 @@
     right: 0;
     position: absolute;
     //cursor: crosshair;
-    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAbCAMAAACUTyX1AAAAeFBMVEUAAAA5Q0oPnVg5Q0opaU8PnVg1S0sPnVgPnVgYjFU5Q0o5Q0o5Q0o5Q0o5Q0o5Q0o5Q0oPnVg5Q0o5Q0oefFM5Q0o5Q0oPnVgPnVgPnVg5Q0r///9lwJQqqGs3rXQUn1yGzas/sXl9yqWb1rpYu4uz4MpvxJsdo2JO77+7AAAAGXRSTlMAE92eA8QqHRUJYYxUg/K3bYTVNozDReeKGAuqfwAAAJZJREFUGNNVzNkSgyAMQNGooGDdutcAVWuX///DIjIB7kOGM0MCwPi4x8FV2aeZJzsF+aWedlbe5vtRs57Iq9p6k3/LqvRC/2k/2Ogxti1YkiW4Hp5H2JPckTPwibtlLoASuWOovEiIy7BOzBAPDKI6xGsW+YSIXRnc41ZDLpzDkdaiL9q69B4QbxDV4ABx5wKSMpkw9AdOfw/KQTyJfAAAAABJRU5ErkJggg==') /*/Images/cursor.png*/ 6 15, auto;
+    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAbCAMAAACUTyX1AAAAeFBMVEUAAAA5Q0oPnVg5Q0opaU8PnVg1S0sPnVgPnVgYjFU5Q0o5Q0o5Q0o5Q0o5Q0o5Q0o5Q0oPnVg5Q0o5Q0oefFM5Q0o5Q0oPnVgPnVgPnVg5Q0r///9lwJQqqGs3rXQUn1yGzas/sXl9yqWb1rpYu4uz4MpvxJsdo2JO77+7AAAAGXRSTlMAE92eA8QqHRUJYYxUg/K3bYTVNozDReeKGAuqfwAAAJZJREFUGNNVzNkSgyAMQNGooGDdutcAVWuX///DIjIB7kOGM0MCwPi4x8FV2aeZJzsF+aWedlbe5vtRs57Iq9p6k3/LqvRC/2k/2Ogxti1YkiW4Hp5H2JPckTPwibtlLoASuWOovEiIy7BOzBAPDKI6xGsW+YSIXRnc41ZDLpzDkdaiL9q69B4QbxDV4ABx5wKSMpkw9AdOfw/KQTyJfAAAAABJRU5ErkJggg=='); //Images/cursor.png/ 6 15, auto;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
@@ -1098,12 +1242,12 @@
 .addAnotation {
     position: absolute;
     z-index: 3;
-    left: 806px; /*rtl*/
+    left: 806px; //rtl
     display: none;
     //max-height: 100px;
 
     //.btnWpr {
-        //margin-right: 6px; /*rtl*/
+        //margin-right: 6px; //rtl
     //}
 
     button {
@@ -1128,11 +1272,11 @@
     padding: 5px;
 
     img {
-        margin-right: 8px; /*rtl*/
+        margin-right: 8px; //rtl
     }
 
     .annotateContent {
-        text-align: left; /*rtl*/
+        text-align: left; //rtl
         overflow: hidden;
         // bug 437
         textarea {
@@ -1150,7 +1294,7 @@
     .annotator, .inputText, .annnotateAction, .annotationTextWpr {
         .boxSizing;
         width: 243px;
-        text-align: left; /*rtl*/
+        text-align: left; //rtl
     }
 
     .annotator, .annnotateAction {
@@ -1178,7 +1322,7 @@
         //height: 64px;
         overflow: hidden;
         position: relative;
-        max-height: 5.8em; /* exactly four lines */
+        max-height: 5.8em; // exactly four lines 
         &.moreState {
            // height: auto;
             max-height:none;
@@ -1199,12 +1343,12 @@
 .show-more {
     position: absolute;
     bottom: 0;
-    left: 0; /*rtl*/
+    left: 0; //rtl
     z-index: 1;
     width: 100%;
     color: @color;
     //display: none;
-    text-align: left; /*rtl*/
+    text-align: left; //rtl
     background:white;
 }
 
@@ -1214,7 +1358,7 @@
     //width: 350px;
     width: 322px;
     position: absolute;
-    left: 806px; //show iner scroll /*rtl*/
+    left: 806px; //show iner scroll //rtl
     top: 0;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1230,7 +1374,7 @@
     .deleteBtn {
         display: none;
         position: absolute;
-        right: 5px; /*rtl*/
+        right: 5px; //rtl
         top: 5px;
         border: none; //overide deleteBtn class from dashLib
     }
@@ -1266,10 +1410,30 @@
 }
 .addAnotationShow {
     opacity: 0.15;
-}
+}*/
 /*#endregion */
 
 /*#region fullscreen */
+
+/*:-webkit-full-screen {
+    overflow: auto;
+    height: 100%;
+
+    img {
+        width: 100%;
+    }
+}
+
+
+:-moz-full-screen {
+  
+    overflow: auto;
+    img {
+        display:block;
+        margin:0 auto;
+    }  
+}*/
+
 .itemFulscrn {
     display: none;
     text-align: center;

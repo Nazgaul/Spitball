@@ -4,131 +4,218 @@
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div id="item" class="page itemPage" ng-controller="ItemCtrl">
     <h1>@ViewBag.Description</h1>
-    <div class="leftPanel lFloat">
-        <div class="itemTop">
-            <div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>
-            <div class="itemNameWpr">
-                <h2 class="item-name semiFont"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span></h2>
-            </div>
-            <div class="itemOwner elps calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
-            <span class="lFloat" data-bind="text: update"></span>
-            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">@ItemsResources.Flag</button>
-            <div class="actions">
-                <span tooltip="@SharedResources.Views" class="lFloat views" data-bind="text: numberOfViews"></span>
-                <span tooltip="@SharedResources.Downloads" id="item_down" class="lFloat downloads" data-bind="text: numberOfDownloads"></span>
-                <div id="rateContainer" class="rFloat rateContainer">
-                    <span class="stars">
-                        <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
-                    </span>
-                    <button type="button" id="rateBtn" class="rateBtn"></button>
-                    <div id="rateBubble" class="bubble">
-                        <div class="arrow upArrow"></div>
-                        <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
 
-                        <ul class="rateList">
-                            <li id="star5" class="star">5</li>
-                            <li id="star4" class="star star4">4</li>
-                            <li id="star3" class="star star3">3</li>
-                            <li id="star2" class="star star2">2</li>
-                            <li id="star1" class="star star1">1</li>
-                        </ul>
-                    </div>
-                </div>
 
-            </div>
-            <button class="itemRenameBtn" tooltip="@SharedResources.Rename" id="itemSettings" type="button"></button>
-        </div>
-
-        <h3 class="sectionHeader">@ItemsResources.Additional</h3>
-        <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
-            <li data-bind="css: { select: select }" class="moreFilesItem">
-                <a data-bind="attr: { href: itemUrl }">
-                    <div class="moreFilesThumb" data-bind="text: extension, css: extensionColor"></div>
-                    <div class="moreFilesData">
-                        <div class="elps moreFilesName boldFont" data-bind="text: nameNoType"></div>
-                        <div class="elps" data-bind="text: uploader"></div>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="itemRight">
-        <div id="ratePopup" class="ratePopup">
-            <div class="rateTxt2">@SharedResources.SweetThanks</div>
-            <div class="rateWpr">
-                <span class="lFloat rateTxt">@ItemsResources.RateItem</span>
-                <span class="starsWpr lFloat">
-                    <span class="star"></span>
-                    <span class="star"></span>
-                    <span class="star"></span>
-                    <span class="star"></span>
-                    <span class="star"></span>
-                </span>
-            </div>
-            <button type="button" class="closeDialog" data-closediag="close"></button>
-        </div>
-        <div class="itemActions topBar barShadow">
-            <div class="middleActions">
-                <ul class="middleActionList">
-                    <li class="middleActionItem"><button type="button" class="itemDownload iconTop" id="item_DL" data-link="@Url.RouteUrl("ItemDownload")">@ItemsResources.Download</button></li>
-                    <li class="middleActionItem"><button type="button" data-bind="click: fullscreen" class="fullscreen iconTop">@ItemsResources.FullScreen</button></li>
-                    <li class="middleActionItem">
-                        @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
-                        <input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
-                        <label for="itemPrint" class="itemPrint iconTop" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</label>
-                        <div class="printDD dropDown" data-dropdown="itemPrint">
-                            <div class="arrow upArrow"></div>
-                            <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
-                            <div class="printTxt">או הדפס באמצעות:</div>
-                            <div class="printTxt2">
-                                מערכת
-                                <a href="http://www.otakim.co.il">עותקים</a>
-                                מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
-                                <br />
-                                איכותי מתקדם ובמחיר של 8 אג' לעמוד.
-                            </div>
-                            <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
-                        </div>
-                    </li>
-                    <li class="middleActionItem">
-                        <input id="commentToggle" type="checkbox" class="commentsToggleCb" />
-                        <label id="commentToggleLabel" data-showcomments="@ItemsResources.ShowComments" data-hidecomments="@ItemsResources.HideComments"
-                               for="commentToggle" class="commentBtn iconTop">
-                            @ItemsResources.Comments
-                            <span class="commentsNumber"></span>
-                        </label>
-                    </li>
-                    <li class="middleActionItem"><button type="button" class="itemDelete iconTop" id="item_Del" data-bind="click: deleteItem,visible:deleteAllow()">@ItemsResources.Delete</button></li>
-
-                </ul>
-            </div>
-
-            <section class="shareBtn rFloat">
-                <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
-                <label for="itemShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                <div class="dropDown shareDD" data-dropdown="itemShare">
-                    <label class="closeItem rFloat" for="itemShare"></label>
-                    <div class="arrow shareArrow"></div>
-                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
-                    <div class="shareTxt">@SharedResources.ShareUsing</div>
-                    <ul class="shareList">
-                        <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
-                        }
-                    </ul>
-                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                    <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
-                </div>
-            </section>
-
-            <a class="backWpr elps lFloat" data-bind=" attr: { href: boxurl }" >
+    <div class="topBar">
+        @* class itemTop has gone*@
+        @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
+        <div class="leftPart">
+            <a class="backWpr elps lFloat" data-bind=" attr: { href: boxurl }">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps" data-bind="text: boxName"></h2>
+                <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
         </div>
+        <div class="mainPart">
+            <ul class="middleActionList">
+                <li class="middleActionItem">
+
+                    <button type="button" class="" id="item_DL" data-link="@Url.RouteUrl("ItemDownload")">
+                        <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
+                        <div>@ItemsResources.Download</div>
+                    </button>
+                </li>
+
+                <li class="middleActionItem">
+                    @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
+                    <input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
+                    <label for="itemPrint" class="" data-link="@Url.Action("Print", "Item")">
+                        <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
+                        <span>@ItemsResources.Print</span>
+                    </label>
+                    <div class="printDD dropDown" data-dropdown="itemPrint">
+                        <div class="arrow upArrow"></div>
+                        <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
+                        <div class="printTxt">או הדפס באמצעות:</div>
+                        <div class="printTxt2">
+                            מערכת
+                            <a href="http://www.otakim.co.il">עותקים</a>
+                            מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
+                            <br />
+                            איכותי מתקדם ובמחיר של 8 אג' לעמוד.
+                        </div>
+                        <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
+                    </div>
+                </li>
+
+
+                <li class="middleActionItem">
+                    <button type="button" data-bind="click: fullscreen" class="">
+                        <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
+                        @*<svg class="svg-smallscreen"><use xlink:href="~/Images/Defs.svg#smallscreen" /></svg>*@
+                        <div>@ItemsResources.FullScreen</div>
+                        <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
+                    </button>
+                </li>
+
+
+                <li class="middleActionItem">
+                    <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
+                    <label for="itemShare" class="">
+                        <span>@SharedResources.Share</span>
+                        <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
+                    </label>
+                    <div class="dropDown shareDD" data-dropdown="itemShare">
+                        <label class="closeItem rFloat" for="itemShare"></label>
+                        <div class="arrow shareArrow"></div>
+                        <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                        <div class="shareTxt">@SharedResources.ShareUsing</div>
+                        <ul class="shareList">
+                            <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
+                            }
+                        </ul>
+                        <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                        <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
+                    </div>
+                </li>
+
+                @*<li class="middleActionItem">
+                <input id="commentToggle" type="checkbox" class="commentsToggleCb" />
+                <label id="commentToggleLabel" data-showcomments="@ItemsResources.ShowComments" data-hidecomments="@ItemsResources.HideComments"
+                       for="commentToggle" class="commentBtn iconTop">
+                    @ItemsResources.Comments
+                    <span class="commentsNumber"></span>
+                </label>
+            </li>*@
+
+                @*<li class="middleActionItem"><button type="button" class="itemDelete iconTop" id="item_Del" data-bind="click: deleteItem,visible:deleteAllow()">@ItemsResources.Delete</button></li>*@
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="secondBar">
+        <div class="leftPart">
+            <span class="lFloat">
+                <svg class="svg-eye"><use xlink:href="~/Images/Defs.svg#eye" /></svg>
+                <span tooltip="@SharedResources.Views" class="views" data-bind="text: numberOfViews"></span>
+            </span>
+            <span class="downloads">
+                <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
+                <span tooltip="@SharedResources.Downloads" id="item_down" data-bind="text: numberOfDownloads"></span>
+            </span>
+            <div class="rateWpr rFloat">
+                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            </div>
+        </div>
+
+        <div class="mainPart documentTop">
+            <button type="button" class="rFloat"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
+            <button type="button" class="lFloat"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
+            <div class="itemNameWpr">
+                <h2 class="item-name semiFont elps"><span role="textbox" class="itemNameText" data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span></h2>
+                <div class="itemOwner elps calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
+                <button class="itemRenameBtn" tooltip="@SharedResources.Rename" id="itemSettings" type="button"></button>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="leftPanel lFloat">
+            @*<span class="lFloat" data-bind="text: update"></span>*@
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">
+                <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
+                <span>@ItemsResources.Flag</span>
+            </button>
+            @*<div class="actions">
+
+                    <div id="rateContainer" class="rFloat rateContainer">
+                        <span class="stars">
+                            <span class="full" data-bind="style: { width: rate() + 'px' }"></span>
+                        </span>
+                        <button type="button" id="rateBtn" class="rateBtn"></button>
+                        <div id="rateBubble" class="bubble">
+                            <div class="arrow upArrow"></div>
+                            <div data-step2="@ItemsResources.Thankyou" data-step1="@ItemsResources.RateItem" class="bubbleText"></div>
+
+                            <ul class="rateList">
+                                <li id="star5" class="star">5</li>
+                                <li id="star4" class="star star4">4</li>
+                                <li id="star3" class="star star3">3</li>
+                                <li id="star2" class="star star2">2</li>
+                                <li id="star1" class="star star1">1</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>*@
+
+        @*<h3 class="sectionHeader">@ItemsResources.Additional</h3>
+            <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
+                <li data-bind="css: { select: select }" class="moreFilesItem">
+                    <a data-bind="attr: { href: itemUrl }">
+                        <div class="moreFilesThumb" data-bind="text: extension, css: extensionColor"></div>
+                        <div class="moreFilesData">
+                            <div class="elps moreFilesName boldFont" data-bind="text: nameNoType"></div>
+                            <div class="elps" data-bind="text: uploader"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>*@
+    </div>
+    <div class="itemRight">
+        @*<div id="ratePopup" class="ratePopup">
+                <div class="rateTxt2">@SharedResources.SweetThanks</div>
+                <div class="rateWpr">
+                    <span class="lFloat rateTxt">@ItemsResources.RateItem</span>
+                    <span class="starsWpr lFloat">
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                    </span>
+                </div>
+                <button type="button" class="closeDialog" data-closediag="close"></button>
+            </div>*@
+
+        @*<div class="itemActions topBar barShadow">
+
+
+    <section class="shareBtn rFloat">
+            <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
+            <label for="itemShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+            <div class="dropDown shareDD" data-dropdown="itemShare">
+                <label class="closeItem rFloat" for="itemShare"></label>
+                <div class="arrow shareArrow"></div>
+                <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                <div class="shareTxt">@SharedResources.ShareUsing</div>
+                <ul class="shareList">
+                    <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
+                    }
+                </ul>
+                <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
+            </div>
+        </section>
+
+
+        </div>*@
+        
+
 
         <div class="itemPreview scrollEffect" id="itemPreview">
             <div class="previewWrapper" id="previewWrapper"></div>
@@ -152,30 +239,19 @@
             <div>@ItemsResources.OverDoc</div>
         </div>
     </div>
-    <script type="text/html" id="anotationTmpl" class="anotationTmpl">
-
-        <div class="readView">
-            <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
-            <div class="annotateContent">
-                <span class="annotator semiFont elps">{{userName}}</span>
-                <span display-time="{{date}}" class="annotateDate"></span>
-                <div class="annotationTextWpr">
-                    <div class="annotationText">{{comment}}</div>
-                    <button type="button" class="show-more">@SharedResources.ContinueReading ...</button>
-                    @*<div class="show-less">Show less</div>*@
+    @*<script type="text/html" id="anotationTmpl" class="anotationTmpl">
+            <div class="readView">
+                <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
+                <div class="annotateContent">
+                    <span class="annotator semiFont elps">{{userName}}</span>
+                    <span display-time="{{date}}" class="annotateDate"></span>
+                    <div class="annotationTextWpr">
+                        <div class="annotationText">{{comment}}</div>
+                        <button type="button" class="show-more">@SharedResources.ContinueReading ...</button>
+                    </div>
                 </div>
-                @*<input class="annnotateAction" type="button" value="Reply" />*@
+                <button class="deleteBtn" type="button"></button>
             </div>
-            <button class="deleteBtn" type="button"></button>
-        </div>
-    </script>
-    @*<script type="text/html" id="anotationReplyTmpl">
-            <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
-                <div class="rFloat annotateContent">
-                    <span class="annotator elps">{{userName}}</span>
-                    <span class="annotateDate">{{date}}</span>
-                    <div class="annotationText">{{comment}}</div>
-                </div>
         </script>*@
 </div>
 
@@ -193,10 +269,10 @@
     <div><span>* </span><span>* </span><span>* </span><span>* </span><span>* </span></div>
 </script>
 
-    @*@if (Request.IsAjaxRequest())
-        {
-                @Html.Script2("item")
-        }
-        @section scripts {
+@*@if (Request.IsAjaxRequest())
+    {
             @Html.Script2("item")
-        }*@
+    }
+    @section scripts {
+        @Html.Script2("item")
+    }*@

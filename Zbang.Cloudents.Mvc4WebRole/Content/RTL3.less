@@ -674,6 +674,16 @@
 /*#endregion */
 
 /*#region box3.css */
+.boxPage {
+    .leftPanel {
+        border-left: 1px solid @borderColor; /*rtl*/
+        border-right: none;
+    }
+}
+.boxBack {
+    padding: 0 15px 0 0; /*rtl*/
+}
+
 .shareBtn {
     .shareItem {
         padding: 0 6px 0 0; /*rtl*/
@@ -1436,10 +1446,6 @@
 /*#endregion */
 
 /*#region left panel */
-.leftPanel {
-    border-left: 1px solid @borderColor; /*rtl*/
-    border-right: none;
-}
 
 .item-name {
     padding: 0 5px 0 0; /*rtl*/
@@ -1511,9 +1517,6 @@
 
 /*#region top action buttons */
 
-.itemBack, .boxBack {
-    padding: 0 15px 0 0; /*rtl*/
-}
 
 .itemActions {
     .shareBtn {
