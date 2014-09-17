@@ -1,9 +1,9 @@
 ﻿
-namespace Zbang.Zbox.ViewModel.Dto
+namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class ItemNavigationDto
     {
-        public string Prev { get; set; }
+        public string Previous { get; set; }
         public string Next { get; set; }
     }
 }

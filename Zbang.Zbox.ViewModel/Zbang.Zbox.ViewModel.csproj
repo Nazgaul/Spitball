@@ -88,6 +88,7 @@
     <Compile Include="Dto\ItemDtos\FileDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\IItemDto.cs" />
+    <Compile Include="Dto\ItemDtos\ItemDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemWithDetailDto.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Dto\ItemDtos\QuizSeo.cs" />
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
-    <Compile Include="Dto\ItemNavigationDto.cs" />
+    <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
     <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />

@@ -52,9 +52,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-            Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
-            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
+        //    Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+        //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
@@ -175,27 +175,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         /// <summary>
-        /// Ajax Request - user press next prev icon on item page
+        /// Ajax Request - item data
         /// </summary>
-        /// <param name="boxUid"></param>
+        /// <param name="boxId"></param>
         /// <param name="itemId"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [Ajax]
-        //[AjaxCache(TimeConsts.Minute * 15)]
-        public ActionResult Load(long boxUid, long itemId)
+        public async Task<ActionResult> Load(long boxId, long itemId)
         {
             try
             {
-                var userId = GetUserId(false); // not really needs it
+                var userId = GetUserId(false);
 
-                var query = new GetItemQuery(userId, itemId, boxUid);
-                var item = ZboxReadService.GetItem(query);
-                if (item.BoxId != boxUid)
-                {
-                    throw new ItemNotFoundException();
-                }
+                var query = new GetItemQuery(userId, itemId, boxId);
+                var item = await ZboxReadService.GetItem2(query);
                 return Json(new JsonResponse(true, item));
             }
             catch (BoxAccessDeniedException)
@@ -208,7 +203,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On item load boxid = " + boxUid + " ,itemid = " + itemId, ex);
+                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemId, ex);
                 return Json(new JsonResponse(false));
             }
 
@@ -401,7 +396,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[AjaxCache(TimeConsts.Minute * 15)]
-        public async Task<ActionResult> Preview(string blobName, int imageNumber, long uid, string boxUid, int width = 0, int height = 0)
+        public async Task<ActionResult> Preview(string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -415,7 +410,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //}
             if (!User.Identity.IsAuthenticated && imageNumber > 0)
             {
-                return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
+                return Json(new JsonResponse(true));
             }
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor == null)
@@ -426,7 +421,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             {
                                 preview =
                                     RenderRazorViewToString("_PreviewFailed",
-                                        Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid }))
+                                        Url.ActionLinkWithParam("Download", new { BoxUid = boxId, ItemId = id }))
                             }),
                         JsonRequestBehavior.AllowGet);
             try
@@ -434,23 +429,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, imageNumber);
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
-                    return Json(new JsonResponse(true, new { preview = retVal.Content.First() }), JsonRequestBehavior.AllowGet);
+                    return Json(new JsonResponse(true, new { preview = retVal.Content.First() }));
                 }
 
-                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }), JsonRequestBehavior.AllowGet);
-                //if (retVal.Content.Count() == 0 && imageNumber == 0) // this is happen due failed preview at the start
-                //{
-                //    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
-                //}
+                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }));
+                
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
                 if (imageNumber == 0)
                 {
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxUid, ItemId = uid })) }), JsonRequestBehavior.AllowGet);
+                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxId, ItemId = id })) }));
                 }
-                return Json(new JsonResponse(true), JsonRequestBehavior.AllowGet);
+                return Json(new JsonResponse(true));
             }
         }
         #endregion
@@ -482,13 +474,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [HttpGet, Ajax]
-        public async Task<JsonResult> Navigation(long id, long boxId)
-        {
-            var query = new GetItemQuery(GetUserId(), id, boxId);
-            var retVal = await ZboxReadService.GetItemNavigation(query);
-            return Json(new JsonResponse(true, retVal));
-        }
+       
     }
 }
