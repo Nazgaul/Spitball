@@ -82,18 +82,6 @@
                         <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
                     </div>
                 </li>
-
-                @*<li class="middleActionItem">
-                <input id="commentToggle" type="checkbox" class="commentsToggleCb" />
-                <label id="commentToggleLabel" data-showcomments="@ItemsResources.ShowComments" data-hidecomments="@ItemsResources.HideComments"
-                       for="commentToggle" class="commentBtn iconTop">
-                    @ItemsResources.Comments
-                    <span class="commentsNumber"></span>
-                </label>
-            </li>*@
-
-                @*<li class="middleActionItem"><button type="button" class="itemDelete iconTop" id="item_Del" data-bind="click: deleteItem,visible:deleteAllow()">@ItemsResources.Delete</button></li>*@
-
             </ul>
         </div>
     </div>
@@ -177,86 +165,10 @@
     </div>
 
     <div class="itemRight">
-        @*<div id="ratePopup" class="ratePopup">
-                <div class="rateTxt2">@SharedResources.SweetThanks</div>
-                <div class="rateWpr">
-                    <span class="lFloat rateTxt">@ItemsResources.RateItem</span>
-                    <span class="starsWpr lFloat">
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                    </span>
-                </div>
-                <button type="button" class="closeDialog" data-closediag="close"></button>
-            </div>*@
-
-        @*<div class="itemActions topBar barShadow">
-
-
-    <section class="shareBtn rFloat">
-            <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
-            <label for="itemShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-            <div class="dropDown shareDD" data-dropdown="itemShare">
-                <label class="closeItem rFloat" for="itemShare"></label>
-                <div class="arrow shareArrow"></div>
-                <h4 class="semiFont">@SharedResources.ShareItem</h4>
-                <div class="shareTxt">@SharedResources.ShareUsing</div>
-                <ul class="shareList">
-                    <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                    <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
-                    }
-                </ul>
-                <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
-            </div>
-        </section>
-
-
-        </div>*@
-        
-
-
         <div class="itemPreview scrollEffect" id="itemPreview">
             <div class="previewWrapper" ng-bind-html="preview"></div>
         </div>
-        @*<form id="AddAnotation" class="addAnotation">
-            <img class="lFloat" width="32" height="32" alt="" />
-            <div class="annotateContent">
-                <div id="annotator" class="annotator semiFont elps"></div>
-                <textarea class="inputText" name="comment" text-direction></textarea>
-                <div class="rFloat btnWpr">
-                    <button type="button" class="btn1 btnCancel">@SharedResources.Cancel</button>
-                    <button type="submit" class="btn1">@SharedResources.Submit</button>
-                </div>
-            </div>
-
-        </form>
-        <div id="annEmptyState" class="annotationEmpty">
-            <div class="boldFont">@ItemsResources.AddingComment</div>
-            <div>@ItemsResources.SimplyClick</div>
-            <div>@ItemsResources.MouseCursor</div>
-            <div>@ItemsResources.OverDoc</div>
-        </div>*@
     </div>
-    @*<script type="text/html" id="anotationTmpl" class="anotationTmpl">
-            <div class="readView"> 
-                <img class="lFloat" src="{{userImage}}" width="32" height="32" alt="" />
-                <div class="annotateContent">
-                    <span class="annotator semiFont elps">{{userName}}</span>
-                    <span display-time="{{date}}" class="annotateDate"></span>
-                    <div class="annotationTextWpr">
-                        <div class="annotationText">{{comment}}</div>
-                        <button type="button" class="show-more">@SharedResources.ContinueReading ...</button>
-                    </div>
-                </div>
-                <button class="deleteBtn" type="button"></button>
-            </div>
-        </script>*@
 </div>
 
 @{Html.RenderPartial("Rename");}

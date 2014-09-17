@@ -53,62 +53,6 @@
     position: relative;
     margin-top: 12px;
     color: @attentionBlue;
-    .shareList {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-        margin-top: 5px;
-    }
-
-    .shareItem {
-        display: table-cell;
-        .boxSizing;
-        padding-left: 6px; /*rtl*/
-        vertical-align: top;
-
-        &:first-child {
-            padding: 0 6px 0 0; /*rtl*/
-        }
-    }
-
-    .fbShare, .emailShare {
-        border-radius: 3px;
-        color: #fff;
-        background: #39579b;
-        line-height: 36px;
-        height: 36px;
-        width: 100%;
-
-        &:before {
-            .pseudo;
-            width: 11px;
-            height: 22px;
-            background: @common-sprite -130px -1px no-repeat;
-            vertical-align: middle;
-            margin-right: 6px; /*rtl*/
-        }
-    }
-
-    .emailShare {
-        background: @attentionBlue;
-
-        &:before {
-            width: 22px;
-            height: 19px;
-            background-position: -192px -70px;
-        }
-    }
-
-    .linkShare {
-        height: 36px;
-        border: 1px solid @borderColor;
-        color: @attentionBlue;
-        border-radius: 3px;
-        padding: 0 10px;
-        .boxSizing;
-        width: 284px;
-        direction: ltr;
-    }
 }
 
 .shareDD {
@@ -173,7 +117,12 @@
     .shareTxt {
         margin: 23px 0 10px;
     }
-
+    .shareList {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin-top: 5px;
+    }
     .shareArrow {
         position: relative;
         top: -11px;
@@ -187,6 +136,55 @@
             bottom: 3px;
             background: #fff;
         }
+    }
+    .shareItem {
+        display: table-cell;
+        .boxSizing;
+        padding-left: 6px; /*rtl*/
+        vertical-align: top;
+
+        &:first-child {
+            padding: 0 6px 0 0; /*rtl*/
+        }
+    }
+
+    .fbShare, .emailShare {
+        border-radius: 3px;
+        color: #fff;
+        background: #39579b;
+        line-height: 36px;
+        height: 36px;
+        width: 100%;
+
+        &:before {
+            .pseudo;
+            width: 11px;
+            height: 22px;
+            background: @common-sprite -130px -1px no-repeat;
+            vertical-align: middle;
+            margin-right: 6px; /*rtl*/
+        }
+    }
+
+    .emailShare {
+        background: @attentionBlue;
+
+        &:before {
+            width: 22px;
+            height: 19px;
+            background-position: -192px -70px;
+        }
+    }
+
+    .linkShare {
+        height: 36px;
+        border: 1px solid @borderColor;
+        color: @attentionBlue;
+        border-radius: 3px;
+        padding: 0 10px;
+        .boxSizing;
+        width: 284px;
+        direction: ltr;
     }
 }
 /*#region box right header */
