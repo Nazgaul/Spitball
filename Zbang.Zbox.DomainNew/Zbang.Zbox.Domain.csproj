@@ -76,9 +76,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Department.cs" />
-    <Compile Include="Library.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RussianDepartment.cs" />
     <Compile Include="Discussion.cs" />
     <Compile Include="FirstTime.cs" />
@@ -116,7 +113,6 @@
     <EmbeddedResource Include="Mappings\Box.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mappings\Library.hbm.xml" />
     <EmbeddedResource Include="Mappings\User.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -324,9 +324,10 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3}", Sql.Item.ItemDetail, Sql.Item.Navigation, 
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}", Sql.Item.ItemDetail, Sql.Item.Navigation, 
                             Sql.Security.GetBoxPrivacySettings,
-                            Sql.Security.GetUserToBoxRelationship),
+                            Sql.Security.GetUserToBoxRelationship,
+                            Sql.Item.ItemComments),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
                     var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
@@ -338,7 +339,7 @@ namespace Zbang.Zbox.ReadServices
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
-
+                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
                     return retVal;
                 }
                 
@@ -427,31 +428,31 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
-        {
+//        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
+//        {
 
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                //IEnumerable<Activity.AnnotationDto> retVal;
-                const string sql = @"SELECT [ItemCommentId] as Id
-                          ,[ImageId]
-                          ,[CordX] as X
-                          ,[CordY] as Y
-                          ,[Width]
-                          ,[Height]
-                          ,[Comment]
-                          ,ic.CreationTime as CreationDate
-	                      ,u.UserImage
-	                      ,u.UserName
-                          ,u.userid as Uid
-	  
-                      FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
-                      where itemid = @itemId
-                      order by imageid, Y ";
+//            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+//            {
+//                //IEnumerable<Activity.AnnotationDto> retVal;
+//                const string sql = @"SELECT [ItemCommentId] as Id
+//                          ,[ImageId]
+//                          ,[CordX] as X
+//                          ,[CordY] as Y
+//                          ,[Width]
+//                          ,[Height]
+//                          ,[Comment]
+//                          ,ic.CreationTime as CreationDate
+//	                      ,u.UserImage
+//	                      ,u.UserName
+//                          ,u.userid as Uid
+//	  
+//                      FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
+//                      where itemid = @itemId
+//                      order by imageid, Y ";
 
-                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
-            }
-        }
+//                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
+//            }
+//        }
 
 
         /// <summary>

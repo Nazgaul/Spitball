@@ -8,11 +8,11 @@
     </id>
     
     <many-to-one name="Item" class="Item" column="ItemId" not-null="true" foreign-key="itemIdItemComment"/>
-    <property name="ImageId" not-null="true"></property>
+    <!--<property name="ImageId" not-null="true"></property>
     <property name="CordX" not-null="true"></property>
     <property name="CordY" not-null="true"></property>
     <property name="Width" not-null="true"></property>
-    <property name="Height" not-null="true"></property>
+    <property name="Height" not-null="true"></property>-->
     <property name="Comment" not-null="true" length="8000"></property>
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
@@ -36,7 +36,7 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
     <property name="Comment" not-null="true" length="8000"></property>
-    <property name="ImageId" not-null="true"></property>
+    <!--<property name="ImageId" not-null="true"></property>-->
   </class>
 
 </hibernate-mapping>

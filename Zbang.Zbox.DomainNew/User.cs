@@ -117,7 +117,6 @@ namespace Zbang.Zbox.Domain
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
-        public virtual University2 University { get; protected set; }
 
 
         public virtual University University2 { get; protected set; }

@@ -84,10 +84,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxComments(query);
         }
 
-        public Task<IEnumerable<AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
-        {
-            return m_ReadService.GetItemComments(query);
-        }
+      
 
         public BoxDto GetBox(GetBoxQuery query)
         {

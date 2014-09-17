@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope','$modal',
-function ($scope, $routeParams, sItem, $timeout, $rootScope,$modal) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal','sUserDetails',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = true;
 
@@ -42,7 +42,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope,$modal) {
             getPreview();
         }
     }
-    $scope.fullScreen = function() {
+    $scope.fullScreen = function () {
         var modalInstance = $modal.open({
             windowClass: 'fullscreen',
             templateUrl: '/Item/FullScreen/',
@@ -57,6 +57,29 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope,$modal) {
         });
         //modalInstance.result.then(function (url) {
         //});
+    }
+    $scope.create = function (isValid) {
+        if (!isValid) {
+            return;
+        }
+        //TODO: add disable state
+        $scope.formData.itemId = $routeParams.itemId;
+        sItem.addComment($scope.formData).then(function(response) {
+            if (!response.success) {
+                alert(response.payload);
+                return;
+            }
+            $scope.item.comments.unshift({
+                comment: $scope.formData.Comment,
+                creationDate: new Date().toISOString(),
+                id: response.payload,
+                replies: [],
+                userId: sUserDetails.getDetails().id,
+                userName: sUserDetails.getDetails().name
+            });
+        });
+
+
     }
     cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;

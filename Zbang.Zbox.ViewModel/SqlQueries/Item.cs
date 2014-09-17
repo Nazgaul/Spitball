@@ -36,5 +36,15 @@ select Previous,Next from  cte where itemid = @ItemId;
     where i.ItemId = @ItemId
     and i.IsDeleted = 0 
 	and i.boxid = @BoxId;";
+
+
+        public const string ItemComments = @"SELECT [ItemCommentId] as Id
+                          ,[Comment]
+                          ,ic.CreationTime as CreationDate
+	                      ,u.UserName
+                          ,u.userid as UserId
+  FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
+                      where itemid = @ItemId
+                      order by ic.CreationTime desc;";
     }
 }

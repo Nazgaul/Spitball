@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Domain
     {
         public virtual long Id { get; set; }
         public virtual Item Item { get; set; }
-        public virtual int ImageId { get; set; }
+        //public virtual int ImageId { get; set; }
 
         public virtual string Comment { get; set; }
 
@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemComment(User author, Item item, int imageId, string comment, int cordX, int cordY, int width, int height)
+        public ItemComment(User author, Item item, string comment)
         {
             if (author == null)
             {
@@ -30,26 +30,6 @@ namespace Zbang.Zbox.Domain
             if (item == null)
             {
                 throw new ArgumentNullException("item");
-            }
-            if (imageId < 0 )
-            {
-                throw new ArgumentException("imageId");
-            }
-            if (cordX < 0)
-            {
-                throw new ArgumentException("cordX");
-            }
-            if (cordY < 0)
-            {
-                throw new ArgumentException("cordY");
-            }
-            if (width < 0)
-            {
-                throw new ArgumentException("width");
-            }
-            if (height < 0)
-            {
-                throw new ArgumentException("height");
             }
             if (comment == null)
             {
@@ -64,19 +44,12 @@ namespace Zbang.Zbox.Domain
 
             Author = author;
             Item = item;
-            ImageId = imageId;
             Comment = comment.Trim();
-            CordX = cordX;
-            CordY = cordY;
-            Width = width;
-            Height = height;
             UserTime = new UserTimeDetails(Author.Email);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
-        public virtual int CordX { get; set; }
-        public virtual int CordY { get; set; }
-        public virtual int Width { get; set; }
-        public virtual int Height { get; set; }
+
+
 
 
     }
@@ -87,7 +60,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemCommentReply(User author, Item item, int imageId, string comment, ItemComment parent)
+        public ItemCommentReply(User author, Item item, string comment, ItemComment parent)
         {
             if (author == null)
             {
@@ -97,10 +70,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("item");
             }
-            if (imageId < 0)
-            {
-                throw new ArgumentException("imageId");
-            }
+           
             if (parent == null)
             {
                 throw new ArgumentNullException("parent");
@@ -118,7 +88,6 @@ namespace Zbang.Zbox.Domain
 
             Author = author;
             Item = item;
-            ImageId = imageId;
             Comment = comment;
             Parent = parent;
             UserTime = new UserTimeDetails(Author.Email);

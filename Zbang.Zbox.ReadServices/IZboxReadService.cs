@@ -44,7 +44,6 @@ namespace Zbang.Zbox.ReadServices
         Task<ItemRateDto> GetRate(GetItemRateQuery query);
 
         IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
-        Task<IEnumerable<AnnotationDto>> GetItemComments(GetItemCommentsQuery query);
 
         BoxDto GetBox(GetBoxQuery query);
 

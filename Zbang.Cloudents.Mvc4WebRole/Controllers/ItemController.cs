@@ -489,5 +489,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
+
+         [HttpPost, ZboxAuthorize, Ajax]
+         public ActionResult AddComment(NewAnnotation model)
+         {
+             if (!ModelState.IsValid)
+             {
+                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+             }
+             try
+             {
+                 var command = new AddAnnotationCommand(model.Comment, model.ItemId, GetUserId());
+                 ZboxWriteService.AddAnnotation(command);
+                 return Json(new JsonResponse(true, command.AnnotationId));
+             }
+             catch (UnauthorizedAccessException)
+             {
+                 return Json(new JsonResponse(false));
+             }
+         }
     }
 }

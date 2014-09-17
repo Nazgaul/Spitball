@@ -132,10 +132,11 @@
         </button>
 
         <section class="itemComments">
+            {{item.comments.length}}
             <header>@SharedResources.AddComment</header>
-            <form class="clearfix itemCommentsForm">
+            <form name="addAnnotation" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
-                    <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required ></textarea>
+                    <textarea ng-model="formData.Comment" @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
                     <div class="rFloat">
                         <button type="submit" class="post rFloat">@SharedResources.Post</button>
                         <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
@@ -143,7 +144,7 @@
                 </div>
             </form>
             <ul class="itemCommentsList">
-                <li>
+                
                     <ul>
                         <li>
                             <span>Posted by</span>
