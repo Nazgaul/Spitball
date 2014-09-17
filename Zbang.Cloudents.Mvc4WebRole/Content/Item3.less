@@ -166,7 +166,7 @@ body.item {
     margin: 0 15px;
     position: relative;
 
-    > button, > label {
+    .actionLink, > label, > button {
         color: #fff;
         padding-top: 45px;
         display: inline-block;
@@ -181,28 +181,23 @@ body.item {
         }
     }
 }
-/*#region print drop down */
-.printDD.printDD{
+/*#region print drop down - OBSELETE */
+/*.printDD.printDD{
 
     text-align: center;
     margin-top: 5px;
     width: 245px;
     height: 250px;
-    direction: rtl; /*no rtl*/
+    direction: rtl; //no rtl
 
     background: #fff;
     border: 1px solid @borderColor;
     border-radius: 3px;
     box-shadow: 0 2px 9px rgba(0,0,0,.3);
     
-    left: 122px; /*diff rtl*/
+    left: 122px; //diff rtl
     top: 66px;
-    /*&:before
-    {
-        height: 43px;
-        background: #f5f5f5;
-        border-radius: 3px 3px 0 0;
-    }*/
+
     &:before
     {
         display: none;  //override
@@ -218,7 +213,7 @@ body.item {
          {
             margin: 0; // override
             position: absolute;
-            right: 53px; /*no rtl yet*/
+            right: 53px; //no rtl yet
             top: 2px;
         }
     }
@@ -250,7 +245,7 @@ body.item {
         padding: 3px 20px 5px 20px;
         margin-top: 5px;
     }
-}
+}*/
 
 /*#endregion */
 
@@ -434,6 +429,36 @@ body.item {
     }
     
     
+}
+.itemCommentsList {
+    
+    li {
+        position: relative;
+        border: 1px solid @itemBlue;
+        border-radius: 5px;
+        margin-top: 35px;
+        padding: 8px;
+        .boxSizing;
+        &:hover {
+            .closeDialog {
+                display: block;
+            }
+        }
+    }
+    .addComBtn {
+        padding-top: 5px;
+        margin-top: 10px;
+        color: @itemBlue;
+        border-top: 1px solid @borderColor;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .closeDialog {
+        top: 6px;
+        right: 6px;
+        display: none;
+    }
 }
 /*#endregion */
 

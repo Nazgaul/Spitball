@@ -19,16 +19,20 @@
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
-
-                    <a href="{{item.downloadUrl}}" target="_blank">
+                    <a class="actionLink" href="{{item.downloadUrl}}" target="_blank">
                         <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                         <div>@ItemsResources.Download</div>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
+                    <a class="actionLink" href="{{item.downloadUrl}}" target="_blank">
+                        <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
+                        <span>@ItemsResources.Print</span>
+                    </a>
+
                     @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
-                    <input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
+                    @*<input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
                     <label for="itemPrint" class="" data-link="@Url.Action("Print", "Item")">
                         <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
                         <span>@ItemsResources.Print</span>
@@ -45,7 +49,7 @@
                             איכותי מתקדם ובמחיר של 8 אג' לעמוד.
                         </div>
                         <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
-                    </div>
+                    </div>*@
                 </li>
 
 
@@ -144,7 +148,7 @@
                     <span><a href="#">{User-name}</a></span>
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
-                    <button type="button">@SharedResources.AddComment</button>
+                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
                     <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
                 <li>
@@ -152,7 +156,7 @@
                     <span><a href="#">{User-name}</a></span>
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
-                    <button type="button">@SharedResources.AddComment</button>
+                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
                     <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
                 <li>
@@ -160,7 +164,7 @@
                     <span><a href="#">{User-name}</a></span>
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
-                    <button type="button">@SharedResources.AddComment</button>
+                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
                     <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
             </ul>

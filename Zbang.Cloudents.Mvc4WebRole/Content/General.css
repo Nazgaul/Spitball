@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2553,9 +2553,9 @@ select.inputText {
   .inviteSources.inviteSources {
     margin-top: 0;
   }
-  .printDD.printDD .printTxt2 {
-    padding: 0;
-  }
+  /*.printDD.printDD .printTxt2 {
+        padding: 0;
+    }*/
   .divWrapper.divWrapper {
     width: 680px;
   }
@@ -2593,3 +2593,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */
