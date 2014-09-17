@@ -3,16 +3,16 @@
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div id="item" class="page itemPage" ng-controller="ItemCtrl">
-    <h1>@ViewBag.Description</h1>
+    @*<h1>@ViewBag.Description</h1>*@
 
 
     <div class="topBar">
         @* class itemTop has gone*@
         @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
         <div class="leftPart">
-            <a class="backWpr elps lFloat" data-bind=" attr: { href: boxurl }">
+            <a class="backWpr elps lFloat" href="{{item.boxUrl}}">
                 <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps" data-bind="text: boxName"></h2>
+                <h2 class="semiFont elps">{{item.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
         </div>
@@ -102,11 +102,11 @@
         <div class="leftPart">
             <span class="lFloat views" tooltip="@SharedResources.Views">
                 <svg class="svg-eye"><use xlink:href="~/Images/Defs.svg#eye" /></svg>
-                <span data-bind="text: numberOfViews"></span>
+                <span>{{item.numberOfViews}}</span>
             </span>
-            <span class="downloads" tooltip="@SharedResources.Downloads">
+            <span ng-show="item.numberOfDownloads !== null" class="downloads" tooltip="@SharedResources.Downloads">
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
-                <span id="item_down" data-bind="text: numberOfDownloads"></span>
+                <span>{{item.numberOfDownloads}}</span>
             </span>
             <div class="rateWpr rFloat">
                 <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
@@ -118,19 +118,17 @@
         </div>
 
         <div class="mainPart">
-            <a href="{{navigation.next}}" class="rFloat"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
-            <a href="{{navigation.previous}}" class="lFloat"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+            <a href="{{item.navigation.next}}" class="rFloat"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+            <a href="{{item.navigation.previous}}" class="lFloat"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
             <div class="itemNameWpr">
                 <h2 class="item-name elps lFloat">
-                    <span data-bind="text: itemName, attr: { 'tooltip': itemName, 'data-name': itemName }"></span>
-                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" id="itemSettings" type="button">
+                    <span tooltip="{{item.name}}">{{item.name}}</span>
+                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button">
                         <svg class="svg-pencil"><use xlink:href="~/Images/Defs.svg#pencil" /></svg>
                     </button>
                 </h2>
-                <div class="itemOwner calloutTrgr" data-bind="text: ownerName, attr: { 'data-uid': ownerId }"></div>
-                
+                <div class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</div>
             </div>
-            
         </div>
     </div>
 
@@ -145,7 +143,7 @@
             <header>@SharedResources.AddComment</header>
             <form class="clearfix itemCommentsForm">
                 <div class="textareaWpr">
-                    <textarea text-direction msd-elastic class="commentsTextarea" required ></textarea>
+                    <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required ></textarea>
                     <div class="rFloat">
                         <button type="submit" class="post">@SharedResources.Post</button>
                         <button type="button" class="cancel"></button>
@@ -224,7 +222,7 @@
 
 
         <div class="itemPreview scrollEffect" id="itemPreview">
-            <div class="previewWrapper" id="previewWrapper"></div>
+            <div class="previewWrapper" ng-bind-html="preview"></div>
         </div>
         @*<form id="AddAnotation" class="addAnotation">
             <img class="lFloat" width="32" height="32" alt="" />
@@ -270,15 +268,4 @@
     <div class="modal2" id="itemModel"></div>
 </div>
 
-@*<script type="text/html" id="rateItemPopup">
-    <div> Rate this item:</div>
-    <div><span>* </span><span>* </span><span>* </span><span>* </span><span>* </span></div>
-</script>*@
 
-@*@if (Request.IsAjaxRequest())
-    {
-            @Html.Script2("item")
-    }
-    @section scripts {
-        @Html.Script2("item")
-    }*@

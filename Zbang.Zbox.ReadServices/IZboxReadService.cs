@@ -36,7 +36,11 @@ namespace Zbang.Zbox.ReadServices
 
         //PagedDto<ItemDto> GetBoxItemsPaged(GetBoxItemsPagedQuery query);
         IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
+        
         ItemWithDetailDto GetItem(GetItemQuery query);
+
+        Task<ItemDetailDto> GetItem2(GetItemQuery query);
+
         Task<ItemRateDto> GetRate(GetItemRateQuery query);
 
         IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
@@ -118,7 +122,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query);
 
-        //Item
-        Task<ItemNavigationDto> GetItemNavigation(GetItemQuery query);
+       
     }
 }

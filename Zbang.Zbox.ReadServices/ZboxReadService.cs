@@ -295,6 +295,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Obsolete("Use getItem2")]
         public Item.ItemWithDetailDto GetItem(GetItemQuery query)
         {
             using (UnitOfWork.Start())
@@ -313,6 +314,34 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = item.Value;
                 retVal.UserType = type;
                 return retVal;
+            }
+        }
+
+        public async Task<Item.ItemDetailDto> GetItem2(GetItemQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (
+                    var grid =
+                        await
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3}", Sql.Item.ItemDetail, Sql.Item.Navigation, 
+                            Sql.Security.GetBoxPrivacySettings,
+                            Sql.Security.GetUserToBoxRelationship),
+                                new { query.ItemId, query.BoxId, query.UserId }))
+                {
+                    var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
+                    if (retVal == null)
+                    {
+                        throw new ItemNotFoundException();
+                    }
+                    retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
+                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    GetUserStatusToBox(privacySettings, userRelationShip);
+
+                    return retVal;
+                }
+                
             }
         }
 
@@ -598,14 +627,14 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public  User.UserDetailDto GetUserData(GetUserDetailsQuery query)
+        public User.UserDetailDto GetUserData(GetUserDetailsQuery query)
         {
             using (var conn = DapperConnection.OpenConnection())
             {
                 var retVal =
-                    
+
                         conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                            new { query.UserId});
+                            new { query.UserId });
                 var userDetailDtos = retVal as User.UserDetailDto[] ?? retVal.ToArray();
                 if (retVal == null || !userDetailDtos.Any())
                 {
@@ -998,22 +1027,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
-
-
-        #region Item
-
-        public async Task<ItemNavigationDto> GetItemNavigation(GetItemQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal =
-                    await
-                        conn.QueryAsync<ItemNavigationDto>(Sql.Item.Navigation,
-                            new {query.BoxId, query.ItemId});
-                return retVal.FirstOrDefault();
-            }
-        }
-
-        #endregion
+     
     }
 }
