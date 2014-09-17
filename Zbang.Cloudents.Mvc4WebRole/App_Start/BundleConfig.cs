@@ -266,7 +266,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
-                new JsFileWithCdn("/js/ItemViewModel4.js"),
                 new JsFileWithCdn("/scripts/stopwatch.js")
              );
 

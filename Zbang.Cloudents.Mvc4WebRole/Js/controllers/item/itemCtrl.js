@@ -15,6 +15,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         getPreview();
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
+            $scope.$broadcast('update-scroll');
         });
     });
 
@@ -69,6 +70,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 alert(response.payload);
                 return;
             }
+           
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
                 creationDate: new Date().toISOString(),
@@ -77,6 +79,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 userId: sUserDetails.getDetails().id,
                 userName: sUserDetails.getDetails().name
             });
+            $scope.formData = {};
+            $scope.$broadcast('update-scroll');
         });
 
 

@@ -132,7 +132,6 @@
         </button>
 
         <section class="itemComments">
-            {{item.comments.length}}
             <header>@SharedResources.AddComment</header>
             <form name="addAnnotation" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
@@ -143,8 +142,8 @@
                     </div>
                 </div>
             </form>
-            <ul class="itemCommentsList">
-                
+            <ul class="itemCommentsList" m-custom-scrollbar>
+
                 <li ng-repeat="comment in item.comments">
                     <span>Posted by</span>
                     <span><a href="#">{{comment.userName}}</a></span>
