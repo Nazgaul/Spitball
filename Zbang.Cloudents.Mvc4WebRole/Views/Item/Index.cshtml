@@ -20,10 +20,10 @@
             <ul class="middleActionList">
                 <li class="middleActionItem">
 
-                    <button type="button" class="" id="item_DL" data-link="@Url.RouteUrl("ItemDownload")">
+                    <a href="{{item.downloadUrl}}" target="_blank">
                         <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                         <div>@ItemsResources.Download</div>
-                    </button>
+                    </a>
                 </li>
 
                 <li class="middleActionItem">

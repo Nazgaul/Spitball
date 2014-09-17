@@ -191,6 +191,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var item = await ZboxReadService.GetItem2(query);
+                item.DownloadUrl = Url.Action("Download", new {boxId, itemId});
+                item.PrintUrl = Url.Action("Print", new {boxId, itemId});
                 return Json(new JsonResponse(true, item));
             }
             catch (BoxAccessDeniedException)
@@ -212,17 +214,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Download Item
         /// </summary>
-        /// <param name="boxUid"></param>
+        /// <param name="boxId"></param>
         /// <param name="itemId"></param>
         /// <returns>if link redirect to link if file download</returns>
         [ZboxAuthorize]
         [Route("D/{BoxUid:long:min(0)}/{itemid:long:min(0)}", Name = "ItemDownload")]
         [NoEtag]
-        public ActionResult Download(long boxUid, long itemId)
+        public ActionResult Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
 
-            var query = new GetItemQuery(GetUserId(false), itemId, boxUid);
+            var query = new GetItemQuery(GetUserId(false), itemId, boxId);
 
             var item = ZboxReadService.GetItem(query);
 
