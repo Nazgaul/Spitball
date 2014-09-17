@@ -143,7 +143,7 @@
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
-                <li ng-repeat="comment in item.comments">
+                <li class="itemComment" ng-repeat="comment in item.comments">
                     <!--comment-->
                     <span>Posted by</span>
                     <span class="user-name">{{comment.userName}}</span>
@@ -155,18 +155,21 @@
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                         <li>
                             <span>Posted by</span>
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                         <li>
                             <span>Posted by</span>
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                     </ul>
                     <!--Need to disapear this once it clicked-->
@@ -182,7 +185,7 @@
                         </div>
                     </form>
                 </li>
-                <li>
+                <li class="itemComment">
                     <ul>
                         <li>
                             <span>Posted by</span>
