@@ -317,11 +317,11 @@ body.item {
         .navBtn {
             padding-top: 25px;
         }
-        &:hover {
+        /*&:hover {
             .itemRenameBtn {
                 display: block;
             }
-        }
+        }*/
     }
 }
 
@@ -339,6 +339,11 @@ body.item {
 {
     display: inline-block;
     position: relative;
+    &:hover {
+        .itemRenameBtn {
+            display: block;
+        }
+    }
 }
 .itemRenameBtn{
     display: none;
@@ -416,15 +421,18 @@ body.item {
         border: 1px solid @borderColor;
         border-radius: 3px;
         width: 100%;
+        margin-bottom: 8px;
     }
-    .post {
-        font-size: 15px;
-        color: #fff;
-    }
-    .cancel {
+    .cancel, .post {
         font-size: 15px;
         color: @itemBlue;
+        padding: 2px 15px;
     }
+    .post {
+        background: #fff;
+        border-radius: 5px;
+    }
+    
     
 }
 /*#endregion */
