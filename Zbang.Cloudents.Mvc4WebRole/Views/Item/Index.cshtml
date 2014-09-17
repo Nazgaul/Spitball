@@ -143,7 +143,12 @@
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
-                <li>
+                <li ng-repeat="comment in item.comments">
+                    <!--comment-->
+                    <span>Posted by</span>
+                    <span class="user-name">{{comment.userName}}</span>
+                    <time display-time="{{comment.creationDate}}"></time>
+                    <p>{{comment.comment}}</p>
                     <ul>
                         <li>
                             <span>Posted by</span>
@@ -164,9 +169,10 @@
                             <p>{the post which the poter posted goes right here!!}</p>
                         </li>
                     </ul>
+                    <!--Need to disapear this once it clicked-->
                     <button class="addComBtn" type="button">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
-                    <form class="clearfix itemCommentsForm">
+                    <button type="button" class="closeDialog"></button> <!--delete btn-->
+                    <form class="clearfix itemCommentsForm" style="display:none">
                         <div class="textareaWpr">
                             <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
                             <div class="rFloat">
