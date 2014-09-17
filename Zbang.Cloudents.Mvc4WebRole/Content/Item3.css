@@ -308,12 +308,14 @@ body.item .siteHeader {
   box-sizing: border-box;
   margin-left: 290px;
   display: inline-block;
+  /*&:hover {
+            .itemRenameBtn {
+                display: block;
+            }
+        }*/
 }
 .secondBar .mainPart .navBtn {
   padding-top: 25px;
-}
-.secondBar .mainPart:hover .itemRenameBtn {
-  display: block;
 }
 /*#endregion */
 /*#region second bar - main */
@@ -325,6 +327,9 @@ body.item .siteHeader {
 .itemNameWpr {
   display: inline-block;
   position: relative;
+}
+.itemNameWpr:hover .itemRenameBtn {
+  display: block;
 }
 .itemRenameBtn {
   display: none;
@@ -395,14 +400,17 @@ body.item .siteHeader {
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   width: 100%;
+  margin-bottom: 8px;
 }
+.itemComments .cancel,
 .itemComments .post {
   font-size: 15px;
-  color: #fff;
-}
-.itemComments .cancel {
-  font-size: 15px;
   color: #3399ff;
+  padding: 2px 15px;
+}
+.itemComments .post {
+  background: #fff;
+  border-radius: 5px;
 }
 /*#endregion */
 /*#region OBSOLETE: top action buttons and print drop down */

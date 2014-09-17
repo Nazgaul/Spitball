@@ -133,8 +133,8 @@
                 <div class="textareaWpr">
                     <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required ></textarea>
                     <div class="rFloat">
-                        <button type="submit" class="post">@SharedResources.Post</button>
-                        <button type="button" class="cancel"></button>
+                        <button type="submit" class="post rFloat">@SharedResources.Post</button>
+                        <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
                     </div>
                 </div>
             </form>
@@ -145,6 +145,7 @@
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
                     <button type="button">@SharedResources.AddComment</button>
+                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
                 <li>
                     <span>Posted by</span>
@@ -152,6 +153,7 @@
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
                     <button type="button">@SharedResources.AddComment</button>
+                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
                 <li>
                     <span>Posted by</span>
@@ -159,6 +161,7 @@
                     <time>27th August</time>
                     <p>{the post which the poter posted goes right here!!}</p>
                     <button type="button">@SharedResources.AddComment</button>
+                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
                 </li>
             </ul>
         </section>

@@ -44,6 +44,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope,$modal) {
     }
     $scope.fullScreen = function() {
         var modalInstance = $modal.open({
+            windowClass: 'fullscreen',
             templateUrl: '/Item/FullScreen/',
             controller: 'ItemFullScreenCtrl',
             backdrop: false,
