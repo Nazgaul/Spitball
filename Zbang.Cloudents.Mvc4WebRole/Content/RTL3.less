@@ -674,19 +674,14 @@
 /*#endregion */
 
 /*#region box3.css */
-.shareBtn {
-    .shareItem {
-        padding: 0 6px 0 0; /*rtl*/
-        &:first-child {
-            padding: 0 0 0 6px; /*rtl*/
-        }
+.boxPage {
+    .leftPanel {
+        border-left: 1px solid @borderColor; /*rtl*/
+        border-right: none;
     }
-
-    .fbShare, .emailShare {
-        &:before {
-            margin: 0 0 0 6px; /*rtl*/
-        }
-    }
+}
+.boxBack {
+    padding: 0 15px 0 0; /*rtl*/
 }
 
 .shareDD {
@@ -709,6 +704,18 @@
         &:before {
             left: -12px; /*rtl*/
             right: auto;
+        }
+    }
+    .shareItem {
+        padding: 0 6px 0 0; /*rtl*/
+        &:first-child {
+            padding: 0 0 0 6px; /*rtl*/
+        }
+    }
+
+    .fbShare, .emailShare {
+        &:before {
+            margin: 0 0 0 6px; /*rtl*/
         }
     }
 }
@@ -1436,10 +1443,6 @@
 /*#endregion */
 
 /*#region left panel */
-.leftPanel {
-    border-left: 1px solid @borderColor; /*rtl*/
-    border-right: none;
-}
 
 .item-name {
     padding: 0 5px 0 0; /*rtl*/
@@ -1511,9 +1514,6 @@
 
 /*#region top action buttons */
 
-.itemBack, .boxBack {
-    padding: 0 15px 0 0; /*rtl*/
-}
 
 .itemActions {
     .shareBtn {

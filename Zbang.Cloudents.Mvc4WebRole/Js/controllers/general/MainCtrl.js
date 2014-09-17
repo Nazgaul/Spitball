@@ -107,8 +107,8 @@
                 }
                 
                 $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;       
-                $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1;
-                $rootScope.params.isItem = current.$$route.originalPath.indexOf('item') > -1;
+                $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
+
 
 
                 if (!current) {

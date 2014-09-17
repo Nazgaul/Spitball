@@ -59,6 +59,9 @@ function ($http, sUserDetails) {
         var update;
         $http.get('/User/Updates/').success(function (response2) {
             var data = response2.payload;
+            if (!data) {
+                return;
+            }
             for (var i = 0, l = data.length ; i < l; i++) {
                 update = data[i];
                 var boxId = parseInt(update.boxId);

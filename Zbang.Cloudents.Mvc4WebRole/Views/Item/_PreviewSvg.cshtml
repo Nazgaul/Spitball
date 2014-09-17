@@ -1,0 +1,10 @@
+﻿@model IEnumerable<string>
+
+@foreach (var item in Model)
+{
+    <div class="divWrapper">
+        <h1><svg><use xlink:href="@item" /></svg></h1>
+        <div class="copyRightWarning">@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight</div>
+    </div>
+
+}

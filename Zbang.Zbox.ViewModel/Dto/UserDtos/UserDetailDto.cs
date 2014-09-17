@@ -15,7 +15,7 @@
 
         public string Url { get; set; }
 
-        public long DepartmentId { get; set; }
+        public long? DepartmentId { get; set; }
 
         public string DepartmentName { get; set; }
 

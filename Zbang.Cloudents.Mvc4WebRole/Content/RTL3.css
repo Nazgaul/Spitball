@@ -623,17 +623,13 @@
 }
 /*#endregion */
 /*#region box3.css */
-.shareBtn .shareItem {
-  padding: 0 6px 0 0;
+.boxPage .leftPanel {
+  border-left: 1px solid #c2c2c2;
   /*rtl*/
+  border-right: none;
 }
-.shareBtn .shareItem:first-child {
-  padding: 0 0 0 6px;
-  /*rtl*/
-}
-.shareBtn .fbShare:before,
-.shareBtn .emailShare:before {
-  margin: 0 0 0 6px;
+.boxBack {
+  padding: 0 15px 0 0;
   /*rtl*/
 }
 .shareDD {
@@ -659,6 +655,19 @@
   left: -12px;
   /*rtl*/
   right: auto;
+}
+.shareDD .shareItem {
+  padding: 0 6px 0 0;
+  /*rtl*/
+}
+.shareDD .shareItem:first-child {
+  padding: 0 0 0 6px;
+  /*rtl*/
+}
+.shareDD .fbShare:before,
+.shareDD .emailShare:before {
+  margin: 0 0 0 6px;
+  /*rtl*/
 }
 .inviteBtn:after {
   margin: 0 8px 0 0;
@@ -1712,11 +1721,6 @@
 }
 /*#endregion */
 /*#region left panel */
-.leftPanel {
-  border-left: 1px solid #c2c2c2;
-  /*rtl*/
-  border-right: none;
-}
 .item-name {
   padding: 0 5px 0 0;
   /*rtl*/
@@ -1777,11 +1781,6 @@
 }
 /*#endregion */
 /*#region top action buttons */
-.itemBack,
-.boxBack {
-  padding: 0 15px 0 0;
-  /*rtl*/
-}
 .itemActions .shareBtn {
   left: 22px;
   /*rtl*/

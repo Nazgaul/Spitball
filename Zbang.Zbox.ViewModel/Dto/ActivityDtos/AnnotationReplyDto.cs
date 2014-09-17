@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
 {
-    public class AnnotationDto
+    public class AnnotationReplyDto
     {
         private DateTime m_Date;
-        public AnnotationDto()
-        {
-            Replies = new List<AnnotationReplyDto>();
-        }
+
         public long Id { get; set; }
-
         public string Comment { get; set; }
-
-
         public DateTime CreationDate
         {
             get { return m_Date; }
@@ -24,9 +17,10 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
             }
         }
 
+        public string UserImage { get; set; }
         public string UserName { get; set; }
-        public string UserId { get; set; }
+        public long ParentId { get; set; }
 
-        public List<AnnotationReplyDto> Replies { get; set; }
+
     }
 }

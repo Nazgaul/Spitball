@@ -4,11 +4,10 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddReplyToAnnotationCommand : ICommand
     {
-        public AddReplyToAnnotationCommand(long userId, long itemId, int imageId, string comment, long itemCommentId)
+        public AddReplyToAnnotationCommand(long userId, long itemId, string comment, long itemCommentId)
         {
             UserId = userId;
             ItemId = itemId;
-            ImageId = imageId;
             Comment = comment;
             ItemCommentId = itemCommentId;
             
@@ -17,7 +16,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long ItemId { get; private set; }
 
-        public int ImageId { get; private set; }
 
         public string Comment { get; private set; }
 

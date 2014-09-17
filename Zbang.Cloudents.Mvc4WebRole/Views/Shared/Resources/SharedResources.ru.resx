@@ -590,4 +590,7 @@
     <value>Личное сообщение
 </value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Написать комментарий</value>
+  </data>
 </root>

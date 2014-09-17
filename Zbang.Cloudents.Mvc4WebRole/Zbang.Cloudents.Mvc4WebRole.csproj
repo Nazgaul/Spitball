@@ -903,6 +903,7 @@
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
+    <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
@@ -936,6 +937,7 @@
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
+    <Content Include="Js\directives\scroller.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
@@ -1235,6 +1237,7 @@
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
+    <Content Include="Images\Defs.svg" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -1356,6 +1359,8 @@
     <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Box\_Quizzes.cshtml" />
+    <Content Include="Views\Item\_PreviewSvg.cshtml" />
+    <Content Include="Views\Item\FullScreen.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

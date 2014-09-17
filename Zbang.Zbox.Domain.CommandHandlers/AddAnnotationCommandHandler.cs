@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
             var text = TextManipulation.EncodeText(message.Comment);
-            var comment = new ItemComment(user, item, message.ImageId, text, message.X, message.Y, message.Width, message.Height);
+            var comment = new ItemComment(user, item, text);
             item.IncreaseNumberOfComments();
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);

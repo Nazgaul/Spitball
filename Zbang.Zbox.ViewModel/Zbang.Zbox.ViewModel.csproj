@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
+    <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
     <Compile Include="Dto\ActivityDtos\BaseActivityDto.cs" />
     <Compile Include="Dto\ActivityDtos\CommentDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Dto\ItemDtos\FileDto.cs" />
     <Compile Include="Dto\ItemDtos\FileWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\IItemDto.cs" />
+    <Compile Include="Dto\ItemDtos\ItemDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemWithDetailDto.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Dto\ItemDtos\QuizSeo.cs" />
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
+    <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
     <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
@@ -150,7 +153,6 @@
     <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
     <Compile Include="Queries\GetInvitesQuery.cs" />
-    <Compile Include="Queries\GetItemCommentsQuery.cs" />
     <Compile Include="Queries\GetItemQuery.cs" />
     <Compile Include="Queries\GetBoxCommentsQuery.cs" />
     <Compile Include="Queries\GetItemRateQuery.cs" />
@@ -173,13 +175,13 @@
     <Compile Include="Queries\GetUserDetailsQuery.cs" />
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
-    <Compile Include="Queries\QueryPrefixBase.cs" />
     <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Email.cs" />
+    <Compile Include="SqlQueries\Item.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Store.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />

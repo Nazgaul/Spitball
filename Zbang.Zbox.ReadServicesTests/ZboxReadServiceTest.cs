@@ -245,19 +245,7 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public void GetItemComments_Query_ReturnResult()
-        {
-            var query = new GetItemCommentsQuery(1, 1);
-            try
-            {
-                m_ZboxReadService.GetItemComments(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+       
         [TestMethod]
         public void GetUserFriends_Query_ReturnResult()
         {

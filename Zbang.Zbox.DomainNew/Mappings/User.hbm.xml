@@ -55,7 +55,7 @@
       <property name="UsedSpace"/>
     </component>
 
-    <many-to-one column="UniversityId2" class="University2" name="University" foreign-key="UniversityUser"/>
+    <!--<many-to-one column="UniversityId2" class="University2" name="University" foreign-key="UniversityUser"/>-->
     <many-to-one column="UniversityId" class="University" name="University2" foreign-key="UniversityUser2"/>
     <many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>
     <many-to-one column="MainDepartment" class="Department" name="Department" foreign-key="DeparetmentMainUser" not-null="false"/>
@@ -77,7 +77,7 @@
 
 
 
-    <subclass name="University2" discriminator-value="1">
+    <!--<subclass name="University2" discriminator-value="1">
       <property name="UniversityName"/>
 
       <property name="NeedCode" />
@@ -92,12 +92,12 @@
       <property name="AdvertismentUrl" />
       <property name="Country" length="2" type="string" column="Country" not-null="false"/>
 
-      <!--<bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
+      --><!--<bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
         <key column="UserId" foreign-key="UnitveristyLibraries"/>
         <one-to-many class="Library"/>
-      </bag>-->
+      </bag>--><!--
       <many-to-one column="DataUnversityId" class="University2" name="DataUnversity" foreign-key="DataUniversityUniversity" not-null="false" lazy="proxy"></many-to-one>
-    </subclass>
+    </subclass>-->
   </class>
 
   <class name="University" table="University">

@@ -117,44 +117,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
-        [Ajax]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
-        public async Task<ActionResult> Item(long itemId)
-        {
-            var userId = GetUserId(false);
-            var query = new GetItemCommentsQuery(itemId, userId);
-            var result = await ZboxReadService.GetItemComments(query);
-            return Json(new JsonResponse(true, result));
-        }
+        //[HttpGet]
+        //[Ajax]
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        ////[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
+        //public async Task<ActionResult> Item(long itemId)
+        //{
+        //    var userId = GetUserId(false);
+        //    var query = new GetItemCommentsQuery(itemId, userId);
+        //    var result = await ZboxReadService.GetItemComments(query);
+        //    return Json(new JsonResponse(true, result));
+        //}
 
-        [HttpPost]
-        [ZboxAuthorize]
-        [Ajax]
-        public ActionResult AddAnnotation(NewAnnotation model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            try
-            {
-                var command = new AddAnnotationCommand(model.Comment, model.X, model.Y, model.Width, model.Height, model.ItemId, model.ImageId, GetUserId());
-                ZboxWriteService.AddAnnotation(command);
-                return Json(new JsonResponse(true, command.AnnotationId));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Json(new JsonResponse(false));
-            }
-        }
+        
 
 
         [HttpPost]
         [ZboxAuthorize]
         [Ajax]
-        public ActionResult DeleteAnnotation(DeleteAnnotation model)
+        public ActionResult DeleteComment(DeleteAnnotation model)
         {
             if (!ModelState.IsValid)
             {

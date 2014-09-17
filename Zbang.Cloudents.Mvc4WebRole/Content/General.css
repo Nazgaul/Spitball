@@ -2553,9 +2553,9 @@ select.inputText {
   .inviteSources.inviteSources {
     margin-top: 0;
   }
-  .printDD.printDD .printTxt2 {
-    padding: 0;
-  }
+  /*.printDD.printDD .printTxt2 {
+        padding: 0;
+    }*/
   .divWrapper.divWrapper {
     width: 680px;
   }

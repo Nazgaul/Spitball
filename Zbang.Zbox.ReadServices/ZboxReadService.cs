@@ -295,6 +295,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Obsolete("Use getItem2")]
         public Item.ItemWithDetailDto GetItem(GetItemQuery query)
         {
             using (UnitOfWork.Start())
@@ -313,6 +314,35 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = item.Value;
                 retVal.UserType = type;
                 return retVal;
+            }
+        }
+
+        public async Task<Item.ItemDetailDto> GetItem2(GetItemQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (
+                    var grid =
+                        await
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}", Sql.Item.ItemDetail, Sql.Item.Navigation, 
+                            Sql.Security.GetBoxPrivacySettings,
+                            Sql.Security.GetUserToBoxRelationship,
+                            Sql.Item.ItemComments),
+                                new { query.ItemId, query.BoxId, query.UserId }))
+                {
+                    var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
+                    if (retVal == null)
+                    {
+                        throw new ItemNotFoundException();
+                    }
+                    retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
+                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    GetUserStatusToBox(privacySettings, userRelationShip);
+                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
+                    return retVal;
+                }
+                
             }
         }
 
@@ -398,31 +428,31 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
-        {
+//        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
+//        {
 
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                //IEnumerable<Activity.AnnotationDto> retVal;
-                const string sql = @"SELECT [ItemCommentId] as Id
-                          ,[ImageId]
-                          ,[CordX] as X
-                          ,[CordY] as Y
-                          ,[Width]
-                          ,[Height]
-                          ,[Comment]
-                          ,ic.CreationTime as CreationDate
-	                      ,u.UserImage
-	                      ,u.UserName
-                          ,u.userid as Uid
-	  
-                      FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
-                      where itemid = @itemId
-                      order by imageid, Y ";
+//            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+//            {
+//                //IEnumerable<Activity.AnnotationDto> retVal;
+//                const string sql = @"SELECT [ItemCommentId] as Id
+//                          ,[ImageId]
+//                          ,[CordX] as X
+//                          ,[CordY] as Y
+//                          ,[Width]
+//                          ,[Height]
+//                          ,[Comment]
+//                          ,ic.CreationTime as CreationDate
+//	                      ,u.UserImage
+//	                      ,u.UserName
+//                          ,u.userid as Uid
+//	  
+//                      FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
+//                      where itemid = @itemId
+//                      order by imageid, Y ";
 
-                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
-            }
-        }
+//                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
+//            }
+//        }
 
 
         /// <summary>
@@ -598,14 +628,14 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public  User.UserDetailDto GetUserData(GetUserDetailsQuery query)
+        public User.UserDetailDto GetUserData(GetUserDetailsQuery query)
         {
             using (var conn = DapperConnection.OpenConnection())
             {
                 var retVal =
-                    
+
                         conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                            new {UserId = query.UserId});
+                            new { query.UserId });
                 var userDetailDtos = retVal as User.UserDetailDto[] ?? retVal.ToArray();
                 if (retVal == null || !userDetailDtos.Any())
                 {
@@ -613,19 +643,6 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return userDetailDtos.FirstOrDefault();
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserData");
-
-            //    queryUser.SetInt64("UserId", query.UserId);
-            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserDetailDto>());
-            //    var user = queryUser.UniqueResult<User.UserDetailDto>();
-            //    if (user == null)
-            //    {
-            //        throw new UserNotFoundException("user is null");
-            //    }
-            //    return user;
-            //}
         }
 
 
@@ -1011,5 +1028,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
+     
     }
 }

@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Load(message.ItemId);
 
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
-            var comment = new ItemCommentReply(user, item, message.ImageId, message.Comment, itemComment);
+            var comment = new ItemCommentReply(user, item, message.Comment, itemComment);
             m_ItemCommentReplyRepository.Save(comment);
 
             message.ReplyId = comment.Id;
