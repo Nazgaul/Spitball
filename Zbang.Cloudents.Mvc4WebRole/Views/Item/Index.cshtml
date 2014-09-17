@@ -50,7 +50,7 @@
 
 
                 <li class="middleActionItem">
-                    <button type="button" data-bind="click: fullscreen" class="">
+                    <button type="button" ng-click="fullScreen()" class="">
                         <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
                         @*<svg class="svg-smallscreen"><use xlink:href="~/Images/Defs.svg#smallscreen" /></svg>*@
                         <div>@ItemsResources.FullScreen</div>
@@ -169,18 +169,13 @@
 
     <div class="itemRight">
         <div class="itemPreview scrollEffect" id="itemPreview">
-            <div class="previewWrapper" ng-bind-html="preview"></div>
+            <div class="previewWrapper" ng-bind-html="preview" scroller loading-method="loadMore()"></div>
         </div>
     </div>
 </div>
 
 @{Html.RenderPartial("Rename");}
 
-<div class="itemFulscrn" id="itemFulscrn">
-    <button type="button" class="exitFulscrn" id="exitFulscrn"></button>
-    <button type="button" class="itemPrev" id="itemPrev" tooltip="Previous document"></button>
-    <button type="button" class="itemNext" id="itemNext" tooltip="Next document"></button>
-    <div class="modal2" id="itemModel"></div>
-</div>
+
 
 
