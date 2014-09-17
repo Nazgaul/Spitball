@@ -462,230 +462,6 @@ body.item {
 }
 /*#endregion */
 
-/*#region OBSOLETE: top action buttons and print drop down */
-/*
-.views:before, .downloads:before{
-    .pseudo;
-    width: 16px;
-    height: 11px;
-    margin-right: 5px;
-    vertical-align: middle;
-    background: @item-sprite1 -121px -21px no-repeat;
-}
-.downloads:before{
-    width: 13px;
-    height: 14px;
-    background-position: -138px -20px;
-}
-.views{
-    margin-right: 12px; //rtl
-}
-
-.moreFiles .mfTitle {
-    font-size: 18px;
-    color: #111;
-    margin-top: 28px;
-    padding: 0 0 9px;
-}
-
-.moreFilesList {
-
-    li {
-        padding: 7px 5px 7px 10px; //rtl
-        &.select {
-            background: #e1e1e1;
-        }
-    }
-}
-
-.fourLetterExtension
-{
-    font-size:8px;
-}
-.moreFilesItem:hover, .itemTop, .select, .boxItemTt {
-    .mFdoc, .mFdocx {
-        background: #4991be;
-    }
-
-    .mFpdf {
-        background: #cd4a4e;
-    }
-
-    .mFjpg {
-        background: #81c048;
-    }
-
-    .mFpng {
-        background: #70777c;
-    }
-
-    .mFtif {
-        background: #9cada5;
-    }
-
-    .mFppt, .mFpptx {
-        background: #ea7147;
-    }
-
-    .mFgif {
-        background: #c7cb47;
-    }
-
-    .mFtxt {
-        background: #abceec;
-    }
-
-    .mFzip, .mFrar {
-        background: #cfcfcf;
-    }
-
-    .mFxls, .mFxlsx {
-        background: #5bba67;
-    }
-
-    .mFbmp {
-        background: #47c7b5;
-    }
-
-    .mFmp3, .mFmp4 {
-        background: #ba4c89;
-    }
-
-    .mFpsd {
-        background: #4870b8;
-    }
-
-    .mFai, .mFeps {
-        background: #dcb447;
-    }
-
-    .mFavi, .mFmov, .mFwmv {
-        background: #e14878;
-    }
-
-    .mFlink {
-        background: #7a9f8d;
-    }
-}
-
-.moreFilesData{
-    display:table-cell;
-    padding-left:5px; //rtl
-    > div {
-        width:230px;
-    }
-}
-
-.moreFilesName {
-    color: #111;
-    width:230px;
-}
-
-
-.itemActions
-{
-    position: relative;
-    text-align: center;
-
-    .shareBtn
-    {
-        position: absolute;
-        top: 0; // IE needs this.
-        right: 22px; //rtl
-    }
-    .backWpr{
-        position: absolute;
-        left: 19px; //rtl
-        max-width: 20%;
-    }
-}
-.iconTop
-{
-    display: inline-block;
-    cursor: pointer;
-    line-height: 14px;
-    padding: 5px;
-    border: 1px solid transparent; // so that buttons don't move when comments button is pressed 
-    &:before
-    {
-        content: '';
-        display: block;
-        background: @item-sprite1 no-repeat;
-        margin: 0 auto 13px;
-    }
-    &.itemPrint, &.itemDownload, &.shareBtnTxt
-    {
-        margin-top: 1px;
-    }
-}
-.middleActions
-{
-    display: inline-block;
-    position: relative;
-    max-width: 50%;
-    
-}
-
-
-.fullscreen{
-    &:before {
-        background-position: 0 -1px;
-        width: 18px;
-        height: 17px;
-    }
-    &:hover:before {
-        background-position: 0 -21px;
-    }
-}
-.shareBtnTxt
-{   
-    &:hover:before
-    {
-        background-position: -183px -19px;
-    }
-    &:before
-    {
-        width: 19px;
-        height: 15px;
-        background: @common-sprite -183px -1px no-repeat;
-    }
-}
-.itemDownload {
-    &:before {
-        width: 14px;
-        height: 15px;
-        background-position: -19px -1px;
-    }
-
-    &:hover:before {
-        background-position: -19px -21px;
-    }
-}
-.itemDelete {
-    &:before {
-        width: 15px;
-        height: 17px;
-        background: @common-sprite -37px -1px no-repeat;
-    }
-
-    &:hover:before {
-        background-position: -37px -21px;
-    }
-}
-.itemPrint, .printDD .iconTxt {
-    &:before {
-        width: 16px;
-        height: 16px;
-        background: @item-sprite1 -34px -1px no-repeat;
-    }
-
-    &:hover:before {
-        background-position: -34px -21px;
-    }
-}
-*/
-
-/*#endregion */
 
 /*#region item content */
 .pageLoader {
@@ -903,15 +679,32 @@ body.item {
 /*#endregion */
 
 /*#region fullscreen */
-
+body.item {
+}
+.modal.fullscreen {
+    background: rgba(0,0,0,.9);
+    padding-top: 50px;
+    .modal-dialog {
+        border: none;
+        width: 800px;
+        //max-height: 90%;
+        margin: 0 auto;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        -webkit-transform: none;
+        transform: none; //override;
+        padding: 0; //override;
+    }
+}
 .itemFulscrn {
-    display: none;
+    //display: none;
     text-align: center;
     height:100%;
 
-    .modal2 {
+    /*.modal2 {
         background: rgba(0,0,0,.9);
-    }
+    }*/
     .copyRightWarning {
         display: none;
     }
@@ -961,13 +754,13 @@ body.item {
         height: 90vh;
     }
 
-    .commentToggle {
+    /*.commentToggle {
         display: none;
-    }
+    }*/
 }
-.itemFulscrn.show{
+/*.itemFulscrn.show{
     display:block;
-}
+}*/
 .exitFulscrn{
     position: fixed;
     top: 20px;
@@ -980,9 +773,9 @@ body.item {
 }
 .itemPrev, .itemNext
 {
-    width: 34px;
-    height: 34px;
-    background: @item-sprite1 -128px -35px no-repeat;
+    //width: 34px;
+    //height: 34px;
+    //background: @item-sprite1 -128px -35px no-repeat;
     z-index: 100;
     //box-shadow: 0 1px 1px 1px rgba(0,0,0,.8);
     position: fixed;
@@ -990,13 +783,13 @@ body.item {
     left: 10px; /*rtl*/
     cursor: pointer;
 
-    &:hover
+    /*&:hover
     {
         background-position: -128px -72px;
-    }
+    }*/
 
     &.disabled{
-        background-position: -128px -35px;
+        //background-position: -128px -35px;
         opacity:.4;
     }
 }
