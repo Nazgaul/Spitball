@@ -108,6 +108,7 @@
                 
                 $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;       
                 $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1;
+                $rootScope.params.isItem = current.$$route.originalPath.indexOf('item') > -1;
 
 
                 if (!current) {
@@ -152,6 +153,16 @@
                     return false;
                 }
                 if (!angular.isDefined($rootScope.params.isQuiz)) {
+                    return false;
+                }
+
+                return $rootScope.params.isQuiz;
+            };
+            $rootScope.isItem = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isItem)) {
                     return false;
                 }
 

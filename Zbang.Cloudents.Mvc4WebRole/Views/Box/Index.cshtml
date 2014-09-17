@@ -16,9 +16,10 @@
                 <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
 
             </div>
+
         </div>
 
-        <div class="boxFolders">
+        <div class="boxFolders" ng-if="options.activeTab === 'items'">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <div m-custom-scrollbar bottom="0">
 
@@ -57,6 +58,15 @@
 
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
+
+            <ul style="display:inline-block;">
+                <li ng-click="options.activeTab = 'feed'">Feed</li>
+                <li ng-click="options.activeTab = 'items'">Items</li>
+                <li ng-click="options.activeTab = 'quizzes'">Quizzes</li>
+                <li ng-click="options.activeTab = 'members'">Members</li>
+            </ul>
+             {{info.itemsLength}}
+            {{info.quizzesLength}}
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
@@ -85,22 +95,36 @@
             </a>
         </div>
 
-        <div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
-            @*user is following box*@
+        @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
+
             <div class="joinGrpBtn">
                 <span class="joinMsg iconTxt">@SharedResources.Member</span>
                 <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
             </div>
-        </div>
+        </div>*@
 
 
-        <div class="box-content">
-            @{Html.RenderPartial("_Items2");}
-            <ul class="boxMembers boxFriendsList">
+        <div class="box-content" ng-switch="options.activeTab">
+            <div ng-switch-when="feed">
+                @{Html.RenderPartial("_QnA");}
+            </div>
+            <div ng-switch-when="items">
+                @{Html.RenderPartial("_Items2");}
+            </div>
+            <div ng-switch-when="quizzes">
+                @{Html.RenderPartial("_Quizzes");}
+            </div>
+            <div ng-switch-when="members">
+                @{Html.RenderPartial("_Members");}
+            </div>
+
+
+
+            @*<ul class="boxMembers boxFriendsList">
 
                 <li ng-repeat="member in info.members | limitTo:7">
                     <a href="{{member.url}}" class="">
-                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />@*uid*@
+                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />
                     </a>
                 </li>
                 @for (int i = 0; i < 6; i++)
@@ -110,8 +134,8 @@
                     </li>
                 }
                 <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
-            </ul>
-            @{Html.RenderPartial("_QnA");}
+            </ul>*@
+            @{}
         </div>
     </div>
 </div>

@@ -1,0 +1,9 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div ng-controller="BoxQuizzesCtrl">
+    <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
+    {{quizzes}}
+</div>
+
+
+

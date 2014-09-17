@@ -893,6 +893,10 @@
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\Cache2.js" />
+    <Content Include="Js\controllers\box\boxFeedCtrl.js" />
+    <Content Include="Js\controllers\box\boxItemsCtrl.js" />
+    <Content Include="Js\controllers\box\boxMembersCtrl.js" />
+    <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\socialInviteCtrl.js" />
     <Content Include="Js\controllers\general\shareCtrl.js" />
@@ -1351,6 +1355,7 @@
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Box\_Quizzes.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

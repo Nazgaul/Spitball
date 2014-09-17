@@ -1,15 +1,29 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box_showMembers" data-title="@SharedResources.Members" class="members" style="display: none;">
-    <ul data-bind="foreach: membersAll" class="membersAll">
-        <li>
-            <img class="image" data-bind="attr: { src: image, 'data-img': image, 'data-name': name, 'data-uid': id }" alt="" />
-            <div class="details">
-                <div class="name elps" data-bind="text: name"></div>
-                <button class="msg" data-bind="attr: { 'data-name': name, 'data-uid': id }">@IndexResources.SendMessage</button>
+<div class="membersContent" ng-controller="BoxMembersCtrl">
+    <div class="membersTop">
+        <div class="searchWpr lFloat">
+            <span class="membersCount lFloat">{{params.membersLength}} @SharedResources.Members</span>
+            <div class="inputWpr">
+                <input class="membersSearch" ng-model="params.search" type="search" placeholder="@IndexResources.SearchMember" ng-keyup="searchMembers()"/>
             </div>
+        </div>
+    </div>
+    <ul class="membersList">
+        <li class="memberItem" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-repeat="member in members track by member.uid">
+            <a ng-href="{{member.url}}"><img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" /></a>
+            <span class="memberName elps" ng-bind="member.name"></span>
+            <span class="memberStatus" ng-class="{memberPending : member.sUserStatus === 'Invite'}" ng-if="member.sUserStatus !== 'Owner'">
+                {{userStatus(member.sUserStatus)}}
+                <span class="reinvite" ng-if="member.reinvitedItem">@IndexResources.Reinvited</span>
+                <span class="uninvite" ng-if="member.uninvitedItem">@IndexResources.Uninvited</span>
+            </span>
+            <span class="rFloat memberActions">
+                <button ng-if="member.uid !== info.user.id" type="button" title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+                <button ng-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
+                <button ng-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.action">@IndexResources.Reinvite</button>
+            </span>
         </li>
     </ul>
 </div>
-
