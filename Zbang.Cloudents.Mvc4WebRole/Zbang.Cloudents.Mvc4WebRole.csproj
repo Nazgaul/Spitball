@@ -932,6 +932,7 @@
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
+    <Content Include="Js\directives\scroller.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />

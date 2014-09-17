@@ -396,7 +396,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[AjaxCache(TimeConsts.Minute * 15)]
-        public async Task<ActionResult> Preview(string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0)
+        public async Task<ActionResult> Preview(string blobName, int index, long id, string boxId, int width = 0, int height = 0)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -408,7 +408,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //{
             //    return Json(new JsonResponse(false), JsonRequestBehavior.AllowGet);
             //}
-            if (!User.Identity.IsAuthenticated && imageNumber > 0)
+            if (!User.Identity.IsAuthenticated && index > 0)
             {
                 return Json(new JsonResponse(true));
             }
@@ -426,19 +426,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         JsonRequestBehavior.AllowGet);
             try
             {
-                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, imageNumber);
+                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3);
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
                     return Json(new JsonResponse(true, new { preview = retVal.Content.First() }));
                 }
 
                 return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }));
-                
+
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
-                if (imageNumber == 0)
+                if (index == 0)
                 {
                     return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxId, ItemId = id })) }));
                 }
@@ -474,6 +474,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-       
+
     }
 }
