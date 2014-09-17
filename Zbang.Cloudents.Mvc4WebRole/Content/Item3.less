@@ -417,6 +417,7 @@ body.item {
         border-radius: 3px;
         width: 100%;
         margin-bottom: 8px;
+        height: 20px;
     }
     .cancel, .post {
         font-size: 15px;
@@ -427,29 +428,9 @@ body.item {
         background: #fff;
         border-radius: 5px;
     }
-    
-    
-}
-.itemCommentsList {
-    
-    li {
-        position: relative;
-        border: 1px solid @itemBlue;
-        border-radius: 5px;
-        margin-top: 35px;
-        padding: 8px;
-        .boxSizing;
-        &:hover {
-            .closeDialog {
-                display: block;
-            }
-        }
-    }
     .addComBtn {
         padding-top: 5px;
-        margin-top: 10px;
         color: @itemBlue;
-        border-top: 1px solid @borderColor;
         display: block;
         width: 100%;
         text-align: left;
@@ -459,6 +440,34 @@ body.item {
         right: 6px;
         display: none;
     }
+    
+}
+.itemCommentsList {
+    
+    > li {
+        position: relative;
+        border: 1px solid @itemBlue;
+        border-radius: 5px;
+        margin-top: 35px;
+        padding: 8px;
+        .boxSizing;
+        
+        
+        &:hover {
+            .closeDialog {
+                display: block;
+            }
+        }
+    }
+    .user-name {
+        color: @itemBlue;
+    }
+    p {
+        font-size: 15px;
+        padding: 5px 0 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid @borderColor;
+    }  
 }
 /*#endregion */
 

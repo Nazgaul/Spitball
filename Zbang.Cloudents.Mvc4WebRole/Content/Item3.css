@@ -402,6 +402,7 @@ body.item .siteHeader {
   border-radius: 3px;
   width: 100%;
   margin-bottom: 8px;
+  height: 20px;
 }
 .itemComments .cancel,
 .itemComments .post {
@@ -413,7 +414,19 @@ body.item .siteHeader {
   background: #fff;
   border-radius: 5px;
 }
-.itemCommentsList li {
+.itemComments .addComBtn {
+  padding-top: 5px;
+  color: #3399ff;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.itemComments .closeDialog {
+  top: 6px;
+  right: 6px;
+  display: none;
+}
+.itemCommentsList > li {
   position: relative;
   border: 1px solid #3399ff;
   border-radius: 5px;
@@ -423,22 +436,17 @@ body.item .siteHeader {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.itemCommentsList li:hover .closeDialog {
+.itemCommentsList > li:hover .closeDialog {
   display: block;
 }
-.itemCommentsList .addComBtn {
-  padding-top: 5px;
-  margin-top: 10px;
+.itemCommentsList .user-name {
   color: #3399ff;
-  border-top: 1px solid #c2c2c2;
-  display: block;
-  width: 100%;
-  text-align: left;
 }
-.itemCommentsList .closeDialog {
-  top: 6px;
-  right: 6px;
-  display: none;
+.itemCommentsList p {
+  font-size: 15px;
+  padding: 5px 0 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #c2c2c2;
 }
 /*#endregion */
 /*#region item content */
