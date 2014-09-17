@@ -143,30 +143,59 @@
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
-
-                <li ng-repeat="comment in item.comments">
-                    <span>Posted by</span>
-                    <span><a href="#">{{comment.userName}}</a></span>
-                    <time display-time="{{comment.creationDate}}"></time>
-                    <p>{{comment.comment}}</p>
+                <li>
+                    <ul>
+                        <li>
+                            <span>Posted by</span>
+                            <span class="user-name">{User-name}</span>
+                            <time>27th August</time>
+                            <p>{the post which the poter posted goes right here!!}</p>
+                        </li>
+                        <li>
+                            <span>Posted by</span>
+                            <span class="user-name">{User-name}</span>
+                            <time>27th August</time>
+                            <p>{the post which the poter posted goes right here!!}</p>
+                        </li>
+                        <li>
+                            <span>Posted by</span>
+                            <span class="user-name">{User-name}</span>
+                            <time>27th August</time>
+                            <p>{the post which the poter posted goes right here!!}</p>
+                        </li>
+                    </ul>
                     <button class="addComBtn" type="button">@SharedResources.AddComment</button>
                     <button type="button" class="closeDialog" data-closediag="itemRename"></button>
+                    <form class="clearfix itemCommentsForm">
+                        <div class="textareaWpr">
+                            <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
+                            <div class="rFloat">
+                                <button type="submit" class="post rFloat">@SharedResources.Post</button>
+                                <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </li>
                 <li>
-                    <span>Posted by</span>
-                    <span><a href="#">{User-name}</a></span>
-                    <time>27th August</time>
-                    <p>{the post which the poter posted goes right here!!}</p>
+                    <ul>
+                        <li>
+                            <span>Posted by</span>
+                            <span class="user-name">{User-name}</span>
+                            <time>27th August</time>
+                            <p>{the post which the poter posted goes right here!!}</p>
+                        </li>
+                    </ul>
                     <button class="addComBtn" type="button">@SharedResources.AddComment</button>
                     <button type="button" class="closeDialog" data-closediag="itemRename"></button>
-                </li>
-                <li>
-                    <span>Posted by</span>
-                    <span><a href="#">{User-name}</a></span>
-                    <time>27th August</time>
-                    <p>{the post which the poter posted goes right here!!}</p>
-                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
+                    <form class="clearfix itemCommentsForm">
+                        <div class="textareaWpr">
+                            <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
+                            <div class="rFloat">
+                                <button type="submit" class="post rFloat">@SharedResources.Post</button>
+                                <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </li>
             </ul>
         </section>
