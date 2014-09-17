@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
@@ -30,5 +31,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string PrintUrl { get; set; }
 
         public ItemNavigationDto Navigation { get; set; }
+
+        public IEnumerable<ActivityDtos.AnnotationDto> Comments { get; set; }
     }
 }

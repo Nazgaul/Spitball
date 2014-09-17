@@ -34,6 +34,9 @@
             },
             preview:function(data) {
                 return ajaxRequest(data, $http.get, 'Preview/');
+            },
+            addComment:function(data) {
+                return ajaxRequest(data, $http.post, 'AddComment/');
             }
         };
     }

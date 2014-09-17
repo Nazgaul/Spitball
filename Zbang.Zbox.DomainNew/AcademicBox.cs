@@ -57,7 +57,6 @@ namespace Zbang.Zbox.Domain
             Professor = professorName;
         }
 
-        public virtual ICollection<Library> Library { get; private set; }
 
         public override void GenerateUrl()
         {
