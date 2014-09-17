@@ -110,8 +110,8 @@
         </div>
 
         <div class="mainPart">
-            <a href="{{item.navigation.next}}" class="rFloat navBtn"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
-            <a href="{{item.navigation.previous}}" class="lFloat navBtn"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+            <a ng-show="item.navigation.next" ng-href="{{item.navigation.next}}" class="rFloat navBtn"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+            <a ng-show="item.navigation.previous" ng-href="{{item.navigation.previous}}" class="lFloat navBtn"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
             <div class="itemNameWpr">
                 <h2 class="item-name elps lFloat">
                     <span tooltip="{{item.name}}">{{item.name}}</span>
@@ -143,7 +143,7 @@
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
-                <li ng-repeat="comment in item.comments">
+                <li class="itemComment" ng-repeat="comment in item.comments">
                     <!--comment-->
                     <span>Posted by</span>
                     <span class="user-name">{{comment.userName}}</span>
@@ -155,18 +155,21 @@
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                         <li>
                             <span>Posted by</span>
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                         <li>
                             <span>Posted by</span>
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
                             <p>{the post which the poter posted goes right here!!}</p>
+                            <button type="button" class="cancel">@DialogResources.Cancel</button>
                         </li>
                     </ul>
                     <!--Need to disapear this once it clicked-->
@@ -182,7 +185,7 @@
                         </div>
                     </form>
                 </li>
-                <li>
+                <li class="itemComment">
                     <ul>
                         <li>
                             <span>Posted by</span>

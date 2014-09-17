@@ -1,6 +1,6 @@
 ﻿<div class="itemFulscrn">
     <div ng-bind-html="$parent.preview"></div>
     <button type="button" class="exitFulscrn" ng-click="closeFullScreen()"></button>
-    <button type="button" class="itemPrev" id="itemPrev"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
-    <button type="button" class="itemNext" id="itemNext"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></button>
+    <a ng-show="$parent.item.navigation.previous" ng-href="{{$parent.item.navigation.previous}}" class="itemPrev"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+    <a ng-show="$parent.item.navigation.next" ng-href="{{$parent.item.navigation.next}}" class="itemNext" id="itemNext"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
 </div>

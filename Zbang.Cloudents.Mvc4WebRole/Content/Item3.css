@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -426,7 +426,7 @@ body.item .siteHeader {
   right: 6px;
   display: none;
 }
-.itemCommentsList > li {
+.itemCommentsList .itemComment {
   position: relative;
   border: 1px solid #3399ff;
   border-radius: 5px;
@@ -436,8 +436,11 @@ body.item .siteHeader {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.itemCommentsList > li:hover .closeDialog {
+.itemCommentsList .itemComment:hover .closeDialog {
   display: block;
+}
+.itemCommentsList .itemComment li {
+  position: relative;
 }
 .itemCommentsList .user-name {
   color: #3399ff;
@@ -747,3 +750,4 @@ body.fulscrn .itemPage {
   top: 50px;
 }
 /*#endregion */
+/*# sourceMappingURL=Item3.css.map */
