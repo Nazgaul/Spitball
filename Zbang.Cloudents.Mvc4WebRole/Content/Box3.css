@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -53,65 +53,6 @@
   position: relative;
   margin-top: 12px;
   color: #0371c8;
-}
-.shareBtn .shareList {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  margin-top: 5px;
-}
-.shareBtn .shareItem {
-  display: table-cell;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-left: 6px;
-  /*rtl*/
-  vertical-align: top;
-}
-.shareBtn .shareItem:first-child {
-  padding: 0 6px 0 0;
-  /*rtl*/
-}
-.shareBtn .fbShare,
-.shareBtn .emailShare {
-  border-radius: 3px;
-  color: #fff;
-  background: #39579b;
-  line-height: 36px;
-  height: 36px;
-  width: 100%;
-}
-.shareBtn .fbShare:before,
-.shareBtn .emailShare:before {
-  content: '';
-  display: inline-block;
-  width: 11px;
-  height: 22px;
-  background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
-  vertical-align: middle;
-  margin-right: 6px;
-  /*rtl*/
-}
-.shareBtn .emailShare {
-  background: #0371c8;
-}
-.shareBtn .emailShare:before {
-  width: 22px;
-  height: 19px;
-  background-position: -192px -70px;
-}
-.shareBtn .linkShare {
-  height: 36px;
-  border: 1px solid #c2c2c2;
-  color: #0371c8;
-  border-radius: 3px;
-  padding: 0 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 284px;
-  direction: ltr;
 }
 .shareDD {
   padding: 20px 18px;
@@ -168,6 +109,12 @@
 .shareDD .shareTxt {
   margin: 23px 0 10px;
 }
+.shareDD .shareList {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin-top: 5px;
+}
 .shareDD .shareArrow {
   position: relative;
   top: -11px;
@@ -182,6 +129,59 @@
   /*rtl*/
   bottom: 3px;
   background: #fff;
+}
+.shareDD .shareItem {
+  display: table-cell;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 6px;
+  /*rtl*/
+  vertical-align: top;
+}
+.shareDD .shareItem:first-child {
+  padding: 0 6px 0 0;
+  /*rtl*/
+}
+.shareDD .fbShare,
+.shareDD .emailShare {
+  border-radius: 3px;
+  color: #fff;
+  background: #39579b;
+  line-height: 36px;
+  height: 36px;
+  width: 100%;
+}
+.shareDD .fbShare:before,
+.shareDD .emailShare:before {
+  content: '';
+  display: inline-block;
+  width: 11px;
+  height: 22px;
+  background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
+  vertical-align: middle;
+  margin-right: 6px;
+  /*rtl*/
+}
+.shareDD .emailShare {
+  background: #0371c8;
+}
+.shareDD .emailShare:before {
+  width: 22px;
+  height: 19px;
+  background-position: -192px -70px;
+}
+.shareDD .linkShare {
+  height: 36px;
+  border: 1px solid #c2c2c2;
+  color: #0371c8;
+  border-radius: 3px;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 284px;
+  direction: ltr;
 }
 /*#region box right header */
 .inviteBtn {
@@ -2085,3 +2085,4 @@
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=Box3.css.map */
