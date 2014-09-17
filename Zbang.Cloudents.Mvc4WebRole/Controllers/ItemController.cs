@@ -191,7 +191,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var item = await ZboxReadService.GetItem2(query);
-                item.DownloadUrl = Url.Action("Download", new {boxId, itemId});
+                item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId, itemId });
                 item.PrintUrl = Url.Action("Print", new {boxId, itemId});
                 return Json(new JsonResponse(true, item));
             }
@@ -218,7 +218,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <param name="itemId"></param>
         /// <returns>if link redirect to link if file download</returns>
         [ZboxAuthorize]
-        [Route("D/{BoxUid:long:min(0)}/{itemid:long:min(0)}", Name = "ItemDownload")]
+        [Route("D/{BoxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload")]
         [NoEtag]
         public ActionResult Download(long boxId, long itemId)
         {
@@ -299,7 +299,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <param name="otakim"></param>
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
-        public async Task<ActionResult> Print(long boxId, long itemId, bool otakim = false)
+        public async Task<ActionResult> Print(long boxId, long itemId)
         {
 
             var query = new GetItemQuery(GetUserId(false), itemId, boxId);
@@ -314,13 +314,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
 
 
-                if (otakim)
-                {
-                    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
-                    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name,
-                        Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
-                    return Redirect(url);
-                }
+                //if (otakim)
+                //{
+                //    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
+                //    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name,
+                //        Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
+                //    return Redirect(url);
+                //}
                 IEnumerable<string> retVal = null;
 
                 // var model = GenerateItemView(boxid, userId, itemId);
