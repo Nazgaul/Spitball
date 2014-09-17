@@ -133,38 +133,23 @@
 
         <section class="itemComments">
             <header>@SharedResources.AddComment</header>
-            <form name="addAnnotation" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
+            <form ng-init="showBtn=false" name="addAnnotation" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
-                    <textarea ng-model="formData.Comment" @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
+                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction msd-elastic class="commentsTextarea" required></textarea>
                     <div class="rFloat">
-                        <button type="submit" class="post rFloat">@SharedResources.Post</button>
-                        <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
+                        <button ng-show="showBtn" type="submit" class="post rFloat">@SharedResources.Post</button>
+                        <button ng-show="showBtn" type="button" class="cancel rFloat">@DialogResources.Cancel</button>
                     </div>
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
                 <li class="itemComment" ng-repeat="comment in item.comments">
-                    <!--comment-->
                     <span>Posted by</span>
                     <span class="user-name">{{comment.userName}}</span>
                     <time display-time="{{comment.creationDate}}"></time>
                     <p>{{comment.comment}}</p>
                     <ul>
-                        <li>
-                            <span>Posted by</span>
-                            <span class="user-name">{User-name}</span>
-                            <time>27th August</time>
-                            <p>{the post which the poter posted goes right here!!}</p>
-                            <button type="button" class="cancel">@DialogResources.Cancel</button>
-                        </li>
-                        <li>
-                            <span>Posted by</span>
-                            <span class="user-name">{User-name}</span>
-                            <time>27th August</time>
-                            <p>{the post which the poter posted goes right here!!}</p>
-                            <button type="button" class="cancel">@DialogResources.Cancel</button>
-                        </li>
-                        <li>
+                        <li ng-repeat="reply in comment.replies">
                             <span>Posted by</span>
                             <span class="user-name">{User-name}</span>
                             <time>27th August</time>
@@ -174,7 +159,7 @@
                     </ul>
                     <!--Need to disapear this once it clicked-->
                     <button class="addComBtn" type="button">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog"></button> <!--delete btn-->
+                    <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button> <!--delete btn-->
                     <form class="clearfix itemCommentsForm" style="display:none">
                         <div class="textareaWpr">
                             <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>

@@ -80,11 +80,27 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 userName: sUserDetails.getDetails().name
             });
             $scope.formData = {};
+            $scope.showBtn = false;
             $scope.$broadcast('update-scroll');
         });
 
 
     }
+    $scope.deleteComment = function (comment) {
+
+        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {
+            if (!response.success) {
+                alert(response.payload);
+                return;
+            }
+            var indexC = $scope.item.comments.indexOf(comment);
+            $scope.item.comments.splice(indexC, 1);
+        });
+        //deleteComment
+    };
+    $scope.canDelete = function (id) {
+        return id == sUserDetails.getDetails().id; //id is string
+    };
     cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
 }

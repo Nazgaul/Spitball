@@ -37,6 +37,9 @@
             },
             addComment:function(data) {
                 return ajaxRequest(data, $http.post, 'AddComment/');
+            },
+            deleteComment:function(data) {
+                return ajaxRequest(data, $http.post, 'DeleteComment/');
             }
         };
     }

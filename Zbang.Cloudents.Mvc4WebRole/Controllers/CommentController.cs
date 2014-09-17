@@ -132,18 +132,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         
 
 
-        [HttpPost]
-        [ZboxAuthorize]
-        [Ajax]
-        public ActionResult DeleteComment(DeleteAnnotation model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            var command = new DeleteAnnotationCommand(model.CommentId, GetUserId());
-            ZboxWriteService.DeleteAnnotation(command);
-            return Json(new JsonResponse(true));
-        }
+        
     }
 }
