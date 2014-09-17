@@ -323,7 +323,7 @@ body.item {
         margin-left: @leftSideBarWidth;
         display: inline-block;
         
-        > button {
+        .navBtn {
             padding-top: 25px;
         }
         &:hover {
@@ -1030,13 +1030,15 @@ body.item {
         width: 100%;
     }
 }
-
+.previewFailed, .previewDenied h2, .mediaLoading, .mediaLoading h2 {
+    color: #fff;
+}
 .previewFailed {
     //width: 350px;
     margin: 0 auto 0;
     padding: 50px; // eliminate scroll
     text-align: center;
-    color: #383838;
+    //color: #383838;
     &:before {
         content: '';
         display: block;
@@ -1107,7 +1109,7 @@ body.item {
     text-align: center;
 
     h2{
-        color: @color;
+        //color: @color;
         margin-bottom: 5px;
     }
 }
@@ -1172,8 +1174,11 @@ body.item {
     left: 0; /*rtl*/
     height: 100%; //used for links
     .transition(all .3s);
-    min-height: ~'-webkit-calc(100vh - 140px)';
-    min-height: ~'calc(100vh - 140px)';
+    //min-height: ~'-webkit-calc(100vh - 60px)';
+    //min-height: ~'calc(100vh - 60px)';
+    min-height: ~'-webkit-calc(100vh - 200px)';
+    min-height: ~'calc(100vh - 200px)';
+    margin-top: 140px;
 
     &.annotateState {
         left: ~"calc(400px - 49%)"; /*rtl*/
@@ -1196,7 +1201,7 @@ body.item {
     position: relative;
     z-index:0;//bug 581
     &:first-child {
-        margin-top: 140px;
+        //margin-top: 140px;
         .imageContent {
             //margin-top: 160px;
         }
@@ -1529,11 +1534,6 @@ body.item {
         text-align: center;
         display: inline-block;
     }
-
-    .previewFailed, .previewDenied h2, .mediaLoading, .mediaLoading h2 {
-        color: #fff;
-    }
-
     .mediaLoader .spinner, .smallLoader .spinner {
         border-top-color: #fff;
         border-left-color: #fff;

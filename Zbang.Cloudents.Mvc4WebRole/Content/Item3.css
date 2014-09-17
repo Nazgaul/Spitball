@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -308,7 +308,7 @@ body.item .siteHeader {
   margin-left: 290px;
   display: inline-block;
 }
-.secondBar .mainPart > button {
+.secondBar .mainPart .navBtn {
   padding-top: 25px;
 }
 .secondBar .mainPart:hover .itemRenameBtn {
@@ -994,11 +994,16 @@ body.item .siteHeader {
   height: 100%;
   width: 100%;
 }
+.previewFailed,
+.previewDenied h2,
+.mediaLoading,
+.mediaLoading h2 {
+  color: #fff;
+}
 .previewFailed {
   margin: 0 auto 0;
   padding: 50px;
   text-align: center;
-  color: #383838;
   /*h2{
         font-size: 22px;
         white-space:pre-wrap;
@@ -1058,7 +1063,6 @@ body.item .siteHeader {
   text-align: center;
 }
 .mediaLoading h2 {
-  color: #0f9d58;
   margin-bottom: 5px;
 }
 .smallLoader {
@@ -1120,8 +1124,9 @@ body.item .siteHeader {
   -moz-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  min-height: -webkit-calc(100vh - 140px);
-  min-height: calc(100vh - 140px);
+  min-height: -webkit-calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
+  margin-top: 140px;
 }
 .previewWrapper.annotateState {
   left: calc(400px - 49%);
@@ -1141,9 +1146,6 @@ body.item .siteHeader {
   margin: 0 auto 10px;
   position: relative;
   z-index: 0;
-}
-.divWrapper:first-child {
-  margin-top: 140px;
 }
 .imageContent {
   max-width: 800px;
@@ -1461,12 +1463,6 @@ body.item .siteHeader {
   z-index: 13;
   text-align: center;
   display: inline-block;
-}
-.itemFulscrn .previewFailed,
-.itemFulscrn .previewDenied h2,
-.itemFulscrn .mediaLoading,
-.itemFulscrn .mediaLoading h2 {
-  color: #fff;
 }
 .itemFulscrn .mediaLoader .spinner,
 .itemFulscrn .smallLoader .spinner {
