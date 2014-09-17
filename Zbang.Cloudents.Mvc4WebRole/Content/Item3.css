@@ -658,12 +658,6 @@ body.item .siteHeader {
 .itemFulscrn {
   text-align: center;
   height: 100%;
-  /*.modal2 {
-        background: rgba(0,0,0,.9);
-    }*/
-  /*.commentToggle {
-        display: none;
-    }*/
 }
 .itemFulscrn .copyRightWarning {
   display: none;
@@ -708,9 +702,6 @@ body.item .siteHeader {
   width: 85vw;
   height: 90vh;
 }
-/*.itemFulscrn.show{
-    display:block;
-}*/
 .exitFulscrn {
   position: fixed;
   top: 20px;
@@ -730,10 +721,6 @@ body.item .siteHeader {
   left: 10px;
   /*rtl*/
   cursor: pointer;
-  /*&:hover
-    {
-        background-position: -128px -72px;
-    }*/
 }
 .itemPrev.disabled,
 .itemNext.disabled {
@@ -743,11 +730,6 @@ body.item .siteHeader {
   right: 20px;
   /*rtl*/
   left: auto;
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
 }
 body.fulscrn .itemFulscrn {
   display: block;
