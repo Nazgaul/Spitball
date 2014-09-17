@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class WordProcessor : FileProcessor
     {
-        const string VersionCache = "V4";
+        const string VersionCache = "V6";
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -48,8 +48,8 @@ namespace Zbang.Zbox.Infrastructure.File
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 80};
-
+            // var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 80};
+            var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
             for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
                 string value;
@@ -62,15 +62,17 @@ namespace Zbang.Zbox.Infrastructure.File
                     meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
-                imgOptions.PageIndex = pageIndex;
+                svgOptions.PageIndex = pageIndex;
+                // imgOptions.PageIndex = pageIndex;
                 try
                 {
                     using (var ms = new MemoryStream())
                     {
-                        word.Value.Save(ms, imgOptions);
+                        word.Value.Save(ms, svgOptions);
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
+                        // parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
                         meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
                 }
@@ -90,12 +92,8 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         protected string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
+            return string.Format("{0}{3}_{2}_{1}.svg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
         }
-
-
-
-
 
         public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt", ".odt" };
         public override bool CanProcessFile(Uri blobName)
@@ -121,7 +119,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 }
 
-                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 100};
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) { JpegQuality = 100 };
 
                 var settings = new ResizeSettings
                 {

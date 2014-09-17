@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope',
-function ($scope, $routeParams, sItem, $timeout, $rootScope) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope','$modal',
+function ($scope, $routeParams, sItem, $timeout, $rootScope,$modal) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = true;
 
@@ -42,7 +42,21 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope) {
             getPreview();
         }
     }
-
+    $scope.fullScreen = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/Item/FullScreen/',
+            controller: 'ItemFullScreenCtrl',
+            backdrop: false,
+            scope: $scope
+            // resolve: {
+            //friends: function () {
+            //return data.payload.my;
+            //}
+            // }
+        });
+        //modalInstance.result.then(function (url) {
+        //});
+    }
     cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
 }

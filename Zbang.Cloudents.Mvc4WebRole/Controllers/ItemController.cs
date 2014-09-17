@@ -474,6 +474,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-
+         [Ajax, HttpGet]
+        public ActionResult FullScreen()
+        {
+            try
+            {
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("FullScreen ", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
     }
 }
