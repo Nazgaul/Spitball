@@ -56,7 +56,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/rtl3.css",
                 "~/Content/StoreRtl.css",
                 "~/Content/SetupSchoolRtl.css",
-                "~/Content/HeaderFooterRtl.css");
+                "~/Content/HeaderFooterRtl.css",
+                "~/Content/ItemRtl.css");
 
             RegisterCss("newcore3", "~/Content/General.css",
                 "~/Content/HeaderFooter.css",
@@ -73,7 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Invite.css",
                 "~/Content/Upload.css",
                 "~/Content/Box3.css",
-                "~/Content/Item3.css",
+                "~/Content/Item.css",
                 "~/Content/Settings.css",
                 "~/Content/DashLib.css",
                 "~/Content/Store.css",

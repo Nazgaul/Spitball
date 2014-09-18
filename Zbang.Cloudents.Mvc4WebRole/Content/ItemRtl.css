@@ -1,0 +1,121 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region layout */
+.itemRight,
+.boxRight {
+  padding: 0 290px 0 0;
+}
+.itemPage .topBar .mainPart {
+  padding: 0 290px 0 0;
+}
+.itemPage .leftPart {
+  right: 0;
+  left: auto;
+}
+.itemPage .svg-back {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+/*#endregion */
+/*#region svg icons */
+.svg-next {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.svg-prev {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+.svg-flag {
+  margin: 0 0 0 5px;
+}
+/*#endregion */
+/*#region item topBars */
+/*#region topBar - main */
+/*#endregion */
+/*#region second bar - left */
+.secondBar .svg-eye,
+.secondBar .svg-download {
+  margin: 0 0 0 5px;
+}
+.secondBar .svg-star {
+  float: left;
+}
+.secondBar .mainPart {
+  margin: 0 290px 0 0;
+}
+/*#endregion */
+/*#region second bar - main */
+.itemOwner {
+  text-align: right;
+}
+.itemRenameBtn {
+  left: 0;
+  right: auto;
+}
+.item-name {
+  text-align: right;
+  padding: 0 0 0 24px;
+  margin: 10px 0 0 -24px;
+}
+/*#endregion */
+/*#endregion */
+/*#region left panel */
+.itemComments .addComBtn {
+  text-align: right;
+}
+.itemComments .closeDialog {
+  left: 6px;
+  right: auto;
+}
+.itemCommentsList .itemComment li:hover > .closeDialog {
+  left: 0;
+  right: auto;
+}
+/*#endregion */
+/*#region item content */
+.itemDisplay {
+  box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3);
+}
+.mediaLoader .spinner {
+  border-top: 10px solid rgba(56, 56, 56, 0.75);
+  border-left: 10px solid rgba(56, 56, 56, 0.75);
+}
+.smallLoader .spinner {
+  border-left: 10px solid rgba(56, 56, 56, 0.75);
+}
+.previewWrapper {
+  right: 0;
+  left: auto;
+}
+/*#endregion */
+/*#region fullscreen */
+.itemFulscrn .mediaLoader .spinner,
+.itemFulscrn .smallLoader .spinner {
+  border-left-color: #fff;
+}
+.exitFulscrn {
+  left: 20px;
+  right: auto;
+}
+.itemPrev,
+.itemNext {
+  right: 10px;
+  left: auto;
+}
+.itemNext {
+  left: 20px;
+  right: auto;
+}
+/*#endregion */
