@@ -182,7 +182,7 @@ body.item .siteHeader {
   cursor: pointer;
 }
 .middleActionItem label svg {
-  top: 15px;
+  top: 18px;
 }
 .middleActionItem:hover svg {
   fill: #3399ff;
@@ -193,6 +193,9 @@ body.item .siteHeader {
   -o-transform: translateX(-2px);
   -ms-transform: translateX(-2px);
   transform: translateX(-2px);
+}
+.middleActionItem .svg-print {
+  top: 17px;
 }
 /*#endregion */
 /*#region second bar - left */
@@ -322,7 +325,7 @@ body.item .siteHeader {
 }
 .itemComments {
   color: #fff;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #c2c2c2;
 }
 .itemComments header {
   font-size: 20px;
