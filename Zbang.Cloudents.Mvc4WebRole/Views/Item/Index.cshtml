@@ -80,13 +80,12 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <div class="rateWpr rFloat" rate-star="0">
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            </div>
+            
+            @*Guy: please add windowClass 'flagItem' in the js Cntrl file*@
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">
+                <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
+                <span>@ItemsResources.Flag</span>
+            </button>
         </div>
 
         <div class="mainPart">
@@ -106,10 +105,14 @@
 
     <div class="leftPanel lFloat">
         @*<span class="lFloat" data-bind="text: update"></span>*@
-        <button type="button" class="itemFlag" data-bind="click: flagItem, visible: flagAllow()">
-            <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
-            <span>@ItemsResources.Flag</span>
-        </button>
+        <span class="rateTxt">@ItemsResources.Rate</span>
+        <div class="rateWpr">
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+        </div>
 
         <section class="itemComments">
             <header>@SharedResources.AddComment</header>

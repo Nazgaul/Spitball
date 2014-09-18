@@ -156,9 +156,11 @@ body.item {
 }
 
 .svg-flag {
-    width: 21px;
-    height: 30px;
+    width: 17px;
+    height: 28px;
     fill: #fff;
+    position: relative;
+    top: 8px;
     margin-right: 5px; //rtl
 }
 /*#endregion */
@@ -243,17 +245,11 @@ body.item {
         display: inline-block;
     }
 
-    .rateWpr {
-        width: 126px;
-        position: relative;
-        top: 23px;
-        cursor: pointer;
-    }
 
     .svg-eye {
         position: relative;
         top: 3px;
-        margin-right: 5px; //rtl
+        margin-right: 5px;  //rtl
     }
 
     .svg-download {
@@ -262,17 +258,9 @@ body.item {
         margin-right: 5px; //rtl
     }
 
-    .svg-star {
-        width: 25px; //width=20 but 25px for space between stars
-        float: right; //rtl
         &:hover {
-            fill: #ffc104;
 
             ~ .svg-star {
-                fill: #ffc104;
-            }
-        }
-    }
 
     .mainPart {
         width: 800px;
@@ -286,7 +274,17 @@ body.item {
         }
     }
 }
-
+.itemFlag
+{   
+    color: #fff;
+    font-size: 15px;
+    padding-top: 12px;
+    &:hover {
+        .svg-flag {
+            fill: @itemBlue;
+        }
+    }
+}
 
 /*#endregion */
 
@@ -338,37 +336,40 @@ body.item {
     width: @leftSideBarWidth;
     .boxSizing;
     padding: 0 15px;
-}
-
+    .rateTxt {
 .itemFlag {
-    display: block;
-    color: #fff;
-    font-size: 15px;
-    margin-bottom: 10px;
-
-    &:hover {
-        .svg-flag {
-            fill: @itemBlue;
+        font-size: 15px;
+        color: #fff;
+        vertical-align: top;
+        display: inline-block;
+        padding-top: 2px;
+    }
+    .rateWpr {
+        width: 126px;
+        position: relative;
+        cursor: pointer;
+        height: 22px;
+        display: inline-block;
+    }
+    .svg-star {
+        width: 25px; //width=20 but 25px for space between stars
+        float: right; //rtl
+        &:hover
+        {
+            fill: #ffc104;
+            ~ .svg-star
+            {
+                fill: #ffc104;
+            }
         }
     }
-    /*&:before
-    {
-        .pseudo;
-        width: 15px;
-        height: 17px;
-        background: @item-sprite1 -70px -2px no-repeat;
-        vertical-align: middle;
-        margin-right: 5px; //rtl
-    }
-    &:hover:before {
-        background-position: -71px -21px;
-    }*/
 }
 
 .itemComments {
     color: #fff;
     border-top: 1px solid @borderColor;
-
+    clear: both;
+    margin-top: 8px;
     header {
         font-size: 20px;
         color: @itemBlue;
