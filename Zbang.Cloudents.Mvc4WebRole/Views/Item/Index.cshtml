@@ -157,7 +157,7 @@
 
     <div class="itemRight">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
-            <div class="previewWrapper" ng-bind-html="preview" scroller loading-method="loadMore()"></div>
+            <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false"></div>
         </div>
     </div>
 </div>
