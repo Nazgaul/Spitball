@@ -67,9 +67,6 @@
 .secondBar .svg-download {
   margin: 0 0 0 5px;
 }
-.secondBar .svg-star {
-  float: left;
-}
 .secondBar .mainPart {
   margin: 0 290px 0 0;
 }
@@ -90,6 +87,9 @@
 /*#endregion */
 /*#endregion */
 /*#region left panel */
+.leftPanel .svg-star {
+  float: left;
+}
 .itemComments .addComBtn {
   text-align: right;
 }
