@@ -5,7 +5,6 @@
 <div id="item" class="page itemPage" ng-controller="ItemCtrl">
     @*<h1>@ViewBag.Description</h1>*@
 
-
     <div class="topBar">
         @* class itemTop has gone*@
         @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
@@ -126,13 +125,13 @@
             <div m-custom-scrollbar>
                 <ul class="itemCommentsList">
                     <li class="itemComment" ng-repeat="comment in item.comments">
-                        <span>Posted by</span>
+                        <span>@ItemsResources.PostedBy</span>
                         <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
                         <time display-time="{{comment.creationDate}}"></time>
                         <p>{{comment.comment}}</p>
                         <ul>
                             <li ng-repeat="reply in comment.replies">
-                                <span>Posted by</span>
+                                <span>@ItemsResources.PostedBy</span>
                                 <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
                                 <time display-time="{{reply.creationDate}}"></time>
                                 <p>{{reply.comment}}</p>
