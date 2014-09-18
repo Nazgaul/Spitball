@@ -61,45 +61,37 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //[NoCache]
-        public ActionResult IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
+        public async Task<ActionResult> IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
-            var userId = GetUserId(false); // not really needs it
 
             try
             {
-                var query = new GetItemQuery(userId, itemid, boxId);
-                var item = ZboxReadService.GetItem(query);
-                if (item.BoxId != boxId)
+
+                var query = new GetFileSeoQuery(itemid);
+                var model = await ZboxReadService.GetItemSeo(query);
+                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
                 {
                     throw new ItemNotFoundException();
                 }
-                if (itemName != UrlBuilder.NameToQueryString(item.Name))
+                if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
+                if (string.IsNullOrEmpty(model.Country)) return View("Empty");
+
+                var culture = Languages.GetCultureBaseOnCountry(model.Country);
+                BaseControllerResources.Culture = culture;
+                var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
+
+                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
+                    model.BoxName, seoItemName, BaseControllerResources.Cloudents);
+
+                ViewBag.Description = model.Description;
+                if (!string.IsNullOrEmpty(model.Description))
                 {
-                    throw new ItemNotFoundException();
-                }
-                if (!string.IsNullOrEmpty(item.Country))
-                {
-                    var culture = Languages.GetCultureBaseOnCountry(item.Country);
-                    BaseControllerResources.Culture = culture;
-                    var seoItemName = item.Name;
-                    var file = item as FileWithDetailDto;
-                    if (file != null)
-                    {
-                        seoItemName = file.NameWOExtension;
-                    }
-                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
-                        item.BoxName, seoItemName, BaseControllerResources.Cloudents);
-                }
-                if (!string.IsNullOrEmpty(item.Description))
-                {
-                    var metaDescription = item.Description.RemoveEndOfString(197);
-                    ViewBag.metaDescription = metaDescription.Length == 197 ? metaDescription + "..." : metaDescription;
+                    var metaDescription = model.Description.RemoveEndOfString(197);
+                    ViewBag.metaDescription = metaDescription.Length == 197
+                        ? metaDescription + "..."
+                        : metaDescription;
                 }
                 return View("Empty");
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (ItemNotFoundException)
             {
@@ -192,7 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var item = await ZboxReadService.GetItem2(query);
                 item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId, itemId });
-                item.PrintUrl = Url.Action("Print", new {boxId, itemId});
+                item.PrintUrl = Url.Action("Print", new { boxId, itemId });
                 return Json(new JsonResponse(true, item));
             }
             catch (BoxAccessDeniedException)
@@ -380,17 +372,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [ZboxAuthorize]
-        [HttpGet, Ajax]
-        public async Task<JsonResult> Rate(long itemId)
-        {
+        //[ZboxAuthorize]
+        //[HttpGet, Ajax]
+        //public async Task<JsonResult> Rate(long itemId)
+        //{
 
-            var query = new GetItemRateQuery(GetUserId(), itemId);
-            var retVal = await ZboxReadService.GetRate(query) ?? new ItemRateDto();
+        //    var query = new GetItemRateQuery(GetUserId(), itemId);
+        //    var retVal = await ZboxReadService.GetRate(query) ?? new ItemRateDto();
 
-            return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
+        //    return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
 
-        }
+        // }
 
 
 
@@ -476,7 +468,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-         [Ajax, HttpGet]
+        [Ajax, HttpGet]
         public ActionResult FullScreen()
         {
             try
@@ -490,45 +482,45 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-         [HttpPost, ZboxAuthorize, Ajax]
-         public ActionResult AddComment(NewAnnotation model)
-         {
-             if (!ModelState.IsValid)
-             {
-                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-             }
-             try
-             {
-                 var command = new AddAnnotationCommand(model.Comment, model.ItemId, GetUserId());
-                 ZboxWriteService.AddAnnotation(command);
-                 return Json(new JsonResponse(true, command.AnnotationId));
-             }
-             catch (UnauthorizedAccessException)
-             {
-                 return Json(new JsonResponse(false));
-             }
-         }
-         [HttpPost]
-         [ZboxAuthorize]
-         [Ajax]
-         public ActionResult DeleteComment(DeleteItemComment model)
-         {
-             if (!ModelState.IsValid)
-             {
-                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-             }
-             var command = new DeleteItemCommentCommand(model.CommentId, GetUserId());
-             ZboxWriteService.DeleteAnnotation(command);
-             return Json(new JsonResponse(true));
-         }
-         [HttpPost]
-         [ZboxAuthorize]
-         [Ajax]
+        [HttpPost, ZboxAuthorize, Ajax]
+        public ActionResult AddComment(NewAnnotation model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+            }
+            try
+            {
+                var command = new AddAnnotationCommand(model.Comment, model.ItemId, GetUserId());
+                ZboxWriteService.AddAnnotation(command);
+                return Json(new JsonResponse(true, command.AnnotationId));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Json(new JsonResponse(false));
+            }
+        }
+        [HttpPost]
+        [ZboxAuthorize]
+        [Ajax]
+        public ActionResult DeleteComment(DeleteItemComment model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+            }
+            var command = new DeleteItemCommentCommand(model.CommentId, GetUserId());
+            ZboxWriteService.DeleteAnnotation(command);
+            return Json(new JsonResponse(true));
+        }
+        [HttpPost]
+        [ZboxAuthorize]
+        [Ajax]
         public ActionResult ReplyComment(ReplyItemComment model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, new {error = GetModelStateErrors()}));
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
 
             }
             var command = new AddReplyToAnnotationCommand(GetUserId(), model.ItemId, model.Comment, model.CommentId);

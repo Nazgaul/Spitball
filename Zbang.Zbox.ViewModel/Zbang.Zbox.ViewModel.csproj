@@ -91,6 +91,7 @@
     <Compile Include="Dto\ItemDtos\IItemDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemDto.cs" />
+    <Compile Include="Dto\ItemDtos\FileSeo.cs" />
     <Compile Include="Dto\ItemDtos\ItemToFriendDto.cs" />
     <Compile Include="Dto\ItemDtos\ItemWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\LinkDto.cs" />
@@ -155,8 +156,9 @@
     <Compile Include="Queries\GetInvitesQuery.cs" />
     <Compile Include="Queries\GetItemQuery.cs" />
     <Compile Include="Queries\GetBoxCommentsQuery.cs" />
-    <Compile Include="Queries\GetItemRateQuery.cs" />
+    <Compile Include="Queries\GetFileSeoQuery.cs" />
     <Compile Include="Queries\GetQuizQuery.cs" />
+    <Compile Include="Queries\GetQuizSeoQuery.cs" />
     <Compile Include="Queries\GetStoreProductsByCategoryQuery.cs" />
     <Compile Include="Queries\GetStoreProductQuery.cs" />
     <Compile Include="Queries\GetUserByEmailQuery.cs" />

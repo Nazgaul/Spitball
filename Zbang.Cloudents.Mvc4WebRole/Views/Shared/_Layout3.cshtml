@@ -40,8 +40,7 @@
     <script type="text/javascript">
     window.appInsights = { queue: [], applicationInsightsId: null, accountId: null, appUserId: null, configUrl: null, start: function (n) { function u(n) { t[n] = function () { var i = arguments; t.queue.push(function () { t[n].apply(t, i) }) } } function f(n, t) { if (n) { var u = r.createElement(i); u.type = "text/javascript"; u.src = n; u.async = !0; u.onload = t; u.onerror = t; r.getElementsByTagName(i)[0].parentNode.appendChild(u) } else t() } var r = document, t = this, i; t.applicationInsightsId = n; u("logEvent"); u("logPageView"); i = "script"; f(t.configUrl, function () { f("//az416426.vo.msecnd.net/scripts/a/ai.0.7.js") }); t.start = function () { } } };
 
-    //appInsights.start("25195c1a-be80-4b61-a3f8-00d10e2efa62");
-    //appInsights.logPageView();
+  
     </script>
 </head>
 <body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),
@@ -80,17 +79,17 @@
             </div>
         </div>
         <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
+        @if (ViewBag.Description != null)
+        {
+            <h1>@ViewBag.Description</h1>
+        }
     </header>
     <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
          bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
 
         <div id="fb-root"></div>
-
-        @*<span id="firstTime" data-libf="@ViewBag.fLib.ToString().ToLower()"
-            data-myf="@ViewBag.fDash.ToString().ToLower()"
-            data-boxf="@ViewBag.fBox.ToString().ToLower()"
-            data-itemf="@ViewBag.fItem.ToString().ToLower()"></span>*@
+        
     </div>
 
     <div id="mLoading" class="loading" data-loader>
