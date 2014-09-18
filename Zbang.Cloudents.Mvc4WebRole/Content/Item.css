@@ -17,7 +17,6 @@ body.item .siteHeader {
   width: 100%;
   height: 100%;
   padding-left: 290px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -81,9 +80,6 @@ body.item .siteHeader {
   -o-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
-}
-.itemPage canvas {
-  display: none;
 }
 /*#endregion */
 /*#region svg icons */
@@ -185,72 +181,6 @@ body.item .siteHeader {
 .middleActionItem:hover svg {
   fill: #3399ff;
 }
-/*#region print drop down - OBSELETE */
-/*.printDD.printDD{
-
-    text-align: center;
-    margin-top: 5px;
-    width: 245px;
-    height: 250px;
-    direction: rtl; //no rtl
-
-    background: #fff;
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-    box-shadow: 0 2px 9px rgba(0,0,0,.3);
-    
-    left: 122px; //diff rtl
-    top: 66px;
-
-    &:before
-    {
-        display: none;  //override
-    }
-    
-    
-    .iconTxt{
-        color: @attentionBlue;
-        font-size: 13px;
-        width: 100%;
-        position: relative;
-        &:before
-         {
-            margin: 0; // override
-            position: absolute;
-            right: 53px; //no rtl yet
-            top: 2px;
-        }
-    }
-    h4{
-        margin-top: -10px;
-        padding: 10px 0 9px;
-        background: #f5f5f5;
-        border-bottom: 1px solid @borderColor;
-        border-radius: 3px 3px 0 0;
-    }
-    .printTxt{
-        margin-top: 8px;
-        &:after
-        {
-            content: '';
-            width: 107px;
-            height: 57px;
-            background: @item-sprite1 -80px -288px no-repeat;
-            display: block;
-            margin: 10px auto;
-        }
-    }
-    .printTxt2{
-        margin-bottom: 10px;
-        padding: 0 16px;
-        line-height: 16px;
-    }
-    .btn3{
-        padding: 3px 20px 5px 20px;
-        margin-top: 5px;
-    }
-}*/
-/*#endregion */
 /*#endregion */
 /*#region second bar - left */
 .secondBar {
@@ -309,11 +239,6 @@ body.item .siteHeader {
   box-sizing: border-box;
   margin-left: 290px;
   display: inline-block;
-  /*&:hover {
-            .itemRenameBtn {
-                display: block;
-            }
-        }*/
 }
 .secondBar .mainPart .navBtn {
   padding-top: 25px;
@@ -490,7 +415,6 @@ body.item .siteHeader {
 .itemDisplay {
   border: 1px solid #d2cbcf;
   box-shadow: 5px 5px 5px rgba(116, 100, 110, 0.3);
-  /*rtl*/
   position: absolute;
   top: 0;
   right: 0;
@@ -623,7 +547,6 @@ body.item .siteHeader {
   -webkit-overflow-scrolling: touch;
   position: relative;
   left: 0;
-  /*rtl*/
   height: 100%;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -708,8 +631,7 @@ body.item .siteHeader {
   max-width: 100%;
 }
 .itemFulscrn .imageContent ~ .copyRightWarning,
-.itemFulscrn .imageContent ~ .annotationList,
-.itemFulscrn .imageContent ~ canvas {
+.itemFulscrn .imageContent ~ .annotationList {
   display: none;
 }
 .itemFulscrn .imageContent.document {
@@ -732,7 +654,6 @@ body.item .siteHeader {
   position: fixed;
   top: 20px;
   right: 20px;
-  /*rtl*/
   width: 10px;
   height: 10px;
   cursor: pointer;
@@ -745,7 +666,6 @@ body.item .siteHeader {
   position: fixed;
   top: 50%;
   left: 10px;
-  /*rtl*/
   cursor: pointer;
 }
 .itemPrev.disabled,
@@ -754,15 +674,7 @@ body.item .siteHeader {
 }
 .itemNext {
   right: 20px;
-  /*rtl*/
   left: auto;
-}
-body.fulscrn .itemFulscrn {
-  display: block;
-}
-body.fulscrn .itemPage {
-  position: fixed;
-  top: 50px;
 }
 .fulscrn {
   overflow: hidden;

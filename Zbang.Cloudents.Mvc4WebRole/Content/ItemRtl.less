@@ -1,0 +1,150 @@
+﻿@import "varsAndMixins";
+
+/*#region layout */
+
+.itemRight, .boxRight {
+    padding: 0 @leftSideBarWidth 0 0; //rtl
+}
+
+.itemPage {
+    .topBar{
+        .mainPart {
+            padding: 0 @leftSideBarWidth 0 0; //rtl
+        }
+    }
+    .leftPart {
+        right:0; //rtl
+        left: auto;
+    }
+    .svg-back {
+        .flipH(1); //rtl
+    }
+}
+/*#endregion */
+
+/*#region svg icons */
+.svg-next {
+    .flipH; //rtl
+}
+.svg-prev {
+    .flipH(1); //rtl
+}
+
+.svg-flag {
+    margin: 0 0 0 5px; //rtl
+}
+/*#endregion */
+
+/*#region item topBars */
+
+/*#region topBar - main */
+
+/*#endregion */
+
+/*#region second bar - left */
+.secondBar {
+    .svg-eye, .svg-download{
+        margin: 0 0 0 5px; //rtl
+    }
+    .svg-star {
+        float: left; //rtl
+    }
+    .mainPart {
+        margin: 0 @leftSideBarWidth 0 0; //rtl
+    }
+}
+/*#endregion */
+
+/*#region second bar - main */
+.itemOwner {
+    text-align: right; //rtl
+}
+
+.itemRenameBtn {
+    left: 0; //rtl
+    right: auto;
+}
+
+.item-name {
+    text-align: right; //rtl
+    padding: 0 0 0 24px; //rtl
+    margin: 10px 0 0 -24px; //rtl
+}
+
+/*#endregion */
+
+/*#endregion */
+
+/*#region left panel */
+
+.itemComments {
+    .addComBtn {
+        text-align: right; //rtl
+    }
+    .closeDialog {
+        left: 6px; //rtl
+        right: auto;
+    }   
+}
+.itemCommentsList {
+    .itemComment {
+        li {
+            &:hover {
+                > .closeDialog {
+                    left: 0; //rtl
+                    right: auto;
+                }
+            }
+        }
+    } 
+}
+/*#endregion */
+
+/*#region item content */
+.itemDisplay {
+    box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3); //rtl
+}
+
+.mediaLoader {
+    .spinner {
+        border-top: 10px solid rgba(56, 56, 56,.75);
+        border-left: 10px solid rgba(56, 56, 56,.75); //CHECK THIS
+    }
+}
+
+.smallLoader {
+    .spinner
+    {
+        border-left: 10px solid rgba(56, 56, 56,.75); //CHECK THIS
+    }
+}
+
+.previewWrapper {
+    right: 0; //rtl 
+    left: auto; 
+}
+
+/*#endregion */
+
+/*#region fullscreen */
+
+.itemFulscrn {
+    .mediaLoader .spinner, .smallLoader .spinner {
+        border-left-color: #fff; //CHECK THIS
+    }
+}
+
+.exitFulscrn{
+    left: 20px; //rtl
+    right: auto;
+}
+.itemPrev, .itemNext {
+    right: 10px; //rtl
+    left: auto;
+}
+
+.itemNext{
+    left: 20px; //rtl
+    right: auto;
+}
+/*#endregion */
