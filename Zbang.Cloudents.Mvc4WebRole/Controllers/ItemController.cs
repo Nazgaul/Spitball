@@ -543,7 +543,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-
+            var command = new DeleteItemCommentReplyCommand(GetUserId(), model.ReplyId);
+            ZboxWriteService.DeleteItemCommentReply(command);
             return Json(new JsonResponse(true));
         }
     }

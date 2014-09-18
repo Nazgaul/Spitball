@@ -16,6 +16,7 @@
 
      return {
          setDetails: function (data) {
+             data = data || {};
              if (!data.id) {
                  return;   
              }

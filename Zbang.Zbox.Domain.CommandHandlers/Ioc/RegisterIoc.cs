@@ -51,6 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddAnnotationCommand>), typeof(AddAnnotationCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<AddReplyToAnnotationCommand>), typeof(AddReplyToAnnotationCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
 
 
             ioc.RegisterType(typeof(ICommandHandler<CreateItemTabCommand>), typeof(CreateItemTabCommandHandler));
