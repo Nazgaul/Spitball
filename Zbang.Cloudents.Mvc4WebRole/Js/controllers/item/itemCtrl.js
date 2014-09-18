@@ -33,8 +33,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
         }).then(function (response) {
-            loadMore = true;
             var data = response.success ? response.payload : '';
+            if (data) {
+                loadMore = true;
+            }
             $scope.preview += data.preview;
         });
     }
