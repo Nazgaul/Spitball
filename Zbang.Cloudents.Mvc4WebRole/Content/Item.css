@@ -25,6 +25,9 @@ body.item .siteHeader {
 .itemRight {
   background: #282828;
 }
+.itemPage {
+  overflow-x: hidden;
+}
 .itemPage .topBar {
   color: #fff;
   border: none;

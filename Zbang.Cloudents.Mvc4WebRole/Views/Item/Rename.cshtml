@@ -1,15 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div id="item_rename" data-diag="itemRename">
-    <div class="popupWrppr itemRename">
-        <header class="popupHeader"><span>@SharedResources.Rename</span></header>
-        <button type="button" class="closeDialog" data-closediag="itemRename"></button>
-        <form id="itemRenameForm" class="itemRenameForm">
-            @*<label for="itemName">Item name:</label>*@
-            <input class="inputText" type="text" id="itemName" name="itemRename" />
-            <input id="itemRenameSave" type="submit" class="btn1 next" value="@SharedResources.Save">
-            <button id="itemRenameCancel" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
-        </form>
 
-    </div>
-    <div class="modal2"></div>
+<div class="modal-header">
+    <h3 class="modal-title"><span>@SharedResources.Rename</span></h3>
+</div>
+<div class="modal-body">
+    <form class="itemRenameForm">
+        <input class="inputText" type="text" id="itemName" name="itemRename" />
+        <input id="itemRenameSave" type="submit" class="btn1 next" value="@SharedResources.Save">
+        <button id="itemRenameCancel" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
+    </form>
+    <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>

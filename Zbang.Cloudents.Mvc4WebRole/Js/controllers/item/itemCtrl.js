@@ -81,6 +81,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     }
     $scope.renameWindow = function() {
         var modelInstance = $modal.open({
+            windowClass: 'rename',
             templateUrl: '/Item/Rename/',
             //controller: 'ItemFullScreenCtrl',
             backdrop: false
