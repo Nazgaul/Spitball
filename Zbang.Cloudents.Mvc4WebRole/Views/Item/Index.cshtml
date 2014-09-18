@@ -157,17 +157,10 @@
             </div>
         </section>
     </div>
-
     <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
-            <div load-spinner="load.contentLoadMore" load-spinner-type="page"</div>
+            <div load-spinner="load.contentLoadMore" load-spinner-type="page"></div>
         </div>
     </div>
 </div>
-
-@{Html.RenderPartial("Rename");}
-
-
-
-

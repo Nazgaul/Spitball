@@ -196,6 +196,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
                 new JsFileWithCdn("/js/controllers/item/itemFullScreenCtrl.js"),
+                new JsFileWithCdn("/js/controllers/item/itemRenameCtrl.js"),
+                
                 new JsFileWithCdn("/js/controllers/quiz/quizCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/challengeCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCreateCtrl.js"),
@@ -238,6 +240,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/contentEditable.js"),
+                new JsFileWithCdn("/js/directives/rateStar.js"),
 
 
                 new JsFileWithCdn("/js/filters/highlight.js"),

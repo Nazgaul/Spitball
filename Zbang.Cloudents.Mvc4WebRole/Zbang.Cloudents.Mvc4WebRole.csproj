@@ -386,6 +386,7 @@
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />
+    <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\ReplyItemComment.cs" />
     <Compile Include="Models\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -909,6 +910,7 @@
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
+    <Content Include="Js\controllers\item\itemRenameCtrl.js" />
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
@@ -942,6 +944,7 @@
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
+    <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />

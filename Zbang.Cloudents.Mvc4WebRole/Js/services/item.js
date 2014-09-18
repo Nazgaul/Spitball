@@ -49,6 +49,9 @@
             deleteReply: function(data) {
                 return ajaxRequest(data, $http.post, 'DeleteCommentReply/');
 
+            },
+            rename : function(data) {
+                return ajaxRequest(data, $http.post, 'Rename/');
             }
     };
     }
