@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 viewResult.View.Render(viewContext, sw);
                 viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
-                return sw.GetStringBuilder().ToString();
+                return sw.GetStringBuilder().ToString().Trim();
             }
         }
         protected override void OnException(ExceptionContext filterContext)
