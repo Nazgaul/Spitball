@@ -17,9 +17,15 @@
         left: auto;
     }
     .svg-back {
-         right: 0; //rtl
+         right: 12px; //rtl
          left: auto;
         .flipH(1); //rtl
+    }
+    .backWpr.backWpr {
+        padding: 0 57px 0 0; //rtl
+        &:before {
+            display: none;
+        }
     }
 }
 /*#endregion */
@@ -40,7 +46,14 @@
 /*#region item topBars */
 
 /*#region topBar - main */
-
+.middleActionItem{
+    &:first-child {
+        margin: 0 0 0 22px; //rtl
+    }
+    .svg-download {
+        .translateX(2px); //rtl
+    }
+}
 /*#endregion */
 
 /*#region second bar - left */
@@ -48,6 +61,7 @@
     .svg-eye, .svg-download{
         margin: 0 0 0 5px; //rtl
     }
+    
     .svg-star {
         float: left; //rtl
     }
