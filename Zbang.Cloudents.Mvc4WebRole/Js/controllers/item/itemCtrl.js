@@ -9,8 +9,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.fromReply = {};
     $scope.preview = '';
     $scope.fullScreen = false;
-    //$scope.contentLoading = true;
-    //$scope.contentLoadMore = false;
+    $scope.load = {
+        contentLoading: false,
+        contentLoadMore: false
+    };
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -25,10 +27,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
     function getPreview() {
         
-        if (loadMore) {
-            $scope.contentLoadMore = true
+        if (index > 0) {            
+            $scope.load.contentLoadMore = true
         } else {
-            $scope.contentLoading = true;
+            $scope.load.contentLoading = true;
         }
             
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
@@ -40,8 +42,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
         }).then(function (response) {
-            $scope.contentLoading = false;
-            $scope.contentLoadMore = false;
+            $scope.load.contentLoading = $scope.load.contentLoadMore = false;
 
             var data = response.success ? response.payload : '';
             if (data.preview.length > 10) {
