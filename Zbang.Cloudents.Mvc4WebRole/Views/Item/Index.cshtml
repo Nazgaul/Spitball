@@ -95,7 +95,7 @@
             <div class="itemNameWpr">
                 <h2 class="item-name elps lFloat">
                     <span tooltip="{{item.name}}">{{item.name}}</span>
-                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button">
+                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button" ng-click="renameWindow()">
                         <svg class="svg-pencil"><use xlink:href="~/Images/Defs.svg#pencil" /></svg>
                     </button>
                 </h2>
@@ -155,10 +155,10 @@
         </section>
     </div>
 
-    <div class="itemRight" load-spinner="{{contentLoading}}" loader-spinner-type="init">
+    <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
-            <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false"></div>
-            <div load-spinner="{{contentLoadMore}}" loader-spinner-type="page"</div>
+            <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
+            <div load-spinner="load.contentLoadMore" load-spinner-type="page"</div>
         </div>
     </div>
 </div>
