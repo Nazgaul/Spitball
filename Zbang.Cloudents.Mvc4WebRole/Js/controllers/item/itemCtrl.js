@@ -6,12 +6,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     var index = 0, loadMore = true;
 
     $scope.navigation = {};
+    $scope.fromReply = {};
     $scope.preview = '';
+
+    $scope.fullScreen = false;
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
         $scope.item = data;
-        console.log($scope.item);
         getPreview();
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
@@ -43,7 +45,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             getPreview();
         }
     }
-    $scope.fullScreen = function () {
+    $scope.fullScreenWindow = function () {
         var modalInstance = $modal.open({
             windowClass: 'fullscreen',
             templateUrl: '/Item/FullScreen/',
@@ -59,18 +61,21 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         //modalInstance.result.then(function (url) {
         //});
     }
-    $scope.create = function (isValid) {
+    $scope.create = function(isValid) {
         if (!isValid) {
             return;
         }
+        $scope.commentp = true;
         //TODO: add disable state
         $scope.formData.itemId = $routeParams.itemId;
-        sItem.addComment($scope.formData).then(function(response) {
+        sItem.addComment($scope.formData).then(function (response) {
+            $scope.commentp = false;
+           
             if (!response.success) {
                 alert(response.payload);
                 return;
             }
-           
+
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
                 creationDate: new Date().toISOString(),
@@ -83,11 +88,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.showBtn = false;
             $scope.$broadcast('update-scroll');
         });
-
-
-    }
+    };
     $scope.deleteComment = function (comment) {
-
         sItem.deleteComment({ CommentId: comment.id }).then(function (response) {
             if (!response.success) {
                 alert(response.payload);
@@ -95,11 +97,38 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
             var indexC = $scope.item.comments.indexOf(comment);
             $scope.item.comments.splice(indexC, 1);
+            $scope.$broadcast('update-scroll');
         });
-        //deleteComment
+    };
+    $scope.deleteReply = function(reply) {
+        console.log(reply);
     };
     $scope.canDelete = function (id) {
         return id == sUserDetails.getDetails().id; //id is string
+    };
+    $scope.addReply = function (comment) {
+        comment.replyp = true;
+        $scope.fromReply.itemId = $routeParams.itemId;
+        $scope.fromReply.commentId = comment.id;
+        
+        sItem.ReplyComment($scope.fromReply).then(function (response) {
+            if (!response.success) {
+                alert(response.payload);
+                return;
+            }
+            comment.replies.unshift({
+                comment: $scope.fromReply.Comment,
+                creationDate:  new Date().toISOString(),
+                id: response.payload,
+                userId:  sUserDetails.getDetails().id,
+                userName: sUserDetails.getDetails().name
+            
+            });
+            $scope.fromReply = {};
+            comment.showReplyF = false;
+            comment.replyp = false;
+            $scope.$broadcast('update-scroll');
+        });
     };
     cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;

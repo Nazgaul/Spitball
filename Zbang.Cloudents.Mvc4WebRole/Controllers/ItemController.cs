@@ -511,15 +511,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
          [HttpPost]
          [ZboxAuthorize]
          [Ajax]
-         public ActionResult DeleteComment(DeleteAnnotation model)
+         public ActionResult DeleteComment(DeleteItemComment model)
          {
              if (!ModelState.IsValid)
              {
                  return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
              }
-             var command = new DeleteAnnotationCommand(model.CommentId, GetUserId());
+             var command = new DeleteItemCommentCommand(model.CommentId, GetUserId());
              ZboxWriteService.DeleteAnnotation(command);
              return Json(new JsonResponse(true));
          }
+         [HttpPost]
+         [ZboxAuthorize]
+         [Ajax]
+        public ActionResult ReplyComment(ReplyItemComment model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, new {error = GetModelStateErrors()}));
+
+            }
+            var command = new AddReplyToAnnotationCommand(GetUserId(), model.ItemId, model.Comment, model.CommentId);
+            ZboxWriteService.AddReplyAnnotation(command);
+            return Json(new JsonResponse(true, command.ReplyId));
+        }
+
+        [HttpPost, ZboxAuthorize, Ajax]
+        public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+            }
+
+            return Json(new JsonResponse(true));
+        }
     }
 }

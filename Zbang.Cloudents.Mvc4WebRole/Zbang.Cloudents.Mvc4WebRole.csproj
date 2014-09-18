@@ -364,7 +364,8 @@
     <Compile Include="Models\AddLink.cs" />
     <Compile Include="Models\ChooseDepartment.cs" />
     <Compile Include="Models\CreateDepartment.cs" />
-    <Compile Include="Models\DeleteAnnotation.cs" />
+    <Compile Include="Models\DeleteItemComment.cs" />
+    <Compile Include="Models\DeleteItemCommentReply.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
     <Compile Include="Models\FlagBadItem.cs" />
@@ -385,6 +386,7 @@
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />
+    <Compile Include="Models\ReplyItemComment.cs" />
     <Compile Include="Models\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

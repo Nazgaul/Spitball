@@ -31,30 +31,12 @@
                         <span>@ItemsResources.Print</span>
                     </a>
 
-                    @*<button type="button" class="itemPrint iconTop" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>*@
-                    @*<input class="checkbox" type="checkbox" id="itemPrint" data-ddcbox="itemPrint" />
-                    <label for="itemPrint" class="" data-link="@Url.Action("Print", "Item")">
-                        <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
-                        <span>@ItemsResources.Print</span>
-                    </label>
-                    <div class="printDD dropDown" data-dropdown="itemPrint">
-                        <div class="arrow upArrow"></div>
-                        <h4><button type="button" id="item_P" data-link="@Url.Action("Print", "Item")" class="iconTxt">שלח למדפסת שלך</button></h4>
-                        <div class="printTxt">או הדפס באמצעות:</div>
-                        <div class="printTxt2">
-                            מערכת
-                            <a href="http://www.otakim.co.il">עותקים</a>
-                            מאפשרת לנהל, לשתף ולהזמין חומרים מודפסים בכל סוגי הגימור,
-                            <br />
-                            איכותי מתקדם ובמחיר של 8 אג' לעמוד.
-                        </div>
-                        <button type="button" id="Otakim_P" class="btn3">שלח להדפסה בעותקים</button>
-                    </div>*@
+                  
                 </li>
 
 
                 <li class="middleActionItem">
-                    <button type="button" ng-click="fullScreen()" class="">
+                    <button type="button" ng-click="fullScreenWindow()" class="">
                         <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
                         @*<svg class="svg-smallscreen"><use xlink:href="~/Images/Defs.svg#smallscreen" /></svg>*@
                         <div>@ItemsResources.FullScreen</div>
@@ -137,56 +119,34 @@
                 <div class="textareaWpr">
                     <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction msd-elastic class="commentsTextarea" required></textarea>
                     <div class="rFloat">
-                        <button ng-show="showBtn" type="submit" class="post rFloat">@SharedResources.Post</button>
-                        <button ng-show="showBtn" type="button" class="cancel rFloat">@DialogResources.Cancel</button>
+                        <button ng-show="showBtn" ng-disabled="commentp" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
+                        <button ng-show="showBtn" type="button" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
                     </div>
                 </div>
             </form>
             <ul class="itemCommentsList" m-custom-scrollbar>
                 <li class="itemComment" ng-repeat="comment in item.comments">
                     <span>Posted by</span>
-                    <span class="user-name">{{comment.userName}}</span>
+                    <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
                     <time display-time="{{comment.creationDate}}"></time>
                     <p>{{comment.comment}}</p>
                     <ul>
                         <li ng-repeat="reply in comment.replies">
                             <span>Posted by</span>
-                            <span class="user-name">{User-name}</span>
-                            <time>27th August</time>
-                            <p>{the post which the poter posted goes right here!!}</p>
-                            <button type="button" class="cancel">@DialogResources.Cancel</button>
+                            <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
+                            <time display-time="{{reply.creationDate}}"></time>
+                            <p>{{reply.comment}}</p>
+                            <button type="button" class="closeDialog" ng-click="deleteReply(reply)" ng-if="canDelete(reply.userId)"></button>
                         </li>
                     </ul>
-                    <!--Need to disapear this once it clicked-->
-                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button> <!--delete btn-->
-                    <form class="clearfix itemCommentsForm" style="display:none">
+                    <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
+                    <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
+                    <form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
                         <div class="textareaWpr">
-                            <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
+                            <textarea text-direction msd-elastic ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
                             <div class="rFloat">
-                                <button type="submit" class="post rFloat">@SharedResources.Post</button>
-                                <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="itemComment">
-                    <ul>
-                        <li>
-                            <span>Posted by</span>
-                            <span class="user-name">{User-name}</span>
-                            <time>27th August</time>
-                            <p>{the post which the poter posted goes right here!!}</p>
-                        </li>
-                    </ul>
-                    <button class="addComBtn" type="button">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog" data-closediag="itemRename"></button>
-                    <form class="clearfix itemCommentsForm">
-                        <div class="textareaWpr">
-                            <textarea @*text-direction msd-elastic*@ class="commentsTextarea" required></textarea>
-                            <div class="rFloat">
-                                <button type="submit" class="post rFloat">@SharedResources.Post</button>
-                                <button type="button" class="cancel rFloat">@DialogResources.Cancel</button>
+                                <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
+                                <button type="button" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -196,7 +156,7 @@
     </div>
 
     <div class="itemRight">
-        <div class="itemPreview scrollEffect" id="itemPreview">
+        <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" scroller loading-method="loadMore()"></div>
         </div>
     </div>

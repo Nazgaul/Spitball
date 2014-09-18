@@ -2,10 +2,10 @@
 [
     '$scope', '$modalInstance', 
     function ($scope, $modalInstance) {
-        console.log($scope);
-
+        $scope.$parent.fullScreen = true;
         $scope.closeFullScreen = function() {
             $modalInstance.close();
+            $scope.$parent.fullScreen = false;
         };
     }
 ]);

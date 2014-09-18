@@ -17,10 +17,10 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
             }
         }
 
-        public string UserImage { get; set; }
         public string UserName { get; set; }
         public long ParentId { get; set; }
 
+        public string UserId { get; set; }
 
     }
 }

@@ -40,6 +40,10 @@
             },
             deleteComment:function(data) {
                 return ajaxRequest(data, $http.post, 'DeleteComment/');
+            },
+            ReplyComment:function(data) {
+                return ajaxRequest(data, $http.post, 'ReplyComment/');
+
             }
         };
     }

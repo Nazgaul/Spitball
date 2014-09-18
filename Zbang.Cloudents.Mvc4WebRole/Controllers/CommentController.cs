@@ -116,22 +116,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-
-        //[HttpGet]
-        //[Ajax]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        ////[AjaxCache(TimeToCache = TimeConsts.Minute * 5)]
-        //public async Task<ActionResult> Item(long itemId)
-        //{
-        //    var userId = GetUserId(false);
-        //    var query = new GetItemCommentsQuery(itemId, userId);
-        //    var result = await ZboxReadService.GetItemComments(query);
-        //    return Json(new JsonResponse(true, result));
-        //}
-
-        
-
-
-        
     }
 }

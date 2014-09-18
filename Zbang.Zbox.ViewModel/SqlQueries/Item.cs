@@ -46,5 +46,17 @@ select Previous,Next from  cte where itemid = @ItemId;
   FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
                       where itemid = @ItemId
                       order by ic.CreationTime desc;";
+
+        public const string ItemCommentReply = @"SELECT [ItemReplyId] as Id
+,[Comment]
+,cr.CreationTime as CreationDate
+,u.UserName as UserName
+    
+      ,u.UserId
+      ,[ParentId]
+      
+  FROM [Zbox].[ItemCommentReply] cr join zbox.Users u on cr.UserId = u.userid
+  where itemid = @ItemId
+  order by cr.CreationTime desc;";
     }
 }

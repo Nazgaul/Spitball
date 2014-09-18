@@ -355,7 +355,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void DeleteAnnotation(DeleteAnnotationCommand command)
+        public void DeleteAnnotation(DeleteItemCommentCommand command)
         {
             using (UnitOfWork.Start())
             {

@@ -24,13 +24,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [ZboxAuthorize]
     public class LibraryController : BaseController
     {
-        // private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(
-            //Lazy<IUserProfile> userProfile,
             Lazy<IIdGenerator> idGenerator,
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)

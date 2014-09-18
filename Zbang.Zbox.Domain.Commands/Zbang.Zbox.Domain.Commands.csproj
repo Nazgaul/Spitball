@@ -84,7 +84,8 @@
     <Compile Include="CreateMembershipUserCommand.cs" />
     <Compile Include="CreateMembershipUserCommandResult.cs" />
     <Compile Include="CreateUniversityCommand.cs" />
-    <Compile Include="DeleteAnnotationCommand.cs" />
+    <Compile Include="DeleteItemCommentCommand.cs" />
+    <Compile Include="DeleteItemCommentReplyCommand.cs" />
     <Compile Include="DeleteReplyCommand.cs" />
     <Compile Include="DeleteFileFromQnACommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />

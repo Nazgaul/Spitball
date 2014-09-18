@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.Common
         #region annotation
         void AddAnnotation(AddAnnotationCommand command);
         void AddReplyAnnotation(AddReplyToAnnotationCommand command);
-        void DeleteAnnotation(DeleteAnnotationCommand command);
+        void DeleteAnnotation(DeleteItemCommentCommand command);
         #endregion
 
         #region QnA

@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -748,5 +748,10 @@ body.fulscrn .itemFulscrn {
 body.fulscrn .itemPage {
   position: fixed;
   top: 50px;
+}
+.fulscrn {
+  overflow: hidden;
+  height: 100vh;
+  margin-top: -50px;
 }
 /*#endregion */
