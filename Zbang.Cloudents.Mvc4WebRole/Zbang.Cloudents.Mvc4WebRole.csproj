@@ -635,14 +635,17 @@
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
-    <Content Include="Content\Item3.css">
-      <DependentUpon>Item3.less</DependentUpon>
+    <Content Include="Content\Item.css">
+      <DependentUpon>Item.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemRtl.css">
+      <DependentUpon>ItemRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\lang.he-IL.css">
@@ -1044,7 +1047,7 @@
     <Content Include="Content\DashLib.less" />
     <Content Include="Content\Home.less" />
     <Content Include="Content\HomeRtl.less" />
-    <Content Include="Content\Item3.less" />
+    <Content Include="Content\Item.less" />
     <Content Include="Content\Mobile.less" />
     <Content Include="Content\MobileRtl.less" />
     <Content Include="Content\Modal.less" />
@@ -1123,6 +1126,7 @@
     <Content Include="AppInsightsAgent\UnifiedBootstrap.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\ItemRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
