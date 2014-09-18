@@ -8,8 +8,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.navigation = {};
     $scope.fromReply = {};
     $scope.preview = '';
-
     $scope.fullScreen = false;
+    $scope.contentLoading = true;
+    $scope.contentLoadMore = false;
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -23,7 +24,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
     function getPreview() {
-
+        
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
@@ -33,8 +34,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
         }).then(function (response) {
-            loadMore = true;
             var data = response.success ? response.payload : '';
+            if (data) {
+                loadMore = true;
+            }
             $scope.preview += data.preview;
         });
     }

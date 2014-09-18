@@ -9,23 +9,22 @@
         @* class itemTop has gone*@
         @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
         <div class="leftPart">
-            <a class="backWpr elps lFloat" href="{{item.boxUrl}}">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">{{item.boxName}}</h2>
+            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl}}">
+                <div>@SharedResources.Backto</div>                <h2 class="semiFont elps">{{item.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
         </div>
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
-                    <a class="actionLink" href="{{item.downloadUrl}}" target="_blank">
+                    <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank">
                         <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                         <div>@ItemsResources.Download</div>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
-                    <a class="actionLink" href="{{item.downloadUrl}}" target="_blank">
+                    <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank">
                         <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
                         <span>@ItemsResources.Print</span>
                     </a>
@@ -156,7 +155,7 @@
         </section>
     </div>
 
-    <div class="itemRight">
+    <div class="itemRight" load-spinner="{{contentLoading}}" loader-spinner-type="{{contentLoadingType}}">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false"></div>
         </div>
