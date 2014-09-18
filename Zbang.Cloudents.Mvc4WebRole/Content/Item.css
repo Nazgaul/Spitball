@@ -119,6 +119,12 @@ body.item .siteHeader {
   height: 20px;
   fill: #fff;
 }
+.rate {
+  fill: #ffc104;
+}
+.rate:hover {
+  fill: #fff;
+}
 .svg-prev,
 .svg-next {
   width: 13px;

@@ -11,6 +11,7 @@ body.item {
     width: 100%;
     height: 100%;
 }
+
 .itemRight, .boxRight {
     width: 100%;
     height: 100%;
@@ -18,17 +19,19 @@ body.item {
     .boxSizing;
     text-align: center;
 }
-.itemRight
-{
+
+.itemRight {
     background: #282828;
 }
+
 .itemPage {
-    .topBar{
+    .topBar {
         color: #fff; //override
         border: none;
-        padding:0; //override
+        padding: 0; //override
         background: #1e1e1e;
         width: 100%;
+
         .mainPart {
             width: 100%;
             height: 80px;
@@ -37,23 +40,26 @@ body.item {
             text-align: center;
         }
     }
+
     .leftPart {
         position: absolute;
-        left:0; //rtl
-        top:0;
+        left: 0; //rtl
+        top: 0;
         width: @leftSideBarWidth;
         height: 80px;
         padding: 0 15px;
         .boxSizing;
     }
-    
+
     .backWpr:before {
         display: none;
     }
-    .shareDD{
+
+    .shareDD {
         top: 75px;
         color: @itemBlue;
     }
+
     .leftPanel {
         @topOffset: @header-height + @topBarHeight + @secondBarHeight;
         height: ~'calc(100vh - @{topOffset})';
@@ -61,11 +67,13 @@ body.item {
         background: #282828;
         position: fixed;
     }
+
     > h1 {
         margin-top: -50px;
         height: 50px;
-        overflow:hidden;
+        overflow: hidden;
     }
+
     .svg-back {
         display: inline-block;
         position: absolute;
@@ -82,23 +90,28 @@ body.item {
     height: 23px;
     fill: #fff;
 }
+
 .svg-back {
     width: 35px;
     height: 35px;
     fill: #fff;
 }
+
 .svg-print {
     width: 24px;
     height: 24px;
 }
+
 .svg-fullscreen {
     width: 19px;
     height: 19px;
 }
+
 .svg-smallscreen {
     width: 19px;
     height: 19px;
 }
+
 .svg-share {
     width: 24px;
     height: 21px;
@@ -109,25 +122,37 @@ body.item {
     height: 17px;
     fill: #fff;
 }
+
 .svg-star {
     width: 20px;
     height: 20px;
     fill: #fff;
 }
+
+.rate {
+    fill: #ffc104;
+    &:hover {
+        fill:#fff;
+    }
+}
+
 .svg-prev, .svg-next {
     width: 13px;
     height: 18px;
     fill: @itemBlue;
-     //rtl
+    //rtl
 }
+
 .svg-prev {
     .flipH; //rtl
 }
+
 .svg-pencil {
     width: 17px;
     height: 21px;
     fill: #fff;
 }
+
 .svg-flag {
     width: 21px;
     height: 30px;
@@ -139,22 +164,24 @@ body.item {
 /*#region item topBars */
 
 /*#region topBar - main */
-.middleActionList{
+.middleActionList {
     display: inline-block;
     height: 80px;
     vertical-align: top;
+
     svg {
         display: block;
         margin-bottom: 5px;
         fill: #fff;
         position: absolute;
-        left:0;right:0;
+        left: 0;
+        right: 0;
         top: 20px;
         margin: auto;
     }
 }
 
-.middleActionItem{
+.middleActionItem {
     text-align: center;
     display: inline-block;
     margin: 0 15px;
@@ -166,9 +193,11 @@ body.item {
         display: inline-block;
         cursor: pointer;
     }
+
     label svg {
         top: 15px;
     }
+
     &:hover {
         svg {
             fill: @itemBlue;
@@ -188,53 +217,60 @@ body.item {
     color: @itemBlue;
     text-align: center;
     top: @header-height + @topBarHeight;
+
     .leftPart {
         height: @secondBarHeight;
         text-align: center;
         font-size: 15px;
     }
+
     .views {
         padding-top: 23px;
     }
+
     .downloads {
         padding-top: 17px;
         display: inline-block;
     }
+
     .rateWpr {
         width: 126px;
         position: relative;
         top: 23px;
         cursor: pointer;
     }
-    .svg-eye{
+
+    .svg-eye {
         position: relative;
         top: 3px;
         margin-right: 5px; //rtl
     }
+
     .svg-download {
         position: relative;
         top: 6px;
         margin-right: 5px; //rtl
     }
+
     .svg-star {
         width: 25px; //width=20 but 25px for space between stars
         float: right; //rtl
-        &:hover
-        {
+        &:hover {
             fill: #ffc104;
-            ~ .svg-star
-            {
+
+            ~ .svg-star {
                 fill: #ffc104;
             }
         }
     }
+
     .mainPart {
         width: 800px;
         height: @secondBarHeight;
         .boxSizing;
         margin-left: @leftSideBarWidth; //rtl
         display: inline-block;
-        
+
         .navBtn {
             padding-top: 25px;
         }
@@ -250,20 +286,23 @@ body.item {
     color: #fff;
     clear: both;
 }
+
 .itemNameWpr {
     display: inline-block;
     position: relative;
+
     &:hover {
         .itemRenameBtn {
             display: block;
         }
     }
 }
-.itemRenameBtn{
+
+.itemRenameBtn {
     display: none;
     position: absolute;
     //top: 6px;
-    top:0;
+    top: 0;
     right: 0; //rtl
 }
 
@@ -291,12 +330,12 @@ body.item {
     padding: 0 15px;
 }
 
-.itemFlag
-{   
+.itemFlag {
     display: block;
     color: #fff;
     font-size: 15px;
     margin-bottom: 10px;
+
     &:hover {
         .svg-flag {
             fill: @itemBlue;
@@ -315,26 +354,30 @@ body.item {
         background-position: -71px -21px;
     }*/
 }
+
 .itemComments {
     color: #fff;
     border-top: 1px solid #fff;
+
     header {
         font-size: 20px;
         color: @itemBlue;
         padding: 15px 0 10px;
     }
+
     > .itemCommentsForm {
         .textareaWpr {
             margin-bottom: 20px;
         }
     }
+
     .textareaWpr {
         /* background: #fff; */
         background: none;
         border: none;
         overflow: hidden;
-        
     }
+
     textarea {
         border: 1px solid @borderColor;
         border-radius: 3px;
@@ -343,15 +386,18 @@ body.item {
         height: 20px;
         padding: 0 5px;
     }
+
     .cancel, .post {
         font-size: 15px;
         color: @itemBlue;
         padding: 2px 15px;
     }
+
     .post {
         background: #fff;
         border-radius: 5px;
     }
+
     .addComBtn {
         padding-top: 5px;
         color: @itemBlue;
@@ -359,15 +405,17 @@ body.item {
         width: 100%;
         text-align: left; //rtl
     }
+
     .closeDialog {
         top: 6px;
         right: 6px; //rtl
         display: none;
     }
-    
 }
+
 .itemCommentsList {
     margin: 2px 0;
+
     .itemComment {
         position: relative;
         border: 1px solid @itemBlue;
@@ -375,17 +423,20 @@ body.item {
         margin-top: 35px;
         padding: 8px;
         .boxSizing;
-        
+
         &:first-child {
             margin-top: 0;
         }
+
         &:hover {
             > .closeDialog {
                 display: block;
             }
         }
+
         li {
             position: relative;
+
             &:hover {
                 > .closeDialog {
                     display: block;
@@ -395,15 +446,17 @@ body.item {
             }
         }
     }
+
     .user-name {
         color: @itemBlue;
     }
+
     p {
         font-size: 15px;
         padding: 5px 0 10px;
         margin-bottom: 10px;
         border-bottom: 1px solid @borderColor;
-    }  
+    }
 }
 /*#endregion */
 
@@ -411,7 +464,8 @@ body.item {
 .pageLoader {
     margin: 21px 0;
     position: absolute;
-    left: 0;right: 0;
+    left: 0;
+    right: 0;
 
     &.pageAnim {
         margin: -5px auto 0 auto;
@@ -441,13 +495,16 @@ body.item {
         width: 100%;
     }
 }
+
 .previewFailed, .previewDenied h2, .mediaLoading, .mediaLoading h2 {
     color: #fff;
 }
+
 .previewFailed {
     margin: 0 auto 0;
     padding: 50px; // eliminate scroll
     text-align: center;
+
     &:before {
         content: '';
         display: block;
@@ -457,23 +514,22 @@ body.item {
         margin: 0 auto 50px;
     }
 }
-.previewFailedText
-{
+
+.previewFailedText {
     font-size: 16px;
     margin-top: 10px;
 }
-.actionText
-{
+
+.actionText {
     color: @color;
-    &:hover
-    {
+
+    &:hover {
         text-decoration: underline;
     }
 }
- 
+
 .previewDenied {
-    &:before
-    {
+    &:before {
         .pseudo;
         width: 303px;
         height: 200px;
@@ -481,8 +537,8 @@ body.item {
         background: url(/Images/no-preview.png?v=1) no-repeat;
     }
 }
-.previewDeniedBtn
-{
+
+.previewDeniedBtn {
     font-size: 15px;
     color: #fff;
     background: @attentionBlue;
@@ -493,6 +549,7 @@ body.item {
     margin-top: 20px;
     display: inline-block;
 }
+
 .mediaLoader {
     width: 120px;
     height: 120px;
@@ -506,52 +563,55 @@ body.item {
     }
 }
 
-.mediaLoading
-{
+.mediaLoading {
     font-size: 15px;
     text-align: center;
 
-    h2{
+    h2 {
         margin-bottom: 5px;
     }
 }
-.smallLoader
-{
+
+.smallLoader {
     width: 100px;
     height: 100px;
     position: absolute;
-    top: 0;bottom: 0;
-    left: 0;right: 0;
-    margin:auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     z-index: 10;
-    .spinner
-    {
+
+    .spinner {
         width: 80px;
         height: 80px;
         border-top: 10px solid rgba(56, 56, 56,.75);
         border-left: 10px solid rgba(56, 56, 56,.75);
     }
 }
-.pageLoaderImg{
+
+.pageLoaderImg {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    margin:auto;
+    margin: auto;
 }
 
 
 /*New Item View*/
 .itemPreview {
     text-align: center;
-    overflow: auto;// We need this because want inner scroll and not page scroll
-    height: ~"-webkit-calc(100% - 130px)"; 
+    overflow: auto; // We need this because want inner scroll and not page scroll
+    height: ~"-webkit-calc(100% - 130px)";
     height: ~"calc(100% - 130px)";
     .boxSizing;
-    padding-top: 10px;  
+    padding-top: 10px;
     //position: fixed;
-    left: 0;right: 0;
+    left: 0;
+    right: 0;
 }
 //used for links
 .iframeContent {
@@ -578,12 +638,12 @@ body.item {
     min-height: ~'calc(100vh - 200px)';
     margin-top: 140px;
 
-    .boldFont{
+    .boldFont {
         font-size: 22px;
-        white-space:pre-wrap;
+        white-space: pre-wrap;
         line-height: 22px;
         font-weight: normal;
-    }   
+    }
 }
 
 .divWrapper {
@@ -593,7 +653,7 @@ body.item {
     width: 800px;
     margin: 0 auto 10px;
     position: relative;
-    z-index:0;//bug 581
+    z-index: 0; //bug 581
 }
 
 .imageContent {
@@ -601,8 +661,8 @@ body.item {
     display: inline-block;
     margin: 10px 0;
     //bug 1982
-    background:#fff;
-    color:#fff;
+    background: #fff;
+    color: #fff;
 }
 
 .copyRightWarning {
@@ -624,6 +684,7 @@ body.item {
     padding-top: @header-height;
     text-align: center;
     overflow: hidden;
+
     .modal-dialog {
         border: none;
         width: 800px;
@@ -640,19 +701,22 @@ body.item {
         height: 100%;
     }
 }
+
 .itemFulscrn {
     text-align: center;
-    height:100%;
+    height: 100%;
 
     .copyRightWarning {
         display: none;
     }
+
     .previewWrapper {
         //z-index: 12;
         z-index: 13;
         text-align: center;
         display: inline-block;
     }
+
     .mediaLoader .spinner, .smallLoader .spinner {
         border-top-color: #fff;
         border-left-color: #fff;
@@ -660,7 +724,7 @@ body.item {
 
     .divWrapper {
         border: none;
-        background:transparent;
+        background: transparent;
     }
 
     .imageContent {
@@ -682,7 +746,8 @@ body.item {
         height: 97vh;
         position: fixed;
         top: 10px;
-        right: 0;left: 0;
+        right: 0;
+        left: 0;
         margin: auto;
     }
 
@@ -692,7 +757,7 @@ body.item {
     }
 }
 
-.exitFulscrn{
+.exitFulscrn {
     position: fixed;
     top: 20px;
     right: 20px; //rtl
@@ -702,6 +767,7 @@ body.item {
     background: @common-sprite -79px -26px no-repeat;
     z-index: 13;
 }
+
 .itemPrev, .itemNext {
     z-index: 100;
     position: fixed;
@@ -709,18 +775,18 @@ body.item {
     left: 10px; //rtl
     cursor: pointer;
 
-    &.disabled{
-        opacity:.4;
+    &.disabled {
+        opacity: .4;
     }
 }
 
-.itemNext{
+.itemNext {
     right: 20px; //rtl
     left: auto;
 }
 
 .fulscrn {
-    overflow:hidden;
+    overflow: hidden;
     height: 100vh;
     margin-top: -50px;
 }
