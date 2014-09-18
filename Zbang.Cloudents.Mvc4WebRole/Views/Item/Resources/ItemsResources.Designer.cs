@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -225,6 +228,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         public static string PleaseUseThe {
             get {
                 return ResourceManager.GetString("PleaseUseThe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posted by.
+        /// </summary>
+        public static string PostedBy {
+            get {
+                return ResourceManager.GetString("PostedBy", resourceCulture);
             }
         }
         

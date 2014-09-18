@@ -229,4 +229,7 @@
   <data name="Processing" xml:space="preserve">
     <value>קובץ המדיה עובר תהליך המרה</value>
   </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>נכתב ע"י</value>
+  </data>
 </root>
