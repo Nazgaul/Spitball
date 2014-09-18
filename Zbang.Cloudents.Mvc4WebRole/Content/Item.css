@@ -260,7 +260,7 @@ body.item .siteHeader {
 .itemRenameBtn {
   display: none;
   position: absolute;
-  top: 6px;
+  top: 0;
   right: 0;
 }
 .item-name {
@@ -592,6 +592,8 @@ body.item .siteHeader {
 .modal.fullscreen {
   background: rgba(0, 0, 0, 0.9);
   padding-top: 50px;
+  text-align: center;
+  overflow: hidden;
 }
 .modal.fullscreen .modal-dialog {
   border: none;
@@ -603,6 +605,10 @@ body.item .siteHeader {
   -webkit-transform: none;
   transform: none;
   padding: 0;
+  display: inline-block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
 }
 .itemFulscrn {
   text-align: center;

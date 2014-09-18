@@ -357,16 +357,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemRateDto> GetRate(GetItemRateQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                //IEnumerable<Activity.AnnotationDto> retVal;
-                const string sql = @"select Rate from zbox.itemRate where itemid = @itemId and ownerid = @userid";
-                var retVal = await conn.QueryAsync<ItemRateDto>(sql, new { itemId = query.ItemId, userid = query.UserId });
-                return retVal.FirstOrDefault();
-            }
-        }
+      
         /// <summary>
         /// Used in box page - get the comment related to that box
         /// </summary>
@@ -873,6 +864,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<Item.FileSeo> GetItemSeo(GetFileSeoQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new {query.ItemId});
+                return retVal.FirstOrDefault();
+            }
+        }
+             
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();

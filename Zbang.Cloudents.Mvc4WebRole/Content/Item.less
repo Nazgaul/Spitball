@@ -262,7 +262,8 @@ body.item {
 .itemRenameBtn{
     display: none;
     position: absolute;
-    top: 6px;
+    //top: 6px;
+    top:0;
     right: 0; //rtl
 }
 
@@ -621,6 +622,8 @@ body.item {
 .modal.fullscreen {
     background: rgba(0,0,0,.9);
     padding-top: @header-height;
+    text-align: center;
+    overflow: hidden;
     .modal-dialog {
         border: none;
         width: 800px;
@@ -631,6 +634,10 @@ body.item {
         -webkit-transform: none;
         transform: none; //override;
         padding: 0; //override;
+        display: inline-block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
     }
 }
 .itemFulscrn {
