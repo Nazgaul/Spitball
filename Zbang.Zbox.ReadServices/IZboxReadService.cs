@@ -40,8 +40,7 @@ namespace Zbang.Zbox.ReadServices
         ItemWithDetailDto GetItem(GetItemQuery query);
 
         Task<ItemDetailDto> GetItem2(GetItemQuery query);
-
-        Task<ItemRateDto> GetRate(GetItemRateQuery query);
+        Task<FileSeo> GetItemSeo(GetFileSeoQuery query);
 
         IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 

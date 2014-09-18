@@ -24,12 +24,12 @@
                 </li>
 
                 <li class="middleActionItem">
-                    <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank">
+                    <a class="actionLink" href="{{item.printUrl}}" target="_blank">
                         <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
                         <span>@ItemsResources.Print</span>
                     </a>
 
-                  
+
                 </li>
 
 
@@ -135,7 +135,7 @@
                                 <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
                                 <time display-time="{{reply.creationDate}}"></time>
                                 <p>{{reply.comment}}</p>
-                            <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
+                                <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
                             </li>
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
@@ -155,9 +155,10 @@
         </section>
     </div>
 
-    <div class="itemRight" load-spinner="{{contentLoading}}" loader-spinner-type="{{contentLoadingType}}">
+    <div class="itemRight" load-spinner="{{contentLoading}}" loader-spinner-type="init">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false"></div>
+            <div load-spinner="{{contentLoadMore}}" loader-spinner-type="page"</div>
         </div>
     </div>
 </div>

@@ -74,10 +74,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItem2(query);
         }
 
-        public Task<ItemRateDto> GetRate(GetItemRateQuery query)
-        {
-            return m_ReadService.GetRate(query);
-        }
+      
 
         public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
         {
@@ -359,6 +356,12 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
         {
             return m_ReadService.GetDepartments(query);
+        }
+
+
+        public Task<FileSeo> GetItemSeo(GetFileSeoQuery query)
+        {
+            return m_ReadService.GetItemSeo(query);
         }
     }
 }

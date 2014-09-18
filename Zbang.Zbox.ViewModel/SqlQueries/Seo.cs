@@ -58,5 +58,17 @@ and b.discriminator = 2
 and i.publish = 1 ) t";
 
 
+        public const string FileSeo = @"select i.name
+,i.Content as Description
+,i.Url
+,u.Country
+,b.BoxName
+,i.Discriminator
+from zbox.item i 
+join zbox.box b on i.BoxId = b.BoxId
+left join zbox.University u on b.University = u.Id
+where itemid = @ItemId
+and i.IsDeleted = 0;
+";
     }
 }
