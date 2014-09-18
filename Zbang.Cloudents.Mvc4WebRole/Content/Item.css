@@ -25,6 +25,9 @@ body.item .siteHeader {
 .itemRight {
   background: #282828;
 }
+.itemPage {
+  overflow-x: hidden;
+}
 .itemPage .topBar {
   color: #fff;
   border: none;
@@ -52,7 +55,10 @@ body.item .siteHeader {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.itemPage .backWpr:before {
+.itemPage .backWpr.backWpr {
+  padding-left: 57px;
+}
+.itemPage .backWpr.backWpr:before {
   display: none;
 }
 .itemPage .shareDD {
@@ -73,7 +79,7 @@ body.item .siteHeader {
 .itemPage .svg-back {
   display: inline-block;
   position: absolute;
-  left: 0;
+  left: 12px;
   top: 0;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -173,6 +179,9 @@ body.item .siteHeader {
   margin: 0 15px;
   position: relative;
 }
+.middleActionItem:first-child {
+  margin-right: 22px;
+}
 .middleActionItem .actionLink,
 .middleActionItem > label,
 .middleActionItem > button {
@@ -182,10 +191,20 @@ body.item .siteHeader {
   cursor: pointer;
 }
 .middleActionItem label svg {
-  top: 15px;
+  top: 18px;
 }
 .middleActionItem:hover svg {
   fill: #3399ff;
+}
+.middleActionItem .svg-download {
+  -webkit-transform: translateX(-2px);
+  -moz-transform: translateX(-2px);
+  -o-transform: translateX(-2px);
+  -ms-transform: translateX(-2px);
+  transform: translateX(-2px);
+}
+.middleActionItem .svg-print {
+  top: 17px;
 }
 /*#endregion */
 /*#region second bar - left */
@@ -315,7 +334,7 @@ body.item .siteHeader {
 }
 .itemComments {
   color: #fff;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #c2c2c2;
 }
 .itemComments header {
   font-size: 20px;

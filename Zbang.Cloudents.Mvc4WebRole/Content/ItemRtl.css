@@ -15,13 +15,19 @@
   left: auto;
 }
 .itemPage .svg-back {
-  right: 0;
+  right: 12px;
   left: auto;
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
   -o-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
+}
+.itemPage .backWpr.backWpr {
+  padding: 0 57px 0 0;
+}
+.itemPage .backWpr.backWpr:before {
+  display: none;
 }
 /*#endregion */
 /*#region svg icons */
@@ -44,7 +50,17 @@
 }
 /*#endregion */
 /*#region item topBars */
-/*#region topBar - main */
+/*#region topBar - main*/
+.middleActionItem:first-child {
+  margin: 0 0 0 22px;
+}
+.middleActionItem .svg-download {
+  -webkit-transform: translateX(2px);
+  -moz-transform: translateX(2px);
+  -o-transform: translateX(2px);
+  -ms-transform: translateX(2px);
+  transform: translateX(2px);
+}
 /*#endregion */
 /*#region second bar - left */
 .secondBar .svg-eye,

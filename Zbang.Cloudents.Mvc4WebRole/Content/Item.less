@@ -25,6 +25,7 @@ body.item {
 }
 
 .itemPage {
+    overflow-x: hidden;
     .topBar {
         color: #fff; //override
         border: none;
@@ -50,11 +51,12 @@ body.item {
         padding: 0 15px;
         .boxSizing;
     }
-
-    .backWpr:before {
-        display: none;
+    .backWpr.backWpr {
+        padding-left: 57px; //rtl
+        &:before {
+            display: none;
+        }
     }
-
     .shareDD {
         top: 75px;
         color: @itemBlue;
@@ -77,7 +79,7 @@ body.item {
     .svg-back {
         display: inline-block;
         position: absolute;
-        left: 0; //rtl
+        left: 12px; //rtl
         top: 0;
         .flipH;
     }
@@ -186,7 +188,9 @@ body.item {
     display: inline-block;
     margin: 0 15px;
     position: relative;
-
+    &:first-child {
+        margin-right: 22px; //rtl
+    }
     .actionLink, > label, > button {
         color: #fff;
         padding-top: 45px;
@@ -195,13 +199,19 @@ body.item {
     }
 
     label svg {
-        top: 15px;
+        top: 18px;
     }
 
     &:hover {
         svg {
             fill: @itemBlue;
         }
+    }
+    .svg-download {
+        .translateX(-2px); //rtl
+    }
+    .svg-print {
+        top: 17px;
     }
 }
 
@@ -357,7 +367,7 @@ body.item {
 
 .itemComments {
     color: #fff;
-    border-top: 1px solid #fff;
+    border-top: 1px solid @borderColor;
 
     header {
         font-size: 20px;

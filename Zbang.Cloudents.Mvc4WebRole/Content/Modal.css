@@ -51,7 +51,8 @@
 .modal.uploader,
 .modal.uploadLink,
 .modal.invite,
-.modal.personalMsg {
+.modal.personalMsg,
+.modal.rename {
   width: 600px;
 }
 .modal.quitQuiz {
