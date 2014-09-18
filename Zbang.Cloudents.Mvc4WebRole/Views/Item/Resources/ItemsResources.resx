@@ -174,6 +174,9 @@
   <data name="PleaseUseThe" xml:space="preserve">
     <value>Please use the</value>
   </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Posted by</value>
+  </data>
   <data name="PreviewFailed" xml:space="preserve">
     <value>Cloudents does not support preview of these file types. 
 Please use the</value>

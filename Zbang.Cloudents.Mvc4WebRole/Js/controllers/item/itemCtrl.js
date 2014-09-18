@@ -3,13 +3,14 @@ mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal','sUserDetails',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails) {
     // cd.pubsub.publish('initItem');
-    var index = 0, loadMore = true;
+    var index = 0, loadMore = false;
 
     $scope.navigation = {};
     $scope.fromReply = {};
     $scope.preview = '';
-
     $scope.fullScreen = false;
+    //$scope.contentLoading = true;
+    //$scope.contentLoadMore = false;
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -23,7 +24,13 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
     function getPreview() {
-
+        
+        if (loadMore) {
+            $scope.contentLoadMore = true
+        } else {
+            $scope.contentLoading = true;
+        }
+            
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
@@ -33,8 +40,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
         }).then(function (response) {
+            $scope.contentLoading = false;
+            $scope.contentLoadMore = false;
+
             var data = response.success ? response.payload : '';
-            if (data) {
+            if (data.preview.length > 10) {
                 loadMore = true;
             }
             $scope.preview += data.preview;
