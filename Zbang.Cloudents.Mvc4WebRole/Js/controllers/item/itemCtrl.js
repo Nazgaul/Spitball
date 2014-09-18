@@ -70,9 +70,26 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             //}
             // }
         });
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.close();
+            }
+        });
         //modalInstance.result.then(function (url) {
         //});
     }
+    $scope.renameWindow = function() {
+        var modelInstance = $modal.open({
+            templateUrl: '/Item/Rename/',
+            //controller: 'ItemFullScreenCtrl',
+            backdrop: false
+        });
+        $scope.$on('$destroy', function () {
+            if (modelInstance) {
+                modelInstance.close();
+            }
+        });
+    };
     $scope.create = function(isValid) {
         if (!isValid) {
             return;
