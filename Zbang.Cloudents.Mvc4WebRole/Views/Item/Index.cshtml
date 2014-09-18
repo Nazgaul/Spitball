@@ -137,7 +137,7 @@
                                 <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
                                 <time display-time="{{reply.creationDate}}"></time>
                                 <p>{{reply.comment}}</p>
-                                <button type="button" class="closeDialog" ng-click="deleteReply(reply)" ng-if="canDelete(reply.userId)"></button>
+                            <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
                             </li>
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>

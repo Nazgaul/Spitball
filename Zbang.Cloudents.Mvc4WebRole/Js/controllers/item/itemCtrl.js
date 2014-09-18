@@ -100,8 +100,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.$broadcast('update-scroll');
         });
     };
-    $scope.deleteReply = function(reply) {
-        console.log(reply);
+    $scope.deleteReply = function (reply, comment) {
+        sItem.deleteReply({ ReplyId: reply.id }).then(function (response) {
+            if (!response.success) {
+                alert(response.payload);
+                return;
+            }
+            var indexC = comment.replies.indexOf(reply);
+            comment.replies.splice(indexC, 1);
+            $scope.$broadcast('update-scroll');
+        });
     };
     $scope.canDelete = function (id) {
         return id == sUserDetails.getDetails().id; //id is string
@@ -111,7 +119,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         $scope.fromReply.itemId = $routeParams.itemId;
         $scope.fromReply.commentId = comment.id;
         
-        sItem.ReplyComment($scope.fromReply).then(function (response) {
+        sItem.replyComment($scope.fromReply).then(function (response) {
             if (!response.success) {
                 alert(response.payload);
                 return;

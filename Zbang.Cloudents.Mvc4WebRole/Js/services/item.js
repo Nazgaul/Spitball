@@ -16,12 +16,13 @@
             });
             return dfd.promise;
         }
+
         return {
-            'delete': function (data) {
+            'delete': function(data) {
                 var dfd = $q.defer();
-                $http.post(Item + 'Delete/', data).success(function (response) {
+                $http.post(Item + 'Delete/', data).success(function(response) {
                     dfd.resolve(response);
-                }).error(function (response) {
+                }).error(function(response) {
                     dfd.reject(response);
                 });
                 return dfd.promise;
@@ -29,22 +30,26 @@
             //nav : function (data) {
             //    return ajaxRequest(data, $http.get, 'Navigation/');
             //},
-            load: function (data) {
+            load: function(data) {
                 return ajaxRequest(data, $http.get, 'Load/');
             },
-            preview:function(data) {
+            preview: function(data) {
                 return ajaxRequest(data, $http.get, 'Preview/');
             },
-            addComment:function(data) {
+            addComment: function(data) {
                 return ajaxRequest(data, $http.post, 'AddComment/');
             },
-            deleteComment:function(data) {
+            deleteComment: function(data) {
                 return ajaxRequest(data, $http.post, 'DeleteComment/');
             },
-            ReplyComment:function(data) {
+            replyComment: function(data) {
                 return ajaxRequest(data, $http.post, 'ReplyComment/');
 
+            },
+            deleteReply: function(data) {
+                return ajaxRequest(data, $http.post, 'DeleteCommentReply/');
+
             }
-        };
+    };
     }
     ]);
