@@ -27,8 +27,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
     function getPreview() {
         
-        if (index > 0) {            
-            $scope.load.contentLoadMore = true
+        if (index > 0) {
+            $scope.load.contentLoadMore = true;
         } else {
             $scope.load.contentLoading = true;
         }
