@@ -124,34 +124,36 @@
                     </div>
                 </div>
             </form>
-            <ul class="itemCommentsList" m-custom-scrollbar>
-                <li class="itemComment" ng-repeat="comment in item.comments">
-                    <span>Posted by</span>
-                    <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
-                    <time display-time="{{comment.creationDate}}"></time>
-                    <p>{{comment.comment}}</p>
-                    <ul>
-                        <li ng-repeat="reply in comment.replies">
-                            <span>Posted by</span>
-                            <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
-                            <time display-time="{{reply.creationDate}}"></time>
-                            <p>{{reply.comment}}</p>
+            <div m-custom-scrollbar>
+                <ul class="itemCommentsList">
+                    <li class="itemComment" ng-repeat="comment in item.comments">
+                        <span>Posted by</span>
+                        <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
+                        <time display-time="{{comment.creationDate}}"></time>
+                        <p>{{comment.comment}}</p>
+                        <ul>
+                            <li ng-repeat="reply in comment.replies">
+                                <span>Posted by</span>
+                                <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
+                                <time display-time="{{reply.creationDate}}"></time>
+                                <p>{{reply.comment}}</p>
                             <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
-                        </li>
-                    </ul>
-                    <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
-                    <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
-                    <form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
-                        <div class="textareaWpr">
-                            <textarea text-direction msd-elastic ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
-                            <div class="rFloat">
-                                <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
-                                <button type="button" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
+                            </li>
+                        </ul>
+                        <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
+                        <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
+                        <form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
+                            <div class="textareaWpr">
+                                <textarea text-direction msd-elastic ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
+                                <div class="rFloat">
+                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
+                                    <button type="button" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </li>
-            </ul>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </section>
     </div>
 

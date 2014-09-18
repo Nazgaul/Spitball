@@ -405,6 +405,11 @@ body.item {
         color: @itemBlue;
         padding: 15px 0 10px;
     }
+    > .itemCommentsForm {
+        .textareaWpr {
+            margin-bottom: 20px;
+        }
+    }
     .textareaWpr {
         /* background: #fff; */
         background: none;
@@ -418,6 +423,7 @@ body.item {
         width: 100%;
         margin-bottom: 8px;
         height: 20px;
+        padding: 0 5px;
     }
     .cancel, .post {
         font-size: 15px;
@@ -443,7 +449,7 @@ body.item {
     
 }
 .itemCommentsList {
-    
+    margin: 2px 0;
     .itemComment {
         position: relative;
         border: 1px solid @itemBlue;
@@ -452,14 +458,23 @@ body.item {
         padding: 8px;
         .boxSizing;
         
-        
+        &:first-child {
+            margin-top: 0;
+        }
         &:hover {
-            .closeDialog {
+            > .closeDialog {
                 display: block;
             }
         }
         li {
             position: relative;
+            &:hover {
+                > .closeDialog {
+                    display: block;
+                    top: 0;
+                    right: 0;
+                }
+            }
         }
     }
     .user-name {

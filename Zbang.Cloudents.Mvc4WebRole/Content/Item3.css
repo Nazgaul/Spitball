@@ -391,6 +391,9 @@ body.item .siteHeader {
   color: #3399ff;
   padding: 15px 0 10px;
 }
+.itemComments > .itemCommentsForm .textareaWpr {
+  margin-bottom: 20px;
+}
 .itemComments .textareaWpr {
   /* background: #fff; */
   background: none;
@@ -403,6 +406,7 @@ body.item .siteHeader {
   width: 100%;
   margin-bottom: 8px;
   height: 20px;
+  padding: 0 5px;
 }
 .itemComments .cancel,
 .itemComments .post {
@@ -426,6 +430,9 @@ body.item .siteHeader {
   right: 6px;
   display: none;
 }
+.itemCommentsList {
+  margin: 2px 0;
+}
 .itemCommentsList .itemComment {
   position: relative;
   border: 1px solid #3399ff;
@@ -436,11 +443,19 @@ body.item .siteHeader {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.itemCommentsList .itemComment:hover .closeDialog {
+.itemCommentsList .itemComment:first-child {
+  margin-top: 0;
+}
+.itemCommentsList .itemComment:hover > .closeDialog {
   display: block;
 }
 .itemCommentsList .itemComment li {
   position: relative;
+}
+.itemCommentsList .itemComment li:hover > .closeDialog {
+  display: block;
+  top: 0;
+  right: 0;
 }
 .itemCommentsList .user-name {
   color: #3399ff;
