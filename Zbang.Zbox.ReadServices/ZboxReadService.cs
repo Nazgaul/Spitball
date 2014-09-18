@@ -872,6 +872,15 @@ namespace Zbang.Zbox.ReadServices
                 return retVal.FirstOrDefault();
             }
         }
+
+        public async Task<Box.BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
+                return retVal.FirstOrDefault();
+            }
+        }
              
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {

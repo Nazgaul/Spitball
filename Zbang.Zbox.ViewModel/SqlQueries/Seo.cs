@@ -70,5 +70,17 @@ left join zbox.University u on b.University = u.Id
 where itemid = @ItemId
 and i.IsDeleted = 0;
 ";
+        public const string BoxSeo = @"select b.BoxName as name 
+,b.CourseCode as courseId
+,b.ProfessorName as professor
+,b.url
+,b.Discriminator as boxType
+,u.Country
+,u.UniversityName
+
+from zbox.box b
+left join zbox.University u on b.University = u.id
+where boxid = @BoxId
+and b.IsDeleted = 0";
     }
 }

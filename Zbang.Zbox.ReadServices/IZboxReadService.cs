@@ -41,6 +41,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<ItemDetailDto> GetItem2(GetItemQuery query);
         Task<FileSeo> GetItemSeo(GetFileSeoQuery query);
+        Task<BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query);
 
         IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 
