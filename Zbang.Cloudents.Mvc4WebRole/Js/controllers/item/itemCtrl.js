@@ -84,7 +84,19 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             windowClass: 'rename',
             templateUrl: '/Item/Rename/',
             controller: 'itemRenameCtrl',
-            backdrop: false
+            backdrop: false,
+            resolve: {
+                data: function () {
+                    return {
+                        name: $scope.item.name,
+                        id: $routeParams.itemId
+                    };
+                }
+            }
+        });
+        modelInstance.result.then(function (newName) {
+            $scope.item.name = newName;
+            //TODO: change url
         });
         $scope.$on('$destroy', function () {
             if (modelInstance) {

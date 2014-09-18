@@ -4,10 +4,10 @@
     <h3 class="modal-title"><span>@SharedResources.Rename</span></h3>
 </div>
 <div class="modal-body">
-    <form class="itemRenameForm">
-        <input class="inputText" type="text" id="itemName" name="itemRename" />
-        <input id="itemRenameSave" type="submit" class="btn1 next" value="@SharedResources.Save">
-        <button id="itemRenameCancel" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
+    <form class="itemRenameForm" ng-submit="renameItem()">
+        <input class="inputText" type="text" ng-model="formdata.newName" required />
+        <input type="submit" class="btn1 next" ng-disabled="disable" value="@SharedResources.Save">
+        <button ng-click="cancel()" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
     </form>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>

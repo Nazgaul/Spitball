@@ -253,26 +253,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Used to rename file name - item name cannot be changed
         /// </summary>
-        /// <param name="newFileName"></param>
-        /// <param name="itemId"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonResult Rename(string newFileName, long itemId)
+        public JsonResult Rename(Rename model)
         {
-            if (string.IsNullOrWhiteSpace(newFileName))
+            if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, "need file name"));
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-            if (newFileName.Length > Item.NameLength)
-            {
-                return Json(new JsonResponse(false, "File name to long"));
-            }
+          
             var userId = GetUserId();
             try
             {
-                var command = new ChangeFileNameCommand(itemId, newFileName, userId);
+                var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
                 var result = ZboxWriteService.ChangeFileName(command);
                 return Json(new JsonResponse(true, new
                 {
@@ -291,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", newFileName, itemId, userId), ex);
+                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
                 return Json(new JsonResponse(false, "Error"));
             }
 
