@@ -10,7 +10,8 @@
         @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
         <div class="leftPart">
             <a class="backWpr elps lFloat" ng-href="{{item.boxUrl}}">
-                <div>@SharedResources.Backto</div>                <h2 class="semiFont elps">{{item.boxName}}</h2>
+                <div>@SharedResources.Backto</div>
+                <h2 class="semiFont elps">{{item.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
         </div>
@@ -28,10 +29,7 @@
                         <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
                         <span>@ItemsResources.Print</span>
                     </a>
-
-
                 </li>
-
 
                 <li class="middleActionItem">
                     <button type="button" ng-click="fullScreenWindow()" class="">
@@ -41,7 +39,6 @@
                         <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
                     </button>
                 </li>
-
 
                 <li class="middleActionItem">
                     <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
@@ -98,7 +95,7 @@
                 </h2>
                 <div class="uploadInfo">
                     <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>
-                   
+
                     <time>{{item.updateTime | date:'d MMMM yyyy'}}</time>
                 </div>
             </div>
