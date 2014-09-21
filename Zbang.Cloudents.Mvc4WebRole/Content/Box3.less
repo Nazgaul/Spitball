@@ -10,8 +10,9 @@
         z-index: 5;
         background: #eee;
         width: @boxSideBarWidth;
-        padding: 0 25px;
+        padding: 10px 25px 0 25px;
         border-right: 1px solid @borderColor; /*rtl*/
+        .boxSizing;
     }
     .backWpr {
         margin: 13px 25px 0 0;
@@ -22,6 +23,21 @@
         &:before {
             display: none;
         }
+    }
+    .svg-settings {
+        width: 34px;
+        height: 26px;
+        fill: #383838;
+    }
+    .boxRename {
+        display: none;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none; //override
+        margin:0; //override
+        width: auto; //override
+        height: auto; //override
     }
 }
 .boxRight {
@@ -41,7 +57,6 @@
 .boxTabs {
     display: inline-block;
     li {
-        //display: inline-block;
         font-size: 18px;
         padding: 0 22px;
         float:left;
@@ -73,22 +88,26 @@
         background-position: -90px -21px;
     }
 }
-.boxBack {
+/*.boxBack {
     height: 44px;
     line-height: 44px;
     background: #fff;
     border-bottom: 1px solid #e3e3e3;
-    padding-left: 15px; /*rtl*/
+    padding-left: 15px; //rtl
     font-size: 15px;
     position: absolute;
     width: 100%;
     .boxSizing();
-}
-
+}*/
+/*#region share btn */
 .shareBtn {
     position: relative;
-    margin-top: 12px;
+    margin-top: 16px;
     color: @attentionBlue;
+    cursor: pointer;
+    svg {
+        fill: #fff;
+    }
 }
 
 .shareDD {
@@ -96,7 +115,7 @@
     right: -5px; /*rtl*/
     top: 60px;
     width: 322px;
-
+    
     .private & {
         h4:before {
             content: attr(data-share-private);
@@ -223,6 +242,10 @@
         direction: ltr;
     }
 }
+
+
+/*#endregion */
+
 /*#region box right header */
 
 .inviteBtn {
@@ -401,7 +424,80 @@
 }
 /*#endregion */
 
-.boxTopWpr {
+/*#region Box sidebar */
+
+.boxTop {
+    position: relative;
+    border-bottom: 1px solid @borderColor;
+    padding-bottom: 20px;
+    &:hover {
+        .boxRename {
+            display: block;
+        }
+    }
+    .boxName {
+        //line-height: 19px;
+        //line-height: 21px;
+        //line-height: 22px;
+        font-size: 25px;
+        color: @textColor;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        overflow: hidden;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        //max-width: 189px; //needed for IE when name has no spaces
+        //display: inline-block;
+        max-height: 44px;
+        margin: 6px 0;
+    }
+}
+
+
+/*.boxNameWpr {
+    //height: 42px;
+    height: 44px;
+    font-size: 25px;
+    position: relative;
+    overflow: hidden;
+    //margin: 18px 0 0 84px; //rtl
+    
+}*/
+.boxDetail {
+    font-size: 14px;
+}
+.newActivity {
+    margin-top: 10px;
+    li {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+}
+.newPosts {
+    background: @itemBlue;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 8px 0 8px;
+    .boxSizing;
+    height: 20px;
+    font-size: 15px;
+    margin-top: 8px;
+    border-radius: 3px;
+    line-height: normal;
+}
+//IS THIS OBSOLETE??
+.boxNotification, .boxPrivacy {
+    display: none;
+    margin-top: 10px;
+}
+
+/*#endregion */
+
+/*#region BOX TOP - OBSOLETE */
+/*.boxTopWpr {
     display: table-row;
 
     &:hover {
@@ -434,7 +530,7 @@
 
         .courseCode {
             position: static;
-            float: left; /*rtl*/
+            float: left; //rtl
             width: 60px;
             height: 28px;
             .boxSizing;
@@ -447,7 +543,7 @@
         }
 
         .propName {
-            float: right; /*rtl*/
+            float: right; //rtl
             width: 192px;
         }
 
@@ -487,7 +583,7 @@
     border-right: 1px solid @borderColor;
 
     .courseCode {
-        left: 93px; /*rtl*/
+        left: 93px; //rtl
         top: 71px;
         width: 189px;
         position:absolute;
@@ -502,7 +598,7 @@
         display: none;
         position: absolute;
         top: 8px;
-        right: 8px; /*rtl*/
+        right: 8px; //rtl
         margin: 0; //override margin from dashLib class
         background: @common-sprite -72px -42px no-repeat;
         width: 23px;
@@ -514,7 +610,7 @@
     }
 
     .btn2 {
-        margin: 10px 10px 0 0; /*rtl*/
+        margin: 10px 10px 0 0; //rtl
     }
 
     label {
@@ -529,39 +625,16 @@
 
 .boxPrps {
     overflow: hidden;
-    padding-left: 15px; /*rtl*/
-}
+    padding-left: 15px; //rtl
+}*/
 
-.boxNameWpr {
-    //height: 42px;
-    height: 44px;
-    position: relative;
-    overflow: hidden;
-    margin: 18px 0 0 84px; /*rtl*/
-    .boxName {
-        //line-height: 19px;
-        //line-height: 21px;
-        line-height: 22px;
-        font-size: 18px;
-        color: @textColor;
-        -ms-word-wrap: break-word;
-        word-wrap: break-word;
-        overflow: hidden;
-        -ms-word-break: break-word;
-        word-break: break-word;
-        max-width: 189px; //needed for IE when name has no spaces
-        display: inline-block;
-    }
-}
 
-.boxNotification, .boxPrivacy {
-    display: none;
-    margin-top: 10px;
-}
+/*#endregion */
 
-/*#region box friends */
 
-.boxInvite {
+/*#region box friends - OBSOLETE */
+
+/*.boxInvite {
     display: block;
     width: 50px;
     height: 50px;
@@ -572,7 +645,7 @@
     position: fixed;
     top: 150px;
     width: 366px;
-    right: 15px; /*rtl*/
+    right: 15px; //rtl
     .boxSizing;
     padding: 0;
     font-size: 0; // remove whitespace caused by inline-block
@@ -588,7 +661,7 @@
         display: inline-block;
         vertical-align: top;
         .boxSizing;
-        margin: 0 2px 6px 0; /*rtl*/
+        margin: 0 2px 6px 0; //rtl
 
         &.static {
             position: relative;
@@ -607,11 +680,11 @@
                 
             }
         }
-        /*if > 7 items hide all further items*/
+        //if > 7 items hide all further items
         &:nth-child(n+8) {
             display: none;
         }
-        /*Hide the 7th child only if there are at least 7 more children*/
+        //Hide the 7th child only if there are at least 7 more children
         &:nth-child(7):nth-last-child(n + 8) {
             display: none;
         }
@@ -619,9 +692,9 @@
         &:last-child {
             background: #fff;
             
-            /*if > 13 items: float show all right.*/
+            //if > 13 items: float show all right.
             &:nth-child(n+14) {
-                float: right; /*rtl*/
+                float: right; //rtl
                 display: inline-block;
             }
             .showAllMembers {
@@ -656,7 +729,7 @@
     button {
         color: @color;
     }
-}
+}*/
 /*#endregion */
 
 /*#region box folders */
@@ -743,7 +816,7 @@
 }
 
 .tabBorder {
-    width: @leftSideBarWidth - 14px; // (currently 276px)
+    width: @boxSideBarWidth - 14px; // (currently 276px)
     height: 1px;
     background: rgba(194,194,194,.35);
     left: 7px;

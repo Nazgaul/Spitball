@@ -12,9 +12,12 @@
   z-index: 5;
   background: #eee;
   width: 243px;
-  padding: 0 25px;
+  padding: 10px 25px 0 25px;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .boxPage .backWpr {
   margin: 13px 25px 0 0;
@@ -29,6 +32,21 @@
 }
 .boxPage .backWpr:before {
   display: none;
+}
+.boxPage .svg-settings {
+  width: 34px;
+  height: 26px;
+  fill: #383838;
+}
+.boxPage .boxRename {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  margin: 0;
+  width: auto;
+  height: auto;
 }
 .boxRight {
   width: 100%;
@@ -82,24 +100,26 @@
 .inviteFriendsBtn:hover:before {
   background-position: -90px -21px;
 }
-.boxBack {
-  height: 44px;
-  line-height: 44px;
-  background: #fff;
-  border-bottom: 1px solid #e3e3e3;
-  padding-left: 15px;
-  /*rtl*/
-  font-size: 15px;
-  position: absolute;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+/*.boxBack {
+    height: 44px;
+    line-height: 44px;
+    background: #fff;
+    border-bottom: 1px solid #e3e3e3;
+    padding-left: 15px; //rtl
+    font-size: 15px;
+    position: absolute;
+    width: 100%;
+    .boxSizing();
+}*/
+/*#region share btn */
 .shareBtn {
   position: relative;
-  margin-top: 12px;
+  margin-top: 16px;
   color: #0371c8;
+  cursor: pointer;
+}
+.shareBtn svg {
+  fill: #fff;
 }
 .shareDD {
   padding: 20px 18px;
@@ -230,6 +250,7 @@
   width: 284px;
   direction: ltr;
 }
+/*#endregion */
 /*#region box right header */
 .inviteBtn {
   cursor: pointer;
@@ -410,256 +431,297 @@
   background-position: -136px -42px;
 }
 /*#endregion */
-.boxTopWpr {
-  display: table-row;
-}
-.boxTopWpr:hover .boxRename {
-  display: block;
-}
-.boxTopWpr.boxEdit .boxTop {
-  height: auto;
-  padding-bottom: 46px;
-}
-.boxTopWpr.boxEdit .boxNameWpr {
-  margin: 0 0 10px 0;
-  height: 36px;
-}
-.boxTopWpr.boxEdit .boxName {
-  font-size: 13px;
-  font-weight: normal;
-  padding: 0 5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.boxTopWpr.boxEdit img,
-.boxTopWpr.boxEdit .boxRename,
-.boxTopWpr.boxEdit .boxFriendsList {
-  display: none;
-}
-.boxTopWpr.boxEdit .courseCode {
-  position: static;
-  float: left;
-  /*rtl*/
-  width: 60px;
-  height: 28px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #c2c2c2;
-  margin-bottom: 10px;
-  padding: 4px 5px;
-  -ms-text-overflow: inherit;
-  -o-text-overflow: inherit;
-  text-overflow: inherit;
-}
-.boxTopWpr.boxEdit .propName {
-  float: right;
-  /*rtl*/
-  width: 192px;
-}
-.boxTopWpr.boxEdit #boxSettingsSave,
-.boxTopWpr.boxEdit #boxSettingsCancel {
-  display: block;
-}
-.boxTopWpr.boxEdit .boxNotification,
-.boxTopWpr.boxEdit .boxPrivacy {
-  display: block;
-  clear: both;
-}
-.boxTopWpr.boxEdit .inputText {
-  width: 273px;
-  height: 28px;
-  display: block;
-}
-.boxTopWpr.boxEdit .boxNameWpr,
-.boxTopWpr.boxEdit .courseCode,
-.boxTopWpr.boxEdit .inputText {
-  border: 1px solid #c2c2c2;
-}
-.boxTopWpr.boxEdit .boxNameWpr:focus,
-.boxTopWpr.boxEdit .courseCode:focus,
-.boxTopWpr.boxEdit .inputText:focus {
-  border: 1px solid #0f9d58;
-}
+/*#region Box sidebar */
 .boxTop {
-  height: 120px;
-  padding: 8px;
   position: relative;
-  background: #fff;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  border-right: 1px solid #c2c2c2;
+  border-bottom: 1px solid #c2c2c2;
+  padding-bottom: 20px;
 }
-.boxTop .courseCode {
-  left: 93px;
-  /*rtl*/
-  top: 71px;
-  width: 189px;
-  position: absolute;
-}
-.boxTop .propName {
-  top: 88px;
-  width: 165px;
-}
-.boxTop .boxRename {
-  display: none;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  /*rtl*/
-  margin: 0;
-  background: url(/Images/common17-sprite.png?v=4) -72px -42px no-repeat;
-  width: 23px;
-  height: 23px;
-}
-.boxTop .btn1 {
-  margin-top: 10px;
-}
-.boxTop .btn2 {
-  margin: 10px 10px 0 0;
-  /*rtl*/
-}
-.boxTop label {
-  margin-bottom: 3px;
+.boxTop:hover .boxRename {
   display: block;
 }
-.boxTop img {
-  border: 1px solid #ebebeb;
-}
-.boxPrps {
-  overflow: hidden;
-  padding-left: 15px;
-  /*rtl*/
-}
-.boxNameWpr {
-  height: 44px;
-  position: relative;
-  overflow: hidden;
-  margin: 18px 0 0 84px;
-  /*rtl*/
-}
-.boxNameWpr .boxName {
-  line-height: 22px;
-  font-size: 18px;
+.boxTop .boxName {
+  font-size: 25px;
   color: #383838;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   overflow: hidden;
   -ms-word-break: break-word;
   word-break: break-word;
-  max-width: 189px;
+  max-height: 44px;
+  margin: 6px 0;
+}
+/*.boxNameWpr {
+    //height: 42px;
+    height: 44px;
+    font-size: 25px;
+    position: relative;
+    overflow: hidden;
+    //margin: 18px 0 0 84px; //rtl
+    
+}*/
+.boxDetail {
+  font-size: 14px;
+}
+.newActivity {
+  margin-top: 10px;
+}
+.newActivity li {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.newPosts {
+  background: #3399ff;
+  color: #fff;
   display: inline-block;
+  padding: 2px 8px 0 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 20px;
+  font-size: 15px;
+  margin-top: 8px;
+  border-radius: 3px;
+  line-height: normal;
 }
 .boxNotification,
 .boxPrivacy {
   display: none;
   margin-top: 10px;
 }
-/*#region box friends */
-.boxInvite {
-  display: block;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 0;
+/*#endregion */
+/*#region BOX TOP - OBSOLETE */
+/*.boxTopWpr {
+    display: table-row;
+
+    &:hover {
+        .boxRename {
+            display: block;
+        }
+    }
+
+    &.boxEdit {
+        .boxTop {
+            height: auto;
+            padding-bottom: 46px;
+        }
+
+        .boxNameWpr {
+            margin: 0 0 10px 0;
+            height: 36px;
+        }
+
+        .boxName {
+            font-size: 13px;
+            font-weight: normal;
+            padding: 0 5px;
+            .boxSizing;
+        }
+
+        img, .boxRename, .boxFriendsList {
+            display: none;
+        }
+
+        .courseCode {
+            position: static;
+            float: left; //rtl
+            width: 60px;
+            height: 28px;
+            .boxSizing;
+            border: 1px solid @borderColor;
+            margin-bottom: 10px;
+            padding: 4px 5px;
+            -ms-text-overflow: inherit;
+            -o-text-overflow: inherit;
+            text-overflow: inherit;
+        }
+
+        .propName {
+            float: right; //rtl
+            width: 192px;
+        }
+
+        #boxSettingsSave, #boxSettingsCancel {
+            display: block;
+        }
+
+        .boxNotification, .boxPrivacy {
+            display: block;
+            clear: both;
+        }
+
+        .inputText {
+            width: 273px;
+            height: 28px;
+            display: block;
+        }
+
+        .boxNameWpr, .courseCode, .inputText {
+            border: 1px solid @borderColor;
+
+            &:focus {
+                border: 1px solid @color;
+            }
+        }
+    }
+}
+
+
+.boxTop {
+    height: 120px;
+    padding: 8px;
+    position: relative;
+    background: #fff;
+    .boxSizing;
+    display: block;
+    border-right: 1px solid @borderColor;
+
+    .courseCode {
+        left: 93px; //rtl
+        top: 71px;
+        width: 189px;
+        position:absolute;
+    }
+
+    .propName {
+        top: 88px;
+        width: 165px; // so that it doesn't cover the edit pencil
+    }
+
+    .boxRename {
+        display: none;
+        position: absolute;
+        top: 8px;
+        right: 8px; //rtl
+        margin: 0; //override margin from dashLib class
+        background: @common-sprite -72px -42px no-repeat;
+        width: 23px;
+        height: 23px;
+    }
+
+    .btn1 {
+        margin-top: 10px;
+    }
+
+    .btn2 {
+        margin: 10px 10px 0 0; //rtl
+    }
+
+    label {
+        margin-bottom: 3px;
+        display: block;
+    }
+
+    img {
+        border: 1px solid #ebebeb;
+    }
+}
+
+.boxPrps {
+    overflow: hidden;
+    padding-left: 15px; //rtl
+}*/
+/*#endregion */
+/*#region box friends - OBSOLETE */
+/*.boxInvite {
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
 }
 .boxFriendsList {
-  position: fixed;
-  top: 150px;
-  width: 366px;
-  right: 15px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-  font-size: 0;
-  -webkit-transition: top 1s ease-in;
-  -moz-transition: top 1s ease-in;
-  -o-transition: top 1s ease-in;
-  transition: top 1s ease-in;
+    position: fixed;
+    top: 150px;
+    width: 366px;
+    right: 15px; //rtl
+    .boxSizing;
+    padding: 0;
+    font-size: 0; // remove whitespace caused by inline-block
+    .transition(top 1s ease-in);
+    .friendImg {
+        border: none; //override
+    }
+    li {
+        width: 50px;
+        height:50px;
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        display: inline-block;
+        vertical-align: top;
+        .boxSizing;
+        margin: 0 2px 6px 0; //rtl
+
+        &.static {
+            position: relative;
+            padding-top: 12px;
+            &:before {
+                .pseudo;
+                width: 29px;
+                height: 26px;
+                background: @common-sprite -21px -142px no-repeat;
+                vertical-align: middle;
+                opacity: .2;
+            }
+            &:hover::before {
+                //background: @attentionBlueHover;
+                opacity:1;
+                
+            }
+        }
+        //if > 7 items hide all further items
+        &:nth-child(n+8) {
+            display: none;
+        }
+        //Hide the 7th child only if there are at least 7 more children
+        &:nth-child(7):nth-last-child(n + 8) {
+            display: none;
+        }
+        
+        &:last-child {
+            background: #fff;
+            
+            //if > 13 items: float show all right.
+            &:nth-child(n+14) {
+                float: right; //rtl
+                display: inline-block;
+            }
+            .showAllMembers {
+                color: @attentionBlue;
+                padding-top: 14px;
+                text-align: center;
+                font-size: 16px;
+                &:before {
+                    content: '+' attr(data-morefriends-count);
+                display: inline-block;
+                }
+            }
+            &:hover {
+                background: #f9f9f9;
+            }
+        }
+    }
 }
-.boxFriendsList .friendImg {
-  border: none;
-}
-.boxFriendsList li {
-  width: 50px;
-  height: 50px;
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  display: inline-block;
-  vertical-align: top;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0 2px 6px 0;
-  /*rtl*/
-  /*if > 7 items hide all further items*/
-  /*Hide the 7th child only if there are at least 7 more children*/
-}
-.boxFriendsList li.static {
-  position: relative;
-  padding-top: 12px;
-}
-.boxFriendsList li.static:before {
-  content: '';
-  display: inline-block;
-  width: 29px;
-  height: 26px;
-  background: url(/Images/common17-sprite.png?v=4) -21px -142px no-repeat;
-  vertical-align: middle;
-  opacity: .2;
-}
-.boxFriendsList li.static:hover::before {
-  opacity: 1;
-}
-.boxFriendsList li:nth-child(n+8) {
-  display: none;
-}
-.boxFriendsList li:nth-child(7):nth-last-child(n + 8) {
-  display: none;
-}
-.boxFriendsList li:last-child {
-  background: #fff;
-  /*if > 13 items: float show all right.*/
-}
-.boxFriendsList li:last-child:nth-child(n+14) {
-  float: right;
-  /*rtl*/
-  display: inline-block;
-}
-.boxFriendsList li:last-child .showAllMembers {
-  color: #0371c8;
-  padding-top: 14px;
-  text-align: center;
-  font-size: 16px;
-}
-.boxFriendsList li:last-child .showAllMembers:before {
-  content: '+' attr(data-morefriends-count);
-  display: inline-block;
-}
-.boxFriendsList li:last-child:hover {
-  background: #f9f9f9;
-}
+
 .inviteFriendBtn.btn3 {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 7px 15px;
-  display: inline-block;
-  text-align: center;
-  width: 110px;
-  height: 32px;
+    .boxSizing;
+    padding: 7px 15px;
+    display: inline-block;
+    text-align: center;
+    width: 110px; // width of 3 images
+    height: 32px;
 }
+
 .noFriends {
-  color: #464646;
-}
-.noFriends button {
-  color: #0f9d58;
-}
+    color: #464646;
+
+    button {
+        color: @color;
+    }
+}*/
 /*#endregion */
 /*#region box folders */
 .boxMembers .sectionHeader,
@@ -748,7 +810,7 @@
   display: none;
 }
 .tabBorder {
-  width: 276px;
+  width: 229px;
   height: 1px;
   background: rgba(194, 194, 194, 0.35);
   left: 7px;

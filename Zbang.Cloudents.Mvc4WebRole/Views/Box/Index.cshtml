@@ -3,21 +3,31 @@
 
 <div id="box" class="page boxPage" ng-class="{academic : info.boxType === 'academic'}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
-        <div id="BoxTopWpr" class="boxTopWpr">
-            <div class="boxTop">
-                <img class="lFloat" ng-src="{{info.image}}" alt="" width="74" height="94" />
-                <div class="boxNameWpr clamp2">
-                    <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
-                </div>
-
-                <div class="courseCode elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
-                <div class="courseCode elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
-                <span class="courseCode propName elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
-                <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')"></button>
-
-            </div>
-
+        <div class="boxTop">
+            <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />
+            <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
+            <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
+            <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
+            <span class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
+            <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
+                <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
+            </button>
         </div>
+
+        <ul class="newActivity">
+            <li ng-click="setTab('items')">
+                <span class="rFloat newPosts">1000</span>
+                <div class="elps">Items</div>
+            </li>
+            <li ng-click="setTab('quizzes')">
+                <span class="rFloat newPosts">12</span>
+                <div class="elps">Quizzes</div>
+            </li>
+            <li ng-click="setTab('members')">
+                <span class="rFloat newPosts">562</span>
+                <div class="elps">Members</div>
+            </li>
+        </ul>
 
         <div class="boxFolders" ng-if="options.activeTab === 'items'">
             <div class="sectionHeader">@IndexResources.Folders</div>
@@ -60,7 +70,9 @@
         <div class="boxActions topBar barShadow">
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
-                <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
+                <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
+                    <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
+                </label>
                 <div class="dropDown shareDD">
                     <label class="closeItem rFloat" for="boxShare"></label>
                     <div class="arrow shareArrow"></div>
@@ -79,7 +91,7 @@
                 </div>
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-               target="_self" class="rFloat inviteFriendsBtn" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
+               target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)"></a>
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
