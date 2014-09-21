@@ -83,6 +83,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "Index"},
                 new { isDesktop = new DesktopConstraint() }
             );
+            routes.MapRoute("LibraryMobile",
+               "department",
+               new { controller = "Library", action = "DepartmentRedirect" },
+               new { isDesktop = new MobileConstraint() }
+           );
             routes.MapRoute("LibraryDesktop2",
                 "department/{universityName}/{LibId}/{LibName}",
                 new { controller = "Home", action = "Index" },
