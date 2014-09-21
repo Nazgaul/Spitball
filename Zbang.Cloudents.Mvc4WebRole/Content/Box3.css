@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -477,15 +477,17 @@
   background: #3399ff;
   color: #fff;
   display: inline-block;
-  padding: 2px 8px 0 8px;
+  padding-top: 2px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  width: 42px;
   height: 20px;
   font-size: 15px;
   margin-top: 8px;
   border-radius: 3px;
   line-height: normal;
+  text-align: center;
 }
 .boxNotification,
 .boxPrivacy {
@@ -2193,3 +2195,4 @@
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=Box3.css.map */
