@@ -143,8 +143,6 @@ namespace Zbang.Zbox.ReadServices
                 var itemVal = fitemQuery.Value;
 
                 retVal.ItemName = itemVal.ItemName;
-                retVal.BoxId = itemVal.BoxId;
-                retVal.Uid = itemVal.Uid;
                 return retVal;
             }
         }

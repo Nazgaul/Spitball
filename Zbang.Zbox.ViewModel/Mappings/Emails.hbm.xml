@@ -89,7 +89,7 @@
   <!--FlagBadItemSection-->
   <query name="GetBadItemUserDetail" read-only="1">
     <![CDATA[
-    select u.Name as Name, u.Email as Email
+    select u.Name as Name, u.Email as Email 
     from User u 
     where u.Id = :UserId
     ]]>
@@ -97,9 +97,8 @@
   <query name="GetBadItemDetail" read-only="1">
     <![CDATA[
       select 
-       i.Id as Uid, 
        i.Name as ItemName,
-       i.Box.Id as BoxId
+       i.Url as Url
        from Item i where i.IsDeleted = 0 and i.Id = :ItemId
     ]]>
   </query>
