@@ -6,7 +6,7 @@ using Zbang.Zbox.Domain.DataAccess;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    class ChangeFileNameCommandHandler : ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>
+    public class ChangeFileNameCommandHandler : ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>
     {
         readonly IUserRepository m_UserRepository;
         readonly IRepository<Item> m_ItemRepository;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
            item.DateTimeUser.UpdateUserTime(user.Email);
             m_ItemRepository.Save(item);
 
-            return new ChangeFileNameCommandResult(newName);
+            return new ChangeFileNameCommandResult(newName,item.Url);
         }
     }
 }

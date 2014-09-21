@@ -19,7 +19,6 @@ select Previous,Next from  cte where itemid = @ItemId;
 ";
 
         public const string ItemDetail = @" select 
- i.itemid as id, 
  i.Name as name,
  i.UpdateTime as updateTime,
     u.UserName as owner, 

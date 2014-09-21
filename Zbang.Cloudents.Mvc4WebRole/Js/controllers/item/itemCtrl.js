@@ -37,7 +37,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         sItem.preview({
             blobName: $scope.item.blob,
             index: index,
-            id: $scope.item.id,
+            id: $routeParams.itemId,
             boxId: $routeParams.boxId
 
 

@@ -52,7 +52,7 @@ mBox.controller('BoxCtrl',
 
                 $scope.info = {
                     name: info.name,
-                    comments: info.comments,
+                    //comments: info.comments,
                     courseId: info.courseId,
                     boxType: info.boxType,
                     itemsLength: info.items,
@@ -64,7 +64,7 @@ mBox.controller('BoxCtrl',
                     professor: info.professorName,
                     tabs: info.tabs,
                     userType: info.userType,
-                    uniCountry: info.uniCountry,
+                    //uniCountry: info.uniCountry,
                     image: info.image,
                     url: decodeURI($location.absUrl())
                 };

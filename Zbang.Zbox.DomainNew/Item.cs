@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Item()
         {
-// ReSharper disable once DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             IsDeleted = false;
         }
         protected Item(string itemName, User uploader,
@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain
             : this()
         {
             if (uploader == null) throw new ArgumentNullException("uploader");
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             DateTimeUser = new UserTimeDetails(uploader.Email);
 
             Name = itemName;
@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain
             ItemContentUrl = itemContentUrl;
             ThumbnailBlobName = thumbnailBlobName;
             ThumbnailUrl = thumbmailUrl;
-// ReSharper restore DoNotCallOverridableMethodsInConstructor
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
         public virtual long Id { get; protected set; }
@@ -156,7 +156,8 @@ namespace Zbang.Zbox.Domain
         public override string ChangeName(string newName)
         {
             var fileNameExtension = Path.GetExtension(Name);
-            var fileNameWithoutExtension = newName.RemoveEndOfString(NameLength);
+
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(newName).RemoveEndOfString(NameLength);
             if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(Name))
             {
                 return Name;

@@ -66,6 +66,7 @@
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
     <Compile Include="Dto\ActivityDtos\BaseActivityDto.cs" />
     <Compile Include="Dto\ActivityDtos\CommentDto.cs" />
+    <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Queries\Search\SearchQueryBase.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
+    <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\Item.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />

@@ -50,9 +50,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-            Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
-            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
+        //    Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+        //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
@@ -67,6 +67,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetFileSeoQuery(itemid);
                 var model = await ZboxReadService.GetItemSeo(query);
+                if (model == null)
+                {
+                    throw new ItemNotFoundException();
+                }
                 if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
                 {
                     throw new ItemNotFoundException();
@@ -270,8 +274,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result = ZboxWriteService.ChangeFileName(command);
                 return Json(new JsonResponse(true, new
                 {
-                    name = Path.GetFileNameWithoutExtension(result.Name),
-                    queryString = UrlBuilder.NameToQueryString(result.Name)
+                    name = result.Name,
+                    url = result.Url
+                    //queryString = UrlBuilder.NameToQueryString(result.Name)
                 }));
             }
 

@@ -64,6 +64,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPaged2(query);
         }
+        public IEnumerable<IItemDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        {
+            return m_ReadService.GetBoxQuizes(query);
+        }
 
         public ItemWithDetailDto GetItem(GetItemQuery query)
         {
@@ -86,6 +90,10 @@ namespace Zbang.Zbox.ReadServices
         public BoxDto GetBox(GetBoxQuery query)
         {
             return m_ReadService.GetBox(query);
+        }
+        public Task<BoxDto2> GetBox2(GetBoxQuery query)
+        {
+            return m_ReadService.GetBox2(query);
         }
 
         public Task<SearchDto> Search(GroupSearchQuery query)

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -58,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 return RedirectPermanent(model.Url);
             }
-           
+
             catch (BoxDoesntExistException)
             {
                 if (Request.IsAjaxRequest())
@@ -81,6 +82,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (model == null)
                 {
                     throw new BoxDoesntExistException();
+                }
+                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                {
+                    throw new ItemNotFoundException();
                 }
                 if (model.BoxType == BoxType.Box)
                 {
@@ -110,9 +115,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [Ajax]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+            Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        public PartialViewResult IndexPartial()
+        {
+            return PartialView("Index");
+        }
+
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
@@ -182,13 +196,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Data(long id)
+        public async Task<ActionResult> Data(long id)
         {
             var userId = GetUserId(false);
             try
             {
                 var query = new GetBoxQuery(id, userId);
-                var result = ZboxReadService.GetBox(query);
+                var result = await ZboxReadService.GetBox2(query);
                 return Json(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
@@ -206,33 +220,49 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //TODO: need to remove uni name and boxname once we got url from db we want to bring tab id as well so filter will be on client side
+        //TODO:we want to bring tab id as well so filter will be on client side
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonResult Items(long id, int pageNumber, Guid? tab)
+        public JsonResult Items(long id, Guid? tab)
         {
             var userId = GetUserId(false); // not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, userId, pageNumber, OrderBy.LastModified, tab);
+                var query = new GetBoxItemsPagedQuery(id, userId,  tab);
                 var result = ZboxReadService.GetBoxItemsPaged2(query);
                 var urlBuilder = new UrlBuilder(HttpContext);
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
                 {
-                    if (item is ItemDto)
-                    {
-                        item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
-                    }
-
+                    item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
                 }
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
                 return Json(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} pageNumber {1} userId {2}", id, pageNumber, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
+        [HttpGet,Ajax,ZboxAuthorize(IsAuthenticationRequired = false)]
+        public JsonResult Quizes(long id)
+        {
+            var userId = GetUserId(false); // not really needs it
+            try
+            {
+                var query = new GetBoxItemsPagedQuery(id, userId);
+                var result = ZboxReadService.GetBoxQuizes(query);
+                var itemDtos = result as IList<IItemDto> ?? result.ToList();
+
+                var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
+                return Json(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id,  userId), ex);
                 return Json(new JsonResponse(false));
             }
         }

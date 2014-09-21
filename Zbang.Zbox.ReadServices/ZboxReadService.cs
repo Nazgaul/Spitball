@@ -201,6 +201,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Obsolete("Use Get box 2")]
         public ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
@@ -237,6 +238,29 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<Box.BoxDto2> GetBox2(GetBoxQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (
+                    var grid =
+                        await
+                            conn.QueryMultipleAsync(string.Format("{0} {1}", Sql.Box.BoxData,
+                                Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId })
+                    )
+                {
+                    var retVal = grid.Read<Box.BoxDto2>().FirstOrDefault();
+                    if (retVal == null)
+                    {
+                        throw new BoxDoesntExistException();
+                    }
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    retVal.UserType = GetUserStatusToBox(retVal.PrivacySetting, userRelationShip);
+                    return retVal;
+                }
+            }
+        }
+
         /// <summary>
         /// Get user notification to the box in question - notification pop up
         /// </summary>
@@ -270,23 +294,25 @@ namespace Zbang.Zbox.ReadServices
                 queryBoxItem.SetParameter("TabId", query.TabId);
                 queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
 
+                var fitems = queryBoxItem.Future<Item.ItemDto>();
+                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+                return fitems.ToList();
+            }
 
+        }
+
+        public IEnumerable<Item.IItemDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        {
+            using (UnitOfWork.Start())
+            {
                 var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
                 queryQuiz.SetInt64("BoxId", query.BoxId)
                     .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
-
-
-                var fitems = queryBoxItem.Future<Item.ItemDto>();
                 var fQuiz = queryQuiz.Future<Item.QuizDto>();
 
-                IEnumerable<Item.IItemDto> items = fitems.ToList();
-                var quizes = fQuiz.ToList();
-                var retVal = items.Union(quizes);
-
                 CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                return retVal;
+                return fQuiz.ToList();
             }
-
         }
 
 
@@ -324,7 +350,7 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5}", Sql.Item.ItemDetail, Sql.Item.Navigation, 
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5}", Sql.Item.ItemDetail, Sql.Item.Navigation,
                             Sql.Security.GetBoxPrivacySettings,
                             Sql.Security.GetUserToBoxRelationship,
                             Sql.Item.ItemComments,
@@ -353,11 +379,11 @@ namespace Zbang.Zbox.ReadServices
                     }
                     return retVal;
                 }
-                
+
             }
         }
 
-      
+
         /// <summary>
         /// Used in box page - get the comment related to that box
         /// </summary>
@@ -425,36 +451,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        /// <summary>
-        /// Used in item page - get the comment related to that item
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-//        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemComments(GetItemCommentsQuery query)
-//        {
-
-//            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-//            {
-//                //IEnumerable<Activity.AnnotationDto> retVal;
-//                const string sql = @"SELECT [ItemCommentId] as Id
-//                          ,[ImageId]
-//                          ,[CordX] as X
-//                          ,[CordY] as Y
-//                          ,[Width]
-//                          ,[Height]
-//                          ,[Comment]
-//                          ,ic.CreationTime as CreationDate
-//	                      ,u.UserImage
-//	                      ,u.UserName
-//                          ,u.userid as Uid
-//	  
-//                      FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
-//                      where itemid = @itemId
-//                      order by imageid, Y ";
-
-//                return await conn.QueryAsync<Activity.AnnotationDto>(sql, new { itemId = query.ItemId });
-//            }
-//        }
+       
 
 
         /// <summary>
@@ -868,7 +865,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new {query.ItemId});
+                var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
                 return retVal.FirstOrDefault();
             }
         }
@@ -881,7 +878,7 @@ namespace Zbang.Zbox.ReadServices
                 return retVal.FirstOrDefault();
             }
         }
-             
+
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
@@ -1048,6 +1045,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
-     
+
     }
 }

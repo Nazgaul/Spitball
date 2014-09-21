@@ -23,29 +23,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return UrlConsts.NameToQueryString(name);
         }
 
-        public string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
-        {
-            if (boxtype == BoxType.Academic)
-            {
-                return m_UrlHelper.RouteUrl("CourseBox", new
-                {
-                    universityName = NameToQueryString(uniName),
-                    boxId = boxid,
-                    boxName = NameToQueryString(boxName)
-                });
+        //public string BuildBoxUrl(BoxType boxtype, long boxid, string boxName, string uniName)
+        //{
+        //    if (boxtype == BoxType.Academic)
+        //    {
+        //        return m_UrlHelper.RouteUrl("CourseBox", new
+        //        {
+        //            universityName = NameToQueryString(uniName),
+        //            boxId = boxid,
+        //            boxName = NameToQueryString(boxName)
+        //        });
 
-            }
-            return m_UrlHelper.RouteUrl("PrivateBox", new { boxId = boxid, boxName = NameToQueryString(boxName) });
-        }
+        //    }
+        //    return m_UrlHelper.RouteUrl("PrivateBox", new { boxId = boxid, boxName = NameToQueryString(boxName) });
+        //}
 
-        public string BuildBoxUrl(long boxid, string boxName, string uniName)
-        {
-            if (!string.IsNullOrEmpty(uniName) && uniName != "my")
-            {
-                return BuildBoxUrl(BoxType.Academic, boxid, boxName, uniName);
-            }
-            return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
-        }
+        //public string BuildBoxUrl(long boxid, string boxName, string uniName)
+        //{
+        //    if (!string.IsNullOrEmpty(uniName) && uniName != "my")
+        //    {
+        //        return BuildBoxUrl(BoxType.Academic, boxid, boxName, uniName);
+        //    }
+        //    return BuildBoxUrl(BoxType.Box, boxid, boxName, uniName);
+        //}
 
         //public string BuildQuizUrl(long boxId, string boxName, long quizId, string quizName, string universityName)
         //{

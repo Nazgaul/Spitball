@@ -6,10 +6,15 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class ItemDetailDto
     {
-        public long Id { get; set; }
+        private DateTime m_Date;
         public string Name { get; set; }
 
-        public DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime
+        {
+            get { return DateTime.SpecifyKind(m_Date, DateTimeKind.Utc); }
+            set { m_Date = value; }
+        }
+
         public string Owner { get; set; }
         public long OwnerId { get; set; }
 

@@ -104,12 +104,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
-        [ActionName("Index")]
-        [NoCache]
-        //TODO: put cache
-        public ActionResult IndexAjax()
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+          Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+          VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        public ActionResult IndexPartial()
         {
-            return PartialView();
+            return PartialView("Index");
 
         }
 
