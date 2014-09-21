@@ -215,7 +215,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Index BoxUid {0} userid {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Index id {0} userid {1}", id, userId), ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
+        [HttpGet, Ajax]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        public async Task<ActionResult> Tabs(long id)
+        {
+            var userId = GetUserId(false);
+            try
+            {
+                var query = new GetBoxQuery(id, userId);
+                var result = await ZboxReadService.GetBoxTabs(query);
+                return Json(new JsonResponse(true, result));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Tabs id {0} userid {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
