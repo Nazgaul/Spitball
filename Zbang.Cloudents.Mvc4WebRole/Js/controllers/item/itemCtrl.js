@@ -62,7 +62,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         var modalInstance = $modal.open({
             windowClass: 'fullscreen',
             templateUrl: '/Item/FullScreen/',
-            controller: 'ItemFullScreenCtrl',
+            controller: 'itemFullScreenCtrl',
             backdrop: false,
             scope: $scope
             // resolve: {
@@ -76,9 +76,30 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 modalInstance.close();
             }
         });
-        //modalInstance.result.then(function (url) {
-        //});
+       
     }
+    $scope.flagItemWindow = function () {
+        var modalInstance = $modal.open({
+            windowClass: 'flagItem',
+            templateUrl: '/Item/Flag/',
+            controller: 'itemFlagCtrl',
+            backdrop: false,
+            resolve : {
+                data: function() {
+                    return {
+                        id: $routeParams.itemId
+                    };
+                }
+            }
+        });
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.close();
+            }
+        });
+        
+    }
+   
     $scope.renameWindow = function() {
         var modelInstance = $modal.open({
             windowClass: 'rename',
@@ -96,12 +117,12 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });
         modelInstance.result.then(function (d) {
             $scope.item.name = d.name;
+            modelInstance = null; //avoid exception on destroy
             $location.path(d.url).replace();
-            //TODO: change url
         });
         $scope.$on('$destroy', function () {
             if (modelInstance) {
-                modelInstance.close();
+                modelInstance.dismiss();
             }
         });
     };
@@ -157,6 +178,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.canDelete = function (id) {
         return id == sUserDetails.getDetails().id; //id is string
+    };
+    $scope.canFlag = function () {
+        return $scope.item && sUserDetails.getDetails().id === $scope.item.ownerId;
     };
     $scope.addReply = function (comment) {
         comment.replyp = true;

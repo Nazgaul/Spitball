@@ -8,45 +8,43 @@
     <h3 class="modal-title"><span>@FlagItemResources.ReportItem</span></h3>
 </div>
 <div class="modal-body">
-    <div class="flagRequest">
-        @using (Html.BeginForm("Create", "Dashboard", FormMethod.Post, new { id = "flagDialog", @class = "flagDialog" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(false)
+    <div class="flagRequest" ng-hide="secondStep">
+        <form class="flagDialog" ng-submit="flagItem()">
 
             <div>@FlagItemResources.WhyReport</div>
             <ul class="flagList">
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.RightViolation, new { id = "flag_radioRight" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.RightViolation, new { id = "flag_radioRight", ng_model = "formdata.BadItem" })
                     <label for="flag_radioRight">@BadItem.RightViolation.GetEnumDescription()</label>
                 </li>
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Spam, new { id = "flag_radioSpan" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Spam, new { id = "flag_radioSpan", ng_model = "formdata.BadItem" })
                     <label for="flag_radioSpan">@BadItem.Spam.GetEnumDescription()</label>
                 </li>
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Porn, new { id = "flag_radioPorn" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Porn, new { id = "flag_radioPorn", ng_model = "formdata.BadItem" })
                     <label for="flag_radioPorn">@BadItem.Porn.GetEnumDescription()</label>
                 </li>
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Attack, new { id = "flag_radioAttack" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Attack, new { id = "flag_radioAttack", ng_model = "formdata.BadItem" })
                     <label for="flag_radioAttack">@BadItem.Attack.GetEnumDescription()</label>
                 </li>
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Hate, new { id = "flag_radioHate" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Hate, new { id = "flag_radioHate", ng_model = "formdata.BadItem" })
                     <label for="flag_radioHate">@BadItem.Hate.GetEnumDescription()</label>
                 </li>
                 <li>
-                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Other, new { id = "flag_radioOther" })
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Other, new { id = "flag_radioOther", ng_model = "formdata.BadItem" })
                     <label for="flag_radioOther">@BadItem.Other.GetEnumDescription()</label>
-                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", id = "flag_other" })
+                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", ng_model = "formdata.Other" })
                 </li>
             </ul>
-            <input type="submit" class="btn1 next" value="@FlagItemResources.SendReport" />
-            <button type="reset" class="btn2 cancel">@DialogResources.Cancel</button>
-        }
+            <input type="submit" class="btn1 next" ng-disabled="disable" value="@FlagItemResources.SendReport" />
+            <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+        </form>
+
     </div>
-    <div class="requestSent">
+    <div class="requestSent" ng-if="secondStep">
         <div class="requestSentDiv first">@FlagItemResources.ReportSent</div>
         <div class="requestSentDiv">@FlagItemResources.ContactYou</div>
     </div>
