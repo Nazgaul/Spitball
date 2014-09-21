@@ -29,19 +29,19 @@
             </li>
         </ul>
 
-        <div class="boxFolders" ng-if="options.activeTab === 'items'">
+        <div class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <div m-custom-scrollbar bottom="0">
 
                 <ul class="boxFolderList">
-                    <li class="current boxFolder" ng-class="{current : !info.currentTab }">
+                    <li class="current boxFolder" ng-class="{current : !params.currentTab }">
                         <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                         <span class="tabBorder"></span>
                     </li>
 
-                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
-                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
                         <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
 
                         <ul class="dropdown-menu" role="menu">
@@ -117,7 +117,7 @@
        
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
-                @{Html.RenderPartial("_QnA");}
+                @{Html.RenderPartial("_Feed");}
             </div>
             <div ng-switch-when="items">
                 @{Html.RenderPartial("_Items2");}

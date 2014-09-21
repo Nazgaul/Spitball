@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', 'sBox', 'sBoxData', 'sNewUpdates', 'sUserDetails',
-        function ($scope, $rootScope, $timeout, sBox, sBoxData, sNewUpdates, sUserDetails) {
+		['$scope', '$rootScope', '$timeout', 'sBox',  'sNewUpdates', 'sUserDetails',
+        function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails) {
             var jsResources = window.JsResources;
 
             

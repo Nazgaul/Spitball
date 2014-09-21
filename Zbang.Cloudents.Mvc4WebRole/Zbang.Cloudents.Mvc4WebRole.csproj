@@ -612,6 +612,12 @@
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
+    <Content Include="Content\BoxFeed.css">
+      <DependentUpon>BoxFeed.less</DependentUpon>
+    </Content>
+    <Content Include="Content\BoxFeedRtl.css">
+      <DependentUpon>BoxFeedRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
     </Content>
@@ -903,6 +909,7 @@
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
     <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
+    <Content Include="Js\controllers\box\boxTabsCtrl.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\socialInviteCtrl.js" />
     <Content Include="Js\controllers\general\shareCtrl.js" />
@@ -1131,6 +1138,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ItemRtl.less" />
+    <Content Include="Content\BoxFeed.less" />
+    <Content Include="Content\BoxFeedRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1367,6 +1376,7 @@
     <Content Include="Views\Box\_Quizzes.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
+    <Content Include="Views\Box\_Feed.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

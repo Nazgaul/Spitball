@@ -4,7 +4,7 @@ mBox.controller('BoxCtrl',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook', 'sBoxData',
+         'sNewUpdates', 'sUserDetails', 'sFacebook', /*'sBoxData',*/
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sBoxData) {
@@ -56,7 +56,6 @@ mBox.controller('BoxCtrl',
                     professor: info.professorName,
                     tabs: info.tabs,
                     userType: info.userType,
-                    //uniCountry: info.uniCountry,
                     image: info.image,
                     url: decodeURI($location.absUrl())
                 };
@@ -65,8 +64,7 @@ mBox.controller('BoxCtrl',
                     share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
                     invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
                 }
-
-                $scope.info.currentTab = null;
+                
            
                 $scope.info.showJoinGroup = $scope.isUserFollowing();
 
@@ -97,181 +95,12 @@ mBox.controller('BoxCtrl',
 
 
 
-            //#region tabs
-            $scope.manageSave = function () {
-                var savedItems = [],
-                    item;
-
-                for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
-                    item = $scope.filteredItems[i];
-                    if (item.isCheck) {
-                        savedItems.push(item.id);
-                        item.tabId = $scope.info.currentTab.id;
-                        continue;
-                    }
-                    item.tabId = null;
-                }
-
-                saveItemsToTab(savedItems);
-               // resetLastView();
-            };
-
-            $scope.manageCancel = function () {
-                //resetLastView();
-            };
-
-            $scope.deleteTab = function (tab) {
-                var data = {
-                    boxId: $scope.boxId,
-                    TabId: tab.id
-                }
-                sBox.deleteTab(data).then(function (response) {
-                    if (!response.success) {
-                        alert(jsResources.DeleteError);
-                        return;
-                    }
-                });
-
-                var index = $scope.info.tabs.indexOf(tab);
-                $scope.info.tabs.splice(index, 1);
-                $scope.info.currentTab = null;
-                $scope.options.manageTab = false;
-               // $scope.filteredItems = $filter('filter')($scope.items, filterItems);
-                $rootScope.$broadcast('update_scroll');
-
-
-            };
-
-            $scope.renameTab = function (tab) {
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId,
-                                tabName: tab.name,
-                                tabId: tab.id
-                            };
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (name) {
-                    tab.name = name;
-                }, function () {
-                    //dismiss
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.close();
-                    }
-                });
-            };
-
-            $scope.createTab = function () {
-                if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
-                    return;
-                }
-
-                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(jsResources.NeedToFollowBox);
-                    return;
-                }
-
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId
-                            };
-                        }
-                    }
-
-
-                });
-
-                modalInstance.result.then(function (tab) {
-                    $scope.info.tabs.push(tab);
-                    $rootScope.$broadcast('update_scroll');
-
-                }, function () {
-                    //dismiss
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.close();
-                    }
-                });
-            };
-
-            $scope.manageTab = function () {
-                var filteredItems = $filter('filter')($scope.items, filterManageItems);
-                if (!filteredItems.length) {
-                    return;
-                }
-                $scope.filteredItems = filteredItems;
-                //$scope.changeView(consts.view.thumb);
-                //$scope.options.itemsLimit = consts.itemsLimit;
-
-
-                for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
-                    $scope.filteredItems[i].isCheck = ($scope.info.currentTab.id === $scope.filteredItems[i].tabId);
-                }
-
-                $scope.options.manageTab = true;
-            };
-
-            $scope.selectTab = function (tab) {
-                $scope.info.currentTab = tab;
-
-                //$scope.options.itemsLimit = consts.itemsLimit;
-
-                //$scope.filteredItems = $filter('filter')($scope.items, filterItems);
-
-                if (!tab) { //all
-                    return;
-                }
-                $rootScope.$broadcast('selectTab', tab.id);
-            };
+            //#region tabs           
+        
 
             //TODO DRAGANDDROP
 
-            function saveItemsToTab(items, tabId) {
-                var data = {
-                    boxId: $scope.boxId,
-                    tabId: tabId || $scope.info.currentTab.id, //tabId from draganddrop
-                    itemId: items,
-                    nDelete: !tabId //delete is false if only one item added from draganddrop
-                };
 
-                sBox.addItemsToTab(data).then(function (response) {
-                    if (!response.success) {
-                        alert(jsResources.FolderItemError);
-                    }
-                });
-
-            }
-
-            function filterManageItems(item) {
-                if (item.sponsored) {
-                    $scope.options.sponsored = true;
-                }
-                if (item.type === 'Quiz') {
-                    return false;
-                }
-
-                return true;
-            }
             //#endregion
 
             //#region share
@@ -465,7 +294,7 @@ mBox.controller('BoxCtrl',
 
         }
 
-        ]).factory('sBoxData', ['$rootScope',
+        ]);/*.factory('sBoxData', ['$rootScope',
    function ($rootScope) {
        var data = {}
 
@@ -532,7 +361,7 @@ mBox.controller('BoxCtrl',
                    data.quizzes = [];
                }
 
-               data.quizzes.push(quiz);
+               data.quizzes.push(quiz);`
 
                $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
            },
@@ -570,3 +399,4 @@ mBox.controller('BoxCtrl',
            }
        }
    }]);
+*/
