@@ -202,7 +202,7 @@
 .completeRegistration {
   width: 646px;
   border-radius: 3px;
-  border: 1px solid #c2c2c2;
+  border: 1px solid #282828;
   position: relative;
   top: -110px;
   left: -49px;
@@ -213,12 +213,13 @@
 .createSchool .top,
 .completeRegistration .top {
   height: 80px;
-  background: #EBECED;
-  padding: 6px 15px 6px 95px;
+  background: #282828;
+  padding: 15px 15px 0 95px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-bottom: 1px solid #c2c2c2;
+  color: #fff;
 }
 .createSchool label,
 .completeRegistration label {

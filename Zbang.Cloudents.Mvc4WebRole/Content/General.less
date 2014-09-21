@@ -2552,7 +2552,16 @@ select.inputText {
 }
 
 
-/*#endregion */ 
+/*#endregion */
+
+
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+    input[type="radio"].radio+label:before {
+        margin-top: -3px;
+    }
+}
+/*#endregion */
 
 
 /*#region IE only CSS */

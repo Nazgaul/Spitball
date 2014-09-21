@@ -30,6 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetDashboardQuery(universityWrapper);
             var model = await ZboxReadService.GetMyData(query);
+            if (model == null) return RedirectToAction("Choose", "Library");
 
             if (Request.IsAjaxRequest())
             {
