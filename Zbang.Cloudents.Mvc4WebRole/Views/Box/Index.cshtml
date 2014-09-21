@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box" class="page boxPage" ng-class="{academic : info.boxType === 'academic'}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
+<div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div class="boxTop">
             <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />

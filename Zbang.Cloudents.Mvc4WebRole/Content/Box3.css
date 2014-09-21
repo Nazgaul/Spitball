@@ -127,6 +127,16 @@
   /*rtl*/
   top: 60px;
   width: 322px;
+  /*.academic & {
+        h4:before {
+            content: attr(data-share-academic);
+        }
+
+        .shareTxt:before {
+            content: attr(data-invite-academic);
+            display: block;
+        }
+    }*/
 }
 .private .shareDD h4:before {
   content: attr(data-share-private);
@@ -134,13 +144,6 @@
 }
 .private .shareDD .shareTxt:before {
   content: attr(data-invite-private);
-  display: block;
-}
-.academic .shareDD h4:before {
-  content: attr(data-share-academic);
-}
-.academic .shareDD .shareTxt:before {
-  content: attr(data-invite-academic);
   display: block;
 }
 .shareDD h4 {
