@@ -1239,6 +1239,7 @@
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Js\SocialConnect.js" />
+    <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />

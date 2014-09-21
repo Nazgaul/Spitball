@@ -161,6 +161,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
+                new JsFileWithCdn("~/scripts/svg4everybody.js"),
+
                 new JsFileWithCdn("/js/modules/displayTime.js"),
                 new JsFileWithCdn("/js/modules/angular-timer.js"),
                 new JsFileWithCdn("/js/modules/wizard.js"),
