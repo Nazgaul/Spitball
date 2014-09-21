@@ -13,15 +13,12 @@ body.item {
     font-family: Arial;
 }
 
-.itemRight, .boxRight {
+.itemRight {
     width: 100%;
     height: 100%;
     padding-left: @leftSideBarWidth; //rtl
     .boxSizing;
     text-align: center;
-}
-
-.itemRight {
     background: #282828;
 }
 
@@ -64,6 +61,8 @@ body.item {
     }
 
     .leftPanel {
+        width: @leftSideBarWidth;
+        padding: 0 15px;
         @topOffset: @header-height + @topBarHeight + @secondBarHeight;
         height: ~'calc(100vh - @{topOffset})';
         margin-top: @topBarHeight + @secondBarHeight;
@@ -332,9 +331,7 @@ body.item {
 /*#region left panel */
 
 .leftPanel {
-    width: @leftSideBarWidth;
     .boxSizing;
-    padding: 0 15px;
     .rateTxt {
         font-size: 15px;
         color: #fff;
