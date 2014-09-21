@@ -44,11 +44,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         }).then(function (response) {
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;
 
-            var data = response.success ? response.payload : '';
+            var data = response.success ? response.payload || {} : {};
             if (data.preview) {
                 loadMore = true;
+                $scope.preview += data.preview;
             }
-            $scope.preview += data.preview;
         });
     }
     $scope.loadMore = function () {

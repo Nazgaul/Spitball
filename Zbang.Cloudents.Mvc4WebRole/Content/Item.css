@@ -601,6 +601,7 @@ body.item .siteHeader {
   margin: 10px 0;
   background: #fff;
   color: #fff;
+  height: 100%;
 }
 .copyRightWarning {
   background: #fff;
