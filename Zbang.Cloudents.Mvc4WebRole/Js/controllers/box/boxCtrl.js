@@ -35,20 +35,12 @@ mBox.controller('BoxCtrl',
 
             $scope.options = {
 
+                loader:true,
                 activeTab: 'feed'
             };
 
-            var infoPromise = Box.info({ id: $scope.boxId }),
-                itemsPromise = Box.items({ id: $scope.boxId, pageNumber: 0 }),
-                qnaPromise = QnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }),
-                memberPromise = Box.members({ boxId: $scope.boxId }),
-                all = $q.all([infoPromise, itemsPromise, qnaPromise, memberPromise]);
-
-            all.then(function (data) {
-                var info = data[0].success ? data[0].payload : null,
-                    items = data[1].success ? data[1].payload : null,
-                    qna = data[2].success ? data[2].payload : null,
-                    members = data[3].success ? data[3].payload : null;
+            Box.info({ id: $scope.boxId}).then(function (response) {
+                var info = response.success ? response.payload : null;
 
                 $scope.info = {
                     name: info.name,
@@ -56,8 +48,7 @@ mBox.controller('BoxCtrl',
                     courseId: info.courseId,
                     boxType: info.boxType,
                     itemsLength: info.items,
-                    membersLength: info.members,
-                    allmembers: members,
+                    membersLength: info.members,                    
                     ownerName: info.ownerName,
                     ownerId: info.ownerId,
                     privacy: info.privacySetting,
@@ -75,12 +66,7 @@ mBox.controller('BoxCtrl',
                 }
 
                 $scope.info.currentTab = null;
-
-                sBoxData.setItems(items);
-                sBoxData.setMembers(members);
-
-                $scope.$broadcast('qna', qna);
-
+           
                 $scope.info.showJoinGroup = $scope.isUserFollowing();
 
                 $timeout(function () {
@@ -100,7 +86,13 @@ mBox.controller('BoxCtrl',
             });
 
 
- 
+            $scope.setTab = function (tab) {
+                if ($scope.options.activeTab === tab) {
+                    return;
+                }
+                $scope.options.activeTab = tab;
+                $scope.options.loader = true;
+            };
 
 
 

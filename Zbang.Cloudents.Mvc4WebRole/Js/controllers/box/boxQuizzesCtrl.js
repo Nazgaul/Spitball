@@ -12,21 +12,24 @@
                 itemsLimit: 21
             };
 
-            $scope.options = {
+            $scope.qOptions, {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
                 manageTab: false,
                 starsLength: 5,
                 starsWidth: 69,
-            }
+            };
 
-            $scope.quizzes = sBoxData.getQuizzes();
-
-            _.forEach(sBoxData, function (quiz) {
+            $scope.quizzes = [];           
+            _.forEach($scope.quizzes, function (quiz) {
                 quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
             });
 
             $scope.quizzes.sort(sort);
+
+            $timeout(function () {
+                $scope.options.loader = false;
+            }, 1000);
 
             //#region quiz
             $scope.addQuiz = function () {
@@ -90,9 +93,9 @@
                 if ($scope.options.currentView === view) {
                     return;
                 }
-                $scope.options.itemsLimit = consts.itemsLimit;
-                $scope.options.lastView = $scope.options.currentView;
-                $scope.options.currentView = view;
+                $scope.qOptions.itemsLimit = consts.itemsLimit;
+                $scope.qOptions.lastView = $scope.options.currentView;
+                $scope.qOptions.currentView = view;
             };
 
             $scope.getView = function () {
@@ -160,5 +163,7 @@
                     return 1;
                 }
             }
+
+          //#endregion
         }]);
-//#endregion
+

@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 
 <div ng-controller="BoxQuizzesCtrl">
     <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
@@ -7,3 +8,73 @@
 
 
 
+<script type="text/ng-template" id="quizThumbView">
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+
+        <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
+
+        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
+
+        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
+
+        <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        <div class="stars">
+            <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
+        </div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="actionBtns" ng-if="deleteAllow(item)">
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+        </div>
+    }
+    <span ng-if="qOptions.manageTab">
+        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
+        <div></div>
+        @*empty div used for green outline*@
+        <label for="{{'item_' + item.uid}}" class="cbLabel"></label>
+    </span>
+</script>
+
+<script type="text/ng-template" id="quizListView">
+    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+        <div class="imgBorder"></div>
+        <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
+
+        <p class="itemContent">{{item.description}}</p>
+        <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        <div class="stars">
+            <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
+        </div>
+        <div tooltip="@SharedResources.Views" class="views">{{item.numOfView}}</div>
+        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
+        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="actionBtns" ng-if="deleteAllow(item)">
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+        </div>
+    }
+    </li>
+</script>
+
+<script type="text/ng-template" id="boxQuizTooltip">
+    <div bo-class="{noPreview : !item.description}" class="boxItemTt" bindonce>
+        <div class="itemName" bo-text="item.name"></div>
+        <div class="ttTop">
+            <div class="moreFilesThumb quiz"></div>
+            <div class="detailsWpr">
+                <div class="lFloat ttDetail">@SharedResources.Owner</div>
+                <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
+                <div class="lFloat ttDetail">@SharedResources.Created:</div>
+                <div>{{item.date | displayTimeFilter}}</div>
+            </div>
+            <div class="lFloat ttDetail" data-numdownload="{{item.numOfViews}}">@SharedResources.Views</div>
+            <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>
+        </div>
+        <div class="ttPreview" bo-text="item.description"></div>
+
+    </div>
+</script>
