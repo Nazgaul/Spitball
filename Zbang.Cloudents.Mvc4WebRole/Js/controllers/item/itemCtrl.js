@@ -180,7 +180,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         return id == sUserDetails.getDetails().id; //id is string
     };
     $scope.canFlag = function () {
-        return $scope.item && sUserDetails.getDetails().id === $scope.item.ownerId;
+        return $scope.item && sUserDetails.getDetails().id !== $scope.item.ownerId;
     };
     $scope.addReply = function (comment) {
         comment.replyp = true;
