@@ -3,7 +3,7 @@
         function ($scope, $filter, $modal, sBox) {
 
 
-            sBox.tabs({ boxId: $scope.boxId }).then(function (response) {
+            sBox.tabs({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.tabs = data;
             });
