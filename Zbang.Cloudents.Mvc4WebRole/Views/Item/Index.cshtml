@@ -77,9 +77,7 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-
-            @*Guy: please add windowClass 'flagItem' in the js Cntrl file*@
-            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">
+            <button type="button" class="itemFlag rFloat" ng-if="canFlag()" ng-click="flagItemWindow()" data-bind="click: flagItem, visible: flagAllow()">
                 <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
                 <span>@ItemsResources.Flag</span>
             </button>

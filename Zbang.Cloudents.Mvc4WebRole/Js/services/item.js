@@ -52,7 +52,10 @@
             },
             rename : function(data) {
                 return ajaxRequest(data, $http.post, 'Rename/');
+            },
+            flag: function(data) {
+                return ajaxRequest(data, $http.post, 'FlagRequest/');
             }
-    };
+        };
     }
     ]);

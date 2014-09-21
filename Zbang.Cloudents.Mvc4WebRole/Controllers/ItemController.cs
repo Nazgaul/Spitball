@@ -302,7 +302,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// </summary>
         /// <param name="boxId"></param>
         /// <param name="itemId"></param>
-        /// <param name="otakim"></param>
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
         public async Task<ActionResult> Print(long boxId, long itemId)
@@ -458,7 +457,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region flagItem
         [Ajax]
-        [HttpPost]
+        [HttpGet]
         [ZboxAuthorize]
         public ActionResult Flag()
         {

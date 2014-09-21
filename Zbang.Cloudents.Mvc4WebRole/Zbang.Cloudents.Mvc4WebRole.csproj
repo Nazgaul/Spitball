@@ -909,6 +909,7 @@
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
+    <Content Include="Js\controllers\item\itemFlagCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\item\itemRenameCtrl.js" />
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
