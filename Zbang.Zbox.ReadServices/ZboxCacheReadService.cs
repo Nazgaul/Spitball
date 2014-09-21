@@ -96,6 +96,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBox2(query);
         }
 
+        public Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
+        {
+            return m_ReadService.GetBoxTabs(query);
+        }
+
         public Task<SearchDto> Search(GroupSearchQuery query)
         {
             return m_ReadService.Search(query);

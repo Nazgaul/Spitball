@@ -6,9 +6,9 @@
         <div class="boxTop">
             <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />
             <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
-            <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
+            <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
-            <span class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
+            <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
@@ -16,32 +16,32 @@
 
         <ul class="newActivity">
             <li ng-click="setTab('items')">
-                <span class="rFloat newPosts">1000</span>
+                <span class="rFloat newPosts">{{info.itemsLength}}</span>
                 <div class="elps">Items</div>
             </li>
             <li ng-click="setTab('quizzes')">
-                <span class="rFloat newPosts">12</span>
+                <span class="rFloat newPosts">{{info.quizLength}}</span>
                 <div class="elps">Quizzes</div>
             </li>
             <li ng-click="setTab('members')">
-                <span class="rFloat newPosts">562</span>
+                <span class="rFloat newPosts">{{info.membersLength}}</span>
                 <div class="elps">Members</div>
             </li>
         </ul>
 
-        <div class="boxFolders" ng-if="options.activeTab === 'items'">
+        <div class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <div m-custom-scrollbar bottom="0">
 
                 <ul class="boxFolderList">
-                    <li class="current boxFolder" ng-class="{current : !info.currentTab }">
+                    <li class="current boxFolder" ng-class="{current : !params.currentTab }">
                         <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                         <span class="tabBorder"></span>
                     </li>
 
-                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === info.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+                    <li ng-repeat="tab in info.tabs" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
-                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === info.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
                         <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
 
                         <ul class="dropdown-menu" role="menu">

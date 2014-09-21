@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Dapper;
+﻿using Dapper;
 using NHibernate;
 using NHibernate.Transform;
 using System;
@@ -258,6 +257,15 @@ namespace Zbang.Zbox.ReadServices
                     retVal.UserType = GetUserStatusToBox(retVal.PrivacySetting, userRelationShip);
                     return retVal;
                 }
+            }
+        }
+
+        public async Task<IEnumerable<TabDto>>  GetBoxTabs(GetBoxQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new {query.BoxId});
+
             }
         }
 
