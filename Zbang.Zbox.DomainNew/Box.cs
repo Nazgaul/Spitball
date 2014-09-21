@@ -69,6 +69,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
+        public virtual int QuizCount { get; private set; }
+             
         public virtual int CommentCount { get; protected set; }
 
 
@@ -190,7 +192,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateItemCount()
         {
-            ItemCount = Items.Count(file => !file.IsDeleted) + Quizzes.Count(quiz => quiz.Publish);
+            ItemCount = Items.Count(file => !file.IsDeleted);
+            QuizCount = Quizzes.Count(quiz => quiz.Publish);
 
         }
         #endregion

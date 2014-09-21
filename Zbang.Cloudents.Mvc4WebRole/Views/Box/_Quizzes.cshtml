@@ -3,20 +3,23 @@
 
 <div ng-controller="BoxQuizzesCtrl">
     <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
-    {{quizzes}}
+    <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+        <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"
+            ng-class="{draft:!item.publish}"
+            ng-include="getView(item)"
+            popover-template="boxQuizTooltip" popover-append-to-body="true"
+            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="right">
+        </li>
+    </ol> 
 </div>
 
 
 
 <script type="text/ng-template" id="quizThumbView">
     <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
-
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
-
         <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
-
         <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
         <div class="stars">
             <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
@@ -29,12 +32,6 @@
             <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
         </div>
     }
-    <span ng-if="qOptions.manageTab">
-        <input id="{{'item_' + item.uid}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
-        <div></div>
-        @*empty div used for green outline*@
-        <label for="{{'item_' + item.uid}}" class="cbLabel"></label>
-    </span>
 </script>
 
 <script type="text/ng-template" id="quizListView">

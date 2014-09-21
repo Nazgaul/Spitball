@@ -79,55 +79,27 @@ namespace Zbang.Zbox.Domain.Services
 
         public bool Dbi(int index)
         {
-            bool retVal = InternalDbi();
+            bool retVal = false;
 
-
-            //var libraryNodes =
-            //          UnitOfWork.CurrentSession.QueryOver<Library>()
-            //              .Skip(100 * index)
-            //              .Take(100).List();
-
-
-            //foreach (var node in libraryNodes)
-            //{
-            //    node.GenerateUrl();
-            //    UnitOfWork.CurrentSession.Connection.Execute("update zbox.Library set Url = @Url where libraryid = @Id"
-            //        , new { node.Url, node.Id });
-
-            //    retVal = true;
-            //}
             using (UnitOfWork.Start())
             {
-                var quizes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
-                              .Where(w => w.Publish).Skip(100 * index)
-                              .Take(100).List();
-
-                foreach (var quiz in quizes)
+                using (var tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    quiz.GenerateUrl();
-                    var noOfDiscussion = UnitOfWork.CurrentSession.QueryOver<Discussion>().Where(w => w.Quiz == quiz).RowCount();
-                    double? std;
-                    int? avg;
-                    using (var grid = UnitOfWork.CurrentSession.Connection.QueryMultiple(
-                        "select STDEVP(score) from zbox.SolvedQuiz where quizid = @id;" +
-                        "select AVG(score) from zbox.SolvedQuiz where quizid = @id;", new { id = quiz.Id }))
+                    var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
+                        .Where(w => w.IsDeleted == false).Skip(100*index)
+                        .Take(100).List();
+
+                    foreach (var box in boxes)
                     {
-                        std = grid.Read<double?>().FirstOrDefault();
-                        avg = grid.Read<int?>().FirstOrDefault();
+                        //quiz.GenerateUrl();
+                        box.UpdateItemCount();
+                        UnitOfWork.CurrentSession.Save(box);
+                        retVal = true;
                     }
-
-
-
-                    UnitOfWork.CurrentSession.Connection.Execute(@"update zbox.Quiz
-                        set Url = @Url, NumberOfComments = @NCount , [Stdevp] = @std, Average = @average
-                        where Id = @Id"
-                        , new { quiz.Url, quiz.Id, NCount = noOfDiscussion, std = std, average = avg });
-
-                    retVal = true;
+                    tx.Commit();
                 }
-
-                return retVal;
-            }
+            } 
+            return retVal;
         }
 
 
