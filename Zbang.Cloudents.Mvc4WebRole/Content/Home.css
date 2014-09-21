@@ -384,9 +384,6 @@ aside .last {
 .available {
   margin-top: 45px;
 }
-.qna {
-  background: url(/Images/gray_jean80.png?v=1) repeat;
-}
 .qna .sectionWpr:before {
   background-position: -463px -1px;
   width: 249px;

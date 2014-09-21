@@ -2,21 +2,66 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.boxPage {
+  overflow-x: hidden;
+}
 .boxPage .leftPanel {
   border: none;
   height: 100%;
-  display: table;
   position: fixed;
   z-index: 5;
-  background: #fff;
+  background: #eee;
+  width: 243px;
+  padding: 0 25px;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
 }
+.boxPage .backWpr {
+  margin: 13px 25px 0 0;
+  padding: 0;
+}
+.boxPage .backWpr svg {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.boxPage .backWpr:before {
+  display: none;
+}
+.boxRight {
+  width: 100%;
+  height: 100%;
+  padding-left: 243px;
+}
 .boxActions.topBar {
-  width: -webkit-calc(100% - 290px);
-  width: calc(100% - 290px);
-  background: #000;
+  width: -webkit-calc(100% - 243px);
+  width: calc(100% - 243px);
+  background: #282828;
   color: #fff;
+  height: 60px;
+  padding: 0 25px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boxTabs {
+  display: inline-block;
+}
+.boxTabs li {
+  font-size: 18px;
+  padding: 0 22px;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.boxTabs li.current {
+  border-bottom: 7px solid #0f9d58;
 }
 .inviteFriendsBtn {
   margin-top: 13px;
@@ -717,7 +762,6 @@
   border-top: 1px solid #c2c2c2;
   border-bottom: 1px solid #c2c2c2;
   margin-top: -1px;
-  background: url(/Images/gray_jean80.png?v=1) repeat #ffffff;
 }
 .boxFolder.current:after {
   display: none;

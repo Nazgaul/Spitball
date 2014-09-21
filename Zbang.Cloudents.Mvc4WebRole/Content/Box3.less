@@ -1,25 +1,59 @@
 ﻿@import "varsAndMixins";
 
 .boxPage {
+    overflow-x: hidden;
     .leftPanel {
         border: none;
         height: 100%;
-        display: table;
+        //display: table;
         position: fixed;
         z-index: 5;
-        background: #fff;
-        
+        background: #eee;
+        width: @boxSideBarWidth;
+        padding: 0 25px;
         border-right: 1px solid @borderColor; /*rtl*/
     }
+    .backWpr {
+        margin: 13px 25px 0 0;
+        padding:0;
+        svg {
+            .flipH; //rtl
+        }
+        &:before {
+            display: none;
+        }
+    }
 }
-
+.boxRight {
+    width: 100%;
+    height: 100%;
+    padding-left: @boxSideBarWidth; //rtl
+}
 .boxActions.topBar {
-    width: ~"-webkit-calc(100% - 290px)";
-    width: ~"calc(100% - 290px)";
-    background:#000;
+    width: ~"-webkit-calc(100% - @{boxSideBarWidth})";
+    width: ~"calc(100% - @{boxSideBarWidth})";
+    background:#282828;
     color:#fff;
+    height: 60px;
+    padding: 0 25px;
+    .boxSizing;
 }
-
+.boxTabs {
+    display: inline-block;
+    li {
+        //display: inline-block;
+        font-size: 18px;
+        padding: 0 22px;
+        float:left;
+        height: 60px;
+        line-height: 60px;
+        .boxSizing;
+        cursor: pointer;
+        &.current {
+            border-bottom: 7px solid @color;
+        }
+    }
+}
 .inviteFriendsBtn {
     margin-top: 13px;
     display: inline-block;
@@ -725,7 +759,7 @@
         border-top: 1px solid @borderColor;
         border-bottom: 1px solid @borderColor;
         margin-top: -1px;
-        background: url(/Images/gray_jean80.png?v=1) repeat #fff; // due to position:fixed on left panel: narrow screen with horiz scroll causes boxItems to show through
+        //background: url(/Images/gray_jean80.png?v=1) repeat #fff; // due to position:fixed on left panel: narrow screen with horiz scroll causes boxItems to show through
         &:after {
             display: none;
         }

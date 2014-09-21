@@ -58,15 +58,6 @@
 
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
-
-            <ul style="display:inline-block;">
-                <li ng-click="setTab('feed')">Feed</li>
-                <li ng-click="setTab('items')">Items</li>
-                <li ng-click="setTab('quizzes')">Quizzes</li>
-                <li ng-click="setTab('members')">Members</li>
-            </ul>
-             {{info.itemsLength}}
-            {{info.quizzesLength}}
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
                 <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
@@ -89,9 +80,19 @@
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
                target="_self" class="rFloat inviteFriendsBtn" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
-            <a class="backWpr elps lFloat" ng-href="{{$root.back.url}}">
+            <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
+            <ul class="boxTabs">
+                <li class="current" ng-click="setTab('feed')">Feed</li>
+                <li ng-click="setTab('items')">Items</li>
+                <li ng-click="setTab('quizzes')">Quizzes</li>
+                <li ng-click="setTab('members')">Members</li>
+            </ul>
+             {{info.itemsLength}}
+            {{info.quizzesLength}}
+            
+            
         </div>
 
         @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
