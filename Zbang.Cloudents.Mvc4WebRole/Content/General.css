@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1820,7 +1820,7 @@ iframe .registerFirst.store {
   display: table;
   visibility: visible;
   opacity: 0;
-  background: #39434a;
+  background: #282828;
   color: #fff;
   border-radius: 3px;
   max-height: 200px;
@@ -1880,7 +1880,7 @@ iframe .registerFirst.store {
   padding: 0 12px;
   text-align: center;
   text-decoration: none;
-  background: #39434a;
+  background: #282828;
   border-radius: 3px;
 }
 .tooltip-arrow {
@@ -1891,7 +1891,7 @@ iframe .registerFirst.store {
   -o-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  background: #39434a;
+  background: #282828;
   width: 9px;
   height: 9px;
   left: 0;
@@ -1910,7 +1910,7 @@ iframe .registerFirst.store {
   -o-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  background: #39434a;
+  background: #282828;
   width: 9px;
   height: 9px;
   left: 0;
@@ -2590,3 +2590,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */
