@@ -1,11 +1,16 @@
 ﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$filter', '$modal', 'sBox',
-        function ($scope, $filter, $modal, sBox) {
+        ['$scope', '$rootScope', '$filter', '$modal', 'sBox','sUserDetails',
+        function ($scope, $rootScope, $filter, $modal, sBox, sUserDetails) {
 
+            $scope.params = {};
 
-            sBox.tabs({ boxId: $scope.boxId }).then(function (response) {
+            $scope.partials = {
+                createTab: '/Box/CreateTabPartial/'
+            };
+
+            sBox.tabs({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : [];
-                $scope.tabs = data;
+                $scope.params.tabs = data;
             });
 
             $scope.deleteTab = function (tab) {
@@ -20,11 +25,10 @@
                     }
                 });
 
-                var index = $scope.info.tabs.indexOf(tab);
+                var index = $scope.params.tabs.indexOf(tab);
                 $scope.params.tabs.splice(index, 1);
                 $scope.params.currentTab = null;
                 $scope.params.manageTab = false;
-                // $scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $rootScope.$broadcast('update_scroll');
             };
 
@@ -86,10 +90,10 @@
                 });
 
                 modalInstance.result.then(function (tab) {
-                    if (!$scope.info.tabs) {
-                        $scope.info.tabs = [];
+                    if (!$scope.params.tabs) {
+                        $scope.params.tabs = [];
                     }
-                    $scope.info.tabs.push(tab);
+                    $scope.params.tabs.unshift(tab);
                     $rootScope.$broadcast('update_scroll');
 
                 }, function () {
@@ -104,7 +108,7 @@
             };
 
             $scope.manageTab = function () {
-                $scope.$broadcast('manageTab');
+                $rootScope.$broadcast('manageTab');
             };
 
             $scope.selectTab = function (tab) {
@@ -113,13 +117,15 @@
                 //    return;
                 //}
 
-                $scope.info.currentTab = tab;
-                $rootScope.$broadcast('selectTab', tab.id);
+                $scope.params.currentTab = tab;
+                $rootScope.$broadcast('selectTab', tab);
             };
-        }]).
-factory('sManageTab', [function () {
-    var service = {};
 
-    service.selectTab
-
-}]);
+            $scope.addDraggedItem = function (item, tabId) {
+                var data = {
+                    item: item,
+                    tabId: tabId
+                }
+                $rootScope.$broadcast('tabItemAdded',data);
+            };
+        }]);

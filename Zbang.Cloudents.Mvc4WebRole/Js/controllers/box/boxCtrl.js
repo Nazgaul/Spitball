@@ -21,9 +21,6 @@ mBox.controller('BoxCtrl',
             $scope.action = {};
 
             $scope.partials = {
-                createTab: '/Box/CreateTabPartial/',
-                uploader: '/Box/UploadPartial/',
-                uploadAddLink: '/Box/UploadLinkPartial/',
                 shareEmail: '/Share/MessagePartial/',
                 boxSettings: '/Box/SettingsPartial/'
             };
@@ -34,11 +31,12 @@ mBox.controller('BoxCtrl',
 
             $scope.options = {
 
-                loader:true,
+                loader: true,
                 activeTab: 'feed'
             };
 
-            sBox.info({ id: $scope.boxId}).then(function (response) {
+
+            sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
 
                 $scope.info = {
@@ -64,11 +62,16 @@ mBox.controller('BoxCtrl',
                     share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
                     invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
                 }
-                
-           
+
+
                 $scope.info.showJoinGroup = $scope.isUserFollowing();
 
                 $timeout(function () {
+                    if (!sFacebook.isAuthenticated()) {
+                        sFacebook.login().then(function () {
+                        });
+                    }
+                    
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
@@ -95,8 +98,9 @@ mBox.controller('BoxCtrl',
 
 
 
+
             //#region tabs           
-        
+
 
             //TODO DRAGANDDROP
 
@@ -106,16 +110,14 @@ mBox.controller('BoxCtrl',
             //#region share
             $scope.shareFacebook = function () {
                 $scope.popup.share = false;
-
-
                 sFacebook.share($scope.info.url, //url
-                      $scope.info.name, //title
-                       $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
-                       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
-                        null //picture
-                   ).then(function () {
-                       cd.pubsub.publish('addPoints', { type: 'shareFb' });
-                   });
+                  $scope.info.name, //title
+                   $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
+                   jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
+                    null //picture
+               ).then(function () {
+                   cd.pubsub.publish('addPoints', { type: 'shareFb' });
+               });
             };
 
             $scope.shareEmail = function () {
@@ -164,70 +166,64 @@ mBox.controller('BoxCtrl',
 
             //#region settings
 
-            //$scope.openBoxSettings = function (tab) {
+            $scope.openBoxSettings = function (tab) {
 
-            //    if (!sUserDetails.isAuthenticated()) {
-            //        cd.pubsub.publish('register', { action: true });
-            //        return;
-            //    }
+                if (!sUserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
 
-            //    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-            //        alert(jsResources.NeedToFollowBox);
-            //        return;
-            //    }
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
+                }
+                               
+                
+                sBox.notification({ boxId: $scope.boxId }).then(function (response) {                    
+                    var notification = response.success ? response.payload : '';
 
-            //    var memberPromise = sBox.members({ boxId: $scope.boxId }),
-            //       notificationPromise = sBox.notification({ boxId: $scope.boxId }),
-            //       settingsAll = $q.all([memberPromise, notificationPromise]),
-            //       notification;
+                    var modalInstance = $modal.open({
+                        windowClass: "boxSettings",
+                        templateUrl: $scope.partials.boxSettings,
+                        controller: 'SettingsCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    info: $scope.info,
+                                    notification: notification,
+                                    boxId: $scope.boxId,
+                                    tab: tab
+                                }
+                            }
+                        }
+                    });
 
-            //    settingsAll.then(function (response) {
-            //        $scope.info.allMembers = response[0].success ? response[0].payload : [];
-            //        notification = response[1].success ? response[1].payload : '';
+                    modalInstance.result.then(function (result) {
+                        $scope.info.name = result.name;
+                        $scope.info.privacy = result.boxPrivacy;
 
-            //        var modalInstance = $modal.open({
-            //            windowClass: "boxSettings",
-            //            templateUrl: $scope.partials.boxSettings,
-            //            controller: 'SettingsCtrl',
-            //            backdrop: 'static',
-            //            resolve: {
-            //                data: function () {
-            //                    return {
-            //                        info: $scope.info,
-            //                        notification: notification,
-            //                        boxId: $scope.boxId,
-            //                        tab: tab,
-            //                        members: $scope.info.allMembers
-            //                    }
-            //                }
-            //            }
-            //        });
+                        if (!result.queryString) {
+                            return;
+                        }
+                        $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
+                        var path = $location.path(),
+                            boxName = '/' + path.split('/')[4] + '/';//boxName
 
-            //        modalInstance.result.then(function (result) {
-            //            $scope.info.name = result.name;
-            //            $scope.info.privacy = result.boxPrivacy;
+                        path = path.replace(boxName, '/' + result.queryString + '/');
+                        $location.url(path, '', path).replace();
 
-            //            if (!result.queryString) {
-            //                return;
-            //            }
-            //            $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
-            //            var path = $location.path(),
-            //                boxName = '/' + path.split('/')[4] + '/';//boxName
+                    }, function () {
+                        //dismiss
+                    });
 
-            //            path = path.replace(boxName, '/' + result.queryString + '/');
-            //            $location.url(path, '', path).replace();
-
-            //        }, function () {
-            //            //dismiss
-            //        });
-
-            //        $scope.$on('$destroy', function () {
-            //            if (modalInstance) {
-            //                modalInstance.close();
-            //            }
-            //        });
-            //    });
-            //};
+                    $scope.$on('$destroy', function () {
+                        if (modalInstance) {
+                            modalInstance.close();
+                        }
+                    });
+                });
+            };
 
             //#endregion 
 

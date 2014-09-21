@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'sUserDetails', 'sUpload', 'sFacebook',
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdates, sUserDetails, sUpload, sFacebook) {
+		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'sUserDetails', 'sUpload', 'sFacebook', '$templateCache',
+function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sUpload, sFacebook, $templateCache) {
     var jsResources = window.JsResources;
 
     var consts = {
@@ -10,6 +10,13 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
         },
         itemsLimit: 21
     };
+
+    $scope.partials = {
+        uploader: '/Box/UploadPartial/',
+        uploadAddLink: '/Box/UploadLinkPartial/'
+    };
+
+
 
     $scope.iOptions = {
         currentView: consts.view.thumb,
@@ -28,6 +35,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
 
         $scope.items.sort(sortItems);
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+        isSponsoredView();
         $scope.options.loader = false;
 
     });
@@ -39,7 +47,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                 return;
             }
 
-            if ($scope.info.currentTab && ($scope.info.currentTab.id !== data.item.tabId)) {
+            if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.item.tabId)) {
                 return;
             }
 
@@ -48,7 +56,6 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
             $scope.items.sort(sortItems);
             $scope.filteredItems.sort(sortItems);
 
-            sBoxData.addFile(data.item);
             $scope.followBox(true);
         });
     });
@@ -157,7 +164,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                 boxUid: $scope.boxId,
                 boxName: $scope.boxName,
                 uniName: $scope.uniName,
-                tabId: $scope.info.currentTab ? $scope.info.currentTab.id : null, //
+                tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
                 url: data.url,
                 fileName: data.name, //
                 fileUrl: data.url //
@@ -185,13 +192,6 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                     }
 
                     var responseItem = response.payload;
-                    $scope.items.unshift(responseItem);
-                    $scope.filteredItems.unshift(responseItem);
-                    $scope.items.sort(sortItems);
-                    $scope.filteredItems.sort(sortItems);
-
-                    sBoxData.addFile(responseItem);
-
                     if (qna) {
                         fileList.push(responseItem);
                         if (data.type === 'link') {
@@ -202,6 +202,13 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                         defer.resolve(fileList);
 
                     }
+
+                    if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
+                        $scope.items.unshift(responseItem);
+                        $scope.filteredItems.unshift(responseItem);
+                        $scope.filteredItems.sort(sortItems);
+                    }
+
                     $scope.followBox(true);
 
 
@@ -221,12 +228,12 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
             return;
         }
         $scope.iOptions.itemsLimit = consts.itemsLimit;
-        $scope.iOptions.lastView = $scope.options.currentView;
+        $scope.iOptions.lastView = $scope.iOptions.currentView;
         $scope.iOptions.currentView = view;
     };
 
     $scope.getView = function (item) {
-        return $scope.options.currentView === consts.view.thumb ? 'itemThumbView' : 'itemListView';
+        return $scope.iOptions.currentView === consts.view.thumb ? 'itemThumbView' : 'itemListView';
     };
 
     function resetLastView() {
@@ -235,6 +242,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
         }
 
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+        isSponsoredView();
 
         $scope.iOptions.manageTab = false;
     }
@@ -259,8 +267,6 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                 boxId: $scope.boxId
             }
             sItem.delete(data).then(removeItem);
-            sBoxData.removeFile(item);
-
         });
 
         function removeItem(response) {
@@ -275,21 +281,10 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
                 $scope.filteredItems.splice(index, 1);
             }
 
-            sBoxData.removeFile(item);
         }
     };
 
-    $scope.addDraggedItem = function (item, tabId) {
-        var setTabId = false;
-        for (var i = 0, l = $scope.items.length; i < l && !setTabId; i++) {
-            if ($scope.items[i].id === item.id) {
-                $scope.items[i].tabId = tabId;
-                setTabId = true;
-            }
-        }
-
-        saveItemsToTab([item.id], tabId);
-    };
+   
 
     $scope.deleteAllow = function (item) {
         return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
@@ -301,15 +296,11 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
     };
 
     function filterItems(item) {
-        if (item.sponsored) {
-            $scope.iOptions.sponsored = true;
-        }
-
-        if (!$scope.info.currentTab) {
+        if (!$scope.iOptions.currentTab) {
             return true;
         }
 
-        if ($scope.info.currentTab.id === item.tabId) {
+        if ($scope.iOptions.currentTab.id === item.tabId) {
             return true;
         }
 
@@ -347,15 +338,28 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
 
     //#region tabs
 
-    $scope.$on('selectTab', function (tab) {
+    $scope.$on('selectTab', function (e, tab) {
         $scope.iOptions.currentTab = tab;
 
         $scope.iOptions.itemsLimit = consts.itemsLimit;
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+        isSponsoredView();
     });
 
-    $scope.$on('manageTab', function () {
+    $scope.$on('tabItemAdded', function (e, data) {       
+        var item = _.find($scope.items, function (i) {
+            return i.id === data.item.id;
+        });
+
+        item.tabId = data.tabId;
+        
+        saveItemsToTab([item.id], data.tabId);
+
+    });
+
+    $scope.$on('manageTab', function (e) {
         var filteredItems = $filter('filter')($scope.items, filterManageItems);
+        isSponsoredView()
         if (!filteredItems.length) {
             return;
         }
@@ -371,7 +375,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
         $scope.iOptions.manageTab = true;
     });
 
-    $scope.manageSave = function () {
+    $scope.manageSave = function (e) {
         var savedItems = [],
             item;
 
@@ -379,24 +383,24 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
             item = $scope.filteredItems[i];
             if (item.isCheck) {
                 savedItems.push(item.id);
-                item.tabId = $scope.info.currentTab.id;
+                item.tabId = $scope.iOptions.currentTab.id;
                 continue;
             }
             item.tabId = null;
         }
 
         saveItemsToTab(savedItems);
-        // resetLastView();
+        resetLastView();
     };
 
-    $scope.manageCancel = function () {
-        //resetLastView();
+    $scope.manageCancel = function (e) {
+        resetLastView();
     };
 
     function saveItemsToTab(items, tabId) {
         var data = {
             boxId: $scope.boxId,
-            tabId: tabId || $scope.info.currentTab.id, //tabId from draganddrop
+            tabId: tabId || $scope.iOptions.currentTab.id, //tabId from draganddrop
             itemId: items,
             nDelete: !tabId //delete is false if only one item added from draganddrop
         };
@@ -417,6 +421,14 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdat
         return true;
     }
 
+    function isSponsoredView() {
+        $scope.iOptions.sponsored = false;
+        _.forEach($scope.filteredItems, function (item) {
+            if (item.sponsored) {
+                $scope.iOptions.sponsored = true;
+            }
+        });
+    }
     //#endregion
 }
 		]);

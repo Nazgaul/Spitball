@@ -51,7 +51,7 @@ mBox.factory('sBox',
             items: function (data) {
                 return ajaxRequest(data, $http.get, 'Items/');
             },
-            quizes: function(data) {
+            quizes: function (data) {
                 return ajaxRequest(data, $http.get, 'Quizes/');
             },
             info: function (data) {
@@ -176,7 +176,7 @@ mBox.factory('sBox',
             },
             tabs: function (data) {
                 var dfd = $q.defer();
-                $http.post(Box + '/Tabs/', data).success(function (response) {
+                $http.get(Box + 'Tabs/', { params: data }).success(function (response) {
                     dfd.resolve(response);
                 }).error(function (response) {
                     dfd.reject(response);

@@ -1,11 +1,12 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal','sUserDetails','$location',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails,$location) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter','sFacebook',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
 
     $scope.navigation = {};
+    $scope.popup = {};
     $scope.fromReply = {};
     $scope.preview = '';
     $scope.fullScreen = false;
@@ -17,8 +18,13 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
         $scope.item = data;
+        $scope.item.url = $location.absUrl();
         getPreview();
         $timeout(function () {
+            if (!sFacebook.isAuthenticated()) {
+                sFacebook.login().then(function () {
+                });
+            }
             $rootScope.$broadcast('viewContentLoaded');
             $scope.$broadcast('update-scroll');
         });
@@ -26,13 +32,13 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
 
     function getPreview() {
-        
+
         if (index > 0) {
             $scope.load.contentLoadMore = true;
         } else {
             $scope.load.contentLoading = true;
         }
-            
+
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
@@ -76,7 +82,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 modalInstance.close();
             }
         });
-       
+
     }
     $scope.flagItemWindow = function () {
         var modalInstance = $modal.open({
@@ -84,8 +90,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             templateUrl: '/Item/Flag/',
             controller: 'itemFlagCtrl',
             backdrop: false,
-            resolve : {
-                data: function() {
+            resolve: {
+                data: function () {
                     return {
                         id: $routeParams.itemId
                     };
@@ -97,10 +103,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 modalInstance.close();
             }
         });
-        
+
     }
-   
-    $scope.renameWindow = function() {
+
+    $scope.renameWindow = function () {
         var modelInstance = $modal.open({
             windowClass: 'rename',
             templateUrl: '/Item/Rename/',
@@ -126,7 +132,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
         });
     };
-    $scope.create = function(isValid) {
+    $scope.create = function (isValid) {
         if (!isValid) {
             return;
         }
@@ -135,7 +141,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         $scope.formData.itemId = $routeParams.itemId;
         sItem.addComment($scope.formData).then(function (response) {
             $scope.commentp = false;
-           
+
             if (!response.success) {
                 alert(response.payload);
                 return;
@@ -186,7 +192,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         comment.replyp = true;
         $scope.fromReply.itemId = $routeParams.itemId;
         $scope.fromReply.commentId = comment.id;
-        
+
         sItem.replyComment($scope.fromReply).then(function (response) {
             if (!response.success) {
                 alert(response.payload);
@@ -194,11 +200,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
             comment.replies.unshift({
                 comment: $scope.fromReply.Comment,
-                creationDate:  new Date().toISOString(),
+                creationDate: new Date().toISOString(),
                 id: response.payload,
-                userId:  sUserDetails.getDetails().id,
+                userId: sUserDetails.getDetails().id,
                 userName: sUserDetails.getDetails().name
-            
+
             });
             $scope.fromReply = {};
             comment.showReplyF = false;
@@ -208,5 +214,45 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
+
+    //#region share
+    $scope.shareFacebook = function () {  
+        $scope.popup.share = false;
+        sFacebook.share($location.absUrl(), //url
+          $scope.item.name, //title
+          $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
+          $filter('stringFormat')(JsResources.IShared + ' {0} ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin, [$scope.item.name]),
+            null //picture
+       ).then(function () {
+           cd.pubsub.publish('addPoints', { type: 'shareFb' });
+       });
+    };
+
+    $scope.shareEmail = function () {
+        $scope.popup.share = false;
+
+        var modalInstance = $modal.open({
+            windowClass: "invite",
+            templateUrl: $scope.partials.shareEmail,
+            controller: 'ShareCtrl',
+            backdrop: 'static',
+            resolve: {
+                data: function () {
+                    return null;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+        }, function () {
+            //dismiss
+        });
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.close();
+            }
+        });
+    };
 }
         ]);

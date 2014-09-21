@@ -38,26 +38,26 @@
                 </li>
 
                 <li class="middleActionItem">
-                    <input class="checkbox" type="checkbox" id="itemShare" data-ddcbox="itemShare" />
+                    <input class="checkbox" type="checkbox" id="itemShare" ng-model="popup.share" />
                     <label for="itemShare" class="">
                         <span>@SharedResources.Share</span>
                         <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
                     </label>
-                    <div class="dropDown shareDD" data-dropdown="itemShare">
+                    <div class="dropDown shareDD">
                         <label class="closeItem rFloat" for="itemShare"></label>
                         <div class="arrow shareArrow"></div>
                         <h4 class="semiFont">@SharedResources.ShareItem</h4>
                         <div class="shareTxt">@SharedResources.ShareUsing</div>
                         <ul class="shareList">
-                            <li class="shareItem"><button type="button" id="item_FS" class="fbShare">@SharedResources.Facebook</button></li>
+                            <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
 
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="shareItem"><button type="button" id="item_msg" class="emailShare">@SharedResources.Email</button></li>
+                                <li class="shareItem"><button type="button" ng-click="shareEmail()" class="emailShare">@SharedResources.Email</button></li>
                             }
                         </ul>
                         <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                        <input type="text" id="item_CL" class="linkShare" readonly="readonly" data-bind="value: copyLink" />
+                        <input type="text" class="linkShare" readonly="readonly" ng-model="item.url" select-on-click />
                     </div>
                 </li>
             </ul>

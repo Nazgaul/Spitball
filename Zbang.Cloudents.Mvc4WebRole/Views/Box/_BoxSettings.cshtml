@@ -8,7 +8,7 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
         <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
-        <button data-id="Members" type="button" class="tabBtn" ng-click="params.state = 2">@SharedResources.Members</button>
+    @*    <button data-id="Members" type="button" class="tabBtn" ng-click="params.state = 2">@SharedResources.Members</button>*@
         <a ng-href="{{info.inviteUrl}}" class="btn3 inviteBtn rFloat" target="_self">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
@@ -75,7 +75,7 @@
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
         <button type="button" class="btn2 rFloat" ng-click="delete()" ng-bind="deleteOrUnfollow()">@SharedResources.Delete</button>
     </form>
-    <div class="membersContent">
+    @*<div class="membersContent">
         <div class="membersTop">
             <div class="searchWpr lFloat">
                 <span class="membersCount lFloat">{{info.allMembers.length + ' @SharedResources.Members'}}</span>
@@ -88,7 +88,7 @@
             <li class="memberItem" ng-controller="MemberCtrl" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-hide="isExcludedByFilter" ng-repeat="member in info.allMembers | orderByFilter:{field: 'name', input:params.search}" ng-include="'memberItem'">
             </li>
         </ul>
-    </div>
+    </div>*@
 
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>

@@ -69,8 +69,8 @@
             }
             uploader = uploadFiles();
         }
-        $rootScope.$on('selectTab', function(d) {
-            boxToUpload.tabid = $.isEmptyObject(d) ? null : d;
+        $rootScope.$on('selectTab', function(e,tab) {
+            boxToUpload.tabid = $.isEmptyObject(tab) ? null : tab.id;
         });
 
         var linkGuid;
@@ -319,6 +319,7 @@
 
         uploader.bind('FileUploaded', function (up, file, data) {
             var itemData = JSON.parse(data.response);
+            itemData.payload.fileDto.tabId = file.tabid;
             if (!itemData.success) {
                 return;
             }

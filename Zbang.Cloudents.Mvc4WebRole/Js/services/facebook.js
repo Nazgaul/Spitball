@@ -28,37 +28,66 @@
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
 
-       return {
-           share: function (url, name, caption, description, picture) {
-               if (!this.isAuthenticated()) {
+       function loginFacebook() {
+           var dfd = $q.defer();
+
+           FB.login(function (response) {
+               if (response.status !== 'connected') {
+                   dfd.reject();
+                   return;
+               }
+               if (!response.authResponse.accessToken) {
+                   dfd.reject();
                    return;
                }
 
+               isAuthenticated = true;
+               accessToken = response.authResponse.authToken;
+               dfd.resolve(true);
+           });
+           return dfd.promise;
+       }
+
+
+
+       return {
+           share: function (url, name, caption, description, picture) {
                var defer = $q.defer();
 
+               if (!this.isAuthenticated()) {
+                   loginFacebook().then(function () {
+                       share();
+                   });
+                   $timeout(function () { dfd.reject(); });
+                   return dfd.promise;
+               }
 
-               url = url || $window.location.href;
-               FB.ui({
-                   method: 'feed',
-                   link: url,
-                   name: name,
-                   caption: caption,
-                   description: description,
-                   picture: location.origin + (picture || '/images/cloudents-share-FB.png'),
-                   display: 'popup'
-               }, function (response) {
-                   if (response && response.post_id) {
-                       //analytics.trackSocial(url, 'share');
-                       //cd.pubsub.publish('addPoints', { type: 'shareFb' });
-                       var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                       //cd.data.fbRep({                                
-                       //    data: { postId: postId }
-                       //});
-                       defer.resolve();
-                       return;
-                   }
-                   defer.reject();
-               });
+               share();
+
+               function share() {
+                   url = url || $window.location.href;
+                   FB.ui({
+                       method: 'feed',
+                       link: url,
+                       name: name,
+                       caption: caption,
+                       description: description,
+                       picture: location.origin + (picture || '/images/cloudents-share-FB.png'),
+                       display: 'iframe'
+                   }, function (response) {
+                       if (response && response.post_id) {
+                           //analytics.trackSocial(url, 'share');
+                           //cd.pubsub.publish('addPoints', { type: 'shareFb' });
+                           var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
+                           //cd.data.fbRep({                                
+                           //    data: { postId: postId }
+                           //});
+                           defer.resolve();
+                           return;
+                       }
+                       defer.reject();
+                   });
+               }
 
                return defer.promise;
            },
@@ -67,7 +96,7 @@
 
                FB.ui({
                    method: 'send',
-                   link: 'https://www.google.com',// window.location.origin + data.link,
+                   link: window.location.origin + data.link,
                    to: data.to
                }, function (response) {
                    if (!response) {
@@ -82,6 +111,10 @@
                return dfd.promise;
            },
            contacts: function (fields) {
+               if (!this.isAuthenticated()) {
+                   return;
+               }
+
                var dfd = $q.defer(),
                friend;
 
@@ -126,6 +159,7 @@
 
                FB.api('/me/feed', 'post', { message: text, link: link }, function () {
                });
+
            },
            getToken: function () {
                return accessToken;
@@ -141,36 +175,19 @@
                        return;
                    }
 
-                   login();
-
                },
                function (a) {
-                   login();
+                   dfd.reject();
                });
-
-               function login() {
-                   FB.login(function (response) {
-                       if (response.status !== 'connected') {
-                           dfd.reject();
-                           return;
-                       }
-                       if (!response.authResponse.accessToken) {
-                           dfd.reject();
-                           return;
-                       }
-
-                       isAuthenticated = true;
-                       accessToken = response.authResponse.authToken;
-                       dfd.resolve(true);
-                   });
-               }
-
 
                return dfd.promise;
            },
            isAuthenticated: function () {
                return isAuthenticated;
            }
+
+
        }
+
    }
    ]);

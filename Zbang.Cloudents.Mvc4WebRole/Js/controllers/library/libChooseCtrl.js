@@ -20,7 +20,7 @@
 
              var allDepartments;
 
-             if (!sFacebook.isAuthenticated()) {
+             if (!sFacebook.isAuthenticated()) {                 
                  sFacebook.login().then(function (response) {
                      sLibrary.facebookFriends({ authToken: sFacebook.getToken() }).then(function (response) {
                          var data = response.success ? response.payload : [];

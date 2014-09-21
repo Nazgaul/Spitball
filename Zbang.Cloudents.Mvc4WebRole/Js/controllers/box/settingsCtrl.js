@@ -1,27 +1,29 @@
 ﻿//define('manageCtrl',['app'], function (app) {
 mBox.controller('SettingsCtrl',
-    ['$scope', '$modal', '$modalInstance', '$location','$timeout', 'sUserDetails', 'sBox', 'data',
+    ['$scope', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
 
-     function ($scope, $modal, $modalInstance, $location,$timeout, UserDetails, Box, data) {
+     function ($scope, $modalInstance, $location, sUserDetails, sBox, data) {
          //Settings
          var states = {
              settings: 1,
-             members: 2
+             //members: 2
          };
          $scope.info = data.info;
-         $scope.info.allMembers = data.members;
          $scope.info.boxId = data.boxId;
          //TODO: this is a temp solution
          $scope.info.inviteUrl = '/invite/' + data.boxId + "/";
-         $scope.info.user = UserDetails.getDetails();
+         $scope.info.user = sUserDetails.getDetails();
 
          $scope.partials = {
              shareEmail: '/Share/MessagePartial/',
          };
 
+         //$scope.params = {
+         //    state: data.tab === 'settings' ? states.settings : states.members,
+         //    search: ''
+         //};
          $scope.params = {
-             state: data.tab === 'settings' ? states.settings : states.members,
-             search: ''
+             state: states.settings
          };
 
          $scope.formData = {
@@ -41,7 +43,7 @@ mBox.controller('SettingsCtrl',
 
 
          $scope.save = function () {
-             Box.updateInfo($scope.formData).then(function (response) {
+             sBox.updateInfo($scope.formData).then(function (response) {
                  $scope.formData.queryString = response.payload.queryString;
                  $modalInstance.close($scope.formData);
              });
@@ -53,7 +55,7 @@ mBox.controller('SettingsCtrl',
 
          $scope.delete = function () {
              $modalInstance.dismiss();
-             Box.remove({ id: $scope.info.boxId }).then(function () {
+             sBox.remove({ id: $scope.info.boxId }).then(function () {
                  $location.path('/dashboard/');
              });
          };
@@ -74,51 +76,5 @@ mBox.controller('SettingsCtrl',
              return JsResources.LeaveGroup;
          };
 
-         $scope.userStatus = function (status) {
-             switch (status) {
-                 case 'Subscribe':
-                     return 'Active Member';//add resource
-                 case 'Owner':
-                     return JsResources.Owner;
-                 case 'Invite':
-                     return 'Pending'; //add resource
-
-             }
-         };
-
-   
-
- 
      }
     ]);
-mBox.controller('MemberCtrl', ['$scope', function ($scope) {
-    $scope.isExcludedByFilter = applySearchFilter();
-
-    $scope.$watch(
-       "params.search",
-       function (newName, oldName) {
-
-           if (newName === oldName) {
-
-               return;
-
-           }
-
-           applySearchFilter();
-
-
-       }
-   );
-
-    function applySearchFilter() {
-
-        var filter = $scope.params.search.toLowerCase();
-        var name = $scope.member.name.toLowerCase();
-        var isSubstring = (name.indexOf(filter) !== -1);
-
-        // If the filter value is not a substring of the
-        // name, we have to exclude it from view.
-        $scope.isExcludedByFilter = !isSubstring;
-    };
-}]);
-//});
