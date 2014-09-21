@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -34,15 +34,20 @@
   display: none;
 }
 .boxPage .svg-settings {
-  width: 34px;
-  height: 26px;
+  width: 30px;
+  height: 23px;
   fill: #383838;
+}
+.boxPage .svg-inviteUser {
+  width: 30px;
+  height: 28px;
+  fill: #fff;
 }
 .boxPage .boxRename {
   display: none;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 0;
+  right: -5px;
   background: none;
   margin: 0;
   width: auto;
@@ -82,23 +87,21 @@
   border-bottom: 7px solid #0f9d58;
 }
 .inviteFriendsBtn {
-  margin-top: 13px;
+  margin-top: 16px;
   display: inline-block;
   cursor: pointer;
-  line-height: 8px;
-  padding: 5px 20px;
-  color: #0371c8;
+  padding: 0 20px;
+  /*&:before {
+        content: '';
+        display: block;
+        width: 22px;
+        height: 19px;
+        margin: 0 auto 13px;
+        background: @common-sprite -90px -1px no-repeat;
+    }*/
 }
-.inviteFriendsBtn:before {
-  content: '';
-  display: block;
-  width: 22px;
-  height: 19px;
-  margin: 0 auto 13px;
-  background: url(/Images/common17-sprite.png?v=4) -90px -1px no-repeat;
-}
-.inviteFriendsBtn:hover:before {
-  background-position: -90px -21px;
+.inviteFriendsBtn:hover svg {
+  fill: #3399ff;
 }
 /*.boxBack {
     height: 44px;
@@ -120,6 +123,10 @@
 }
 .shareBtn svg {
   fill: #fff;
+  margin-top: 2px;
+}
+.shareBtn:hover svg {
+  fill: #3399ff;
 }
 .shareDD {
   padding: 20px 18px;
@@ -2198,3 +2205,4 @@
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=Box3.css.map */

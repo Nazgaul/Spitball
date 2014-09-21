@@ -25,15 +25,20 @@
         }
     }
     .svg-settings {
-        width: 34px;
-        height: 26px;
+        width: 30px;
+        height: 23px;
         fill: #383838;
+    }
+    .svg-inviteUser {
+        width: 30px;
+        height: 28px;
+        fill: #fff;
     }
     .boxRename {
         display: none;
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 0;
+        right: -5px;
         background: none; //override
         margin:0; //override
         width: auto; //override
@@ -70,22 +75,25 @@
     }
 }
 .inviteFriendsBtn {
-    margin-top: 13px;
+    margin-top: 16px;
     display: inline-block;
     cursor: pointer;
-    line-height: 8px;
-    padding: 5px 20px;
-    color: @attentionBlue;
-    &:before {
+    //line-height: 60px;
+    padding: 0 20px;
+    //color: @attentionBlue;
+    /*&:before {
         content: '';
         display: block;
         width: 22px;
         height: 19px;
         margin: 0 auto 13px;
         background: @common-sprite -90px -1px no-repeat;
+    }*/
+    svg {
+
     }
-    &:hover:before {
-        background-position: -90px -21px;
+    &:hover svg {
+        fill: @itemBlue;
     }
 }
 /*.boxBack {
@@ -107,6 +115,10 @@
     cursor: pointer;
     svg {
         fill: #fff;
+        margin-top: 2px;
+    }
+    &:hover svg {
+        fill: @itemBlue;
     }
 }
 
