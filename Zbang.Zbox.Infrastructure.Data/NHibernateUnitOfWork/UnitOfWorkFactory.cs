@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
-                    dbi.SchemaAction = SchemaAutoAction.Validate;
+                    dbi.SchemaAction = SchemaAutoAction.Update;
                     
 #if DEBUG
                     dbi.LogSqlInConsole = true;

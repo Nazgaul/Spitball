@@ -25,18 +25,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class LibraryController : BaseController
     {
        // private readonly Lazy<IUserProfile> m_UserProfile;
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
         private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(
             //Lazy<IUserProfile> userProfile,
-            Lazy<IIdGenerator> idGenerator,
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
         {
            // m_UserProfile = userProfile;
-            m_IdGenerator = idGenerator;
             m_UniversitySearch = universitySearch;
             m_FacebookService = facebookService;
         }
@@ -388,15 +385,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var id = m_IdGenerator.Value.GetId(IdGenerator.UniversityScope);
-            var command = new CreateUniversityCommand(id, model.Name, model.Country,
+            //
+            var command = new CreateUniversityCommand( model.Name, model.Country,
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S50X50/Lib1.jpg",
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
+            FormsAuthenticationService.ChangeUniversity(command.Id);
             return Json(new JsonResponse(true, new
             {
-                id,
+                command.Id,
                 image = command.SmallImage,
                 name = model.Name
             }));
