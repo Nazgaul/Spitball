@@ -1,14 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div id="box" class="page boxPage" ng-class="{academic : info.boxType === 'academic'}" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
+<div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div class="boxTop">
             <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />
             <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
-            <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.courseId}}</div>
+            <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
-            <span class="boxDetail elps" ng-if="info.boxType === 'academic'">{{info.professor}}</span>
+            <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
@@ -16,15 +16,15 @@
 
         <ul class="newActivity">
             <li ng-click="setTab('items')">
-                <span class="rFloat newPosts">1000</span>
+                <span class="rFloat newPosts">{{info.itemsLength}}</span>
                 <div class="elps">Items</div>
             </li>
             <li ng-click="setTab('quizzes')">
-                <span class="rFloat newPosts">12</span>
+                <span class="rFloat newPosts">{{info.quizLength}}</span>
                 <div class="elps">Quizzes</div>
             </li>
             <li ng-click="setTab('members')">
-                <span class="rFloat newPosts">562</span>
+                <span class="rFloat newPosts">{{info.membersLength}}</span>
                 <div class="elps">Members</div>
             </li>
         </ul>
@@ -91,7 +91,9 @@
                 </div>
             </section>
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
-               target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)"></a>
+               target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
+                <svg class="svg-inviteUser"><use xlink:href="~/Images/Defs.svg#inviteUser" /></svg>
+            </a>
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>

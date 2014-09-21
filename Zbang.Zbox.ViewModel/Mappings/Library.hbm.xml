@@ -3,22 +3,7 @@
                    assembly="Zbang.Zbox.ViewModel"
                    namespace="Zbang.Zbox.ViewModel.DTOs">
 
-  <resultset name="LibraryDetails">
-    <return-scalar column="Name" type="string"/>
-    <return-scalar column="Image" type="string"/>
-    <return-scalar column="Id" type="long"/>
-    <return-scalar column="BoxesCount" type="long"/>
-    <return-scalar column="ItemCount" type="long"/>
-    <return-scalar column="MemberCount" type="long"/>
-
-    <return-scalar column="WebSiteUrl" type="string"/>
-    <return-scalar column="MailAddress" type="string"/>
-    <return-scalar column="FacebookUrl" type="string"/>
-    <return-scalar column="TwitterUrl" type="string"/>
-    <return-scalar column="TwitterWidgetId" type="long"/>
-    <return-scalar column="YouTubeUrl" type="string"/>
-    <return-scalar column="LetterUrl" type="string"/>
-  </resultset>
+ 
   <resultset name="LibraryDashboardDetails">
     <return-scalar column="Name" type="string"/>
     <return-scalar column="Img" type="string"/>
@@ -39,27 +24,6 @@
 
  
 
-  <!--Lib page-->
-  <sql-query name="GetUniversityDataByUserId" read-only="true" resultset-ref="LibraryDetails">
-    <![CDATA[
-	  select  uu.UserId as Id, uWrap.userName as Name, uWrap.UserImageLarge as Image,
-    uWrap.WebSiteUrl,
-    uWrap.MailAddress,
-    uWrap.FacebookUrl,
-    uWrap.TwitterUrl,
-    uWrap.TwitterWidgetId,
-    uWrap.YouTubeUrl,
-    uWrap.LetterUrl,
-    (select count(*) from zbox.Box b 
-    where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as BoxesCount,
-    (select sum(itemcount) from zbox.Box b 
-    where b.OwnerId = uu.UserId and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-    (select count(*) from zbox.Users u where u.UniversityId2 in ( uu.UserId , uWrap.userid)) as MemberCount
-    from zbox.Users uu , zbox.users uWrap  
-    where uu.UserId = :UserId
-    and uWrap.UserId = :UniversityWrapper
-    ]]>
-  </sql-query>
 
   <!--Dash page-->
   <sql-query name="GetUniversityDataForDashBoardByUniversityId" read-only="true" resultset-ref="LibraryDashboardDetails">

@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public override string ToString()
         {
-            return string.Format("BoxName {0} Description {1} ", BoxName);
+            return string.Format("BoxName {0} ", BoxName);
         }
     }
 }

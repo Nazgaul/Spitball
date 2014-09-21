@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anyone who has the link can access. No sign-in required..
+        ///   Looks up a localized string similar to To share things with your whole class.
         /// </summary>
         public static string AnyoneUrl {
             get {
@@ -278,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To view this content you need to be a member or invited.
+        ///   Looks up a localized string similar to To work on things in a group.
         /// </summary>
         public static string InviteOnly {
             get {

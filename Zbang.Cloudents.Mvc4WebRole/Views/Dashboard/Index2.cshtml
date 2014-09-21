@@ -6,7 +6,6 @@
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
     <div class="dashContent" ng-init="notNewUniversity=@Model.NoOfBoxes">
-        @*<button type="button" analytics-on analytics-event="test">aslkdjalsdkj</button>*@
         <aside class="asideDash lFloat">
             <a class="dashTop" ng-class="{aDisbled: !(notNewUniversity)}" href="@Url.RouteUrl("LibraryDesktop",null)">
                 <span class="uniLogo">
@@ -102,26 +101,20 @@
             </section>
 
             <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader" ng-show="contentLoaded && academicBoxes.length">{{myCourses}}</header>
-
+                <header class="boxesHeader" ng-if="notNewUniversity" ng-show="contentLoaded">{{myCourses}}</header>
                 @*<div ng-if="!academicBoxes.length" class="emptyDash">
                         <div class="followEmpty">
                             <h2 class="boldFont">@IndexResources.FollowCourses</h2>
                             <div>@IndexResources.FindCourses</div>
                         </div>
                     </div>*@
-                <ol class="myAreaList clearfix" ng-if="academicBoxes.length">
-                    <li class="box">
-                        <a class="addBtn browse"
-                           href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
+                <ol class="myAreaList clearfix">
+                    <li class="box" ng-if="notNewUniversity">
+                        <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
-
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
-
                     </li>
-
                 </ol>
-
             </section>
 
             <section class="groupBoxes" ng-if="academicBoxes.length || groupBoxes.length">

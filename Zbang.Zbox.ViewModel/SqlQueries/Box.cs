@@ -12,7 +12,7 @@ select
  ,b.ItemCount as Items
  ,b.MembersCount as Members
  ,b.PrivacySetting
- ,0 as Quizes
+ ,b.quizcount as Quizes
  ,b.OwnerId as OwnerId
  ,b.Discriminator as BoxType
  ,b.CreationTime as Date
@@ -24,5 +24,11 @@ from zbox.box b
 where b.BoxId = @BoxId
 and b.IsDeleted = 0;
 ";
+        public const string BoxTabs = @"
+select 
+ItemTabId as id
+,itemtabname as name
+ from zbox.ItemTab
+where boxid = @BoxId";
     }
 }

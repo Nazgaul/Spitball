@@ -29,7 +29,7 @@
     b.BoxName as BoxName,
     b.CourseCode as CourseCode,
     (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = :UserId and ub2.boxid = b.BoxId) as UserType ,
-    b.itemcount as ItemCount,
+    b.quizcount + b.itemcount as ItemCount,
     b.MembersCount as MembersCount,
     b.commentcount as CommentCount,
     b.pictureurl as BoxPicture, 

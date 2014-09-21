@@ -1252,9 +1252,6 @@
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Library\_AddSchoolDialog.mobile.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1303,7 +1300,6 @@
     <Content Include="Views\Account\Confirmation.mobile.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog.mobile.cshtml" />
     <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
-    <Content Include="Views\Library\_SelectUni.mobile.cshtml" />
     <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />
     <Content Include="Views\Box\_Items2.mobile.cshtml" />
     <Content Include="Views\Comment\_Comments.mobile.cshtml" />

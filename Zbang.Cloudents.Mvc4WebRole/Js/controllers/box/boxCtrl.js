@@ -1,5 +1,4 @@
-﻿//define('boxCtrl', ['app'], function (app) {
-mBox = angular.module('mBox', ['ngDragDrop']);
+﻿mBox = angular.module('mBox', ['ngDragDrop']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
@@ -47,8 +46,10 @@ mBox.controller('BoxCtrl',
                     //comments: info.comments,
                     courseId: info.courseId,
                     boxType: info.boxType,
-                    itemsLength: info.items,
-                    membersLength: info.members,                    
+                    date: info.date,
+                    itemsLength: info.items || 0,
+                    membersLength: info.members || 0,
+                    quizLength: info.quizes || 0,
                     ownerName: info.ownerName,
                     ownerId: info.ownerId,
                     privacy: info.privacySetting,

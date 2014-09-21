@@ -50,8 +50,8 @@
              var lastQuery;
              $scope.search = debounce(function () {
                  var query = $scope.formData.searchInput;
-
-                 if (query.length < 2) {
+                 
+                 if (query && query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
                      $scope.universities = null;
@@ -159,7 +159,8 @@
                              name: $scope.formData.createDepartment.name,
                              id: response.payload.id
                          });
-                         $location.path('/dashboard/');
+                         window.open('/dashboard', '_self');
+                         //$location.path('/dashboard/');
 
                      }
                  });
@@ -197,7 +198,8 @@
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
                          sUserDetails.setDepartment($scope.selectedDepartment);
-                         $location.path('/dashboard/');
+                         window.open('/dashboard/', '_self');
+                         //$location.path('/dashboard/');
                      }
                  });
              };

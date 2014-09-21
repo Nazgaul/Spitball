@@ -1941,7 +1941,7 @@ iframe .registerFirst.store {
     display: table;
     visibility: visible;
     opacity: 0;
-    background: @txtColor;
+    background: #282828;
     color: #fff;
     border-radius: 3px;
     max-height: 200px;
@@ -1995,7 +1995,7 @@ iframe .registerFirst.store {
     padding: 0 12px;
     text-align: center;
     text-decoration: none;
-    background: @txtColor;
+    background: #282828;
     border-radius: 3px;
 }
 
@@ -2007,7 +2007,7 @@ iframe .registerFirst.store {
     -o-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    background :#39434a;
+    background :#282828;
     width:9px;
     height:9px;
     left:0;right:0;
@@ -2028,7 +2028,7 @@ iframe .registerFirst.store {
         -o-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
-        background :#39434a;
+        background :#282828;
         width:9px;
         height:9px;
         left:0;right:0;
@@ -2552,7 +2552,16 @@ select.inputText {
 }
 
 
-/*#endregion */ 
+/*#endregion */
+
+
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+    input[type="radio"].radio+label:before {
+        margin-top: -3px;
+    }
+}
+/*#endregion */
 
 
 /*#region IE only CSS */
