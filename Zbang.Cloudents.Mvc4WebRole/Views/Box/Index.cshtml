@@ -117,7 +117,7 @@
        
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
-                @{Html.RenderPartial("_QnA");}
+                @{Html.RenderPartial("_Feed");}
             </div>
             <div ng-switch-when="items">
                 @{Html.RenderPartial("_Items2");}

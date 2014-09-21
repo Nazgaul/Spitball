@@ -1,33 +1,31 @@
 ﻿@import "varsAndMixins";
 
-/*#region Q&A */
-
 .QA {
     overflow: hidden;
-    width: 366px;
-    color: #383838;
-    text-align: left; /*rtl*/
-    position: fixed;
-    .transition(top 1s ease-in);
+    width: 491px;
+    color: @textColor;
+    //text-align: left; /*rtl*/
+    //position: fixed;
+    //.transition(top 1s ease-in);
     //top: 150px;
-    top: 212px;
-    right: 20px; /*rtl*/
-    height: 100%;
-    z-index: 1; // QA to appear above box items on narrow screen
+    //top: 212px;
+    //right: 20px; /*rtl*/
+    //height: 100%;
+    //z-index: 1; // QA to appear above box items on narrow screen
     //background: url(/Images/gray_jean80.png?v=1) repeat #fff; // On narrow screen - QA needs background. (TODO: maybe set this in a separate media query??)
 
-    background: rgba(217, 217, 217, 0.65);
-    border-radius: 5px 5px 0 0;
+    //background: rgba(217, 217, 217, 0.65);
+    //border-radius: 5px 5px 0 0;
 
     &.changeState {
         .QWpr {
-            left: -344px; /*rtl*/
+            left: -344px; //rtl
             z-index: 0;
             opacity: 0;
         }
 
         .AWpr {
-            left: 0; /*rtl*/
+            left: 0; //rtl
             z-index: 2;
         }
 
@@ -54,10 +52,10 @@
 
         .back {
             //.transition(all, .5s ease 0s);
-            /*-webkit-transition: visibility .5s ease 0s,opacity .5s ease 0s;
-                -moz-transition: visibility .5s ease 0s,opacity .5s ease 0s;
-                -o-transition: visibility .5s ease 0s,opacity .5s ease 0s;
-                transition: visibility .5s ease 0s,opacity .5s ease 0s;*/
+            //-webkit-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   -moz-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   -o-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   transition: visibility .5s ease 0s,opacity .5s ease 0s;
         }
 
         .QItem {
@@ -66,21 +64,10 @@
     }
 
     .back {
-        //margin-bottom:6px;
-        //margin-top: -6px;
         height: 29px;
-        //visibility: hidden;
-        //opacity: 0;
-        //.transition(all, .5s ease 1.3s);
-        /*-moz-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
-        -o-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s; 
-        -webkit-transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;
-        transition: visibility .5s ease 1.3s,opacity .5s ease 1.3s;*/
-       // margin-bottom: -7px;
-        //top: -40px;
         position: relative;
         top: 5px;
-        left: 7px; /*rtl*/
+        left: 7px; //rtl
         .QForm {
             margin-top: 40px;
         }
@@ -95,11 +82,7 @@
 }
 
 .QForm {
-    //.transition(all, .5s ease 1.3s);
-    //opacity: 1;
-    //margin: 0 7px -20px 7px;
     margin: 10px 7px 0 7px;
-    //margin: 40px 7px -36px 7px;
 
     .textareaWpr {
         width: 350px;
@@ -114,7 +97,7 @@
     }
 
     .QAImg {
-        margin: 3px 0 0 8px; /*rtl*/
+        margin: 3px 0 0 8px; //rtl
     }
     .attachBtn {
         display: inline-block;
@@ -142,13 +125,13 @@
     //height: ~'calc(100vh - 277px)';
     //overflow-x: hidden;
     //overflow-y: auto; 
-    /*&:not(.ng-animate):not(.ng-enter-active) {
+    //&:not(.ng-animate):not(.ng-enter-active) {
         //left:0;
-    }
-    &:not(.ng-leave-active) {
+    //}
+    //&:not(.ng-leave-active) {
         //left:0;
-    }*/
-    &.ng-leave,
+    //}
+    /*&.ng-leave,
     &.ng-enter.ng-enter-active    {
         
         left: 0; //rtl
@@ -161,7 +144,7 @@
     &.ng-leave.ng-leave-active {
         opacity: 0;
         left: -344px; //rtl
-    }
+    }*/
 }
 
 .AWpr {
@@ -176,7 +159,7 @@
     .qaAttach {
         width: 303px;
     }
-    &.ng-leave, 
+    /*&.ng-leave, 
     &.ng-enter.ng-enter-active  {
         opacity: 1;
         left: 0; //rtl
@@ -185,7 +168,7 @@
     &.ng-leave.ng-leave-active {
         left: 376px; //rtl
         opacity: 0;
-    }
+    }*/
 }
 
 
@@ -332,13 +315,10 @@ textarea:invalid {
 }
 
 .QAContent {
-    //background: rgba(217,217,217,.65);
-    //border-radius: 5px 5px 0 0;
     overflow-y: auto;
     overflow-x: hidden; //for animation
     position: relative; //for animation
     height: 100%;
-    //border: 1px solid @borderColor;
     width: 366px;
     z-index: -1;
 }
@@ -808,8 +788,8 @@ textarea:invalid {
         border-top: none;
     }
 
-
-.bestAnswer {
+/*#region QnA game - OBSOLETE */
+/*.bestAnswer {
     color: @attentionColor;
     display: none;
     font-size: 13px;
@@ -836,7 +816,7 @@ textarea:invalid {
 }
 
 .aScore {
-    margin-right: 5px; /*rtl*/
+    margin-right: 5px; //rtl
     line-height: 32px;
 }
 
@@ -845,7 +825,7 @@ textarea:invalid {
     width: 18px;
     height: 18px;
     position: absolute;
-    left: 9px; /*rtl*/
+    left: 9px; //rtl
     top: 45px;
     background: @boxSprite -57px -47px no-repeat;
 
@@ -856,7 +836,11 @@ textarea:invalid {
     &:active {
         background-position: -57px -85px;
     }
-}
+}*/
+
+
+
+/*#endregion */
 
 .enterAnswer {
     margin: 6px 14px;
@@ -897,5 +881,3 @@ textarea:invalid {
         margin-top:9px;
     }
 }
-/*#endregion */
-
