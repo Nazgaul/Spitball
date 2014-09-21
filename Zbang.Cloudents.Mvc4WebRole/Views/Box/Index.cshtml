@@ -60,10 +60,10 @@
         <div class="boxActions topBar barShadow">
 
             <ul style="display:inline-block;">
-                <li ng-click="options.activeTab = 'feed'">Feed</li>
-                <li ng-click="options.activeTab = 'items'">Items</li>
-                <li ng-click="options.activeTab = 'quizzes'">Quizzes</li>
-                <li ng-click="options.activeTab = 'members'">Members</li>
+                <li ng-click="setTab('feed')">Feed</li>
+                <li ng-click="setTab('items')">Items</li>
+                <li ng-click="setTab('quizzes')">Quizzes</li>
+                <li ng-click="setTab('members')">Members</li>
             </ul>
              {{info.itemsLength}}
             {{info.quizzesLength}}
@@ -103,7 +103,7 @@
         </div>*@
 
 
-        <div class="box-content" ng-switch="options.activeTab">
+        <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_QnA");}
             </div>

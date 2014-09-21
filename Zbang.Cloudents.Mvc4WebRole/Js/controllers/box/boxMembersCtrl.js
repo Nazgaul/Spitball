@@ -1,15 +1,24 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', '$modal', 'sBoxData',
-        function ($scope, $filter, $modal, sBoxData) {
+        ['$scope', '$filter', '$modal', 'sBox',
+        function ($scope, $filter, $modal, sBox) {
             //Members
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
             };
             $scope.params = {};
 
-            var members = sBoxData.getMembers();
-            $scope.members = $filter('orderByFilter')(members, { field: 'name', input: '' });
-            $scope.params.membersLength = members.length;
+            var members;;
+
+            sBox.members({ boxId: $scope.boxId }).then(function (response) {
+                var data = response.success ? response.payload : [];
+                members = data;
+
+                $scope.members = $filter('orderByFilter')(members, { field: 'name', input: '' });
+                $scope.params.membersLength = members.length;
+                $scope.options.loader = false;
+            });
+
+            
 
             $scope.sendUserMessage = function (member) {
                 var modalInstance = $modal.open({

@@ -11,7 +11,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
         itemsLimit: 21
     };
 
-    $scope.options = {
+    $scope.iOptions = {
         currentView: consts.view.thumb,
         itemsLimit: consts.itemsLimit,
         manageTab: false,
@@ -19,17 +19,18 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
         starsWidth: 69,
     }
 
-    $scope.items = _.map(sBoxData.getFiles(), function (item) {
-        item.isNew = sNewUpdates.isNew($scope.boxId, 'items', item.id);
+    sBox.items({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
+        var data = response.success ? response.payload : [];
+        $scope.items = _.map(data, function (item) {
+            item.isNew = sNewUpdates.isNew($scope.boxId, 'items', item.id);
+            return item;
+        });
 
-        return item;
+        $scope.items.sort(sortItems);
+        $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+        $scope.options.loader = false;
+
     });
-
-    $scope.items.sort(sortItems);
-    $scope.filteredItems = $filter('filter')($scope.items, filterItems);
-
-
-
 
     //#region upload
     $scope.$on('FileAdded', function (event, data) {
@@ -216,12 +217,12 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
 
     //#region view
     $scope.changeView = function (view) {
-        if ($scope.options.currentView === view) {
+        if ($scope.iOptions.currentView === view) {
             return;
         }
-        $scope.options.itemsLimit = consts.itemsLimit;
-        $scope.options.lastView = $scope.options.currentView;
-        $scope.options.currentView = view;
+        $scope.iOptions.itemsLimit = consts.itemsLimit;
+        $scope.iOptions.lastView = $scope.options.currentView;
+        $scope.iOptions.currentView = view;
     };
 
     $scope.getView = function (item) {
@@ -241,7 +242,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
 
     //#region items
     $scope.selectItem = function (e, item) {
-        if ($scope.options.manageTab) {
+        if ($scope.iOptions.manageTab) {
             e.preventDefault();
             item.isCheck = !item.isCheck;
             return;
@@ -301,7 +302,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
 
     function filterItems(item) {
         if (item.sponsored) {
-            $scope.options.sponsored = true;
+            $scope.iOptions.sponsored = true;
         }
 
         if (!$scope.info.currentTab) {
@@ -340,7 +341,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
 
     //#region scroll
     $scope.addItems = function () {
-        $scope.options.itemsLimit += 7;
+        $scope.iOptions.itemsLimit += 7;
     };
     //#endregion            
 

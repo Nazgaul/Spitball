@@ -73,10 +73,17 @@ mBox.controller('QnACtrl',
 
         $scope.qFormData = {};
 
-        $scope.$on('qna', function (e, questions) {
+
+        sQnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }).then(function (response) {
+
+
+            var questions = response.success ? response.payload : {}
             $scope.info.questions = questions.map(function (question) {
                 return new Question(question);
             });
+
+            $scope.options.loader = false;
+
             if (!questions) {
                 $scope.info.state = states.none;
                 return;
