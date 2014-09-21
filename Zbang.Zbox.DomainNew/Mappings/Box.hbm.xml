@@ -23,13 +23,10 @@
 
     <component name="PrivacySettings" class="PrivacySettings">
       <property name="PrivacySetting" not-null="true"/>
-      <!--<property name="Password"/>-->
     </component>
 
-    <!--<property name="Uid" access="readonly"/>-->
 
     <property name="IsDeleted"/>
-    <!--<property name="Description" length="400" />-->
     <many-to-one name="Owner" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdBoxes"/>
 
     <set name="UserBoxRelationship"  cascade="all-delete-orphan" inverse="true" batch-size="20">
@@ -64,11 +61,8 @@
     <property name="CommentCount">
       <column name="CommentCount" default="0" not-null="true"/>
     </property>
-    <!--<set name="Tags" table="BoxTag2" lazy="true" inverse="false"  cascade="save-update">
-      <key column="BoxId"/>
-      <many-to-many column="TagId"
-          class="Tag"/>
-    </set>-->
+    <property name="QuizCount" />
+  
 
     <subclass name="AcademicBox" discriminator-value="Academic">
       <property name="CourseCode"/>

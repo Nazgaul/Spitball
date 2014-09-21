@@ -8,7 +8,7 @@ mBox.controller('BoxCtrl',
          'sNewUpdates', 'sUserDetails', 'sFacebook', 'sBoxData',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, Box, Item, Quiz, QnA, NewUpdates, UserDetails, Facebook, sBoxData) {
+                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sBoxData) {
 
             cd.pubsub.publish('box');//statistics
 
@@ -39,7 +39,7 @@ mBox.controller('BoxCtrl',
                 activeTab: 'feed'
             };
 
-            Box.info({ id: $scope.boxId}).then(function (response) {
+            sBox.info({ id: $scope.boxId}).then(function (response) {
                 var info = response.success ? response.payload : null;
 
                 $scope.info = {
@@ -112,11 +112,11 @@ mBox.controller('BoxCtrl',
                 }
 
                 saveItemsToTab(savedItems);
-                resetLastView();
+               // resetLastView();
             };
 
             $scope.manageCancel = function () {
-                resetLastView();
+                //resetLastView();
             };
 
             $scope.deleteTab = function (tab) {
@@ -124,7 +124,7 @@ mBox.controller('BoxCtrl',
                     boxId: $scope.boxId,
                     TabId: tab.id
                 }
-                Box.deleteTab(data).then(function (response) {
+                sBox.deleteTab(data).then(function (response) {
                     if (!response.success) {
                         alert(jsResources.DeleteError);
                         return;
@@ -135,7 +135,7 @@ mBox.controller('BoxCtrl',
                 $scope.info.tabs.splice(index, 1);
                 $scope.info.currentTab = null;
                 $scope.options.manageTab = false;
-                $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+               // $scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $rootScope.$broadcast('update_scroll');
 
 
@@ -172,7 +172,7 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.createTab = function () {
-                if (!UserDetails.isAuthenticated()) {
+                if (!sUserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
@@ -219,8 +219,8 @@ mBox.controller('BoxCtrl',
                     return;
                 }
                 $scope.filteredItems = filteredItems;
-                $scope.changeView(consts.view.thumb);
-                $scope.options.itemsLimit = consts.itemsLimit;
+                //$scope.changeView(consts.view.thumb);
+                //$scope.options.itemsLimit = consts.itemsLimit;
 
 
                 for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
@@ -233,9 +233,9 @@ mBox.controller('BoxCtrl',
             $scope.selectTab = function (tab) {
                 $scope.info.currentTab = tab;
 
-                $scope.options.itemsLimit = consts.itemsLimit;
+                //$scope.options.itemsLimit = consts.itemsLimit;
 
-                $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+                //$scope.filteredItems = $filter('filter')($scope.items, filterItems);
 
                 if (!tab) { //all
                     return;
@@ -253,7 +253,7 @@ mBox.controller('BoxCtrl',
                     nDelete: !tabId //delete is false if only one item added from draganddrop
                 };
 
-                Box.addItemsToTab(data).then(function (response) {
+                sBox.addItemsToTab(data).then(function (response) {
                     if (!response.success) {
                         alert(jsResources.FolderItemError);
                     }
@@ -278,7 +278,7 @@ mBox.controller('BoxCtrl',
                 $scope.popup.share = false;
 
 
-                Facebook.share($scope.info.url, //url
+                sFacebook.share($scope.info.url, //url
                       $scope.info.name, //title
                        $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
                        jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
@@ -316,7 +316,7 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.inviteFriends = function (e) {
-                if (!UserDetails.isAuthenticated()) {
+                if (!sUserDetails.isAuthenticated()) {
                     e.preventDefault();
                     cd.pubsub.publish('register', { action: true });
                     return;
@@ -336,7 +336,7 @@ mBox.controller('BoxCtrl',
 
             //$scope.openBoxSettings = function (tab) {
 
-            //    if (!UserDetails.isAuthenticated()) {
+            //    if (!sUserDetails.isAuthenticated()) {
             //        cd.pubsub.publish('register', { action: true });
             //        return;
             //    }
@@ -346,8 +346,8 @@ mBox.controller('BoxCtrl',
             //        return;
             //    }
 
-            //    var memberPromise = Box.members({ boxId: $scope.boxId }),
-            //       notificationPromise = Box.notification({ boxId: $scope.boxId }),
+            //    var memberPromise = sBox.members({ boxId: $scope.boxId }),
+            //       notificationPromise = sBox.notification({ boxId: $scope.boxId }),
             //       settingsAll = $q.all([memberPromise, notificationPromise]),
             //       notification;
 
@@ -417,10 +417,10 @@ mBox.controller('BoxCtrl',
                 $scope.info.userType = 'subscrie';
 
                 var member = {
-                    uid: UserDetails.getDetails().id,
-                    name: UserDetails.getDetails().name,
-                    image: UserDetails.getDetails().image,
-                    url: UserDetails.getDetails().url
+                    uid: sUserDetails.getDetails().id,
+                    name: sUserDetails.getDetails().name,
+                    image: sUserDetails.getDetails().image,
+                    url: sUserDetails.getDetails().url
                 };
 
                 if ($scope.info.members.length < 7) {
@@ -438,19 +438,19 @@ mBox.controller('BoxCtrl',
                     $scope.info.showJoinGroup = false;
                 }, 3300);
 
-                Facebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
+                sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
                 if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;
                 }
 
-                Box.follow({ BoxId: $scope.boxId }).then(function () {
+                sBox.follow({ BoxId: $scope.boxId }).then(function () {
 
                 });
             };
 
             $scope.isUserLoggedIn = function () {
-                return UserDetails.isAuthenticated();
+                return sUserDetails.isAuthenticated();
             };
 
             $scope.isUserFollowing = function () {
@@ -476,7 +476,7 @@ mBox.controller('BoxCtrl',
                }
            },
            setItems: function (items) {
-               if (items === null) {
+               if (!items) {
                    return;
                }
 
@@ -531,7 +531,7 @@ mBox.controller('BoxCtrl',
                    data.quizzes = [];
                }
 
-               data.quizzes.push(file);
+               data.quizzes.push(quiz);
 
                $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
            },
