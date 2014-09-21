@@ -9,7 +9,6 @@ function ($scope, $modalInstance, data, sItem) {
     $scope.disable = false;
 
     $scope.renameItem = function () {
-        console.log($scope.formdata);
         $scope.disable = true;
 
         sItem.rename($scope.formdata).then(function (response) {
@@ -18,7 +17,7 @@ function ($scope, $modalInstance, data, sItem) {
                 alert(response.payload);
                 return;
             }
-            $modalInstance.close(response.payload.name);
+            $modalInstance.close(response.payload);
         });
        
      };

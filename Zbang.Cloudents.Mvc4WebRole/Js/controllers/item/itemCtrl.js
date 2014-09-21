@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal','sUserDetails',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal','sUserDetails','$location',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails,$location) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
 
@@ -94,8 +94,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 }
             }
         });
-        modelInstance.result.then(function (newName) {
-            $scope.item.name = newName;
+        modelInstance.result.then(function (d) {
+            $scope.item.name = d.name;
+            $location.path(d.url).replace();
             //TODO: change url
         });
         $scope.$on('$destroy', function () {
