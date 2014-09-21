@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
@@ -44,26 +45,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns>box view</returns>
         [NonAjax]
         [Route("box/{boxUid:length(11)}")]
-        public ActionResult Index(string boxUid)
+        public async Task<ActionResult> Index(string boxUid)
         {
             try
             {
                 var boxid = m_ShortCodesCache.Value.ShortCodeToLong(boxUid);
-                var query = new GetBoxQuery(boxid, GetUserId(false));
-                var box = ZboxReadService.GetBox(query);
-
-                var builder = new UrlBuilder(HttpContext);
-                var url = builder.BuildBoxUrl(box.BoxType, boxid, box.Name, box.OwnerName);
-                return RedirectPermanent(url);
-            }
-            catch (BoxAccessDeniedException)
-            {
-                if (Request.IsAjaxRequest())
+                var query = new GetBoxSeoQuery(boxid);
+                var model = await ZboxReadService.GetBoxSeo(query);
+                if (model == null)
                 {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                    throw new BoxDoesntExistException();
                 }
-                return RedirectToAction("MembersOnly", "Error");
+                return RedirectPermanent(model.Url);
             }
+           
             catch (BoxDoesntExistException)
             {
                 if (Request.IsAjaxRequest())
@@ -75,39 +70,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
         [NoCache]
-        public ActionResult IndexDesktop(string universityName, long boxId, string boxName)
+        public async Task<ActionResult> IndexDesktop(string universityName, long boxId, string boxName)
         {
             var userId = GetUserId(false);
             try
             {
-                var query = new GetBoxQuery(boxId, userId);
-                var box = ZboxReadService.GetBox(query);
-                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
-                if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
+                var query = new GetBoxSeoQuery(boxId);
+                var model = await ZboxReadService.GetBoxSeo(query);
+                if (model == null)
                 {
-
-                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, box.Name,
-                        box.OwnerName, BaseControllerResources.Cloudents);
-                    ViewBag.metaDescription = Regex.Replace(string.Format(
-                        BaseControllerResources.MetaDescription, box.Name,
-                        string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
-                        string.IsNullOrWhiteSpace(box.ProfessorName)
-                            ? string.Empty
-                            : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, box.ProfessorName)),
-                        @"\s+", " ");
+                    throw new BoxDoesntExistException();
                 }
-                else
+                if (model.BoxType == BoxType.Box)
                 {
-                    ViewBag.title = string.Format("{0} | {1}", box.Name, BaseControllerResources.Cloudents);
+                    ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
+                    return View("Empty");
                 }
+                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, model.Name,
+                    model.UniversityName, BaseControllerResources.Cloudents);
+                ViewBag.metaDescription = Regex.Replace(string.Format(
+                    BaseControllerResources.MetaDescription, model.Name,
+                    string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
+                    string.IsNullOrWhiteSpace(model.Professor)
+                        ? string.Empty
+                        : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
+                    @"\s+", " ");
                 return View("Empty");
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
-                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)
             {
@@ -168,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
                 }
-                return Request.Url == null ? RedirectToAction("MembersOnly", "Error") 
+                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
                     : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)

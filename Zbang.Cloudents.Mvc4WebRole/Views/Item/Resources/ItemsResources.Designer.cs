@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report abuse.
+        ///   Looks up a localized string similar to Flag.
         /// </summary>
         public static string Flag {
             get {

@@ -17,9 +17,15 @@
         left: auto;
     }
     .svg-back {
-         right: 0; //rtl
+         right: 12px; //rtl
          left: auto;
         .flipH(1); //rtl
+    }
+    .backWpr.backWpr {
+        padding: 0 57px 0 0; //rtl
+        &:before {
+            display: none;
+        }
     }
 }
 /*#endregion */
@@ -38,18 +44,22 @@
 /*#endregion */
 
 /*#region item topBars */
-
-/*#region topBar - main */
-
+ 
+/*#region topBar - main*/
+.middleActionItem{
+    &:first-child {
+        margin: 0 0 0 22px; //rtl
+    }
+    .svg-download {
+        .translateX(2px); //rtl
+    }
+}
 /*#endregion */
 
 /*#region second bar - left */
 .secondBar {
     .svg-eye, .svg-download{
         margin: 0 0 0 5px; //rtl
-    }
-    .svg-star {
-        float: left; //rtl
     }
     .mainPart {
         margin: 0 @leftSideBarWidth 0 0; //rtl
@@ -78,6 +88,11 @@
 /*#endregion */
 
 /*#region left panel */
+.leftPanel{
+    .svg-star {
+        float: left; //rtl
+    }
+}
 
 .itemComments {
     .addComBtn {

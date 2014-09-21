@@ -10,7 +10,6 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
@@ -20,7 +19,6 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -52,15 +50,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //    Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
-        //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+            Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
         }
 
-        //[NoCache]
+        [NoCache]
         public async Task<ActionResult> IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
@@ -253,26 +251,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Used to rename file name - item name cannot be changed
         /// </summary>
-        /// <param name="newFileName"></param>
-        /// <param name="itemId"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonResult Rename(string newFileName, long itemId)
+        public JsonResult Rename(Rename model)
         {
-            if (string.IsNullOrWhiteSpace(newFileName))
+            if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, "need file name"));
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-            if (newFileName.Length > Item.NameLength)
-            {
-                return Json(new JsonResponse(false, "File name to long"));
-            }
+          
             var userId = GetUserId();
             try
             {
-                var command = new ChangeFileNameCommand(itemId, newFileName, userId);
+                var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
                 var result = ZboxWriteService.ChangeFileName(command);
                 return Json(new JsonResponse(true, new
                 {
@@ -291,7 +285,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", newFileName, itemId, userId), ex);
+                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
                 return Json(new JsonResponse(false, "Error"));
             }
 

@@ -90,8 +90,7 @@
             <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
                target="_self" class="rFloat inviteFriendsBtn" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
             <a class="backWpr elps lFloat" ng-href="{{$root.back.url}}">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont">{{$root.back.title}}</h2>
+                <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
         </div>
 

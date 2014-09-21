@@ -80,13 +80,12 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <div class="rateWpr rFloat">
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-                <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            </div>
+
+            @*Guy: please add windowClass 'flagItem' in the js Cntrl file*@
+            <button type="button" class="itemFlag rFloat" data-bind="click: flagItem, visible: flagAllow()">
+                <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
+                <span>@ItemsResources.Flag</span>
+            </button>
         </div>
 
         <div class="mainPart">
@@ -99,17 +98,23 @@
                         <svg class="svg-pencil"><use xlink:href="~/Images/Defs.svg#pencil" /></svg>
                     </button>
                 </h2>
-                <div class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</div>
+                <div class="uploadInfo">
+                    <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>
+                    <time>13 October 1901</time>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="leftPanel lFloat">
-        @*<span class="lFloat" data-bind="text: update"></span>*@
-        <button type="button" class="itemFlag" data-bind="click: flagItem, visible: flagAllow()">
-            <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
-            <span>@ItemsResources.Flag</span>
-        </button>
+        <span class="rateTxt">@ItemsResources.Rate</span>
+        <div class="rateWpr">
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+        </div>
 
         <section class="itemComments">
             <header>@SharedResources.AddComment</header>
@@ -154,17 +159,10 @@
             </div>
         </section>
     </div>
-
     <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
-            <div load-spinner="load.contentLoadMore" load-spinner-type="page"</div>
+            <div load-spinner="load.contentLoadMore" load-spinner-type="page"></div>
         </div>
     </div>
 </div>
-
-@{Html.RenderPartial("Rename");}
-
-
-
-

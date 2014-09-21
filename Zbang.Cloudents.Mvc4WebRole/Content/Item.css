@@ -25,6 +25,9 @@ body.item .siteHeader {
 .itemRight {
   background: #282828;
 }
+.itemPage {
+  overflow-x: hidden;
+}
 .itemPage .topBar {
   color: #fff;
   border: none;
@@ -52,7 +55,10 @@ body.item .siteHeader {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.itemPage .backWpr:before {
+.itemPage .backWpr.backWpr {
+  padding-left: 57px;
+}
+.itemPage .backWpr.backWpr:before {
   display: none;
 }
 .itemPage .shareDD {
@@ -73,7 +79,7 @@ body.item .siteHeader {
 .itemPage .svg-back {
   display: inline-block;
   position: absolute;
-  left: 0;
+  left: 12px;
   top: 0;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -119,6 +125,12 @@ body.item .siteHeader {
   height: 20px;
   fill: #fff;
 }
+.rate {
+  fill: #ffc104;
+}
+.rate:hover {
+  fill: #fff;
+}
 .svg-prev,
 .svg-next {
   width: 13px;
@@ -138,9 +150,11 @@ body.item .siteHeader {
   fill: #fff;
 }
 .svg-flag {
-  width: 21px;
-  height: 30px;
+  width: 17px;
+  height: 28px;
   fill: #fff;
+  position: relative;
+  top: 8px;
   margin-right: 5px;
 }
 /*#endregion */
@@ -167,6 +181,9 @@ body.item .siteHeader {
   margin: 0 15px;
   position: relative;
 }
+.middleActionItem:first-child {
+  margin-right: 22px;
+}
 .middleActionItem .actionLink,
 .middleActionItem > label,
 .middleActionItem > button {
@@ -176,10 +193,20 @@ body.item .siteHeader {
   cursor: pointer;
 }
 .middleActionItem label svg {
-  top: 15px;
+  top: 18px;
 }
 .middleActionItem:hover svg {
   fill: #3399ff;
+}
+.middleActionItem .svg-download {
+  -webkit-transform: translateX(-2px);
+  -moz-transform: translateX(-2px);
+  -o-transform: translateX(-2px);
+  -ms-transform: translateX(-2px);
+  transform: translateX(-2px);
+}
+.middleActionItem .svg-print {
+  top: 17px;
 }
 /*#endregion */
 /*#region second bar - left */
@@ -205,12 +232,6 @@ body.item .siteHeader {
   padding-top: 17px;
   display: inline-block;
 }
-.secondBar .rateWpr {
-  width: 126px;
-  position: relative;
-  top: 23px;
-  cursor: pointer;
-}
 .secondBar .svg-eye {
   position: relative;
   top: 3px;
@@ -220,16 +241,6 @@ body.item .siteHeader {
   position: relative;
   top: 6px;
   margin-right: 5px;
-}
-.secondBar .svg-star {
-  width: 25px;
-  float: right;
-}
-.secondBar .svg-star:hover {
-  fill: #ffc104;
-}
-.secondBar .svg-star:hover ~ .svg-star {
-  fill: #ffc104;
 }
 .secondBar .mainPart {
   width: 800px;
@@ -243,12 +254,20 @@ body.item .siteHeader {
 .secondBar .mainPart .navBtn {
   padding-top: 25px;
 }
+.itemFlag {
+  color: #fff;
+  font-size: 15px;
+  padding-top: 12px;
+}
+.itemFlag:hover .svg-flag {
+  fill: #3399ff;
+}
 /*#endregion */
 /*#region second bar - main */
-.itemOwner {
+.uploadInfo {
   text-align: left;
-  color: #fff;
   clear: both;
+  color: #fff;
 }
 .itemNameWpr {
   display: inline-block;
@@ -286,30 +305,35 @@ body.item .siteHeader {
   box-sizing: border-box;
   padding: 0 15px;
 }
-.itemFlag {
-  display: block;
-  color: #fff;
+.leftPanel .rateTxt {
   font-size: 15px;
-  margin-bottom: 10px;
-  /*&:before
-    {
-        .pseudo;
-        width: 15px;
-        height: 17px;
-        background: @item-sprite1 -70px -2px no-repeat;
-        vertical-align: middle;
-        margin-right: 5px; //rtl
-    }
-    &:hover:before {
-        background-position: -71px -21px;
-    }*/
+  color: #fff;
+  vertical-align: top;
+  display: inline-block;
+  padding-top: 2px;
 }
-.itemFlag:hover .svg-flag {
-  fill: #3399ff;
+.leftPanel .rateWpr {
+  width: 126px;
+  position: relative;
+  cursor: pointer;
+  height: 22px;
+  display: inline-block;
+}
+.leftPanel .svg-star {
+  width: 25px;
+  float: right;
+}
+.leftPanel .svg-star:hover {
+  fill: #ffc104;
+}
+.leftPanel .svg-star:hover ~ .svg-star {
+  fill: #ffc104;
 }
 .itemComments {
   color: #fff;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #c2c2c2;
+  clear: both;
+  margin-top: 8px;
 }
 .itemComments header {
   font-size: 20px;

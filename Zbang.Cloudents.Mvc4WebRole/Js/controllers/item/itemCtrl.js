@@ -45,7 +45,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;
 
             var data = response.success ? response.payload : '';
-            if (data.preview.length > 10) {
+            if (data.preview) {
                 loadMore = true;
             }
             $scope.preview += data.preview;
@@ -81,9 +81,22 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     }
     $scope.renameWindow = function() {
         var modelInstance = $modal.open({
+            windowClass: 'rename',
             templateUrl: '/Item/Rename/',
-            //controller: 'ItemFullScreenCtrl',
-            backdrop: false
+            controller: 'itemRenameCtrl',
+            backdrop: false,
+            resolve: {
+                data: function () {
+                    return {
+                        name: $scope.item.name,
+                        id: $routeParams.itemId
+                    };
+                }
+            }
+        });
+        modelInstance.result.then(function (newName) {
+            $scope.item.name = newName;
+            //TODO: change url
         });
         $scope.$on('$destroy', function () {
             if (modelInstance) {

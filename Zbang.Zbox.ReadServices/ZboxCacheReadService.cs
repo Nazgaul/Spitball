@@ -363,5 +363,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetItemSeo(query);
         }
+
+
+        public Task<BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query)
+        {
+            return m_ReadService.GetBoxSeo(query);
+        }
     }
 }

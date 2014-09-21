@@ -51,8 +51,15 @@
 .modal.uploader,
 .modal.uploadLink,
 .modal.invite,
-.modal.personalMsg {
+.modal.personalMsg,
+.modal.rename {
   width: 600px;
+}
+.modal.flagItem {
+  width: 570px;
+}
+.modal.flagItem li {
+  margin-top: 15px;
 }
 .modal.quitQuiz {
   width: 560px;
@@ -314,6 +321,16 @@
 }
 .popupWrppr {
   max-height: 396px;
+  /*&.itemRename {
+        color:@textColor;
+        .inputText {
+            padding: 0 8px;
+            width: 100%;
+            margin: 15px 0;
+            font-size:16px;
+            .boxSizing;
+        }
+    }*/
 }
 .popupWrppr .closeDialog {
   background-position: -79px -25px;
@@ -341,12 +358,6 @@
   width: 448px;
   min-height: 125px;
 }
-.popupWrppr.flagItem {
-  width: 570px;
-}
-.popupWrppr.flagItem li {
-  margin-top: 15px;
-}
 .popupWrppr.requestSent {
   display: none;
   -webkit-animation: fadein 0.5s 0 ease;
@@ -357,18 +368,6 @@
 }
 .popupWrppr.requestSent .closeDialog {
   background-position: -79px -15px;
-}
-.popupWrppr.itemRename {
-  color: #383838;
-}
-.popupWrppr.itemRename .inputText {
-  padding: 0 8px;
-  width: 100%;
-  margin: 15px 0;
-  font-size: 16px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .quitQuizDialog {
   display: none;
