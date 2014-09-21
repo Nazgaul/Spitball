@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sBoxData', 'sNewUpdates', 'sUserDetails', 'sUpload', 'sFacebook',
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, sNewUpdates, sUserDetails, sUpload, sFacebook) {
+		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'sUserDetails', 'sUpload', 'sFacebook',
+function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox,  sNewUpdates, sUserDetails, sUpload, sFacebook) {
     var jsResources = window.JsResources;
 
     var consts = {
@@ -14,10 +14,10 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
     $scope.iOptions = {
         currentView: consts.view.thumb,
         itemsLimit: consts.itemsLimit,
-        manageTab: false,
         starsLength: 5,
         starsWidth: 69,
-    }
+        currentTab: null
+    };
 
     sBox.items({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -229,15 +229,15 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
         return $scope.options.currentView === consts.view.thumb ? 'itemThumbView' : 'itemListView';
     };
 
-    //function resetLastView() {
-    //    if ($scope.options.lastView) {
-    //        $scope.changeView($scope.options.lastView);
-    //    }
+    function resetLastView() {
+        if ($scope.iOptions.lastView) {
+            $scope.changeView($scope.iOptions.lastView);
+        }
 
-    //    $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+        $scope.filteredItems = $filter('filter')($scope.items, filterItems);
 
-    //    $scope.options.manageTab = false;
-    //}
+        $scope.iOptions.manageTab = false;
+    }
     //#endregion
 
     //#region items
@@ -345,6 +345,78 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sBoxData, 
     };
     //#endregion            
 
+    //#region tabs
 
+    $scope.$on('selectTab', function (tab) {
+        $scope.iOptions.currentTab = tab;
+
+        $scope.iOptions.itemsLimit = consts.itemsLimit;
+        $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+    });
+
+    $scope.$on('manageTab', function () {
+        var filteredItems = $filter('filter')($scope.items, filterManageItems);
+        if (!filteredItems.length) {
+            return;
+        }
+        $scope.filteredItems = filteredItems;
+        $scope.changeView(consts.view.thumb);
+        $scope.iOptions.itemsLimit = consts.itemsLimit;
+
+
+        for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
+            $scope.filteredItems[i].isCheck = ($scope.iOptions.currentTab.id === $scope.filteredItems[i].tabId);
+        }
+
+        $scope.iOptions.manageTab = true;
+    });
+
+    $scope.manageSave = function () {
+        var savedItems = [],
+            item;
+
+        for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
+            item = $scope.filteredItems[i];
+            if (item.isCheck) {
+                savedItems.push(item.id);
+                item.tabId = $scope.info.currentTab.id;
+                continue;
+            }
+            item.tabId = null;
+        }
+
+        saveItemsToTab(savedItems);
+        // resetLastView();
+    };
+
+    $scope.manageCancel = function () {
+        //resetLastView();
+    };
+
+    function saveItemsToTab(items, tabId) {
+        var data = {
+            boxId: $scope.boxId,
+            tabId: tabId || $scope.info.currentTab.id, //tabId from draganddrop
+            itemId: items,
+            nDelete: !tabId //delete is false if only one item added from draganddrop
+        };
+
+        sBox.addItemsToTab(data).then(function (response) {
+            if (!response.success) {
+                alert(jsResources.FolderItemError);
+            }
+        });
+
+    }
+
+    function filterManageItems(item) {
+        if (item.sponsored) {
+            $scope.iOptions.sponsored = true;
+        }
+
+        return true;
+    }
+
+    //#endregion
 }
 		]);

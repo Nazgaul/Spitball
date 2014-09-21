@@ -903,6 +903,7 @@
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
     <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
+    <Content Include="Js\controllers\box\boxTabsCtrl.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\socialInviteCtrl.js" />
     <Content Include="Js\controllers\general\shareCtrl.js" />
