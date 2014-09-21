@@ -5,6 +5,18 @@ mBox.factory('sBox',
 
     function ($http, $q) {
         var Box = '/Box/';
+        function ajaxRequest(data, type, link) {
+            var dfd = $q.defer();
+            if (type === $http.get) {
+                data = { params: data };
+            }
+            type(Box + link, data).success(function (response) {
+                dfd.resolve(response);
+            }).error(function (response) {
+                dfd.reject(response);
+            });
+            return dfd.promise;
+        }
         return {
             createPrivate: function (data) {
                 var dfd = $q.defer();
@@ -37,14 +49,10 @@ mBox.factory('sBox',
                 return dfd.promise;
             },
             items: function (data) {
-                var dfd = $q.defer();
-                $http.get(Box + 'Items/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxRequest(data, $http.get, 'Items/');
+            },
+            quizes: function(data) {
+                return ajaxRequest(data, $http.get, 'Quizes/');
             },
             info: function (data) {
                 var dfd = $q.defer();

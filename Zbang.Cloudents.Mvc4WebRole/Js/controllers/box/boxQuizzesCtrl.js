@@ -12,24 +12,37 @@
                 itemsLimit: 21
             };
 
-            $scope.qOptions, {
+            $scope.qOptions =  {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
                 manageTab: false,
                 starsLength: 5,
                 starsWidth: 69,
             };
+           // $scope.quizzes = [];
+            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
+                var data = response.success ? response.payload : [];
+                $scope.quizzes = _.map(data, function (quiz) {
+                    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
+                    return quiz;
+                });
+                //_.forEach($scope.quizzes, function (quiz) {
+                //    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
+                //});
 
-            $scope.quizzes = [];           
-            _.forEach($scope.quizzes, function (quiz) {
-                quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
-            });
-
-            $scope.quizzes.sort(sort);
-
-            $timeout(function () {
+                $scope.quizzes.sort(sort);
+                //$scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $scope.options.loader = false;
-            }, 1000);
+
+            });
+                      
+           
+
+           // $scope.quizzes.sort(sort);
+
+            //$timeout(function () {
+            //    $scope.options.loader = false;
+            //}, 1000);
 
             //#region quiz
             $scope.addQuiz = function () {
@@ -90,16 +103,17 @@
 
             //#region view
             $scope.changeView = function (view) {
-                if ($scope.options.currentView === view) {
+                if ($scope.qOptions.currentView === view) {
                     return;
                 }
                 $scope.qOptions.itemsLimit = consts.itemsLimit;
-                $scope.qOptions.lastView = $scope.options.currentView;
+                $scope.qOptions.lastView = $scope.qOptions.currentView;
                 $scope.qOptions.currentView = view;
             };
 
             $scope.getView = function () {
-                return $scope.options.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
+                console.log($scope.qOptions.currentView);
+                return $scope.qOptions.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
             };
 
             //function resetLastView() {
