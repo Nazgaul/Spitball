@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <section class="boxFeed" ng-controller="QnACtrl">
-    <form class="boxFeed" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
+    <form name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
         <div class="textareaWpr">
             <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
             <textarea text-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
@@ -23,7 +23,7 @@
 
     <ul class="boxFeedList">
         <li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
-            <img class="QAImg" alt="" width="32" height="32" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" /> @*//uid*@
+            <img class="QAImg" alt="" width="32" height="32" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
             <div class="attachBtn"></div>
             <div class="numAttached">{{question.files.length}}</div>
             <div class="userName boldFont elps">{{question.userName}}</div>
