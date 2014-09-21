@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -2615,7 +2615,7 @@ body.quiz .shareBtn {
 .quizPage .quizViews {
   border: none;
   border-right: 1px solid #797979;
-  margin: 10px 0 0 -5px;
+  margin: 10px 5px 0 -5px;
 }
 .quizPage .itemNameWpr {
   padding: 16px 56px 8px 15px;
@@ -2706,4 +2706,3 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
-/*# sourceMappingURL=RTL3.css.map */
