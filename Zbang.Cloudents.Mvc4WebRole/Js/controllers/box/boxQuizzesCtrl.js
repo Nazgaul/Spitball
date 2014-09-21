@@ -112,7 +112,6 @@
             };
 
             $scope.getView = function () {
-                console.log($scope.qOptions.currentView);
                 return $scope.qOptions.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
             };
 

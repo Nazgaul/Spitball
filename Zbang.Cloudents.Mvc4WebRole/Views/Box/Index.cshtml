@@ -83,16 +83,13 @@
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
+            
             <ul class="boxTabs">
-                <li class="current" ng-click="setTab('feed')">Feed</li>
-                <li ng-click="setTab('items')">Items</li>
-                <li ng-click="setTab('quizzes')">Quizzes</li>
-                <li ng-click="setTab('members')">Members</li>
+                <li ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">Feed</li>
+                <li ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">Items</li>
+                <li ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">Quizzes</li>
+                <li ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">Members</li>
             </ul>
-             {{info.itemsLength}}
-            {{info.quizzesLength}}
-            
-            
         </div>
 
         @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
@@ -103,7 +100,7 @@
             </div>
         </div>*@
 
-
+       
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_QnA");}
