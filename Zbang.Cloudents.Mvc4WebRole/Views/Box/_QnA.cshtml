@@ -1,9 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<aside class="QA rFloat" ng-if="info.state !== 0" ng-controller="QnACtrl">
+<aside class="QA" ng-controller="QnACtrl">
 
-    <button type="button" ng-click="showAllQuestion()" ng-if="info.state === 3" class="back">@SharedResources.Back</button>
+    @*<button type="button" ng-click="showAllQuestion()" ng-if="info.state === 3" class="back">@SharedResources.Back</button>*@
 
     <form class="clearfix QForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" ng-if="info.state > 1 && !info.selectedQuestion" novalidate ng-init="showPost=false">
         <div class="textareaWpr">
@@ -23,7 +23,7 @@
     </form>
 
 
-    <div class="QWpr" m-custom-scrollbar top="299" ng-animate="'animate'" ng-if="info.state === 2">
+    <div class="QWpr">
         <div class="questions">
             <ul class="QList">
                 <li class="QItem" ng-repeat="question in info.questions">

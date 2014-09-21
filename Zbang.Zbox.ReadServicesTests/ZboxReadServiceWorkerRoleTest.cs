@@ -39,6 +39,20 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
+        public void GetFlagItemUserDetail_Query_ReturnResult()
+        {
+            var query = new GetBadItemFlagQuery(1, 149242);
+            try
+            {
+                m_ZboxReadService.GetFlagItemUserDetail(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
         public void GetBoxesLastUpdates_Query_ReturnResult()
         {
             var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay,1);

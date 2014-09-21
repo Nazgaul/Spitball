@@ -20,6 +20,7 @@
     <return-scalar column="Id" type="long"/>
     <return-scalar column="Name" type="string"/>
     <return-scalar column="Url" type="string"/>
+    <return-scalar column="NoBoxes" type="int"/>
   </resultset>
 
  
@@ -36,52 +37,15 @@
 
   <!--Lib page-->
   
-
-  <!--Get the parent of a specific node-->
-  <!--   select l.Parent.Id as Id, l.Parent.Name as Name, l.Parent.Url as Url
-    from University2 uu join uu.Libraries l
-    where uu.Id = :UserId
-    and l.Id = :ParentNode-->
-  <!--<sql-query name="GetParentNode" read-only="true" resultset-ref="ParentNodeDetails">
-    <![CDATA[
-    select l.LibraryId as Id, l.Name as Name, l.Url as Url
-from
-zbox.Users uu join zbox.Library l on uu.UserId = l.UserId
- where uu.UserId = :UserId
- and l.LibraryId = (select libraryid from zbox.Library where ParentId = :ParentNode)
-     ]]>
-  </sql-query>-->
-
-
-  <!--Get children of root-->
-  <!--select l.Id as Id, l.Name as Name, l.Url as Url
-    from Library l
-    where l.University.Id = :UniversityId
-    and l.Parent.Id IS NULL
-    order by Name-->
   <sql-query name="GetLibraryNode" read-only="1" resultset-ref="ParentNodeDetails">
     <![CDATA[
-     select l.Id as Id, l.Name as Name, l.Url as Url from zbox.maindepartment l
+     select l.Id as Id, l.Name as Name, l.Url as Url, l.NoOfBoxes as NoBoxes from zbox.maindepartment l
   where l.universityId = :UniversityId
   and l.NoOfBoxes > 0
   order by name
     ]]>
   </sql-query>
 
-  <!--Get children of specific node-->
-  <!-- select l.Id as Id, l.Name as Name, l.Url as Url
-    from Library l
-    where l.University.Id = :UniversityId
-    and l.Parent.Id = :ParentNode 
-    order by Name-->
-  <!--<sql-query name="GetLibraryNodeWithId" read-only="1" resultset-ref="ParentNodeDetails">
-    <![CDATA[
-     select l.LibraryId as Id, l.Name as Name, l.Url as Url from zbox.Library l
-  where  userid = :UniversityId
-  and ParentId = :ParentNode 
-  order by name
-    ]]>
-  </sql-query>-->
 
 
 </hibernate-mapping>

@@ -178,7 +178,7 @@ namespace Testing
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-           // Emails();
+            Emails();
 
             //var y =  GetCountries();
 
@@ -562,8 +562,10 @@ namespace Testing
         {
 
 
-
+            
             var mail = new Zbang.Zbox.Infrastructure.Mail.MailManager2();
+            mail.GenerateAndSendEmail("yaari.ram@gmail.com",
+                new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda"));
             mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
 
 

@@ -175,14 +175,8 @@ mBox.factory('sBox',
                 return dfd.promise;
             },
             tabs: function (data) {
-                var dfd = $q.defer();
+                return ajaxRequest(data, $http.get, 'Tabs/');
                 $http.get(Box + 'Tabs/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
             }
         };
     }
