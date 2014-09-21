@@ -12,7 +12,7 @@ select
  ,b.ItemCount as Items
  ,b.MembersCount as Members
  ,b.PrivacySetting
- ,0 as Quizes
+ ,b.quizcount as Quizes
  ,b.OwnerId as OwnerId
  ,b.Discriminator as BoxType
  ,b.CreationTime as Date

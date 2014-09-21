@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             message.Id = university.Id;
             m_UserRepository.Save(user);
 
-            //m_QueueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
+            m_QueueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
 
 
         }

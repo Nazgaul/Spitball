@@ -83,7 +83,7 @@ where userid = @UserId";
                                 b.BoxName,
                                 b.pictureUrl as BoxPicture,
                                 ub.UserType, 
-                                b.itemcount as ItemCount,
+                                b.quizcount + b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,
                                 b.commentcount as CommentCount,
                                 b.CourseCode,
