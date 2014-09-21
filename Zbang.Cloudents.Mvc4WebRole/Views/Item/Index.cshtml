@@ -6,8 +6,6 @@
     @*<h1>@ViewBag.Description</h1>*@
 
     <div class="topBar">
-        @* class itemTop has gone*@
-        @*<div class="moreFilesThumb lFloat" data-bind="text: extension, css: extensionColor"></div>*@
         <div class="leftPart">
             <a class="backWpr elps lFloat" ng-href="{{item.boxUrl}}">
                 <div>@SharedResources.Backto</div>
@@ -34,7 +32,6 @@
                 <li class="middleActionItem">
                     <button type="button" ng-click="fullScreenWindow()" class="">
                         <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
-                        @*<svg class="svg-smallscreen"><use xlink:href="~/Images/Defs.svg#smallscreen" /></svg>*@
                         <div>@ItemsResources.FullScreen</div>
                         <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
                     </button>
