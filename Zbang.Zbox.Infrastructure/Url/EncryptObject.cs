@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Url
             }
             var serializedObj = MachineKey.Unprotect(bData, purposes);
             var formatter = new Transport.ProtobufSerializer<T>();
-            return formatter.DeserializeData(serializedObj);
+            return formatter.DeSerializeData(serializedObj);
         }
 
     }

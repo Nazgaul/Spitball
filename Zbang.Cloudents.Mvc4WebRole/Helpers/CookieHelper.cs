@@ -57,25 +57,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             
             var bdata = pformatter.SerializeData(data);
             return HttpServerUtility.UrlTokenEncode(bdata);
-            //BinaryFormatter bformatter = new BinaryFormatter();
-            // using (var ms = new MemoryStream())
-            //{
-            //    bformatter.Serialize(ms, data);
-            //    return Convert.ToBase64String(ms.ToArray());
-            // }
+            
         }
 
         private object Desialize<T>(string data) where T : class
         {
             var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
             var bytes = HttpServerUtility.UrlTokenDecode(data);
-           return pformatter.DeserializeData(bytes);
-            //using (var ms = new MemoryStream(bytes))
-            //{
-            //    BinaryFormatter bformatter = new BinaryFormatter();
-            //    return bformatter.Deserialize(ms, null);
-
-            //}
+           return pformatter.DeSerializeData(bytes);
+     
         }
     }
 }

@@ -41,10 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> File(long boxId, string fileName,
             long fileSize, Guid? tabId)
         {
-            if (Request.IsLocal)
-            {
-                Thread.Sleep(TimeSpan.FromSeconds(10));
-            }
             var userId = GetUserId();
             try
             {
@@ -69,7 +65,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName).ToLower();
-
 
 
                 fileUploadedDetails.CurrentIndex = await m_BlobProvider.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);

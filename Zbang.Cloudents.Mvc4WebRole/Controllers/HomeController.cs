@@ -191,24 +191,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             sb.Remove(sb.Length - 1, 1);
             sb.Append("}");
             return Content(sb.ToString(), "application/javascript");
-            //using (var set = rm.GetResourceSet(System.Threading.Thread.CurrentThread.CurrentUICulture, true, true))
-            //{
-
-            //    var sb = new StringBuilder();
-
-            //    sb.Append("JsResources={");
-            //    foreach (System.Collections.DictionaryEntry item in set)
-            //    {
-
-            //        sb.Append("\"" + item.Key + "\":\"" +
-            //                  item.Value.ToString().Replace("\r\n", @"\n").Replace("\n", @"\n").Replace("\"", @"\""") +
-            //                  "\",");
-            //        sb.AppendLine();
-            //    }
-            //    sb.Remove(sb.Length - 1, 1);
-            //    sb.Append("}");
-            //    return Content(sb.ToString(), "application/javascript");
-            //}
         }
 
 

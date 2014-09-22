@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             }
         }
 
-        public T DeserializeData(byte[] model)
+        public T DeSerializeData(byte[] model)
         {
             using (var ms = new MemoryStream(model))
             {

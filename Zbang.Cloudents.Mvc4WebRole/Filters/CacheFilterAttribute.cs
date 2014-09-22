@@ -35,7 +35,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             }
 
             var cacheDuration = TimeSpan.FromSeconds(Duration);
-
             cache.SetCacheability(HttpCacheability.Public);
             cache.SetExpires(DateTime.Now.Add(cacheDuration));
             cache.SetMaxAge(cacheDuration);
