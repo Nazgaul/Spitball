@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -39,7 +39,7 @@
   fill: #383838;
 }
 .boxPage .svg-inviteUser {
-  width: 30px;
+  width: 24px;
   height: 28px;
   fill: #fff;
 }
@@ -2151,3 +2151,4 @@
   /*rtl*/
 }
 /*#endregion */
+/*# sourceMappingURL=Box3.css.map */

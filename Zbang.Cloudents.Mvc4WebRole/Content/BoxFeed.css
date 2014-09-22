@@ -6,6 +6,9 @@
   width: 598px;
   color: #383838;
 }
+.boxFeed > .feedForm .feedTA {
+  border-color: #282828;
+}
 .feedForm {
   position: relative;
   clear: both;
@@ -50,6 +53,7 @@
   margin-top: 2px;
   padding: 9px 55px 2px 12px;
   min-height: 38px;
+  height: 38px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
