@@ -22,7 +22,7 @@
 
     <ul class="boxFeedList">
         <li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
-            <img class="feedImg" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
+            <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
             
             <div class="feedWpr">
                 <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
@@ -64,22 +64,24 @@
                 <time display-time="{{comment.creationDate}}"></time>
                 <p>{{comment.comment}}</p>*@
             </div>
-            <ul class="feedReplies">
+            <ul class="feedReplies rFloat">
                 <li ng-repeat="answer in question.answers">
                     <img class="feedImg rFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
-                    <div class="userName boldFont elps">{{answer.userName}}</div>
-                    <time class="createTime innerSection" display-time="{{answer.createTime}}"></time>
-                    <div class="AContent" ng-bind-html="answer.content"></div>
-                    <ul class="qaAttach">
-                        <li class="qaAttachItem" ng-repeat="file in answer.files">
-                            <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
-                            <div class="attachActions">
-                                <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
-                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
-                                <a class="attachDownload" target="_blank" ng-href="{{item.download}}"></a>
-                            </div>
-                        </li>
-                    </ul>
+                    <div class="feedWpr">
+                        <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
+                        <div class="userName elps">{{answer.userName}}</div>
+                        <div class="feedContent" ng-bind-html="answer.content"></div>
+                        <ul class="qaAttach">
+                            <li class="qaAttachItem" ng-repeat="file in answer.files">
+                                <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                <div class="attachActions">
+                                    <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
+                                    <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
+                                    <a class="attachDownload" target="_blank" ng-href="{{item.download}}"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             @*<form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">*@

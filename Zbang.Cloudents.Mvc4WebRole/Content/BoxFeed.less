@@ -6,8 +6,29 @@
 }
 .feedForm {
     position: relative;
+    clear: both;
     .btn1 {
         margin: 5px 8px 0 0; //rtl
+    }
+    &.feedOpen {
+        .feedTA {
+            min-height: 169px;
+            max-height: 250px;
+            overflow: auto;
+            padding: 9px 12px 2px 12px;
+            border-radius: 3px 3px 0 0;
+            border-bottom: none;
+            margin-bottom: 35px;
+            ~ .bottomTA {
+                display: block;
+            }
+            ~ .attachBtn {
+                bottom: 2px;
+                left: 70px;
+                top: auto;
+                right: auto;
+            }
+        }
     }
 }
 .feedImg {
@@ -15,12 +36,12 @@
     margin-right: 15px;
     border: 1px solid @borderColor;
     .boxSizing;
+
 }
 
 .feedTA {
-    width: 431px;
+    width: 436px;
     border-radius: 3px;
-    //margin: 0 15px;
     border: 1px solid #282828;
     margin-top: 2px;
     padding: 9px 55px 2px 12px; //rtl
@@ -28,25 +49,7 @@
     .boxSizing;
     font-size: 15px;
     .transition(min-height .3s ease-in);
-    &:focus {
-        min-height: 169px;
-        max-height: 250px;
-        overflow: auto;
-        padding: 9px 12px 2px 12px;
-        border-radius: 3px 3px 0 0;
-        border-bottom: none;
-        //padding-bottom: 40px;
-        margin-bottom: 35px;
-        ~ .bottomTA {
-            display: block;
-        }
-        ~ .attachBtn {
-            bottom: 2px;
-            left: 70px;
-            top: auto;
-            right: auto;
-        }
-    }
+    
 }
 .attachBtn {
     position: absolute;
@@ -65,7 +68,7 @@
     position: absolute;
     bottom: 1px;
     left: 55px;
-    width: 429px;
+    width: 434px;
     background: #eee;
     border-radius: 0 0 3px 3px;
     border: 1px solid #282828;
@@ -76,10 +79,22 @@
     > li {
         clear: both;
         margin-top: 15px;
+        position: relative;
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            left: 41px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 14px 7px 0;
+            border-color: transparent #eeeeee transparent transparent;
+        }
     }
-    .feedImg  {
+    /*.feedImg  {
         margin-right: 11px;
-    }
+    }*/
     .feedForm {
         margin-top: 15px;
     }
@@ -96,13 +111,14 @@
     }
 }
 .feedWpr {
-    width: 431px;
+    //width: 431px;
     background: #eee;
     padding: 8px 15px;
-    display: inline-block;
+    display: block;
     vertical-align: top;
     border-radius: 3px;
     position: relative;
+    overflow: hidden; //fill remaining width
     .boxSizing;
     .userName {
         color: @itemBlue;
@@ -117,22 +133,24 @@
         margin-top: 15px;
         font-size: 16px;
     }
-    &:before {
-        .pseudo;
-        position: absolute;
-        top: 15px;
-        left: -14px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 7px 14px 7px 0;
-        border-color: transparent #eeeeee transparent transparent;
-    }
 }
 .feedActions {
     color: @itemBlue;
     button, .shareBtn {
         display: inline-block;
         color: @itemBlue;
+    }
+}
+
+.feedReplies {
+    width: 436px;
+    > li {
+        margin-top: 15px;
+    }
+    .feedImg {
+        margin: 0 0 0 15px; //override
+    }
+    .userName {
+        color: @color;
     }
 }
