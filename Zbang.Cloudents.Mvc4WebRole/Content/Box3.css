@@ -895,6 +895,7 @@
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
   position: relative;
+  overflow: hidden;
 }
 /*#region boxItems */
 .thumbContent {
