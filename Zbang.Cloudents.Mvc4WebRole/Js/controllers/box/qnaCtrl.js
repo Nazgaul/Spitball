@@ -124,10 +124,13 @@ mBox.controller('QnACtrl',
             }
 
             sQnA.post.question($scope.qFormData).then(function (response) {
-                var questionId;
-                if (response.success) {
-                    questionId = response.payload;
+                if (!response.success) {
+                    alert('error');
+                    return;
                 }
+
+                var questionId = response.payload;
+                
                 var obj = {
                     id: questionId,
                     userName: sUserDetails.getDetails().name,
@@ -169,10 +172,12 @@ mBox.controller('QnACtrl',
 
 
             sQnA.post.answer(question.aFormData).then(function (response) {
-                var answerId;
-                if (response.success) {
-                    answerId = response.payload;
+                if (!response.success) {
+                    alert('error');
+                    return;
                 }
+                var answerId = response.payload;
+                
 
                 var obj = {
                     id: answerId,
