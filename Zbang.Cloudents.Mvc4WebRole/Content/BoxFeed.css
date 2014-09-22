@@ -6,3 +6,139 @@
   width: 491px;
   color: #383838;
 }
+.feedForm {
+  position: relative;
+}
+.feedForm .btn1 {
+  margin: 5px 8px 0 0;
+}
+.feedImg {
+  border-radius: 3px;
+  margin-right: 15px;
+  border: 1px solid #c2c2c2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.feedTA {
+  width: 431px;
+  border-radius: 3px;
+  border: 1px solid #282828;
+  margin-top: 2px;
+  padding: 9px 55px 2px 12px;
+  min-height: 38px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
+  -webkit-transition: min-height 0.3s ease-in;
+  -moz-transition: min-height 0.3s ease-in;
+  -o-transition: min-height 0.3s ease-in;
+  transition: min-height 0.3s ease-in;
+}
+.feedTA:focus {
+  min-height: 169px;
+  max-height: 250px;
+  overflow: auto;
+  padding: 9px 12px 2px 12px;
+  border-radius: 3px 3px 0 0;
+  border-bottom: none;
+  margin-bottom: 35px;
+}
+.feedTA:focus ~ .bottomTA {
+  display: block;
+}
+.feedTA:focus ~ .attachBtn {
+  bottom: 2px;
+  left: 70px;
+  top: auto;
+  right: auto;
+}
+.attachBtn {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+}
+.svg-attachment {
+  width: 34px;
+  height: 25px;
+  fill: #282828;
+}
+.bottomTA {
+  display: none;
+  height: 33px;
+  position: absolute;
+  bottom: 1px;
+  left: 55px;
+  width: 429px;
+  background: #eee;
+  border-radius: 0 0 3px 3px;
+  border: 1px solid #282828;
+  border-top: none;
+}
+.boxFeedList > li {
+  clear: both;
+  margin-top: 15px;
+}
+.boxFeedList .feedImg {
+  margin-right: 11px;
+}
+.boxFeedList .feedForm {
+  margin-top: 15px;
+}
+.boxFeedList .feedTA {
+  width: 370px;
+  height: 38px;
+  margin-left: 55px;
+}
+.boxFeedList .bottomTA {
+  width: 368px;
+}
+.boxFeedList .attachBtn {
+  right: 70px;
+}
+.feedWpr {
+  width: 431px;
+  background: #eee;
+  padding: 8px 15px;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 3px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.feedWpr .userName {
+  color: #3399ff;
+  max-width: 300px;
+  font-size: 16px;
+}
+.feedWpr .createTime {
+  color: #999;
+  font-size: 16px;
+}
+.feedWpr .feedContent {
+  margin-top: 15px;
+  font-size: 16px;
+}
+.feedWpr:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 15px;
+  left: -14px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 14px 7px 0;
+  border-color: transparent #eeeeee transparent transparent;
+}
+.feedActions {
+  color: #3399ff;
+}
+.feedActions button,
+.feedActions .shareBtn {
+  display: inline-block;
+  color: #3399ff;
+}

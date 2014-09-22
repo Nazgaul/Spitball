@@ -4,3 +4,135 @@
     width: 491px;
     color: @textColor;
 }
+.feedForm {
+    position: relative;
+    .btn1 {
+        margin: 5px 8px 0 0; //rtl
+    }
+}
+.feedImg {
+    border-radius: 3px;
+    margin-right: 15px;
+    border: 1px solid @borderColor;
+    .boxSizing;
+}
+
+.feedTA {
+    width: 431px;
+    border-radius: 3px;
+    //margin: 0 15px;
+    border: 1px solid #282828;
+    margin-top: 2px;
+    padding: 9px 55px 2px 12px; //rtl
+    min-height: 38px;
+    .boxSizing;
+    font-size: 15px;
+    .transition(min-height .3s ease-in);
+    &:focus {
+        min-height: 169px;
+        max-height: 250px;
+        overflow: auto;
+        padding: 9px 12px 2px 12px;
+        border-radius: 3px 3px 0 0;
+        border-bottom: none;
+        //padding-bottom: 40px;
+        margin-bottom: 35px;
+        ~ .bottomTA {
+            display: block;
+        }
+        ~ .attachBtn {
+            bottom: 2px;
+            left: 70px;
+            top: auto;
+            right: auto;
+        }
+    }
+}
+.attachBtn {
+    position: absolute;
+    top: 9px;
+    right: 8px; //rtl
+    //z-index: 1;
+}
+.svg-attachment {
+    width: 34px;
+    height: 25px;
+    fill: #282828;
+}
+.bottomTA {
+    display: none;
+    height: 33px;
+    position: absolute;
+    bottom: 1px;
+    left: 55px;
+    width: 429px;
+    background: #eee;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid #282828;
+    border-top: none;
+}
+
+.boxFeedList {
+    > li {
+        clear: both;
+        margin-top: 15px;
+    }
+    .feedImg  {
+        margin-right: 11px;
+    }
+    .feedForm {
+        margin-top: 15px;
+    }
+    .feedTA {
+        width: 370px;
+        height: 38px;
+        margin-left: 55px;
+    }
+    .bottomTA {
+        width: 368px;
+    }
+    .attachBtn {
+        right: 70px;
+    }
+}
+.feedWpr {
+    width: 431px;
+    background: #eee;
+    padding: 8px 15px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 3px;
+    position: relative;
+    .boxSizing;
+    .userName {
+        color: @itemBlue;
+        max-width: 300px;
+        font-size: 16px;
+    }
+    .createTime {
+        color: #999;
+        font-size: 16px;
+    }
+    .feedContent {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: 15px;
+        left: -14px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 7px 14px 7px 0;
+        border-color: transparent #eeeeee transparent transparent;
+    }
+}
+.feedActions {
+    color: @itemBlue;
+    button, .shareBtn {
+        display: inline-block;
+        color: @itemBlue;
+    }
+}
