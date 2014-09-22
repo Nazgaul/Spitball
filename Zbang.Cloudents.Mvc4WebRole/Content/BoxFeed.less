@@ -3,4 +3,72 @@
 .boxFeed {
     width: 491px;
     color: @textColor;
+    position: relative;
+}
+.feedForm {
+    position: relative;
+    .btn1 {
+        margin: 5px 8px 0 0; //rtl
+    }
+}
+.feedImg {
+    border-radius: 3px;
+    margin-right: 15px;
+    border: 1px solid @borderColor;
+    .boxSizing;
+}
+
+.feedTA {
+    width: 430px;
+    border-radius: 3px;
+    //margin: 0 15px;
+    border: 1px solid #282828;
+    margin-top: 2px;
+    padding: 9px 55px 2px 12px; //rtl
+    min-height: 38px;
+    .boxSizing;
+    font-size: 15px;
+    .transition(min-height .3s ease-in);
+    &:focus {
+        min-height: 169px;
+        max-height: 250px;
+        overflow: auto;
+        padding: 9px 12px 2px 12px;
+        border-radius: 3px 3px 0 0;
+        border-bottom: none;
+        //padding-bottom: 40px;
+        margin-bottom: 35px;
+        ~ .bottomTA {
+            display: block;
+        }
+        ~ .attachBtn {
+            bottom: 2px;
+            left: 70px;
+            top: auto;
+            right: auto;
+        }
+    }
+}
+.attachBtn {
+    position: absolute;
+    top: 9px;
+    right: 8px; //rtl
+    //z-index: 1;
+}
+.svg-attachment {
+    width: 34px;
+    height: 25px;
+    fill: #282828;
+}
+.bottomTA {
+    display: none;
+    height: 33px;
+    position: absolute;
+    bottom: 1px;
+    left: 56px;
+    width: 428px;
+    background: #eee;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid #282828;
+    border-top: none;
 }

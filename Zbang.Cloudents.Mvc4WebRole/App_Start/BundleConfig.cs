@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/Sidebar.css",
                 "~/Content/SetupSchool.css",
                 "~/Content/Modal.css",
-                "~/Content/QnA.css",
+                //"~/Content/QnA.css",
                 "~/Content/BoxFeed.css",
                 "~/Content/Quiz.css",
                 "~/Content/Invite.css",

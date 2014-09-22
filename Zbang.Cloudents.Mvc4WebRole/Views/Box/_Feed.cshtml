@@ -2,23 +2,23 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <section class="boxFeed" ng-controller="QnACtrl">
-    <form name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
-        <div class="textareaWpr">
-            <img ng-src="{{info.userImage}}" class="QAImg lFloat" alt="" width="32" height="32" />
-            <textarea text-direction msd-elastic name="content" class="QTextarea" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
+    <form class="feedForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
+        @*<div class="textareaWpr">*@
+            <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="41" height="41" />
+            <textarea text-direction msd-elastic name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
                     <span class="attachName elps">{{file.name}}</span>
                     <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
                 </li>
             </ul>
-        </div>
-        <div class="bottomTA">
-            <button type="button" ng-show="showPost" class="lFloat attachBtn" ng-disabled="!qnaQform.$valid" ng-click="addQuestionAttachment()">
+            <div class="bottomTA">
+                <button type="submit" ng-show="showPost" class="rFloat btn1" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
+            </div>
+            <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()"> @*ng-disabled="!qnaQform.$valid"*@
                 <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
             </button>
-            <button type="submit" ng-show="showPost" class="rFloat askBtn" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
-        </div>
+        @*</div>*@
     </form>
 
     <ul class="boxFeedList">
