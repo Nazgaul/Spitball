@@ -22,7 +22,7 @@ mBox.controller('QnACtrl',
                 return answerObj;
             });
             that.files = data.files.map(function (file) { return new File(file); });            
-            that.bestAnswer = findBestAnswer(that.answers);
+            //that.bestAnswer = findBestAnswer(that.answers);
         }
 
         function Answer(data) {
@@ -57,20 +57,7 @@ mBox.controller('QnACtrl',
             that.itemUrl = data.url || data.itemUrl;
         }
 
-        //var states = {
-        //    none: 0,
-        //    empty: 1,
-        //    questions: 2,
-        //    answers: 3
-        //};
-
-        $scope.focused = false;
-
-        $scope.formFocus = function ($event) {
-           $scope.focused = false;
-           $event.stopPropagation();
-           $scope.focused = true;
-       }
+       
 
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
@@ -116,47 +103,6 @@ mBox.controller('QnACtrl',
             return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().score > 1000000;
         };
 
-        //$scope.showAllAnswers = function (question) {
-        //    $scope.qFormData = {};
-
-        //    $scope.info.selectedQuestion = question;
-            
-            
-
-            
-        //    question.isNew = false;
-        //    sNewUpdates.setOld($scope.boxId, 'questions', question.id);
-
-        //    for (var i = 0, l = question.answers.length; i < l; i++) {
-        //        question.answers[i].isNew = false;
-        //        sNewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
-        //    }
-            
-        //    //cleartooltip ?
-
-        //    //$scope.info.state = states.answers;
-            
-        //    sFocus('qna:answer');
-        //    //TODO: temp solution
-        //    window.setTimeout(cd.updateTimeActions, 1000);
-
-
-        //};
-
-        //$scope.showAllQuestion = function () {
-
-        //    $scope.info.selectedQuestion = null;
-        //    //refresh sccrooll
-        //    //todo: temp solution
-        //    window.setTimeout(cd.updateTimeActions, 1000);
-        //    if ($scope.info.questions) {
-        //        //$scope.info.state = states.questions;
-        //        return;
-        //    }
-
-        //    //$scope.info.state = states.empty;
-            
-        //};
 
         $scope.postQuestion = function () {
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') {
@@ -197,16 +143,8 @@ mBox.controller('QnACtrl',
                 $scope.info.questions.unshift(new Question(obj));
                 $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
-
-                //if ($scope.info.state === states.empty) {
-                //    $scope.info.state = states.questions;
-                //}
+               
             });
-
-
-            //update time
-            //notify
-
         };
 
         $scope.postAnswer = function (question) {
@@ -253,7 +191,7 @@ mBox.controller('QnACtrl',
                 question.answers.push(new Answer(obj));
                 $scope.$broadcast('update-scroll');
 
-                question.bestAnswer = findBestAnswer(question.answers);
+                //question.bestAnswer = findBestAnswer(question.answers);
                 //updatetime
                 //notify
                 question.aFormData = {};
@@ -282,7 +220,7 @@ mBox.controller('QnACtrl',
         $scope.deleteAnswer = function (question, answer) {
             var index = question.answers.indexOf(answer);
             question.answers.splice(index, 1);
-            question.bestAnswer = findBestAnswer(question.answers);
+            //question.bestAnswer = findBestAnswer(question.answers);
 
             sQnA.delete.answer({ answerId: answer.id }).then(function () {//TODO SignalR notify
             });
@@ -434,30 +372,30 @@ mBox.controller('QnACtrl',
             }
         }
 
-        function findBestAnswer(answers) {
-            for (var i = 0, l = answers.length; i < l; i++) {
-                if (answers[i].isAnswer) {
-                    return answers[i];
-                }
-            }
+        //function findBestAnswer(answers) {
+        //    for (var i = 0, l = answers.length; i < l; i++) {
+        //        if (answers[i].isAnswer) {
+        //            return answers[i];
+        //        }
+        //    }
 
-            var lastRate = 0, answer;
-            angular.forEach(answers, function (a) {
-                if (a.rating > lastRate) {
-                    answer = a;
-                    lastRate = a.rating;
-                }
-            });
+        //    var lastRate = 0, answer;
+        //    angular.forEach(answers, function (a) {
+        //        if (a.rating > lastRate) {
+        //            answer = a;
+        //            lastRate = a.rating;
+        //        }
+        //    });
 
-            if (answer) {
-                return answer;
-            }
+        //    if (answer) {
+        //        return answer;
+        //    }
 
-            if (answers.length) {
-                return answers[0];
-            }
+        //    if (answers.length) {
+        //        return answers[0];
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
     }
 ]);
