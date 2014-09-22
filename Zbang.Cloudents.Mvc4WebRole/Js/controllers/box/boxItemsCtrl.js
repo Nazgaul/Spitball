@@ -11,10 +11,10 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         itemsLimit: 21
     };
 
-    $scope.partials = {
-        uploader: '/Box/UploadPartial/',
-        uploadAddLink: '/Box/UploadLinkPartial/'
-    };
+    //$scope.partials = {
+    //    uploader: '/Box/UploadPartial/',
+    //    uploadAddLink: '/Box/UploadLinkPartial/'
+    //};
 
 
 
@@ -60,165 +60,236 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         });
     });
 
-    $scope.openUploadPopup = function (qna) {
-        if (!sUserDetails.isAuthenticated()) {
-            cd.pubsub.publish('register', { action: true });
-            return;
+    $scope.$on('linkAdded', function(e,data) {
+        saveItem(data);
+    });
+   
+    function saveItem(data) {
+        if (data.type === 'link') {
+            $rootScope.$broadcast('linkUpload', data.url);
+        } else if (data.type === 'dropbox') {
+            $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+        } else if (data.type === 'googleLink') {
+            $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
         }
-        var defer, fileList;
-        if (qna) {
-            defer = $q.defer();
-            fileList = [];
+        //TODO: what is that
+        var formData = {
+            boxId: $scope.boxId, //
+            boxUid: $scope.boxId,
+            boxName: $scope.boxName,
+            uniName: $scope.uniName,
+            tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
+            url: data.url,
+            fileName: data.name, //
+            fileUrl: data.url //
         }
 
-        var modalInstance = $modal.open({
-            windowClass: "uploader",
-            templateUrl: $scope.partials.uploader,
-            controller: 'UploadCtrl',
-            backdrop: 'static'
-        });
+        var uploaded = 0;
+        $timeout(function () {
+            sUpload[data.ajax](formData).then(function (response) {
+                uploaded++;
 
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.close();
-            }
-        });
-
-        modalInstance.result.then(function (response) {
-            if (response.url) {
-                modalInstance = $modal.open({
-                    windowClass: "uploadLink",
-                    templateUrl: $scope.partials.uploadAddLink,
-                    controller: 'UploadLinkCtrl',
-                    backdrop: 'static'
-                });
-
-                modalInstance.result.then(function (url) {
-                    saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
-                }); //save url
-                return;
-            }
-
-            if (response.dropbox) {
-                var files = response.files;
-                for (var i = 0, l = files.length; i < l; i++) {
-                    (function (file, index) {
-                        saveItem({
-                            name: file.name,
-                            size: file.bytes,
-                            url: file.link,
-                            type: 'dropbox',
-                            ajax: 'dropbox',
-                            timeout: 0,
-                            index: index,
-                            length: files.length
-
-                        });
-
-                    })(files[i], i);
+                if (uploaded === 1) {
+                    sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
                 }
-                return;
-            }
-
-            if (response.googleDrive) {
-                var files = response.files;
-                for (var i = 0, l = files.length; i < l; i++) {
-                    (function (file, index) {
-                        saveItem({
-                            name: file.name,
-                            size: file.size,
-                            url: file.link,
-                            type: 'googleLink',
-                            ajax: 'link',
-                            timeout: 1000,
-                            index: index,
-                            length: files.length
-                        });
-
-                    })(files[i], i);
+                if (!response.success) {
+                    alert((data.name || data.url) + ' - ' + response.payload);
+                    return;
                 }
-                return;
-            }
-        }, function () {
-            //dismiss
-        });
 
+                if (data.type === 'link') {
+                    $rootScope.$broadcast('linkUploaded');
+                } else if (data.type === 'dropbox') {
+                    $rootScope.$broadcast('dropboxUploaded', data.index);
+                } else if (data.type === 'googleLink') {
+                    $rootScope.$broadcast('googleUploaded', data.index);
+                }
 
-
-        if (defer) {
-            return defer.promise;
-        }
-
-
-        function saveItem(data) {
-            if (data.type === 'link') {
-                $rootScope.$broadcast('linkUpload', data.url);
-            } else if (data.type === 'dropbox') {
-                $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-            } else if (data.type === 'googleLink') {
-                $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-            }
-            //TODO: what is that
-            var formData = {
-                boxId: $scope.boxId, //
-                boxUid: $scope.boxId,
-                boxName: $scope.boxName,
-                uniName: $scope.uniName,
-                tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
-                url: data.url,
-                fileName: data.name, //
-                fileUrl: data.url //
-            }
-
-            var uploaded = 0;
-            $timeout(function () {
-                sUpload[data.ajax](formData).then(function (response) {
-                    uploaded++;
-
-                    if (uploaded === 1) {
-                        sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
-                    }
-                    if (!response.success) {
-                        alert((data.name || data.url) + ' - ' + response.payload);
-                        return;
-                    }
-
+                var responseItem = response.payload;
+                if (qna) {
+                    fileList.push(responseItem);
                     if (data.type === 'link') {
-                        $rootScope.$broadcast('linkUploaded');
-                    } else if (data.type === 'dropbox') {
-                        $rootScope.$broadcast('dropboxUploaded', data.index);
-                    } else if (data.type === 'googleLink') {
-                        $rootScope.$broadcast('googleUploaded', data.index);
+                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+                    } else if (uploaded === data.length) {
+                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
                     }
+                    defer.resolve(fileList);
 
-                    var responseItem = response.payload;
-                    if (qna) {
-                        fileList.push(responseItem);
-                        if (data.type === 'link') {
-                            cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                        } else if (uploaded === data.length) {
-                            cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
-                        }
-                        defer.resolve(fileList);
+                }
 
-                    }
+                if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
+                    $scope.items.unshift(responseItem);
+                    $scope.filteredItems.unshift(responseItem);
+                    $scope.filteredItems.sort(sortItems);
+                }
 
-                    if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
-                        $scope.items.unshift(responseItem);
-                        $scope.filteredItems.unshift(responseItem);
-                        $scope.filteredItems.sort(sortItems);
-                    }
-
-                    $scope.followBox(true);
+                $scope.followBox(true);
 
 
-                }).catch(function () {
-                    uploaded++;
-                });
-            }, data.timeout);
-        }
+            }).catch(function () {
+                uploaded++;
+            });
+        }, data.timeout);
+    }
+    //$scope.openUploadPopup = function (qna) {
+    //    if (!sUserDetails.isAuthenticated()) {
+    //        cd.pubsub.publish('register', { action: true });
+    //        return;
+    //    }
+    //    var defer, fileList;
+    //    if (qna) {
+    //        defer = $q.defer();
+    //        fileList = [];
+    //    }
 
-    };
+    //    var modalInstance = $modal.open({
+    //        windowClass: "uploader",
+    //        templateUrl: $scope.partials.uploader,
+    //        controller: 'UploadCtrl',
+    //        backdrop: 'static'
+    //    });
+
+    //    $scope.$on('$destroy', function () {
+    //        if (modalInstance) {
+    //            modalInstance.close();
+    //        }
+    //    });
+
+    //    modalInstance.result.then(function (response) {
+    //        if (response.url) {
+    //            modalInstance = $modal.open({
+    //                windowClass: "uploadLink",
+    //                templateUrl: $scope.partials.uploadAddLink,
+    //                controller: 'UploadLinkCtrl',
+    //                backdrop: 'static'
+    //            });
+
+    //            modalInstance.result.then(function (url) {
+    //                saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
+    //            }); //save url
+    //            return;
+    //        }
+
+    //        if (response.dropbox) {
+    //            var files = response.files;
+    //            for (var i = 0, l = files.length; i < l; i++) {
+    //                (function (file, index) {
+    //                    saveItem({
+    //                        name: file.name,
+    //                        size: file.bytes,
+    //                        url: file.link,
+    //                        type: 'dropbox',
+    //                        ajax: 'dropbox',
+    //                        timeout: 0,
+    //                        index: index,
+    //                        length: files.length
+
+    //                    });
+
+    //                })(files[i], i);
+    //            }
+    //            return;
+    //        }
+
+    //        if (response.googleDrive) {
+    //            var files = response.files;
+    //            for (var i = 0, l = files.length; i < l; i++) {
+    //                (function (file, index) {
+    //                    saveItem({
+    //                        name: file.name,
+    //                        size: file.size,
+    //                        url: file.link,
+    //                        type: 'googleLink',
+    //                        ajax: 'link',
+    //                        timeout: 1000,
+    //                        index: index,
+    //                        length: files.length
+    //                    });
+
+    //                })(files[i], i);
+    //            }
+    //            return;
+    //        }
+    //    }, function () {
+    //        //dismiss
+    //    });
+
+
+
+    //    if (defer) {
+    //        return defer.promise;
+    //    }
+
+
+    //    function saveItem(data) {
+    //        if (data.type === 'link') {
+    //            $rootScope.$broadcast('linkUpload', data.url);
+    //        } else if (data.type === 'dropbox') {
+    //            $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+    //        } else if (data.type === 'googleLink') {
+    //            $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+    //        }
+    //        //TODO: what is that
+    //        var formData = {
+    //            boxId: $scope.boxId, //
+    //            boxUid: $scope.boxId,
+    //            boxName: $scope.boxName,
+    //            uniName: $scope.uniName,
+    //            tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
+    //            url: data.url,
+    //            fileName: data.name, //
+    //            fileUrl: data.url //
+    //        }
+
+    //        var uploaded = 0;
+    //        $timeout(function () {
+    //            sUpload[data.ajax](formData).then(function (response) {
+    //                uploaded++;
+
+    //                if (uploaded === 1) {
+    //                    sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
+    //                }
+    //                if (!response.success) {
+    //                    alert((data.name || data.url) + ' - ' + response.payload);
+    //                    return;
+    //                }
+
+    //                if (data.type === 'link') {
+    //                    $rootScope.$broadcast('linkUploaded');
+    //                } else if (data.type === 'dropbox') {
+    //                    $rootScope.$broadcast('dropboxUploaded', data.index);
+    //                } else if (data.type === 'googleLink') {
+    //                    $rootScope.$broadcast('googleUploaded', data.index);
+    //                }
+
+    //                var responseItem = response.payload;
+    //                if (qna) {
+    //                    fileList.push(responseItem);
+    //                    if (data.type === 'link') {
+    //                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+    //                    } else if (uploaded === data.length) {
+    //                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+    //                    }
+    //                    defer.resolve(fileList);
+
+    //                }
+
+    //                if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
+    //                    $scope.items.unshift(responseItem);
+    //                    $scope.filteredItems.unshift(responseItem);
+    //                    $scope.filteredItems.sort(sortItems);
+    //                }
+
+    //                $scope.followBox(true);
+
+
+    //            }).catch(function () {
+    //                uploaded++;
+    //            });
+    //        }, data.timeout);
+    //    }
+
+    //};
 
     //#endregion
 
