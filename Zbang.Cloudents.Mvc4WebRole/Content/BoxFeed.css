@@ -3,7 +3,7 @@
 /*#region mixins */
 /*#endregion */
 .boxFeed {
-  width: 491px;
+  width: 598px;
   color: #383838;
 }
 .feedForm {
@@ -44,7 +44,7 @@
   box-sizing: border-box;
 }
 .feedTA {
-  width: 436px;
+  width: 543px;
   border-radius: 3px;
   border: 1px solid #c2c2c2;
   margin-top: 2px;
@@ -69,13 +69,18 @@
   height: 25px;
   fill: #282828;
 }
+.svg-trash {
+  width: 14px;
+  height: 20px;
+  fill: #aaa;
+}
 .bottomTA {
   display: none;
   height: 33px;
   position: absolute;
   bottom: 1px;
   left: 55px;
-  width: 434px;
+  width: 541px;
   background: #eee;
   border-radius: 0 0 3px 3px;
   border: 1px solid #282828;
@@ -108,12 +113,12 @@
   margin: 0 0 0 15px;
 }
 .boxFeedList .feedTA {
-  width: 380px;
+  width: 487px;
   height: 38px;
   margin-left: 55px;
 }
 .boxFeedList .bottomTA {
-  width: 378px;
+  width: 485px;
 }
 .boxFeedList .attachBtn {
   top: 24px;
@@ -149,12 +154,21 @@
   color: #3399ff;
   font-size: 12px;
 }
+.feedWpr .trash {
+  position: absolute;
+  bottom: 8px;
+  right: 15px;
+  display: none;
+}
+.feedWpr:hover .trash {
+  display: block;
+}
 /*.feedActions {
     color: @itemBlue;
     
 }*/
 .feedReplies {
-  width: 436px;
+  width: 543px;
 }
 .feedReplies > li {
   margin-top: 15px;
