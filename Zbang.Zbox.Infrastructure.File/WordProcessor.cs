@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.File
             await Task.WhenAll(tasks);
             blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
 
-            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
+            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Svg" };
         }
         protected string CreateCacheFileName(string blobName, int index)
         {

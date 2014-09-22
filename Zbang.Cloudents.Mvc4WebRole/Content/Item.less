@@ -634,10 +634,10 @@ body.item {
 
 .previewWrapper {
     -webkit-overflow-scrolling: touch;
-    position: relative;
-    left: 0; //rtl
+   // position: relative;
+    //left: 0; //rtl
     height: 100%; //used for links
-    .transition(all .3s);
+    //.transition(all .3s);
     //min-height: ~'-webkit-calc(100vh - 60px)';
     //min-height: ~'calc(100vh - 60px)';
     min-height: ~'-webkit-calc(100vh - 200px)';
@@ -658,7 +658,6 @@ body.item {
     background: #fff;
     width: 800px;
     margin: 0 auto 10px;
-    position: relative;
     z-index: 0; //bug 581
 }
 
@@ -669,6 +668,8 @@ body.item {
     //bug 1982
     background: #fff;
     color: #fff;
+}
+.svgContent{
     height:100%; //ie issue
 }
 
@@ -694,7 +695,7 @@ body.item {
 
     .modal-dialog {
         border: none;
-        width: 800px;
+        //width: 800px;
         margin: 0 auto;
         -moz-transform: none;
         -ms-transform: none;
@@ -703,6 +704,7 @@ body.item {
         transform: none; //override;
         padding: 0; //override;
         display: inline-block;
+        background:transparent;
     }
 }
 
@@ -729,6 +731,7 @@ body.item {
     }
 
     .divWrapper {
+        width:90%;
         border: none;
         background: transparent;
     }
