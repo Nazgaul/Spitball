@@ -1,8 +1,8 @@
 ﻿//define('qnaCtrl', ['app'], function (app) {
 mBox.controller('QnACtrl',
-['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', 'sBox', 'sFocus',
+['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA',
 
-    function ($scope, sUserDetails, sNewUpdates, sQnA, sBox, sFocus) {
+    function ($scope, sUserDetails, sNewUpdates, sQnA) {
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;
@@ -57,18 +57,18 @@ mBox.controller('QnACtrl',
             that.itemUrl = data.url || data.itemUrl;
         }
 
-        var states = {
-            none: 0,
-            empty: 1,
-            questions: 2,
-            answers: 3
-        };
+        //var states = {
+        //    none: 0,
+        //    empty: 1,
+        //    questions: 2,
+        //    answers: 3
+        //};
 
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
             userName: sUserDetails.getDetails().name,
             userImage: sUserDetails.getDetails().image,
-            selectedQuestion: null,
+          //  selectedQuestion: null,
         };
 
         $scope.qFormData = {};
@@ -84,16 +84,16 @@ mBox.controller('QnACtrl',
 
             $scope.options.loader = false;
 
-            if (!questions) {
-                $scope.info.state = states.none;
-                return;
-            }
-            if (!questions.length) {
-                $scope.info.state = states.empty;
-                return;
-            }
+            //if (!questions) {
+            //  //  $scope.info.state = states.none;
+            //    return;
+            //}
+            //if (!questions.length) {
+            //    $scope.info.state = states.empty;
+            //    return;
+            //}
 
-            $scope.info.state = states.questions;
+            //$scope.info.state = states.questions;
         });
 
         $scope.answersLength = function (question) {
@@ -109,47 +109,47 @@ mBox.controller('QnACtrl',
             return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().score > 1000000;
         };
 
-        $scope.showAllAnswers = function (question) {
-            $scope.qFormData = {};
+        //$scope.showAllAnswers = function (question) {
+        //    $scope.qFormData = {};
 
-            $scope.info.selectedQuestion = question;
+        //    $scope.info.selectedQuestion = question;
             
             
 
             
-            question.isNew = false;
-            sNewUpdates.setOld($scope.boxId, 'questions', question.id);
+        //    question.isNew = false;
+        //    sNewUpdates.setOld($scope.boxId, 'questions', question.id);
 
-            for (var i = 0, l = question.answers.length; i < l; i++) {
-                question.answers[i].isNew = false;
-                sNewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
-            }
-
-            //cleartooltip ?
-
-            $scope.info.state = states.answers;
+        //    for (var i = 0, l = question.answers.length; i < l; i++) {
+        //        question.answers[i].isNew = false;
+        //        sNewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
+        //    }
             
-            sFocus('qna:answer');
-            //TODO: temp solution
-            window.setTimeout(cd.updateTimeActions, 1000);
+        //    //cleartooltip ?
 
-
-        };
-
-        $scope.showAllQuestion = function () {
-
-            $scope.info.selectedQuestion = null;
-            //refresh sccrooll
-            //todo: temp solution
-            window.setTimeout(cd.updateTimeActions, 1000);
-            if ($scope.info.questions) {
-                $scope.info.state = states.questions;
-                return;
-            }
-
-            $scope.info.state = states.empty;
+        //    //$scope.info.state = states.answers;
             
-        };
+        //    sFocus('qna:answer');
+        //    //TODO: temp solution
+        //    window.setTimeout(cd.updateTimeActions, 1000);
+
+
+        //};
+
+        //$scope.showAllQuestion = function () {
+
+        //    $scope.info.selectedQuestion = null;
+        //    //refresh sccrooll
+        //    //todo: temp solution
+        //    window.setTimeout(cd.updateTimeActions, 1000);
+        //    if ($scope.info.questions) {
+        //        //$scope.info.state = states.questions;
+        //        return;
+        //    }
+
+        //    //$scope.info.state = states.empty;
+            
+        //};
 
         $scope.postQuestion = function () {
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') {
@@ -191,9 +191,9 @@ mBox.controller('QnACtrl',
                 $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
 
-                if ($scope.info.state === states.empty) {
-                    $scope.info.state = states.questions;
-                }
+                //if ($scope.info.state === states.empty) {
+                //    $scope.info.state = states.questions;
+                //}
             });
 
 
@@ -262,12 +262,12 @@ mBox.controller('QnACtrl',
                 //notify
             });
 
-            $scope.info.selectedQuestion = null;
-            if (!$scope.info.questions.length) {
-                $scope.info.state = states.empty;
-                return;
-            }
-            $scope.info.state = states.questions;
+            //$scope.info.selectedQuestion = null;
+            //if (!$scope.info.questions.length) {
+            //    //$scope.info.state = states.empty;
+            //    return;
+            //}
+           // $scope.info.state = states.questions;
 
 
         };
