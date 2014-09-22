@@ -13,6 +13,9 @@
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
         </div>
+        
+        <span ng-if="!info.showJoinGroup">following</span>
+        <button type="button" ng-if="info.showJoinGroup">follow</button>
 
         <ul class="newActivity">
             <li ng-click="setTab('items')">

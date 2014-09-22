@@ -64,7 +64,7 @@ mBox.controller('BoxCtrl',
                 }
 
 
-                $scope.info.showJoinGroup = $scope.isUserFollowing();
+                $scope.info.showJoinGroup = !($scope.isUserFollowing());
 
                 $timeout(function () {
                     if (!sFacebook.isAuthenticated()) {

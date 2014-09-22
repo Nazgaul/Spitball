@@ -36,7 +36,7 @@
                    scope.rateItemCallback({ t: userRate });
                });
 
-               attrs.$observe('rateStar', function (value) {
+               attrs.$observe('rateStar', function () {
                    rate(elem, attrs);
                });
 
