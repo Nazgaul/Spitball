@@ -52,9 +52,9 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             where 
                              uWrap.Id =@UniversityWrapper";
 
-        public const string GetDepartmentByUserId =
-            @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
-where userid = @UserId";
+//        public const string GetDepartmentByUserId =
+//            @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
+//where userid = @UserId";
 
         /// <summary>
         /// Used in user page to bring friends

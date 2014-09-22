@@ -80,11 +80,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //TODO: seperate in ajax
         [HttpGet, Ajax]
-        [ActionName("Choose")]
-        [NoCache]
-        public ActionResult ChooseIndex()
+        public async Task<PartialViewResult> ChoosePartial()
         {
-            var country = GetUserCountryByIp();
+            var country = await GetUserCountryByIp();
             var haveUniversity = false;
             var userData = FormsAuthenticationService.GetUserData();
             if (userData != null && userData.UniversityId.HasValue)
@@ -97,6 +95,39 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return PartialView("_SelectUni");
         }
+        #region Ip
+        [NonAction]
+        private async Task<string> GetUserCountryByIp()
+        {
+            string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrWhiteSpace(userIp))
+            {
+                userIp = Request.ServerVariables["REMOTE_ADDR"];
+            }
+            if (Request.IsLocal)
+            {
+                userIp = "81.218.135.73";
+            }
+            var ipNumber = Ip2Long(userIp);
+            return await ZboxReadService.GetLocationByIp(ipNumber);
+
+        }
+        [NonAction]
+        private long Ip2Long(string ip)
+        {
+            double num = 0;
+            if (!string.IsNullOrEmpty(ip))
+            {
+                string[] ipBytes = ip.Split('.');
+                for (int i = ipBytes.Length - 1; i >= 0; i--)
+                {
+                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+                }
+            }
+            return (long)num;
+        }
+        #endregion
+
         [HttpGet, Ajax]
         public async Task<JsonResult> SearchUniversity(string term)
         {
@@ -149,41 +180,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [NonAction]
-        private string GetUserCountryByIp()
-        {
-            string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrWhiteSpace(userIp))
-            {
-                userIp = Request.ServerVariables["REMOTE_ADDR"];
-            }
-            if (Request.IsLocal)
-            {
-                userIp = "81.218.135.73";
-            }
-            var ipNumber = Ip2Long(userIp);
-            //var ipAddress = IPAddress.Parse(userIp);
-
-            //var ipNumber2 = BitConverter.ToInt64(ipAddress.GetAddressBytes().Reverse().ToArray(), 0);
-            //TODO: make async
-            return ZboxReadService.GetLocationByIp(ipNumber);
-
-        }
-        [NonAction]
-        private long Ip2Long(string ip)
-        {
-            string[] ipBytes;
-            double num = 0;
-            if (!string.IsNullOrEmpty(ip))
-            {
-                ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-                }
-            }
-            return (long)num;
-        }
+       
 
         [HttpGet]
         [Ajax]

@@ -157,7 +157,7 @@ namespace Zbang.Zbox.ReadServices
             //return m_ReadService.GetUserMinProfile(query);
         }
 
-        public string GetLocationByIp(long ipNumber)
+        public Task<string> GetLocationByIp(long ipNumber)
         {
             return m_ReadService.GetLocationByIp(ipNumber);
         }
@@ -241,10 +241,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<NodeDto> GetDepartmentByUser(QueryBase query)
-        {
-            return m_ReadService.GetDepartmentByUser(query);
-        }
+        //public Task<NodeDto> GetDepartmentByUser(QueryBase query)
+        //{
+        //    return m_ReadService.GetDepartmentByUser(query);
+        //}
 
         public Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
         {

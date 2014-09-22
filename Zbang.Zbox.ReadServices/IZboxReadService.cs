@@ -67,7 +67,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
 
-        string GetLocationByIp(long ipNumber);
+        Task<string> GetLocationByIp(long ipNumber);
         Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
 
 
@@ -100,7 +100,7 @@ namespace Zbang.Zbox.ReadServices
         Task<bool> GetUniversityNeedId(long universityId);
         Task<bool> GetUniversityNeedCode(long universityId);
 
-        Task<NodeDto> GetDepartmentByUser(QueryBase query);
+        //Task<NodeDto> GetDepartmentByUser(QueryBase query);
 
         Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query);
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);

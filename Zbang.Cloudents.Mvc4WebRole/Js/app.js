@@ -109,7 +109,7 @@ app.config([
             params: {
                 type: 'libraryChoose'
             },
-            templateUrl: '/library/choose/'
+            templateUrl: '/library/ChoosePartial/'
         }).
         when('/department/', {
             params: {

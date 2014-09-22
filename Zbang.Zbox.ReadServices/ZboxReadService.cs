@@ -56,13 +56,17 @@ namespace Zbang.Zbox.ReadServices
                     retVal.Boxes = await grid.ReadAsync<BoxDto>();
                     retVal.Friends = await grid.ReadAsync<User.UserDto>();
                     retVal.Wall = await grid.ReadAsync<WallDto>();
-
                 }
                 return retVal;
             }
 
         }
 
+        /// <summary>
+        /// Used in empty state dashboard
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCourses(QueryBase query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
@@ -93,7 +97,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
         /// <summary>
-        /// University page - used to get parentNode, sub nodes or boxes in the current node
+        /// University page - sub nodes or boxes in the current node
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -131,18 +135,19 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm, new { universityId = query.UniversityId, term = query.Term });
+                return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm,
+                    new { universityId = query.UniversityId, term = query.Term });
             }
         }
 
-        public async Task<NodeDto> GetDepartmentByUser(QueryBase query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<NodeDto>(Sql.Sql.GetDepartmentByUserId, new { query.UserId });
-                return retVal.FirstOrDefault();
-            }
-        }
+        //public async Task<NodeDto> GetDepartmentByUser(QueryBase query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<NodeDto>(Sql.Sql.GetDepartmentByUserId, new { query.UserId });
+        //        return retVal.FirstOrDefault();
+        //    }
+        //}
 
 
         /// <summary>
@@ -560,14 +565,16 @@ namespace Zbang.Zbox.ReadServices
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-        public string GetLocationByIp(long ipNumber)
+        public async Task<string> GetLocationByIp(long ipNumber)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetLocationByIP");
-                dbQuery.SetInt64("IP", ipNumber);
-                return dbQuery.UniqueResult<string>();
+                const string sql = @" select country_code2  from zbox.ip_range 
+    where ip_from <= @IP and @IP <= ip_to";
+                var retVal =await conn.QueryAsync<string>(sql, new {IP = ipNumber});
+                return retVal.FirstOrDefault();
             }
+           
         }
 
 
