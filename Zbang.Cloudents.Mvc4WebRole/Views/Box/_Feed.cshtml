@@ -1,19 +1,20 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<section class="boxFeed" ng-controller="QnACtrl">
-    <form class="feedForm" name="qnaQform" ng-init="focused=false"  @*ng-blur="focused=false"*@ ng-class="{feedOpen:focused}" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
-        {{focused}}
+<section class="boxFeed" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
+    <form class="feedForm" name="qnaQform" focus-form="feedOpen" 
+          ng-submit="postQuestion(qnaQform.$valid);" novalidate>
+
         <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
-        <textarea ng-focus="focused=true" text-direction msd-elastic name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
+        <textarea @*ng-focus="focused=true" ng-blur="focused=false"*@ text-direction msd-elastic name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
         <ul class="attachedList">
             <li class="attachedItem" ng-repeat="file in qFormData.files">
                 <span class="attachName elps">{{file.name}}</span>
                 <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
             </li>
         </ul>
-        <div class="bottomTA">
-            <button type="submit" ng-show="showPost" class="rFloat btn1" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
+        <div class="bottomTA" tabindex="0">
+            <button type="submit" class="rFloat btn1" ng-disabled="!qnaQform.$valid ">@SharedResources.Post</button>
         </div>
         <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
             <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>

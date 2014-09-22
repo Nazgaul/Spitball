@@ -64,6 +64,14 @@ mBox.controller('QnACtrl',
         //    answers: 3
         //};
 
+        $scope.focused = false;
+
+        $scope.formFocus = function ($event) {
+           $scope.focused = false;
+           $event.stopPropagation();
+           $scope.focused = true;
+       }
+
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
             userName: sUserDetails.getDetails().name,
@@ -156,7 +164,7 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            $scope.qFormData.boxUid = $scope.boxId;
+            $scope.qFormData.boxId = $scope.boxId;
 
             cd.pubsub.publish('addPoints', { type: 'question' });
 
