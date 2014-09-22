@@ -31,7 +31,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IUniversityReadSearchProvider> universitySearch,
             Lazy<IFacebookService> facebookService)
         {
-            // m_UserProfile = userProfile;
             m_UniversitySearch = universitySearch;
             m_FacebookService = facebookService;
         }
