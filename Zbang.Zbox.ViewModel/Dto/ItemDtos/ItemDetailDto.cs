@@ -23,7 +23,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int? NumberOfDownloads { get; set; }
 
         public string Blob { get; set; }
-        public float Rate { get;  set; }
+        public int Rate { get;  set; }
 
         public string BoxName { get; set; }
 

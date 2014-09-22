@@ -254,5 +254,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
         });
     };
+    $scope.rate = function(t) {
+        sItem.rate({ ItemId: $routeParams.itemId, rate: t });
+    }
 }
         ]);

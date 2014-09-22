@@ -28,7 +28,6 @@ where cte.itemid = @itemid;
 	i.NumberOfViews as numberOfViews,
 	i.numberofdownloads as numberOfDownloads,
     i.BlobName as blob,
-    i.rate as Rate,
     b.BoxName as BoxName,
     b.Url as BoxUrl
     from zbox.Item i
@@ -37,6 +36,9 @@ where cte.itemid = @itemid;
     where i.ItemId = @ItemId
     and i.IsDeleted = 0 
 	and i.boxid = @BoxId;";
+
+        public const string UserItemRate =
+            @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
 
 
         public const string ItemComments = @"SELECT [ItemCommentId] as Id

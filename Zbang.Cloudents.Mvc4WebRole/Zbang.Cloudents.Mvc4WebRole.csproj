@@ -388,6 +388,7 @@
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />
+    <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\ReplyItemComment.cs" />
     <Compile Include="Models\Resources\StoreResources.Designer.cs">

@@ -319,16 +319,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
 
 
-                //if (otakim)
-                //{
-                //    var bloburl = m_BlobProvider.GenerateSharedAccressReadPermissionInStorage(uri, 60);
-                //    var url = string.Format("{3}?ReferrerBaseURL=cloudents.com&ReferrerUserName={2}&ReferrerUserToken={2}&FileURL={0}&FileName={1}", Server.UrlEncode(bloburl), filedto.Name, User.Identity.Name,
-                //        Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("otakimUrl"));
-                //    return Redirect(url);
-                //}
+               
                 IEnumerable<string> retVal = null;
 
-                // var model = GenerateItemView(boxid, userId, itemId);
+               
                 var processor = m_FileProcessorFactory.GetProcessor(uri);
                 if (processor != null)
                 {
@@ -368,19 +362,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonResult Rate(long itemId, int rate)
+        public JsonResult Rate(RateModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+            }
             try
             {
                 var id = m_IdGenerator.Value.GetId();
-                var command = new RateItemCommand(itemId, GetUserId(), rate, id);
+                var command = new RateItemCommand(model.ItemId, GetUserId(), model.Rate, id);
                 ZboxWriteService.RateItem(command);
 
-                return Json(new JsonResponse(true, itemId));
+                return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", GetUserId(), itemId), ex);
+                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", GetUserId(), model.ItemId), ex);
                 return Json(new JsonResponse(false));
             }
         }
