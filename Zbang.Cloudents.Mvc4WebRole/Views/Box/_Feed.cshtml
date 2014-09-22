@@ -64,7 +64,7 @@
                 <p>{{comment.comment}}</p>*@
             </div>
             <ul>
-                <li ng-repeat="answer in info.selectedQuestion.answers">
+                <li ng-repeat="answer in question.answers">
                     <img class="feedImg rFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
                     <div class="userName boldFont elps">{{answer.userName}}</div>
                     <time class="createTime innerSection" display-time="{{answer.createTime}}"></time>
