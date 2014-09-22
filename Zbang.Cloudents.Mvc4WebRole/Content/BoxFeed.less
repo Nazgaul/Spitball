@@ -19,6 +19,7 @@
             border-radius: 3px 3px 0 0;
             border-bottom: none;
             margin-bottom: 35px;
+            border-color: #282828;
             ~ .bottomTA {
                 display: block;
             }
@@ -29,6 +30,9 @@
                 right: auto;
             }
         }
+        .svg-attachment {
+            fill: #282828;
+        }
     }
 }
 .feedImg {
@@ -36,13 +40,12 @@
     margin-right: 15px;
     border: 1px solid @borderColor;
     .boxSizing;
-
 }
 
 .feedTA {
     width: 436px;
     border-radius: 3px;
-    border: 1px solid #282828;
+    border: 1px solid @borderColor;
     margin-top: 2px;
     padding: 9px 55px 2px 12px; //rtl
     min-height: 38px;
@@ -92,21 +95,25 @@
             border-color: transparent #eeeeee transparent transparent;
         }
     }
-    /*.feedImg  {
-        margin-right: 11px;
-    }*/
+    .svg-attachment {
+        fill: @borderColor;
+    }
     .feedForm {
-        margin-top: 15px;
+        padding-top: 15px;
+        .feedImg {
+            margin: 0 0 0 15px; //override
+        }
     }
     .feedTA {
-        width: 370px;
+        width: 380px;
         height: 38px;
         margin-left: 55px;
     }
     .bottomTA {
-        width: 368px;
+        width: 378px;
     }
     .attachBtn {
+        top: 24px;
         right: 70px;
     }
 }
@@ -133,19 +140,45 @@
         margin-top: 15px;
         font-size: 16px;
     }
-}
-.feedActions {
-    color: @itemBlue;
-    button, .shareBtn {
+    .shareBtn {
         display: inline-block;
         color: @itemBlue; 
-    } 
+        font-size: 12px;
+    }
 }
+/*.feedActions {
+    color: @itemBlue;
+    
+}*/
 
 .feedReplies {
     width: 436px;
     > li {
         margin-top: 15px;
+        position: relative;
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            right: 41px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 0 7px 14px;
+            border-color: transparent transparent transparent @borderColor;
+        }
+        &:after {
+            .pseudo;
+            position: absolute;
+            top: 16px;
+            right: 44px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 12px;
+            border-color: transparent transparent transparent #fff;
+            z-index: 1;
+        }
     }
     .feedImg {
         margin: 0 0 0 15px; //override
@@ -158,3 +191,78 @@
         border: 1px solid @borderColor;
     }
 }
+
+/*#region attachments */
+.qaAttach {
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-top: 10px; /*rtl*/
+}
+
+.qaAttachItem {
+    border: 1px solid @borderColor;
+    margin: 12px 7px 0 0; /*rtl*/
+    display: inline-block;
+    height: 125px;
+    position: relative;
+
+    &:hover .attachActions {
+        visibility: visible;
+        bottom: 0;
+    }
+}
+
+.attachActions {
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    background: rgba(0,0,0,.65);
+    position: absolute;
+    left: 0; /*rtl*/
+    bottom: -25px;
+    visibility: hidden;
+    .transition(all .1s);
+    text-align: center;
+}
+
+.attachFull {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: @qa-sprite -2px -2px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -2px -21px;
+    }
+}
+
+.attachDelete {
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    background: @qa-sprite -22px -2px no-repeat;
+    margin: -3px 3px 0 3px;
+    vertical-align: middle;
+
+    &:hover {
+        background-position: -22px -21px;
+    }
+}
+
+.attachDownload {
+    display: inline-block;
+    width: 14px;
+    height: 15px;
+    background: @qa-sprite -38px -3px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -38px -22px;
+    }
+}
+
+/*#endregion */

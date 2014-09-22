@@ -332,6 +332,7 @@ body.item .siteHeader {
   border-top: 1px solid #c2c2c2;
   clear: both;
   margin-top: 8px;
+  font-size: 12px;
 }
 .itemComments header {
   font-size: 20px;
