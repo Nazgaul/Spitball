@@ -5,7 +5,6 @@
 .boxFeed {
   width: 491px;
   color: #383838;
-  position: relative;
 }
 .feedForm {
   position: relative;
@@ -22,7 +21,7 @@
   box-sizing: border-box;
 }
 .feedTA {
-  width: 430px;
+  width: 431px;
   border-radius: 3px;
   border: 1px solid #282828;
   margin-top: 2px;
@@ -76,4 +75,40 @@
   border-radius: 0 0 3px 3px;
   border: 1px solid #282828;
   border-top: none;
+}
+.boxFeedList > li {
+  clear: both;
+  margin-top: 15px;
+}
+.feedWpr {
+  width: 431px;
+  background: #eee;
+  padding: 8px 15px;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.feedWpr .userName {
+  color: #3399ff;
+  max-width: 300px;
+  font-size: 16px;
+}
+.feedWpr .createTime {
+  color: #999;
+  font-size: 16px;
+}
+.feedWpr .feedContent {
+  margin-top: 15px;
+  font-size: 16px;
+}
+.feedActions {
+  color: #3399ff;
+}
+.feedActions button,
+.feedActions .shareBtn {
+  display: inline-block;
+  color: #3399ff;
 }

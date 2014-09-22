@@ -3,47 +3,44 @@
 
 <section class="boxFeed" ng-controller="QnACtrl">
     <form class="feedForm" name="qnaQform" ng-submit="postQuestion(qnaQform.$valid)" novalidate ng-init="showPost=false">
-        @*<div class="textareaWpr">*@
-            <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="41" height="41" />
-            <textarea text-direction msd-elastic name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
-            <ul class="attachedList">
-                <li class="attachedItem" ng-repeat="file in qFormData.files">
-                    <span class="attachName elps">{{file.name}}</span>
-                    <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-                </li>
-            </ul>
-            <div class="bottomTA">
-                <button type="submit" ng-show="showPost" class="rFloat btn1" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
-            </div>
-            <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()"> @*ng-disabled="!qnaQform.$valid"*@
-                <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
-            </button>
-        @*</div>*@
+        <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
+        <textarea text-direction msd-elastic name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content" ng-focus="checkAuth() && (showPost=true)"></textarea>
+        <ul class="attachedList">
+            <li class="attachedItem" ng-repeat="file in qFormData.files">
+                <span class="attachName elps">{{file.name}}</span>
+                <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
+            </li>
+        </ul>
+        <div class="bottomTA">
+            <button type="submit" ng-show="showPost" class="rFloat btn1" ng-disabled="!qnaQform.$valid">@SharedResources.Post</button>
+        </div>
+        <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()"> @*ng-disabled="!qnaQform.$valid"*@
+            <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
+        </button>
     </form>
 
     <ul class="boxFeedList">
         <li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
-            <img class="QAImg" alt="" width="32" height="32" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
-            <div class="attachBtn"></div>
-            <div class="numAttached">{{question.files.length}}</div>
-            <div class="userName boldFont elps">{{question.userName}}</div>
-            <time class="createTime" display-time="{{question.createTime}}"></time>
-            <div class="QContent" ng-bind-html="question.content"></div>
-
-            <ul class="attachedList">
-                <li class="attachedItem" ng-repeat="file in qFormData.files">
-                    <span class="attachName elps">{{file.name}}</span>
-                    <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-                </li>
-            </ul>
-
-            <button type="button">@SharedResources.AddComment</button>
-
-            @*<section class="shareBtn rFloat">
-                    <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
-                    <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
-                        <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
-                    </label>
+            <img class="feedImg" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
+            
+            <div class="feedWpr">
+                <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
+                <div class="userName elps">{{question.userName}}</div>
+                
+                <div class="feedContent" ng-bind-html="question.content"></div>
+                @*<div class="attachBtn"></div>
+                <div class="numAttached">{{question.files.length}}</div>*@
+                <ul class="attachedList">
+                    <li class="attachedItem" ng-repeat="file in qFormData.files">
+                        <span class="attachName elps">{{file.name}}</span>
+                        <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
+                    </li>
+                </ul>
+                <div class="lFloat feedActions">
+                    <button type="button">@SharedResources.AddComment</button>&nbsp;&nbsp;|&nbsp;
+                    <div class="shareBtn">
+                        <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
+                        <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
                     <div class="dropDown shareDD">
                         <label class="closeItem rFloat" for="boxShare"></label>
                         <div class="arrow shareArrow"></div>
@@ -60,14 +57,15 @@
                         <div class="shareTxt">@SharedResources.OrCopyLink</div>
                         <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
                     </div>
-                </section>*@
-
-            @*<span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
+                </div>
+                </div>
+                @*<span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
                 <time display-time="{{comment.creationDate}}"></time>
                 <p>{{comment.comment}}</p>*@
+            </div>
             <ul>
                 <li ng-repeat="answer in info.selectedQuestion.answers">
-                    <img class="QAImg lFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="32" height="32" />
+                    <img class="feedImg rFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
                     <div class="userName boldFont elps">{{answer.userName}}</div>
                     <time class="createTime innerSection" display-time="{{answer.createTime}}"></time>
                     <div class="AContent" ng-bind-html="answer.content"></div>
@@ -83,23 +81,23 @@
                     </ul>
                 </li>
             </ul>
-
             @*<form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">*@
-            <div ng-form="qnaAform" class="clearfix" novalidate ng-init="showComment=false">
-                <img class="QAImg lFloat" ng-src="{{info.userImage}}" alt="" width="32" height="32" />
-                <div class="textareaWpr">
-                    <textarea text-direction msd-elastic name="content" required class="QTextarea" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
-                    <ul class="attachedList">
-                        <li class="attachedItem" ng-repeat="file in info.selectedQuestion.aFormData.files">
-                            <span class="attachName elps">{{file.name}}</span>
-                            <button class="removeAttach" ng-click="removeAnswerAttachment(info.selectedQuestion,file)"></button>
-                        </li>
-                    </ul>
+            <div ng-form="qnaAform" class="feedForm" novalidate ng-init="showComment=false">
+                <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
+
+                <textarea text-direction msd-elastic name="content" required class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="info.selectedQuestion.aFormData.content" ng-focus="checkAuth() && (showComment=true)"></textarea>
+                <ul class="attachedList">
+                    <li class="attachedItem" ng-repeat="file in info.selectedQuestion.aFormData.files">
+                        <span class="attachName elps">{{file.name}}</span>
+                        <button class="removeAttach" ng-click="removeAnswerAttachment(info.selectedQuestion,file)"></button>
+                    </li>
+                </ul>
+                <div class="bottomTA">
+                    <button type="submit" ng-click="postAnswer(info.selectedQuestion)" ng-disabled="!qnaAform.$valid" ng-show="showComment">@SharedResources.Post</button>
                 </div>
-                <div class="rFloat">
-                    <button type="button" class="attachBtn" ng-show="showComment" ng-click="addAnswerAttachment(info.selectedQuestion)"></button>
-                    <button type="submit" class="askBtn" ng-click="postAnswer(info.selectedQuestion)" ng-disabled="!qnaAform.$valid" ng-show="showComment">@SharedResources.Comment</button>
-                </div>
+                <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(info.selectedQuestion)">
+                    <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
+                </button>
             </div>
             @*</form>*@
         </li>

@@ -3,7 +3,6 @@
 .boxFeed {
     width: 491px;
     color: @textColor;
-    position: relative;
 }
 .feedForm {
     position: relative;
@@ -19,7 +18,7 @@
 }
 
 .feedTA {
-    width: 430px;
+    width: 431px;
     border-radius: 3px;
     //margin: 0 15px;
     border: 1px solid #282828;
@@ -71,4 +70,40 @@
     border-radius: 0 0 3px 3px;
     border: 1px solid #282828;
     border-top: none;
+}
+
+.boxFeedList {
+    > li {
+        clear: both;
+        margin-top: 15px;
+    }
+}
+.feedWpr {
+    width: 431px;
+    background: #eee;
+    padding: 8px 15px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 3px;
+    .boxSizing;
+    .userName {
+        color: @itemBlue;
+        max-width: 300px;
+        font-size: 16px;
+    }
+    .createTime {
+        color: #999;
+        font-size: 16px;
+    }
+    .feedContent {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+}
+.feedActions {
+    color: @itemBlue;
+    button, .shareBtn {
+        display: inline-block;
+        color: @itemBlue;
+    }
 }
