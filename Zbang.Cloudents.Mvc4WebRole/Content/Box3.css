@@ -894,6 +894,7 @@
   width: calc(100% - 243px);
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
+  position: relative;
 }
 /*#region boxItems */
 .thumbContent {
@@ -953,6 +954,8 @@
   display: none !important;
 }
 .boxItemList {
+  clear: both;
+  padding-top: 15px;
   min-width: 316px;
 }
 .boxItemList.sponsored .boxName {
@@ -1338,6 +1341,7 @@
   border: none;
   background: none;
   box-shadow: none;
+  z-index: 1;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

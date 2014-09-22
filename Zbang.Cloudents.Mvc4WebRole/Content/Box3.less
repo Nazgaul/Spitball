@@ -907,11 +907,7 @@
     width: ~'calc(100% - @{boxSideBarWidth})';
     min-height: ~'-webkit-calc(100vh - @{header-height})';
     min-height: ~'calc(100vh - @{header-height})';
-    //overflow: hidden; //TODO:CHECK THIS
-    //display: table;
-    //width: 100%;
-    //padding-top: 88px;
-    //position: relative; // for the drop zone
+    position: relative;
 }
 
 /*#region boxItems */
@@ -978,6 +974,8 @@
 }
 
 .boxItemList {
+    clear: both;
+    padding-top: 15px;
     min-width: (@box-width * 2 + @min-margin);
 
     &.sponsored {
@@ -1380,6 +1378,7 @@
         border: none;
         background: none;
         box-shadow: none;
+        z-index:1; //content to appear over quiz background-image
         -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
