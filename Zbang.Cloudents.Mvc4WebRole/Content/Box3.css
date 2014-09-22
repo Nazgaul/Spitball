@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -746,7 +746,7 @@
 }
 .boxFolders {
   height: 100%;
-  display: table-row;
+  margin: 0 -25px;
 }
 .boxFolders .mCSB_container,
 .boxFolders [ng-transclude] {
@@ -787,7 +787,7 @@
 .boxFolder .boxFolderName,
 .createFolder .boxFolderName {
   padding: 0 10px;
-  max-width: 241px;
+  max-width: 220px;
   display: inline-block;
   cursor: pointer;
   width: 100%;
@@ -890,7 +890,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
-  overflow: hidden;
+  width: -webkit-calc(100% - 243px);
+  width: calc(100% - 243px);
+  min-height: -webkit-calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
 }
 /*#region boxItems */
 .thumbContent {
@@ -1055,8 +1058,6 @@
 }
 .boxItems {
   margin: 20px 20px 0 20px;
-  width: -webkit-calc(100% - 416px);
-  width: calc(100% - 416px);
 }
 .boxItemsHeader {
   height: 68px;
@@ -1578,7 +1579,7 @@
 .boxItemList {
   display: block;
   margin: 2px auto 0;
-  min-width: 316px;
+  min-width: 652px;
 }
  
 .thumbItem {
@@ -1587,7 +1588,7 @@
   margin: 0 20px 32px 0;
   /*rtl*/
 }
-@media (max-width: 1036px) {
+@media (max-width: 979px) {
    
 .boxItemList.sponsored  
 .thumbItem:first-child {
@@ -1613,7 +1614,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2717px) {
+@media (min-width: 2324px) {
    
 .boxItemList {
     width: 1996px;
@@ -1624,69 +1625,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1037px) and (max-width: 1204px) {
-   
-.boxItemList:not(.sponsored)  
-.thumbItem:nth-child(2n) {
-    margin-right: 0;
-    /*rtl*/
-  }
-   
-.boxItemList.sponsored  
-.thumbItem:first-child {
-    width: -webkit-calc((100% - 296px)/ 1 - 1px + 296px);
-    /*rtl*/
-    width: calc((100% - 296px)/ 1 - 1px + 296px);
-    /*rtl*/
-  }
-   
-.boxItemList.sponsored  
-.thumbItem:nth-child(2n + 1) {
-    margin-right: 0;
-    /*rtl*/
-  }
-   
-.thumbItem {
-    margin-right: 20px;
-    /*rtl*/
-    margin-right: -webkit-calc((100% - 296px)/ 1 - 1px);
-    /*rtl*/
-    margin-right: calc((100% - 296px)/ 1 - 1px);
-    /*rtl*/
-  }
-}
-@media (min-width: 1205px) and (max-width: 1372px) {
-   
-.boxItemList:not(.sponsored)  
-.thumbItem:nth-child(3n) {
-    margin-right: 0;
-    /*rtl*/
-  }
-   
-.boxItemList.sponsored  
-.thumbItem:first-child {
-    width: -webkit-calc((100% - 444px)/ 2 - 1px + 296px);
-    /*rtl*/
-    width: calc((100% - 444px)/ 2 - 1px + 296px);
-    /*rtl*/
-  }
-   
-.boxItemList.sponsored  
-.thumbItem:nth-child(3n + 2) {
-    margin-right: 0;
-    /*rtl*/
-  }
-   
-.thumbItem {
-    margin-right: 20px;
-    /*rtl*/
-    margin-right: -webkit-calc((100% - 444px)/ 2 - 1px);
-    /*rtl*/
-    margin-right: calc((100% - 444px)/ 2 - 1px);
-    /*rtl*/
-  }
-}
-@media (min-width: 1373px) and (max-width: 1540px) {
+@media (min-width: 980px) and (max-width: 1147px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(4n) {
@@ -1717,7 +1656,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1541px) and (max-width: 1708px) {
+@media (min-width: 1148px) and (max-width: 1315px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(5n) {
@@ -1748,7 +1687,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1709px) and (max-width: 1876px) {
+@media (min-width: 1316px) and (max-width: 1483px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(6n) {
@@ -1779,7 +1718,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 1877px) and (max-width: 2044px) {
+@media (min-width: 1484px) and (max-width: 1651px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(7n) {
@@ -1810,7 +1749,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2045px) and (max-width: 2212px) {
+@media (min-width: 1652px) and (max-width: 1819px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(8n) {
@@ -1841,7 +1780,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2213px) and (max-width: 2380px) {
+@media (min-width: 1820px) and (max-width: 1987px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(9n) {
@@ -1872,7 +1811,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2381px) and (max-width: 2548px) {
+@media (min-width: 1988px) and (max-width: 2155px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(10n) {
@@ -1903,7 +1842,7 @@
     /*rtl*/
   }
 }
-@media (min-width: 2549px) and (max-width: 2716px) {
+@media (min-width: 2156px) and (max-width: 2323px) {
    
 .boxItemList:not(.sponsored)  
 .thumbItem:nth-child(11n) {
@@ -2207,4 +2146,3 @@
   /*rtl*/
 }
 /*#endregion */
-/*# sourceMappingURL=Box3.css.map */

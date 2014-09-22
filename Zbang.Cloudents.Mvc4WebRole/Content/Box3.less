@@ -756,7 +756,8 @@
 
 .boxFolders {
     height: 100%; //
-    display: table-row;
+    margin: 0 -25px;
+    //display: table-row;
     .mCSB_container, [ng-transclude] {
         height: 100%;
     }
@@ -796,7 +797,7 @@
 
     .boxFolderName {
         padding: 0 10px;
-        max-width: 241px;
+        max-width: 220px;
         display: inline-block;
         cursor: pointer;
         width: 100%;
@@ -902,7 +903,11 @@
     padding: 75px 25px 15px 25px;
     .boxSizing;
     background: #fff;
-    overflow: hidden; //TODO:CHECK THIS
+    width: ~'-webkit-calc(100% - @{boxSideBarWidth})';
+    width: ~'calc(100% - @{boxSideBarWidth})';
+    min-height: ~'-webkit-calc(100vh - @{header-height})';
+    min-height: ~'calc(100vh - @{header-height})';
+    //overflow: hidden; //TODO:CHECK THIS
     //display: table;
     //width: 100%;
     //padding-top: 88px;
@@ -1093,8 +1098,8 @@
 
 .boxItems {
     margin: 20px 20px 0 20px;
-    width: ~'-webkit-calc(100% - 416px)';
-    width: ~'calc(100% - 416px)';
+    //width: ~'-webkit-calc(100% - 416px)';
+    //width: ~'calc(100% - 416px)';
 }
 
 .boxItemsHeader {
@@ -1629,7 +1634,7 @@
 /*#endregion */ 
 
 //.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
-.box-layout(boxItemList,thumbItem,148px,248px,2,12,20px,310px,411px);
+.box-layout(boxItemList,thumbItem,148px,248px,4,12,20px,288px,40px);
 .stars {
     width: 69px;
     height: 14px;
