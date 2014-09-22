@@ -288,111 +288,109 @@ mBox.controller('BoxCtrl',
 
             //#endregion
 
+            $scope.$on('openUpload', function (qna) {
+                $scope.openUploadPopup(qna);
+
+            });
+
+            $scope.partials = {
+                uploader: '/Box/UploadPartial/',
+                uploadAddLink: '/Box/UploadLinkPartial/'
+            };
+            //#region upload
+            $scope.openUploadPopup = function (qna) {
+                if (!sUserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+               
+                var modalInstance = $modal.open({
+                    windowClass: "uploader",
+                    templateUrl: $scope.partials.uploader,
+                    controller: 'UploadCtrl',
+                    backdrop: 'static'
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
+                });
+
+                modalInstance.result.then(function (response) {
+                    if (response.url) {
+                        modalInstance = $modal.open({
+                            windowClass: "uploadLink",
+                            templateUrl: $scope.partials.uploadAddLink,
+                            controller: 'UploadLinkCtrl',
+                            backdrop: 'static'
+                        });
+
+                        modalInstance.result.then(function (url) {
+                            $scope.$broadcast('linkAdded', { name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
+                            //saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
+                        }); //save url
+                        return;
+                    }
+
+                    if (response.dropbox) {
+                        var files = response.files;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                $scope.$broadcast('linkAdded', {
+                                    name: file.name,
+                                    size: file.bytes,
+                                    url: file.link,
+                                    type: 'dropbox',
+                                    ajax: 'dropbox',
+                                    timeout: 0,
+                                    index: index,
+                                    length: files.length
+
+                                });
+                                //saveItem({
+                                //    name: file.name,
+                                //    size: file.bytes,
+                                //    url: file.link,
+                                //    type: 'dropbox',
+                                //    ajax: 'dropbox',
+                                //    timeout: 0,
+                                //    index: index,
+                                //    length: files.length
+
+                                //});
+
+                            })(files[i], i);
+                        }
+                        return;
+                    }
+
+                    if (response.googleDrive) {
+                        var files = response.files;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                $scope.$broadcast('linkAdded', {
+                                    name: file.name,
+                                    size: file.size,
+                                    url: file.link,
+                                    type: 'googleLink',
+                                    ajax: 'link',
+                                    timeout: 1000,
+                                    index: index,
+                                    length: files.length
+
+                                });
+                                
+
+                            })(files[i], i);
+                        }
+                        return;
+                    }
+                }, function () {
+                    //dismiss
+                });
+            };
+            //#endregion
         }
 
-        ]);/*.factory('sBoxData', ['$rootScope',
-   function ($rootScope) {
-       var data = {}
-
-       return {
-
-           setFeed: function (feed) {
-               if (feed !== null) {
-                   data.feed = feed;
-               }
-           },
-           setItems: function (items) {
-               if (!items) {
-                   return;
-               }
-
-               var quizzes = [], files = [];
-
-               for (var i = 0, l = items.length; i < l; i++) {
-                   if (items[i].type === 'Quiz') {
-                       quizzes.push(items[i]);
-                   } else {
-                       files.push(items[i]);
-                   }
-               }
-
-               data.quizzes = quizzes;
-               data.files = files;
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-
-           },
-           addFile: function (file) {
-               if (!file) {
-                   return;
-               }
-
-               if (!data.files) {
-                   data.files = [];
-               }
-
-               data.files.push(file);
-
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-           },
-           removeFile: function (file) {
-               if (!file) {
-                   return;
-               }
-
-               var index = data.files.indexOf(file);
-
-               if (index > -1) {
-                   data.files.splice(index, 1);
-               }
-
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-           },
-           addQuiz: function (quiz) {
-               if (!quiz) {
-                   return;
-               }
-
-               if (!data.quizzes) {
-                   data.quizzes = [];
-               }
-
-               data.quizzes.push(quiz);`
-
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-           },
-           removeQuiz: function (quiz) {
-               if (!quiz) {
-                   return;
-               }
-
-               var index = data.files.indexOf(quiz);
-
-               if (index > -1) {
-                   data.quizzes.splice(index, 1);
-               }
-
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-           },
-           setMembers: function (members) {
-               if (members !== null) {
-                   data.members = members;
-               }
-
-               $rootScope.$broadcast('box:memersLength', data.members.length);
-           },
-           getFeed: function () {
-               return data.feed;
-           },
-           getFiles: function () {
-               return data.files;
-           },
-           getQuizzes: function () {
-               return data.quizzes;
-           },
-           getMembers: function () {
-               return data.members;
-           }
-       }
-   }]);
-*/
+        ]);

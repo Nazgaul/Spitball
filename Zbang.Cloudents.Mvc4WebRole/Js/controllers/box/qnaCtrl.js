@@ -1,8 +1,8 @@
 ﻿//define('qnaCtrl', ['app'], function (app) {
 mBox.controller('QnACtrl',
-['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA',
+['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA','$rootScope',
 
-    function ($scope, sUserDetails, sNewUpdates, sQnA) {
+    function ($scope, sUserDetails, sNewUpdates, sQnA, $rootScope) {
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;
@@ -64,11 +64,18 @@ mBox.controller('QnACtrl',
         //    answers: 3
         //};
 
+        $scope.focused = false;
+
+        $scope.formFocus = function ($event) {
+           $scope.focused = false;
+           $event.stopPropagation();
+           $scope.focused = true;
+       }
+
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
             userName: sUserDetails.getDetails().name,
-            userImage: sUserDetails.getDetails().image,
-          //  selectedQuestion: null,
+            userImage: sUserDetails.getDetails().image
         };
 
         $scope.qFormData = {};
@@ -157,7 +164,7 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            $scope.qFormData.boxUid = $scope.boxId;
+            $scope.qFormData.boxId = $scope.boxId;
 
             cd.pubsub.publish('addPoints', { type: 'question' });
 
@@ -335,21 +342,23 @@ mBox.controller('QnACtrl',
 
         $scope.addQuestionAttachment = function () {
             qAttach = true;
-            $scope.openUploadPopup(true).then(function (files) {
-                qAttach = false;
 
-                var mapped = files.map(function (file) {
-                    file.uid = file.id;
-                    return file;
-                });
+            $rootScope.$broadcast('openUpload', true);
+            //$scope.openUploadPopup(true).then(function (files) {
+            //    qAttach = false;
 
-                if (!$scope.qFormData.files) {
-                    $scope.qFormData.files = mapped;
-                    return;
-                }
+            //    var mapped = files.map(function (file) {
+            //        file.uid = file.id;
+            //        return file;
+            //    });
 
-                $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
-            });
+            //    if (!$scope.qFormData.files) {
+            //        $scope.qFormData.files = mapped;
+            //        return;
+            //    }
+
+            //    $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
+            //});
         };
         $scope.removeQuestionAttachment = function (file) {
             var index = $scope.qFormData.files.indexOf(file);

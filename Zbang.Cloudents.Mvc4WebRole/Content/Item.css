@@ -631,7 +631,6 @@ body.item .siteHeader {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #fff;
 }
 .itemFulscrn .copyRightWarning {
   display: none;
@@ -665,6 +664,7 @@ body.item .siteHeader {
 }
 .itemFulscrn .svgContent {
   width: 80vw;
+  background: #fff;
 }
 .itemFulscrn iframe {
   width: 90vw;

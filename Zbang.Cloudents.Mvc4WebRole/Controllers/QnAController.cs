@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             //  var filesId = model.Files.Select(s => m_ShortToLongCode.ShortCodeToLong(s, ShortCodesType.Item));
             var questionId = m_IdGenerator.Value.GetId();
-            var command = new AddCommentCommand(GetUserId(), model.BoxUid, model.Content, questionId, model.Files);
+            var command = new AddCommentCommand(GetUserId(), model.BoxId, model.Content, questionId, model.Files);
             ZboxWriteService.AddQuestion(command);
             return Json(new JsonResponse(true, questionId));
         }

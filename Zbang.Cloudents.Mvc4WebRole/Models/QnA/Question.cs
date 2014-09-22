@@ -13,7 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
         [AllowHtml]
         public string Content { get; set; }
         [Required]
-        public long BoxUid { get; set; }
+        public long BoxId { get; set; }
 
         public long[] Files { get; set; }
     }
