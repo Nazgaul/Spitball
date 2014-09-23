@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -429,12 +429,17 @@ body.item .siteHeader {
 }
 .itemCommentsList .user-name {
   color: #3399ff;
+  display: block;
+  padding-left: 5px;
 }
 .itemCommentsList p {
-  font-size: 15px;
-  padding: 5px 0 10px;
+  font-size: 18px;
+  padding: 14px 0;
   margin-bottom: 10px;
   border-bottom: 1px solid #c2c2c2;
+}
+.commentTop {
+  color: #c2c2c2;
 }
 /*#endregion */
 /*#region item content */
@@ -733,4 +738,3 @@ body.item .siteHeader {
   margin-top: -50px;
 }
 /*#endregion */
-/*# sourceMappingURL=Item.css.map */
