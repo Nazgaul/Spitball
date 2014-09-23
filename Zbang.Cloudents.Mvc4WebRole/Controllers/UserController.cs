@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 IEnumerable<UserDto> friendFriends = null;
                 if (taskFriendData.Result != null)
                 {
-                    friendFriends = taskFriendData.Result.Where(w => w.Uid != GetUserId());
+                    friendFriends = taskFriendData.Result.Where(w => w.Id != GetUserId());
                 }
                 return Json(new JsonResponse(true, new
                 {

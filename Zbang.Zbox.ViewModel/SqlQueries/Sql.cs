@@ -59,13 +59,8 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
         /// <summary>
         /// Used in user page to bring friends
         /// </summary>
-        public const string FriendList = @" select 
-                                u.userid as Uid,u.UserName as Name,u.UserImage as Image , u.Url as Url,
-                                u.UserImageLarge as LargeImage,
-                                u.UserReputation
-								from zbox.Users u where userid =( select universityid from zbox.users where userid = @userid)
-								union 
-								select u.userid as Uid,u.UserName as Name ,u.UserImage as Image ,u.url as Url,
+        public const string FriendList = @"
+								select u.userid as Id,u.UserName as Name ,u.UserImage as Image ,u.url as Url,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
                                 from zbox.userboxrel ub 
