@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -353,7 +353,7 @@ body.item .siteHeader {
   padding: 15px 0 10px;
 }
 .itemComments > .itemCommentsForm .textareaWpr {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .itemComments .textareaWpr {
   /* background: #fff; */
@@ -393,12 +393,11 @@ body.item .siteHeader {
   border-radius: 3px;
   width: 100%;
   margin-bottom: 8px;
-  height: 20px;
   padding: 4px 8px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  min-height: 28px;
+  min-height: 25px;
   font-size: 15px;
 }
 .itemCommentsList {
@@ -734,3 +733,4 @@ body.item .siteHeader {
   margin-top: -50px;
 }
 /*#endregion */
+/*# sourceMappingURL=Item.css.map */

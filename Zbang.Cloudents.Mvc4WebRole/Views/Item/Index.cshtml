@@ -123,9 +123,11 @@
             <div m-custom-scrollbar>
                 <ul class="itemCommentsList">
                     <li class="itemComment" ng-repeat="comment in item.comments">
-                        <span>@ItemsResources.PostedBy</span>
-                        <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
-                        <time display-time="{{comment.creationDate}}"></time>
+                        <div>
+                            <time class="rFloat" display-time="{{comment.creationDate}}"></time>
+                            <span>@ItemsResources.PostedBy</span>
+                            <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
+                        </div>
                         <p>{{comment.comment}}</p>
                         <ul>
                             <li ng-repeat="reply in comment.replies">
