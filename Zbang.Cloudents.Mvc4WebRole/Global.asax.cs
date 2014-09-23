@@ -55,41 +55,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             try
             {
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
-                    var userData = formsAuthenticationService.GetUserData();
-                    if (userData != null)
-                    {
-                        ChangeThreadLanguage(userData.Language);
-                        return;
-                    }
-                }
-
-                if (Request.QueryString["lang"] != null)
-                {
-                    ChangeThreadLanguage(Request.QueryString["lang"]);
-                    return;
-                }
-                if (Request.Cookies["lang"] != null)
-                {
-                    var value = Server.HtmlEncode(Request.Cookies["lang"].Value);
-                    ChangeThreadLanguage(value);
-                    return;
-                }
-
-                if (Request.UserLanguages == null) return;
-                foreach (var languageWithRating in Request.UserLanguages)
-                {
-                    if (string.IsNullOrEmpty(languageWithRating))
-                    {
-                        continue;
-                    }
-                    var userLanguage = languageWithRating.Split(';')[0];
-                    if (!Languages.CheckIfLanguageIsSupported(userLanguage)) continue;
-                    ChangeThreadLanguage(userLanguage);
-                    break;
-                }
+                UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
+                    new HttpServerUtilityWrapper(HttpContext.Current.Server));
             }
             catch (Exception ex)
             {

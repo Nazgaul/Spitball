@@ -78,7 +78,7 @@ VALUES (@orderId,@custid,@StudentCode,@the_date,@dfname,@dlname,@daddress1,@dsta
                         orderId = currentOrderId,
                         custid = currentCustomerId,
                         StudentCode = order.IdentificationNumber,
-                        the_date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
+                        the_date = DateTime.UtcNow.AddHours(2).ToString("yyyy-MM-dd HH:mm:ss"),
                         dfname = order.FirstName,
                         dlname = order.LastName,
                         daddress1 = order.Address,

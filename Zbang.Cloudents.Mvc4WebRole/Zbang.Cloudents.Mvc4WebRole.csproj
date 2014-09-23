@@ -322,6 +322,7 @@
     <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\UrlTitleBringer.cs" />
+    <Compile Include="Helpers\UserLanguage.cs" />
     <Compile Include="Helpers\UserProfile.cs" />
     <Compile Include="Js\Resources\JsResources.Designer.cs">
       <AutoGen>True</AutoGen>

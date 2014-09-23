@@ -131,59 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TempDataProvider = new CookieTempDataProvider(HttpContext);
             try
             {
-                if (Request.Url != null && Request.Url.AbsolutePath.StartsWith("/store"))
-                {
-                    ChangeThreadLanguage("he-IL");
-                    return;
-                }
-                //ie 9 issue with store
-                if (Request.UrlReferrer != null && Request.Url != null && Request.Url.AbsolutePath == "/" && Request.UrlReferrer.AbsolutePath.StartsWith("/store"))
-                {
-                    ChangeThreadLanguage("he-IL");
-                    return;
-                }
-                if (User != null && User.Identity != null && User.Identity.IsAuthenticated &&
-                    FormsAuthenticationService != null)
-                {
-                    var userData = FormsAuthenticationService.GetUserData();
-                    if (userData != null)
-                    {
-                        ChangeThreadLanguage(userData.Language);
-                        return;
-                    }
-                }
-                if (Request.QueryString["lang"] != null)
-                {
-                    ChangeThreadLanguage(Request.QueryString["lang"]);
-                    return;
-                }
-                if (HttpContext.Request.Cookies["lang"] != null)
-                {
-                    var value = Server.HtmlEncode(HttpContext.Request.Cookies["lang"].Value);
-                    ChangeThreadLanguage(value);
-                    return;
-                }
-                var langFromUrl = requestContext.RouteData.Values.FirstOrDefault(f => f.Key == "lang");
-                if (langFromUrl.Value != null)
-                {
-                    ChangeThreadLanguage(langFromUrl.Value.ToString());
-                    return;
-                }
-
-                if (Request.UserLanguages == null) return;
-                foreach (var languageWithRating in Request.UserLanguages)
-                {
-                    if (string.IsNullOrEmpty(languageWithRating))
-                    {
-                        continue;
-                    }
-                    var userLanguage = languageWithRating.Split(';')[0];
-                    if (Languages.CheckIfLanguageIsSupported(userLanguage))
-                    {
-                        ChangeThreadLanguage(userLanguage);
-                        break;
-                    }
-                }
+                UserLanguage.ChangeLanguage(HttpContext, Server);
             }
             catch (Exception ex)
             {

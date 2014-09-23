@@ -464,7 +464,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RequireHttps]
-        public ActionResult ChangeLanguage(UserLanguage model)
+        public ActionResult ChangeLanguage(Models.Account.Settings.UserLanguage model)
         {
             if (!ModelState.IsValid)
             {
