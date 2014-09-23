@@ -111,7 +111,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             windowClass: 'rename',
             templateUrl: '/Item/Rename/',
             controller: 'itemRenameCtrl',
-            backdrop: false,
             resolve: {
                 data: function () {
                     return {
