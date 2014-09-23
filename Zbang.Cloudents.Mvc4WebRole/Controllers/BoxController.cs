@@ -22,7 +22,6 @@ using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
-using ItemDto = Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -41,11 +40,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         /// <summary>
-        /// We need to keep it because of invite links 
+        /// in 1/11/14 remove that
         /// </summary>
         /// <returns>box view</returns>
         [NonAjax]
         [Route("box/{boxUid:length(11)}")]
+        [Obsolete]
         public async Task<ActionResult> Index(string boxUid)
         {
             try
@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //    Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+        //    Location = OutputCacheLocation.ServerAndClient,
         //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public PartialViewResult IndexPartial()
         {
@@ -238,25 +238,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //TODO:we want to bring tab id as well so filter will be on client side
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonResult Items(long id, Guid? tab)
+        public JsonResult Items(long id)
         {
             var userId = GetUserId(false); // not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, userId,  tab);
+                var query = new GetBoxItemsPagedQuery(id, userId);
                 var result = ZboxReadService.GetBoxItemsPaged2(query);
-                var urlBuilder = new UrlBuilder(HttpContext);
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
                 {
-                    item.DownloadUrl = urlBuilder.BuildDownloadUrl(id, item.Id);
+                    item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId = id, itemId = item.Id });
                 }
-                var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return Json(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
+                return Json(new JsonResponse(true, itemDtos));
             }
             catch (Exception ex)
             {
@@ -276,7 +273,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
 
                 var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return Json(new JsonResponse(true, itemDtos.Except(remove).OrderByDescending(o => o.Date)));
+                return Json(new JsonResponse(true, itemDtos.Except(remove)));
             }
             catch (Exception ex)
             {

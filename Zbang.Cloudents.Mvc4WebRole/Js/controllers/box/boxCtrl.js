@@ -35,13 +35,11 @@ mBox.controller('BoxCtrl',
                 activeTab: 'feed'
             };
 
-
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
-
+                console.log($location);
                 $scope.info = {
                     name: info.name,
-                    //comments: info.comments,
                     courseId: info.courseId,
                     boxType: info.boxType,
                     date: info.date,
@@ -55,7 +53,8 @@ mBox.controller('BoxCtrl',
                     tabs: info.tabs,
                     userType: info.userType,
                     image: info.image,
-                    url: decodeURI($location.absUrl())
+                    url: decodeURI($location.absUrl()),
+                    inviteUrl: $location.url() + 'invite/'
                 };
 
                 $scope.strings = {
@@ -71,7 +70,7 @@ mBox.controller('BoxCtrl',
                         sFacebook.login().then(function () {
                         });
                     }
-                    
+
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
@@ -177,9 +176,9 @@ mBox.controller('BoxCtrl',
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
-                               
-                
-                sBox.notification({ boxId: $scope.boxId }).then(function (response) {                    
+
+
+                sBox.notification({ boxId: $scope.boxId }).then(function (response) {
                     var notification = response.success ? response.payload : '';
 
                     var modalInstance = $modal.open({
@@ -303,7 +302,7 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
-               
+
                 var modalInstance = $modal.open({
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
@@ -328,7 +327,7 @@ mBox.controller('BoxCtrl',
 
                         modalInstance.result.then(function (url) {
                             $scope.$broadcast('linkAdded', { name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
-                        }); 
+                        });
                         return;
                     }
 
@@ -367,7 +366,7 @@ mBox.controller('BoxCtrl',
                                     length: files.length
 
                                 });
-                                
+
 
                             })(files[i], i);
                         }

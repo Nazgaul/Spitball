@@ -24,6 +24,15 @@
 @section scripts {
     @Html.Script2("General")
     @Html.Script2("cd1")
+<script>
+        $(function () {
+            document.getElementById('mLoading').style.display = 'none';
+            var d = document.getElementById('account');
+            d.style.display = 'block';
+            d.style.opacity = 1;
+            cd.pubsub.publish('account');
+        });
+</script>
 }
 @section search {
     <form class="dashLibSearch" id="g_search">
