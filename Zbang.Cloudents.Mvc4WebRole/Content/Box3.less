@@ -34,6 +34,16 @@
         height: 28px;
         fill: #fff;
     }
+    .svg-plus {
+        width: 14px;
+        height: 14px;
+        fill: @itemBlue;
+    }
+    .svg-tick {
+        width: 15px;
+        height: 14px;
+        fill: @color;
+    }
     .boxRename {
         display: none;
         position: absolute;
@@ -44,6 +54,23 @@
         width: auto; //override
         height: auto; //override
     }
+}
+.following, .followBtn {
+    display: block;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: @color;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid @color;
+    border-radius: 3px;
+    margin-top: 15px;
+    text-align: center;
+}
+.followBtn {
+    color: @itemBlue;
+    border-color: @itemBlue;
 }
 .boxRight {
     width: 100%;

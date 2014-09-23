@@ -12,10 +12,16 @@
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
-        </div> 
-        
-        <span ng-if="!info.showJoinGroup">following</span>
-        <button type="button" ng-if="info.showJoinGroup">follow</button>
+        </div>
+
+        <span class="following" ng-if="!info.showJoinGroup">
+            <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
+            <span>@SharedResources.Following</span>
+        </span>
+        <button class="followBtn" type="button" ng-if="info.showJoinGroup">
+            <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
+            <span>@SharedResources.Follow</span>
+        </button>
 
         <ul class="newActivity">
             <li ng-click="setTab('items')">
@@ -100,7 +106,7 @@
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
             </a>
-            
+
             <ul class="boxTabs">
                 <li ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">Feed</li>
                 <li ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">Items</li>
@@ -111,13 +117,13 @@
 
         @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
 
-            <div class="joinGrpBtn">
-                <span class="joinMsg iconTxt">@SharedResources.Member</span>
-                <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
-            </div>
-        </div>*@
+                <div class="joinGrpBtn">
+                    <span class="joinMsg iconTxt">@SharedResources.Member</span>
+                    <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
+                </div>
+            </div>*@
 
-       
+
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_Feed");}
@@ -136,19 +142,19 @@
 
             @*<ul class="boxMembers boxFriendsList">
 
-                <li ng-repeat="member in info.members | limitTo:7">
-                    <a href="{{member.url}}" class="">
-                        <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />
-                    </a>
-                </li>
-                @for (int i = 0; i < 6; i++)
-                {
-                    <li class="static">
-                        <a target="_self" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })" class="boxInvite" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
+                    <li ng-repeat="member in info.members | limitTo:7">
+                        <a href="{{member.url}}" class="">
+                            <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />
+                        </a>
                     </li>
-                }
-                <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
-            </ul>*@
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        <li class="static">
+                            <a target="_self" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })" class="boxInvite" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
+                        </li>
+                    }
+                    <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
+                </ul>*@
         </div>
     </div>
 </div>
