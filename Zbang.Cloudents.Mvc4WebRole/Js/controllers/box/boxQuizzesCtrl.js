@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', 'sBox',  'sNewUpdates', 'sUserDetails',
-        function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails) {
+		['$scope', '$rootScope', '$timeout', 'sBox',  'sNewUpdates', 'sUserDetails','sQuiz',
+        function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
             var jsResources = window.JsResources;
 
             
@@ -9,7 +9,7 @@
                     thumb: 'thumb',
                     list: 'list'
                 },
-                itemsLimit: 21
+                itemsLimit: 50
             };
 
             $scope.qOptions =  {
@@ -69,7 +69,7 @@
                         id: item.id,
                     }
 
-                    Quiz.delete(data).then(remove);
+                    sQuiz.delete(data).then(remove);
 
                 });
 
@@ -131,8 +131,8 @@
                 }
 
                 var quiz, index;
-                quiz = _.find($scope.quizzes, function (quiz) {
-                    return quiz.id === data.quizId;
+                quiz = _.find($scope.quizzes, function (x) {
+                    return x.id === quizItem.quizId;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 
@@ -157,8 +157,8 @@
                 }
 
                 var quiz, index;
-                quiz = _.find($scope.quizzes, function (quiz) {
-                    return quiz.id === data.quizId;
+                quiz = _.find($scope.quizzes, function (x) {
+                    return x.id === data.quizId;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 

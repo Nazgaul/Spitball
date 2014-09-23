@@ -17,8 +17,8 @@
 
         <button type="button" ng-click="openUploadPopup()" class="iconTxt btn1 lFloat" ng-show="filteredItems.length > 0 && !iOptions.manageTab">@DialogResources.UploadFiles</button>
 
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat boxItemsViewToggle" ng-click="changeView('list')" ng-show="filteredItems.length > 0"></button>
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat boxItemsViewToggle" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0"></button>
+        <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="filteredItems.length > 0"></button>
+        <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0"></button>
     </div>
 
     <div class="boxEmpty" ng-if="!filteredItems.length">

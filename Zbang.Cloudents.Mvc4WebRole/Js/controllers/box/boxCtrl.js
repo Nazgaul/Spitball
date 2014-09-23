@@ -328,8 +328,7 @@ mBox.controller('BoxCtrl',
 
                         modalInstance.result.then(function (url) {
                             $scope.$broadcast('linkAdded', { name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
-                            //saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
-                        }); //save url
+                        }); 
                         return;
                     }
 
@@ -348,18 +347,6 @@ mBox.controller('BoxCtrl',
                                     length: files.length
 
                                 });
-                                //saveItem({
-                                //    name: file.name,
-                                //    size: file.bytes,
-                                //    url: file.link,
-                                //    type: 'dropbox',
-                                //    ajax: 'dropbox',
-                                //    timeout: 0,
-                                //    index: index,
-                                //    length: files.length
-
-                                //});
-
                             })(files[i], i);
                         }
                         return;
