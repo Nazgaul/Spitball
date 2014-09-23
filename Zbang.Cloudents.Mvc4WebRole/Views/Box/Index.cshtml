@@ -99,7 +99,8 @@
                     <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
                 </div>
             </section>
-            <a id="boxInvite" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })"
+            
+            <a ng-href="{{info.inviteUrl}}"
                target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
                 <svg class="svg-inviteUser"><use xlink:href="~/Images/Defs.svg#inviteUser" /></svg>
             </a>

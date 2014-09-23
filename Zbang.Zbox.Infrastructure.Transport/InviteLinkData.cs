@@ -10,13 +10,13 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
-        public InviteLinkData(Guid id, long boxId, DateTime expireTime, long senderId, string recepientEmail)
+        public InviteLinkData(Guid id, string  boxUrl, DateTime expireTime, long senderId, string recipientEmail)
         {
             Id = id;
-            BoxId = boxId;
             ExpireTime = expireTime;
             SenderId = senderId;
-            RecepientEmail = recepientEmail;
+            RecipientEmail = recipientEmail;
+            BoxUrl = boxUrl;
         }
         [ProtoMember(1)]
         public Guid Id { get; private set; }
@@ -27,6 +27,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(4)]
         public long SenderId { get; private set; }
         [ProtoMember(5)]
-        public string RecepientEmail { get; private set; }
+        public string RecipientEmail { get; private set; }
+
+        [ProtoMember(6)]
+        public string BoxUrl { get; private set; }
     }
 }

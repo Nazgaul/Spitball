@@ -65,12 +65,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
-            //routes.MapRoute(
-            //  "Bootstrap",
-            //  "bootstrap.js",
-            //  new { controller = "Home", action = "Bootstrap", index = UrlParameter.Optional }
-            //  );
-
             routes.MapRoute(
               "Sitemap1",
               "sitemap-{index}.xml",
@@ -98,11 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                new { controller = "Library", action = "Index" },
                new { isDesktop = new AjaxConstaint() }
            );
-
-            //routes.MapRoute("LibraryNode",
-            //    "department/{LibId}/{LibName}",
-            //    new { controller = "Library", action = "Index", LibId = UrlParameter.Optional, LibName = UrlParameter.Optional },
-            //    new { LibId = new NullGuidConstrait() });
+          
             #endregion
 
             //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
@@ -169,11 +159,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
               );
 
-            routes.MapRoute(
-              "Invite",
-              "invite/{boxid}",
-              new { controller = "Share", action = "Index", boxid = UrlParameter.Optional }
-              );
+            //routes.MapRoute(
+            //  "Invite",
+            //  "invite/{boxid}",
+            //  new { controller = "Share", action = "Index", boxid = UrlParameter.Optional }
+            //  );
 
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }

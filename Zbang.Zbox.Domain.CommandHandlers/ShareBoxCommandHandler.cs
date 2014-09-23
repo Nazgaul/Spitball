@@ -52,41 +52,41 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             ValidateSenderInput(command, out sender, out box);
 
-            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            foreach (var recipient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
-                var recepientUser = GetUser(recepient);
-                if (recepientUser == null)
+                var recipientUser = GetUser(recipient);
+                if (recipientUser == null)
                 {
-                    if (!Validation.IsEmailValid2(recepient))
+                    if (!Validation.IsEmailValid2(recipient))
                     {
                         continue;
                     }
                     var images = m_ProfilePictureProvider.GetDefaultProfileImage();
-                    recepientUser = new User(recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
-                    m_UserRepository.Save(recepientUser, true);
+                    recipientUser = new User(recipient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
+                    m_UserRepository.Save(recipientUser, true);
                 }
 
-                var userType = m_UserRepository.GetUserToBoxRelationShipType(recepientUser.Id, box.Id);
+                var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
                 if (userType == UserRelationshipType.Subscribe || userType == UserRelationshipType.Owner)
                 {
                     continue;
                 }
 
-                var currentInvite = m_InviteRepository.GetCurrentInvite(recepientUser, box) ??
-                                    new Invite(m_IdGenerator.GetId(), sender, recepientUser, box);
-                //dont want to spam to email
+                var currentInvite = m_InviteRepository.GetCurrentInvite(recipientUser, box) ??
+                                    new Invite(m_IdGenerator.GetId(), sender, recipientUser, box);
+                //don't want to spam to email
                 if (currentInvite.SendTime.HasValue && currentInvite.SendTime.Value.AddHours(1) > DateTime.UtcNow)
                 {
                     continue;
                 }
                 currentInvite.UpdateSendTime();
                 m_InviteRepository.Save(currentInvite);
-                var hash = m_InviteLinkGenerator.GenerateInviteUrl(currentInvite.Id, box.Id, sender.Id, recepientUser.Email);
-                var inviteUrl = string.Format(UrlConsts.BoxUrlInvite, hash, recepientUser.Email);
-                //var inviteUrl = string.Format(UrlConsts.BoxUrl, box.Id);
+                var hash = m_InviteLinkGenerator.GenerateInviteUrl(currentInvite.Id, box.Url, sender.Id, recipientUser.Email);
+                var inviteUrl = string.Format(UrlConsts.BoxUrlInvite, hash, recipientUser.Email);
+
                 m_QueueProvider.InsertMessageToMailNew(new InviteMailData(sender.Name, box.Name,
                     inviteUrl,
-                    recepientUser.Email, recepientUser.Culture, sender.Image, sender.Email));
+                    recipientUser.Email, recipientUser.Culture, sender.Image, sender.Email));
             }
         }
 
@@ -101,14 +101,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
         }
 
-        private User GetUser(string recepient)
+        private User GetUser(string recipient)
         {
             long userid;
-            if (long.TryParse(recepient, out userid))
+            if (long.TryParse(recipient, out userid))
             {
                 return m_UserRepository.Get(userid);
             }
-            var user = m_UserRepository.GetUserByEmail(recepient);
+            var user = m_UserRepository.GetUserByEmail(recipient);
             if (user != null)
             {
                 return user;
