@@ -165,20 +165,32 @@
                return accessToken;
            },
            login: function () {
-               var dfd = $q.defer();
+               var dfd = $q.defer(),
+                retries = 0,
 
-               FB.getLoginStatus(function (response) {
-                   if (response.status === 'connected') {
-                       accessToken = response.authResponse.accessToken;
-                       isAuthenticated = true;
-                       dfd.resolve();
-                       return;
-                   }
+                interval = setInterval(function () {
+                    if (!window.FB) {
+                        if (retries > 100) {
+                            clearInterval(interval);
+                            dfd.reject();
+                        }
+                        return;
+                    }
+                    clearInterval(interval);
+                    FB.getLoginStatus(function (response) {
+                        if (response.status === 'connected') {
+                            accessToken = response.authResponse.accessToken;
+                            isAuthenticated = true;
+                            dfd.resolve();
+                            return;
+                        }
 
-               },
-               function (a) {
-                   dfd.reject();
-               });
+                    },
+                function (a) {
+                    dfd.reject();
+                });
+
+                }, 20);
 
                return dfd.promise;
            },
