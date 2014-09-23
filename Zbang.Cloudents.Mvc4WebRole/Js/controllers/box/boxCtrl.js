@@ -4,10 +4,10 @@ mBox.controller('BoxCtrl',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook',
+         'sNewUpdates', 'sUserDetails', 'sFacebook','sUpload',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook) {
+                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sUpload) {
 
             cd.pubsub.publish('box');//statistics
 
@@ -281,7 +281,9 @@ mBox.controller('BoxCtrl',
             };
 
             //#endregion
-
+            $scope.$on('selectTab', function (e, tab) {
+                $scope.options.currentTab = tab;
+            });
             $scope.$on('openUpload', function (qna) {
                 $scope.openUploadPopup(qna);
 
@@ -297,6 +299,8 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
+
+
 
                 var modalInstance = $modal.open({
                     windowClass: "uploader",
@@ -321,7 +325,7 @@ mBox.controller('BoxCtrl',
                         });
 
                         modalInstance.result.then(function (url) {
-                            $scope.$broadcast('linkAdded', { name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
+                            saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1, qna: qna });
                         });
                         return;
                     }
@@ -330,7 +334,7 @@ mBox.controller('BoxCtrl',
                         var files = response.files;
                         for (var i = 0, l = files.length; i < l; i++) {
                             (function (file, index) {
-                                $scope.$broadcast('linkAdded', {
+                                saveItem({
                                     name: file.name,
                                     size: file.bytes,
                                     url: file.link,
@@ -338,8 +342,8 @@ mBox.controller('BoxCtrl',
                                     ajax: 'dropbox',
                                     timeout: 0,
                                     index: index,
-                                    length: files.length
-
+                                    length: files.length,
+                                    qna: qna
                                 });
                             })(files[i], i);
                         }
@@ -350,7 +354,7 @@ mBox.controller('BoxCtrl',
                         var files = response.files;
                         for (var i = 0, l = files.length; i < l; i++) {
                             (function (file, index) {
-                                $scope.$broadcast('linkAdded', {
+                                saveItem({
                                     name: file.name,
                                     size: file.size,
                                     url: file.link,
@@ -358,8 +362,8 @@ mBox.controller('BoxCtrl',
                                     ajax: 'link',
                                     timeout: 1000,
                                     index: index,
-                                    length: files.length
-
+                                    length: files.length,
+                                    qna: qna
                                 });
 
 
@@ -371,7 +375,85 @@ mBox.controller('BoxCtrl',
                     //dismiss
                 });
             };
+
+
+            var uploaded = 0;
+            var fileList = [];
+            function saveItem(data) {
+                if (data.qna) {
+                    if (!fileList.length) {
+                        fileList = [];
+                    }
+                }
+
+                if (data.type === 'link') {
+                    $rootScope.$broadcast('linkUpload', data.url);
+                } else if (data.type === 'dropbox') {
+                    $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+                } else if (data.type === 'googleLink') {
+                    $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+                }
+                //TODO: what is that
+                var formData = {
+                    boxId: $scope.boxId, //
+                    boxName: $scope.boxName,
+                    uniName: $scope.uniName,
+                    tabId: $scope.options.currentTab ? $scope.options.currentTab.id : null, //
+                    url: data.url,
+                    fileName: data.name, //
+                    fileUrl: data.url //
+                }
+
+                $timeout(function () {
+                    sUpload[data.ajax](formData).then(function (response) {
+                        uploaded++;
+
+                        if (uploaded === 1) {
+                            $scope.followBox(true);
+                            sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
+                        }
+                        if (!response.success) {
+                            alert((data.name || data.url) + ' - ' + response.payload);
+                            return;
+                        }
+
+                        if (data.type === 'link') {
+                            $rootScope.$broadcast('linkUploaded');
+                        } else if (data.type === 'dropbox') {
+                            $rootScope.$broadcast('dropboxUploaded', data.index);
+                        } else if (data.type === 'googleLink') {
+                            $rootScope.$broadcast('googleUploaded', data.index);
+                        }
+
+                        var responseItem = response.payload;
+
+                        if ($scope.options.activeTab === 'items') {
+                            $scope.$broadcast('itemAdded', responseItem);
+                            uploaded = 0;
+                            return;
+                        }
+
+                        if (data.qna) {
+                            fileList.push(responseItem);
+                            if (data.type === 'link') {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+                                $rootScope.$broadcast('qna:upload', fileList);
+                                fileList = [];
+                                uploaded = 0;
+                            } else if (uploaded === data.length) {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+                                $rootScope.$broadcast('qna:upload', fileList);
+                                fileList = [];
+                                uploaded = 0;
+                            }
+                        }
+                    }).catch(function () {
+                        uploaded++;
+                    });
+                }, data.timeout);
+            }
             //#endregion
         }
+
 
         ]);

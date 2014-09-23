@@ -1,6 +1,6 @@
 ﻿//define('qnaCtrl', ['app'], function (app) {
 mBox.controller('QnACtrl',
-['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA','$rootScope',
+['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 
     function ($scope, sUserDetails, sNewUpdates, sQnA, $rootScope) {
         var jsResources = window.JsResources;
@@ -21,7 +21,8 @@ mBox.controller('QnACtrl',
                 }
                 return answerObj;
             });
-            that.files = data.files.map(function (file) { return new File(file); });            
+            that.files = data.files.map(function (file) { return new File(file); });
+            that.aFormData = {};
             //that.bestAnswer = findBestAnswer(that.answers);
         }
 
@@ -57,7 +58,7 @@ mBox.controller('QnACtrl',
             that.itemUrl = data.url || data.itemUrl;
         }
 
-       
+
 
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
@@ -130,7 +131,7 @@ mBox.controller('QnACtrl',
                 }
 
                 var questionId = response.payload;
-                
+
                 var obj = {
                     id: questionId,
                     userName: sUserDetails.getDetails().name,
@@ -146,12 +147,12 @@ mBox.controller('QnACtrl',
                 $scope.info.questions.unshift(new Question(obj));
                 $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
-               
+
             });
         };
 
         $scope.postAnswer = function (question) {
-            
+
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') { //parent is box controller
                 alert(jsResources.NeedToFollowBox);
                 return;
@@ -177,7 +178,7 @@ mBox.controller('QnACtrl',
                     return;
                 }
                 var answerId = response.payload;
-                
+
 
                 var obj = {
                     id: answerId,
@@ -217,7 +218,7 @@ mBox.controller('QnACtrl',
             //    //$scope.info.state = states.empty;
             //    return;
             //}
-           // $scope.info.state = states.questions;
+            // $scope.info.state = states.questions;
 
 
         };
@@ -253,7 +254,7 @@ mBox.controller('QnACtrl',
 
         var qAttach, aAttach, questionAttach;
         $scope.$on('FileAdded', function (event, data) {
-           var file = data.item;
+            var file = data.item;
             $scope.$apply(function () {
                 if (data.boxId !== $scope.boxId) {
                     return;
@@ -283,26 +284,46 @@ mBox.controller('QnACtrl',
             });
         });
 
+        $scope.$on('qna:upload', function (e, files) {
+            if (qAttach) {
+                qAttach = false;
+
+                var mapped = files.map(function (file) {
+                    file.uid = file.id;
+                    return file;
+                });
+
+                if (!$scope.qFormData.files) {
+                    $scope.qFormData.files = mapped;
+                    return;
+                }
+
+                $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
+
+                return;
+            }
+
+            if (aAttach) {                
+
+                var mapped = files.map(function (file) {
+                    file.uid = file.id;
+                    return file;
+                });
+
+                if (!questionAttach.aFormData.files) {
+                    questionAttach.aFormData.files = mapped;
+                    return;
+                }
+                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);
+                aAttach = false;
+                questionAttach = null;
+            }
+        });
         $scope.addQuestionAttachment = function () {
             qAttach = true;
-
             $rootScope.$broadcast('openUpload', true);
-            //$scope.openUploadPopup(true).then(function (files) {
-            //    qAttach = false;
-
-            //    var mapped = files.map(function (file) {
-            //        file.uid = file.id;
-            //        return file;
-            //    });
-
-            //    if (!$scope.qFormData.files) {
-            //        $scope.qFormData.files = mapped;
-            //        return;
-            //    }
-
-            //    $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
-            //});
         };
+
         $scope.removeQuestionAttachment = function (file) {
             var index = $scope.qFormData.files.indexOf(file);
             if (index !== -1) {
@@ -313,42 +334,33 @@ mBox.controller('QnACtrl',
         $scope.addAnswerAttachment = function (question) {
             aAttach = true;
             questionAttach = question;
-            $scope.openUploadPopup(true).then(function (files) {
-                aAttach = false;
-                questionAttach = null;
-
-                var mapped = files.map(function (file) {
-                    file.uid = file.id;
-                    return file;
-                });
-
-                if (!question.aFormData.files) {
-                    question.aFormData.files = mapped;
-                    return;
-                }
-                question.aFormData.files = question.aFormData.files.concat(mapped);
-
-            });
+            $rootScope.$broadcast('openUpload', true);            
         };
         $scope.removeAnswerAttachment = function (question, file) {
             var index = question.aFormData.files.indexOf(file);
             if (index !== -1) {
                 question.aFormData.files.splice(index, 1);
             }
-        }
+        }        
 
         $scope.checkAuth = function () {
             if (!sUserDetails.isAuthenticated()) {
                 cd.pubsub.publish('register', { action: true });
                 return false;
             }
-            
+
             return true;
         };
 
         function extractUrls(d) {
             var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
-            var matches = ko.utils.arrayGetDistinctValues(d.match(urlex));
+           
+            var array = d.match(urlex) || [];
+            var matches = [];
+            for (var i = 0, j = array.length; i < j; i++) {
+                if (matches.indexOf(array[i]) < 0)
+                    matches.push(array[i]);
+            }            
             if (!matches.length) {
                 return d;
             }

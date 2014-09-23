@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
-            'sUserDetails', 'sUpload', 'sFacebook', 
+            'sUserDetails', 'sUpload', 'sFacebook',
 function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sUpload, sFacebook) {
     var jsResources = window.JsResources;
 
@@ -61,76 +61,24 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         });
     });
 
-    $scope.$on('linkAdded', function(e,data) {
-        saveItem(data);
+    $scope.$on('itemAdded', function (e, file) {
+        if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
+            $scope.items.unshift(file);
+            $scope.filteredItems.unshift(file);
+            $scope.filteredItems.sort(sortItems);
+        }
     });
-   
-    function saveItem(data) {
-        if (data.type === 'link') {
-            $rootScope.$broadcast('linkUpload', data.url);
-        } else if (data.type === 'dropbox') {
-            $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-        } else if (data.type === 'googleLink') {
-            $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-        }
-        //TODO: what is that
-        var formData = {
-            boxId: $scope.boxId, //
-            boxName: $scope.boxName,
-            uniName: $scope.uniName,
-            tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
-            url: data.url,
-            fileName: data.name, //
-            fileUrl: data.url //
-        }
-
-        var uploaded = 0;
-        $timeout(function () {
-            sUpload[data.ajax](formData).then(function (response) {
-                uploaded++;
-
-                if (uploaded === 1) {
-                    sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
-                }
-                if (!response.success) {
-                    alert((data.name || data.url) + ' - ' + response.payload);
-                    return;
-                }
-
-                if (data.type === 'link') {
-                    $rootScope.$broadcast('linkUploaded');
-                } else if (data.type === 'dropbox') {
-                    $rootScope.$broadcast('dropboxUploaded', data.index);
-                } else if (data.type === 'googleLink') {
-                    $rootScope.$broadcast('googleUploaded', data.index);
-                }
-
-                var responseItem = response.payload;
-                //if (qna) {
-                //    fileList.push(responseItem);
-                //    if (data.type === 'link') {
-                //        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                //    } else if (uploaded === data.length) {
-                //        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
-                //    }
-                //    defer.resolve(fileList);
-
-                //}
-
-                if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
-                    $scope.items.unshift(responseItem);
-                    $scope.filteredItems.unshift(responseItem);
-                    $scope.filteredItems.sort(sortItems);
-                }
-
-                $scope.followBox(true);
 
 
-            }).catch(function () {
-                uploaded++;
-            });
-        }, data.timeout);
-    }
+    
+
+
+              
+
+            
+
+
+            
     //$scope.openUploadPopup = function (qna) {
     //    if (!sUserDetails.isAuthenticated()) {
     //        cd.pubsub.publish('register', { action: true });
@@ -355,7 +303,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         }
     };
 
-   
+
 
     $scope.deleteAllow = function (item) {
         return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
@@ -417,13 +365,13 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         isSponsoredView();
     });
 
-    $scope.$on('tabItemAdded', function (e, data) {       
+    $scope.$on('tabItemAdded', function (e, data) {
         var item = _.find($scope.items, function (i) {
             return i.id === data.item.id;
         });
 
         item.tabId = data.tabId;
-        
+
         saveItemsToTab([item.id], data.tabId);
 
     });
