@@ -74,7 +74,7 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <button type="button" class="itemFlag rFloat" ng-if="canFlag()" ng-click="flagItemWindow()" data-bind="click: flagItem, visible: flagAllow()">
+            <button type="button" class="itemFlag rFloat" ng-class=" {canFlag: canflag()}" ng-click=" flagitemwindow()" data-bind="click: flagItem, visible: flagAllow()">
                 <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
                 <span>@ItemsResources.Flag</span>
             </button>
@@ -101,7 +101,7 @@
 
     <div class="leftPanel lFloat">
         <span class="rateTxt">@ItemsResources.Rate</span>
-        <div class="rateWpr" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
+        <div class="rateWpr rFloat" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
