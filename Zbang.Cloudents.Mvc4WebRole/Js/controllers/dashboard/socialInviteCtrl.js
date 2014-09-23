@@ -33,12 +33,15 @@
 
              $scope.filterContacts = function () {
                  if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
+                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                      return;
                  }
 
                  $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
 
              };
+
+             $scope.selectState(states.cloudents);
 
              $scope.inviteContact = function (contact) {
 
@@ -62,6 +65,10 @@
                          to: contact.id
                      }).then(function (response) {
                          $scope.params.facebookInvite = false;
+
+                         if (!response) {
+                             return;
+                         }
                          contact.invited = true;
 
                          var data = {

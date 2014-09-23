@@ -12,7 +12,7 @@
     </div>
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
-        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch"/>
+        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
 
         <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
             <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="btnWpr">
-        <button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>
+        @*<button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>*@
         <input type="button" class="btn1 wz-next" ng-click="completeWizard()" value="@DialogResources.Continue" />
     </div>
     <div fb-block ng-if="params.facebookInvite"></div>
