@@ -58,6 +58,10 @@
 .modal.createTab .btn1 {
   text-transform: capitalize;
 }
+.modal.rename {
+  padding-left: 290px;
+  top: 10%;
+}
 .modal.flagItem {
   width: 570px;
 }

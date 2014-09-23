@@ -5,6 +5,9 @@ body.item {
     .siteHeader {
         background: #0f0f0f;
     }
+    .modal-backdrop.in {
+        opacity: .7;
+    }
 }
 
 .itemPage, .boxPage, .quizPage {
@@ -308,7 +311,7 @@ body.item {
 .itemNameWpr {
     display: inline-block;
     position: relative;
-
+    margin-top: 6px;
     &:hover {
         .itemRenameBtn {
             display: block;
@@ -377,10 +380,19 @@ body.item {
     clear: both;
     margin-top: 25px;
     font-size: 12px;
+    .mCSB_container, .mCustomScrollBox {
+        overflow-x: visible;
+        padding-top: 7px;
+        margin-top: -7px;
+        margin-bottom: 7px;
+    }
+    .mCustomScrollbar {
+        width: 280px;
+    }
     header {
         font-size: 20px;
         color: @itemBlue;
-        padding: 15px 0 10px;
+        padding: 18px 0 10px;
     }
 
     > .itemCommentsForm {
@@ -416,15 +428,34 @@ body.item {
     }
 
     .closeDialog {
-        top: 6px;
-        right: 6px; //rtl
+        top: -5px;
+        right: -5px; //rtl
         display: none;
+        &:before {
+            .pseudo;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: @itemBlue;
+            border-radius: 100%;
+            top: -5px;
+            right: -4px; //rtl
+            z-index: -1;
+        }
+    }
+    .trash {
+        display: none;
+        position: absolute;
+        bottom: 13px;
+        right: -4px; //rtl
+        .svg-trash {
+            width: 11px;
+        }
     }
 }
 .feedOpen {
     .commentsTextarea {
         min-height: 100px;
-        background: @borderColor;
         color: #1e1e1e;
     }
 }
@@ -433,14 +464,16 @@ body.item {
     border-radius: 3px;
     width: 100%;
     margin-bottom: 8px;
-    padding: 4px 8px;
+    padding: 2px 8px;
     .boxSizing;
     min-height: 25px;
+    height: 25px;
     font-size: 15px;
+    background: @borderColor;
 }
 .itemCommentsList {
     margin: 2px 0;
-
+    padding-right: 10px; //rtl
     .itemComment {
         position: relative;
         border: 1px solid @itemBlue;
@@ -458,15 +491,11 @@ body.item {
                 display: block;
             }
         }
-
         li {
             position: relative;
-
             &:hover {
-                > .closeDialog {
+                > .trash {
                     display: block;
-                    top: 0;
-                    right: 0; //rtl
                 }
             }
         }
@@ -479,14 +508,15 @@ body.item {
     }
 
     p {
-        font-size: 18px;
-        padding: 14px 0;
+        font-size: 17px;
+        padding: 14px 7px 14px 0; //rtl - 7px righ padding so that text doesn't hide the trash
         margin-bottom: 10px;
-        border-bottom: 1px solid @borderColor;
+        border-bottom: 1px solid #7a7a7a;
+        color: #eee;
     }
 }
 .commentTop {
-    color: @borderColor;
+    color: #7a7a7a;
 }
 /*#endregion */
 

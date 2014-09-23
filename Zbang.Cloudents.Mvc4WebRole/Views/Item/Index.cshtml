@@ -137,7 +137,10 @@
                                     <span user-tooltip-popup="{{reply.userId}}" class="user-name elps">{{reply.userName}}</span>
                                 </div>
                                 <p>{{reply.comment}}</p>
-                                <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
+                                @*<button type="button" class="closeDialog topMost" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>*@
+                                <button type="button" class="trash" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)">
+                                    <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
+                                </button>
                             </li>
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>

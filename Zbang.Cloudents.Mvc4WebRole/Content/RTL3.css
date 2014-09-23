@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -18,6 +18,9 @@
   /*rtl*/
 }
 /*#region Modal.css */
+.modal.rename {
+  padding: 0 290px 0 0;
+}
 .modal .closeDialog {
   left: 0;
   /*rtl*/
@@ -2707,4 +2710,3 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
-/*# sourceMappingURL=RTL3.css.map */
