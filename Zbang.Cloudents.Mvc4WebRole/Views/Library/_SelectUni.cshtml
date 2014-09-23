@@ -22,7 +22,7 @@
     </aside>
 }
 <div id="library" class="library page" ng-controller="LibChooseCtrl">
-    <div class="libEmpty libraryChoose" id="libraryChoose" @*data-data="@ViewBag.data" data-haveuniversity="@ViewBag.haveUniversity" data-country="@ViewBag.country"*@>
+    <div class="libEmpty libraryChoose" id="libraryChoose">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
 
@@ -80,37 +80,9 @@
         </div>
     </div>
 </div>
-
-
-@*<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '450314258355338',
-            xfbml: true,
-            version: 'v2.0'
-        });
-    };
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>*@
-
-@*@section scripts{
-
-    @Html.Script2("ChooseLib")
-}*@
-
 <script type="text/ng-template" id="universityItemTemplate">    
 </script>
-
-
 <script type="text/ng-template" id="universityItemFbTemplate">    
-        
 </script>
 <script type="text/ng-template" id="fBFriendTemplate">
-    
 </script>
