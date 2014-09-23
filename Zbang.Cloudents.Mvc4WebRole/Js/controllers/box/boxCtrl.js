@@ -4,10 +4,10 @@ mBox.controller('BoxCtrl',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook', /*'sBoxData',*/
+         'sNewUpdates', 'sUserDetails', 'sFacebook',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sBoxData) {
+                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook) {
 
             cd.pubsub.publish('box');//statistics
 
@@ -34,6 +34,9 @@ mBox.controller('BoxCtrl',
                 loader: true,
                 activeTab: 'feed'
             };
+
+
+            sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
@@ -67,18 +70,12 @@ mBox.controller('BoxCtrl',
                 $scope.info.showJoinGroup = !($scope.isUserFollowing());
 
                 $timeout(function () {
-                    if (!sFacebook.isAuthenticated()) {
-                        sFacebook.login().then(function () {
-                        });
-                    }
-                    
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
             });
 
 
-            $scope.sBoxData = sBoxData;
 
             $scope.$on('box:quizzesLength', function (e, length) {
                 $scope.info.quizzesLength = length;
@@ -109,15 +106,13 @@ mBox.controller('BoxCtrl',
 
             //#region share
             $scope.shareFacebook = function () {
-                $scope.popup.share = false;
                 sFacebook.share($scope.info.url, //url
-                  $scope.info.name, //title
-                   $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
-                   jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
-                    null //picture
-               ).then(function () {
-                   cd.pubsub.publish('addPoints', { type: 'shareFb' });
-               });
+                      $scope.info.name, //title
+                       $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
+                       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
+                        null //picture
+                     );
+
             };
 
             $scope.shareEmail = function () {
@@ -177,9 +172,9 @@ mBox.controller('BoxCtrl',
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
-                               
-                
-                sBox.notification({ boxId: $scope.boxId }).then(function (response) {                    
+
+
+                sBox.notification({ boxId: $scope.boxId }).then(function (response) {
                     var notification = response.success ? response.payload : '';
 
                     var modalInstance = $modal.open({
@@ -303,7 +298,7 @@ mBox.controller('BoxCtrl',
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
-               
+
                 var modalInstance = $modal.open({
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
@@ -328,7 +323,7 @@ mBox.controller('BoxCtrl',
 
                         modalInstance.result.then(function (url) {
                             $scope.$broadcast('linkAdded', { name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1 });
-                        }); 
+                        });
                         return;
                     }
 
@@ -367,7 +362,7 @@ mBox.controller('BoxCtrl',
                                     length: files.length
 
                                 });
-                                
+
 
                             })(files[i], i);
                         }
