@@ -1357,6 +1357,15 @@
   bottom: 3px;
   margin: 0;
 }
+.thumbItem .views:before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 11px;
+  margin-right: 5px;
+  vertical-align: middle;
+  background: url(/Images/item13-sprite.png?v=1) -121px -21px no-repeat;
+}
 .thumbItem .tag {
   position: absolute;
   left: -6px;
