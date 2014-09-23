@@ -12,9 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
-        /*
-                private static readonly Dictionary<string, string> JsRemoteBundles = new Dictionary<string, string>();
-        */
+      
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
         public static string CssLink(string key)
@@ -29,11 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             return JsBundles[key];
         }
 
-        //public static string JsRemoteLinks(string key)
-        //{
-        //    return JsRemoteBundles[key];
-
-        //}
+      
 
 
 
@@ -90,16 +84,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/HeaderFooter.css",
                 "~/Content/Animations.css",
                 "~/Content/Static.css");
-
-            //RegisterCss("welcome", "~/Content/Welcome.css");
-            //RegisterCss("welcomeRtl", "~/Content/WelcomeRtl.css");
-
-
-            //RegisterCss("shoppingRtl", "~/Content/GeneralRtl.css",
-            //    "~/Content/StoreRtl.css");
-
-            //RegisterCss("shopping", "~/Content/General.css",
-            //    "~/Content/Shopping.css");
 
 
             RegisterCss("home", "~/Content/General.css",
@@ -296,97 +280,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/dataBag.js"),
                 new JsFileWithCdn("/js/directives/store/categoryLink.js"),
 
-
                 new JsFileWithCdn("/js/filters/store/percentage.js")
-
-                //new JsFileWithCdn("~/js/shopping/controllers/category.js"),
-                //new JsFileWithCdn("~/js/shopping/controllers/product.js")
                 );
 
-            //RegisterJsRoutes("R_App", "/Js/app.js");
-            //RegisterJsRoutes("R_Shim",
-            //   // "/Scripts/ng-infinite-scroll.js",
-            //    "/Scripts/bindonce.js",
-            //    "/Scripts/uiBootstrapTpls0.11.0.js",
-            //    "/Scripts/Modernizr.js");
-
-            //RegisterJsRoutes("R_All",
-
-            //    "/js/app.js",
-            //    "/js/routes.js",
-            //    "/js/services/dependencyResolverFor.js",
-            //    "/js/directives/ngPlaceholder.js",
-            //    "/js/directives/mLoader.js");
-
-            //RegisterJsRoutes("R_OldAll",
-            //    //"/Scripts/knockout-3.0.0.js",
-            //    //"/Scripts/externalScriptLoader.js",
-            //    //"/Scripts/jquery.slimscroll.js",                
-            //    "/js/Utils.js",
-            //    "/js/pubsub.js",
-            //    "/js/DataContext.js",
-            //    // "/Scripts/elasticTextBox.js",
-            //    "/js/Dialog.js",
-            //    "/js/GenericEvents.js",
-            //    "/js/Cache.js");
-
-            //RegisterJsRoutes("R_Box", 
-            //    "/js/services/dropbox.js",
-            //    "/js/services/google.js",
-            //    "/Scripts/draganddrop.js",
-            //    "/js/filters/trustedHtml.js",
-            //    "/Js/services/qna.js",
-            //    "/Js/services/upload.js",
-            //    "/Js/controllers/box/boxCtrl.js",
-            //    "/Js/controllers/box/tabCtrl.js",
-            //    "/Js/controllers/box/qnaCtrl.js",
-            //    "/Js/controllers/box/uploadCtrl.js",
-            //    "/Js/controllers/box/manageCtrl.js",
-            //    "/Js/directives/selectOnClick.js",
-            //    "/js/services/facebook.js"
-            //    );
-            //RegisterJsRoutes("R_DashboardBox",
-            //    "/js/services/newUpdates.js",
-            //    "/js/services/box.js"
-            //    );
-            //RegisterJsRoutes("R_BoxItem",
-            //    "/Js/services/item.js"
-            //    );
-            //RegisterJsRoutes("R_BoxQuiz", 
-            //    "/Js/services/quiz.js"
-            //    );
-
-            //RegisterJsRoutes("R_Dashboard", 
-            //    "/Js/services/dashboard.js",
-
-            //    "/js/services/user.js",
-
-            //    "/js/filters/actionText.js",
-            //    "/js/filters/orderBy.js",
-            //    "/js/controllers/dashboard/createBoxCtrl.js",
-            //    "/js/controllers/dashboard/showFriendsCtrl.js",
-            //    "/js/controllers/dashboard/dashboardCtrl.js");
-
-
-            //RegisterJsRoutes("R_Library",             
-            //    "/js/controllers/library/libraryCtrl.js",
-            //    "/js/Library.js"
-            //    );
-
-            //RegisterJsRoutes("R_User",             
-            //    "/js/controllers/user/userCtrl.js",
-            //    "/js/User.js",
-            //    "/scripts/CountUp.js"
-            //    );
-
-            //RegisterJsRoutes("R_Item",
-            //    "/js/controllers/item/itemCtrl.js",
-            //    "/js/ItemViewModel4.js"
-            //    );
-            // RegisterJsRoutes("R_Quiz",
-            //    "/js/controllers/quiz/quizCtrl.js",
-            //    "/Scripts/stopwatch.js"
-            //);
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
@@ -394,13 +290,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("homeMobile",
                 new JsFileWithCdn("~/Js/Mobile/Logon.js"),
                 new JsFileWithCdn("~/Js/Mobile/Welcome.js"));
-
-            RegisterJsRegular("ChooseLib",
-                //new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Js/Cache2.js"),
-                new JsFileWithCdn("~/Js/DataContext2.js"),
-                new JsFileWithCdn("~/Js/GenericEvents2.js"),
-                new JsFileWithCdn("~/Js/LibraryChoose.js"));
 
             RegisterJsRegular("MChooseLib",
                 new JsFileWithCdn("~/Js/Mobile/MLibraryChoose.js"));
@@ -458,28 +347,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                new JsFileWithCdn("~/Js/TooltipGuide.js"),
 
-                //new JsFileWithCdn("~/Js/bootstrapper2.js"),
                 new JsFileWithCdn("~/Js/Statistics.js"),
 
                 //header
-                //new JsFileWithCdn("~/Js/InviteViewModel2.js"),
                 new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
 
-                //dashboard page
-                //new JsFileWithCdn("~/Js/BoxesViewModel.js"),
-                //new JsFileWithCdn("~/Js/DashboardAside.js"),
-                //library page
-                //new JsFileWithCdn("~/Js/Library.js"),
-
-
-                //box Page
-                //new JsFileWithCdn("~/Js/BoxViewModel2.js"),
-                //new JsFileWithCdn("~/Js/BoxItemsViewModel2.js"),
-                //new JsFileWithCdn("~/Js/BoxSettings.js"),
-                //new JsFileWithCdn("~/Js/Upload2.js"),
+             
                 new JsFileWithCdn("~/Js/Invite.js"),
-                //new JsFileWithCdn("/Js/Share.js"),
-                //new JsFileWithCdn("~/Js/QnA.js"),
+             
 
                 //account settings
                 new JsFileWithCdn("~/Js/AccountSettings.js"),
@@ -493,37 +368,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //Social
                 new JsFileWithCdn("~/Js/SocialConnect.js"),
 
-                //User Page
-                //new JsFileWithCdn("~/Scripts/CountUp.js"),
-                //new JsFileWithCdn("~/Js/User.js"),
-
                 //Search page
                 new JsFileWithCdn("~/Js/SearchDropdown.js"),
                 new JsFileWithCdn("~/Js/Search.js")
-
-                //Quiz
-                //new JsFileWithCdn("~/Js/QuizCreate.js"),
-                //new JsFileWithCdn("~/Scripts/stopwatch.js")
+             
                 );
 
-
-
-            //RegisterJs("dashboard",
-            //    new JsFileWithCdn("~/Js/BoxesViewModel.js"),
-            //    new JsFileWithCdn("~/Js/DashboardAside.js"));
-
-            RegisterJsRegular("library",
-                new JsFileWithCdn("~/Js/Library.js"));
-            //new JsFileWithCdn("~/Js/LibraryChoose.js"));
-
-            //RegisterJs("box",
-            //     new JsFileWithCdn("~/Js/BoxViewModel2.js"),
-            //    new JsFileWithCdn("~/Js/BoxItemsViewModel2.js"),
-            //    new JsFileWithCdn("~/Js/Upload2.js"),
-            //    new JsFileWithCdn("~/Js/Invite.js"),
-            RegisterJsRegular("item",
-                //new JsFileWithCdn("~/Scripts/jquery.dotdotdot.min.js"),
-                new JsFileWithCdn("~/Js/ItemViewModel4.js"));
             #endregion layout3
 
 
@@ -598,10 +448,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             CopyFilesToCdn("/Content", "*.gif");
             CopyFilesToCdn("/Images", "*.*");
             CopyFilesToCdn("/gzip/", "*.*", SearchOption.TopDirectoryOnly);
-            //CopyFilesToCdn("/Content/Fonts", "*.eot");
-            //CopyFilesToCdn("/Content/Fonts", "*.svg");
-            //CopyFilesToCdn("/Content/Fonts", "*.ttf");
-            //CopyFilesToCdn("/Content/Fonts", "*.woff");
 
         }
 
