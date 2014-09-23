@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', '$modal', 'sBox',
-        function ($scope, $filter, $modal, sBox) {
+        ['$scope', '$filter', '$modal', 'sBox','$timeout',
+        function ($scope, $filter, $modal, sBox, $timeout) {
             //Members
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',

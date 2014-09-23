@@ -346,19 +346,6 @@ mBox.controller('QnACtrl',
             return true;
         };
 
-        //function sortAnswers(a, b) {
-        //    if (a.isAnswer) {
-        //        return -1;
-        //    }
-        //    if (b.isAnswer) {
-        //        return 1;
-        //    }
-        //    if (a.createTime > b.createTime) {
-        //        return 1;
-        //    }
-        //    return -1;
-        //}
-
         function extractUrls(d) {
             var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
             var matches = ko.utils.arrayGetDistinctValues(d.match(urlex));
@@ -377,30 +364,5 @@ mBox.controller('QnACtrl',
             }
         }
 
-        //function findBestAnswer(answers) {
-        //    for (var i = 0, l = answers.length; i < l; i++) {
-        //        if (answers[i].isAnswer) {
-        //            return answers[i];
-        //        }
-        //    }
-
-        //    var lastRate = 0, answer;
-        //    angular.forEach(answers, function (a) {
-        //        if (a.rating > lastRate) {
-        //            answer = a;
-        //            lastRate = a.rating;
-        //        }
-        //    });
-
-        //    if (answer) {
-        //        return answer;
-        //    }
-
-        //    if (answers.length) {
-        //        return answers[0];
-        //    }
-
-        //    return null;
-        //}
     }
 ]);

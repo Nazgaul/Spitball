@@ -1,6 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'sUserDetails', 'sUpload', 'sFacebook', '$templateCache',
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sUpload, sFacebook, $templateCache) {
+		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
+            'sUserDetails', 'sUpload', 'sFacebook', 
+function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sUpload, sFacebook) {
     var jsResources = window.JsResources;
 
     var consts = {
@@ -8,7 +9,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
             thumb: 'thumb',
             list: 'list'
         },
-        itemsLimit: 21
+        itemsLimit: 50
     };
 
     //$scope.partials = {
@@ -75,7 +76,6 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         //TODO: what is that
         var formData = {
             boxId: $scope.boxId, //
-            boxUid: $scope.boxId,
             boxName: $scope.boxName,
             uniName: $scope.uniName,
             tabId: $scope.iOptions.currentTab ? $scope.iOptions.currentTab.id : null, //
@@ -106,16 +106,16 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
                 }
 
                 var responseItem = response.payload;
-                if (qna) {
-                    fileList.push(responseItem);
-                    if (data.type === 'link') {
-                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                    } else if (uploaded === data.length) {
-                        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
-                    }
-                    defer.resolve(fileList);
+                //if (qna) {
+                //    fileList.push(responseItem);
+                //    if (data.type === 'link') {
+                //        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+                //    } else if (uploaded === data.length) {
+                //        cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+                //    }
+                //    defer.resolve(fileList);
 
-                }
+                //}
 
                 if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === responseItem.tabId)) {
                     $scope.items.unshift(responseItem);
@@ -303,7 +303,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.iOptions.currentView = view;
     };
 
-    $scope.getView = function (item) {
+    $scope.getView = function () {
         return $scope.iOptions.currentView === consts.view.thumb ? 'itemThumbView' : 'itemListView';
     };
 
@@ -428,9 +428,9 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
 
     });
 
-    $scope.$on('manageTab', function (e) {
+    $scope.$on('manageTab', function () {
         var filteredItems = $filter('filter')($scope.items, filterManageItems);
-        isSponsoredView()
+        isSponsoredView();
         if (!filteredItems.length) {
             return;
         }
@@ -446,7 +446,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.iOptions.manageTab = true;
     });
 
-    $scope.manageSave = function (e) {
+    $scope.manageSave = function () {
         var savedItems = [],
             item;
 
@@ -464,7 +464,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         resetLastView();
     };
 
-    $scope.manageCancel = function (e) {
+    $scope.manageCancel = function () {
         resetLastView();
     };
 
