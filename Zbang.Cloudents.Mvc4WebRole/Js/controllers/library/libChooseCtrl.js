@@ -20,28 +20,29 @@
 
              var allDepartments;
 
-             if (!sFacebook.isAuthenticated()) {                 
-                 sFacebook.login().then(function (response) {
-                     sLibrary.facebookFriends({ authToken: sFacebook.getToken() }).then(function (response) {
-                         var data = response.success ? response.payload : [];
-                         $scope.FBUniversities = data;
-
-                         if (!data.length) {
-                             $analytics.eventTrack('no facebook', {
-                                 category: 'Select university'
-                             });
-                         }
-
-                         if (!$scope.display.search || $scope.formData.searchInput) {
-                             $scope.display.facebook = true;
-                         }
-
-
-                     });
-                 });
-             }
+            
 
              $timeout(function () {
+                 if (!sFacebook.isAuthenticated()) {
+                     sFacebook.login().then(function (response) {
+                         sLibrary.facebookFriends({ authToken: sFacebook.getToken() }).then(function (response) {
+                             var data = response.success ? response.payload : [];
+                             $scope.FBUniversities = data;
+
+                             if (!data.length) {
+                                 $analytics.eventTrack('no facebook', {
+                                     category: 'Select university'
+                                 });
+                             }
+
+                             if (!$scope.display.search || $scope.formData.searchInput) {
+                                 $scope.display.facebook = true;
+                             }
+
+
+                         });
+                     });
+                 }
                  $scope.$emit('viewContentLoaded');
              });
              //#endregion

@@ -55,6 +55,9 @@
 .modal.rename {
   width: 600px;
 }
+.modal.createTab .btn1 {
+  text-transform: capitalize;
+}
 .modal.flagItem {
   width: 570px;
 }

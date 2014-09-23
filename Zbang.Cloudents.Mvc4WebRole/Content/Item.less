@@ -271,10 +271,22 @@ body.item {
 }
 .itemFlag
 {   
-    color: #fff;
     font-size: 15px;
     padding-top: 12px;
+    color: #6a6a6a;
+    pointer-events: none;
+    .svg-flag {
+        fill: #6a6a6a;
+    }
+}
+.canFlag {
+    color: #fff;
+    pointer-events: all;
+    .svg-flag {
+        fill: #fff;
+    }
     &:hover {
+        color: @itemBlue;
         .svg-flag {
             fill: @itemBlue;
         }
@@ -337,17 +349,16 @@ body.item {
         color: #fff;
         vertical-align: top;
         display: inline-block;
-        padding-top: 2px;
+        padding-top: 5px;
     }
     .rateWpr {
-        width: 126px;
         position: relative;
         cursor: pointer;
-        height: 22px;
         display: inline-block;
     }
     .svg-star {
-        width: 25px; //width=20 but 25px for space between stars
+        width: 32px;
+        height: 23px;
         float: right; //rtl
         &:hover
         {
@@ -362,9 +373,9 @@ body.item {
 
 .itemComments {
     color: #fff;
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid #5a5a5a;
     clear: both;
-    margin-top: 8px;
+    margin-top: 25px;
     font-size: 12px;
     header {
         font-size: 20px;
@@ -374,7 +385,7 @@ body.item {
 
     > .itemCommentsForm {
         .textareaWpr {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
     }
 
@@ -383,15 +394,6 @@ body.item {
         background: none;
         border: none;
         overflow: hidden;
-    }
-
-    textarea {
-        border: 1px solid @borderColor;
-        border-radius: 3px;
-        width: 100%;
-        margin-bottom: 8px;
-        height: 20px;
-        padding: 0 5px;
     }
 
     .cancel, .post {
@@ -419,7 +421,23 @@ body.item {
         display: none;
     }
 }
-
+.feedOpen {
+    .commentsTextarea {
+        min-height: 100px;
+        background: @borderColor;
+        color: #1e1e1e;
+    }
+}
+.commentsTextarea {
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    .boxSizing;
+    min-height: 25px;
+    font-size: 15px;
+}
 .itemCommentsList {
     margin: 2px 0;
 

@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -255,11 +255,25 @@ body.item .siteHeader {
   padding-top: 25px;
 }
 .itemFlag {
-  color: #fff;
   font-size: 15px;
   padding-top: 12px;
+  color: #6a6a6a;
+  pointer-events: none;
 }
-.itemFlag:hover .svg-flag {
+.itemFlag .svg-flag {
+  fill: #6a6a6a;
+}
+.canFlag {
+  color: #fff;
+  pointer-events: all;
+}
+.canFlag .svg-flag {
+  fill: #fff;
+}
+.canFlag:hover {
+  color: #3399ff;
+}
+.canFlag:hover .svg-flag {
   fill: #3399ff;
 }
 /*#endregion */
@@ -308,17 +322,16 @@ body.item .siteHeader {
   color: #fff;
   vertical-align: top;
   display: inline-block;
-  padding-top: 2px;
+  padding-top: 5px;
 }
 .leftPanel .rateWpr {
-  width: 126px;
   position: relative;
   cursor: pointer;
-  height: 22px;
   display: inline-block;
 }
 .leftPanel .svg-star {
-  width: 25px;
+  width: 32px;
+  height: 23px;
   float: right;
 }
 .leftPanel .svg-star:hover {
@@ -329,9 +342,9 @@ body.item .siteHeader {
 }
 .itemComments {
   color: #fff;
-  border-top: 1px solid #c2c2c2;
+  border-top: 1px solid #5a5a5a;
   clear: both;
-  margin-top: 8px;
+  margin-top: 25px;
   font-size: 12px;
 }
 .itemComments header {
@@ -340,21 +353,13 @@ body.item .siteHeader {
   padding: 15px 0 10px;
 }
 .itemComments > .itemCommentsForm .textareaWpr {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .itemComments .textareaWpr {
   /* background: #fff; */
   background: none;
   border: none;
   overflow: hidden;
-}
-.itemComments textarea {
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  width: 100%;
-  margin-bottom: 8px;
-  height: 20px;
-  padding: 0 5px;
 }
 .itemComments .cancel,
 .itemComments .post {
@@ -377,6 +382,23 @@ body.item .siteHeader {
   top: 6px;
   right: 6px;
   display: none;
+}
+.feedOpen .commentsTextarea {
+  min-height: 100px;
+  background: #c2c2c2;
+  color: #1e1e1e;
+}
+.commentsTextarea {
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 25px;
+  font-size: 15px;
 }
 .itemCommentsList {
   margin: 2px 0;
@@ -711,3 +733,4 @@ body.item .siteHeader {
   margin-top: -50px;
 }
 /*#endregion */
+/*# sourceMappingURL=Item.css.map */
