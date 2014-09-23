@@ -178,7 +178,7 @@ namespace Testing
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-            Emails();
+            //Emails();
 
             //var y =  GetCountries();
 
@@ -224,12 +224,8 @@ namespace Testing
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
             IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
 
-            var i = 0;
 
-            while (writeService.Dbi(i))
-            {
-                i++;
-            }
+            writeService.OneTimeDbi();
             //            //var command = new UpdateUserProfileCommand(1, "ramy", null, null, "המרכז האקדמי פרס");
 
             //            //writeService.Dbi();

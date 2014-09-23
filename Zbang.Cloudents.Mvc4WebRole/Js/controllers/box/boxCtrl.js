@@ -35,16 +35,14 @@ mBox.controller('BoxCtrl',
                 activeTab: 'feed'
             };
 
-
             sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
-
+                console.log($location);
                 $scope.info = {
                     name: info.name,
-                    //comments: info.comments,
                     courseId: info.courseId,
                     boxType: info.boxType,
                     date: info.date,
@@ -58,7 +56,8 @@ mBox.controller('BoxCtrl',
                     tabs: info.tabs,
                     userType: info.userType,
                     image: info.image,
-                    url: decodeURI($location.absUrl())
+                    url: decodeURI($location.absUrl()),
+                    inviteUrl: $location.url() + 'invite/'
                 };
 
                 $scope.strings = {

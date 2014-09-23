@@ -28,12 +28,12 @@
 
                         <li class="friendItem" ng-repeat="friend in friends | limitTo:11">
                             <a href="{{friend.url}}">
-                                <img class="friendImg" user-tooltip-popup="{{friend.uid}}" ng-src="{{friend.image}}" width="31" height="31" />
+                                <img class="friendImg" user-tooltip-popup="{{friend.id}}" ng-src="{{friend.image}}" width="31" height="31" />
                             </a>
                         </li>
                         <li class="friendItem friendBtn" data-action="true">
                             <a target="_self" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
-                               href="@Url.RouteUrl("Invite", new { boxid = "" })" class="inviteFriendBtn btn3"></a>
+                               href="@Url.RouteUrl("InviteCloudents")" class="inviteFriendBtn btn3"></a>
                         </li>
                     </ul>
                 </div>
@@ -101,7 +101,7 @@
             </section>
 
             <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader" ng-if="notNewUniversity" ng-show="contentLoaded">{{myCourses}}</header>
+                <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
                 @*<div ng-if="!academicBoxes.length" class="emptyDash">
                         <div class="followEmpty">
                             <h2 class="boldFont">@IndexResources.FollowCourses</h2>
@@ -109,8 +109,8 @@
                         </div>
                     </div>*@
                 <ol class="myAreaList clearfix">
-                    <li class="box" ng-if="notNewUniversity">
-                        <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
+                    <li class="box" tooltip="{{notNewUniversity? '' : 'currently no boxes in the university'}}">
+                        <a ng-class="{aDisbled: !(notNewUniversity)}" class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
                     </li>

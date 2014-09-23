@@ -8,8 +8,8 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar">
         <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
-        <a data-navigation="invite"
-           href="@Url.Action("Index", "Share", new { ViewBag.boxid })" data-link="@Url.Action("Index", "Share")" class="btn3 inviteBtn rFloat" type="button">@IndexResources.Invite</a>
+        <a target="_self"
+           href="@Url.RouteUrl("InviteCloudents")" class="btn3 inviteBtn rFloat">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
     <div class="membersContent">

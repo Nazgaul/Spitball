@@ -93,12 +93,29 @@
   text-align: right;
 }
 .itemComments .closeDialog {
-  left: 6px;
+  left: -5px;
   right: auto;
+}
+.itemComments .closeDialog:before {
+  left: -4px;
+  right: auto;
+}
+.itemComments .trash {
+  left: -4px;
+  right: auto;
+}
+.itemCommentsList {
+  padding: 0 0 0 10px;
 }
 .itemCommentsList .itemComment li:hover > .closeDialog {
   left: 0;
   right: auto;
+}
+.itemCommentsList .user-name {
+  padding: 0 5px 0 0;
+}
+.itemCommentsList p {
+  padding: 14px 0 14px 7px;
 }
 /*#endregion */
 /*#region item content */

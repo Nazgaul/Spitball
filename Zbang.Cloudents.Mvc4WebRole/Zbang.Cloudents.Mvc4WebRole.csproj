@@ -1341,7 +1341,6 @@
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
     <Content Include="Views\Box\_BoxSettings.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
-    <Content Include="Views\Dashboard\_Friends.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />

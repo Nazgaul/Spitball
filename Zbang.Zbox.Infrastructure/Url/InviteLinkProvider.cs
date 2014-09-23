@@ -5,12 +5,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 {
     public class InviteLinkProvider : IInviteLinkDecrypt, IInviteLinkGenerator
     {
-
-        //public Guid Id { get; private set; }
-        //public long BoxId { get; private set; }
-        //public DateTime ExpireTime { get; private set; }
-        //public long SenderId { get; private set; }
-        //public string RecepientEmail { get; private set; }
+        
         private readonly IEncryptObject m_EncryptObject;
 
         const string InviteCryptHash = "InviteKeyHash";
@@ -19,27 +14,27 @@ namespace Zbang.Zbox.Infrastructure.Url
             m_EncryptObject = encryptObject;
         }
 
-        public string GenerateInviteUrl(Guid id, long boxId, long senderId, string recepientEmail)
+        public string GenerateInviteUrl(Guid id, string boxUrl, long senderId, string recipientEmail)
         {
-            var inviteLinkData = new InviteLinkData(id, boxId, DateTime.UtcNow.AddMonths(1), senderId, recepientEmail);
+            var inviteLinkData = new InviteLinkData(id, boxUrl, DateTime.UtcNow.AddMonths(1), senderId, recipientEmail);
 
-            return m_EncryptObject.EncryptElement(inviteLinkData, recepientEmail, InviteCryptHash);
+            return m_EncryptObject.EncryptElement(inviteLinkData, recipientEmail, InviteCryptHash);
         }
 
-        public InviteLinkData DecryptInviteUrl(string token, string recepientEmail)
+        public InviteLinkData DecryptInviteUrl(string token, string recipientEmail)
         {
-            return m_EncryptObject.DecryptElement<InviteLinkData>(token, recepientEmail, InviteCryptHash);
+            return m_EncryptObject.DecryptElement<InviteLinkData>(token, recipientEmail, InviteCryptHash);
         }
 
     }
 
     public interface IInviteLinkGenerator
     {
-        string GenerateInviteUrl(Guid id, long boxId, long senderId, string recepientEmail);
+        string GenerateInviteUrl(Guid id, string boxUrl, long senderId, string recipientEmail);
     }
     public interface IInviteLinkDecrypt
     {
-        InviteLinkData DecryptInviteUrl(string token, string recepientEmail);
+        InviteLinkData DecryptInviteUrl(string token, string recipientEmail);
     }
 
 }

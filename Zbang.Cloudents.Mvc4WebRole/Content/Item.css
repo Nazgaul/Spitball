@@ -6,6 +6,9 @@
 body.item .siteHeader {
   background: #0f0f0f;
 }
+body.item .modal-backdrop.in {
+  opacity: .7;
+}
 .itemPage,
 .boxPage,
 .quizPage {
@@ -255,11 +258,25 @@ body.item .siteHeader {
   padding-top: 25px;
 }
 .itemFlag {
-  color: #fff;
   font-size: 15px;
   padding-top: 12px;
+  color: #6a6a6a;
+  pointer-events: none;
 }
-.itemFlag:hover .svg-flag {
+.itemFlag .svg-flag {
+  fill: #6a6a6a;
+}
+.canFlag {
+  color: #fff;
+  pointer-events: all;
+}
+.canFlag .svg-flag {
+  fill: #fff;
+}
+.canFlag:hover {
+  color: #3399ff;
+}
+.canFlag:hover .svg-flag {
   fill: #3399ff;
 }
 /*#endregion */
@@ -272,6 +289,7 @@ body.item .siteHeader {
 .itemNameWpr {
   display: inline-block;
   position: relative;
+  margin-top: 6px;
 }
 .itemNameWpr:hover .itemRenameBtn {
   display: block;
@@ -308,17 +326,16 @@ body.item .siteHeader {
   color: #fff;
   vertical-align: top;
   display: inline-block;
-  padding-top: 2px;
+  padding-top: 5px;
 }
 .leftPanel .rateWpr {
-  width: 126px;
   position: relative;
   cursor: pointer;
-  height: 22px;
   display: inline-block;
 }
 .leftPanel .svg-star {
-  width: 25px;
+  width: 32px;
+  height: 23px;
   float: right;
 }
 .leftPanel .svg-star:hover {
@@ -329,18 +346,28 @@ body.item .siteHeader {
 }
 .itemComments {
   color: #fff;
-  border-top: 1px solid #c2c2c2;
+  border-top: 1px solid #5a5a5a;
   clear: both;
-  margin-top: 8px;
+  margin-top: 25px;
   font-size: 12px;
+}
+.itemComments .mCSB_container,
+.itemComments .mCustomScrollBox {
+  overflow-x: visible;
+  padding-top: 7px;
+  margin-top: -7px;
+  margin-bottom: 7px;
+}
+.itemComments .mCustomScrollbar {
+  width: 280px;
 }
 .itemComments header {
   font-size: 20px;
   color: #3399ff;
-  padding: 15px 0 10px;
+  padding: 18px 0 10px;
 }
 .itemComments > .itemCommentsForm .textareaWpr {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .itemComments .textareaWpr {
   /* background: #fff; */
@@ -366,13 +393,33 @@ body.item .siteHeader {
   text-align: left;
 }
 .itemComments .closeDialog {
-  top: 6px;
-  right: 6px;
+  top: -5px;
+  right: -5px;
   display: none;
+}
+.itemComments .closeDialog:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background: #3399ff;
+  border-radius: 100%;
+  top: -5px;
+  right: -4px;
+  z-index: -1;
+}
+.itemComments .trash {
+  display: none;
+  position: absolute;
+  bottom: 13px;
+  right: -4px;
+}
+.itemComments .trash .svg-trash {
+  width: 11px;
 }
 .feedOpen .commentsTextarea {
   min-height: 100px;
-  background: #c2c2c2;
   color: #1e1e1e;
 }
 .commentsTextarea {
@@ -380,16 +427,18 @@ body.item .siteHeader {
   border-radius: 3px;
   width: 100%;
   margin-bottom: 8px;
-  height: 20px;
-  padding: 4px 8px;
+  padding: 2px 8px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  min-height: 28px;
+  min-height: 25px;
+  height: 25px;
   font-size: 15px;
+  background: #c2c2c2;
 }
 .itemCommentsList {
   margin: 2px 0;
+  padding-right: 10px;
 }
 .itemCommentsList .itemComment {
   position: relative;
@@ -410,19 +459,23 @@ body.item .siteHeader {
 .itemCommentsList .itemComment li {
   position: relative;
 }
-.itemCommentsList .itemComment li:hover > .closeDialog {
+.itemCommentsList .itemComment li:hover > .trash {
   display: block;
-  top: 0;
-  right: 0;
 }
 .itemCommentsList .user-name {
   color: #3399ff;
+  display: block;
+  padding-left: 5px;
 }
 .itemCommentsList p {
-  font-size: 15px;
-  padding: 5px 0 10px;
+  font-size: 17px;
+  padding: 14px 7px 14px 0;
   margin-bottom: 10px;
-  border-bottom: 1px solid #c2c2c2;
+  border-bottom: 1px solid #7a7a7a;
+  color: #eee;
+}
+.commentTop {
+  color: #7a7a7a;
 }
 /*#endregion */
 /*#region item content */

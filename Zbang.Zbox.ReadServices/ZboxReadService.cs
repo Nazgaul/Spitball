@@ -304,7 +304,6 @@ namespace Zbang.Zbox.ReadServices
 
                 var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
                 queryBoxItem.SetInt64("BoxId", query.BoxId);
-                queryBoxItem.SetParameter("TabId", query.TabId);
                 queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
 
                 var fitems = queryBoxItem.Future<Item.ItemDto>();

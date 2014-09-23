@@ -25,7 +25,7 @@
     <return-scalar type="string" column="Name"/>
     <return-scalar type="string" column="Url"/>
     
-    <return-scalar type="long" column="Uid"/>
+    <return-scalar type="long" column="Id"/>
   </resultset>
   <resultset name="boxMeta" >
     <return-scalar type="long" column="Id"/>
@@ -115,7 +115,7 @@
   <!--box page - used to get all the members of the box in pop up-->
   <sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
     <![CDATA[
-    select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
+    select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId

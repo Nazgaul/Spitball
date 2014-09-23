@@ -29,36 +29,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize, HttpGet]
-        public ActionResult Index(long? boxid)
+        [NonAjax]
+        [Route("invite",Name="InviteCloudents")]
+        [Route("box/my/{boxId}/{boxName}/invite", Name = "InviteBoxPrivate")]
+        [Route("course/{universityName}/{boxId}/{boxName}/invite", Name = "InviteCourse")]
+        public ActionResult Index(long? boxId)
         {
             var model = new BoxMetaDto();
             try
             {
-                if (boxid.HasValue)
+                if (boxId.HasValue)
                 {
-                    model = ZboxReadService.GetBoxMeta(new GetBoxQuery(boxid.Value, GetUserId()));
+                    model = ZboxReadService.GetBoxMeta(new GetBoxQuery(boxId.Value, GetUserId()));
                 }
             }
             catch (BoxAccessDeniedException)
             {
-                if (Request.IsAjaxRequest())
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-                }
+                //if (Request.IsAjaxRequest())
+                //{
+                //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                //}
                 return RedirectToAction("MembersOnly", "Error");
             }
             catch (BoxDoesntExistException)
             {
-                if (Request.IsAjaxRequest())
-                {
-                    return HttpNotFound();
-                }
+                //if (Request.IsAjaxRequest())
+                //{
+                //    return HttpNotFound();
+                //}
                 return RedirectToAction("Index", "Error");
             }
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(model);
-            }
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return PartialView(model);
+            //}
             return View(model);
         }
 
@@ -81,7 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unsepcified error. try again later"));
+                return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
         [HttpPost, ZboxAuthorize]
@@ -103,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unsepcified error. try again later"));
+                return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
 
@@ -128,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                ModelState.AddModelError(string.Empty, "You do not have permission to share a box");
+                ModelState.AddModelError(string.Empty, @"You do not have permission to share a box");
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
@@ -141,7 +145,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, "Unsepcified error. try again later");
+                ModelState.AddModelError(string.Empty, @"Unspecified error. try again later");
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
         }
@@ -178,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unsepcified error. try again later"));
+                return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
 
@@ -282,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var values = m_InviteLinkDecrypt.Value.DecryptInviteUrl(key, email);
 
 
-                if (values.ExpireTime < DateTime.UtcNow || values.RecepientEmail != email)
+                if (values.ExpireTime < DateTime.UtcNow || values.RecipientEmail != email)
                 {
                     return membersOnlyErrorPageRedirect;
                 }
@@ -291,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return membersOnlyErrorPageRedirect;
                 }
-                
+                if (!string.IsNullOrEmpty(values.BoxUrl)) return Redirect(values.BoxUrl);
                 var boxUid = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
                 var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid });
                 return Redirect(urlToRedirect);

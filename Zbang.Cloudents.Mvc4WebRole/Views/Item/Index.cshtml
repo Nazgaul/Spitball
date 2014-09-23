@@ -74,7 +74,7 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <button type="button" class="itemFlag rFloat" ng-if="canFlag()" ng-click="flagItemWindow()" data-bind="click: flagItem, visible: flagAllow()">
+            <button type="button" class="itemFlag rFloat" ng-class=" {canFlag: canflag()}" ng-click=" flagitemwindow()" data-bind="click: flagItem, visible: flagAllow()">
                 <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
                 <span>@ItemsResources.Flag</span>
             </button>
@@ -101,7 +101,7 @@
 
     <div class="leftPanel lFloat">
         <span class="rateTxt">@ItemsResources.Rate</span>
-        <div class="rateWpr" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
+        <div class="rateWpr rFloat" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
             <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
@@ -111,9 +111,9 @@
 
         <section class="itemComments">
             <header>@SharedResources.AddComment</header>
-            <form ng-init="showBtn=false" name="addAnnotation" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
+            <form ng-init="showBtn=false" name="addAnnotation" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
-                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction msd-elastic class="commentsTextarea" required></textarea>
+                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction class="commentsTextarea" required></textarea>
                     <div class="rFloat">
                         <button ng-show="showBtn" ng-disabled="commentp" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
                         <button ng-show="showBtn" type="button" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
@@ -123,24 +123,31 @@
             <div m-custom-scrollbar>
                 <ul class="itemCommentsList">
                     <li class="itemComment" ng-repeat="comment in item.comments">
-                        <span>@ItemsResources.PostedBy</span>
-                        <span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
-                        <time display-time="{{comment.creationDate}}"></time>
+                        <div class="commentTop">
+                            <time class="rFloat" display-time="{{comment.creationDate}}"></time>
+                            <span class="lFloat">@ItemsResources.PostedBy</span>
+                            <span user-tooltip-popup="{{comment.userId}}" class="user-name elps">{{comment.userName}}</span>
+                        </div>
                         <p>{{comment.comment}}</p>
                         <ul>
                             <li ng-repeat="reply in comment.replies">
-                                <span>@ItemsResources.PostedBy</span>
-                                <span user-tooltip-popup="{{reply.userId}}" class="user-name">{{reply.userName}}</span>
-                                <time display-time="{{reply.creationDate}}"></time>
+                                <div class="commentTop">
+                                    <time class="rFloat" display-time="{{reply.creationDate}}"></time>
+                                    <span class="lFloat">@ItemsResources.PostedBy</span>
+                                    <span user-tooltip-popup="{{reply.userId}}" class="user-name elps">{{reply.userName}}</span>
+                                </div>
                                 <p>{{reply.comment}}</p>
-                                <button type="button" class="closeDialog" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>
+                                @*<button type="button" class="closeDialog topMost" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>*@
+                                <button type="button" class="trash" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)">
+                                    <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
+                                </button>
                             </li>
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
                         <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
                         <form name="addReplyF" novalidate ng-submit="addReply(comment)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
                             <div class="textareaWpr">
-                                <textarea text-direction msd-elastic ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
+                                <textarea text-direction ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
                                 <div class="rFloat">
                                     <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
                                     <button type="button" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>

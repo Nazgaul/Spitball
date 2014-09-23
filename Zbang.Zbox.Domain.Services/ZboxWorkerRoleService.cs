@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 using NHibernate;
 using NHibernate.Criterion;
@@ -33,10 +34,50 @@ namespace Zbang.Zbox.Domain.Services
 
         }
 
-        private bool InternalDbi()
+        private void InternalDbi()
         {
-            var retVal = false;
-            
+
+            using (UnitOfWork.Start())
+            {
+                bool retVal = true;
+                var dic = new Dictionary<University, Department>();
+                while (retVal)
+                {
+                    var users = UnitOfWork.CurrentSession.QueryOver<User>()
+                        .Where(w => w.University2 != null)
+                        .And(w => w.Department == null)
+                        .Take(2000)
+                        .List();
+                    retVal = false;
+                    using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    {
+                        foreach (var user in users)
+                        {
+                            Department department;
+                            if (!dic.TryGetValue(user.University2, out department))
+                            {
+
+                                department =
+                                    UnitOfWork.CurrentSession.QueryOver<Department>()
+                                        .Where(w => w.University == user.University2)
+                                        .Take(1).SingleOrDefault();
+                                dic.Add(user.University2, department);
+                            }
+                            if (department == null)
+                            {
+                                continue;
+                            }
+                            retVal = true;
+                            user.Department = department;
+                            UnitOfWork.CurrentSession.Save(user);
+
+                        }
+                        tx.Commit();
+                    }
+                }
+
+            }
+
             using (UnitOfWork.Start())
             {
                 TraceLog.WriteInfo("Processing departments");
@@ -55,7 +96,7 @@ namespace Zbang.Zbox.Domain.Services
                     }
                     tx.Commit();
                 }
-                
+
 
             }
             using (UnitOfWork.Start())
@@ -74,7 +115,6 @@ namespace Zbang.Zbox.Domain.Services
                     tx.Commit();
                 }
             }
-            return retVal;
         }
 
         public bool Dbi(int index)
@@ -86,7 +126,7 @@ namespace Zbang.Zbox.Domain.Services
                 using (var tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                        .Where(w => w.IsDeleted == false).Skip(100*index)
+                        .Where(w => w.IsDeleted == false).Skip(100 * index)
                         .Take(100).List();
 
                     foreach (var box in boxes)
@@ -98,7 +138,7 @@ namespace Zbang.Zbox.Domain.Services
                     }
                     tx.Commit();
                 }
-            } 
+            }
             return retVal;
         }
 

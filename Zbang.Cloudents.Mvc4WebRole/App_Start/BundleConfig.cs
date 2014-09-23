@@ -241,9 +241,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/stringFormat.js"),
 
                 new JsFileWithCdn("/js/pubsub.js"),
-                new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/scripts/knockout-delegatedEvents.js"),
-                new JsFileWithCdn("~/js/Bindings.js"),
+                //new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
+                //new JsFileWithCdn("~/scripts/knockout-delegatedEvents.js"),
+                //new JsFileWithCdn("~/js/Bindings.js"),
                 new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
                  new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
@@ -259,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                  new JsFileWithCdn("/js/Upload2.js"),
-                new JsFileWithCdn("/js/Library.js"),
+                //new JsFileWithCdn("/js/Library.js"),
                 new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
                 new JsFileWithCdn("/scripts/CountUp.js"),
@@ -337,7 +337,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/Cache2.js"),
                 new JsFileWithCdn("~/Js/DataContext2.js"),
                 new JsFileWithCdn("~/Js/GenericEvents2.js"),
-                new JsFileWithCdn("~/Js/Navigation.js"),
+                //new JsFileWithCdn("~/Js/Navigation.js"),
 
 
                 new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
