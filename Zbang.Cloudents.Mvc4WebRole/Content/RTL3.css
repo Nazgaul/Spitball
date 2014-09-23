@@ -929,6 +929,9 @@
   /*rtl*/
   right: auto;
 }
+.thumbItem .views:before {
+  margin: 0 0 0 5px;
+}
 .thumbItem .tag {
   right: -6px;
   /*rtl*/

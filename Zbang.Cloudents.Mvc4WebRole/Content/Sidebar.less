@@ -137,13 +137,6 @@
     }
 }
 
-.dashLists {
-    .friendsList {
-        font-size: 0; // remove whitespace caused by inline-block
-        padding: 11px 7px 7px 11px; /*rtl*/
-    }
-}
-
 .friendItem {
     margin: 0 6px 6px 0; /*rtl*/
     display: inline-block;
@@ -163,7 +156,9 @@
 
     &:last-child {
         display: inline-block;
-        margin: 0;
+        margin: 0 0 15px 0;
+        position: relative;
+        top: 8px;
     }
 }
 
@@ -189,9 +184,9 @@
     width: 100%;
 
     .friendsList {
+        font-size: 0; // remove whitespace caused by inline-block
         padding: 11px 7px 7px 11px; /*rtl*/
     }
-
     .friendItem {
         //if there are no friends - just the invite btn...
         &.friendBtn:first-child {
@@ -200,20 +195,25 @@
 
             .inviteFriendBtn {
                 width: 100%;
-
+                
                 &:before {
                     content: attr(data-dash-inviteto);
                 }
             }
         }
 
-        .inviteFriendBtn:before {
-            content: attr(data-dash-invite);
-            display: inline-block;
+        .inviteFriendBtn {
+            &:before {
+                content: attr(data-dash-invite);
+                display: inline-block;
+            }
         }
     }
 }
-
+/*.inviteFriendBtn  {
+    position: relative;
+    top: 8px;
+}*/
 .activityAction {
     //word-break:normal;
 }
