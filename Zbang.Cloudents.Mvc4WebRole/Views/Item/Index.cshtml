@@ -138,7 +138,7 @@
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
                         <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
-                        <form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
+                        <form name="addReplyF" novalidate ng-submit="addReply(comment)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
                             <div class="textareaWpr">
                                 <textarea text-direction msd-elastic ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
                                 <div class="rFloat">
