@@ -8,11 +8,6 @@
     </id>
     
     <many-to-one name="Item" class="Item" column="ItemId" not-null="true" foreign-key="itemIdItemComment"/>
-    <!--<property name="ImageId" not-null="true"></property>
-    <property name="CordX" not-null="true"></property>
-    <property name="CordY" not-null="true"></property>
-    <property name="Width" not-null="true"></property>
-    <property name="Height" not-null="true"></property>-->
     <property name="Comment" not-null="true" length="8000"></property>
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
@@ -20,6 +15,10 @@
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
+    <bag name="Replies"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ParentId"/>
+      <one-to-many class="ItemCommentReply"/>
+    </bag>
     <many-to-one name="Author" class="User" column="UserId" not-null="true" foreign-key="userIdItemComment"/>
   </class>
   <class name="ItemCommentReply" table="ItemCommentReply">
