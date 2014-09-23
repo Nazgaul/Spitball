@@ -11,12 +11,10 @@
 
              if (!sGoogle.isAuthenticated()) {
                  sGoogle.initGApi().then(function () {
-                     sGoogle.checkAuth(true).then(function (response) {});
+                     sGoogle.checkAuth(true).then(function (response) { });
                  });
              }
-             if (!sFacebook.isAuthenticated()) {
-                 sFacebook.login().then(function (response) { });
-             }
+             sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
 
              $scope.params = {
@@ -85,18 +83,21 @@
 
                  }
              };
-
-             $scope.facebookConnect = function () {
-                 sFacebook.login().then(function (response) {
-                     $scope.selectState(states.facebook);
-                 });
-             };
-
-             $scope.googleConnect = function () {
-                 sGoogle.checkAuth(true).then(function (response) {
-                     $scope.selectState(states.google);
-                 });
-             };
+             
+             $scope.socialConnect = function () {
+                 if (currentState === states.facebook) {
+                     sFacebook.loginFacebook().then(function (response) {
+                         $scope.selectState(states.facebook);
+                     });
+                     return;
+                 }
+                 if (currentState === states.google) {
+                     sGoogle.checkAuth(false).then(function (response) {
+                         $scope.selectState(states.google);
+                     });
+                     return;
+                 }
+             };     
 
              $scope.addContacts = function () {
                  $scope.params.contactLimit += $scope.params.contactPage;

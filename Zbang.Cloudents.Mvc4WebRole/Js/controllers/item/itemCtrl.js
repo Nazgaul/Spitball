@@ -1,6 +1,6 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter','sFacebook',
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
@@ -15,16 +15,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         contentLoadMore: false
     };
 
+
+    sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+
+
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
         $scope.item = data;
         $scope.item.url = $location.absUrl();
         getPreview();
         $timeout(function () {
-            if (!sFacebook.isAuthenticated()) {
-                sFacebook.login().then(function () {
-                });
-            }
             $rootScope.$broadcast('viewContentLoaded');
             $scope.$broadcast('update-scroll');
         });
@@ -111,7 +111,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             windowClass: 'rename',
             templateUrl: '/Item/Rename/',
             controller: 'itemRenameCtrl',
-            backdrop: false,
             resolve: {
                 data: function () {
                     return {
@@ -216,7 +215,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     //todo proper return;
 
     //#region share
-    $scope.shareFacebook = function () {  
+    $scope.shareFacebook = function () {
         $scope.popup.share = false;
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
@@ -254,7 +253,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
         });
     };
-    $scope.rate = function(t) {
+    $scope.rate = function (t) {
         sItem.rate({ ItemId: $routeParams.itemId, rate: t });
     }
 }

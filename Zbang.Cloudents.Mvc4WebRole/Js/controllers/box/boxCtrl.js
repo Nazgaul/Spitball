@@ -4,10 +4,10 @@ mBox.controller('BoxCtrl',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook', /*'sBoxData',*/
+         'sNewUpdates', 'sUserDetails', 'sFacebook',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sBoxData) {
+                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook) {
 
             cd.pubsub.publish('box');//statistics
 
@@ -34,6 +34,9 @@ mBox.controller('BoxCtrl',
                 loader: true,
                 activeTab: 'feed'
             };
+
+            sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
@@ -66,18 +69,12 @@ mBox.controller('BoxCtrl',
                 $scope.info.showJoinGroup = !($scope.isUserFollowing());
 
                 $timeout(function () {
-                    if (!sFacebook.isAuthenticated()) {
-                        sFacebook.login().then(function () {
-                        });
-                    }
-
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
             });
 
 
-            $scope.sBoxData = sBoxData;
 
             $scope.$on('box:quizzesLength', function (e, length) {
                 $scope.info.quizzesLength = length;
@@ -108,15 +105,13 @@ mBox.controller('BoxCtrl',
 
             //#region share
             $scope.shareFacebook = function () {
-                $scope.popup.share = false;
                 sFacebook.share($scope.info.url, //url
-                  $scope.info.name, //title
-                   $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
-                   jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
-                    null //picture
-               ).then(function () {
-                   cd.pubsub.publish('addPoints', { type: 'shareFb' });
-               });
+                      $scope.info.name, //title
+                       $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
+                       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
+                        null //picture
+                     );
+
             };
 
             $scope.shareEmail = function () {

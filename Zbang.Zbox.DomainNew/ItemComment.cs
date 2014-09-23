@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual User Author { get; set; }
     }
+
     public class ItemComment : ItemCommentBase
     {
         protected ItemComment()
@@ -49,7 +51,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-
+        public virtual ICollection<ItemCommentReply> Replies { get; set; }
 
 
     }

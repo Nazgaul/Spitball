@@ -101,7 +101,7 @@
             </section>
 
             <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader" ng-if="notNewUniversity" ng-show="contentLoaded">{{myCourses}}</header>
+                <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
                 @*<div ng-if="!academicBoxes.length" class="emptyDash">
                         <div class="followEmpty">
                             <h2 class="boldFont">@IndexResources.FollowCourses</h2>
@@ -109,8 +109,8 @@
                         </div>
                     </div>*@
                 <ol class="myAreaList clearfix">
-                    <li class="box" ng-if="notNewUniversity">
-                        <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
+                    <li class="box" tooltip="{{notNewUniversity? '' : 'currently no boxes in the university'}}">
+                        <a ng-class="{aDisbled: !(notNewUniversity)}" class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
                     </li>
