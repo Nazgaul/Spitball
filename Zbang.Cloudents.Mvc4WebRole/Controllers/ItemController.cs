@@ -213,7 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns>if link redirect to link if file download</returns>
         [ZboxAuthorize]
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
-        //[Route("D/{BoxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload")]
+        [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         [NoEtag]
         public ActionResult Download(long boxId, long itemId)
         {

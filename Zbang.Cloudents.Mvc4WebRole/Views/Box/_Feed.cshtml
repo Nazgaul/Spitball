@@ -31,12 +31,14 @@
                 <div class="userName elps">{{question.userName}}</div>
 
                 <div class="feedContent" ng-bind-html="question.content"></div>
-                <ul class="attachedList">
-                    <li class="attachedItem" ng-repeat="file in question.files">
-                        <span class="attachName elps">{{file.name}}</span>
-                        <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-                        <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
-
+                <ul class="qaAttach">
+                    <li class="qaAttachItem" ng-repeat="file in question.files">
+                        <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
+                        <div class="attachActions">
+                            <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
+                            <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeQuestionAttachment(file)"></button>
+                            <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
+                        </div>
                     </li>
                 </ul>
 

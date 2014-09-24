@@ -10,7 +10,7 @@ mBox.controller('QnACtrl',
             that.id = data.id;
             that.userName = data.userName;
             that.userImage = data.userImage;
-            that.userId = data.userUid; //uid\
+            that.userId = data.userId; 
             that.content = data.content.replace(/\n/g, '<br/>');
             that.createTime = data.creationTime;
             that.isNew = sNewUpdates.isNew($scope.boxId, 'questions', that.id);
