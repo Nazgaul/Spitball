@@ -185,8 +185,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var item = await ZboxReadService.GetItem2(query);
-                item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId, itemId });
-                item.PrintUrl = Url.RouteUrl("ItemPrint", new { boxId, itemId });
+               // item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId });
+                //item.PrintUrl = Url.RouteUrl("ItemPrint", new { boxId, itemId });
                 return Json(new JsonResponse(true, item));
             }
             catch (BoxAccessDeniedException)
@@ -305,7 +305,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <param name="itemId"></param>
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
-        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/download", Name = "ItemPrint")]
+        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/print", Name = "ItemPrint")]
         public async Task<ActionResult> Print(long boxId, long itemId)
         {
 
