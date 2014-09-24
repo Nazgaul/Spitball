@@ -264,10 +264,7 @@ mBox.controller('QnACtrl',
                     if (!($scope.qFormData.files && $scope.qFormData.files.length)) {
                         $scope.qFormData.files = [];
                     }
-                    $scope.qFormData.files.push(file);
-                    qAttach = false;
-                    questionAttach = null;
-
+                    $scope.qFormData.files.push(file);                    
                     return;
                 }
 
@@ -275,9 +272,7 @@ mBox.controller('QnACtrl',
                     if (!(questionAttach.aFormData.files && questionAttach.aFormData.files.length)) {
                         questionAttach.aFormData.files = [];
                     }
-                    questionAttach.aFormData.files.push(file);
-                    aAttach = true;
-                    questionAttach = null;
+                    questionAttach.aFormData.files.push(file);                                       
                     return;
                 }
 
@@ -286,8 +281,6 @@ mBox.controller('QnACtrl',
 
         $scope.$on('qna:upload', function (e, files) {
             if (qAttach) {
-                qAttach = false;
-
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
                     return file;
@@ -314,12 +307,11 @@ mBox.controller('QnACtrl',
                     questionAttach.aFormData.files = mapped;
                     return;
                 }
-                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);
-                aAttach = false;
-                questionAttach = null;
+                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);                
             }
         });
         $scope.addQuestionAttachment = function () {
+            aAttach = false;
             qAttach = true;
             $rootScope.$broadcast('openUpload', true);
         };
@@ -333,6 +325,7 @@ mBox.controller('QnACtrl',
 
         $scope.addAnswerAttachment = function (question) {
             aAttach = true;
+            qAttach = false;
             questionAttach = question;
             $rootScope.$broadcast('openUpload', true);            
         };

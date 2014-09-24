@@ -41,7 +41,7 @@
 
              };
 
-             $scope.selectState(states.cloudents);
+             $scope.selectState(states.facebook);
 
              $scope.inviteContact = function (contact) {
 
