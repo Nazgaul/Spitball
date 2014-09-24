@@ -5,11 +5,12 @@
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
-                elem.click(function (e) {
-
+                elem.click(function(e) {
                     e.stopPropagation();
                     elem.addClass(attrs.focusForm);
-                }).submit(function () {
+                }).submit(function() {
+                    elem.removeClass(attrs.focusForm);
+                }).on('reset',function() {
                     elem.removeClass(attrs.focusForm);
                 });
 
