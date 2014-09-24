@@ -11,6 +11,7 @@
             sBox.tabs({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.params.tabs = data;
+                $rootScope.$broadcast('update-scroll');
             });
 
             $scope.deleteTab = function (tab) {
@@ -94,7 +95,7 @@
                         $scope.params.tabs = [];
                     }
                     $scope.params.tabs.unshift(tab);
-                    $rootScope.$broadcast('update_scroll');
+                    $rootScope.$broadcast('update-scroll');
 
                 }, function () {
                     //dismiss

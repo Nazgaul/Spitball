@@ -35,6 +35,8 @@
                     <li class="attachedItem" ng-repeat="file in question.files">
                         <span class="attachName elps">{{file.name}}</span>
                         <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
+                        <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
+
                     </li>
                 </ul>
 
@@ -78,7 +80,7 @@
                                 <div class="attachActions">
                                     <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
                                     <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
-                                    <a class="attachDownload" target="_blank" ng-href="{{item.download}}"></a>
+                                    <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
                                 </div>
                             </li>
                         </ul>
