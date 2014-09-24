@@ -23,6 +23,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         var data = response.success ? response.payload : [];
         $scope.item = data;
         $scope.item.url = $location.absUrl();
+        $scope.item.downloadUrl = $location.url() + 'download/';
+        $scope.item.printUrl = $location.url() + 'print/';
         getPreview();
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');

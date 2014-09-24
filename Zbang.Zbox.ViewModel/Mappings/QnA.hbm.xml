@@ -7,7 +7,7 @@
     <return-scalar column="Id" type="Guid"/>
     <return-scalar column="UserName" type="string"/>
     <return-scalar column="UserImage" type="string"/>
-    <return-scalar column="UserUid" type="long"/>
+    <return-scalar column="UserId" type="long"/>
     <return-scalar column="Url" type="string" />
     <return-scalar column="Content" type="string"/>
     <return-scalar column="CreationTime" type="DateTime"/>
@@ -43,7 +43,7 @@
     SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
 	  ,u.UserImage as UserImage
-	  ,u.userid as UserUid
+	  ,u.userid as UserId
     ,u.Url as Url
     ,[Text] as Content
     ,q.CreationTime as creationTime

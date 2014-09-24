@@ -74,7 +74,7 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <button type="button" class="itemFlag rFloat" ng-class=" {canFlag: canflag()}" ng-click=" flagitemwindow()" data-bind="click: flagItem, visible: flagAllow()">
+            <button type="button" class="itemFlag rFloat" ng-class="{canFlag: canFlag()}" ng-click=" flagitemwindow()">
                 <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
                 <span>@ItemsResources.Flag</span>
             </button>
@@ -116,7 +116,7 @@
                     <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction class="commentsTextarea" required></textarea>
                     <div class="rFloat">
                         <button ng-show="showBtn" ng-disabled="commentp" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
-                        <button ng-show="showBtn" type="button" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
+                        <button ng-show="showBtn" type="reset" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
                     </div>
                 </div>
             </form>
@@ -150,7 +150,7 @@
                                 <textarea text-direction ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
                                 <div class="rFloat">
                                     <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
-                                    <button type="button" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
+                                    <button type="reset" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
                                 </div>
                             </div>
                         </form>

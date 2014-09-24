@@ -15,7 +15,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public string UserImage { get; set; }
         public string UserName { get; set; }
-        public long UserUid { get; set; }
+        public long UserId { get; set; }
 
         public string Content { get; set; }
 
