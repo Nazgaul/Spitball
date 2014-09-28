@@ -1344,11 +1344,7 @@
     float: left; /* rtl */
     background: #fff;
     text-align: left; /* rtl */
-    border: 1px solid @borderColor;
-    border-radius: 3px;
     //overflow: hidden;
-    .boxSizing;
-    box-shadow: 1px 1px 2px rgba(0,0,0,.15);
     //.transition(all, .2s); //WARNING: CAUSES iOS CRASH -  http://stackoverflow.com/questions/14055461/ios-safari-css-calc-css-transition-instant-crash
     position: relative; /* for manage state*/
     .boxLink {
@@ -1357,10 +1353,9 @@
     }
 
     img {
-        border-radius: 3px 3px 0 0;
+        
         width: 100%;
         height: 188px;
-        border-bottom: 1px solid @borderColor;
         -moz-background-size: cover;
         -o-background-size: cover;
         -webkit-background-size: cover;
@@ -1371,13 +1366,17 @@
         -moz-user-select: none;
         user-select: none;
         -webkit-user-drag: none;        
-        -moz-user-drag: none;        
+        -moz-user-drag: none;    
+        box-shadow: 1px 1px 2px rgba(0,0,0,.15);
+        border: 1px solid @borderColor;   
+        border-radius: 3px; 
+        .boxSizing;
         //NB Maybe increase dimensions of thumbnail in markup, then can use
         //background-size: 100%;
     }
 
     .boxName {
-        margin-left: 6px; /*rtl*/
+        margin: 5px 0 0 6px; /*rtl*/
         overflow: hidden;
         line-height: 15px;
         color: @color;
@@ -1662,7 +1661,7 @@
         border-top: 1px solid @borderColor;
         padding: 10px 20px;
         clear: both;
-        max-height: 46px; /* diff rtl*/
+        max-height: 46px; /*diff rtl*/
         overflow: hidden;
     }
 }
@@ -1675,7 +1674,7 @@
     height: 14px;
     position: relative;
     background: @common-sprite -1px -41px no-repeat;
-    margin: 3px 0 0 5px; /*rtl*/
+    margin-left: 5px; /*rtl*/
     cursor: pointer;
 
     .full {
