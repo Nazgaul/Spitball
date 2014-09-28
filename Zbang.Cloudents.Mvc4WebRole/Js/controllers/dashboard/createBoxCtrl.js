@@ -10,16 +10,17 @@
                  }
                  sBox.createPrivate($scope.formData).then(function (response) {
                      if (response.success) {
-                         var data =  response.payload || {};
+                         var data = response.payload || {};
                          $scope.box.url = data.url;
-                     $scope.box.id = data.id;
-                     $scope.next();
+                         $scope.box.id = data.id;
+                         $scope.next();
+                         return;
                      }
                      $scope.formData.error = response.payload[0].value[0];
                      //$modalInstance.close(box.payload || box.Payload);
                  });
-                
-                
-             }; 
+
+
+             };
          }
         ]);

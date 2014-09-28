@@ -298,7 +298,7 @@ mUser.controller('UserCtrl',
                     return;
                 }
 
-                sShare.invite.box({ boxUid: invite.boxid, recepients: [invite.userid] }).then(function () { }); //uid
+                sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { }); 
 
                 invite.submitted = true;
             }
@@ -340,7 +340,7 @@ mUser.controller('UserCtrl',
                 var commonFriend;
                 _.each(response.payload.user, function (userFriend) {
                     commonFriend = _.find(response.payload.my, function (myFriend) {
-                        return userFriend.uid === myFriend.uid; //uid
+                        return userFriend.id === myFriend.id;
                     });
 
                     commonFriend ? $scope.friends.common.list.push(commonFriend) : $scope.friends.all.list.push(userFriend);

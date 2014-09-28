@@ -7,11 +7,11 @@
                  cloudents: 'cl',
                  facebook: 'fb'
              },
-             cloudentsUsers, currentUsers, currentState;
+             currentUsers, currentState;
 
              if (!sGoogle.isAuthenticated()) {
                  sGoogle.initGApi().then(function () {
-                     sGoogle.checkAuth(true).then(function (response) { });
+                     sGoogle.checkAuth(true);
                  });
              }
              sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
@@ -41,7 +41,7 @@
 
              };
 
-             $scope.selectState(states.facebook);
+             $scope.selectState(states.cloudents);
 
              $scope.inviteContact = function (contact) {
 
@@ -49,7 +49,7 @@
                  if (currentState === states.google || currentState === states.cloudents) {
                      contact.invited = true;
 
-                     sShare.invite.box({ recepients: [contact.id], boxUid: $scope.box.id }).then(function (response) {
+                     sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
                          if (!response.success) {
                              alert('Error');
                          }
@@ -79,8 +79,8 @@
                              lastName: contact.lastname,
                              sex: contact.gender
                          };
-                         sShare.facebookInvite.box(data).then(function (response) {
-                             if (!response.success) {
+                         sShare.facebookInvite.box(data).then(function (response1) {
+                             if (!response1.success) {
                                  alert('Error');
                              }
                          });
@@ -93,13 +93,13 @@
              
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
-                     sFacebook.loginFacebook().then(function (response) {
+                     sFacebook.loginFacebook().then(function () {
                          $scope.selectState(states.facebook);
                      });
                      return;
                  }
                  if (currentState === states.google) {
-                     sGoogle.checkAuth(false).then(function (response) {
+                     sGoogle.checkAuth(false).then(function () {
                          $scope.selectState(states.google);
                      });
                      return;
@@ -111,7 +111,7 @@
              };
 
              function getParamsByState(state) {
-                 var params, isConnected;
+                 var params;
                  switch (state) {
                      case states.cloudents:
                          params = {
