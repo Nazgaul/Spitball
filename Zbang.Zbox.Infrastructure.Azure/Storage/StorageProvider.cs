@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             
             // not need every time
            // CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
-            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
+            //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
             //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
 
         }
