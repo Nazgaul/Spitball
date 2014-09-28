@@ -37,7 +37,7 @@
             opacity: 0;
         }
         h3{
-            border-bottom: 1px solid @borderColor;
+            //border-bottom: 1px solid @borderColor;
             //padding-bottom: 4px;
         }
     }
@@ -76,10 +76,12 @@
     visibility: hidden;
     position: absolute;
     top: 90px;
-    left: 10px; right: 10px; /* no rtl*/
-    margin: auto;
+    left: 12px; right: 12px; /* no rtl*/
+    margin: 20px auto 0;
     text-align: center;
     .transition(all .3s);
+    background: #fff;
+    .boxSizing;
     &:before
     {
         .pseudo;
@@ -92,8 +94,6 @@
         opacity: 1;
         visibility: visible;
         top: 40px;
-        //border-top: 1px solid @borderColor;
-        padding-top: 40px;
     }
     h4{
         font-size: 20px;
