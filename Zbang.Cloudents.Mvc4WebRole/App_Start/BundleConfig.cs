@@ -260,10 +260,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                  new JsFileWithCdn("/js/Upload2.js"),
                 //new JsFileWithCdn("/js/Library.js"),
-                new JsFileWithCdn("/js/User.js"),
+                //new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
-                new JsFileWithCdn("/scripts/CountUp.js"),
-                new JsFileWithCdn("/scripts/stopwatch.js")
+                new JsFileWithCdn("/scripts/CountUp.js")
+                //new JsFileWithCdn("/scripts/stopwatch.js")
              );
 
             RegisterJsRegular("angular-store",

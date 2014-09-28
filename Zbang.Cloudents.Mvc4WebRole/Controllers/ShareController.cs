@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 var userId = GetUserId();
-                var shareCommand = new ShareBoxCommand(model.BoxUid, userId, model.Recepients);
+                var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
                 ZboxWriteService.ShareBox(shareCommand);
                 return Json(new JsonResponse(true));
             }

@@ -40,7 +40,6 @@ mBox.controller('BoxCtrl',
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
-                console.log($location);
                 $scope.info = {
                     name: info.name,
                     courseId: info.courseId,

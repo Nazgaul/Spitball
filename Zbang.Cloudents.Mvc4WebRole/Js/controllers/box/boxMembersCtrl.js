@@ -47,7 +47,7 @@
                 member.reinvited = false;
                 member.reinvitedItem = false;
                 member.action = true;
-                Box.removeUser({ boxUid: $scope.info.boxId, userId: member.uid }).then(function () { //uid
+                Box.removeUser({ boxId: $scope.info.boxId, userId: member.id }).then(function () { //uid
 
                 });
 
@@ -74,7 +74,7 @@
                 member.action = true;
                 $timeout(function () { member.reinvited = true; }, 10);
                 member.action = false;
-                Box.invite({ Recepients: [member.uid], boxUid: $scope.info.boxId }).then(function () { //uid
+                Box.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
                     member.action = false;
                 });
             };

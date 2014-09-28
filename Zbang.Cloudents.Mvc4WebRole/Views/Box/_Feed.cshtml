@@ -68,7 +68,7 @@
             </div>
             <ul class="feedReplies rFloat">
                 <li ng-repeat="answer in question.answers">
-                    <img class="feedImg rFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
+                    <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
                     <div class="feedWpr">
                         <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
                         <div class="userName elps">{{answer.userName}}</div>

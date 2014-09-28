@@ -65,7 +65,7 @@
                         <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
                             <input id=" {{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                             <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
-                                <img class="friendImg calloutTrgr" alt="" ng-src="{{member.image}}" width="34" height="34" />
+                                <img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" />
                                 <span class="upMemberName elps">{{member.name}}</span>
                             </label>
 
@@ -209,7 +209,8 @@
                             </li>
                         </ul>
                     </span>
-                    <div ng-show="!boxes.loading" class="coursesEmpty">@UserResources.NotFollowing</div>
+                    
+                    <div ng-show="!boxes.loading" class="coursesEmpty ng-hide">@UserResources.NotFollowing</div>
                 </div>
             </section>
             <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
@@ -227,8 +228,7 @@
                             </h4>
                         </span>
                         <ul class="inCommonList">
-                            <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{friend.uid}}">
-                                @*uid*@
+                            <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{friend.id}}">
                                 <a bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
                                 <div class="userItemName" bo-text="friend.name"></div>
                             </li>
@@ -239,8 +239,7 @@
                             <h4 class="semiFont">@UserResources.AllFriends</h4>
                         </span>
                         <ul class="inAllFriendList">
-                            <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{friend.uid}}">
-                                @*uid*@
+                            <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{friend.id}}">
                                 <a href="" bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
                                 <div class="userItemName" bo-text="friend.name"></div>
                             </li>

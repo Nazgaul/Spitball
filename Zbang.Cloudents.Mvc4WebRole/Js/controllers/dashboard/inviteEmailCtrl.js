@@ -30,7 +30,7 @@
                      return email.address;
                  });
 
-                 sShare.invite.box({ recepients: [emails], boxUid: $scope.box.id }).then(function (response) {
+                 sShare.invite.box({ recepients: [emails], boxId: $scope.box.id }).then(function (response) {
                      if (!response.success) {
                          alert('Error');
                      }
