@@ -149,20 +149,22 @@ header {
 /*#endregion */
 
 /*#region product page */
-
+.productWpr {
+    .left {
+        padding: 0 0 0 10px; /*rtl*/
+    }
+    .right {
+        padding: 0 10px 0 0; /*rtl*/
+    }
+}
 .productPrice {
     text-align: right; /*rtl*/
 
     &:before {
         right: 16px; /*rtl*/
         left: auto;
-    }
-    .right {
-        padding: 0 10px 0 0; /*rtl*/
-    }
-    .left {
-        padding: 0 0 0 10px; /*rtl*/
-    }
+    }   
+    
     td {
         &:nth-child(3) {
             padding: 0 4px 0 0; /*rtl*/
