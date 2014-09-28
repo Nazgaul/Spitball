@@ -13,12 +13,11 @@
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
         </div>
-
-        <span class="following" ng-if="!info.showJoinGroup">
+        <span class="following" ng-if="isUserFollowing()">
             <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
             <span>@SharedResources.Following</span>
         </span>
-        <button class="followBtn" type="button" ng-if="info.showJoinGroup" ng-click="followBox()">
+        <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
             <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
             <span>@SharedResources.Follow</span>
         </button>
