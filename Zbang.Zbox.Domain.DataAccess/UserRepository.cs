@@ -11,25 +11,25 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public User GetUserByEmail(string iEmail)
         {
-            var critiria = UnitOfWork.CurrentSession.QueryOver<User>();
-            critiria.Where(w => w.Email == iEmail.ToLower());
+            var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
+            criteria.Where(w => w.Email == iEmail.ToLower());
 
-            return critiria.SingleOrDefault();
+            return criteria.SingleOrDefault();
         }
 
         public User GetUserByMembershipId(Guid membershipId)
         {
-            var critiria = UnitOfWork.CurrentSession.QueryOver<User>();
-            critiria.Where(w => w.MembershipId == membershipId);
+            var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
+            criteria.Where(w => w.MembershipId == membershipId);
 
-            return critiria.SingleOrDefault();
+            return criteria.SingleOrDefault();
         }
         public User GetUserByFacebookId(long facebookUserId)
         {
-            var critiria = UnitOfWork.CurrentSession.QueryOver<User>();
-            critiria.Where(w => w.FacebookId == facebookUserId);
+            var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
+            criteria.Where(w => w.FacebookId == facebookUserId);
 
-            return critiria.SingleOrDefault();
+            return criteria.SingleOrDefault();
         }
 
         public UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId)
