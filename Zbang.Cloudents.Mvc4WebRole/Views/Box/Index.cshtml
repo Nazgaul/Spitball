@@ -4,23 +4,24 @@
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div class="boxTop">
-            <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />
+            <img class="imgBorder" ng-src="{{info.image}}" alt="" width="86" height="86" />
             <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
             <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
+        <span class="following" ng-if="isUserFollowing()">
+                <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
+                <span>@SharedResources.Following</span>
+            </span>
+        <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
+                <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
+                <span>@SharedResources.Follow</span>
+            </button>
+
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
         </div>
-        <span class="following" ng-if="isUserFollowing()">
-            <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
-            <span>@SharedResources.Following</span>
-        </span>
-        <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
-            <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
-            <span>@SharedResources.Follow</span>
-        </button>
 
         <ul class="newActivity">
             <li ng-click="setTab('items')">
