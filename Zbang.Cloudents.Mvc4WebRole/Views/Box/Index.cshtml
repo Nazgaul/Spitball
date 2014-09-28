@@ -18,7 +18,7 @@
             <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
             <span>@SharedResources.Following</span>
         </span>
-        <button class="followBtn" type="button" ng-if="info.showJoinGroup">
+        <button class="followBtn" type="button" ng-if="info.showJoinGroup" ng-click="followBox()">
             <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
             <span>@SharedResources.Follow</span>
         </button>

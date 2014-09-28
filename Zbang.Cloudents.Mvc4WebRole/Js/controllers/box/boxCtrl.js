@@ -234,29 +234,7 @@ mBox.controller('BoxCtrl',
                 $scope.action = {
                     userFollow: true
                 }
-                $scope.info.userType = 'subscrie';
-
-                var member = {
-                    uid: sUserDetails.getDetails().id,
-                    name: sUserDetails.getDetails().name,
-                    image: sUserDetails.getDetails().image,
-                    url: sUserDetails.getDetails().url
-                };
-
-                if ($scope.info.members.length < 7) {
-                    $scope.info.members.unshift(member);
-                } else {
-                    $scope.info.members.pop();
-                    $scope.info.members.unshift(member);
-                }
-                $scope.info.membersLength++;
-                if ($scope.info.allMembers) {
-                    $scope.info.allMembers.push(member);
-                };
-
-                $timeout(function () {
-                    $scope.info.showJoinGroup = false;
-                }, 3300);
+                $scope.info.userType = 'subscribe';
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
