@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddCourse" xml:space="preserve">
-    <value>Add new module</value>
-  </data>
-  <data name="BrowseCourses" xml:space="preserve">
-    <value>Browse modules</value>
-  </data>
-  <data name="Course" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="Courses" xml:space="preserve">
-    <value>modules</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>University</value>
-  </data>
-  <data name="SchoolLibrary" xml:space="preserve">
-    <value>University library</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>Select a university</value>
+  <data name="CopyRight" xml:space="preserve">
+    <value>This item might be subject to certain laws and university policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.</value>
   </data>
 </root>
