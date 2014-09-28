@@ -256,11 +256,8 @@
 .browseCourses {
   padding: 0 0 0 8px;
 }
-.createCourse {
-  padding: 0 8px 0 16px;
-}
-.createCourse:last-child {
-  padding: 0 8px 0 0;
+.createCourse:first-child {
+  padding: 0 0 0 8px;
 }
 .recommendedWpr {
   padding: 8px 28px 12px 20px;

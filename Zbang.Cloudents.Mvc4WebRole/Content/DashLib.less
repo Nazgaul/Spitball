@@ -406,15 +406,16 @@
     text-align: center;
     height: 294px;
     border: 1px solid @borderColor;
+    background: #fff;
     .actionTxt:before {
 	    background-position: 0 -241px;
     }
 
 }
 .createCourse {
-    padding: 0 16px 0 8px;
-    &:last-child {
-        padding:0 0 0 8px; //rtl
+    padding: 0 16px;
+    &:first-child {
+        padding:0 8px 0 0; //rtl
     }
     &:only-child {
         padding:0;
@@ -423,6 +424,7 @@
         width: 100%;
         height: 294px;
         border: 1px solid @borderColor;
+        background: #fff;
     }
 }
 .recommendedWpr {
@@ -430,6 +432,7 @@
     padding: 8px 20px 12px 28px; //rtl
     color: @textColor;
     vertical-align: top;
+    background: #fff;
     header {
         font-size: 20px;
         border-bottom: 1px solid @borderColor;
