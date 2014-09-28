@@ -62,12 +62,9 @@
                         <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
                     </div>
                 </div>
-                <button type="button" class="trash">
+                <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
                     <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
                 </button>
-                @*<span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
-                    <time display-time="{{comment.creationDate}}"></time>
-                    <p>{{comment.comment}}</p>*@
             </div>
             <ul class="feedReplies rFloat">
                 <li ng-repeat="answer in question.answers">
@@ -86,7 +83,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <button type="button" class="trash">
+                        <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
                             <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
                         </button>
                     </div>
