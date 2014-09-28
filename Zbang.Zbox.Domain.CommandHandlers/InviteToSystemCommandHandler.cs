@@ -41,30 +41,34 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User sender = m_UserRepository.Load(command.SenderId);
 
 
-            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            foreach (var recipient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
-                var recepientUser = m_UserRepository.GetUserByEmail(recepient);
-                if (recepientUser != null && recepientUser.IsRegisterUser)
+                var recipientUser = m_UserRepository.GetUserByEmail(recipient);
+                if (recipientUser != null && recipientUser.IsRegisterUser)
                 {
                     continue;
                 }
 
-                if (!Validation.IsEmailValid2(recepient))
+                if (!Validation.IsEmailValid2(recipient))
                 {
                     continue;
                 }
                 var images = m_ProfilePictureProvider.GetDefaultProfileImage();
-                if (recepientUser == null)
+                if (recipientUser == null)
                 {
-                    recepientUser = new User(recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
-                    m_UserRepository.Save(recepientUser, true);
+                    recipientUser = new User(recipient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
+                    m_UserRepository.Save(recipientUser, true);
                 }
 
-
-                var invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recepientUser);
+                var invite = m_InviteToCloudents.GetQuerable().Where(w => w.Sender == sender && w.Recepient == recipientUser).FirstOrDefault();
+                if (invite != null) return;
+                invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recipientUser);
                 m_InviteToCloudents.Save(invite);
 
-                m_QueueProvider.InsertMessageToMailNew(new InviteToCloudentsData(sender.Name, sender.Image, recepientUser.Email, sender.Culture, sender.Email));
+                //var invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recipientUser);
+                //m_InviteToCloudents.Save(invite);
+
+                m_QueueProvider.InsertMessageToMailNew(new InviteToCloudentsData(sender.Name, sender.Image, recipientUser.Email, sender.Culture, sender.Email));
             }
         }
 
