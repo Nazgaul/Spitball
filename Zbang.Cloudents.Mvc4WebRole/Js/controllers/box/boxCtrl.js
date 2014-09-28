@@ -22,7 +22,9 @@ mBox.controller('BoxCtrl',
 
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
-                boxSettings: '/Box/SettingsPartial/'
+                boxSettings: '/Box/SettingsPartial/',
+                uploader: '/Box/UploadPartial/',
+                uploadAddLink: '/Box/UploadLinkPartial/'
             };
 
             $scope.popup = {
@@ -266,10 +268,7 @@ mBox.controller('BoxCtrl',
 
             });
 
-            $scope.partials = {
-                uploader: '/Box/UploadPartial/',
-                uploadAddLink: '/Box/UploadLinkPartial/'
-            };
+           
             //#region upload
             $scope.openUploadPopup = function (qna) {
                 if (!sUserDetails.isAuthenticated()) {
