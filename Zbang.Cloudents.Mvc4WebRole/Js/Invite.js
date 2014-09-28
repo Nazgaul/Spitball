@@ -766,12 +766,10 @@
             if (boxid === '') {
                 setupInviteToCloudents();
                 currentTabName = defaultTabName = 'fb';
-                cd.setTitle('Invite | Cloudents');
             }
             else {
                 setupInviteToBox(d);
                 currentTabName = defaultTabName = 'cloudents';
-                cd.setTitle('Invite | ' + d.name + ' | Cloudents');
             }
 
             if (defaultTabName === 'cloudents') {// || (defaultTabName === 'fb' && boxid === '')) {

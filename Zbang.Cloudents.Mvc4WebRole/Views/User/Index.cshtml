@@ -222,7 +222,7 @@
 
                     <span ng-if="friends.common.list.length">
                         <span ng-if="!profile.isSelf">
-                            <h4 class=" semifont">
+                            <h4 class="semiFont">
                                 @UserResources.InCommon
                             </h4>
                         </span>
@@ -254,7 +254,7 @@
             </span>
 
             <section class="upInvites" ng-if="profile.isSelf" ng-class="{empty: !invites.list.length}">
-                <a href="@Url.RouteUrl("Invite")" target="_self" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
+                <a href="@Url.RouteUrl("InviteCloudents")" target="_self" class="inviteFriendBtn btn3 rFloat">@SharedResources.InviteFriends</a>
                 <h2>@SharedResources.Invites</h2>
                 <div class="upSectionWpr" ng-class="{ truncated : !((invites.list.length > invites.init) && profile.isSelf)}" load-spinner="invites.loading">
 
@@ -273,7 +273,7 @@
 
                     <div class="emptyInvites" ng-show="!invites.loading">
                         <span>@UserResources.FindFriends</span>
-                        <a href="@Url.RouteUrl("Invite")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
+                        <a href="@Url.RouteUrl("InviteCloudents")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
                     </div>
 
                 </div>
