@@ -486,8 +486,11 @@
   overflow: hidden;
   -ms-word-break: break-word;
   word-break: break-word;
-  max-height: 44px;
-  margin: 6px 0;
+  max-height: 57px;
+  margin: 12px 0;
+}
+.boxTop .imgBorder {
+  background: #fff;
 }
 /*.boxNameWpr {
     //height: 42px;
