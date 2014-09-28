@@ -41,7 +41,7 @@
     <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit(inviteByEmailForm)">
         <h3>@IndexResources.InviteViaEmail</h3>
 
-        <div class="inputText emailUser">
+        <div class="inputText emailUser" ng-click="focusInput()">
             <div class="inviteEmailListWpr">
                 <ul class="emailList">
                     <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
