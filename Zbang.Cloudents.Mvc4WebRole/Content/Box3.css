@@ -1311,12 +1311,6 @@
   background: #fff;
   text-align: left;
   /* rtl */
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
   position: relative;
   /* for manage state*/
 }
@@ -1325,10 +1319,8 @@
   display: block;
 }
 .thumbItem img {
-  border-radius: 3px 3px 0 0;
   width: 100%;
   height: 188px;
-  border-bottom: 1px solid #c2c2c2;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
@@ -1340,9 +1332,15 @@
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .thumbItem .boxName {
-  margin-left: 6px;
+  margin: 5px 0 0 6px;
   /*rtl*/
   overflow: hidden;
   line-height: 15px;
@@ -1920,7 +1918,7 @@
   height: 14px;
   position: relative;
   background: url(/Images/common17-sprite.png?v=4) -1px -41px no-repeat;
-  margin: 3px 0 0 5px;
+  margin-left: 5px;
   /*rtl*/
   cursor: pointer;
 }
