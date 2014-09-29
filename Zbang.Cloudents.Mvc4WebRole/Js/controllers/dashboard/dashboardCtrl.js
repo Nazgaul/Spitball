@@ -11,7 +11,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];
     $scope.params = {};
-    cd.pubsub.publish('dash_boxes');//statistics
+    //cd.pubsub.publish('dash_boxes');//statistics
     cd.analytics.setLibrary($('.uniText').text());
 
     $scope.partials = {

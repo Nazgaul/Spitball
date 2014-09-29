@@ -132,6 +132,9 @@
   <data name="CourseName" xml:space="preserve">
     <value>Module name</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>modules</value>
+  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>Create a new module</value>
   </data>

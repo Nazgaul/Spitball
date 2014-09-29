@@ -43,7 +43,7 @@
     }
 
     window.setInterval(sendData, 300000); // 5 minutes
-    //sendData();
+    sendData();
 
     function sendData() {
         var x = JSON.parse(cd.localStorageWrapper.getItem(key));

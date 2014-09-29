@@ -42,13 +42,13 @@ namespace Zbang.Zbox.Infrastructure.Storage
             }
         }
 
-        public static async Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class
+        public static Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class
         {
             using (var m = new MemoryStream())
             {
                 ProtoBuf.Serializer.Serialize(m, data);
                 m.Seek(0, SeekOrigin.Begin);
-                await cloudQueue.AddMessageAsync(new CloudQueueMessage(m.ToArray()));
+                return cloudQueue.AddMessageAsync(new CloudQueueMessage(m.ToArray()));
                 
             }
         }

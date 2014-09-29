@@ -189,14 +189,17 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.canFlag = function () {
         return $scope.item && sUserDetails.getDetails().id !== $scope.item.ownerId;
     };
-    $scope.addReply = function (comment) {
+    $scope.addReply = function (comment, valid) {
+        if (!valid) {
+            return;
+        }
         comment.replyp = true;
         $scope.fromReply.itemId = $routeParams.itemId;
         $scope.fromReply.commentId = comment.id;
 
         sItem.replyComment($scope.fromReply).then(function (response) {
             if (!response.success) {
-                alert(response.payload);
+                alert(response.payload.error[0].value[0]);
                 return;
             }
             comment.replies.unshift({
@@ -213,16 +216,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.$broadcast('update-scroll');
         });
     };
-    cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
 
     //#region share
     $scope.shareFacebook = function () {
+        var jsResources = window.JsResources;
         $scope.popup.share = false;
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
           $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
-          $filter('stringFormat')(JsResources.IShared + ' {0} ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin, [$scope.item.name]),
+          $filter('stringFormat')(jsResources.IShared + ' {0} ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin, [$scope.item.name]),
             null //picture
        ).then(function () {
            cd.pubsub.publish('addPoints', { type: 'shareFb' });

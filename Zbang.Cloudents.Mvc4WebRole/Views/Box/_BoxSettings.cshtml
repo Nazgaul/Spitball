@@ -8,7 +8,6 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
         <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
-    @*    <button data-id="Members" type="button" class="tabBtn" ng-click="params.state = 2">@SharedResources.Members</button>*@
         <a ng-href="{{info.inviteUrl}}" class="btn3 inviteBtn rFloat" target="_self">@IndexResources.Invite</a>
         <div class="arrow tabArrow"></div>
     </div>
