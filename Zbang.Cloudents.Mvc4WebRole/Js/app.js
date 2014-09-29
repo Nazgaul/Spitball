@@ -103,8 +103,17 @@ app.config([
             params: {
                 type: 'item'
             },
-            templateUrl: '/item/IndexPartial/'
+            templateUrl: '/item/IndexPartial/',
+            reloadOnSearch: false
             
+        }).
+        when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
+            params: {
+                type: 'item'
+            },
+            templateUrl: '/item/IndexPartial/',
+            reloadOnSearch: false
+
         }).
         when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
             params: {
