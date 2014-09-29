@@ -225,4 +225,7 @@
   <data name="YouStudyAt" xml:space="preserve">
     <value>Вы учитесь в </value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>курсы</value>
+  </data>
 </root>

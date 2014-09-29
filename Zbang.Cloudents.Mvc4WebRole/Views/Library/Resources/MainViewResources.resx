@@ -224,4 +224,7 @@
   <data name="YouStudyAt" xml:space="preserve">
     <value>You study at </value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>Courses</value>
+  </data>
 </root>

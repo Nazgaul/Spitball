@@ -67,7 +67,6 @@ mBox.controller('BoxCtrl',
                 }
 
 
-               // $scope.info.showJoinGroup = !($scope.isUserFollowing());
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');

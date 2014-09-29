@@ -41,13 +41,11 @@
         <div class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <div m-custom-scrollbar bottom="0">
-
                 <ul class="boxFolderList">
                     <li class="current boxFolder" ng-class="{current : !params.currentTab }">
                         <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                         <span class="tabBorder"></span>
                     </li>
-
                     <li ng-repeat="tab in params.tabs" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                         <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>

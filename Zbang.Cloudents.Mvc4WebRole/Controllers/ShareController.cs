@@ -45,24 +45,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-                //}
                 return RedirectToAction("MembersOnly", "Error");
             }
             catch (BoxDoesntExistException)
             {
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return HttpNotFound();
-                //}
                 return RedirectToAction("Index", "Error");
             }
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return PartialView(model);
-            //}
             return View(model);
         }
 
