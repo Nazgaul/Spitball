@@ -213,7 +213,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.$broadcast('update-scroll');
         });
     };
-    cd.pubsub.publish('item', $routeParams.itemId); //statistics
+    //cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
 
     //#region share

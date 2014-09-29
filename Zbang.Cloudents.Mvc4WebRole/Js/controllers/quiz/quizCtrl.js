@@ -2,7 +2,7 @@
 mQuiz.controller('QuizCtrl',
         ['$scope', '$window', '$timeout', '$filter', '$routeParams', '$modal', 'sQuiz', 'sUserDetails',
         function ($scope, $window, $timeout, $fliter, $routeParams, $modal, sQuiz, sUserDetails) {
-            cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
+            //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
             var questions,
                 challengeTimeout, modalInstance;
@@ -19,12 +19,7 @@ mQuiz.controller('QuizCtrl',
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
                 $scope.quiz = response.payload.quiz;
-
-               
-
                 questions = angular.copy(response.payload.quiz.questions, questions);
-
-
                 if (sUserDetails.isAuthenticated()) {
                     var savedSheet = $window.localStorage.getItem($scope.quiz.id);
                     if (savedSheet) {

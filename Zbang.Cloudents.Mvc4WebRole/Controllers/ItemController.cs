@@ -184,10 +184,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId(false);
 
                 var query = new GetItemQuery(userId, itemId, boxId);
-                var item = await ZboxReadService.GetItem2(query);
-               // item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId });
+                var tItem =  ZboxReadService.GetItem2(query);
+
+                var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+                      new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = itemId,
+                            Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.View
+                        }
+                    }, userId, DateTime.UtcNow));
+
+                await Task.WhenAny(tItem, tTransAction);
+                // item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId });
                 //item.PrintUrl = Url.RouteUrl("ItemPrint", new { boxId, itemId });
-                return Json(new JsonResponse(true, item));
+                return Json(new JsonResponse(true, tItem.Result));
             }
             catch (BoxAccessDeniedException)
             {
@@ -215,11 +227,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         [NoEtag]
-        public ActionResult Download(long boxId, long itemId)
+        public async Task<ActionResult> Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
+            var userId = GetUserId(false);
 
-            var query = new GetItemQuery(GetUserId(false), itemId, boxId);
+            var query = new GetItemQuery(userId, itemId, boxId);
 
             var item = ZboxReadService.GetItem(query);
 
@@ -229,6 +242,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Redirect(item.Blob);
             }
+           await m_QueueProvider.InsertMessageToTranactionAsync(
+                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = itemId,
+                            Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Download
+                        }
+                    }, userId, DateTime.UtcNow));
+
             var blob = m_BlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
@@ -267,7 +290,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-          
+
             var userId = GetUserId();
             try
             {
@@ -321,10 +344,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
 
 
-               
+
                 IEnumerable<string> retVal = null;
 
-               
+
                 var processor = m_FileProcessorFactory.GetProcessor(uri);
                 if (processor != null)
                 {

@@ -255,7 +255,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                   new JsFileWithCdn("/js/Cache.js"),
                  new JsFileWithCdn("/js/DataContext.js"),
-                 new JsFileWithCdn("~/js/Statistics.js"),
+                 //new JsFileWithCdn("~/js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                  new JsFileWithCdn("/js/Upload2.js"),
@@ -347,7 +347,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                new JsFileWithCdn("~/Js/TooltipGuide.js"),
 
-                new JsFileWithCdn("~/Js/Statistics.js"),
+                //new JsFileWithCdn("~/Js/Statistics.js"),
 
                 //header
                 new JsFileWithCdn("~/Js/NotificationsViewModel.js"),

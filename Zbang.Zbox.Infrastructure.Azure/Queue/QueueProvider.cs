@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 {
     public class QueueProvider : IQueueProvider
     {
-       
+
         private CloudQueueClient m_QueueClient;
 
         const int MaxQueuePopLimit = 32;
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetQueue(QueueName.DownloadContentFromUrl.ToLower());
         }
 
-      
+
 
         private CloudQueue GetTransactionQueue()
         {
@@ -50,21 +50,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             var queue = GetCacheQueue();
             queue.InsertToQueueProto(message);
         }
-       
+
         public void InsertMessageToMailNew(BaseMailData message)
         {
             GetMailQueueNew().InsertToQueueProto(message);
         }
-        
+
 
         public void InsertMessageToTranaction(DomainProcess message)
         {
             GetTransactionQueue().InsertToQueueProto(message);
         }
 
-        public async Task InsertMessageToTranactionAsync(DomainProcess message)
+        public Task InsertMessageToTranactionAsync(DomainProcess message)
         {
-            await GetTransactionQueue().InsertToQueueProtoAsync(message);
+            return GetTransactionQueue().InsertToQueueProtoAsync(message);
         }
 
         public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)
