@@ -72,24 +72,39 @@ app.config([
                 type: 'box',
                 isPrivate: true
             },
-            templateUrl: function (params) { return '/box/IndexPartial/'; }
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
+        }).
+        when('/box/my/:boxId/:boxName/#:tab?', {
+            params: {
+                type: 'box',
+                isPrivate: true
+            },
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
+        }).
+        when('/course/:uniName/:boxId/:boxName/#:tab?', {
+            params: {
+                type: 'box',
+                isPrivate: false
+            },
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
         }).
         when('/course/:uniName/:boxId/:boxName/', {
             params: {
                 type: 'box',
                 isPrivate: false
             },
-            templateUrl: function (params) { return '/box/IndexPartial/'; }
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
         }).
         when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
             params: {
                 type: 'item'
             },
-            templateUrl: function (params) {
-                //return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                //    + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
-                return '/item/IndexPartial/';
-            }
+            templateUrl: '/item/IndexPartial/'
+            
         }).
         when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
             params: {

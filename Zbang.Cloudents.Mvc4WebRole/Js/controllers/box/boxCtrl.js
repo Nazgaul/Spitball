@@ -32,7 +32,6 @@ mBox.controller('BoxCtrl',
             }
 
             $scope.options = {
-
                 loader: true,
                 activeTab: 'feed'
             };
@@ -76,22 +75,28 @@ mBox.controller('BoxCtrl',
 
 
 
-            $scope.$on('box:quizzesLength', function (e, length) {
-                $scope.info.quizzesLength = length;
-            });
-            $scope.$on('box:filesLength', function (e, length) {
-                $scope.info.itemsLength = length;
-            });
-
+            //$scope.$on('box:quizzesLength', function (e, length) {
+            //    $scope.info.quizzesLength = length;
+            //});
+            //$scope.$on('box:filesLength', function (e, length) {
+            //    $scope.info.itemsLength = length;
+            //});
+            
 
             $scope.setTab = function (tab) {
                 if ($scope.options.activeTab === tab) {
                     return;
                 }
+                $location.hash(tab);
                 $scope.options.activeTab = tab;
                 $scope.options.loader = true;
             };
-
+            if ($location.hash()) {
+                $scope.setTab($location.hash());
+            }
+            //$rootScope.$on('$routeUpdate', function (e, v) {
+            //    $scope.setTab($location.hash());
+            //});
 
 
 
