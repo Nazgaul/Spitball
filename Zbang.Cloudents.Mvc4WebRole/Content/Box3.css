@@ -156,6 +156,9 @@
 .shareBtn:hover svg {
   fill: #3399ff;
 }
+.shareBtn label {
+  cursor: pointer;
+}
 .shareDD {
   padding: 20px 18px;
   right: -5px;
