@@ -117,9 +117,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //    Location = OutputCacheLocation.ServerAndClient,
-        //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+            Location = OutputCacheLocation.ServerAndClient,
+            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");
@@ -251,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var itemDtos = result as IList<IItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
                 {
-                    item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId = id, itemId = item.Id });
+                    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
                 return Json(new JsonResponse(true, itemDtos));
             }
