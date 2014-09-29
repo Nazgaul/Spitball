@@ -243,7 +243,7 @@ mBox.controller('BoxCtrl',
                 }
 
                 sBox.follow({ BoxId: $scope.boxId }).then(function () {
-
+                    $scope.info.membersLength++;
                 });
             };
 

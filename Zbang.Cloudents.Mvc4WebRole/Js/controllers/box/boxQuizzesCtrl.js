@@ -19,31 +19,16 @@
                 starsLength: 5,
                 starsWidth: 69,
             };
-           // $scope.quizzes = [];
             sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.quizzes = _.map(data, function (quiz) {
                     quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
                     return quiz;
                 });
-                //_.forEach($scope.quizzes, function (quiz) {
-                //    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
-                //});
-
                 $scope.quizzes.sort(sort);
-                //$scope.filteredItems = $filter('filter')($scope.items, filterItems);
                 $scope.options.loader = false;
 
             });
-                      
-           
-
-           // $scope.quizzes.sort(sort);
-
-            //$timeout(function () {
-            //    $scope.options.loader = false;
-            //}, 1000);
-
             //#region quiz
             $scope.addQuiz = function () {
                 if (!sUserDetails.isAuthenticated()) {
@@ -70,7 +55,7 @@
                     }
 
                     sQuiz.delete(data).then(remove);
-
+                    
                 });
 
                 function remove(response) {
@@ -88,7 +73,7 @@
                         $rootScope.$broadcast('closeQuizCreate', quiz.id);
                     }
 
-                    sBoxData.removeQuiz(quiz);
+                    $scope.info.quizLength--;
                 }
             };
 
@@ -148,7 +133,7 @@
                 }
 
                 $scope.quizzes.unshift(quizItem); //add quiz
-
+                $scope.info.quizLength++;
             });
 
             $scope.$on('QuizDeleted', function (e, data) {
@@ -167,6 +152,7 @@
                 }
 
                 $scope.quizzes.splice(index, 1);
+                $scope.info.quizLength--;
             });
 
             function sort(a, b) {
