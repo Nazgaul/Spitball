@@ -22,6 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
+        //TODO: split between ajax and non ajax
         [NoCache]
         public async Task<ActionResult> Index()
         {
