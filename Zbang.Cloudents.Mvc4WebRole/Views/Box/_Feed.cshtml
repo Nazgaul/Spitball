@@ -89,7 +89,7 @@
                     </div>
                 </li>
             </ul>
-            <div ng-form="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
+            <form name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
                 <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
                 <textarea text-direction name="content" required class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                 <ul class="attachedList">
@@ -104,7 +104,7 @@
                 <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                     <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
                 </button>
-            </div>
+            </form>
         </li>
     </ul>
 
