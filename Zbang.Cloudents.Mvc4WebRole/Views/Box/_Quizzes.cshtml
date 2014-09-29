@@ -7,7 +7,7 @@
         <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
             ng-include="getView(item)"
-            popover-template="boxQuizTooltip" popover-append-to-body="true"
+            popover-template="boxQuizTooltip"
             popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="right">
         </li>
     </ol> 
