@@ -171,6 +171,9 @@
   <data name="InUse" xml:space="preserve">
     <value>In use:</value>
   </data>
+  <data name="NeverPost" xml:space="preserve">
+    <value>We'll never post to your wall without permission</value>
+  </data>
   <data name="NewPwd" xml:space="preserve">
     <value>New password</value>
   </data>

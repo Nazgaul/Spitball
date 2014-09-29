@@ -171,6 +171,9 @@
   <data name="InUse" xml:space="preserve">
     <value>בשימוש:</value>
   </data>
+  <data name="NeverPost" xml:space="preserve">
+    <value>אנחנו לא נפרסם בפייסבוק שלך ללא רשותך</value>
+  </data>
   <data name="NewPwd" xml:space="preserve">
     <value>סיסמה חדשה</value>
   </data>

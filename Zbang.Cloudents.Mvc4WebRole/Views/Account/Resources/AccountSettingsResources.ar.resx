@@ -171,6 +171,9 @@
   <data name="InUse" xml:space="preserve">
     <value>بالاستخدام</value>
   </data>
+  <data name="NeverPost" xml:space="preserve">
+    <value>فإننا لن تستطيع في الفيسبوك الخاص بك دون إذنك</value>
+  </data>
   <data name="NewPwd" xml:space="preserve">
     <value>كلمة مرور جديدة</value>
   </data>
