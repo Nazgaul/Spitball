@@ -57,7 +57,6 @@ body.quiz .modal-backdrop.in {
 .bodyContent.previewQuiz .quizTitle {
   margin: 20px auto;
   width: 800px;
-  color: #383838;
   display: block;
   max-width: none;
 }
@@ -374,7 +373,6 @@ body.quiz .modal-backdrop.in {
 .quizPreviewTop {
   position: fixed;
   height: 50px;
-  background: #fff;
   border-bottom: 1px solid #c2c2c2;
   width: 100%;
   padding-left: -webkit-calc(50% - 400px);
@@ -384,12 +382,16 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  background: #0f0f0f;
+  color: #fff;
 }
 .quizPreviewScroll {
   height: -webkit-calc(100% - 50px);
   height: calc(100% - 50px);
   margin-top: 50px;
   overflow: auto;
+  background: #282828;
+  color: #fff;
 }
 .quizPreview {
   margin-top: 100%;
@@ -418,26 +420,10 @@ body.quiz .modal-backdrop.in {
   display: none;
   margin: 8px 10px 0 0;
   /*rtl*/
+  color: #fff;
 }
 .quizPreview .closePreview:hover:after {
   background-position: -204px -35px;
-}
-.quizPreview .closePreview:after {
-  content: '';
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  background: url(/Images/common17-sprite.png?v=4) -204px 0 no-repeat;
-  border-radius: 18px;
-  vertical-align: middle;
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  /*rtl*/
-  margin-left: 5px;
-  /*rtl*/
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
@@ -455,6 +441,11 @@ body.quiz .modal-backdrop.in {
   top: -17px;
   position: relative;
 }
+.backTxt {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 8px;
+}
 .quizPrevWpr {
   width: 800px;
   margin: 20px auto 60px;
@@ -465,13 +456,13 @@ body.quiz .modal-backdrop.in {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   letter-spacing: 0;
+  color: #383838;
 }
 .quizTitle {
   font-size: 18px;
   padding-top: 27px;
   max-width: 430px;
   display: inline-block;
-  color: #fff;
 }
 .quizTitle:before {
   content: attr(data-questioncount) "\00a0";

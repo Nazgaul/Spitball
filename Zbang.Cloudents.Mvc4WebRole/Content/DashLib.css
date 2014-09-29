@@ -448,7 +448,7 @@
 }
 .recommended .rFloat {
   border-left: 1px solid #c2c2c2;
-  width: 100px;
+  width: 115px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -657,6 +657,8 @@
 .socialInvite header {
   font-size: 20px;
   color: #39434a;
+  position: relative;
+  top: -10px;
 }
 .socialInvite.js-cloudState .socialContentWpr,
 .socialInvite.js-fbState .socialContentWpr,
@@ -682,7 +684,7 @@
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   right: auto;
-  left: 185px;
+  left: 172px;
 }
 .socialInvite.js-cloudState .cloudInput {
   display: block;
@@ -702,7 +704,7 @@
 }
 .socialInvite.js-gmState .socialContentWpr:before {
   left: auto;
-  right: 185px;
+  right: 172px;
 }
 .socialInvite.js-gmState .gmInput {
   display: block;
@@ -714,13 +716,16 @@
 .socialWpr {
   display: inline-block;
   width: 100%;
+  position: relative;
+  top: -10px;
+  height: 100px;
 }
 .socialWpr button {
   margin: 15px 0 33px;
 }
 .socialWpr svg {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   fill: #282828;
 }
 .socialWpr .fbBtn {
@@ -736,7 +741,7 @@
 .socialContentWpr:before {
   content: '';
   display: inline-block;
-  top: -28px;
+  top: -19px;
   position: absolute;
   left: 0;
   right: 0;
@@ -744,7 +749,7 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 24px 28px 24px;
+  border-width: 0 20px 22px 20px;
   border-color: transparent transparent #eee transparent;
 }
 .socialContentWpr.jsNotConnected .fbInput,
@@ -798,6 +803,18 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.socialList.js-scrolling:before {
+  content: '';
+  display: inline-block;
+  width: 588px;
+  position: fixed;
+  left: -10px;
+  right: 0;
+  margin: auto;
+  top: 233px;
+  border-top: 1px solid #bbb;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
 }
 .socialList li {
   margin-right: 22px;
