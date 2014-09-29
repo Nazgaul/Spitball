@@ -446,17 +446,6 @@ body {
         &:hover:after {
             background-position: -204px -35px;
         }
-
-        &:after {
-            .pseudo;
-            width: 35px;
-            height: 35px;
-            background: @common-sprite -204px 0 no-repeat;
-            border-radius: 18px;
-            vertical-align: middle;
-            .flipH(); /*rtl*/
-            margin-left: 5px; /*rtl*/
-        }
     }
 
     .correct {
@@ -475,6 +464,11 @@ body {
             position: relative;
         }
     }
+}
+.backTxt {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 8px;
 }
 .quizPrevWpr
 {

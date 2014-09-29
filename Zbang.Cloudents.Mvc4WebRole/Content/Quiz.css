@@ -425,23 +425,6 @@ body.quiz .modal-backdrop.in {
 .quizPreview .closePreview:hover:after {
   background-position: -204px -35px;
 }
-.quizPreview .closePreview:after {
-  content: '';
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  background: url(/Images/common17-sprite.png?v=4) -204px 0 no-repeat;
-  border-radius: 18px;
-  vertical-align: middle;
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  /*rtl*/
-  margin-left: 5px;
-  /*rtl*/
-}
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
 }
@@ -457,6 +440,11 @@ body.quiz .modal-backdrop.in {
 .quizPreview .quizAList li .ng-binding {
   top: -17px;
   position: relative;
+}
+.backTxt {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 8px;
 }
 .quizPrevWpr {
   width: 800px;
