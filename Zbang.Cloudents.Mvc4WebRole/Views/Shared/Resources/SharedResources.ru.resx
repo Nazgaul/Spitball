@@ -325,7 +325,7 @@
     <value>Сообщения</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Отправлено</value>
+    <value>Послано</value>
   </data>
   <data name="ShareBy" xml:space="preserve">
     <value>Поделиться через</value>
