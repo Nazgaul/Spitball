@@ -291,4 +291,7 @@
   <data name="FreeOnline" xml:space="preserve">
     <value>פלטפורמת הלימודים החברתית המובילה ברשת</value>
   </data>
+  <data name="FindFriends" xml:space="preserve">
+    <value>מצא חברים</value>
+  </data>
 </root>

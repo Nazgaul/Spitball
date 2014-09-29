@@ -6,13 +6,19 @@
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
-        <button class="cloudentsBtn" ng-click="selectState('cl')"></button>
-        <button class="fbBtn" ng-click="selectState('fb')"></button>
-        <button class="gmailBtn" ng-click="selectState('go')"></button>
+        <button class="cloudentsBtn" ng-click="selectState('cl')">
+            <svg><use xlink:href="~/Images/Defs.svg#cloudentsSocial" /></svg>
+        </button>
+        <button class="fbBtn" ng-click="selectState('fb')">
+            <svg><use xlink:href="~/Images/Defs.svg#fbSocial" /></svg>
+        </button>
+        <button class="gmailBtn" ng-click="selectState('go')">
+            <svg><use xlink:href="~/Images/Defs.svg#gmailSocial" /></svg>
+        </button>
     </div>
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
-        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
+        <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
 
         <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
             <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
@@ -22,7 +28,7 @@
             </li>
 
 
-            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="emptySearch">@SharedResources.NoResults !</li>
         </ul>
 
         <div class="socialConnect">

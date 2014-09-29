@@ -313,11 +313,11 @@
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   left: auto;
-  right: 145px;
+  right: 185px;
 }
 .socialInvite.js-gmState .socialContentWpr:before {
   right: auto;
-  left: 145px;
+  left: 185px;
 }
 .socialContentWpr input {
   text-align: right;

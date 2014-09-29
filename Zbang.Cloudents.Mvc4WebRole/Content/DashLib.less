@@ -692,11 +692,14 @@
     }
     &.js-cloudState {
         .cloudentsBtn {
-            background-position: 0 -598px;
+            //background-position: 0 -598px;
+            svg {
+                fill: @color;
+            }
         }
         .socialContentWpr:before {
             right: auto;
-            left:145px; //rtl
+            left:185px; //rtl
         }
         .cloudInput {
             display: block;
@@ -704,7 +707,9 @@
     }
     &.js-fbState {
         .fbBtn {
-            background-position: 0 -780px;
+            svg {
+                fill: @fbColor;
+            }
         }
         .fbInput {
             display: block;
@@ -716,11 +721,14 @@
     }
     &.js-gmState {
         .gmailBtn {
-            background-position: 0 -962px;
+            //background-position: 0 -962px;
+            svg {
+                fill: @gmailColor;
+            }
         }
         .socialContentWpr:before {
             left: auto;
-            right:145px; //rtl
+            right:185px; //rtl
         }
         .gmInput {
             display: block;
@@ -735,22 +743,27 @@
     display: inline-block;
     width: 100%;
     button {
-        width: 91px;
-	    height: 91px;
-	    background: @site-sprite no-repeat;
+        //width: 91px;
+	    //height: 91px;
+	    //background: @site-sprite no-repeat;
         //margin: 40px 0;
         margin: 15px 0 33px;
     }
+    svg {
+        width: 50px;
+        height: 50px;
+        fill: #282828;
+    }
     .cloudentsBtn {
-        background-position: 0 -507px;
+        //background-position: 0 -507px;
     }
     .fbBtn {
         //margin: 40px 60px;
         margin: 15px 60px 33px 60px;
-        background-position: 0 -689px;
+        //background-position: 0 -689px;
     }
     .gmailBtn {
-        background-position: 0 -871px;
+        //background-position: 0 -871px;
     }
 }
 .socialContentWpr {

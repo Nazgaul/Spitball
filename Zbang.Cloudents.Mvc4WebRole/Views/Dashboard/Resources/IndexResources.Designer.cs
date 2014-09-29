@@ -205,6 +205,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find friends.
+        /// </summary>
+        public static string FindFriends {
+            get {
+                return ResourceManager.GetString("FindFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find friends from your Gmail account.
         /// </summary>
         public static string FindGmail {

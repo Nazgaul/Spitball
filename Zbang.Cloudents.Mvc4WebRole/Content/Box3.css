@@ -488,9 +488,11 @@
   word-break: break-word;
   max-height: 57px;
   margin: 12px 0;
+  display: inline-block;
 }
 .boxTop .imgBorder {
   background: #fff;
+  display: block;
 }
 /*.boxNameWpr {
     //height: 42px;

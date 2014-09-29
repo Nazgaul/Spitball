@@ -677,18 +677,18 @@
 .socialInvite .btn2 {
   margin: 0 6px;
 }
-.socialInvite.js-cloudState .cloudentsBtn {
-  background-position: 0 -598px;
+.socialInvite.js-cloudState .cloudentsBtn svg {
+  fill: #0f9d58;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   right: auto;
-  left: 145px;
+  left: 185px;
 }
 .socialInvite.js-cloudState .cloudInput {
   display: block;
 }
-.socialInvite.js-fbState .fbBtn {
-  background-position: 0 -780px;
+.socialInvite.js-fbState .fbBtn svg {
+  fill: #3b5998;
 }
 .socialInvite.js-fbState .fbInput {
   display: block;
@@ -697,12 +697,12 @@
   content: attr(data-find-fb);
   display: block;
 }
-.socialInvite.js-gmState .gmailBtn {
-  background-position: 0 -962px;
+.socialInvite.js-gmState .gmailBtn svg {
+  fill: #dd4b39;
 }
 .socialInvite.js-gmState .socialContentWpr:before {
   left: auto;
-  right: 145px;
+  right: 185px;
 }
 .socialInvite.js-gmState .gmInput {
   display: block;
@@ -716,20 +716,15 @@
   width: 100%;
 }
 .socialWpr button {
-  width: 91px;
-  height: 91px;
-  background: url(/Images/site.png?v=3) no-repeat;
   margin: 15px 0 33px;
 }
-.socialWpr .cloudentsBtn {
-  background-position: 0 -507px;
+.socialWpr svg {
+  width: 50px;
+  height: 50px;
+  fill: #282828;
 }
 .socialWpr .fbBtn {
   margin: 15px 60px 33px 60px;
-  background-position: 0 -689px;
-}
-.socialWpr .gmailBtn {
-  background-position: 0 -871px;
 }
 .socialContentWpr {
   min-height: 250px;

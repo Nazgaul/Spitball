@@ -293,4 +293,7 @@ dashboard</value>
   <data name="FreeOnline" xml:space="preserve">
     <value>The free online and mobile social studying platform</value>
   </data>
+  <data name="FindFriends" xml:space="preserve">
+    <value>Find friends</value>
+  </data>
 </root>
