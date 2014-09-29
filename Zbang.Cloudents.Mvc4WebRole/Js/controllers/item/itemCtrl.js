@@ -189,14 +189,17 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.canFlag = function () {
         return $scope.item && sUserDetails.getDetails().id !== $scope.item.ownerId;
     };
-    $scope.addReply = function (comment) {
+    $scope.addReply = function (comment, valid) {
+        if (!valid) {
+            return;
+        }
         comment.replyp = true;
         $scope.fromReply.itemId = $routeParams.itemId;
         $scope.fromReply.commentId = comment.id;
 
         sItem.replyComment($scope.fromReply).then(function (response) {
             if (!response.success) {
-                alert(response.payload);
+                alert(response.payload.error[0].value[0]);
                 return;
             }
             comment.replies.unshift({
