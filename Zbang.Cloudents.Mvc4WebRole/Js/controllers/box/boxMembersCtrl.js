@@ -36,10 +36,10 @@
                     }
                 });
 
-                modalInstance.result.then(function () {
-                }, function () {
-                    //dismiss
-                });
+                //modalInstance.result.then(function () {
+                //}, function () {
+                //    //dismiss
+                //});
             };
 
             $scope.removeUser = function (member) {
@@ -66,6 +66,7 @@
                 function remove() {
                     var index = $scope.members.indexOf(member);
                     $scope.members.splice(index, 1);
+                    $scope.info.membersLength--;
                 }
             };
 

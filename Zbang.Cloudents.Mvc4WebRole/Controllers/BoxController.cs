@@ -247,13 +247,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxItemsPaged2(query);
-                var itemDtos = result as IList<IItemDto> ?? result.ToList();
-                foreach (var item in itemDtos)
+                var result = ZboxReadService.GetBoxItemsPaged2(query).ToList();
+                foreach (var item in result)
                 {
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                return Json(new JsonResponse(true, itemDtos));
+                return Json(new JsonResponse(true, result));
             }
             catch (Exception ex)
             {
@@ -269,11 +268,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxQuizes(query);
-                var itemDtos = result as IList<IItemDto> ?? result.ToList();
+                var result = ZboxReadService.GetBoxQuizes(query).ToList();
 
-                var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return Json(new JsonResponse(true, itemDtos.Except(remove)));
+                var remove = result.Where(w => !w.Publish && w.OwnerId != GetUserId(false));
+                return Json(new JsonResponse(true, result.Except(remove)));
             }
             catch (Exception ex)
             {

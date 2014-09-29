@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-          Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+          Location = OutputCacheLocation.ServerAndClient,
           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
