@@ -37,8 +37,8 @@
     <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false" ng-class="{ sponsored: iOptions.sponsored }">
         <li ng-repeat="item in filteredItems | limitTo : iOptions.itemsLimit" class="{{iOptions.currentView + 'Item'}}"
             ng-include="getView(item)" ui-draggable="true" drag="item" drag-channel="boxItem"
-            popover-template="boxItemTooltip" popover-append-to-body="true"
-            popover-trigger="'mouseenter'" popover-placement="right">
+            popover-template="boxItemTooltip" @*popover-append-to-body="true"*@
+            popover-trigger="mouseenter" popover-placement="right">
         </li>
     </ol> @*add drag option*@
 </div>
@@ -96,7 +96,6 @@
 <script type="text/ng-template" id="boxItemTooltip">
     <div bo-class="{noPreview : !item.description}" class="boxItemTt" bindonce ng-init="extension = item.name.slice(item.name.lastIndexOf('.') + 1) ">
         <div class="itemName" bo-text="item.name"></div>
-        @*<div class="arrow downArrow"></div>*@
         <div class="ttTop">
             <div class="moreFilesThumb {{item | extToClass}}" bo-text="extension"></div>
             <div class="detailsWpr">
