@@ -16,11 +16,11 @@
 
 
 <script type="text/ng-template" id="quizThumbView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
-        <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        @*<div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>*@
         <div class="stars">
             <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
@@ -35,7 +35,7 @@
 </script>
 
 <script type="text/ng-template" id="quizListView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="imgBorder"></div>
         <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
 

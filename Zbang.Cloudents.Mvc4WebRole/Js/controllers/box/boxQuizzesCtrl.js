@@ -92,8 +92,8 @@
                 }
             };
 
-            $scope.selectQuiz = function () {
-                if (item.type === 'Quiz' && !item.publish) {
+            $scope.selectQuiz = function (e,item) {
+                if (!item.publish) {
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
                     $timeout(function () {
                         $rootScope.options.quizOpen = true;
