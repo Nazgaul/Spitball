@@ -17,7 +17,7 @@
         <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
             <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
                 <img width="64" height="64" bo-src="contact.image" alt="" />
-                <div bo-text="contact.name"></div>
+                <div class="contactName" bo-text="contact.name"></div>
                 <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
             </li>
 

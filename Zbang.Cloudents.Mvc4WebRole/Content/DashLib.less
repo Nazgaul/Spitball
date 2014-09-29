@@ -662,8 +662,8 @@
         width: 600px;
         position: relative;
         top: -200px;
-        margin: 0 0 -200px 0; //override
-        min-height: 200px;
+        margin: 0 0 -213px 0; //override
+        min-height: 213px;
     }
 }
 /*#region social invite */
@@ -738,13 +738,15 @@
         width: 91px;
 	    height: 91px;
 	    background: @site-sprite no-repeat;
-        margin: 40px 0;
+        //margin: 40px 0;
+        margin: 15px 0 33px;
     }
     .cloudentsBtn {
         background-position: 0 -507px;
     }
     .fbBtn {
-        margin: 40px 60px;
+        //margin: 40px 60px;
+        margin: 15px 60px 33px 60px;
         background-position: 0 -689px;
     }
     .gmailBtn {
@@ -815,17 +817,17 @@
 }
 .socialList {
     width: 620px; //diff rtl
-    max-height: 300px;
+    max-height: 280px;
     overflow: auto;
     display: block;
-    margin: 50px auto 0;
+    margin: 44px auto 0;
     .boxSizing;
     li {
         margin-right: 22px; //rtl
         font-size: 13px;
         width: 66px;
-        height: 136px;
-        overflow: hidden;
+        //height: 136px;
+        //overflow: hidden;
         &:nth-child(7n + 1) {
             padding-left: 8px; //rtl
         }
@@ -849,6 +851,12 @@
     img {
         border: 1px solid @borderColor;
         border-radius: 6px;
+    }
+    .contactName {
+        font-size: 12px;
+        height: 30px;
+        line-height: 15px;
+        overflow: hidden;
     }
     button {
         color: @attentionBlue;

@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -647,8 +647,8 @@
   width: 600px;
   position: relative;
   top: -200px;
-  margin: 0 0 -200px 0;
-  min-height: 200px;
+  margin: 0 0 -213px 0;
+  min-height: 213px;
 }
 /*#region social invite */
 .socialInvite {
@@ -719,13 +719,13 @@
   width: 91px;
   height: 91px;
   background: url(/Images/site.png?v=3) no-repeat;
-  margin: 40px 0;
+  margin: 15px 0 33px;
 }
 .socialWpr .cloudentsBtn {
   background-position: 0 -507px;
 }
 .socialWpr .fbBtn {
-  margin: 40px 60px;
+  margin: 15px 60px 33px 60px;
   background-position: 0 -689px;
 }
 .socialWpr .gmailBtn {
@@ -796,10 +796,10 @@
 }
 .socialList {
   width: 620px;
-  max-height: 300px;
+  max-height: 280px;
   overflow: auto;
   display: block;
-  margin: 50px auto 0;
+  margin: 44px auto 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -808,8 +808,6 @@
   margin-right: 22px;
   font-size: 13px;
   width: 66px;
-  height: 136px;
-  overflow: hidden;
 }
 .socialList li:nth-child(7n + 1) {
   padding-left: 8px;
@@ -831,6 +829,12 @@
 .socialList img {
   border: 1px solid #c2c2c2;
   border-radius: 6px;
+}
+.socialList .contactName {
+  font-size: 12px;
+  height: 30px;
+  line-height: 15px;
+  overflow: hidden;
 }
 .socialList button {
   color: #0371c8;
@@ -1335,4 +1339,3 @@
   margin: 0;
 }
 /*#endregion */
-/*# sourceMappingURL=DashLib.css.map */

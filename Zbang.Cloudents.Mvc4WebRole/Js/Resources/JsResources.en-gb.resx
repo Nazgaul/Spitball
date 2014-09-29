@@ -125,7 +125,7 @@
   </data>
   <data name="FbText" xml:space="preserve">
     <value>I too have joined Cloudents.
-Cloudents has the largest collection of course notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes.</value>
+Cloudents has the largest collection of course notes and exams at your university. Join Cloudents, the more students join, the easier studying becomes.</value>
   </data>
   <data name="MyCourses" xml:space="preserve">
     <value>My Modules</value>
@@ -135,6 +135,9 @@ Cloudents has the largest collection of course notes and exams at your school. J
   </data>
   <data name="OnCourse" xml:space="preserve">
     <value>on the module</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>University library</value>
   </data>
   <data name="ToCourse" xml:space="preserve">
     <value>to the module</value>
