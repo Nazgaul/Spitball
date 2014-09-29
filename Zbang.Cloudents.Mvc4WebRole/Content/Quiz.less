@@ -68,7 +68,6 @@ body {
         .quizTitle {
             margin: 20px auto;
             width: 800px;
-            color: @textColor;
             display: block;
             max-width: none; //override
         }
@@ -401,18 +400,21 @@ body {
 .quizPreviewTop {
     position: fixed;
     height: @header-height;
-    background: #fff;
     border-bottom: 1px solid @borderColor;
     width: 100%;
     padding-left: ~'-webkit-calc(50% - 400px)'; /*rtl*/
     padding-left: ~'calc(50% - 400px)'; /*rtl*/
     .boxSizing;
+    background: #0f0f0f;
+    color: #fff;
 }
 .quizPreviewScroll {
     height: ~'-webkit-calc(100% - @{header-height})';
     height: ~'calc(100% - @{header-height})'; 
     margin-top: 50px;
     overflow: auto;
+    background: #282828;
+    color: #fff;
 }
 .quizPreview
 {
@@ -439,6 +441,7 @@ body {
         z-index: 1;
         display:none;
         margin: 8px 10px 0 0; /*rtl*/
+        color: #fff;
 
         &:hover:after {
             background-position: -204px -35px;
@@ -482,6 +485,7 @@ body {
     padding: 0 20px 15px 20px;
     .boxSizing;
     letter-spacing: 0;
+    color: @textColor;
     //border: 2px solid @color;
     //box-shadow: inset 0 0 3px @color;
 }
@@ -490,7 +494,6 @@ body {
     padding-top: 27px;
     max-width: 430px;
     display: inline-block;
-    color: #fff;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
