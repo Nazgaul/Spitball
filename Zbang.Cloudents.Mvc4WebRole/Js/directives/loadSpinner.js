@@ -18,10 +18,12 @@
             link: function (scope, elem, attrs) {
                 var spinner, timer;
                 scope.$watch(attrs.loadSpinner, function (newValue) {
+
                     var loader = attrs.loadSpinnerType ? loaders[attrs.loadSpinnerType] : loaders.init;
                     if (newValue) {
                         spinner = angular.element(Modernizr.cssanimations ? loader.css : loader.img);
-                        timer = window.setTimeout(function () { elem.append(spinner); }, 1000);
+                        var timeout = parseInt(attrs.loadSpinnerTime, 10) || 0;
+                        timer = window.setTimeout(function () { elem.append(spinner); }, timeout);
                         return;
                     }
 

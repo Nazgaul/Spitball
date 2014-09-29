@@ -213,16 +213,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.$broadcast('update-scroll');
         });
     };
-    //cd.pubsub.publish('item', $routeParams.itemId); //statistics
     //todo proper return;
 
     //#region share
     $scope.shareFacebook = function () {
+        var jsResources = window.JsResources;
         $scope.popup.share = false;
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
           $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
-          $filter('stringFormat')(JsResources.IShared + ' {0} ' + JsResources.OnCloudents + '<center>&#160;</center><center></center>' + JsResources.CloudentsJoin, [$scope.item.name]),
+          $filter('stringFormat')(jsResources.IShared + ' {0} ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin, [$scope.item.name]),
             null //picture
        ).then(function () {
            cd.pubsub.publish('addPoints', { type: 'shareFb' });

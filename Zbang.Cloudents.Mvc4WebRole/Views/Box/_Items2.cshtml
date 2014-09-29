@@ -21,7 +21,7 @@
         <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0"></button>
     </div>
 
-    <div class="boxEmpty" ng-if="!filteredItems.length">
+    <div class="boxEmpty" ng-if="!filteredItems.length && !options.loader">
         <h2>@MainViewResources.BoxEmpty</h2>
         <br />
         <div>@IndexResources.Syllabus</div>
