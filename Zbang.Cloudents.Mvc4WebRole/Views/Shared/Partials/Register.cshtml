@@ -33,8 +33,17 @@
     <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
     @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox"})
-    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })   
-    
+    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })
+
+
+    @Html.DropDownListFor(m => m.Language.Language,
+            Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
+            {
+                Selected = s.Culture == System.Threading.Thread.CurrentThread.CurrentUICulture.Name,
+                Text = s.Name,
+                Value = s.Culture
+            }), new { @class = "inputText", id = "dLangSelect" })
+
     <div class="formBottom">
         <span class="acceptTerms">
             @RegisterResources.IAgree<!--

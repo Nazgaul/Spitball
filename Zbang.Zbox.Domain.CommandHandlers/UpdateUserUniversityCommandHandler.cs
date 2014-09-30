@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 userCode = student.ID;
             }
             message.UniversityId = university.Id;
-            user.UpdateUserUniversity(university, userCode, department, message.GroupNumber, message.RegisterNumber);
+            user.UpdateUniversity(university, userCode, department, message.GroupNumber, message.RegisterNumber);
 
             m_UserRepository.Save(user);
         }

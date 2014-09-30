@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var someItemId = 1L;
             var someBlobUrl = "someblobname";
-            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
+            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US");
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox, "some img url");
 
@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             //var stubItemInBox = MockRepository.GenerateStub<ICollection<Item>>();
             var someItemId = 1L;
             var someBlobUrl = "someblobname";
-            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false);
+            var someUploaderUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US");
             var someBox = new Box("some box name", someUploaderUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
             var someFile = new File("some name", someUploaderUser, 1, someBlobUrl, "default first img", someBox, "some url");

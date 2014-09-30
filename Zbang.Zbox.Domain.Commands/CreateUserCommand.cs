@@ -5,8 +5,9 @@ namespace Zbang.Zbox.Domain.Commands
     public abstract class CreateUserCommand : ICommand
     {
         protected CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex,
-            bool marketEmail)
+            bool marketEmail, string culture)
         {
+            Culture = culture;
             Email = emailId;
             if (universityId.HasValue && universityId.Value == 19878)
             {
@@ -32,6 +33,8 @@ namespace Zbang.Zbox.Domain.Commands
         public bool MarketEmail { get; private set; }
 
         public long?  UniversityId { get; private set; }
+
+        public string Culture { get; private set; }
 
         public abstract string CommandResolveName { get; }
     }

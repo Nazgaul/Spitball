@@ -50,10 +50,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     message.MiddleName,
                     message.LastName,
                     message.Sex,
-
-                    false) { FacebookId = message.FacebookUserId };
+                    false, System.Globalization.CultureInfo.CurrentCulture.Name
+                    ) { FacebookId = message.FacebookUserId };
             m_UserRepository.Save(recipientUser, true);
 
+// ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - nHibernate
             var invite = m_InviteToCloudents.GetQuerable().Where(w => w.Sender == sender && w.Recepient == recipientUser).FirstOrDefault();
             if (invite != null) return;
             invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recipientUser);

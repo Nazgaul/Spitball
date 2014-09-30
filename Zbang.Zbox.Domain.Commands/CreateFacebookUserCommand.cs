@@ -5,8 +5,8 @@
         const string ResolveName = "Facebook";
 
         public CreateFacebookUserCommand(long facebookId, string email, string userImage,
-            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail)
-            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail)
+            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture)
+            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail, culture)
         {
             FacebookUserId = facebookId;
             UserImage = userImage;

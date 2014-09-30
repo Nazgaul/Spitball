@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             result.UniversityId = university.Id;
-            user.UpdateUserUniversity(university, string.Empty, null, null, null);
+            user.UpdateUniversity(university, string.Empty, null, null, null);
         }
 
 
