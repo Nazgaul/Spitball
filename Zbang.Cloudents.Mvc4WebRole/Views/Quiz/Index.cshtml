@@ -54,32 +54,7 @@
     <div class="itemRight" bindonce>
 
         <div class="quizActionsWpr">
-
-            @*<section class="shareBtn">
-                <input class="checkbox" type="checkbox" id="quizShare" />
-                <label for="quizShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop"></label>
-                <div class="dropDown shareDD" data-dropdown="quizShare">
-                    <label class="closeItem rFloat" for="quizShare"></label>
-                    <div class="arrow shareArrow"></div>
-                    <h4 class="semiFont">@SharedResources.ShareItem</h4>
-                    <div class="shareTxt">@SharedResources.ShareUsing</div>
-                    <ul class="shareList">
-                        <li class="shareItem">
-                            <button type="button" id="quiz_FS" class="fbShare">@SharedResources.Facebook</button>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="shareItem">
-                                <button type="button" id="quiz_msg" class="emailShare">@SharedResources.Email</button>
-                            </li>
-                        }
-                    </ul>
-                    <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                    <input type="text" id="quiz_CL" class="linkShare" readonly="readonly" />
-                </div>
-            </section>*@
-            <a ng-href="{{quiz.boxUrl}}" class="backWpr elps">
+            <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>

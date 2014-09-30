@@ -753,6 +753,7 @@ body.quiz .modal-backdrop.in {
   border-left: 1px solid #797979;
   color: #c2c2c2;
   margin: 10px -5px 0 5px;
+  font-size: 12px;
 }
 .quizPage .quizViews:before {
   content: '';
@@ -760,7 +761,7 @@ body.quiz .modal-backdrop.in {
   width: 38px;
   height: 23px;
   background: url(/Images/quizSprite.png?v=4) 0 -38px no-repeat;
-  margin: 2px auto 5px;
+  margin: 2px auto 6px;
 }
 .quizPage .item-name {
   color: #fff;
@@ -777,6 +778,7 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .itemOwner + .rFloat {
   font-size: 12px;
+  margin-right: 7px;
   color: #c2c2c2;
 }
 .quizPage ~ .modal-backdrop.in {
