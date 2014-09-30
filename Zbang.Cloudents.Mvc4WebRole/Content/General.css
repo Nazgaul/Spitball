@@ -2432,9 +2432,14 @@ select.inputText {
     position: relative;
     display: table;
   }
+  body {
+    /*.QA {
+            margin-top: -139px;
+            height: 100vh;
+        }*/
+  }
   body .siteHeader,
   body .boxPage .leftPanel,
-  body .QA,
   body .boxFriendsList,
   body .boxPage .boxActions,
   body .asideLib,
@@ -2474,10 +2479,6 @@ select.inputText {
   body .boxFriendsList {
     top: 12px;
   }
-  body .QA {
-    margin-top: -139px;
-    height: 100vh;
-  }
   body .box-content {
     padding: 0;
   }
@@ -2503,8 +2504,10 @@ select.inputText {
     animation: joinWprNarrowSlide 1s ease-in;
     top: 0;
   }
-  body .joinGrpWpr.show ~ .box-content .QA {
-    top: 223px;
+  body .joinGrpWpr.show ~ .box-content {
+    /*.QA {
+                        top: 223px;
+                    }*/
   }
   body .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
     top: 20px;
@@ -2522,8 +2525,10 @@ select.inputText {
     top: -20px;
     opacity: 0;
   }
-  body .joinGrpWpr.followed ~ .box-content .QA {
-    top: 204px;
+  body .joinGrpWpr.followed ~ .box-content {
+    /*.QA {
+                        top: 204px;
+                    }*/
   }
   body .joinGrpWpr.followed ~ .box-content .boxFriendsList {
     top: 12px;

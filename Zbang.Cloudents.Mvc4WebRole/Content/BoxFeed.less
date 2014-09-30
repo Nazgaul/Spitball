@@ -1,7 +1,6 @@
 ﻿@import "varsAndMixins";
 
 .boxFeed {
-    //width: 491px;
     width: 598px;
     color: @textColor;
     > .feedForm {
@@ -32,7 +31,7 @@
             }
             ~ .attachBtn {
                 bottom: 2px;
-                left: 70px;
+                left: 70px; //rtl
                 top: auto;
                 right: auto;
             }
@@ -44,7 +43,7 @@
 }
 .feedImg {
     border-radius: 3px;
-    margin-right: 15px;
+    margin-right: 15px; //rtl
     border: 1px solid @borderColor;
     .boxSizing;
 }
@@ -67,7 +66,6 @@
     position: absolute;
     top: 9px;
     right: 8px; //rtl
-    //z-index: 1;
 }
 .svg-attachment {
     width: 34px;
@@ -84,8 +82,7 @@
     height: 33px;
     position: absolute;
     bottom: 1px;
-    left: 55px;
-    //width: 434px;
+    left: 55px; //rtl
     width: 541px;
     background: #eee;
     border-radius: 0 0 3px 3px;
@@ -102,12 +99,12 @@
             .pseudo;
             position: absolute;
             top: 15px;
-            left: 41px;
+            left: 41px; //rtl
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 7px 14px 7px 0;
-            border-color: transparent #eeeeee transparent transparent;
+            border-width: 7px 14px 7px 0; //rtl
+            border-color: transparent #eeeeee transparent transparent; //rtl
         }
     }
     .svg-attachment {
@@ -116,14 +113,14 @@
     .feedForm {
         padding-top: 15px;
         .feedImg {
-            margin: 0 0 0 15px; //override
+            margin: 0 0 0 15px; //rtl override
         }
     }
     .feedTA {
         //width: 380px;
         width: 487px;
         height: 38px;
-        margin-left: 55px;
+        margin-left: 55px; //rtl
     }
     .bottomTA {
         //width: 378px;
@@ -131,7 +128,7 @@
     }
     .attachBtn {
         top: 24px;
-        right: 70px;
+        right: 70px; //rtl
     }
 }
 .feedWpr {
@@ -165,7 +162,7 @@
     .trash {
         position: absolute;
         bottom: 8px;
-        right: 15px;
+        right: 15px; //rtl
         display: none;
     }
     &:hover {
@@ -174,10 +171,6 @@
         }
     }
 }
-/*.feedActions {
-    color: @itemBlue;
-    
-}*/
 
 .feedReplies {
     //width: 436px;
@@ -189,28 +182,28 @@
             .pseudo;
             position: absolute;
             top: 15px;
-            right: 41px;
+            right: 41px; //rtl
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 7px 0 7px 14px;
-            border-color: transparent transparent transparent @borderColor;
+            border-width: 7px 0 7px 14px; //rtl
+            border-color: transparent transparent transparent @borderColor; //rtl
         }
         &:after {
             .pseudo;
             position: absolute;
             top: 16px;
-            right: 44px;
+            right: 44px; //rtl
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 6px 0 6px 12px;
-            border-color: transparent transparent transparent #fff;
+            border-width: 6px 0 6px 12px; //rtl
+            border-color: transparent transparent transparent #fff; //rtl
             z-index: 1;
         }
     }
     .feedImg {
-        margin: 0 0 0 15px; //override
+        margin: 0 0 0 15px; //rtl override
     }
     .userName {
         color: @color;
@@ -231,7 +224,7 @@
 
 .qaAttachItem {
     border: 1px solid @borderColor;
-    margin: 12px 7px 0 0; /*rtl*/
+    margin: 12px 7px 0 0; //rtl
     display: inline-block;
     height: 125px;
     position: relative;
@@ -248,7 +241,7 @@
     line-height: 25px;
     background: rgba(0,0,0,.65);
     position: absolute;
-    left: 0; /*rtl*/
+    left: 0; //rtl
     bottom: -25px;
     visibility: hidden;
     .transition(all .1s);
