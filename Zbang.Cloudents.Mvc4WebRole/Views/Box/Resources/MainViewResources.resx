@@ -179,6 +179,10 @@ why not change that and</value>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>
   </data>
+  <data name="QuizEmpty" xml:space="preserve">
+    <value>Nothing to solve here, yet.
+Be the first to create a quiz.</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
   </data>

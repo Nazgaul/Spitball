@@ -740,6 +740,35 @@
 .boxEmpty ~ .boxItemList {
   display: none !important;
 }
+.quizEmptyWpr p {
+  font-size: 24px;
+  text-align: center;
+  white-space: pre-line;
+  width: 600px;
+  position: relative;
+  top: -50px;
+}
+.quizEmptyWpr ~ .quizBtn {
+  margin: -60px 0 22px;
+  left: 217px;
+}
+.quizEmpty {
+  width: 560px;
+  height: 200px;
+  border: 1px solid #c2c2c2;
+  padding: 40px 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+}
+.quizEmpty svg {
+  width: 52px;
+  height: 52px;
+}
+.quizEmpty ~ .quizBtn {
+  position: absolute;
+}
 .boxItemList {
   clear: both;
   padding-top: 15px;
