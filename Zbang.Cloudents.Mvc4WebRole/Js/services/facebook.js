@@ -15,6 +15,7 @@
                oauth: true
            });
            facebookInit = true;
+           loginStatus();
        };
        (function (d) {
            var js, id = 'facebook-jssdk';
@@ -27,9 +28,28 @@
            js.src = "//connect.facebook.net/en_US/all.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
+       
+       function loginStatus() {
+           var retries = 0,
 
+               interval = setInterval(function () {
+                   if (!window.FB) {
+                       if (retries > 100) {
+                           clearInterval(interval);
+                       }
+                       return;
+                   }
+                   clearInterval(interval);
+                   FB.getLoginStatus(function (response) {
+                       if (response.status === 'connected') {
+                           accessToken = response.authResponse.accessToken;
+                           isAuthenticated = true;
+                       }
+                   });
 
-
+               }, 20);
+       }
+       
        return {
            share: function (url, name, caption, description, picture) {
 
@@ -169,26 +189,7 @@
                }
                return defer.promise;
            },
-           loginStatus: function () {
-               var retries = 0,
-
-               interval = setInterval(function () {
-                   if (!window.FB) {
-                       if (retries > 100) {
-                           clearInterval(interval);
-                       }
-                       return;
-                   }
-                   clearInterval(interval);
-                   FB.getLoginStatus(function (response) {                       
-                       if (response.status === 'connected') {
-                           accessToken = response.authResponse.accessToken;
-                           isAuthenticated = true;
-                       }                       
-                   });
-
-               }, 20);
-           },
+           loginStatus: loginStatus,
            loginFacebook: function () {
 
                var dfd = $q.defer();
@@ -214,5 +215,6 @@
                return isAuthenticated;
            }
        }
+       
    }
    ]);

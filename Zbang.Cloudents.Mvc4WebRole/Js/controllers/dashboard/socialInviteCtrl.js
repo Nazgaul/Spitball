@@ -14,7 +14,7 @@
                      sGoogle.checkAuth(true);
                  });
              }
-             sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+             //sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
 
              $scope.params = {
@@ -40,8 +40,11 @@
                  $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
 
              };
-
-             $scope.selectState(states.cloudents);
+             if (sFacebook.isAuthenticated()) {
+                 $scope.selectState(states.facebook);
+             } else {
+                 $scope.selectState(states.cloudents);
+             }
 
              $scope.inviteContact = function (contact) {
 

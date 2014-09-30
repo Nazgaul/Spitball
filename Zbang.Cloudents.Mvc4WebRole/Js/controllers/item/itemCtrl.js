@@ -32,6 +32,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });
     });
 
+   
 
     function getPreview() {
 
@@ -67,9 +68,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         }
     }
     $scope.fullScreenWindow = function () {
+        $location.hash('fullscreen');
         var modalInstance = $modal.open({
             windowClass: 'fullscreen',
-            templateUrl: '/Item/FullScreen/',
+            templateUrl: '/item/fullscreen/',
             controller: 'itemFullScreenCtrl',
             backdrop: false,
             scope: $scope
@@ -79,13 +81,19 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             //}
             // }
         });
+        modalInstance.result.then(function () {
+            $location.hash('');
+        });
         $scope.$on('$destroy', function () {
             if (modalInstance) {
-                modalInstance.close();
+                modalInstance.dismiss();
             }
         });
-
     }
+    if ($location.hash() === 'fullscreen') {
+        $scope.fullScreenWindow();
+    }
+
     $scope.flagItemWindow = function () {
         var modalInstance = $modal.open({
             windowClass: 'flagItem',

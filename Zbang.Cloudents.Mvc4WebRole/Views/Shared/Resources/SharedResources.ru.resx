@@ -325,7 +325,7 @@
     <value>Сообщения</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Отправлено</value>
+    <value>Послано</value>
   </data>
   <data name="ShareBy" xml:space="preserve">
     <value>Поделиться через</value>
@@ -343,7 +343,7 @@
     <value>Ответы</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Член</value>
+    <value>участник</value>
   </data>
   <data name="Join" xml:space="preserve">
     <value>Присоединится</value>

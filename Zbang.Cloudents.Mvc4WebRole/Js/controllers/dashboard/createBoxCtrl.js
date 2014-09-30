@@ -1,8 +1,7 @@
 ﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
-         'WizardHandler',
-         function ($scope, sBox, WizardHandler) {
+         function ($scope, sBox) {
              $scope.create = function (isValid) {
                  //TODO: add disabled state
                  if (!isValid) {
