@@ -62,7 +62,6 @@
                                 <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
                             </li>
                         </ul>
-                        @*<span class="tabBorder"></span>*@
                     </li>
 
                     <li class="createFolder">
@@ -72,7 +71,6 @@
             </div>
         </div>
     </div>
-
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
             <section class="shareBtn rFloat">
@@ -113,16 +111,6 @@
                 <li ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">Members</li>
             </ul>
         </div>
-
-        @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
-
-                <div class="joinGrpBtn">
-                    <span class="joinMsg iconTxt">@SharedResources.Member</span>
-                    <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
-                </div>
-            </div>*@
-
-
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_Feed");}
@@ -136,24 +124,6 @@
             <div ng-switch-when="members">
                 @{Html.RenderPartial("_Members");}
             </div>
-
-
-
-            @*<ul class="boxMembers boxFriendsList">
-
-                    <li ng-repeat="member in info.members | limitTo:7">
-                        <a href="{{member.url}}" class="">
-                            <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />
-                        </a>
-                    </li>
-                    @for (int i = 0; i < 6; i++)
-                    {
-                        <li class="static">
-                            <a target="_self" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })" class="boxInvite" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
-                        </li>
-                    }
-                    <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
-                </ul>*@
         </div>
     </div>
 </div>
