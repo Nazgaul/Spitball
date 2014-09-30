@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     {
         public const string BoxData = @"
 select 
- b.PictureUrl as Image
+  b.PictureUrl as Image
  ,b.BoxName as Name
  ,b.CourseCode as CourseId
  ,b.ProfessorName as ProfessorName
@@ -18,7 +18,7 @@ select
  ,b.CreationTime as Date
  ,(CASE 
       WHEN b.Discriminator is null THEN (select username from zbox.Users where userid = b.ownerid)
-      Else null
+      Else (select universityname from zbox.university where id = b.university) 
    END ) as OwnerName
 from zbox.box b
 where b.BoxId = @BoxId

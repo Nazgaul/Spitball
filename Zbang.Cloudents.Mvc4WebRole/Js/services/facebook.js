@@ -64,7 +64,7 @@
 
                function share() {
                    var defer = $q.defer();
-                   url = url || $window.location.href;
+                   url = url || window.location.href;
                    FB.ui({
                        method: 'feed',
                        link: url,
@@ -81,7 +81,7 @@
                            });
                            //cd.pubsub.publish('addPoints', { type: 'shareFb' });
                            var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                           sShare.facebookReputation({ postId: postId }).then(function () { });
+                           sShare.facebookReputation({ postId: postId })
                            cd.pubsub.publish('addPoints', { type: 'shareFb' });
                        }
                    });
