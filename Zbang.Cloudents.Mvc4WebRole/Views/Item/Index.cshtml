@@ -2,12 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div id="item" class="page itemPage" ng-controller="ItemCtrl">
-    @*<h1>@ViewBag.Description</h1>*@
-
+<div class="page itemPage" ng-controller="ItemCtrl">
     <div class="topBar">
         <div class="leftPart">
-            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl}}">
+            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{item.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
