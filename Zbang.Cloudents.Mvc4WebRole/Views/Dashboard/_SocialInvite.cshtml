@@ -44,7 +44,7 @@
 </section>
 @*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
 <aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
-    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit(inviteByEmailForm)">
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
         <h3>@IndexResources.InviteViaEmail</h3>
 
         <div class="inputText emailUser" ng-click="focusInput()">
@@ -62,6 +62,6 @@
             <h4>@InviteResources.Success!</h4>
             <div>@InviteResources.MailSent</div>
         </div>
-        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || params.validEmails === 0 || params.invalidEmails > 0">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || (!(formData.emailInput.length) && params.validEmails === 0) || params.invalidEmails > 0">@DialogResources.Send</button>
     </form>
 </aside>

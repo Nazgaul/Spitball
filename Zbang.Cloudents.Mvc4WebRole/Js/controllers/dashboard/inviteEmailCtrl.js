@@ -19,7 +19,8 @@
              };
 
 
-             $scope.submit = function (formScope) {
+             $scope.submit = function () {
+                 addEmail();
                  for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
                      if ($scope.formData.emailList[i].invalid) {
                          return;
@@ -33,10 +34,11 @@
                  sShare.invite.box({ recepients: [emails], boxId: $scope.box.id }).then(function (response) {
                      if (!response.success) {
                          alert('Error');
+                         return;
                      }
 
                      $scope.params.invFormSent = true; //animation
-                     $timeout(function () { $scope.params.invFormSent = false; }, 2000)//animation
+                     $timeout(function() { $scope.params.invFormSent = false; }, 2000);//animation
 
                      $scope.formData.emailList = [];
                      $scope.params.invalidEmails = $scope.params.validEmails = 0;
@@ -101,13 +103,13 @@
                  }
 
                  var email = {
-                     address: $scope.formData.emailInput
-                 },
+                         address: $scope.formData.emailInput
+                     },
 
-                 index = $scope.formData.emailList.indexOf(email)
+                     index = $scope.formData.emailList.indexOf(email);
                  if (index > -1) {
                      alert('Contact already exists'); //translate
-                     return
+                     return;
                  }
 
                  if (!emailRegExp.test($scope.formData.emailInput)) {
@@ -131,12 +133,12 @@
                 scope: {
                     googleBtn: '='
                 },
-                link: function (scope, elem, attrs) {
+                link: function (scope, elem) {
                     var $input = elem.find('.inviteInput'),
                         $list = elem.find('.emailList'),
-                        $wrapper = elem.find('.emailUser')
+                        $wrapper = elem.find('.emailUser');
 
-                    scope.$on('itemChange', function (e) {
+                    scope.$on('itemChange', function () {
                         $timeout(setWidth, 0);
                     });
 
