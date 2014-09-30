@@ -4,15 +4,15 @@
 <div class="boxItems" ng-controller="BoxQuizzesCtrl">
     
     <div class="boxItemsHeader">
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="filteredItems.length > 0">
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
             <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
         </button>
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0">
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="quizzes.length > 0">
             <svg><use xlink:href="~/Images/Defs.svg#thumbView" /></svg>
         </button>
     </div>
 
-    <div class="quizEmptyWpr" ng-if="!filteredItems.length && !options.loader">
+    <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
         <p>@MainViewResources.QuizEmpty</p>
         <div class="quizEmpty">
             <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
