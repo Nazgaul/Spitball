@@ -26,15 +26,15 @@
         <ul class="newActivity">
             <li ng-click="setTab('items')">
                 <span class="rFloat newPosts">{{info.itemsLength}}</span>
-                <div class="elps">Items</div>
+                <div class="elps">@SharedResources.Items</div>
             </li>
             <li ng-click="setTab('quizzes')">
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
-                <div class="elps">Quizzes</div>
+                <div class="elps">@SharedResources.Quizzes</div>
             </li>
             <li ng-click="setTab('members')">
                 <span class="rFloat newPosts">{{info.membersLength}}</span>
-                <div class="elps">Members</div>
+                <div class="elps">@SharedResources.Members</div>
             </li>
         </ul>
 
@@ -107,10 +107,10 @@
             </a>
 
             <ul class="boxTabs">
-                <li ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">Feed</li>
-                <li ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">Items</li>
-                <li ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">Quizzes</li>
-                <li ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">Members</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">@SharedResources.Feed</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">@SharedResources.Items</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">@SharedResources.Quizzes</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">@SharedResources.Members</li>
             </ul>
         </div>
 
