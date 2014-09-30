@@ -39,6 +39,12 @@
         .svg-attachment {
             fill: #282828;
         }
+        .attachedList {
+            display: block;
+        }
+    }
+    .attachedList {
+        display: none;
     }
 }
 .feedImg {
@@ -212,6 +218,11 @@
         background: none;
         border: 1px solid @borderColor;
     }
+    ~ .feedForm {
+        .attachedList {
+            width: 465px;
+        }
+    }
 }
 
 /*#region attachments */
@@ -284,6 +295,59 @@
 
     &:hover {
         background-position: -38px -22px;
+    }
+}
+
+
+.attachedList {
+    margin-left: 55px; //rtl
+    padding: 0 8px 3px 12px; //rtl
+    position: relative;
+    top: -35px;
+    border-left: 1px solid #282828;
+    border-right: 1px solid #282828;
+}
+
+.attachedItem {
+    background: #f0f0f0;
+    border-radius: 3px;
+    border: 1px solid #c2c2c2;
+    padding-left: 6px; /*rtl*/
+    display: inline-block;
+    margin: 3px 5px 3px 0; /*rtl*/
+}
+
+.attachName {
+    display: inline-block;
+    max-width: 100px;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.removeAttach {
+    width: 20px;
+    height: 22px;
+    position: relative;
+    padding-bottom: 4px;
+
+    &:before {
+        .pseudo;
+        background: @borderColor;
+        width: 1px;
+        height: 22px;
+        position: absolute;
+        left: 0; /*rtl*/
+        top: 0;
+        //margin-top: 6px;
+    }
+
+    &:after {
+        .pseudo;
+        background: @common-sprite -68px -15px no-repeat;
+        width: 10px;
+        height: 10px;
+        vertical-align: top;
+        margin-top: 5px;
     }
 }
 
