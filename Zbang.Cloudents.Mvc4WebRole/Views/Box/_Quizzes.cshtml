@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
+    <button type="button" class="btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
 
     <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"

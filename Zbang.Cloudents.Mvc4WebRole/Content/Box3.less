@@ -765,7 +765,9 @@
     }
     ~ .quizBtn {
         margin: -60px 0 22px;
-        left: 217px; //rtl
+        left: 207px; //rtl
+        position: relative;
+        padding: 4px 25px;
     }
 }
 .quizEmpty {
@@ -775,14 +777,9 @@
     padding: 40px 0;
     .boxSizing;
     text-align: center;
-    //position: relative;
     svg {
-        width: 52px;
-        height: 52px;
-    }
-    ~ .quizBtn {
-        position: absolute;
-        //left
+        width: 80px;
+        height: 80px;
     }
 }
 .boxItemList {
@@ -920,13 +917,6 @@
             width: 14px;
             height: 16px;
             background: @boxSprite -54px -106px no-repeat;
-        }
-        &.quizBtn:before
-        {
-            width: 22px;
-            height: 18px;
-            background-position: -48px -143px;
-            margin-top: -4px;
         }
     }
     .quizBtn {
