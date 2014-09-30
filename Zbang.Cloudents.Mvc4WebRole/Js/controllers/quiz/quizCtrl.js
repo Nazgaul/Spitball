@@ -98,7 +98,7 @@ mQuiz.controller('QuizCtrl',
                     }); 
 
                     return;
-                }, 3000);
+                }, 1000);
             });
             $scope.timer = {
                 state: JsResources.Play

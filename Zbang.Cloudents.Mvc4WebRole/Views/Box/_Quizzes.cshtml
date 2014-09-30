@@ -47,7 +47,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
 </script>
@@ -69,7 +69,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
     </li>
