@@ -298,7 +298,7 @@ mUser.controller('UserCtrl',
                     return;
                 }
 
-                sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { }); 
+                sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { });
 
                 invite.submitted = true;
             }
@@ -346,7 +346,7 @@ mUser.controller('UserCtrl',
                     commonFriend ? $scope.friends.common.list.push(commonFriend) : $scope.friends.all.list.push(userFriend);
                 });
 
-                $scope.friends.loading = false;                
+                $scope.friends.loading = false;
 
             }
 
@@ -361,15 +361,16 @@ mUser.controller('UserCtrl',
                         $scope.boxes.following.list.push(box);
                     }
                 }
-                $scope.boxes.loading = false;                
+                $scope.boxes.loading = false;
+
             }
 
-            function activityResponse(response) {                
-                    $scope.activity.items.list = response.payload.items;
-                    $scope.activity.questions.list = response.payload.questions;
-                    $scope.activity.answers.list = response.payload.answers;
+            function activityResponse(response) {
+                $scope.activity.items.list = response.payload.items;
+                $scope.activity.questions.list = response.payload.questions;
+                $scope.activity.answers.list = response.payload.answers;
 
-                    $scope.activity.loading = false;                
+                $scope.activity.loading = false;
             }
 
             function adminRespose(response) {

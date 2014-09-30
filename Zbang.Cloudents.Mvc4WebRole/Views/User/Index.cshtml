@@ -209,8 +209,7 @@
                             </li>
                         </ul>
                     </span>
-                    
-                    <div ng-show="!boxes.loading" class="coursesEmpty ng-hide">@UserResources.NotFollowing</div>
+                    <div ng-show="!(boxes.common.list.length)" class="coursesEmpty">@UserResources.NotFollowing</div>
                 </div>
             </section>
             <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
@@ -274,7 +273,6 @@
                         <span>@UserResources.FindFriends</span>
                         <a href="@Url.RouteUrl("InviteCloudents")" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>
                     </div>
-
                 </div>
             </section>
             <span ng-if="(invites.list.length > invites.init) && profile.isSelf">
@@ -282,7 +280,5 @@
                 <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
             </span>
         </div>
-
-
     </div>
 </div>
