@@ -46,6 +46,10 @@
                     $rootScope.options.quizOpen = true;
                 });
             };
+            $scope.deleteAllow = function (item) {
+                return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
+                       ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().score > 1000000);
+            };
 
             $scope.removeQuiz = function (quiz) {
                 cd.confirm2(jsResources.SureYouWantToDelete + ' ' + quiz.name + "?").then(function () {
