@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false);
+                        false, facebookUserData.locale);
                     var commandResult = ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
                     user = new LogInUserDto
                     {
@@ -257,12 +257,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            //var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
-            //if (!retVal)
-            //{
-            //    ModelState.AddModelError("NewEmail", Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources.RegisterResources.EmailNotValid);
-            //    return Json(new JsonResponse(false, base.GetModelStateErrors()));
-            //}
             var userid = Guid.NewGuid().ToString();
             try
             {
@@ -273,7 +267,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
                       !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail);
+                        model.MarketEmail, model.Language.Language);
                     var result = ZboxWriteService.CreateUser(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,
@@ -691,7 +685,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(GetUserId()));
                 //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
                 var serializer = new JsonNetSerializer();
-                var jsonRetVal  = serializer.Serialize(retVal);
+                var jsonRetVal = serializer.Serialize(retVal);
                 ViewBag.userDetail = jsonRetVal;
                 return PartialView(userDetailView, retVal);
             }
