@@ -122,7 +122,7 @@
 
                 var quiz, index;
                 quiz = _.find($scope.quizzes, function (x) {
-                    return x.id === quizItem.quizId;
+                    return x.id === quizItem.id;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 
