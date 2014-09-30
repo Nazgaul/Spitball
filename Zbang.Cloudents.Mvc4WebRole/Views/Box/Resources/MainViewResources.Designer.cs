@@ -243,6 +243,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing to solve here, yet.
+        ///Be the first to create a quiz..
+        /// </summary>
+        public static string QuizEmpty {
+            get {
+                return ResourceManager.GetString("QuizEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename.
         /// </summary>
         public static string Rename {

@@ -1339,6 +1339,11 @@ iframe .registerFirst.store {
   margin: 12px 0 16px;
   font-size: 13px;
 }
+.register.register select {
+  width: 156px;
+  position: relative;
+  top: -2px;
+}
 .desktop .firstName,
 .desktop .lastName {
   width: 48%;
@@ -1362,7 +1367,7 @@ iframe .registerFirst.store {
 }
 .genderLabel {
   font-size: 15px;
-  margin: 20px 0 5px;
+  margin: 28px 0 15px;
   display: inline-block;
 }
 .genderLabel.first {
