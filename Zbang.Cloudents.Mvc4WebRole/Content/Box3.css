@@ -896,6 +896,10 @@
   height: 16px;
   background: url(/Images/box18-sprite.png?v=1) -54px -106px no-repeat;
 }
+.boxItemsHeader .quizBtn {
+  padding: 6px 15px 7px 15px;
+  width: 130px;
+}
 .listViewBtn,
 .thumbViewBtn {
   margin-top: 2px;
