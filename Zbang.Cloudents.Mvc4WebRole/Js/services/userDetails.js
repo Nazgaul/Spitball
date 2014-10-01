@@ -10,8 +10,7 @@
          url: null,
          university: null,
          department: null
-     };
-
+     },
      isAuthenticated = false;
 
      return {

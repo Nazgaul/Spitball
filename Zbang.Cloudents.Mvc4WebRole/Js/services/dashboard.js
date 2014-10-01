@@ -2,35 +2,28 @@
 mDashboard.factory('sDashboard',
     ['$http',
      '$q',
-
      function ($http, $q) {
+         function ajaxRequest(type, link, data) {
+             var dfd = $q.defer();
+             if (type === $http.get && data) {
+                 data = { params: data };
+             }
+             type(link, data).success(function (response) {
+                 dfd.resolve(response);
+             }).error(function (response) {
+                 dfd.reject(response);
+             });
+             return dfd.promise;
+         }
          return {
-             boxList: function() {
-                 var dfd = $q.defer();
-                 $http.get('/Dashboard/BoxList/').success(function(response) {
-                     dfd.resolve(response);
-                 }).error(function(response) {
-                     dfd.reject(response);
-                 });
-                 return dfd.promise;
+             boxList: function () {
+                 return ajaxRequest($http.get, '/Dashboard/BoxList/');
              },
-             recommendedCourses: function() {
-                 var dfd = $q.defer();
-                 $http.get('/Dashboard/RecommendedCourses/').success(function(response) {
-                     dfd.resolve(response);
-                 }).error(function(response) {
-                     dfd.reject(response);
-                 });
-                 return dfd.promise;
+             recommendedCourses: function () {
+                 return ajaxRequest($http.get, '/Dashboard/RecommendedCourses/');
              },
-             disableFirstTime: function() {
-                 var dfd = $q.defer();
-                 $http.post('/Account/FirstTime/', { firstTime: 'Dashboard' }).success(function (response) {
-                     dfd.resolve(response);
-                 }).error(function(response) {
-                     dfd.reject(response);
-                 });
-                 return dfd.promise;
+             disableFirstTime: function () {
+                 return ajaxRequest($http.post, '/Account/FirstTime/', { firstTime: 'Dashboard' });
              }
          }
      }
