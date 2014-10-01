@@ -116,7 +116,7 @@ mBox.controller('BoxCtrl',
                        jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
                         null //picture
                      );
-
+                $scope.popup.share = false;
             };
 
             $scope.shareEmail = function () {

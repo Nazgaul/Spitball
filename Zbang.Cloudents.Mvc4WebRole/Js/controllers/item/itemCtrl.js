@@ -1,6 +1,6 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook','$sce',
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
@@ -32,7 +32,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });
     });
 
-   
+
 
     function getPreview() {
 
@@ -55,12 +55,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
             var data = response.success ? response.payload || {} : {};
             if (data.preview) {
-                
-
-                if (data.preview.indexOf('iframe')) {
+                if (data.preview.indexOf('iframe') > 0) {
                     $scope.preview = $sce.trustAsHtml(data.preview);
                 } else {
                     $scope.preview += data.preview;
+                    $scope.$broadcast('update'); //for fullscreen
                     loadMore = true;
                 }
             }
@@ -81,11 +80,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             controller: 'itemFullScreenCtrl',
             backdrop: false,
             scope: $scope
-            // resolve: {
-            //friends: function () {
-            //return data.payload.my;
-            //}
-            // }
         });
         modalInstance.result.then(function () {
             $location.hash('');
