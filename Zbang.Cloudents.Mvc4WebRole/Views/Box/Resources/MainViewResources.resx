@@ -151,6 +151,11 @@ Be the first to upload study material...</value>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>The art and science of
+asking questions is the source
+of all knowledge.</value>
+  </data>
   <data name="FollowBox" xml:space="preserve">
     <value>Want to know what's new? Follow this box</value>
   </data>

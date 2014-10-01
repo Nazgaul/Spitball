@@ -151,6 +151,10 @@
   <data name="Edit" xml:space="preserve">
     <value>ערוך</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>לשאול שאלות הוא המקור
+של כל הידע.</value>
+  </data>
   <data name="FollowBox" xml:space="preserve">
     <value>רוצה לדעת מה חדש? עקוב אחרי קופסא זו והתעדכן</value>
   </data>

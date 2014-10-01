@@ -136,6 +136,11 @@
         top: 24px;
         right: 70px; //rtl
     }
+    &:empty {
+        ~ .emptyFeed {
+            display: block;
+        }
+    }
 }
 .feedWpr {
     //width: 431px;
@@ -350,5 +355,24 @@
         margin-top: 5px;
     }
 }
+
+/*#endregion */
+
+/*#region empty feed */
+.emptyFeed {
+    display: none;
+    width: 598px;
+    height: 565px;
+    color: @borderColor;
+    border: 3px dotted @borderColor;
+    border-radius: 8px;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+    white-space: pre-line;
+    padding-top: 240px;
+    .boxSizing;
+}
+
 
 /*#endregion */
