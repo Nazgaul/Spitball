@@ -19,15 +19,16 @@
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
         <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
-        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" class-on-scroll="js-scrolling">
-            <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
-                <img width="64" height="64" bo-src="contact.image" alt="" />
-                <div class="contactName" bo-text="contact.name"></div>
-                <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
-            </li>
-            <li class="emptySearch">@SharedResources.NoResults</li>
-        </ul>
-
+        <div height="280" m-custom-scrollbar="addContacts()" m-custom-scrollbar-class="js-scrolling">
+            <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}">
+                <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
+                    <img width="64" height="64" bo-src="contact.image" alt="" />
+                    <div class="contactName" bo-text="contact.name"></div>
+                    <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
+                </li>
+                <li class="emptySearch">@SharedResources.NoResults</li>
+            </ul>
+        </div>
         <div class="socialConnect">
             <div class="socialConnectTxt" data-find-fb="@IndexResources.FindFb" data-find-gm="@IndexResources.FindGmail"></div>
             <button class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>

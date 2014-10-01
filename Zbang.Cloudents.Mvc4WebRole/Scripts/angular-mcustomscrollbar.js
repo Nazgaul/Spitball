@@ -5,7 +5,7 @@
         template: '<div><div ng-transclude></div></div>',
         replace: true,
         link: function ($scope, $elem, $attr) {
-            var $win = $(window), height, top, bottom;
+            var $win = $(window), height = $attr.height, top, bottom;
 
             setScroll();
 
@@ -14,20 +14,44 @@
             $win.resize(updateScroll);
 
             function updateScroll() {
-                $timeout(function () {
+                $timeout(function() {
                     $elem.mCustomScrollbar('destroy');
                     setScroll();
-                }, 50)
+                }, 50);
             }
 
             function setScroll() {
                 calcHeight();
-              
-                $elem.mCustomScrollbar({ setHeight: height, theme: "dark", advanced: { updateOnContentResize: false } });
+                //m-custom-scrollbar-class
+                $elem.mCustomScrollbar({
+                    setHeight: height,
+                    theme: "dark",
+                    advanced: { updateOnContentResize: false },
+                    callbacks: {
+                        onScroll: function () {
+                            if (this.mcs.topPct > 75) {
+                                if ($attr.mCustomScrollbar) {
+                                    $scope.$apply($attr.mCustomScrollbar);
+                                }
+                            }
+                        },
+                        whileScrolling: function () {
+                            if (this.mcs.topPct === 0) {
+                                $elem.removeClass($attr.mCustomScrollbarClass);
+                            }
+                        },
+                        whileScrolling:function() {
+                            $elem.addClass($attr.mCustomScrollbarClass);
+                        }
+                    }
+                });
                 
             }
 
             function calcHeight() {
+                if ($attr.height) {
+                    return;
+                }
                 top = $attr.top ? parseInt($attr.top) : $elem[0].getBoundingClientRect().top;
                 bottom = $attr.bottom ? parseInt($attr.bottom) : 0;
                 height = $win.height() - (top + bottom);
