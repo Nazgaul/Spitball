@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -875,7 +875,7 @@
   /*rtl*/
 }
 .boxItemsHeader {
-  height: 68px;
+  height: 58px;
   margin-top: -28px;
   padding-top: 20px;
   -webkit-box-sizing: border-box;
@@ -1145,29 +1145,39 @@
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
+  /*&:before {
+            .pseudo;
+            position: absolute;
+            width: 153px;
+            height: 220px;
+            background: @boxSprite -159px -1px no-repeat;
+            z-index: -1;
+        }
+
+        &:after {
+            .pseudo;
+            width: 28px;
+            height: 24px;
+            //background: @boxSprite -47px -168px no-repeat;
+            position: absolute;
+            top: 28px;
+            left: 8px; //rtl
+        }*/
 }
 .thumbItem.quizItem .actionBtns {
   top: 24px;
 }
-.thumbItem.quizItem:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
+.thumbItem.quizItem svg {
   width: 153px;
   height: 220px;
-  background: url(/Images/box18-sprite.png?v=1) -159px -1px no-repeat;
+  position: absolute;
   z-index: -1;
 }
-.thumbItem.quizItem:after {
-  content: '';
-  display: inline-block;
-  width: 28px;
-  height: 24px;
-  background: url(/Images/box18-sprite.png?v=1) -47px -168px no-repeat;
-  position: absolute;
-  top: 28px;
-  left: 8px;
-  /*rtl*/
+.thumbItem.quizItem svg .penBorder {
+  stroke: #0f9d58;
+}
+.thumbItem.quizItem path.penBorder {
+  stroke: #0f9d58;
 }
 .thumbItem.quizItem .boxLink {
   padding: 11px 9px;
@@ -1182,19 +1192,19 @@
   -moz-user-drag: none;
 }
 .thumbItem.quizItem .boxName {
-  color: #517e9e;
+  color: #383838;
   font-size: 17px;
-  height: 100px;
+  line-height: 22px;
+  height: 44px;
   overflow: hidden;
   clear: both;
-  line-height: 25px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
-  margin: 55px 0 16px;
+  margin: 115px 0 0 0;
 }
 .thumbItem.quizItem .quizOwner {
   display: none;
@@ -1214,6 +1224,12 @@
 }
 .thumbItem.quizItem .detailsWpr {
   width: 191px;
+}
+.thumbItem.draft svg .penBorder {
+  stroke: silver;
+}
+.thumbItem.draft path.penBorder {
+  stroke: silver;
 }
 .thumbItem.draft .tag {
   width: 21px;
@@ -1667,3 +1683,10 @@
   /*rtl*/
 }
 /*#endregion */
+path.penBorder {
+  stroke: #0f9d58;
+}
+.draft path.penBorder {
+  stroke: silver;
+}
+/*# sourceMappingURL=Box3.css.map */
