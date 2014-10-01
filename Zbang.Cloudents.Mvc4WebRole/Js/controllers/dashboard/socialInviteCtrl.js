@@ -62,16 +62,14 @@
                  }
 
                  if (currentState === states.facebook) {
+                     
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
                          link: $scope.box.url,
                          to: contact.id
-                     }).then(function (response) {
+                     }).then(function () {
                          $scope.params.facebookInvite = false;
 
-                         if (!response) {
-                             return;
-                         }
                          contact.invited = true;
 
                          var data = {
