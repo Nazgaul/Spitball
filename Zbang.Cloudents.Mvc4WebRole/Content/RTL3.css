@@ -797,10 +797,6 @@
   font-weight: normal;
   /*rtl*/
 }
-.quizEmptyWpr ~ .quizBtn {
-  right: 207px;
-  left: auto;
-}
 .boxItemList.sponsored .listItem:first-child {
   padding: 0 260px 0 0;
   /*rtl*/

@@ -4,6 +4,17 @@
 <div class="boxItems" ng-controller="BoxQuizzesCtrl">
     
     <div class="boxItemsHeader">
+
+        <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
+            <p>@MainViewResources.QuizEmpty</p>
+            <div class="quizEmpty">
+                <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
+            </div>
+        </div>
+
+        <button type="button" class="btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
+
+
         <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
             <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
         </button>
@@ -12,15 +23,7 @@
         </button>
     </div>
 
-    <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
-        <p>@MainViewResources.QuizEmpty</p>
-        <div class="quizEmpty">
-            <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
-        </div>
-    </div>
-
-    <button type="button" class="btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
-
+    
     <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"

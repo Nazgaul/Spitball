@@ -740,19 +740,22 @@
 .boxEmpty ~ .boxItemList {
   display: none !important;
 }
+.quizEmptyWpr {
+  text-align: center;
+}
 .quizEmptyWpr p {
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
   white-space: pre-line;
-  width: 600px;
-  position: relative;
-  top: -50px;
+  margin: 70px 0 15px;
 }
 .quizEmptyWpr ~ .quizBtn {
-  margin: -60px 0 22px;
-  left: 207px;
-  position: relative;
-  padding: 4px 25px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 135px;
+  top: 365px;
 }
 .quizEmpty {
   width: 560px;
@@ -762,7 +765,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-align: center;
+  display: inline-block;
 }
 .quizEmpty svg {
   width: 70px;
@@ -892,18 +895,6 @@
   width: 14px;
   height: 16px;
   background: url(/Images/box18-sprite.png?v=1) -54px -106px no-repeat;
-}
-.boxItemsHeader .quizBtn {
-  background: #517e9e;
-  border: 1px solid #517e9e;
-}
-.boxItemsHeader .quizBtn:hover {
-  background: #456c88;
-  border: 1px solid #546c88;
-}
-.boxItemsHeader .quizBtn:disabled {
-  background: #A5A5A5;
-  border: 1px solid #A5A5A5;
 }
 .listViewBtn,
 .thumbViewBtn {
