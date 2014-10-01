@@ -82,7 +82,7 @@
                     </li>
                 </ul>
                 <div class="bottomTA">
-                    <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!qnaAform.$valid">@SharedResources.Post</button>
+                    <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
                 </div>
                 <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                     <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>

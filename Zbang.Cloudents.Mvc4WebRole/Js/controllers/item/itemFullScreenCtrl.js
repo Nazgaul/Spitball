@@ -1,7 +1,7 @@
 ﻿mItem.controller('itemFullScreenCtrl',
 [
-    '$scope', '$modalInstance','$sce',
-    function ($scope, $modalInstance, $sce) {
+    '$scope', '$modalInstance',
+    function($scope, $modalInstance) {
         $scope.preview2 = '';
         $scope.$parent.fullScreen = true;
         $scope.closeFullScreen = function() {
@@ -9,13 +9,11 @@
             $scope.$parent.fullScreen = false;
         };
 
-        $scope.$on('update', function () {
-            $scope.$apply(function () { //regular binding doesnt work
-                $scope.preview2 += $scope.$parent.preview;    
+        $scope.$on('update', function() {
+            $scope.$apply(function() { //regular binding doesnt work
+                $scope.preview2 += $scope.$parent.preview;
 
             });
         });
-       
-       
     }
 ]);

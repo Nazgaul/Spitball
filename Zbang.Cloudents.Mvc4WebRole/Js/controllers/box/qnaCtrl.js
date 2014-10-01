@@ -23,7 +23,6 @@ mBox.controller('QnACtrl',
             });
             that.files = data.files.map(function (file) { return new File(file); });
             that.aFormData = {};
-            //that.bestAnswer = findBestAnswer(that.answers);
         }
 
         function Answer(data) {
