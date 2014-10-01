@@ -135,6 +135,9 @@
   top: 24px;
   right: 70px;
 }
+.boxFeedList:empty ~ .emptyFeed {
+  display: block;
+}
 .feedWpr {
   background: #eee;
   padding: 8px 15px;
@@ -335,5 +338,23 @@
   height: 10px;
   vertical-align: top;
   margin-top: 5px;
+}
+/*#endregion */
+/*#region empty feed */
+.emptyFeed {
+  display: none;
+  width: 598px;
+  height: 565px;
+  color: #c2c2c2;
+  border: 3px dotted #c2c2c2;
+  border-radius: 8px;
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+  white-space: pre-line;
+  padding-top: 240px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*#endregion */

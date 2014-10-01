@@ -22,8 +22,8 @@
         </button>
     </form>
 
-    <ul class="boxFeedList">
-        <li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
+    <ul class="boxFeedList"><!--
+        --><li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
             <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
 
             <div class="feedWpr">
@@ -88,7 +88,9 @@
                     <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
                 </button>
             </form>
-        </li>
-    </ul>
+        </li><!--
+    --></ul>
+
+    <div class="emptyFeed">@MainViewResources.FeedEmpty</div>
 
 </section>
