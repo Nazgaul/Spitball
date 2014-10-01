@@ -31,7 +31,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
         private readonly Lazy<IFacebookService> m_FacebookService;
-        // private readonly Lazy<IUserProfile> m_UserProfile;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
@@ -39,13 +38,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
-            //  Lazy<IUserProfile> userProfile,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject)
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
-            //  m_UserProfile = userProfile;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
         }
@@ -53,7 +50,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        //donut output cache doesn't support route
         [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
             + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
@@ -144,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ));
                 //TODO: bring it back
                 // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) }) }));
+                return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) }));
             }
             catch (ArgumentException)
             {
@@ -274,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new UserDetail(
                             result.User.Culture,
                             result.UniversityId));
-                    return Json(new JsonResponse(true, Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl) })));
+                    return Json(new JsonResponse(true, Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" })));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
