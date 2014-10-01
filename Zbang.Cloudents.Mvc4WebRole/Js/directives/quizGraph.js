@@ -51,7 +51,7 @@
                        return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(x, 2) / 2));
                    }, 'green', 2);
 
-                   function drawEquation(equation, color) {
+                   function drawEquation(equation, color, thickness) {
                        context.save();
                        transformContext();
 

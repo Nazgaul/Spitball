@@ -22,8 +22,6 @@
 .boxPage .backWpr {
   margin: 13px 25px 0 0;
   padding: 0;
-}
-.boxPage .backWpr svg {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);

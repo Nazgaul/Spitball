@@ -1,4 +1,4 @@
-﻿(function (cd, dataContext, pubsub, $, analytics) {
+﻿(function (cd, dataContext, pubsub, $, ko, analytics) {
     "use strict";
     if (window.scriptLoaded.isLoaded('ntfvm')) {
         return;
@@ -163,4 +163,4 @@
         });
     }
 
-})(cd, cd.data, cd.pubsub, jQuery, cd.analytics);
+})(cd, cd.data, cd.pubsub, jQuery, ko, cd.analytics);

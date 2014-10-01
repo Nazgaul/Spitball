@@ -463,8 +463,7 @@
     <value>Новый</value>
   </data>
   <data name="SweetThanks" xml:space="preserve">
-    <value>Отлично, спасибо
-</value>
+    <value>Отлично, спасибо</value>
   </data>
   <data name="InvitesYou" xml:space="preserve">
     <value>Приглашает вас следовать</value>
@@ -482,7 +481,7 @@
     <value>Фамилия</value>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>Мужской </value>
+    <value>Мужской</value>
   </data>
   <data name="MiddleName" xml:space="preserve">
     <value>Отчество</value>
@@ -536,9 +535,7 @@
     <value>Зарегистрируйтесь бесплатно!</value>
   </data>
   <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>
-Тесты Cloudents – создавайте, делитесь, практикуйтесь и готовьтесь к своим экзаменам!
-</value>
+    <value>Тесты Cloudents – создавайте, делитесь, практикуйтесь и готовьтесь к своим экзаменам!</value>
   </data>
   <data name="CreateShare" xml:space="preserve">
     <value>Создавайте тесты Cloudents и делитесь ими для подготовки к экзаменам и проверки знаний своих друзей.</value>
@@ -559,8 +556,7 @@
     <value>Подготовьтесь к экзамену, пройдя тест Cloudents.</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>Предыдущий
-</value>
+    <value>Предыдущий</value>
   </data>
   <data name="PublishQuiz" xml:space="preserve">
     <value>Опубликуйте тест и поделитесь им с друзьями</value>
@@ -587,8 +583,7 @@
     <value>введите адрес электронной почты</value>
   </data>
   <data name="PersonalMsg" xml:space="preserve">
-    <value>Личное сообщение
-</value>
+    <value>Личное сообщение</value>
   </data>
   <data name="AddComment" xml:space="preserve">
     <value>Написать комментарий</value>

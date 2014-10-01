@@ -1,4 +1,4 @@
-﻿mItem.controller('itemFullScreenCtrl',
+﻿mItem.controller('ItemFullScreenCtrl',
 [
     '$scope', '$modalInstance',
     function($scope, $modalInstance) {

@@ -629,8 +629,6 @@
 }
 .boxPage .backWpr {
   margin: 13px 0 0 25px;
-}
-.boxPage .backWpr svg {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
   -o-transform: scaleX(1);
