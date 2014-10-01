@@ -10,6 +10,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     {
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
+            
             if (context.User != null && context.User.Identity.IsAuthenticated)
             {
                 var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();

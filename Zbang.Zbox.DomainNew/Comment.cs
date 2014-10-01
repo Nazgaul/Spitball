@@ -21,15 +21,15 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("box");
             }
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
             Id = id;
             Items = items;
             User = user;
             Box = box;
-            Text = text.Trim();
+            if (text != null)
+            {
+                text = text.Trim();
+            }
+            Text = text;
             DateTimeUser = new UserTimeDetails(user.Email);
             Box.UserTime.UpdateUserTime(user.Email);
         }
