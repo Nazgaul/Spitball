@@ -124,10 +124,6 @@
                          sUser.friends().then(function (response) {
                              var data = response.success ? response.payload : [],
                                 cloudentsUsers = data.my;
-
-                             _.forEach(cloudentsUsers, function (user) {
-                                 user.id = user.uid;
-                             });
                              currentUsers = cloudentsUsers;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                          });

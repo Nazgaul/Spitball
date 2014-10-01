@@ -131,7 +131,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             TempDataProvider = new CookieTempDataProvider(HttpContext);
             try
             {
-                UserLanguage.ChangeLanguage(HttpContext, Server);
+                if (!ControllerContext.IsChildAction)
+                {
+                    UserLanguage.ChangeLanguage(HttpContext, Server);
+                }
             }
             catch (Exception ex)
             {

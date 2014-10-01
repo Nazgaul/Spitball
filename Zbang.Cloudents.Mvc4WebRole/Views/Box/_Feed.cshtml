@@ -3,10 +3,10 @@
 
 <section class="boxFeed" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
     <form class="feedForm" name="qnaQform" focus-form="feedOpen"
-          ng-submit="postQuestion(qnaQform.$valid);" novalidate>
+          ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
         <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
-        <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content"
+        <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                   ng-focus="checkAuth()"></textarea>
         <ul class="attachedList">
             <li class="attachedItem" ng-repeat="file in qFormData.files">
@@ -15,7 +15,7 @@
             </li>
         </ul>
         <div class="bottomTA" tabindex="0">
-            <button type="submit" class="rFloat btn1" ng-disabled="!qnaQform.$valid ">@SharedResources.Post</button>
+            <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content">@SharedResources.Post</button>
         </div>
         <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
             <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
@@ -43,7 +43,6 @@
                 </ul>
 
                 <div class="shareBtn lFloat">
-                    <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
                     <label for="boxShare" class="iconTop">@SharedResources.Share</label>
                 </div>
                 <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">

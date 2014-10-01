@@ -25,16 +25,16 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("question");
             }
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
 
             User = user;
             Box = box;
-            Text = text.Trim();
+            if (text != null)
+            {
+                text = text.Trim();
+            }
+            Text = text;
             DateTimeUser = new UserTimeDetails(user.Email);
             Question = question;
             MarkAnswer = false;
