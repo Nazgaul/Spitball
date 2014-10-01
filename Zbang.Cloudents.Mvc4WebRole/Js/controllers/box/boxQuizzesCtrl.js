@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', 'sBox',  'sNewUpdates', 'sUserDetails','sQuiz',
-        function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
+		['$scope', '$rootScope', '$timeout', 'sBox', 'sBoxData', 'sNewUpdates', 'sUserDetails',
+        function ($scope, $rootScope, $timeout, sBox, sBoxData, sNewUpdates, sUserDetails) {
             var jsResources = window.JsResources;
 
             
@@ -9,40 +9,27 @@
                     thumb: 'thumb',
                     list: 'list'
                 },
-                itemsLimit: 50
+                itemsLimit: 21
             };
 
-            $scope.qOptions =  {
+            $scope.qOptions, {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
                 manageTab: false,
                 starsLength: 5,
                 starsWidth: 69,
             };
-           // $scope.quizzes = [];
-            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
-                var data = response.success ? response.payload : [];
-                $scope.quizzes = _.map(data, function (quiz) {
-                    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
-                    return quiz;
-                });
-                //_.forEach($scope.quizzes, function (quiz) {
-                //    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
-                //});
 
-                $scope.quizzes.sort(sort);
-                //$scope.filteredItems = $filter('filter')($scope.items, filterItems);
-                $scope.options.loader = false;
-
+            $scope.quizzes = [];           
+            _.forEach($scope.quizzes, function (quiz) {
+                quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
             });
-                      
-           
 
-           // $scope.quizzes.sort(sort);
+            $scope.quizzes.sort(sort);
 
-            //$timeout(function () {
-            //    $scope.options.loader = false;
-            //}, 1000);
+            $timeout(function () {
+                $scope.options.loader = false;
+            }, 1000);
 
             //#region quiz
             $scope.addQuiz = function () {
@@ -69,7 +56,7 @@
                         id: item.id,
                     }
 
-                    sQuiz.delete(data).then(remove);
+                    Quiz.delete(data).then(remove);
 
                 });
 
@@ -103,16 +90,16 @@
 
             //#region view
             $scope.changeView = function (view) {
-                if ($scope.qOptions.currentView === view) {
+                if ($scope.options.currentView === view) {
                     return;
                 }
                 $scope.qOptions.itemsLimit = consts.itemsLimit;
-                $scope.qOptions.lastView = $scope.qOptions.currentView;
+                $scope.qOptions.lastView = $scope.options.currentView;
                 $scope.qOptions.currentView = view;
             };
 
             $scope.getView = function () {
-                return $scope.qOptions.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
+                return $scope.options.currentView === consts.view.thumb ? 'quizThumbView' : 'quizListView';
             };
 
             //function resetLastView() {
@@ -131,8 +118,8 @@
                 }
 
                 var quiz, index;
-                quiz = _.find($scope.quizzes, function (x) {
-                    return x.id === quizItem.quizId;
+                quiz = _.find($scope.quizzes, function (quiz) {
+                    return quiz.id === data.quizId;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 
@@ -157,8 +144,8 @@
                 }
 
                 var quiz, index;
-                quiz = _.find($scope.quizzes, function (x) {
-                    return x.id === data.quizId;
+                quiz = _.find($scope.quizzes, function (quiz) {
+                    return quiz.id === data.quizId;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 

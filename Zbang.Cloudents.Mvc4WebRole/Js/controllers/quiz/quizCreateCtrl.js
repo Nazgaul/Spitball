@@ -94,12 +94,6 @@
     };
 
     $scope.closeQuiz = function (isValid) {
-
-        if ($scope.isEmptyQuiz()) {
-            $rootScope.options.quizOpen = false;
-            return;
-        }
-
         var modalInstance = $modal.open({
             windowClass: 'quitQuiz',
             templateUrl: 'quizMenuTemplate',

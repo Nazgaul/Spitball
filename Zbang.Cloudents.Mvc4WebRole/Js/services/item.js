@@ -49,16 +49,7 @@
             deleteReply: function(data) {
                 return ajaxRequest(data, $http.post, 'DeleteCommentReply/');
 
-            },
-            rename : function(data) {
-                return ajaxRequest(data, $http.post, 'Rename/');
-            },
-            flag: function(data) {
-                return ajaxRequest(data, $http.post, 'FlagRequest/');
-            },
-            rate: function (data) {
-                return ajaxRequest(data, $http.post, 'Rate/');
             }
-        };
+    };
     }
     ]);

@@ -14,30 +14,21 @@
 
         };
 
-        if ($location.search()['q']) {
-            var query = $location.search()['q'];
-            $scope.params.search = query;
-            search();
-        }
-        else {
+        Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
+            allProducts = response.payload;
+            $scope.products = allProducts;
 
-            Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
-                allProducts = response.payload;
-                $scope.products = allProducts;
-            });
+            $timeout(function () {
+                $scope.$emit('viewContentLoaded');
+                //    if ($routeParams.categoryId) {
+                //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+                //            $window.scrollTo(0, 400);
+                //        }
 
-            
-        }
-        
-        $timeout(function () {
-            $scope.$emit('viewContentLoaded');
-            //    if ($routeParams.categoryId) {
-            //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
-            //            $window.scrollTo(0, 400);
-            //        }
-
-            //    }
+                //    }
+            }, 0);
         });
+
 
         $scope.addProducts = function () {
             $scope.params.maxProducts += consts.productsIncrement;
@@ -69,7 +60,11 @@
         //        $scope.params.maxProducts = consts.productsIncrement;
         //    });
         //}, 150);
-    
+        if ($location.search()['q']) {
+            var query = $location.search()['q'];
+            $scope.params.search = query;
+            search();
+        }
 
         $scope.search = function (e) {
             e.preventDefault();
@@ -117,6 +112,7 @@
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
+            //$location.search({ q: $scope.params.search });
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;

@@ -11,10 +11,12 @@
 
              if (!sGoogle.isAuthenticated()) {
                  sGoogle.initGApi().then(function () {
-                     sGoogle.checkAuth(true).then(function (response) { });
+                     sGoogle.checkAuth(true).then(function (response) {});
                  });
              }
-             sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+             if (!sFacebook.isAuthenticated()) {
+                 sFacebook.login().then(function (response) { });
+             }
 
 
              $scope.params = {
@@ -33,15 +35,12 @@
 
              $scope.filterContacts = function () {
                  if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
-                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                      return;
                  }
 
                  $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
 
              };
-
-             $scope.selectState(states.facebook);
 
              $scope.inviteContact = function (contact) {
 
@@ -65,10 +64,6 @@
                          to: contact.id
                      }).then(function (response) {
                          $scope.params.facebookInvite = false;
-
-                         if (!response) {
-                             return;
-                         }
                          contact.invited = true;
 
                          var data = {
@@ -90,21 +85,18 @@
 
                  }
              };
-             
-             $scope.socialConnect = function () {
-                 if (currentState === states.facebook) {
-                     sFacebook.loginFacebook().then(function (response) {
-                         $scope.selectState(states.facebook);
-                     });
-                     return;
-                 }
-                 if (currentState === states.google) {
-                     sGoogle.checkAuth(false).then(function (response) {
-                         $scope.selectState(states.google);
-                     });
-                     return;
-                 }
-             };     
+
+             $scope.facebookConnect = function () {
+                 sFacebook.login().then(function (response) {
+                     $scope.selectState(states.facebook);
+                 });
+             };
+
+             $scope.googleConnect = function () {
+                 sGoogle.checkAuth(true).then(function (response) {
+                     $scope.selectState(states.google);
+                 });
+             };
 
              $scope.addContacts = function () {
                  $scope.params.contactLimit += $scope.params.contactPage;

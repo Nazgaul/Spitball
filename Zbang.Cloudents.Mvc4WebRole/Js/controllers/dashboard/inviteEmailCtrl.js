@@ -14,11 +14,6 @@
                  validEmails: 0
              };
 
-             $scope.focusInput = function() { //fix for clicking white space
-                 sFocus('emailInput');
-             };
-
-
              $scope.submit = function (formScope) {
                  for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
                      if ($scope.formData.emailList[i].invalid) {
@@ -89,7 +84,7 @@
 
 
              $scope.keyupListener = function (e) {
-                 if (e.keyCode === 188 || e.keyCode === 186 || e.keyCode === 9 || e.keyCode === 32) { // , ; TAB 
+                 if (e.keyCode === 188 || e.keyCode === 186 || e.keyCode === 9) { // , ; TAB 
                      addEmail();
                  }
              };

@@ -66,7 +66,6 @@ mUser.controller('UserCtrl',
         $scope.sendUserMessage = function () {
 
             var modalInstance = $modal.open({
-                windowClass: "personalMsg",
                 templateUrl: userConstants.partials.message,
                 controller: 'ShareCtrl',
                 backdrop: 'static',

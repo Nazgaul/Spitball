@@ -5,18 +5,6 @@ mBox.factory('sBox',
 
     function ($http, $q) {
         var Box = '/Box/';
-        function ajaxRequest(data, type, link) {
-            var dfd = $q.defer();
-            if (type === $http.get) {
-                data = { params: data };
-            }
-            type(Box + link, data).success(function (response) {
-                dfd.resolve(response);
-            }).error(function (response) {
-                dfd.reject(response);
-            });
-            return dfd.promise;
-        }
         return {
             createPrivate: function (data) {
                 var dfd = $q.defer();
@@ -39,16 +27,34 @@ mBox.factory('sBox',
                 return dfd.promise;
             },
             update: function (data) {
-                return ajaxRequest(data, $http.post, 'UpdateInfo/');
+                var dfd = $q.defer();
+                $http.post(Box + 'UpdateInfo/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             items: function (data) {
-                return ajaxRequest(data, $http.get, 'Items/');
-            },
-            quizes: function (data) {
-                return ajaxRequest(data, $http.get, 'Quizes/');
+                var dfd = $q.defer();
+                $http.get(Box + 'Items/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             info: function (data) {
-                return ajaxRequest(data, $http.get, 'Data/');
+                var dfd = $q.defer();
+                $http.get(Box + 'Data/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             createTab: function (data) {
                 var dfd = $q.defer();
@@ -61,20 +67,54 @@ mBox.factory('sBox',
                 return dfd.promise;
             },
             deleteTab: function (data) {
-                return ajaxRequest(data, $http.post, 'DeleteTab/');
+                var dfd = $q.defer();
+                $http.post(Box + 'DeleteTab/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             renameTab: function (data) {
-                return ajaxRequest(data, $http.post, 'RenameTab/');
+                var dfd = $q.defer();
+                $http.post(Box + 'RenameTab/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             addItemsToTab: function (data) {
-                return ajaxRequest(data, $http.post, 'AddItemToTab/');
+                var dfd = $q.defer();
+                $http.post(Box + 'AddItemToTab/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             members: function (data) {
-                return ajaxRequest(data, $http.get, 'Members/');
+                var dfd = $q.defer();
+                $http.get(Box + 'Members/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             updateInfo: function (data) {
-                return ajaxRequest(data, $http.post, 'UpdateInfo/');
-                
+                var dfd = $q.defer();
+                $http.post(Box + 'UpdateInfo/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             invite: function (data) {
                 var dfd = $q.defer();
@@ -87,13 +127,34 @@ mBox.factory('sBox',
                 return dfd.promise;
             },
             removeUser: function (data) {
-                return ajaxRequest(data, $http.post, 'RemoveUser/');
+                var dfd = $q.defer();
+                $http.post(Box + 'RemoveUser/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             remove: function (data) {
-                return ajaxRequest(data, $http.post, 'Delete2/');
+                var dfd = $q.defer();
+                $http.post(Box + 'Delete2/', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             notification: function (data) {
-                return ajaxRequest(data, $http.get, 'GetNotification/');
+                var dfd = $q.defer();
+                $http.get(Box + 'GetNotification/', { params: data }).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             },
             follow: function (data) {
                 var dfd = $q.defer();
@@ -104,9 +165,6 @@ mBox.factory('sBox',
                 });
 
                 return dfd.promise;
-            },
-            tabs: function (data) {
-                return ajaxRequest(data, $http.get, 'Tabs/');
             }
         };
     }

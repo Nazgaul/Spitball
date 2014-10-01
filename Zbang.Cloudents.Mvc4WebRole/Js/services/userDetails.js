@@ -5,7 +5,7 @@
      var userData = {
          id: null,
          name: null,
-         image: $('body').data('pic'),
+         image : $('body').data('pic'),
          score: 0,
          url: null,
          university: null,
@@ -18,7 +18,7 @@
          setDetails: function (data) {
              data = data || {};
              if (!data.id) {
-                 return;
+                 return;   
              }
              isAuthenticated = true;
              userData = {
@@ -27,13 +27,13 @@
                  image: data.image,
                  score: parseInt(data.score, 10),
                  url: data.url,
-                 university: {
-                     // id: data.universityId,
+                 university:  {
+                    // id: data.universityId,
                      name: data.libName,
                      image: data.libImage
                  },
                  department: {
-                     id: data.departmentId,
+                     id:data.departmentId,
                      name: data.departmentName
 
                  }
@@ -49,11 +49,11 @@
          },
 
          getUniversity: function () {
-             if (_.isEmpty(userData.university)) {
+             if (_.isEmpty(userData.university))  {
                  return false;
              }
              return userData.university;
-
+            
          },
          //setUniversity: function (uniName) {
          //    if (uniName) {
@@ -68,8 +68,9 @@
              //    return false;
              //}
              return userData.department;
+             
          },
-         setDepartment: function (department) {
+         setDepartment: function (department) {             
              userData.department = department;
          }
      };
