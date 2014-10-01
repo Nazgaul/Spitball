@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -911,7 +911,7 @@ input[type="radio"][disabled] + label:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 430px;
+  width: 490px;
   margin: 0 auto;
   padding: 20px 50px;
   background: #f5f5f5;
@@ -1026,7 +1026,7 @@ iframe .registerFirst.store {
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 243px;
+  width: 210px;
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
@@ -2619,3 +2619,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */
