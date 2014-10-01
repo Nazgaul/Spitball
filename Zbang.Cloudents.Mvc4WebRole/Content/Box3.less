@@ -729,20 +729,17 @@
         background: #fff;
         margin-top: 28px;
     }
-
+    svg {
+        width: 60px;
+        height: 46px;
+        fill: @color;
+        display: block;
+        margin: 20px auto 0;
+    }
     .emptyBoxDropText {
         display: inline-block;
         font-size: 13px;
         margin-top: 18px;
-
-        &:before {
-            content: '';
-            display: block;
-            margin: 0 auto 16px;
-            width: 50px;
-            height: 43px;
-            background: @boxSprite 0 -56px no-repeat;
-        }
     }
 
     .uploadFilesBtn {
