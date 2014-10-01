@@ -1070,8 +1070,7 @@ iframe .registerFirst.store {
             margin-right: 32px; //rtl (because image is not symmetrical)
         }
         .facebook, .emailBtnWpr {
-            width: 210px;
-            //margin: 0 auto;
+            width: 243px; //diff rtl
             margin: 0 30px;
             min-width: 0;
             display: inline-block;
@@ -1095,6 +1094,9 @@ iframe .registerFirst.store {
             position: relative;
             left: -6px; //rtl
             top: 3px;
+            p {
+                display: none; //don't need to display disclaimer 'we'll never use...' on store popup
+            }
         }
     }
     &.step2 {

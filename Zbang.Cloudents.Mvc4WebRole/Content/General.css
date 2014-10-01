@@ -1026,7 +1026,7 @@ iframe .registerFirst.store {
 }
 .registerFirst.store .facebook,
 .registerFirst.store .emailBtnWpr {
-  width: 210px;
+  width: 243px;
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
@@ -1050,6 +1050,9 @@ iframe .registerFirst.store {
   position: relative;
   left: -6px;
   top: 3px;
+}
+.registerFirst.store .signupBtns p {
+  display: none;
 }
 .registerFirst.step2 {
   /*height: 942px; // height needed in order to vertically center

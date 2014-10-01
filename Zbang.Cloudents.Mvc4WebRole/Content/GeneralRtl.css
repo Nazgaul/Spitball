@@ -146,7 +146,7 @@ input[type="radio"].radio:checked + label:after {
   /*rtl*/
   left: auto;
 }
-/*#region Welcome Store */
+/*#region Welcome Store*/
 .registerFirst.store:before {
   margin: 0 auto 0 32px;
 }
