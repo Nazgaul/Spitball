@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     command.MiddleName,
-                    command.LastName, command.Sex, command.MarketEmail);
+                    command.LastName, command.Sex, command.MarketEmail,command.Culture);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
             }

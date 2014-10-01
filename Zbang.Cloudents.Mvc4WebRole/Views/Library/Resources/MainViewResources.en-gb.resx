@@ -120,11 +120,20 @@
   <data name="AddCourse" xml:space="preserve">
     <value>Add a module</value>
   </data>
+  <data name="AddSchool" xml:space="preserve">
+    <value>Add new university</value>
+  </data>
+  <data name="CantFind" xml:space="preserve">
+    <value>Can't find your university?</value>
+  </data>
   <data name="CourseCode" xml:space="preserve">
     <value>Module code</value>
   </data>
   <data name="CourseName" xml:space="preserve">
     <value>Module name</value>
+  </data>
+  <data name="Courses" xml:space="preserve">
+    <value>modules</value>
   </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>Create a new module</value>
@@ -132,5 +141,20 @@
   <data name="EmptyLib" xml:space="preserve">
     <value>No departments or modules have been added yet.
                 Be the first to create them.</value>
+  </data>
+  <data name="SchoolsFrom" xml:space="preserve">
+    <value>Universities from</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for your university</value>
+  </data>
+  <data name="SearchSchool" xml:space="preserve">
+    <value>Search for a university or choose from list</value>
+  </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>Upload university logo</value>
+  </data>
+  <data name="WelcomeAcademic" xml:space="preserve">
+    <value>Choose your university</value>
   </data>
 </root>

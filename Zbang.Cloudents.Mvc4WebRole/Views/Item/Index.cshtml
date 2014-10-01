@@ -2,12 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div id="item" class="page itemPage" ng-controller="ItemCtrl">
-    @*<h1>@ViewBag.Description</h1>*@
-
+<div class="page itemPage" ng-controller="ItemCtrl">
     <div class="topBar">
         <div class="leftPart">
-            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl}}">
+            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{item.boxName}}</h2>
                 <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
@@ -74,7 +72,7 @@
                 <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <button type="button" class="itemFlag rFloat" ng-class="{canFlag: canFlag()}" ng-click=" flagitemwindow()">
+            <button type="button" class="itemFlag rFloat" ng-class="{canFlag: canFlag()}" ng-click=" flagItemWindow()">
                 <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
                 <span>@ItemsResources.Flag</span>
             </button>
@@ -115,7 +113,7 @@
                 <div class="textareaWpr">
                     <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction class="commentsTextarea" required></textarea>
                     <div class="rFloat">
-                        <button ng-show="showBtn" ng-disabled="commentp" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
+                        <button ng-show="showBtn" ng-disabled="commentp || addAnnotation.$invalid" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
                         <button ng-show="showBtn" type="reset" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
                     </div>
                 </div>
@@ -137,7 +135,6 @@
                                     <span user-tooltip-popup="{{reply.userId}}" class="user-name elps">{{reply.userName}}</span>
                                 </div>
                                 <p>{{reply.comment}}</p>
-                                @*<button type="button" class="closeDialog topMost" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)"></button>*@
                                 <button type="button" class="trash" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)">
                                     <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
                                 </button>
@@ -145,11 +142,11 @@
                         </ul>
                         <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
                         <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
-                        <form name="addReplyF" novalidate ng-submit="addReply(comment)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
+                        <form name="addReplyF" novalidate ng-submit="addReply(comment,addReplyF.$valid)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
                             <div class="textareaWpr">
                                 <textarea text-direction ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
                                 <div class="rFloat">
-                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp">@SharedResources.Post</button>
+                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp || addReplyF.$invalid">@SharedResources.Post</button>
                                     <button type="reset" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
                                 </div>
                             </div>
@@ -159,7 +156,7 @@
             </div>
         </section>
     </div>
-    <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init">
+    <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init" load-spinner-time="1000">
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
             <div load-spinner="load.contentLoadMore" load-spinner-type="page"></div>

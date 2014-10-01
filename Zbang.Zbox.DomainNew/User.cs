@@ -13,28 +13,16 @@ namespace Zbang.Zbox.Domain
     {
         protected User()
         {
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserBoxRel = new HashSet<UserBoxRel>();
 
             Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
-            Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
-           
+
         }
 
-        //for university pupose only
-        protected User(string email, string userName, string smallImage, string largeImage)
-            : this()
-        {
-            if (userName == null) throw new ArgumentNullException("userName");
-            Email = email;
-            Name = userName.Trim();
-            IsRegisterUser = false;
-            Image = smallImage;
-            ImageLarge = largeImage;
-        }
         public User(string email, string smallImage, string largeImage)
             : this()
         {
@@ -43,10 +31,11 @@ namespace Zbang.Zbox.Domain
             IsRegisterUser = false;
             Image = smallImage;
             ImageLarge = largeImage;
+            Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
         }
-       
+
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex, bool marketEmail)
+            string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture)
             : this()
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
@@ -65,7 +54,7 @@ namespace Zbang.Zbox.Domain
             CreateName();
             Sex = sex;
             MarketEmail = marketEmail;
-
+            UpdateLanguage(culture);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
@@ -96,8 +85,8 @@ namespace Zbang.Zbox.Domain
         public virtual long Id { get; protected set; }
 
         public virtual string Email { get; set; }
-        public virtual string Culture { get; set; }
-        
+        public virtual string Culture { get; private set; }
+
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; protected set; }
 
@@ -203,16 +192,16 @@ namespace Zbang.Zbox.Domain
             CreateName();
         }
 
-        public void UpdateUserLanguage(string culture)
+        public void UpdateLanguage(string culture)
         {
             if (!Languages.CheckIfLanguageIsSupported(culture))
             {
-                throw new ArgumentException("Language is not supported");
+                culture = System.Globalization.CultureInfo.CurrentCulture.Name;
             }
             Culture = culture;
         }
 
-        public void UpdateUserUniversity(University university,
+        public void UpdateUniversity(University university,
             string userCode, RussianDepartment department, string groupNumber,
             string registerNumber)
         {

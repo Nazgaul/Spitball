@@ -1,26 +1,47 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 
-<div ng-controller="BoxQuizzesCtrl">
-    <button type="button" class="iconTxt btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
+<div class="boxItems" ng-controller="BoxQuizzesCtrl">
+    
+    <div class="boxItemsHeader">
+
+        <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
+            <p>@MainViewResources.QuizEmpty</p>
+            <div class="quizEmpty">
+                <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
+            </div>
+        </div>
+
+        <button type="button" class="btn1 lFloat quizBtn" ng-disabled="$root.options.quizOpen" ng-show="!options.managetab" ng-click="addQuiz()">@QuizResources.CreateQuiz</button>
+
+
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
+            <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
+        </button>
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="quizzes.length > 0">
+            <svg><use xlink:href="~/Images/Defs.svg#thumbView" /></svg>
+        </button>
+    </div>
+
+    
     <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
             ng-include="getView(item)"
             popover-template="boxQuizTooltip" popover-append-to-body="true"
-            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="right">
+            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="left">
         </li>
-    </ol> 
+    </ol>
 </div>
 
 
 
 <script type="text/ng-template" id="quizThumbView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
-        <div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        @*<div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>*@
         <div class="stars">
             <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
@@ -29,13 +50,13 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
 </script>
 
 <script type="text/ng-template" id="quizListView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="imgBorder"></div>
         <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
 
@@ -51,7 +72,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
     </li>

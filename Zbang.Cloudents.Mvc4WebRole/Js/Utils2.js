@@ -928,15 +928,9 @@
         // elemList.push(elem);
     };
 
-    //var setTitle = function () {
-    //    var name = $('[data-name]:visible').data('name');
-    //    if (name) {
-    //        document.title = 'Cloudents ' + $('[data-name]:visible').data('name');
-    //    }
-    //    else {
-    //        document.title = 'Cloudents';
-    //    }
-    //};
+    var setTitle = function(text) {
+        document.title = 'Cloudents ' + text;
+    };
 
     var getElementPosition = function (e) {
         var o = e;
@@ -1234,7 +1228,7 @@
     cd.shareFb = shareFb;
     cd.postFb = postFb;
     cd.getParameterFromUrl = getParameterFromUrl;
-    //cd.setTitle = setTitle;
+    cd.setTitle = setTitle;
 
     cd.clone = clone;
 

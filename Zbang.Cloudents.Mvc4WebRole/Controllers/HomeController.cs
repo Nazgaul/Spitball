@@ -138,30 +138,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Ajax, HttpPut]
-        public async Task<ActionResult> Statistics(Statistics model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    model = new Statistics();
-                }
-                if (model.Items == null)
-                {
-                    model.Items = new StatisticItem[0];
-                }
-                await m_QueueProvider.Value.InsertMessageToTranactionAsync(new StatisticsData4(model.Items.Select(s =>
-                      new StatisticsData4.StatisticItemData { Id = s.Uid, Action = (int)s.Action }), GetUserId(false), DateTime.UtcNow));
+        //[Ajax, HttpPut]
+        //public async Task<ActionResult> Statistics(Statistics model)
+        //{
+        //    try
+        //    {
+        //        if (model == null)
+        //        {
+        //            model = new Statistics();
+        //        }
+        //        if (model.Items == null)
+        //        {
+        //            model.Items = new StatisticItem[0];
+        //        }
+        //        await m_QueueProvider.Value.InsertMessageToTranactionAsync(new StatisticsData4(model.Items.Select(s =>
+        //              new StatisticsData4.StatisticItemData { Id = s.Uid, Action = (int)s.Action }), GetUserId(false), DateTime.UtcNow));
 
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                if (model != null) TraceLog.WriteError("On Statistics" + model, ex);
-                return Json(new JsonResponse(true));
-            }
-        }
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (model != null) TraceLog.WriteError("On Statistics" + model, ex);
+        //        return Json(new JsonResponse(true));
+        //    }
+        //}
 
 
         [DonutOutputCache(Duration = TimeConsts.Day,
@@ -326,55 +326,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return nodes;
         }
-
-
-        //[OutputCache(Duration = TimeConsts.Day, VaryByParam = "none")]
-        //public ActionResult Bootstrap()
-        //{
-        //    var routes = Server.MapPath("~/Js/bootstrap.js");
-        //    var str = System.IO.File.ReadAllText(routes);
-
-        //    //var jsFileLocations = BundleConfig.JsRemoteLinks();
-        //    var matches = Regex.Matches(str, @"\{(.*?)\}");
-        //    foreach (Match match in matches)
-        //    {
-        //        var matchWithoutBrackets = match.Value.Replace("{", string.Empty).Replace("}", string.Empty);
-        //        var filesToFind = matchWithoutBrackets.Split('-');
-        //        var jsFileLocation = BundleConfig.JsRemoteLinks(filesToFind[0]);
-        //        var files = jsFileLocation.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-        //        var retVal = files[0];
-        //        if (filesToFind.Length == 2)
-        //        {
-
-        //            retVal = files.FirstOrDefault(
-        //                f =>
-        //                    String.Equals(f.Trim().Replace(".js", string.Empty), filesToFind[1],
-        //                        StringComparison.CurrentCultureIgnoreCase))
-        //                         ?? files[0];
-        //        }
-
-        //        str = str.Replace(match.Value, retVal.Replace(".js", string.Empty).Trim());
-
-
-        //    }
-        //    //foreach (var jsFileLocation in jsFileLocations)
-        //    //{
-
-        //    //    var files = jsFileLocation.Value.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-        //    //    matches.
-        //    //    //var jsFiles = jsFileLocation.Value.Trim();
-
-        //    //    //sb.Replace("{" + jsFileLocation.Key + "}", jsFiles);
-        //    //}
-        //    if (!Request.IsLocal)
-        //    {
-        //        var minifer = new Minifier();
-        //        str = minifer.MinifyJavaScript(str);
-        //    }
-        //    return Content(str, "application/javascript");
-        //}
 
 
         [ZboxAuthorize]

@@ -68,7 +68,6 @@ body {
         .quizTitle {
             margin: 20px auto;
             width: 800px;
-            color: @textColor;
             display: block;
             max-width: none; //override
         }
@@ -401,18 +400,21 @@ body {
 .quizPreviewTop {
     position: fixed;
     height: @header-height;
-    background: #fff;
     border-bottom: 1px solid @borderColor;
     width: 100%;
     padding-left: ~'-webkit-calc(50% - 400px)'; /*rtl*/
     padding-left: ~'calc(50% - 400px)'; /*rtl*/
     .boxSizing;
+    background: #0f0f0f;
+    color: #fff;
 }
 .quizPreviewScroll {
     height: ~'-webkit-calc(100% - @{header-height})';
     height: ~'calc(100% - @{header-height})'; 
     margin-top: 50px;
     overflow: auto;
+    background: #282828;
+    color: #fff;
 }
 .quizPreview
 {
@@ -439,20 +441,10 @@ body {
         z-index: 1;
         display:none;
         margin: 8px 10px 0 0; /*rtl*/
+        color: #fff;
 
         &:hover:after {
             background-position: -204px -35px;
-        }
-
-        &:after {
-            .pseudo;
-            width: 35px;
-            height: 35px;
-            background: @common-sprite -204px 0 no-repeat;
-            border-radius: 18px;
-            vertical-align: middle;
-            .flipH(); /*rtl*/
-            margin-left: 5px; /*rtl*/
         }
     }
 
@@ -473,6 +465,11 @@ body {
         }
     }
 }
+.backTxt {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 8px;
+}
 .quizPrevWpr
 {
     width: 800px;
@@ -482,6 +479,7 @@ body {
     padding: 0 20px 15px 20px;
     .boxSizing;
     letter-spacing: 0;
+    color: @textColor;
     //border: 2px solid @color;
     //box-shadow: inset 0 0 3px @color;
 }
@@ -783,13 +781,15 @@ body {
         border-left: 1px solid #797979; //rtl
         color: @borderColor;
         margin: 10px -5px 0 5px;
+         font-size:12px;
         &:before {
             content: '';
             display: block;
             width: 38px;
 	        height: 23px;
 	        background: @quiz-sprite 0 -38px no-repeat;
-            margin: 2px auto 5px;
+            margin: 2px auto 6px;
+           
         }
     }  
 
@@ -807,6 +807,7 @@ body {
         color: @borderColor;
         + .rFloat {
             font-size: 12px;
+            margin-right:7px;
             color: @borderColor;
         }
     }

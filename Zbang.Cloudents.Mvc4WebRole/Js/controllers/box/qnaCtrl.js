@@ -1,8 +1,8 @@
 ﻿//define('qnaCtrl', ['app'], function (app) {
 mBox.controller('QnACtrl',
-['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', 'sBox', 'sFocus',
+['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 
-    function ($scope, sUserDetails, sNewUpdates, sQnA, sBox, sFocus) {
+    function ($scope, sUserDetails, sNewUpdates, sQnA, $rootScope) {
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;
@@ -10,8 +10,8 @@ mBox.controller('QnACtrl',
             that.id = data.id;
             that.userName = data.userName;
             that.userImage = data.userImage;
-            that.userId = data.userUid; //uid\
-            that.content = data.content.replace(/\n/g, '<br/>');
+            that.userId = data.userId;
+            that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
             that.createTime = data.creationTime;
             that.isNew = sNewUpdates.isNew($scope.boxId, 'questions', that.id);
             that.answers = data.answers.map(function (answer) {
@@ -21,8 +21,8 @@ mBox.controller('QnACtrl',
                 }
                 return answerObj;
             });
-            that.files = data.files.map(function (file) { return new File(file); });            
-            that.bestAnswer = findBestAnswer(that.answers);
+            that.files = data.files.map(function (file) { return new File(file); });
+            that.aFormData = {};
         }
 
         function Answer(data) {
@@ -32,7 +32,7 @@ mBox.controller('QnACtrl',
             that.userName = data.userName;
             that.userImage = data.userImage;
             that.userId = data.userId;
-            that.content = data.content.replace(/\n/g, '<br/>');
+            that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
             that.rating = data.rating;
             that.iRate = data.iRate;
             that.isAnswer = data.answer;
@@ -57,18 +57,12 @@ mBox.controller('QnACtrl',
             that.itemUrl = data.url || data.itemUrl;
         }
 
-        var states = {
-            none: 0,
-            empty: 1,
-            questions: 2,
-            answers: 3
-        };
+
 
         $scope.info = {
             //$scope.boxId = we get this from parent scope no info
             userName: sUserDetails.getDetails().name,
-            userImage: sUserDetails.getDetails().image,
-            selectedQuestion: null,
+            userImage: sUserDetails.getDetails().image
         };
 
         $scope.qFormData = {};
@@ -84,16 +78,16 @@ mBox.controller('QnACtrl',
 
             $scope.options.loader = false;
 
-            if (!questions) {
-                $scope.info.state = states.none;
-                return;
-            }
-            if (!questions.length) {
-                $scope.info.state = states.empty;
-                return;
-            }
+            //if (!questions) {
+            //  //  $scope.info.state = states.none;
+            //    return;
+            //}
+            //if (!questions.length) {
+            //    $scope.info.state = states.empty;
+            //    return;
+            //}
 
-            $scope.info.state = states.questions;
+            //$scope.info.state = states.questions;
         });
 
         $scope.answersLength = function (question) {
@@ -109,47 +103,6 @@ mBox.controller('QnACtrl',
             return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().score > 1000000;
         };
 
-        $scope.showAllAnswers = function (question) {
-            $scope.qFormData = {};
-
-            $scope.info.selectedQuestion = question;
-            
-            
-
-            
-            question.isNew = false;
-            sNewUpdates.setOld($scope.boxId, 'questions', question.id);
-
-            for (var i = 0, l = question.answers.length; i < l; i++) {
-                question.answers[i].isNew = false;
-                sNewUpdates.setOld($scope.boxId, 'answers', question.answers[i].id);
-            }
-
-            //cleartooltip ?
-
-            $scope.info.state = states.answers;
-            
-            sFocus('qna:answer');
-            //TODO: temp solution
-            window.setTimeout(cd.updateTimeActions, 1000);
-
-
-        };
-
-        $scope.showAllQuestion = function () {
-
-            $scope.info.selectedQuestion = null;
-            //refresh sccrooll
-            //todo: temp solution
-            window.setTimeout(cd.updateTimeActions, 1000);
-            if ($scope.info.questions) {
-                $scope.info.state = states.questions;
-                return;
-            }
-
-            $scope.info.state = states.empty;
-            
-        };
 
         $scope.postQuestion = function () {
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') {
@@ -157,12 +110,8 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            $scope.qFormData.boxUid = $scope.boxId;
+            $scope.qFormData.boxId = $scope.boxId;
 
-            cd.pubsub.publish('addPoints', { type: 'question' });
-
-            cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
-            //            cd.pubsub.publish('addPoints', { type: 'question' });
             var fileDisplay = $scope.qFormData.files;
             if ($scope.qFormData.files && $scope.qFormData.files.length) {
                 $scope.qFormData.files = $scope.qFormData.files.map(function (file) {
@@ -171,10 +120,15 @@ mBox.controller('QnACtrl',
             }
 
             sQnA.post.question($scope.qFormData).then(function (response) {
-                var questionId;
-                if (response.success) {
-                    questionId = response.payload;
+                if (!response.success) {
+                    alert('error');
+                    return;
                 }
+                cd.pubsub.publish('addPoints', { type: 'question' });
+                cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
+
+                var questionId = response.payload;
+
                 var obj = {
                     id: questionId,
                     userName: sUserDetails.getDetails().name,
@@ -191,19 +145,11 @@ mBox.controller('QnACtrl',
                 $scope.$broadcast('update-scroll');
                 $scope.qFormData = {};
 
-                if ($scope.info.state === states.empty) {
-                    $scope.info.state = states.questions;
-                }
             });
-
-
-            //update time
-            //notify
-
         };
 
         $scope.postAnswer = function (question) {
-            
+
             if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') { //parent is box controller
                 alert(jsResources.NeedToFollowBox);
                 return;
@@ -224,10 +170,12 @@ mBox.controller('QnACtrl',
 
 
             sQnA.post.answer(question.aFormData).then(function (response) {
-                var answerId;
-                if (response.success) {
-                    answerId = response.payload;
+                if (!response.success) {
+                    alert('error');
+                    return;
                 }
+                var answerId = response.payload;
+
 
                 var obj = {
                     id: answerId,
@@ -246,7 +194,7 @@ mBox.controller('QnACtrl',
                 question.answers.push(new Answer(obj));
                 $scope.$broadcast('update-scroll');
 
-                question.bestAnswer = findBestAnswer(question.answers);
+                //question.bestAnswer = findBestAnswer(question.answers);
                 //updatetime
                 //notify
                 question.aFormData = {};
@@ -262,12 +210,12 @@ mBox.controller('QnACtrl',
                 //notify
             });
 
-            $scope.info.selectedQuestion = null;
-            if (!$scope.info.questions.length) {
-                $scope.info.state = states.empty;
-                return;
-            }
-            $scope.info.state = states.questions;
+            //$scope.info.selectedQuestion = null;
+            //if (!$scope.info.questions.length) {
+            //    //$scope.info.state = states.empty;
+            //    return;
+            //}
+            // $scope.info.state = states.questions;
 
 
         };
@@ -275,7 +223,7 @@ mBox.controller('QnACtrl',
         $scope.deleteAnswer = function (question, answer) {
             var index = question.answers.indexOf(answer);
             question.answers.splice(index, 1);
-            question.bestAnswer = findBestAnswer(question.answers);
+            //question.bestAnswer = findBestAnswer(question.answers);
 
             sQnA.delete.answer({ answerId: answer.id }).then(function () {//TODO SignalR notify
             });
@@ -303,7 +251,7 @@ mBox.controller('QnACtrl',
 
         var qAttach, aAttach, questionAttach;
         $scope.$on('FileAdded', function (event, data) {
-           var file = data.item;
+            var file = data.item;
             $scope.$apply(function () {
                 if (data.boxId !== $scope.boxId) {
                     return;
@@ -314,9 +262,6 @@ mBox.controller('QnACtrl',
                         $scope.qFormData.files = [];
                     }
                     $scope.qFormData.files.push(file);
-                    qAttach = false;
-                    questionAttach = null;
-
                     return;
                 }
 
@@ -325,19 +270,14 @@ mBox.controller('QnACtrl',
                         questionAttach.aFormData.files = [];
                     }
                     questionAttach.aFormData.files.push(file);
-                    aAttach = true;
-                    questionAttach = null;
                     return;
                 }
 
             });
         });
 
-        $scope.addQuestionAttachment = function () {
-            qAttach = true;
-            $scope.openUploadPopup(true).then(function (files) {
-                qAttach = false;
-
+        $scope.$on('qna:upload', function (e, files) {
+            if (qAttach) {
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
                     return file;
@@ -349,8 +289,30 @@ mBox.controller('QnACtrl',
                 }
 
                 $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
-            });
+
+                return;
+            }
+
+            if (aAttach) {
+
+                var mapped = files.map(function (file) {
+                    file.uid = file.id;
+                    return file;
+                });
+
+                if (!questionAttach.aFormData.files) {
+                    questionAttach.aFormData.files = mapped;
+                    return;
+                }
+                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);
+            }
+        });
+        $scope.addQuestionAttachment = function () {
+            aAttach = false;
+            qAttach = true;
+            $rootScope.$broadcast('openUpload', true);
         };
+
         $scope.removeQuestionAttachment = function (file) {
             var index = $scope.qFormData.files.indexOf(file);
             if (index !== -1) {
@@ -360,23 +322,9 @@ mBox.controller('QnACtrl',
 
         $scope.addAnswerAttachment = function (question) {
             aAttach = true;
+            qAttach = false;
             questionAttach = question;
-            $scope.openUploadPopup(true).then(function (files) {
-                aAttach = false;
-                questionAttach = null;
-
-                var mapped = files.map(function (file) {
-                    file.uid = file.id;
-                    return file;
-                });
-
-                if (!question.aFormData.files) {
-                    question.aFormData.files = mapped;
-                    return;
-                }
-                question.aFormData.files = question.aFormData.files.concat(mapped);
-
-            });
+            $rootScope.$broadcast('openUpload', true);
         };
         $scope.removeAnswerAttachment = function (question, file) {
             var index = question.aFormData.files.indexOf(file);
@@ -390,26 +338,22 @@ mBox.controller('QnACtrl',
                 cd.pubsub.publish('register', { action: true });
                 return false;
             }
-            
+
             return true;
         };
 
-        //function sortAnswers(a, b) {
-        //    if (a.isAnswer) {
-        //        return -1;
-        //    }
-        //    if (b.isAnswer) {
-        //        return 1;
-        //    }
-        //    if (a.createTime > b.createTime) {
-        //        return 1;
-        //    }
-        //    return -1;
-        //}
-
         function extractUrls(d) {
+            if (!d) {
+                return;
+            }
             var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
-            var matches = ko.utils.arrayGetDistinctValues(d.match(urlex));
+
+            var array = d.match(urlex) || [];
+            var matches = [];
+            for (var i = 0, j = array.length; i < j; i++) {
+                if (matches.indexOf(array[i]) < 0)
+                    matches.push(array[i]);
+            }
             if (!matches.length) {
                 return d;
             }
@@ -425,30 +369,5 @@ mBox.controller('QnACtrl',
             }
         }
 
-        function findBestAnswer(answers) {
-            for (var i = 0, l = answers.length; i < l; i++) {
-                if (answers[i].isAnswer) {
-                    return answers[i];
-                }
-            }
-
-            var lastRate = 0, answer;
-            angular.forEach(answers, function (a) {
-                if (a.rating > lastRate) {
-                    answer = a;
-                    lastRate = a.rating;
-                }
-            });
-
-            if (answer) {
-                return answer;
-            }
-
-            if (answers.length) {
-                return answers[0];
-            }
-
-            return null;
-        }
     }
 ]);

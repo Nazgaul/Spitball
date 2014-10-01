@@ -1,16 +1,15 @@
-﻿//define('boxCtrl', ['app'], function (app) {
-mBox = angular.module('mBox', ['ngDragDrop']);
+﻿mBox = angular.module('mBox', ['ngDragDrop']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook', 'sBoxData',
+         'sNewUpdates', 'sUserDetails', 'sFacebook','sUpload',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, Box, Item, Quiz, QnA, NewUpdates, UserDetails, Facebook, sBoxData) {
+                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sUpload) {
 
-            cd.pubsub.publish('box');//statistics
+            //cd.pubsub.publish('box');//statistics
 
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
@@ -22,11 +21,10 @@ mBox.controller('BoxCtrl',
             $scope.action = {};
 
             $scope.partials = {
-                createTab: '/Box/CreateTabPartial/',
-                uploader: '/Box/UploadPartial/',
-                uploadAddLink: '/Box/UploadLinkPartial/',
                 shareEmail: '/Share/MessagePartial/',
-                boxSettings: '/Box/SettingsPartial/'
+                boxSettings: '/Box/SettingsPartial/',
+                uploader: '/Box/UploadPartial/',
+                uploadAddLink: '/Box/UploadLinkPartial/'
             };
 
             $scope.popup = {
@@ -34,30 +32,32 @@ mBox.controller('BoxCtrl',
             }
 
             $scope.options = {
-
-                loader:true,
+                loader: true,
                 activeTab: 'feed'
             };
 
-            Box.info({ id: $scope.boxId}).then(function (response) {
-                var info = response.success ? response.payload : null;
+            sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
+
+            sBox.info({ id: $scope.boxId }).then(function (response) {
+                var info = response.success ? response.payload : null;
                 $scope.info = {
                     name: info.name,
-                    comments: info.comments,
                     courseId: info.courseId,
                     boxType: info.boxType,
-                    itemsLength: info.items,
-                    membersLength: info.members,                    
+                    date: info.date,
+                    itemsLength: info.items || 0,
+                    membersLength: info.members || 0,
+                    quizLength: info.quizes || 0,
                     ownerName: info.ownerName,
                     ownerId: info.ownerId,
                     privacy: info.privacySetting,
                     professor: info.professorName,
                     tabs: info.tabs,
                     userType: info.userType,
-                    uniCountry: info.uniCountry,
                     image: info.image,
-                    url: decodeURI($location.absUrl())
+                    url: decodeURI($location.absUrl()),
+                    inviteUrl: $location.url() + 'invite/'
                 };
 
                 $scope.strings = {
@@ -65,9 +65,7 @@ mBox.controller('BoxCtrl',
                     invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
                 }
 
-                $scope.info.currentTab = null;
-           
-                $scope.info.showJoinGroup = $scope.isUserFollowing();
+
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
@@ -76,216 +74,49 @@ mBox.controller('BoxCtrl',
             });
 
 
-            $scope.sBoxData = sBoxData;
 
-            $scope.$on('box:quizzesLength', function (e, length) {
-                $scope.info.quizzesLength = length;
-            });
-            $scope.$on('box:filesLength', function (e, length) {
-                $scope.info.itemsLength = length;
-            });
-
+            //$scope.$on('box:quizzesLength', function (e, length) {
+            //    $scope.info.quizzesLength = length;
+            //});
+            //$scope.$on('box:filesLength', function (e, length) {
+            //    $scope.info.itemsLength = length;
+            //});
+            
 
             $scope.setTab = function (tab) {
                 if ($scope.options.activeTab === tab) {
                     return;
                 }
+                $location.hash(tab);
                 $scope.options.activeTab = tab;
                 $scope.options.loader = true;
             };
+            if ($location.hash()) {
+                $scope.setTab($location.hash());
+            }
+            //$rootScope.$on('$routeUpdate', function (e, v) {
+            //    $scope.setTab($location.hash());
+            //});
 
 
 
-            //#region tabs
-            $scope.manageSave = function () {
-                var savedItems = [],
-                    item;
+            //#region tabs           
 
-                for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
-                    item = $scope.filteredItems[i];
-                    if (item.isCheck) {
-                        savedItems.push(item.id);
-                        item.tabId = $scope.info.currentTab.id;
-                        continue;
-                    }
-                    item.tabId = null;
-                }
-
-                saveItemsToTab(savedItems);
-                resetLastView();
-            };
-
-            $scope.manageCancel = function () {
-                resetLastView();
-            };
-
-            $scope.deleteTab = function (tab) {
-                var data = {
-                    boxId: $scope.boxId,
-                    TabId: tab.id
-                }
-                Box.deleteTab(data).then(function (response) {
-                    if (!response.success) {
-                        alert(jsResources.DeleteError);
-                        return;
-                    }
-                });
-
-                var index = $scope.info.tabs.indexOf(tab);
-                $scope.info.tabs.splice(index, 1);
-                $scope.info.currentTab = null;
-                $scope.options.manageTab = false;
-                $scope.filteredItems = $filter('filter')($scope.items, filterItems);
-                $rootScope.$broadcast('update_scroll');
-
-
-            };
-
-            $scope.renameTab = function (tab) {
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId,
-                                tabName: tab.name,
-                                tabId: tab.id
-                            };
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (name) {
-                    tab.name = name;
-                }, function () {
-                    //dismiss
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.close();
-                    }
-                });
-            };
-
-            $scope.createTab = function () {
-                if (!UserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
-                    return;
-                }
-
-                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(jsResources.NeedToFollowBox);
-                    return;
-                }
-
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId
-                            };
-                        }
-                    }
-
-
-                });
-
-                modalInstance.result.then(function (tab) {
-                    $scope.info.tabs.push(tab);
-                    $rootScope.$broadcast('update_scroll');
-
-                }, function () {
-                    //dismiss
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.close();
-                    }
-                });
-            };
-
-            $scope.manageTab = function () {
-                var filteredItems = $filter('filter')($scope.items, filterManageItems);
-                if (!filteredItems.length) {
-                    return;
-                }
-                $scope.filteredItems = filteredItems;
-                $scope.changeView(consts.view.thumb);
-                $scope.options.itemsLimit = consts.itemsLimit;
-
-
-                for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
-                    $scope.filteredItems[i].isCheck = ($scope.info.currentTab.id === $scope.filteredItems[i].tabId);
-                }
-
-                $scope.options.manageTab = true;
-            };
-
-            $scope.selectTab = function (tab) {
-                $scope.info.currentTab = tab;
-
-                $scope.options.itemsLimit = consts.itemsLimit;
-
-                $scope.filteredItems = $filter('filter')($scope.items, filterItems);
-
-                if (!tab) { //all
-                    return;
-                }
-                $rootScope.$broadcast('selectTab', tab.id);
-            };
 
             //TODO DRAGANDDROP
 
-            function saveItemsToTab(items, tabId) {
-                var data = {
-                    boxId: $scope.boxId,
-                    tabId: tabId || $scope.info.currentTab.id, //tabId from draganddrop
-                    itemId: items,
-                    nDelete: !tabId //delete is false if only one item added from draganddrop
-                };
 
-                Box.addItemsToTab(data).then(function (response) {
-                    if (!response.success) {
-                        alert(jsResources.FolderItemError);
-                    }
-                });
-
-            }
-
-            function filterManageItems(item) {
-                if (item.sponsored) {
-                    $scope.options.sponsored = true;
-                }
-                if (item.type === 'Quiz') {
-                    return false;
-                }
-
-                return true;
-            }
             //#endregion
 
             //#region share
             $scope.shareFacebook = function () {
-                $scope.popup.share = false;
-
-
-                Facebook.share($scope.info.url, //url
+                sFacebook.share($scope.info.url, //url
                       $scope.info.name, //title
                        $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
                        jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
                         null //picture
-                   ).then(function () {
-                       cd.pubsub.publish('addPoints', { type: 'shareFb' });
-                   });
+                     );
+                $scope.popup.share = false;
             };
 
             $scope.shareEmail = function () {
@@ -316,7 +147,7 @@ mBox.controller('BoxCtrl',
             };
 
             $scope.inviteFriends = function (e) {
-                if (!UserDetails.isAuthenticated()) {
+                if (!sUserDetails.isAuthenticated()) {
                     e.preventDefault();
                     cd.pubsub.publish('register', { action: true });
                     return;
@@ -334,70 +165,64 @@ mBox.controller('BoxCtrl',
 
             //#region settings
 
-            //$scope.openBoxSettings = function (tab) {
+            $scope.openBoxSettings = function (tab) {
 
-            //    if (!UserDetails.isAuthenticated()) {
-            //        cd.pubsub.publish('register', { action: true });
-            //        return;
-            //    }
+                if (!sUserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
 
-            //    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-            //        alert(jsResources.NeedToFollowBox);
-            //        return;
-            //    }
+                if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
+                    alert(jsResources.NeedToFollowBox);
+                    return;
+                }
 
-            //    var memberPromise = Box.members({ boxId: $scope.boxId }),
-            //       notificationPromise = Box.notification({ boxId: $scope.boxId }),
-            //       settingsAll = $q.all([memberPromise, notificationPromise]),
-            //       notification;
 
-            //    settingsAll.then(function (response) {
-            //        $scope.info.allMembers = response[0].success ? response[0].payload : [];
-            //        notification = response[1].success ? response[1].payload : '';
+                sBox.notification({ boxId: $scope.boxId }).then(function (response) {
+                    var notification = response.success ? response.payload : '';
 
-            //        var modalInstance = $modal.open({
-            //            windowClass: "boxSettings",
-            //            templateUrl: $scope.partials.boxSettings,
-            //            controller: 'SettingsCtrl',
-            //            backdrop: 'static',
-            //            resolve: {
-            //                data: function () {
-            //                    return {
-            //                        info: $scope.info,
-            //                        notification: notification,
-            //                        boxId: $scope.boxId,
-            //                        tab: tab,
-            //                        members: $scope.info.allMembers
-            //                    }
-            //                }
-            //            }
-            //        });
+                    var modalInstance = $modal.open({
+                        windowClass: "boxSettings",
+                        templateUrl: $scope.partials.boxSettings,
+                        controller: 'SettingsCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    info: $scope.info,
+                                    notification: notification,
+                                    boxId: $scope.boxId,
+                                    tab: tab
+                                }
+                            }
+                        }
+                    });
 
-            //        modalInstance.result.then(function (result) {
-            //            $scope.info.name = result.name;
-            //            $scope.info.privacy = result.boxPrivacy;
+                    modalInstance.result.then(function (result) {
+                        $scope.info.name = result.name;
+                        $scope.info.privacy = result.boxPrivacy;
 
-            //            if (!result.queryString) {
-            //                return;
-            //            }
-            //            $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
-            //            var path = $location.path(),
-            //                boxName = '/' + path.split('/')[4] + '/';//boxName
+                        if (!result.queryString) {
+                            return;
+                        }
+                        $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
+                        var path = $location.path(),
+                            boxName = '/' + path.split('/')[4] + '/';//boxName
 
-            //            path = path.replace(boxName, '/' + result.queryString + '/');
-            //            $location.url(path, '', path).replace();
+                        path = path.replace(boxName, '/' + result.queryString + '/');
+                        $location.url(path, '', path).replace();
 
-            //        }, function () {
-            //            //dismiss
-            //        });
+                    }, function () {
+                        //dismiss
+                    });
 
-            //        $scope.$on('$destroy', function () {
-            //            if (modalInstance) {
-            //                modalInstance.close();
-            //            }
-            //        });
-            //    });
-            //};
+                    $scope.$on('$destroy', function () {
+                        if (modalInstance) {
+                            modalInstance.close();
+                        }
+                    });
+                });
+            };
 
             //#endregion 
 
@@ -414,43 +239,21 @@ mBox.controller('BoxCtrl',
                 $scope.action = {
                     userFollow: true
                 }
-                $scope.info.userType = 'subscrie';
+                $scope.info.userType = 'subscribe';
 
-                var member = {
-                    uid: UserDetails.getDetails().id,
-                    name: UserDetails.getDetails().name,
-                    image: UserDetails.getDetails().image,
-                    url: UserDetails.getDetails().url
-                };
-
-                if ($scope.info.members.length < 7) {
-                    $scope.info.members.unshift(member);
-                } else {
-                    $scope.info.members.pop();
-                    $scope.info.members.unshift(member);
-                }
-                $scope.info.membersLength++;
-                if ($scope.info.allMembers) {
-                    $scope.info.allMembers.push(member);
-                };
-
-                $timeout(function () {
-                    $scope.info.showJoinGroup = false;
-                }, 3300);
-
-                Facebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
+                sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
                 if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;
                 }
 
-                Box.follow({ BoxId: $scope.boxId }).then(function () {
-
+                sBox.follow({ BoxId: $scope.boxId }).then(function () {
+                    $scope.info.membersLength++;
                 });
             };
 
             $scope.isUserLoggedIn = function () {
-                return UserDetails.isAuthenticated();
+                return sUserDetails.isAuthenticated();
             };
 
             $scope.isUserFollowing = function () {
@@ -461,111 +264,176 @@ mBox.controller('BoxCtrl',
             };
 
             //#endregion
+            $scope.$on('selectTab', function (e, tab) {
+                $scope.options.currentTab = tab;
+            });
+            $scope.$on('openUpload', function (qna) {
+                $scope.openUploadPopup(qna);
 
+            });
+
+           
+            //#region upload
+            $scope.openUploadPopup = function (qna) {
+                if (!sUserDetails.isAuthenticated()) {
+                    cd.pubsub.publish('register', { action: true });
+                    return;
+                }
+
+
+
+                var modalInstance = $modal.open({
+                    windowClass: "uploader",
+                    templateUrl: $scope.partials.uploader,
+                    controller: 'UploadCtrl',
+                    backdrop: 'static'
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.close();
+                    }
+                });
+
+                modalInstance.result.then(function (response) {
+                    if (response.url) {
+                        modalInstance = $modal.open({
+                            windowClass: "uploadLink",
+                            templateUrl: $scope.partials.uploadAddLink,
+                            controller: 'UploadLinkCtrl',
+                            backdrop: 'static'
+                        });
+
+                        modalInstance.result.then(function (url) {
+                            saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1, qna: qna });
+                        });
+                        return;
+                    }
+
+                    if (response.dropbox) {
+                        var files = response.files;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                saveItem({
+                                    name: file.name,
+                                    size: file.bytes,
+                                    url: file.link,
+                                    type: 'dropbox',
+                                    ajax: 'dropbox',
+                                    timeout: 0,
+                                    index: index,
+                                    length: files.length,
+                                    qna: qna
+                                });
+                            })(files[i], i);
+                        }
+                        return;
+                    }
+
+                    if (response.googleDrive) {
+                        var files = response.files;
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            (function (file, index) {
+                                saveItem({
+                                    name: file.name,
+                                    size: file.size,
+                                    url: file.link,
+                                    type: 'googleLink',
+                                    ajax: 'link',
+                                    timeout: 1000,
+                                    index: index,
+                                    length: files.length,
+                                    qna: qna
+                                });
+
+
+                            })(files[i], i);
+                        }
+                        return;
+                    }
+                }, function () {
+                    //dismiss
+                });
+            };
+
+
+            var uploaded = 0;
+            var fileList = [];
+            function saveItem(data) {
+                if (data.qna) {
+                    if (!fileList.length) {
+                        fileList = [];
+                    }
+                }
+
+                if (data.type === 'link') {
+                    $rootScope.$broadcast('linkUpload', data.url);
+                } else if (data.type === 'dropbox') {
+                    $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+                } else if (data.type === 'googleLink') {
+                    $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
+                }
+                //TODO: what is that
+                var formData = {
+                    boxId: $scope.boxId, //
+                    boxName: $scope.boxName,
+                    uniName: $scope.uniName,
+                    tabId: $scope.options.currentTab ? $scope.options.currentTab.id : null, //
+                    url: data.url,
+                    fileName: data.name, //
+                    fileUrl: data.url //
+                }
+
+                $timeout(function () {
+                    sUpload[data.ajax](formData).then(function (response) {
+                        uploaded++;
+
+                        if (uploaded === 1) {
+                            $scope.followBox(true);
+                            sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
+                        }
+                        if (!response.success) {
+                            alert((data.name || data.url) + ' - ' + response.payload);
+                            return;
+                        }
+
+                        if (data.type === 'link') {
+                            $rootScope.$broadcast('linkUploaded');
+                        } else if (data.type === 'dropbox') {
+                            $rootScope.$broadcast('dropboxUploaded', data.index);
+                        } else if (data.type === 'googleLink') {
+                            $rootScope.$broadcast('googleUploaded', data.index);
+                        }
+
+                        var responseItem = response.payload;
+
+                        if ($scope.options.activeTab === 'items') {
+                            $scope.$broadcast('itemAdded', responseItem);
+                            uploaded = 0;
+                            return;
+                        }
+
+                        if (data.qna) {
+                            fileList.push(responseItem);
+                            if (data.type === 'link') {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+                                $rootScope.$broadcast('qna:upload', fileList);
+                                fileList = [];
+                                uploaded = 0;
+                            } else if (uploaded === data.length) {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
+                                $rootScope.$broadcast('qna:upload', fileList);
+                                fileList = [];
+                                uploaded = 0;
+                            }
+                        }
+                    }).catch(function () {
+                        uploaded++;
+                    });
+                }, data.timeout);
+            }
+            //#endregion
         }
 
-        ]).factory('sBoxData', ['$rootScope',
-   function ($rootScope) {
-       var data = {}
 
-       return {
-
-           setFeed: function (feed) {
-               if (feed !== null) {
-                   data.feed = feed;
-               }
-           },
-           setItems: function (items) {
-               if (items === null) {
-                   return;
-               }
-
-               var quizzes = [], files = [];
-
-               for (var i = 0, l = items.length; i < l; i++) {
-                   if (items[i].type === 'Quiz') {
-                       quizzes.push(items[i]);
-                   } else {
-                       files.push(items[i]);
-                   }
-               }
-
-               data.quizzes = quizzes;
-               data.files = files;
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-
-           },
-           addFile: function (file) {
-               if (!file) {
-                   return;
-               }
-
-               if (!data.files) {
-                   data.files = [];
-               }
-
-               data.files.push(file);
-
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-           },
-           removeFile: function (file) {
-               if (!file) {
-                   return;
-               }
-
-               var index = data.files.indexOf(file);
-
-               if (index > -1) {
-                   data.files.splice(index, 1);
-               }
-
-               $rootScope.$broadcast('box:filesLength', data.files.length);
-           },
-           addQuiz: function (quiz) {
-               if (!quiz) {
-                   return;
-               }
-
-               if (!data.quizzes) {
-                   data.quizzes = [];
-               }
-
-               data.quizzes.push(file);
-
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-           },
-           removeQuiz: function (quiz) {
-               if (!quiz) {
-                   return;
-               }
-
-               var index = data.files.indexOf(quiz);
-
-               if (index > -1) {
-                   data.quizzes.splice(index, 1);
-               }
-
-               $rootScope.$broadcast('box:quizzesLength', data.quizzes.length);
-           },
-           setMembers: function (members) {
-               if (members !== null) {
-                   data.members = members;
-               }
-
-               $rootScope.$broadcast('box:memersLength', data.members.length);
-           },
-           getFeed: function () {
-               return data.feed;
-           },
-           getFiles: function () {
-               return data.files;
-           },
-           getQuizzes: function () {
-               return data.quizzes;
-           },
-           getMembers: function () {
-               return data.members;
-           }
-       }
-   }]);
+        ]);

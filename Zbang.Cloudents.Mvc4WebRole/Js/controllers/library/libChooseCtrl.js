@@ -9,9 +9,7 @@
          'sFacebook',
          'sUserDetails',
          '$analytics',
-         '$rootScope',
-
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics, $rootScope) {
+         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
 
              $scope.formData = {};
              $scope.display = {

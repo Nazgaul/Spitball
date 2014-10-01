@@ -239,7 +239,7 @@
 
                     for (var i = 0, l = friends.length; i < l; i++) {
                         var friend = friends[i];
-                        cloudentsContacts.push({ name: friend.name, userImage: friend.image, defaultImage: $('body').data('pic'), id: friend.uid, delay: i * 200, url: friend.url });
+                        cloudentsContacts.push({ name: friend.name, userImage: friend.image, defaultImage: $('body').data('pic'), id: friend.id, delay: i * 200, url: friend.url });
                     }
 
                     cloudentsContacts.sort(function (a, b) {
@@ -438,7 +438,7 @@
                 }
 
                 var responseObj = {
-                    data: { Recepients: emailsSelecetd, boxuid: boxid },
+                    data: { Recepients: emailsSelecetd, boxId: boxid },
                     success: function () {
                         form[0].reset();
                         emailsSelecetd = [];
@@ -525,7 +525,7 @@
             };
 
             if (boxid !== '') {
-                obj.data.BoxUid = boxid;
+                obj.data.BoxId = boxid;
                 dataContext.inviteBox(obj);
                 return;
             }
@@ -757,7 +757,7 @@
             searchByName.value = '';
         });
         cd.pubsub.subscribe('invite', function (d) {
-            boxid = d.boxid || cd.getParameterFromUrl(1);
+            boxid = d.boxid || cd.getParameterFromUrl(2);
             if (boxid.indexOf('?') > -1) {
                 boxid = '';
             }
@@ -766,12 +766,10 @@
             if (boxid === '') {
                 setupInviteToCloudents();
                 currentTabName = defaultTabName = 'fb';
-                cd.setTitle('Invite | Cloudents');
             }
             else {
                 setupInviteToBox(d);
                 currentTabName = defaultTabName = 'cloudents';
-                cd.setTitle('Invite | ' + d.name + ' | Cloudents');
             }
 
             if (defaultTabName === 'cloudents') {// || (defaultTabName === 'fb' && boxid === '')) {

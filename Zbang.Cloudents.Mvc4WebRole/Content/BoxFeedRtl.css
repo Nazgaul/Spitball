@@ -1,0 +1,88 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.feedForm .btn1 {
+  margin: 5px 0 0 8px;
+}
+.feedForm.feedOpen .feedTA ~ .attachBtn {
+  right: 70px;
+  left: auto;
+}
+.feedImg {
+  margin: 0 0 0 15px;
+}
+.feedTA {
+  padding: 9px 12px 2px 55px;
+}
+.attachBtn {
+  left: 8px;
+  right: auto;
+}
+.bottomTA {
+  right: 55px;
+  left: auto;
+}
+.boxFeedList > li:before {
+  right: 41px;
+  left: auto;
+  border-width: 7px 0 7px 14px;
+  border-color: transparent transparent transparent #eee;
+}
+.boxFeedList .feedForm .feedImg {
+  margin: 0 15px 0 0;
+}
+.boxFeedList .feedTA {
+  margin: 0 55px 0 0;
+}
+.boxFeedList .attachBtn {
+  left: 70px;
+  right: auto;
+}
+.feedWpr .trash {
+  left: 15px;
+  right: auto;
+}
+.feedReplies > li:before {
+  left: 41px;
+  right: auto;
+  border-width: 7px 14px 7px 0;
+  border-color: transparent #c2c2c2 transparent transparent;
+}
+.feedReplies > li:after {
+  left: 44px;
+  right: auto;
+  border-width: 6px 12px 6px 0;
+  border-color: transparent #fff transparent transparent;
+}
+.feedReplies .feedImg {
+  margin: 0 15px 0 0;
+}
+/*#region attachments */
+.qaAttach {
+  margin-top: 10px;
+  /*rtl*/
+}
+.qaAttachItem {
+  margin: 12px 0 0 7px;
+}
+.attachActions {
+  right: 0;
+  left: auto;
+}
+.attachedList {
+  margin: 0 55px 0 0;
+  padding: 0 12px 3px 8px;
+}
+.attachedItem {
+  padding: 0 6px 0 0;
+  /*rtl*/
+  margin: 3px 0 3px 5px;
+  /*rtl*/
+}
+.removeAttach:before {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */

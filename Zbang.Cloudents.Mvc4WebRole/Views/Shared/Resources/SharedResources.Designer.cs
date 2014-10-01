@@ -504,6 +504,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feed.
+        /// </summary>
+        public static string Feed {
+            get {
+                return ResourceManager.GetString("Feed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         public static string Female {
@@ -995,6 +1004,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Questions {
             get {
                 return ResourceManager.GetString("Questions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quizzes.
+        /// </summary>
+        public static string Quizzes {
+            get {
+                return ResourceManager.GetString("Quizzes", resourceCulture);
             }
         }
         

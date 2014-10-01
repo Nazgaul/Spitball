@@ -1,14 +1,12 @@
 ﻿app.directive('backButton',
-   ['$rootScope',
+   ['$rootScope','$location',
 
-   function ($rootScope) {
+   function ($rootScope, $location) {
        return {
            restrict: "A",
-           link: function (scope, elem, attrs) {
+           link: function () {
                $location.path($rootScope.previousUrl);
            }
        };
    }
    ]);
-
-

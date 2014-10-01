@@ -4,50 +4,48 @@
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <div class="leftPanel lFloat">
         <div class="boxTop">
-            <img class="" ng-src="{{info.image}}" alt="" width="86" height="86" />
+            <img class="imgBorder" ng-src="{{info.image}}" alt="" width="86" height="86" />
             <h1 class="boxName semiFont" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
             <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
+        <span class="following" ng-if="isUserFollowing()">
+                <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
+                <span>@SharedResources.Following</span>
+            </span>
+        <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
+                <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
+                <span>@SharedResources.Follow</span>
+            </button>
+
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
                 <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
             </button>
         </div>
 
-        <span class="following" ng-if="!info.showJoinGroup">
-            <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
-            <span>@SharedResources.Following</span>
-        </span>
-        <button class="followBtn" type="button" ng-if="info.showJoinGroup" ng-click="followBox()">
-            <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
-            <span>@SharedResources.Follow</span>
-        </button>
-
         <ul class="newActivity">
             <li ng-click="setTab('items')">
                 <span class="rFloat newPosts">{{info.itemsLength}}</span>
-                <div class="elps">Items</div>
+                <div class="elps">@SharedResources.Items</div>
             </li>
             <li ng-click="setTab('quizzes')">
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
-                <div class="elps">Quizzes</div>
+                <div class="elps">@SharedResources.Quizzes</div>
             </li>
             <li ng-click="setTab('members')">
                 <span class="rFloat newPosts">{{info.membersLength}}</span>
-                <div class="elps">Members</div>
+                <div class="elps">@SharedResources.Members</div>
             </li>
         </ul>
 
         <div class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
             <div class="sectionHeader">@IndexResources.Folders</div>
             <div m-custom-scrollbar bottom="0">
-
                 <ul class="boxFolderList">
                     <li class="current boxFolder" ng-class="{current : !params.currentTab }">
                         <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                         <span class="tabBorder"></span>
                     </li>
-
                     <li ng-repeat="tab in params.tabs" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                         <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
@@ -64,7 +62,6 @@
                                 <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
                             </li>
                         </ul>
-                        @*<span class="tabBorder"></span>*@
                     </li>
 
                     <li class="createFolder">
@@ -74,7 +71,6 @@
             </div>
         </div>
     </div>
-
     <div class="boxRight">
         <div class="boxActions topBar barShadow">
             <section class="shareBtn rFloat">
@@ -89,7 +85,6 @@
                     <div class="shareTxt">{{strings.invite}}</div>
                     <ul class="shareList">
                         <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
-
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
@@ -109,22 +104,12 @@
             </a>
 
             <ul class="boxTabs">
-                <li ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">Feed</li>
-                <li ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">Items</li>
-                <li ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">Quizzes</li>
-                <li ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">Members</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">@SharedResources.Feed</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">@SharedResources.Items</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">@SharedResources.Quizzes</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">@SharedResources.Members</li>
             </ul>
         </div>
-
-        @*<div ng-if="isUserLoggedIn()" ng-class="{followed: action.userFollow, show: !info.showJoinGroup}" class="joinGrpWpr">
-
-                <div class="joinGrpBtn">
-                    <span class="joinMsg iconTxt">@SharedResources.Member</span>
-                    <button type="button" class="joinGrp" ng-click="followBox()" data-joinhover="@SharedResources.StayUpdated">@IndexResources.JoinGroup</button>
-                </div>
-            </div>*@
-
-
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_Feed");}
@@ -138,24 +123,6 @@
             <div ng-switch-when="members">
                 @{Html.RenderPartial("_Members");}
             </div>
-
-
-
-            @*<ul class="boxMembers boxFriendsList">
-
-                    <li ng-repeat="member in info.members | limitTo:7">
-                        <a href="{{member.url}}" class="">
-                            <img class="friendImg" alt="" ng-src="{{member.image}}" width="48" height="48" user-tooltip-popup="{{member.uid}}" ng-click="$root.checkReg($event)" />
-                        </a>
-                    </li>
-                    @for (int i = 0; i < 6; i++)
-                    {
-                        <li class="static">
-                            <a target="_self" href="@Url.ActionLinkWithParam("Index", "Share", new { ViewBag.boxid })" class="boxInvite" ng-click="inviteFriends($event)">@IndexResources.Invite</a>
-                        </li>
-                    }
-                    <li ng-click="openBoxSettings('members')"><button class="showAllMembers" data-morefriends-count="{{info.membersLength-6}}" type="button"></button></li>
-                </ul>*@
         </div>
     </div>
 </div>

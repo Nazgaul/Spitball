@@ -39,6 +39,9 @@
 .courseType .labelExplain {
   width: 200px;
 }
+.socialList button {
+  font-size: 11px;
+}
 /*#endregion */
 /*#region item page */
 .previewWrapper h2 {

@@ -2,10 +2,10 @@
 
 .boxPage {
     overflow-x: hidden;
+
     .leftPanel {
         border: none;
         height: 100%;
-        //display: table;
         position: fixed;
         z-index: 5;
         background: #eee;
@@ -15,11 +15,9 @@
         .boxSizing;
     }
     .backWpr {
-        margin: 13px 25px 0 0;
+        margin: 13px 25px 0 0; //rtl
         padding:0;
-        svg {
-            .flipH; //rtl
-        }
+        .flipH;
         &:before {
             display: none;
         }
@@ -88,17 +86,17 @@
 }
 .boxTabs {
     display: inline-block;
-    li {
-        font-size: 18px;
-        padding: 0 22px;
-        float:left;
-        height: 60px;
-        line-height: 60px;
-        .boxSizing;
-        cursor: pointer;
-        &.current {
-            border-bottom: 7px solid @color;
-        }
+}
+.boxTab {
+    font-size: 18px;
+    padding: 0 22px;
+    height: 60px;
+    line-height: 60px;
+    .boxSizing;
+    text-transform: capitalize;
+    cursor: pointer;
+    &.current {
+        border-bottom: 7px solid @color;
     }
 }
 .inviteFriendsBtn {
@@ -107,33 +105,12 @@
     cursor: pointer;
     //line-height: 60px;
     padding: 0 20px;
-    //color: @attentionBlue;
-    /*&:before {
-        content: '';
-        display: block;
-        width: 22px;
-        height: 19px;
-        margin: 0 auto 13px;
-        background: @common-sprite -90px -1px no-repeat;
-    }*/
-    svg {
 
-    }
     &:hover svg {
         fill: @itemBlue;
     }
 }
-/*.boxBack {
-    height: 44px;
-    line-height: 44px;
-    background: #fff;
-    border-bottom: 1px solid #e3e3e3;
-    padding-left: 15px; //rtl
-    font-size: 15px;
-    position: absolute;
-    width: 100%;
-    .boxSizing();
-}*/
+
 /*#region share btn */
 .shareBtn {
     position: relative;
@@ -146,6 +123,9 @@
     }
     &:hover svg {
         fill: @itemBlue;
+    }
+    label {
+        cursor: pointer;
     }
 }
 
@@ -342,9 +322,9 @@
         
         ~ .box-content {
             padding-top: 8px;
-            .QA{
+            /*.QA{
                 top: 265px;
-            }
+            }*/
             .boxFriendsList {
                 top: 200px;
             }
@@ -378,10 +358,10 @@
         }
 
         ~ .box-content {
-            .QA {
+            /*.QA {
                 top: 212px;
                 .transition(top .3s 3s);
-            }
+            }*/
             .boxFriendsList {
                 top: 150px;
                 .transition(top .3s 3s);
@@ -485,10 +465,15 @@
         overflow: hidden;
         -ms-word-break: break-word;
         word-break: break-word;
-        //max-width: 189px; //needed for IE when name has no spaces
+        //max-width: 189px;//needed for IE when name has no spaces
         //display: inline-block;
-        max-height: 44px;
-        margin: 6px 0;
+        max-height: 57px;
+        margin: 12px 0;
+        display: inline-block; //so that I can display the h1 as inline block for the tooltip
+    }
+    .imgBorder {
+        background: #fff;
+        display: block; //so that I can display the h1 as inline block for the tooltip
     }
 }
 
@@ -537,241 +522,6 @@
 
 /*#endregion */
 
-/*#region BOX TOP - OBSOLETE */
-/*.boxTopWpr {
-    display: table-row;
-
-    &:hover {
-        .boxRename {
-            display: block;
-        }
-    }
-
-    &.boxEdit {
-        .boxTop {
-            height: auto;
-            padding-bottom: 46px;
-        }
-
-        .boxNameWpr {
-            margin: 0 0 10px 0;
-            height: 36px;
-        }
-
-        .boxName {
-            font-size: 13px;
-            font-weight: normal;
-            padding: 0 5px;
-            .boxSizing;
-        }
-
-        img, .boxRename, .boxFriendsList {
-            display: none;
-        }
-
-        .courseCode {
-            position: static;
-            float: left; //rtl
-            width: 60px;
-            height: 28px;
-            .boxSizing;
-            border: 1px solid @borderColor;
-            margin-bottom: 10px;
-            padding: 4px 5px;
-            -ms-text-overflow: inherit;
-            -o-text-overflow: inherit;
-            text-overflow: inherit;
-        }
-
-        .propName {
-            float: right; //rtl
-            width: 192px;
-        }
-
-        #boxSettingsSave, #boxSettingsCancel {
-            display: block;
-        }
-
-        .boxNotification, .boxPrivacy {
-            display: block;
-            clear: both;
-        }
-
-        .inputText {
-            width: 273px;
-            height: 28px;
-            display: block;
-        }
-
-        .boxNameWpr, .courseCode, .inputText {
-            border: 1px solid @borderColor;
-
-            &:focus {
-                border: 1px solid @color;
-            }
-        }
-    }
-}
-
-
-.boxTop {
-    height: 120px;
-    padding: 8px;
-    position: relative;
-    background: #fff;
-    .boxSizing;
-    display: block;
-    border-right: 1px solid @borderColor;
-
-    .courseCode {
-        left: 93px; //rtl
-        top: 71px;
-        width: 189px;
-        position:absolute;
-    }
-
-    .propName {
-        top: 88px;
-        width: 165px; // so that it doesn't cover the edit pencil
-    }
-
-    .boxRename {
-        display: none;
-        position: absolute;
-        top: 8px;
-        right: 8px; //rtl
-        margin: 0; //override margin from dashLib class
-        background: @common-sprite -72px -42px no-repeat;
-        width: 23px;
-        height: 23px;
-    }
-
-    .btn1 {
-        margin-top: 10px;
-    }
-
-    .btn2 {
-        margin: 10px 10px 0 0; //rtl
-    }
-
-    label {
-        margin-bottom: 3px;
-        display: block;
-    }
-
-    img {
-        border: 1px solid #ebebeb;
-    }
-}
-
-.boxPrps {
-    overflow: hidden;
-    padding-left: 15px; //rtl
-}*/
-
-
-/*#endregion */
-
-/*#region box friends - OBSOLETE */
-
-/*.boxInvite {
-    display: block;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0;
-}
-.boxFriendsList {
-    position: fixed;
-    top: 150px;
-    width: 366px;
-    right: 15px; //rtl
-    .boxSizing;
-    padding: 0;
-    font-size: 0; // remove whitespace caused by inline-block
-    .transition(top 1s ease-in);
-    .friendImg {
-        border: none; //override
-    }
-    li {
-        width: 50px;
-        height:50px;
-        border: 1px solid @borderColor;
-        border-radius: 3px;
-        display: inline-block;
-        vertical-align: top;
-        .boxSizing;
-        margin: 0 2px 6px 0; //rtl
-
-        &.static {
-            position: relative;
-            padding-top: 12px;
-            &:before {
-                .pseudo;
-                width: 29px;
-                height: 26px;
-                background: @common-sprite -21px -142px no-repeat;
-                vertical-align: middle;
-                opacity: .2;
-            }
-            &:hover::before {
-                //background: @attentionBlueHover;
-                opacity:1;
-                
-            }
-        }
-        //if > 7 items hide all further items
-        &:nth-child(n+8) {
-            display: none;
-        }
-        //Hide the 7th child only if there are at least 7 more children
-        &:nth-child(7):nth-last-child(n + 8) {
-            display: none;
-        }
-        
-        &:last-child {
-            background: #fff;
-            
-            //if > 13 items: float show all right.
-            &:nth-child(n+14) {
-                float: right; //rtl
-                display: inline-block;
-            }
-            .showAllMembers {
-                color: @attentionBlue;
-                padding-top: 14px;
-                text-align: center;
-                font-size: 16px;
-                &:before {
-                    content: '+' attr(data-morefriends-count);
-                display: inline-block;
-                }
-            }
-            &:hover {
-                background: #f9f9f9;
-            }
-        }
-    }
-}
-
-.inviteFriendBtn.btn3 {
-    .boxSizing;
-    padding: 7px 15px;
-    display: inline-block;
-    text-align: center;
-    width: 110px; // width of 3 images
-    height: 32px;
-}
-
-.noFriends {
-    color: #464646;
-
-    button {
-        color: @color;
-    }
-}*/
-/*#endregion */
-
 /*#region box folders */
 .boxMembers, .boxFolders {
     .sectionHeader {
@@ -786,7 +536,8 @@
     margin: 0 -25px;
     //display: table-row;
     .mCSB_container, [ng-transclude] {
-        height: 100%;
+        width:242px;
+      //  height: 100%;
     }
     
 }
@@ -974,20 +725,17 @@
         background: #fff;
         margin-top: 28px;
     }
-
+    svg {
+        width: 60px;
+        height: 46px;
+        fill: @color;
+        display: block;
+        margin: 20px auto 0;
+    }
     .emptyBoxDropText {
         display: inline-block;
         font-size: 13px;
         margin-top: 18px;
-
-        &:before {
-            content: '';
-            display: block;
-            margin: 0 auto 16px;
-            width: 50px;
-            height: 43px;
-            background: @boxSprite 0 -56px no-repeat;
-        }
     }
 
     .uploadFilesBtn {
@@ -1000,7 +748,35 @@
         display: none !important;
     }
 }
+.quizEmptyWpr {
+    text-align: center;
+    p {
+        font-size: 22px;
+        text-align: center;
+        white-space: pre-line;
+        margin: 70px 0 15px;
+    }
+    ~ .quizBtn {
+        position: absolute;
+        left: 0;right: 0;
+        margin: auto;
+        width: 135px;
+        top: 365px;
+    }
+}
 
+.quizEmpty {
+    width: 560px;
+    height: 200px;
+    border: 1px solid @borderColor;
+    padding: 40px 0;
+    .boxSizing;
+    display: inline-block;
+    svg {
+        width: 70px;
+        height: 70px;
+    }
+}
 .boxItemList {
     clear: both;
     padding-top: 15px;
@@ -1122,12 +898,6 @@
     }
 }
 
-.boxItems {
-    margin: 20px 20px 0 20px;
-    //width: ~'-webkit-calc(100% - 416px)';
-    //width: ~'calc(100% - 416px)';
-}
-
 .boxItemsHeader {
     height: 68px;
     margin-top: -28px;
@@ -1143,56 +913,41 @@
             height: 16px;
             background: @boxSprite -54px -106px no-repeat;
         }
-        &.quizBtn:before
-        {
-            width: 22px;
-            height: 18px;
-            background-position: -48px -143px;
-            margin-top: -4px;
-        }
+    }
+    .btn1 {
+        
     }
     .quizBtn {
-        background: #517e9e;
-        border: 1px solid #517e9e;
-        &:hover {
-            background: #456c88;
-            border: 1px solid #546c88;
-        }
-        &:disabled {
-            background: #A5A5A5;
-            border: 1px solid #A5A5A5;
-        }
+        padding: 6px 15px 7px 15px;
+        width: 130px;
     }
 }
 
-.listViewBtn, .thumbViewBtn
-{
-    width: 34px;
-    height: 29px;
-    border: 1px solid @borderColor;
-    border-radius: 0 3px 3px 0; /*rtl*/
-    background: #fff;
-    box-shadow: inset 0 0 7px rgba(0,0,0,.11);
-    &:before
-    {
-        .pseudo;
-        width: 16px;
-        height: 11px;
-        background: @boxSprite -45px -123px;
+.listViewBtn, .thumbViewBtn {
+    margin-top: 2px;
+    &.currentState {
+        svg {
+            fill: @color;
+        }
     }
-    &.currentState
-    {
-        background: #e7e7e7;
+    svg {
+        width: 31px;
+        height: 26px;
+        fill: @borderColor;
     }
+}
+.listViewBtn {
+    margin: 2px 5px 0 10px; //rtl
 }
 .thumbViewBtn
 {
-    border-right: none; /*rtl*/
-    border-radius: 3px 0 0 3px; /*rtl*/
     &:before
     {
         width: 13px;
         background-position: -31px -123px;
+    }
+    svg {
+        width: 26px;
     }
 }
 .tag {
@@ -1344,11 +1099,7 @@
     float: left; /* rtl */
     background: #fff;
     text-align: left; /* rtl */
-    border: 1px solid @borderColor;
-    border-radius: 3px;
     //overflow: hidden;
-    .boxSizing;
-    box-shadow: 1px 1px 2px rgba(0,0,0,.15);
     //.transition(all, .2s); //WARNING: CAUSES iOS CRASH -  http://stackoverflow.com/questions/14055461/ios-safari-css-calc-css-transition-instant-crash
     position: relative; /* for manage state*/
     .boxLink {
@@ -1357,10 +1108,9 @@
     }
 
     img {
-        border-radius: 3px 3px 0 0;
+        
         width: 100%;
         height: 188px;
-        border-bottom: 1px solid @borderColor;
         -moz-background-size: cover;
         -o-background-size: cover;
         -webkit-background-size: cover;
@@ -1371,13 +1121,17 @@
         -moz-user-select: none;
         user-select: none;
         -webkit-user-drag: none;        
-        -moz-user-drag: none;        
+        -moz-user-drag: none;    
+        box-shadow: 1px 1px 2px rgba(0,0,0,.15);
+        border: 1px solid @borderColor;   
+        border-radius: 3px; 
+        .boxSizing;
         //NB Maybe increase dimensions of thumbnail in markup, then can use
         //background-size: 100%;
     }
 
     .boxName {
-        margin-left: 6px; /*rtl*/
+        margin: 5px 0 0 6px; /*rtl*/
         overflow: hidden;
         line-height: 15px;
         color: @color;
@@ -1662,20 +1416,50 @@
         border-top: 1px solid @borderColor;
         padding: 10px 20px;
         clear: both;
-        max-height: 46px; /* diff rtl*/
+        max-height: 46px; /*diff rtl*/
         overflow: hidden;
     }
 }
-/*#endregion */ 
+/*#endregion */
 
+/*#region box layout - Removed due to bugs */
 //.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
-.box-layout(boxItemList,thumbItem,148px,248px,4,12,20px,288px,40px);
+//.box-layout(boxItemList,thumbItem,148px,248px,4,12,20px,288px,40px);
+/*#endregion */
+
+/*#region box layout replacement */
+@min-cols: 4;
+@item-width: 148px;
+@item-height: 248px;
+@min-margin: 20px;
+@item-with-margin: (@item-width + @min-margin);
+@container-min-width: (@min-cols * @item-with-margin - @min-margin);
+
+.boxItems {
+    margin: 20px 20px 0 20px;
+    .boxItemList {
+        display: block;
+        margin: 2px auto 0;
+        min-width: @container-min-width;
+    }
+
+    .thumbItem {
+        height: @item-height;
+        width: @item-width;
+        margin: 0 @min-margin 32px 0; /*rtl*/
+    }
+}
+
+
+/*#endregion */
+
+
 .stars {
     width: 69px;
     height: 14px;
     position: relative;
     background: @common-sprite -1px -41px no-repeat;
-    margin: 3px 0 0 5px; /*rtl*/
+    margin-left: 5px; /*rtl*/
     cursor: pointer;
 
     .full {

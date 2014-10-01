@@ -953,6 +953,7 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\classOnScroll.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
     <Content Include="Js\directives\lazySrc.js" />
@@ -1489,7 +1490,9 @@
     <EmbeddedResource Include="Js\Resources\JsResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx" />
+    <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.he.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1499,6 +1502,7 @@
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.zh.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
+    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1576,6 +1580,7 @@
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.zh.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.ar.resx" />
+    <EmbeddedResource Include="Models\Resources\CreateUniversityResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1608,6 +1613,7 @@
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1633,6 +1639,7 @@
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.zh.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\MobileResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\MobileResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\MobileResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.ar.resx" />
@@ -1803,6 +1810,7 @@
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ru.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

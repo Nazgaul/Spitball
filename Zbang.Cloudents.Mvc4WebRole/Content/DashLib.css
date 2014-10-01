@@ -394,15 +394,16 @@
   text-align: center;
   height: 294px;
   border: 1px solid #c2c2c2;
+  background: #fff;
 }
 .browseCourses .actionTxt:before {
   background-position: 0 -241px;
 }
 .createCourse {
-  padding: 0 16px 0 8px;
+  padding: 0 16px;
 }
-.createCourse:last-child {
-  padding: 0 0 0 8px;
+.createCourse:first-child {
+  padding: 0 8px 0 0;
 }
 .createCourse:only-child {
   padding: 0;
@@ -411,12 +412,14 @@
   width: 100%;
   height: 294px;
   border: 1px solid #c2c2c2;
+  background: #fff;
 }
 .recommendedWpr {
   border: 1px solid #c2c2c2;
   padding: 8px 20px 12px 28px;
   color: #383838;
   vertical-align: top;
+  background: #fff;
 }
 .recommendedWpr header {
   font-size: 20px;
@@ -445,7 +448,7 @@
 }
 .recommended .rFloat {
   border-left: 1px solid #c2c2c2;
-  width: 100px;
+  width: 115px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -644,8 +647,8 @@
   width: 600px;
   position: relative;
   top: -200px;
-  margin: 0 0 -200px 0;
-  min-height: 200px;
+  margin: 0 0 -213px 0;
+  min-height: 213px;
 }
 /*#region social invite */
 .socialInvite {
@@ -654,6 +657,8 @@
 .socialInvite header {
   font-size: 20px;
   color: #39434a;
+  position: relative;
+  top: -10px;
 }
 .socialInvite.js-cloudState .socialContentWpr,
 .socialInvite.js-fbState .socialContentWpr,
@@ -674,18 +679,18 @@
 .socialInvite .btn2 {
   margin: 0 6px;
 }
-.socialInvite.js-cloudState .cloudentsBtn {
-  background-position: 0 -598px;
+.socialInvite.js-cloudState .cloudentsBtn svg {
+  fill: #0f9d58;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   right: auto;
-  left: 145px;
+  left: 172px;
 }
 .socialInvite.js-cloudState .cloudInput {
   display: block;
 }
-.socialInvite.js-fbState .fbBtn {
-  background-position: 0 -780px;
+.socialInvite.js-fbState .fbBtn svg {
+  fill: #3b5998;
 }
 .socialInvite.js-fbState .fbInput {
   display: block;
@@ -694,12 +699,12 @@
   content: attr(data-find-fb);
   display: block;
 }
-.socialInvite.js-gmState .gmailBtn {
-  background-position: 0 -962px;
+.socialInvite.js-gmState .gmailBtn svg {
+  fill: #dd4b39;
 }
 .socialInvite.js-gmState .socialContentWpr:before {
   left: auto;
-  right: 145px;
+  right: 172px;
 }
 .socialInvite.js-gmState .gmInput {
   display: block;
@@ -711,22 +716,20 @@
 .socialWpr {
   display: inline-block;
   width: 100%;
+  position: relative;
+  top: -10px;
+  height: 100px;
 }
 .socialWpr button {
-  width: 91px;
-  height: 91px;
-  background: url(/Images/site.png?v=3) no-repeat;
-  margin: 40px 0;
+  margin: 15px 0 33px;
 }
-.socialWpr .cloudentsBtn {
-  background-position: 0 -507px;
+.socialWpr svg {
+  width: 70px;
+  height: 70px;
+  fill: #282828;
 }
 .socialWpr .fbBtn {
-  margin: 40px 60px;
-  background-position: 0 -689px;
-}
-.socialWpr .gmailBtn {
-  background-position: 0 -871px;
+  margin: 15px 60px 33px 60px;
 }
 .socialContentWpr {
   min-height: 250px;
@@ -738,7 +741,7 @@
 .socialContentWpr:before {
   content: '';
   display: inline-block;
-  top: -28px;
+  top: -19px;
   position: absolute;
   left: 0;
   right: 0;
@@ -746,7 +749,7 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 24px 28px 24px;
+  border-width: 0 20px 22px 20px;
   border-color: transparent transparent #eee transparent;
 }
 .socialContentWpr.jsNotConnected .fbInput,
@@ -793,20 +796,30 @@
 }
 .socialList {
   width: 620px;
-  max-height: 300px;
+  max-height: 280px;
   overflow: auto;
   display: block;
-  margin: 50px auto 0;
+  margin: 44px auto 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.socialList.js-scrolling:before {
+  content: '';
+  display: inline-block;
+  width: 588px;
+  position: fixed;
+  left: -10px;
+  right: 0;
+  margin: auto;
+  top: 233px;
+  border-top: 1px solid #bbb;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
 }
 .socialList li {
   margin-right: 22px;
   font-size: 13px;
   width: 66px;
-  height: 136px;
-  overflow: hidden;
 }
 .socialList li:nth-child(7n + 1) {
   padding-left: 8px;
@@ -828,6 +841,12 @@
 .socialList img {
   border: 1px solid #c2c2c2;
   border-radius: 6px;
+}
+.socialList .contactName {
+  font-size: 12px;
+  height: 30px;
+  line-height: 15px;
+  overflow: hidden;
 }
 .socialList button {
   color: #0371c8;

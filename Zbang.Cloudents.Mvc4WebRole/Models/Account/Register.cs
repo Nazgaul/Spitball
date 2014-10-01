@@ -2,23 +2,16 @@
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
 using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
-    public class Register : IModelBinder
+    public class Register
     {
-        //neeed to remove
-        //[Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
-        //[Display(ResourceType = typeof(RegisterResources), Name = "Name")]
-        //[RegularExpression(@"^[^@]*$", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "NameCannotContain")]
-        //public string NewUserName { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         public string FirstName { get; set; }
-
-        //public string MiddleName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         public string LastName { get; set; }
@@ -38,7 +31,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
-        //[System.ComponentModel.DataAnnotations.MinLength(6, ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
@@ -53,12 +45,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Display(Name="מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית")]
         public bool MarketEmail { get; set; }
 
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-        {
-
-            var x = BindModel(controllerContext, bindingContext);
-
-            return x;
-        }
+        public UserLanguage Language { get; set; }
     }
 }

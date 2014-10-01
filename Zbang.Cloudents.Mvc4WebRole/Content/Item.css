@@ -473,6 +473,7 @@ body.item .modal-backdrop.in {
   margin-bottom: 10px;
   border-bottom: 1px solid #7a7a7a;
   color: #eee;
+  word-wrap: break-word;
 }
 .commentTop {
   color: #7a7a7a;
@@ -619,11 +620,6 @@ body.item .modal-backdrop.in {
   right: 0;
 }
 .iframeContent {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
   width: 98%;
   height: 100%;
   -webkit-overflow-scrolling: touch;
@@ -726,6 +722,7 @@ body.item .modal-backdrop.in {
   max-width: 900px;
 }
 .itemFulscrn .svgContent {
+  height: auto;
   width: 80vw;
   background: #fff;
 }

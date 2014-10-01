@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Handle_UserNotFollowBox_ThrowException()
         {
             var tabId = Guid.NewGuid();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US"); 
             var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 2,1);
 
             //var someTab = new BoxTab(tabId, "some name", someUser);
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var tabId = Guid.NewGuid();
             long someUserId = 2L, someBoxId = 3L;
             var someName = "some name";
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US"); 
             var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
@@ -92,7 +92,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var tabId = Guid.NewGuid();
             var someBoxId = 1L;
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false); 
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US"); 
             var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 1L,someBoxId);
             var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 

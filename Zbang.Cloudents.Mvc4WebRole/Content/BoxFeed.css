@@ -38,6 +38,12 @@
 .feedForm.feedOpen .svg-attachment {
   fill: #282828;
 }
+.feedForm.feedOpen .attachedList {
+  display: block;
+}
+.feedForm .attachedList {
+  display: none;
+}
 .feedImg {
   border-radius: 3px;
   margin-right: 15px;
@@ -62,6 +68,7 @@
   -moz-transition: min-height 0.3s ease-in;
   -o-transition: min-height 0.3s ease-in;
   transition: min-height 0.3s ease-in;
+  resize: none;
 }
 .attachBtn {
   position: absolute;
@@ -128,6 +135,9 @@
   top: 24px;
   right: 70px;
 }
+.boxFeedList:empty ~ .emptyFeed {
+  display: block;
+}
 .feedWpr {
   background: #eee;
   padding: 8px 15px;
@@ -167,10 +177,6 @@
 .feedWpr:hover .trash {
   display: block;
 }
-/*.feedActions {
-    color: @itemBlue;
-    
-}*/
 .feedReplies {
   width: 543px;
 }
@@ -213,6 +219,9 @@
   background: none;
   border: 1px solid #c2c2c2;
 }
+.feedReplies ~ .feedForm .attachedList {
+  width: 465px;
+}
 /*#region attachments */
 .qaAttach {
   white-space: nowrap;
@@ -224,7 +233,6 @@
 .qaAttachItem {
   border: 1px solid #c2c2c2;
   margin: 12px 7px 0 0;
-  /*rtl*/
   display: inline-block;
   height: 125px;
   position: relative;
@@ -240,7 +248,6 @@
   background: rgba(0, 0, 0, 0.65);
   position: absolute;
   left: 0;
-  /*rtl*/
   bottom: -25px;
   visibility: hidden;
   -webkit-transition: all 0.1s;
@@ -281,5 +288,73 @@
 }
 .attachDownload:hover {
   background-position: -38px -22px;
+}
+.attachedList {
+  margin-left: 55px;
+  padding: 0 8px 3px 12px;
+  position: relative;
+  top: -35px;
+  border-left: 1px solid #282828;
+  border-right: 1px solid #282828;
+}
+.attachedItem {
+  background: #f0f0f0;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  padding-left: 6px;
+  /*rtl*/
+  display: inline-block;
+  margin: 3px 5px 3px 0;
+  /*rtl*/
+}
+.attachName {
+  display: inline-block;
+  max-width: 100px;
+  vertical-align: top;
+  margin-top: 2px;
+}
+.removeAttach {
+  width: 20px;
+  height: 22px;
+  position: relative;
+  padding-bottom: 4px;
+}
+.removeAttach:before {
+  content: '';
+  display: inline-block;
+  background: #c2c2c2;
+  width: 1px;
+  height: 22px;
+  position: absolute;
+  left: 0;
+  /*rtl*/
+  top: 0;
+}
+.removeAttach:after {
+  content: '';
+  display: inline-block;
+  background: url(/Images/common17-sprite.png?v=4) -68px -15px no-repeat;
+  width: 10px;
+  height: 10px;
+  vertical-align: top;
+  margin-top: 5px;
+}
+/*#endregion */
+/*#region empty feed */
+.emptyFeed {
+  display: none;
+  width: 598px;
+  height: 565px;
+  color: #c2c2c2;
+  border: 3px dotted #c2c2c2;
+  border-radius: 8px;
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+  white-space: pre-line;
+  padding-top: 240px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*#endregion */

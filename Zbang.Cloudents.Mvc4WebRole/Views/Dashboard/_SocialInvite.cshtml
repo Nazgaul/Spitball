@@ -6,22 +6,25 @@
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
-        <button class="cloudentsBtn" ng-click="selectState('cl')"></button>
-        <button class="fbBtn" ng-click="selectState('fb')"></button>
-        <button class="gmailBtn" ng-click="selectState('go')"></button>
+        <button class="cloudentsBtn" ng-click="selectState('cl')">
+            <svg><use xlink:href="~/Images/Defs.svg#cloudentsSocial" /></svg>
+        </button>
+        <button class="fbBtn" ng-click="selectState('fb')">
+            <svg><use xlink:href="~/Images/Defs.svg#fbSocial" /></svg>
+        </button>
+        <button class="gmailBtn" ng-click="selectState('go')">
+            <svg><use xlink:href="~/Images/Defs.svg#gmailSocial" /></svg>
+        </button>
     </div>
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
-        <input class="cloudInput" type="search" placeholder="{{params.placeholder}}" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
-
-        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+        <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
+        <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}" infinite-scroll="addContacts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" class-on-scroll="js-scrolling">
             <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
                 <img width="64" height="64" bo-src="contact.image" alt="" />
-                <div bo-text="contact.name"></div>
+                <div class="contactName" bo-text="contact.name"></div>
                 <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
             </li>
-
-
             <li class="emptySearch">@SharedResources.NoResults</li>
         </ul>
 
@@ -38,7 +41,7 @@
 </section>
 @*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
 <aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
-    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit(inviteByEmailForm)">
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
         <h3>@IndexResources.InviteViaEmail</h3>
 
         <div class="inputText emailUser" ng-click="focusInput()">
@@ -56,6 +59,6 @@
             <h4>@InviteResources.Success!</h4>
             <div>@InviteResources.MailSent</div>
         </div>
-        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || params.validEmails === 0 || params.invalidEmails > 0">@DialogResources.Send</button>
+        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || (!(formData.emailInput.length) && params.validEmails === 0) || params.invalidEmails > 0">@DialogResources.Send</button>
     </form>
 </aside>

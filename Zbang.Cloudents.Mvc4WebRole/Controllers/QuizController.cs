@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
@@ -8,6 +9,8 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Queries;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -22,10 +25,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class QuizController : BaseController
     {
         private readonly Lazy<IIdGenerator> m_IdGenerator;
+        private readonly IQueueProvider m_QueueProvider;
 
-        public QuizController(Lazy<IIdGenerator> idGenerator)
+        public QuizController(Lazy<IIdGenerator> idGenerator, IQueueProvider queueProvider)
         {
             m_IdGenerator = idGenerator;
+            m_QueueProvider = queueProvider;
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -105,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-          Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
+          Location = OutputCacheLocation.ServerAndClient,
           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
@@ -118,9 +123,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public async Task<ActionResult> Data(long boxId, long quizId)
         {
-            var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
-            var model = await ZboxReadService.GetQuiz(query);
-            return Json(new JsonResponse(true, model));
+            var userId = GetUserId(false);
+            var query = new GetQuizQuery(quizId, userId, boxId);
+            var tModel =  ZboxReadService.GetQuiz(query);
+
+            var tTransaction =  m_QueueProvider.InsertMessageToTranactionAsync(
+                 new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = quizId,
+                            Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Quiz
+                        }
+                    }, userId, DateTime.UtcNow));
+
+            await Task.WhenAny(tModel, tTransaction);
+            return Json(new JsonResponse(true, tModel.Result));
         }
 
         [Ajax]

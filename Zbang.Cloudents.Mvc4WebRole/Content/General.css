@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -911,7 +911,7 @@ input[type="radio"][disabled] + label:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 430px;
+  width: 490px;
   margin: 0 auto;
   padding: 20px 50px;
   background: #f5f5f5;
@@ -929,6 +929,13 @@ input[type="radio"][disabled] + label:before {
 }
 .staticWpr.register .emailBtn {
   border: 1px solid #c2c2c2;
+}
+.staticWpr p {
+  font-size: 12px;
+  color: #a9a9a9;
+  text-align: center;
+  position: relative;
+  top: 5px;
 }
 .staticWpr .facebook {
   width: 100%;
@@ -1043,6 +1050,9 @@ iframe .registerFirst.store {
   position: relative;
   left: -6px;
   top: 3px;
+}
+.registerFirst.store .signupBtns p {
+  display: none;
 }
 .registerFirst.step2 {
   /*height: 942px; // height needed in order to vertically center
@@ -1332,6 +1342,11 @@ iframe .registerFirst.store {
   margin: 12px 0 16px;
   font-size: 13px;
 }
+.register.register select {
+  width: 156px;
+  position: relative;
+  top: -2px;
+}
 .desktop .firstName,
 .desktop .lastName {
   width: 48%;
@@ -1355,7 +1370,7 @@ iframe .registerFirst.store {
 }
 .genderLabel {
   font-size: 15px;
-  margin: 20px 0 5px;
+  margin: 28px 0 15px;
   display: inline-block;
 }
 .genderLabel.first {
@@ -2122,7 +2137,6 @@ select.inputText {
   height: 80px;
   font-size: 13px;
   color: #383838;
-  border-bottom: 1px solid #c2c2c2;
   text-align: left;
   /*rtl*/
   padding: 0 45px 0 19px;
@@ -2426,9 +2440,14 @@ select.inputText {
     position: relative;
     display: table;
   }
+  body {
+    /*.QA {
+            margin-top: -139px;
+            height: 100vh;
+        }*/
+  }
   body .siteHeader,
   body .boxPage .leftPanel,
-  body .QA,
   body .boxFriendsList,
   body .boxPage .boxActions,
   body .asideLib,
@@ -2468,10 +2487,6 @@ select.inputText {
   body .boxFriendsList {
     top: 12px;
   }
-  body .QA {
-    margin-top: -139px;
-    height: 100vh;
-  }
   body .box-content {
     padding: 0;
   }
@@ -2497,8 +2512,10 @@ select.inputText {
     animation: joinWprNarrowSlide 1s ease-in;
     top: 0;
   }
-  body .joinGrpWpr.show ~ .box-content .QA {
-    top: 223px;
+  body .joinGrpWpr.show ~ .box-content {
+    /*.QA {
+                        top: 223px;
+                    }*/
   }
   body .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
     top: 20px;
@@ -2516,8 +2533,10 @@ select.inputText {
     top: -20px;
     opacity: 0;
   }
-  body .joinGrpWpr.followed ~ .box-content .QA {
-    top: 204px;
+  body .joinGrpWpr.followed ~ .box-content {
+    /*.QA {
+                        top: 204px;
+                    }*/
   }
   body .joinGrpWpr.followed ~ .box-content .boxFriendsList {
     top: 12px;
@@ -2600,3 +2619,4 @@ select.inputText {
   left: -2000px;
 }
 /*#endregion*/
+/*# sourceMappingURL=General.css.map */

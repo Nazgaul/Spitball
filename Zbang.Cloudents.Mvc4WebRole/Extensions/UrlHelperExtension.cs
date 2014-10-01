@@ -18,14 +18,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             {
                 contentTypeAbsolutePath = contentTypeAbsolutePath.Remove(0, 1);
             }
-            var cdnurl = VirtualPathUtility.AppendTrailingSlash(BundleConfig.CdnEndpointUrl) + contentTypeAbsolutePath;
-            return urlHelper.Content(cdnurl);
+            var cdnUrl = VirtualPathUtility.AppendTrailingSlash(BundleConfig.CdnEndpointUrl) + contentTypeAbsolutePath;
+            return urlHelper.Content(cdnUrl);
         }
-
-        //public static string ActionHash(this UrlHelper urlHelper, string action, string hash)
-        //{
-        //    return string.Format("{0}#{1}", urlHelper.Action(action), hash);
-        //}
 
         public static string ActionHash(this UrlHelper urlHelper, string action, object routeValues, string hash)
         {
@@ -35,24 +30,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             return string.Format("{0}#{1}", urlHelper.Action(action, controller), hash);
         }
-
-        //public static string ActionHash(this UrlHelper urlHelper, string action, string controllerName, object routeValues, string hash)
-        //{
-
-        //    //return string.Format("{0}#{1}", urlHelper.AzureAction(action, controllerName,routeValues, protocol), hash);
-        //    return string.Format("{0}#{1}", urlHelper.Action(action, controllerName, routeValues), hash);
-        //}
-        //public static string AzureAction(this UrlHelper urlHelper, string action, string controllerName, object routeValues, string protocol)
-        //{
-        //    var host = urlHelper.RequestContext.HttpContext.Request.Headers["Host"];
-        //    return urlHelper.Action(action, controllerName, new RouteValueDictionary(routeValues), protocol, host);
-        //}
-
-        //public static string AzureAction(this UrlHelper urlHelper, string action, string controllerName, string protocol)
-        //{
-        //    var host = urlHelper.RequestContext.HttpContext.Request.Headers["Host"];
-        //    return urlHelper.Action(action, controllerName, null, protocol, host);
-        //}
 
         public static string GenerateUrl(this UrlHelper urlHelper, string actionName, string controllerName)
         {

@@ -4,13 +4,15 @@
 
 <div class="staticWpr popupWrppr" id="connect">
     <div class="enterTitle">@SharedResources.SignIn</div>
-    <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>            
+    <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>
+    <p>@AccountSettingsResources.NeverPost</p>
     <div class="enterForm">
-    @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
     </div>
     <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
-    <button class="closeDialog" data-closelogin="close"></button>    
+    <button class="closeDialog" data-closelogin="close"></button>
 </div>
+
 <div class="staticWpr popupWrppr" id="register" ng-class="{store: $root.isStore()}">
     <div class="welcomeStore">
         <div class="storeTxt1">@StoreResources.Description</div>
@@ -20,9 +22,9 @@
         <div class="couponWpr">
             <span class="userHelp">?</span>
             <div class="helpPopup">@StoreResources.ToGetACoupon</div>
-            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון"  />
+            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
             <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
-            
+
         </div>
         <span class="or">@StoreResources.Or</span>
     </div>
@@ -37,6 +39,7 @@
     <button class="closeDialog" data-closelogin="close"></button>
     <div class="signupBtns">
         <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
+        <p>@AccountSettingsResources.NeverPost</p>
         <div class="emailBtnWpr">
             <button ng-click="$root.params.isStore = false" class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
             <div class="registerContent">
@@ -46,8 +49,10 @@
                 <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
             </div>
         </div>
-        
+
     </div>
 </div>
+
+
 
 <div class="modal2"></div>

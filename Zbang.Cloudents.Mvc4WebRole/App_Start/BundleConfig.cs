@@ -225,7 +225,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/directives/userTooltip.js"),
                 new JsFileWithCdn("~/js/directives/userDetails.js"),
                 new JsFileWithCdn("~/js/directives/departmentsTooltip.js"),
-
+                new JsFileWithCdn("~/js/directives/classOnScroll.js"),
+                
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/selectOnClick.js"),
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
@@ -255,15 +256,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                   new JsFileWithCdn("/js/Cache.js"),
                  new JsFileWithCdn("/js/DataContext.js"),
-                 new JsFileWithCdn("~/js/Statistics.js"),
+                 //new JsFileWithCdn("~/js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                  new JsFileWithCdn("/js/Upload2.js"),
                 //new JsFileWithCdn("/js/Library.js"),
-                new JsFileWithCdn("/js/User.js"),
+                //new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
-                new JsFileWithCdn("/scripts/CountUp.js"),
-                new JsFileWithCdn("/scripts/stopwatch.js")
+                new JsFileWithCdn("/scripts/CountUp.js")
+                //new JsFileWithCdn("/scripts/stopwatch.js")
              );
 
             RegisterJsRegular("angular-store",
@@ -347,7 +348,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                new JsFileWithCdn("~/Js/TooltipGuide.js"),
 
-                new JsFileWithCdn("~/Js/Statistics.js"),
+                //new JsFileWithCdn("~/Js/Statistics.js"),
 
                 //header
                 new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
@@ -479,13 +480,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
         }
-
-        /*
-                private static void RegisterJsRoutes(string key, params string[] jsFiles)
-                {
-                    JsRemoteBundles.Add(key, RegisterJs(jsFiles.Select(s => new JsFileWithCdn(s)), new JavaScriptBundleImp()));
-                }
-        */
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
         {

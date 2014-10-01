@@ -7,7 +7,7 @@
            scope : {
                scrollToTop: '@'
            },
-           link: function (scope, elm, attr) {
+           link: function (scope, elm) {
                var isTop;
                scope.$watch('scrollToTop', function (newValue) {
                    newValue = !!newValue; //to boolean

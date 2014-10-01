@@ -170,10 +170,10 @@
     border-right: none;
 }
 
-.membersList {
-    margin: 0 -5px 0 -13px; /*rtl*/ //Doing this right: for the scrollbars and left: for item hover
+/*.membersList {
+    margin: 0 -5px 0 -13px;  //Doing this right: for the scrollbars and left: for item hover
     padding: 0 5px 0 13px;
-}
+}*/
 
 .memberItem {
     padding: 5px 5px 5px 0; /*rtl*/
@@ -274,9 +274,8 @@
     padding: 0 0 0 8px; //rtl
 }
 .createCourse {
-    padding: 0 8px 0 16px; //rtl
-    &:last-child {
-        padding:0 8px 0 0; //rtl
+    &:first-child {
+        padding:0 0 0 8px; //rtl
     }
 }
 .recommendedWpr {
@@ -346,13 +345,13 @@
     &.js-cloudState {
         .socialContentWpr:before {
             left: auto;
-            right:145px; //rtl
+            right:172px; //rtl
         }
     }
     &.js-gmState {
         .socialContentWpr:before {
             right: auto;
-            left:145px; //rtl
+            left:172px; //rtl
         }
     }
 }
@@ -682,11 +681,14 @@
         border-left: 1px solid @borderColor; /*rtl*/
         border-right: none;
     }
+    .backWpr {
+        margin: 13px 0 0 25px; //rtl
+        .flipH(1); //rtl
+    }
 }
-.boxBack {
-    padding: 0 15px 0 0; /*rtl*/
+.boxRight {
+    padding: 0 @boxSideBarWidth 0 0; //rtl
 }
-
 .shareDD {
     left: -5px; /*rtl*/
     right: auto;
@@ -893,20 +895,8 @@
         margin: 0 0 0 15px; /*rtl*/
     }
 }
-
-.listViewBtn, .thumbViewBtn {
-    border-radius: 0 3px 3px 0; /*rtl*/
-}
-
 .listViewBtn {
-    float: none; /* no ltr - fix for listViewBtn in RTL */
-    position: absolute; /* no ltr - fix for listViewBtn in RTL */
-    left: 34px; /* no ltr - fix for listViewBtn in RTL */
-}
-
-.thumbViewBtn {
-    border-right: none; /*rtl*/
-    border-radius: 3px 0 0 3px; /*rtl*/
+    margin: 2px 10px 0 5px; //rtl
 }
 
 .tag {
@@ -973,7 +963,7 @@
     margin: 0 0 32px @min-margin; /*rtl*/
     text-align: right; /* rtl */
     .boxName {
-        margin: 0 6px 0 0; /*rtl*/
+        margin: 5px 6px 0 0; /*rtl*/
     }
 
     .views {
@@ -1045,12 +1035,24 @@
     }
 }
 /*#endregion */
+/*#region box layout - Removed due to bugs */
+//.box-layout-rtl(boxItemList,thumbItem,148px,248px,4,12,20px,288px,40px);
+/*#endregion */
+
+/*#region box layout replacement */
+@min-margin: 20px;
+.boxItems {
+    .thumbItem {
+        margin: 0 0 32px @min-margin; //rtl
+    }
+}
+/*#endregion */
 
 
-.box-layout-rtl(boxItemList,thumbItem,148px,248px,2,12,20px,310px,411px);
+
 
 .stars {
-    margin: 3px 5px 0 0; /*rtl*/
+    margin: 0 5px 0 0; /*rtl*/
     .full {
         right: 0; /*rtl*/
         left: auto;
@@ -1140,212 +1142,6 @@
     }
 }
 /*#endregion */
-/*#endregion */
-
-/*#region Q&A.css */
-
-.QA {
-    text-align: right; /*rtl*/
-    left: 20px; /*rtl*/
-    right: auto;
-
-    &.changeState {
-        .QWpr {
-            right: -344px; /*rtl*/
-            left: auto;
-        }
-
-        .AWpr {
-            right: 0; /*rtl*/
-            left: auto;
-        }
-    }
-    .back {
-        right: 7px; /*rtl*/
-        left: auto;
-    }
-}
-
-.QForm {
-    .QAImg {
-        margin: 3px 8px 0 0; /*rtl*/
-    }
-}
-
-.QWpr {
-    &.ng-leave,
-    &.ng-enter.ng-enter-active    {     
-        right: 0; //rtl
-        left: auto;
-    }
-
-    &.ng-enter,
-    &.ng-leave.ng-leave-active {
-        right: -344px; //rtl
-        left: auto;
-    }
-}
-
-.AWpr {
-    &.ng-leave, 
-    &.ng-enter.ng-enter-active  {
-        right: 0; //rtl
-        left: auto;
-    }
-    &.ng-enter,
-    &.ng-leave.ng-leave-active {
-        right: 376px; //rtl
-        left: auto;
-    }
-}
-
-.QTextarea {
-    padding: 6px 8px 3px 5px; /*rtl*/
-}
-
-.attachedList {
-    padding: 0 50px 3px 8px; /*rtl*/
-}
-
-.attachedItem {
-    padding: 0 6px 0 0; /*rtl*/
-    margin: 3px 0 3px 5px; /*rtl*/
-}
-
-.removeAttach {
-    &:before {
-        right: 0; /*rtl*/
-        left: auto;
-    }
-}
-
-.QEmptyForm {
-    padding: 9px 6px 10px 9px; /*rtl*/
-    .userName {
-        padding: 0 8px 0 0; /*rtl*/
-    }
-
-    .textareaWpr {
-        margin: 0 3px 0 0; /*rtl*/
-    }
-}
-
-.QItem {
-    .askBtn {
-        margin: 2px 0 7px 6px; /*rtl*/
-        height: 26px;
-        line-height: 22px;
-    }
-
-    .userName {
-        margin: 7px 10px 0 0; /*rtl*/
-    }
-
-    .tag {
-        left: 0; //rtl
-        right: auto;
-    }
-}
-
-.QBottom .seeMore {
-    margin: 0 55px 0 0; /*rtl*/
-}
-
-.answerBottom {
-    > button {
-        padding: 0 0 0 5px; /*rtl*/
-    }
-}
-
-.numAnswers {
-    &:after {
-        margin: 0 3px 0 2px; /*rtl*/
-    }
-}
-
-.QTop {
-    padding: 6px 6px 2px 10px; /*rtl*/
-    + div .QAImg, + form .QAImg {
-        margin: 6px 15px 6px 6px; /*rtl*/
-    }
-}
-
-
-.QContent {
-    padding: 0 10px 10px 0; /*rtl*/
-}
-
-.AContent {
-    padding: 7px 0 7px 10px; /*rtl*/
-    line-height: 17px; /* diff rtl*/
-}
-
-.AMore {
-    margin: 4px 44px 8px 0; /*rtl*/
-}
-
-.qaAttach {
-    margin: 0 44px 5px 0; /*rtl*/
-}
-
-.qaAttachItem {
-    margin: 12px 0 0 7px; /*rtl*/
-}
-
-.attachActions {
-    right: 0; /*rtl*/
-    left: auto;
-}
-
-.question {
-    .QContent {
-        padding: 0 8px 10px 0; /*rtl*/
-    }
-
-    .deleteBtn {
-        left: 5px; /*rtl*/
-        right: auto;
-    }
-}
-
-    .question .userName, .AItem .userName {
-        margin: 0 8px 0 0; /*rtl*/
-    }
-
-.AItem {
-    margin: 0 0 0 -25px; //rtl
-    .AContent {
-        padding: 0 44px 0 0; /*rtl*/
-    }
-
-    .deleteBtn {
-        margin: 6px 0 0 7px; /*rtl*/
-        left: 0; //rtl
-        right: auto;
-    }
-}
-
-.aScore {
-    margin: 0 0 0 5px; /*rtl*/
-}
-
-.markAnswerBtn {
-    right: 9px; /*rtl*/
-    left: auto;
-}
-.enterAnswer {
-    .textareaWpr {
-        margin: 0 40px 5px 0; //rtl overide other values
-    }
-}
-.QAfloatButton {
-    left: 27px; /*rtl*/
-    right: auto;
-}
-
-.createTime {
-    margin: 0 5px 0 0; /*rtl*/
-}
 /*#endregion */
 
 /*#region newUpload */
@@ -2130,10 +1926,6 @@ body.quiz {
     .closePreview
     {
         margin: 8px 0 0 10px; /*rtl*/
-        &:after {
-            .flipH(1); /*rtl*/
-            margin: 0 5px 0 0; /*rtl*/
-        }
     }
 }
 
@@ -2225,6 +2017,12 @@ body.quiz {
             left: auto;
         }
     }
+     .itemOwner {
+          + .rFloat {
+              margin-right:0;
+              margin-left:7px;
+              }
+         }
 }
 
 .userCorrect, .userWrong {

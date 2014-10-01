@@ -940,7 +940,7 @@ input[type="radio"] {
 
     &.popupWrppr {
         .boxSizing;
-        width: 430px;
+        width: 490px; // TODO: This is temp. Due to �� chars increased width from 460 -> 490px
         margin: 0 auto; //override;
         padding: 20px 50px; //override;
         background: #f5f5f5; //override
@@ -962,11 +962,17 @@ input[type="radio"] {
             border: 1px solid @borderColor;
         }
     }
-
-    .facebook {
-        width: 100%;
+    p {
+        font-size: 12px;
+        color: #a9a9a9;
+        text-align: center;
+        position: relative;
+        top: 5px;
     }
-
+    .facebook {
+        width: 100%; 
+    }
+    
     &.connect, &.register {
         display: block;
 
@@ -1065,7 +1071,6 @@ iframe .registerFirst.store {
         }
         .facebook, .emailBtnWpr {
             width: 210px;
-            //margin: 0 auto;
             margin: 0 30px;
             min-width: 0;
             display: inline-block;
@@ -1089,6 +1094,9 @@ iframe .registerFirst.store {
             position: relative;
             left: -6px; //rtl
             top: 3px;
+            p {
+                display: none; //don't need to display disclaimer 'we'll never use...' on store popup
+            }
         }
     }
     &.step2 {
@@ -1393,7 +1401,11 @@ iframe .registerFirst.store {
         margin: 12px 0 16px;
         font-size: 13px;
     }
-    
+    &.register select { //needed to add specificity
+        width: 156px;
+        position: relative;
+        top: -2px;
+    }
 }
 .desktop {
     .firstName, .lastName
@@ -1426,7 +1438,7 @@ iframe .registerFirst.store {
 .genderLabel
 {
     font-size: 15px;
-    margin: 20px 0 5px;
+    margin: 28px 0 15px;
     display: inline-block;
     &.first
     {
@@ -2241,7 +2253,7 @@ select.inputText {
     height: 80px;
     font-size: 13px;
     color: #383838;
-    border-bottom: 1px solid @borderColor;
+    //border-bottom: 1px solid @borderColor;
     text-align: left; /*rtl*/
     padding: 0 45px 0 19px; /*rtl*/
     background: #fff;
@@ -2599,7 +2611,7 @@ select.inputText {
     body {
         .siteHeader,
         .boxPage .leftPanel,
-        .QA,
+        //.QA,
         .boxFriendsList,
         .boxPage .boxActions,
         .asideLib,
@@ -2647,10 +2659,10 @@ select.inputText {
             top: 12px;
         }
 
-        .QA {
+        /*.QA {
             margin-top: -139px;
             height: 100vh;
-        }
+        }*/
 
         .box-content {
             padding: 0;
@@ -2683,9 +2695,9 @@ select.inputText {
                 }
 
                 ~ .box-content {
-                    .QA {
+                    /*.QA {
                         top: 223px;
-                    }
+                    }*/
 
                     .boxFriendsList.boxFriendsList {
                         top: 20px;
@@ -2710,9 +2722,9 @@ select.inputText {
                 }
 
                 ~ .box-content {
-                    .QA {
+                    /*.QA {
                         top: 204px;
-                    }
+                    }*/
 
                     .boxFriendsList {
                         top: 12px;

@@ -117,9 +117,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //    Location = OutputCacheLocation.ServerAndClient,
-        //    VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+            Location = OutputCacheLocation.ServerAndClient,
+            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");
@@ -247,13 +247,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxItemsPaged2(query);
-                var itemDtos = result as IList<IItemDto> ?? result.ToList();
-                foreach (var item in itemDtos)
+                var result = ZboxReadService.GetBoxItemsPaged2(query).ToList();
+                foreach (var item in result)
                 {
-                    item.DownloadUrl = Url.RouteUrl("ItemDownload", new { boxId = id, itemId = item.Id });
+                    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                return Json(new JsonResponse(true, itemDtos));
+                return Json(new JsonResponse(true, result));
             }
             catch (Exception ex)
             {
@@ -269,11 +268,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxQuizes(query);
-                var itemDtos = result as IList<IItemDto> ?? result.ToList();
+                var result = ZboxReadService.GetBoxQuizes(query).ToList();
 
-                var remove = itemDtos.OfType<QuizDto>().Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return Json(new JsonResponse(true, itemDtos.Except(remove)));
+                var remove = result.Where(w => !w.Publish && w.OwnerId != GetUserId(false));
+                return Json(new JsonResponse(true, result.Except(remove)));
             }
             catch (Exception ex)
             {
@@ -456,16 +454,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Box Setting page
         /// </summary>
-        /// <param name="boxUid"></param>
+        /// <param name="boxId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
         /// 
         [HttpPost, Ajax]
         [ZboxAuthorize]
-        public ActionResult RemoveUser(long boxUid, long userId)
+        public ActionResult RemoveUser(long boxId, long userId)
         {
             // var userToChangeId = m_ShortToLongCode.ShortCodeToLong(userUid, ShortCodesType.User);
-            return DeleteUserFomBox(boxUid, userId);
+            return DeleteUserFomBox(boxId, userId);
         }
         #endregion
 

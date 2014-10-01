@@ -222,4 +222,7 @@
   <data name="UploadLogo" xml:space="preserve">
     <value>העלה סמל מוסד</value>
   </data>
+  <data name="Courses" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
 </root>

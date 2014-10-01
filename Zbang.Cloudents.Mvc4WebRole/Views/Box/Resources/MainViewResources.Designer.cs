@@ -161,6 +161,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The art and science of
+        ///asking questions is the source
+        ///of all knowledge..
+        /// </summary>
+        public static string FeedEmpty {
+            get {
+                return ResourceManager.GetString("FeedEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Want to know what&apos;s new? Follow this box.
         /// </summary>
         public static string FollowBox {
@@ -239,6 +250,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string Privacy {
             get {
                 return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to solve here, yet.
+        ///Be the first to create a quiz..
+        /// </summary>
+        public static string QuizEmpty {
+            get {
+                return ResourceManager.GetString("QuizEmpty", resourceCulture);
             }
         }
         

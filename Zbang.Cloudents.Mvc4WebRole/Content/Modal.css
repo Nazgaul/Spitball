@@ -148,7 +148,6 @@
   right: 20px;
 }
 .modal .departmentChoose .error {
-  display: none;
   color: #d1294d;
 }
 .modal .departmentChoose .step1Wpr,
@@ -712,19 +711,20 @@
 .membersSearch {
   padding: 0 5px;
 }
-.membersList {
-  max-height: 450px;
-  position: relative;
-  overflow: auto;
-  overflow-x: hidden;
-  margin: 0 -13px 0 -5px;
-  /*rtl*/
-  padding: 0 13px 0 5px;
-  /*rtl*/
-}
-.memberItem:first-child {
-  padding-top: 10px;
-}
+/*.membersList{
+    max-height: 450px;
+    //min-height: 265px;
+    //overflow: hidden;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    margin: 0 -13px 0 -5px;  // right margin: for the scrollbars and left margin: for item hover
+
+    padding: 0 13px 0 5px;  // right margin: for the scrollbars and left margin: for item hover
+}*/
+/*.memberItem:first-child {
+    padding-top:10px;
+}*/
 .memberItem {
   width: 100%;
   height: 36px;

@@ -82,7 +82,7 @@
                 video.currentTime = 0;
             }
             video.pause();
-            
+
         });
     });
     //#endregion
@@ -90,6 +90,31 @@
     $('[data-language]').click(function () {
         cd.setCookie('lang', $(this).data('language'), 10);
     });
+    $('#dLangSelect').change(function () {
+        cd.setCookie('lang', $(this).val(), 10);
+        var data = $('#registerForm').serializeArray();
+        var x = [];
+        for (var d in data) {
+            if (data[d].name === 'FirstName' || data[d].name === 'LastName' || data[d].name === 'NewEmail') {
+                x.push(data[d]);
+            }
+        }
+        sessionStorage.setItem('registerForm', JSON.stringify(x));
+        location.reload();
+    });
+    $(function () {
+        var data = sessionStorage.getItem('registerForm');
+        if (!data) {
+            return;
+        }
+        var arr = JSON.parse(data);
+        for (var i = 0; i < arr.length ; i++) {
+            $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
+        }
+        $('#homeRegister').click();
+        sessionStorage.removeItem('registerForm');
+    });
+
     //mobile view
     $('#langSelect').val(cd.getCookie('lang') || 'en-US').change(function () {
         cd.setCookie('lang', $(this).val(), 10);
@@ -137,8 +162,6 @@
 
     $('.language').find('[data-language="' + $('html').attr('lang') + '"]').addClass('currentItem');
 
-    cd.sessionStorageWrapper.clear();
-    cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex'),
     });

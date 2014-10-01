@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
-    public class QuizDto : IItemDto
+    public class QuizDto
     {
        private DateTime  m_Date;
 
@@ -26,20 +26,5 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
        public string UserUrl { get; set; }
        public string Url { get; set; }
-
-       public string Type { get { return "Quiz"; } }
-
-
-       public string DownloadUrl
-       {
-           get
-           {
-               return null;
-           }
-           set
-           {
-               
-           }
-       }
     }
 }

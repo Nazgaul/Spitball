@@ -1,4 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails', function ($scope, $rootScope, $timeout, $modal, Quiz, UserDetails) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails',
+    function ($scope, $rootScope, $timeout, $modal, sQuiz, sUserDetails) {
     function Question(data) {
         data = data || {};
         var that = this;
@@ -69,7 +70,7 @@
 
         $scope.quiz.id = data.quizId;
 
-        Quiz.getDraft({ quizId: data.quizId }).then(function (draft) {
+        sQuiz.getDraft({ quizId: data.quizId }).then(function (draft) {
             $scope.quiz.name = draft.payload.name;
             $scope.quiz.questions = draft.payload.questions;
             $scope.params.isDraft = true;
@@ -82,7 +83,7 @@
                 }
             }
 
-            for (var i = 0, questionsRemain = $scope.params.minQuestions - $scope.quiz.questions.length; i < questionsRemain; i++) {
+            for (var j = 0, questionsRemain = $scope.params.minQuestions - $scope.quiz.questions.length; j < questionsRemain; j++) {
                 $scope.addQuestion(false);
             }
 
@@ -94,6 +95,7 @@
     };
 
     $scope.closeQuiz = function (isValid) {
+            $scope.params.showCreateQuiz = false;
         var modalInstance = $modal.open({
             windowClass: 'quitQuiz',
             templateUrl: 'quizMenuTemplate',
@@ -123,12 +125,15 @@
     };
 
     $scope.saveQuiz = function () {
+        if ($scope.isEmptyQuiz()) {
+            return;
+        }
         if (!$scope.quiz.id) {
             createQuiz();
             return;
         }
 
-        Quiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
+        sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
             if (!response) {
                 return;
             }
@@ -153,8 +158,8 @@
         $scope.params.focus = false;
         $scope.params.showCreateQuiz = false;
 
-        Quiz.delete({ id: quizId }).then(function () {
-            $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
+        sQuiz.delete({ id: quizId }).then(function () {
+           $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
         });
     }
 
@@ -196,7 +201,7 @@
             return;
         }
 
-        Quiz.question.update({ id: question.id, text: question.text });
+        sQuiz.question.update({ id: question.id, text: question.text });
     };
 
     $scope.removeQuestion = function (index) {
@@ -213,7 +218,7 @@
         if (!question.id) {
             return;
         }
-        Quiz.question.delete({ id: question.id }).then(function () {
+        sQuiz.question.delete({ id: question.id }).then(function () {
         });
     };
 
@@ -247,7 +252,7 @@
             question.correctAnswer = null;
         }
 
-        Quiz.answer.delete({ id: answerId }).then(function () {
+        sQuiz.answer.delete({ id: answerId }).then(function () {
         });
 
     };
@@ -262,7 +267,7 @@
     $scope.saveAnswer = function (question, answer) {
         var answerText = answer.text || '';
         if (answer.id && !answerText.length) {
-            Quiz.answer.delete({ id: answer.id }).then(function () {
+            sQuiz.answer.delete({ id: answer.id }).then(function () {
                 answer.id = null;
             });
             return;
@@ -292,7 +297,7 @@
             createAnswer(question, answer);
             return;
         }
-        Quiz.answer.update({ id: answer.id, text: answer.text });
+        sQuiz.answer.update({ id: answer.id, text: answer.text });
     };
 
     $scope.markCorrect = function (question, answer) {
@@ -304,7 +309,7 @@
             return;
         }
 
-        Quiz.answer.markCorrect({ answerId: answer.id }).then(function (data) {
+        sQuiz.answer.markCorrect({ answerId: answer.id }).then(function (data) {
             if (!data) {
                 console.log('error mark answer as true');
             }
@@ -317,7 +322,7 @@
 
     //#region helpers
     var createQuiz = function () {
-        return Quiz.create({
+        return sQuiz.create({
             boxId: $scope
                 .quiz.courseId, name: $scope.quiz.name
         }).then(function (data) {
@@ -327,13 +332,13 @@
         });
     };
     var createQuestion = function (question) {
-        return Quiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
+        return sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
             question.id = data.payload;
             return data.payload;
         });
     };
     var createAnswer = function (question, answer) {
-        return Quiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
+        return sQuiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
             answer.id = data.payload;
             return data.payload;
         });
@@ -417,10 +422,10 @@
             publish: isPublish,
             description: isPublish && getContent(),
             rate: 0,
-            ownerId: UserDetails.getDetails().id,
-            owner: UserDetails.getDetails().name,
-            userUrl: UserDetails.getDetails().url,
-            type: 'Quiz',
+            ownerId: sUserDetails.getDetails().id,
+            owner: sUserDetails.getDetails().name,
+            userUrl: sUserDetails.getDetails().url,
+            type: 'sQuiz',
             url: url,
             date: new Date()
         };
@@ -460,7 +465,7 @@
         }
 
 
-        Quiz.save({
+        sQuiz.save({
             quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: cd.getParameterFromUrl(1), boxName: $scope.quiz.courseName, quizName: $scope.quiz.name
         }
         ).then(function (data) {

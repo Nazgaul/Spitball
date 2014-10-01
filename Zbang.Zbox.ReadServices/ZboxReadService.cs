@@ -313,7 +313,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public IEnumerable<Item.IItemDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public IEnumerable<Item.QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
             using (UnitOfWork.Start())
             {

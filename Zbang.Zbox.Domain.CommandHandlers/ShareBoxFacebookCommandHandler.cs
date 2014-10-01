@@ -22,13 +22,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Box> boxRepository,
             IIdGenerator idGenerator,
             IInviteRepository inviteRepository,
-            IFacebookService facebookPrictureService)
+            IFacebookService facebookPictureService)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
-            m_FacebookPictureService = facebookPrictureService;
+            m_FacebookPictureService = facebookPictureService;
         }
         public void Handle(ShareBoxFacebookCommand message)
         {
@@ -43,22 +43,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
 
-            var recepient = m_UserRepository.GetUserByFacebookId(message.FacebookUserId);
-            if (recepient == null)
+            var recipient = m_UserRepository.GetUserByFacebookId(message.FacebookUserId);
+            if (recipient == null)
             {
-                recepient = new User(message.FacebookUserName + "@facebook.com",
+                recipient = new User(message.FacebookUserName + "@facebook.com",
                     m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Square),
                     m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal),
                     message.FirstName,
                     message.MiddleName,
                     message.LastName,
                     message.Sex,
-                    false) {FacebookId = message.FacebookUserId};
-                m_UserRepository.Save(recepient, true);
+                    false, System.Globalization.CultureInfo.CurrentCulture.Name) { FacebookId = message.FacebookUserId };
+                m_UserRepository.Save(recipient, true);
             }
 
-            var currentInvite = m_InviteRepository.GetCurrentInvite(recepient, box) ??
-                                new Invite(m_IdGenerator.GetId(), sender, recepient, box);
+            var currentInvite = m_InviteRepository.GetCurrentInvite(recipient, box) ??
+                                new Invite(m_IdGenerator.GetId(), sender, recipient, box);
             currentInvite.UpdateSendTime();
             m_InviteRepository.Save(currentInvite);
 

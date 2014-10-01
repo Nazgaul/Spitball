@@ -10,8 +10,8 @@
             </div>
         </div>
     </div>
-    <ul class="membersList">
-        <li class="memberItem" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-repeat="member in members track by member.uid">
+    <ul>
+        <li class="memberItem" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-repeat="member in members track by member.id">
             <a ng-href="{{member.url}}"><img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" /></a>
             <span class="memberName elps" ng-bind="member.name"></span>
             <span class="memberStatus" ng-class="{memberPending : member.sUserStatus === 'Invite'}" ng-if="member.sUserStatus !== 'Owner'">
@@ -20,8 +20,8 @@
                 <span class="uninvite" ng-if="member.uninvitedItem">@IndexResources.Uninvited</span>
             </span>
             <span class="rFloat memberActions">
-                <button ng-if="member.uid !== info.user.id" type="button" title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
-                <button ng-if="member.uid !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
+                <button ng-if="member.id !== info.user.id" type="button" title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+                <button ng-if="member.id !== info.user.id && info.ownerId === info.user.id" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
                 <button ng-if="member.sUserStatus === 'Invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.action">@IndexResources.Reinvite</button>
             </span>
         </li>

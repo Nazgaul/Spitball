@@ -129,4 +129,13 @@
   <data name="Courses" xml:space="preserve">
     <value>modules</value>
   </data>
+  <data name="School" xml:space="preserve">
+    <value>University</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>University library</value>
+  </data>
+  <data name="SelectSchool" xml:space="preserve">
+    <value>Select a university</value>
+  </data>
 </root>

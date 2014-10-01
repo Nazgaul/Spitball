@@ -10,6 +10,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
         public string[] Recepients { get; set; }
 
         [Required]
-        public long BoxUid { get; set; }
+        public long BoxId { get; set; }
     }
 }

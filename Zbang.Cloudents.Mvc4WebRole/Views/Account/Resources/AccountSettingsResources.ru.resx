@@ -173,6 +173,9 @@
   <data name="InUse" xml:space="preserve">
     <value>Используется:</value>
   </data>
+  <data name="NeverPost" xml:space="preserve">
+    <value>Мы не будем публиковать на Facebook без вашего разрешения</value>
+  </data>
   <data name="NewPwd" xml:space="preserve">
     <value>Новый пароль</value>
   </data>

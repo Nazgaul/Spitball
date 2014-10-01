@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new Infrastructure.Exceptions.UserNotFoundException("user doesn't exists");
             }
-            user.UpdateUserLanguage(message.Language);
+            user.UpdateLanguage(message.Language);
             m_UserRepository.Save(user);
         }
     }

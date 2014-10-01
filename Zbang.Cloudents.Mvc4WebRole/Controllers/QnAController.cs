@@ -27,11 +27,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpPost]
         public JsonResult AddQuestion(Question model)
         {
+            if (string.IsNullOrEmpty(model.Content) && (model.Files==null || model.Files.Length == 0))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            //  var filesId = model.Files.Select(s => m_ShortToLongCode.ShortCodeToLong(s, ShortCodesType.Item));
+
             var questionId = m_IdGenerator.Value.GetId();
             var command = new AddCommentCommand(GetUserId(), model.BoxId, model.Content, questionId, model.Files);
             ZboxWriteService.AddQuestion(command);
@@ -42,6 +46,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpPost]
         public async Task<JsonResult> AddAnswer(Answer model)
         {
+            if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
@@ -56,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("Add answer model: " + model, ex);
-                 return Json(new JsonResponse(false));
+                return Json(new JsonResponse(false));
             }
         }
         //[ZboxAuthorize]
@@ -130,7 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             retVal.ToList().ForEach(f =>
             {
-                f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2",new {  boxId, itemId = fi.Id}));
+                f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = fi.Id }));
                 f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = fi1.Id })));
             });
             return Json(new JsonResponse(true, retVal));

@@ -2,12 +2,12 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <section class="boxFeed" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
-    <form class="feedForm" name="qnaQform" focus-form="feedOpen" 
-          ng-submit="postQuestion(qnaQform.$valid);" novalidate>
+    <form class="feedForm" name="qnaQform" focus-form="feedOpen"
+          ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
         <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
-        <textarea  text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" required ng-model="qFormData.content"
-                   ng-focus="checkAuth()"></textarea>
+        <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
+                  ng-focus="checkAuth()"></textarea>
         <ul class="attachedList">
             <li class="attachedItem" ng-repeat="file in qFormData.files">
                 <span class="attachName elps">{{file.name}}</span>
@@ -15,15 +15,15 @@
             </li>
         </ul>
         <div class="bottomTA" tabindex="0">
-            <button type="submit" class="rFloat btn1" ng-disabled="!qnaQform.$valid ">@SharedResources.Post</button>
+            <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content)">@SharedResources.Post</button>
         </div>
         <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
             <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
         </button>
     </form>
-   
-    <ul class="boxFeedList">
-        <li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
+
+    <ul class="boxFeedList"><!--
+        --><li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
             <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
 
             <div class="feedWpr">
@@ -43,35 +43,15 @@
                 </ul>
 
                 <div class="shareBtn lFloat">
-                    <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
-                    <label for="boxShare" class="shareBtnTxt iconTop">@SharedResources.Share</label>
-                    <div class="dropDown shareDD">
-                        <label class="closeItem rFloat" for="boxShare"></label>
-                        <div class="arrow shareArrow"></div>
-                        <h4 class="semiFont">{{strings.share}}</h4>
-                        <div class="shareTxt">{{strings.invite}}</div>
-                        <ul class="shareList">
-                            <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
-
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
-                            }
-                        </ul>
-                        <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                        <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
-                    </div>
+                    <label for="boxShare" class="iconTop">@SharedResources.Share</label>
                 </div>
-                <button type="button" class="trash">
+                <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
                     <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
                 </button>
-                @*<span user-tooltip-popup="{{comment.userId}}" class="user-name">{{comment.userName}}</span>
-                    <time display-time="{{comment.creationDate}}"></time>
-                    <p>{{comment.comment}}</p>*@
             </div>
             <ul class="feedReplies rFloat">
                 <li ng-repeat="answer in question.answers">
-                    <img class="feedImg rFloat" user-tooltip-popup="{{question.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
+                    <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
                     <div class="feedWpr">
                         <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
                         <div class="userName elps">{{answer.userName}}</div>
@@ -86,17 +66,15 @@
                                 </div>
                             </li>
                         </ul>
-                        <button type="button" class="trash">
+                        <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
                             <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
                         </button>
                     </div>
                 </li>
             </ul>
-            @*<form name="addReplyF" novalidate ng-submit="addReply(comment)" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">*@
-            <div ng-form="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
+            <form name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
                 <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
-
-                <textarea text-direction name="content" required class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
+                <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                         <span class="attachName elps">{{file.name}}</span>
@@ -104,14 +82,15 @@
                     </li>
                 </ul>
                 <div class="bottomTA">
-                    <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!qnaAform.$valid">@SharedResources.Post</button>
+                    <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
                 </div>
                 <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                     <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
                 </button>
-            </div>
-            @*</form>*@
-        </li>
-    </ul>
+            </form>
+        </li><!--
+    --></ul>
+
+    <div class="emptyFeed">@MainViewResources.FeedEmpty</div>
 
 </section>

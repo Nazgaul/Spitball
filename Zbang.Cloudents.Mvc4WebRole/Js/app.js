@@ -28,17 +28,17 @@ app.config([
                 'responseError': function (response) {
                     // do something on success
                     switch (response.status) {
-                        //case 401:
-                        //case 403:
-                        //    window.open('/account', '_self');
-                        //    break;
-                        //case 404:
-                        //    window.open('/error', '_self');
-                        //case 500:
-                        //    window.open('/error', '_self');
-                        //default:
-                        //    window.open('/error', '_self');
-                        //    break;
+                        case 401:
+                        case 403:
+                            window.open('/account', '_self');
+                            break;
+                        case 404:
+                            window.open('/error', '_self');
+                        case 500:
+                            window.open('/error', '_self');
+                        default:
+                            window.open('/error', '_self');
+                            break;
 
                     }
                 }
@@ -72,38 +72,55 @@ app.config([
                 type: 'box',
                 isPrivate: true
             },
-            templateUrl: function (params) { return '/box/my/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
+        }).
+        when('/box/my/:boxId/:boxName/#:tab?', {
+            params: {
+                type: 'box',
+                isPrivate: true
+            },
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
+        }).
+        when('/course/:uniName/:boxId/:boxName/#:tab?', {
+            params: {
+                type: 'box',
+                isPrivate: false
+            },
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
         }).
         when('/course/:uniName/:boxId/:boxName/', {
             params: {
                 type: 'box',
                 isPrivate: false
             },
-            templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
-        }).
-        when('/course/:uniName/:boxId/:boxName/', {
-            params: {
-                type: 'box'
-            },
-            templateUrl: function (params) { return '/course/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/' + encodeURIComponent(params.boxName) + '/'; }
+            templateUrl: '/box/IndexPartial/',
+            reloadOnSearch: false
         }).
         when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
             params: {
                 type: 'item'
             },
-            templateUrl: function (params) {
-                //return '/item/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                //    + encodeURIComponent(params.boxName) + '/' + params.itemId + '/' + encodeURIComponent(params.itemName) + '/';
-                return '/item/IndexPartial/';
-            }
+            templateUrl: '/item/IndexPartial/',
+            reloadOnSearch: false
+            
+        }).
+        when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
+            params: {
+                type: 'item'
+            },
+            templateUrl: '/item/IndexPartial/',
+            reloadOnSearch: false
+
         }).
         when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
             params: {
                 type: 'quiz'
             },
             templateUrl: function (params) {
-                return '/quiz/' + encodeURIComponent(params.uniName) + '/' + params.boxId + '/'
-                    + encodeURIComponent(params.boxName) + '/' + params.quizId + '/' + encodeURIComponent(params.quizName) + '/';
+                return '/quiz/IndexPartial/';
             }
         }).
         when('/department/:uniName/:libraryId/:libraryName/', {
@@ -116,7 +133,7 @@ app.config([
             params: {
                 type: 'libraryChoose'
             },
-            templateUrl: '/library/choose/'
+            templateUrl: '/library/ChoosePartial/'
         }).
         when('/department/', {
             params: {

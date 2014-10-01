@@ -591,4 +591,10 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="AddComment" xml:space="preserve">
     <value>Add your comment</value>
   </data>
+  <data name="Feed" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>Quizzes</value>
+  </data>
 </root>

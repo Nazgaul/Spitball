@@ -1,10 +1,11 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <script type="text/ng-template" id="library-department">
     <a class="navigation deptLink union-sprite" bo-href="item.url">
         <div class="deptNameWpr clamp2">
             <div class="deptName" bo-text="item.name"></div>
         </div>
-        <span class="courseCount" data-dept-numcourses="{{item.noBoxes}}">&nbsp;Courses</span>
+        <span class="courseCount" data-dept-numcourses="{{item.noBoxes}}">&nbsp;@SharedResources.Courses</span>
     </a>
 </script>
 <script type="text/ng-template" id="library-box">

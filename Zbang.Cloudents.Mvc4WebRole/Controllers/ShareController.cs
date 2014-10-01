@@ -45,24 +45,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxAccessDeniedException)
             {
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-                //}
                 return RedirectToAction("MembersOnly", "Error");
             }
             catch (BoxDoesntExistException)
             {
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return HttpNotFound();
-                //}
                 return RedirectToAction("Index", "Error");
             }
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return PartialView(model);
-            //}
             return View(model);
         }
 
@@ -126,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 var userId = GetUserId();
-                var shareCommand = new ShareBoxCommand(model.BoxUid, userId, model.Recepients);
+                var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
                 ZboxWriteService.ShareBox(shareCommand);
                 return Json(new JsonResponse(true));
             }

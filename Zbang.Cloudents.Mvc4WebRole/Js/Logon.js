@@ -20,7 +20,7 @@
     .on('click', '.addRegister', function (e) {
 
         e.preventDefault();
-        resetPopupView();
+        //resetPopupView(); // bring this back on we cant populate data
         $registerPopup.addClass('register');
         focusOnElement($registerPopup);
     })
@@ -60,19 +60,7 @@
     }
 
     //#endregion
-    //function connect(e) {
-    //    e.preventDefault();
-    //    resetPopupView();
-    //    $connectPopup.addClass('connect');
-    //    focusOnElement($connectPopup);
-    //}
-    //function register(e) {
-    //    e.preventDefault();
-    //    resetPopupView();
-    //    $registerPopup.addClass('register');
-    //    focusOnElement($registerPopup);
-    //}
-
+   
     $connectForm.submit(function (e) {
         e.preventDefault();
         var $form = $(this), $submit = $form.find(':submit');
@@ -128,7 +116,8 @@
             success: function (data) {
                 if (data.success) {
                     if (data.payload) {
-                        window.location.href = data.payload;
+                        console.log(data.payload);
+                        //window.location.href = data.payload;
                         return;
                     }
                     window.location.reload();

@@ -16,17 +16,20 @@
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
-                var spinner;            
+                var spinner, timer;
                 scope.$watch(attrs.loadSpinner, function (newValue) {
+
                     var loader = attrs.loadSpinnerType ? loaders[attrs.loadSpinnerType] : loaders.init;
                     if (newValue) {
                         spinner = angular.element(Modernizr.cssanimations ? loader.css : loader.img);
-                        elem.append(spinner);
+                        var timeout = parseInt(attrs.loadSpinnerTime, 10) || 0;
+                        timer = window.setTimeout(function () { elem.append(spinner); }, timeout);
                         return;
                     }
 
                     if (spinner) {
                         spinner.remove();
+                        clearTimeout(timer);
                     }
 
                 });
