@@ -51,14 +51,7 @@ mBox.factory('sBox',
                 return ajaxRequest(data, $http.get, 'Data/');
             },
             createTab: function (data) {
-                var dfd = $q.defer();
-                $http.post(Box + 'CreateTab/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxRequest(data, $http.post, 'CreateTab/');
             },
             deleteTab: function (data) {
                 return ajaxRequest(data, $http.post, 'DeleteTab/');

@@ -116,7 +116,8 @@
             success: function (data) {
                 if (data.success) {
                     if (data.payload) {
-                        window.location.href = data.payload;
+                        console.log(data.payload);
+                        //window.location.href = data.payload;
                         return;
                     }
                     window.location.reload();

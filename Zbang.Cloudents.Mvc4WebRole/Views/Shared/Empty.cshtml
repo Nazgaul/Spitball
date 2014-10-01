@@ -8,11 +8,32 @@
 @section scripts
 {
     @Html.Script2("angular-general")
-@Html.Script2("angular-layout3")   
-@Html.Script2("angular-store")
+    @Html.Script2("angular-layout3")
+    @Html.Script2("angular-store")
+
+    @if (!string.IsNullOrEmpty(Request.QueryString["new"]))
+    {
+        <!-- Facebook Conversion Code for Sign up through FB ad -->
+        <script type="text/javascript">
+            var fb_param = {};
+            fb_param.pixel_id = '6013174718407';
+            fb_param.value = '0.00';
+            fb_param.currency = 'USD';
+            (function () {
+                var fpw = document.createElement('script');
+                fpw.async = true;
+                fpw.src = '//connect.facebook.net/en_US/fp.js';
+                var ref = document.getElementsByTagName('script')[0];
+                ref.parentNode.insertBefore(fpw, ref);
+            })();
+            ga('send', 'event', 'Registration', 'CompletedSignUp');
+        </script>
+        <noscript><img height="1" width="1" alt="" style="display: none" src="https://www.facebook.com/offsite_event.php?id=6013174718407&value=0&currency=USD" /></noscript>
+    }
 }
 @section search {
-<form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>@*ng-class="{showSearch : $root.isSearch()}"*@
+    <form name="searchHeaderForm" class="dashLibSearch" ng-controller="SearchHeaderCtrl" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
+        @*ng-class="{showSearch : $root.isSearch()}"*@
     <input autocomplete="off" ng-keyup="search()" ng-blur="searchFocusout()" ng-focus="searchFocus()"
            type="search" name="query" required ng-model="formData.query" class="dashLibSearchInput"
            ng-placeholder="@SharedResources.Search" />

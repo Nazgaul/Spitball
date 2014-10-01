@@ -2072,6 +2072,10 @@ body.quiz .shareBtn {
   right: 8px;
   left: auto;
 }
+.quizPage .itemOwner + .rFloat {
+  margin-right: 0;
+  margin-left: 7px;
+}
 .userCorrect .quizQuestion:before,
 .userWrong .quizQuestion:before,
 .userCorrect .quizAList:before,

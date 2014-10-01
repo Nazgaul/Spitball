@@ -36,9 +36,12 @@
             if (!isValid) {
                 return;
             }
+
             if ($scope.formData1.russianCode === "cloudvivt") {
                 $scope.russainStep2 = true;
+                return;
             }
+            //$scope.submitted = true;
         };
 
     }

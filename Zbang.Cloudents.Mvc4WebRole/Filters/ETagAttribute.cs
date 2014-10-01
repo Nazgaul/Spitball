@@ -26,14 +26,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             HttpResponseBase response = filterContext.HttpContext.Response;
 
             if (response.Filter == null) return;
-            if (acceptEncoding.ToUpper().Contains("GZIP"))
-            {
-                response.AppendHeader("Content-encoding", "gzip");
-                response.Filter = new ETagFilter(
-                    response,
-                    filterContext.RequestContext.HttpContext.Request
-                    );
-            }
+            if (!acceptEncoding.ToUpper().Contains("GZIP")) return;
+            response.AppendHeader("Content-encoding", "gzip");
+            response.Filter = new ETagFilter(
+                response,
+                filterContext.RequestContext.HttpContext.Request
+                );
             //ie issue
             //if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             //{
@@ -86,9 +84,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             var str = Encoding.UTF8.GetString(buffer);
             var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
             str = x.Replace(str, string.Empty);
-            buffer = Encoding.UTF8.GetBytes(str);
-            m_Md5.TransformBlock(buffer, 0, buffer.Length, null, 0);
-            base.Write(buffer, 0, buffer.Length);
+            var buffer2 = Encoding.UTF8.GetBytes(str);
+            m_Md5.TransformBlock(buffer2, 0, buffer2.Length, null, 0);
+            base.Write(buffer2, 0, buffer2.Length);
         }
 
         public override void Flush()
@@ -113,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 m_Response.StatusCode = 304;
                 m_Response.StatusDescription = "Not Modified";
                 m_Response.Headers["Content-Length"] = "0";
-               
+
             }
             base.Flush();
         }

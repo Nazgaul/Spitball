@@ -111,6 +111,7 @@
         for (var i = 0; i < arr.length ; i++) {
             $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
         }
+        $('#homeRegister').click();
         sessionStorage.removeItem('registerForm');
     });
 

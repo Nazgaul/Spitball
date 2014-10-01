@@ -50,12 +50,13 @@
                 return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
                        ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().score > 1000000);
             };
+           
 
             $scope.removeQuiz = function (quiz) {
-                cd.confirm2(jsResources.SureYouWantToDelete + ' ' + quiz.name + "?").then(function () {
+                cd.confirm2(jsResources.SureYouWantToDelete + ' ' + (quiz.name || '') + "?").then(function () {
 
                     var data = {
-                        id: item.id,
+                        id: quiz.id,
                     }
 
                     sQuiz.delete(data).then(remove);
@@ -67,7 +68,7 @@
                         alert('error deleting ' + quiz.name); //translate
                         return;
                     }
-                    var index = $scope.quizzes.indexOf(item);
+                    var index = $scope.quizzes.indexOf(quiz);
 
                     if (index > -1) {
                         $scope.quizzes.splice(index, 1);
@@ -121,7 +122,7 @@
 
                 var quiz, index;
                 quiz = _.find($scope.quizzes, function (x) {
-                    return x.id === quizItem.quizId;
+                    return x.id === quizItem.id;
                 }),
                 index = $scope.quizzes.indexOf(quiz);
 

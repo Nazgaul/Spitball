@@ -4,15 +4,15 @@
 <div class="boxItems" ng-controller="BoxQuizzesCtrl">
     
     <div class="boxItemsHeader">
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="filteredItems.length > 0">
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
             <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
         </button>
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0">
+        <button type="button" ng-class="{ currentState : qOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="quizzes.length > 0">
             <svg><use xlink:href="~/Images/Defs.svg#thumbView" /></svg>
         </button>
     </div>
 
-    <div class="quizEmptyWpr" ng-if="!filteredItems.length && !options.loader">
+    <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
         <p>@MainViewResources.QuizEmpty</p>
         <div class="quizEmpty">
             <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
@@ -25,8 +25,8 @@
         <li ng-repeat="item in quizzes" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
             ng-include="getView(item)"
-            popover-template="boxQuizTooltip"
-            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="right">
+            popover-template="boxQuizTooltip" popover-append-to-body="true"
+            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="left">
         </li>
     </ol>
 </div>
@@ -47,7 +47,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
 </script>
@@ -69,7 +69,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
         </div>
     }
     </li>

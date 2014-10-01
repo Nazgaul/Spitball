@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook','$sce',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
 
@@ -55,8 +55,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
             var data = response.success ? response.payload || {} : {};
             if (data.preview) {
-                loadMore = true;
-                $scope.preview += data.preview;
+                
+
+                if (data.preview.indexOf('iframe')) {
+                    $scope.preview = $sce.trustAsHtml(data.preview);
+                } else {
+                    $scope.preview += data.preview;
+                    loadMore = true;
+                }
             }
         });
     }
