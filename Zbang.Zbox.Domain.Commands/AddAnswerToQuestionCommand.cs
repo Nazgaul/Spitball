@@ -8,10 +8,9 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public AddAnswerToQuestionCommand(long userId, long boxId, string text, Guid answerId, Guid questionId, IEnumerable<long> filesIds)
         {
-            if (text == null) throw new ArgumentNullException("text");
             UserId = userId;
             BoxId = boxId;
-            Text = text.Trim();
+            Text = text;
             Id = answerId;
             QuestionId = questionId;
             FilesIds = filesIds;

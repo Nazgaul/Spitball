@@ -10,8 +10,8 @@ mBox.controller('QnACtrl',
             that.id = data.id;
             that.userName = data.userName;
             that.userImage = data.userImage;
-            that.userId = data.userId; 
-            that.content = data.content.replace(/\n/g, '<br/>');
+            that.userId = data.userId;
+            that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
             that.createTime = data.creationTime;
             that.isNew = sNewUpdates.isNew($scope.boxId, 'questions', that.id);
             that.answers = data.answers.map(function (answer) {
@@ -33,7 +33,7 @@ mBox.controller('QnACtrl',
             that.userName = data.userName;
             that.userImage = data.userImage;
             that.userId = data.userId;
-            that.content = data.content.replace(/\n/g, '<br/>');
+            that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
             that.rating = data.rating;
             that.iRate = data.iRate;
             that.isAnswer = data.answer;
@@ -110,7 +110,7 @@ mBox.controller('QnACtrl',
                 alert(jsResources.NeedToFollowBox);
                 return;
             }
-            
+
             $scope.qFormData.boxId = $scope.boxId;
 
             var fileDisplay = $scope.qFormData.files;
@@ -262,7 +262,7 @@ mBox.controller('QnACtrl',
                     if (!($scope.qFormData.files && $scope.qFormData.files.length)) {
                         $scope.qFormData.files = [];
                     }
-                    $scope.qFormData.files.push(file);                    
+                    $scope.qFormData.files.push(file);
                     return;
                 }
 
@@ -270,7 +270,7 @@ mBox.controller('QnACtrl',
                     if (!(questionAttach.aFormData.files && questionAttach.aFormData.files.length)) {
                         questionAttach.aFormData.files = [];
                     }
-                    questionAttach.aFormData.files.push(file);                                       
+                    questionAttach.aFormData.files.push(file);
                     return;
                 }
 
@@ -294,7 +294,7 @@ mBox.controller('QnACtrl',
                 return;
             }
 
-            if (aAttach) {                
+            if (aAttach) {
 
                 var mapped = files.map(function (file) {
                     file.uid = file.id;
@@ -305,7 +305,7 @@ mBox.controller('QnACtrl',
                     questionAttach.aFormData.files = mapped;
                     return;
                 }
-                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);                
+                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);
             }
         });
         $scope.addQuestionAttachment = function () {
@@ -325,14 +325,14 @@ mBox.controller('QnACtrl',
             aAttach = true;
             qAttach = false;
             questionAttach = question;
-            $rootScope.$broadcast('openUpload', true);            
+            $rootScope.$broadcast('openUpload', true);
         };
         $scope.removeAnswerAttachment = function (question, file) {
             var index = question.aFormData.files.indexOf(file);
             if (index !== -1) {
                 question.aFormData.files.splice(index, 1);
             }
-        }        
+        }
 
         $scope.checkAuth = function () {
             if (!sUserDetails.isAuthenticated()) {
@@ -344,14 +344,17 @@ mBox.controller('QnACtrl',
         };
 
         function extractUrls(d) {
+            if (!d) {
+                return;
+            }
             var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
-           
+
             var array = d.match(urlex) || [];
             var matches = [];
             for (var i = 0, j = array.length; i < j; i++) {
                 if (matches.indexOf(array[i]) < 0)
                     matches.push(array[i]);
-            }            
+            }
             if (!matches.length) {
                 return d;
             }
