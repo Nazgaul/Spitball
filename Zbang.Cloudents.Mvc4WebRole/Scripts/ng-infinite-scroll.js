@@ -52,6 +52,7 @@ mod.directive('infiniteScroll', [
                       return checkWhenEnabled = true;
                   }
               };
+             
               $scrollElem.on('scroll', handler);
               scope.$on('$destroy', function () {
                   return $scrollElem.off('scroll', handler);

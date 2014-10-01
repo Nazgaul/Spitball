@@ -953,7 +953,6 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
-    <Content Include="Js\directives\classOnScroll.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
     <Content Include="Js\directives\lazySrc.js" />

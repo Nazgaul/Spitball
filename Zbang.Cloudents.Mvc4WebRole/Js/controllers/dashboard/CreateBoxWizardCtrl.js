@@ -15,7 +15,9 @@
 
                 wizard.next();
             };
-
+            window.setTimeout(function() {
+                $scope.next();
+            }, 500);
             $scope.cancel = function () {
                 if (!$scope.box.url) {
                     $modalInstance.dismiss();
