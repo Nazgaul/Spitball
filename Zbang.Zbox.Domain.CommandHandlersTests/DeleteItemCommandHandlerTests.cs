@@ -17,12 +17,14 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IRepository<Box> m_StubBoxRepository;
         private IUserRepository m_StubUserRepository;
         private IBlobProvider m_StubBlobProvider;
-        private IQueueProvider m_StubQueueProvider;
         //private IActionRepository m_StubActionRepository;
         private IRepository<Item> m_StubItemRepository;
         private IRepository<Reputation> m_StubReputationRepository;
         private IRepository<Updates> m_StubUpdatesRepository;
-        
+
+        private IRepository<CommentReplies> m_CommentRepliesRepository;
+        private IRepository<Comment> m_CommentRepository;
+
 
         [TestInitialize]
         public void Setup()
@@ -30,11 +32,12 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubBoxRepository = MockRepository.GenerateStub<IRepository<Box>>();
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
             m_StubBlobProvider = MockRepository.GenerateStub<IBlobProvider>();
-            m_StubQueueProvider = MockRepository.GenerateStub<IQueueProvider>();
             //  m_StubActionRepository = MockRepository.GenerateStub<IActionRepository>();
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<Item>>();
             m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
             m_StubUpdatesRepository = MockRepository.GenerateStub<IRepository<Updates>>();
+            m_CommentRepliesRepository = MockRepository.GenerateStub<IRepository<CommentReplies>>();
+            m_CommentRepository = MockRepository.GenerateStub<IRepository<Comment>>();
         }
 
         [TestMethod]
@@ -61,7 +64,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var command = new DeleteItemCommand(someItemId, someUserId, someBoxId);
             var commandHandler = new DeleteItemCommandHandler(m_StubBoxRepository,
-                m_StubBlobProvider, m_StubUserRepository, m_StubUpdatesRepository, m_StubItemRepository, m_StubReputationRepository);
+                m_StubBlobProvider, m_StubUserRepository, m_StubUpdatesRepository, m_StubItemRepository,
+                m_StubReputationRepository, m_CommentRepliesRepository, m_CommentRepository);
 
             m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
             m_StubUserRepository.Stub(x => x.Load(someUserId)).Return(someUser);
