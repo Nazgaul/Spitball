@@ -603,4 +603,11 @@
   <data name="AddComment" xml:space="preserve">
     <value>اكتب تعليقاً...</value>
   </data>
+  <data name="Feed" xml:space="preserve">
+    <value>التغذية</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>اختبارات
+</value>
+  </data>
 </root>

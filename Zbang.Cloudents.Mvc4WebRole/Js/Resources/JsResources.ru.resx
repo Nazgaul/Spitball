@@ -656,4 +656,10 @@
   <data name="Play" xml:space="preserve">
     <value>Пуск</value>
   </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>Активный пользователь</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
 </root>

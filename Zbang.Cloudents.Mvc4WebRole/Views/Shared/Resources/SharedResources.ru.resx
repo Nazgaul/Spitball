@@ -588,4 +588,10 @@
   <data name="AddComment" xml:space="preserve">
     <value>Написать комментарий</value>
   </data>
+  <data name="Feed" xml:space="preserve">
+    <value>Лента</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>Тесты</value>
+  </data>
 </root>

@@ -151,6 +151,10 @@
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>Искусство и наука задавать вопросы —
+это источник всех знаний.</value>
+  </data>
   <data name="FollowBox" xml:space="preserve">
     <value>Хотите узнать новости? Отслеживать этот ящик</value>
   </data>
@@ -177,6 +181,10 @@
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Конфиденциальность</value>
+  </data>
+  <data name="QuizEmpty" xml:space="preserve">
+    <value>Здесь пока нечего решать.
+Создайте тест первым.</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Переименовать</value>

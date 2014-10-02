@@ -640,4 +640,10 @@ Sign up for FREE</value>
   <data name="Play" xml:space="preserve">
     <value>Play</value>
   </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>Active member</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
 </root>
