@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -1689,4 +1689,3 @@ path.penBorder {
 .draft path.penBorder {
   stroke: silver;
 }
-/*# sourceMappingURL=Box3.css.map */
