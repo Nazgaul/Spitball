@@ -433,7 +433,7 @@
 
 .boxTop {
     position: relative;
-    border-bottom: 1px solid @borderColor;
+    //border-bottom: 1px solid @borderColor;
     padding-bottom: 20px;
     &:hover {
         .boxRename {
@@ -513,7 +513,6 @@
     .sectionHeader {
         font-size: 13px; /*rtl*/
         text-transform: uppercase;
-        border-right: 1px solid @borderColor; /*rtl*/
     }
 }
 
@@ -537,13 +536,13 @@
     font-size: 16px;
     height: 40px;
     line-height: 40px;
-    background: #fff;
-    border-right: 1px solid @borderColor;
+    background: #eee;
 
     &.current {
         background: none;
         font-weight: 600; /*rtl*/
         border-right: none;
+        background: #fff;
 
         .editFolder {
             display: inline-block;
@@ -567,14 +566,14 @@
         width: 100%;
         font-size: 14px;
         .boxSizing;
-        &:not(.editable):hover {
+        /*&:not(.editable):hover {
             color: @color;
         }
 
         &.editable {
             width: 290px;
             height: 28px;
-            padding: 8px 4px 0 8px; /*rtl*/
+            padding: 8px 4px 0 8px; //rtl
             font-weight: normal;
             line-height: normal;
             max-width: 270px; //override 245px;
@@ -589,7 +588,7 @@
             + .editFolder {
                 display: none;
             }
-        }
+        }*/
     }
 }
 

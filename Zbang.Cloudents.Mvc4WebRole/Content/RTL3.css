@@ -705,10 +705,6 @@
   float: left;
   /*rtl*/
 }
-.boxTop {
-  border-right: none;
-  border-left: 1px solid #c2c2c2;
-}
 .boxTop .courseCode {
   right: 93px;
   /*rtl*/
@@ -739,15 +735,16 @@
 /*#region box folders */
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
-  border-right: none;
-  border-left: 1px solid #c2c2c2;
   font-size: 17px;
   /*diff rtl*/
 }
 .boxFolder,
 .createFolder {
-  border-right: none;
-  border-left: 1px solid #c2c2c2;
+  /*.boxFolderName {
+        &.editable {
+            padding: 8px 8px 0 4px; //rtl
+        }
+    }*/
 }
 .boxFolder.current,
 .createFolder.current {
@@ -755,11 +752,6 @@
   /*rtl*/
   border-right: none;
   border-left: none;
-}
-.boxFolder .boxFolderName.editable,
-.createFolder .boxFolderName.editable {
-  padding: 8px 8px 0 4px;
-  /*rtl*/
 }
 .createFolderText:before {
   margin: 14px 0 0 6px;
