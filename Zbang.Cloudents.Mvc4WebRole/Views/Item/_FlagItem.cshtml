@@ -36,7 +36,7 @@
                 <li>
                     @Html.RadioButtonFor(x => x.BadItem, BadItem.Other, new { id = "flag_radioOther", ng_model = "formdata.BadItem" })
                     <label for="flag_radioOther">@BadItem.Other.GetEnumDescription()</label>
-                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", ng_model = "formdata.Other" })
+                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", ng_model = "formdata.Other", autocomplete = "off" })
                 </li>
             </ul>
             <input type="submit" class="btn1 next" ng-disabled="disable" value="@FlagItemResources.SendReport" />
