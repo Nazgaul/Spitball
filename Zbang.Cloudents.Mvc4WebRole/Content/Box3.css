@@ -458,20 +458,11 @@
   background: #fff;
   display: block;
 }
-/*.boxNameWpr {
-    //height: 42px;
-    height: 44px;
-    font-size: 25px;
-    position: relative;
-    overflow: hidden;
-    //margin: 18px 0 0 84px; //rtl
-    
-}*/
 .boxDetail {
   font-size: 14px;
 }
 .newActivity {
-  margin-top: 10px;
+  margin-top: -10px;
 }
 .newActivity li {
   display: block;
@@ -491,7 +482,7 @@
   width: 42px;
   height: 20px;
   font-size: 15px;
-  margin-top: 8px;
+  margin-top: 11px;
   border-radius: 3px;
   line-height: normal;
   text-align: center;
@@ -667,6 +658,9 @@
   width: auto;
   display: block;
   margin: 10px 130px 0 0;
+}
+.box-content .membersTop {
+  margin-bottom: 15px;
 }
 .box-content .inviteFriendBtn.btn3 {
   width: auto;
