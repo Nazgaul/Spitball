@@ -142,7 +142,7 @@
     <value>تنزيل </value>
   </data>
   <data name="Flag" xml:space="preserve">
-    <value>اعلام بالبند</value>
+    <value>علامة</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
     <value>عرض شاشه كامله</value>
@@ -227,5 +227,8 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>جاري معالجة ملف الوسائط الجديد</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>تم النشر بواسطة</value>
   </data>
 </root>

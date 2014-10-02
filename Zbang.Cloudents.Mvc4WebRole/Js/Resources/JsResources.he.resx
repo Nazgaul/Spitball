@@ -653,4 +653,10 @@
   <data name="Play" xml:space="preserve">
     <value>התחל</value>
   </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>חבר</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>ממתין</value>
+  </data>
 </root>

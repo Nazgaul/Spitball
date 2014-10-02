@@ -924,11 +924,6 @@
   /*rtl*/
   left: auto;
 }
-.thumbItem.quizItem:after {
-  right: 8px;
-  /*rtl*/
-  left: auto;
-}
 .thumbItem.quizItem .stars {
   right: 4px;
   /*rtl*/

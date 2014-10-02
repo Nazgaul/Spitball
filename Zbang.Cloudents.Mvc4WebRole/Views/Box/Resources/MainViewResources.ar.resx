@@ -151,6 +151,10 @@
   <data name="Edit" xml:space="preserve">
     <value>اعداد</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>إن فن وعلم طرح الأسئلة هو
+ مصدر كل المعرفة.</value>
+  </data>
   <data name="FollowBox" xml:space="preserve">
     <value>هل تريد معرفة الجديد ؟ تابع هذا الصندوق واعرف ما الجديد</value>
   </data>
@@ -178,6 +182,10 @@
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>خصوصية</value>
+  </data>
+  <data name="QuizEmpty" xml:space="preserve">
+    <value>ما من شيء تقوم بحله هنا، حتى الآن. 
+كن أول من يقوم بإنشاء اختبار.</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>تغيير الاسم</value>

@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active member.
+        /// </summary>
+        public static string ActiveMember {
+            get {
+                return ResourceManager.GetString("ActiveMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add your comment.
         /// </summary>
         public static string AddComment {
@@ -1113,6 +1122,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string Pause {
             get {
                 return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
             }
         }
         
