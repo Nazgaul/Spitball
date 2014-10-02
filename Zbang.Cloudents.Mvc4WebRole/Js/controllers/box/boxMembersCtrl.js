@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', '$modal', 'sBox',
-        function ($scope, $filter, $modal, sBox) {
+        ['$scope', '$filter', '$modal', 'sBox', '$timeout',
+        function ($scope, $filter, $modal, sBox, $timeout) {
             //Members
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
@@ -18,7 +18,7 @@
                 $scope.options.loader = false;
             });
 
-            
+
 
             $scope.sendUserMessage = function (member) {
                 var modalInstance = $modal.open({
@@ -36,10 +36,10 @@
                     }
                 });
 
-                //modalInstance.result.then(function () {
-                //}, function () {
-                //    //dismiss
-                //});
+                modalInstance.result.then(function () {
+                }, function () {
+                    //dismiss
+                });
             };
 
             $scope.removeUser = function (member) {
@@ -66,7 +66,6 @@
                 function remove() {
                     var index = $scope.members.indexOf(member);
                     $scope.members.splice(index, 1);
-                    $scope.info.membersLength--;
                 }
             };
 
@@ -89,5 +88,18 @@
 
                 $scope.members = $filter('orderByFilter')(members, { field: 'name', input: $scope.params.search });
             };
+
+            $scope.userStatus = function (status) {
+                switch (status) {
+                    case 'Subscribe':
+                        return 'Active Member';//add resource
+                    case 'Owner':
+                        return JsResources.Owner;
+                    case 'Invite':
+                        return 'Pending'; //add resource
+
+                }
+            };
+
         }]
     );

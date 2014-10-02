@@ -1,4 +1,4 @@
-﻿var mDashboard = angular.module('mDashboard', ['wizard','InviteEmail']);
+﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
@@ -16,20 +16,11 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
-        //createBox: '/Dashboard/PrivateBoxPartial/',
         createBoxWized: '/Dashboard/CreateBox/'
     };
 
     $scope.myCourses = jsResources.CoursesFollow;
-    //if ($scope.firstTime && $scope.firstTime.dashboard) { //viewbag
 
-    //    sDashboard.recommendedCourses().then(function (response) {
-    //        var data = response.success ? response.payload : {};
-    //        $scope.recommendedCourses = data;
-    //    });
-    //    $scope.firstTime.dashboard = false;
-    //    sDashboard.disableFirstTime();
-    //}
     var modalInstance;
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;

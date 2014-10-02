@@ -3,7 +3,7 @@
        return {
            scope: false,
            restrict: "A",
-       
+
            link: function (scope, elem, attrs) {
 
 
@@ -25,8 +25,8 @@
 
 
 
-                  drawGrid();
-                  drawGraph();
+               drawGrid();
+               drawGraph();
 
 
 
@@ -37,7 +37,7 @@
                    context.moveTo(2, 0);
 
                    context.lineTo(2, canvasHeight - 25);
-                   context.lineTo(canvasWidth, canvasHeight - 25);                   
+                   context.lineTo(canvasWidth, canvasHeight - 25);
                    context.strokeStyle = '#797979';
                    context.lineWidth = 1;
                    context.stroke();
@@ -51,7 +51,7 @@
                        return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(x, 2) / 2));
                    }, 'green', 2);
 
-                   function drawEquation(equation, color, thickness) {
+                   function drawEquation(equation, color) {
                        context.save();
                        transformContext();
 
@@ -73,9 +73,9 @@
 
 
                function drawData() {
-                 
 
-                   var userAverage = scope.quiz.stdevp ? 
+
+                   var userAverage = scope.quiz.stdevp ?
                                         (scope.quiz.result - scope.quiz.average) / scope.quiz.stdevp : 0,
                        averageHeight = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-(Math.pow(userAverage, 2) / 2));
 
@@ -95,7 +95,7 @@
                        context.restore();
                        context.strokeStyle = '#e6ad20';
                        context.lineWidth = 3;
-                       context.setLineDash([10,5]);
+                       context.setLineDash([10, 5]);
                        context.stroke();
                        context.setLineDash([]);
 
@@ -119,7 +119,7 @@
                        context.font = '12pt arial';
                        context.fillText('average: ' + scope.quiz.average, canvasWidth / 2, canvasHeight);
                    }
-              }                                      
+               }
 
                attrs.$observe('userDone', function () {
                    if (attrs.userDone === 'true') {
@@ -130,11 +130,11 @@
                });
 
 
-               function clearCanvas () {
+               function clearCanvas() {
                    context.clearRect(0, 0, canvasWidth, canvasHeight);
                };
 
-           
+
 
                function transformContext() {
                    // move context to center of canvas

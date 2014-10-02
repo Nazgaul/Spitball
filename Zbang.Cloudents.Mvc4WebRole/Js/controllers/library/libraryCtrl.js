@@ -71,6 +71,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             templateUrl: '/Dashboard/CreateBox/',
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
+            keyboard: false
             // resolve: {
             //friends: function () {
             //return data.payload.my;

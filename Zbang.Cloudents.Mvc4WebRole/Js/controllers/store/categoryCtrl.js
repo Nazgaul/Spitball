@@ -14,21 +14,30 @@
 
         };
 
-        Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
-            allProducts = response.payload;
-            $scope.products = allProducts;
+        if ($location.search()['q']) {
+            var query = $location.search()['q'];
+            $scope.params.search = query;
+            search();
+        }
+        else {
 
-            $timeout(function () {
-                $scope.$emit('viewContentLoaded');
-                //    if ($routeParams.categoryId) {
-                //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
-                //            $window.scrollTo(0, 400);
-                //        }
+            Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
+                allProducts = response.payload;
+                $scope.products = allProducts;
+            });
 
-                //    }
-            }, 0);
+
+        }
+
+        $timeout(function () {
+            $scope.$emit('viewContentLoaded');
+            //    if ($routeParams.categoryId) {
+            //        if ($window.pageYOffset > 0 || $window.pageYOffset < 400) {
+            //            $window.scrollTo(0, 400);
+            //        }
+
+            //    }
         });
-
 
         $scope.addProducts = function () {
             $scope.params.maxProducts += consts.productsIncrement;
@@ -60,11 +69,7 @@
         //        $scope.params.maxProducts = consts.productsIncrement;
         //    });
         //}, 150);
-        if ($location.search()['q']) {
-            var query = $location.search()['q'];
-            $scope.params.search = query;
-            search();
-        }
+
 
         $scope.search = function (e) {
             e.preventDefault();
@@ -96,13 +101,13 @@
         $scope.urlQueryString = function () {
             var first = true, qs = '';
             for (var key in $routeParams) {
-                if (first) {                    
+                if (first) {
                     qs = '?' + key.toLowerCase() + '=' + $routeParams[key];
                     first = false;
                     continue;
                 }
                 qs += '&' + key.toLowerCase() + '=' + $routeParams[key];
-            }            
+            }
             return qs;
         };
 
@@ -112,7 +117,6 @@
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
-            //$location.search({ q: $scope.params.search });
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 $scope.params.isSearching = false;

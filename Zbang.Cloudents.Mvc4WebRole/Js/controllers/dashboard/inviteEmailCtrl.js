@@ -14,6 +14,11 @@
                  validEmails: 0
              };
 
+             $scope.focusInput = function () { //fix for clicking white space
+                 sFocus('emailInput');
+             };
+
+
              $scope.submit = function () {
                  addEmail();
                  for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
@@ -33,7 +38,7 @@
                      }
 
                      $scope.params.invFormSent = true; //animation
-                     $timeout(function() { $scope.params.invFormSent = false; }, 2000);//animation
+                     $timeout(function () { $scope.params.invFormSent = false; }, 2000);//animation
 
                      $scope.formData.emailList = [];
                      $scope.params.invalidEmails = $scope.params.validEmails = 0;
@@ -86,7 +91,7 @@
 
 
              $scope.keyupListener = function (e) {
-                 if (e.keyCode === 188 || e.keyCode === 186 || e.keyCode === 9) { // , ; TAB 
+                 if (e.keyCode === 188 || e.keyCode === 186 || e.keyCode === 9 || e.keyCode === 32) { // , ; TAB 
                      addEmail();
                  }
              };
@@ -98,8 +103,8 @@
                  }
 
                  var email = {
-                         address: $scope.formData.emailInput
-                     },
+                     address: $scope.formData.emailInput
+                 },
 
                      index = $scope.formData.emailList.indexOf(email);
                  if (index > -1) {
