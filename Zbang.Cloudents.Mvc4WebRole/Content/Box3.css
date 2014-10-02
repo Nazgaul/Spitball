@@ -327,12 +327,9 @@
 }
 .joinGrpWpr.show ~ .box-content {
   padding-top: 8px;
-  /*.QA{
-                top: 265px;
+  /*.boxFriendsList {
+                top: 200px;
             }*/
-}
-.joinGrpWpr.show ~ .box-content .boxFriendsList {
-  top: 200px;
 }
 .joinGrpWpr.followed:after {
   -webkit-transition: all 0.3s 3s;
@@ -356,19 +353,6 @@
   -o-transform: scale(1);
   -webkit-transform: scale(1);
   transform: scale(1);
-}
-.joinGrpWpr.followed ~ .box-content {
-  /*.QA {
-                top: 212px;
-                .transition(top .3s 3s);
-            }*/
-}
-.joinGrpWpr.followed ~ .box-content .boxFriendsList {
-  top: 150px;
-  -webkit-transition: top 0.3s 3s;
-  -moz-transition: top 0.3s 3s;
-  -o-transition: top 0.3s 3s;
-  transition: top 0.3s 3s;
 }
 .joinGrpBtn {
   width: 100%;
@@ -680,6 +664,29 @@
   min-height: calc(100vh - 50px);
   position: relative;
   overflow: hidden;
+}
+.box-content .membersContent {
+  max-width: 706px;
+}
+.box-content .membersContent .searchWpr {
+  width: auto;
+  display: block;
+  margin: 10px 130px 0 0;
+}
+.box-content .inviteFriendBtn.btn3 {
+  width: auto;
+  padding: 0 8px;
+  line-height: 30px;
+}
+.box-content .inviteFriendBtn.btn3:before {
+  content: '';
+  display: inline-block;
+  background: url(/Images/common17-sprite.png?v=4) -143px -3px no-repeat;
+  width: 22px;
+  height: 19px;
+  vertical-align: middle;
+  margin-right: 8px;
+  /*rtl*/
 }
 /*#region boxItems */
 .thumbContent {
@@ -1150,8 +1157,8 @@
   top: 24px;
 }
 .thumbItem.quizItem svg {
-  width: 153px;
-  height: 220px;
+  width: 148px;
+  height: 205px;
   position: absolute;
   z-index: -1;
   stroke: #0f9d58;
@@ -1171,8 +1178,8 @@
 }
 .thumbItem.quizItem .boxName {
   color: #383838;
-  font-size: 17px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 23px;
   height: 44px;
   overflow: hidden;
   clear: both;
@@ -1182,7 +1189,7 @@
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
-  margin: 115px 0 0 0;
+  margin: 105px 0 0 0;
 }
 .thumbItem.quizItem .quizOwner {
   display: none;
@@ -1207,13 +1214,13 @@
   stroke: #c2c2c2;
 }
 .thumbItem.draft .tag {
-  padding: 3px 25px;
+  padding: 3px 20px;
   border-radius: 10px;
   color: #fff;
   background: #e25c6a;
   position: static;
-  font-size: 15px;
-  margin: 17px 0 0 0;
+  font-size: 13px;
+  margin: 16px 0 0 0;
 }
 .thumbItem.draft .tag:before,
 .thumbItem.draft .tag:after {

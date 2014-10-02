@@ -2440,15 +2440,8 @@ select.inputText {
     position: relative;
     display: table;
   }
-  body {
-    /*.QA {
-            margin-top: -139px;
-            height: 100vh;
-        }*/
-  }
   body .siteHeader,
   body .boxPage .leftPanel,
-  body .boxFriendsList,
   body .boxPage .boxActions,
   body .asideLib,
   body .asideDash,
@@ -2484,9 +2477,6 @@ select.inputText {
     top: 0;
     width: 100%;
   }
-  body .boxFriendsList {
-    top: 12px;
-  }
   body .box-content {
     padding: 0;
   }
@@ -2512,14 +2502,6 @@ select.inputText {
     animation: joinWprNarrowSlide 1s ease-in;
     top: 0;
   }
-  body .joinGrpWpr.show ~ .box-content {
-    /*.QA {
-                        top: 223px;
-                    }*/
-  }
-  body .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
-    top: 20px;
-  }
   body .joinGrpWpr.followed {
     padding: 0;
   }
@@ -2532,14 +2514,6 @@ select.inputText {
   body .joinGrpWpr.followed .joinGrp {
     top: -20px;
     opacity: 0;
-  }
-  body .joinGrpWpr.followed ~ .box-content {
-    /*.QA {
-                        top: 204px;
-                    }*/
-  }
-  body .joinGrpWpr.followed ~ .box-content .boxFriendsList {
-    top: 12px;
   }
   body .scrolling #dash_right:before {
     display: none;

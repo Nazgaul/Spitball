@@ -3,7 +3,8 @@
 
 <div class="membersContent" ng-controller="BoxMembersCtrl">
     <div class="membersTop">
-        <div class="searchWpr lFloat">
+        <a href="/invite/" target="_self" class="inviteFriendBtn btn3 rFloat">Invite friends</a>
+        <div class="searchWpr">
             <span class="membersCount lFloat">{{params.membersLength}} @SharedResources.Members</span>
             <div class="inputWpr">
                 <input class="membersSearch" ng-model="params.search" type="search" placeholder="@IndexResources.SearchMember" ng-keyup="searchMembers()"/>

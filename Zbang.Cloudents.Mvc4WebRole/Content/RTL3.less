@@ -798,23 +798,6 @@
     }
 }
 
-/*#region box friends */
-
-.boxFriendsList {
-    left: 15px; /*rtl*/
-    right: auto;
-    li {
-        margin: 0 0 6px 2px; /*rtl*/
-        &:last-child {
-            &:nth-child(n+14) {
-                float: left; /*rtl*/
-            }
-        }
-    }
-}
-
-/*#endregion */
-
 /*#region box folders */
 .boxMembers, .boxFolders {
     .sectionHeader {
@@ -856,6 +839,19 @@
 }
 
 /*#endregion */
+
+.box-content {
+    .membersContent {
+        .searchWpr {
+            margin: 10px 0 0 130px; //rtl
+        }
+    }
+    .inviteFriendBtn.btn3 {
+        &:before {
+            margin: 0 0 0 8px; /*rtl*/
+        }
+    }
+}
 
 /*#region boxItems */
 .boxEmpty {

@@ -736,21 +736,6 @@
   /*rtl*/
   left: auto;
 }
-/*#region box friends */
-.boxFriendsList {
-  left: 15px;
-  /*rtl*/
-  right: auto;
-}
-.boxFriendsList li {
-  margin: 0 0 6px 2px;
-  /*rtl*/
-}
-.boxFriendsList li:last-child:nth-child(n+14) {
-  float: left;
-  /*rtl*/
-}
-/*#endregion */
 /*#region box folders */
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
@@ -790,6 +775,13 @@
   right: auto;
 }
 /*#endregion */
+.box-content .membersContent .searchWpr {
+  margin: 10px 0 0 130px;
+}
+.box-content .inviteFriendBtn.btn3:before {
+  margin: 0 0 0 8px;
+  /*rtl*/
+}
 /*#region boxItems */
 .boxEmpty > h2 {
   font-weight: normal;
