@@ -206,6 +206,9 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
   -o-transition: none;
   transition: none;
 }
+body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+  margin: 0;
+}
 body,
 h1,
 h2,
