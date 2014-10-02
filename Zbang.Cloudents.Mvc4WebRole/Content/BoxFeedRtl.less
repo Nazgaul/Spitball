@@ -6,6 +6,7 @@
     }
     &.feedOpen {
         .feedTA {
+            direction: rtl !important; //rtl - override Guy's code to fix bug 2606 mozilla problem
             ~ .attachBtn {
                 right: 70px; //rtl
                 left: auto;

@@ -25,6 +25,7 @@
   border-bottom: none;
   margin-bottom: 35px;
   border-color: #282828;
+  direction: ltr !important;
 }
 .feedForm.feedOpen .feedTA ~ .bottomTA {
   display: block;
