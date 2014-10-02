@@ -78,12 +78,14 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             //}
             // }
         });
-        modalInstance.result.then(function (url) {
+        modalInstance.result.then(function(url) {
 
             $rootScope.params.createBoxWizard = false;
             if (url) {
                 $location.path(url);
             }
+        }, function() {
+            $rootScope.params.createBoxWizard = false; //user cancelled
         });
     };
 

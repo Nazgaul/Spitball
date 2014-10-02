@@ -116,8 +116,7 @@
             success: function (data) {
                 if (data.success) {
                     if (data.payload) {
-                        console.log(data.payload);
-                        //window.location.href = data.payload;
+                        window.location.href = data.payload;
                         return;
                     }
                     window.location.reload();
@@ -220,5 +219,29 @@
     //cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex'),
+    });
+    $('#dLangSelect').change(function () {
+        cd.setCookie('lang', $(this).val(), 10);
+        var data = $('#registerForm').serializeArray();
+        var x = [];
+        for (var d in data) {
+            if (data[d].name === 'FirstName' || data[d].name === 'LastName' || data[d].name === 'NewEmail') {
+                x.push(data[d]);
+            }
+        }
+        sessionStorage.setItem('registerForm', JSON.stringify(x));
+        location.reload();
+    });
+    $(function () {
+        var data = sessionStorage.getItem('registerForm');
+        if (!data) {
+            return;
+        }
+        var arr = JSON.parse(data);
+        for (var i = 0; i < arr.length ; i++) {
+            $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
+        }
+        $('.addRegister').click();
+        sessionStorage.removeItem('registerForm');
     });
 })(cd, jQuery);

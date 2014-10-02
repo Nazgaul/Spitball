@@ -131,6 +131,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<JsonResult> SearchUniversity(string term)
         {
+            if (string.IsNullOrEmpty(term))
+            {
+                return Json(new JsonResponse(false));
+            }
             try
             {
                 var retVal = await m_UniversitySearch.Value.SearchUniversity(term);
