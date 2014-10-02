@@ -632,7 +632,7 @@
 
         //#region Clear data 
         cd.pubsub.subscribe(consts.itemClear, function () {
-            $('#AddAnotation').detach();
+           // $('#AddAnotation').detach();
             $previewWrapper[0].innerHTML = '';
             self.itemName('')
             .update('')

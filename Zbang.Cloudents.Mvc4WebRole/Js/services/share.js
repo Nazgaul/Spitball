@@ -78,6 +78,16 @@
 
                     return dfd.promise;
                 }
+            },
+            facebookReputation: function () {
+                var dfd = $q.defer();
+                $http.post(Share + '/Facebook', data).success(function (response) {
+                    dfd.resolve(response);
+                }).error(function (response) {
+                    dfd.reject(response);
+                });
+
+                return dfd.promise;
             }
         };
     }
