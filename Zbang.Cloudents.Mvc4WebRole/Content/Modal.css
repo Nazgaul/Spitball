@@ -674,6 +674,7 @@
   height: 52px;
   line-height: 52px;
   border-bottom: 1px solid #c2c2c2;
+  margin-bottom: 5px;
 }
 .membersTop .searchWpr {
   display: inline-block;
@@ -711,20 +712,14 @@
 .membersSearch {
   padding: 0 5px;
 }
-/*.membersList{
-    max-height: 450px;
-    //min-height: 265px;
-    //overflow: hidden;
-    position: relative;
-    overflow: auto;
-    overflow-x: hidden;
-    margin: 0 -13px 0 -5px;  // right margin: for the scrollbars and left margin: for item hover
-
-    padding: 0 13px 0 5px;  // right margin: for the scrollbars and left margin: for item hover
-}*/
-/*.memberItem:first-child {
-    padding-top:10px;
-}*/
+.membersList {
+  max-height: 450px;
+  position: relative;
+  overflow: auto;
+  overflow-x: hidden;
+  margin: 0 -13px 0 -5px;
+  padding: 0 13px 0 5px;
+}
 .memberItem {
   width: 100%;
   height: 36px;
