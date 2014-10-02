@@ -768,9 +768,6 @@
 }
 
 .boxTop {
-    border-right: none;
-    border-left: 1px solid @borderColor;
-
     .courseCode {
         right: 93px; /*rtl*/
         left: auto;
@@ -801,27 +798,22 @@
 /*#region box folders */
 .boxMembers, .boxFolders {
     .sectionHeader {
-        border-right: none;
-        border-left: 1px solid @borderColor;
         font-size: 17px; /*diff rtl*/
     }
 }
 
 .boxFolder, .createFolder {
-    border-right: none;
-    border-left: 1px solid @borderColor;
-
     &.current {
         font-weight: bold; /*rtl*/
         border-right: none;
         border-left: none;
     }
 
-    .boxFolderName {
+    /*.boxFolderName {
         &.editable {
-            padding: 8px 8px 0 4px; /*rtl*/
+            padding: 8px 8px 0 4px; //rtl
         }
-    }
+    }*/
 }
 
 .createFolderText {

@@ -437,7 +437,6 @@
 /*#region Box sidebar */
 .boxTop {
   position: relative;
-  border-bottom: 1px solid #c2c2c2;
   padding-bottom: 20px;
 }
 .boxTop:hover .boxRename {
@@ -509,8 +508,6 @@
   font-size: 13px;
   /*rtl*/
   text-transform: uppercase;
-  border-right: 1px solid #c2c2c2;
-  /*rtl*/
 }
 .boxFolders {
   height: 100%;
@@ -529,8 +526,7 @@
   font-size: 16px;
   height: 40px;
   line-height: 40px;
-  background: #fff;
-  border-right: 1px solid #c2c2c2;
+  background: #eee;
 }
 .boxFolder.current,
 .createFolder.current {
@@ -538,6 +534,7 @@
   font-weight: 600;
   /*rtl*/
   border-right: none;
+  background: #fff;
 }
 .boxFolder.current .editFolder,
 .createFolder.current .editFolder {
@@ -563,31 +560,29 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.boxFolder .boxFolderName:not(.editable):hover,
-.createFolder .boxFolderName:not(.editable):hover {
-  color: #0f9d58;
-}
-.boxFolder .boxFolderName.editable,
-.createFolder .boxFolderName.editable {
-  width: 290px;
-  height: 28px;
-  padding: 8px 4px 0 8px;
-  /*rtl*/
-  font-weight: normal;
-  line-height: normal;
-  max-width: 270px;
-  -ms-text-overflow: clip;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-}
-.boxFolder .boxFolderName.editable:hover,
-.createFolder .boxFolderName.editable:hover {
-  background: transparent;
-}
-.boxFolder .boxFolderName.editable + .editFolder,
-.createFolder .boxFolderName.editable + .editFolder {
-  display: none;
+  /*&:not(.editable):hover {
+            color: @color;
+        }
+
+        &.editable {
+            width: 290px;
+            height: 28px;
+            padding: 8px 4px 0 8px; //rtl
+            font-weight: normal;
+            line-height: normal;
+            max-width: 270px; //override 245px;
+            -ms-text-overflow: clip;
+            -o-text-overflow: clip;
+            text-overflow: clip;
+
+            &:hover {
+                background: transparent;
+            }
+
+            + .editFolder {
+                display: none;
+            }
+        }*/
 }
 .tabBorder {
   width: 229px;
