@@ -218,6 +218,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("/js/directives/lazySrc.js"),
 
 
+
                 new JsFileWithCdn("/js/directives/mLoader.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/quizGraph.js"),
