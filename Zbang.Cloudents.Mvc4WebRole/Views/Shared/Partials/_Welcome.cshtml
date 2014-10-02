@@ -5,7 +5,7 @@
 <div class="staticWpr popupWrppr" id="connect">
     <div class="enterTitle">@SharedResources.SignIn</div>
     <div id="fb_log" class="facebook"><span class="fbImg"></span>@LogOnResources.Facebook</div>
-    <p>@AccountSettingsResources.NeverPost</p>
+    <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
     <div class="enterForm">
         @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
     </div>
@@ -39,7 +39,7 @@
     <button class="closeDialog" data-closelogin="close"></button>
     <div class="signupBtns">
         <button type="button" class="facebook"><span class="fbImg"></span>@SharedResources.FacebookSignUp</button>
-        <p>@AccountSettingsResources.NeverPost</p>
+        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
         <div class="emailBtnWpr">
             <button ng-click="$root.params.isStore = false" class="emailBtn" type="button"><span class="emailImg"></span>@SharedResources.EmailSignUp</button>
             <div class="registerContent">

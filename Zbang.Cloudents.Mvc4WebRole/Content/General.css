@@ -930,7 +930,7 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.register .emailBtn {
   border: 1px solid #c2c2c2;
 }
-.staticWpr p {
+.staticWpr .fbTxt {
   font-size: 12px;
   color: #a9a9a9;
   text-align: center;

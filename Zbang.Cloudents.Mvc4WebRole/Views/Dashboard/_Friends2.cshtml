@@ -24,7 +24,7 @@
         </div>
         <ul scroll-to-top="{{params.scrollToTop}}" class="membersList" data-pending="@IndexResources.Pending" data-reinvited="@IndexResources.Reinvited" data-uninvited="@IndexResources.Uninvited"
             data-member="@IndexResources.ActiveMember" infinite-scroll="addFriendsLimit()"
-            infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+            infinite-scroll-distance="2" infinite-scroll-immediate-check="false" height="500" infinite-scroll-element="true">
             <li class="memberItem" ng-repeat="friend in friends | limitTo: params.maxFriends">
                 <a bo-href="friend.url">
                     <img class="friendImg" alt="" user-tooltip-popup="{{friend.uid}}" bo-src="friend.image" width="34" height="34" />

@@ -144,10 +144,10 @@
   /*rtl*/
   border-right: none;
 }
-/*.membersList {
-    margin: 0 -5px 0 -13px;  //Doing this right: for the scrollbars and left: for item hover
-    padding: 0 5px 0 13px;
-}*/
+.membersList {
+  margin: 0 -5px 0 -13px;
+  padding: 0 5px 0 13px;
+}
 .memberItem {
   padding: 5px 5px 5px 0;
   /*rtl*/
@@ -804,10 +804,6 @@
   right: 77px;
   /*rtl*/
   left: auto;
-}
-.boxItemsHeader {
-  position: relative;
-  /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
 }
 .boxItemsHeader .iconTxt {
   margin: 0 0 0 15px;
