@@ -1,10 +1,26 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 {
     public static class HtmlHelperExtension
     {
 
+        public static MvcHtmlString Svg(this HtmlHelper html, string name, string hash, object htmlAttributes = null)
+        {
+            var helper = new UrlHelper(html.ViewContext.RequestContext);
+            var svgTag = new TagBuilder("svg");
+            var useTag = new TagBuilder("use");
+            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name), hash, VersionHelper.CurrentVersion()));
+            svgTag.InnerHtml = useTag.ToString(TagRenderMode.SelfClosing);
+            if (htmlAttributes != null)
+            {
+                var dic = System.Web.WebPages.Html.HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                svgTag.MergeAttributes(dic);
+            }
+
+            return MvcHtmlString.Create(svgTag.ToString());
+        }
 
         public static MvcHtmlString Script2(this HtmlHelper html, string key)
         {
@@ -37,15 +53,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Empty;
         }
 
-/*
-        public static System.Web.HtmlString GetAntiForgeryKey2()
-        {
-            var x = System.Web.Helpers.AntiForgery.GetHtml();
+        /*
+                public static System.Web.HtmlString GetAntiForgeryKey2()
+                {
+                    var x = System.Web.Helpers.AntiForgery.GetHtml();
 
-            return x;
+                    return x;
 
-        }
-*/
+                }
+        */
 
 
 

@@ -8,30 +8,29 @@
             <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{item.boxName}}</h2>
-                <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
         </div>
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
                     <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank">
-                        <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
+                        @Html.Svg("~/Images/Defs.svg","download", new {@class="svg-download"})
                         <div>@ItemsResources.Download</div>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
                     <a class="actionLink" href="{{item.printUrl}}" target="_blank">
-                        <svg class="svg-print"><use xlink:href="~/Images/Defs.svg#print" /></svg>
+                        @Html.Svg("~/Images/Defs.svg", "print", new { @class = "svg-print" })
                         <span>@ItemsResources.Print</span>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
-                    <button type="button" ng-click="fullScreenWindow()" class="">
-                        <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
+                    <button type="button" ng-click="fullScreenWindow()">
+                        @Html.Svg("~/Images/Defs.svg", "fullscreen", new { @class = "svg-fullscreen" })
                         <div>@ItemsResources.FullScreen</div>
-                        <svg class="svg-fullscreen"><use xlink:href="~/Images/Defs.svg#fullscreen" /></svg>
                     </button>
                 </li>
 
@@ -39,7 +38,7 @@
                     <input class="checkbox" type="checkbox" id="itemShare" ng-model="popup.share" />
                     <label for="itemShare" class="">
                         <span>@SharedResources.Share</span>
-                        <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
+                        @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
                     </label>
                     <div class="dropDown shareDD">
                         <label class="closeItem rFloat" for="itemShare"></label>
@@ -65,27 +64,27 @@
     <div class="secondBar">
         <div class="leftPart">
             <span class="lFloat views" tooltip="@SharedResources.Views">
-                <svg class="svg-eye"><use xlink:href="~/Images/Defs.svg#eye" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
                 <span>{{item.numberOfViews}}</span>
             </span>
             <span ng-show="item.numberOfDownloads !== null" class="downloads" tooltip="@SharedResources.Downloads">
-                <svg class="svg-download"><use xlink:href="~/Images/Defs.svg#download" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
                 <span>{{item.numberOfDownloads}}</span>
             </span>
             <button type="button" class="itemFlag rFloat" ng-class="{canFlag: canFlag()}" ng-click=" flagItemWindow()">
-                <svg class="svg-flag"><use xlink:href="~/Images/Defs.svg#flag" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "flag", new { @class = "svg-flag" })
                 <span>@ItemsResources.Flag</span>
             </button>
         </div>
 
         <div class="mainPart">
-            <a ng-show="item.navigation.next" ng-href="{{item.navigation.next}}" class="rFloat navBtn"><svg class="svg-next"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
-            <a ng-show="item.navigation.previous" ng-href="{{item.navigation.previous}}" class="lFloat navBtn"><svg class="svg-prev"><use xlink:href="~/Images/Defs.svg#right" /></svg></a>
+            <a ng-show="item.navigation.next" ng-href="{{item.navigation.next}}" class="rFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
+            <a ng-show="item.navigation.previous" ng-href="{{item.navigation.previous}}" class="lFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
             <div class="itemNameWpr">
                 <h2 class="item-name elps lFloat">
                     <span tooltip="{{item.name}}">{{item.name}}</span>
                     <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button" ng-click="renameWindow()">
-                        <svg class="svg-pencil"><use xlink:href="~/Images/Defs.svg#pencil" /></svg>
+                        @Html.Svg("~/Images/Defs.svg", "pencil", new { @class = "svg-pencil" })
                     </button>
                 </h2>
                 <div class="uploadInfo">
@@ -100,11 +99,11 @@
     <div class="leftPanel lFloat">
         <span class="rateTxt">@ItemsResources.Rate</span>
         <div class="rateWpr rFloat" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
-            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
-            <svg class="svg-star"><use xlink:href="~/Images/Defs.svg#star" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
         </div>
 
         <section class="itemComments">
@@ -136,7 +135,7 @@
                                 </div>
                                 <p>{{reply.comment}}</p>
                                 <button type="button" class="trash" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)">
-                                    <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
+                                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
                                 </button>
                             </li>
                         </ul>
