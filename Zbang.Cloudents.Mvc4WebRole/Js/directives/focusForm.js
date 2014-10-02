@@ -1,24 +1,34 @@
 ﻿app.directive('focusForm',
     [
-
     function () {
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {
-                elem.click(function(e) {
+                var x;
+                elem.click(function (e) {
                     e.stopPropagation();
                     elem.addClass(attrs.focusForm);
-                }).submit(function() {
+                }).submit(function () {
                     elem.removeClass(attrs.focusForm);
-                }).on('reset',function() {
+                    x = null;
+                }).on('reset', function () {
                     elem.removeClass(attrs.focusForm);
+                    x = null;
                 });
-                $('body').on('click', '[role="dialog"]', function(e) {
+                var classes = '.uploader, .uploadLink';
+
+                $('body').on('click', ':not(' + classes + ')', function (e) {
+                    //.click(function () {
+                        if (elem.hasClass(attrs.focusForm)) {
+                            x = elem.removeClass(attrs.focusForm);
+                        }
+                    })
+                .on('click', classes, function (e) {
                     e.stopPropagation();
-                    elem.addClass(attrs.focusForm);
-                })
-                .click(function () {
-                    elem.removeClass(attrs.focusForm);
+                    if (x) {
+                        x.addClass(attrs.focusForm);
+                    }
+                    x = null;
                 });
 
 

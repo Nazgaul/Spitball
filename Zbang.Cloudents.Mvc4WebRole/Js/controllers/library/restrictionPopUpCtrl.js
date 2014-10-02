@@ -41,7 +41,7 @@
                 $scope.russainStep2 = true;
                 return;
             }
-            //$scope.submitted = true;
+            $scope.submitted = true;
         };
 
     }
