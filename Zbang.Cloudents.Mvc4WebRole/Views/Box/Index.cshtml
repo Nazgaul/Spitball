@@ -9,17 +9,17 @@
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
             <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
-        <span class="following" ng-if="isUserFollowing()">
-                <svg class="svg-tick"><use xlink:href="~/Images/Defs.svg#tick" /></svg>
+            <span class="following" ng-if="isUserFollowing()">
+                @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-tick" })
                 <span>@SharedResources.Following</span>
             </span>
-        <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
-                <svg class="svg-plus"><use xlink:href="~/Images/Defs.svg#plus" /></svg>
+            <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
+                @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })
                 <span>@SharedResources.Follow</span>
             </button>
 
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
-                <svg class="svg-settings"><use xlink:href="~/Images/Defs.svg#cloudentsSettings" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
             </button>
         </div>
 
@@ -76,7 +76,7 @@
             <section class="shareBtn rFloat">
                 <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
                 <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
-                    <svg class="svg-share"><use xlink:href="~/Images/Defs.svg#share" /></svg>
+                    @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
                 </label>
                 <div class="dropDown shareDD">
                     <label class="closeItem rFloat" for="boxShare"></label>
@@ -97,10 +97,10 @@
             
             <a ng-href="{{info.inviteUrl}}"
                target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
-                <svg class="svg-inviteUser"><use xlink:href="~/Images/Defs.svg#inviteUser" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </a>
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
-                <svg class="svg-back"><use xlink:href="~/Images/Defs.svg#back" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
 
             <ul class="boxTabs">

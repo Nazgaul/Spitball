@@ -18,10 +18,10 @@
         <button type="button" ng-click="openUploadPopup()" class="iconTxt btn1 lFloat" ng-show="filteredItems.length > 0 && !iOptions.manageTab">@DialogResources.UploadFiles</button>
             
         <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="filteredItems.length > 0">
-            <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "listView")
         </button>
         <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0">
-            <svg><use xlink:href="~/Images/Defs.svg#thumbView" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "thumbView")
         </button>
     </div>
 
@@ -32,7 +32,7 @@
         <div>@IndexResources.LinksTo</div>
 
         <div class="emptyBoxDrop">
-            <svg><use xlink:href="~/Images/Defs.svg#upload" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "upload")
             <div class="emptyBoxDropText">@DialogResources.DragAndDrop</div>
             <button ng-click="openUploadPopup()" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
         </div>

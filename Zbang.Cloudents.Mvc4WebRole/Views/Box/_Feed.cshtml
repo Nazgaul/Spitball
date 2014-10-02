@@ -18,7 +18,7 @@
             <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content)">@SharedResources.Post</button>
         </div>
         <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
-            <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "attachment", new {@class="svg-attachment"})
         </button>
     </form>
 
@@ -46,7 +46,7 @@
                     <label for="boxShare" class="iconTop">@SharedResources.Share</label>
                 </div>
                 <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                    <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
+                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
                 </button>
             </div>
             <ul class="feedReplies rFloat">
@@ -67,7 +67,7 @@
                             </li>
                         </ul>
                         <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                            <svg class="svg-trash"><use xlink:href="~/Images/Defs.svg#trash" /></svg>
+                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
                         </button>
                     </div>
                 </li>
@@ -85,7 +85,7 @@
                     <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
                 </div>
                 <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
-                    <svg class="svg-attachment"><use xlink:href="~/Images/Defs.svg#attachment" /></svg>
+                    @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                 </button>
             </form>
         </li><!--
