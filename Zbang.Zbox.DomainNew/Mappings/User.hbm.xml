@@ -106,7 +106,6 @@
     </id>
     <property name="OrgName" not-null="false"/>
     <property name="Url" not-null="false"/>
-    <property name="Image"  not-null="false"/>
     <property name="LargeImage"  not-null="false"/>
     <property name="UniversityName"/>
 

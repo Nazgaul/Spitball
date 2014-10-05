@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Extensions
@@ -26,6 +27,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         {
             var jsLinks = BundleConfig.JsLink(key);
             return MvcHtmlString.Create(jsLinks);
+        }
+
+        public static MvcHtmlString AngularLocale(this HtmlHelper html)
+        {
+            var helper = new UrlHelper(html.ViewContext.RequestContext);
+            var pathName = string.Format("{0}_{1}.js", helper.Content("/Scripts/i18n/angular-locale"),
+                Thread.CurrentThread.CurrentUICulture.Name);
+
+            var jsTag = new TagBuilder("script");
+            jsTag.MergeAttribute("src", pathName);
+            return MvcHtmlString.Create(jsTag.ToString());
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {

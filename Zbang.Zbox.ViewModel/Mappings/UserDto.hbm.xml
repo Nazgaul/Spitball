@@ -43,7 +43,7 @@
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
     uu.OrgName as LibName,
-    uu.Image as LibImage,
+    uu.LargeImage as LibImage,
     uu.Id as UniversityId
     from User u left join u.University2 uu
     where u.MembershipId= :MembershipUserId
@@ -60,7 +60,7 @@
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
     uu.OrgName as LibName,
-    uu.Image as LibImage,
+    uu.LargeImage as LibImage,
     uu.Id as UniversityId
     from User u left join u.University2 uu
     where u.FacebookId = :FacebookId
@@ -78,7 +78,7 @@
     u.FirstTime.Box as FirstTimeBox, 
     u.Reputation as Score,
     uu.OrgName as LibName,
-    uu.Image as LibImage,
+    uu.LargeImage as LibImage,
     uu.Id as UniversityId
     from User u left join u.University2 uu
     where u.Email= :Email
@@ -162,7 +162,7 @@
     
     u.ImageLarge as Image, 
     coalesce( v.OrgName , v.UniversityName) as University,
-    v.Image as UniversityPic,
+    v.LargeImage as UniversityPic,
     u.Email as Email,
     u.Culture as Language,
     u.Quota.AllocatedSize as AllocatedSize, u.Quota.UsedSpace as UsedSpace
