@@ -896,7 +896,7 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Security.GetBoxPrivacySettings,
                     Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId }))
                 {
-                    var retVal = await grid.ReadAsync();
+                    var retVal = await grid.ReadAsync<Box.BoxSeoDto>();
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
