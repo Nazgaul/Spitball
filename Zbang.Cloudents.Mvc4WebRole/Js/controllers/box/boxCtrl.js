@@ -18,6 +18,13 @@ mBox.controller('BoxCtrl',
 
             $scope.action = {};
 
+            $scope.states = {
+                feed: 'feed',
+                items: 'items',
+                quizzes: 'quizzes',
+                members: 'members'
+            };
+
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
                 boxSettings: '/Box/SettingsPartial/',
@@ -90,7 +97,11 @@ mBox.controller('BoxCtrl',
                 $scope.options.loader = true;
             };
             if ($location.hash()) {
-                $scope.setTab($location.hash());
+                if ($scope.states.hasOwnProperty($location.hash())) {
+                    $scope.setTab($location.hash());
+                } else {
+                    $location.hash('');
+                }
             }
             //$rootScope.$on('$routeUpdate', function (e, v) {
             //    $scope.setTab($location.hash());

@@ -104,10 +104,10 @@
             </a>
 
             <ul class="boxTabs">
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='feed'}" ng-click="setTab('feed')">@SharedResources.Feed</li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab ==='items'}" ng-click="setTab('items')">@SharedResources.Items</li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'quizzes'}" ng-click="setTab('quizzes')">@SharedResources.Quizzes</li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === 'members'}" ng-click="setTab('members')">@SharedResources.Members</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.feed}" ng-click="setTab(states.feed)">@SharedResources.Feed</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.items}" ng-click="setTab(states.items)">@SharedResources.Items</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.quizzes}" ng-click="setTab(states.quizzes)">@SharedResources.Quizzes</li>
+                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.members}" ng-click="setTab(states.members)">@SharedResources.Members</li>
             </ul>
         </div>
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
