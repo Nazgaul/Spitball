@@ -191,9 +191,10 @@ namespace Zbang.Zbox.ReadServices
                 boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxMetaDto>());
 
                 var fBox = boxQuery.FutureValue<Box.BoxMetaDto>();
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+                var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 var retVal = fBox.Value;
+                retVal.RelationshipType = type;
                 return retVal;
             }
         }
@@ -890,8 +891,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
-                return retVal.FirstOrDefault();
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                    Sql.Seo.BoxSeo, 
+                    Sql.Security.GetBoxPrivacySettings,
+                    Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId }))
+                {
+                    var retVal = await grid.ReadAsync<Box.BoxSeoDto>();
+                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    GetUserStatusToBox(privacySettings, userRelationShip);
+                    return retVal.FirstOrDefault();
+                }
             }
         }
 

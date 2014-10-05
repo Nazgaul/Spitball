@@ -24,15 +24,15 @@
         </div>
 
         <ul class="newActivity">
-            <li ng-click="setTab('items')">
+            <li ng-click="setTab('items')" analytics-on="click" analytics-event="Items" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.itemsLength}}</span>
                 <div class="elps">@SharedResources.Items</div>
             </li>
-            <li ng-click="setTab('quizzes')">
+            <li ng-click="setTab('quizzes')" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
                 <div class="elps">@SharedResources.Quizzes</div>
             </li>
-            <li ng-click="setTab('members')">
+            <li ng-click="setTab('members')" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.membersLength}}</span>
                 <div class="elps">@SharedResources.Members</div>
             </li>
