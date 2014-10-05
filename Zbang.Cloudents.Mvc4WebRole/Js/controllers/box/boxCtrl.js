@@ -1,4 +1,4 @@
-﻿mBox = angular.module('mBox', ['ngDragDrop']);
+﻿mBox = angular.module('mBox', ['ngDragDrop','angular-plupload']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
@@ -286,7 +286,15 @@ mBox.controller('BoxCtrl',
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
                     controller: 'UploadCtrl',
-                    backdrop: 'static'
+                    backdrop: 'static',
+                    resolve: {
+                        data: function () {
+                            return {
+                                boxId: $scope.boxId,
+                                tabId: $scope.tabId,
+                            }
+                        }
+                    }
                 });
 
                 $scope.$on('$destroy', function () {

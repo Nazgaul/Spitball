@@ -196,6 +196,11 @@
 /// <reference path="../js/directives/ratestar.js" />
 /// <reference path="svg4everybody.js" />
 /// <reference path="../js/controllers/box/boxtabsctrl.js" />
+/// <reference path="../js/directives/focusform.js" />
+/// <reference path="plupload2/plupload.dev.js" />
+/// <reference path="plupload2/plupload.full.min.js" />
+/// <reference path="plupload2/angular-plupload.js" />
+/// <reference path="plupload2/moxie.min.js" />
 <<<<<<< HEAD
 /// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/directives/quizgraph.js" />

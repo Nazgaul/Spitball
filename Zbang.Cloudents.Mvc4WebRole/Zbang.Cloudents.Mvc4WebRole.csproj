@@ -1224,6 +1224,11 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
+    <Content Include="Scripts\plupload2\angular-plupload.js" />
+    <Content Include="Scripts\plupload2\moxie.min.js" />
+    <Content Include="Scripts\plupload2\Moxie.swf" />
+    <Content Include="Scripts\plupload2\plupload.dev.js" />
+    <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
