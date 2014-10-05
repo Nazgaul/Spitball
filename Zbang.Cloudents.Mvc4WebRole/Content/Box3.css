@@ -778,6 +778,10 @@
 .boxItemList.sponsored .listItem {
   position: relative;
 }
+.boxItemList.sponsored .thumbItem:first-child,
+.boxItemList.sponsored .listItem:first-child {
+  width: 323px;
+}
 .boxItemList.sponsored .thumbItem:first-child:hover .actionBtns,
 .boxItemList.sponsored .listItem:first-child:hover .actionBtns {
   display: none;
@@ -794,12 +798,6 @@
   width: 81px;
   height: 81px;
   background: url(/Images/box18-sprite.png?v=1) -75px 0 no-repeat;
-}
-.boxItemList.sponsored .thumbItem:first-child .boxLink {
-  padding-top: 192px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .boxItemList.sponsored .thumbItem:first-child .boxLink:after {
   margin: auto;

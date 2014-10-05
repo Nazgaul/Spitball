@@ -183,6 +183,10 @@
   <data name="Privacy" xml:space="preserve">
     <value>פרטיות</value>
   </data>
+  <data name="QuizEmpty" xml:space="preserve">
+    <value>אין עדיין מבחנים לפטור,
+רוצה להיות הראשון ליצור מבחן?</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>שנה שם</value>
   </data>
