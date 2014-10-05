@@ -64,7 +64,9 @@
     {
         <div class="actionBtns">
             <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
+                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+            </button>
             
         </div>
     }
@@ -93,7 +95,9 @@
     {
         <div class="actionBtns">
             <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(item)"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)"></button>
+            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
+                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+            </button>
         </div>
     }
 </script>

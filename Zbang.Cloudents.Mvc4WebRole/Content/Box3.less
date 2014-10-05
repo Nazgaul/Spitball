@@ -1177,9 +1177,11 @@
             -webkit-user-drag: none;
             -moz-user-drag: none;
         .actionBtns {
-            top: 24px;
+            top: 8px;
+            right: 8px; //no rtl
+            left: auto; //no rtl
         }
-        svg {
+        .svg-quizBg {
             width: 148px;
             height: 205px;
             position: absolute;
@@ -1240,7 +1242,7 @@
     }
 
     &.draft {
-        svg {
+        .svg-quizBg {
             stroke: @borderColor;
         }
         .tag {
@@ -1517,9 +1519,6 @@
     .deleteBtn {
         border-radius: 0 3px 3px 0; /*rtl*/
         border-left: 1px solid @borderColor; /*rtl*/ // specific to this .deleteBtn class
-        &:before {
-            margin-top: 2px; // specific to this .deleteBtn class
-        }
         &:first-child {
             border: none;
         }
@@ -1548,19 +1547,6 @@
 
     &:hover:before {
         background-position: -52px -21px;
-    }
-}
-// general .deleteBtn class
-.deleteBtn {
-    &:before {
-        .pseudo;
-        width: 15px;
-        height: 17px;
-        background: @common-sprite -37px -1px no-repeat;
-    }
-
-    &:hover:before {
-        background-position: -37px -21px;
     }
 }
 

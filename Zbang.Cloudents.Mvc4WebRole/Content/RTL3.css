@@ -2019,7 +2019,7 @@ body.quiz .shareBtn {
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-.quizPage .leftPanel {
+.quizPage .leftPanel.leftPanel {
   right: 0;
   /*rtl*/
   left: auto;
