@@ -41,7 +41,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         } else {
             $scope.load.contentLoading = true;
         }
-
+        if (!sUserDetails.isAuthenticated() && index > 0) {
+            cd.pubsub.publish('register', { action: true });
+            return;
+        }
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
@@ -59,9 +62,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                     $scope.preview = $sce.trustAsHtml(data.preview);
                 } else {
                     $scope.preview += data.preview;
-                    $scope.$broadcast('update'); //for fullscreen
+
                     loadMore = true;
                 }
+                $scope.$broadcast('update', data.preview); //for fullscreen
             }
         });
     }

@@ -1,5 +1,7 @@
 ﻿
 
+using Zbang.Zbox.Infrastructure.Enums;
+
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
     public class BoxMetaDto
@@ -10,6 +12,8 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public string Url { get; set; }
 
-        public string Image {get;set;}
+        public string Image { get; set; }
+
+        public UserRelationshipType RelationshipType { get; set; }
     }
 }

@@ -458,12 +458,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3);
+                if (retVal.Content == null)
+                {
+                    return Json(new JsonResponse(true, new
+                    {
+                        preview = RenderRazorViewToString("_PreviewFailed",
+                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                    }));
+                    
+                }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
                     return Json(new JsonResponse(true, new { preview = retVal.Content.First() }));
                 }
 
-                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }));
+                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
+                    retVal.Content.Take(3)) }));
 
             }
             catch (Exception ex)

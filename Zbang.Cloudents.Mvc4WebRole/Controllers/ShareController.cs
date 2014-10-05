@@ -24,16 +24,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Lazy<IShortCodesCache> shortToLongCache,
             Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
         {
-           m_InviteLinkDecrypt = inviteLinkDecrypt;
-           m_ShortCodesCache = shortToLongCache;
+            m_InviteLinkDecrypt = inviteLinkDecrypt;
+            m_ShortCodesCache = shortToLongCache;
         }
 
         [ZboxAuthorize, HttpGet]
         [NonAjax]
-        [Route("invite",Name="InviteCloudents")]
+        [Route("invite", Name = "InviteCloudents")]
         [Route("box/my/{boxId}/{boxName}/invite", Name = "InviteBoxPrivate")]
         [Route("course/{universityName}/{boxId}/{boxName}/invite", Name = "InviteCourse")]
-        public ActionResult Index(long? boxId)
+        public ActionResult Index(long? boxId, string universityName, string boxName)
         {
             var model = new BoxMetaDto();
             try
@@ -41,6 +41,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (boxId.HasValue)
                 {
                     model = ZboxReadService.GetBoxMeta(new GetBoxQuery(boxId.Value, GetUserId()));
+                    if ((int) model.RelationshipType < 2)
+                    {
+                        return string.IsNullOrEmpty(universityName) ? 
+                            RedirectToRoute("PrivateBoxDesktop", new {boxId = boxId.Value, boxName}) : RedirectToRoute("CourseBoxDesktop", new { boxId = boxId.Value, boxName,  universityName });
+                    }
                 }
             }
             catch (BoxAccessDeniedException)
@@ -91,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
 
                 return Json(new JsonResponse(true));
-             }
+            }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", GetUserId(), model), ex);
