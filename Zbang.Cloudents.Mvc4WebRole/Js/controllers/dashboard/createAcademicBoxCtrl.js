@@ -5,8 +5,6 @@
 function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
     $scope.selectedDepartment = true;
 
-
-
     sLibrary.items().then(function (response) {
         var data = response.success ? response.payload : [];
         allDepartments = data.nodes;
@@ -14,7 +12,6 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
     });
 
     $scope.params.departmentSearch = sUserDetails.getDetails().department.name;
-
 
     $scope.create = function (isValid) {
 
@@ -31,7 +28,6 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
         });
     };
 
- 
     var allDepartments;
 
 
@@ -46,20 +42,9 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
         $scope.display = { createDep: false };
     };
 
-
-    $scope.createDepartmentSubmit = function (isValid) {
-        if (!isValid) {
-            return;
-        }
-
-        sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-            if (response.success) {
-                $scope.display.createDep = false;
-                $scope.selectDepartment({ id: response.payload.id, name: $scope.formData.createDepartment.name });                
-            }
-        });
-    };
-
+    $scope.$on('newDep', function (response, dep) {
+        $scope.selectDepartment(dep);
+    });
     $scope.selectDepartment = function (deparment) {
         $scope.selectedDepartment = deparment;
         $scope.formData.academicBox.departmentId = $scope.selectedDepartment.id;
