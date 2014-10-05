@@ -149,10 +149,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         if (!isValid) {
             return;
         }
-        if ($scope.item.userType === 'none' || $scope.item.userType === 'invite') {
-            alert(jsResources.NeedToFollowBox);
-            return;
-        }
         $scope.commentp = true;
         //TODO: add disable state
         $scope.formData.itemId = $routeParams.itemId;
@@ -207,10 +203,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.addReply = function (comment, valid) {
         if (!valid) {
-            return;
-        }
-        if ($scope.item.userType === 'none' || $scope.item.userType === 'invite') {
-            alert(jsResources.NeedToFollowBox);
             return;
         }
         comment.replyp = true;
