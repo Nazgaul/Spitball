@@ -390,7 +390,23 @@ input[type="radio"] {
             }
         }
     }
-
+    &.left {
+        margin: 0 0 0 10px;  //diff rtl
+        > .arrow {
+            left: -12px; 
+            right: auto;
+            border-width: 12px 12px 12px 0; 
+            border-right-color: @borderColor; 
+            border-left-color: transparent;
+            &:after {
+                left: 2px; 
+                right: auto;
+                border-width: 10px 10px 10px 0; 
+                border-right-color: #f5f5f5; 
+                border-left-color: transparent;
+            }
+        }
+    }
     &.right {
         margin: 0 0 0 -10px; // diff rtl
         > .arrow {
