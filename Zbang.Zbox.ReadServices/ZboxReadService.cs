@@ -265,11 +265,11 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<TabDto>>  GetBoxTabs(GetBoxQuery query)
+        public async Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new {query.BoxId});
+                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new { query.BoxId });
 
             }
         }
@@ -377,8 +377,8 @@ namespace Zbang.Zbox.ReadServices
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    GetUserStatusToBox(privacySettings, userRelationShip);
+                    retVal.UserType = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    GetUserStatusToBox(privacySettings, retVal.UserType);
                     retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
 
 
@@ -465,7 +465,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-       
+
 
 
         /// <summary>
@@ -572,10 +572,10 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
-                var retVal =await conn.QueryAsync<string>(sql, new {IP = ipNumber});
+                var retVal = await conn.QueryAsync<string>(sql, new { IP = ipNumber });
                 return retVal.FirstOrDefault();
             }
-           
+
         }
 
 

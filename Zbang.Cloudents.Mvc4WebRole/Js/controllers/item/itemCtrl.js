@@ -3,8 +3,8 @@ mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
     // cd.pubsub.publish('initItem');
-    var index = 0, loadMore = false;
-
+    var index = 0, loadMore = false,
+    jsResources = window.JsResources;
     $scope.navigation = {};
     $scope.popup = {};
     $scope.fromReply = {};
@@ -145,6 +145,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         if (!isValid) {
             return;
         }
+        if ($scope.item.userType === 'none' || $scope.item.userType === 'invite') {
+            alert(jsResources.NeedToFollowBox);
+            return;
+        }
         $scope.commentp = true;
         //TODO: add disable state
         $scope.formData.itemId = $routeParams.itemId;
@@ -199,6 +203,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.addReply = function (comment, valid) {
         if (!valid) {
+            return;
+        }
+        if ($scope.item.userType === 'none' || $scope.item.userType === 'invite') {
+            alert(jsResources.NeedToFollowBox);
             return;
         }
         comment.replyp = true;
