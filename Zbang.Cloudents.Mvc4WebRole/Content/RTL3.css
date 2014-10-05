@@ -322,6 +322,13 @@
 .socialContentWpr input {
   text-align: right;
 }
+.socialContentWpr .mCustomScrollbar.js-scrolling:after {
+  position: fixed;
+  left: 31px;
+  right: 8px;
+  top: 226px;
+  border-top: 1px solid #bbb;
+}
 .socialList {
   width: 635px;
 }
