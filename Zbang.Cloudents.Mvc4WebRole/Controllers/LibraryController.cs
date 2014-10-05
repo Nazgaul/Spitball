@@ -385,7 +385,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             //
             var command = new CreateUniversityCommand( model.Name, model.Country,
-                "https://az32006.vo.msecnd.net/zboxprofilepic/S50X50/Lib1.jpg",
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
@@ -393,7 +392,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, new
             {
                 command.Id,
-                image = command.SmallImage,
+                image = command.LargeImage,
                 name = model.Name
             }));
         }

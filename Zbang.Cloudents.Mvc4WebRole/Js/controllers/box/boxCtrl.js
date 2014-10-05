@@ -46,6 +46,7 @@ mBox.controller('BoxCtrl',
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;
+                console.log($location);
                 $scope.info = {
                     name: info.name,
                     courseId: info.courseId,
@@ -62,7 +63,7 @@ mBox.controller('BoxCtrl',
                     userType: info.userType,
                     image: info.image,
                     url: decodeURI($location.absUrl()),
-                    inviteUrl: $location.url() + 'invite/'
+                    inviteUrl: $location.path() + 'invite/'
                 };
 
                 $scope.strings = {
