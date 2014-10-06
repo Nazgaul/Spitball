@@ -286,6 +286,10 @@ body.item .modal-backdrop.in {
   clear: both;
   color: #fff;
 }
+.uploadInfo .itemOwner,
+.uploadInfo time {
+  display: inline-block;
+}
 .itemNameWpr {
   display: inline-block;
   position: relative;
