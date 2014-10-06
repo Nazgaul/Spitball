@@ -15,7 +15,9 @@
 
     
     ga('require', 'displayfeatures');
-   // ga('send', 'pageview');
+    if (location.pathname.indexOf('account')) {
+        ga('send', 'pageview');
+    }
 
     //Obselete
     cd.analytics = {
