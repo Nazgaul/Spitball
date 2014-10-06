@@ -10,12 +10,10 @@
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>
             <span class="boxDetail elps">{{ info.boxType === 'academic' ? info.professor : info.date | date:'d MMMM yyyy' }}</span>
             <span class="following" ng-if="isUserFollowing()">
-                @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-tick" })
-                <span>@SharedResources.Following</span>
+                @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-tick" })&nbsp;<span>@SharedResources.Following</span>
             </span>
             <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
-                @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })
-                <span>@SharedResources.Follow</span>
+                @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;<span>@SharedResources.Follow</span>
             </button>
 
             <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
