@@ -27,10 +27,7 @@
                 });
                 return dfd.promise;
             },
-            //nav : function (data) {
-            //    return ajaxRequest(data, $http.get, 'Navigation/');
-            //},
-            load: function(data) {
+            load: function (data) {
                 return ajaxRequest(data, $http.get, 'Load/');
             },
             preview: function(data) {

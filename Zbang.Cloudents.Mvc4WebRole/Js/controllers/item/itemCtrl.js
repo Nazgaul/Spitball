@@ -3,8 +3,7 @@ mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
     // cd.pubsub.publish('initItem');
-    var index = 0, loadMore = false,
-    jsResources = window.JsResources;
+    var index = 0, loadMore = false;
     $scope.navigation = {};
     $scope.popup = {};
     $scope.fromReply = {};
@@ -14,7 +13,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         contentLoading: false,
         contentLoadMore: false
     };
-
+    $scope.canNavigate = false;
 
     sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
@@ -29,13 +28,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
             $scope.$broadcast('update-scroll');
+            $scope.canNavigate = true;
         });
     });
 
-
-
     function getPreview() {
-
         if (index > 0) {
             $scope.load.contentLoadMore = true;
         } else {
