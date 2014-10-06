@@ -2616,20 +2616,15 @@ select.inputText {
     body {
         .siteHeader,
         .boxPage .leftPanel,
-        //.QA,
-        //.boxFriendsList,
         .boxPage .boxActions,
         .asideLib,
         .asideDash,
         .settingsMenu,
-        .quizPage .leftPanel,
-        .quizPage .topBar,
-        .joinGrpBtn { 
-            position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
-        }
-
+        .itemPage .leftPanel,
+        .itemPage .topBar,
+        .itemPage .secondBar,
         .boxPage .leftPanel {
-            height: auto;
+            position: absolute;
         }
 
         .quizTitle, .quizPrevWpr {
@@ -2664,61 +2659,12 @@ select.inputText {
             padding: 0;
         }
 
-        .joinGrpWpr {
-            .joinGrpBtn {
-                padding: 0;
-                margin: 0;
-                top: -51px;
-            }
-
-            &:after {
-                height: 0;
-            }
-
-            &.show {
-                z-index: 0; //override
-                &:after {
-                    height: 51px;
-                }
-
-                .joinGrpBtn {
-                    margin: 0;
-                    -moz-animation: joinWprNarrowSlide 1s ease-in;
-                    -o-animation: joinWprNarrowSlide 1s ease-in;
-                    -webkit-animation: joinWprNarrowSlide 1s ease-in;
-                    animation: joinWprNarrowSlide 1s ease-in;
-                    top: 0;
-                }
-            }
-
-            &.followed {
-                padding: 0;
-
-                &:after {
-                    height: 0;
-                }
-
-                .joinGrpBtn {
-                    top: -51px;
-                }
-
-                .joinGrp {
-                    top: -20px;
-                    opacity: 0;
-                }
-            }
-        }
-
         .scrolling {
             #dash_right:before {
                 display: none;
             }
         }
     }
-}
-@media (max-width: 960px) {
-
-    
 }
 
 .mtouch{   

@@ -2446,13 +2446,11 @@ select.inputText {
   body .asideLib,
   body .asideDash,
   body .settingsMenu,
-  body .quizPage .leftPanel,
-  body .quizPage .topBar,
-  body .joinGrpBtn {
-    position: absolute;
-  }
+  body .itemPage .leftPanel,
+  body .itemPage .topBar,
+  body .itemPage .secondBar,
   body .boxPage .leftPanel {
-    height: auto;
+    position: absolute;
   }
   body .quizTitle,
   body .quizPrevWpr {
@@ -2479,41 +2477,6 @@ select.inputText {
   }
   body .box-content {
     padding: 0;
-  }
-  body .joinGrpWpr .joinGrpBtn {
-    padding: 0;
-    margin: 0;
-    top: -51px;
-  }
-  body .joinGrpWpr:after {
-    height: 0;
-  }
-  body .joinGrpWpr.show {
-    z-index: 0;
-  }
-  body .joinGrpWpr.show:after {
-    height: 51px;
-  }
-  body .joinGrpWpr.show .joinGrpBtn {
-    margin: 0;
-    -moz-animation: joinWprNarrowSlide 1s ease-in;
-    -o-animation: joinWprNarrowSlide 1s ease-in;
-    -webkit-animation: joinWprNarrowSlide 1s ease-in;
-    animation: joinWprNarrowSlide 1s ease-in;
-    top: 0;
-  }
-  body .joinGrpWpr.followed {
-    padding: 0;
-  }
-  body .joinGrpWpr.followed:after {
-    height: 0;
-  }
-  body .joinGrpWpr.followed .joinGrpBtn {
-    top: -51px;
-  }
-  body .joinGrpWpr.followed .joinGrp {
-    top: -20px;
-    opacity: 0;
   }
   body .scrolling #dash_right:before {
     display: none;

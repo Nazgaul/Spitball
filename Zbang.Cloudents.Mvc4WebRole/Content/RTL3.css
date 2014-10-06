@@ -686,15 +686,6 @@
   margin: 0 8px 0 0;
   /*rtl*/
 }
-.joinGrpWpr.show .joinGrpBtn {
-  margin: 0 -150px 0 0;
-  /*rtl*/
-}
-.joinGrp:before {
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
 .shareMenu {
   left: -6px;
   /*rtl*/
