@@ -672,7 +672,6 @@ body.quiz .modal-backdrop.in {
   color: transparent;
 }
 .quizPage .leftPanel.leftPanel {
-  position: fixed;
   left: 0;
   /*rtl*/
   top: 50px;
