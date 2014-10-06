@@ -2021,30 +2021,22 @@ body.quiz {
 
 .results {
     padding: 0 38px 0 0; //rtl
-    //height: 66px; // diff rtl
     &.wrong {
         padding: 0 0 0 35px;
         border: none;
-        border-right: 1px solid #797979; //rtl
-        &:after {
-            left: 0; //rtl
-            right: auto; //override
-        } 
-    }
-    //&:before {
-        //margin: -8px 0; // diff rtl
-    //}
-    &:after {
-        right: 0; //rtl
-        left: auto;
+        border-right: 1px solid #797979; //rtl 
     }
 }
-/*.userScore {
-    &:after {
-        position: relative;//diff rtl
-        top: 10px;//diff rtl
-    }
-}*/
+
+.svg-correct {
+    right: 0; //rtl
+    left: auto;
+}
+.svg-wrong {
+    left: 0; //rtl
+    right: auto;
+}
+
 .topUser {
     &.star {
         svg {
