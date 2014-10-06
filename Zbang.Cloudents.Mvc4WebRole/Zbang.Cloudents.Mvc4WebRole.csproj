@@ -920,6 +920,7 @@
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
+    <Content Include="Js\controllers\general\uploadListCtrl.js" />
     <Content Include="Js\controllers\item\itemFlagCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\item\itemRenameCtrl.js" />
@@ -959,6 +960,7 @@
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\userDetails.js" />
+    <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />

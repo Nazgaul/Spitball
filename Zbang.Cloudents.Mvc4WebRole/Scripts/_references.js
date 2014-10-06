@@ -201,6 +201,8 @@
 /// <reference path="plupload2/plupload.full.min.js" />
 /// <reference path="plupload2/angular-plupload.js" />
 /// <reference path="plupload2/moxie.min.js" />
+/// <reference path="../js/controllers/general/uploadlistctrl.js" />
+/// <reference path="../js/filters/filesize.js" />
 <<<<<<< HEAD
 /// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/directives/quizgraph.js" />

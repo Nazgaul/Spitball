@@ -25,7 +25,7 @@ angular.module('angular-plupload', [])
 	                browse_button: iElement[0],
 	                multi_selection: true,
 	                chunk_size: '3mb',
-	                container : 'main',
+	                container: 'main',
 	                url: '/Upload/File/',
 	                flash_swf_url: '/plupload2/Moxie.swf',
 	                headers: {
@@ -41,6 +41,12 @@ angular.module('angular-plupload', [])
 	            uploader.bind('Error', function (up, err) {
 
 	                alert("Cannot upload, error: " + err.message + (err.file ? ", File: " + err.file.name : "") + "");
+
+	                $rootScope.$apply(function () {
+	                    $rootScope.$broadcast('UploadFileError', err.file);
+	                });
+	                
+
 	                up.refresh(); // Reposition Flash/Silverlight
 	            });
 
@@ -48,10 +54,19 @@ angular.module('angular-plupload', [])
 	                _.forEach(files, function (file) {
 	                    file.boxId = iAttrs.boxId;
 	                    file.tabId = iAttrs.tabId || null;
+	                    file.questionId = iAttrs.questionId || null;
+	                    file.newQuestion = (iAttrs.newQuestion === 'true');
 	                    file.fileName = file.name;
+	                    file.uploader = up;
+	                });
+
+	                $rootScope.$apply(function () {
+	                    $rootScope.$broadcast('FilesAdded', files);
 	                });
 
 	                uploader.start();
+
+	                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
 	            });
 
 	            uploader.bind('BeforeUpload', function (up, file) {
@@ -62,14 +77,36 @@ angular.module('angular-plupload', [])
 	                    tabId: iAttrs.tabId || null
 	                };
 
+	                $rootScope.$broadcast('BeforeUpload');
+
 	            });
 
 	            uploader.bind('FileUploaded', function (up, file, res) {
-	                $rootScope.$broadcast('FileUploaded', res);
+	                var response = JSON.parse(res.response);
+	                
+
+	                $rootScope.$apply(function () {
+	                    $rootScope.$broadcast('FileUploaded', file);
+	                    response.payload.itemDto = response.payload.fileDto;
+	                    if (!response.success) {
+	                        alert(response.payload);
+	                        return;
+	                    }
+	                    
+	                    response.payload.tabId = file.tabId;
+	                    response.payload.questionId = file.questionId;
+	                    response.payload.newQuestion = file.newQuestion;
+	                    $rootScope.$broadcast('ItemUploaded', response.payload);
+
+	                });
+	                
+	                
 	            });
 
 	            uploader.bind('UploadProgress', function (up, file) {
-	                $rootScope.$broadcast('UploadProgress', file);
+	                $rootScope.$apply(function () {
+	                    $rootScope.$broadcast('UploadProgress', file);
+	                });
 	            });
 
 	            uploader.bind('UploadComplete', function () {
@@ -81,6 +118,8 @@ angular.module('angular-plupload', [])
 	                uploader.disableBrowse();
 	            });
 
+	            scope.$on('CancelFileUpload', function () {
+	            });
 	            $rootScope.$on('$locationChangeStart', function (event) {
 	                if (uploader.runtime !== 'flash') {
 	                    return;
