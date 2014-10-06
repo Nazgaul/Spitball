@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Domain
             Text = text;
             DateTimeUser = new UserTimeDetails(user.Email);
             Question = question;
-            MarkAnswer = false;
             Items = items;
             Box.UserTime.UpdateUserTime(user.Email);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
@@ -46,20 +45,20 @@ namespace Zbang.Zbox.Domain
 
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
-        protected virtual string Text { get; set; }
+        public virtual string Text { get; protected set; }
         public virtual Box Box { get; set; }
         protected virtual ICollection<Item> Items { get; set; }
         protected virtual UserTimeDetails DateTimeUser { get; set; }
 
         public virtual Comment Question { get; set; }
-        public virtual bool MarkAnswer { get; set; }
 
-        public virtual int RatingCount { get; internal set; }
+        protected virtual ICollection<Updates> Updates { get; set; }
 
+        //public virtual int RatingCount { get; internal set; }
 
-        public void RemoveItem(Item item)
-        {
-            Items.Remove(item);
-        }  
+        //public void RemoveItem(Item item)
+        //{
+        //    Items.Remove(item);
+        //}  
     }
 }

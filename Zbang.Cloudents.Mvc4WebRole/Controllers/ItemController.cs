@@ -368,11 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userEmailId = GetUserId(false);
-
-                var command = new DeleteItemCommand(itemId, userEmailId, boxId);
+                var command = new DeleteItemCommand(itemId, GetUserId(), boxId);
                 ZboxWriteService.DeleteItem(command);
-
                 return Json(new JsonResponse(true, itemId));
             }
             catch (Exception ex)
@@ -449,20 +446,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new JsonResponse(true,
                             new
                             {
+                                // [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
                                 preview =
                                     RenderRazorViewToString("_PreviewFailed",
-                                        Url.ActionLinkWithParam("Download", new { BoxUid = boxId, ItemId = id }))
-                            }),
-                        JsonRequestBehavior.AllowGet);
+                                        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                            })
+                        );
             try
             {
                 var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3);
+                if (retVal.Content == null)
+                {
+                    return Json(new JsonResponse(true, new
+                    {
+                        preview = RenderRazorViewToString("_PreviewFailed",
+                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                    }));
+                    
+                }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
                     return Json(new JsonResponse(true, new { preview = retVal.Content.First() }));
                 }
 
-                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName, retVal.Content.Take(3)) }));
+                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
+                    retVal.Content.Take(3)) }));
 
             }
             catch (Exception ex)
@@ -470,7 +478,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
                 if (index == 0)
                 {
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", Url.ActionLinkWithParam("Download", new { BoxUid = boxId, ItemId = id })) }));
+                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", 
+                        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id })) }));
                 }
                 return Json(new JsonResponse(true));
             }

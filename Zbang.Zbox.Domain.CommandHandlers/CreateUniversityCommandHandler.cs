@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 var id = m_IdGenerator.GetId(IdGenerator.UniversityScope);
                 university = new University(id, message.Name, message.Country,
-                    message.SmallImage, message.LargeImage, user.Email);
+                    message.LargeImage, user.Email);
                 m_UniversityRepository.Save(university);
                 
 

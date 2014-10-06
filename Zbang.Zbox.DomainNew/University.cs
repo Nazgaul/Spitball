@@ -63,12 +63,11 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public University(long id, string name, string country, string image, string largeImage, string userEmail)
+        public University(long id, string name, string country, string largeImage, string userEmail)
         {
             Id = id;
             UniversityName = name;
             Country = country;
-            Image = image;
             LargeImage = largeImage;
             UserTime = new UserTimeDetails(userEmail);
             NoOfBoxes = 0;
@@ -77,7 +76,6 @@ namespace Zbang.Zbox.Domain
         public virtual long Id { get; set; }
         public string OrgName { get; set; }
         public string Url { get; set; }
-        public string Image { get; set; }
         public string LargeImage { get; set; }
         public virtual string UniversityName { get; set; }
         public bool NeedCode { get; set; }

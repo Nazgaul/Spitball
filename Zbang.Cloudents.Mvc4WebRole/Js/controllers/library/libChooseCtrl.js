@@ -50,9 +50,9 @@
              //#region search
              var lastQuery;
              $scope.search = debounce(function () {
-                 var query = $scope.formData.searchInput;
+                 var query = $scope.formData.searchInput || '';
 
-                 if (query && query.length < 2) {
+                 if (query.length < 2) {
                      $scope.display.search = false;
                      $scope.display.facebook = true;
                      $scope.universities = null;
@@ -194,12 +194,13 @@
                  $scope.departments = null;
 
              };
-
+             console.log($location.search().returnUrl);
              $scope.chooseDepartment = function () {
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
                          sUserDetails.setDepartment($scope.selectedDepartment);
-                         window.open('/dashboard/', '_self');
+                         var navUrl = $location.search().returnUrl || '/dashboard/';
+                         window.open(navUrl, '_self');
                          //$location.path('/dashboard/');
                      }
                  });

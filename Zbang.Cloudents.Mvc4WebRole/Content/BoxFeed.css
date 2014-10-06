@@ -25,6 +25,7 @@
   border-bottom: none;
   margin-bottom: 35px;
   border-color: #282828;
+  direction: ltr !important;
 }
 .feedForm.feedOpen .feedTA ~ .bottomTA {
   display: block;
@@ -344,7 +345,8 @@
 .emptyFeed {
   display: none;
   width: 598px;
-  height: 565px;
+  height: -webkit-calc(100vh - 205px);
+  height: calc(100vh - 205px);
   color: #c2c2c2;
   border: 3px dotted #c2c2c2;
   border-radius: 8px;
@@ -352,7 +354,6 @@
   text-align: center;
   margin-top: 20px;
   white-space: pre-line;
-  padding-top: 240px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

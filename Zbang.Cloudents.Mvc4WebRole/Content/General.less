@@ -205,7 +205,9 @@ input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
-
+:-moz-ui-invalid {
+    box-shadow: none; // reset mozilla's default styling for invalid form input
+}
 /**
  * 1. Remove default vertical scrollbar in IE 8/9.
  * 2. Improve readability and alignment in all browsers.
@@ -242,6 +244,9 @@ body {
                 .transition(none);
             }
         }
+    }
+    .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+        margin: 0; //override default jQuery mCustom Scrollbar code
     }
 }
 
@@ -962,7 +967,7 @@ input[type="radio"] {
             border: 1px solid @borderColor;
         }
     }
-    p {
+    .fbTxt {
         font-size: 12px;
         color: #a9a9a9;
         text-align: center;
@@ -2102,17 +2107,17 @@ iframe .registerFirst.store {
         }
     }
     &.left {
-        margin-left: -10px;
+        margin-left: -10px; // no rtl
         > .arrow {
             top: 50%;
-            right: -12px; /*rtl*/
+            right: -12px; // no rtl
             margin-top: -11px;
-            border-width: 12px 0 12px 12px; /*rtl*/
-            border-left-color: @borderColor; /*rtl*/
+            border-width: 12px 0 12px 12px; //no rtl
+            border-left-color: @borderColor; //no rtl
             &:after {
-                right: 2px; /*rtl*/
-                border-width: 10px 0 10px 10px; /*rtl*/
-                border-left-color: #f5f5f5; /*rtl*/
+                right: 2px; //rtl
+                border-width: 10px 0 10px 10px; // no rtl
+                border-left-color: #f5f5f5; //no rtl
                 bottom: -10px;
             }
         }
@@ -2611,20 +2616,15 @@ select.inputText {
     body {
         .siteHeader,
         .boxPage .leftPanel,
-        //.QA,
-        .boxFriendsList,
         .boxPage .boxActions,
         .asideLib,
         .asideDash,
         .settingsMenu,
-        .quizPage .leftPanel,
-        .quizPage .topBar,
-        .joinGrpBtn { 
-            position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
-        }
-
+        .itemPage .leftPanel,
+        .itemPage .topBar,
+        .itemPage .secondBar,
         .boxPage .leftPanel {
-            height: auto;
+            position: absolute;
         }
 
         .quizTitle, .quizPrevWpr {
@@ -2655,82 +2655,8 @@ select.inputText {
             width: 100%;
         }
 
-        .boxFriendsList {
-            top: 12px;
-        }
-
-        /*.QA {
-            margin-top: -139px;
-            height: 100vh;
-        }*/
-
         .box-content {
             padding: 0;
-        }
-
-        .joinGrpWpr {
-            .joinGrpBtn {
-                padding: 0;
-                margin: 0;
-                top: -51px;
-            }
-
-            &:after {
-                height: 0;
-            }
-
-            &.show {
-                z-index: 0; //override
-                &:after {
-                    height: 51px;
-                }
-
-                .joinGrpBtn {
-                    margin: 0;
-                    -moz-animation: joinWprNarrowSlide 1s ease-in;
-                    -o-animation: joinWprNarrowSlide 1s ease-in;
-                    -webkit-animation: joinWprNarrowSlide 1s ease-in;
-                    animation: joinWprNarrowSlide 1s ease-in;
-                    top: 0;
-                }
-
-                ~ .box-content {
-                    /*.QA {
-                        top: 223px;
-                    }*/
-
-                    .boxFriendsList.boxFriendsList {
-                        top: 20px;
-                    }
-                }
-            }
-
-            &.followed {
-                padding: 0;
-
-                &:after {
-                    height: 0;
-                }
-
-                .joinGrpBtn {
-                    top: -51px;
-                }
-
-                .joinGrp {
-                    top: -20px;
-                    opacity: 0;
-                }
-
-                ~ .box-content {
-                    /*.QA {
-                        top: 204px;
-                    }*/
-
-                    .boxFriendsList {
-                        top: 12px;
-                    }
-                }
-            }
         }
 
         .scrolling {
@@ -2739,10 +2665,6 @@ select.inputText {
             }
         }
     }
-}
-@media (max-width: 960px) {
-
-    
 }
 
 .mtouch{   

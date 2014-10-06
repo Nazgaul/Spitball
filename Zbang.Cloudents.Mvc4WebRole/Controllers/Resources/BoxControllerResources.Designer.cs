@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This box already exists.
+        /// </summary>
+        internal static string BoxExists {
+            get {
+                return ResourceManager.GetString("BoxExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User is not allowed to see box settings.
         /// </summary>
         internal static string BoxSettingsNotAllowed {

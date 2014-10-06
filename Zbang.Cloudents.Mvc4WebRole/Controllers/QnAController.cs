@@ -6,6 +6,7 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -132,16 +133,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[AjaxCache(TimeToCache = TimeConsts.Minute * 20)]
         public ActionResult Index(long boxId)
         {
-            //this is a test
-            var retVal = ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, GetUserId(false)));
-
-
-            retVal.ToList().ForEach(f =>
+            try
             {
-                f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = fi.Id }));
-                f.Answers.ForEach(fa => fa.Files.ForEach(fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = fi1.Id })));
-            });
-            return Json(new JsonResponse(true, retVal));
+                //this is a test
+                var retVal =
+                    ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
+                        GetUserId(false)));
+
+
+                retVal.ToList().ForEach(f =>
+                {
+                    f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi.Id}));
+                    f.Answers.ForEach(
+                        fa =>
+                            fa.Files.ForEach(
+                                fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi1.Id})));
+                });
+                return Json(new JsonResponse(true, retVal));
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Json(new JsonResponse(false));
+            }
         }
 
 

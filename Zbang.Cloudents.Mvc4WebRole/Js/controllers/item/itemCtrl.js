@@ -4,7 +4,6 @@ mItem.controller('ItemCtrl',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
     // cd.pubsub.publish('initItem');
     var index = 0, loadMore = false;
-
     $scope.navigation = {};
     $scope.popup = {};
     $scope.fromReply = {};
@@ -14,7 +13,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         contentLoading: false,
         contentLoadMore: false
     };
-
+    $scope.canNavigate = false;
 
     sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
@@ -29,19 +28,20 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
             $scope.$broadcast('update-scroll');
+            $scope.canNavigate = true;
         });
     });
 
-
-
     function getPreview() {
-
         if (index > 0) {
             $scope.load.contentLoadMore = true;
         } else {
             $scope.load.contentLoading = true;
         }
-
+        if (!sUserDetails.isAuthenticated() && index > 0) {
+            cd.pubsub.publish('register', { action: true });
+            return;
+        }
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
@@ -59,9 +59,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                     $scope.preview = $sce.trustAsHtml(data.preview);
                 } else {
                     $scope.preview += data.preview;
-                    $scope.$broadcast('update'); //for fullscreen
+
                     loadMore = true;
                 }
+                $scope.$broadcast('update', data.preview); //for fullscreen
             }
         });
     }

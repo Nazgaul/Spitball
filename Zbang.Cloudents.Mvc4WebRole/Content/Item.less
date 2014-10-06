@@ -678,6 +678,8 @@ body.item {
 .iframeContent {
     width: 98%;
     height: 100%;
+    height: ~"-webkit-calc(100vh - 208px)";
+    height: ~"calc(100vh - 208px)";
     -webkit-overflow-scrolling: touch;
     overflow: auto;
 }
@@ -782,7 +784,7 @@ body.item {
     }
 
     .divWrapper {
-        width:90%;
+        width:90vw;
         border: none;
         background: transparent;
     }
@@ -802,7 +804,7 @@ body.item {
     }
     .svgContent {
         height:auto;
-        width:80vw;
+        width:90vw;
         background:#fff;
     }
 

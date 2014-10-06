@@ -38,9 +38,8 @@
                         whileScrolling: function () {
                             if (this.mcs.topPct === 0) {
                                 $elem.removeClass($attr.mCustomScrollbarClass);
+                                return;
                             }
-                        },
-                        whileScrolling:function() {
                             $elem.addClass($attr.mCustomScrollbarClass);
                         }
                     }

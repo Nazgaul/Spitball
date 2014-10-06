@@ -391,14 +391,7 @@ namespace Zbang.Zbox.Domain.Services
 
             }
         }
-        public void MarkCorrectAnswer(MarkAsAnswerCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        
 
         //public void RateAnswer(RateAnswerCommand command)
         //{

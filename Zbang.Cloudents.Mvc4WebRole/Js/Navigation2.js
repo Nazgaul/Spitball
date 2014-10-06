@@ -137,7 +137,7 @@
         }
 
         //privateLocation.title = document.title === 'Cloudents' ? 'Dashboard' : document.title;;
-//        locationChanged();
+        locationChanged();
     });
     pubsub.subscribe('nav', function (url) {
         if (url === '/') {

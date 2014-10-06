@@ -8,7 +8,7 @@
         <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
             <p>@MainViewResources.QuizEmpty</p>
             <div class="quizEmpty">
-                <svg><use xlink:href="~/Images/Defs.svg#quiz1" /></svg>
+                @Html.Svg("~/Images/Defs.svg", "quiz1")
             </div>
         </div>
 
@@ -16,10 +16,10 @@
 
 
         <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
-            <svg><use xlink:href="~/Images/Defs.svg#listView" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "listView")
         </button>
         <button type="button" ng-class="{ currentState : qOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="quizzes.length > 0">
-            <svg><use xlink:href="~/Images/Defs.svg#thumbView" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "thumbView")
         </button>
     </div>
 
@@ -37,7 +37,7 @@
 
 
 <script type="text/ng-template" id="quizThumbView">
-    <svg><use xlink:href="/Images/Defs.svg#quiz-bg" /></svg>
+    @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
     <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
@@ -51,9 +51,12 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
+                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+            </button>
         </div>
     }
+
 </script>
 
 <script type="text/ng-template" id="quizListView">
@@ -73,7 +76,9 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)"></button>
+            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
+                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+            </button>
         </div>
     }
     </li>

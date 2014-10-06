@@ -143,7 +143,7 @@
     <value>Загрузить</value>
   </data>
   <data name="Flag" xml:space="preserve">
-    <value>Отметить элемент</value>
+    <value>Пожаловаться</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
     <value>Полный экран</value>
@@ -232,5 +232,8 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Обрабатывает новый мультимедийный файл</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Опубликовано</value>
   </data>
 </root>

@@ -5,6 +5,9 @@
 .feedForm .btn1 {
   margin: 5px 0 0 8px;
 }
+.feedForm.feedOpen .feedTA {
+  direction: rtl !important;
+}
 .feedForm.feedOpen .feedTA ~ .attachBtn {
   right: 70px;
   left: auto;

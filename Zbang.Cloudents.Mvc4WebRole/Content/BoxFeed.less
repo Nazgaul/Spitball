@@ -26,6 +26,7 @@
             border-bottom: none;
             margin-bottom: 35px;
             border-color: #282828;
+            direction: ltr !important; //rtl - override Guy's code to fix bug 2606 mozilla problem
             ~ .bottomTA {
                 display: block;
             }
@@ -362,7 +363,9 @@
 .emptyFeed {
     display: none;
     width: 598px;
-    height: 565px;
+    //height: 565px;
+    height: ~'-webkit-calc(100vh - 205px)';
+    height: ~'calc(100vh - 205px)';
     color: @borderColor;
     border: 3px dotted @borderColor;
     border-radius: 8px;
@@ -370,7 +373,7 @@
     text-align: center;
     margin-top: 20px;
     white-space: pre-line;
-    padding-top: 240px;
+    //padding-top: 240px;
     .boxSizing;
 }
 

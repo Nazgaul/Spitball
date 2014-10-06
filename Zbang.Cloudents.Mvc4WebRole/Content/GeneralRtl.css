@@ -363,7 +363,6 @@ input[type="radio"].radio:checked + label:after {
 }
 .popover.left {
   margin: 0 0 0 10px;
-  /*diff rtl*/
 }
 .popover.left > .arrow {
   left: -12px;
@@ -381,7 +380,6 @@ input[type="radio"].radio:checked + label:after {
 }
 .popover.right {
   margin: 0 0 0 -10px;
-  /* diff rtl*/
 }
 .popover.right > .arrow {
   right: -12px;

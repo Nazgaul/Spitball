@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
@@ -83,8 +84,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
                 var retVal = result.NewBox.Url;
-                return Json(new JsonResponse(true, new { Url = retVal , result.NewBox.Id }));
+                return Json(new JsonResponse(true, new {Url = retVal, result.NewBox.Id}));
 
+            }
+            catch (BoxNameAlreadyExistsException)
+            {
+                ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             catch (Exception ex)
             {

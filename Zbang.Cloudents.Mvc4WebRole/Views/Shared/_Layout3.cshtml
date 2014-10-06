@@ -196,7 +196,7 @@
             <div class="searchDetails">
                 <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
                 <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
-                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
+                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false" ></span>
             </div>
         </a>
     </script>
@@ -235,9 +235,9 @@
 
 
 
-    @if (User.Identity.IsAuthenticated)
+    @*@if (User.Identity.IsAuthenticated)
     {
         <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
-    }
+    }*@
 </body>
 </html>

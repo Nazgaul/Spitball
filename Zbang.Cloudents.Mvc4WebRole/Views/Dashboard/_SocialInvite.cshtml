@@ -7,13 +7,13 @@
 
     <div class="socialWpr">
         <button class="cloudentsBtn" ng-click="selectState('cl')">
-            <svg><use xlink:href="~/Images/Defs.svg#cloudentsSocial" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "cloudentsSocial")
         </button>
         <button class="fbBtn" ng-click="selectState('fb')">
-            <svg><use xlink:href="~/Images/Defs.svg#fbSocial" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "fbSocial")
         </button>
         <button class="gmailBtn" ng-click="selectState('go')">
-            <svg><use xlink:href="~/Images/Defs.svg#gmailSocial" /></svg>
+            @Html.Svg("~/Images/Defs.svg", "gmailSocial")
         </button>
     </div>
 
@@ -40,7 +40,6 @@
     </div>
     <div fb-block ng-if="params.facebookInvite"></div>
 </section>
-@*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
 <aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
     <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
         <h3>@IndexResources.InviteViaEmail</h3>

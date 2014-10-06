@@ -170,10 +170,10 @@
     border-right: none;
 }
 
-/*.membersList {
+.membersList {
     margin: 0 -5px 0 -13px;  //Doing this right: for the scrollbars and left: for item hover
     padding: 0 5px 0 13px;
-}*/
+}
 
 .memberItem {
     padding: 5px 5px 5px 0; /*rtl*/
@@ -358,6 +358,18 @@
 .socialContentWpr {
     input {
         text-align: right; //rtl
+    }
+    .mCustomScrollbar {
+    &.js-scrolling:after {
+        position: fixed;
+        left:  31px;
+        right: 8px;
+        top:  226px;
+        border-top: 1px solid #bbb;
+        //box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
+
+    }
+
     }
 }
 .socialList {
@@ -731,21 +743,6 @@
     }
 }
 
-.joinGrpWpr {
-    &.show {
-        .joinGrpBtn {
-            margin: 0 -150px 0 0; /*rtl*/
-        }
-    }
-}
-
-.joinGrp {
-    &:before {
-        right: 0; /*rtl*/
-        left: auto;
-    }
-}
-
 .shareMenu {
     left: -6px; /*rtl*/
     right: auto;
@@ -768,9 +765,6 @@
 }
 
 .boxTop {
-    border-right: none;
-    border-left: 1px solid @borderColor;
-
     .courseCode {
         right: 93px; /*rtl*/
         left: auto;
@@ -798,47 +792,25 @@
     }
 }
 
-/*#region box friends */
-
-.boxFriendsList {
-    left: 15px; /*rtl*/
-    right: auto;
-    li {
-        margin: 0 0 6px 2px; /*rtl*/
-        &:last-child {
-            &:nth-child(n+14) {
-                float: left; /*rtl*/
-            }
-        }
-    }
-}
-
-/*#endregion */
-
 /*#region box folders */
 .boxMembers, .boxFolders {
     .sectionHeader {
-        border-right: none;
-        border-left: 1px solid @borderColor;
         font-size: 17px; /*diff rtl*/
     }
 }
 
 .boxFolder, .createFolder {
-    border-right: none;
-    border-left: 1px solid @borderColor;
-
     &.current {
         font-weight: bold; /*rtl*/
         border-right: none;
         border-left: none;
     }
 
-    .boxFolderName {
+    /*.boxFolderName {
         &.editable {
-            padding: 8px 8px 0 4px; /*rtl*/
+            padding: 8px 8px 0 4px; //rtl
         }
-    }
+    }*/
 }
 
 .createFolderText {
@@ -856,6 +828,19 @@
 }
 
 /*#endregion */
+
+.box-content {
+    .membersContent {
+        .searchWpr {
+            margin: 10px 0 0 130px; //rtl
+        }
+    }
+    .inviteFriendBtn.btn3 {
+        &:before {
+            margin: 0 0 0 8px; /*rtl*/
+        }
+    }
+}
 
 /*#region boxItems */
 .boxEmpty {
@@ -890,7 +875,6 @@
 }
 
 .boxItemsHeader {
-    position: relative; /* diff rtl - I added this to fix an issue with the listViewBtn in RTL*/
     .iconTxt {
         margin: 0 0 0 15px; /*rtl*/
     }
@@ -1984,7 +1968,7 @@ body.quiz {
     .backWpr:before {
         .flipH(1); //rtl
     }
-    .leftPanel {
+    .leftPanel.leftPanel {
         right: 0; /*rtl*/
         left: auto;
     }

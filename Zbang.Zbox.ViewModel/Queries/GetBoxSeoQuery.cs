@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.ViewModel.Queries
+﻿namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetBoxSeoQuery
+    public class GetBoxSeoQuery : QueryBase
     {
-        public GetBoxSeoQuery(long boxId)
+        public GetBoxSeoQuery(long boxId, long userId)
+            : base(userId)
         {
             BoxId = boxId;
         }

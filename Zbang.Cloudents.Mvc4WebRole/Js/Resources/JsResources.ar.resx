@@ -646,4 +646,10 @@
   <data name="Play" xml:space="preserve">
     <value>تشغيل</value>
   </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>عضو نشط</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
 </root>

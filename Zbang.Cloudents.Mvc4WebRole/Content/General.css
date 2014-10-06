@@ -163,6 +163,9 @@ input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
+:-moz-ui-invalid {
+  box-shadow: none;
+}
 /**
  * 1. Remove default vertical scrollbar in IE 8/9.
  * 2. Improve readability and alignment in all browsers.
@@ -205,6 +208,9 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
   -moz-transition: none;
   -o-transition: none;
   transition: none;
+}
+body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+  margin: 0;
 }
 body,
 h1,
@@ -930,7 +936,7 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.register .emailBtn {
   border: 1px solid #c2c2c2;
 }
-.staticWpr p {
+.staticWpr .fbTxt {
   font-size: 12px;
   color: #a9a9a9;
   text-align: center;
@@ -1997,20 +2003,14 @@ iframe .registerFirst.store {
 .popover.left > .arrow {
   top: 50%;
   right: -12px;
-  /*rtl*/
   margin-top: -11px;
   border-width: 12px 0 12px 12px;
-  /*rtl*/
   border-left-color: #c2c2c2;
-  /*rtl*/
 }
 .popover.left > .arrow:after {
   right: 2px;
-  /*rtl*/
   border-width: 10px 0 10px 10px;
-  /*rtl*/
   border-left-color: #f5f5f5;
-  /*rtl*/
   bottom: -10px;
 }
 .popover.right {
@@ -2440,26 +2440,17 @@ select.inputText {
     position: relative;
     display: table;
   }
-  body {
-    /*.QA {
-            margin-top: -139px;
-            height: 100vh;
-        }*/
-  }
   body .siteHeader,
   body .boxPage .leftPanel,
-  body .boxFriendsList,
   body .boxPage .boxActions,
   body .asideLib,
   body .asideDash,
   body .settingsMenu,
-  body .quizPage .leftPanel,
-  body .quizPage .topBar,
-  body .joinGrpBtn {
-    position: absolute;
-  }
+  body .itemPage .leftPanel,
+  body .itemPage .topBar,
+  body .itemPage .secondBar,
   body .boxPage .leftPanel {
-    height: auto;
+    position: absolute;
   }
   body .quizTitle,
   body .quizPrevWpr {
@@ -2484,62 +2475,8 @@ select.inputText {
     top: 0;
     width: 100%;
   }
-  body .boxFriendsList {
-    top: 12px;
-  }
   body .box-content {
     padding: 0;
-  }
-  body .joinGrpWpr .joinGrpBtn {
-    padding: 0;
-    margin: 0;
-    top: -51px;
-  }
-  body .joinGrpWpr:after {
-    height: 0;
-  }
-  body .joinGrpWpr.show {
-    z-index: 0;
-  }
-  body .joinGrpWpr.show:after {
-    height: 51px;
-  }
-  body .joinGrpWpr.show .joinGrpBtn {
-    margin: 0;
-    -moz-animation: joinWprNarrowSlide 1s ease-in;
-    -o-animation: joinWprNarrowSlide 1s ease-in;
-    -webkit-animation: joinWprNarrowSlide 1s ease-in;
-    animation: joinWprNarrowSlide 1s ease-in;
-    top: 0;
-  }
-  body .joinGrpWpr.show ~ .box-content {
-    /*.QA {
-                        top: 223px;
-                    }*/
-  }
-  body .joinGrpWpr.show ~ .box-content .boxFriendsList.boxFriendsList {
-    top: 20px;
-  }
-  body .joinGrpWpr.followed {
-    padding: 0;
-  }
-  body .joinGrpWpr.followed:after {
-    height: 0;
-  }
-  body .joinGrpWpr.followed .joinGrpBtn {
-    top: -51px;
-  }
-  body .joinGrpWpr.followed .joinGrp {
-    top: -20px;
-    opacity: 0;
-  }
-  body .joinGrpWpr.followed ~ .box-content {
-    /*.QA {
-                        top: 204px;
-                    }*/
-  }
-  body .joinGrpWpr.followed ~ .box-content .boxFriendsList {
-    top: 12px;
   }
   body .scrolling #dash_right:before {
     display: none;

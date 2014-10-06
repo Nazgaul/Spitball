@@ -1,9 +1,9 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', 'sBox',  'sNewUpdates', 'sUserDetails','sQuiz',
+		['$scope', '$rootScope', '$timeout', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
         function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
             var jsResources = window.JsResources;
 
-            
+
             var consts = {
                 view: {
                     thumb: 'thumb',
@@ -12,7 +12,7 @@
                 itemsLimit: 50
             };
 
-            $scope.qOptions =  {
+            $scope.qOptions = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
                 manageTab: false,
@@ -50,7 +50,7 @@
                 return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
                        ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().score > 1000000);
             };
-           
+
 
             $scope.removeQuiz = function (quiz) {
                 cd.confirm2(jsResources.SureYouWantToDelete + ' ' + (quiz.name || '') + "?").then(function () {
@@ -60,7 +60,7 @@
                     }
 
                     sQuiz.delete(data).then(remove);
-                    
+
                 });
 
                 function remove(response) {
@@ -77,12 +77,13 @@
                     if (!quiz.publish) {
                         $rootScope.$broadcast('closeQuizCreate', quiz.id);
                     }
-
-                    $scope.info.quizLength--;
+                    $scope.info.quizLength = _.countBy($scope.quizzes, function (num) {
+                        return num.publish ? 'publish' : 'not';
+                    }).publish;;
                 }
             };
 
-            $scope.selectQuiz = function (e,item) {
+            $scope.selectQuiz = function (e, item) {
                 if (!item.publish) {
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
                     $timeout(function () {
@@ -109,11 +110,11 @@
             //    if ($scope.options.lastView) {
             //        $scope.changeView($scope.options.lastView);
             //    }
-    
+
             //}
             //#endregion
 
-          
+
 
             $scope.$on('QuizAdded', function (e, quizItem) {
                 if (quizItem.boxId !== $scope.boxId) {
@@ -138,7 +139,10 @@
                 }
 
                 $scope.quizzes.unshift(quizItem); //add quiz
-                $scope.info.quizLength++;
+
+                $scope.info.quizLength = _.countBy($scope.quizzes, function (num) {
+                    return num.publish ? 'publish' : 'not';
+                }).publish;;
             });
 
             $scope.$on('QuizDeleted', function (e, data) {
@@ -157,7 +161,9 @@
                 }
 
                 $scope.quizzes.splice(index, 1);
-                $scope.info.quizLength--;
+                $scope.info.quizLength = _.countBy($scope.quizzes, function (num) {
+                    return num.publish ? 'publish' : 'not';
+                }).publish;;
             });
 
             function sort(a, b) {
@@ -168,6 +174,6 @@
                 }
             }
 
-          //#endregion
+            //#endregion
         }]);
 

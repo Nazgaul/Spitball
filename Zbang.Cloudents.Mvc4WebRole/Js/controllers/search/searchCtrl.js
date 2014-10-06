@@ -19,7 +19,7 @@ controller('SearchCtrl',
 'sSearch',
 'textDirectionService',
 'constants',
-function ($scope, $timeout, $location, Search, textDirectionService, constants) {
+function ($scope, $timeout, $location, sSearch, textDirectionService, constants) {
     $scope.params = {
         currentPage: 0,
         currentTab: constants.tabs.boxes,
@@ -39,16 +39,16 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         $scope.params.query = query;
         search();
     }
-    
+
     $scope.$on('$routeUpdate', function () {
         var query = $location.search()['q'];
-        $scope.params.currentPage = $scope.params.otherItemsPage = 0;        
+        $scope.params.currentPage = $scope.params.otherItemsPage = 0;
         $scope.params.showOtherUnis = false;
         $scope.params.isOtherItems = false;
-        $scope.data.boxes = $scope.data.items = $scope.data.otherItems = $scope.data.users = [];        
+        $scope.data.boxes = $scope.data.items = $scope.data.otherItems = $scope.data.users = [];
         if (query) {
             $scope.params.query = query;
-            $scope.params.textDirection = textDirectionService.isRTL(query) ? 'rtl' : 'ltr';                     
+            $scope.params.textDirection = textDirectionService.isRTL(query) ? 'rtl' : 'ltr';
             $timeout(search, 300);
             return;
         }
@@ -88,11 +88,12 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
     };
 
     $scope.addToList = function () {
+        console.log('here');
         if ($scope.data.loading) {
             return;
         }
 
-        var showMore;
+        var showMore = false;
         switch ($scope.params.currentTab) {
             case constants.tabs.boxes:
                 if ($scope.data.boxes.length % 50 === 0) {
@@ -138,7 +139,7 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
         }
 
         $timeout(function () {
-            Search.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
+            sSearch.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 parseData(data);
                 $scope.params.itemsLoading = false;
@@ -152,7 +153,7 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
                 $scope.params.usersLoading = false;
             });
         }, 500);
-        
+
     };
 
 
@@ -168,7 +169,7 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
 
         $timeout(function () {
 
-            Search.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
+            sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
                 var data = response.success ? response.payload : {};
                 parseData(data);
                 setInitTab();
@@ -184,7 +185,7 @@ function ($scope, $timeout, $location, Search, textDirectionService, constants) 
 
         $scope.params.isOtherItems = true;
 
-        Search.searchOtherUnis({ q: query, page: $scope.params.currentPage }).then(function (response) {
+        sSearch.searchOtherUnis({ q: query, page: $scope.params.otherItemsPage }).then(function (response) {
             var data = response.success ? response.payload : {};
             $scope.data.otherItems = $scope.data.otherItems ? $scope.data.otherItems.concat(data) : data;
             $scope.params.itemsLoading = false;

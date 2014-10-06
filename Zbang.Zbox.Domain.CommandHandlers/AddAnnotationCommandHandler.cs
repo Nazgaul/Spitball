@@ -13,15 +13,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
 
         public AddAnnotationCommandHandler(IUserRepository userRepository, IRepository<Item> itemRepository,
-            IRepository<ItemComment> itemCommentRepository
-           )
+            IRepository<ItemComment> itemCommentRepository, IRepository<Box> boxRepository)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
+            m_BoxRepository = boxRepository;
         }
         public void Handle(AddAnnotationCommand message)
         {
@@ -33,7 +34,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, item.Box.Id); //user.GetUserType(box.Id);
             if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
             {
-                throw new UnauthorizedAccessException("User is not connected to box");
+                user.ChangeUserRelationShipToBoxType(item.Box, UserRelationshipType.Subscribe);
+                item.Box.CalculateMembers();
+                m_UserRepository.Save(user);
+                m_BoxRepository.Save(item.Box);
             }
             var text = TextManipulation.EncodeText(message.Comment);
             var comment = new ItemComment(user, item, text);

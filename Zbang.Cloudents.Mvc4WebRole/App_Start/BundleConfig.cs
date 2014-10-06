@@ -351,7 +351,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/Js/Cache2.js"),
                 new JsFileWithCdn("~/Js/DataContext2.js"),
                 new JsFileWithCdn("~/Js/GenericEvents2.js"),
-                //new JsFileWithCdn("~/Js/Navigation.js"),
 
 
                 new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message

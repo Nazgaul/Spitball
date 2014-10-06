@@ -18,25 +18,20 @@ using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class HomeController : BaseController
     {
-        private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CacheProvider;
 
         public HomeController(
-            Lazy<IQueueProvider> queueProvider,
             Lazy<IBlobProvider> blobProvider,
             Lazy<ICache> cacheProvider
             )
         {
-            m_QueueProvider = queueProvider;
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
         }

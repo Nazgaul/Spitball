@@ -19,14 +19,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Updates> m_Updates;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
-
+        private readonly IRepository<CommentReplies> m_CommentRepliesRepository;
+        private readonly IRepository<Comment> m_CommentRepository;
 
         public DeleteItemCommandHandler(
+
             IRepository<Box> boxRepository, IBlobProvider blobProvider,
             IUserRepository userRepository,
             IRepository<Updates> updates,
             IRepository<Item> itemRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository, IRepository<CommentReplies> commentRepliesRepository, IRepository<Comment> commentRepository)
         {
 
             m_BoxRepository = boxRepository;
@@ -35,6 +37,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_Updates = updates;
             m_ItemRepository = itemRepository;
             m_ReputationRepository = reputationRepository;
+            m_CommentRepliesRepository = commentRepliesRepository;
+            m_CommentRepository = commentRepository;
         }
 
         public void Handle(DeleteItemCommand command)
@@ -98,6 +102,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_Updates.Delete(quizUpdate);
             }
 
+            if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
+            {
+                m_CommentRepliesRepository.Delete(item.Answer);
+            }
+            if (item.Question != null && string.IsNullOrEmpty(item.Question.Text))
+            {
+                m_CommentRepository.Delete(item.Question);
+            }
+
+
             m_BoxRepository.Save(box);
             m_UserRepository.Save(uploaderFile);
         }
@@ -105,7 +119,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private void ChangeBoxPicture(Box box, long itemId)
         {
             //TODO: LINQ NHIBERNATE
-            
+
             var itemToTakePicture = box.Items.OfType<File>().Where(w => w.Id != itemId && w.IsDeleted == false)
                 .OrderBy(o => o.DateTimeUser.CreationTime).FirstOrDefault();
             if (itemToTakePicture == null)

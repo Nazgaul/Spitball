@@ -24,6 +24,10 @@
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
       <one-to-many class="CommentReplies"/>
     </bag>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuestionId" foreign-key="NewUpdatesQuestion"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
 
   <class table="Answer" name="CommentReplies">
@@ -32,7 +36,6 @@
     </id>
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="userIdAnswer"/>
     <property name="Text" not-null="false" length="8000"></property>
-    <property name="MarkAnswer" not-null="true"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdAnswer"/>
     <many-to-one name="Question" class="Comment" column="QuestionId" not-null="true" foreign-key="questionIdAnswer"/>
 
@@ -46,20 +49,9 @@
       <key column="AnswerId" foreign-key="answerIdAnswer" />
       <one-to-many class="Item"/>
     </bag>
-    <property name="RatingCount">
-      <column name="RatingCount" default="0" not-null="true"/>
-    </property>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="AnswerId" foreign-key="NewUpdatesAnswer"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
-
-
-  <!--<class name="AnswerRating" table="AnswerRating">
-    <id name="Id" column="AnswerRatingId">
-      <generator class="assigned"></generator>
-    </id>
-
-    <many-to-one name="Answer" lazy="false"  class="Answer" column="AnswerId" not-null="true" foreign-key="AnswerIdAnswerRating" unique-key="likeAnswerRatingUser" />
-    <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdAnswerRating" unique-key="likeAnswerRatingUser"/>
-    <property name="RateUp" column="RateUp" not-null="true"/>
-  </class>-->
-  
 </hibernate-mapping>

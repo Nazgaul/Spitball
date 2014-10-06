@@ -125,6 +125,13 @@
 .commentWpr .askBtn {
   width: 127px;
 }
+.quizTimerResult {
+  font-size: 18px;
+}
+.timeRetakeWpr .btn1 {
+  max-width: 120px;
+  font-size: 13px;
+}
 /*#endregion*/
 /*#region invite page*/
 .invItem .invName {
@@ -148,6 +155,9 @@
 }
 .tabMembers .tabArrow:before {
   left: 163px;
+}
+.modal.quitQuiz {
+  width: 622px;
 }
 /*#endregion */
 .emailUser .inputLabel {

@@ -39,6 +39,7 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; set; }
         protected virtual ICollection<Item> Items { get; private set; }
         protected virtual ICollection<CommentReplies> Answers { get; private set; }
+        protected virtual ICollection<Updates> Updates { get; set; }
 
         public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
 

@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var boxid = m_ShortCodesCache.Value.ShortCodeToLong(boxUid);
-                var query = new GetBoxSeoQuery(boxid);
+                var query = new GetBoxSeoQuery(boxid, GetUserId(false));
                 var model = await ZboxReadService.GetBoxSeo(query);
                 if (model == null)
                 {
@@ -77,7 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = GetUserId(false);
             try
             {
-                var query = new GetBoxSeoQuery(boxId);
+                var query = new GetBoxSeoQuery(boxId, userId);
                 var model = await ZboxReadService.GetBoxSeo(query);
                 if (model == null)
                 {
@@ -103,6 +103,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
                     @"\s+", " ");
                 return View("Empty");
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
+                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
             catch (BoxDoesntExistException)
             {
@@ -261,7 +266,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet,Ajax,ZboxAuthorize(IsAuthenticationRequired = false)]
+        [HttpGet, Ajax, ZboxAuthorize(IsAuthenticationRequired = false)]
         public JsonResult Quizes(long id)
         {
             var userId = GetUserId(false); // not really needs it
@@ -275,7 +280,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id,  userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -349,7 +354,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (ArgumentException)
             {
-                return Json(new JsonResponse(false));
+                ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
+                return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             catch (Exception ex)
             {
