@@ -778,14 +778,7 @@
   /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child {
-  padding: 0 260px 0 0;
-  /*rtl*/
-}
-.boxItemList.sponsored .listItem:first-child .imgBorder {
-  border: none;
-  border-left: 1px solid #c2c2c2;
-  /*rtl*/
-  border-radius: 0 3px 3px 0;
+  padding: 20px 360px 0 0;
   /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .itemContent {
@@ -793,13 +786,13 @@
   /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .boxLink {
-  margin: 0 -260px 0 0;
+  margin: 0 -360px 0 0;
   /*rtl*/
-  padding: 0 260px 0 0;
+  padding: 0 360px 0 0;
   /*rtl*/
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
-  right: 77px;
+  right: 132px;
   /*rtl*/
   left: auto;
 }
