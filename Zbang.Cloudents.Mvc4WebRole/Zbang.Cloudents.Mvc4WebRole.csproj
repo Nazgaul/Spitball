@@ -1044,7 +1044,6 @@
     <Content Include="Js\Mobile\MLibraryChoose.js" />
     <Content Include="Js\Mobile\MUpload.js" />
     <Content Include="Js\Mobile\MWallViewModel.js" />
-    <Content Include="Js\Navigation.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\Statistics.js" />

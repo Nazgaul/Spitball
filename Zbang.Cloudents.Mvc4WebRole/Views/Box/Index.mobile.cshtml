@@ -42,13 +42,9 @@
             @{Html.RenderPartial("_Items2");}
         </div>
         <!-- /ko -->
-        <!-- ko stopBinding:true-->
-        <div id="box_Comment" class="boxComments">
-            @{Html.RenderAction("Comments", "Comment");}
-        </div>
-        <!-- /ko -->
+        
 
         <button type="button" data-elem="box_items" class="itemsBtn tabToggle">@IndexResources.Items&nbsp;<span class="regFont">(<span id="box_items_count"></span>)</span></button>
-        <button type="button" data-elem="box_Comment" class="commentsBtn tabToggle">@IndexResources.Comments&nbsp;<span class="regFont">(<span id="box_comment_count"></span>)</span></button>
+        @*<button type="button" data-elem="box_Comment" class="commentsBtn tabToggle">@IndexResources.Comments&nbsp;<span class="regFont">(<span id="box_comment_count"></span>)</span></button>*@
     </div>
 </div>
