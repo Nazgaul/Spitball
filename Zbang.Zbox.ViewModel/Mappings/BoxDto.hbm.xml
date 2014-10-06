@@ -95,7 +95,7 @@
   <!--box page - used to get box members -->
   <query name="GetBoxSubscribers" read-only="1">
     <![CDATA[
-    select u.id as Uid , u.Name as Name,u.Image as Image, u.Url as Url
+    select u.id as Id , u.Name as Name,u.Image as Image, u.Url as Url
     from UserBoxRel ub join ub.User u 
     where ub.BoxId=:BoxId 
     order by u.Image 
