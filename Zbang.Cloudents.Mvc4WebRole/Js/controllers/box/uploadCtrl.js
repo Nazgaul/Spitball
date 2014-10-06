@@ -55,7 +55,6 @@
                     tabId: $scope.tabId
                 };
 
-                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
 
                 sUpload.link(data).then(function (response) {
                     if (!response.success) {
@@ -75,6 +74,7 @@
                         newQuestion : $scope.newQuestion
                     }
 
+                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
 
                     $rootScope.$broadcast('ItemUploaded', sentObj);
                 }, function () {
@@ -119,21 +119,20 @@
                                 newQuestion: $scope.newQuestion
                             }
 
+                            if (_.last(files) === fileData) {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                            }
+
                             $rootScope.$broadcast('ItemUploaded', sentObj);
                         }, function () {
                             $rootScope.$broadcast('UploadDropboxError', data);
                         });
 
                         data.size = fileData.bytes;
-                        $rootScope.$broadcast('DropboxAdded', data);
+                        $rootScope.$broadcast('DropboxAdded', data);                    
 
                     })(file);
                 });
-
-
-                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
-
-
                 $modalInstance.close();
 
             });
@@ -179,6 +178,11 @@
                                     newQuestion: $scope.newQuestion
                                 }
                                 
+
+                                if (_.last(files) === fileData) {
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                                }
+
                                 $rootScope.$broadcast('ItemUploaded', sentObj);
 
 
@@ -188,10 +192,12 @@
 
                             data.size = fileData.size;
                             $rootScope.$broadcast('LinkAdded', data);
+
+                    
+
+
                         })(file);
                     });
-
-                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
                 });
             }
             $modalInstance.close();

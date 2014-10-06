@@ -1,8 +1,8 @@
 ﻿/// <reference path="/scripts/underscore-min.js" />
 mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
-            'sUserDetails', 
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails) {
+            'sUserDetails','sFacebook',
+function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
     var jsResources = window.JsResources;
 
     var consts = {
@@ -33,12 +33,11 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
         isSponsoredView();
         $scope.options.loader = false;
-
-    });
-
+        $rootScope.$broadcast('BoxItemsLoaded');
+    }); 
     //#region upload
 
-    $scope.$on('ItemUploaded', function (e, data) {     
+    $scope.$on('ItemUploaded', function (e, data) {
         if (data.boxId !== $scope.boxId) {
             return;
         }
@@ -55,7 +54,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.items.sort(sortItems);
         $scope.filteredItems.sort(sortItems);
 
-    });     
+    });
 
     //#endregion
 

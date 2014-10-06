@@ -15,7 +15,6 @@
 /// <reference path="../js/library.js" />
 /// <reference path="../js/librarychoose.js" />
 /// <reference path="../js/logon.js" />
-/// <reference path="../js/navigation.js" />
 /// <reference path="../js/notificationsviewmodel.js" />
 /// <reference path="../js/pubsub.js" />
 /// <reference path="../js/routes.js" />
@@ -203,6 +202,7 @@
 /// <reference path="plupload2/moxie.min.js" />
 /// <reference path="../js/controllers/general/uploadlistctrl.js" />
 /// <reference path="../js/filters/filesize.js" />
+/// <reference path="../js/directives/dropzone.js" />
 <<<<<<< HEAD
 /// <reference path="../js/controllers/quiz/challengectrl.js" />
 /// <reference path="../js/directives/quizgraph.js" />

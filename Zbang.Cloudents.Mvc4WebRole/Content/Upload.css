@@ -237,7 +237,7 @@
   top: 89px;
   left: 290px;
   /*rtl*/
-  z-index: 6;
+  z-index: 60000;
   display: none;
 }
 .dropZone {

@@ -1,11 +1,12 @@
 ﻿'use strict';
 
 angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', function ($rootScope) {
+	.directive('plUpload', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
 	    return {
 	        restrict: 'A',
 	        scope: {},
 	        link: function (scope, iElement, iAttrs) {
+	            var uploader;
 
 	            scope.randomString = function (len, charSet) {
 	                charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,12 +18,13 @@ angular.module('angular-plupload', [])
 	                return randomString;
 	            }
 
+
 	            var randomValue = scope.randomString(5);
 	            iAttrs.$set('id', randomValue);
-
 	            var options = {
-	                runtimes: 'html5,flash,html4',
+	                runtimes: 'html5,flash',
 	                browse_button: iElement[0],
+	                drop_element: document.getElementById(iAttrs.dropArea),
 	                multi_selection: true,
 	                chunk_size: '3mb',
 	                container: 'main',
@@ -33,10 +35,14 @@ angular.module('angular-plupload', [])
 	                }
 	            }
 
-	            var uploader = new plupload.Uploader(options);
+	            //if (iAttrs.dropArea) {
+	            //    options.browse_button = null;
+	            //    options.drop_element = document.getElementById(iAttrs.dropArea);
+	            //}
 
-
+	            uploader = new plupload.Uploader(options);
 	            uploader.init();
+
 
 	            uploader.bind('Error', function (up, err) {
 
@@ -45,7 +51,7 @@ angular.module('angular-plupload', [])
 	                $rootScope.$apply(function () {
 	                    $rootScope.$broadcast('UploadFileError', err.file);
 	                });
-	                
+
 
 	                up.refresh(); // Reposition Flash/Silverlight
 	            });
@@ -65,8 +71,6 @@ angular.module('angular-plupload', [])
 	                });
 
 	                uploader.start();
-
-	                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
 	            });
 
 	            uploader.bind('BeforeUpload', function (up, file) {
@@ -83,7 +87,7 @@ angular.module('angular-plupload', [])
 
 	            uploader.bind('FileUploaded', function (up, file, res) {
 	                var response = JSON.parse(res.response);
-	                
+
 
 	                $rootScope.$apply(function () {
 	                    $rootScope.$broadcast('FileUploaded', file);
@@ -92,15 +96,14 @@ angular.module('angular-plupload', [])
 	                        alert(response.payload);
 	                        return;
 	                    }
-	                    
+
 	                    response.payload.tabId = file.tabId;
 	                    response.payload.questionId = file.questionId;
 	                    response.payload.newQuestion = file.newQuestion;
-	                    $rootScope.$broadcast('ItemUploaded', response.payload);
-
+	                    $rootScope.$broadcast('ItemUploaded', response.payload);	                    
 	                });
-	                
-	                
+
+
 	            });
 
 	            uploader.bind('UploadProgress', function (up, file) {
@@ -109,10 +112,19 @@ angular.module('angular-plupload', [])
 	                });
 	            });
 
-	            uploader.bind('UploadComplete', function () {
-	                uploader.destroy();
-	            });
+	            uploader.bind('UploadComplete', function (up, files) {
 
+	                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+	                
+	                up.files = [];
+	                up.splice();
+	                
+
+	                if (iAttrs.destroy) {
+	                    up.destroy();
+	                }
+
+	            });
 
 	            scope.$on('$destroy', function () {
 	                uploader.disableBrowse();
@@ -124,7 +136,7 @@ angular.module('angular-plupload', [])
 	                if (uploader.runtime !== 'flash') {
 	                    return;
 	                }
-	                var isOk = confirm('Leaving page will stop the file upload, arey you sure you want to leave?');
+	                var isOk = confirm('Leaving page will stop the file upload, are you sure you want to leave?');
 	                if (!isOk) {
 	                    event.preventDefault();
 	                }
