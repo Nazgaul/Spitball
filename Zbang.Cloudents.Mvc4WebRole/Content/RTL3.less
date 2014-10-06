@@ -963,10 +963,6 @@
             left: auto;
         }
     }
-
-    &.draft .tag {
-        margin: 0 15px 0 0; /*rtl*/
-    }
 }
 
 /*#region box item tool tips */
@@ -1972,12 +1968,7 @@ body.quiz {
         padding: 0 @leftSideBarWidth 0 0;
         text-align: right; /*rtl*/
     }
-    //.itemTop {
-        //height: 73px; //diff rtl
-    //}
-    /*.topBar.topBar {
-        padding: 0 290px 0 0; //diff rtl!!
-    }*/
+
     .quizViews {
         border: none;
         border-right: 1px solid #797979; //rtl
@@ -1986,7 +1977,7 @@ body.quiz {
     .itemNameWpr {
         padding: 16px 56px 8px 15px; //rtl
 
-        &:before {
+        svg {
             right:8px; //rtl
             left: auto;
         }
@@ -2056,7 +2047,7 @@ body.quiz {
 }*/
 .topUser {
     &.star {
-        &:after {
+        svg {
             left: -10px; //rtl
             right: auto;
         }

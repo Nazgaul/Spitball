@@ -900,10 +900,6 @@
   /*rtl*/
   left: auto;
 }
-.thumbItem.draft .tag {
-  margin: 0 15px 0 0;
-  /*rtl*/
-}
 /*#region box item tool tips */
 .boxItemTt.noPreview .ttPreview {
   display: none;
@@ -1998,11 +1994,6 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage {
-  /*.topBar.topBar {
-        padding: 0 290px 0 0; //diff rtl!!
-    }*/
-}
 .quizPage .backWpr:before {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
@@ -2028,7 +2019,7 @@ body.quiz .shareBtn {
 .quizPage .itemNameWpr {
   padding: 16px 56px 8px 15px;
 }
-.quizPage .itemNameWpr:before {
+.quizPage .itemNameWpr svg {
   right: 8px;
   left: auto;
 }
@@ -2089,7 +2080,7 @@ body.quiz .shareBtn {
         top: 10px;//diff rtl
     }
 }*/
-.topUser.star:after {
+.topUser.star svg {
   left: -10px;
   right: auto;
 }

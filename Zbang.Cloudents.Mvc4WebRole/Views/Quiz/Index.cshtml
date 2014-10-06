@@ -4,8 +4,12 @@
 
     <div class="leftPanel lFloat" bindonce>
         <div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat quizViews">{{quiz.numberOfViews}}</div>
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews">
+                @Html.Svg("~/Images/Defs.svg", "eye")
+                {{quiz.numberOfViews}}
+            </div>
             <div class="itemNameWpr">
+                @Html.Svg("~/Images/Defs.svg", "quiz1")
                 <div class="item-name semiFont elps">{{quiz.name}}</div>
                 <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.owner}}</div>
                 <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
@@ -14,32 +18,43 @@
 
         <div class="timeWpr">
             <div class="quizTime" id="quizTimer">
+                @Html.Svg("~/Images/Defs.svg", "stopper")
                 <timer interval="1000" autostart="false">{{mminutes}}:{{sseconds}}</timer>
             </div>
             <button type="button" ng-click="takeQuiz()">{{timer.state}}</button>
         </div>
 
-
         <div class="userResults">
             <div class="resultsWpr">
-                <div id="quizUserRight" class="results" data-results="{{quiz.correctAnswers}}">@QuizResources.Correct</div>
-                <div id="quizUserWrong" class="results wrong" data-results="{{quiz.wrongAnswers}}">@QuizResources.Wrong</div>
-
-
+                <div id="quizUserRight" class="results" data-results="{{quiz.correctAnswers}}">
+                    @Html.Svg("~/Images/Defs.svg", "correct", new { @class = "svg-correct" })
+                    @QuizResources.Correct
+                </div>
+                <div id="quizUserWrong" class="results wrong" data-results="{{quiz.wrongAnswers}}">
+                    @Html.Svg("~/Images/Defs.svg", "wrong", new { @class = "svg-wrong" })
+                    @QuizResources.Wrong
+                </div>
             </div>
             <div class="userScoreWpr">
                 <div id="quizUserScore" class="userScore" data-user-score="{{quiz.result}}">@QuizResources.YourScore:</div>
             </div>
 
             <div class="timeRetakeWpr clearfix">
-                <div id="quizTimerResult" class="quizTimerResult lFloat iconTxt">{{quiz.timeTaken}}</div>
+                <div id="quizTimerResult" class="quizTimerResult lFloat">
+                    @Html.Svg("~/Images/Defs.svg", "time")
+                    {{quiz.timeTaken}}
+                </div>
+
                 <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()">@QuizResources.RetakeQuiz</button>
             </div>
 
             <div class="topUsersWpr">
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
-                <ol >
-                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true"><img ng- alt=" " ng-src=" {{user.image}}" /></li>
+                <ol>
+                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true">
+                        <img ng- alt=" " ng-src=" {{user.image}}" />
+                        @Html.Svg("~/Images/Defs.svg", "star")
+                    </li>
                 </ol>
             </div>
 
@@ -62,7 +77,7 @@
             <div class="quizTitle elps">{{quiz.name}}</div>
         </div>
 
-        
+
         <div class="quizPrevWpr">
             <ul class="quizQList">
                 <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
