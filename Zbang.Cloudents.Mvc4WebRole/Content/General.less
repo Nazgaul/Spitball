@@ -2624,10 +2624,6 @@ select.inputText {
         .settingsMenu,
         .quizPage .leftPanel,
         .quizPage .topBar,
-        .joinGrpBtn { 
-            position: absolute; // this is what facebook does in narrow screen widths: fixed -> absolute
-        }
-
         .boxPage .leftPanel {
             height: auto;
         }
@@ -2662,51 +2658,6 @@ select.inputText {
 
         .box-content {
             padding: 0;
-        }
-
-        .joinGrpWpr {
-            .joinGrpBtn {
-                padding: 0;
-                margin: 0;
-                top: -51px;
-            }
-
-            &:after {
-                height: 0;
-            }
-
-            &.show {
-                z-index: 0; //override
-                &:after {
-                    height: 51px;
-                }
-
-                .joinGrpBtn {
-                    margin: 0;
-                    -moz-animation: joinWprNarrowSlide 1s ease-in;
-                    -o-animation: joinWprNarrowSlide 1s ease-in;
-                    -webkit-animation: joinWprNarrowSlide 1s ease-in;
-                    animation: joinWprNarrowSlide 1s ease-in;
-                    top: 0;
-                }
-            }
-
-            &.followed {
-                padding: 0;
-
-                &:after {
-                    height: 0;
-                }
-
-                .joinGrpBtn {
-                    top: -51px;
-                }
-
-                .joinGrp {
-                    top: -20px;
-                    opacity: 0;
-                }
-            }
         }
 
         .scrolling {
