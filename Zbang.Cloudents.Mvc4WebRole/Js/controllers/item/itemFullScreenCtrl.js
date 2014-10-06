@@ -2,7 +2,8 @@
 [
     '$scope', '$modalInstance','$sce',
     function ($scope, $modalInstance, $sce) {
-        $scope.preview2 = '';
+        $scope.preview2 = $scope.$parent.preview;
+        
         $scope.$parent.fullScreen = true;
         $scope.closeFullScreen = function() {
             $modalInstance.close();
