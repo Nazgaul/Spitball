@@ -74,7 +74,7 @@
         });
     }
     function registerEvents() {
-        var $fInvite = $('#fInvite')
+        var $fInvite = $('#fInvite');
         // registerAutoComplete($fInvite);
         sharedEvents();
         $inviteList.on('click', 'button.removeItem', function () {
@@ -95,7 +95,7 @@
 
             if (!$fInvite.valid || $fInvite.valid()) {
                 var data = $fInvite.serializeArray();
-                data.push({ name: 'BoxUid', value: boxid });
+                data.push({ name: 'BoxId', value: boxid });
                 analytics.trackEvent('box', 'invite', boxid);
                 cd.resetForm($fInvite);
                 $('.inviteList').find('li').remove();

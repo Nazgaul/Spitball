@@ -97,18 +97,17 @@
         });
     }
     function getPreview() {
-        var images = itemContext.getElementsByTagName('img').length;
-        //var images = $('.previewWrapper').find('img').length;
+        var index = 0;
         if (blobName && loaded && !document.getElementsByClassName('previewFailed').length) {
             loaded = false;
             //var loader = cd.renderLoading($itemContent);
             dataContext.preview({
-                data: { blobName: blobName, imageNumber: images, uid: itemid, width: screen.width, height: screen.height, boxUid: boxid },
+                data: { blobName: blobName, index: index, id: itemid, width: screen.width, height: screen.height, boxId: boxid },
                 success: function (retVal) {
                     if (retVal.preview.trim()) {
                         loaded = true;
                     }
-                    
+                    index++;
                     var $preview = $(retVal.preview);
                     $preview[0].width = window.innerWidth;
                     $preview[0].height = window.innerHeight - 50;                    
