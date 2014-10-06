@@ -319,7 +319,9 @@
 
         uploader.bind('FileUploaded', function (up, file, data) {
             var itemData = JSON.parse(data.response);
-            itemData.payload.fileDto.tabId = file.tabid;
+            if (file) {
+                itemData.payload.fileDto.tabId = file.tabid;
+            }
             if (!itemData.success) {
                 return;
             }

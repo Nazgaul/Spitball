@@ -24,7 +24,7 @@
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
             <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
-            <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage()">@SharedResources.Message</button>
+            <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
         </div>
 
         @if (ViewBag.Admin)
