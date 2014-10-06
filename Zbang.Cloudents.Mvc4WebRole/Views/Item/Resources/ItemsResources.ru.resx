@@ -143,7 +143,7 @@
     <value>Загрузить</value>
   </data>
   <data name="Flag" xml:space="preserve">
-    <value>Отметить флажком</value>
+    <value>Пожаловаться</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
     <value>Полный экран</value>
