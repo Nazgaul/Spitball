@@ -52,6 +52,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual Comment Question { get; set; }
 
+        protected virtual ICollection<Updates> Updates { get; set; }
+
         //public virtual int RatingCount { get; internal set; }
 
         //public void RemoveItem(Item item)

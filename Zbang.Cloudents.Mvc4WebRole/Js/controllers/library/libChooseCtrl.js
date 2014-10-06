@@ -194,12 +194,13 @@
                  $scope.departments = null;
 
              };
-
+             console.log($location.search().returnUrl);
              $scope.chooseDepartment = function () {
                  sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
                      if (response.success) {
                          sUserDetails.setDepartment($scope.selectedDepartment);
-                         window.open('/dashboard/', '_self');
+                         var navUrl = $location.search().returnUrl || '/dashboard/';
+                         window.open(navUrl, '_self');
                          //$location.path('/dashboard/');
                      }
                  });
