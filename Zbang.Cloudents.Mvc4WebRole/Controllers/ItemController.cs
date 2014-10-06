@@ -368,11 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userEmailId = GetUserId(false);
-
-                var command = new DeleteItemCommand(itemId, userEmailId, boxId);
+                var command = new DeleteItemCommand(itemId, GetUserId(), boxId);
                 ZboxWriteService.DeleteItem(command);
-
                 return Json(new JsonResponse(true, itemId));
             }
             catch (Exception ex)

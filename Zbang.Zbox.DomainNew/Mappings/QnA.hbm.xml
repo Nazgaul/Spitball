@@ -24,6 +24,10 @@
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
       <one-to-many class="CommentReplies"/>
     </bag>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuestionId" foreign-key="NewUpdatesQuestion"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
 
   <class table="Answer" name="CommentReplies">
@@ -44,6 +48,10 @@
     <bag name="Items" inverse="false" lazy="true" cascade="none" >
       <key column="AnswerId" foreign-key="answerIdAnswer" />
       <one-to-many class="Item"/>
+    </bag>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="AnswerId" foreign-key="NewUpdatesAnswer"/>
+      <one-to-many class="Updates"/>
     </bag>
   </class>
 </hibernate-mapping>

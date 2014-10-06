@@ -707,7 +707,7 @@ body.item .modal-backdrop.in {
   border-left-color: #fff;
 }
 .itemFulscrn .divWrapper {
-  width: 90%;
+  width: 90vw;
   border: none;
   background: transparent;
 }
@@ -725,7 +725,7 @@ body.item .modal-backdrop.in {
 }
 .itemFulscrn .svgContent {
   height: auto;
-  width: 80vw;
+  width: 90vw;
   background: #fff;
 }
 .itemFulscrn iframe {
