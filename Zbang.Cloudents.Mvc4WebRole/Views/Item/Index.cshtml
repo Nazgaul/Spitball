@@ -78,8 +78,8 @@
         </div>
 
         <div class="mainPart">
-            <a ng-show="item.navigation.next" ng-href="{{item.navigation.next}}" class="rFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
-            <a ng-show="item.navigation.previous" ng-href="{{item.navigation.previous}}" class="lFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
+            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="rFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
+            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="lFloat navBtn">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
             <div class="itemNameWpr">
                 <h2 class="item-name elps lFloat">
                     <span tooltip="{{item.name}}">{{item.name}}</span>

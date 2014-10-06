@@ -14,7 +14,6 @@ mBox.controller('BoxCtrl',
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
 
-            $rootScope.$broadcast('uploadBox', $scope.boxId);
 
             $scope.action = {};
 
@@ -75,6 +74,8 @@ mBox.controller('BoxCtrl',
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
+                    $rootScope.$broadcast('uploadBox', $scope.boxId);
+
                 });
             });
 
