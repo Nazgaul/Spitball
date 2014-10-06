@@ -88,20 +88,21 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public virtual void CalculateRate(int rate, int count)
+        public virtual void CalculateRate(int rate)
         {
-            Rate += (rate - Rate) / ++count;
+            Rate = rate;
+            //Rate += (rate - Rate) / ++count;
         }
 
-        public void RevertRate(int previousRate, int count)
-        {
-            if (count == 1)
-            {
-                Rate = 0;
-                return;
-            }
-            Rate -= (previousRate - Rate) / --count;
-        }
+        //public void RevertRate(int previousRate, int count)
+        //{
+        //    if (count == 1)
+        //    {
+        //        Rate = 0;
+        //        return;
+        //    }
+        //    Rate -= (previousRate - Rate) / --count;
+        //}
 
         public abstract string ChangeName(string newName);
     }

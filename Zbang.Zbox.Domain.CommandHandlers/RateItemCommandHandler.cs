@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -31,29 +32,39 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
             var userRate = m_ItemRateRepositoy.GetRateOfUser(message.UserId, message.ItemId);
-            var rateCount = m_ItemRateRepositoy.GetRateCount(message.ItemId);
 
             var item = m_ItemRepository.Load(message.ItemId);
-
-
-
-
             var user = m_UserRepository.Load(message.UserId);
+
+
             if (userRate != null)
             {
-                m_ItemRateRepositoy.Delete(userRate);
-                m_ReputationRepository.Save(item.Uploader.AddReputation(GetUnReputaionByPoistion(userRate.Rate)));
-                item.RevertRate(userRate.Rate, rateCount);
-                --rateCount;
+                userRate.Rate = message.Rate;
+                m_ItemRateRepositoy.Save(userRate, true);
+
+                var avg = CalculateAverage(message.ItemId);
+
+                item.CalculateRate((int) avg);
+                m_ItemRepository.Save(item);
+                return;
+              
 
             }
             userRate = new ItemRate(user, item, message.Id, message.Rate);
-            item.CalculateRate(message.Rate, rateCount);
+            m_ItemRateRepositoy.Save(userRate, true);
+
+            var average = CalculateAverage(message.ItemId);
+
+            item.CalculateRate((int)average);
             m_ReputationRepository.Save(item.Uploader.AddReputation(GetReputaionByPoistion(message.Rate)));
 
-            m_ItemRateRepositoy.Save(userRate);
             m_ItemRepository.Save(item);
             m_UserRepository.Save(item.Uploader);
+        }
+
+        private double CalculateAverage(long itemId)
+        {
+            return m_ItemRateRepositoy.CalculateItemAverage(itemId);
         }
 
         private ReputationAction GetReputaionByPoistion(int rate)
@@ -71,20 +82,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
         }
-        private ReputationAction GetUnReputaionByPoistion(int rate)
-        {
-            switch (rate)
-            {
-                case 3:
-                    return ReputationAction.UnRate3Stars;
-                case 4:
-                    return ReputationAction.UnRate4Stars;
-                case 5:
-                    return ReputationAction.UnRate5Stars;
-                default:
-                    return ReputationAction.None;
-            }
-
-        }
+      
     }
 }

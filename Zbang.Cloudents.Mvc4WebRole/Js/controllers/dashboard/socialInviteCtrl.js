@@ -29,15 +29,18 @@
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
                  $scope.params.contacts = null;
+                 $scope.$broadcast('update-scroll');
              }
 
              $scope.filterContacts = function () {
                  if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
                      $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                     $scope.$broadcast('update-scroll');
                      return;
                  }
 
                  $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
+                 $scope.$broadcast('update-scroll');
 
              };
              if (sFacebook.isAuthenticated()) {
@@ -126,6 +129,7 @@
                                 cloudentsUsers = data.my;
                              currentUsers = cloudentsUsers;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                             $scope.$broadcast('update-scroll');
                          });
 
                          return params;
@@ -146,6 +150,7 @@
                          sGoogle.contacts().then(function (response) {
                              currentUsers = response;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                             $scope.$broadcast('update-scroll');
 
                          });
 
@@ -166,6 +171,7 @@
                          sFacebook.contacts('id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)').then(function (response) {
                              currentUsers = response;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                             $scope.$broadcast('update-scroll');
 
                          });
 
