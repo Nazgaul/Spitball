@@ -40,7 +40,6 @@
     </div>
     <div fb-block ng-if="params.facebookInvite"></div>
 </section>
-@*Guy when sending the form add here class invSuccess, then remove it after 2 sec (see Invite.js Ln:440-449)*@
 <aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
     <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
         <h3>@IndexResources.InviteViaEmail</h3>

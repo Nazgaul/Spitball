@@ -2,11 +2,23 @@
 [
 
    function () {
+       var cRate = 'rate';
        function rate(elem, attrs) {
+           var children = elem.children();
            for (var i = 0; i < attrs.rateStar; i++) {
-               elem.children().get(4 - i).classList.add('rate');
+               var star = children.get(4 - i);
+               if (star.classList) {
+                   star.classList.add(cRate);
+               } else {
+                   $(star).attr('class', function (index, classNames) {
+                       return classNames + ' ' + cRate;
+                   });
+               }
+               
+               
            }
        };
+       
        return {
            scope: {
                rateItemCallback: '&rateItemCallback'
@@ -16,19 +28,29 @@
                rate(elem, attrs);
 
                $(elem).hover(function () {
-                   var star = elem[0].querySelectorAll('.rate');
+                   var star = elem[0].querySelectorAll('.' + cRate);
                    for (var i = 0; i < star.length; i++) {
-                       star[i].classList.remove('rate');
+                       if (star[i].classList) {
+                           star[i].classList.remove(cRate);
+                       } else {
+                           $(star[i]).attr('class', function (index, classNames) {
+                               return classNames.replace(cRate, '');
+                           });
+                       }
                    }
                }, function () {
                    rate(elem, attrs);
                });
 
                $(elem).click(function (e) {
+                   var target = e.target;
                    var userRate = 0,
                    star = elem.children();
                    for (var i = 0; i < star.length; i++) {
-                       if (star[i] === e.target.parentElement) {
+                       while (target.tagName.toLowerCase() !== 'svg') {
+                           target = target.parentNode;
+                       }
+                       if (star[i] === target) {
                            userRate = 5 - i;
                        }
                    }

@@ -1,8 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 
-<div class="formWpr"
-    @*ng-class="{'js-private' : formData.privacySettings === '@BoxPrivacySettings.MembersOnly', 'js-academic' : formData.privacySettings === '@BoxPrivacySettings.AnyoneWithUrl', addDept: display.addDepartment}"*@
-    >
+<div class="formWpr">
     <div wizard on-finish="completeWizard()" template="'wizard.html'">
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
@@ -17,7 +15,6 @@
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
-            @*Guy: if user clicks on the 'change department button add the class 'editDept' here*@
             <div class="newAcademic clearfix editDept" ng-show="isAcademicBox && !(display.createDep)">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
@@ -38,11 +35,6 @@
                 Html.RenderPartial("_SocialInvite");
             }
         </div>
-        @*<div wz-step template="'step.html'">
-            @{
-                Html.RenderPartial("_UploadFiles");
-            }
-        </div>*@
     </div>
 </div>
 <script type="text/ng-template" id="wizard.html">

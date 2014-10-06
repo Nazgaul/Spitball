@@ -739,12 +739,16 @@
   position: relative;
 }
 .socialContentWpr .mCustomScrollbar.js-scrolling:after {
+  content: '';
+  display: inline-block;
   width: 599px;
   position: fixed;
   left: 8px;
   right: 31px;
   margin: auto;
   top: 229px;
+  border-top: 1px solid #bbb;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
   /*background:
 
 		linear-gradient(white 30%, rgba(255,255,255,0)),
@@ -785,7 +789,7 @@
 .socialContentWpr.jsNotConnected .gmInput {
   visibility: hidden;
 }
-.socialContentWpr.jsNotConnected .socialList {
+.socialContentWpr.jsNotConnected .mCustomScrollbar {
   display: none;
 }
 .socialContentWpr.jsNotConnected .socialConnect {
