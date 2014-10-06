@@ -45,8 +45,12 @@ mBox.controller('SettingsCtrl',
 
          $scope.save = function () {
              sBox.updateInfo($scope.formData).then(function (response) {
-                 $scope.formData.queryString = response.payload.queryString;
-                 $modalInstance.close($scope.formData);
+                 if (response.success) {
+                     $scope.formData.queryString = response.payload.queryString;
+                     $modalInstance.close($scope.formData);
+                 } else {
+                     alert(response.payload[0].value[0]);
+                 }
              });
          };
 
@@ -60,21 +64,21 @@ mBox.controller('SettingsCtrl',
                  $location.path('/dashboard/');
              });
          };
-
+         var jsResources = window.JsResources;
          $scope.deleteOrUnfollow = function () {
 
              if ($scope.info.userType === 'none') {
-                 return;
+                 return '';
              }
              if ($scope.info.userType === 'owner') {
-                 return JsResources.Delete;
+                 return jsResources.Delete;
              }
 
              if ($scope.info.membersLength <= 2 && $scope.info.comments < 2 && !$scope.info.itemsLength) {
-                 return JsResources.Delete;
+                 return jsResources.Delete;
              }
 
-             return JsResources.LeaveGroup;
+             return jsResources.LeaveGroup;
          };
 
      }
