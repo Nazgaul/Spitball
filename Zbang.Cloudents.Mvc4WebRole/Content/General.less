@@ -913,7 +913,8 @@ input[type="radio"] {
 .popupHeader, .modal-title {
     color: #fff;
     font-size: 18px;
-    background: #282828;
+    //background: #282828;
+    background: #444;
     height: 40px;
     line-height: 40px;
     margin: 0 -20px 15px;
@@ -2678,6 +2679,9 @@ select.inputText {
 }
 /*#region IPAD - SPECIFIC CODE */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .siteHeader.siteHeader, body.body {
+        min-width: 0;
+    }
     /*#region home page */
     .headingTexts.headingTexts {
             padding-left: 40px; /*rtl*/

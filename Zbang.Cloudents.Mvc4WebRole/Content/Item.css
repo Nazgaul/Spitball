@@ -260,23 +260,27 @@ body.item .modal-backdrop.in {
 .itemFlag {
   font-size: 15px;
   padding-top: 12px;
-  color: #6a6a6a;
-  pointer-events: none;
+  color: #fff;
 }
 .itemFlag .svg-flag {
-  fill: #6a6a6a;
-}
-.canFlag {
-  color: #fff;
-  pointer-events: all;
-}
-.canFlag .svg-flag {
   fill: #fff;
 }
-.canFlag:hover {
+.itemFlag:hover {
   color: #3399ff;
 }
-.canFlag:hover .svg-flag {
+.itemFlag:hover .svg-flag {
+  fill: #3399ff;
+}
+.itemFlag:disabled {
+  color: #6a6a6a;
+}
+.itemFlag:disabled .svg-flag {
+  fill: #6a6a6a;
+}
+.itemFlag:disabled.flagged {
+  color: #3399ff;
+}
+.itemFlag:disabled.flagged .svg-flag {
   fill: #3399ff;
 }
 /*#endregion */

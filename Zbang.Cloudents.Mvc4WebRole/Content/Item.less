@@ -276,15 +276,8 @@ body.item {
 {   
     font-size: 15px;
     padding-top: 12px;
-    color: #6a6a6a;
-    pointer-events: none;
-    .svg-flag {
-        fill: #6a6a6a;
-    }
-}
-.canFlag {
+
     color: #fff;
-    pointer-events: all;
     .svg-flag {
         fill: #fff;
     }
@@ -292,6 +285,18 @@ body.item {
         color: @itemBlue;
         .svg-flag {
             fill: @itemBlue;
+        }
+    }
+    &:disabled {
+        color: #6a6a6a;
+        .svg-flag {
+            fill: #6a6a6a;
+        }
+        &.flagged {
+            color: @itemBlue;
+            .svg-flag {
+                fill: @itemBlue;
+            }
         }
     }
 }

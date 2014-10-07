@@ -646,4 +646,10 @@ Sign up for FREE</value>
   <data name="Pending" xml:space="preserve">
     <value>Pending</value>
   </data>
+  <data name="Flag" xml:space="preserve">
+    <value>Flag</value>
+  </data>
+  <data name="Flagged" xml:space="preserve">
+    <value>Flagged</value>
+  </data>
 </root>
