@@ -734,15 +734,12 @@ body.quiz .modal-backdrop.in {
   height: auto;
   display: block;
 }
-.quizPage .itemNameWpr:before {
-  content: '';
-  display: inline-block;
+.quizPage .itemNameWpr svg {
+  width: 45px;
+  height: 45px;
   position: absolute;
   left: 8px;
   top: 11px;
-  width: 45px;
-  height: 45px;
-  background: url(/Images/quizSprite.png?v=4) 0 -61px no-repeat;
 }
 .quizPage .quizViews {
   text-align: center;
@@ -755,12 +752,11 @@ body.quiz .modal-backdrop.in {
   margin: 10px -5px 0 5px;
   font-size: 12px;
 }
-.quizPage .quizViews:before {
-  content: '';
+.quizPage .quizViews svg {
   display: block;
   width: 38px;
   height: 23px;
-  background: url(/Images/quizSprite.png?v=4) 0 -38px no-repeat;
+  fill: #fff;
   margin: 2px auto 6px;
 }
 .quizPage .item-name {
@@ -892,17 +888,14 @@ body.quiz .modal-backdrop.in {
   margin-top: 146px;
   text-align: center;
 }
-.quizTime:before {
-  content: '';
-  display: inline-block;
+.quizTime svg {
   width: 233px;
   height: 264px;
-  background: url(/Images/quizSprite.png?v=4) 0 -124px no-repeat;
   position: absolute;
   left: 0;
   right: 0;
-  top: 100px;
-  margin: 20px auto 0;
+  top: 120px;
+  margin: 0 auto;
 }
 .quizTime ~ button {
   margin: 5px auto 0;
@@ -951,14 +944,6 @@ body.quiz .modal-backdrop.in {
   padding: 0 35px 0 0;
   border-left: 1px solid #797979;
 }
-.results.wrong:after {
-  width: 40px;
-  height: 34px;
-  background-position: 0 -468px;
-  right: 0;
-  left: auto;
-  top: 16px;
-}
 .results:before {
   content: attr(data-results);
   display: block;
@@ -967,15 +952,19 @@ body.quiz .modal-backdrop.in {
   margin: -8px 0;
   font-weight: 600;
 }
-.results:after {
-  content: '';
-  display: inline-block;
+.svg-correct {
   position: absolute;
-  background: url(/Images/quizSprite.png?v=4) 0 0 no-repeat;
   width: 38px;
   height: 38px;
   left: 0;
   top: 12px;
+}
+.svg-wrong {
+  position: absolute;
+  width: 40px;
+  height: 34px;
+  right: 0;
+  top: 16px;
 }
 .userScoreWpr {
   margin: 20px 5px 0;
@@ -1035,15 +1024,16 @@ body.quiz .modal-backdrop.in {
 .quizTimerResult {
   color: #9AC6E9;
   font-size: 20px;
-  margin-top: 4px;
+  padding-top: 12px;
+  display: inline-block;
+  vertical-align: top;
 }
-.quizTimerResult:before {
-  margin: 0;
+.quizTimerResult svg {
   width: 39px;
   height: 43px;
-  background: url(/Images/quizSprite.png?v=4) 0 -388px no-repeat;
   position: relative;
-  top: -4px;
+  top: -12px;
+  vertical-align: top;
 }
 .topUsersWpr {
   position: relative;
@@ -1081,13 +1071,15 @@ body.quiz .modal-backdrop.in {
 .topUser:nth-child(4) {
   display: none;
 }
-.topUser.star:after {
-  content: '';
-  display: inline-block;
+.topUser svg {
+  display: none;
+}
+.topUser.star svg {
+  display: block;
   position: absolute;
   width: 20px;
   height: 18px;
-  background: url(/Images/quizSprite.png?v=4) 0 -106px no-repeat;
+  fill: #ffc104;
   top: -7px;
   right: -10px;
 }

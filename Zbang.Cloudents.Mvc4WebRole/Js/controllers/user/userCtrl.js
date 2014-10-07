@@ -63,7 +63,8 @@ mUser.controller('UserCtrl',
             //});
         });
 
-        $scope.sendUserMessage = function () {
+        //sendUserMessage - is on main.js as well
+        $scope.sendUserMessage2 = function () {
 
             var modalInstance = $modal.open({
                 windowClass: "personalMsg",

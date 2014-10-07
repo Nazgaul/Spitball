@@ -15,7 +15,7 @@
             <ul class="middleActionList">
                 <li class="middleActionItem">
                     <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank">
-                        @Html.Svg("~/Images/Defs.svg","download", new {@class="svg-download"})
+                        @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
                         <div>@ItemsResources.Download</div>
                     </a>
                 </li>
@@ -88,8 +88,7 @@
                     </button>
                 </h2>
                 <div class="uploadInfo">
-                    <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>
-
+                    <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
                     <time>{{item.updateTime | date:'d MMMM yyyy'}}</time>
                 </div>
             </div>

@@ -852,21 +852,16 @@
 .boxItemList {
     &.sponsored {
         .listItem:first-child {
-            padding: 0 260px 0 0; /*rtl*/ //override
-            .imgBorder {
-                border: none;
-                border-left: 1px solid @borderColor; /*rtl*/
-                border-radius: 0 3px 3px 0; /*rtl*/
-            }
+            padding: 20px 360px 0 0; /*rtl*/ //override
 
             .itemContent {
                 margin: 0 0 5px 15px; /*rtl*/
             }
             .boxLink {
-                margin: 0 -260px 0 0; /*rtl*/
-                padding: 0 260px 0 0; /*rtl*/
+                margin: 0 -360px 0 0; /*rtl*/
+                padding: 0 360px 0 0; /*rtl*/
                 &:after {
-                    right: 77px; /*rtl*/
+                    right: 132px; /*rtl*/
                     left: auto;
                 }
             }
@@ -967,10 +962,6 @@
             right: 4px; /*rtl*/
             left: auto;
         }
-    }
-
-    &.draft .tag {
-        margin: 0 15px 0 0; /*rtl*/
     }
 }
 
@@ -1977,12 +1968,7 @@ body.quiz {
         padding: 0 @leftSideBarWidth 0 0;
         text-align: right; /*rtl*/
     }
-    //.itemTop {
-        //height: 73px; //diff rtl
-    //}
-    /*.topBar.topBar {
-        padding: 0 290px 0 0; //diff rtl!!
-    }*/
+
     .quizViews {
         border: none;
         border-right: 1px solid #797979; //rtl
@@ -1991,7 +1977,7 @@ body.quiz {
     .itemNameWpr {
         padding: 16px 56px 8px 15px; //rtl
 
-        &:before {
+        svg {
             right:8px; //rtl
             left: auto;
         }
@@ -2035,33 +2021,25 @@ body.quiz {
 
 .results {
     padding: 0 38px 0 0; //rtl
-    //height: 66px; // diff rtl
     &.wrong {
         padding: 0 0 0 35px;
         border: none;
-        border-right: 1px solid #797979; //rtl
-        &:after {
-            left: 0; //rtl
-            right: auto; //override
-        } 
-    }
-    //&:before {
-        //margin: -8px 0; // diff rtl
-    //}
-    &:after {
-        right: 0; //rtl
-        left: auto;
+        border-right: 1px solid #797979; //rtl 
     }
 }
-/*.userScore {
-    &:after {
-        position: relative;//diff rtl
-        top: 10px;//diff rtl
-    }
-}*/
+
+.svg-correct {
+    right: 0; //rtl
+    left: auto;
+}
+.svg-wrong {
+    left: 0; //rtl
+    right: auto;
+}
+
 .topUser {
     &.star {
-        &:after {
+        svg {
             left: -10px; //rtl
             right: auto;
         }

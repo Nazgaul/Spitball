@@ -657,7 +657,7 @@
         .thumbItem, .listItem {
             position: relative;
             &:first-child {
-                width: 323px;
+                
                 &:hover {
                     .actionBtns {
                         display: none;
@@ -683,6 +683,7 @@
         }
 
         .thumbItem:first-child {
+            width: 323px;
             .boxLink {
                 //padding-top: 192px; //sponsored link img absolute
                 //.boxSizing;
@@ -713,21 +714,20 @@
 
         .listItem:first-child {
             background: #fff;
-            border: 1px solid @borderColor;
             border-radius: 3px;
             font-size: 15px;
-            padding: 0 0 0 260px; /*rtl*/ //override
+            padding: 20px 0 0 360px; /*rtl*/ //override
             margin-bottom: 14px;
 
             .imgBorder {
-                top: 0;
-                border: none;
-                border-right: 1px solid @borderColor; /*rtl*/
-                border-radius: 3px 0 0 3px; /*rtl*/
+                top: 17px;
                 -moz-background-size: cover;
                 -o-background-size: cover;
                 -webkit-background-size: cover;
                 background-size: cover;
+                border: 1px solid @borderColor;
+                border-radius: 3px;
+                width: 340px;
                 height: 143px;
             }
 
@@ -753,11 +753,12 @@
 
             .boxLink {
                 .boxSizing;
-                margin-left: -260px;
-                padding-left: 260px;
+                margin-left: -360px; //rtl
+                padding-left: 360px; //rtl
 
                 &:after {
-                    left: 77px; /*rtl*/
+                    left: 132px; /*rtl*/
+                    top: 47px;
                 }
             }
         }

@@ -257,12 +257,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 Guid userProviderKey;
-                var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail, out userProviderKey);
+                var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
+                    out userProviderKey);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
-                      !model.IsMale.HasValue || model.IsMale.Value,
+                        !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, model.Language.Language);
                     var result = ZboxWriteService.CreateUser(command);
 
@@ -270,7 +271,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         new UserDetail(
                             result.User.Culture,
                             result.UniversityId));
-                    return Json(new JsonResponse(true, Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" })));
+                    return
+                        Json(new JsonResponse(true,
+                            Url.Action("Index", "Library", new {returnUrl = CheckIfToLocal(returnUrl), @new = "true"})));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
@@ -278,6 +281,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "Something went wrong");
+                TraceLog.WriteError("Register model:" + model, ex);
             }
             return Json(new JsonResponse(false, GetModelStateErrors()));
         }

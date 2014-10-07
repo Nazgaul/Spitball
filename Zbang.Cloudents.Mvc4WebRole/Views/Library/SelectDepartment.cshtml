@@ -3,7 +3,7 @@
 <div class="departmentChoose" ng-class="{step2 : russainStep2}">
     <header class="popupHeader">Воронежский институт высоких технологий</header>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
-    <form class="step1Wpr" name="selectDepartmentForm1"  ng-submit="russianStep1(selectDepartmentForm1.$valid)">
+    <form class="step1Wpr" name="selectDepartmentForm1" ng-submit="russianStep1(selectDepartmentForm1.$valid)">
         <h3>Добро пожаловать в учебную систему Cloudents!</h3>
         <div class="ruTxt">
             Система предназначена только  студентам и преподавателям Воронежского института высоких технологий.
@@ -36,7 +36,7 @@
             <label for="year">
                 период обучения
             </label>
-            <select id="year" ng-model="formData.departmentId" ng-disabled="!params.departmentName" required>
+            <select id="year" ng-init="formData.departmentId=-1" ng-model="formData.departmentId" ng-disabled="!params.departmentName" required>
                 <option class="placeholder" value="" selected="selected">выберите период обучения</option>
                 @foreach (var item in Model)
                 {

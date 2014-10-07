@@ -12,7 +12,7 @@ mBox.controller('SettingsCtrl',
          $scope.info.boxId = data.boxId;
 
 
-         $scope.info.inviteUrl = $location.url() + 'invite/';
+         $scope.info.inviteUrl = $location.path() + 'invite/';
          $scope.info.user = sUserDetails.getDetails();
 
          $scope.partials = {
