@@ -42,11 +42,13 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
             return;
         }
 
-        if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
-            return;
-        }
+        $scope.followBox(true);
 
         sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [data.name]), $scope.info.boxUrl);
+
+        if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
+            return;
+        }        
 
         $scope.info.itemsLength++;
         $scope.items.unshift(data.itemDto);

@@ -324,7 +324,7 @@ mBox.controller('BoxCtrl',
                 });
 
                 modalInstance.result.then(function (response) {        
-                    $scope.followBox(true);                    
+                    
                 }, function () {
                     //dismiss
                 });
