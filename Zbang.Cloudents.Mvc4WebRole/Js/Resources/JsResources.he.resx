@@ -659,4 +659,7 @@
   <data name="Pending" xml:space="preserve">
     <value>ממתין</value>
   </data>
+  <data name="Flag" xml:space="preserve">
+    <value>דווח</value>
+  </data>
 </root>

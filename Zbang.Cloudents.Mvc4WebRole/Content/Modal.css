@@ -64,6 +64,9 @@
 }
 .modal.flagItem {
   width: 570px;
+  right: auto;
+  left: 220px;
+  top: 0;
 }
 .modal.flagItem li {
   margin-top: 15px;

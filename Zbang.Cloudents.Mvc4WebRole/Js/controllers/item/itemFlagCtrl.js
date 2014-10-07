@@ -1,7 +1,7 @@
 ﻿mItem.controller('itemFlagCtrl',
 [
-    '$scope', '$modalInstance', 'data', 'sItem',
-function ($scope, $modalInstance, data, sItem) {
+    '$scope', '$modalInstance', 'data', '$timeout', 'sItem',
+function ($scope, $modalInstance, data, $timeout, sItem) {
 
     $scope.secondStep = false;
     $scope.disable = false;
@@ -15,11 +15,19 @@ function ($scope, $modalInstance, data, sItem) {
                 alert(response.payload);
                 return;
             }
+
             $scope.secondStep = true;
+
+            $timeout(function () {
+                $modalInstance.close();
+            }, 3000);
         });
 
     }
     $scope.cancel = function () {
+        if ($scope.secondStep) {
+            $modalInstance.close();
+        }
         $modalInstance.dismiss();
     };
 }

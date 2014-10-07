@@ -662,4 +662,7 @@
   <data name="Pending" xml:space="preserve">
     <value>В ожидании</value>
   </data>
+  <data name="Flag" xml:space="preserve">
+    <value>Пожаловаться</value>
+  </data>
 </root>

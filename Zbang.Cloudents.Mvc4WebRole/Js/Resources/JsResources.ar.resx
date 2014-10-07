@@ -652,4 +652,7 @@
   <data name="Pending" xml:space="preserve">
     <value>قيد الانتظار</value>
   </data>
+  <data name="Flag" xml:space="preserve">
+    <value>علامة</value>
+  </data>
 </root>
