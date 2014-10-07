@@ -604,6 +604,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flag.
+        /// </summary>
+        public static string Flag {
+            get {
+                return ResourceManager.GetString("Flag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flagged.
+        /// </summary>
+        public static string Flagged {
+            get {
+                return ResourceManager.GetString("Flagged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create folder.
         /// </summary>
         public static string FolderCreate {

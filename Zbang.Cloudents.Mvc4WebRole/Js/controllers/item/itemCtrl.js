@@ -14,7 +14,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         contentLoadMore: false
     };
     $scope.canNavigate = false;
-
+    $scope.flagText = JsResources.Flag;
     sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
 
 
@@ -109,6 +109,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 }
             }
         });
+        modalInstance.result.then(function (d) {
+            $scope.flagged = true;
+            $scope.flagText = JsResources.Flagged;
+
+        });
         $scope.$on('$destroy', function () {
             if (modalInstance) {
                 modalInstance.close();
@@ -118,7 +123,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     }
 
     $scope.renameWindow = function () {
-        var modelInstance = $modal.open({
+        var modalInstance = $modal.open({
             windowClass: 'rename',
             templateUrl: '/Item/Rename/',
             controller: 'itemRenameCtrl',
@@ -131,14 +136,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 }
             }
         });
-        modelInstance.result.then(function (d) {
+        modalInstance.result.then(function (d) {
             $scope.item.name = d.name;
-            modelInstance = null; //avoid exception on destroy
+            modalInstance = null; //avoid exception on destroy
             $location.path(d.url).replace();
         });
         $scope.$on('$destroy', function () {
-            if (modelInstance) {
-                modelInstance.dismiss();
+            if (modalInstance) {
+                modalInstance.dismiss();
             }
         });
     };
@@ -196,6 +201,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         return id == sUserDetails.getDetails().id; //id is string
     };
     $scope.canFlag = function () {
+        if ($scope.flagged) {
+            return false;
+        }
         return $scope.item && sUserDetails.getDetails().id !== $scope.item.ownerId;
     };
     $scope.addReply = function (comment, valid) {

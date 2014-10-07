@@ -71,9 +71,9 @@
                 @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
                 <span>{{item.numberOfDownloads}}</span>
             </span>
-            <button type="button" class="itemFlag rFloat" ng-class="{canFlag: canFlag()}" ng-click=" flagItemWindow()">
+            <button type="button" class="itemFlag rFloat" ng-disabled="!canFlag()" ng-class="{flagged: flagged}" ng-click=" flagItemWindow()">
                 @Html.Svg("~/Images/Defs.svg", "flag", new { @class = "svg-flag" })
-                <span>@ItemsResources.Flag</span>
+                <span>{{flagText}}</span>
             </button>
         </div>
 
