@@ -88,8 +88,15 @@ angular.module('angular-plupload', [])
 	            uploader.bind('FileUploaded', function (up, file, res) {
 	                var response = JSON.parse(res.response);
 
+	                if (scope.$$phase) {
+	                    post();
+	                    return;
+	                }
 
 	                $rootScope.$apply(function () {
+	                    post();
+	                });
+	                function post() {
 	                    $rootScope.$broadcast('FileUploaded', file);
 	                    response.payload.itemDto = response.payload.fileDto;
 	                    if (!response.success) {
@@ -101,20 +108,29 @@ angular.module('angular-plupload', [])
 	                    response.payload.questionId = file.questionId;
 	                    response.payload.newQuestion = file.newQuestion;
 	                    $rootScope.$broadcast('ItemUploaded', response.payload);
-	                });
-
+	                }
 
 	            });
 
 	            uploader.bind('UploadProgress', function (up, file) {
+
+	                if (scope.$$phase) {
+	                    $rootScope.$broadcast('UploadProgress', file);
+	                    return;
+	                }
+
 	                $rootScope.$apply(function () {
 	                    $rootScope.$broadcast('UploadProgress', file);
 	                });
+
 	            });
 
 	            uploader.bind('UploadComplete', function (up, files) {
 
-	                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+	                if (files && files.length > 0) {
+	                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+	                }
+	                
 
 	                up.files = [];
 	                up.splice();

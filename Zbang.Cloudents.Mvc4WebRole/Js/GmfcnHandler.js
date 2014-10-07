@@ -55,10 +55,10 @@
     }
 
     function applyAnimation(points) {        
-        pointBox.classList.add('ptsAnim');
+        $(pointBox).addClass('ptsAnim');
 
         setTimeout(function () {
-            pointBox.classList.remove('ptsAnim');
+            $(pointBox).removeClass('ptsAnim');
             changeScore();
         }, 3500);
         

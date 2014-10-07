@@ -46,10 +46,10 @@
         }
         function toogleCloudentsFriends(shouldAppear) {
             if (shouldAppear) {
-                inviteMain.classList.add('invBox');
+                $(inviteMain).addClass('invBox');
             }
             else {
-                inviteMain.classList.remove('invBox');
+                $(inviteMain).removeClass('invBox');
             }
 
         }
@@ -72,23 +72,19 @@
             if (prevTab) {
 
                 if ((/*prevTab.classList.contains('gPlus') ||
-                    */ prevTab.classList.contains('gmail'))
+                    */ $(prevTab).hasClass('gmail'))
                     && (/*currentTab.classList.contains('gPlus')
-                    || */currentTab.classList.contains('gmail'))) {
+                    || */$(currentTab).hasClass.contains('gmail'))) {
                     loadContacts = false;
                 }
 
-                prevTab.classList.remove('current');
-            }
-            var inviteContantClassList = inviteContentWrapper.classList;
+                $(prevTab).removeClass('current');
+            }            
 
-            inviteContantClassList.remove('cloudentsContent');
-            inviteContantClassList.remove('fbContent');
-            inviteContantClassList.remove('gPlusContent');
-            inviteContantClassList.remove('gmailContent');
-            inviteContantClassList.add(tabName + 'Content');
+            $(inviteContantClassList).removeClass('cloudentsContent fbContent gPlusContent gmailContent');
+            $(inviteContantClassList).addClass(tabName + 'Content');
 
-            currentTab.classList.add('current');
+            $(currentTab).addClass('current');
 
             cd.removeChildren(listContainer);
             changeState();
@@ -125,11 +121,10 @@
 
         }
         function changeState(state) {
-            inviteContentWrapper.classList.remove('notConnected');
-            inviteContentWrapper.classList.remove('empty');
+            $(inviteContentWrapper).removeClass('notConnected empty');
 
             if (state) {
-                inviteContentWrapper.classList.add(state);
+                $(inviteContentWrapper).addClass(state);
                 if (loader) {
                     loader();
                     loading = false;
@@ -144,8 +139,7 @@
            // var gmailBtn = document.querySelector('.connectMore.gmail'),
            //     gPlusBtn = document.querySelector('.connectMore.gPlus');
 
-            connectHeader.classList.remove('gpNone');
-            connectHeader.classList.remove('gmailNone');
+            $(connectHeader).removeClass('gpNone gmailNone');
             connectStatus.google = true;
             if (!isAuto) {
                 if (currentTabName === 'gmail') {
@@ -158,8 +152,7 @@
             var gmailBtn = document.querySelector('.connectMore.gmail');
               //  gPlusBtn = document.querySelector('.connectMore.gPlus');
 
-            connectHeader.classList.add('gpNone');
-            connectHeader.classList.add('gmailNone');
+            $(connectHeader).addClass('gpNone gmailNone');
             connectStatus.google = false;
             gmailBtn.onclick = function () {
                 //cd.pubsub.publish('gRegister');
@@ -170,7 +163,7 @@
 
 
         cd.pubsub.subscribe('fbLoggedIn', function () {
-            connectHeader.classList.remove('fbNone');
+            $(connectHeader).removeClass('fbNone');
             connectStatus.fb = true;
             setCurrentTab('fb');
         });
@@ -184,14 +177,14 @@
           var  fbBtn = document.querySelector('.connectMore.fb');
 
             if (status !== 'connected') {
-                connectHeader.classList.add('fbNone');
+                $(connectHeader).addClass('fbNone');
                 connectStatus.fb = false;
                 fbBtn.onclick = function () {
                     cd.facebook.login();
                     //cd.pubsub.publish('fbLogin');
                 };
             } else {
-                connectHeader.classList.remove('fbNone');
+                $(connectHeader).removeClass('fbNone');
                 connectStatus.fb = true;
             }
             if (currentTabName === 'fb') {
@@ -373,7 +366,7 @@
                     return;
                 }
 
-                tabName = tab.classList.item(1);
+                tabName = $(tab).attr('class').split(' ')[1];
 
                 if (tabs.indexOf(tabName) === -1) {
                     return;
@@ -385,7 +378,7 @@
 
             listContainer.onclick = function (e) { // invite click
                 var elm = e.target;
-                if (!(elm && elm.classList.contains('invBtn')) || elm.classList.contains('invited')) { //not an invite click or invite already sent
+                if (!(elm && $(elm).hasClass('invBtn')) || $(elm).hasClass('invited')) { //not an invite click or invite already sent
                     return;
                 }
                 elm.disabled = true;
@@ -442,10 +435,10 @@
                     success: function () {
                         form[0].reset();
                         emailsSelecetd = [];
-                        aside.classList.add('invSuccess');
+                        $(aside).addClass('invSuccess');
                         cd.removeChildren(emailsSelectedElement);
                         setTimeout(function () {
-                            aside.classList.remove('invSuccess');
+                            $(aside).removeClass('invSuccess');
                         }, 2000);
                     },
                     error: function () {
@@ -507,7 +500,7 @@
             }, 1000);
 
             setTimeout(function () {
-                elm.classList.add('invited');
+                $(elm).addClass('invited');
             }, 1050);
         }
 
@@ -661,7 +654,7 @@
                 emailsSelecetd.push(item.id);
             } else {
                 lastElement = emailsSelectedElement.lastElementChild;
-                lastElement.classList.add('invalidEmail');
+                $(lastElement).addClass('invalidEmail');
             }
 
             if (!emailsSelectedElement.onclick) {
@@ -732,10 +725,10 @@
             while (emailItem && emailItem.nodeName !== 'LI') {
                 emailItem = emailItem.parentNode;
             }
-            if (target.classList.contains('removeItem')) {
+            if ($(target).hasClass('removeItem')) {
                 removeEmail(emailItem);
             } else {
-                if (emailItem.classList.contains('emailItem') && emailItem.classList.contains('invalidEmail')) {
+                if ($(emailItem).hasClass('emailItem') && $(emailItem).hasClass('invalidEmail')) {
                     editInput(emailItem);
                 }
             }
