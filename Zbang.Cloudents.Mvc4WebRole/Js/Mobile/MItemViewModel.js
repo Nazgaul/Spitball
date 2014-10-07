@@ -17,9 +17,8 @@
     prevItem = document.getElementById('prevItem'),
     nextItem = document.getElementById('nextItem'),
     downloadItem = document.getElementById('download'),
-    downloadUrl = downloadItem.getAttribute('data-url'),
-    itemContext = document.getElementById('item_content');
-
+    itemContext = document.getElementById('item_content'),
+    index1 = 0;
 
 
     initialItems();
@@ -96,27 +95,36 @@
             }
         });
     }
+  
     function getPreview() {
-        var index = 0;
+        
         if (blobName && loaded && !document.getElementsByClassName('previewFailed').length) {
             loaded = false;
             //var loader = cd.renderLoading($itemContent);
             dataContext.preview({
-                data: { blobName: blobName, index: index, id: itemid, width: screen.width, height: screen.height, boxId: boxid },
+                data: { blobName: blobName, index: index1, id: itemid, width: screen.width, height: screen.height, boxId: boxid },
                 success: function (retVal) {
                     if (retVal.preview.trim()) {
                         loaded = true;
                     }
-                    index++;
-                    var $preview = $(retVal.preview);
-                    $preview[0].width = window.innerWidth;
-                    $preview[0].height = window.innerHeight - 50;                    
+                    index1++;
+                    var $preview = $(retVal.preview),html='';
+                   
+                    for (var i = 0; i < $preview.length; i++) {
+                        if ($preview[i].nodeType === Node.ELEMENT_NODE) {
+                            $preview[i].width = window.innerWidth;
+                            $preview[i].height = window.innerHeight - 50;
+                            html += $preview[i].outerHTML;
+                        }
+                    }
+                                    
                                         
-                    itemContext.insertAdjacentHTML('beforeend', $preview[0].outerHTML);
+                    itemContext.insertAdjacentHTML('beforeend', html);
                     //itemContext.innerHTML += retVal;
                     //self.preview(self.preview() + retVal);
                     //loader();
-                }
+                },
+                error:function () {}
             });
 
         }
