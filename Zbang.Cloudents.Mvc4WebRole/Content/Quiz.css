@@ -1033,6 +1033,7 @@ body.quiz .modal-backdrop.in {
   height: 43px;
   position: relative;
   top: -12px;
+  vertical-align: top;
 }
 .topUsersWpr {
   position: relative;

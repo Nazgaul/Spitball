@@ -2066,20 +2066,14 @@ body.quiz .shareBtn {
   border: none;
   border-right: 1px solid #797979;
 }
-.results.wrong:after {
-  left: 0;
-  right: auto;
-}
-.results:after {
+.svg-correct {
   right: 0;
   left: auto;
 }
-/*.userScore {
-    &:after {
-        position: relative;//diff rtl
-        top: 10px;//diff rtl
-    }
-}*/
+.svg-wrong {
+  left: 0;
+  right: auto;
+}
 .topUser.star svg {
   left: -10px;
   right: auto;
