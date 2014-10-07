@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-01.2.3">
+<ServiceConfiguration serviceName="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
   <Role name="Zbang.Cloudents.Mvc4WebRole">
     <Instances count="1" />
     <ConfigurationSettings>
@@ -14,7 +14,6 @@
       <!--<Setting name="CdnEndpoint" value="https://az158719.vo.msecnd.net" />-->
       <Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;" />
-      <Setting name="otakimUrl" value="http://www.otakim.co.il/printreferrer.aspx" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
     </ConfigurationSettings>
