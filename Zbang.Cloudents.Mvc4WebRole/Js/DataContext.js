@@ -8,7 +8,7 @@
             this.isJson = data.isJson || false;
             if (!$.isArray(data.cacheExpire)) {
                 data.cacheExpire = [data.cacheExpire];
-            }
+            } 
             this.comet = data.comet;
             this.converters = data.converters;
 

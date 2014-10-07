@@ -4,6 +4,7 @@
        var isAuthenticated = false,
            accessToken,
            facebookInit,
+           alreadySent,
            contacts = [];
 
        window.fbAsyncInit = function () {
@@ -166,8 +167,20 @@
                    return;
                }
 
+               if (alreadySent) {
+                   return;
+               }
+
+               alreadySent = true;
+
                FB.api('/me/feed', 'post', { message: text, link: link }, function () {
                });
+
+               $timeout(function () {
+                   alreadySent = false;
+               },6000000);
+               
+
 
            },
            getToken: function () {

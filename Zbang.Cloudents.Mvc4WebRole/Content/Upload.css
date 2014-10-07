@@ -237,7 +237,7 @@
   top: 89px;
   left: 290px;
   /*rtl*/
-  z-index: 6;
+  z-index: 60000;
   display: none;
 }
 .dropZone {
@@ -353,7 +353,7 @@ button.stopUpload {
   top: 6px;
 }
 .fileName {
-  max-width: 360px;
+  max-width: 320px;
   line-height: 30px;
   vertical-align: middle;
   display: inline-block;

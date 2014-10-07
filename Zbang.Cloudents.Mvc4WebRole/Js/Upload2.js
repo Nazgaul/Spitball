@@ -57,7 +57,7 @@
             }, 1000);
             //uploader.refresh();
         });
-        function destroyAndRecreatePlupload(frombox) {
+        function destroyAndRecreatePlupload() {
             if (uploader) {
                 if (uploader.state === plupload.UPLOADING ) {
                     uploader.init();
@@ -85,7 +85,7 @@
             trackUpload('upload link', '');
         });
         $rootScope.$on('linkError', function() {
-            finishFakeUploadError(guid);
+            finishFakeUploadError(linkGuid);
         });
 
         var dropboxIndices = {};
@@ -396,9 +396,8 @@
             return false;
         });
 
-        $('#up_dropZone')
-
-        .bind('drop', function (e) {
+       $(document).on('drop','#up_dropZone',function (e) {
+        //.bind('drop', function (e) {
             e.originalEvent.preventDefault();
             e.originalEvent.stopPropagation();
             var files = e.originalEvent.dataTransfer.files;

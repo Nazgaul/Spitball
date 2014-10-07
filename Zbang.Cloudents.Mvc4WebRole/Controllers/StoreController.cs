@@ -40,8 +40,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("store/checkout/{id:int}", Name = "StoreCheckout")]
         public async Task<ActionResult> Index(int? universityId, int? producerId)
         {
+            ViewBag.viewport = false;
             if (User.Identity.IsAuthenticated && !universityId.HasValue)
             {
+
                 var userDetail = FormsAuthenticationService.GetUserData();
                 if (!userDetail.UniversityId.HasValue)
                 {

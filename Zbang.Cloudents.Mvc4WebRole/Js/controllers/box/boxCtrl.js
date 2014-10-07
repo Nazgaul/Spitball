@@ -1,4 +1,4 @@
-﻿mBox = angular.module('mBox', ['ngDragDrop']);
+﻿mBox = angular.module('mBox', ['ngDragDrop','angular-plupload']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
@@ -27,8 +27,7 @@ mBox.controller('BoxCtrl',
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
                 boxSettings: '/Box/SettingsPartial/',
-                uploader: '/Box/UploadPartial/',
-                uploadAddLink: '/Box/UploadLinkPartial/'
+                uploader: '/Box/UploadPartial/'
             };
 
             $scope.popup = {
@@ -109,6 +108,15 @@ mBox.controller('BoxCtrl',
             //});
 
 
+            $scope.$on('selectTab', function (e, tab) {
+                if (!tab) {
+                    $scope.tabId = null;
+                    return;
+                }
+
+                $scope.tabId = tab.id;
+
+            });
 
             //#region tabs           
 
@@ -284,6 +292,7 @@ mBox.controller('BoxCtrl',
 
            
             //#region upload
+
             $scope.openUploadPopup = function (qna) {
                 if (!sUserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
@@ -296,7 +305,16 @@ mBox.controller('BoxCtrl',
                     windowClass: "uploader",
                     templateUrl: $scope.partials.uploader,
                     controller: 'UploadCtrl',
-                    backdrop: 'static'
+                    backdrop: 'static',
+                    resolve: {
+                        data: function () {
+                            return {
+                                boxId: $scope.boxId,
+                                tabId: $scope.tabId,
+                                boxUrl: $scope.info.url
+                            }
+                        }
+                    }
                 });
 
                 $scope.$on('$destroy', function () {
@@ -305,143 +323,13 @@ mBox.controller('BoxCtrl',
                     }
                 });
 
-                modalInstance.result.then(function (response) {
-                    if (response.url) {
-                        modalInstance = $modal.open({
-                            windowClass: "uploadLink",
-                            templateUrl: $scope.partials.uploadAddLink,
-                            controller: 'UploadLinkCtrl',
-                            backdrop: 'static'
-                        });
-
-                        modalInstance.result.then(function (url) {
-                            saveItem({ name: url, url: url, type: 'link', ajax: 'link', timeout: 1000, length: 1, qna: qna });
-                        });
-                        return;
-                    }
-
-                    if (response.dropbox) {
-                        var files = response.files;
-                        for (var i = 0, l = files.length; i < l; i++) {
-                            (function (file, index) {
-                                saveItem({
-                                    name: file.name,
-                                    size: file.bytes,
-                                    url: file.link,
-                                    type: 'dropbox',
-                                    ajax: 'dropbox',
-                                    timeout: 0,
-                                    index: index,
-                                    length: files.length,
-                                    qna: qna
-                                });
-                            })(files[i], i);
-                        }
-                        return;
-                    }
-
-                    if (response.googleDrive) {
-                        var files = response.files;
-                        for (var i = 0, l = files.length; i < l; i++) {
-                            (function (file, index) {
-                                saveItem({
-                                    name: file.name,
-                                    size: file.size,
-                                    url: file.link,
-                                    type: 'googleLink',
-                                    ajax: 'link',
-                                    timeout: 1000,
-                                    index: index,
-                                    length: files.length,
-                                    qna: qna
-                                });
-
-
-                            })(files[i], i);
-                        }
-                        return;
-                    }
+                modalInstance.result.then(function (response) {        
+                    
                 }, function () {
                     //dismiss
                 });
-            };
-
-
-            var uploaded = 0;
-            var fileList = [];
-            function saveItem(data) {
-                if (data.qna) {
-                    if (!fileList.length) {
-                        fileList = [];
-                    }
-                }
-
-                if (data.type === 'link') {
-                    $rootScope.$broadcast('linkUpload', data.url);
-                } else if (data.type === 'dropbox') {
-                    $rootScope.$broadcast('dropboxUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-                } else if (data.type === 'googleLink') {
-                    $rootScope.$broadcast('googleUpload', { file: { url: data.url, name: data.name, size: data.size }, index: data.index });
-                }
-                //TODO: what is that
-                var formData = {
-                    boxId: $scope.boxId, //
-                    boxName: $scope.boxName,
-                    uniName: $scope.uniName,
-                    tabId: $scope.options.currentTab ? $scope.options.currentTab.id : null, //
-                    url: data.url,
-                    fileName: data.name, //
-                    fileUrl: data.url //
-                }
-
-                $timeout(function () {
-                    sUpload[data.ajax](formData).then(function (response) {
-                        uploaded++;
-
-                        if (uploaded === 1) {
-                            $scope.followBox(true);
-                            sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [formData.fileName]), $scope.info.url);
-                        }
-                        if (!response.success) {
-                            alert((data.name || data.url) + ' - ' + response.payload);
-                            return;
-                        }
-
-                        if (data.type === 'link') {
-                            $rootScope.$broadcast('linkUploaded');
-                        } else if (data.type === 'dropbox') {
-                            $rootScope.$broadcast('dropboxUploaded', data.index);
-                        } else if (data.type === 'googleLink') {
-                            $rootScope.$broadcast('googleUploaded', data.index);
-                        }
-
-                        var responseItem = response.payload;
-
-                        if ($scope.options.activeTab === 'items') {
-                            $scope.$broadcast('itemAdded', responseItem);
-                            uploaded = 0;
-                            return;
-                        }
-
-                        if (data.qna) {
-                            fileList.push(responseItem);
-                            if (data.type === 'link') {
-                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-                                $rootScope.$broadcast('qna:upload', fileList);
-                                fileList = [];
-                                uploaded = 0;
-                            } else if (uploaded === data.length) {
-                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: fileList.length });
-                                $rootScope.$broadcast('qna:upload', fileList);
-                                fileList = [];
-                                uploaded = 0;
-                            }
-                        }
-                    }).catch(function () {
-                        uploaded++;
-                    });
-                }, data.timeout);
-            }
+            }; 
+           
             //#endregion
         }
 
