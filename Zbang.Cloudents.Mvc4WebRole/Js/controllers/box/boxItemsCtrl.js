@@ -1,8 +1,8 @@
 ﻿/// <reference path="/scripts/underscore-min.js" />
 mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
-            'sUserDetails', 
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails) {
+            'sUserDetails','sFacebook',
+function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
     var jsResources = window.JsResources;
 
     var consts = {
@@ -33,38 +33,28 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
         isSponsoredView();
         $scope.options.loader = false;
-
-    });
-
+        $rootScope.$broadcast('BoxItemsLoaded');
+    }); 
     //#region upload
-    $scope.$on('FileAdded', function (event, data) {
-        $scope.$apply(function () {
-            if (data.boxId !== $scope.boxId) {
-                return;
-            }
 
-            if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.item.tabId)) {
-                return;
-            }
-            $scope.info.itemsLength++;
-            $scope.items.unshift(data.item);
-            $scope.filteredItems.unshift(data.item);
-            $scope.items.sort(sortItems);
-            $scope.filteredItems.sort(sortItems);
-
-            $scope.followBox(true);
-        });
-    });
-
-    $scope.$on('itemAdded', function (e, file) {
-        if ((!$scope.iOptions.currentTab) || ($scope.iOptions.currentTab.id === file.tabId)) {
-            $scope.items.unshift(file);
-            $scope.filteredItems.unshift(file);
-            $scope.filteredItems.sort(sortItems);
+    $scope.$on('ItemUploaded', function (e, data) {
+        if (data.boxId !== $scope.boxId) {
+            return;
         }
-        $scope.info.itemsLength++;
-    });
 
+        if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
+            return;
+        }
+
+        sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [data.name]), $scope.info.boxUrl);
+
+        $scope.info.itemsLength++;
+        $scope.items.unshift(data.itemDto);
+        $scope.filteredItems.unshift(data.itemDto);
+        $scope.items.sort(sortItems);
+        $scope.filteredItems.sort(sortItems);
+
+    });
 
     //#endregion
 

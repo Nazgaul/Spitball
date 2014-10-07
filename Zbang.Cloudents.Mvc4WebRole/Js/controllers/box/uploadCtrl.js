@@ -1,11 +1,13 @@
 ﻿mBox.controller('UploadCtrl',
-    ['$scope', '$rootScope', '$q', '$modalInstance',
-        'sDropbox', 'sGoogle', '$timeout',
+    ['$scope', '$rootScope', '$q', '$modal', '$modalInstance', 'sFacebook', '$filter',
+        'sDropbox', 'sGoogle', 'sUpload', 'data',
 
-    function ($scope, $rootScope, $q, $modalInstance, Dropbox, Google, $timeout) {
-        $timeout(function () {
-            $rootScope.$broadcast('initUpload');
-        });
+    function ($scope, $rootScope, $q, $modal, $modalInstance, sFacebook, $filter, Dropbox, Google, sUpload, data) {
+        var jsResources = window.JsResources;
+        $scope.boxId = data.boxId;
+        $scope.tabId = data.tabId;
+        $scope.questionId = data.questionId;
+        $scope.newQuestion = data.newQuestion;
 
         $scope.sources = {
             dropboxLoaded: false,
@@ -34,13 +36,107 @@
         });
 
         $scope.saveLink = function () {
-            $modalInstance.close({ url: true });
+            $modalInstance.close();
+
+            var modalInstance = $modal.open({
+                windowClass: "uploadLink",
+                templateUrl: '/Box/UploadLinkPartial/',
+                controller: 'UploadLinkCtrl',
+                backdrop: 'static'
+            });
+
+            modalInstance.result.then(function (url) {
+
+                var data = {
+                    id: guid(),
+                    name: url,
+                    fileUrl: url,
+                    boxId: $scope.boxId,
+                    tabId: $scope.tabId
+                };
+
+
+                sUpload.link(data).then(function (response) {
+                    if (!response.success) {
+                        $rootScope.$broadcast('UploadLinkError', data);
+                        alert('error');
+                        return;
+                    }
+
+                    $rootScope.$broadcast('LinkUploaded', data);
+
+
+                    var sentObj = {
+                        itemDto: response.payload,
+                        boxId: data.boxId,
+                        tabId: data.tabId,
+                        questionId: $scope.questionId,
+                        newQuestion : $scope.newQuestion
+                    }
+
+                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+
+                    $rootScope.$broadcast('ItemUploaded', sentObj);
+                }, function () {
+                    $rootScope.$broadcast('UploadLinkError', data);
+                });
+
+                data.size = 1024;
+                $rootScope.$broadcast('LinkAdded', data);
+
+            });
         };
 
         $scope.saveDropbox = function () {
+
             Dropbox.choose().then(function (files) {
-                $modalInstance.close({ dropbox: true, files: files });
+
+                _.forEach(files, function (file) {
+                    (function (fileData) {
+
+                        var data = {
+                            id: guid(),
+                            name: fileData.name,
+                            fileUrl: fileData.link,
+                            boxId: $scope.boxId,
+                            tabId: $scope.tabId
+
+                        };
+                        sUpload.dropbox(data).then(function (response) {
+                            if (!response.success) {
+                                $rootScope.$broadcast('UploadDropboxError', data);
+                                alert('error');
+
+                                return;
+                            }
+                            $rootScope.$broadcast('DropboxUploaded', data);
+
+                            var sentObj = {
+                                itemDto: response.payload,
+                                boxId: data.boxId,
+                                tabId: data.tabId,
+                                questionId: $scope.questionId,
+                                newQuestion: $scope.newQuestion
+                            }
+
+                            if (_.last(files) === fileData) {
+                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                            }
+
+                            $rootScope.$broadcast('ItemUploaded', sentObj);
+                        }, function () {
+                            $rootScope.$broadcast('UploadDropboxError', data);
+                        });
+
+                        data.size = fileData.bytes;
+                        $rootScope.$broadcast('DropboxAdded', data);                    
+
+                    })(file);
+                });
+                $modalInstance.close();
+
             });
+
         };
 
         $scope.saveGoogleDrive = function () {
@@ -54,28 +150,84 @@
 
             function loadPicker() {
                 Google.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false
-                    $modalInstance.close({ googleDrive: true, files: files });
+                    _.forEach(files, function (file) {
+                        (function (fileData) {
+
+                            var data = {
+                                id: guid(),
+                                name: fileData.name,
+                                fileUrl: fileData.link,
+                                boxId: $scope.boxId,
+                                tabId: $scope.tabId
+                            };
+                            sUpload.link(data).then(function (response) {
+                                if (!response.success) {
+                                    $rootScope.$broadcast('UploadLinkError', data);
+                                    alert('error');
+                                    return;
+                                }
+
+
+                                $rootScope.$broadcast('LinkUploaded', data);
+
+                                var sentObj = {
+                                    itemDto: response.payload,
+                                    boxId: data.boxId,
+                                    tabId: data.tabId,
+                                    questionId: $scope.questionId,
+                                    newQuestion: $scope.newQuestion
+                                }
+                                
+
+                                if (_.last(files) === fileData) {
+                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                                }
+
+                                $rootScope.$broadcast('ItemUploaded', sentObj);
+
+
+                            }, function () {
+                                $rootScope.$broadcast('UploadLinkError', data);
+                            });
+
+                            data.size = fileData.size;
+                            $rootScope.$broadcast('LinkAdded', data);
+
+                    
+
+
+                        })(file);
+                    });
                 });
             }
+            $modalInstance.close();
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
 
-        //$rootScope.uploader.bind('afteraddingall', function (event, items) {
-        //    $modalInstance.close();
-        //});
-
         $scope.$on('BeforeUpload', function (event, data) {
             $modalInstance.dismiss();
         });
 
+
+
+        function guid() {
+            var guid = (G() + G() + "-" + G() + "-" + G() + "-" +
+            G() + "-" + G() + G() + G()).toUpperCase();
+
+            function G() {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+            }
+
+
+            return guid;
+        }
     }
     ]);
 mBox.controller('UploadLinkCtrl',
     ['$scope', '$modalInstance',
-     //'googleDrive','dropbox',
 
     function ($scope, $modalInstance) {
         $scope.formData = {};

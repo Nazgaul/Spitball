@@ -920,6 +920,7 @@
     <Content Include="Js\controllers\box\tabCtrl.js" />
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
+    <Content Include="Js\controllers\general\uploadListCtrl.js" />
     <Content Include="Js\controllers\item\itemFlagCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\item\itemRenameCtrl.js" />
@@ -953,12 +954,14 @@
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\Dialog2.js" />
+    <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\userDetails.js" />
+    <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
@@ -1502,6 +1505,11 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
+    <Content Include="Scripts\plupload2\angular-plupload.js" />
+    <Content Include="Scripts\plupload2\moxie.min.js" />
+    <Content Include="Scripts\plupload2\Moxie.swf" />
+    <Content Include="Scripts\plupload2\plupload.dev.js" />
+    <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

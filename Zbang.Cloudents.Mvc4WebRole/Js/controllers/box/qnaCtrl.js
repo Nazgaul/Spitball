@@ -1,8 +1,8 @@
 ﻿//define('qnaCtrl', ['app'], function (app) {
 mBox.controller('QnACtrl',
-['$scope', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
+['$scope', '$modal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 
-    function ($scope, sUserDetails, sNewUpdates, sQnA, $rootScope) {
+    function ($scope, $modal, sUserDetails, sNewUpdates, sQnA, $rootScope) {
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;
@@ -250,67 +250,55 @@ mBox.controller('QnACtrl',
         };
 
         var qAttach, aAttach, questionAttach;
-        $scope.$on('FileAdded', function (event, data) {
-            var file = data.item;
-            $scope.$apply(function () {
+        $scope.$on('ItemUploaded', function (e, data) {
                 if (data.boxId !== $scope.boxId) {
                     return;
                 }
 
-                if (qAttach) {
-                    if (!($scope.qFormData.files && $scope.qFormData.files.length)) {
-                        $scope.qFormData.files = [];
+                data.itemDto.uid = data.itemDto.id;
+
+                if (data.newQuestion) {
+                    if ($scope.qFormData.files && $scope.qFormData.files.length) {
+                        $scope.qFormData.files.push(data.itemDto);
+                        return;
                     }
-                    $scope.qFormData.files.push(file);
+
+                    $scope.qFormData.files = [data.itemDto];
+
                     return;
                 }
 
-                if (aAttach) {
-                    if (!(questionAttach.aFormData.files && questionAttach.aFormData.files.length)) {
-                        questionAttach.aFormData.files = [];
-                    }
-                    questionAttach.aFormData.files.push(file);
-                    return;
-                }
+                if (data.questionId) {
+                    var question = _.find($scope.info.questions, function (q) {
+                        return data.questionId === q.id;
+                    });
 
-            });
+                    if (!question) {
+                        return;
+                    }
+
+                    if (question.aFormData.files && question.aFormData.files.length) {
+                        question.aFormData.files.push(data.itemDto);
+                        return;
+                    }
+
+                    question.aFormData.files = [data.itemDto];
+                }          
         });
+  
+        $scope.addQuestionAttachment = function () {
 
-        $scope.$on('qna:upload', function (e, files) {
-            if (qAttach) {
-                var mapped = files.map(function (file) {
-                    file.uid = file.id;
-                    return file;
-                });
-
-                if (!$scope.qFormData.files) {
-                    $scope.qFormData.files = mapped;
-                    return;
-                }
-
-                $scope.qFormData.files = $scope.qFormData.files.concat(mapped);
-
+            if (!sUserDetails.isAuthenticated()) {
+                cd.pubsub.publish('register', { action: true });
                 return;
             }
 
-            if (aAttach) {
+            var data = {
+                boxId: $scope.boxId,
+                newQuestion: true
+            };
 
-                var mapped = files.map(function (file) {
-                    file.uid = file.id;
-                    return file;
-                });
-
-                if (!questionAttach.aFormData.files) {
-                    questionAttach.aFormData.files = mapped;
-                    return;
-                }
-                questionAttach.aFormData.files = question.aFormData.files.concat(mapped);
-            }
-        });
-        $scope.addQuestionAttachment = function () {
-            aAttach = false;
-            qAttach = true;
-            $rootScope.$broadcast('openUpload', true);
+            openUpload(data);
         };
 
         $scope.removeQuestionAttachment = function (file) {
@@ -321,10 +309,18 @@ mBox.controller('QnACtrl',
         }
 
         $scope.addAnswerAttachment = function (question) {
-            aAttach = true;
-            qAttach = false;
-            questionAttach = question;
-            $rootScope.$broadcast('openUpload', true);
+            if (!sUserDetails.isAuthenticated()) {
+                cd.pubsub.publish('register', { action: true });
+                return;
+            }
+
+            var data = {
+                boxId: $scope.boxId,
+                tabId: null,
+                questionId: question.id
+            };
+
+            openUpload(data);
         };
         $scope.removeAnswerAttachment = function (question, file) {
             var index = question.aFormData.files.indexOf(file);
@@ -341,6 +337,32 @@ mBox.controller('QnACtrl',
 
             return true;
         };
+
+        function openUpload(data) {
+            var modalInstance = $modal.open({
+                windowClass: "uploader",
+                templateUrl: $scope.partials.uploader,
+                controller: 'UploadCtrl',
+                backdrop: 'static',
+                resolve: {
+                    data: function () {
+                        return data;
+                    }
+                }
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.close();
+                }
+            });
+
+            modalInstance.result.then(function (response) {
+                $scope.followBox(true);
+            }, function () {
+                //dismiss
+            });
+        }
 
         function extractUrls(d) {
             if (!d) {

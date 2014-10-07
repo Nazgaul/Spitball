@@ -139,11 +139,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-                new JsFileWithCdn("~/scripts/plupload/plupload.js"),
-                new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
-                new JsFileWithCdn("~/scripts/plupload/plupload.html5.js"),
-                new JsFileWithCdn("~/scripts/plupload/plupload.flash.js"),
-                new JsFileWithCdn("~/scripts/jquery.slimscroll.js"),
+                //new JsFileWithCdn("~/scripts/plupload/plupload.js"),
+                //new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
+                //new JsFileWithCdn("~/scripts/plupload/plupload.html5.js"),
+                //new JsFileWithCdn("~/scripts/plupload/plupload.flash.js"),
+
+                new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
+                new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
+                //new JsFileWithCdn("~/scripts/plupload2/Moxie.swf"),
+                new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
+                //new JsFileWithCdn("~/scripts/plupload2/plupload.html5.js"),
+                //new JsFileWithCdn("~/scripts/plupload2/plupload.flash.js"),
+
+
+                //new JsFileWithCdn("~/scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
@@ -158,6 +167,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
                 new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
+                new JsFileWithCdn("/js/controllers/general/uploadListCtrl.js"),
+                
                 new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/boxCtrl.js"),
@@ -210,6 +221,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/userDetails.js"),
                 new JsFileWithCdn("/js/services/stacktrace.js"),
                 new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
+                new JsFileWithCdn("/js/directives/dropZone.js"),                
                 new JsFileWithCdn("/js/directives/fbBlock.js"),
                 new JsFileWithCdn("/js/directives/loadSpinner.js"),
 
@@ -236,6 +248,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
+                new JsFileWithCdn("/js/filters/fileSize.js"),
                 new JsFileWithCdn("/js/filters/extToClass.js"),
                 new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/js/filters/actionText.js"),
@@ -260,7 +273,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  //new JsFileWithCdn("~/js/Statistics.js"),
                  new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
-                 new JsFileWithCdn("/js/Upload2.js"),
+                 //new JsFileWithCdn("/js/Upload2.js"),
                 //new JsFileWithCdn("/js/Library.js"),
                 //new JsFileWithCdn("/js/User.js"),
                 new JsFileWithCdn("/js/NotificationsViewModel.js"),
