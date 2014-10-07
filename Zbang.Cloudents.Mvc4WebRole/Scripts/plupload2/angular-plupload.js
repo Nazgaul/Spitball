@@ -118,31 +118,27 @@ angular.module('angular-plupload', [])
 
 	                up.files = [];
 	                up.splice();
-
-
+                    
 	                if (iAttrs.destroy) {
-	                    up.destroy();
-	                    alert('a');
+	                    up.destroy();	                    
 	                }
 
 	            });
 
 	            scope.$on('$destroy', function () {
-	                uploader.disableBrowse();
-	                alert('a');
+	                uploader.disableBrowse();	            
 	            });
 
-	            scope.$on('CancelFileUpload', function () {
-	            });
-	            scope.$on('$locationChangeStart', function (event) {
-	                if (uploader.runtime !== 'flash') {
-	                    return;
-	                }
-	                var isOk = confirm('Leaving page will stop the file upload, are you sure you want to leave?');
-	                if (!isOk) {
-	                    event.preventDefault();
-	                }
-	            });
+
+	            //scope.$on('$locationChangeStart', function (event) {
+	            //    if (uploader.runtime !== 'flash') {
+	            //        return;
+	            //    }
+	            //    var isOk = confirm('Leaving page will stop the file upload, are you sure you want to leave?');
+	            //    if (!isOk) {
+	            //        event.preventDefault();
+	            //    }
+	            //});
 
 	            //uploader.bind('PostInit', function (event) {
 	            //    if (uploader.runtime !== 'flash') {
