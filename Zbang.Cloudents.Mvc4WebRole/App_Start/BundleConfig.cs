@@ -144,7 +144,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("~/scripts/plupload/plupload.html5.js"),
                 //new JsFileWithCdn("~/scripts/plupload/plupload.flash.js"),
 
-                new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
+                new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
                 new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                 //new JsFileWithCdn("~/scripts/plupload2/Moxie.swf"),
                 new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),

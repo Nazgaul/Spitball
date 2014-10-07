@@ -29,7 +29,7 @@ angular.module('angular-plupload', [])
 	                chunk_size: '3mb',
 	                container: 'main',
 	                url: '/Upload/File/',
-	                flash_swf_url: '/plupload2/Moxie.swf',
+	                flash_swf_url: '/Scripts/plupload2/Moxie.swf',
 	                headers: {
 	                    'X-Requested-With': 'XMLHttpRequest'
 	                }
@@ -122,12 +122,14 @@ angular.module('angular-plupload', [])
 
 	                if (iAttrs.destroy) {
 	                    up.destroy();
+	                    alert('a');
 	                }
 
 	            });
 
 	            scope.$on('$destroy', function () {
 	                uploader.disableBrowse();
+	                alert('a');
 	            });
 
 	            scope.$on('CancelFileUpload', function () {
