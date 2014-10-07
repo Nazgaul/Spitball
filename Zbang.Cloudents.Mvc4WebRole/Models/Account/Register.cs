@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
@@ -18,13 +19,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        //[Remote("CheckEmail","Account",HttpMethod="Post",ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
         [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
-        //the new version doesnt get the resouce
+        //the new version doesn't get the resource
         [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
@@ -46,5 +46,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public bool MarketEmail { get; set; }
 
         public UserLanguage Language { get; set; }
+
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("FirstName " + FirstName);
+            sb.AppendLine("LastName " + LastName);
+            sb.AppendLine("NewEmail " + NewEmail);
+            sb.AppendLine("IsMale " + IsMale);
+            sb.AppendLine("MarketEmail " + MarketEmail);
+            sb.AppendLine("Language " + Language.Language);
+            return sb.ToString();
+        }
     }
 }

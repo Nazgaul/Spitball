@@ -4,6 +4,7 @@
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
+    ViewBag.viewport = ViewBag.viewport ?? true;
     //ViewBag.fLib = ViewBag.fLib ?? false;
     //ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
@@ -24,7 +25,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
     @*For ipad user scalable fix bug of position fixed - bug 260*@
-    @*<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />*@
+    @if (ViewBag.viewport)
+    {
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+    }
 
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
