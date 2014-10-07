@@ -100,7 +100,7 @@ angular.module('angular-plupload', [])
 	                    response.payload.tabId = file.tabId;
 	                    response.payload.questionId = file.questionId;
 	                    response.payload.newQuestion = file.newQuestion;
-	                    $rootScope.$broadcast('ItemUploaded', response.payload);	                    
+	                    $rootScope.$broadcast('ItemUploaded', response.payload);
 	                });
 
 
@@ -115,10 +115,10 @@ angular.module('angular-plupload', [])
 	            uploader.bind('UploadComplete', function (up, files) {
 
 	                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
-	                
+
 	                up.files = [];
 	                up.splice();
-	                
+
 
 	                if (iAttrs.destroy) {
 	                    up.destroy();
@@ -134,7 +134,7 @@ angular.module('angular-plupload', [])
 
 	            scope.$on('CancelFileUpload', function () {
 	            });
-	            $rootScope.$on('$locationChangeStart', function (event) {
+	            scope.$on('$locationChangeStart', function (event) {
 	                if (uploader.runtime !== 'flash') {
 	                    return;
 	                }
@@ -143,6 +143,15 @@ angular.module('angular-plupload', [])
 	                    event.preventDefault();
 	                }
 	            });
+
+	            //uploader.bind('PostInit', function (event) {
+	            //    if (uploader.runtime !== 'flash') {
+	            //        return;
+	            //    }
+
+	            //    uploader.refresh();
+	            //});
+
 	        }
 	    };
 	}])

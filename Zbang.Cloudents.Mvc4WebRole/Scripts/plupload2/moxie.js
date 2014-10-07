@@ -1506,12 +1506,28 @@ define('moxie/core/utils/Dom', ['moxie/core/utils/Env'], function(Env) {
 			};
 		}
 
+		if (node.getBoundingClientRect) {
+		    var rect = node.getBoundingClientRect();
+                x= rect.left,
+                y= rect.top;
+
+
+		    x += doc.body.scrollLeft;
+		    y += doc.body.scrollTop;
+
+		    return {
+		        x: x,
+		        y: y
+		    }
+		}
+
 		parent = node;
 		while (parent && parent != root && parent.nodeType) {
 			x += parent.offsetLeft || 0;
 			y += parent.offsetTop || 0;
 			parent = parent.offsetParent;
 		}
+
 
 		parent = node.parentNode;
 		while (parent && parent != root && parent.nodeType) {
