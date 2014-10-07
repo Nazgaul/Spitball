@@ -1,8 +1,8 @@
 ﻿mBox.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', '$modal', '$modalInstance', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload', 'data',
+        'sDropbox', 'sGoogle', 'sUpload', 'data','$timeout',
 
-    function ($scope, $rootScope, $q, $modal, $modalInstance, sFacebook, $filter, Dropbox, Google, sUpload, data) {
+    function ($scope, $rootScope, $q, $modal, $modalInstance, sFacebook, $filter, Dropbox, Google, sUpload, data,$timeout) {
         var jsResources = window.JsResources;
         $scope.boxId = data.boxId;
         $scope.tabId = data.tabId;
@@ -33,6 +33,10 @@
 
         Dropbox.init().then(function () {
             $scope.sources.dropboxLoaded = true;
+        });
+
+        $timeout(function () {
+            $rootScope.$broadcast('PluploadRefresh');
         });
 
         $scope.saveLink = function () {
