@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="course_already_exists" xml:space="preserve">
-    <value>This course already exists</value>
+    <value>This class already exists</value>
   </data>
   <data name="LibraryController_Create_You_need_to_sign_up_for_university" xml:space="preserve">
     <value>You need to sign up for a university</value>
   </data>
   <data name="Problem_with_create_a_course" xml:space="preserve">
-    <value>Problem creating a course</value>
+    <value>Problem creating a class</value>
   </data>
 </root>

@@ -295,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Courses I follow.
+        ///   Looks up a localized string similar to Classes I follow.
         /// </summary>
         public static string CoursesFollow {
             get {
@@ -376,7 +376,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting this course will delete all its content including files and Q&amp;A. Are you sure you would like to delete this course?.
+        ///   Looks up a localized string similar to Deleting this class will delete all its content including files and Q&amp;A. Are you sure you would like to delete this course?.
         /// </summary>
         public static string DeleteCourse {
             get {
@@ -385,7 +385,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?.
+        ///   Looks up a localized string similar to You have created an empty class, if you unfollow this course it will be deleted. Do you want to delete the course?.
         /// </summary>
         public static string DeleteEmptyCourse {
             get {
@@ -541,7 +541,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to I too have joined Cloudents.
-        ///Cloudents has the largest collection of course notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes..
+        ///Cloudents has the largest collection of class notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes..
         /// </summary>
         public static string FbText {
             get {
@@ -730,7 +730,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite people to this course using:.
+        ///   Looks up a localized string similar to Invite people to this class using:.
         /// </summary>
         public static string InviteCourse {
             get {
@@ -973,7 +973,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Courses.
+        ///   Looks up a localized string similar to My Classes.
         /// </summary>
         public static string MyCourses {
             get {
@@ -1036,7 +1036,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member did not join any courses.
+        ///   Looks up a localized string similar to Member did not join any classes.
         /// </summary>
         public static string NoSelected {
             get {
@@ -1117,7 +1117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to on the course.
+        ///   Looks up a localized string similar to on the class.
         /// </summary>
         public static string OnCourse {
             get {
@@ -1352,7 +1352,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share this course.
+        ///   Looks up a localized string similar to Share this class.
         /// </summary>
         public static string ShareCourse {
             get {
@@ -1523,7 +1523,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to to the course.
+        ///   Looks up a localized string similar to to the class.
         /// </summary>
         public static string ToCourse {
             get {

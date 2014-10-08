@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created this course.
+        ///   Looks up a localized string similar to Created this class.
         /// </summary>
         internal static string NewCourse {
             get {

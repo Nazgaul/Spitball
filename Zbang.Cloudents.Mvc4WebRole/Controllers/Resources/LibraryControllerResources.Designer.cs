@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This course already exists.
+        ///   Looks up a localized string similar to This class already exists.
         /// </summary>
         public static string course_already_exists {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem creating a course.
+        ///   Looks up a localized string similar to Problem creating a class.
         /// </summary>
         public static string Problem_with_create_a_course {
             get {

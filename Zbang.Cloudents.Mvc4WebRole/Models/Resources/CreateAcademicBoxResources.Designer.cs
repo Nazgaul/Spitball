@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course code.
+        ///   Looks up a localized string similar to Class code.
         /// </summary>
         public static string CourseCode {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course name.
+        ///   Looks up a localized string similar to Class name.
         /// </summary>
         public static string CourseName {
             get {

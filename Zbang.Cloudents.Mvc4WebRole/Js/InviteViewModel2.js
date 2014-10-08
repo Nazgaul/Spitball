@@ -70,14 +70,14 @@
 
     function updateInviteHeader(numOfInvites) {
         if (numOfInvites > 0) {
-            invites.classList.remove('noInvites');
-            invitesCounter.classList.add('invitesCounterShow');
+            $(invites).removeClass('noInvites');
+            $(invitesCounter).addClass('invitesCounterShow');
             //invites.className = invites.className.replace(' noInvites', '');
             //invitesCounter.className += ' invitesCounterShow';            
             invitesCounter.textContent = numOfInvites;
         } else {
-            invitesCounter.classList.remove('invitesCounterShow');
-            invites.classList.add('noInvites');
+            $(invitesCounter).removeClass('invitesCounterShow');
+            $(invites).addClass('noInvites');
             //invites.className += ' noInvites';
             //invitesCounter.className.replace(' invitesCounterShow', '');
             invitesCounter.textContent = '';

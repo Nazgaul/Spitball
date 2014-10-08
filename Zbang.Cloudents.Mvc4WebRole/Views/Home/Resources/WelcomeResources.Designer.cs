@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse or search your department to find courses.
+        ///   Looks up a localized string similar to Browse or search your department to find classes.
         /// </summary>
         public static string step2FindText {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When you find a course, click the follow button to add to your space.
+        ///   Looks up a localized string similar to When you find a class, click the follow button to add to your space.
         /// </summary>
         public static string step2FollowText {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discover your courses.
+        ///   Looks up a localized string similar to Discover your classes.
         /// </summary>
         public static string step2Header {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Easily upload files to your course by drag and drop.
+        ///   Looks up a localized string similar to Easily upload files to your class by drag and drop.
         /// </summary>
         public static string step3UploadText {
             get {

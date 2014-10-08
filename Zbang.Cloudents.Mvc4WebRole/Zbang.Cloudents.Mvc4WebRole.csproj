@@ -929,7 +929,6 @@
     <Content Include="Js\controllers\quiz\challengeCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
-    <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\controllers\box\boxCtrl.js" />
     <Content Include="Js\controllers\box\settingsCtrl.js" />
     <Content Include="Js\controllers\box\qnaCtrl.js" />
@@ -951,7 +950,6 @@
     <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
-    <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
@@ -960,6 +958,7 @@
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\filters\fileSize.js" />
+    <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
@@ -984,10 +983,8 @@
     <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\GenericEvents2.js" />
-    <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\InviteViewModel2.js" />
-    <Content Include="Js\ItemViewModel4.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\modules\carousel.js" />
@@ -997,9 +994,6 @@
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\routes.js" />
-    <Content Include="Js\Search.js" />
-    <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\cookies.js" />
     <Content Include="Js\services\dashboard.js" />
@@ -1019,19 +1013,14 @@
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\services\userDetails.js" />
-    <Content Include="Js\Share.js" />
-    <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache.js" />
     <Content Include="Js\CDNFallback.js" />
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
     <Content Include="Js\DataContext.js" />
-    <Content Include="Js\Dialog.js" />
     <Content Include="Js\externalScriptsInitializer.js" />
     <Content Include="Js\Invite.js" />
-    <Content Include="Js\Library.js" />
-    <Content Include="Js\LibraryChoose.js" />
     <Content Include="Js\Mobile\MAccountSettings.js" />
     <Content Include="Js\Mobile\MBaseViewModel.js" />
     <Content Include="Js\Mobile\MBoxesViewModel.js" />
@@ -1047,11 +1036,9 @@
     <Content Include="Js\Mobile\MWallViewModel.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
+    <Content Include="Js\SocialConnect.js" />
     <Content Include="Js\Statistics.js" />
-    <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
-    <Content Include="Js\Upload2.js" />
-    <Content Include="Js\User.js" />
     <Content Include="Js\Utils2.js" />
     <Content Include="Js\Utils.js" />
     <Content Include="Js\Welcome.js" />
@@ -1160,22 +1147,20 @@
     <Content Include="robots.txt" />
     <Content Include="Scripts\ai.js" />
     <Content Include="Scripts\ai.min.js" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-appinsights.js" />
+    <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-cache-2.3.4.js" />
+    <Content Include="Scripts\angular-mcustomscrollbar.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular-animate.js" />
-    <Content Include="Scripts\angular-animate.min.js" />
-    <Content Include="Scripts\angular-cache-2.3.4.js" />
-    <Content Include="Scripts\angular-cookies.js" />
-    <Content Include="Scripts\angular-mcustomscrollbar.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js">
-      <DependentUpon>angular-route.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angulartics-ga.js" />
     <Content Include="Scripts\angulartics-ga.min.js" />
@@ -1195,11 +1180,10 @@
     <None Include="Content\lang.he-IL.less" />
     <Content Include="Content\Invite.less" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -1479,15 +1463,16 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4..js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\jquery.mousewheel.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.slimscroll.min.js.map">
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
@@ -1525,7 +1510,6 @@
     <Content Include="Scripts\plupload\plupload.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.js" />
     <Content Include="Scripts\plupload\plupload.silverlight.xap" />
-    <Content Include="Js\SocialConnect.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
     <Content Include="Scripts\underscore-min.js" />

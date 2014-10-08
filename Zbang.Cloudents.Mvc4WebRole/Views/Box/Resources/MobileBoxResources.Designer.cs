@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Follow this course.
+        ///   Looks up a localized string similar to Follow this class.
         /// </summary>
         public static string FollowCourse {
             get {
