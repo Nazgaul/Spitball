@@ -251,7 +251,7 @@
     <value>Active member</value>
   </data>
   <data name="CourseNumber" xml:space="preserve">
-    <value>Course number</value>
+    <value>Class number</value>
   </data>
   <data name="Lecturer" xml:space="preserve">
     <value>Lecturer</value>
@@ -284,13 +284,13 @@
     <value>Invite people to this Group Box using:</value>
   </data>
   <data name="InviteCourse" xml:space="preserve">
-    <value>Invite people to this course using:</value>
+    <value>Invite people to this class using:</value>
   </data>
   <data name="ShareBox" xml:space="preserve">
     <value>Share this Group Box</value>
   </data>
   <data name="ShareCourse" xml:space="preserve">
-    <value>Share this course</value>
+    <value>Share this class</value>
   </data>
   <data name="MyFriends" xml:space="preserve">
     <value>My friends</value>
@@ -299,7 +299,7 @@
     <value>Add your comment</value>
   </data>
   <data name="CreatedCourse" xml:space="preserve">
-    <value>Created this course</value>
+    <value>Created this class</value>
   </data>
   <data name="OnYourMind" xml:space="preserve">
     <value>What's on your mind?</value>

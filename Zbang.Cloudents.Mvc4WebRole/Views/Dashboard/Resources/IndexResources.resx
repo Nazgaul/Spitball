@@ -142,14 +142,14 @@
     <value>By union departments</value>
   </data>
   <data name="FindCourses" xml:space="preserve">
-    <value>Search or browse Cloudents to find the courses you study</value>
+    <value>Search or browse Cloudents to find the classes you study</value>
   </data>
   <data name="FindingCourses" xml:space="preserve">
-    <value>Finding your courses of
+    <value>Finding your classes of
 interest with the:</value>
   </data>
   <data name="FollowCourses" xml:space="preserve">
-    <value>Following courses</value>
+    <value>Following classes</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
@@ -158,7 +158,7 @@ interest with the:</value>
     <value>Hi</value>
   </data>
   <data name="InlineSearch" xml:space="preserve">
-    <value>Search course name or instructor</value>
+    <value>Search class name or instructor</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Items</value>
@@ -234,7 +234,7 @@ dashboard</value>
     <value>To share things with your whole class</value>
   </data>
   <data name="BrowseCourses" xml:space="preserve">
-    <value>Browse courses</value>
+    <value>Browse classes</value>
   </data>
   <data name="ChangeDept" xml:space="preserve">
     <value>Change department</value>
@@ -243,7 +243,7 @@ dashboard</value>
     <value>Add emails separated by commas</value>
   </data>
   <data name="CreateCourse" xml:space="preserve">
-    <value>Create a course</value>
+    <value>Create a class</value>
   </data>
   <data name="CreateQuizzes" xml:space="preserve">
     <value>Create your own quizzes</value>
@@ -264,13 +264,13 @@ dashboard</value>
     <value>Invite by email</value>
   </data>
   <data name="OpenCourse" xml:space="preserve">
-    <value>Course</value>
+    <value>Class</value>
   </data>
   <data name="PrivateCourse" xml:space="preserve">
     <value>Study group</value>
   </data>
   <data name="RecommendedCourses" xml:space="preserve">
-    <value>Recommended courses</value>
+    <value>Recommended classes</value>
   </data>
   <data name="SearchCloudents" xml:space="preserve">
     <value>Search your friends on Cloudents</value>

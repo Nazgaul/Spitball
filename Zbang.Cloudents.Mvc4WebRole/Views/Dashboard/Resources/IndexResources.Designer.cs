@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse courses.
+        ///   Looks up a localized string similar to Browse classes.
         /// </summary>
         public static string BrowseCourses {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a course.
+        ///   Looks up a localized string similar to Create a class.
         /// </summary>
         public static string CreateCourse {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search or browse Cloudents to find the courses you study.
+        ///   Looks up a localized string similar to Search or browse Cloudents to find the classes you study.
         /// </summary>
         public static string FindCourses {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finding your courses of
+        ///   Looks up a localized string similar to Finding your classes of
         ///interest with the:.
         /// </summary>
         public static string FindingCourses {
@@ -233,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Following courses.
+        ///   Looks up a localized string similar to Following classes.
         /// </summary>
         public static string FollowCourses {
             get {
@@ -269,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search course name or instructor.
+        ///   Looks up a localized string similar to Search class name or instructor.
         /// </summary>
         public static string InlineSearch {
             get {
@@ -359,7 +359,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course.
+        ///   Looks up a localized string similar to Class.
         /// </summary>
         public static string OpenCourse {
             get {
@@ -404,7 +404,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recommended courses.
+        ///   Looks up a localized string similar to Recommended classes.
         /// </summary>
         public static string RecommendedCourses {
             get {

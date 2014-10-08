@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course number.
+        ///   Looks up a localized string similar to Class number.
         /// </summary>
         public static string CourseNumber {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created this course.
+        ///   Looks up a localized string similar to Created this class.
         /// </summary>
         public static string CreatedCourse {
             get {
@@ -295,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite people to this course using:.
+        ///   Looks up a localized string similar to Invite people to this class using:.
         /// </summary>
         public static string InviteCourse {
             get {
@@ -548,7 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share this course.
+        ///   Looks up a localized string similar to Share this class.
         /// </summary>
         public static string ShareCourse {
             get {

@@ -127,19 +127,19 @@
     <value>Your place to study, share and connect with your classmates</value>
   </data>
   <data name="step2FindText" xml:space="preserve">
-    <value>Browse or search your department to find courses</value>
+    <value>Browse or search your department to find classes</value>
   </data>
   <data name="step2FindTitle" xml:space="preserve">
     <value>Find</value>
   </data>
   <data name="step2FollowText" xml:space="preserve">
-    <value>When you find a course, click the follow button to add to your space</value>
+    <value>When you find a class, click the follow button to add to your space</value>
   </data>
   <data name="step2FollowTitle" xml:space="preserve">
     <value>Follow</value>
   </data>
   <data name="step2Header" xml:space="preserve">
-    <value>Discover your courses</value>
+    <value>Discover your classes</value>
   </data>
   <data name="step3DiscussText" xml:space="preserve">
     <value>Join the discussion, share your thoughts with your class mates</value>
@@ -151,7 +151,7 @@
     <value>Add your content</value>
   </data>
   <data name="step3UploadText" xml:space="preserve">
-    <value>Easily upload files to your course by drag and drop</value>
+    <value>Easily upload files to your class by drag and drop</value>
   </data>
   <data name="step3UploadTitle" xml:space="preserve">
     <value>Upload</value>
