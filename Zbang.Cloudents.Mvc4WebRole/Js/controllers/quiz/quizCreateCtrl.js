@@ -499,12 +499,12 @@
                 $rootScope.options.quizOpen = false;
             }
         });
-    }]).directive('quizPreview', ['$timeout', function ($timeout) {
+    }]).directive('quizPreview', ['$rootScope','$timeout', function ($rootScope,$timeout) {
         return function (scope, element, attrs) {
             scope.$watch(attrs.show,
               function (newValue) {
 
-                  var mainDiv = document.getElementById('main');
+                  var $mainDiv = angular.element(document.getElementById('main'));
 
                   if (!newValue) {
                       hidePreview();
@@ -516,22 +516,18 @@
                   function showPreview() {
                       element[0].style.display = 'block';
                       $timeout(function () { //fix for animation
-                          mainDiv.classList.add('previewQuiz');
+                          $mainDiv.addClass('previewQuiz');
                       });
 
-                      $timeout(function () { //fix for animationB
-                          mainDiv.classList.add('topBarFix');
-                          $('.siteHeader').hide();
-                          mainDiv.classList.add('topBarFix');
-                          $('.siteHeader').hide();
-                          scope.$emit('update-scroll');
-                          scope.$broadcast('update-scroll');
+                      $timeout(function () { //fix for animationB                                                    
+                          $mainDiv.addClass('topBarFix');
+                          $('.siteHeader').hide();                          
+                          $rootScope.$broadcast('update-scroll');
                       }, 700);
                   }
 
                   function hidePreview() {
-                      mainDiv.classList.remove('previewQuiz');
-                      mainDiv.classList.remove('topBarFix');
+                      $mainDiv.removeClass('previewQuiz topBarFix');
                       element[0].style.display = 'none';
                       $('.siteHeader').show();
                   }

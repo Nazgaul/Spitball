@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceDefinition name="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-01.2.3">
+<ServiceDefinition name="Zbang.Cloudents.Cloud.Web" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-06.2.4">
   <WebRole name="Zbang.Cloudents.Mvc4WebRole" vmsize="Small">
     <Sites>
       <Site name="Web">
@@ -22,15 +22,12 @@
       <Setting name="StorageConnectionString" />
       <Setting name="CdnEndpoint" />
       <Setting name="ZBox" />
-      <Setting name="otakimUrl" />
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
     </ConfigurationSettings>
     <Startup>
-      <Task commandLine="AppInsightsAgent\UnifiedBootstrap.bat" executionContext="elevated" taskType="simple">
-      </Task>
-
-        <!--<Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" taskType="simple" />-->
+      <Task commandLine="AppInsightsAgent\UnifiedBootstrap.bat" executionContext="elevated" taskType="simple"></Task>
+      <!--<Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" taskType="simple" />-->
       <!--<Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
       <Task commandLine="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe install" executionContext="elevated" taskType="simple" />-->
     </Startup>

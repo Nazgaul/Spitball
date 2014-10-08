@@ -104,22 +104,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
             RegisterJsRegular("angular-general",
-                                new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js",
-                    "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                                new JsFileWithCdn("~/scripts/jquery-2.1.1.min.js",
+                    "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                     new JsFileWithCdn("~/scripts/underscore.js"),
                 new JsFileWithCdn("~/scripts/angular.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"),
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"),
 
 
                 new JsFileWithCdn("~/scripts/angular-route.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"),
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.min.js"),
                 new JsFileWithCdn("~/js/services/cookies.js"),
 
             new JsFileWithCdn("~/scripts/angular-sanitize.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.min.js"),
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-sanitize.min.js"),
 
                     new JsFileWithCdn("~/scripts/angular-animate.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-animate.min.js"),
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-animate.min.js"),
                     new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("/scripts/angular-appinsights.js"),
@@ -139,20 +139,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.mCustomScrollbar.js"),
                 new JsFileWithCdn("~/scripts/Modernizr.js"),
-                //new JsFileWithCdn("~/scripts/plupload/plupload.js"),
-                //new JsFileWithCdn("~/scripts/plupload/plupload.html4.js"),
-                //new JsFileWithCdn("~/scripts/plupload/plupload.html5.js"),
-                //new JsFileWithCdn("~/scripts/plupload/plupload.flash.js"),
 
                 new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
-                new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
-                //new JsFileWithCdn("~/scripts/plupload2/Moxie.swf"),
+                new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),                
                 new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
-                //new JsFileWithCdn("~/scripts/plupload2/plupload.html5.js"),
-                //new JsFileWithCdn("~/scripts/plupload2/plupload.flash.js"),
-
-
-                //new JsFileWithCdn("~/scripts/jquery.slimscroll.js"),
 
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
@@ -311,7 +301,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             RegisterJsRegular("General",
-                new JsFileWithCdn("~/scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                new JsFileWithCdn("~/scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
                 new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
