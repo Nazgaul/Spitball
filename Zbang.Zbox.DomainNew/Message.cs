@@ -1,5 +1,4 @@
 ﻿using System;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -9,18 +8,18 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        protected MessageBase(Guid id, User sender, User recepient)
+        protected MessageBase(Guid id, User sender, User recipient)
         {
             Id = id;
             Sender = sender;
-            Recepient = recepient;
+            Recipient = recipient;
             CreationTime = DateTime.UtcNow;
             NotRead = false;
             New = true;
         }
         public Guid Id { get; private set; }
         public virtual User Sender { get; private set; }
-        public virtual User Recepient { get; private set; }
+        public virtual User Recipient { get; private set; }
         public DateTime CreationTime { get; private set; }
         public bool NotRead { get; private set; }
         public bool New { get; private set; }
@@ -43,15 +42,15 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Invite(Guid id, User sender, User recepient, Box box)
-            : base(id, sender, recepient)
+        public Invite(Guid id, User sender, User recipient, Box box)
+            : base(id, sender, recipient)
         {
             Box = box;
             IsActive = true;
         }
         public virtual Box Box { get; private set; }
 // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        public DateTime? OpenTime { get; private set; }
+        public DateTime? OpenTime { get; protected set; }
         public DateTime? SendTime { get; private set; }
         public bool IsActive { get; internal set; }
 
@@ -67,20 +66,19 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Message(Guid id, User sender, User recepient, string text)
-            : base(id, sender, recepient)
+        public Message(Guid id, User sender, User recipient, string text)
+            : base(id, sender, recipient)
         {
             if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentNullException("text");
             }
-            //Throw.OnNull(text, "text");
             Text = text;
 
         }
         public string Text { get; private set; }
 // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        public DateTime? OpenTime { get; private set; }
+        public DateTime? OpenTime { get; protected set; }
 
     }
 
@@ -89,11 +87,11 @@ namespace Zbang.Zbox.Domain
         protected InviteToCloudents()
         {
         }
-        public InviteToCloudents(Guid id, User sender, User recepient)
-            : base(id, sender, recepient)
+        public InviteToCloudents(Guid id, User sender, User recipient)
+            : base(id, sender, recipient)
         {
         }
 // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        public DateTime? OpenTime { get; private set; }
+        public DateTime? OpenTime { get; protected set; }
     }
 }

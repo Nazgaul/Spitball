@@ -3,11 +3,11 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="User" table="Users"  discriminator-value="0">
+  <class name="User" table="Users">
     <id name="Id" column="UserId" type="long">
       <generator class="native"></generator>
     </id>
-    <discriminator column="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />
+    <!--<discriminator column="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />-->
 
 
     <property name="Email" column="Email" not-null="true" unique="true"/>
@@ -70,34 +70,7 @@
       <key column="RecepientId" foreign-key="MessageRecepientSender"/>
       <one-to-many class="Invite"/>
     </set>
-
     <property name="LastAccessTime" type="DateTime2"  />
-
-
-
-
-
-    <!--<subclass name="University2" discriminator-value="1">
-      <property name="UniversityName"/>
-
-      <property name="NeedCode" />
-
-      <property name="WebSiteUrl" />
-      <property name="MailAddress" />
-      <property name="FacebookUrl" />
-      <property name="TwitterUrl" />
-      <property name="TwitterWidgetId" />
-      <property name="YouTubeUrl" />
-      <property name="LetterUrl" />
-      <property name="AdvertismentUrl" />
-      <property name="Country" length="2" type="string" column="Country" not-null="false"/>
-
-      --><!--<bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
-        <key column="UserId" foreign-key="UnitveristyLibraries"/>
-        <one-to-many class="Library"/>
-      </bag>--><!--
-      <many-to-one column="DataUnversityId" class="University2" name="DataUnversity" foreign-key="DataUniversityUniversity" not-null="false" lazy="proxy"></many-to-one>
-    </subclass>-->
   </class>
 
   <class name="University" table="University">
@@ -128,6 +101,11 @@
     <property name="AdvertisementUrl" />
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
     <property name="NoOfBoxes" />
+
+    <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
+      <key column="Id" foreign-key="LibraryUniversity2"/>
+      <one-to-many class="Library"/>
+    </bag>
   </class>
 
 </hibernate-mapping>

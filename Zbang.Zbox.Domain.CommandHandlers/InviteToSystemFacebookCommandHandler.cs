@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository.Save(recipientUser, true);
 
 // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault - nHibernate
-            var invite = m_InviteToCloudents.GetQuerable().Where(w => w.Sender == sender && w.Recepient == recipientUser).FirstOrDefault();
+            var invite = m_InviteToCloudents.GetQuerable().Where(w => w.Sender == sender && w.Recipient == recipientUser).FirstOrDefault();
             if (invite != null) return;
             invite = new InviteToCloudents(m_IdGenerator.GetId(), sender, recipientUser);
             m_InviteToCloudents.Save(invite);

@@ -1,62 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿
 using System.Collections.Generic;
 
 namespace Zbang.Zbox.Domain
 {
-    //public class University2 : User
-    //{
-    //    //public const string UniversityEmailAddress = "support@cloudents.com";
-    //    protected University2()
-    //        // ReSharper disable once RedundantBaseConstructorCall
-    //        : base()
-    //    {
-    //        // ReSharper disable DoNotCallOverridableMethodsInConstructor
-    //        NeedCode = false;
-    //    }
-    //    public University2(string email, string universityName, string image, string largeImage, string creatingUserName)
-    //        : base(email, universityName, image, largeImage)
-    //    {
-    //        UserTime.CreatedUser = creatingUserName;
-    //        // ReSharper restore DoNotCallOverridableMethodsInConstructor
-
-    //        NeedCode = false;
-    //    }
-
-    //    public University2(string universityName, string image, string largeImage, string creatingUserName)
-    //        : this(
-    //        string.Format("{0}@cloudents.com", Guid.NewGuid()),
-    //        universityName, image, largeImage, creatingUserName)
-    //    {
-    //    }
-
-    //    public virtual bool NeedCode { get; private set; }
-    //    // ReSharper disable UnusedAutoPropertyAccessor.Local
-    //    public virtual University2 DataUnversity { get; private set; }
-
-
-    //    public string WebSiteUrl { get; private set; }
-    //    public string MailAddress { get; private set; }
-    //    public string FacebookUrl { get; private set; }
-    //    public string TwitterUrl { get; private set; }
-    //    public long? TwitterWidgetId { get; private set; }
-    //    public string YouTubeUrl { get; private set; }
-    //    public string LetterUrl { get; set; }
-    //    public string AdvertismentUrl { get; private set; }
-
-    //    public virtual string Country { get; set; }
-
-    //    public virtual string UniversityName { get; private set; }
-    //    // ReSharper restore UnusedAutoPropertyAccessor.Local
-
-    //    public override string GetUniversityName()
-    //    {
-    //        return UniversityName;
-    //    }
-      
-    //}
-
-
     public class University
     {
         protected University()
@@ -92,6 +38,8 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails UserTime { get; set; }
 
         public virtual int NoOfBoxes { get; private set; }
+
+        protected virtual ICollection<Library> Libraries { get; set; }
 
 
         public virtual void UpdateNumberOfBoxes(int boxesCount)

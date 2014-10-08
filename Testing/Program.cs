@@ -616,26 +616,26 @@ namespace Testing
 
             //IMailManager mail = iocFactory.Resolve<IMailManager>();
             //IZboxReadService zboxService = iocFactory.Resolve<IZboxReadService>();
-            //const string recepient = "yaari.ram@gmail.com";
+            //const string recipient = "yaari.ram@gmail.com";
 
             //var query1 = new GetBoxInviteDataQuery(11);
             //var boxData = zboxService.GetBoxDateForInvite(query1);
 
             //var parameters = new ForgotPassword("123qwe");
-            //mail.SendEmail(parameters, recepient);
+            //mail.SendEmail(parameters, recipient);
             //var parameters2 = new EmailVerification("VERY LONG HASSSSSSSSH", "Ram Yaaer");
-            //mail.SendEmail(parameters2, recepient);
+            //mail.SendEmail(parameters2, recipient);
             //var parameters3 = new ChangeEmail(5000);
-            //mail.SendEmail(parameters3, recepient);
+            //mail.SendEmail(parameters3, recipient);
             //var parameters4 = new ItemDeleted("This is the box", "This is an item name", "this is the user");
-            //mail.SendEmail(parameters4, recepient);
+            //mail.SendEmail(parameters4, recipient);
             //var parameters5 = new Subscription("this is box", "lovely user");
-            //mail.SendEmail(parameters5, recepient);
+            //mail.SendEmail(parameters5, recipient);
             //var parameters6 = new InviteToBox("Ram", "JOIN NOW!!!", boxData.Name,
             //                                 new Uri("https://ram.multimicloud.com/Box?BoxUid=lzodJqaBLkm"),
             //                                 boxData.UpdateTime, boxData.NumOfItems,
             //                                 boxData.Image);
-            //mail.SendEmail(parameters6, recepient);
+            //mail.SendEmail(parameters6, recipient);
 
             //var parameters10 = new Updates("Ken", "ram", new Uri("https://ram.multimicloud.com/Box?BoxUid=lzodJqaBLkm"),
             //    new List<CommentDetails> { new CommentDetails("ram", TimeSpan.FromHours(5), "This is a cool image",
@@ -644,7 +644,7 @@ namespace Testing
             //            "https://zboxstorage.blob.core.windows.net/zboxprofilepic/fd1de52d-859d-4815-a063-211fba152998",
             //            "test.png",
             //            "https://zboxstorage.blob.core.windows.net/zboxthumbnail/863fa055-1e48-4c0d-b99d-9879b8d61e7d.thumbnail.jpg")});
-            //mail.SendEmail(parameters10, recepient);
+            //mail.SendEmail(parameters10, recipient);
             ////var d = zboxService.GetBoxDataForItemAdd(new GetBoxDataForImmediateEmailQuery(12, 1808));
 
             //var userid = 3;
@@ -673,7 +673,7 @@ namespace Testing
 
             //}
             //var parameters7 = new Digest(boxesUpdates);
-            //mail.SendEmail(parameters7, recepient);
+            //mail.SendEmail(parameters7, recipient);
         }
 
         private static void CastingPerformance()

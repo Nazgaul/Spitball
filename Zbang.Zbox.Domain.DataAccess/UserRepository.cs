@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                                         .Where(w => w.Box.Id == boxId).Future<UserBoxRel>();
             //.SingleOrDefault();
             var fUserInvite = UnitOfWork.CurrentSession.QueryOver<Invite>()
-                                        .Where(w => w.Recepient.Id == userId)
+                                        .Where(w => w.Recipient.Id == userId)
                                         .Where(w => w.Box.Id == boxId)
                                         .Where(w => w.IsActive).Future<Invite>();
 

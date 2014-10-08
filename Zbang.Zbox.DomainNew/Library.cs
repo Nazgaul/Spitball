@@ -14,26 +14,23 @@ namespace Zbang.Zbox.Domain
             Boxes = new HashSet<Box>();
             AmountOfNodes = 0;
         }
-        //public Library(Guid id, string name, Library parent, University2 university)
-        //    : this()
-        //{
-        //    Id = id;
-        //    if (name.Contains('.'))
-        //    {
-        //        throw new ArgumentException("name cannot contain dot", "name");
-        //    }
-        //    Name = name;
-        //    Parent = parent;
-        //    University = university;
-        //    GenerateUrl();
-        //}
+        public Library(Guid id, string name, Library parent, University university)
+            : this()
+        {
+            Id = id;
+            Name = name;
+            Parent = parent;
+            University = university;
+            GenerateUrl();
+        }
 
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
-        public virtual int AmountOfNodes { get; set; } //TODO: do we need this
+        public virtual int AmountOfNodes { get; set; }
+        public virtual int NoOfBoxes{ get; set; }
         public virtual Library Parent { get; protected set; }
 
-        public virtual University2 University { get; protected set; }
+        public virtual University University { get; protected set; }
 
         public virtual ICollection<Library> Children { get; protected set; }
 
@@ -43,33 +40,33 @@ namespace Zbang.Zbox.Domain
         public virtual string Url { get; protected set; }
 
 
-        //public virtual void GenerateUrl()
-        //{
-        //    Url = UrlConsts.BuildLibraryUrl(Id, Name);
-        //}
 
 
-        //public Library CreateSubLibrary(Guid id, string nodeName)
-        //{
-        //    if (nodeName == null)
-        //    {
-        //        throw new ArgumentNullException("nodeName");
-        //    }
-        //    nodeName = nodeName.Trim();
-        //    if (CheckIfBoxesExists())
-        //    {
-        //        throw new ArgumentException("Cannot add library to box node");
-        //    }
-        //    if (Children.Any(a => a.Name == nodeName))
-        //    {
-        //        throw new ArgumentException("cannot have node with the same name");
-        //    }
-        //    var libraryNode = new Library(id, nodeName, this, University);
+        public virtual void GenerateUrl()
+        {
+            Url = UrlConsts.BuildLibraryUrl(Id, Name);
+        }
+        public Library CreateSubLibrary(Guid id, string nodeName)
+        {
+            if (nodeName == null)
+            {
+                throw new ArgumentNullException("nodeName");
+            }
+            nodeName = nodeName.Trim();
+            if (CheckIfBoxesExists())
+            {
+                throw new ArgumentException("Cannot add library to box node");
+            }
+            if (Children.Any(a => a.Name == nodeName))
+            {
+                throw new ArgumentException("cannot have node with the same name");
+            }
+            var libraryNode = new Library(id, nodeName, this, University);
 
-        //    Children.Add(libraryNode);
-        //    AmountOfNodes = Children.Count;
-        //    return libraryNode;
-        //}
+            Children.Add(libraryNode);
+            AmountOfNodes = Children.Count;
+            return libraryNode;
+        }
 
         //public void ChangeName(string newName)
         //{
@@ -96,10 +93,10 @@ namespace Zbang.Zbox.Domain
         //    GenerateUrl();
         //}
 
-        //private bool CheckIfBoxesExists()
-        //{
-        //    return Boxes.Count != 0;
-        //}
+        private bool CheckIfBoxesExists()
+        {
+            return Boxes.Count != 0;
+        }
 
 
 

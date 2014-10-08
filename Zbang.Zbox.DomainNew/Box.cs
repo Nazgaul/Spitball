@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual ICollection<UserBoxRel> UserBoxRelationship { get; private set; }
         public virtual ICollection<Item> Items { get; private set; }
-        protected virtual ICollection<Quiz> Quizzes { get; private set; }
+        protected virtual ICollection<Quiz> Quizzes { get; set; }
 
        // public IQueryable<Item> Items2 { get; set; }
 

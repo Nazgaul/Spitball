@@ -9,7 +9,7 @@
     <discriminator column="TypeOfMsg" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.MessageType, Zbang.Zbox.Infrastructure" />
 
     <many-to-one name="Sender" class="User" column="SenderId" not-null="true" foreign-key="MessageUserSender"/>
-    <many-to-one name="Recepient" class="User" column="RecepientId" not-null="true" foreign-key="MessageRecepientSender"/>
+    <many-to-one name="Recipient" class="User" column="RecepientId" not-null="true" foreign-key="MessageRecepientSender"/>
 
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
     <property name="NotRead" not-null="false" />

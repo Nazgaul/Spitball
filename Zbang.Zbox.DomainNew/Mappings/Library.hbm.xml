@@ -8,21 +8,24 @@
     </id>
     <property name="Name" not-null="true"/>
     <property name="AmountOfNodes" column="AmountOfChildren" not-null="true"/>
+    <property name="NoOfBoxes" column="NoOfBoxes" not-null="true"/>
     <property name="Url" column="Url" not-null="true"/>
 
     <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />
-    <many-to-one name="University" class="University2" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>
+    <!--<many-to-one name="University" class="University2" column="UserId" not-null="true" foreign-key="LibraryUniversity"/>-->
+    <many-to-one name="University" class="University" column="Id" not-null="true" foreign-key="LibraryUniversity2"/>
 
     <bag name="Children" cascade="all-delete-orphan" inverse="false" lazy="true" >
       <key column="ParentId" foreign-key="LibraryParentId"/>
       <one-to-many class="Library"/>
     </bag>
 
-    <set name="Boxes" table="LibraryBox">
-      <key column="LibraryId" foreign-key="LibraryBoxes" />
+    <bag name="Boxes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId" foreign-key="LibraryBoxes3"/>
+      <one-to-many class="Box"/>
+      <!--<key column="LibraryId" foreign-key="LibraryBoxes" />
       <many-to-many column="BoxId" foreign-key="LibraryBoxes2"
-          class="Box"/>
-    </set>
-  
+          class="Box"/>-->
+    </bag>
 </class>
 </hibernate-mapping>

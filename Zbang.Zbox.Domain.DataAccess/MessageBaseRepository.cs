@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public IEnumerable<MessageBase> GetCurrentInvites(long recepientId)
         {
             return UnitOfWork.CurrentSession.QueryOver<MessageBase>()
-                .Where(w => w.Recepient.Id == recepientId).List();
+                .Where(w => w.Recipient.Id == recepientId).List();
         }
     }
 }

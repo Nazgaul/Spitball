@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public Invite GetCurrentInvite(User recepient, Box box)
         {
             return UnitOfWork.CurrentSession.QueryOver<Invite>()
-                .Where(w => w.Recepient == recepient && w.Box == box && w.IsActive)
+                .Where(w => w.Recipient == recepient && w.Box == box && w.IsActive)
                 .SingleOrDefault();
         }
     }

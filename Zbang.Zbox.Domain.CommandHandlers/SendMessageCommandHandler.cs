@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_UserRepository.Save(recepientUser);
 
 
-                    // TriggerSendMail(command.PersonalNote, recepient, sender.Name, Zbang.Zbox.Infrastructure.Culture.Languages.GetDefaultSystemCulture().Culture);
+                    // TriggerSendMail(command.PersonalNote, recipient, sender.Name, Zbang.Zbox.Infrastructure.Culture.Languages.GetDefaultSystemCulture().Culture);
                     //continue;
                 }
                 var message = new Message(m_IdGenerator.GetId(), sender, recepientUser, command.PersonalNote);
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return m_UserRepository.Get(userid);
             }
-            //var recepientUserId = m_ShortCodesCache.ShortCodeToLong(recepient, ShortCodesType.User);
+            //var recepientUserId = m_ShortCodesCache.ShortCodeToLong(recipient, ShortCodesType.User);
             // var recepientUser = m_UserRepository.Get(recepientUserId);
 
             //if (recepientUser != null)

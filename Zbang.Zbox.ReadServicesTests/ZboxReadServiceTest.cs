@@ -2,8 +2,6 @@
 using Rhino.Mocks;
 using System;
 using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -21,26 +19,15 @@ namespace Zbang.Zbox.ReadServicesTests
     {
         private IZboxReadService m_ZboxReadService;
 
-        private string phrase = "s";
         [TestInitialize]
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-           // var m_EnglishStemmer = Rhino.Mocks.MockRepository.GenerateStub<IEnglishToHebrewChars>();
-            var hebrewStemmer = MockRepository.GenerateStub<IHebrewStemmer>();
-          //  var m_BlobProvider = MockRepository.GenerateStub<IBlobProvider>();
-            var filterWords = MockRepository.GenerateStub<IFilterWords>();
-            filterWords.Stub(x => x.RemoveWords(phrase)).Return(phrase);
-            //m_EnglishStemmer.Stub(x => x.TransferEnglishCharsToHebrew(phrase)).Return(phrase);
-            hebrewStemmer.Stub(x => x.StemAHebrewWord(phrase)).Return(phrase);
-            var m_HttpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
+            var httpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
 
             IocFactory.Unity.RegisterInstance(localStorageProvider);
-           // Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.RegisterInstance<IEnglishToHebrewChars>(m_EnglishStemmer);
-            IocFactory.Unity.RegisterInstance(hebrewStemmer);
-            IocFactory.Unity.RegisterInstance(filterWords);
 
-            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
+            m_ZboxReadService = new ZboxReadService(httpCacheProvider);
         }
 
 

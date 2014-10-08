@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public InviteToCloudents GetInviteToCloudents(User recipient)
         {
             return UnitOfWork.CurrentSession.QueryOver<InviteToCloudents>()
-                .Where(w => w.Recepient == recipient)
+                .Where(w => w.Recipient == recipient)
                 .Take(1).SingleOrDefault();
         }
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Zbox.Domain
@@ -15,6 +11,7 @@ namespace Zbang.Zbox.Domain
         }
         public Department(long id, string name, University university)
         {
+            if (university == null) throw new ArgumentNullException("university");
             Id = id;
             Name = name;
             University = university;
@@ -23,9 +20,9 @@ namespace Zbang.Zbox.Domain
         }
 
         public virtual long Id { get; private set; }
-               
-        public virtual University University { get; private set; }
-        public virtual University University2 { get; private set; }
+
+        public virtual University University { get; protected set; }
+        public virtual University University2 { get; protected set; }
         public virtual string Name { get; private set; }
                
         public  string Url { get; private set; }

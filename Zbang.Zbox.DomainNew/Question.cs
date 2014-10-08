@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual Answer RightAnswer { get; private set; }
 // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        public virtual ICollection<Answer> Answers { get; private set; }
+        public virtual ICollection<Answer> Answers { get; protected set; }
 
         public virtual void UpdateCorrectAnswer(Answer answer)
         {
