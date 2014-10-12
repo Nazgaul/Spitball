@@ -906,6 +906,8 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
+    <Content Include="Js\Autocomplete.js" />
+    <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\box\boxFeedCtrl.js" />
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
@@ -951,6 +953,8 @@
     <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
+    <Content Include="Js\Dialog.js" />
+    <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
@@ -995,6 +999,8 @@
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
+    <Content Include="Js\Search.js" />
+    <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\cookies.js" />
     <Content Include="Js\services\dashboard.js" />
@@ -1039,6 +1045,7 @@
     <Content Include="Js\RT.js" />
     <Content Include="Js\SocialConnect.js" />
     <Content Include="Js\Statistics.js" />
+    <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />
     <Content Include="Js\Utils.js" />
@@ -1478,9 +1485,11 @@
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
+    <Content Include="Scripts\plupload2\moxie.js" />
     <Content Include="Scripts\plupload2\moxie.min.js" />
     <Content Include="Scripts\plupload2\Moxie.swf" />
     <Content Include="Scripts\plupload2\plupload.dev.js" />

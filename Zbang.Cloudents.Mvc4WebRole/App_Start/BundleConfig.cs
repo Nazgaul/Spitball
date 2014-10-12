@@ -368,7 +368,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
 
                 //signalR
-                new JsFileWithCdn("~/Js/RT.js"),
+               // new JsFileWithCdn("~/Js/RT.js"),
 
                 //Social
                 new JsFileWithCdn("~/Js/SocialConnect.js"),
@@ -489,7 +489,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            // jsBundle.ForceRelease();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
