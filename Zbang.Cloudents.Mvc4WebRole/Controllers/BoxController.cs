@@ -81,11 +81,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var model = await ZboxReadService.GetBoxSeo(query);
                 if (model == null)
                 {
-                    throw new BoxDoesntExistException();
+                    throw new BoxDoesntExistException("model is null");
                 }
                 if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
                 {
-                    throw new ItemNotFoundException();
+                    throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
                 if (model.BoxType == BoxType.Box)
                 {
@@ -109,8 +109,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
                     : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
-            catch (BoxDoesntExistException)
+            catch (BoxDoesntExistException ex)
             {
+                TraceLog.WriteError("Box Index desktop", ex);
                 return RedirectToAction("Index", "Error");
             }
             catch (Exception ex)
