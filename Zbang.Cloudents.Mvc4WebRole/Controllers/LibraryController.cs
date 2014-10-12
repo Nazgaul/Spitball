@@ -289,7 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost, Ajax]
-        public ActionResult SelectDepartment(long id)
+        public ActionResult SelectDepartment(Guid id)
         {
             var command = new SelectDepartmentCommand(id, GetUserId());
             ZboxWriteService.SelectDepartment(command);

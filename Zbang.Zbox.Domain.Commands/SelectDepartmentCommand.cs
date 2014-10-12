@@ -9,13 +9,13 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class SelectDepartmentCommand : ICommand
     {
-        public SelectDepartmentCommand(long departmentId, long userId)
+        public SelectDepartmentCommand(Guid departmentId, long userId)
         {
             UserId = userId;
             DepartmentId = departmentId;
         }
 
-        public long DepartmentId { get; private set; }
+        public Guid DepartmentId { get; private set; }
         public long UserId { get; private set; }
     }
 }
