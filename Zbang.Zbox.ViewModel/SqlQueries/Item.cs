@@ -32,7 +32,7 @@ where cte.itemid = @itemid;
     b.Url as BoxUrl
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
-    join zbox.box b on b.BoxId=i.BoxId
+    join zbox.box b on b.BoxId=i.BoxId and b.isdeleted = 0
     where i.ItemId = @ItemId
     and i.IsDeleted = 0 
 	and i.boxid = @BoxId;";

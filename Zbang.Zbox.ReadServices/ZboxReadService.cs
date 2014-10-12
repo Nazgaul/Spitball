@@ -363,7 +363,9 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}", Sql.Item.ItemDetail, Sql.Item.Navigation,
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}", 
+                            Sql.Item.ItemDetail, 
+                            Sql.Item.Navigation,
                             Sql.Security.GetBoxPrivacySettings,
                             Sql.Security.GetUserToBoxRelationship,
                             Sql.Item.ItemComments,
@@ -897,6 +899,10 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId }))
                 {
                     var retVal = await grid.ReadAsync<Box.BoxSeoDto>();
+                    if (retVal == null)
+                    {
+                        throw new BoxDoesntExistException();
+                    }
                     var privacySettings = grid.Read<BoxPrivacySettings>().First();
                     var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
                     GetUserStatusToBox(privacySettings, userRelationShip);
