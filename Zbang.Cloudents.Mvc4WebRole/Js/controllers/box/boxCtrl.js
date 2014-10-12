@@ -1,10 +1,10 @@
-﻿mBox = angular.module('mBox', ['ngDragDrop','angular-plupload']);
+﻿mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']);
 mBox.controller('BoxCtrl',
         ['$scope', '$rootScope',
          '$routeParams', '$modal', '$location',
          '$filter', '$q', '$timeout',
          'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook','sUpload',
+         'sNewUpdates', 'sUserDetails', 'sFacebook', 'sUpload',
 
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
                   $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sUpload) {
@@ -80,13 +80,6 @@ mBox.controller('BoxCtrl',
 
 
 
-            //$scope.$on('box:quizzesLength', function (e, length) {
-            //    $scope.info.quizzesLength = length;
-            //});
-            //$scope.$on('box:filesLength', function (e, length) {
-            //    $scope.info.itemsLength = length;
-            //});
-            
 
             $scope.setTab = function (tab) {
                 if ($scope.options.activeTab === tab) {
@@ -103,10 +96,6 @@ mBox.controller('BoxCtrl',
                     $location.hash('');
                 }
             }
-            //$rootScope.$on('$routeUpdate', function (e, v) {
-            //    $scope.setTab($location.hash());
-            //});
-
 
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
@@ -119,10 +108,6 @@ mBox.controller('BoxCtrl',
             });
 
             //#region tabs           
-
-
-            //TODO DRAGANDDROP
-
 
             //#endregion
 
@@ -155,10 +140,13 @@ mBox.controller('BoxCtrl',
                 modalInstance.result.then(function () {
                 }, function () {
                     //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
                 });
 
                 $scope.$on('$destroy', function () {
                     if (modalInstance) {
+                        modalInstance = undefined;
                         modalInstance.close();
                     }
                 });
@@ -230,13 +218,14 @@ mBox.controller('BoxCtrl',
                         path = path.replace(boxName, '/' + result.queryString + '/');
                         $location.url(path, '', path).replace();
 
-                    }, function () {
-                        //dismiss
+                    })['finally'](function () {
+                        modalInstance = undefined;
                     });
 
                     $scope.$on('$destroy', function () {
                         if (modalInstance) {
-                            modalInstance.close();
+                            modalInstance.dismiss();
+                            modalInstance = undefined;
                         }
                     });
                 });
@@ -285,52 +274,6 @@ mBox.controller('BoxCtrl',
             $scope.$on('selectTab', function (e, tab) {
                 $scope.options.currentTab = tab;
             });
-            $scope.$on('openUpload', function (qna) {
-                $scope.openUploadPopup(qna);
-
-            });
-
-           
-            //#region upload
-
-            $scope.openUploadPopup = function () {
-                if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
-                    return;
-                }
-
-
-
-                var modalInstance = $modal.open({
-                    windowClass: "uploader",
-                    templateUrl: $scope.partials.uploader,
-                    controller: 'UploadCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId,
-                                tabId: $scope.tabId,
-                                boxUrl: $scope.info.url
-                            }
-                        }
-                    }
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.close();
-                    }
-                });
-
-                modalInstance.result.then(function (response) {        
-                    
-                }, function () {
-                    //dismiss
-                });
-            }; 
-           
-            //#endregion
         }
 
 

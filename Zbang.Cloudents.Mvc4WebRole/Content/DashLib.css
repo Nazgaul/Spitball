@@ -919,6 +919,9 @@
   background: url(/Images/site.png?v=3) 0 -1142px no-repeat;
   margin: 55px auto 20px;
 }
+.dragDropArea:hover {
+  cursor: pointer;
+}
 .uploadSrcWpr {
   height: 275px;
   margin: 0 -25px -25px -25px;

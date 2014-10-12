@@ -86,6 +86,15 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             }
         }, function() {
             $rootScope.params.createBoxWizard = false; //user cancelled
+        })['finally'](function () {
+            modalInstance = undefined;
+        });
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = undefined;
+            }
         });
     };
 

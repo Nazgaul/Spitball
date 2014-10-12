@@ -1,5 +1,5 @@
 ﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$modal', 'sBox','sUserDetails',
+        ['$scope', '$rootScope', '$filter', '$modal', 'sBox', 'sUserDetails',
         function ($scope, $rootScope, $filter, $modal, sBox, sUserDetails) {
             var jsResources = window.JsResources;
             $scope.params = {};
@@ -52,13 +52,14 @@
 
                 modalInstance.result.then(function (name) {
                     tab.name = name;
-                }, function () {
-                    //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
                 });
 
                 $scope.$on('$destroy', function () {
                     if (modalInstance) {
-                        modalInstance.close();
+                        modalInstance.dismiss();
+                        modalInstance = undefined;
                     }
                 });
             };
@@ -97,13 +98,14 @@
                     $scope.params.tabs.unshift(tab);
                     $rootScope.$broadcast('update-scroll');
 
-                }, function () {
-                    //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
                 });
 
                 $scope.$on('$destroy', function () {
                     if (modalInstance) {
-                        modalInstance.close();
+                        modalInstance.dismiss();
+                        modalInstance = undefined;
                     }
                 });
             };
@@ -127,6 +129,6 @@
                     item: item,
                     tabId: tabId
                 }
-                $rootScope.$broadcast('tabItemAdded',data);
+                $rootScope.$broadcast('tabItemAdded', data);
             };
         }]);

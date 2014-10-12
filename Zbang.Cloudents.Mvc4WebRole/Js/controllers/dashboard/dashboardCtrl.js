@@ -39,13 +39,17 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             }
         }, function () {
             $rootScope.params.createBoxWizard = false; //user cancelled
+        })['finally'](function () {
+            modalInstance = undefined;
         });
-    };
-    $scope.$on('$destroy', function () {
-        if (modalInstance) {
-            modalInstance.close();
-        }
-    });
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = undefined;
+            }
+        });
+    };    
     function firstTimeDashboard() {
         sDashboard.recommendedCourses().then(function (response) {
             var data = response.success ? response.payload : {};
@@ -119,8 +123,15 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             });
 
             modalInstance.result.then(function (/*box*/) {
-            }, function () {
-                //dismiss
+            })['finally'](function () {
+                modalInstance = undefined;
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
+                }
             });
         });
     };

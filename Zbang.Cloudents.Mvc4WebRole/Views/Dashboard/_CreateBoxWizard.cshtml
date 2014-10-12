@@ -35,7 +35,12 @@
                 Html.RenderPartial("_SocialInvite");
             }
         </div>
-    </div>
+        <div wz-step template="'step.html'">
+            <div class="actionTxt">@IndexResources.Upload</div>
+            @{
+            Html.RenderPartial("_UploadFiles");
+            }
+        </div>
 </div>
 <script type="text/ng-template" id="wizard.html">
     <div>

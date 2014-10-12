@@ -1,7 +1,7 @@
 ﻿/// <reference path="/scripts/underscore-min.js" />
 mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
-            'sUserDetails','sFacebook',
+            'sUserDetails', 'sFacebook',
 function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
     var jsResources = window.JsResources;
 
@@ -34,8 +34,44 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         isSponsoredView();
         $scope.options.loader = false;
         $rootScope.$broadcast('BoxItemsLoaded');
-    }); 
+    });
     //#region upload
+
+    $scope.openUploadPopup = function () {
+        if (!sUserDetails.isAuthenticated()) {
+            cd.pubsub.publish('register', { action: true });
+            return;
+        }
+
+        var modalInstance = $modal.open({
+            windowClass: "uploader",
+            templateUrl: $scope.partials.uploader,
+            controller: 'UploadPopupCtrl',
+            backdrop: 'static',
+            resolve: {
+                data: function () {
+                    return {
+                        boxId: $scope.boxId,
+                        tabId: $scope.tabId,
+                        boxUrl: $scope.info.url
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (response) {
+
+        })['finally'](function () {
+            modalInstance = undefined;
+        });
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = undefined;
+            }
+        });
+    };
 
     $scope.$on('ItemUploaded', function (e, data) {
         if (data.boxId !== $scope.boxId) {
@@ -48,7 +84,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
 
         if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
             return;
-        }        
+        }
 
         $scope.info.itemsLength++;
         $scope.items.unshift(data.itemDto);
