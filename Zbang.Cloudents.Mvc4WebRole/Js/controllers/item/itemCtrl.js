@@ -15,8 +15,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.canNavigate = false;
     $scope.flagText = JsResources.Flag;
-    sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
-
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];

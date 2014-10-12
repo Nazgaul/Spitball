@@ -1,13 +1,10 @@
 ﻿mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']);
 mBox.controller('BoxCtrl',
-        ['$scope', '$rootScope',
-         '$routeParams', '$modal', '$location',
-         '$filter', '$q', '$timeout',
-         'sBox', 'sItem', 'sQuiz', 'sQnA',
-         'sNewUpdates', 'sUserDetails', 'sFacebook', 'sUpload',
-
+        ['$scope', '$rootScope', '$routeParams',
+         '$modal', '$location','$filter', '$timeout',
+         'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
         function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
-                  $q, $timeout, sBox, sItem, sQuiz, sQnA, sNewUpdates, sUserDetails, sFacebook, sUpload) {
+                  $timeout, sBox, sNewUpdates, sUserDetails, sFacebook) {
 
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
@@ -38,9 +35,6 @@ mBox.controller('BoxCtrl',
                 loader: true,
                 activeTab: 'feed'
             };
-
-            sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
-
 
             sBox.info({ id: $scope.boxId }).then(function (response) {
                 var info = response.success ? response.payload : null;

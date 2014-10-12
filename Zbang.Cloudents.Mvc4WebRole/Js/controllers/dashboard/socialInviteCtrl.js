@@ -13,8 +13,7 @@
                  sGoogle.initGApi().then(function () {
                      sGoogle.checkAuth(true);
                  });
-             }
-             //sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+             }             
 
 
              $scope.params = {
