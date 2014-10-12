@@ -15,8 +15,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.canNavigate = false;
     $scope.flagText = JsResources.Flag;
-    sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
-
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -84,10 +82,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });
         modalInstance.result.then(function () {
             $location.hash('');
+        })['finally'](function () {
+            modalInstance = undefined;
         });
+
         $scope.$on('$destroy', function () {
             if (modalInstance) {
                 modalInstance.dismiss();
+                modalInstance = undefined;
             }
         });
     }
@@ -113,10 +115,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.flagged = true;
             $scope.flagText = JsResources.Flagged;
 
+        })['finally'](function () {
+            modalInstance = undefined;
         });
+
         $scope.$on('$destroy', function () {
             if (modalInstance) {
-                modalInstance.close();
+                modalInstance.dismiss();
+                modalInstance = undefined;
             }
         });
 
@@ -140,10 +146,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             $scope.item.name = d.name;
             modalInstance = null; //avoid exception on destroy
             $location.path(d.url).replace();
+        })['finally'](function () {
+            modalInstance = undefined;
         });
+
         $scope.$on('$destroy', function () {
             if (modalInstance) {
                 modalInstance.dismiss();
+                modalInstance = undefined;
             }
         });
     };
@@ -265,15 +275,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });
 
         modalInstance.result.then(function () {
-        }, function () {
-            //dismiss
+        })['finally'](function () {
+            modalInstance = undefined;
         });
 
         $scope.$on('$destroy', function () {
             if (modalInstance) {
-                modalInstance.close();
+                modalInstance.dismiss();
+                modalInstance = undefined;
             }
-        });
+        });     
     };
     $scope.rate = function (t) {
         sItem.rate({ ItemId: $routeParams.itemId, rate: t });

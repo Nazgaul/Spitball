@@ -82,8 +82,15 @@ mUser.controller('UserCtrl',
             });
 
             modalInstance.result.then(function () {
-            }, function () {
-                //dismiss
+            })['finally'](function () {
+                modalInstance = undefined;
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
+                }
             });
 
         };
@@ -170,8 +177,15 @@ mUser.controller('UserCtrl',
             });
 
             modalInstance.result.then(function () {
-            }, function () {
-                //dismiss
+            })['finally'](function () {
+                modalInstance = undefined;
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
+                }
             });
 
         };

@@ -1,14 +1,10 @@
-﻿mBox.controller('UploadCtrl',
-    ['$scope', '$rootScope', '$q', '$modal', '$modalInstance', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload', 'data','$timeout',
+﻿app.controller('UploadCtrl',
+    ['$scope', '$rootScope', '$q', '$modal', 'sFacebook', '$filter',
+        'sDropbox', 'sGoogle', 'sUpload','$timeout',
 
-    function ($scope, $rootScope, $q, $modal, $modalInstance, sFacebook, $filter, Dropbox, Google, sUpload, data,$timeout) {
+    function ($scope, $rootScope, $q, $modal, sFacebook, $filter, Dropbox, Google, sUpload, $timeout) {
         var jsResources = window.JsResources;
-        $scope.boxId = data.boxId;
-        $scope.tabId = data.tabId;
-        $scope.questionId = data.questionId;
-        $scope.newQuestion = data.newQuestion;
-
+           
         $scope.sources = {
             dropboxLoaded: false,
             googleDriveLoaded: false
@@ -40,7 +36,9 @@
         });
 
         $scope.saveLink = function () {
-            $modalInstance.close();
+            if ($scope.close) { //fix for step 3
+                $scope.close();
+            } 
 
             var modalInstance = $modal.open({
                 windowClass: "uploadLink",
@@ -55,7 +53,7 @@
                     id: guid(),
                     name: url,
                     fileUrl: url,
-                    boxId: $scope.boxId,
+                    boxId: $scope.boxId || $scope.box.id, //fix for step 3
                     tabId: $scope.tabId
                 };
 
@@ -86,8 +84,18 @@
                 });
 
                 data.size = 1024;
-                $rootScope.$broadcast('LinkAdded', data);
+                $rootScope.$broadcast('LinkAdded', data);                
+                $scope.completeWizard();            
 
+            })['finally'](function () {
+                modalInstance = undefined;
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
+                }
             });
         };
 
@@ -102,7 +110,7 @@
                             id: guid(),
                             name: fileData.name,
                             fileUrl: fileData.link,
-                            boxId: $scope.boxId,
+                            boxId: $scope.boxId || $scope.box.id, //fix for step 3
                             tabId: $scope.tabId
 
                         };
@@ -137,8 +145,11 @@
 
                     })(file);
                 });
-                $modalInstance.close();
-
+                if ($scope.close) {//fix for step 3
+                    $scope.close();
+                } else {
+                    $scope.completeWizard();
+                }
             });
 
         };
@@ -161,7 +172,7 @@
                                 id: guid(),
                                 name: fileData.name,
                                 fileUrl: fileData.link,
-                                boxId: $scope.boxId,
+                                boxId: $scope.boxId || $scope.box.id, //fix for step 3
                                 tabId: $scope.tabId
                             };
                             sUpload.link(data).then(function (response) {
@@ -204,15 +215,23 @@
                     });
                 });
             }
-            $modalInstance.close();
+            if ($scope.close) {//fix for step 3
+                $scope.close();
+            }  else {
+                $scope.completeWizard();
+            }
         };
 
         $scope.cancel = function () {
-            $modalInstance.dismiss();
+            $scope.dismiss();
         };
 
         $scope.$on('BeforeUpload', function (event, data) {
-            $modalInstance.dismiss();
+            if ($scope.dismiss) { //fix for step 3
+                $scope.dismiss();
+            } else {
+                $scope.completeWizard();
+            }
         });
 
 

@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', function ($rootScope, $timeout, sUserDetails) {
 	    return {
 	        restrict: 'A',
 	        scope: {},
@@ -57,6 +57,12 @@ angular.module('angular-plupload', [])
 	            });
 
 	            uploader.bind('FilesAdded', function (up, files) {
+
+	                if (!sUserDetails.isAuthenticated()) {
+	                    cd.pubsub.publish('register', { action: true });
+	                    return;
+	                }
+
 	                _.forEach(files, function (file) {
 	                    file.boxId = iAttrs.boxId;
 	                    file.tabId = iAttrs.tabId || null;

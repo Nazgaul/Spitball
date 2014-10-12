@@ -129,6 +129,15 @@
                              $analytics.setVariable('dimension1', university.name);
                              getDepartments();
                              sUserDetails.setDepartment(null);
+                         })['finally'](function () {
+                             modalInstance = undefined;
+                         });
+
+                         $scope.$on('$destroy', function () {
+                             if (modalInstance) {
+                                 modalInstance.dismiss();
+                                 modalInstance = undefined;
+                             }
                          });
                      }
                  });

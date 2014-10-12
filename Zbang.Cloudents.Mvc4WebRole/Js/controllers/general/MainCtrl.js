@@ -53,8 +53,15 @@
                 });
 
                 modalInstance.result.then(function () {
-                }, function () {
-                    //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.dismiss();
+                        modalInstance = undefined;
+                    }
                 });
             }); //temp
 
@@ -87,8 +94,15 @@
                 });
 
                 modalInstance.result.then(function () {
-                }, function () {
-                    //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance.dismiss();
+                        modalInstance = undefined;
+                    }
                 });
             };
 

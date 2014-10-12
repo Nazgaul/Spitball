@@ -342,25 +342,26 @@ mBox.controller('QnACtrl',
             var modalInstance = $modal.open({
                 windowClass: "uploader",
                 templateUrl: $scope.partials.uploader,
-                controller: 'UploadCtrl',
+                controller: 'UploadPopupCtrl',
                 backdrop: 'static',
                 resolve: {
                     data: function () {
                         return data;
                     }
                 }
+            });           
+
+            modalInstance.result.then(function (response) {
+                $scope.followBox(true);
+            })['finally'](function () {
+                modalInstance = undefined;
             });
 
             $scope.$on('$destroy', function () {
                 if (modalInstance) {
-                    modalInstance.close();
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
                 }
-            });
-
-            modalInstance.result.then(function (response) {
-                $scope.followBox(true);
-            }, function () {
-                //dismiss
             });
         }
 

@@ -15,7 +15,6 @@
                xfbml: true,
                oauth: true
            });
-           facebookInit = true;
            loginStatus();
        };
        (function (d) {
@@ -41,6 +40,8 @@
                        return;
                    }
                    clearInterval(interval);
+                   facebookInit = true;
+
                    FB.getLoginStatus(function (response) {
                        if (response.status === 'connected') {
                            accessToken = response.authResponse.accessToken;

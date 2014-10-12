@@ -5,22 +5,22 @@
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
             <div class="courseType" ng-hide="display.createDep">
-                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-init="isAcademicBox=true" ng-value="false" ng-model="isAcademicBox" />
+                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-value="false" ng-checked="isPrivate" ng-disabled="isAcademic"/>
                 <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
                 <div class="labelExplain">@IndexResources.InviteOnly</div>
             </div>
 
             <div class="courseType" ng-hide="display.createDep">
-                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-value="true" ng-model="isAcademicBox" />
+                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-value="true" ng-checked="isAcademic" ng-disabled="isPrivate"/>
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
-            <div class="newAcademic clearfix editDept" ng-show="isAcademicBox && !(display.createDep)">
+            <div class="newAcademic clearfix editDept" ng-show="isAcademic && !(display.createDep)">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }
             </div>
-            <div class="clearfix" ng-show="!(isAcademicBox)">
+            <div class="clearfix" ng-show="!(isAcademic)">
                 @{
                     Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
                 }
@@ -35,7 +35,12 @@
                 Html.RenderPartial("_SocialInvite");
             }
         </div>
-    </div>
+        <div wz-step template="'step.html'">
+            <div class="actionTxt">@IndexResources.Upload</div>
+            @{
+            Html.RenderPartial("_UploadFiles");
+            }
+        </div>
 </div>
 <script type="text/ng-template" id="wizard.html">
     <div>

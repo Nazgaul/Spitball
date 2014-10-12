@@ -1,8 +1,16 @@
 ﻿mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', '$modalInstance', 'WizardHandler','sLibrary',
-        function ($scope, $modalInstance, WizardHandler, sLibrary) {
+     ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'data',
+        function ($scope, $modalInstance, WizardHandler, sLibrary, data) {
 
             var wizard;
+
+            if (data.isAcademic) {
+                $scope.isAcademic = true;
+                $scope.department = data.department;
+            }
+            if (data.isPrivate) {
+                $scope.isPrivate = true;
+            }
 
             $scope.display = { createDep: false };
             $scope.formData = {};
@@ -15,16 +23,14 @@
 
                 wizard.next();
             };
-            //window.setTimeout(function() {
-            //    $scope.next();
-            //}, 500);
+
             $scope.cancel = function () {
                 if (!$scope.box.url) {
                     $modalInstance.dismiss();
                     return;
                 }
 
-                wizard.finish();                
+                wizard.finish();
             };
 
             $scope.completeWizard = function () {

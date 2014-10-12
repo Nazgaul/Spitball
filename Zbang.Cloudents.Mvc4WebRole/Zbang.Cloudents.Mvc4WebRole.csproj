@@ -912,6 +912,7 @@
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
     <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
     <Content Include="Js\controllers\box\boxTabsCtrl.js" />
+    <Content Include="Js\controllers\box\uploadPopupCtrl.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\socialInviteCtrl.js" />
     <Content Include="Js\controllers\general\shareCtrl.js" />
@@ -1630,7 +1631,7 @@
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Dashboard\_SocialInvite.cshtml" />
-    <Content Include="Views\Shared\_UploadFiles.cshtml" />
+    <Content Include="Views\Dashboard\_UploadFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <Content Include="Scripts\underscore.min.map" />

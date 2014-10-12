@@ -13,8 +13,7 @@
                  sGoogle.initGApi().then(function () {
                      sGoogle.checkAuth(true);
                  });
-             }
-             //sFacebook.loginStatus(); //check if user is authenticated so user can use facebook properly
+             }             
 
 
              $scope.params = {
@@ -109,9 +108,12 @@
                      return;
                  }
              };     
-
              $scope.addContacts = function () {
                  $scope.params.contactLimit += $scope.params.contactPage;
+             };
+
+             $scope.nextStep = function () {
+                 $scope.next();
              };
 
              function getParamsByState(state) {

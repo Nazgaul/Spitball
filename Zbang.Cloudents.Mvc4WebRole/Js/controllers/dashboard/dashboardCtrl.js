@@ -28,7 +28,14 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             templateUrl: $scope.partials.createBoxWized,
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
-            keyboard: false
+            keyboard: false,
+            resolve: {
+                data: function () {
+                    return {
+                        isPrivate: true                        
+                    }
+                }
+            }
         });
         modalInstance.result.then(function (url) {
 
@@ -39,13 +46,17 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             }
         }, function () {
             $rootScope.params.createBoxWizard = false; //user cancelled
+        })['finally'](function () {
+            modalInstance = undefined;
         });
-    };
-    $scope.$on('$destroy', function () {
-        if (modalInstance) {
-            modalInstance.close();
-        }
-    });
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = undefined;
+            }
+        });
+    };    
     function firstTimeDashboard() {
         sDashboard.recommendedCourses().then(function (response) {
             var data = response.success ? response.payload : {};
@@ -119,8 +130,15 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             });
 
             modalInstance2.result.then(function (/*box*/) {
-            }, function () {
-                //dismiss
+            })['finally'](function () {
+                modalInstance = undefined;
+            });
+
+            $scope.$on('$destroy', function () {
+                if (modalInstance) {
+                    modalInstance.dismiss();
+                    modalInstance = undefined;
+                }
             });
         });
     };

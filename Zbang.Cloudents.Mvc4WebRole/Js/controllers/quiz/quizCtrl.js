@@ -95,7 +95,16 @@ mQuiz.controller('QuizCtrl',
                         $scope.quiz.afraid = true;
                     },function() {
                         startTimer();
-                    }); 
+                    })['finally'](function () {
+                        modalInstance = undefined;
+                    });
+
+                    $scope.$on('$destroy', function () {
+                        if (modalInstance) {
+                            modalInstance.dismiss();
+                            modalInstance = undefined;
+                        }
+                    });
 
                     return;
                 }, 1000);
