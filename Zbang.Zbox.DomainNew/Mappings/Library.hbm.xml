@@ -21,11 +21,9 @@
     </bag>
 
     <bag name="Boxes" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key column="BoxId" foreign-key="LibraryBoxes3"/>
+      <key column="LibraryId" foreign-key="LibraryBoxes3"/>
       <one-to-many class="Box"/>
-      <!--<key column="LibraryId" foreign-key="LibraryBoxes" />
-      <many-to-many column="BoxId" foreign-key="LibraryBoxes2"
-          class="Box"/>-->
+     
     </bag>
 </class>
 </hibernate-mapping>

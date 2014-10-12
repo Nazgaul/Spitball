@@ -12,7 +12,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
@@ -78,7 +77,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //TODO: seperate in ajax
         [HttpGet, Ajax]
         public async Task<PartialViewResult> ChoosePartial()
         {
