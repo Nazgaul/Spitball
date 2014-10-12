@@ -293,7 +293,7 @@ mBox.controller('BoxCtrl',
            
             //#region upload
 
-            $scope.openUploadPopup = function (qna) {
+            $scope.openUploadPopup = function () {
                 if (!sUserDetails.isAuthenticated()) {
                     cd.pubsub.publish('register', { action: true });
                     return;
