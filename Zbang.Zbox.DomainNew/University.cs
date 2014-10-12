@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Zbang.Zbox.Domain
 {
@@ -49,6 +51,17 @@ namespace Zbang.Zbox.Domain
                 boxesCount = 0;
             }
             NoOfBoxes = boxesCount;
+        }
+
+        public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
+        {
+            if (Libraries.Any(f => f.Name == nodeName))
+            {
+                throw new ArgumentException("cannot have node with the same name");
+            }
+            var library = new Library(id, nodeName, null, this);
+            Libraries.Add(library);
+            return library;
         }
     }
 }

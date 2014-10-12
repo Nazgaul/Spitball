@@ -7,5 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Required]
         public string Name { get; set; }
 
+
+        public string ParentId { get; set; }
     }
 }

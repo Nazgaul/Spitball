@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -8,7 +7,7 @@ namespace Zbang.Zbox.Domain
 {
     public class AcademicBox : Box
     {
-        public AcademicBox(string boxName, Department department,
+        public AcademicBox(string boxName, Library department,
             string courseCode, string professor, string picture, User creator, string pictureUrl, University university)
             :
             base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
@@ -41,11 +40,11 @@ namespace Zbang.Zbox.Domain
         public virtual string CourseCode { get; private set; }
         public virtual string Professor { get; private set; }
 
-        public virtual Department Department { get; private set; }
+        public virtual Library Department { get; private set; }
 
         public virtual University University { get; private set; }
 
-        public virtual void UpdateDepartment(Department dep, University university)
+        public virtual void UpdateDepartment(Library dep, University university)
         {
             Department = dep;
             University = university;

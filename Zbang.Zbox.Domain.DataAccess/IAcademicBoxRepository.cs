@@ -4,7 +4,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public interface IAcademicBoxRepository: IRepository<AcademicBox> 
     {
-        AcademicBox CheckIfExists(string courseCode, Department department, string professor, string courseName);
+        AcademicBox CheckIfExists(string courseCode, Library department, string professor, string courseName);
         //AcademicBox GetByNameAndProfessor(string boxName, Professor professor, User universityUser);
     }
 }

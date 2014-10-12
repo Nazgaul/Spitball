@@ -84,13 +84,13 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                const string sqlQuery = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
+            const string sqlQuery = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
                 uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
                   from zbox.university uWrap  
                   where uWrap.Id = @universityDbQuery";
-
+           
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
                 var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(sqlQuery, new { universityDbQuery = query.UniversityId });
                 return retVal.FirstOrDefault();
             }
@@ -101,29 +101,54 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public NodeBoxesDto GetLibraryNode(GetLibraryNodeQuery query)
+        public async Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query)
         {
-
-            using (UnitOfWork.Start())
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                if (!query.ParentNode.HasValue)
+                var sql = query.ParentNode.HasValue ? 
+                    Sql.Library.GetLibraryNodeWithParent + 
+                    Sql.Library.GetAcademicBoxesByNode : Sql.Library.GetLibraryNode;
+
+                using (var grid = await conn.QueryMultipleAsync(sql, new
                 {
-                    var dbNode = UnitOfWork.CurrentSession.GetNamedQuery("GetLibraryNode");
-                    dbNode.SetInt64("UniversityId", query.UniversityId);
-                    dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-                    var nodeResult = dbNode.List<NodeDto>();
-                    return new NodeBoxesDto(nodeResult, null);
+                    ParentId = query.ParentNode,
+                    query.UniversityId,
+                    query.UserId
+                }))
+                {
+                    var retVal = new NodeBoxesDto
+                    {
+                        Nodes = await grid.ReadAsync<NodeDto>()
+                    };
+
+                    if (!grid.IsConsumed)
+                    {
+                        retVal.Boxes = await grid.ReadAsync<BoxDto>();
+                        
+                    }
+                    return retVal;
                 }
-
-                var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
-                boxesQuery.SetParameter("ParentNode", query.ParentNode);
-                boxesQuery.SetParameter("UserId", query.UserId);
-                boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
-
-                var boxesResult = boxesQuery.List<BoxDto>();
-                return new NodeBoxesDto(null, boxesResult);
-
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    if (!query.ParentNode.HasValue)
+            //    {
+            //        var dbNode = UnitOfWork.CurrentSession.GetNamedQuery("GetLibraryNode");
+            //        dbNode.SetInt64("UniversityId", query.UniversityId);
+            //        dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
+            //        var nodeResult = dbNode.List<NodeDto>();
+            //        return new NodeBoxesDto(nodeResult, null);
+            //    }
+
+            //    var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
+            //    boxesQuery.SetParameter("ParentNode", query.ParentNode);
+            //    boxesQuery.SetParameter("UserId", query.UserId);
+            //    boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
+
+            //    var boxesResult = boxesQuery.List<BoxDto>();
+            //    return new NodeBoxesDto(null, boxesResult);
+
+            //}
         }
 
         /// <summary>
@@ -363,8 +388,8 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}", 
-                            Sql.Item.ItemDetail, 
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}",
+                            Sql.Item.ItemDetail,
                             Sql.Item.Navigation,
                             Sql.Security.GetBoxPrivacySettings,
                             Sql.Security.GetUserToBoxRelationship,
@@ -894,7 +919,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
-                    Sql.Seo.BoxSeo, 
+                    Sql.Seo.BoxSeo,
                     Sql.Security.GetBoxPrivacySettings,
                     Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId }))
                 {

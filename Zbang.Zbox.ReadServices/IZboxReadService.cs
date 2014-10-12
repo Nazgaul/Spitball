@@ -30,7 +30,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query);
 
-        NodeBoxesDto GetLibraryNode(GetLibraryNodeQuery query);
+        Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query);
         Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query);
         Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
 

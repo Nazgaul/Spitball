@@ -4,7 +4,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
-    public class CreateAcademicBox //: CreateBox
+    public class CreateAcademicBox 
     {
 
         [DataType(DataType.Text)]
@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         [Required(ErrorMessageResourceType = typeof(CreateBoxResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(CreateAcademicBoxResources), Name = "Department")]
-        public long DepartmentId { get; set; }
+        public string DepartmentId { get; set; }
 
         public override string ToString()
         {

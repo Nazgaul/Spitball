@@ -26,60 +26,20 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             return connection;
 
         }
+
+
+        public static async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null)
+        {
+            using (var con = await OpenConnectionAsync())
+            {
+
+                var retVal = await con.QueryAsync<T>(sql, param);
+                con.Close();
+                return retVal;
+
+            }
+        }
+
+
     }
-    //public class DapperParameters
-    //{
-    //    public DapperParameters(string sql, dynamic parameters)
-    //    {
-    //        Sql = sql;
-    //        Parameters = parameters;
-    //    }
-    //    public string Sql { get; private set; }
-    //    public dynamic Parameters { get; private set; }
-
-    //    public DapperReturnValue<T> RetVal<T>()
-    //    {
-
-    //    }
-
-    //}
-    //public class DapperReturnValue<T>
-    //{
-    //    public IEnumerable<T> Values { get; set; }
-    //}
-
-    //public class DapperWrapper
-    //{
-    //    private List<DapperParameters> queries = new List<DapperParameters>();
-
-
-    //    public async Task Excecute()
-    //    {
-    //        if (queries.Count == 0)
-    //        {
-    //            throw new NotImplementedException();
-    //        }
-    //        using (var conn = await DapperConnection.OpenConnection())
-    //        {
-    //            if (queries.Count == 1)
-    //            {
-    //                var query = queries[0];
-    //                query.RetVal
-    //                //return conn.QueryAsync((queries[0])
-    //            }
-    //        }
-    //    }
-    //    //get return something
-    //    //excecute
-
-
-
-
-    //}
-
-    //public class DapperFuture<T>
-    //{
-
-    //}
-
 }

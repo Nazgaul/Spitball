@@ -68,6 +68,7 @@
     <Compile Include="AddLinkToBoxCommandResult.cs" />
     <Compile Include="AddNewUpdatesCommand.cs" />
     <Compile Include="AddCommentCommand.cs" />
+    <Compile Include="AddNodeToLibraryCommand.cs" />
     <Compile Include="AddReplyToAnnotationCommand.cs" />
     <Compile Include="AddStudentCommand.cs" />
     <Compile Include="AssignItemToTabCommand.cs" />
@@ -77,7 +78,6 @@
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
-    <Compile Include="CreateDepartmentCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
     <Compile Include="CreateItemTabCommand.cs" />

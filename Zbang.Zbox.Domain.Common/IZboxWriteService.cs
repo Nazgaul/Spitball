@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Domain.Common
 
 
 
-        void CreateDepartment(CreateDepartmentCommand command);
+        void CreateDepartment(AddNodeToLibraryCommand command);
 
 
         void CreateUniversity(CreateUniversityCommand command);

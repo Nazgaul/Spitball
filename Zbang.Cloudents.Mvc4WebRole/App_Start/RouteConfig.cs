@@ -73,26 +73,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             #region library
             routes.MapRoute("LibraryDesktop",
-                "department",
-                new { controller = "Home", action = "Index"},
+                "library",
+                new { controller = "Home", action = "Index" },
                 new { isDesktop = new DesktopConstraint() }
             );
-            routes.MapRoute("LibraryMobile",
-               "department",
-               new { controller = "Library", action = "DepartmentRedirect" },
-               new { isDesktop = new MobileConstraint() }
-           );
+            // routes.MapRoute("LibraryMobile",
+            //    "department",
+            //    new { controller = "Library", action = "DepartmentRedirect" },
+            //    new { isDesktop = new MobileConstraint() }
+            //);
             routes.MapRoute("LibraryDesktop2",
-                "department/{universityName}/{LibId}/{LibName}",
+                "library/{LibId}/{LibName}",
                 new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint(), LibId = new LongRouteConstraint()}
+                new
+                {
+                    isDesktop = new DesktopConstraint(),
+                }
             );
-            routes.MapRoute("LibraryAjax",
-               "department",
-               new { controller = "Library", action = "Index" },
-               new { isDesktop = new AjaxConstaint() }
-           );
-          
+            // routes.MapRoute("LibraryAjax",
+            //    "library",
+            //    new { controller = "Library", action = "Index" },
+            //    new { isDesktop = new AjaxConstaint() }
+            //);
+
             #endregion
 
             //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]

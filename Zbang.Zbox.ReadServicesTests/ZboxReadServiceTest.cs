@@ -94,7 +94,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLibraryNodeQuery(1, null, 1);
             try
             {
-                m_ZboxReadService.GetLibraryNode(query);
+                var x = m_ZboxReadService.GetLibraryNode(query).Result;
             }
             catch (Exception ex)
             {
@@ -104,10 +104,10 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetLibraryNode_QueryWithNode_ReturnResult()
         {
-            var query = new GetLibraryNodeQuery(14, 2282, 1);
+            var query = new GetLibraryNodeQuery(14, Guid.Parse("E6DBF958-8246-4669-915C-0041093B7FC1"), 1);
             try
             {
-                m_ZboxReadService.GetLibraryNode(query);
+              var x =  m_ZboxReadService.GetLibraryNode(query).Result;
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-      
+
 
         [TestMethod]
         public void GetBoxComments_Query_ReturnResult()
@@ -220,7 +220,7 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-       
+
         [TestMethod]
         public void GetUserFriends_Query_ReturnResult()
         {
