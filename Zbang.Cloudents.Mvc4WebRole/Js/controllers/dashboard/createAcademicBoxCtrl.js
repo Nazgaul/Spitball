@@ -3,15 +3,28 @@
          'sBox','$filter',
         'debounce', 'sLibrary','sUserDetails','$analytics',
 function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
+
+    if ($scope.isPrivate) {
+        return; //creating a private box
+    }
+
+    $scope.formData = {
+        academicBox: {
+            departmentId: $scope.department.id
+        }
+    };
+
     $scope.selectedDepartment = true;
 
     sLibrary.items().then(function (response) {
         var data = response.success ? response.payload : [];
         allDepartments = data.nodes;
         $scope.departments = allDepartments;
-    });
 
-    $scope.params.departmentSearch = sUserDetails.getDetails().department.name;
+    });
+    
+    $scope.params.departmentSearch = $scope.department.name;
+
 
     $scope.create = function (isValid) {
 
@@ -29,14 +42,7 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
     };
 
     var allDepartments;
-
-
-    $scope.formData = {
-        academicBox: {
-            departmentId: sUserDetails.getDetails().department.id
-        }
-    };
-
+   
     $scope.backCreateDepartment = function () {
         $scope.department = false;
         $scope.display = { createDep: false };

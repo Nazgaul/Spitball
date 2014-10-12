@@ -28,7 +28,14 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             templateUrl: $scope.partials.createBoxWized,
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
-            keyboard: false
+            keyboard: false,
+            resolve: {
+                data: function () {
+                    return {
+                        isPrivate: true                        
+                    }
+                }
+            }
         });
         modalInstance.result.then(function (url) {
 

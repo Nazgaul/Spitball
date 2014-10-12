@@ -2,6 +2,11 @@
         ['$scope',
          'sBox',
          function ($scope, sBox) {
+
+             if ($scope.isAcademic) {
+                 return;
+             }
+
              $scope.create = function (isValid) {
                  //TODO: add disabled state
                  if (!isValid) {

@@ -71,20 +71,26 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             templateUrl: '/Dashboard/CreateBox/',
             controller: 'CreateBoxWizardCtrl',
             backdrop: false,
-            keyboard: false
-            // resolve: {
-            //friends: function () {
-            //return data.payload.my;
-            //}
-            // }
+            keyboard: false,
+            resolve: {
+                data: function () {
+                    return {
+                        isAcademic: true,
+                        department: {
+                            id : $scope.info.libraryId,
+                            name : $scope.info.libraryName
+                        }
+                    }
+                }
+            }
         });
-        modalInstance.result.then(function(url) {
+        modalInstance.result.then(function (url) {
 
             $rootScope.params.createBoxWizard = false;
             if (url) {
                 $location.path(url);
             }
-        }, function() {
+        }, function () {
             $rootScope.params.createBoxWizard = false; //user cancelled
         })['finally'](function () {
             modalInstance = undefined;
