@@ -117,7 +117,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.openShowFriends = function () {
         sUser.friends().then(function (data) {
-            var modalInstance = $modal.open({
+            var modalInstance2 = $modal.open({
                 windowClass: "boxSettings dashMembers",
                 templateUrl: $scope.partials.friends,
                 controller: 'ShowFriendsCtrl',
@@ -129,7 +129,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 }
             });
 
-            modalInstance.result.then(function (/*box*/) {
+            modalInstance2.result.then(function (/*box*/) {
             })['finally'](function () {
                 modalInstance = undefined;
             });

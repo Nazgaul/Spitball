@@ -27,20 +27,20 @@ app.config([
                 },
                 'responseError': function (response) {
                     // do something on success
-                    switch (response.status) {
-                        case 401:
-                        case 403:
-                            window.open('/account', '_self');
-                            break;
-                        case 404:
-                            window.open('/error', '_self');
-                        case 500:
-                            window.open('/error', '_self');
-                        default:
-                            window.open('/error', '_self');
-                            break;
+                    //switch (response.status) {
+                    //    case 401:
+                    //    case 403:
+                    //        window.open('/account', '_self');
+                    //        break;
+                    //    case 404:
+                    //        window.open('/error', '_self');
+                    //    case 500:
+                    //        window.open('/error', '_self');
+                    //    default:
+                    //        window.open('/error', '_self');
+                    //        break;
 
-                    }
+                    //}
                 }
             };
         }]);
@@ -123,11 +123,11 @@ app.config([
                 return '/quiz/IndexPartial/';
             }
         }).
-        when('/department/:uniName/:libraryId/:libraryName/', {
+        when('/library/:libraryId/:libraryName/', {
             params: {
                 type: 'library'
             },
-            templateUrl: '/department/'
+            templateUrl: '/library/IndexPartial/'
         }).
         when('/library/choose/', {
             params: {
@@ -135,11 +135,11 @@ app.config([
             },
             templateUrl: '/library/ChoosePartial/'
         }).
-        when('/department/', {
+        when('/library/', {
             params: {
                 type: 'library'
             },
-            templateUrl: '/department/'
+            templateUrl: '/library/IndexPartial/'
         }).
         when('/search/', {
             params: {

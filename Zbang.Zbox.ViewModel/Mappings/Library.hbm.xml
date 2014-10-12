@@ -39,10 +39,22 @@
   
   <sql-query name="GetLibraryNode" read-only="1" resultset-ref="ParentNodeDetails">
     <![CDATA[
-     select l.Id as Id, l.Name as Name, l.Url as Url, l.NoOfBoxes as NoBoxes from zbox.maindepartment l
-  where l.universityId = :UniversityId
-  and l.NoOfBoxes > 0
-  order by name
+     select l.libraryid as Id, l.Name as Name, 
+     l.Url as Url, l.NoOfBoxes as NoBoxes 
+     from zbox.Library l
+    where l.Id = :UniversityId
+    order by name
+    ]]>
+  </sql-query>
+  
+    <sql-query name="GetLibraryNodeWithParent" read-only="1" resultset-ref="ParentNodeDetails">
+    <![CDATA[
+     select l.libraryid as Id, l.Name as Name, 
+     l.Url as Url, l.NoOfBoxes as NoBoxes 
+     from zbox.Library l
+    where l.Id = :UniversityId
+    and l.parentid = :ParentId
+    order by name
     ]]>
   </sql-query>
 

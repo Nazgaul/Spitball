@@ -43,10 +43,7 @@
       <one-to-many class="Quiz"/>
     </bag>
 
-    <!--<bag name="Comments" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key column="BoxId" />
-      <one-to-many class="Comment"/>
-    </bag>-->
+    
     <bag name="Questions" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId" />
       <one-to-many class="Comment"/>
@@ -67,7 +64,8 @@
     <subclass name="AcademicBox" discriminator-value="Academic">
       <property name="CourseCode"/>
       <property name="Professor" column="ProfessorName"/>
-      <many-to-one name="Department" class="Department" not-null="false" foreign-key="DepartmentBoxes"/>
+      <many-to-one name="Department" column="LibraryId" class="Library" not-null="false" foreign-key="LibraryBoxes3"/>
+      <!--<many-to-one name="Department" class="Department" not-null="false" foreign-key="DepartmentBoxes"/>-->
       <many-to-one name="University" class="University" not-null="false" foreign-key="UniversityBoxes"/>
     </subclass>
   </class>

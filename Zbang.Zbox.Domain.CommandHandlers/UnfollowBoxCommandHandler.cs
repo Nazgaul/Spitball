@@ -14,15 +14,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IDepartmentRepository m_DepartmentRepository;
+        //private readonly IDepartmentRepository m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
 
         public UnfollowBoxCommandHandler(IRepository<Box> boxRepository,
-            IUserRepository userRepository, IDepartmentRepository departmentRepository, IUniversityRepository universityRepository)
+            IUserRepository userRepository, 
+            //IDepartmentRepository departmentRepository, 
+            IUniversityRepository universityRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
-            m_DepartmentRepository = departmentRepository;
+           // m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
         }
 
@@ -60,12 +62,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (academicBox != null)
             {
                 var department = academicBox.Department;
-                var noOfBoxes = m_DepartmentRepository.GetBoxesInDepartment(department);
-                department.UpdateNumberOfBoxes(--noOfBoxes);
-                m_DepartmentRepository.Save(department);
+               // var noOfBoxes = m_DepartmentRepository.GetBoxesInDepartment(department);
+                //department.UpdateNumberOfBoxes(--noOfBoxes);
+                //m_DepartmentRepository.Save(department);
 
                 var university = academicBox.University;
-                noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
+                var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
                 university.UpdateNumberOfBoxes(--noOfBoxes);
                 m_UniversityRepository.Save(university);
                 //    foreach (var library in acadmicBox.Library)

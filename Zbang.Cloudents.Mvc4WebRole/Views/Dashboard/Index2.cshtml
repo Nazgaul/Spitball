@@ -4,9 +4,9 @@
 
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
-    <div class="dashContent" ng-init="notNewUniversity=@Model.NoOfBoxes">
+    <div class="dashContent" >
         <aside class="asideDash lFloat">
-            <a class="dashTop" ng-class="{aDisbled: !(notNewUniversity)}" href="@Url.RouteUrl("LibraryDesktop",null)">
+            <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
                 <span class="uniLogo">
                     <img alt="University logo" width="70" height="70" src="@Model.Img" />
                 </span>
@@ -71,7 +71,7 @@
 
                 <div class="chooseActionWpr">
 
-                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses" ng-if="notNewUniversity">
+                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses">
                         <div class="actionTxt">@IndexResources.BrowseCourses</div>
                     </a>
                     <div class="createCourse">
@@ -106,8 +106,8 @@
                         </div>
                     </div>*@
                 <ol class="myAreaList clearfix">
-                    <li class="box" tooltip="{{notNewUniversity? '' : 'currently no boxes in the university'}}">
-                        <a ng-class="{aDisbled: !(notNewUniversity)}" class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
+                    <li class="box" >
+                        <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                     </li>
                     <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
                     </li>

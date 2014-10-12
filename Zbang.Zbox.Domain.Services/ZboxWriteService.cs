@@ -614,7 +614,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void CreateDepartment(CreateDepartmentCommand command)
+        public void CreateDepartment(AddNodeToLibraryCommand command)
         {
             using (UnitOfWork.Start())
             {

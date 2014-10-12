@@ -188,6 +188,7 @@
     <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\Item.cs" />
+    <Compile Include="SqlQueries\Library.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
     <Compile Include="SqlQueries\Store.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />

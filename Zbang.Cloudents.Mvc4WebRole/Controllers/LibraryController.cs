@@ -14,6 +14,8 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
 
@@ -36,7 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult DepartmentRedirect()
         {
-            return RedirectToRoute("Default", new {controller = "Library", Action = "Index"});
+            return RedirectToRoute("Default", new { controller = "Library", Action = "Index" });
         }
 
         //[UserNavNWelcome]
@@ -50,8 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Choose");
             }
-
-
             var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value
                 );
 
@@ -68,11 +68,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        [HttpGet, NoUniversity, Ajax]
+        public async Task<ActionResult> IndexPartial()
+        {
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (userDetail == null || !userDetail.UniversityId.HasValue)
+            {
+                return RedirectToAction("Choose");
+            }
+            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value
+                );
+
+            var result = await ZboxReadService.GetUniversityDetail(query);
+            if (result.Id == 0)
+            {
+                return RedirectToAction("Choose");
+            }
+            return PartialView("Index", result);
+        }
+
         //TODO: put output cache
         [HttpGet, NonAjax]
         [NoCache]
         public ActionResult Choose()
-        {   
+        {
             return View("Empty");
         }
 
@@ -182,22 +201,37 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-       
+
 
         [HttpGet]
         [Ajax]
         //[AjaxCache(TimeConsts.Minute * 30)]
-        public ActionResult Nodes(long? section)
+        public async Task<JsonResult> Nodes(string section)
         {
+            var guid = TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, section, GetUserId());
-            var result = ZboxReadService.GetLibraryNode(query);
+            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, guid, GetUserId());
+            var result = await ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
+
+        }
+        private Guid? TryParseNullableGuid(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+            Guid guid;
+            if (Guid.TryParse(str, out guid))
+            {
+                return guid;
+            }
+            return GuidEncoder.Decode(str);
 
         }
 
@@ -281,9 +315,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var command = new CreateDepartmentCommand(model.Name, userDetail.UniversityId.Value, GetUserId());
+                var parentId = TryParseNullableGuid(model.ParentId);
+                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId);
                 ZboxWriteService.CreateDepartment(command);
-                return Json(new JsonResponse(true, new { id = command.Id }));
+                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
+                return Json(new JsonResponse(true, result));
             }
             catch (ArgumentException ex)
             {
@@ -312,11 +348,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ModelState.AddModelError(string.Empty, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
+            var guid = TryParseNullableGuid(model.DepartmentId);
+            if (!guid.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Departmentid is required");
+                return Json(new JsonResponse(false, GetModelStateErrors()));
+            }
             try
             {
+
                 var userId = GetUserId();
+
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, model.DepartmentId);
+                                                           model.CourseId, model.Professor, guid.Value);
                 var result = ZboxWriteService.CreateBox(command);
                 return Json(new JsonResponse(true, new { result.NewBox.Url, result.NewBox.Id }));
             }
@@ -382,7 +426,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             //
-            var command = new CreateUniversityCommand( model.Name, model.Country,
+            var command = new CreateUniversityCommand(model.Name, model.Country,
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
             ZboxWriteService.CreateUniversity(command);
 

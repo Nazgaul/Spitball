@@ -11,11 +11,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class SelectDepartmentCommandHandler : ICommandHandler<SelectDepartmentCommand>
     {
-        private readonly IRepository<Department> m_DepartmentRepository;
+        private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IRepository<User> m_UserRepository;
 
 
-        public SelectDepartmentCommandHandler(IRepository<Department> departmentRepository, IRepository<User> userRepository)
+        public SelectDepartmentCommandHandler(IRepository<Library> departmentRepository, IRepository<User> userRepository)
         {
             m_DepartmentRepository = departmentRepository;
             m_UserRepository = userRepository;
@@ -27,10 +27,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var department = m_DepartmentRepository.Load(message.DepartmentId);
             var user = m_UserRepository.Load(message.UserId);
 
-            var uniId2 = department.University2 != null ? department.University2.Id : 0;
+            //var uniId2 = department.University2 != null ? department.University2.Id : 0;
 
-            if (user.University2.Id != department.University.Id
-                && user.University2.Id != uniId2)
+            if (user.University2.Id != department.University.Id)
             {
                 throw new UnauthorizedAccessException("cannot change to that department. its not in user university");
             }

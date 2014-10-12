@@ -44,7 +44,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetMyData(query);
         }
 
-        public NodeBoxesDto GetLibraryNode(GetLibraryNodeQuery query)
+        public Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query)
         {
             return m_ReadService.GetLibraryNode(query);
         }

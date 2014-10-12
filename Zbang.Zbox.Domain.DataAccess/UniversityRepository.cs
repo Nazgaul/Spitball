@@ -9,9 +9,10 @@ namespace Zbang.Zbox.Domain.DataAccess
         public int GetNumberOfBoxes(University universityId)
         {
             //this cant be done with query over
-            return UnitOfWork.CurrentSession.QueryOver<Department>()
+            return UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
                             .Where(w => w.University == universityId)
-                            .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
+                            .RowCount();
+                            //.Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
             // return query.SingleOrDefault<University>();
         }
     }

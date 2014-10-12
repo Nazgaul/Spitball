@@ -6,7 +6,8 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class AcademicBoxRepository : NHibernateRepository<AcademicBox>, IAcademicBoxRepository
     {
-        public AcademicBox CheckIfExists(string courseCode, Department department, string professor, string courseName)
+        public AcademicBox CheckIfExists(string courseCode,
+            Library department, string professor, string courseName)
         {
             if (!string.IsNullOrWhiteSpace(professor))
             {
