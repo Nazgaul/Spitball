@@ -24,6 +24,7 @@
      l.Url as Url, l.NoOfBoxes as NoBoxes 
      from zbox.Library l
     where l.Id = @UniversityId
+    and l.parentid is null
     order by name;";
 
        public const string GetLibraryNodeWithParent = @"
