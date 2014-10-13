@@ -112,7 +112,6 @@
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
-    <Compile Include="SelectDepartmentCommand.cs" />
     <Compile Include="SendMessageCommand.cs" />
     <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />

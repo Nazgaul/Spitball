@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
-<div class="emptyLib" ng-if="!info.items.length" ng-class="{admin : isAdmin()}">
+<div class="emptyLib" ng-if="!info.items.length" @*ng-class="{admin : isAdmin()}"*@>
     <h2 class="semiFont">@MainViewResources.SomethingMissing</h2>
     <div class="libEmptyWpr">
         <div class="libEmpty union-sprite">

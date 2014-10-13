@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual RussianDepartment RussianDepartment { get; set; }
 
-        public virtual Library Department { get; set; }
+       // public virtual Library Department { get; set; }
 
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
@@ -210,7 +210,7 @@ namespace Zbang.Zbox.Domain
             RussianDepartment = department;
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
-            Department = null;
+           // Department = null;
         }
 
         #region firstTime

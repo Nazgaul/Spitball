@@ -145,6 +145,10 @@
 .emptyLib {
   text-align: center;
   color: #383838;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .emptyLib.admin > h2 {
   display: none;
@@ -205,6 +209,7 @@
   display: block;
   text-align: left;
   /*rtl*/
+  font-size: 14px;
 }
 .emptyLib .libEmpty .inputText {
   width: 100%;
@@ -269,10 +274,10 @@
 /*#endregion */
 /*#region new dashboard */
 .jsCreateDashboard .dashboard {
-  display: none!important;
+  display: none !important;
 }
 .jsCreateDashboard .union {
-  display: none!important;
+  display: none !important;
 }
 .jsCreateDashboard .modal-dialog {
   background: none;

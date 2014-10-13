@@ -9,7 +9,7 @@
         <span class="error">@DialogResources.RequiredField</span>
         <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch"
                required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
-        <button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>
+        @*<button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>*@
     </div>
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.CourseName)

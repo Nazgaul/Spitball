@@ -117,6 +117,6 @@ namespace Zbang.Zbox.Domain.Common
 
 
         void CreateUniversity(CreateUniversityCommand command);
-        void SelectDepartment(SelectDepartmentCommand command);
+       // void SelectDepartment(SelectDepartmentCommand command);
     }
 }

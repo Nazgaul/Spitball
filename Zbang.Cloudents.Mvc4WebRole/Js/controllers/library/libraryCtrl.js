@@ -21,10 +21,10 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     $scope.back.title = $scope.info.libraryName;
 
 
-    //var partials = {
+    var partials = {
     //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
-    //    createDepartment: '/Library/CreateDepartmentPartial/'
-    //}
+        createDepartment: '/Library/CreateDepartmentPartial/'
+    }
 
     addItems();
 
@@ -104,39 +104,37 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         });
     };
 
-    //$scope.createDepartment = function () {
-    //    var modalInstance = $modal.open({
-    //        //windowClass: "boxSettings dashMembers",
-    //        templateUrl: partials.createDepartment,
-    //        controller: 'CreateDepartmentCtrl',
-    //        backdrop: 'static',
-    //    });
+    $scope.createDepartment = function () {
+        var modalInstance = $modal.open({
+            windowClass: "boxSettings dashMembers",
+            templateUrl: partials.createDepartment,
+            controller: 'CreateDepartmentCtrl',
+            backdrop: 'static',
+        });
 
-    //    modalInstance.result.then(function (result) {
-    //        result.parentId = $scope.info.libraryId;
+        modalInstance.result.then(function(result) {
+            result.parentId = $scope.info.libraryId;
 
-    //        var item = _.find($scope.info.items, function (item) {
-    //            return item.name === result.name;
-    //        });
+            var item = _.find($scope.info.items, function(item2) {
+                return item2.name === result.name;
+            });
 
-    //        if (item) {
-    //            alert('already exists');                      
-    //            return;
-    //        }
+            if (item) {
+                alert('already exists');
+                return;
+            }
 
-    //        sLibrary.department.create(result).then(function (response) {
-    //            $scope.info.items.push(response.payload);
-    //        });
-    //    }, function () {
-    //        //dismiss
-    //    });
+            sLibrary.createDepartment(result).then(function(response) {
+                $scope.info.items.push(response.payload);
+            });
+        });
 
 
-    //};
+    };
 
     //$scope.deleteDepartment = function () {
     //    sLibrary.department.delete({ id: $scope.info.libraryId }).then(function (response) {
-    //        //TODO: nav to parent
+    //        TODO: nav to parent
     //    });
     //};
 
@@ -189,30 +187,30 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     //    return false;
     //};
 
-    //$scope.createDepartmentVisible = function () {
-    //    if (!$scope.isAdmin()) {
-    //        return false;
-    //    }
+    $scope.createDepartmentVisible = function () {
+        //if (!$scope.isAdmin()) {
+        //    return false;
+        //}
 
-    //    if (!$scope.info.items.length) {
-    //        return true;
-    //    }
+        if (!$scope.info.items.length) {
+            return true;
+        }
 
-    //    if ($scope.info.type === types.department) {
-    //        return true;
-    //    }
+        if ($scope.info.type === types.department) {
+            return true;
+        }
 
-    //    return false;
-    //};
+        return false;
+    };
 
     $scope.createBoxVisible = function () {
         if (!$scope.info.libraryId) {
             return false;
         }
 
-        if (!$scope.info.items.length) {
-            return false; //empty state
-        }
+        //if (!$scope.info.items.length) {
+        //    return false; //empty state
+        //}
 
         if ($scope.info.type === types.box) {
             return true;

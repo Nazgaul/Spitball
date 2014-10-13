@@ -288,13 +288,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, Ajax]
-        public ActionResult SelectDepartment(Guid id)
-        {
-            var command = new SelectDepartmentCommand(id, GetUserId());
-            ZboxWriteService.SelectDepartment(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, Ajax]
+        //public ActionResult SelectDepartment(Guid id)
+        //{
+        //    var command = new SelectDepartmentCommand(id, GetUserId());
+        //    ZboxWriteService.SelectDepartment(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
         #region Create
 

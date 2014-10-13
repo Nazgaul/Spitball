@@ -308,9 +308,9 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         if (!next.$$route.params) {
             return;
         }
-        if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
-            $location.path('/library/choose/');
-        }
+        //if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
+        //    $location.path('/library/choose/');
+        //}
         sNewUpdates.loadUpdates();
     });
 

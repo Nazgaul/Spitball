@@ -108,7 +108,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SelectDepartmentCommandHandler.cs" />
     <Compile Include="SendMessageCommandHandler.cs" />
     <Compile Include="ShareBoxFacebookCommandHandler.cs" />
     <Compile Include="AddReputationCommandHandler.cs" />

@@ -96,8 +96,8 @@
                  sLibrary.updateUniversity({ UniversityId: university.id }).then(function (response) {
                      var data = response.success ? response.payload : [];
                      if (!data) {
-                         $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                         $scope.display.complete = $scope.display.choose = true;
+                         //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                         //$scope.display.choose = true;
                          $analytics.setVariable('dimension1', university.name);
                          if (isFacebook) {
                              $analytics.eventTrack('Facebook choose', {
@@ -105,9 +105,9 @@
                                  label: university.name
                              });
                          }
-
-                         sUserDetails.setDepartment(null);
-                         getDepartments();
+                         window.open('/dashboard/', '_self');
+                         //sUserDetails.setDepartment(null);
+                         //getDepartments();
                          //sUserDetails.setUniversity(university);
 
                      } else {
@@ -124,11 +124,12 @@
                              }
                          });
                          modalInstance.result.then(function () {
-                             $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                             $scope.display.complete = $scope.display.choose = true;
+                             //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                             //$scope.display.choose = true;
                              $analytics.setVariable('dimension1', university.name);
-                             getDepartments();
-                             sUserDetails.setDepartment(null);
+                             window.open('/dashboard/', '_self');
+                             //getDepartments();
+                             //sUserDetails.setDepartment(null);
                          })['finally'](function () {
                              modalInstance = undefined;
                          });
@@ -148,93 +149,92 @@
              //#region facebook
 
 
-             //#region create department
+             ////#region create department
 
-             $scope.createDepartment = function () {
-                 $scope.display.createDep = true;
-                 $scope.display.choose = false;
-             };
+             //$scope.createDepartment = function () {
+             //    $scope.display.createDep = true;
+             //    //$scope.display.choose = false;
+             //};
 
-             $scope.createDepartmentSubmit = function (isValid) {
-                 if (!isValid) {
-                     return;
-                 }
-
-
-                 $scope.createDepartmentForm.$invalid = true;
-                 sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-                     if (response.success) {
-
-                         sUserDetails.setDepartment({
-                             name: $scope.formData.createDepartment.name,
-                             id: response.payload.id
-                         });
-                         window.open('/dashboard', '_self');
-                         //$location.path('/dashboard/');
-
-                     }
-                 });
-             };
-
-             //#endregion
-
-             //#region choose department
-             $scope.searchDepartment = debounce(function () {
-                 if (!$scope.params.departmentSearch) {
-                     $scope.departments = $filter('orderBy')(allDepartments, 'name');
-                     $scope.selectedDepartment = null;
-                     return;
-                 }
-
-                 if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
-                     $scope.selectedDepartment = null;
-                 }
-
-                 if (allDepartments.length) {
-                     $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
-                 }
+             //$scope.createDepartmentSubmit = function (isValid) {
+             //    if (!isValid) {
+             //        return;
+             //    }
 
 
-             }, 200);
+             //    $scope.createDepartmentForm.$invalid = true;
+             //    sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
+             //        if (response.success) {
 
-             $scope.selectDepartment = function (department) {
-                 $scope.selectedDepartment = department;
-                 $scope.params.departmentSearch = department.name;
-                 $scope.departments = null;
+             //            sUserDetails.setDepartment({
+             //                name: $scope.formData.createDepartment.name,
+             //                id: response.payload.id
+             //            });
+             //            window.open('/dashboard', '_self');
+             //            //$location.path('/dashboard/');
 
-             };
-             console.log($location.search().returnUrl);
-             $scope.chooseDepartment = function () {
-                 sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
-                     if (response.success) {
-                         sUserDetails.setDepartment($scope.selectedDepartment);
-                         var navUrl = $location.search().returnUrl || '/dashboard/';
-                         window.open(navUrl, '_self');
-                         //$location.path('/dashboard/');
-                     }
-                 });
-             };
+             //        }
+             //    });
+             //};
 
-             $scope.backDepartment = function () {
-                 $scope.selectedDepartment = null;
-                 $scope.departments = $scope.params.departmentSearch = null;
-                 $scope.display.choose = $scope.display.complete = false;
-                 $scope.display.searchUniversity = $scope.display.facebook = true;
-             };
+             ////#endregion
 
-             $scope.backCreateDepartment = function () {
-                 $scope.formData.createDepartment = {};
-                 $scope.display.createDep = false;
-                 $scope.display.choose = true;
-             };
-             //#endregion
+             ////#region choose department
+             //$scope.searchDepartment = debounce(function () {
+             //    if (!$scope.params.departmentSearch) {
+             //        $scope.departments = $filter('orderBy')(allDepartments, 'name');
+             //        $scope.selectedDepartment = null;
+             //        return;
+             //    }
+
+             //    if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
+             //        $scope.selectedDepartment = null;
+             //    }
+
+             //    if (allDepartments.length) {
+             //        $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
+             //    }
+
+
+             //}, 200);
+
+             //$scope.selectDepartment = function (department) {
+             //    $scope.selectedDepartment = department;
+             //    $scope.params.departmentSearch = department.name;
+             //    $scope.departments = null;
+
+             //};
+             ////$scope.chooseDepartment = function () {
+             ////    sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
+             ////        if (response.success) {
+             ////            sUserDetails.setDepartment($scope.selectedDepartment);
+             ////            var navUrl = $location.search().returnUrl || '/dashboard/';
+             ////            window.open(navUrl, '_self');
+             ////            //$location.path('/dashboard/');
+             ////        }
+             ////    });
+             ////};
+
+             //$scope.backDepartment = function () {
+             //    $scope.selectedDepartment = null;
+             //    $scope.departments = $scope.params.departmentSearch = null;
+             //    $scope.display.choose =  false;
+             //    $scope.display.searchUniversity = $scope.display.facebook = true;
+             //};
+
+             //$scope.backCreateDepartment = function () {
+             //    $scope.formData.createDepartment = {};
+             //    $scope.display.createDep = false;
+             //    $scope.display.choose = true;
+             //};
+             ////#endregion
 
 
 
              $scope.createUniversity = function () {
                  $scope.display.createUniversity = true;
                  $scope.display.search = $scope.display.searchUniversity = $scope.display.facebook
-                     = $scope.display.complete = $scope.display.choose = false;
+                      = false;
 
              };
 
@@ -243,31 +243,34 @@
                      return;
                  }
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
-                     var university = response.success ? response.payload : null;
-                     if (!university) {
+                     //var university = response.success ? response.payload : null;
+                     if (response.success) {
+                         window.open('/dashboard/', '_self');
                      }
-                     $scope.selectedUni = university;
-                     $scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                     $scope.display.complete = $scope.display.createDep = true;
+                     //if (!university) {
+                     //}
+                     //$scope.selectedUni = university;
+                     //$scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
+                     //$scope.display.createDep = true;
                  });
              };
 
-             $scope.backUniversity = function () {
-                 $scope.formData.createUniversity = {};
-                 $scope.display.createUniversity = false;
-                 $scope.display.search = $scope.display.searchUniversity = true;
-             };
+             //$scope.backUniversity = function () {
+             //    $scope.formData.createUniversity = {};
+             //    $scope.display.createUniversity = false;
+             //    $scope.display.search = $scope.display.searchUniversity = true;
+             //};
 
              //#endregion 
 
 
              //cd.analytics.trackEvent('Library Choose', 'Search', term);
-             function getDepartments() {
-                 sLibrary.items().then(function (response) {
-                     var data = response.success ? response.payload : [];
-                     allDepartments = data.nodes;
-                     $scope.departments = allDepartments;
-                 });
-             }
+             //function getDepartments() {
+             //    sLibrary.items().then(function (response) {
+             //        var data = response.success ? response.payload : [];
+             //        allDepartments = data.nodes;
+             //        $scope.departments = allDepartments;
+             //    });
+             //}
          }
         ]);

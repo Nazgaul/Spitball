@@ -202,7 +202,6 @@ where m.RecepientId = @userid
         public const string RecommendedCourses =
             @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url, b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
 from zbox.Box b
-where LibraryId = (select MainDepartment2 from zbox.Users where userid = @userid)
 and b.isdeleted = 0
 order by rank desc";
 
@@ -215,12 +214,9 @@ order by rank desc";
      u.Url as Url,
      u.Email as Email,
      u.UserReputation as Score,
-	 d.LibraryId as DepartmentId,
-	 d.Name as DepartmentName,
      uu.OrgName as LibName,
      uu.Image as LibImage
      from zbox.Users u 
-	 left join zbox.Library d on u.MainDepartment2 = d.LibraryId
 	 left join zbox.University uu on u.UniversityId = uu.Id
      where u.userid = @UserId";
     }
