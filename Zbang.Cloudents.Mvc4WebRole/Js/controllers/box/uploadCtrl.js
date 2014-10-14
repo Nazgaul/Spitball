@@ -37,8 +37,10 @@
 
         $scope.saveLink = function () {
             if ($scope.close) { //fix for step 3
-                $scope.close();
-            } 
+                $scope.close();//{
+                //    saveLink:true
+                //});
+            }
 
             var modalInstance = $modal.open({
                 windowClass: "uploadLink",
@@ -56,6 +58,8 @@
                     boxId: $scope.boxId || $scope.box.id, //fix for step 3
                     tabId: $scope.tabId
                 };
+
+
 
 
                 sUpload.link(data).then(function (response) {
@@ -91,12 +95,13 @@
                 modalInstance = undefined;
             });
 
-            $scope.$on('$destroy', function () {
+            $scope.$on('$locationChangeStart', function () {
                 if (modalInstance) {
                     modalInstance.dismiss();
                     modalInstance = undefined;
                 }
             });
+
         };
 
         $scope.saveDropbox = function () {
