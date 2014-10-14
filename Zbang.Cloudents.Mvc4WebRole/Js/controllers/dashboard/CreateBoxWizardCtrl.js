@@ -33,8 +33,12 @@
                 wizard.finish();
             };
 
-            $scope.completeWizard = function () {
-                $modalInstance.close($scope.box.url);
+            $scope.completeWizard = function (items) {
+                var url = $scope.box.url;                
+                $modalInstance.close({
+                    url: url,
+                    isItems: items
+                });
             };
 
             //$scope.createDepartmentSubmit = function (isValid) {

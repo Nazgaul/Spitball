@@ -89,7 +89,7 @@
 
                 data.size = 1024;
                 $rootScope.$broadcast('LinkAdded', data);                
-                $scope.completeWizard();            
+                $scope.completeWizard(true);            
 
             })['finally'](function () {
                 modalInstance = undefined;
@@ -153,7 +153,7 @@
                 if ($scope.close) {//fix for step 3
                     $scope.close();
                 } else {
-                    $scope.completeWizard();
+                    $scope.completeWizard(true);
                 }
             });
 
@@ -223,7 +223,7 @@
             if ($scope.close) {//fix for step 3
                 $scope.close();
             }  else {
-                $scope.completeWizard();
+                $scope.completeWizard(true);
             }
         };
 
@@ -235,7 +235,7 @@
             if ($scope.dismiss) { //fix for step 3
                 $scope.dismiss();
             } else {
-                $scope.completeWizard();
+                $scope.completeWizard(true);
             }
         });
 
