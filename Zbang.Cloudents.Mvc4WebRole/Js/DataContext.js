@@ -14,7 +14,7 @@
 
         }
         var dashboard = "/Dashboard/", library = "/Library/", cBOX = "/Box/", share = "/Share/", cAccount = "/Account/", search = '/Search/',
-             comment = '/commment/',cITEM = "/Item/", get = 'get',
+            comment = '/comment/', cITEM = "/Item/", get = 'get',
         definition = {};
         //#region definition
 
