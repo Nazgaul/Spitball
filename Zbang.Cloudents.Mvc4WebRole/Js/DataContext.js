@@ -14,7 +14,7 @@
 
         }
         var dashboard = "/Dashboard/", library = "/Library/", cBOX = "/Box/", share = "/Share/", cAccount = "/Account/", search = '/Search/',
-            comment = "/Comment/", cITEM = "/Item/", get = 'get',
+             cITEM = "/Item/", get = 'get',
         definition = {};
         //#region definition
 
@@ -67,7 +67,7 @@
 
         definition.getBox = new definitionobj({ url: cBOX + "Data", type: get });
         definition.getItems = new definitionobj({ url: cBOX + "Items", type: get });
-        definition.boxComments = new definitionobj({ url: "/Comment", type: get });
+       // definition.boxComments = new definitionobj({ url: "/Comment", type: get });
         definition.commentAdd = new definitionobj({ url: comment + "Add", isJson: true });
         definition.commentRemove = new definitionobj({ url: comment + "Delete" });
 

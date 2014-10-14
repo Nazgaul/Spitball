@@ -1033,7 +1033,6 @@
     <Content Include="Js\Mobile\MBoxesViewModel.js" />
     <Content Include="Js\Mobile\MBoxItemsViewModel.js" />
     <Content Include="Js\Mobile\MBoxViewModel.js" />
-    <Content Include="Js\Mobile\MCommentsViewModel.js" />
     <Content Include="Js\Mobile\MInvite.js" />
     <Content Include="Js\Mobile\MInviteViewModel.js" />
     <Content Include="Js\Mobile\MItemViewModel.js" />

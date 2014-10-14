@@ -43,10 +43,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     message.LargeImage, user.Email);
                 m_UniversityRepository.Save(university);
 
-                user.AddReputation(ReputationAction.CreateUniversity);
-                m_UserRepository.Save(user);
-
-
             }
             user.UpdateUniversity(university, null, null, null, null);
             message.Id = university.Id;

@@ -102,6 +102,10 @@
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
     <property name="NoOfBoxes" />
 
+    <property name="AdminScore" />
+    <property name="AdminNoOfPeople" />
+
+
     <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
       <key column="Id" foreign-key="LibraryUniversity2"/>
       <one-to-many class="Library"/>

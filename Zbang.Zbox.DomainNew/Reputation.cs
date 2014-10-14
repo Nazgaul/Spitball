@@ -72,8 +72,6 @@ namespace Zbang.Zbox.Domain
                     return ReputationConsts.AddQuizScore;
                 case ReputationAction.DeleteQuiz:
                     return ReputationConsts.DeleteQuizScore;
-                case ReputationAction.CreateUniversity:
-                    return ReputationConsts.CreateUniversity;
                 default:
                     return 0;
             }

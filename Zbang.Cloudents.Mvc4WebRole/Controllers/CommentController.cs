@@ -17,19 +17,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <summary>
         /// Ajax for Comment list.
         /// </summary>
-        /// <param name="boxUid"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Ajax]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Index(long boxUid)
-        {
+        //[HttpGet]
+        //[Ajax]
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //public ActionResult Index(long boxUid)
+        //{
            
-            var userId = GetUserId(false);
-            var query = new GetBoxCommentsQuery(boxUid, userId);
-            var result = ZboxReadService.GetBoxComments(query);
-            return Json(new JsonResponse(true, result));
-        }
+        //    var userId = GetUserId(false);
+        //    var query = new GetBoxCommentsQuery(boxUid, userId);
+        //    var result = ZboxReadService.GetBoxComments(query);
+        //    return Json(new JsonResponse(true, result));
+        //}
 
 
         ///// <summary>

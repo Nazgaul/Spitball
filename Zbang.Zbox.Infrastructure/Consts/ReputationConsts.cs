@@ -4,10 +4,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class ReputationConsts
     {
-        public const int CreateUniversity = 500000;
-        public const int Admin = 1000000;
-
-
         public const int AddQuizScore = 30;
         public const int UploadItemScore = 10;
         public const int AddAnswerScore = 10;

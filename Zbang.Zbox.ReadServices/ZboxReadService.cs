@@ -431,20 +431,20 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
-                dbQuery.SetParameter("boxid", query.BoxId);
-                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
-                var comments = dbQuery.Future<Activity.BaseActivityDto>();
+        //public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
+        //        dbQuery.SetParameter("boxid", query.BoxId);
+        //        dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
+        //        var comments = dbQuery.Future<Activity.BaseActivityDto>();
 
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+        //        CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
-                return comments.ToList();
-            }
-        }
+        //        return comments.ToList();
+        //    }
+        //}
 
         public IEnumerable<Qna.QuestionDto> GetQuestions(GetBoxQuestionsQuery query)
         {

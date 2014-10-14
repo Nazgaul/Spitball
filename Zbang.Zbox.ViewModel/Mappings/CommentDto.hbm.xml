@@ -19,7 +19,7 @@
     <return-scalar column="discriminator" type="string"/>
   </resultset>
   
-  <sql-query name="GetBoxComments" resultset-ref="ActivityDto">
+  <!--<sql-query name="GetBoxComments" resultset-ref="ActivityDto">
     <![CDATA[
     select cr.CommentRepliesId as commentId, cr.ParentId as parentId, 
     author.UserName as userName, author.UserImage as userImg, author.userid as userUid,
@@ -35,5 +35,5 @@
     where b.BoxId = :boxid
     order by date desc
     ]]>  
-  </sql-query>
+  </sql-query>-->
 </hibernate-mapping>

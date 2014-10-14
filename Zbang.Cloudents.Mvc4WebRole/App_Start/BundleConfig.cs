@@ -434,7 +434,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //box
                 new JsFileWithCdn("~/Js/Mobile/MBoxViewModel.js"),
                 new JsFileWithCdn("~/Js/Mobile/MBoxItemsViewModel.js"),
-                new JsFileWithCdn("~/Js/Mobile/MCommentsViewModel.js"),
+               // new JsFileWithCdn("~/Js/Mobile/MCommentsViewModel.js"),
 
                 //Account settings
                  new JsFileWithCdn("~/Js/Mobile/MAccountSettings.js")

@@ -5,7 +5,6 @@
         public string Name { get; set; }
         public string Image { get; set; }
         public long Id { get; set; }
-       // public string Uid { get; set; }
 
         public long BoxesCount { get; private set; }
         public long ItemCount { get; private set; }

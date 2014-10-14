@@ -20,8 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Rate5Stars = 12,
         UnRate3Stars = 103,
         UnRate4Stars = 104,
-        UnRate5Stars = 105,
-        CreateUniversity = 200,
+        UnRate5Stars = 105
         
 
 
