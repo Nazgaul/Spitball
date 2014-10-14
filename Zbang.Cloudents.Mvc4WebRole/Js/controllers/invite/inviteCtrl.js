@@ -1,46 +1,37 @@
-﻿mDashboard.controller('SocialInviteCtrl',
-    ['$scope', '$filter', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
-         function ($scope, $filter, sUser, sGoogle, sFacebook, sShare) {
+﻿angular.module('mInvite').
+    controller('InviteCtrl',
+        ['$scope', '$routeParams', '$timeout',
+         'sShare', 'sGoogle', 'sFacebook', 'sUser',
+         function ($scope, $routeParams, $timeout, sShare, sGoogle, sFacebook, sUser) {
 
+             $scope.boxId = $routeParams.boxId,
+             $scope.boxName = $routeParams.boxName;
+             $scope.params = {
+                 contactLimit: 35,
+                 contactPage: 35,
+                 inviteText: $scope.boxId ? 'Invite to ' : 'Invite to cloudents'
+             };
              var states = {
-                 google: 'go',
-                 cloudents: 'cl',
-                 facebook: 'fb'
+                 cloudents: 0,
+                 facebook: 1,
+                 google: 2
              },
-             currentUsers, currentState;
+               currentUsers;
+
+
 
              if (!sGoogle.isAuthenticated()) {
                  sGoogle.initGApi().then(function () {
                      sGoogle.checkAuth(true);
                  });
-             }             
-
-
-             $scope.params = {
-                 contactLimit: 35,
-                 contactPage: 35
-             };
-
-             $scope.selectState = function (state) {
-                 currentState = state;
-                 var params = getParamsByState(currentState);
-                 $scope.params.stateClass = params.className;
-                 $scope.params.placeholder = params.placeholder;
-                 $scope.params.contactLimit = $scope.params.contactPage;
-                 $scope.params.contacts = null;
              }
 
-             $scope.filterContacts = function () {
-                 if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
-                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                     $scope.$broadcast('update-scroll');
-                     return;
-                 }
+             if ($scope.boxId) {
+                 selectState(states.facebook);
+                 showPage();
 
-                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
-                 $scope.$broadcast('update-scroll');
-
-             };
+                 return;
+             }
 
              if (sFacebook.isAuthenticated()) {
                  $scope.selectState(states.facebook);
@@ -48,13 +39,20 @@
                  $scope.selectState(states.cloudents);
              }
 
+             showPage();
+
+
+             $scope.addContacts = function () {
+                 $scope.params.contactLimit += $scope.params.contactPage;
+             };
+
              $scope.inviteContact = function (contact) {
 
 
                  if (currentState === states.google || currentState === states.cloudents) {
                      contact.invited = true;
 
-                     sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
+                     sShare.invite.box({ recepients: [contact.id], boxId: $scope.boxId }).then(function (response) {
                          if (!response.success) {
                              alert('Error');
                          }
@@ -64,7 +62,7 @@
                  }
 
                  if (currentState === states.facebook) {
-                     
+
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
                          link: $scope.box.url,
@@ -93,7 +91,7 @@
 
                  }
              };
-             
+
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
                      sFacebook.loginFacebook().then(function () {
@@ -107,23 +105,33 @@
                      });
                      return;
                  }
-             };     
-             $scope.addContacts = function () {
-                 $scope.params.contactLimit += $scope.params.contactPage;
              };
 
-             $scope.nextStep = function () {
-                 $scope.next();
-             };
+             function showPage() {
+                 $timeout(function () {
+                     $scope.$emit('viewContentLoaded');
+                 });
+             }
+
+             function selectState(state) {        
+                 var params = getParamsByState(currentState);
+                 $scope.params.currentState = state;
+                 $scope.params.contactLimit = $scope.params.contactPage;
+                 $scope.params.contacts = null;
+                 
+
+             }
 
              function getParamsByState(state) {
+
                  var params;
                  switch (state) {
                      case states.cloudents:
                          params = {
-                             className: 'js-cloudState',
-                             placeholder: 'Search cloudents',
-                             isConnected: true
+                             text: 'Cloudents friends',
+                             isConnected: true,
+                             className: 'cloudentsContent'
+                             
                          };
 
                          sUser.friends().then(function (response) {
@@ -138,9 +146,10 @@
 
                      case states.google:
                          params = {
-                             className: 'js-gmState',
-                             placeholder: 'Search google',
-                             isConnected: sGoogle.isAuthenticated()
+                             text: 'Gmail friends',
+                             connectText : 'from your gmail account',
+                             isConnected: sGoogle.isAuthenticated(),
+                             className: 'gmailContent'
                          };
 
                          $scope.params.isConnected = params.isConnected;
@@ -160,9 +169,10 @@
 
                      case states.facebook:
                          params = {
-                             className: 'js-fbState',
-                             placeholder: 'Search facebook',
-                             isConnected: sFacebook.isAuthenticated()
+                             text: 'Facebook friends',
+                             connectText : 'from your facebook account',
+                             isConnected: sFacebook.isAuthenticated(),
+                             className: 'fbContent'
                          };
 
                          $scope.params.isConnected = params.isConnected;
@@ -181,6 +191,21 @@
 
 
                  }
+
              }
-         }]
-);
+
+
+             function filterContacts() {
+                 if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
+                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                     $scope.$broadcast('update-scroll');
+                     return;
+                 }
+
+                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
+                 $scope.$broadcast('update-scroll');
+
+             }
+
+         }
+        ]);

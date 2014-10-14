@@ -7,7 +7,7 @@
     var img = Model.Image ?? "/images/emptyState/my_default3.png";
 }
 
-<div id="invite" class="page">
+<div id="invite" class="page" ng-controller="InviteCtrl">
 
     <div class="inviteWpr">
         <aside class="invSidebar rFloat">
@@ -33,35 +33,46 @@
         </aside>
         <div class="invMain elps">
             <div class="inviteSources rFloat">
-                <button type="button" class="invTab cloudents"></button>
-                <button type="button" class="invTab fb"></button>
+                <button type="button" class="invTab cloudents" ng-class="{current: params.currentState === 0}" ng-click="selectState(0)"></button>
+                <button type="button" class="invTab fb" ng-class="{current: params.currentState === 1}" ng-click="selectState(1)"></button>
                 @*<button type="button" class="invTab gPlus"></button>*@
-                <button type="button" class="invTab gmail"></button>
+                <button type="button" class="invTab gmail" ng-class="{current: params.currentState === 2}" ng-click="selectState(2)"></button>
             </div>
 
-            <a id="inviteBoxName" data-inv-header="@SharedResources.InviteCloudents" data-invbox-header="@DialogResources.InviteTo"
-               href="@Model.Url" class="invHeaderText">
-                <span>@Model.Name</span>
+            <a href="@Model.Url" class="invHeaderText">
+                {{params.inviteText}}<span>@Model.Name</span>
                 <img id="inviteBoxImage" src="@img" alt="" width="26" height="34" class="invboxImg" />
 
             </a>
 
-            <div class="invContentWpr">
+            <div class="invContentWpr" ng-class="[params.className, {notConnected : params.isConnected}]">
                 <div class="invContentTop">
-                    <h4 data-inv-cloud="@InviteResources.CloudentsFriends" data-inv-fb="@InviteResources.FbFriends" @*data-inv-gplus="@InviteResources.GplusFriends"*@ data-inv-gmail="@InviteResources.GmailFriends"></h4>
-                    <input id="inviteSearchByName" type="search" class="inputText" placeholder="@InviteResources.SearchByName" />
+                    <h4>{{params.text}}</h4>
+                    <input type="search" class="inputText" placeholder="@InviteResources.SearchByName" ng-model="params.contactSearch" ng-keyup="filterContacts()" />
                 </div>
 
                 <div class="invContent">
-                    <ul class="invList clearfix" data-inv-invite="@SharedResources.Invite" data-inv-member="@SharedResources.Member" data-inv-sent="@SharedResources.Sent"></ul>
+                    <ul class="invList clearfix" bindonce>
+                        <li class="invItem lFloat" ng-repaet="contact in params.contacts">
+                            <a bo-href="contact.url">
+                                <img alt="" class="friendImg" bo-src="contact.image" width="34" height="34">
+                            </a>
+                            <span class="invName elps" bo-text="user.name"></span>
+                            <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">
+                                @SharedResources.Invite
+                            </button>
+
+                        </li>
+
+                    </ul>
                 </div>
 
                 <div id="connectAccount" class="connectAccount">
                     <span class="connectFrom fromCloudents"></span>
                     <span class="connector"></span>
                     <span class="connectTo"></span>
-                    <div class="connectTxt" data-inv-fbaccount="@InviteResources.FbAccount" data-inv-gpaccount="@InviteResources.GpAccount" data-inv-gmailaccount="@InviteResources.GmailAccount">@InviteResources.FindFriends&nbsp;</div>
-                    <button id="inviteConnectAccount" type="button" class="btn3">@SharedResources.Connect</button>
+                    <div class="connectTxt" data-inv-fbaccount="@InviteResources.FbAccount" data-inv-gmailaccount="@InviteResources.GmailAccount">{{params.connecText}} @InviteResources.FindFriends&nbsp;</div>
+                    <button id="inviteConnectAccount" type="button" class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>
                 </div>
                 <div class="invNoResults">
                     <h2>@InviteResources.NoResults</h2>
@@ -70,96 +81,5 @@
             </div>
         </div>
     </div>
-
+    <div fb-block ng-if="params.facebookInvite"></div>
 </div>
-<script type="text/html" id="inviteFriendTemplate">
-    <li class="invItem lFloat">
-        <a href="{{url}}">
-            <img alt="{{name}}" class="friendImg calloutTrgr" data-uid="{{id}}" src="{{defaultImage}}" data-src="{{userImage}}" width="34" height="34">
-        </a>
-        <span class="invName elps">{{name}}</span>
-        <button data-id="{{id}}" type="button" class="invBtn rFloat">
-            @SharedResources.Invite
-        </button>
-
-    </li>
-</script>
-<script type="text/html" id="inviteFriendOtherCloudents">
-    <li class="invItem lFloat">
-        <img alt="{{name}}" class="friendImg" data-uid="{{id}}" src="{{defaultImage}}" data-src="{{userImage}}" width="34" height="34">
-        <span class="invName elps">{{name}}</span>
-        <button data-id="{{id}}" type="button" class="invBtn rFloat">
-            @SharedResources.Invite
-        </button>
-
-    </li>
-</script>
-
-@section scripts {
-    @Html.Script2("General")
-    @Html.Script2("cd1")
-
-    <script>
-        $(function () {
-            document.getElementById('mLoading').style.display = 'none';
-            var d = document.getElementById('invite');
-            d.style.display = 'block';
-            d.style.opacity = 1;
-            cd.pubsub.publish('invite');
-        });
-    </script>
-}
-@section search {
-    <form class="dashLibSearch" id="g_search">
-        <input id="g_searchQ" autocomplete="off"
-               type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-        <button id="searchDropDownBtn" disabled type="submit"></button>
-        <div class="searchDD allResults">
-            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
-            <ul class="searchList boxes"></ul>
-            <h3>@SharedResources.Materials</h3>
-            <ul class="searchList items"></ul>
-            <h3>@SharedResources.People</h3>
-            <ul class="searchList people"></ul>
-            <h3>@SharedResources.ResultsOther</h3>
-            <ul class="searchList university"></ul>
-            <a class="showAll" target="_self">@SharedResources.AllResults&nbsp;<q></q></a>
-            <div class="emptySearch">@SharedResources.NoResults</div>
-        </div>
-    </form>
-    <script type="text/html" id="boxesSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="box" class="searchItem">
-                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="searchDetails">
-                    <div class="searchTitle semiFont elps">{{name}}</div>
-                    <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
-                    <span class="searchDetail">{{courseCode}}</span>
-                </div>
-            </a>
-        </li>
-    </script>
-    <script type="text/html" id="itemsSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="item" class="searchItem">
-                <div class="otherUni semiFont">{{universityName}}</div>
-                <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-                <div class="searchDetails">
-                    <div class="searchTitle semiFont elps">{{name}}</div>
-                    <div class="boxLoc searchDetail" data-ignore-rtl="true" data-search-in="@SharedResources.In">{{boxName}}</div>
-                </div>
-            </a>
-        </li>
-    </script>
-    <script type="text/html" id="peopleSearchTemplate">
-        <li>
-            <a href="{{url}}" data-navigation="user" class="searchItem">
-                <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
-                <div class="searchTitle semiFont elps">{{name}}</div>
-            </a>
-        </li>
-    </script>
-    <script type="text/html" id="emailSelectedItemTemplate">
-        <li class="emailItem" data-id="{{id}}"><span class="emailText">{{name}}</span><button type="button" class="removeItem"></button><input type="hidden" name="Recepients" value="{{id}}" /></li>
-    </script>
-}

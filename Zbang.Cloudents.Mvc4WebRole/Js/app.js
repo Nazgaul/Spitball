@@ -154,6 +154,24 @@ app.config([
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
         }).
+        when('/invite/', {
+            params: {
+                type: 'invite'
+            },
+            templateUrl: function (params) { return '/invite/' encodeURIComponent(params.userName) + '/'; }
+        }).
+        when('/box/my/:boxId/:boxName/invite/', {
+            params: {
+                type: 'invite'
+            },
+            templateUrl: function (params) { return '/invite/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
+        }).
+        when('/course/:universityName/:boxId/:boxName/invite/', {
+            params: {
+                type: 'invite'
+            },
+            templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
+        }).
         //#endregion
         //#region store
              when('/store/', {
