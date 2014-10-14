@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         DeleteItem = 100,
         DeleteQuestion = 101,
         DeleteAnswer = 102,
-        DelteQuiz = 106,
+        DeleteQuiz = 106,
         ShareFacebook = 7,
         Invite =8,
         InviteToBox = 9,
@@ -20,7 +20,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Rate5Stars = 12,
         UnRate3Stars = 103,
         UnRate4Stars = 104,
-        UnRate5Stars = 105
+        UnRate5Stars = 105,
+        CreateUniversity = 200,
         
 
 

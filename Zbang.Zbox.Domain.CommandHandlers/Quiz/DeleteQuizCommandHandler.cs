@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 m_SolvedQuizRepository.Delete(solvedQuiz);
             }
-            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.DelteQuiz));
+            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.DeleteQuiz));
             m_UserRepository.Save(quiz.Owner);
             m_QuizRepository.Delete(quiz);
         }

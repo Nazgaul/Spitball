@@ -137,6 +137,7 @@
     <Compile Include="Cache\HttpContextCacheWrapper.cs" />
     <Compile Include="Cache\IHttpContextCacheWrapper.cs" />
     <Compile Include="Commands\ICommandResolver.cs" />
+    <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Culture\Languages.cs" />
