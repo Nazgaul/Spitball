@@ -16,12 +16,12 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
 
     $scope.selectedDepartment = true;
 
-    sLibrary.items().then(function (response) {
-        var data = response.success ? response.payload : [];
-        allDepartments = data.nodes;
-        $scope.departments = allDepartments;
+    //sLibrary.items().then(function (response) {
+    //    var data = response.success ? response.payload : [];
+    //    allDepartments = data.nodes;
+    //    $scope.departments = allDepartments;
 
-    });
+    //});
     
     $scope.params.departmentSearch = $scope.department.name;
 
@@ -43,54 +43,54 @@ function ($scope, sBox, $filter, debounce, sLibrary, sUserDetails, $analytics) {
 
     var allDepartments;
    
-    $scope.backCreateDepartment = function () {
-        $scope.department = false;
-        $scope.display = { createDep: false };
-    };
+    //$scope.backCreateDepartment = function () {
+    //    $scope.department = false;
+    //    $scope.display = { createDep: false };
+    //};
 
-    $scope.$on('newDep', function (response, dep) {
-        $scope.selectDepartment(dep);
-    });
-    $scope.selectDepartment = function (deparment) {
-        $scope.selectedDepartment = deparment;
-        $scope.formData.academicBox.departmentId = $scope.selectedDepartment.id;
-        $scope.params.departmentSearch = $scope.selectedDepartment.name;
-        $scope.departments = null;
-        $scope.params.changeDepartment = false;
-    };
+    //$scope.$on('newDep', function (response, dep) {
+    //    $scope.selectDepartment(dep);
+    //});
+    //$scope.selectDepartment = function (deparment) {
+    //    $scope.selectedDepartment = deparment;
+    //    $scope.formData.academicBox.departmentId = $scope.selectedDepartment.id;
+    //    $scope.params.departmentSearch = $scope.selectedDepartment.name;
+    //    $scope.departments = null;
+    //    $scope.params.changeDepartment = false;
+    //};
 
-    $scope.createDepartment = function () {
-        $scope.display.createDep = true;
-    };
+    //$scope.createDepartment = function () {
+    //    $scope.display.createDep = true;
+    //};
 
-    $scope.searchDepartment = debounce(function () {
-        if (!$scope.params.departmentSearch) {
-            $scope.departments = $filter('orderBy')(allDepartments, 'name');
-            return;
-        }
+    //$scope.searchDepartment = debounce(function () {
+    //    if (!$scope.params.departmentSearch) {
+    //        $scope.departments = $filter('orderBy')(allDepartments, 'name');
+    //        return;
+    //    }
 
-        if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
-            $scope.selectedDepartment = null;
-        }
+    //    if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
+    //        $scope.selectedDepartment = null;
+    //    }
 
-        if (allDepartments.length) {
-            $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
-        }
+    //    if (allDepartments.length) {
+    //        $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
+    //    }
 
-    }, 200);
+    //}, 200);
 
-    $scope.changeDepartment = function () {
-        $scope.params.changeDepartment = true;
-        $scope.formData.departmentId = null;
-        $scope.params.departmentSearch = null;
-        $scope.selectedDepartment = null;
-        $scope.departments = $filter('orderBy')(allDepartments, 'name');
+    //$scope.changeDepartment = function () {
+    //    $scope.params.changeDepartment = true;
+    //    $scope.formData.departmentId = null;
+    //    $scope.params.departmentSearch = null;
+    //    $scope.selectedDepartment = null;
+    //    $scope.departments = $filter('orderBy')(allDepartments, 'name');
         
-        $analytics.eventTrack('Change department', {
-            category: 'Create box wizard',
-            label: 'User clicked change department'
-        });
-    };
+    //    $analytics.eventTrack('Change department', {
+    //        category: 'Create box wizard',
+    //        label: 'User clicked change department'
+    //    });
+    //};
 
    
 }

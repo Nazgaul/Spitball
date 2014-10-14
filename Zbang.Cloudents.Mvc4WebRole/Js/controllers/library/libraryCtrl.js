@@ -1,25 +1,23 @@
 ﻿var mLibrary = angular.module('mLibrary', []);
 mLibrary.controller('LibraryCtrl',
-    ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope',
-function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox, $rootScope) {
+    ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope','$analytics',
+function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
 
     var jsResources = window.JsResources;
 
     var types = {
         box: 'box',
-        department: 'department'
+        department: 'department',
+        empty:'empty'
     }
 
     //#region data
     $scope.info = {
         libraryId: $routeParams.libraryId,
         libraryName: $routeParams.libraryName,
+        isRootLevel : !$routeParams.libraryId,
         items: []
-
     };
-
-    $scope.back.title = $scope.info.libraryName;
-
 
     var partials = {
     //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
@@ -43,18 +41,31 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         else if (data.boxes && data.boxes.length) {
             pageData = data.boxes;
             $scope.info.type = types.box;
+        } else {
+            pageData = null;
+            $scope.info.type = types.empty;
         }
 
-        if (pageData) {
-            $scope.info.items.push.apply($scope.info.items, pageData);
+        if (!$scope.info.isRootLevel) {
+            $scope.back.title = data.details.name;
+            $scope.back.url = data.details.parentUrl;
         }
+        
 
         $timeout(function () {
             $scope.$emit('viewContentLoaded');
         });
 
+        if ($scope.info.type === types.empty) {
+            return;
+        }
+
+        if (pageData) {
+            $scope.info.items.push.apply($scope.info.items, pageData);
+        }
+      
         //if (pageData.length === $scope.info.pageSize) {
-        //    //$scope.info.paggingnNeeded = true;
+        //    $scope.info.paggingnNeeded = true;
         //    return;
         //}
 
@@ -141,7 +152,6 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     $scope.subscribe = function (box) {
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
-
         cd.postFb(box.name, jsResources.IJoined.format(box.name), location.href);
         cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
     };
@@ -180,14 +190,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     //#region privileges
 
     $scope.isAdmin = function () {
-        if (sUserDetails.getDetails().score > 500000) {
-            return true;
-        }
-        //if (parseInt($scope.info.universityId, 10) === sUserDetails.getDetails().id) {
-            //return true;
-        //}
-
-        return false;
+        return sUserDetails.getDetails().isAdmin;
     };
 
     $scope.createDepartmentVisible = function () {
@@ -207,19 +210,15 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     };
 
     $scope.createBoxVisible = function () {
-        if (!$scope.info.libraryId) {
+        if ($scope.info.isRootLevel) {
             return false;
         }
 
-        //if (!$scope.info.items.length) {
-        //    return false; //empty state
-        //}
-
-        if ($scope.info.type === types.box) {
-            return true;
+        if ($scope.info.type === types.department) {
+            return false;
         }
 
-        return false;
+        return true;
     };
 
     //$scope.renameBox = function (newName) {
@@ -241,7 +240,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     //#endregion
 
 
-    //#region analytics
+    //#region analytics    
     $('.u-Website').click(function () {
         cd.analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
     });

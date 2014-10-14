@@ -8,7 +8,7 @@
         @Html.LabelFor(m => m.DepartmentId)
         <span class="error">@DialogResources.RequiredField</span>
         <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch"
-               required ng-keyup="searchDepartment()" ng_disabled="!params.changeDepartment" />
+               required @*ng-keyup="searchDepartment()"*@ ng_disabled="!params.changeDepartment" />
         @*<button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>*@
     </div>
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
@@ -30,5 +30,5 @@
     <input type="submit" class="btn1  rFloat" ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
 
-    @_ChooseDeptAC.deptList()
+    @*@_ChooseDeptAC.deptList()*@
 </form>

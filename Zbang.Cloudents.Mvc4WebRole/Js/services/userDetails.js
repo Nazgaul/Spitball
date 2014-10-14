@@ -5,6 +5,7 @@
      var userData = {
          id: null,
          name: null,
+         isAdmin:false,
          image: $('body').data('pic'),
          score: 0,
          url: null,
@@ -26,6 +27,7 @@
                  image: data.image,
                  score: parseInt(data.score, 10),
                  url: data.url,
+                 isAdmin: data.isAdmin,
                  university: {
                      // id: data.universityId,
                      name: data.libName,

@@ -78,13 +78,13 @@
 
                 </li>                
                 <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
-                    <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
+                    <button class="addBtn" ng-click="createDepartment()" @*ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }"*@>@MainViewResources.AddItem</button>
                 </li>
                 <li class="libraryItem box addCourse" ng-if="createBoxVisible()">
                     <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
                 </li>
             </ul>
-            @{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}
+            @*@{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}*@
         </div>
     </div>
 </div>

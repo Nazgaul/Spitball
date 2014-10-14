@@ -360,16 +360,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                 sNewUpdates.removeUpdates(current.params.boxId);
             }
 
-            switch (previous.$$route.params.type) {
-                case 'library':
-                    if (current.$$route.params.isPrivate) {
-                        setBackDashboard();
-                    }
-                    else {
-                        $rootScope.back.title = previous.pathParams.libraryName;
-                        $rootScope.back.url = '/department/' + previous.pathParams.libraryName + '/' + previous.pathParams.libraryId + '/' + previous.pathParams.libraryName;
-                    }                    
-                    break;
+            switch (previous.$$route.params.type) {                
                 case 'user':                    
                     $rootScope.back.title = previous.pathParams.userName;
                     $rootScope.back.url = previous.loadedTemplateUrl;

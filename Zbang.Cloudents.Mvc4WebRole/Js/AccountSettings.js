@@ -143,6 +143,10 @@
             });
         });
 
+        $('.changeUni').click(function () {
+            cd.analytics.trackEvent('Account Settings', 'User clicked change school', 'Track how many times users click change school');
+        });
+
     }
     function notification() {
 
