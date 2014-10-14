@@ -107,13 +107,14 @@ namespace Zbang.Zbox.ReadServices
             {
                 var sql = query.ParentNode.HasValue ? 
                     Sql.Library.GetLibraryNodeWithParent + 
-                    Sql.Library.GetAcademicBoxesByNode : Sql.Library.GetLibraryNode;
+                    Sql.Library.GetAcademicBoxesByNode + Sql.Library.GetLibraryNodeDetails : Sql.Library.GetLibraryNode;
 
                 using (var grid = await conn.QueryMultipleAsync(sql, new
                 {
                     ParentId = query.ParentNode,
                     query.UniversityId,
-                    query.UserId
+                    query.UserId,
+                    LibraryId = query.ParentNode
                 }))
                 {
                     var retVal = new NodeBoxesDto
@@ -121,11 +122,9 @@ namespace Zbang.Zbox.ReadServices
                         Nodes = await grid.ReadAsync<NodeDto>()
                     };
 
-                    if (!grid.IsConsumed)
-                    {
-                        retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                        
-                    }
+                    if (grid.IsConsumed) return retVal;
+                    retVal.Boxes = await grid.ReadAsync<BoxDto>();
+                    retVal.Details = grid.Read<NodeDetails>().FirstOrDefault();
                     return retVal;
                 }
             }

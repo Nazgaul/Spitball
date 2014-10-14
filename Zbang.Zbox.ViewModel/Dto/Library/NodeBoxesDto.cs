@@ -7,5 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public IEnumerable<NodeDto> Nodes { get; set; }
         public IEnumerable<BoxDto> Boxes { get; set; }
 
+        public NodeDetails Details { get; set; }
+
     }
 }

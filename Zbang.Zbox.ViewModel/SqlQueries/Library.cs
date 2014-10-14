@@ -21,15 +21,21 @@
           BoxName asc;";
 
        public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, 
-     l.Url as Url, l.NoOfBoxes as NoBoxes 
+     l.Url as Url
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid is null
     order by name;";
 
+       public const string GetLibraryNodeDetails = @"select l.name as Name
+	 ,coalesce( p.Url ,'/library')  as ParentUrl
+	 from zbox.Library l 
+	 left  join zbox.Library p on l.ParentId = p.LibraryId
+	 where l.LibraryId = @LibraryId";
+
        public const string GetLibraryNodeWithParent = @"
  select l.libraryid as Id, l.Name as Name, 
-     l.Url as Url, l.NoOfBoxes as NoBoxes 
+     l.Url as Url
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid = @ParentId

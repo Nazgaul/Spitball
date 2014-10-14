@@ -104,6 +104,7 @@
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
+    <Compile Include="Dto\Library\NodeDetails.cs" />
     <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
     <Compile Include="Dto\Library\NodeBoxesDto.cs" />
