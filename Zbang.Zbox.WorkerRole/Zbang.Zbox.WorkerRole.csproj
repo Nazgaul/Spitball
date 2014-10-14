@@ -139,7 +139,6 @@
     <Compile Include="Jobs\UpdateDomainProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />
-    <Compile Include="Mail\IMail.cs" />
     <Compile Include="Mail\Imail2.cs" />
     <Compile Include="Mail\Invite2.cs" />
     <Compile Include="Mail\InviteToCloudents.cs" />

@@ -179,18 +179,21 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     //#region privileges
 
-    //$scope.isAdmin = function () {
-    //    if (parseInt($scope.info.universityId, 10) === sUserDetails.getDetails().id) {
-    //        return true;
-    //    }
+    $scope.isAdmin = function () {
+        if (sUserDetails.getDetails().score > 500000) {
+            return true;
+        }
+        //if (parseInt($scope.info.universityId, 10) === sUserDetails.getDetails().id) {
+            //return true;
+        //}
 
-    //    return false;
-    //};
+        return false;
+    };
 
     $scope.createDepartmentVisible = function () {
-        //if (!$scope.isAdmin()) {
-        //    return false;
-        //}
+        if (!$scope.isAdmin()) {
+            return false;
+        }
 
         if (!$scope.info.items.length) {
             return true;

@@ -16,7 +16,7 @@
                  searchUniversity: true
              };
 
-             var allDepartments;
+             //var allDepartments;
 
 
              sFacebook.getToken().then(function (token) {

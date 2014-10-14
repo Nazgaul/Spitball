@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var parentId = TryParseNullableGuid(model.ParentId);
-                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId);
+                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId, GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Json(new JsonResponse(true, result));
