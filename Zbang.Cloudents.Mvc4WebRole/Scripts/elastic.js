@@ -10,7 +10,7 @@ angular.module('monospaced.elastic', [])
     append: ''
   })
 
-  .directive('msdElastic', ['$timeout', '$window', 'msdElasticConfig', function($timeout, $window, config) {
+  .directive('msdElastic', ['$rootScope','$timeout', '$window', 'msdElasticConfig', function($rootScope,$timeout, $window, config) {
     'use strict';
 
     return {
@@ -151,11 +151,12 @@ angular.module('monospaced.elastic', [])
             if (taHeight !== mirrorHeight) {
               ta.style.height = mirrorHeight + 'px';
               scope.$emit('elastic:resize', $ta);
-            }
+            }            
+
 
             // small delay to prevent an infinite loop
             $timeout(function() {
-              active = false;
+                active = false;
             }, 1);
 
           }

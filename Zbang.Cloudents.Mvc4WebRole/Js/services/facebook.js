@@ -108,7 +108,7 @@
                        link: window.location.origin + data.link,
                        to: data.to
                    }, function (response) {
-                       if (!response) {
+                       if (!response || response.error_code) {
                            dfd.reject();
                            return;
                        }

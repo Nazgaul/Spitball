@@ -70,11 +70,13 @@
                          link: $scope.box.url,
                          to: contact.id
                      }).then(function () {
+
                          $scope.params.facebookInvite = false;
 
                          contact.invited = true;
 
                          var data = {
+                             boxId: $scope.box.id,  
                              id: contact.id,
                              username: contact.username || contact.id,
                              firstName: contact.firstname,
@@ -89,6 +91,7 @@
                          });
                      }, function () {
                          $scope.params.facebookInvite = false;
+                         alert('Error');
                      });
 
                  }

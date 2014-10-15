@@ -601,5 +601,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+
+        public ActionResult SocialInvitePartial()
+        {
+            try
+            {
+                return PartialView("_Invite");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_Invite", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
     }
 }

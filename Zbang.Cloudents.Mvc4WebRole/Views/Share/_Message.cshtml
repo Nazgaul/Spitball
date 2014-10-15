@@ -18,7 +18,7 @@
                     <ul class="emailList">
                         <li class="emailItem" ng-class="{invalidEmail: item.invalid}" ng-click="editItem(item)" ng-repeat="item in formData.emailList" ng-include="getView(item)"></li>
                     </ul>
-                    <input class="inviteInput" name="recepients" type="text" ng-placeholder="@DialogResources.UsernameOr" focus-on="shareInput" resize-input google-btn="!sources.google"
+                    <input class="inviteInput" name="recepients" type="text" placeholder="{{formData.placeholder}}" focus-on="shareInput" resize-input google-btn="!sources.google"
                            ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)" ng-required="!formData.emailList.length"
                            ng-model="formData.searchInput" typeahead="friend for friend in friends | filter: filterBy($viewValue) | orderByFilter:{field: 'name', input:$viewValue} | limitTo: 10" typeahead-min-length="2"
                            typeahead-on-select="onSelectedItem($item)" typeahead-template-url="{{views.emailMenuItem}}" />

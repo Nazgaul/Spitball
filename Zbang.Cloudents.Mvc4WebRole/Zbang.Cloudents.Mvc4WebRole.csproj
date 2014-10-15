@@ -910,6 +910,7 @@
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\box\boxFeedCtrl.js" />
+    <Content Include="Js\controllers\box\boxInviteCtrl.js" />
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
     <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
@@ -1638,7 +1639,7 @@
     <Content Include="Views\Shared\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
-    <Content Include="Views\Dashboard\_SocialInvite.cshtml" />
+    <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Dashboard\_UploadFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
@@ -1648,6 +1649,7 @@
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.mobile.cshtml" />
+    <Content Include="Views\Box\_Invite.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
