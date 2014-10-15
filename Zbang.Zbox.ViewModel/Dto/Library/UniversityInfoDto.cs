@@ -6,6 +6,8 @@
         public string Image { get; set; }
         public long Id { get; set; }
 
+        public string UniversityName { get; set; }
+
         public long BoxesCount { get; private set; }
         public long ItemCount { get; private set; }
         public long MemberCount { get; private set; }
@@ -18,6 +20,5 @@
         public string YouTubeUrl { get; private set; }
         public string LetterUrl { get; private set; }
 
-        //public IEnumerable<UserDtos.UserDto> Contributers { get; set; }
     }
 }

@@ -119,7 +119,7 @@
 
         definition.firstTimeUpdate = new definitionobj({ url: "/Account/FirstTime" });
 
-        definition.statistics = new definitionobj({ url: "/Home/Statistics", isJson: true, type: 'put' });
+        //definition.statistics = new definitionobj({ url: "/Home/Statistics", isJson: true, type: 'put' });
 
         definition.accountSettings = new definitionobj({ url: cAccount + "ChangeProfile" });
         definition.changeLanguage = new definitionobj({ url: cAccount + "ChangeLanguage", isJson: true });
