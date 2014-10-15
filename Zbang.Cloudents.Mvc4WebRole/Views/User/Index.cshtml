@@ -195,7 +195,7 @@
 
                         </ul>
                     </span>
-                    <span ng-if="boxes.common.list.length">
+                    <span ng-if="boxes.following.list.length">
                         <h4 class="semiFont">@SharedResources.Following</h4>
                         <ul class="followingList">
                             <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit">
@@ -209,7 +209,7 @@
                             </li>
                         </ul>
                     </span>
-                    <div ng-show="!(boxes.common.list.length)" class="coursesEmpty">@UserResources.NotFollowing</div>
+                    <div ng-show="!(boxes.common.list.length && boxes.following.list.length)" class="coursesEmpty">@UserResources.NotFollowing</div>
                 </div>
             </section>
             <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
