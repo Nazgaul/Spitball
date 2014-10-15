@@ -247,7 +247,8 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     $('.u-Fb').click(function () {
         cd.analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
     });
-    cd.analytics.setLibrary($('.unionName').text());
+    //cd.analytics.setLibrary($('.unionName').text());
+    $analytics.setVariable('dimension1', $scope.info.universityName);
 
     //#endregion
 

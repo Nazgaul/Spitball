@@ -33,7 +33,6 @@
 1157,, College of Judea and Samaria,ariel
 1158,,Peres Academic Center,pac
 1159,,Ruppin Academic Center,ruppin
-1160,,,
 1162,"ע""ר",ono academic college,
 1163,,Weizmann Institute of Science,
 1164,HIT,holon institute of technology,
@@ -85,3 +84,4 @@
 53950,KIT,,
 984,Вивт,Воронежский институт высоких технологий - АНОО ВПО,
 164597,המרכז האקדמי שערי משפט,Shaarei Mishpat College,שערי משפט
+1160,המרכז הבינתחומי הרצליה,IDC,Interdisciplinary Center Herzliya

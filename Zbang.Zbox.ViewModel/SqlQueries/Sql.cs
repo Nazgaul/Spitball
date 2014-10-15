@@ -36,7 +36,9 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 	                                       where ub.UserId = @UserId  and author.userid != @UserId
 	                                      ) t
 	                                      order by t.date desc;";
-        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
+        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
+                          coalesce (uWrap.OrgName, uWrap.UniversityName)  as Name, uWrap.LargeImage as Image,
+                            uWrap.UniversityName as UniversityName,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
                             uWrap.FacebookUrl,
@@ -47,7 +49,7 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             uWrap.NoOfBoxes as BoxesCount,
                             (select sum(itemcount) from zbox.Box b 
                             where b.University = uWrap.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId in ( uWrap.Id , uWrap.Id)) as MemberCount
+                            (select count(*) from zbox.Users u where u.UniversityId = uWrap.Id) as MemberCount
                             from zbox.University uWrap  
                             where 
                              uWrap.Id =@UniversityWrapper";

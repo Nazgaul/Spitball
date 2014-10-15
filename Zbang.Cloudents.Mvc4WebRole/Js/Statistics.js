@@ -48,11 +48,11 @@
     function sendData() {
         var x = JSON.parse(cd.localStorageWrapper.getItem(key));
         //if (x) {
-        dataContext.statistics({
-            data: { Items: x },
-            //error function not to go to error page
-            error: function () { }
-        });
+        //dataContext.statistics({
+        //    data: { Items: x },
+        //    //error function not to go to error page
+        //    error: function () { }
+        //});
 
         cd.localStorageWrapper.removeItem(key);
         //}
