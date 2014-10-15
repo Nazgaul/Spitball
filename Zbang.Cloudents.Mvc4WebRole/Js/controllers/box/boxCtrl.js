@@ -218,6 +218,12 @@ mBox.controller('BoxCtrl',
                     });
 
                     modalInstance.result.then(function (result) {
+
+                        if (result.invite) { //invite popup
+                            $scope.inviteFriends();
+                            return;
+                        }
+
                         $scope.info.name = result.name;
                         $scope.info.privacy = result.boxPrivacy;
 
