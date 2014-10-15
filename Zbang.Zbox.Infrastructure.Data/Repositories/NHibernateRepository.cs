@@ -66,9 +66,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             Session.Save(item, id);
         }
 
-        public void Delete(T item)
+        public void Delete(T item, bool flush = false)
         {
             Session.Delete(item);
+            if (flush)
+            {
+                Session.Flush();
+            }
         }
 
         public IQueryable<T> GetQuerable()
