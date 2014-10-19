@@ -157,7 +157,7 @@ namespace Zbang.Zbox.ReadServices
             //return m_ReadService.GetUserMinProfile(query);
         }
 
-        public Task<string> GetLocationByIp(long ipNumber)
+        public string GetLocationByIp(long ipNumber)
         {
             return m_ReadService.GetLocationByIp(ipNumber);
         }
