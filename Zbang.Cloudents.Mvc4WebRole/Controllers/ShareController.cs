@@ -56,7 +56,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-            return View(model);
+            return View("Empty");
+        }
+
+        [Route("invite/IndexPartial")]
+        [HttpGet,Ajax,ZboxAuthorize]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index");
         }
 
         [HttpPost, ZboxAuthorize]

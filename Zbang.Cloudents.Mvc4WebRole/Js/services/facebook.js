@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$q', '$analytics', '$timeout', 'sShare',
-   function ($q, $analytics, $timeout, sShare) {
+   ['$rootScope','$q', '$analytics', '$timeout', 'sShare',
+   function ($rootScope, $q, $analytics, $timeout, sShare) {
        var isAuthenticated = false,
            accessToken,
            facebookInit,
@@ -28,7 +28,7 @@
            js.src = "//connect.facebook.net/en_US/all.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
-       
+
        function loginStatus() {
            var retries = 0,
 
@@ -40,18 +40,23 @@
                        return;
                    }
                    clearInterval(interval);
-                   facebookInit = true;
 
                    FB.getLoginStatus(function (response) {
+                       facebookInit = true;
+
                        if (response.status === 'connected') {
                            accessToken = response.authResponse.accessToken;
                            isAuthenticated = true;
+                           $rootScope.$broadcast('FacebookAuth', true);
+                           return;
                        }
+
+                       $rootScope.$broadcast('FacebookAuth', false);
                    });
 
                }, 20);
        }
-       
+
        return {
            share: function (url, name, caption, description, picture) {
 
@@ -179,8 +184,8 @@
 
                $timeout(function () {
                    alreadySent = false;
-               },6000000);
-               
+               }, 6000000);
+
 
 
            },
@@ -199,7 +204,7 @@
 
                            defer.resolve(accessToken);
                        });
-                   });                   
+                   });
                }
                return defer.promise;
            },
@@ -229,6 +234,6 @@
                return isAuthenticated;
            }
        }
-       
+
    }
    ]);

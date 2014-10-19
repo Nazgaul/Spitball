@@ -1,20 +1,19 @@
-﻿angular.module('mInvite').
+﻿angular.module('mInvite', []).
     controller('InviteCtrl',
-        ['$scope', '$routeParams', '$timeout',
+        ['$scope', '$timeout', '$filter','$location',
          'sShare', 'sGoogle', 'sFacebook', 'sUser',
-         function ($scope, $routeParams, $timeout, sShare, sGoogle, sFacebook, sUser) {
-
-             $scope.boxId = $routeParams.boxId,
-             $scope.boxName = $routeParams.boxName;
-             $scope.params = {
-                 contactLimit: 35,
-                 contactPage: 35,
-             };
-             var states = {
+         function ($scope, $timeout, $filter, $location, sShare, sGoogle, sFacebook, sUser) {
+             var globalParams = {
+                 contactPage: 36
+             },
+             states = {
                  facebook: 1,
                  google: 2
-             },currentUsers;
+             }, currentUsers, currentState;
 
+             $scope.params = {
+                 loader: false
+             }
 
 
              if (!sGoogle.isAuthenticated()) {
@@ -23,14 +22,27 @@
                  });
              }
 
-             selectState(states.facebook);
-
              $timeout(function () {
                  $scope.$emit('viewContentLoaded');
+
+             });
+             selectState(states.facebook);
+
+             $scope.$on('FacebookAuth', function (e, isAuthenticated) {
+                 if (isAuthenticated) {
+                     $scope.params.notConnected = '';
+                 }
+
+
+                 selectState(states.facebook);
+
+                 $scope.$apply(function () { $scope.params.loader = false; });
+                 
+
              });
 
              $scope.addContacts = function () {
-                 $scope.params.contactLimit += $scope.params.contactPage;
+                 $scope.params.contactLimit += globalParams.contactPage;
              };
 
              $scope.inviteContact = function (contact) {
@@ -39,7 +51,7 @@
                  if (currentState === states.google || currentState === states.cloudents) {
                      contact.invited = true;
 
-                     sShare.invite.box({ recepients: [contact.id], boxId: $scope.boxId }).then(function (response) {
+                     sShare.invite.cloudents({ recepients: [contact.id]}).then(function (response) {
                          if (!response.success) {
                              alert('Error');
                          }
@@ -52,7 +64,7 @@
 
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
-                         link: $scope.box.url,
+                         link:'',
                          to: contact.id
                      }).then(function () {
                          $scope.params.facebookInvite = false;
@@ -82,49 +94,74 @@
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
                      sFacebook.loginFacebook().then(function () {
-                         $scope.selectState(states.facebook);
+                         selectState(states.facebook);
                      });
                      return;
                  }
                  if (currentState === states.google) {
                      sGoogle.checkAuth(false).then(function () {
-                         $scope.selectState(states.google);
+                         selectState(states.google);
                      });
                      return;
                  }
              };
-    
-             function selectState(state) {        
-                 var params = getParamsByState(currentState);
-                 $scope.params.currentState = state;
-                 $scope.params.contactLimit = $scope.params.contactPage;
-                 $scope.params.contacts = null;
-                 
+
+             $scope.selectState = selectState;
+
+             $scope.filterContacts = function () {
+                 if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
+                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                     return;
+                 }
+
+                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
 
              }
+
+             function selectState(state) {
+                 var params = getParamsByState(state);
+                 $scope.params.currentState = state;
+                 $scope.params.text = params.text;
+                 $scope.params.connectText = params.connectText;
+                 $scope.params.isConnected = params.isConnected;
+                 $scope.params.notConnected = params.notConnected;
+                 $scope.params.className = params.className;
+                 $scope.params.contactLimit = globalParams.contactPage;
+                 $scope.params.contacts = null;
+
+                 currentState = state;
+
+             };
+
+
+
 
              function getParamsByState(state) {
 
                  var params;
-                 switch (state) {              
+                 switch (state) {
                      case states.google:
                          params = {
                              text: 'Gmail friends',
-                             connectText : 'from your gmail account',
+                             connectText: 'from your gmail account',
                              isConnected: sGoogle.isAuthenticated(),
                              className: 'gmailContent'
                          };
 
-                         $scope.params.isConnected = params.isConnected;
+                         $scope.params.loader = true;
+
 
                          if (!params.isConnected) {
+                             params.notConnected = 'notConnected';
                              return params;
                          }
+
+
 
                          sGoogle.contacts().then(function (response) {
                              currentUsers = response;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
+                             $scope.params.loader = false;
 
                          });
 
@@ -133,21 +170,24 @@
                      case states.facebook:
                          params = {
                              text: 'Facebook friends',
-                             connectText : 'from your facebook account',
+                             connectText: 'from your facebook account',
                              isConnected: sFacebook.isAuthenticated(),
                              className: 'fbContent'
                          };
+                         
+                         $scope.params.loader = true;
 
-                         $scope.params.isConnected = params.isConnected;
 
                          if (!params.isConnected) {
+                             params.notConnected = 'notConnected';
                              return params;
                          }
+
+
                          sFacebook.contacts('id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)').then(function (response) {
                              currentUsers = response;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
-
+                             $scope.params.loader = false;
                          });
 
                          return params;
@@ -158,17 +198,6 @@
              }
 
 
-             function filterContacts() {
-                 if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
-                     $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                     $scope.$broadcast('update-scroll');
-                     return;
-                 }
-
-                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: $scope.params.contactSearch });
-                 $scope.$broadcast('update-scroll');
-
-             }
 
          }
         ]);
