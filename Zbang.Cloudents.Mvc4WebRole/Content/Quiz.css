@@ -385,6 +385,13 @@ body.quiz .modal-backdrop.in {
   background: #0f0f0f;
   color: #fff;
 }
+.quizPreviewTop .svg-back {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 .quizPreviewScroll {
   height: -webkit-calc(100% - 50px);
   height: calc(100% - 50px);

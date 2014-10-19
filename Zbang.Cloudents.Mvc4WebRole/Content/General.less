@@ -2575,8 +2575,8 @@ select.inputText {
 
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
-    input[type="radio"].radio+label:before {
-        margin-top: -3px;
+    body input.radio[type="radio"]:checked + label:after {
+        top: 4px;
     }
 }
 /*#endregion */

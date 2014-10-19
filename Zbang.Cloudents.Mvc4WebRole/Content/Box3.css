@@ -349,6 +349,9 @@
   line-height: normal;
   text-align: center;
 }
+.sectionLabel {
+  text-transform: capitalize;
+}
 .boxNotification,
 .boxPrivacy {
   display: none;

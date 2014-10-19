@@ -256,7 +256,8 @@
     <value>הזמן חברים לקורס</value>
   </data>
   <data name="InviteOnly" xml:space="preserve">
-    <value>רק אנשים שקיבלו הזמנה מפושת יכולים לקבל גישה. חובה להיכנס למערכת.</value>
+    <value>רק אנשים שקיבלו הזמנה מפורשת יכולים לקבל גישה.
+חובה להיכנס למערכת.</value>
   </data>
   <data name="InviteViaEmail" xml:space="preserve">
     <value>הזמן חבר באימייל</value>

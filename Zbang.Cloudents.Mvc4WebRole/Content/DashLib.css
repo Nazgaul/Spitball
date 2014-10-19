@@ -640,8 +640,8 @@
   margin-left: 70px;
 }
 .courseType .labelExplain {
-  width: 140px;
   padding-left: 30px;
+  white-space: pre-wrap;
 }
 .changeDeptBtn {
   position: absolute;
