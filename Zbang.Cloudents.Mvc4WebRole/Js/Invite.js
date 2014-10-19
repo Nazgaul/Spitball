@@ -74,7 +74,7 @@
                 if ((/*prevTab.classList.contains('gPlus') ||
                     */ $(prevTab).hasClass('gmail'))
                     && (/*currentTab.classList.contains('gPlus')
-                    || */$(currentTab).hasClass.contains('gmail'))) {
+                    || */$(currentTab).hasClass('gmail'))) {
                     loadContacts = false;
                 }
 

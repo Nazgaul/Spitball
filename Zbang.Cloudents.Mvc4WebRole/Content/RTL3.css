@@ -18,6 +18,16 @@
   /*rtl*/
 }
 /*#region Modal.css */
+.modal.boxInvitePopup .socialInvite {
+  float: right;
+}
+.modal.boxInvitePopup .closeDialog {
+  left: 8px;
+  right: auto;
+}
+.modal.boxInvitePopup .invSidebar {
+  margin: 0 0 0 30px;
+}
 .modal.rename {
   padding: 0 290px 0 0;
 }
@@ -1933,6 +1943,13 @@ body.quiz .shareBtn {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.quizPreviewTop .svg-back {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
 }
 .quizPreview {
   right: 0;

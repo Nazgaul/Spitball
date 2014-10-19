@@ -283,4 +283,7 @@
   <data name="Continue" xml:space="preserve">
     <value>המשך</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>סיום</value>
+  </data>
 </root>

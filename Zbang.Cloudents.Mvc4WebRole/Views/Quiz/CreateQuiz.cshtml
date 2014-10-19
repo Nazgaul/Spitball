@@ -31,8 +31,8 @@
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
         <div class="quizPreviewTop">
             <button type="button" class="closePreview rFloat" ng-click="previewQuiz()">
-                <span class="backTxt">@SharedResources.Back</span>
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                <span class="backTxt">@SharedResources.Back</span>
             </button>
             <h2 class="elps">{{quiz.name}}</h2>
         </div>
