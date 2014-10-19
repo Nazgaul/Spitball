@@ -295,4 +295,7 @@ In the meantime, you can go to your area, create private boxes and invite your f
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
 </root>

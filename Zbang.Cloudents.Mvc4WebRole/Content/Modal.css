@@ -34,6 +34,56 @@
 .modal.libChoosePopUp .modal-content {
   width: 600px;
 }
+.modal.boxInvitePopup {
+  width: 980px;
+}
+.modal.boxInvitePopup .modal-dialog {
+  padding: 0;
+}
+.modal.boxInvitePopup .modal-body {
+  padding: 12px;
+  background: #282828;
+}
+.modal.boxInvitePopup .socialInvite {
+  float: left;
+  background: #fff;
+  width: 630px;
+  height: 560px;
+}
+.modal.boxInvitePopup .socialInvite header {
+  padding-top: 20px;
+}
+.modal.boxInvitePopup .socialWpr .fbBtn {
+  margin: 15px 48px 33px 48px;
+}
+.modal.boxInvitePopup .socialContentWpr {
+  margin: 0 0 -25px 0;
+}
+.modal.boxInvitePopup .socialConnect {
+  padding: 20px 0 125px;
+}
+.modal.boxInvitePopup .btnWpr {
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+.modal.boxInvitePopup .btnWpr .btn1:before {
+  content: attr(data-done);
+  display: block;
+}
+.modal.boxInvitePopup .closeDialog {
+  right: 8px;
+  top: 10px;
+}
+.modal.boxInvitePopup .invSidebar {
+  margin-right: 30px;
+}
+.modal.boxInvitePopup .invForm .btn1 {
+  margin-top: 0;
+}
+.modal.boxInvitePopup .invForm h3 {
+  color: #fff;
+}
 .modal.boxSettings {
   width: 700px;
   max-height: none;

@@ -30,6 +30,59 @@
             width: 600px;
         }
     }
+    &.boxInvitePopup {
+        width: 980px;
+        .modal-dialog {
+            padding: 0;
+        }
+        .modal-body {
+            padding: 12px;
+            background: #282828;
+        }
+        .socialInvite {
+            float: left; //rtl
+            background: #fff;
+            width: 630px;
+            height: 560px;
+            header {
+                padding-top: 20px;
+            }
+        }
+        .socialWpr .fbBtn {
+            margin: 15px 48px 33px 48px; //for the arrows
+        }
+        .socialContentWpr {
+            margin: 0 0 -25px 0;
+        }
+        .socialConnect {
+            padding: 20px 0 125px;
+        }
+        .btnWpr {
+            width: 100%;
+            margin: 0; //override
+            position: relative;
+            .btn1:before {
+                content: attr(data-done);
+                display: block;
+            }
+        }
+        .closeDialog {
+            right: 8px; //rtl
+            top: 10px;
+        }
+        .invSidebar {
+            margin-right: 30px; //rtl
+        }
+        .invForm {
+            .btn1 {
+                margin-top: 0;
+            }
+
+            h3 {
+                color: #fff;
+            }
+        }
+    }
     &.boxSettings
     {
         width: 700px;        

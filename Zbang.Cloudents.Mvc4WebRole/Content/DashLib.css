@@ -685,6 +685,10 @@
   padding: 25px 0;
   border-radius: 0 0 5px 5px;
 }
+.socialInvite .btnWpr .btn1:before {
+  content: attr(data-continue);
+  display: block;
+}
 .socialInvite .btn1,
 .socialInvite .btn2 {
   margin: 0 6px;
@@ -749,8 +753,6 @@
   position: relative;
 }
 .socialContentWpr .mCustomScrollbar.js-scrolling:after {
-  content: '';
-  display: inline-block;
   width: 599px;
   position: fixed;
   left: 8px;

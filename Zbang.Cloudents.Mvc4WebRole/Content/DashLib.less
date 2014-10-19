@@ -773,6 +773,10 @@
         .boxSizing;
         padding: 25px 0;
         border-radius: 0 0 5px 5px;
+        .btn1:before {
+            content: attr(data-continue);
+            display: block;
+        }
     }
 
     .btn1, .btn2 {
@@ -883,7 +887,7 @@
 
     .mCustomScrollbar {
         &.js-scrolling:after {
-            .pseudo;
+            //.pseudo; //Removed this class
             width: 599px;
             position: fixed;
             left: 8px;
