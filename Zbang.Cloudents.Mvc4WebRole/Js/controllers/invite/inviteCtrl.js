@@ -9,14 +9,11 @@
              $scope.params = {
                  contactLimit: 35,
                  contactPage: 35,
-                 inviteText: $scope.boxId ? 'Invite to ' : 'Invite to cloudents'
              };
              var states = {
-                 cloudents: 0,
                  facebook: 1,
                  google: 2
-             },
-               currentUsers;
+             },currentUsers;
 
 
 
@@ -26,21 +23,11 @@
                  });
              }
 
-             if ($scope.boxId) {
-                 selectState(states.facebook);
-                 showPage();
+             selectState(states.facebook);
 
-                 return;
-             }
-
-             if (sFacebook.isAuthenticated()) {
-                 $scope.selectState(states.facebook);
-             } else {
-                 $scope.selectState(states.cloudents);
-             }
-
-             showPage();
-
+             $timeout(function () {
+                 $scope.$emit('viewContentLoaded');
+             });
 
              $scope.addContacts = function () {
                  $scope.params.contactLimit += $scope.params.contactPage;
@@ -106,13 +93,7 @@
                      return;
                  }
              };
-
-             function showPage() {
-                 $timeout(function () {
-                     $scope.$emit('viewContentLoaded');
-                 });
-             }
-
+    
              function selectState(state) {        
                  var params = getParamsByState(currentState);
                  $scope.params.currentState = state;
@@ -125,25 +106,7 @@
              function getParamsByState(state) {
 
                  var params;
-                 switch (state) {
-                     case states.cloudents:
-                         params = {
-                             text: 'Cloudents friends',
-                             isConnected: true,
-                             className: 'cloudentsContent'
-                             
-                         };
-
-                         sUser.friends().then(function (response) {
-                             var data = response.success ? response.payload : [],
-                                cloudentsUsers = data.my;
-                             currentUsers = cloudentsUsers;
-                             $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
-                         });
-
-                         return params;
-
+                 switch (state) {              
                      case states.google:
                          params = {
                              text: 'Gmail friends',
