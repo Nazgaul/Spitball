@@ -282,4 +282,7 @@
   <data name="Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
 </root>

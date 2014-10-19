@@ -321,7 +321,6 @@
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\UrlTitleBringer.cs" />
     <Compile Include="Helpers\UserLanguage.cs" />
-    <Compile Include="Helpers\UserProfile.cs" />
     <Compile Include="Js\Resources\JsResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1658,7 +1657,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\Factories\" />
     <Folder Include="Js\controllers\invite\" />
   </ItemGroup>
   <ItemGroup>

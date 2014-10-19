@@ -593,13 +593,13 @@ namespace Zbang.Zbox.ReadServices
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetLocationByIp(long ipNumber)
+        public  string GetLocationByIp(long ipNumber)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn =  DapperConnection.OpenConnection())
             {
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
-                var retVal = await conn.QueryAsync<string>(sql, new { IP = ipNumber });
+                var retVal = conn.Query<string>(sql, new { IP = ipNumber });
                 return retVal.FirstOrDefault();
             }
 

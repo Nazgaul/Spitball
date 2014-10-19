@@ -97,9 +97,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        public async Task<PartialViewResult> ChoosePartial()
+        public PartialViewResult ChoosePartial()
         {
-            var country = await GetUserCountryByIp();
+            var country = UserLanguage.GetCountryByIp(HttpContext);
             var haveUniversity = false;
             var userData = FormsAuthenticationService.GetUserData();
             if (userData != null && userData.UniversityId.HasValue)
@@ -113,36 +113,36 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("_SelectUni");
         }
         #region Ip
-        [NonAction]
-        private async Task<string> GetUserCountryByIp()
-        {
-            string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrWhiteSpace(userIp))
-            {
-                userIp = Request.ServerVariables["REMOTE_ADDR"];
-            }
-            if (Request.IsLocal)
-            {
-                userIp = "81.218.135.73";
-            }
-            var ipNumber = Ip2Long(userIp);
-            return await ZboxReadService.GetLocationByIp(ipNumber);
+        //[NonAction]
+        //private async Task<string> GetUserCountryByIp()
+        //{
+        //    string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        //    if (string.IsNullOrWhiteSpace(userIp))
+        //    {
+        //        userIp = Request.ServerVariables["REMOTE_ADDR"];
+        //    }
+        //    if (Request.IsLocal)
+        //    {
+        //        userIp = "81.218.135.73";
+        //    }
+        //    var ipNumber = Ip2Long(userIp);
+        //    return await ZboxReadService.GetLocationByIp(ipNumber);
 
-        }
-        [NonAction]
-        private long Ip2Long(string ip)
-        {
-            double num = 0;
-            if (!string.IsNullOrEmpty(ip))
-            {
-                string[] ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-                }
-            }
-            return (long)num;
-        }
+        //}
+        //[NonAction]
+        //private long Ip2Long(string ip)
+        //{
+        //    double num = 0;
+        //    if (!string.IsNullOrEmpty(ip))
+        //    {
+        //        string[] ipBytes = ip.Split('.');
+        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
+        //        {
+        //            num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+        //        }
+        //    }
+        //    return (long)num;
+        //}
         #endregion
 
         [HttpGet, Ajax]

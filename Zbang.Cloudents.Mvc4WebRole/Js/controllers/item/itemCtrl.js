@@ -53,7 +53,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
             var data = response.success ? response.payload || {} : {};
             if (data.preview) {
-                if (data.preview.indexOf('iframe') > 0) {
+                if (data.preview.indexOf('iframe') > 0
+                    || data.preview.indexOf('audio') > 0
+                    || data.preview.indexOf('video') > 0) {
                     $scope.preview = $sce.trustAsHtml(data.preview);
                 } else {
                     $scope.preview += data.preview;

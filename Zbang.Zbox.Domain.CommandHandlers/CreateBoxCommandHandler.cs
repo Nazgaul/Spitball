@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
         {
-            var box = new Box(command.BoxName, user, Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl);
+            var box = new Box(command.BoxName, user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
 
             SaveRepositories(user, box);
             box.GenerateUrl();

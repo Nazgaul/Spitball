@@ -36,7 +36,7 @@
     </div>
     <div class="btnWpr">
         @*<button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>*@
-        <input type="button" class="btn1" ng-click="nextStep()" value="@DialogResources.Continue" />
+        <button type="button" class="btn1" ng-click="nextStep()" data-continue="@DialogResources.Continue" data-done="@DialogResources.Done"></button>
     </div>
     <div fb-block ng-if="params.facebookInvite"></div>
 </section>
