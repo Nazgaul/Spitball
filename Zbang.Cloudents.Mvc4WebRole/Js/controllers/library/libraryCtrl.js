@@ -50,19 +50,16 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             $scope.back.title = data.details.name;
             $scope.back.url = data.details.parentUrl;
         }
-        
-
-        $timeout(function () {
-            $scope.$emit('viewContentLoaded');
-        });
-
-        if ($scope.info.type === types.empty) {
-            return;
-        }
+        //if ($scope.info.type === types.empty) {
+        //    return;
+        //}
 
         if (pageData) {
             $scope.info.items.push.apply($scope.info.items, pageData);
         }
+        $timeout(function () {
+            $scope.$emit('viewContentLoaded');
+        });
       
         //if (pageData.length === $scope.info.pageSize) {
         //    $scope.info.paggingnNeeded = true;
@@ -135,8 +132,9 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 return;
             }
 
-            sLibrary.createDepartment(result).then(function(response) {
+            sLibrary.createDepartment(result).then(function (response) {
                 $scope.info.items.push(response.payload);
+                $scope.info.type = types.department;
             });
         });
 
@@ -210,6 +208,10 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     };
 
     $scope.createBoxVisible = function () {
+        
+        if (!$scope.info.type) {
+            return false;
+        }
         if ($scope.info.isRootLevel) {
             return false;
         }
@@ -217,7 +219,6 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         if ($scope.info.type === types.department) {
             return false;
         }
-
         return true;
     };
 

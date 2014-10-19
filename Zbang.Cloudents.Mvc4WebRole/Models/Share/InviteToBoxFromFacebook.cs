@@ -13,6 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
 
 
         [Required]
+        [Range(1,long.MaxValue)]
         public long BoxId { get; set; }
 
         [Required]

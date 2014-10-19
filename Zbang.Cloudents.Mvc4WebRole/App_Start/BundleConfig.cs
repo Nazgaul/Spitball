@@ -487,6 +487,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
         {
             var jsBundle = javaScriptBundleImp;
+            jsBundle.ForceDebug();
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
             foreach (var jsFile in jsFiles)
             {
