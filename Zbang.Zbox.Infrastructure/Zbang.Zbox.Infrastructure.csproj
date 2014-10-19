@@ -137,6 +137,7 @@
     <Compile Include="Cache\HttpContextCacheWrapper.cs" />
     <Compile Include="Cache\IHttpContextCacheWrapper.cs" />
     <Compile Include="Commands\ICommandResolver.cs" />
+    <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Culture\Languages.cs" />
@@ -208,9 +209,6 @@
     <Compile Include="Url\GuidEncoder.cs" />
     <Compile Include="Url\IBoxUrlBuilder.cs" />
     <Compile Include="Url\InviteLinkProvider.cs" />
-    <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\GenerateThumbnail.cs" />
-    <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\MailQueueData.cs" />
-    <Compile Include="WebWorkerRoleJoinData\QueueDataTransfer\FileProcessQueueData.cs" />
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Cache\IWithCache.cs" />
     <Compile Include="Cache\WithCache.cs" />

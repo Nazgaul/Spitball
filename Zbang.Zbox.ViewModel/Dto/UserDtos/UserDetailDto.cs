@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.ViewModel.Dto.UserDtos
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserDetailDto 
     {
@@ -15,13 +17,15 @@
 
         public string Url { get; set; }
 
-        public long? DepartmentId { get; set; }
+        //public Guid? DepartmentId { get; set; }
 
-        public string DepartmentName { get; set; }
+        //public string DepartmentName { get; set; }
 
         //// for Mobile
         public string Email { get; set; }
         public string LibName { get; set; }
         public string LibImage { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

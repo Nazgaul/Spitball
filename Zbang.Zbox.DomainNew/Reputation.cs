@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.Domain
             User = user;
             CreationTime = DateTime.UtcNow;
             Action = action;
-            Score = CalcuateScore(action);
+            Score = CalculateScore(action);
 // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
@@ -26,69 +27,51 @@ namespace Zbang.Zbox.Domain
         public virtual int Score { get; set; }
         public virtual ReputationAction Action { get; set; }
 
-        public const int AddQuizScore = 30;
-        public const int UploadItemScore = 10;
-        public const int AddAnswerScore = 10;
-        public const int AddQuestionScore = 5;
-        public const int DeleteItemScore = -UploadItemScore;
-        public const int DeleteQuestionScore = -AddQuestionScore;
-        public const int DeleteAnswerScore = -AddAnswerScore;
-        public const int DeleteQuizScore = -AddQuizScore;
-        public const int ShareFabookScore = 5;
-        public const int InviteToCloudentsScore = 20;
-        public const int InviteToBoxScore = 5;
-
-        public const int Rate3StareScore = 5;
-        public const int Rate4StareScore = 10;
-        public const int Rate5StareScore = 15;
-
-        public const int UnRate3StareScore = -Rate3StareScore;
-        public const int UnRate4StareScore = -Rate4StareScore;
-        public const int UnRate5StareScore = -Rate5StareScore;
+       
 
 
 
 
-        internal static int CalcuateScore(ReputationAction action)
+        internal static int CalculateScore(ReputationAction action)
         {
             switch (action)
             {
                 case ReputationAction.None:
                     return 0;
                 case ReputationAction.AddItem:
-                    return UploadItemScore;
+                    return ReputationConsts.UploadItemScore;
                 case ReputationAction.AddAnswer:
-                    return AddAnswerScore;
+                    return ReputationConsts.AddAnswerScore;
                 case ReputationAction.AddQuestion:
-                    return AddQuestionScore;
+                    return ReputationConsts.AddQuestionScore;
                 case ReputationAction.DeleteItem:
-                    return DeleteItemScore;
+                    return ReputationConsts.DeleteItemScore;
                 case ReputationAction.DeleteQuestion:
-                    return DeleteQuestionScore;
+                    return ReputationConsts.DeleteQuestionScore;
                 case ReputationAction.DeleteAnswer:
-                    return DeleteAnswerScore;
+                    return ReputationConsts.DeleteAnswerScore;
                 case ReputationAction.ShareFacebook:
-                    return ShareFabookScore;
+                    return ReputationConsts.ShareFabookScore;
                 case ReputationAction.Invite:
-                    return InviteToCloudentsScore;
+                    return ReputationConsts.InviteToCloudentsScore;
                 case ReputationAction.InviteToBox:
-                    return InviteToBoxScore;
+                    return ReputationConsts.InviteToBoxScore;
                 case ReputationAction.Rate3Stars:
-                    return Rate3StareScore;
+                    return ReputationConsts.Rate3StareScore;
                 case ReputationAction.Rate4Stars:
-                    return Rate4StareScore;
+                    return ReputationConsts.Rate4StareScore;
                 case ReputationAction.Rate5Stars:
-                    return Rate5StareScore;
+                    return ReputationConsts.Rate5StareScore;
                 case ReputationAction.UnRate3Stars:
-                    return UnRate3StareScore;
+                    return ReputationConsts.UnRate3StareScore;
                 case ReputationAction.UnRate4Stars:
-                    return UnRate4StareScore;
+                    return ReputationConsts.UnRate4StareScore;
                 case ReputationAction.UnRate5Stars:
-                    return UnRate5StareScore;
+                    return ReputationConsts.UnRate5StareScore;
                 case ReputationAction.AddQuiz:
-                    return AddQuizScore;
-                case ReputationAction.DelteQuiz:
-                    return DeleteQuizScore;
+                    return ReputationConsts.AddQuizScore;
+                case ReputationAction.DeleteQuiz:
+                    return ReputationConsts.DeleteQuizScore;
                 default:
                     return 0;
             }

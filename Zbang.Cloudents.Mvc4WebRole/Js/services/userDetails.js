@@ -5,6 +5,7 @@
      var userData = {
          id: null,
          name: null,
+         isAdmin:false,
          image: $('body').data('pic'),
          score: 0,
          url: null,
@@ -26,16 +27,17 @@
                  image: data.image,
                  score: parseInt(data.score, 10),
                  url: data.url,
+                 isAdmin: data.isAdmin,
                  university: {
                      // id: data.universityId,
                      name: data.libName,
                      image: data.libImage
                  },
-                 department: {
-                     id: data.departmentId,
-                     name: data.departmentName
+                 //department: {
+                 //    id: data.departmentId,
+                 //    name: data.departmentName
 
-                 }
+                 //}
              };
 
          },
@@ -59,18 +61,18 @@
          //        userData.university = uniName;
          //    }
          //},
-         getDepartment: function () {
-             if (!userData.department.id) {
-                 return false;
-             }
-             //if (_.isEmpty(userData.department)) {
-             //    return false;
-             //}
-             return userData.department;
-         },
-         setDepartment: function (department) {
-             userData.department = department;
-         }
+         //getDepartment: function () {
+         //    if (!userData.department.id) {
+         //        return false;
+         //    }
+         //    //if (_.isEmpty(userData.department)) {
+         //    //    return false;
+         //    //}
+         //    return userData.department;
+         //},
+         //setDepartment: function (department) {
+         //    userData.department = department;
+         //}
      };
  }
  ]);

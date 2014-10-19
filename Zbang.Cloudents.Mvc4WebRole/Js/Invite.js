@@ -79,10 +79,11 @@
                 }
 
                 $(prevTab).removeClass('current');
-            }            
+            }
+            
 
-            $(inviteContantClassList).removeClass('cloudentsContent fbContent gPlusContent gmailContent');
-            $(inviteContantClassList).addClass(tabName + 'Content');
+            $(inviteContentWrapper).removeClass('cloudentsContent fbContent gPlusContent gmailContent');
+            $(inviteContentWrapper).addClass(tabName + 'Content');
 
             $(currentTab).addClass('current');
 

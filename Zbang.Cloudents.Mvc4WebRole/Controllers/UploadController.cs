@@ -47,15 +47,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
-                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
                 }
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
                 }
                 if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
                 {
-                    return Json(new JsonResponse(false, BaseControllerResources.NoFilesReceived));
+                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
                 }
                 var uploadedfile = HttpContext.Request.Files[0];
                 if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
@@ -99,7 +99,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
                     boxId, fileName, fileSize, userId,
                     HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
-                return Json(new JsonResponse(false, BaseControllerResources.Error));
+                return Json(new JsonResponse(false, BoxControllerResources.Error));
             }
 
         }
@@ -231,12 +231,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 //TODO: remove that
                 BaseControllerResources.Culture = Thread.CurrentThread.CurrentCulture;
-                return Json(new JsonResponse(false, BaseControllerResources.LinkExists));
+                return Json(new JsonResponse(false, BoxControllerResources.LinkExists));
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
-                return Json(new JsonResponse(false, BaseControllerResources.ProblemUrl));
+                return Json(new JsonResponse(false, BoxControllerResources.ProblemUrl));
             }
         }
 

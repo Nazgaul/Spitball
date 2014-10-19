@@ -80,10 +80,10 @@ namespace Zbang.Zbox.ReadServices
 
       
 
-        public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
-        {
-            return m_ReadService.GetBoxComments(query);
-        }
+        //public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
+        //{
+        //    return m_ReadService.GetBoxComments(query);
+        //}
 
       
 

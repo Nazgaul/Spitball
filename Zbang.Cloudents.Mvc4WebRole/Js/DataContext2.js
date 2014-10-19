@@ -67,7 +67,7 @@
 
         definition.getBox = new definitionobj({ url: cBOX + "Data", type: get });
         definition.getItems = new definitionobj({ url: cBOX + "Items", type: get });
-        definition.boxComments = new definitionobj({ url: "/Comment", type: get });
+        //definition.boxComments = new definitionobj({ url: "/Comment", type: get });
         definition.commentAdd = new definitionobj({ url: comment + "Add", isJson: true });
         definition.commentRemove = new definitionobj({ url: comment + "Delete" });
 
@@ -119,7 +119,7 @@
 
         definition.firstTimeUpdate = new definitionobj({ url: "/Account/FirstTime" });
 
-        definition.statistics = new definitionobj({ url: "/Home/Statistics", isJson: true, type: 'put' });
+        //definition.statistics = new definitionobj({ url: "/Home/Statistics", isJson: true, type: 'put' });
 
         definition.accountSettings = new definitionobj({ url: cAccount + "ChangeProfile" });
         definition.changeLanguage = new definitionobj({ url: cAccount + "ChangeLanguage", isJson: true });

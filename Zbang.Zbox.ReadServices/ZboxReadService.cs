@@ -107,13 +107,14 @@ namespace Zbang.Zbox.ReadServices
             {
                 var sql = query.ParentNode.HasValue ? 
                     Sql.Library.GetLibraryNodeWithParent + 
-                    Sql.Library.GetAcademicBoxesByNode : Sql.Library.GetLibraryNode;
+                    Sql.Library.GetAcademicBoxesByNode + Sql.Library.GetLibraryNodeDetails : Sql.Library.GetLibraryNode;
 
                 using (var grid = await conn.QueryMultipleAsync(sql, new
                 {
                     ParentId = query.ParentNode,
                     query.UniversityId,
-                    query.UserId
+                    query.UserId,
+                    LibraryId = query.ParentNode
                 }))
                 {
                     var retVal = new NodeBoxesDto
@@ -121,11 +122,9 @@ namespace Zbang.Zbox.ReadServices
                         Nodes = await grid.ReadAsync<NodeDto>()
                     };
 
-                    if (!grid.IsConsumed)
-                    {
-                        retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                        
-                    }
+                    if (grid.IsConsumed) return retVal;
+                    retVal.Boxes = await grid.ReadAsync<BoxDto>();
+                    retVal.Details = grid.Read<NodeDetails>().FirstOrDefault();
                     return retVal;
                 }
             }
@@ -431,20 +430,20 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
-                dbQuery.SetParameter("boxid", query.BoxId);
-                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
-                var comments = dbQuery.Future<Activity.BaseActivityDto>();
+        //public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
+        //        dbQuery.SetParameter("boxid", query.BoxId);
+        //        dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
+        //        var comments = dbQuery.Future<Activity.BaseActivityDto>();
 
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+        //        CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
-                return comments.ToList();
-            }
-        }
+        //        return comments.ToList();
+        //    }
+        //}
 
         public IEnumerable<Qna.QuestionDto> GetQuestions(GetBoxQuestionsQuery query)
         {

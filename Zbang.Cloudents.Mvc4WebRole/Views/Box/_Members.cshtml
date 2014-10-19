@@ -3,7 +3,7 @@
 
 <div class="membersContent" ng-controller="BoxMembersCtrl">
     <div class="membersTop">
-        <a ng-href="{{info.inviteUrl}}" ng-click="inviteFriends($event)" target="_self" class="inviteFriendBtn btn3 rFloat">@IndexResources.Invite</a>
+        <button type="button" class="rFloat btn3 inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">@IndexResources.Invite</button>        
         <div class="searchWpr">
             <span class="membersCount lFloat">{{params.membersLength}} @SharedResources.Members</span>
             <div class="inputWpr">

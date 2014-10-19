@@ -5,8 +5,9 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
 
     $scope.secondStep = false;
     $scope.disable = false;
-    $scope.formdata = {};
-    $scope.formdata.id = data.id;
+    $scope.formdata = {
+        id: data.id
+    };
 
     $scope.flagItem = function () {
         $scope.disable = true;

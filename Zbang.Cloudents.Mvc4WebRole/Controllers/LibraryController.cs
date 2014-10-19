@@ -288,13 +288,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, Ajax]
-        public ActionResult SelectDepartment(long id)
-        {
-            var command = new SelectDepartmentCommand(id, GetUserId());
-            ZboxWriteService.SelectDepartment(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, Ajax]
+        //public ActionResult SelectDepartment(Guid id)
+        //{
+        //    var command = new SelectDepartmentCommand(id, GetUserId());
+        //    ZboxWriteService.SelectDepartment(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
         #region Create
 
@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var parentId = TryParseNullableGuid(model.ParentId);
-                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId);
+                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId, GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Json(new JsonResponse(true, result));

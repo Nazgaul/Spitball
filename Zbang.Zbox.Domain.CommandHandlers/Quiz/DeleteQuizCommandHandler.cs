@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     class DeleteQuizCommandHandler : ICommandHandler<DeleteQuizCommand>
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<Updates> m_Updates;
         private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
 
@@ -21,18 +22,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IRepository<Updates> updates,
             IRepository<SolvedQuiz> solvedQuizRepository,
             IRepository<Reputation> reputationRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository, IRepository<Box> boxRepository)
         {
             m_QuizRepository = quizRepository;
             m_Updates = updates;
             m_SolvedQuizRepository = solvedQuizRepository;
             m_ReputationRepository = reputationRepository;
             m_UserRepository = userRepository;
+            m_BoxRepository = boxRepository;
         }
         public void Handle(DeleteQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var quiz = m_QuizRepository.Load(message.QuizId);
+            var quiz = m_QuizRepository.Load(message.QuizId); // need that because we save box
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, quiz.Box.Id);
             if (!(quiz.Owner.Id == message.UserId || userType == UserRelationshipType.Owner))
             {
@@ -50,9 +52,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 m_SolvedQuizRepository.Delete(solvedQuiz);
             }
-            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.DelteQuiz));
+            m_ReputationRepository.Save(quiz.Owner.AddReputation(ReputationAction.DeleteQuiz));
             m_UserRepository.Save(quiz.Owner);
-            m_QuizRepository.Delete(quiz);
+            m_QuizRepository.Delete(quiz, true);
+            quiz.Box.UpdateItemCount();
+            m_BoxRepository.Save(quiz.Box);
         }
     }
 }

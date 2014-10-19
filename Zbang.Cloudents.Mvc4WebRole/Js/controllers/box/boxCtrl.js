@@ -24,7 +24,8 @@ mBox.controller('BoxCtrl',
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
                 boxSettings: '/Box/SettingsPartial/',
-                uploader: '/Box/UploadPartial/'
+                uploader: '/Box/UploadPartial/',
+                boxSocialInvite:'/Box/SocialInvitePartial/'
             };
 
             $scope.popup = {
@@ -158,6 +159,24 @@ mBox.controller('BoxCtrl',
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
+
+                var modalInstance = $modal.open({
+                    windowClass: "boxInvitePopup",
+                    templateUrl: $scope.partials.boxSocialInvite,
+                    controller: 'BoxInviteCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                        data: function () {
+                            return {
+                                id: $scope.boxId,
+                                name: $scope.info.name,
+                                image: $scope.info.image,
+                                url: $scope.info.url
+
+                            }
+                        }
+                    }
+                });
             };
             //#endregion
 
@@ -199,6 +218,12 @@ mBox.controller('BoxCtrl',
                     });
 
                     modalInstance.result.then(function (result) {
+
+                        if (result.invite) { //invite popup
+                            $scope.inviteFriends();
+                            return;
+                        }
+
                         $scope.info.name = result.name;
                         $scope.info.privacy = result.boxPrivacy;
 
@@ -268,6 +293,11 @@ mBox.controller('BoxCtrl',
             $scope.$on('selectTab', function (e, tab) {
                 $scope.options.currentTab = tab;
             });
+
+            $scope.invitePopup = function () {
+
+                
+            };
         }
 
 

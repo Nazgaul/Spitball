@@ -93,10 +93,10 @@
                 </div>
             </section>
             
-            <a ng-href="{{info.inviteUrl}}"
-               target="_self" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
+            <button @*ng-href="{{info.inviteUrl}}"*@ type="button"
+               @*target="_self"*@ class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-            </a>
+            </button>
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>

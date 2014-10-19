@@ -33,20 +33,24 @@
                 wizard.finish();
             };
 
-            $scope.completeWizard = function () {
-                $modalInstance.close($scope.box.url);
-            };
-
-            $scope.createDepartmentSubmit = function (isValid) {
-                if (!isValid) {
-                    return;
-                }
-                sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-                    if (response.success) {
-                        $scope.display.createDep = false;
-                        $scope.$broadcast('newDep', { id: response.payload.id, name: $scope.formData.createDepartment.name });
-                    }
+            $scope.completeWizard = function (items) {
+                var url = $scope.box.url;                
+                $modalInstance.close({
+                    url: url,
+                    isItems: items
                 });
             };
+
+            //$scope.createDepartmentSubmit = function (isValid) {
+            //    if (!isValid) {
+            //        return;
+            //    }
+            //    sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
+            //        if (response.success) {
+            //            $scope.display.createDep = false;
+            //            $scope.$broadcast('newDep', { id: response.payload.id, name: $scope.formData.createDepartment.name });
+            //        }
+            //    });
+            //};
         }]
     );

@@ -12,7 +12,7 @@
                     <div class="uniLogo">
                         <img src="@Model.Image" alt="" width="68" height="68" />
                     </div>
-                <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'">@Model.Name</div>
+                <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</div>
                     <div class="unionStats">
                         <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
                         <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
@@ -61,7 +61,7 @@
 
         <div class="boxesHeader topBar barShadow">
             <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" href="@Url.RouteUrl("LibraryDesktop")">
+            <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
                 <h2 contenteditable="false" id="libName" @*edit-callback="renameBox(t)"*@>{{back.title}}</h2>
             </a>
             @*<button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" contenteditable-trigger="libName"></button>*@
@@ -77,9 +77,9 @@
                 <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'">
 
                 </li>                
-                @*<li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
+                <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
                     <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
-                </li>*@
+                </li>
                 <li class="libraryItem box addCourse" ng-if="createBoxVisible()">
                     <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
                 </li>

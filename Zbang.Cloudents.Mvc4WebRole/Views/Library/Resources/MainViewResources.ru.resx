@@ -121,7 +121,7 @@
     <value>Добавить курс</value>
   </data>
   <data name="AddItem" xml:space="preserve">
-    <value>Добавить элемент</value>
+    <value>Добавить отдел</value>
   </data>
   <data name="AddSchool" xml:space="preserve">
     <value>Добавить новое учебное заведение</value>

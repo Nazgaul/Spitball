@@ -120,7 +120,7 @@
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId
 	  union 
-	  select u.UserId as Uid , u.UserName as Name,u.UserImage as Image , 1 as userStatus , u.url as Url
+	  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , 1 as userStatus , u.url as Url
 	  from zbox.Message m
 	  join zbox.users u on u.UserId = m.RecepientId
 	  where m.BoxId = :BoxId

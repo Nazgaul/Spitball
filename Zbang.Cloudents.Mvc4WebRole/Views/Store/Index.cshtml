@@ -106,18 +106,12 @@
                         <table bo-if="product.salePrice > 0">
                             <tr>
                                 <td>@StoreResources.RegPrice:</td>
-                                <td bo-text="(product.salePrice | currency:'').slice(0,-3)"></td>
+                                <td bo-text="(product.salePrice | currency:'').slice(0,-4)"></td>
                                 <td>₪</td>
                             </tr>
-                            @*V19.0.2*@
-                            @*<tr>
-                                    <td>@StoreResources.Coupon:</td>
-                                    <td bo-text="product.coupon"></td>
-                                    <td>₪</td>
-                                </tr>*@
                             <tr>
                                 <td>@StoreResources.StudentPrice:</td>
-                                <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-3)"></td>
+                                <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-4)"></td>
                                 <td>₪</td>
                             </tr>
                         </table>

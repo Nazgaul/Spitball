@@ -6,6 +6,6 @@
         public string Img { get; set; }
         public string AdvertisementUrl { get; set; }
 
-        public int NoOfBoxes { get; set; }
+        //public int NoOfBoxes { get; set; }
     }
 }

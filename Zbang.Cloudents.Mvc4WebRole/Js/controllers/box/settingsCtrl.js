@@ -81,5 +81,10 @@ mBox.controller('SettingsCtrl',
              return jsResources.LeaveGroup;
          };
 
+         $scope.inviteFriends = function () {
+             $modalInstance.close({
+                 invite:true
+             });
+         };
      }
     ]);

@@ -120,23 +120,11 @@
   <data name="Cloudents" xml:space="preserve">
     <value>Cloudents</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="LinkExists" xml:space="preserve">
-    <value>This link already exists</value>
-  </data>
   <data name="MetaDescription" xml:space="preserve">
     <value>Study and share your class notes for {0} {1} {2} , online or on your phone through Cloudents.</value>
   </data>
   <data name="MetaDescriptionBy" xml:space="preserve">
     <value>By</value>
-  </data>
-  <data name="NoFilesReceived" xml:space="preserve">
-    <value>No files received</value>
-  </data>
-  <data name="ProblemUrl" xml:space="preserve">
-    <value>Problem with url</value>
   </data>
   <data name="QuizTitlePrefix" xml:space="preserve">
     <value>Test yourself in the Quiz</value>

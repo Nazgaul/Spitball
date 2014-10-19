@@ -50,6 +50,7 @@
                     return;
                 }
                 $scope.reset();
+                $rootScope.$broadcast('update-scroll');
             }
             $scope.quiz.courseId = data.boxId;
             $scope.quiz.courseName = data.boxName;
@@ -64,7 +65,7 @@
                 $scope.params.loadCreateQuiz = true;
                 $scope.params.showCreateQuiz = true;
                 $scope.params.focus = true;
-
+                $rootScope.$broadcast('update-scroll');
                 return;
             }
 
@@ -90,7 +91,7 @@
                 $scope.params.loadCreateQuiz = true;
                 $scope.params.showCreateQuiz = true;
                 $scope.params.focus = true;
-
+                $rootScope.$broadcast('update-scroll');
             });
         };
 
@@ -197,6 +198,8 @@
             for (var i = 0; i < $scope.params.minAnswers; i++) {
                 $scope.addAnswer(question, false);
             }
+
+            $rootScope.$broadcast('update-scroll');
         };
         $scope.saveQuestion = function (question) {
             if (!$scope.quiz.id) {
@@ -227,6 +230,8 @@
             var question = $scope.quiz.questions[index];
 
             $scope.quiz.questions.splice(index, 1);
+            $rootScope.$broadcast('update-scroll');
+
             if (!question.id) {
                 return;
             }
@@ -250,11 +255,13 @@
             var answer = new Answer();
             answer.focus = focus;
             question.answers.push(answer);
+            $rootScope.$broadcast('update-scroll');
         };
 
         $scope.removeAnswer = function (question, index) {
             var answerId = question.answers[index].id;
             question.answers.splice(index, 1);
+            $rootScope.$broadcast('update-scroll');
 
             if (!answerId) {
                 return;

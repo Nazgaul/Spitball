@@ -36,7 +36,9 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 	                                       where ub.UserId = @UserId  and author.userid != @UserId
 	                                      ) t
 	                                      order by t.date desc;";
-        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, uWrap.OrgName as Name, uWrap.LargeImage as Image,
+        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
+                          coalesce (uWrap.OrgName, uWrap.UniversityName)  as Name, uWrap.LargeImage as Image,
+                            uWrap.UniversityName as UniversityName,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
                             uWrap.FacebookUrl,
@@ -47,14 +49,11 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                             uWrap.NoOfBoxes as BoxesCount,
                             (select sum(itemcount) from zbox.Box b 
                             where b.University = uWrap.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId in ( uWrap.Id , uWrap.Id)) as MemberCount
+                            (select count(*) from zbox.Users u where u.UniversityId = uWrap.Id) as MemberCount
                             from zbox.University uWrap  
                             where 
                              uWrap.Id =@UniversityWrapper";
 
-//        public const string GetDepartmentByUserId =
-//            @"select m.Id,m.Name from zbox.MainDepartment m join zbox.Users u on m.Id = u.MainDepartment
-//where userid = @UserId";
 
         /// <summary>
         /// Used in user page to bring friends
@@ -205,12 +204,11 @@ where m.RecepientId = @userid
         public const string RecommendedCourses =
             @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url, b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
 from zbox.Box b
-where Department = (select MainDepartment from zbox.Users where userid = @userid)
 and b.isdeleted = 0
 order by rank desc";
 
         public const string UserAuthenticationDetail =
-            @"  select u.UserId as Id, u.UserName as Name, u.UserImage as Image,
+    @"select u.UserId as Id, u.UserName as Name, u.UserImage as Image,
      u.FirstTimeDashboard as FirstTimeDashboard,
      u.FirstTimeLibrary as FirstTimeLibrary,
      u.FirstTimeItem as FirstTimeItem,
@@ -218,12 +216,10 @@ order by rank desc";
      u.Url as Url,
      u.Email as Email,
      u.UserReputation as Score,
-	 d.Id as DepartmentId,
-	 d.Name as DepartmentName,
      uu.OrgName as LibName,
-     uu.Image as LibImage
+     uu.Image as LibImage,
+     case when u.UserReputation >= uu.AdminScore then 1 else 0 end as isAdmin
      from zbox.Users u 
-	 left join zbox.MainDepartment d on u.MainDepartment = d.Id
 	 left join zbox.University uu on u.UniversityId = uu.Id
      where u.userid = @UserId";
     }

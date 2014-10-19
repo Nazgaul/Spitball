@@ -8,7 +8,7 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
         <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
-        <a ng-href="{{info.inviteUrl}}" class="btn3 inviteBtn rFloat" target="_self">@IndexResources.Invite</a>
+        <button type="button" class="rFloat btn3 inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">@IndexResources.Invite</button>
         <div class="arrow tabArrow"></div>
     </div>
     <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">

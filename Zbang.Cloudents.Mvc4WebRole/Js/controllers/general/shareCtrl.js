@@ -21,7 +21,8 @@
         }
 
         $scope.formData = {
-            emailList: []
+            emailList: [],
+            placeholder: 'Username or email'
         };
 
         $scope.friends = [];
@@ -130,7 +131,7 @@
                 return;
             }
             $scope.formData.emailList.push($item);
-
+            $scope.formData.placeholder = '';
             $scope.$broadcast('itemChange');
         };
 
@@ -171,6 +172,10 @@
             $scope.formData.emailList.splice(index, 1);
             $scope.$broadcast('itemChange');
             Focus('shareInput');
+
+            if (!$scope.formData.emailList.length) {
+                $scope.formData.placeholder = 'Username or email';
+            }
         };
 
         $scope.editItem = function (item) {
@@ -304,7 +309,7 @@ app.directive('resizeInput',
                             return;
                         }
 
-                        elem.css('max-width', maxWidth - rowWidth - 3); //some weird value
+                        elem.css('max-width', maxWidth - rowWidth - 4); //some weird value
 
 
                     }

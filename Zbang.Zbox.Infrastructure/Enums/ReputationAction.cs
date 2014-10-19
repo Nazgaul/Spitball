@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         DeleteItem = 100,
         DeleteQuestion = 101,
         DeleteAnswer = 102,
-        DelteQuiz = 106,
+        DeleteQuiz = 106,
         ShareFacebook = 7,
         Invite =8,
         InviteToBox = 9,

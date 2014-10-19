@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -40,7 +42,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 university = new University(id, message.Name, message.Country,
                     message.LargeImage, user.Email);
                 m_UniversityRepository.Save(university);
-                
 
             }
             user.UpdateUniversity(university, null, null, null, null);

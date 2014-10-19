@@ -10,6 +10,7 @@
             setScroll();
 
             $scope.$on('update-scroll', updateScroll);
+            $scope.$on('elastic:resize', updateScroll);
 
             $win.resize(updateScroll);
 

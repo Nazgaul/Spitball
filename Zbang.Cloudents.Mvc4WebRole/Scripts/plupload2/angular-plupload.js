@@ -19,12 +19,14 @@ angular.module('angular-plupload', [])
 	            }
 
 
-	            var randomValue = scope.randomString(5);
-	            iAttrs.$set('id', randomValue);
+	            var randomValue = scope.randomString(5),
+                    dropElement = document.getElementById(iAttrs.dropArea);
+	            iAttrs.$set('id', randomValue);                
+
 	            var options = {
 	                runtimes: 'html5,flash',
 	                browse_button: iElement[0],
-	                drop_element: document.getElementById(iAttrs.dropArea),
+	                drop_element: dropElement,
 	                multi_selection: true,
 	                chunk_size: '3mb',
 	                container: 'main',

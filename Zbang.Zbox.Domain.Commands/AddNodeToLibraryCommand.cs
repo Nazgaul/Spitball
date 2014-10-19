@@ -1,13 +1,13 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Commands;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain.Commands
 {
     public class AddNodeToLibraryCommand : ICommand
     {
-        public AddNodeToLibraryCommand(string name, long universityId , Guid? parentId)
+        public AddNodeToLibraryCommand(string name, long universityId , Guid? parentId, long userId)
         {
+            UserId = userId;
             if (name == null) throw new ArgumentNullException("name");
 
             Name = name;
@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Domain.Commands
         public string Name { get; private set; }
         public long UniversityId { get; private set; }
         public Guid? ParentId { get; private set; }
+        public long UserId { get; private set; }
 
 
         public Guid Id { get; set; }

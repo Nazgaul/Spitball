@@ -194,19 +194,19 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
 
-        [TestMethod]
-        public void GetBoxComments_Query_ReturnResult()
-        {
-            var query = new GetBoxCommentsQuery(1, 1);
-            try
-            {
-                m_ZboxReadService.GetBoxComments(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetBoxComments_Query_ReturnResult()
+        //{
+        //    var query = new GetBoxCommentsQuery(1, 1);
+        //    try
+        //    {
+        //        m_ZboxReadService.GetBoxComments(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
         [TestMethod]
         public void GetQuestions_Query_ReturnResult()
         {

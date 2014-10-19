@@ -27,20 +27,20 @@ app.config([
                 },
                 'responseError': function (response) {
                     // do something on success
-                    //switch (response.status) {
-                    //    case 401:
-                    //    case 403:
-                    //        window.open('/account', '_self');
-                    //        break;
-                    //    case 404:
-                    //        window.open('/error', '_self');
-                    //    case 500:
-                    //        window.open('/error', '_self');
-                    //    default:
-                    //        window.open('/error', '_self');
-                    //        break;
+                    switch (response.status) {
+                        case 401:
+                        case 403:
+                            window.open('/account', '_self');
+                            break;
+                        case 404:
+                            window.open('/error', '_self');
+                        case 500:
+                            window.open('/error', '_self');
+                        default:
+                            window.open('/error', '_self');
+                            break;
 
-                    //}
+                    }
                 }
             };
         }]);
@@ -316,9 +316,9 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         if (!next.$$route.params) {
             return;
         }
-        if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
-            $location.path('/library/choose/');
-        }
+        //if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
+        //    $location.path('/library/choose/');
+        //}
         sNewUpdates.loadUpdates();
     });
 
@@ -368,16 +368,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                 sNewUpdates.removeUpdates(current.params.boxId);
             }
 
-            switch (previous.$$route.params.type) {
-                case 'library':
-                    if (current.$$route.params.isPrivate) {
-                        setBackDashboard();
-                    }
-                    else {
-                        $rootScope.back.title = previous.pathParams.libraryName;
-                        $rootScope.back.url = '/department/' + previous.pathParams.libraryName + '/' + previous.pathParams.libraryId + '/' + previous.pathParams.libraryName;
-                    }                    
-                    break;
+            switch (previous.$$route.params.type) {                
                 case 'user':                    
                     $rootScope.back.title = previous.pathParams.userName;
                     $rootScope.back.url = previous.loadedTemplateUrl;
