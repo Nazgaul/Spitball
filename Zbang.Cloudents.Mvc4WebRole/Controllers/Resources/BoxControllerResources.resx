@@ -126,4 +126,16 @@
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
     <value>Problem with Create new box</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="LinkExists" xml:space="preserve">
+    <value>This link already exists</value>
+  </data>
+  <data name="NoFilesReceived" xml:space="preserve">
+    <value>No files received</value>
+  </data>
+  <data name="ProblemUrl" xml:space="preserve">
+    <value>Problem with url</value>
+  </data>
 </root>
