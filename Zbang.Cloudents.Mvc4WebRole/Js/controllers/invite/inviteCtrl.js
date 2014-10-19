@@ -1,4 +1,4 @@
-﻿angular.module('mInvite', []).
+﻿angular.module('mInvite', ['InviteEmail']).
     controller('InviteCtrl',
         ['$scope', '$timeout', '$filter','$location',
          'sShare', 'sGoogle', 'sFacebook', 'sUser',
