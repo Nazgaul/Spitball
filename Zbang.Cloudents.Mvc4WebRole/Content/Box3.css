@@ -113,10 +113,11 @@
   border-bottom: 7px solid #0f9d58;
 }
 .inviteFriendsBtn {
-  margin-top: 16px;
+  margin-top: 12px;
   display: inline-block;
   cursor: pointer;
   padding: 0 20px;
+  height: 28px;
 }
 .inviteFriendsBtn:hover svg {
   fill: #3399ff;
@@ -528,12 +529,13 @@
 .box-content .membersTop {
   margin-bottom: 15px;
 }
-.box-content .inviteFriendBtn.btn3 {
+.box-content .inviteFriendsBtn.btn3 {
   width: auto;
   padding: 0 8px;
   line-height: 30px;
+  margin-top: 2px;
 }
-.box-content .inviteFriendBtn.btn3:before {
+.box-content .inviteFriendsBtn.btn3:before {
   content: '';
   display: inline-block;
   background: url(/Images/common17-sprite.png?v=4) -143px -3px no-repeat;
