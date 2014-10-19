@@ -16,8 +16,8 @@
 
             function updateScroll() {
                 $timeout(function() {
-                    $elem.mCustomScrollbar('destroy');
-                    setScroll();
+                    $elem.mCustomScrollbar('update');
+                    //setScroll();
                 }, 50);
             }
 
