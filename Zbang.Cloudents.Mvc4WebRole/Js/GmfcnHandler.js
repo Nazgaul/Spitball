@@ -1,4 +1,4 @@
-﻿(function (cd, pubsub, ko, dataContext, $, analytics) {
+﻿(function (cd, pubsub, $) {
     "use strict";
     if (window.scriptLoaded.isLoaded('gmfcn')) {
         return;
@@ -14,12 +14,12 @@
             shareFb: 5,
             quiz: 30
         };
-   
+
 
 
     pubsub.subscribe('addPoints', function (data) {
         var points = pointsTable[data.type];
-        
+
         if (!points) {
             return;
         }
@@ -27,7 +27,7 @@
         if (data.type === 'itemUpload') {
             points *= data.amount;
         }
-      
+
         startAnimation(points);
     });
 
@@ -54,26 +54,26 @@
         }
     }
 
-    function applyAnimation(points) {        
+    function applyAnimation(points) {
         $(pointBox).addClass('ptsAnim');
 
         setTimeout(function () {
             $(pointBox).removeClass('ptsAnim');
             changeScore();
         }, 3500);
-        
+
         function changeScore() {
-            var currentScore = parseInt(usrPoints.textContent,10);
-            var numAnim = new countUp(currentScore, currentScore+points, 1);
+            var currentScore = parseInt(usrPoints.textContent, 10);
+            var numAnim = new countUp(currentScore, currentScore + points, 1);
 
             numAnim.start(function (score) {
                 if (!score) {
                     return;
                 }
-                usrPoints.textContent = score;        
+                usrPoints.textContent = score;
             });
 
-            
+
         }
     }
-})(cd, cd.pubsub);
+})(cd, cd.pubsub, jQuery);
