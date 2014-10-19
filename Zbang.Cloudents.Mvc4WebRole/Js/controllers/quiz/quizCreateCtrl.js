@@ -324,7 +324,7 @@
                 return;
             }
 
-            if (answer.id.length === 0 || answer.text === 0) {
+            if ((answer && answer.id.length === 0) || answer.text === 0) {
                 return;
             }
 
