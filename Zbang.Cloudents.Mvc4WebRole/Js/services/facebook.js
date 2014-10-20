@@ -91,7 +91,9 @@
 
            },
            send: function (data) {
-               var dfd = $q.defer();
+               var dfd = $q.defer(),
+
+                url = (data.path.indexOf('http') === -1) ? window.location.origin + data.path : data.path;
 
                if (!this.isAuthenticated()) {
                    this.loginFacebook().then(function () {
@@ -104,7 +106,7 @@
                function fSend() {
                    FB.ui({
                        method: 'send',
-                       link: window.location.origin + data.path,
+                       link: url,
                        to: data.to
                    }, function (response) {
                        if (!response || response.error_code) {
