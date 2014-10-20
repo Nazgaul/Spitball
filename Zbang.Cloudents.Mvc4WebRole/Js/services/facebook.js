@@ -50,7 +50,6 @@
                            $rootScope.$broadcast('FacebookAuth', true);
                            return;
                        }
-
                        $rootScope.$broadcast('FacebookAuth', false);
                    });
 
@@ -96,7 +95,9 @@
 
            },
            send: function (data) {
-               var dfd = $q.defer();
+               var dfd = $q.defer(),
+
+                url = (data.path.indexOf('http') === -1) ? window.location.origin + data.path : data.path;
 
                if (!this.isAuthenticated()) {
                    this.loginFacebook().then(function () {
@@ -106,11 +107,10 @@
                }
 
                fSend();
-
                function fSend() {
                    FB.ui({
                        method: 'send',
-                       path: data.path,
+                       link: encodeURI(url),
                        to: data.to
                    }, function (response) {
                        if (!response || response.error_code) {
@@ -191,21 +191,30 @@
            },
            getToken: function () {
                var defer = $q.defer();
-               if (!accessToken) {
-                   var interval = setInterval(function () {
-                       if (!facebookInit) {
-                           return;
-                       }
-                       clearInterval(interval);
-                       FB.getLoginStatus(function (response) { //fix for library choose
-                           if (response.status === 'connected') {
-                               accessToken = response.authResponse.accessToken;
-                           }
 
-                           defer.resolve(accessToken);
-                       });
-                   });
+               if (accessToken) {
+                   $timeout(function () {
+                       defer.resolve(accessToken);
+                   }, 0);
+
+                   return defer.promise;
                }
+
+               var interval = setInterval(function () {
+                   if (!facebookInit) {
+                       return;
+                   }
+                   clearInterval(interval);
+
+                   if (accessToken) {
+                       defer.resolve(accessToken);
+                       return;
+                   }
+
+                   defer.reject();
+               }, 20);
+
+
                return defer.promise;
            },
            loginStatus: loginStatus,

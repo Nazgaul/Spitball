@@ -2466,17 +2466,14 @@ select.inputText {
     top: 25px;
   }
   body .libraryContent .contentWpr {
-    padding-top: 25px;
+    padding-top: 20px;
   }
   body .boxPage .boxActions,
   body .boxesHeader.topBar {
-    z-index: 1;
-    position: relative;
-    top: 0;
-    width: 100%;
+    position: static;
   }
   body .box-content {
-    padding: 0;
+    padding-top: 25px;
   }
   body .scrolling #dash_right:before {
     display: none;

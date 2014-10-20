@@ -1582,28 +1582,25 @@
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryList > .libraryItem + .box {
-    //outline: 1px dashed #bcbcbc;
     border: 1px dashed #bcbcbc;
     box-shadow: none;
     font-size: 18px;
     color: #bcbcbc;
-    /*background: transparent;*/
     width: 222px;
-
     &:hover {
         color: @color;
     }
 }
 
-.libraryItem.addDep {
+.libraryItem.addDep, .libraryList > .libraryItem + .box {
     width: 244px;
     border-radius: 5px;
     padding: 13px 0 10px;
 }
-
-.libraryItem.addCourse {
-    margin: 0; //override margin on .libraryItem
+.libraryList > .libraryItem + .box { 
+    height: 125px;
 }
+
 /*#endregion */
 
 

@@ -67,7 +67,7 @@
 
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
-                         path: $location.path(),
+                         path: $scope.box.url,
                          to: contact.id
                      }).then(function () {
 
