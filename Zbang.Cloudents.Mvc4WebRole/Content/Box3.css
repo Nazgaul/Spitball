@@ -1404,13 +1404,13 @@
 @media (max-width: 1145px) {
   .boxItemsHeader.boxItemsHeader {
     font-size: 12px;
+    /*button {
+            padding: 2px 5px;
+            font-size: 13px;
+        }*/
   }
   .boxItemsHeader.boxItemsHeader .boxManage {
     font-size: 12px;
-  }
-  .boxItemsHeader.boxItemsHeader button {
-    padding: 2px 5px;
-    font-size: 13px;
   }
   .manageTxt {
     display: block;
