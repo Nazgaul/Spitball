@@ -342,6 +342,7 @@
 .fbUniList .uniDetails {
   padding: 10px 0 0 8px;
   /*rtl*/
+  display: block;
 }
 .fbUniList .uniDetails .btn3 {
   margin-top: 10px;
