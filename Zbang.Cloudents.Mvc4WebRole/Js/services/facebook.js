@@ -28,7 +28,7 @@
            js.src = "//connect.facebook.net/en_US/all.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
-       
+
        function loginStatus() {
            var retries = 0,
 
@@ -40,18 +40,18 @@
                        return;
                    }
                    clearInterval(interval);
-                   facebookInit = true;
 
                    FB.getLoginStatus(function (response) {
                        if (response.status === 'connected') {
                            accessToken = response.authResponse.accessToken;
                            isAuthenticated = true;
                        }
+                       facebookInit = true;
                    });
 
                }, 20);
        }
-       
+
        return {
            share: function (url, name, caption, description, picture) {
 
@@ -179,28 +179,37 @@
 
                $timeout(function () {
                    alreadySent = false;
-               },6000000);
-               
+               }, 6000000);
+
 
 
            },
            getToken: function () {
                var defer = $q.defer();
-               if (!accessToken) {
-                   var interval = setInterval(function () {
-                       if (!facebookInit) {
-                           return;
-                       }
-                       clearInterval(interval);
-                       FB.getLoginStatus(function (response) { //fix for library choose
-                           if (response.status === 'connected') {
-                               accessToken = response.authResponse.accessToken;
-                           }
 
-                           defer.resolve(accessToken);
-                       });
-                   });                   
+               if (accessToken) {
+                   $timeout(function () {
+                       defer.resolve(accessToken);
+                   }, 0);
+
+                   return defer.promise;
                }
+
+               var interval = setInterval(function () {
+                   if (!facebookInit) {
+                       return;
+                   }
+                   clearInterval(interval);
+
+                   if (accessToken) {
+                       defer.resolve(accessToken);
+                       return;
+                   }
+                   
+                   defer.reject();
+               },20);
+
+
                return defer.promise;
            },
            loginStatus: loginStatus,
@@ -229,6 +238,6 @@
                return isAuthenticated;
            }
        }
-       
+
    }
    ]);
