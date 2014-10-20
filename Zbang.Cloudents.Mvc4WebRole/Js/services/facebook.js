@@ -106,7 +106,7 @@
                function fSend() {
                    FB.ui({
                        method: 'send',
-                       link: url,
+                       link: encodeURI(url),
                        to: data.to
                    }, function (response) {
                        if (!response || response.error_code) {
@@ -206,9 +206,9 @@
                        defer.resolve(accessToken);
                        return;
                    }
-                   
+
                    defer.reject();
-               },20);
+               }, 20);
 
 
                return defer.promise;
