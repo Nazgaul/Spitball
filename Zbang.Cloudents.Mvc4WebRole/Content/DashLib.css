@@ -1367,7 +1367,6 @@
   box-shadow: none;
   font-size: 18px;
   color: #bcbcbc;
-  /*background: transparent;*/
   width: 222px;
 }
 .libraryItem.addDep:hover,
@@ -1375,12 +1374,13 @@
 .libraryList > .libraryItem + .box:hover {
   color: #0f9d58;
 }
-.libraryItem.addDep {
+.libraryItem.addDep,
+.libraryList > .libraryItem + .box {
   width: 244px;
   border-radius: 5px;
   padding: 13px 0 10px;
 }
-.libraryItem.addCourse {
-  margin: 0;
+.libraryList > .libraryItem + .box {
+  height: 125px;
 }
 /*#endregion */
