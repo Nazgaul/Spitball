@@ -75,14 +75,19 @@
     height: 100%;
     padding-left: @boxSideBarWidth; //rtl
 }
-.boxActions.topBar {
-    width: ~"-webkit-calc(100% - @{boxSideBarWidth})";
-    width: ~"calc(100% - @{boxSideBarWidth})";
-    background:#282828;
-    color:#fff;
-    height: 60px;
-    padding: 0 25px;
-    .boxSizing;
+.boxActions {
+    &.topBar {
+        width: ~"-webkit-calc(100% - @{boxSideBarWidth})";
+        width: ~"calc(100% - @{boxSideBarWidth})";
+        background:#282828;
+        color:#fff;
+        height: 60px;
+        padding: 0 25px;
+        .boxSizing;
+    }
+    .inviteFriendsBtn {
+        margin-top: 16px;
+    }
 }
 .boxTabs {
     display: inline-block;
@@ -809,7 +814,7 @@
     }
 }
 .listViewBtn {
-    margin: 2px 5px 0 10px; //rtl
+    margin: 2px 20px 0 10px; //rtl
 }
 .thumbViewBtn
 {
