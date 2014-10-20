@@ -96,7 +96,6 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
             $rootScope.params.createBoxWizard = false;
             if (response) {
-                $scope.newUniversity = 0;
                 $location.path(response.url);
                 if (response.isItems) {
                     $location.hash('items');
