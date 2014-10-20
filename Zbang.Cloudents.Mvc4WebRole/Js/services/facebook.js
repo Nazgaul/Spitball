@@ -207,7 +207,7 @@
                    }
                    
                    defer.reject();
-               });
+               },20);
 
 
                return defer.promise;
