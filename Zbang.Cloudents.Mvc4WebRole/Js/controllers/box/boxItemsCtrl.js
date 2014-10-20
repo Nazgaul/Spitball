@@ -80,7 +80,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
 
         $scope.followBox(true);
 
-        sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [data.name]), $scope.info.boxUrl);
+        sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [data.fileDto.name]), $scope.info.url);
 
         if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
             return;
