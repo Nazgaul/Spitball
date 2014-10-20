@@ -382,7 +382,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             #region mobile
-            RegisterJsRegular("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+            RegisterJsRegular("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                                     new JsFileWithCdn("~/Js/Utils2.js"),
                                     new JsFileWithCdn("~/Js/pubsub2.js"),
@@ -390,7 +390,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                     new JsFileWithCdn("~/Js/DataContext2.js"),
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
             RegisterJsRegular("mobile",
-                  new JsFileWithCdn("~/Scripts/jquery-2.1.0.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"),
+                  new JsFileWithCdn("~/Scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"),

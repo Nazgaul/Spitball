@@ -101,7 +101,6 @@
                }
 
                fSend();
-
                function fSend() {
                    FB.ui({
                        method: 'send',
