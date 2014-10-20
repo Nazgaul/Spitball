@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$q', '$analytics', '$timeout', 'sShare',
-   function ($q, $analytics, $timeout, sShare) {
+   ['$rootScope','$q', '$analytics', '$timeout', 'sShare',
+   function ($rootScope, $q, $analytics, $timeout, sShare) {
        var isAuthenticated = false,
            accessToken,
            facebookInit,
@@ -42,11 +42,15 @@
                    clearInterval(interval);
 
                    FB.getLoginStatus(function (response) {
+                       facebookInit = true;
+
                        if (response.status === 'connected') {
                            accessToken = response.authResponse.accessToken;
                            isAuthenticated = true;
+                           $rootScope.$broadcast('FacebookAuth', true);
+                           return;
                        }
-                       facebookInit = true;
+                       $rootScope.$broadcast('FacebookAuth', false);
                    });
 
                }, 20);
@@ -91,7 +95,9 @@
 
            },
            send: function (data) {
-               var dfd = $q.defer();
+               var dfd = $q.defer(),
+
+                url = (data.path.indexOf('http') === -1) ? window.location.origin + data.path : data.path;
 
                if (!this.isAuthenticated()) {
                    this.loginFacebook().then(function () {
@@ -101,11 +107,10 @@
                }
 
                fSend();
-
                function fSend() {
                    FB.ui({
                        method: 'send',
-                       path: data.path,
+                       link: encodeURI(url),
                        to: data.to
                    }, function (response) {
                        if (!response || response.error_code) {
@@ -205,9 +210,9 @@
                        defer.resolve(accessToken);
                        return;
                    }
-                   
+
                    defer.reject();
-               },20);
+               }, 20);
 
 
                return defer.promise;

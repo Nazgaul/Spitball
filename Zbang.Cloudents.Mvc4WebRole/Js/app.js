@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection',
-    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
+    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'mInvite', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
 
 app.config([
     '$routeProvider',
@@ -105,7 +105,7 @@ app.config([
             },
             templateUrl: '/item/IndexPartial/',
             reloadOnSearch: false
-            
+
         }).
         when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
             params: {
@@ -153,6 +153,14 @@ app.config([
                 type: 'user'
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
+        }).
+        when('/invite/', {
+            params: {
+                type: 'invite'
+            },
+            templateUrl: function (params) {
+                return '/invite/IndexPartial'
+            }
         }).
         //#endregion
         //#region store
@@ -360,15 +368,15 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                 sNewUpdates.removeUpdates(current.params.boxId);
             }
 
-            switch (previous.$$route.params.type) {                
-                case 'user':                    
+            switch (previous.$$route.params.type) {
+                case 'user':
                     $rootScope.back.title = previous.pathParams.userName;
                     $rootScope.back.url = previous.loadedTemplateUrl;
                     break;
                 default:
                     setBackDashboard();
                     break;
-            }            
+            }
         }
 
         if (current.$$route.params.type === 'library') {

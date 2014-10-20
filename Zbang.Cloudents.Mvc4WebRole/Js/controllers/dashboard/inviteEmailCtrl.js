@@ -1,9 +1,19 @@
 ﻿angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
-    ['$scope', 'sShare', 'sFocus', '$timeout',
-         function ($scope, sShare, sFocus, $timeout) {
+    ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout',
+         function ($scope, $routeParams, sShare, sFocus, $timeout) {
 
-             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
+             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/),
+                 sendFunc, sendObj = {};
+             
+             if ($scope.box && $scope.box.id) { 
+                 sendFunc = sShare.invite.box; //invite to box if box.id exists we're in box page
+                 sendObj =  {
+                     boxId: $scope.box.id
+                 };
+             } else {
+                 sendFunc = sShare.invite.cloudents; //invite to cloudents
+             }
 
              $scope.formData = {
                  emailList: []
@@ -31,9 +41,12 @@
                      return email.address;
                  });
 
-                 sShare.invite.box({ recepients: [emails], boxId: $scope.box.id }).then(function (response) {
+
+                 sendObj.recepients = [emails];
+
+                 sendFunc(sendObj).then(function (response) {
                      if (!response.success) {
-                         alert('Error');
+                         sendObj.recepients = null;
                          return;
                      }
 
@@ -42,7 +55,9 @@
 
                      $scope.formData.emailList = [];
                      $scope.params.invalidEmails = $scope.params.validEmails = 0;
-
+                     sendObj.recepients = null;
+                 }, function () {
+                     sendObj.recepients = null;
                  });
              };
 

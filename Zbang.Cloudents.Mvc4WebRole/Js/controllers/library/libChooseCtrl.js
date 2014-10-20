@@ -18,8 +18,9 @@
 
              //var allDepartments;
 
-
+             console.log('s');
              sFacebook.getToken().then(function (token) {
+                 console.log('z');
                  if (!token) {
                      return;
                  }

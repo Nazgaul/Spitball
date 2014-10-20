@@ -28,7 +28,6 @@
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
                  $scope.params.contacts = null;
-                 $scope.$broadcast('update-scroll');
              }
 
              $scope.filterContacts = function () {
@@ -42,6 +41,7 @@
                  $scope.$broadcast('update-scroll');
 
              };
+
              if (sFacebook.isAuthenticated()) {
                  $scope.selectState(states.facebook);
              } else {
@@ -67,7 +67,7 @@
 
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
-                         path: $location.path(),
+                         path: $scope.box.url,
                          to: contact.id
                      }).then(function () {
 
@@ -142,7 +142,7 @@
                      case states.google:
                          params = {
                              className: 'js-gmState',
-                             placeholder: 'Search cloudents',
+                             placeholder: 'Search google',
                              isConnected: sGoogle.isAuthenticated()
                          };
 
@@ -164,7 +164,7 @@
                      case states.facebook:
                          params = {
                              className: 'js-fbState',
-                             placeholder: 'Search cloudents',
+                             placeholder: 'Search facebook',
                              isConnected: sFacebook.isAuthenticated()
                          };
 

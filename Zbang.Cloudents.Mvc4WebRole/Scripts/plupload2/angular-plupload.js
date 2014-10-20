@@ -27,10 +27,10 @@ angular.module('angular-plupload', [])
 	                runtimes: 'html5,flash',
 	                browse_button: iElement[0],
 	                drop_element: dropElement,
-	                multi_selection: true,
-	                chunk_size: '3mb',
+	                multi_selection: iAttrs.multiSelection !== 'false',          
+	                chunk_size: iAttrs.chunk || '3mb',
 	                container: 'main',
-	                url: '/Upload/File/',
+	                url: iAttrs.url || '/Upload/File/',
 	                flash_swf_url: '/Scripts/plupload2/Moxie.swf',
 	                headers: {
 	                    'X-Requested-With': 'XMLHttpRequest'
