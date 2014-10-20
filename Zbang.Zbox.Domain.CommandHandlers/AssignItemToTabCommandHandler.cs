@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (itemTab == null)
             {
-                throw new System.NullReferenceException("itemTab");
+                throw new NullReferenceException("itemTab");
             }
             if (message.NeedDelete)
             {
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var item = m_ItemRepository.Get(itemid);
                 if (item == null)
                 {
-                    throw new System.NullReferenceException("item");
+                    throw new NullReferenceException("item");
                 }
 
 

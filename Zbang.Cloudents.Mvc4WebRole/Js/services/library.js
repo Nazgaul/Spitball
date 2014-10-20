@@ -40,9 +40,9 @@
             facebookFriends: function (data) {
                 return ajaxRequest(data, $http.get, 'GetFriends/');
             },
-            searchDepartment: function (data) {
-                return ajaxRequest(data, $http.get, 'Departments/');
-            },
+            //searchDepartment: function (data) {
+            //    return ajaxRequest(data, $http.get, 'Departments/');
+            //},
             updateUniversity: function (data) {
                 var dfd = $q.defer();
                 $http.post('/Account/UpdateUniversity/', data).success(function (response) {

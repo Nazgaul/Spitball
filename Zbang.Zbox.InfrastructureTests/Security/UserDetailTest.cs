@@ -25,14 +25,13 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var language = "en";
             //var imageurl = "sss";
             //var uid = "xxx";
-            var universityId = 4;
             var universityDataId = 3;
 
             var userDetail = new UserDetail(language, universityDataId);
 
             var result = UserDetail.Serialize(userDetail);
 
-            var expectedResult = language + "@" + universityId + "@" + universityDataId;
+            var expectedResult = language + "@" + universityDataId;
             var thesame = result == expectedResult;
             Assert.IsTrue(thesame, "should be the same");
         }
@@ -52,10 +51,9 @@ namespace Zbang.Zbox.InfrastructureTests.Security
             var language = "en";
             //var imageurl = "sss";
             //var uid = "xxx";
-            var universityId = 4;
             var universityDataId = 3;
 
-            var data = language + "@" + universityId + "@" + universityDataId;
+            var data = language + "@" + universityDataId;
 
             var userDetail = UserDetail.Deserialize(data);
             var userExpectedResult = new UserDetail(language,  universityDataId);

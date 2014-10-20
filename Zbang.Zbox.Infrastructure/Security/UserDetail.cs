@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 return string.Empty;
             }
-            return string.Format("{1}{0}{2}{0}",
+            return string.Format("{1}{0}{2}",
                 Delimiter,
                 user.Language,
                 user.UniversityId
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             if (data == null) throw new ArgumentNullException("data");
             var array = data.Split(new[] { Delimiter }, StringSplitOptions.None);
-            if (array.Length != 3)
+            if (array.Length != 2)
             {
                 return null;
             }

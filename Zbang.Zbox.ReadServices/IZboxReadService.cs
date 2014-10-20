@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto;
-using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -94,7 +93,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
 
-        Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query);
 
 
         Task<bool> GetUniversityNeedId(long universityId);

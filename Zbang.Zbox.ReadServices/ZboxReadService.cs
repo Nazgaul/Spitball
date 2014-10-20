@@ -153,16 +153,15 @@ namespace Zbang.Zbox.ReadServices
         /// <summary>
         /// AutoComplete drop down in library choose and in create box
         /// </summary>
-        /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm,
-                    new { universityId = query.UniversityId, term = query.Term });
-            }
-        }
+        //public async Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm,
+        //            new { universityId = query.UniversityId, term = query.Term });
+        //    }
+        //}
 
         //public async Task<NodeDto> GetDepartmentByUser(QueryBase query)
         //{

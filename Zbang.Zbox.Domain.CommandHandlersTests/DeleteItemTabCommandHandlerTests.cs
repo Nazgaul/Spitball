@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), "cannot delete tab that doesnt exits")]
+        [ExpectedException(typeof(NullReferenceException), "cannot delete tab that doesnt exits")]
         public void Handle_ItemTabDeosntExists_ThrowException()
         {
             var someCommand = new DeleteItemTabCommand(1, Guid.NewGuid(), 1);
