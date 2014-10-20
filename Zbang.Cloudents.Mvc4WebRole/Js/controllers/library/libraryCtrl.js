@@ -92,11 +92,15 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 }
             }
         });
-        modalInstance.result.then(function (url) {
+        modalInstance.result.then(function (response) {
 
             $rootScope.params.createBoxWizard = false;
-            if (url) {
-                $location.path(url);
+            if (response) {
+                $scope.newUniversity = 0;
+                $location.path(response.url);
+                if (response.isItems) {
+                    $location.hash('items');
+                }
             }
         }, function () {
             $rootScope.params.createBoxWizard = false; //user cancelled
