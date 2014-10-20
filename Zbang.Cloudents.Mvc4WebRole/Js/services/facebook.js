@@ -105,7 +105,7 @@
                function fSend() {
                    FB.ui({
                        method: 'send',
-                       link: data.link,
+                       path: data.path,
                        to: data.to
                    }, function (response) {
                        if (!response || response.error_code) {

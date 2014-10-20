@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('SocialInviteCtrl',
-    ['$scope', '$filter', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
-         function ($scope, $filter, sUser, sGoogle, sFacebook, sShare) {
+    ['$scope', '$filter', '$location', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
+         function ($scope, $filter, $location, sUser, sGoogle, sFacebook, sShare) {
 
              var states = {
                  google: 'go',
@@ -13,7 +13,7 @@
                  sGoogle.initGApi().then(function () {
                      sGoogle.checkAuth(true);
                  });
-             }             
+             }
 
 
              $scope.params = {
@@ -64,10 +64,10 @@
                  }
 
                  if (currentState === states.facebook) {
-                     
+
                      $scope.params.facebookInvite = true;
                      sFacebook.send({
-                         link: $scope.box.url,
+                         path: $location.path(),
                          to: contact.id
                      }).then(function () {
 
@@ -76,7 +76,7 @@
                          contact.invited = true;
 
                          var data = {
-                             boxId: $scope.box.id,  
+                             boxId: $scope.box.id,
                              id: contact.id,
                              username: contact.username || contact.id,
                              firstName: contact.firstname,
@@ -96,7 +96,7 @@
 
                  }
              };
-             
+
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
                      sFacebook.loginFacebook().then(function () {
@@ -110,7 +110,7 @@
                      });
                      return;
                  }
-             };     
+             };
              $scope.addContacts = function () {
                  $scope.params.contactLimit += $scope.params.contactPage;
              };
