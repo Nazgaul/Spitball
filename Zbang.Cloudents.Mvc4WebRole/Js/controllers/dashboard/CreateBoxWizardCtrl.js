@@ -6,10 +6,12 @@
 
             if (data.isAcademic) {
                 $scope.isAcademic = true;
+                $scope.boxType = 'academic';
                 $scope.department = data.department;
             }
             if (data.isPrivate) {
                 $scope.isPrivate = true;
+                $scope.boxType = 'private';
             }
 
             $scope.display = { createDep: false };
