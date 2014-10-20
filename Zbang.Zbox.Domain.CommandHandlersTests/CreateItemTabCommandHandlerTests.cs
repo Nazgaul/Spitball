@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Handle_BoxNull_ThrowException()
         {
             var guid = Guid.NewGuid();
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Handle_TabNameEmpty_ThrowException()
         {
             var guid = Guid.NewGuid();

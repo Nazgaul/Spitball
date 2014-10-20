@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
 using Zbang.Zbox.Infrastructure.Cache;
@@ -38,6 +40,34 @@ namespace Zbang.Zbox.ReadServicesTests
             try
             {
                 var x = m_ZboxReadService.GetDashboard(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetRecommendedCourses_Query_ReturnResult()
+        {
+            var query = new QueryBase(1);
+            try
+            {
+                var x = m_ZboxReadService.GetRecommendedCourses(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetBoxMeta_Query_ReturnResult()
+        {
+            var query = new GetBoxQuery(4, 3);
+            try
+            {
+                var x = m_ZboxReadService.GetBoxMeta(query);
             }
             catch (Exception ex)
             {
@@ -107,7 +137,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLibraryNodeQuery(14, Guid.Parse("E6DBF958-8246-4669-915C-0041093B7FC1"), 1);
             try
             {
-              var x =  m_ZboxReadService.GetLibraryNode(query).Result;
+                var x = m_ZboxReadService.GetLibraryNode(query).Result;
             }
             catch (Exception ex)
             {
@@ -141,9 +171,9 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetBox2_Query_ReturnResult()
+        public void GetBox_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(1, 1);
+            var query = new GetBoxQuery(4, 3);
             try
             {
                 m_ZboxReadService.GetBox(query);
@@ -154,12 +184,352 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
+        public void GetBox2_Query_ReturnResult()
+        {
+            var query = new GetBoxQuery(4, 3);
+            try
+            {
+                var x = m_ZboxReadService.GetBox2(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetBoxTabs_Query_ReturnResult()
+        {
+            var query = new GetBoxQuery(1, 1);
+            try
+            {
+                var x = m_ZboxReadService.GetBoxTabs(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetBoxQuizes_Query_ReturnResult()
+        {
+            var query = new GetBoxItemsPagedQuery(1, 1);
+            try
+            {
+                var x = m_ZboxReadService.GetBoxQuizes(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetItem2_Query_ReturnResult()
+        {
+            var query = new GetItemQuery(3, 17, 4);
+            try
+            {
+                var x = m_ZboxReadService.GetItem2(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetRussianDepartmentList_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetRussianDepartmentList(984).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetUniversityNeedId_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetUniversityNeedId(984).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetUniversityNeedCode_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetUniversityNeedCode(984).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetUniversityListByFriendsIds_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetUniversityListByFriendsIds(Enumerable.Range(0, 500).Select(s => (long)s)).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetInvite_Query_ReturnResult()
+        {
+            try
+            {
+                var query = new GetInviteDetailQuery(Guid.NewGuid());
+                var x = m_ZboxReadService.GetInvite(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetSeoItems_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetSeoItems(1).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetSeoItemCount_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetSeoItemCount().Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetQuizSeo_Query_ReturnResult()
+        {
+            try
+            {
+                var query = new GetQuizSeoQuery(1);
+                var x = m_ZboxReadService.GetQuizSeo(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetItemSeo_Query_ReturnResult()
+        {
+            try
+            {
+                var query = new GetFileSeoQuery(1);
+                var x = m_ZboxReadService.GetItemSeo(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetBoxSeo_Query_ReturnResult()
+        {
+            try
+            {
+                var query = new GetBoxSeoQuery(4, 3);
+                var x = m_ZboxReadService.GetBoxSeo(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+
+        [TestMethod]
         public void GetUserBoxNotificationSettings_Query_ReturnResult()
         {
             var query = new GetBoxQuery(1, 1);
             try
             {
                 m_ZboxReadService.GetUserBoxNotificationSettings(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetQuiz_Query_ReturnResult()
+        {
+            var query = new GetQuizQuery(1, 1, 1);
+            try
+            {
+                var x = m_ZboxReadService.GetQuiz(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetDiscussion_Query_ReturnResult()
+        {
+            var query = new GetDisscussionQuery(1);
+            try
+            {
+                var x = m_ZboxReadService.GetDiscussion(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetDraftQuiz_Query_ReturnResult()
+        {
+            var query = new GetQuizDraftQuery(1);
+            try
+            {
+                var x = m_ZboxReadService.GetDraftQuiz(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetNumberOfSolvers_Query_ReturnResult()
+        {
+            var query = new GetQuizDraftQuery(1);
+            try
+            {
+                var x = m_ZboxReadService.GetNumberOfSolvers(1).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetProducts_Query_ReturnResult()
+        {
+            var query = new GetStoreProductsByCategoryQuery(null, null, null);
+            try
+            {
+                var x = m_ZboxReadService.GetProducts(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void SearchProducts_Query_ReturnResult()
+        {
+            var query = new SearchProductQuery("א", null);
+            try
+            {
+                var x = m_ZboxReadService.SearchProducts(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetProduct_Query_ReturnResult()
+        {
+            var query = new GetStoreProductQuery(1);
+            try
+            {
+                var x = m_ZboxReadService.GetProduct(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetProductCheckOut_Query_ReturnResult()
+        {
+            var query = new GetStoreProductQuery(1);
+            try
+            {
+                var x = m_ZboxReadService.GetProductCheckOut(query).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetBanners_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetBanners(null).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void ValidateCoupon_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.ValidateCoupon(10).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void CloudentsUniversityToStoreUniversity_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.CloudentsUniversityToStoreUniversity(10).Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GetCategories_Query_ReturnResult()
+        {
+            try
+            {
+                var x = m_ZboxReadService.GetCategories();
             }
             catch (Exception ex)
             {
@@ -182,7 +552,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetItem_Query_ReturnResult()
         {
-            var query = new GetItemQuery(1, 25, 1);
+            var query = new GetItemQuery(3, 17, 4);
             try
             {
                 m_ZboxReadService.GetItem(query);

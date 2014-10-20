@@ -515,18 +515,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, retVal));
         }
 
-        public async Task<JsonResult> Departments(string term)
-        {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail.UniversityId == null)
-            {
-                return Json(new JsonResponse(false));
-            }
-            var universityId = userDetail.UniversityId.Value;
-            var query = new GetDepartmentsByTermQuery(universityId, term);
-            var retVal = await ZboxReadService.GetDepartments(query);
-            return Json(new JsonResponse(true, retVal));
-        }
+        //public async Task<JsonResult> Departments(string term)
+        //{
+        //    var userDetail = FormsAuthenticationService.GetUserData();
+        //    if (userDetail.UniversityId == null)
+        //    {
+        //        return Json(new JsonResponse(false));
+        //    }
+        //    var universityId = userDetail.UniversityId.Value;
+        //    var query = new GetDepartmentsByTermQuery(universityId, term);
+        //    var retVal = await ZboxReadService.GetDepartments(query);
+        //    return Json(new JsonResponse(true, retVal));
+        //}
 
         [HttpPost, Ajax]
         public ActionResult Verify(string code)

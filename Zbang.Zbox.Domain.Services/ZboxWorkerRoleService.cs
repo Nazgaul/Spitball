@@ -123,14 +123,14 @@ namespace Zbang.Zbox.Domain.Services
             {
                 using (var tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
-                        .Where(w => w.IsDeleted == false).Skip(100 * index)
+                    var boxes = UnitOfWork.CurrentSession.QueryOver<Library>()
+                        .Where(w => w.Url == null).Skip(100 * index)
                         .Take(100).List();
 
                     foreach (var box in boxes)
                     {
                         //quiz.GenerateUrl();
-                        box.UpdateItemCount();
+                        box.GenerateUrl();
                         UnitOfWork.CurrentSession.Save(box);
                         retVal = true;
                     }

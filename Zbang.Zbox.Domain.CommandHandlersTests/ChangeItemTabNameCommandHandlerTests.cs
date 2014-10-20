@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Handle_TabNotExists_ThrowException()
         {
             var tabId = Guid.NewGuid();

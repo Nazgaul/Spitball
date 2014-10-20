@@ -366,10 +366,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
-        {
-            return m_ReadService.GetDepartments(query);
-        }
+     
 
 
         public Task<FileSeo> GetItemSeo(GetFileSeoQuery query)

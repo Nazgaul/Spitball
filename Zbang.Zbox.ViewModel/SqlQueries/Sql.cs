@@ -202,9 +202,11 @@ where m.RecepientId = @userid
  order by t.msgid desc";
 
         public const string RecommendedCourses =
-            @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url, b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
+            @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
+b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,
+b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
 from zbox.Box b
-and b.isdeleted = 0
+where b.isdeleted = 0
 order by rank desc";
 
         public const string UserAuthenticationDetail =

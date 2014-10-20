@@ -35,13 +35,13 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Handle_ItemNotExists_ThrowException()
         {
-            long boxid = 1;
-            long userid = 1;
-            var command = new AssignItemToTabCommand(new List<long>() { 1 }, Guid.NewGuid(), boxid, userid, false);
-            m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(userid, boxid)).Return(UserRelationshipType.Owner);
+            long boxId = 1;
+            long userId = 1;
+            var command = new AssignItemToTabCommand(new List<long>() { 1 }, Guid.NewGuid(), boxId, userId, false);
+            m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(userId, boxId)).Return(UserRelationshipType.Owner);
 
             var handler = new AssignItemToTabCommandHandler(m_StubUserRepository, m_StubItemTabRepository, m_StubItemRepository);
             handler.Handle(command);
