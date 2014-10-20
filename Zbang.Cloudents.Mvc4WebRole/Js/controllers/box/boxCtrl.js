@@ -147,15 +147,13 @@ mBox.controller('BoxCtrl',
                 });
             };
 
-            $scope.inviteFriends = function (e) {
+            $scope.inviteFriends = function () {
                 if (!sUserDetails.isAuthenticated()) {
-                    e.preventDefault();
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    e.preventDefault();
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
@@ -292,12 +290,7 @@ mBox.controller('BoxCtrl',
             //#endregion
             $scope.$on('selectTab', function (e, tab) {
                 $scope.options.currentTab = tab;
-            });
-
-            $scope.invitePopup = function () {
-
-                
-            };
+            });         
         }
 
 
