@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual int NoOfBoxes { get; private set; }
 
-        protected virtual ICollection<Library> Libraries { get; set; }
+        public virtual ICollection<Library> Libraries { get; protected set; }
 
         public virtual int AdminScore { get; set; }
         public virtual int AdminNoOfPeople { get; set; }

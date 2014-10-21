@@ -236,47 +236,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region DeleteNode
-        //[HttpPost, Ajax]
-        //public JsonResult DeleteNode(Guid id)
-        //{
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    if (!userDetail.UniversityId.HasValue)
-        //    {
-        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-        //    }
+        [HttpPost, Ajax]
+        public JsonResult DeleteNode(Guid id)
+        {
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (!userDetail.UniversityId.HasValue)
+            {
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+            }
 
-        //    var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
-        //    ZboxWriteService.DeleteNodeLibrary(command);
-        //    return Json(new JsonResponse(true));
+            var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
+            ZboxWriteService.DeleteNodeLibrary(command);
+            return Json(new JsonResponse(true));
 
-        //}
+        }
         #endregion
 
         #region RenameNode
-        //[HttpPost, Ajax]
-        //public JsonResult RenameNode(RenameLibraryNode model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
-        //    }
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    if (!userDetail.UniversityId.HasValue)
-        //    {
-        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-        //    }
-        //    try
-        //    {
-        //        var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
+        [HttpPost, Ajax]
+        public JsonResult RenameNode(RenameLibraryNode model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
+            }
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (!userDetail.UniversityId.HasValue)
+            {
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+            }
+            try
+            {
+                var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
 
-        //        ZboxWriteService.RenameNodeLibrary(command);
-        //        return Json(new JsonResponse(true));
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return Json(new JsonResponse(false, ex.Message));
-        //    }
-        //}
+                ZboxWriteService.RenameNodeLibrary(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (ArgumentException ex)
+            {
+                return Json(new JsonResponse(false, ex.Message));
+            }
+        }
         #endregion
 
         [ActionName("SelectDepartment")]

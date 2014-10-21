@@ -68,30 +68,30 @@ namespace Zbang.Zbox.Domain
             return libraryNode;
         }
 
-        //public void ChangeName(string newName)
-        //{
-        //    if (newName == null)
-        //    {
-        //        throw new ArgumentNullException("newName");
-        //    }
-        //    if (newName.Contains('.'))
-        //    {
-        //        throw new ArgumentException(@"name cannot contain dot", "newName");
-        //    }
-        //    newName = newName.Trim();
+        public void ChangeName(string newName)
+        {
+            if (newName == null)
+            {
+                throw new ArgumentNullException("newName");
+            }
+            if (newName.Contains('.'))
+            {
+                throw new ArgumentException(@"name cannot contain dot", "newName");
+            }
+            newName = newName.Trim();
 
-        //    if (Parent == null && University.Libraries.Any(a => a.Name == newName))
-        //    {
-        //        throw new ArgumentException("cannot have the same name as siblings");
-        //    }
-        //    if (Parent != null && Parent.Children.Any(a => a.Name == newName))
-        //    {
-        //        throw new ArgumentException("cannot have the same name as siblings");
-        //    }
+            if (Parent == null && University.Libraries.Any(a => a.Name == newName))
+            {
+                throw new ArgumentException("cannot have the same name as siblings");
+            }
+            if (Parent != null && Parent.Children.Any(a => a.Name == newName))
+            {
+                throw new ArgumentException("cannot have the same name as siblings");
+            }
 
-        //    Name = newName;
-        //    GenerateUrl();
-        //}
+            Name = newName;
+            GenerateUrl();
+        }
 
         private bool CheckIfBoxesExists()
         {

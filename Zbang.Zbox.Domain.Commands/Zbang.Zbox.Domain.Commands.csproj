@@ -86,6 +86,7 @@
     <Compile Include="CreateUniversityCommand.cs" />
     <Compile Include="DeleteItemCommentCommand.cs" />
     <Compile Include="DeleteItemCommentReplyCommand.cs" />
+    <Compile Include="DeleteNodeFromLibraryCommand.cs" />
     <Compile Include="DeleteReplyCommand.cs" />
     <Compile Include="DeleteFileFromQnACommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
+    <Compile Include="RenameNodeCommand.cs" />
     <Compile Include="SendMessageCommand.cs" />
     <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
