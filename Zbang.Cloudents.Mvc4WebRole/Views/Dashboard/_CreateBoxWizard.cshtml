@@ -4,23 +4,23 @@
     <div wizard on-finish="completeWizard()" template="'wizard.html'">
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
-            <div class="courseType" ng-hide="display.createDep" ng-if="isPrivate">
-                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-value="false" ng-checked="isPrivate" />
+            <div class="courseType" ng-hide="display.createDep">
+                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-checked="isPrivate" ng-model="boxType" value="private"/>
                 <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
                 <div class="labelExplain">@IndexResources.InviteOnly</div>
             </div>
 
-            <div class="courseType" ng-hide="display.createDep" ng-if="isAcademic">
-                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-value="true" ng-checked="isAcademic" />
+            <div class="courseType" ng-hide="display.createDep">
+                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-checked="isAcademic" ng-model="boxType"  value="academic"/>
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
-            <div class="newAcademic clearfix editDept" ng-show="isAcademic && !(display.createDep)">
+            <div class="newAcademic clearfix editDept" ng-show="boxType === 'academic'">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }
             </div>
-            <div class="clearfix" ng-show="!(isAcademic)">
+            <div class="clearfix" ng-show="boxType === 'private'">
                 @{
                     Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
                 }

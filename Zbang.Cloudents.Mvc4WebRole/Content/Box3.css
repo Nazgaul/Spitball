@@ -95,6 +95,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.boxActions .inviteFriendsBtn {
+  margin-top: 16px;
+}
 .boxTabs {
   display: inline-block;
 }
@@ -771,7 +774,7 @@
   fill: #c2c2c2;
 }
 .listViewBtn {
-  margin: 2px 5px 0 10px;
+  margin: 2px 20px 0 10px;
 }
 .thumbViewBtn:before {
   width: 13px;
