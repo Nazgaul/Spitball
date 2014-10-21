@@ -62,9 +62,9 @@
         <div class="boxesHeader topBar barShadow">
             <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
             <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
-                <h2 contenteditable="false" id="libName" @*edit-callback="renameBox(t)"*@>{{back.title}}</h2>
+                <h2 contenteditable="false" id="libName" edit-callback="renameBox(t)">{{back.title}}</h2>
             </a>
-            @*<button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" contenteditable-trigger="libName"></button>*@
+            <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" contenteditable-trigger="libName"></button>
         </div>
         <div class="contentWpr @cls">
 

@@ -29,23 +29,8 @@
 
 <div ng-show="quiz.showPreview">
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
-
-        @*<div class="quizPreviewTop"></div>*@
-
         <div class="quizPreviewScroll">
             @*<div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>*@
-
-
-            @*<div class="quizActionsWpr">
-                <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps">
-                    <div>@SharedResources.Backto</div>
-                    <h2 class="semiFont elps">{{quiz.boxName}}</h2>
-                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-                </a>
-                <div class="quizTitle elps">{{quiz.name}}</div>
-            </div>*@
-
-
             <div class="quizPreviewTop">
                 <button type="button" class="closePreview lFloat" ng-click="previewQuiz()">
                     @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })

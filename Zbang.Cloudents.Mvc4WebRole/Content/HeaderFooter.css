@@ -94,6 +94,10 @@ body {
   box-sizing: border-box;
   font-size: 15px;
 }
+.dashLibSearchInput:focus {
+  border: none;
+  outline: none;
+}
 .dashLibSearchInput::-webkit-input-placeholder {
   color: #0f9d58;
 }
