@@ -73,6 +73,12 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.Web.0.11.0-build11410\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.Telemetry.Services">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Telemetry.Services.0.7.1.0\lib\net35\Microsoft.ApplicationInsights.Telemetry.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.Telemetry.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Telemetry.Services.0.7.1.0\lib\net35\Microsoft.ApplicationInsights.Telemetry.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationInsights.TraceListener, Version=0.11.0.11416, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.ApplicationInsights.TraceListener.0.11.0-build11410\lib\net40\Microsoft.ApplicationInsights.TraceListener.dll</HintPath>
