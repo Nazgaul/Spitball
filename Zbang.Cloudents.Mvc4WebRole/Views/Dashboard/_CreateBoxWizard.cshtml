@@ -15,7 +15,7 @@
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
-            <div class="newAcademic clearfix editDept" ng-show="boxType === 'academic'">
+            <div class="newAcademic clearfix editDept chooseDept" ng-show="boxType === 'academic'">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }

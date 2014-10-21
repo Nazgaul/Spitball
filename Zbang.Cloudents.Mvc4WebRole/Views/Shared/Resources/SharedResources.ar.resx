@@ -610,4 +610,7 @@
     <value>اختبارات
 </value>
   </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>اختر قسم</value>
+  </data>
 </root>
