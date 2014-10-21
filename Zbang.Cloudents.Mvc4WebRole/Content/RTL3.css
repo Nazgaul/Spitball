@@ -1938,16 +1938,6 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz Preview */
-.quizPreviewTop {
-  padding-right: -webkit-calc(50% - 400px);
-  /*rtl*/
-  padding-right: calc(50% - 400px);
-  /*rtl*/
-  padding-left: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 .quizPreviewTop .svg-back {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
@@ -1961,7 +1951,7 @@ body.quiz .shareBtn {
   left: auto;
 }
 .quizPreview .closePreview {
-  margin: 8px 0 0 10px;
+  margin: 16px 0 0 10px;
   /*rtl*/
 }
 .commentWpr {
