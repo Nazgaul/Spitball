@@ -662,14 +662,15 @@
 }
 .newAcademic .deptChooseWpr {
   display: none;
-  width: 605px;
+  width: 602px;
   height: 322px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #0f9d58;
-  margin: 30px 0 16px -5px;
+  margin: 30px 0 16px;
   background: #eee;
+  border-radius: 5px;
 }
 .newAcademic .deptChooseWpr header {
   position: relative;
@@ -690,11 +691,11 @@
 }
 .newAcademic.chooseDept .libraryList {
   position: relative;
-  -webkit-transform: scale(0.75);
-  -moz-transform: scale(0.75);
-  -ms-transform: scale(0.75);
-  -o-transform: scale(0.75);
-  transform: scale(0.75);
+  -webkit-transform: scale(0.74);
+  -moz-transform: scale(0.74);
+  -ms-transform: scale(0.74);
+  -o-transform: scale(0.74);
+  transform: scale(0.74);
   top: -65px;
   left: -92px;
   min-width: 792px;
