@@ -225,20 +225,18 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         return true;
     };
 
-    //$scope.renameBox = function (newName) {
-    //    if (!(newName && newName.length)) {
-    //        return;
-    //    }
-
-    //    $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
-
-    //    sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
-    //        if (!(response.success || response.Success)) {
-    //            alert(response.Payload);
-    //            return;
-    //        }
-    //    });
-    //};
+    $scope.renameBox = function (newName) {
+        if (!(newName && newName.length)) {
+            return;
+        }
+        sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
+            if (!(response.success || response.Success)) {
+                alert(response.Payload);
+                return;
+            }
+            $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
+        });
+    };
 
 
     //#endregion

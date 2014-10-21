@@ -256,10 +256,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax]
         public JsonResult RenameNode(RenameLibraryNode model)
         {
+            var guid = TryParseNullableGuid(model.Id);
+            if (!guid.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Error");
+            }
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
             }
+            
             var userDetail = FormsAuthenticationService.GetUserData();
             if (!userDetail.UniversityId.HasValue)
             {
@@ -267,7 +273,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
+                var command = new RenameNodeCommand(model.NewName, guid.Value, userDetail.UniversityId.Value);
 
                 ZboxWriteService.RenameNodeLibrary(command);
                 return Json(new JsonResponse(true));
