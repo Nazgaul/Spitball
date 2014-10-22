@@ -15,9 +15,12 @@
     </section>
     <section class="deleteDept clearfix" ng-if="canDelete">
         <header>@MainViewResources.DeleteDept</header>
-        <input type="checkbox" class="cb" id="delDeptCb" />
-        <label for="delDeptCb">@MainViewResources.MarkToDelete</label>
-        <button type="button" ng-click="deleteDepartment()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>
-    </section>
+        <input type="checkbox" class="checkbox" id="delDeptCb" />
+        <label class="cbLabel2" for="delDeptCb">
+            <span>@MainViewResources.MarkToDelete</span>
+            @Html.Svg("~/Images/Defs.svg", "checkmark")
+        </label>
+    <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>
+</section>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>
