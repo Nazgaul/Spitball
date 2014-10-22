@@ -595,4 +595,7 @@
   <data name="Quizzes" xml:space="preserve">
     <value>מבחנים</value>
   </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>בחר מחלקה</value>
+  </data>
 </root>

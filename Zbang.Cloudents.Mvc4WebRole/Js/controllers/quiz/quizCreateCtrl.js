@@ -535,7 +535,7 @@
 
                       $timeout(function () { //fix for animationB                                                    
                           $mainDiv.addClass('topBarFix');
-                          $('.siteHeader').hide();                          
+                          $('body').addClass('jsDark');
                           $rootScope.$broadcast('update-scroll');
                       }, 700);
                   }
@@ -543,7 +543,7 @@
                   function hidePreview() {
                       $mainDiv.removeClass('previewQuiz topBarFix');
                       element[0].style.display = 'none';
-                      $('.siteHeader').show();
+                      $('body').removeClass('jsDark');
                   }
 
               }, true);

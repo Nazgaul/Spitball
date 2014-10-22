@@ -26,7 +26,26 @@
         @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
     </div>
     @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
-    
+
+    <section class="deptChooseWpr">
+        <header>@SharedResources.ChooseDept</header>
+
+        @*Guy: please replace this static list with the real one using the same classes*@
+        <ul class="libraryList clearfix">
+            <li class="ng-scope libraryItem deptItem">
+                <a class="navigation deptLink union-sprite ng-scope" href="/library/X-ul_kthzk-NcKPKAL33mw/123/">
+                    <div class="deptNameWpr clamp2">
+                        <div class="deptName">123</div>
+                    </div>
+
+                </a>
+            </li>
+            <li class="libraryItem deptItem addDep ng-scope">
+                <button class="addBtn" ng-click="createDepartment()">@SharedResources.AddDept</button>
+            </li>
+        </ul>
+    </section>
+
     <input type="submit" class="btn1  rFloat" ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
     <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
 

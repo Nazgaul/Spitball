@@ -352,6 +352,14 @@
     left: 8px; //rtl
     right: auto;
 }
+.newAcademic {
+    &.chooseDept {
+        .libraryList {
+            right: -92px; //rtl
+            left: auto;
+        }
+    }
+}
 
 /*#region social invite */
 .socialInvite {
@@ -1900,10 +1908,6 @@ body.quiz {
 
 /*#region Quiz Preview */
 .quizPreviewTop {
-    padding-right: ~'-webkit-calc(50% - 400px)'; /*rtl*/
-    padding-right: ~'calc(50% - 400px)'; /*rtl*/
-    padding-left:0;
-    .boxSizing;
     .svg-back {
         .flipH(1); //rtl
     }
@@ -1914,7 +1918,7 @@ body.quiz {
 
     .closePreview
     {
-        margin: 8px 0 0 10px; /*rtl*/
+        margin: 16px 0 0 10px; /*rtl*/
     }
 }
 

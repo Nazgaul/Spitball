@@ -29,15 +29,15 @@
 
 <div ng-show="quiz.showPreview">
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
-        <div class="quizPreviewTop">
-            <button type="button" class="closePreview rFloat" ng-click="previewQuiz()">
-                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-                <span class="backTxt">@SharedResources.Back</span>
-            </button>
-            <h2 class="elps">{{quiz.name}}</h2>
-        </div>
         <div class="quizPreviewScroll">
-            <div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>
+            @*<div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>*@
+            <div class="quizPreviewTop">
+                <button type="button" class="closePreview lFloat" ng-click="previewQuiz()">
+                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                    <span class="backTxt">@SharedResources.Back</span>
+                </button>
+                <h2 class="elps">{{quiz.name}}</h2>
+            </div>
             <div class="quizPrevWpr">
                 <ul class="quizQList">
                     <li ng-repeat="question in quiz.questions">

@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 
-                var tc = new Microsoft.ApplicationInsights.TelemetryContext();
+                var tc = new Microsoft.ApplicationInsights.TelemetryClient();
                 var sw = new Stopwatch();
                 sw.Start();
                 var query = new GetBoxesQuery(userid);

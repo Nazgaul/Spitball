@@ -398,15 +398,10 @@ body {
 
 /*#region Quiz Preview  */
 .quizPreviewTop {
-    position: fixed;
-    height: @header-height;
-    border-bottom: 1px solid @borderColor;
-    width: 100%;
-    padding-left: ~'-webkit-calc(50% - 400px)'; /*rtl*/
-    padding-left: ~'calc(50% - 400px)'; /*rtl*/
-    .boxSizing;
-    background: #0f0f0f;
+    width: 800px;
     color: #fff;
+    text-align: center;
+    margin: 0 auto;
     .svg-back {
         .flipH; //rtl
     }
@@ -435,15 +430,15 @@ body {
         display: none;
         font-size: 20px;
         font-weight: normal;
-        max-width: 800px;
-        padding-top: 11px;
+        padding: 20px 30px 0 30px;
+        padding-top: 20px;
         z-index: 1;
     }
     .closePreview
     {
         z-index: 1;
         display:none;
-        margin: 8px 10px 0 0; /*rtl*/
+        margin: 16px 10px 0 0; /*rtl*/
         color: #fff;
 
         &:hover:after {

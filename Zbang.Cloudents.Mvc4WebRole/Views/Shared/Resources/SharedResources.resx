@@ -597,4 +597,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="Quizzes" xml:space="preserve">
     <value>Quizzes</value>
   </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>Choose a department</value>
+  </data>
 </root>

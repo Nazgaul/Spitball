@@ -594,4 +594,7 @@
   <data name="Quizzes" xml:space="preserve">
     <value>Тесты</value>
   </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>Выбрать факультет</value>
+  </data>
 </root>
