@@ -112,6 +112,9 @@
   padding-left: 290px;
   top: 10%;
 }
+.modal.rename .delDeptBtn {
+  margin-top: -28px;
+}
 .modal.flagItem {
   width: 570px;
   right: auto;
