@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Domain
 
         private bool CheckIfBoxesExists()
         {
-            return Boxes.Count != 0;
+            return Boxes.Count(b => !b.IsDeleted) != 0;
         }
 
 
