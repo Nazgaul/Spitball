@@ -153,6 +153,9 @@
         .delDeptBtn {
             background: #9E0039;
             border: none;
+            &:disabled {
+                background: #a5a5a5;
+            }
         }
         .inputText {
             height: 45px;
@@ -165,6 +168,10 @@
             &::selection {
                 background: #ABDDC5;
             }
+        }
+        .cbLabel2 {
+            margin: 10px 0;
+            font-size: 18px;
         }
     }
     &.flagItem {

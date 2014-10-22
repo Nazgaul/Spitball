@@ -150,6 +150,9 @@
   background: #9E0039;
   border: none;
 }
+.modal.deptSettings .delDeptBtn:disabled {
+  background: #a5a5a5;
+}
 .modal.deptSettings .inputText {
   height: 45px;
   font-size: 18px;
@@ -160,6 +163,10 @@
 }
 .modal.deptSettings .inputText::selection {
   background: #ABDDC5;
+}
+.modal.deptSettings .cbLabel2 {
+  margin: 10px 0;
+  font-size: 18px;
 }
 .modal.flagItem {
   width: 570px;
