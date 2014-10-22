@@ -246,7 +246,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 });
                 return;
             }
-            if (!(d.newName && d.newName.length)) {
+            if (!(d.newName && d.newName.length) || d.newName === $scope.back.title) {
                 return;
             }
             sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {

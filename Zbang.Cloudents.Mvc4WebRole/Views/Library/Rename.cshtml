@@ -10,17 +10,20 @@
         <form ng-submit="renameDepartment()">
             <input class="inputText" type="text" select-on-click ng-model="formdata.newName" required />
             <div class="lFloat">@MainViewResources.CanConfuse</div>
-            <input type="submit" class="btn1 next rFloat" ng-disabled="disable" value="@SharedResources.Save">
+            <input type="submit" class="btn1 next rFloat" ng-disabled="disable()" value="@SharedResources.Save">
         </form>
     </section>
     <section class="deleteDept clearfix" ng-if="canDelete">
         <header>@MainViewResources.DeleteDept</header>
-        <input type="checkbox" class="checkbox" id="delDeptCb" />
+        <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="disableDelete" ng-model="disableDelete" />
         <label class="cbLabel2" for="delDeptCb">
             <span>@MainViewResources.MarkToDelete</span>
             @Html.Svg("~/Images/Defs.svg", "checkmark")
         </label>
-    <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>
+        <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" ng-disabled="!disableDelete"
+                class="btn1 rFloat delDeptBtn">
+            @SharedResources.Delete
+            </button>
 </section>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
 </div>
