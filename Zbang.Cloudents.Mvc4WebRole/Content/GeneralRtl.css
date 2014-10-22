@@ -31,6 +31,10 @@ input[type="radio"].radio:checked + label:after {
 .checkbox ~ .cbLabel:before {
   margin: 0 0 0 5px;
 }
+.checkbox ~ .cbLabel2 svg {
+  right: 3px;
+  left: auto;
+}
 /*#endregion */
 /*#region validation errors */
 .field-validation-error,
