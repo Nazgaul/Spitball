@@ -253,6 +253,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region RenameNode
+
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult Rename()
+        {
+            try
+            {
+                return PartialView("Rename");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Rename ", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
         [HttpPost, Ajax]
         public JsonResult RenameNode(RenameLibraryNode model)
         {

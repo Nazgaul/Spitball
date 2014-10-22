@@ -3,7 +3,7 @@
         scope: {
             editCallback: '&editCallback'
         },
-        link: function (scope, elem, attrs, ctrl) {
+        link: function (scope, elem) {
             var text;
 
             elem.on('focus', function () {
@@ -15,11 +15,18 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
             });
-            elem.on('blur', save);
+            elem.on('blur', function (e) {
+                window.setTimeout(function () {
+                    if (!$(elem).is(":focus")) {
+                        save();
+                    }
+                }, 5);
+
+            });
 
             elem.on('keydown', function (e) {
 
-                var keyCode = e.keyCode
+                var keyCode = e.keyCode;
                 if (keyCode === 13) {
                     e.preventDefault();
                     save();
@@ -36,10 +43,18 @@
                     elem[0].contentEditable = false;
                     return;
                 }
+            })
+
+            .on('click', function (e) {
+                /// <param name="e" type="Event"></param>
+                if (elem[0].contentEditable === 'true') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
             });
 
 
-            function save(e) {
+            function save() {
                 elem[0].contentEditable = false;
 
                 var editedText = elem.text();

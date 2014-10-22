@@ -930,6 +930,7 @@
     <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
+    <Content Include="Js\controllers\library\libraryRenameCtrl.js" />
     <Content Include="Js\controllers\library\restrictionPopUpCtrl.js" />
     <Content Include="Js\controllers\quiz\challengeCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
@@ -1651,6 +1652,7 @@
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.mobile.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
+    <Content Include="Views\Library\Rename.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

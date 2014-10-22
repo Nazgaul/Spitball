@@ -25,14 +25,7 @@
                 return ajaxRequest(data, $http.get, 'RussianDepartments/');
             },
             renameNode: function (data) {
-                var dfd = $q.defer();
-                $http.post(Lib + 'RenameNode/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxRequest(data, $http.post, 'RenameNode/');
             },
             searchUniversities: function (data) {
                 return ajaxRequest(data, $http.get, 'SearchUniversity/');

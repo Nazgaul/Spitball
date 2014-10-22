@@ -225,18 +225,49 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         return true;
     };
 
-    $scope.renameBox = function (newName) {
-        if (!(newName && newName.length)) {
-            return;
-        }
-        sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
-            if (!(response.success || response.Success)) {
-                alert(response.Payload);
-                return;
+    $scope.renameWindow = function () {
+        var modalInstance = $modal.open({
+            windowClass: 'rename',
+            templateUrl: '/Library/Rename/',
+            controller: 'libraryRenameCtrl',
+            resolve: {
+                data: function () {
+                    return {
+                        name: $scope.back.title,
+                        id: $scope.info.libraryId
+                    };
+                }
             }
-            $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
+        });
+        //modalInstance.result.then(function (d) {
+        //    $scope.item.name = d.name;
+        //    modalInstance = null; //avoid exception on destroy
+        //    $location.path(d.url).replace();
+        //})['finally'](function () {
+        //    modalInstance = undefined;
+        //});
+
+        $scope.$on('$destroy', function () {
+            if (modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = undefined;
+            }
         });
     };
+
+
+    //$scope.rename = function (newName) {
+    //    if (!(newName && newName.length)) {
+    //        return;
+    //    }
+    //    sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
+    //        if (!(response.success || response.Success)) {
+    //            alert(response.Payload);
+    //            return;
+    //        }
+    //        $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
+    //    });
+    //};
 
 
     //#endregion
