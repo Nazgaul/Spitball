@@ -234,7 +234,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 data: function () {
                     return {
                         name: $scope.back.title,
-                        canDelete:  $scope.info.type === types.empty
+                        canDelete: $scope.info.type === types.empty || $scope.info.items.length === 0
                     };
                 }
             }
@@ -251,7 +251,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             }
             sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
                 if (!(response.success || response.Success)) {
-                    alert(response.Payload);
+                    alert(response.payload);
                     return;
                 }
                 $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url

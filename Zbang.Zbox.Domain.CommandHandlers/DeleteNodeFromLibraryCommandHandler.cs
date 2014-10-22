@@ -32,7 +32,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("node is not empty");
             }
-            if (node.Boxes.Count > 0)
+            
+            if (node.CheckIfBoxesExists())
             {
                 throw new UnauthorizedAccessException("node is not empty");
             }
