@@ -5,11 +5,11 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
     public abstract class ItemDto
     {
         protected ItemDto(long id, long ownerId,
-            string boxUid, Guid? questionId, Guid? answerId, string name, string url)
+           Guid? questionId, Guid? answerId, string name, string url)
         {
             Id = id;
             OwnerId = ownerId;
-            BoxUid = boxUid;
+            //BoxId = boxId;
             QuestionId = questionId;
             AnserId = answerId;
             Name = name;
@@ -18,7 +18,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         public long Id { get; private set; }
         public string Name { get; private set; }
         public string Thumbnail { get; set; }
-        public string BoxUid { get; private set; }
+       // public long BoxId { get; private set; }
         public long OwnerId { get; private set; }
         public abstract string Type { get; }
 

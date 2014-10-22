@@ -30,7 +30,7 @@
     <return-scalar column="Name" type="string"/>
     <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Thumbnail" type="string"/>
-    <return-scalar column="BoxUid" type="string"/>
+    <return-scalar column="BoxId" type="long"/>
     <return-scalar column="Discriminator" type="string"/>
     <return-scalar column="QuestionId" type="Guid"/>
     <return-scalar column="AnswerId" type="Guid"/>
@@ -70,6 +70,7 @@
       order by MarkAnswer desc, id;
     ]]>
   </sql-query>
+  <!--TODO: we don't need box id in here-->
   <sql-query name="GetBoxQnAItem" resultset-ref="QnAItems" read-only="true" >
     <![CDATA[
     select
@@ -77,7 +78,6 @@
     i.Name as Name,
     i.UserId as OwnerId,
     i.thumbnailurl as Thumbnail,
-    (select Uid from zbox.Box b where b.BoxId = i.BoxId) as BoxUid,
     i.Discriminator as Discriminator,
     i.QuestionId as QuestionId,
     i.AnswerId as AnswerId,

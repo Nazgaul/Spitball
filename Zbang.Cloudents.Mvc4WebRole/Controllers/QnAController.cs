@@ -68,23 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-        //[ZboxAuthorize]
-        //[Ajax, HttpPost]
-        //public JsonResult MarkAnswer(Guid answerId)
-        //{
-        //    var command = new MarkAsAnswerCommand(answerId, GetUserId());
-        //    ZboxWriteService.MarkCorrectAnswer(command);
-        //    return Json(new JsonResponse(true));
-        //}
-        //[ZboxAuthorize]
-        //[Ajax, HttpPost]
-        //public JsonResult RateQuestion(Guid answerId)
-        //{
-        //    var rateId = m_IdGenerator.Value.GetId();
-        //    var command = new RateAnswerCommand(GetUserId(), answerId, rateId);
-        //    m_ZboxWriteService.RateAnswer(command);
-        //    return Json(new JsonResponse(true));
-        //}
+       
 
         [ZboxAuthorize]
         [Ajax, HttpPost]
@@ -152,6 +136,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)
+            {
+                return Json(new JsonResponse(false));
+            }
+            catch (BoxDoesntExistException)
             {
                 return Json(new JsonResponse(false));
             }

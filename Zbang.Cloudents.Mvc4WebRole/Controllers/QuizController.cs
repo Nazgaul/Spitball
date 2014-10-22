@@ -168,32 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-        //[NonAction]
-        //private async Task<QuizWithDetailSolvedDto> GetQuiz(long boxId, long quizId, string quizName)
-        //{
-        //    var query = new GetQuizQuery(quizId, GetUserId(false), boxId);
-        //    var model = await ZboxReadService.GetQuiz(query);
-        //    if (model.Quiz.BoxId != boxId)
-        //    {
-        //        throw new ItemNotFoundException();
-        //    }
-        //    if (quizName != UrlBuilder.NameToQueryString(model.Quiz.Name))
-        //    {
-        //        throw new ItemNotFoundException();
-        //    }
-        //    if (!model.Quiz.Publish)
-        //    {
-        //        throw new ArgumentException("Quiz not published");
-        //    }
-        //    if (model.Sheet != null)
-        //    {
-        //        if (model.Sheet.Stats != null && model.Sheet.Stats.Stdevp != 0)
-        //        {
-        //            model.Sheet.Stats.UserPosition = (model.Sheet.Score - model.Sheet.Stats.Avg) / model.Sheet.Stats.Stdevp;
-        //        }
-        //    }
-        //    return model;
-        //}
+        
 
         [Ajax, HttpGet]
         [ZboxAuthorize]
