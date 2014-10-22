@@ -1,6 +1,6 @@
 ﻿var mLibrary = angular.module('mLibrary', []);
 mLibrary.controller('LibraryCtrl',
-    ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope','$analytics',
+    ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
 function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
 
     var jsResources = window.JsResources;
@@ -8,19 +8,19 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     var types = {
         box: 'box',
         department: 'department',
-        empty:'empty'
+        empty: 'empty'
     }
 
     //#region data
     $scope.info = {
         libraryId: $routeParams.libraryId,
         libraryName: $routeParams.libraryName,
-        isRootLevel : !$routeParams.libraryId,
+        isRootLevel: !$routeParams.libraryId,
         items: []
     };
 
     var partials = {
-    //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
+        //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
         createDepartment: '/Library/CreateDepartmentPartial/'
     }
 
@@ -60,7 +60,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         $timeout(function () {
             $scope.$emit('viewContentLoaded');
         });
-      
+
         //if (pageData.length === $scope.info.pageSize) {
         //    $scope.info.paggingnNeeded = true;
         //    return;
@@ -85,8 +85,8 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                     return {
                         isAcademic: true,
                         department: {
-                            id : $scope.info.libraryId,
-                            name : $scope.info.libraryName
+                            id: $scope.info.libraryId,
+                            name: $scope.info.libraryName
                         }
                     }
                 }
@@ -123,10 +123,10 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
             backdrop: 'static',
         });
 
-        modalInstance.result.then(function(result) {
+        modalInstance.result.then(function (result) {
             result.parentId = $scope.info.libraryId;
 
-            var item = _.find($scope.info.items, function(item2) {
+            var item = _.find($scope.info.items, function (item2) {
                 return item2.name === result.name;
             });
 
@@ -211,7 +211,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     };
 
     $scope.createBoxVisible = function () {
-        
+
         if (!$scope.info.type) {
             return false;
         }
@@ -234,18 +234,31 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 data: function () {
                     return {
                         name: $scope.back.title,
-                        id: $scope.info.libraryId
+                        canDelete:  $scope.info.type === types.empty
                     };
                 }
             }
         });
-        //modalInstance.result.then(function (d) {
-        //    $scope.item.name = d.name;
-        //    modalInstance = null; //avoid exception on destroy
-        //    $location.path(d.url).replace();
-        //})['finally'](function () {
-        //    modalInstance = undefined;
-        //});
+        modalInstance.result.then(function (d) {
+            if (d === 'delete') {
+                sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
+                    $location.path($scope.back.url).replace();
+                });
+                return;
+            }
+            if (!(d.newName && d.newName.length)) {
+                return;
+            }
+            sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
+                if (!(response.success || response.Success)) {
+                    alert(response.Payload);
+                    return;
+                }
+                $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
+            });
+        })['finally'](function () {
+            modalInstance = undefined;
+        });
 
         $scope.$on('$destroy', function () {
             if (modalInstance) {

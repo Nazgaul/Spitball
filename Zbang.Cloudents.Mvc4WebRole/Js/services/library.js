@@ -49,6 +49,9 @@
             createDepartment: function (data) {
                 return ajaxRequest(data, $http.post, 'Create/');
             },
+            deleteDepartment: function (data) {
+                return ajaxRequest(data, $http.post, 'DeleteNode/');
+            },
             //chooseDeparment: function (data) {
             //    return ajaxRequest(data, $http.post, 'SelectDepartment/');
             //},

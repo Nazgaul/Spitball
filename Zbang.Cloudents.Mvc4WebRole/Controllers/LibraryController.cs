@@ -237,15 +237,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region DeleteNode
         [HttpPost, Ajax]
-        public JsonResult DeleteNode(Guid id)
+        public JsonResult DeleteNode(string id)
         {
+            var guid = TryParseNullableGuid(id);
             var userDetail = FormsAuthenticationService.GetUserData();
+
             if (!userDetail.UniversityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
+            }
+            if (!guid.HasValue)
+            {
+                return Json(new JsonResponse(false, "Error"));
             }
 
-            var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
+            var command = new DeleteNodeFromLibraryCommand(guid.Value, userDetail.UniversityId.Value);
             ZboxWriteService.DeleteNodeLibrary(command);
             return Json(new JsonResponse(true));
 
@@ -281,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
             }
-            
+
             var userDetail = FormsAuthenticationService.GetUserData();
             if (!userDetail.UniversityId.HasValue)
             {
