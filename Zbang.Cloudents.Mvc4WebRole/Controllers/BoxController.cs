@@ -390,10 +390,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        // TODO: we need to put output cache with boxid
-        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any,
-        //    VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-
+        [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult SettingsPartial()
         {
             try
@@ -543,7 +540,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult CreateTabPartial()
         {
             try
@@ -570,7 +567,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
 
         public ActionResult UploadPartial()
         {
@@ -586,7 +583,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
+
 
         public ActionResult UploadLinkPartial()
         {
@@ -603,7 +601,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
+
 
         public ActionResult SocialInvitePartial()
         {

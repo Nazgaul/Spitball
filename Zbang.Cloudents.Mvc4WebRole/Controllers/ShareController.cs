@@ -31,36 +31,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize, HttpGet]
         [NonAjax]
         [Route("invite", Name = "InviteCloudents")]
-        [Route("box/my/{boxId}/{boxName}/invite", Name = "InviteBoxPrivate")]
-        [Route("course/{universityName}/{boxId}/{boxName}/invite", Name = "InviteCourse")]
-        public ActionResult Index(long? boxId, string universityName, string boxName)
+        public ActionResult Index()
         {
-            var model = new BoxMetaDto();
-            try
-            {
-                if (boxId.HasValue)
-                {
-                    model = ZboxReadService.GetBoxMeta(new GetBoxQuery(boxId.Value, GetUserId()));
-                    if ((int) model.RelationshipType < 2)
-                    {
-                        return string.IsNullOrEmpty(universityName) ? 
-                            RedirectToRoute("PrivateBoxDesktop", new {boxId = boxId.Value, boxName}) : RedirectToRoute("CourseBoxDesktop", new { boxId = boxId.Value, boxName,  universityName });
-                    }
-                }
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return RedirectToAction("MembersOnly", "Error");
-            }
-            catch (BoxDoesntExistException)
-            {
-                return RedirectToAction("Index", "Error");
-            }
             return View("Empty");
         }
 
         [Route("invite/IndexPartial")]
-        [HttpGet,Ajax,ZboxAuthorize]
+        [OutputCache(CacheProfile = "PartialCache")]
+        [HttpGet, Ajax, ZboxAuthorize]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");

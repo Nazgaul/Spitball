@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 sw.Stop();
                 
                 tc.TrackMetric("BoxList", sw.ElapsedMilliseconds);
+                
                 return Json(new JsonResponse(true, data));
             }
             catch (Exception ex)
@@ -104,7 +105,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Friends
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult FriendsPartial()
         {
             try
@@ -129,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet]
         [Route("dashboard/CreateBox")]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult CreateBox()
         {
             try

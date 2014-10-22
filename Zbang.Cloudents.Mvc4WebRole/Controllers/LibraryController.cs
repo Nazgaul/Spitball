@@ -261,7 +261,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region RenameNode
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
+
         public ActionResult Rename()
         {
             try
@@ -407,8 +408,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, Ajax]
-        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none",
-            VaryByCustom = CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
+
         public ActionResult CreateDepartmentPartial()
         {
             try

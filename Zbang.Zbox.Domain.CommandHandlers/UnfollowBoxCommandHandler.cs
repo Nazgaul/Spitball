@@ -61,25 +61,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var academicBox = box as AcademicBox;
             if (academicBox != null)
             {
-                var department = academicBox.Department;
-               // var noOfBoxes = m_DepartmentRepository.GetBoxesInDepartment(department);
-                //department.UpdateNumberOfBoxes(--noOfBoxes);
-                //m_DepartmentRepository.Save(department);
-
                 var university = academicBox.University;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
                 university.UpdateNumberOfBoxes(--noOfBoxes);
                 m_UniversityRepository.Save(university);
-                //    foreach (var library in acadmicBox.Library)
-                //    {
-                //        library.Boxes.Remove(box);
-
-                //    }
             }
             var users = box.UserBoxRelationship.Select(s => s.User);
             foreach (var userInBox in users)
             {
-                //userInBox.ReCalculateSpace();
                 userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id).Sum(s => s.Size);
                 m_UserRepository.Save(userInBox);
             }

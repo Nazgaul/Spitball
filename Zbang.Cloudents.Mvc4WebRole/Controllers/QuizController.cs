@@ -197,8 +197,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax, HttpGet]
         [ZboxAuthorize]
-        [DonutOutputCache(Duration = TimeConsts.Hour, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        [OutputCache(CacheProfile = "PartialCache")]
+
         public ActionResult CreateQuiz()
         {
             return PartialView("CreateQuiz");
