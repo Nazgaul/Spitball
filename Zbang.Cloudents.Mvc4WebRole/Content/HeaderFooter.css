@@ -93,6 +93,8 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 15px;
+  border: none;
+  outline: none;
 }
 .dashLibSearchInput:focus {
   border: none;
