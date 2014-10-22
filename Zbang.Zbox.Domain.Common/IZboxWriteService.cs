@@ -43,8 +43,8 @@ namespace Zbang.Zbox.Domain.Common
 
 
         //void AddNodeToLibrary(AddNodeToLibraryCommand command);
-        //void RenameNodeLibrary(RenameNodeCommand command);
-        //void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
+        void RenameNodeLibrary(RenameNodeCommand command);
+        void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
 
         #region ZboxWorkerRoleService
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);

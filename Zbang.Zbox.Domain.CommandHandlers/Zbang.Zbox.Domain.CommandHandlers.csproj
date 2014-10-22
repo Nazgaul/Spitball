@@ -77,6 +77,7 @@
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteItemCommentCommandHandler.cs" />
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
+    <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
     <Compile Include="DeleteReplyCommandHandler.cs" />
     <Compile Include="DeleteFileFromQnACommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Quiz\UpdateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
+    <Compile Include="RenameNodeCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

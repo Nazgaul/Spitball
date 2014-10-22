@@ -236,47 +236,75 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region DeleteNode
-        //[HttpPost, Ajax]
-        //public JsonResult DeleteNode(Guid id)
-        //{
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    if (!userDetail.UniversityId.HasValue)
-        //    {
-        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-        //    }
+        [HttpPost, Ajax]
+        public JsonResult DeleteNode(string id)
+        {
+            var guid = TryParseNullableGuid(id);
+            var userDetail = FormsAuthenticationService.GetUserData();
 
-        //    var command = new DeleteNodeFromLibraryCommand(id, userDetail.UniversityId.Value);
-        //    ZboxWriteService.DeleteNodeLibrary(command);
-        //    return Json(new JsonResponse(true));
+            if (!userDetail.UniversityId.HasValue)
+            {
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
+            }
+            if (!guid.HasValue)
+            {
+                return Json(new JsonResponse(false, "Error"));
+            }
 
-        //}
+            var command = new DeleteNodeFromLibraryCommand(guid.Value, userDetail.UniversityId.Value);
+            ZboxWriteService.DeleteNodeLibrary(command);
+            return Json(new JsonResponse(true));
+
+        }
         #endregion
 
         #region RenameNode
-        //[HttpPost, Ajax]
-        //public JsonResult RenameNode(RenameLibraryNode model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
-        //    }
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    if (!userDetail.UniversityId.HasValue)
-        //    {
-        //        return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
-        //    }
-        //    try
-        //    {
-        //        var command = new RenameNodeCommand(model.NewName, model.Id, userDetail.UniversityId.Value);
 
-        //        ZboxWriteService.RenameNodeLibrary(command);
-        //        return Json(new JsonResponse(true));
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return Json(new JsonResponse(false, ex.Message));
-        //    }
-        //}
+        [HttpGet, Ajax]
+        [OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
+        public ActionResult Rename()
+        {
+            try
+            {
+                return PartialView("Rename");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Rename ", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
+        [HttpPost, Ajax]
+        public JsonResult RenameNode(RenameLibraryNode model)
+        {
+            var guid = TryParseNullableGuid(model.Id);
+            if (!guid.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Error");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
+            }
+
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (!userDetail.UniversityId.HasValue)
+            {
+                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+            }
+            try
+            {
+                var command = new RenameNodeCommand(model.NewName, guid.Value, userDetail.UniversityId.Value);
+
+                ZboxWriteService.RenameNodeLibrary(command);
+                return Json(new JsonResponse(true));
+            }
+            catch (ArgumentException ex)
+            {
+                return Json(new JsonResponse(false, ex.Message));
+            }
+        }
         #endregion
 
         [ActionName("SelectDepartment")]
