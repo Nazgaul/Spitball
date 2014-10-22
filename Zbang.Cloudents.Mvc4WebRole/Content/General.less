@@ -428,6 +428,37 @@ input[type="radio"] {
         //content: '';
         background-position: -19px -1px;
     }
+    ~ .cbLabel2 {
+        display: inline-block;
+        position: relative;
+        font-size: 18px;
+        cursor: pointer;
+        &:before {
+            .pseudo;
+            width: 23px;
+            height: 23px;
+            display: inline-block;
+            
+            vertical-align: middle;
+            border: 1px solid @borderColor;
+            margin-top: -2px;
+            //background-color: #fff;
+        }
+        svg {
+            display: none;
+            width: 20px;
+            fill: @color;
+            height: 20px;
+            position: absolute;
+            top: 4px;
+            left: 3px;
+        }
+    }
+    &:checked ~ .cbLabel2 {
+        svg {
+            display: block;
+        }
+    }
 }
 /*#endregion */
 

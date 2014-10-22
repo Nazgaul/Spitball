@@ -1430,9 +1430,7 @@
     position: absolute;
     top: 6px;
     left: 6px; /*rtl*/
-}
-
-    .cbLabel:before {
+    &:before {
         content: '';
         width: 22px;
         height: 22px;
@@ -1442,6 +1440,9 @@
         border: 1px solid #676767;
         background-color: #fff;
     }
+}
+
+    
 
 .cbManage:checked ~ .cbLabel:after {
     content: '';

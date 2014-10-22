@@ -386,6 +386,33 @@ input[type="radio"][disabled] + label:before {
 .checkbox:checked ~ .cbLabel:before {
   background-position: -19px -1px;
 }
+.checkbox ~ .cbLabel2 {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+}
+.checkbox ~ .cbLabel2:before {
+  content: '';
+  width: 23px;
+  height: 23px;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid #c2c2c2;
+  margin-top: -2px;
+}
+.checkbox ~ .cbLabel2 svg {
+  display: none;
+  width: 20px;
+  fill: #0f9d58;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 3px;
+}
+.checkbox:checked ~ .cbLabel2 svg {
+  display: block;
+}
 /*#endregion */
 /*#region validation errors */
 .validation-summary-valid {
