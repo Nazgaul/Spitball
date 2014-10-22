@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
         public virtual int AmountOfNodes { get; set; }
-        public virtual int NoOfBoxes{ get; set; }
+        public virtual int NoOfBoxes { get; set; }
         public virtual Library Parent { get; protected set; }
 
         public virtual University University { get; protected set; }
@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Domain
 
         private bool CheckIfBoxesExists()
         {
-            return Boxes.Count != 0;
+            return Boxes.Count(b => !b.IsDeleted) != 0;
         }
 
 
