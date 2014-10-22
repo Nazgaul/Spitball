@@ -112,8 +112,54 @@
   padding-left: 290px;
   top: 10%;
 }
-.modal.rename .delDeptBtn {
-  margin-top: -28px;
+.modal.deptSettings {
+  width: 600px;
+}
+.modal.deptSettings header {
+  color: #0f9d58;
+  font-size: 18px;
+  margin: 5px 0;
+}
+.modal.deptSettings .changeName .lFloat {
+  margin-top: 15px;
+  position: relative;
+  padding-left: 35px;
+  width: 285px;
+}
+.modal.deptSettings .changeName .lFloat:before {
+  content: '!';
+  display: inline-block;
+  color: #fff;
+  font-size: 18px;
+  padding: 2px 12px;
+  background: #0f9d58;
+  border-radius: 100%;
+  vertical-align: top;
+  position: absolute;
+  top: 4px;
+  left: 0;
+}
+.modal.deptSettings .deleteDept {
+  border-top: 1px solid #0f9d58;
+  margin-top: 20px;
+}
+.modal.deptSettings .deleteDept header {
+  margin-top: 12px;
+}
+.modal.deptSettings .delDeptBtn {
+  background: #9E0039;
+  border: none;
+}
+.modal.deptSettings .inputText {
+  height: 45px;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.modal.deptSettings .inputText::-moz-selection {
+  background: #ABDDC5;
+}
+.modal.deptSettings .inputText::selection {
+  background: #ABDDC5;
 }
 .modal.flagItem {
   width: 570px;

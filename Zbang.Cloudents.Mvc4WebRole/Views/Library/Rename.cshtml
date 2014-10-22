@@ -1,14 +1,24 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
 <div class="modal-header">
-    <h3 class="modal-title"><span>@SharedResources.Rename</span></h3>
+    <h3 class="modal-title"><span>@MainViewResources.DeptSettings</span></h3>
 </div>
 <div class="modal-body">
-    <form ng-submit="renameDepartment()">
-        <input class="inputText" type="text" ng-model="formdata.newName" required />
-        <input type="submit" class="btn1 next" ng-disabled="disable" value="@SharedResources.Save">
-        <button ng-click="cancel()" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
-    </form>
+    <section class="changeName clearfix">
+        <header>@MainViewResources.ChangeName</header>
+        <form ng-submit="renameDepartment()">
+            <input class="inputText" type="text" ng-model="formdata.newName" required />
+            <div class="lFloat">@MainViewResources.CanConfuse</div>
+            <input type="submit" class="btn1 next rFloat" ng-disabled="disable" value="@SharedResources.Save">
+            @*<button ng-click="cancel()" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>*@
+        </form>
+    </section>
+    <section class="deleteDept clearfix">
+        <header>@MainViewResources.DeleteDept</header>
+        <input type="checkbox" class="cb" id="delDeptCb" />
+        <label for="delDeptCb">@MainViewResources.MarkToDelete</label>
+        <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>
+    </section>
     <button type="button" class="closeDialog" ng-click="cancel()"></button>
-    <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" class="btn1 rFloat delDeptBtn">Delete this department</button>
 </div>

@@ -106,6 +106,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changing the existing department name might confuse your classmates.
+        /// </summary>
+        public static string CanConfuse {
+            get {
+                return ResourceManager.GetString("CanConfuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t find your school?.
         /// </summary>
         public static string CantFind {
@@ -120,6 +129,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string CantFindDept {
             get {
                 return ResourceManager.GetString("CantFindDept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change department name.
+        /// </summary>
+        public static string ChangeName {
+            get {
+                return ResourceManager.GetString("ChangeName", resourceCulture);
             }
         }
         
@@ -174,6 +192,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string CreateNewDept {
             get {
                 return ResourceManager.GetString("CreateNewDept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Department.
+        /// </summary>
+        public static string DeleteDept {
+            get {
+                return ResourceManager.GetString("DeleteDept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department Settings.
+        /// </summary>
+        public static string DeptSettings {
+            get {
+                return ResourceManager.GetString("DeptSettings", resourceCulture);
             }
         }
         
@@ -239,6 +275,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string Instructor {
             get {
                 return ResourceManager.GetString("Instructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark to delete this department.
+        /// </summary>
+        public static string MarkToDelete {
+            get {
+                return ResourceManager.GetString("MarkToDelete", resourceCulture);
             }
         }
         

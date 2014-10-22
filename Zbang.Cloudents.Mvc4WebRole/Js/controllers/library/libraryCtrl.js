@@ -227,7 +227,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     $scope.renameWindow = function () {
         var modalInstance = $modal.open({
-            windowClass: 'rename',
+            windowClass: 'deptSettings',
             templateUrl: '/Library/Rename/',
             controller: 'libraryRenameCtrl',
             resolve: {
