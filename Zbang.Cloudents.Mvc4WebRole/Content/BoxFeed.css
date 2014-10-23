@@ -12,7 +12,6 @@
 .boxFeed ~ .recommendedWpr {
   position: relative;
   left: 30px;
-  display: none;
 }
 .feedForm {
   position: relative;

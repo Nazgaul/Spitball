@@ -123,14 +123,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         GetUserId(false)));
 
 
-                retVal.ToList().ForEach(f =>
-                {
-                    f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi.Id}));
-                    f.Answers.ForEach(
-                        fa =>
-                            fa.Files.ForEach(
-                                fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi1.Id})));
-                });
+                //retVal.ToList().ForEach(f =>
+                //{
+                //    f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi.Id}));
+                //    f.Answers.ForEach(
+                //        fa =>
+                //            fa.Files.ForEach(
+                //                fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi1.Id})));
+                //});
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)

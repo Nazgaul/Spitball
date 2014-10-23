@@ -389,20 +389,22 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        
 
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestions(GetBoxQuestionsQuery query)
+
+        public async Task<Qna.FeedDto> GetQuestions(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5}",
                     Sql.Box.GetBoxQuestion,
                     Sql.Box.GetBoxAnswers,
                     Sql.Box.GetBoxQnAItem,
                     Sql.Security.GetBoxPrivacySettings,
-                    Sql.Security.GetUserToBoxRelationship),
+                    Sql.Security.GetUserToBoxRelationship,
+                    Sql.Box.RecommendedCourses),
                     new { query.BoxId, query.UserId}))
                 {
+                    var retVal = new Qna.FeedDto();
                     var questions = grid.Read<Qna.QuestionDto>().ToList();
                     var answers = grid.Read<Qna.AnswerDto>().ToList();
                     var items = grid.Read<Qna.ItemDto>().ToList();
@@ -421,9 +423,10 @@ namespace Zbang.Zbox.ReadServices
                         question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
                         question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
                     }
+                    retVal.Feed = questions;
+                    retVal.RecommendBoxes = await grid.ReadAsync<Box.RecommendBoxDto>();
 
-
-                    return questions;
+                    return retVal;
                 }
             }
             //using (UnitOfWork.Start())

@@ -1,114 +1,119 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<section class="boxFeed lFloat" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
-    <form class="feedForm" name="qnaQform" focus-form="feedOpen"
-          ng-submit="postQuestion(qnaQform.$valid)" novalidate>
+<div ng-controller="QnACtrl">
+    <section class="boxFeed lFloat">
+        <form class="feedForm" name="qnaQform" focus-form="feedOpen"
+              ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-        <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
-        <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
-                  ng-focus="checkAuth()"></textarea>
-        <ul class="attachedList">
-            <li class="attachedItem" ng-repeat="file in qFormData.files">
-                <span class="attachName elps">{{file.name}}</span>
-                <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-            </li>
-        </ul>
-        <div class="bottomTA" tabindex="0">
-            <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content)">@SharedResources.Post</button>
-        </div>
-        <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
-            @Html.Svg("~/Images/Defs.svg", "attachment", new {@class="svg-attachment"})
-        </button>
-    </form>
+            <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
+            <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
+                      ng-focus="checkAuth()"></textarea>
+            <ul class="attachedList">
+                <li class="attachedItem" ng-repeat="file in qFormData.files">
+                    <span class="attachName elps">{{file.name}}</span>
+                    <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
+                </li>
+            </ul>
+            <div class="bottomTA" tabindex="0">
+                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content)">@SharedResources.Post</button>
+            </div>
+            <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
+                @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
+            </button>
+        </form>
 
-    <ul class="boxFeedList">
-        <li class="" ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-            <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
+        <ul class="boxFeedList">
+            <li class="" ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
+                <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
 
-            <div class="feedWpr">
-                <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
-                <div class="userName elps">{{question.userName}}</div>
+                <div class="feedWpr">
+                    <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
+                    <div class="userName elps">{{question.userName}}</div>
 
-                <div class="feedContent" ng-bind-html="question.content"></div>
-                <ul class="qaAttach">
-                    <li class="qaAttachItem" ng-repeat="file in question.files">
-                        <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
-                        <div class="attachActions">
-                            <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
-                            <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeQuestionAttachment(file)"></button>
-                            <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
+                    <div class="feedContent" ng-bind-html="question.content"></div>
+                    <ul class="qaAttach">
+                        <li class="qaAttachItem" ng-repeat="file in question.files">
+                            <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
+                            <div class="attachActions">
+                                <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
+                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeQuestionAttachment(file)"></button>
+                                <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="shareBtn lFloat">
+                        <label for="boxShare" class="iconTop">@SharedResources.Share</label>
+                    </div>
+                    <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
+                        @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                    </button>
+                </div>
+                <ul class="feedReplies rFloat">
+                    <li ng-repeat="answer in question.answers track by answer.id">
+                        <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
+                        <div class="feedWpr">
+                            <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
+                            <div class="userName elps">{{answer.userName}}</div>
+                            <div class="feedContent" ng-bind-html="answer.content"></div>
+                            <ul class="qaAttach">
+                                <li class="qaAttachItem" ng-repeat="file in answer.files">
+                                    <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                    <div class="attachActions">
+                                        <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
+                                        <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
+                                        <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
+                                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                            </button>
                         </div>
                     </li>
                 </ul>
-
-                <div class="shareBtn lFloat">
-                    <label for="boxShare" class="iconTop">@SharedResources.Share</label>
-                </div>
-                <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                </button>
-            </div>
-            <ul class="feedReplies rFloat">
-                <li ng-repeat="answer in question.answers track by answer.id">
-                    <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
-                    <div class="feedWpr">
-                        <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
-                        <div class="userName elps">{{answer.userName}}</div>
-                        <div class="feedContent" ng-bind-html="answer.content"></div>
-                        <ul class="qaAttach">
-                            <li class="qaAttachItem" ng-repeat="file in answer.files">
-                                <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
-                                <div class="attachActions">
-                                    <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
-                                    <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(answer,file)"></button>
-                                    <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
-                                </div>
-                            </li>
-                        </ul>
-                        <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                        </button>
+                <form name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
+                    <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
+                    <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
+                    <ul class="attachedList">
+                        <li class="attachedItem" ng-repeat="file in question.aFormData.files">
+                            <span class="attachName elps">{{file.name}}</span>
+                            <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
+                        </li>
+                    </ul>
+                    <div class="bottomTA">
+                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
                     </div>
-                </li>
-            </ul>
-            <form name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
-                <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
-                <ul class="attachedList">
-                    <li class="attachedItem" ng-repeat="file in question.aFormData.files">
-                        <span class="attachName elps">{{file.name}}</span>
-                        <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
-                    </li>
-                </ul>
-                <div class="bottomTA">
-                    <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
-                </div>
-                <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
-                    @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
-                </button>
-            </form>
-        </li><!--
-    --></ul>
+                    <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
+                        @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
+                    </button>
+                </form>
+            </li>
+            <!--
+            -->
+        </ul>
 
-    <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
+        <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
-</section>
+    </section>
 
-<section class="recommendedWpr"> @*ng-if="recommendedCourses.length"*@
-    <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
-    <ul>
-        <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
-            <a bo-href="course.url" class="courseLink">
-                <div class="rFloat">
-                    <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
-                    <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
-                </div>
-                <img bo-src="course.picture" alt="" width="68" height="68" />
-                <div class="elps courseName" bo-text="course.name"></div>
-                <div class="elps" bo-text="course.courseCode"></div>
-                <div class="prof elps" bo-text="course.professor"></div>
-            </a>
-        </li>
-    </ul>
-</section>
+    <section class="recommendedWpr">
+        @*ng-if="recommendedCourses.length"*@
+        <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
+        <ul>
+            <li class="recommended" ng-repeat="course in info.recommendedBoxes" bindonce>
+                <a bo-href="course.url" class="courseLink">
+                    <div class="rFloat">
+                        <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                        <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
+                    </div>
+                    <img bo-src="course.picture" alt="" width="68" height="68" />
+                    <div class="elps courseName" bo-text="course.name"></div>
+                    <div class="elps" bo-text="course.courseCode"></div>
+                    <div class="prof elps" bo-text="course.professor"></div>
+                </a>
+            </li>
+        </ul>
+    </section>
+</div>

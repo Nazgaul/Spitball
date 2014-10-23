@@ -70,7 +70,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
 
 
-        Task<IEnumerable<QuestionDto>> GetQuestions(GetBoxQuestionsQuery query);
+        Task<FeedDto> GetQuestions(GetBoxQuestionsQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
 
         BoxMetaDto GetBoxMeta(GetBoxQuery query);

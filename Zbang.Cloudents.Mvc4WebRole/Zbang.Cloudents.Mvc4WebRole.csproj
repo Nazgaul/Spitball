@@ -919,7 +919,6 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
-    <Content Include="Js\controllers\box\boxFeedCtrl.js" />
     <Content Include="Js\controllers\box\boxInviteCtrl.js" />
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />

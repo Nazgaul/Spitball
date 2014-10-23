@@ -68,5 +68,18 @@ where boxid = @BoxId;";
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
     and (QuestionId is not null or AnswerId is not null);";
+
+        public const string RecommendedCourses = @"
+select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
+b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,count(*)  as x
+from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
+where userid in (
+select userid from zbox.userboxrel where boxid = @BoxId)
+and b.boxid <> @BoxId
+
+group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
+b.PictureUrl ,b.MembersCount,b.ItemCount , b.url
+order by x desc;
+";
     }
 }

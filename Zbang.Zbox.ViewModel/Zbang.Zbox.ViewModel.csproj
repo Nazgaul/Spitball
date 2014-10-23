@@ -64,8 +64,6 @@
   <ItemGroup>
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
-    <Compile Include="Dto\ActivityDtos\BaseActivityDto.cs" />
-    <Compile Include="Dto\ActivityDtos\CommentDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
@@ -113,12 +111,10 @@
     <Compile Include="Dto\Library\UniversityByPrefixDto.cs" />
     <Compile Include="Dto\Library\UniversityInfoDto.cs" />
     <Compile Include="Dto\Library\UniversitySearchDto.cs" />
-    <Compile Include="Dto\Notification\BoxIDDto.cs" />
-    <Compile Include="Dto\Notification\InviteBoxDataDto.cs" />
-    <Compile Include="Dto\Notification\UserMailDataDto.cs" />
     <Compile Include="Dto\PagedDto.cs" />
     <Compile Include="Dto\Qna\AnswerDto.cs" />
     <Compile Include="Dto\Qna\AnswerToFriendDto.cs" />
+    <Compile Include="Dto\Qna\FeedDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
     <Compile Include="Dto\Qna\QuestionDto.cs" />
     <Compile Include="Dto\Qna\QuestionToFriendDto.cs" />
@@ -157,7 +153,6 @@
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
     <Compile Include="Queries\GetInvitesQuery.cs" />
     <Compile Include="Queries\GetItemQuery.cs" />
-    <Compile Include="Queries\GetBoxCommentsQuery.cs" />
     <Compile Include="Queries\GetFileSeoQuery.cs" />
     <Compile Include="Queries\GetQuizQuery.cs" />
     <Compile Include="Queries\GetQuizSeoQuery.cs" />

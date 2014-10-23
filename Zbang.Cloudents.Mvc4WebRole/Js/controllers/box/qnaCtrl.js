@@ -42,19 +42,20 @@ mBox.controller('QnACtrl',
         }
 
         function File(data) {
+            console.log(data);
             var that = this;
             data = data || {};
-            that.id = data.uid || data.id; //uid
+            that.id = data.id; 
             that.name = data.name;
             that.thumbnail = data.thumbnail;
-            that.download = data.downloadUrl; //"/d/" + $scope.boxId + "/" + that.id;
+            
 
             var userId = sUserDetails.getDetails().id;
             that.isOwner = data.ownerId === userId;
             that.isVisible = that.isOwner;
-            //anserId ???
 
             that.itemUrl = data.url || data.itemUrl;
+            that.download = that.itemUrl + 'download/';
         }
 
 
@@ -68,13 +69,14 @@ mBox.controller('QnACtrl',
         $scope.qFormData = {};
 
 
-        sQnA.list({ boxId: $scope.boxId, uniName: $scope.uniName, boxName: $scope.boxName }).then(function (response) {
+        sQnA.list({ boxId: $scope.boxId }).then(function (response) {
 
 
-            var questions = response.success ? response.payload : {}
-            $scope.info.questions = questions.map(function (question) {
+            var data = response.success ? response.payload : {}
+            $scope.info.questions = data.feed.map(function (question) {
                 return new Question(question);
             });
+            $scope.info.recommendedBoxes = data.recommendBoxes;
 
             $scope.options.loader = false;
 
