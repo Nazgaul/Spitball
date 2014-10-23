@@ -652,8 +652,12 @@
   color: #0371c8;
   font-size: 13px;
 }
-.newAcademic.editDept .chooseDeptList {
-  display: block;
+.newAcademic {
+  /*&.editDept {
+        .chooseDeptList {
+            display: block;
+        }
+    }*/
 }
 .newAcademic .chooseDeptList {
   width: 600px;
@@ -679,19 +683,19 @@
   top: -30px;
   font-size: 18px;
 }
-.newAcademic.chooseDept {
+.newAcademic .chooseDept {
   display: block;
 }
-.newAcademic.chooseDept .department,
-.newAcademic.chooseDept .courseName,
-.newAcademic.chooseDept .courseId,
-.newAcademic.chooseDept .professor {
+.newAcademic .chooseDept .department,
+.newAcademic .chooseDept .courseName,
+.newAcademic .chooseDept .courseId,
+.newAcademic .chooseDept .professor {
   display: none;
 }
-.newAcademic.chooseDept .deptChooseWpr {
+.newAcademic .chooseDept .deptChooseWpr {
   display: block;
 }
-.newAcademic.chooseDept .libraryList {
+.newAcademic .chooseDept .libraryList {
   position: relative;
   -webkit-transform: scale(0.74);
   -moz-transform: scale(0.74);
@@ -705,10 +709,10 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-.newAcademic.chooseDept .deptLink:before {
+.newAcademic .chooseDept .deptLink:before {
   top: -17px;
 }
-.newAcademic.chooseDept .addDep {
+.newAcademic .chooseDept .addDep {
   border: 2px dashed #bcbcbc;
   height: 82px;
   padding-top: 31px;
@@ -716,7 +720,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.newAcademic.chooseDept .addBtn:focus {
+.newAcademic .chooseDept .addBtn:focus {
   outline: none;
 }
 /*#region social invite */
