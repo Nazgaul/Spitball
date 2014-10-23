@@ -55,7 +55,7 @@
                 member.reinvited = false;
                 member.reinvitedItem = false;
                 member.action = true;
-                Box.removeUser({ boxId: $scope.info.boxId, userId: member.id }).then(function () { //uid
+                sBox.removeUser({ boxId: $scope.info.boxId, userId: member.id }).then(function () { //uid
 
                 });
 
@@ -82,7 +82,7 @@
                 member.action = true;
                 $timeout(function () { member.reinvited = true; }, 10);
                 member.action = false;
-                Box.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
+                sBox.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
                     member.action = false;
                 });
             };
@@ -98,13 +98,14 @@
             };
 
             $scope.userStatus = function (status) {
+                var jsResources = window.JsResources;
                 switch (status) {
                     case 'Subscribe':
-                        return JsResources.ActiveMember;//add resource
+                        return jsResources.ActiveMember;//add resource
                     case 'Owner':
-                        return JsResources.Owner;
+                        return jsResources.Owner;
                     case 'Invite':
-                        return JsResources.Pending; //add resource
+                        return jsResources.Pending; //add resource
                 }
             };
 

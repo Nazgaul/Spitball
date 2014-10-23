@@ -26,7 +26,7 @@
             });
         };
 
-        $scope.toggleLimit = function (e) {
+        $scope.toggleLimit = function () {
 
             $scope.params.scrollToTop = true;
 

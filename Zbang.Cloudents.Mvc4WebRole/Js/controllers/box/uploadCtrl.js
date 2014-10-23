@@ -2,8 +2,7 @@
     ['$scope', '$rootScope', '$q', '$modal', 'sFacebook', '$filter',
         'sDropbox', 'sGoogle', 'sUpload','$timeout',
 
-    function ($scope, $rootScope, $q, $modal, sFacebook, $filter, Dropbox, Google, sUpload, $timeout) {
-        var jsResources = window.JsResources;
+    function ($scope, $rootScope, $q, $modal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout) {
            
         $scope.sources = {
             dropboxLoaded: false,
@@ -11,12 +10,12 @@
         }
 
 
-        var drivePromise = Google.initDrive(),
-            initGApiPromise = Google.initGApi();
+        var drivePromise = sGoogle.initDrive(),
+            initGApiPromise = sGoogle.initGApi();
         var all = $q.all([drivePromise, initGApiPromise]);
         all.then(function () {
 
-            Google.checkAuth(true).then(function () {
+            sGoogle.checkAuth(true).then(function () {
                 $scope.sources.googleDriveLoaded = true;
 
             }, function () {
@@ -27,7 +26,7 @@
 
 
 
-        Dropbox.init().then(function () {
+        sDropbox.init().then(function () {
             $scope.sources.dropboxLoaded = true;
         });
 
@@ -106,7 +105,7 @@
 
         $scope.saveDropbox = function () {
 
-            Dropbox.choose().then(function (files) {
+            sDropbox.choose().then(function (files) {
 
                 _.forEach(files, function (file) {
                     (function (fileData) {
@@ -160,8 +159,8 @@
         };
 
         $scope.saveGoogleDrive = function () {
-            if (!Google.isAuthenticated()) {
-                Google.checkAuth(false).then(function () {
+            if (!sGoogle.isAuthenticated()) {
+                sGoogle.checkAuth(false).then(function () {
                     loadPicker();
                 });
                 return;
@@ -169,7 +168,7 @@
             loadPicker();
 
             function loadPicker() {
-                Google.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false
+                sGoogle.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false
                     _.forEach(files, function (file) {
                         (function (fileData) {
 
@@ -231,7 +230,7 @@
             $scope.dismiss();
         };
 
-        $scope.$on('BeforeUpload', function (event, data) {
+        $scope.$on('BeforeUpload', function () {
             if ($scope.dismiss) { //fix for step 3
                 $scope.dismiss();
             } else {
@@ -242,15 +241,15 @@
 
 
         function guid() {
-            var guid = (G() + G() + "-" + G() + "-" + G() + "-" +
+            var guid2 = (G() + G() + "-" + G() + "-" + G() + "-" +
             G() + "-" + G() + G() + G()).toUpperCase();
 
             function G() {
-                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
             }
 
 
-            return guid;
+            return guid2;
         }
     }
     ]);
@@ -260,7 +259,7 @@ mBox.controller('UploadLinkCtrl',
     function ($scope, $modalInstance) {
         $scope.formData = {};
 
-        $scope.add = function (isValid) {
+        $scope.add = function () {
             $modalInstance.close($scope.formData.url);
         };
 

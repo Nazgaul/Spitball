@@ -42,7 +42,6 @@ mBox.controller('QnACtrl',
         }
 
         function File(data) {
-            console.log(data);
             var that = this;
             data = data || {};
             that.id = data.id; 
@@ -135,7 +134,7 @@ mBox.controller('QnACtrl',
                     id: questionId,
                     userName: sUserDetails.getDetails().name,
                     userImage: sUserDetails.getDetails().image,
-                    userUid: sUserDetails.getDetails().id, //uid
+                    userId: sUserDetails.getDetails().id, 
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls($scope.qFormData.content),
                     creationTime: new Date().toISOString(),
@@ -183,7 +182,7 @@ mBox.controller('QnACtrl',
                     id: answerId,
                     userName: sUserDetails.getDetails().name,
                     userImage: sUserDetails.getDetails().image,
-                    userId: sUserDetails.getDetails().id, //uid
+                    userId: sUserDetails.getDetails().id, 
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls(question.aFormData.content),
                     rating: 0,
@@ -196,7 +195,7 @@ mBox.controller('QnACtrl',
                 question.answers.push(new Answer(obj));
                 $scope.$broadcast('update-scroll');
 
-                //question.bestAnswer = findBestAnswer(question.answers);
+              
                 //updatetime
                 //notify
                 question.aFormData = {};

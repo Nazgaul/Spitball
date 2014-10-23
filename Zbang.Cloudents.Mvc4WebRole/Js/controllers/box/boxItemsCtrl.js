@@ -59,7 +59,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
             }
         });
 
-        modalInstance.result.then(function (response) {
+        modalInstance.result.then(function () {
 
         })['finally'](function () {
             modalInstance = undefined;

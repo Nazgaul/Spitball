@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('createAcademicBoxCtrl',
-        ['$scope', 'sBox', '$modal', 'sLibrary', 'sUserDetails',
-        function ($scope, sBox, $modal, sLibrary, sUserDetails) {
+        ['$scope', 'sBox', '$modal', 'sLibrary',
+        function ($scope, sBox, $modal, sLibrary) {
 
             var nodeHistory = [];
 
@@ -69,8 +69,8 @@
                 getNodes();
             };
 
-            $scope.changeDepartment = function () {                
-                $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null
+            $scope.changeDepartment = function () {
+                $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null;
                 nodeHistory.pop();
                 getNodes();
             };

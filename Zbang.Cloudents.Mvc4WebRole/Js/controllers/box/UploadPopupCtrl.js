@@ -1,7 +1,6 @@
 ﻿mBox.controller('UploadPopupCtrl',
     ['$scope', '$modalInstance', 'data',
     function ($scope, $modalInstance, data) {
-        var jsResources = window.JsResources;
         $scope.boxId = data.boxId;
         $scope.tabId = data.tabId;
         $scope.questionId = data.questionId;

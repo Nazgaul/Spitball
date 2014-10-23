@@ -164,7 +164,7 @@ mBox.controller('BoxCtrl',
                     controller: 'BoxInviteCtrl',
                     backdrop: 'static',
                     resolve: {
-                        data: function () {
+                        data: function() {
                             return {
                                 id: $scope.boxId,
                                 name: $scope.info.name,
@@ -175,6 +175,20 @@ mBox.controller('BoxCtrl',
                         }
                     }
                 });
+                modalInstance.result.then(function () {
+                }, function () {
+                    //dismiss
+                })['finally'](function () {
+                    modalInstance = undefined;
+                });
+
+                $scope.$on('$destroy', function () {
+                    if (modalInstance) {
+                        modalInstance = undefined;
+                        modalInstance.close();
+                    }
+                });
+
             };
             //#endregion
 

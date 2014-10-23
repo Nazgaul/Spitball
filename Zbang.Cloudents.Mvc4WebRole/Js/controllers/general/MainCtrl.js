@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
-        function ($scope, $rootScope, $location, $modal, User, Facebook, sUserDetails, Store) {
+        function ($scope, $rootScope, $location, $modal, sUser, sFacebook, sUserDetails, sStore) {
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }
@@ -66,7 +66,7 @@
             }); //temp
 
             $scope.$on('messageFB', function (e, obj) {
-                Facebook.share(obj.url, obj.name, obj.caption, obj.description, obj.picture).then(function () {
+                sFacebook.share(obj.url, obj.name, obj.caption, obj.description, obj.picture).then(function () {
                     cd.pubsub.publish('addPoints', { type: 'shareFb' });
                 });
             });
@@ -115,7 +115,7 @@
 
             };
 
-            $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+            $scope.$on('$routeChangeSuccess', function (event, current) {
                 if (!current.$$route) {
                     return;
                 }
@@ -213,7 +213,7 @@
               
 
                 
-                Store.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
+                sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                     if (!response.success) {
                         return;

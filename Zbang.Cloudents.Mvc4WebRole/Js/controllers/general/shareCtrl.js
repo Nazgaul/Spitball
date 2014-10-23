@@ -1,7 +1,7 @@
 ﻿app.controller('ShareCtrl',
     ['$scope', '$rootScope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
 
-    function ($scope, $rootScope, $modalInstance, Share, Google, Focus, data) {
+    function ($scope, $rootScope, $modalInstance, sShare, sGoogle, sFocus, data) {
 
         data = data || {};
 
@@ -75,7 +75,7 @@
             send();
 
             function send() {
-                Share.message($scope.formData).then(function () {
+                sShare.message($scope.formData).then(function () {
                 });
                 $modalInstance.close();
             }            
@@ -100,7 +100,7 @@
             $rootScope.$broadcast('itemChange');
         }
 
-        Share.cloudentsFriends().then(function (contacts) {
+        sShare.cloudentsFriends().then(function (contacts) {
             var mapped = contacts.payload.my.map(function (contact) {
                 return {
                     id: contact.uid,
@@ -113,15 +113,15 @@
 
         });
 
-        Google.initGApi().then(function () {
-            if (Google.isAuthenticated()) {
+        sGoogle.initGApi().then(function() {
+            if (sGoogle.isAuthenticated()) {
                 getGoogleContacts();
                 return;
             }
-            Google.checkAuth(true).then(function () {
+            sGoogle.checkAuth(true).then(function() {
                 getGoogleContacts();
             });
-        })
+        });
 
         $scope.onSelectedItem = function ($item) {
             $scope.formData.searchInput = null;
@@ -136,8 +136,8 @@
         };
 
 
-        $scope.getView = function (item) {
-            if (Array.isArray(item)) {
+        $scope.getView = function (item2) {
+            if (Array.isArray(item2)) {
                 return $scope.views.multiUserEmail;
             }
 
@@ -145,7 +145,7 @@
         };
 
         $scope.loadGoogleContacts = function () {
-            Google.checkAuth(false).then(function () {
+            sGoogle.checkAuth(false).then(function () {
                 getGoogleContacts();
             });
             $scope.$broadcast('itemChange');
@@ -167,27 +167,27 @@
             }
         }
 
-        $scope.removeItem = function (item) {
-            var index = $scope.formData.emailList.indexOf(item);
+        $scope.removeItem = function (item2) {
+            var index = $scope.formData.emailList.indexOf(item2);
             $scope.formData.emailList.splice(index, 1);
             $scope.$broadcast('itemChange');
-            Focus('shareInput');
+            sFocus('shareInput');
 
             if (!$scope.formData.emailList.length) {
                 $scope.formData.placeholder = 'Username or email';
             }
         };
 
-        $scope.editItem = function (item) {
-            if (!item.invalid) {
+        $scope.editItem = function (item2) {
+            if (!item2.invalid) {
                 return;
             }
 
-            $scope.formData.searchInput = item.name;
-            $scope.removeItem(item);
+            $scope.formData.searchInput = item2.name;
+            $scope.removeItem(item2);
 
             $scope.$broadcast('itemChange');
-            Focus('shareInput');
+            sFocus('shareInput');
         };
 
         $scope.keydownListener = function (e) {
@@ -223,27 +223,27 @@
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/),
 
-            item = {
+            item2 = {
                 id: $scope.formData.searchInput,
                 name: $scope.formData.searchInput
             };
 
             for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
-                if ($scope.formData.emailList[i].name === item.name || $scope.formData.emailList[i].id === item.id) {
+                if ($scope.formData.emailList[i].name === item2.name || $scope.formData.emailList[i].id === item2.id) {
                     alert('Contact already exists'); //translate
                     return;
                 }
             }
 
             if (!emailRegExp.test($scope.formData.searchInput)) {
-                item.invalid = true;
+                item2.invalid = true;
             }
 
-            $scope.onSelectedItem(item);
+            $scope.onSelectedItem(item2);
         }
 
         function getGoogleContacts() {
-            Google.contacts().then(function (contacts) {
+            sGoogle.contacts().then(function (contacts) {
                 $scope.friends = $scope.friends.concat(contacts);
                 $scope.sources.google = true;
                 $scope.$broadcast('itemChange');
@@ -261,16 +261,16 @@ app.directive('resizeInput',
                 scope: {
                     googleBtn: '='
                 },
-                link: function (scope, elem, attrs) {
+                link: function (scope, elem) {
                     var maxWidth = 430,
                         minWidth = 200,
                         container = $('.emailUser')[0],
                         $emailListWpr = $('.emailListWpr');
 
 
-                    scope.$watch('googleBtn', function (newValue, oldValue) {
+                    scope.$watch('googleBtn', function (newValue) {
                         maxWidth = newValue ? 430 : 510;
-                        $emailListWpr.css('max-width', maxWidth)
+                        $emailListWpr.css('max-width', maxWidth);
                         elem.css('max-width', maxWidth);
                     });
 
@@ -289,7 +289,7 @@ app.directive('resizeInput',
 
                     function setWidth() {
                         var rowWidth = 0, itemWidth;
-                        $('.emailItem').each(function (item) {
+                        $('.emailItem').each(function () {
                             itemWidth = $(this).outerWidth(true);
                             if (rowWidth + itemWidth < maxWidth) {
                                 rowWidth += itemWidth;
