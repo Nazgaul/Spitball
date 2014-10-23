@@ -42,6 +42,10 @@
       <key column="BoxId"/>
       <one-to-many class="Quiz"/>
     </bag>
+    <bag name="ItemTabs"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId"/>
+      <one-to-many class="ItemTab"/>
+    </bag>
 
     
     <bag name="Questions" cascade="all-delete-orphan" inverse="true" lazy="true">

@@ -67,6 +67,8 @@ namespace Zbang.Zbox.Domain
         //protected virtual ICollection<Comment> Comments { get; set; }
         protected virtual ICollection<Comment> Questions { get; private set; }
 
+        protected virtual ICollection<ItemTab> ItemTabs { get; set; }
+
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
         public virtual int QuizCount { get; private set; }
