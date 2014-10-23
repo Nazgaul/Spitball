@@ -112,38 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return PartialView("_SelectUni");
         }
-        #region Ip
-        //[NonAction]
-        //private async Task<string> GetUserCountryByIp()
-        //{
-        //    string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-        //    if (string.IsNullOrWhiteSpace(userIp))
-        //    {
-        //        userIp = Request.ServerVariables["REMOTE_ADDR"];
-        //    }
-        //    if (Request.IsLocal)
-        //    {
-        //        userIp = "81.218.135.73";
-        //    }
-        //    var ipNumber = Ip2Long(userIp);
-        //    return await ZboxReadService.GetLocationByIp(ipNumber);
-
-        //}
-        //[NonAction]
-        //private long Ip2Long(string ip)
-        //{
-        //    double num = 0;
-        //    if (!string.IsNullOrEmpty(ip))
-        //    {
-        //        string[] ipBytes = ip.Split('.');
-        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
-        //        {
-        //            num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-        //        }
-        //    }
-        //    return (long)num;
-        //}
-        #endregion
+        
 
         [HttpGet, Ajax]
         public async Task<JsonResult> SearchUniversity(string term)
@@ -205,7 +174,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [Ajax]
-        //[AjaxCache(TimeConsts.Minute * 30)]
         public async Task<JsonResult> Nodes(string section)
         {
             var guid = TryParseNullableGuid(section);

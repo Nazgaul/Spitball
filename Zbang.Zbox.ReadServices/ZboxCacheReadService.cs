@@ -133,12 +133,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxNotificationSettings(query);
         }
 
-        //public Task<IEnumerable<ViewModel.DTOs.Library.UniversityByPrefixDto>> GetUniversityListByPrefix(ViewModel.Queries.Library.GetUniversityByPrefixQuery query)
-        //{
-        //    return m_Cache.QueryAsync<ViewModel.Queries.Library.GetUniversityByPrefixQuery, IEnumerable<ViewModel.DTOs.Library.UniversityByPrefixDto>>
-        //        (m_ReadService.GetUniversityListByPrefix, query);
-        //    //return m_ReadService.GetUniversityListByPrefix(query);
-        //}
 
         public BoxSettingsDto GetBoxSetting(GetBoxQuery query)
         {
