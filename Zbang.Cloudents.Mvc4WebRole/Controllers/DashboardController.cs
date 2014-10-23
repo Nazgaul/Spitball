@@ -2,16 +2,13 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.User;
@@ -50,16 +47,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = GetUserId();
             try
             {
-                
+
                 var tc = new Microsoft.ApplicationInsights.TelemetryClient();
                 var sw = new Stopwatch();
                 sw.Start();
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetDashboard(query);
                 sw.Stop();
-                
+
                 tc.TrackMetric("BoxList", sw.ElapsedMilliseconds);
-                
+
                 return Json(new JsonResponse(true, data));
             }
             catch (Exception ex)
@@ -84,8 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
-                var retVal = result.NewBox.Url;
-                return Json(new JsonResponse(true, new {Url = retVal, result.NewBox.Id}));
+                return Json(new JsonResponse(true, new { result.Url, result.Id }));
 
             }
             catch (BoxNameAlreadyExistsException)

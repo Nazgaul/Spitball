@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.ViewModel.Dto.UserDtos;
+﻿using System.Threading.Tasks;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Zbox.ReadServices
@@ -12,12 +13,12 @@ namespace Zbang.Zbox.ReadServices
 
         #region UserBasedData
 
-        LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
-        LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
-        LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query);
-       
-        
-        
+        Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
+        Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
+        Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query);
+
+
+
 
 
         #endregion

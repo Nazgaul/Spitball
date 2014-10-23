@@ -317,6 +317,7 @@
     </Compile>
     <Compile Include="Extensions\BlobFileStream.cs" />
     <Compile Include="Helpers\AjaxConstaint.cs" />
+    <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsSessionStateStore.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
     <Compile Include="Helpers\CookieHelper.cs" />

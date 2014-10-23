@@ -3,14 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using System.Web.UI;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Azure.Search;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -112,38 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return PartialView("_SelectUni");
         }
-        #region Ip
-        //[NonAction]
-        //private async Task<string> GetUserCountryByIp()
-        //{
-        //    string userIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-        //    if (string.IsNullOrWhiteSpace(userIp))
-        //    {
-        //        userIp = Request.ServerVariables["REMOTE_ADDR"];
-        //    }
-        //    if (Request.IsLocal)
-        //    {
-        //        userIp = "81.218.135.73";
-        //    }
-        //    var ipNumber = Ip2Long(userIp);
-        //    return await ZboxReadService.GetLocationByIp(ipNumber);
-
-        //}
-        //[NonAction]
-        //private long Ip2Long(string ip)
-        //{
-        //    double num = 0;
-        //    if (!string.IsNullOrEmpty(ip))
-        //    {
-        //        string[] ipBytes = ip.Split('.');
-        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
-        //        {
-        //            num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-        //        }
-        //    }
-        //    return (long)num;
-        //}
-        #endregion
+        
 
         [HttpGet, Ajax]
         public async Task<JsonResult> SearchUniversity(string term)
@@ -205,17 +172,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [Ajax]
-        //[AjaxCache(TimeConsts.Minute * 30)]
         public async Task<JsonResult> Nodes(string section)
         {
             var guid = TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
-            if (!userDetail.UniversityId.HasValue)
+            if (!userDetail.UniversityDataId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityId.Value, guid, GetUserId());
+            var query = new GetLibraryNodeQuery(userDetail.UniversityDataId.Value, guid, GetUserId());
             var result = await ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
 
@@ -391,7 +357,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
                 var result = ZboxWriteService.CreateBox(command);
-                return Json(new JsonResponse(true, new { result.NewBox.Url, result.NewBox.Id }));
+                return Json(new JsonResponse(true, new { result.Url, result.Id }));
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -459,7 +425,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
-            FormsAuthenticationService.ChangeUniversity(command.Id);
+            FormsAuthenticationService.ChangeUniversity(command.Id, command.Id);
             return Json(new JsonResponse(true, new
             {
                 command.Id,

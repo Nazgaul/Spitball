@@ -104,6 +104,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Store", "Zbang.Z
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Zbang.Zbox.VbExternalUtils", "Zbang.Zbox.VbExternalUtils\Zbang.Zbox.VbExternalUtils.vbproj", "{C4FB3423-CE73-4B44-A7FB-AFCD71F947D2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5766BDE7-4086-466B-A6A0-254004AC3D94}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU

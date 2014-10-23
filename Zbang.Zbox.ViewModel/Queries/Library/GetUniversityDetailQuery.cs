@@ -30,7 +30,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
 
         public TimeSpan Expiration
         {
-            get { return TimeSpan.FromMinutes(15); }
+            get { return TimeSpan.FromMinutes(30); }
         }
     }
 }

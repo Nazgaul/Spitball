@@ -37,7 +37,7 @@
       <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
     </Certificates>
     <LocalResources>
-      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="100" />
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="true" sizeInMB="100" />
       <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
     </LocalResources>
   </WebRole>

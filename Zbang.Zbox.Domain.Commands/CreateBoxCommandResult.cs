@@ -5,14 +5,15 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateBoxCommandResult: ICommandResult
     {
-        public CreateBoxCommandResult(Box box, string userName)
+        public CreateBoxCommandResult( long id, string url)
         {
-            NewBox = box;
-            UserName = userName;
+            Url = url;
+            Id = id;
         }
 
-        public Box NewBox { get; private set; }
+        public long Id { get; private set; }
+        public string Url  { get; private set; }
+        //public Box NewBox { get; private set; }
 
-        public string UserName { get; private set; }
     }
 }

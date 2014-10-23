@@ -35,9 +35,8 @@ body {
   background-color: #0f9d58;
   top: 0;
   width: 100%;
-  z-index: 1051;
+  z-index: 11;
   position: fixed;
-  /*so that I can use z-index*/
   min-width: 1024px;
 }
 .siteHeader .siteLogo {

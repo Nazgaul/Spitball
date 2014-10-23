@@ -78,14 +78,14 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItem2(query);
         }
 
-      
+
 
         //public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
         //{
         //    return m_ReadService.GetBoxComments(query);
         //}
 
-      
+
 
         public BoxDto GetBox(GetBoxQuery query)
         {
@@ -133,12 +133,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxNotificationSettings(query);
         }
 
-        //public Task<IEnumerable<ViewModel.DTOs.Library.UniversityByPrefixDto>> GetUniversityListByPrefix(ViewModel.Queries.Library.GetUniversityByPrefixQuery query)
-        //{
-        //    return m_Cache.QueryAsync<ViewModel.Queries.Library.GetUniversityByPrefixQuery, IEnumerable<ViewModel.DTOs.Library.UniversityByPrefixDto>>
-        //        (m_ReadService.GetUniversityListByPrefix, query);
-        //    //return m_ReadService.GetUniversityListByPrefix(query);
-        //}
 
         public BoxSettingsDto GetBoxSetting(GetBoxQuery query)
         {
@@ -177,17 +171,17 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxMeta(query);
         }
 
-        public LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
+        public Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
             return m_ReadService.GetUserDetailsByMembershipId(query);
         }
 
-        public LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
+        public Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
             return m_ReadService.GetUserDetailsByFacebookId(query);
         }
 
-        public LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query)
+        public Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)
         {
             return m_ReadService.GetUserDetailsByEmail(query);
         }
@@ -366,7 +360,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-     
+
 
 
         public Task<FileSeo> GetItemSeo(GetFileSeoQuery query)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Zbang.Zbox.Infrastructure.Ioc;
@@ -22,21 +23,21 @@ namespace Zbang.Zbox.ReadServicesTests
             var m_HttpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
             IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
 
-          //  var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
+            //  var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
             m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
         }
 
         [TestMethod]
-        public void GetUserDetailsByFacebookId_Query_ReturnResult()
+        public async Task GetUserDetailsByFacebookId_Query_ReturnResult()
         {
             var query = new GetUserByFacebookQuery(1);
             try
             {
-                m_ZboxReadService.GetUserDetailsByFacebookId(query);
+                var x = await m_ZboxReadService.GetUserDetailsByFacebookId(query);
             }
             catch (UserNotFoundException)
             {
-                
+
             }
             catch (Exception ex)
             {
@@ -45,12 +46,30 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetUserDetailsByMembershipId_Query_RetrurnResult()
+        public async Task GetUserDetailsByMembershipId_Query_ReturnResult()
         {
             var query = new GetUserByMembershipQuery(Guid.NewGuid());
             try
             {
-                m_ZboxReadService.GetUserDetailsByMembershipId(query);
+                var x = await m_ZboxReadService.GetUserDetailsByMembershipId(query);
+            }
+            catch (UserNotFoundException)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetUserDetailsByEmail_Query_ReturnResult()
+        {
+            var query = new GetUserByEmailQuery("yaari.ram@gmail.com");
+            try
+            {
+                var x = m_ZboxReadService.GetUserDetailsByEmail(query).Result;
             }
             catch (UserNotFoundException)
             {

@@ -8,7 +8,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsOutsputCacheProvider : System.Web.Caching.OutputCacheProvider
     {
-        Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider m_Cache = new Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider();
+        readonly Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider m_Cache 
+            = new Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider();
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {

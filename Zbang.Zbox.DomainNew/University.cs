@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain
             NoOfBoxes = 0;
             AdminNoOfPeople = 10;
             AdminScore = 0;
+            UniversityData = this;
         }
 
         public virtual long Id { get; set; }
@@ -47,6 +48,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual int AdminScore { get; set; }
         public virtual int AdminNoOfPeople { get; set; }
+
+        public virtual University UniversityData { get; set; }
 
 
 

@@ -117,7 +117,7 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     $scope.createDepartment = function () {
         var modalInstance = $modal.open({
-            windowClass: "boxSettings dashMembers",
+            windowClass: "rename",
             templateUrl: partials.createDepartment,
             controller: 'CreateDepartmentCtrl',
             backdrop: 'static',
