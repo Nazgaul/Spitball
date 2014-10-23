@@ -12,12 +12,13 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
-    public class Cache : ICache
+    public class Cache : ICache , IDisposable
     {
         private const string AppKey = "DataCache";
         private readonly string m_CachePrefix;
         private readonly System.Web.Caching.Cache m_Cache;
         private readonly bool m_IsCacheAvailable;
+        private readonly DataCacheFactory m_DataCacheFactory;
         public Cache()
         {
             try
@@ -31,7 +32,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return;
                 }
                 m_Cache = HttpContext.Current.Cache;
-
+                m_DataCacheFactory = new DataCacheFactory();
                 m_IsCacheAvailable = true;
             }
             catch
@@ -59,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             try
             {
                 var keyWithPrefix = m_CachePrefix + key;
-                var dataCache = new DataCache();
+                var dataCache = m_DataCacheFactory.GetDefaultCache();
 
                 dataCache.CreateRegion(region);
                 if (tags == null)
@@ -101,7 +102,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             try
             {
-                var dataCache = new DataCache();
+                var dataCache = m_DataCacheFactory.GetDefaultCache();
                 if (tags != null)
                 {
                     var elements = dataCache.GetObjectsByAnyTag(tags.Select(s => new DataCacheTag(s)), region);
@@ -134,10 +135,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return m_Cache[region + "_" + key];
             try
             {
-                var keyWithPrefix = m_CachePrefix + key;
-                var dataCache = new DataCache();
 
-                return dataCache.Get(keyWithPrefix);
+                var keyWithPrefix = m_CachePrefix + key;
+                TraceLog.WriteInfo("Try to get " + keyWithPrefix);
+                var dataCache = m_DataCacheFactory.GetDefaultCache();
+
+                var obj = dataCache.Get(keyWithPrefix);
+                TraceLog.WriteInfo((obj != null).ToString());
+                return obj;
 
             }
             catch (DataCacheException ex)
@@ -156,5 +161,13 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
         }
 
+
+        public void Dispose()
+        {
+            if (m_DataCacheFactory != null)
+            {
+                m_DataCacheFactory.Dispose();
+            }
+        }
     }
 }
