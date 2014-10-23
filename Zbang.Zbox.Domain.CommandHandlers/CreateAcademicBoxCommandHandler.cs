@@ -48,9 +48,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             User user = UserRepository.Load(command.UserId);
             var department = m_DepartmentRepository.Load(academicCommand.DepartmentId);
-            var universityUser = user.University2;
+            //var universityUser = user.University;
 
-            if (department.University != universityUser)
+            if (department.University != user.University || department.University != user.University.UniversityData)
             {
                 throw new UnauthorizedAccessException("Department is not part of the university");
             }
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, department,
                   academicCommand.CourseCode, academicCommand.Professor,
-                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath), universityUser);
+                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath));
 
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
             SaveRepositories(user, box);
@@ -77,13 +77,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.GenerateUrl();
             m_AcademicRepository.Save(box);
 
-           // department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
-            universityUser.UpdateNumberOfBoxes(m_UniversityRepository.GetNumberOfBoxes(universityUser) + 1);
+            var countOfBoxes = m_UniversityRepository.GetNumberOfBoxes(user.University.UniversityData) + 1;
+            // department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
+            user.University.UpdateNumberOfBoxes(countOfBoxes);
+            user.University.UniversityData.UpdateNumberOfBoxes(countOfBoxes);
 
-            m_UniversityRepository.Save(universityUser);
+            m_UniversityRepository.Save(user.University);
+            m_UniversityRepository.Save(user.University.UniversityData);
             m_DepartmentRepository.Save(department);
 
-            var result = new CreateBoxCommandResult(box, universityUser.UniversityName);
+            var result = new CreateBoxCommandResult(box.Id, box.Url);
 
             return result;
         }

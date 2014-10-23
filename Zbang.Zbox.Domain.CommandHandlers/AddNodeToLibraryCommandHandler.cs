@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
 
-            if (user.Reputation < user.University2.AdminScore)
+            if (user.Reputation < user.University.AdminScore)
             {
                 throw new UnauthorizedAccessException("user don't have enough points");
             }

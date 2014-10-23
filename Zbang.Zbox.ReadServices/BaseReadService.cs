@@ -1,7 +1,11 @@
-﻿using NHibernate;
+﻿using System.Threading.Tasks;
+using Dapper;
+using NHibernate;
 using NHibernate.Transform;
 using System;
+using System.Linq;
 using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -14,57 +18,90 @@ namespace Zbang.Zbox.ReadServices
     public abstract class BaseReadService : IBaseReadService
     {
         private readonly IHttpContextCacheWrapper m_ContextCacheWrapper;
-        public BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
+        protected BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
         {
             m_ContextCacheWrapper = contextCacheWrapper;
         }
         #region login
-        public LogInUserDto GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByFacebookId");
-                dbQuery.SetInt64("FacebookId", query.FacebookId);
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-                var t = dbQuery.UniqueResult<LogInUserDto>();
+                var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByFacebookId,
+                     new { FacebookUserId = query.FacebookId });
+                var t = retVal.FirstOrDefault();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
                 }
                 return t;
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByFacebookId");
+            //    dbQuery.SetInt64("FacebookId", query.FacebookId);
+            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
+            //    var t = dbQuery.UniqueResult<LogInUserDto>();
+            //    if (t == null)
+            //    {
+            //        throw new UserNotFoundException();
+            //    }
+            //    return t;
+            //}
         }
 
-        public LogInUserDto GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByMembershipId");
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-                dbQuery.SetGuid("MembershipUserId", query.MembershipId);
-                var t = dbQuery.UniqueResult<LogInUserDto>();
+               var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByMembershipId,
+                    new {MembershipUserId = query.MembershipId});
+                var t = retVal.FirstOrDefault();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
                 }
                 return t;
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByMembershipId");
+            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
+            //    dbQuery.SetGuid("MembershipUserId", query.MembershipId);
+            //    var t = dbQuery.UniqueResult<LogInUserDto>();
+            //    if (t == null)
+            //    {
+            //        throw new UserNotFoundException();
+            //    }
+            //    return t;
+            //}
         }
 
-        public LogInUserDto GetUserDetailsByEmail(GetUserByEmailQuery query)
+        public async Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByEmail");
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-                dbQuery.SetString("Email", query.Email);
-                var t = dbQuery.UniqueResult<LogInUserDto>();
+                var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByEmail,
+                     new {  query.Email });
+                var t = retVal.FirstOrDefault();
                 if (t == null)
                 {
                     throw new UserNotFoundException();
                 }
                 return t;
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByEmail");
+            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
+            //    dbQuery.SetString("Email", query.Email);
+            //    var t = dbQuery.UniqueResult<LogInUserDto>();
+            //    if (t == null)
+            //    {
+            //        throw new UserNotFoundException();
+            //    }
+            //    return t;
+            //}
         }
         #endregion
 

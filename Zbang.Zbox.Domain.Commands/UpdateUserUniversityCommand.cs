@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.Commands
             StudentId = studentId;
         }
 
-        public long UniversityId { get; set; }
+        
 
         public long UserId { get; private set; }
         public string Code { get; private set; }
@@ -31,5 +31,8 @@ namespace Zbang.Zbox.Domain.Commands
         public string RegisterNumber { get; private set; }
 
         public string StudentId { get; private set; }
+
+        public long?UniversityDataId { get; set; }
+        public long UniversityId { get; set; }
     }
 }

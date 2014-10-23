@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 try
                 {
                     var query = new GetUserByFacebookQuery(facebookUserData.id);
-                    user = ZboxReadService.GetUserDetailsByFacebookId(query);
+                    user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 }
                 catch (UserNotFoundException)
                 {
@@ -121,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
                         false, facebookUserData.locale);
-                    var commandResult = ZboxWriteService.CreateUser(command) as CreateFacebookUserCommandResult;
+                    var commandResult = ZboxWriteService.CreateUser(command);
                     user = new LogInUserDto
                     {
                         Id = commandResult.User.Id,
@@ -129,6 +129,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Image = facebookUserData.Image,
                         Name = facebookUserData.name,
                         UniversityId = commandResult.UniversityId,
+                        UniversityData = commandResult.UniversityData,
                         Score = commandResult.User.Reputation
                     };
                     isNew = true;
@@ -136,7 +137,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
                     user.Culture,
-                    user.UniversityId
+                    user.UniversityId,
+                    user.UniversityData
                     ));
                 //TODO: bring it back
                 // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
@@ -164,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [Ajax]
         [ValidateAntiForgeryToken]
-        public JsonResult LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model)
+        public async Task<JsonResult> LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)
             {
@@ -180,12 +182,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     try
                     {
                         var query = new GetUserByMembershipQuery(membershipUserId);
-                        var result = ZboxReadService.GetUserDetailsByMembershipId(query);
+                        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
 
                         FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
                                 result.Culture,
-                                result.UniversityId));
+                                result.UniversityId,
+                                result.UniversityData));
                         // TempData[UserProfile.UserDetail] = new UserDetailDto(result);
                         var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                         return Json(new JsonResponse(true, url));
@@ -270,7 +273,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
                             result.User.Culture,
-                            result.UniversityId));
+                            result.UniversityId,
+                            result.UniversityData));
                     return
                         Json(new JsonResponse(true,
                             Url.Action("Index", "Library", new {returnUrl = CheckIfToLocal(returnUrl), @new = "true"})));
@@ -420,7 +424,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
-                FormsAuthenticationService.ChangeUniversity(command.UniversityId);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId,command.UniversityDataId);
                 return Json(new JsonResponse(true));
             }
             catch (ArgumentException)
@@ -497,7 +501,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, ValidateAntiForgeryToken]
         [NonAjax]
-        public ActionResult ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
+        public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -516,7 +520,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return View(model);
                 }
                 var query = new GetUserByMembershipQuery(membershipUserId);
-                var result = ZboxReadService.GetUserDetailsByMembershipId(query);
+                var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
                 var code = RandomString(10);
 
 
@@ -614,7 +618,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequireHttps]
-        public ActionResult PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
+        public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
             {
@@ -636,12 +640,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
-            var result = ZboxReadService.GetUserDetailsByMembershipId(query);
+            var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
             Session.Abandon();
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
                     result.Culture,
-                    result.UniversityId
+                    result.UniversityId,
+                    result.UniversityData
                     ));
 
             return RedirectToAction("Index", "Dashboard");

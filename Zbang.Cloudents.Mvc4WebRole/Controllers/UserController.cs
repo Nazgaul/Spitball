@@ -19,15 +19,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxAuthorize]
     [NoUniversity]
-
     public class UserController : BaseController
     {
         public const int AdminReputation = 1000000;
        
-
-
-        //[Route("user/{userId:long:min(0)}/{userName}", Name = "User")]
-        //[UserNavNWelcome]
         [NoCache]
         public async Task<ActionResult> Index(long userId, string userName)
         {

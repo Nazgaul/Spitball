@@ -108,7 +108,7 @@ namespace Zbang.Zbox.Domain
         public virtual string ImageLarge { get; set; }
 
 
-        public virtual University University2 { get; protected set; }
+        public virtual University University { get; protected set; }
         public virtual string Code { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
@@ -205,7 +205,7 @@ namespace Zbang.Zbox.Domain
             string userCode, RussianDepartment department, string groupNumber,
             string registerNumber)
         {
-            University2 = university;
+            University = university;
             Code = userCode;
             RussianDepartment = department;
             GroupNumber = groupNumber;
