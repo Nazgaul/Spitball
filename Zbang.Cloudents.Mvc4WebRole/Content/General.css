@@ -402,12 +402,12 @@ input[type="radio"][disabled] + label:before {
 }
 .checkbox ~ .cbLabel2 svg {
   display: none;
-  width: 20px;
+  width: 18px;
   fill: #0f9d58;
   height: 20px;
   position: absolute;
   top: 4px;
-  left: 3px;
+  left: 4px;
 }
 .checkbox:checked ~ .cbLabel2 svg {
   display: block;
