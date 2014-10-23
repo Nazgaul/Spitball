@@ -119,9 +119,7 @@
     <Compile Include="Dto\PagedDto.cs" />
     <Compile Include="Dto\Qna\AnswerDto.cs" />
     <Compile Include="Dto\Qna\AnswerToFriendDto.cs" />
-    <Compile Include="Dto\Qna\FileDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
-    <Compile Include="Dto\Qna\LinkDto.cs" />
     <Compile Include="Dto\Qna\QuestionDto.cs" />
     <Compile Include="Dto\Qna\QuestionToFriendDto.cs" />
     <Compile Include="Dto\Search\SearchBoxes.cs" />
@@ -269,11 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queries\Box\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\QnA.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

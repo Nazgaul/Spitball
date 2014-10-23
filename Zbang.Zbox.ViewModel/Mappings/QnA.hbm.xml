@@ -37,7 +37,7 @@
     
   </resultset>
   
-  <sql-query name="GetBoxQuestion" read-only="1" resultset-ref="Question">
+  <!--<sql-query name="GetBoxQuestion" read-only="1" resultset-ref="Question">
     <![CDATA[
     SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
@@ -50,7 +50,7 @@
     where q.BoxId = :boxId
     order by id desc;
       ]]>
-  </sql-query>
+  </sql-query>-->
   <sql-query name="GetBoxAnswers" read-only="1" resultset-ref="Answer">
     <![CDATA[
     SELECT a.[AnswerId] as id

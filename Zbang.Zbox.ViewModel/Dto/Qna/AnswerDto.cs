@@ -17,9 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public string Content { get; set; }
         public Guid QuestionId { get; set; }
-        public bool Answer { get; set; }
-        public int Rating { get; set; }
-        public bool IRate { get; set; }
         public DateTime CreationTime { get { return m_Date; }
             set
             {

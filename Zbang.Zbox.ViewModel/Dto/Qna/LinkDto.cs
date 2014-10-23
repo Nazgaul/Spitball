@@ -11,9 +11,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
             Thumbnail = thumbnail;
         }
 
-        public override string Type
-        {
-            get { return "Link"; }
-        }
+        //public override string Type
+        //{
+        //    get { return "Link"; }
+        //}
     }
 }

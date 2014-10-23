@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
@@ -173,7 +174,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBox_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(4, 3);
+            var query = new GetBoxQuery(60130, 1);
             try
             {
                 m_ZboxReadService.GetBox(query);
@@ -578,12 +579,12 @@ namespace Zbang.Zbox.ReadServicesTests
         //    }
         //}
         [TestMethod]
-        public void GetQuestions_Query_ReturnResult()
+        public async Task GetQuestions_Query_ReturnResult()
         {
-            var query = new GetBoxQuestionsQuery(1, 1);
+            var query = new GetBoxQuestionsQuery(60130, 1);
             try
             {
-                m_ZboxReadService.GetQuestions(query);
+              var x =  await m_ZboxReadService.GetQuestions(query);
             }
             catch (Exception ex)
             {

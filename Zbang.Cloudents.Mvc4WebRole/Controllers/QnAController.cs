@@ -114,14 +114,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [Ajax, HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[AjaxCache(TimeToCache = TimeConsts.Minute * 20)]
-        public ActionResult Index(long boxId)
+        public async Task<JsonResult> Index(long boxId)
         {
             try
             {
-                //this is a test
                 var retVal =
-                    ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
+                  await  ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
                         GetUserId(false)));
 
 

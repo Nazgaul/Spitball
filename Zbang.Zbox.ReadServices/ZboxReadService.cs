@@ -88,7 +88,7 @@ namespace Zbang.Zbox.ReadServices
                 uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
                   from zbox.university uWrap  
                   where uWrap.Id = @universityDbQuery";
-           
+
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(sqlQuery, new { universityDbQuery = query.UniversityId });
@@ -105,8 +105,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = query.ParentNode.HasValue ? 
-                    Sql.Library.GetLibraryNodeWithParent + 
+                var sql = query.ParentNode.HasValue ?
+                    Sql.Library.GetLibraryNodeWithParent +
                     Sql.Library.GetAcademicBoxesByNode + Sql.Library.GetLibraryNodeDetails : Sql.Library.GetLibraryNode;
 
                 using (var grid = await conn.QueryMultipleAsync(sql, new
@@ -128,49 +128,10 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    if (!query.ParentNode.HasValue)
-            //    {
-            //        var dbNode = UnitOfWork.CurrentSession.GetNamedQuery("GetLibraryNode");
-            //        dbNode.SetInt64("UniversityId", query.UniversityId);
-            //        dbNode.SetResultTransformer(Transformers.AliasToBean<NodeDto>());
-            //        var nodeResult = dbNode.List<NodeDto>();
-            //        return new NodeBoxesDto(nodeResult, null);
-            //    }
-
-            //    var boxesQuery = UnitOfWork.CurrentSession.GetNamedQuery("ZboxGetAcademicBoxesByNode");
-            //    boxesQuery.SetParameter("ParentNode", query.ParentNode);
-            //    boxesQuery.SetParameter("UserId", query.UserId);
-            //    boxesQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(BoxDto).GetConstructors()[1]));
-
-            //    var boxesResult = boxesQuery.List<BoxDto>();
-            //    return new NodeBoxesDto(null, boxesResult);
-
-            //}
+          
         }
 
-        /// <summary>
-        /// AutoComplete drop down in library choose and in create box
-        /// </summary>
-        /// <returns></returns>
-        //public async Task<IEnumerable<NodeDto>> GetDepartments(GetDepartmentsByTermQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<NodeDto>(Sql.LibraryChoose.GetDepartmentsByTerm,
-        //            new { universityId = query.UniversityId, term = query.Term });
-        //    }
-        //}
-
-        //public async Task<NodeDto> GetDepartmentByUser(QueryBase query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<NodeDto>(Sql.Sql.GetDepartmentByUserId, new { query.UserId });
-        //        return retVal.FirstOrDefault();
-        //    }
-        //}
+        
 
 
         /// <summary>
@@ -273,8 +234,10 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1}", Sql.Box.BoxData,
-                                Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId })
+                            conn.QueryMultipleAsync(string.Format("{0} {1}",
+                            Sql.Box.BoxData,
+                            Sql.Security.GetUserToBoxRelationship),
+                            new { query.BoxId, query.UserId })
                     )
                 {
                     var retVal = grid.Read<Box.BoxDto2>().FirstOrDefault();
@@ -288,6 +251,8 @@ namespace Zbang.Zbox.ReadServices
                 }
             }
         }
+
+        
 
         public async Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
         {
@@ -424,69 +389,84 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        /// <summary>
-        /// Used in box page - get the comment related to that box
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public IEnumerable<Activity.BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxComments");
-        //        dbQuery.SetParameter("boxid", query.BoxId);
-        //        dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToCompositeClasses<Activity.CommentDto>());
-        //        var comments = dbQuery.Future<Activity.BaseActivityDto>();
+        
 
-        //        CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-
-        //        return comments.ToList();
-        //    }
-        //}
-
-        public IEnumerable<Qna.QuestionDto> GetQuestions(GetBoxQuestionsQuery query)
+        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestions(GetBoxQuestionsQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                var questionDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuestion");
-                questionDbQuery.SetInt64("boxId", query.BoxId);
-                questionDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.QuestionDto>());
-                var fQuestion = questionDbQuery.Future<Qna.QuestionDto>();
-
-                var answerDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxAnswers");
-                answerDbQuery.SetInt64("boxId", query.BoxId);
-                answerDbQuery.SetInt64("userId", query.UserId);
-                answerDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.AnswerDto>());
-                var fAnswer = answerDbQuery.Future<Qna.AnswerDto>();
-
-                var itemsDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQnAItem");
-                itemsDbQuery.SetInt64("boxId", query.BoxId);
-                itemsDbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Qna.FileDto), typeof(Qna.LinkDto)));
-
-
-
-                var fItems = itemsDbQuery.Future<Qna.ItemDto>();
-
-
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                var questions = fQuestion.ToList();
-                var answers = fAnswer.ToList();
-                IEnumerable<Qna.ItemDto> items = fItems.ToList();
-
-                foreach (var answer in answers)
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
+                    Sql.Box.GetBoxQuestion,
+                    Sql.Box.GetBoxAnswers,
+                    Sql.Box.GetBoxQnAItem,
+                    Sql.Security.GetBoxPrivacySettings,
+                    Sql.Security.GetUserToBoxRelationship),
+                    new { query.BoxId, query.UserId}))
                 {
-                    answer.Files.AddRange(items.Where(w => w.AnserId.HasValue && w.AnserId.Value == answer.Id));
+                    var questions = grid.Read<Qna.QuestionDto>().ToList();
+                    var answers = grid.Read<Qna.AnswerDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().ToList();
 
+                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
+                    GetUserStatusToBox(privacySettings, userRelationShip);
+
+                    foreach (var answer in answers)
+                    {
+                        answer.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == answer.Id));
+
+                    }
+                    foreach (var question in questions)
+                    {
+                        question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
+                        question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
+                    }
+
+
+                    return questions;
                 }
-                foreach (var question in questions)
-                {
-                    question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
-                    question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
-                }
-
-
-                return questions;
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    var questionDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuestion");
+            //    questionDbQuery.SetInt64("boxId", query.BoxId);
+            //    questionDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.QuestionDto>());
+            //    var fQuestion = questionDbQuery.Future<Qna.QuestionDto>();
+
+            //    var answerDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxAnswers");
+            //    answerDbQuery.SetInt64("boxId", query.BoxId);
+            //    answerDbQuery.SetInt64("userId", query.UserId);
+            //    answerDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.AnswerDto>());
+            //    var fAnswer = answerDbQuery.Future<Qna.AnswerDto>();
+
+            //    var itemsDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQnAItem");
+            //    itemsDbQuery.SetInt64("boxId", query.BoxId);
+            //    itemsDbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Qna.FileDto), typeof(Qna.LinkDto)));
+
+
+
+            //    var fItems = itemsDbQuery.Future<Qna.ItemDto>();
+
+
+            //    CheckIfUserAllowedToSee(query.BoxId, query.UserId);
+            //    var questions = fQuestion.ToList();
+            //    var answers = fAnswer.ToList();
+            //    IEnumerable<Qna.ItemDto> items = fItems.ToList();
+
+            //    foreach (var answer in answers)
+            //    {
+            //        answer.Files.AddRange(items.Where(w => w.AnserId.HasValue && w.AnserId.Value == answer.Id));
+
+            //    }
+            //    foreach (var question in questions)
+            //    {
+            //        question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
+            //        question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
+            //    }
+
+
+            //    return questions;
+            //}
 
         }
 
@@ -592,9 +572,9 @@ namespace Zbang.Zbox.ReadServices
         /// Get The country the user is in based on the ip address
         /// </summary>
         /// <returns></returns>
-        public  string GetLocationByIp(long ipNumber)
+        public string GetLocationByIp(long ipNumber)
         {
-            using (var conn =  DapperConnection.OpenConnection())
+            using (var conn = DapperConnection.OpenConnection())
             {
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";

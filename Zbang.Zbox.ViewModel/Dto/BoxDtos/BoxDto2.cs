@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Zbang.Zbox.Infrastructure.Enums;
@@ -31,5 +32,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public UserRelationshipType UserType { get; set; }
 
         public BoxType BoxType { get; set; }//new
+
+       
     }
 }

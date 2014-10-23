@@ -21,9 +21,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         //public long Size { get; private set; }
 
-        public override string Type
-        {
-            get { return "File"; }
-        }
+        //public override string Type
+        //{
+        //    get { return "File"; }
+        //}
     }
 }
