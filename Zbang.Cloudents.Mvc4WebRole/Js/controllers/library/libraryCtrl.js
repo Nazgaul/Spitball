@@ -227,14 +227,14 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     $scope.renameWindow = function () {
         var modalInstance = $modal.open({
-            windowClass: 'rename',
+            windowClass: 'deptSettings',
             templateUrl: '/Library/Rename/',
             controller: 'libraryRenameCtrl',
             resolve: {
                 data: function () {
                     return {
                         name: $scope.back.title,
-                        canDelete:  $scope.info.type === types.empty
+                        canDelete: $scope.info.type === types.empty || $scope.info.items.length === 0
                     };
                 }
             }
@@ -246,12 +246,12 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
                 });
                 return;
             }
-            if (!(d.newName && d.newName.length)) {
+            if (!(d.newName && d.newName.length) || d.newName === $scope.back.title) {
                 return;
             }
             sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
                 if (!(response.success || response.Success)) {
-                    alert(response.Payload);
+                    alert(response.payload);
                     return;
                 }
                 $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url

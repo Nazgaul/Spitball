@@ -112,8 +112,66 @@
     &.rename {
         padding-left: @leftSideBarWidth; //rtl
         top: 10%;
+    }
+
+    &.deptSettings {
+        width: 600px;
+        header {
+            color: @color;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .changeName {
+            .lFloat {
+                margin-top: 15px;
+                position: relative;
+                padding-left: 35px; //rtl
+                width: 285px;
+                &:before {
+                    content: '!';
+                    display: inline-block;
+                    color: #fff;
+                    font-size: 15px;
+                    padding: 2px 10px;
+                    background: @color;
+                    border-radius: 100%;
+                    vertical-align: top;
+                    position: absolute;
+                    top: 4px;
+                    left: 0; //rtl
+                }
+            }
+        }
+        .deleteDept {
+            border-top: 1px solid @color;
+            margin-top: 20px;
+            header {
+                margin-top: 12px;
+            }
+            
+        }
         .delDeptBtn {
-            margin-top: -28px;
+            background: #9E0039;
+            border: none;
+            &:disabled {
+                background: #a5a5a5;
+            }
+        }
+        .inputText {
+            height: 45px;
+            font-size: 18px;
+            margin-top: 10px;
+            &::-moz-selection
+            {
+                background: #ABDDC5;
+            }
+            &::selection {
+                background: #ABDDC5;
+            }
+        }
+        .cbLabel2 {
+            margin: 10px 0;
+            font-size: 18px;
         }
     }
     &.flagItem {

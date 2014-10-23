@@ -56,10 +56,7 @@
   position: absolute;
   top: 0;
   right: -5px;
-  background: none;
   margin: 0;
-  width: auto;
-  height: auto;
 }
 .following,
 .followBtn {

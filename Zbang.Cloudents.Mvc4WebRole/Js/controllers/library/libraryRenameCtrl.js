@@ -5,7 +5,11 @@ function ($scope, $modalInstance, data, sUserDetails) {
     $scope.formdata.newName = data.name;
 
     $scope.canDelete = sUserDetails.getDetails().isAdmin && data.canDelete;
-    //$scope.disable = false;
+    $scope.disable = function() {
+        return data.name === $scope.formdata.newName;
+    };
+
+    $scope.disableDelete = false;
 
     $scope.renameDepartment = function () {
         $modalInstance.close($scope.formdata);

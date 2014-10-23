@@ -31,6 +31,13 @@
 .modal.rename {
   padding: 0 290px 0 0;
 }
+.modal.deptSettings .changeName .lFloat {
+  padding: 0 35px 0 0;
+}
+.modal.deptSettings .changeName .lFloat:before {
+  right: 0;
+  left: auto;
+}
 .modal.flagItem {
   right: 220px;
   left: auto;

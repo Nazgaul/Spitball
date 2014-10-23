@@ -225,4 +225,19 @@
   <data name="Courses" xml:space="preserve">
     <value>קורסים</value>
   </data>
+  <data name="CanConfuse" xml:space="preserve">
+    <value>הכנס את שם המחלקה שכפי שמופיע במוסד הלימודים שלך. שינוי שם המחלקה יכול ליצור בעיה בקרב החברים שלך</value>
+  </data>
+  <data name="ChangeName" xml:space="preserve">
+    <value>שנה שם מחלקה</value>
+  </data>
+  <data name="DeleteDept" xml:space="preserve">
+    <value>מחוק מחלקה</value>
+  </data>
+  <data name="DeptSettings" xml:space="preserve">
+    <value>הגדרות מחלקה</value>
+  </data>
+  <data name="MarkToDelete" xml:space="preserve">
+    <value>בחר את המחלקה שאותה אתה מעוניין למחוק</value>
+  </data>
 </root>

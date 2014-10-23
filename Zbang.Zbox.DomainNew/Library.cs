@@ -93,7 +93,7 @@ namespace Zbang.Zbox.Domain
             GenerateUrl();
         }
 
-        private bool CheckIfBoxesExists()
+        public bool CheckIfBoxesExists()
         {
             return Boxes.Count(b => !b.IsDeleted) != 0;
         }
