@@ -32,7 +32,8 @@ input[type="radio"].radio:checked + label:after {
   margin: 0 0 0 5px;
 }
 .checkbox ~ .cbLabel2 svg {
-  right: 3px;
+  top: 0;
+  right: 4px;
   left: auto;
 }
 /*#endregion */
