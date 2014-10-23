@@ -22,8 +22,8 @@
         </button>
     </form>
 
-    <ul class="boxFeedList"><!--
-        --><li class="" ng-repeat="question in info.questions" ng-class="{hasAttached: question.files.length}">
+    <ul class="boxFeedList">
+        <li class="" ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
             <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
 
             <div class="feedWpr">
@@ -50,7 +50,7 @@
                 </button>
             </div>
             <ul class="feedReplies rFloat">
-                <li ng-repeat="answer in question.answers">
+                <li ng-repeat="answer in question.answers track by answer.id">
                     <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
                     <div class="feedWpr">
                         <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>

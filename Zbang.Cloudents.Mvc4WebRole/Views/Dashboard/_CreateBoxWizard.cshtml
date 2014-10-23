@@ -4,18 +4,18 @@
     <div wizard on-finish="completeWizard()" template="'wizard.html'">
         <div wz-step template="'step.html'">
             <div class="actionTxt">@IndexResources.CreateCourse</div>
-            <div class="courseType" ng-hide="display.createDep">
+            <div class="courseType">
                 <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-checked="isPrivate" ng-model="boxType" value="private"/>
                 <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
                 <div class="labelExplain">@IndexResources.InviteOnly</div>
             </div>
 
-            <div class="courseType" ng-hide="display.createDep">
+            <div class="courseType">
                 <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-checked="isAcademic" ng-model="boxType"  value="academic"/>
                 <label for="OpenCourse">@IndexResources.OpenCourse</label>
                 <div class="labelExplain">@IndexResources.AnyoneUrl</div>
             </div>
-            <div class="newAcademic clearfix editDept chooseDept" ng-show="boxType === 'academic'">
+            <div class="newAcademic clearfix" ng-show="boxType === 'academic'">
                 @{
                     Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
                 }

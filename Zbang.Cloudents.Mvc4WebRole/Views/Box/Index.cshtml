@@ -44,7 +44,7 @@
                         <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
                         <span class="tabBorder"></span>
                     </li>
-                    <li ng-repeat="tab in params.tabs" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
+                    <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab.id)" drop-channel="boxItem">
 
                         <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
                         <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}}</span>
