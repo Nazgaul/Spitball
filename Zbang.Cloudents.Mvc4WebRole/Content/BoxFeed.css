@@ -12,6 +12,7 @@
 .boxFeed ~ .recommendedWpr {
   position: relative;
   left: 30px;
+  display: none;
 }
 .feedForm {
   position: relative;
@@ -102,10 +103,27 @@
   border: 1px solid #282828;
   border-top: none;
 }
+.feed-enter {
+  -webkit-transition: 1s linear all;
+  /* Chrome */
+  transition: 1s linear all;
+  opacity: 0;
+}
+.feed-enter.feed-enter-active {
+  opacity: 1;
+}
+.boxFeedList {
+  overflow: hidden;
+}
 .boxFeedList > li {
   clear: both;
   margin-top: 15px;
   position: relative;
+  -webkit-animation: fadeinGrow 2s 0 ease;
+  -moz-animation: fadeinGrow 2s 0 ease;
+  -o-animation: fadeinGrow 2s 0 ease;
+  animation: fadeinGrow 2s 0 ease;
+  overflow: hidden;
 }
 .boxFeedList > li:before {
   content: '';
@@ -188,6 +206,10 @@
 .feedReplies > li {
   margin-top: 15px;
   position: relative;
+  -webkit-animation: fadein 2s 0 ease;
+  -moz-animation: fadein 2s 0 ease;
+  -o-animation: fadein 2s 0 ease;
+  animation: fadein 2s 0 ease;
 }
 .feedReplies > li:before {
   content: '';

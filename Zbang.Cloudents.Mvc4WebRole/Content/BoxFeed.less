@@ -12,6 +12,7 @@
     ~ .recommendedWpr {
         position: relative;
         left: 30px;
+        display: none;
     }
 }
 
@@ -101,12 +102,23 @@
     border: 1px solid #282828;
     border-top: none;
 }
-
+.feed-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.feed-enter.feed-enter-active {
+	opacity: 1;
+}
 .boxFeedList {
+    overflow: hidden;
     > li {
         clear: both;
         margin-top: 15px;
         position: relative;
+        .animation (fadeinGrow, 2s, 0, ease);
+        overflow: hidden;
         &:before {
             .pseudo;
             position: absolute;
@@ -195,6 +207,7 @@
     > li {
         margin-top: 15px;
         position: relative;
+        .animation (fadein, 2s, 0, ease);
         &:before {
             .pseudo;
             position: absolute;
