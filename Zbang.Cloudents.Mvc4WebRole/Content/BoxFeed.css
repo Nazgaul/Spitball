@@ -9,6 +9,10 @@
 .boxFeed > .feedForm .feedTA {
   border-color: #282828;
 }
+.boxFeed ~ .recommendedWpr {
+  position: relative;
+  left: 30px;
+}
 .feedForm {
   position: relative;
   clear: both;

@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<section class="boxFeed" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
+<section class="boxFeed lFloat" ng-controller="QnACtrl" ng-init="focused=false" ng-click="focused=false">
     <form class="feedForm" name="qnaQform" focus-form="feedOpen"
           ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
@@ -93,4 +93,22 @@
 
     <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
+</section>
+
+<section class="recommendedWpr"> @*ng-if="recommendedCourses.length"*@
+    <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
+    <ul>
+        <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
+            <a bo-href="course.url" class="courseLink">
+                <div class="rFloat">
+                    <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                    <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
+                </div>
+                <img bo-src="course.picture" alt="" width="68" height="68" />
+                <div class="elps courseName" bo-text="course.name"></div>
+                <div class="elps" bo-text="course.courseCode"></div>
+                <div class="prof elps" bo-text="course.professor"></div>
+            </a>
+        </li>
+    </ul>
 </section>
