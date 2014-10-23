@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new BoxNameAlreadyExistsException();
             }
             box = CreateNewBox(command, user);
-            var result = new CreateBoxCommandResult(box, user.Name);
+            var result = new CreateBoxCommandResult(box.Id, box.Url);
             return result;
         }
 

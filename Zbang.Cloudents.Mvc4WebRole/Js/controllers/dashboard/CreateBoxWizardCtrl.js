@@ -9,12 +9,12 @@
                 $scope.boxType = 'academic';
                 $scope.department = data.department;
             }
+
             if (data.isPrivate) {
                 $scope.isPrivate = true;
                 $scope.boxType = 'private';
             }
 
-            $scope.display = { createDep: false };
             $scope.formData = {};
             $scope.box = {};
 
@@ -42,17 +42,5 @@
                     isItems: items
                 });
             };
-
-            //$scope.createDepartmentSubmit = function (isValid) {
-            //    if (!isValid) {
-            //        return;
-            //    }
-            //    sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-            //        if (response.success) {
-            //            $scope.display.createDep = false;
-            //            $scope.$broadcast('newDep', { id: response.payload.id, name: $scope.formData.createDepartment.name });
-            //        }
-            //    });
-            //};
         }]
     );

@@ -349,16 +349,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         if (!previous.$$route.params.type) {
             return;
         }
-
-        switch (previous.$$route.params.type) {
-            case 'item':
-                cd.pubsub.publish('itemclear');
-                break;
-            case 'quiz':
-                cd.pubsub.publish('quizclear');
-                break;
-        };
-
+        
         if (!isCurrentRoute(current)) {
             return;
         }
@@ -372,6 +363,8 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                 case 'user':
                     $rootScope.back.title = previous.pathParams.userName;
                     $rootScope.back.url = previous.loadedTemplateUrl;
+                    break;
+                case 'library':                    
                     break;
                 default:
                     setBackDashboard();

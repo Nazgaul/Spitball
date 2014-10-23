@@ -24,12 +24,10 @@
                         spinner = angular.element(Modernizr.cssanimations ? loader.css : loader.img);
                         var timeout = parseInt(attrs.loadSpinnerTime, 10) || 0;
                         timer = window.setTimeout(function () { elem.append(spinner); }, timeout);
-                        console.log('on');
                         return;
                     }
 
                     if (spinner) {
-                        console.log('off');
                         spinner.remove();
                         clearTimeout(timer);
                     }

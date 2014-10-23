@@ -190,7 +190,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 academic.push(boxes[i]);
             } else {
                 group.push(boxes[i]);
-            }
+            }            
             //show box updates                
             boxes[i].numOfUpdates = sNewUpdates.getBoxUpdates(boxes[i].id);
         }

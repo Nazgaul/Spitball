@@ -3,13 +3,13 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 
 
-<form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)" ng-controller="createAcademicBoxCtrl">
+<form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)" ng-controller="createAcademicBoxCtrl" ng-class="{ chooseDept : !params.selectedDepartment }">
     <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.DepartmentId)
-        <span class="error">@DialogResources.RequiredField</span>
-        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.departmentSearch"
-               required @*ng-keyup="searchDepartment()"*@ ng_disabled="!params.changeDepartment" />
-        @*<button class="changeDeptBtn" type="button" ng-click="changeDepartment()">@IndexResources.ChangeDept</button>*@
+        @*<span class="error">@DialogResources.RequiredField</span>*@
+        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.selectedDepartment.name"
+               @*required ng-keyup="searchDepartment()"*@ disabled />
+        <button class="changeDeptBtn" type="button" ng-click="changeDepartment()" ng-if="!params.disableChangeDep">@IndexResources.ChangeDept</button>
     </div>
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.CourseName)
@@ -31,14 +31,14 @@
         <header>@SharedResources.ChooseDept</header>
 
         @*Guy: please replace this static list with the real one using the same classes*@
-        <ul class="libraryList clearfix">
-            <li class="ng-scope libraryItem deptItem">
-                <a class="navigation deptLink union-sprite ng-scope" href="/library/X-ul_kthzk-NcKPKAL33mw/123/">
+        <ul class="libraryList clearfix" bindonce>
+            <li class="ng-scope libraryItem deptItem" ng-repeat="department in departments">
+                <button type="button" class="navigation deptLink union-sprite" ng-click="selectDepartment(department)">
                     <div class="deptNameWpr clamp2">
-                        <div class="deptName">123</div>
+                        <div class="deptName" bo-text="department.name"></div>
                     </div>
 
-                </a>
+                </button>
             </li>
             <li class="libraryItem deptItem addDep ng-scope">
                 <button class="addBtn" ng-click="createDepartment()">@SharedResources.AddDept</button>

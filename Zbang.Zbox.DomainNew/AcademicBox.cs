@@ -8,11 +8,11 @@ namespace Zbang.Zbox.Domain
     public class AcademicBox : Box
     {
         public AcademicBox(string boxName, Library department,
-            string courseCode, string professor, string picture, User creator, string pictureUrl, University university)
+            string courseCode, string professor, string picture, User creator, string pictureUrl)
             :
             base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
         {
-            University = university;
+            University = department.University;
             if (creator == null) throw new ArgumentNullException("creator");
             CourseCode = courseCode;
             // ReSharper disable DoNotCallOverridableMethodsInConstructor

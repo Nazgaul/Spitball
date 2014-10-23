@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name,
                 ticket.IssueDate, ticket.Expiration, rememberMe, UserDetail.Serialize(userDetail));
             authCookie.Value = FormsAuthentication.Encrypt(newTicket);
-            
+
             if (ticket.IsPersistent)
             {
                 authCookie.Expires = ticket.Expiration;
@@ -66,15 +66,15 @@ namespace Zbang.Zbox.Infrastructure.Security
             userDetail.Language = newLanguage;
             SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
         }
-        public void ChangeUniversity(long? universityId)
+        public void ChangeUniversity(long? universityId, long? universityDataId)
         {
             var ident = (FormsIdentity)HttpContext.Current.User.Identity;
             var ticket = ident.Ticket;
             var userDetail = UserDetail.Deserialize(ticket.UserData);
             userDetail.UniversityId = universityId;
+            userDetail.UniversityDataId = universityDataId;
             SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
         }
-
        
 
         public void SignOut()

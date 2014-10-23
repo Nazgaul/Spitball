@@ -13,27 +13,9 @@
   </resultset>
  
  
-  <!--Get user data for user detail in all the pages.-->
-  <!--TODO:Do we need left join in here-->
-  <!--<query name="GetUserData" read-only="1">
-    <![CDATA[
-     select u.id as Uid, u.Name as Name, u.Image as Image,
-     u.FirstTime.Dashboard as FirstTimeDashboard,
-     u.FirstTime.Library as FirstTimeLibrary,
-     u.FirstTime.Item as FirstTimeItem,
-     u.FirstTime.Box as FirstTimeBox, 
-     u.Url as Url,
-     u.Email as Email,
-     u.Reputation as Score,
-     uu.OrgName as LibName,
-     uu.Image as LibImage
-     from User u left join u.University2 uu
-     where u.Id = :UserId
-    ]]>
-  </query>-->
 
   <!--Used for log in -->
-  <query name="GetUserByMembershipId" read-only="1">
+  <!--<query name="GetUserByMembershipId" read-only="1">
     <![CDATA[
     select u.Id as Id, u.Name as Name, u.Culture as Culture, 
     u.Image as Image, u.Email as Email,
@@ -45,12 +27,12 @@
     uu.OrgName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University2 uu
+    from User u left join u.University uu
     where u.MembershipId= :MembershipUserId
     ]]>
-  </query>
+  </query>-->
   <!--Used for log in -->
-  <query name="GetUserByFacebookId" read-only="1">
+  <!--<query name="GetUserByFacebookId" read-only="1">
     <![CDATA[
     select u.Id as Id, u.Name as Name,u.Culture as Culture, 
     u.Image as Image, u.Email as Email,
@@ -62,13 +44,13 @@
     uu.OrgName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University2 uu
+    from User u left join u.University uu
     where u.FacebookId = :FacebookId
     and u.IsRegisterUser =1
     ]]>
-  </query>
+  </query>-->
 <!--Used for login via email-->
-  <query name="GetUserByEmail" read-only="1">
+  <!--<query name="GetUserByEmail" read-only="1">
     <![CDATA[
     select u.Id as Id, u.Name as Name,u.Culture as Culture, 
     u.Image as Image, u.Email as Email,
@@ -80,11 +62,11 @@
     uu.OrgName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId
-    from User u left join u.University2 uu
+    from User u left join u.University uu
     where u.Email= :Email
     and (MembershipId is not null or FacebookId is not null)
     ]]>
-  </query>
+  </query>-->
 
  
   <sql-query name="GetUserRelationToBox" read-only="1" resultset-ref="UserRelationType">
@@ -100,55 +82,14 @@
     ]]>
   </sql-query>
 
-  <!--<sql-query name="GetUserFriendsEmailByPrefix" read-only="true">
-    <![CDATA[
-    select  u.userid as Uid,u.UserName as Name 
-    from zbox.userboxrel ub 
-    join zbox.box b on ub.boxid  = b.boxid
-    join zbox.userboxrel ub2 on b.boxid = ub2.boxid
-    join zbox.users u on u.userid = ub2.userid
-    where ub.userid = :UserId
-    and b.isdeleted = 0
-    and ub.usertype >1
-    and ub2.usertype > 1
-    and ub2.userid != :UserId
-    group by u.userid ,u.UserName  ,u.UserImage 
-    
-    ]]>
-  </sql-query>-->
 
-  <query name="GetUserPublicData">
+  <!--<query name="GetUserPublicData">
     <![CDATA[
     select u.id as Uid , u.Name as Name,u.Image as Image
      from User u where u.Id=:UserId
     ]]>
-  </query>
-
-  <!--<sql-query name="GetUserFriends" read-only="true" resultset-ref="PublicUserDto">
-    <![CDATA[
-    select  u.userid as Uid,u.UserName as Name ,u.UserImage as Image 
-    from zbox.userboxrel ub 
-    join zbox.box b on ub.boxid  = b.boxid
-    join zbox.userboxrel ub2 on b.boxid = ub2.boxid
-    join zbox.users u on u.userid = ub2.userid
-    where ub.userid = :UserId
-    and b.isdeleted = 0
-    and ub2.userid != :UserId
-    group by u.userid ,u.UserName  ,u.UserImage 
-    order by u.UserName
-    
-    ]]>
-  </sql-query>-->
-
-  <!--<query name="GetUserInvites">
-    <![CDATA[
-    select b.Uid, b.Name, owner.Name,b.Picture
-    from Box b join b.UserBoxRel ub join b.Owner owner
-    where b.IsDeleted = 0
-    and ub.UserRelationshipType = 1
-    and ub.UserId = :UserId
-    ]]>
   </query>-->
+
 
 
   <!--account settings-->
@@ -166,17 +107,12 @@
     u.Email as Email,
     u.Culture as Language,
     u.Quota.AllocatedSize as AllocatedSize, u.Quota.UsedSpace as UsedSpace
-    from User u left join u.University2 v
+    from User u left join u.University v
     where u.Id = :UserId
     ]]>
   </query>
 
   <!--End Account settings-->
   
-  <sql-query name="GetLocationByIP">
-    <![CDATA[
-    select country_code2  from zbox.ip_range 
-    where ip_from <= :IP and :IP <= ip_to
-    ]]>
-  </sql-query>
+
 </hibernate-mapping>

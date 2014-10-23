@@ -17,9 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
 
-        //public Guid? DepartmentId { get; set; }
-
-        //public string DepartmentName { get; set; }
 
         //// for Mobile
         public string Email { get; set; }

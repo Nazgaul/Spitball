@@ -14,6 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Security
         void ChangeLanguage(string newLanguage);
 
         //void ChangeUniversity(long universityId);
-        void ChangeUniversity(long? universityId);
+        void ChangeUniversity(long? universityId, long? universityDataId);
     }
 }
