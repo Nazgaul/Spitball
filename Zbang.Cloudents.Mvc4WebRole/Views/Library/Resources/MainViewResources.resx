@@ -228,7 +228,7 @@
     <value>Classes</value>
   </data>
   <data name="CanConfuse" xml:space="preserve">
-    <value>Changing the existing department name might confuse your classmates</value>
+    <value>Make sure you select a proper name. changing a name my confuse your classmates.</value>
   </data>
   <data name="ChangeName" xml:space="preserve">
     <value>Change department name</value>
