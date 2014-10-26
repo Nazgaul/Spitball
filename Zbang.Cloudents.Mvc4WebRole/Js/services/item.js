@@ -1,8 +1,6 @@
 ﻿mItem.factory('sItem',
     ['ajaxService',
-    
     function (ajaxService) {
-        var Item = '/Item/';
         function buildPath(path) {
             return '/Item/' + path + '/';
         }
@@ -12,33 +10,33 @@
                 return ajaxService.post(buildPath('Delete'),data);
             },
             load: function (data) {
-                return ajaxRequest(data, $http.get, 'Load/');
+                return ajaxService.get(buildPath('Load'), data);
             },
             preview: function (data) {
-                return ajaxRequest(data, $http.get, 'Preview/');
+                return ajaxService.get(buildPath('Preview'), data);
             },
             addComment: function (data) {
-                return ajaxRequest(data, $http.post, 'AddComment/');
+                return ajaxService.post(buildPath('AddComment'), data);
             },
             deleteComment: function (data) {
-                return ajaxRequest(data, $http.post, 'DeleteComment/');
+                return ajaxService.post(buildPath('DeleteComment'), data);
             },
             replyComment: function (data) {
-                return ajaxRequest(data, $http.post, 'ReplyComment/');
+                return ajaxService.post(buildPath('ReplyComment'), data);
 
             },
             deleteReply: function (data) {
-                return ajaxRequest(data, $http.post, 'DeleteCommentReply/');
+                return ajaxService.post(buildPath('DeleteCommentReply'), data);
 
             },
             rename: function (data) {
-                return ajaxRequest(data, $http.post, 'Rename/');
+                return ajaxService.post(buildPath('Rename'), data);
             },
             flag: function (data) {
-                return ajaxRequest(data, $http.post, 'FlagRequest/');
+                return ajaxService.post(buildPath('FlagRequest'), data);
             },
             rate: function (data) {
-                return ajaxRequest(data, $http.post, 'Rate/');
+                return ajaxService.post(buildPath('Rate'), data);
             }
         };
     }

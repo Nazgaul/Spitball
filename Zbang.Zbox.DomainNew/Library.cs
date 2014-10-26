@@ -98,6 +98,17 @@ namespace Zbang.Zbox.Domain
             return Boxes.Count(b => !b.IsDeleted) != 0;
         }
 
+        public void UpdateNumberOfBoxes()
+        {
+            var x = this;
+            while (x != null)
+            {
+                x.NoOfBoxes = x.Boxes.Count(b => !b.IsDeleted) + x.Children.Sum(s => s.NoOfBoxes);
+
+                x = x.Parent;
+            }
+        }
+
 
 
     }
