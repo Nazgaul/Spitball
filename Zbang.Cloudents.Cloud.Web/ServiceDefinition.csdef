@@ -24,9 +24,11 @@
       <Setting name="ZBox" />
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
+      <Setting name="IsMobileDisabled" />
     </ConfigurationSettings>
     <Startup>
-      <Task commandLine="AppInsightsAgent\UnifiedBootstrap.bat" executionContext="elevated" taskType="simple"></Task>
+      <Task commandLine="AppInsightsAgent\UnifiedBootstrap.bat" executionContext="elevated" taskType="simple">
+      </Task>
       <!--<Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" taskType="simple" />-->
       <!--<Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple" />
       <Task commandLine="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe install" executionContext="elevated" taskType="simple" />-->

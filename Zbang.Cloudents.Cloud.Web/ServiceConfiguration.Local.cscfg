@@ -14,6 +14,7 @@
       <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
+      <Setting name="IsMobileDisabled" value="true" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
