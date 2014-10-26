@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
@@ -25,95 +26,103 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-           // InternalDbi();
+            InternalDbi();
 
 
 
 
         }
 
-        //private void InternalDbi()
-        //{
+        private void InternalDbi()
+        {
 
-        //    using (UnitOfWork.Start())
-        //    {
-        //        bool retVal = true;
-        //        var dic = new Dictionary<University, Department>();
-        //        while (retVal)
-        //        {
-        //            var users = UnitOfWork.CurrentSession.QueryOver<User>()
-        //                .Where(w => w.University2 != null)
-        //                .And(w => w.Department == null)
-        //                .Take(2000)
-        //                .List();
-        //            retVal = false;
-        //            using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-        //            {
-        //                foreach (var user in users)
-        //                {
-        //                    Department department;
-        //                    if (!dic.TryGetValue(user.University2, out department))
-        //                    {
+            //    using (UnitOfWork.Start())
+            //    {
+            //        bool retVal = true;
+            //        var dic = new Dictionary<University, Department>();
+            //        while (retVal)
+            //        {
+            //            var users = UnitOfWork.CurrentSession.QueryOver<User>()
+            //                .Where(w => w.University2 != null)
+            //                .And(w => w.Department == null)
+            //                .Take(2000)
+            //                .List();
+            //            retVal = false;
+            //            using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+            //            {
+            //                foreach (var user in users)
+            //                {
+            //                    Department department;
+            //                    if (!dic.TryGetValue(user.University2, out department))
+            //                    {
 
-        //                        department =
-        //                            UnitOfWork.CurrentSession.QueryOver<Department>()
-        //                                .Where(w => w.University == user.University2)
-        //                                .Take(1).SingleOrDefault();
-        //                        dic.Add(user.University2, department);
-        //                    }
-        //                    if (department == null)
-        //                    {
-        //                        continue;
-        //                    }
-        //                    retVal = true;
-        //                    user.Department = department;
-        //                    UnitOfWork.CurrentSession.Save(user);
+            //                        department =
+            //                            UnitOfWork.CurrentSession.QueryOver<Department>()
+            //                                .Where(w => w.University == user.University2)
+            //                                .Take(1).SingleOrDefault();
+            //                        dic.Add(user.University2, department);
+            //                    }
+            //                    if (department == null)
+            //                    {
+            //                        continue;
+            //                    }
+            //                    retVal = true;
+            //                    user.Department = department;
+            //                    UnitOfWork.CurrentSession.Save(user);
 
-        //                }
-        //                tx.Commit();
-        //            }
-        //        }
+            //                }
+            //                tx.Commit();
+            //            }
+            //        }
 
-        //    }
+            //    }
 
-        //    using (UnitOfWork.Start())
-        //    {
-        //        TraceLog.WriteInfo("Processing departments");
-        //        var departments = UnitOfWork.CurrentSession.QueryOver<Department>()
-        //         .List();
-        //        using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-        //        {
-        //            foreach (var department in departments)
-        //            {
-        //                var count = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
-        //                     .Where(w => w.Department == department)
-        //                     .And(w => w.IsDeleted == false)
-        //                     .RowCount();
-        //                department.UpdateNumberOfBoxes(count);
-        //                UnitOfWork.CurrentSession.Save(department);
-        //            }
-        //            tx.Commit();
-        //        }
+            using (UnitOfWork.Start())
+            {
+                //        TraceLog.WriteInfo("Processing departments");
+                var departments = UnitOfWork.CurrentSession.QueryOver<Library>().Where(w => w.Id == Guid.Parse("3F49537C-0CD3-4A6C-8EAA-58F00ABED210"))
+                 .List();
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var department in departments)
+                    {
+
+                        var x = UnitOfWork.CurrentSession.Get<Library>(department.Id);
+                        //var count = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+                        //     .Where(w => w.Department == department)
+                        //     .And(w => w.IsDeleted == false)
+                        //     .RowCount();
+                        x.UpdateNumberOfBoxes();
+                        while (x != null)
+                        {
+                            UnitOfWork.CurrentSession.Save(x);
+                            x = x.Parent;
+                        }
+
+                    }
+                    tx.Commit();
+                }
 
 
-        //    }
-        //    using (UnitOfWork.Start())
-        //    {
-        //        var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
-        //        using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-        //        {
-        //            foreach (var university in universities)
-        //            {
-        //                var count = UnitOfWork.CurrentSession.QueryOver<Department>()
-        //                    .Where(w => w.University == university)
-        //                    .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
-        //                university.UpdateNumberOfBoxes(count);
-        //                UnitOfWork.CurrentSession.Save(university);
-        //            }
-        //            tx.Commit();
-        //        }
-        //    }
-        //}
+
+            }
+            //    using (UnitOfWork.Start())
+            //    {
+            //        var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
+            //        using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+            //        {
+            //            foreach (var university in universities)
+            //            {
+            //                var count = UnitOfWork.CurrentSession.QueryOver<Department>()
+            //                    .Where(w => w.University == university)
+            //                    .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
+            //                university.UpdateNumberOfBoxes(count);
+            //                UnitOfWork.CurrentSession.Save(university);
+            //            }
+            //            tx.Commit();
+            //        }
+            //    }
+        }
 
         public bool Dbi(int index)
         {
