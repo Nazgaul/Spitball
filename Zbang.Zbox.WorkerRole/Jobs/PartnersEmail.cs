@@ -59,13 +59,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 Thread.Sleep(TimeSpan.FromMinutes(5));
                 return;
             }
-            foreach (var parnter in m_Partners)
+            foreach (var partner in m_Partners)
             {
-                var data = m_ZboxReadService.GetPartnersEmail(parnter.Id).Result;
+                var data = m_ZboxReadService.GetPartnersEmail(partner.Id).Result;
 
                 var parameters = new Infrastructure.Mail.EmailParameters.Partners(
                     CultureInfo.GetCultureInfo("en-US"),
-                    parnter.SchoolName,
+                    partner.SchoolName,
                     data.LastWeekUsers,
                     data.AllUsers,
                     data.LastWeekCourses,
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         StudentsCount = s.Students
                     }));
 
-                m_MailComponent.GenerateAndSendEmail(parnter.Emails, parameters);
+                m_MailComponent.GenerateAndSendEmail(partner.Emails, parameters);
 
 
             }
