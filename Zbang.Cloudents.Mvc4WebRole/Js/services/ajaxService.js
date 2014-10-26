@@ -22,13 +22,17 @@
                 return dfd.promise;
 
             },
-            post: function (url, data) {
+            post: function (url, data, disableClearCache) {
                 var dfd = $q.defer(),
                 startTime = new Date().getTime();
-
                 $http.post(url, data).success(function (response) {
                     dfd.resolve(response);
                     trackTime(startTime, url, data);
+
+                    if (!disableClearCache) {
+                        $angularCacheFactory.clearAll();
+                    }
+
                 }).error(function (response) {
                     dfd.reject(response);
                 });
@@ -57,7 +61,7 @@
             if (ttls[ttlString]) {
                 return ttls[ttlString];
             }
-     
+
             var cache = $angularCacheFactory(ttlString, {
                 maxAge: ttl
             });
