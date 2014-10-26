@@ -27,12 +27,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType,
             bool fileGziped = false);
 
-        // bool CheckIfFileExistsInCache(string blobName);
-        // string GetFileUrlInCahce(string blobName);
-        //void DeleteCahceContent();
 
         //TODO:maybe we want this to be internal
-        //Uri UploadProfilePicture(string blobName, byte[] fileContent, ImageSize imageSize);
         Uri UploadProfilePicture(string blobName, byte[] fileContent);
 
 
@@ -48,15 +44,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Stream DownloadFile(string fileName);
         Task<Stream> DownloadFileAsync(string fileName);
 
-        //byte[] DownloadFileToBytes(string fileName);
-        // bool CheckIfFileExists(string blobName);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
-        //Task UploadFileAsync(string blobName, string filePath, string mimeType);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
 
-        //Task<IEnumerable<string>> UploadFileBlockAsync(string blobName, Stream fileContent);
-        //Task CommitBlockListAsync(string blobName, IEnumerable<string> blockList, string contentType);
         Task<long> UploadFromLinkAsync(string url, string fileName);
 
 
@@ -66,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes);
 
 
-        Task<Stream> GetFaqQeustion();
+        Task<Stream> GetFaqQuestion();
 
         string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
 

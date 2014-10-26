@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
@@ -19,11 +20,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                                     || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true);
             if (skipEtag) return;
 
-            HttpRequestBase request = filterContext.HttpContext.Request;
-            string acceptEncoding = request.Headers["Accept-Encoding"];
+
+            var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
+            if (headerSend != null && (bool) headerSend)
+            {
+                return;
+            }
+
+            var request = filterContext.HttpContext.Request;
+            var acceptEncoding = request.Headers["Accept-Encoding"];
             if (string.IsNullOrEmpty(acceptEncoding)) return;
             acceptEncoding = acceptEncoding.ToUpperInvariant();
-            HttpResponseBase response = filterContext.HttpContext.Response;
+            var response = filterContext.HttpContext.Response;
 
             if (response.Filter == null) return;
             if (!acceptEncoding.ToUpper().Contains("GZIP")) return;
@@ -32,15 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 response,
                 filterContext.RequestContext.HttpContext.Request
                 );
-            //ie issue
-            //if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
-            //{
-            //    response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //    response.Cache.SetNoStore();
-            //    response.Cache.AppendCacheExtension("must-revalidate, proxy-revalidate");
-            //}
         }
-
 
     }
 

@@ -682,7 +682,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
         #region FAQRegion
-        public async Task<Stream> GetFaqQeustion()
+        public async Task<Stream> GetFaqQuestion()
         {
             try
             {

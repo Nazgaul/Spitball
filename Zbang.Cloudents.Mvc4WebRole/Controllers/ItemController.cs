@@ -196,9 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-                await Task.WhenAny(tItem, tTransAction);
-                // item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId });
-                //item.PrintUrl = Url.RouteUrl("ItemPrint", new { boxId, itemId });
+                await Task.WhenAll(tItem, tTransAction);
                 return Json(new JsonResponse(true, tItem.Result));
             }
             catch (BoxAccessDeniedException)

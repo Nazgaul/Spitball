@@ -119,9 +119,7 @@ app.config([
             params: {
                 type: 'quiz'
             },
-            templateUrl: function (params) {
-                return '/quiz/IndexPartial/';
-            }
+            templateUrl: '/quiz/IndexPartial/'
         }).
         when('/library/:libraryId/:libraryName/', {
             params: {
@@ -158,9 +156,7 @@ app.config([
             params: {
                 type: 'invite'
             },
-            templateUrl: function (params) {
-                return '/invite/IndexPartial'
-            }
+            templateUrl: '/invite/IndexPartial'
         }).
         //#endregion
         //#region store
@@ -207,7 +203,6 @@ app.config([
                 }
             }).
             when('/store/contact/', {
-                //templateUrl: '/Store/Contact/',
                 templateUrl: function (params) {
                     var url = '/Store/Contact/';
                     return buildQueryString(url, params);
@@ -307,7 +302,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
 
     };
 
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    $rootScope.$on('$routeChangeStart', function (event, next) {
         $window.scrollTo(0, 0);
 
         if (!next.$$route) {
@@ -349,7 +344,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         if (!previous.$$route.params.type) {
             return;
         }
-        
+
         if (!isCurrentRoute(current)) {
             return;
         }
@@ -364,7 +359,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                     $rootScope.back.title = previous.pathParams.userName;
                     $rootScope.back.url = previous.loadedTemplateUrl;
                     break;
-                case 'library':                    
+                case 'library':
                     break;
                 default:
                     setBackDashboard();

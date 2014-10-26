@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
-            using (var stream = await m_BlobProvider.Value.GetFaqQeustion())
+            using (var stream = await m_BlobProvider.Value.GetFaqQuestion())
             {
                 var data = XDocument.Load(stream);
                 model = from category in data.Descendants("category")
