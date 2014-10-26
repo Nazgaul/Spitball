@@ -25,9 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             if (!IsAuthenticationRequired) return;
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                //var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
-                //if (headerSend != null && (bool)headerSend)
-                //{
                 try
                 {
                     filterContext.HttpContext.Response.Clear();
@@ -35,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     
                     filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     filterContext.HttpContext.Response.Flush();
-                    filterContext.Result = new HttpStatusCodeResult((int)System.Net.HttpStatusCode.Unauthorized);
+                    filterContext.Result = new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
                     filterContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
                     filterContext.HttpContext.Response.End();
                 }
