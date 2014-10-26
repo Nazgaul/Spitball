@@ -123,6 +123,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("/scripts/angular-appinsights.js"),
+                        new JsFileWithCdn("/scripts/angular-cache-2.4.1.js"),                        
                 new JsFileWithCdn("~/scripts/stacktrace.js"),
                 new JsFileWithCdn("~/scripts/underscore.js")
 
