@@ -87,8 +87,12 @@
                 });
 
                 data.size = 1024;
-                $rootScope.$broadcast('LinkAdded', data);                
-                $scope.completeWizard(true);            
+                $rootScope.$broadcast('LinkAdded', data);
+                if ($scope.close) {//fix for step 3
+                    $scope.close();
+                } else {
+                    $scope.completeWizard(true);
+                }            
 
             })['finally'](function () {
                 modalInstance = undefined;

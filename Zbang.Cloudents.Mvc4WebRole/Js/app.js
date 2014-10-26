@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection',
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'mInvite', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
 
 app.config([
@@ -8,15 +8,29 @@ app.config([
     '$tooltipProvider',
     '$provide',
     'insightsProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, insightsProvider) {
+    '$angularCacheFactoryProvider',
+    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, insightsProvider, $angularCacheFactoryProvider) {
+        
 
         insightsProvider.start('25195c1a-be80-4b61-a3f8-00d10e2efa62');
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
+        $angularCacheFactoryProvider.setCacheDefaults({
+            maxAge: 1500000, //25 minutes
+            deleteOnExpire: 'aggressive',
+            recycleFreq: 600000,
+            storageMode: 'sessionStorage'
+        });
 
-
-        $provide.factory('requestinterceptor', ['$location', '$q', function ($location, $q) {
+        $provide.factory('requestinterceptor', ['$location', '$q', '$angularCacheFactory', function ($location, $q, $angularCacheFactory) {
             return {
+                'request': function(config) {
+                    if (config.method === 'POST') {
+                        $angularCacheFactory.clearAll();
+                    }
+
+                    return config;
+                },
                 // optional method
                 'response': function (response) {
                     // do something on success

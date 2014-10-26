@@ -33,7 +33,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { isDesktop = new DesktopConstraint() }
             );
 
-
+            routes.MapRoute("AccountSettingsDesktop",
+                "account/settings",
+                new {controller = "Account", action = "SettingsDesktop"},
+                new { isDesktop = new DesktopConstraint() });
 
             #region Box
             routes.MapRoute("PrivateBoxDesktop",
