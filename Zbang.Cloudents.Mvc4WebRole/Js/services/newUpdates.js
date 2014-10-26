@@ -46,7 +46,7 @@ function ($http, sBox, sUserDetails) {
             boxId = parseInt(boxId, 10);
             sBox.deleteUpdates({
                 boxId: boxId
-            }).success(function () { });            
+            }).then(function () { });            
         },
         loadUpdates: loadUpdates
     };
