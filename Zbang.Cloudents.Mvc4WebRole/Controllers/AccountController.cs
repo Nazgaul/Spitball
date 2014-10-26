@@ -603,7 +603,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("index");
             }
-            var data = UncryptElement<ForgotPasswordLinkData>(key);
+            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
             if (data == null)
             {
                 return RedirectToAction("index");
@@ -628,7 +628,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return View(model);
             }
-            var data = UncryptElement<ForgotPasswordLinkData>(key);
+            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
             if (data == null)
             {
                 return RedirectToAction("index");
@@ -658,7 +658,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private string RandomString(int size)
         {
             var random = new Random();
-            //string input = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string input = "0123456789";
             var chars = Enumerable.Range(0, size)
                                    .Select(x => input[random.Next(0, input.Length)]);
@@ -672,7 +671,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
         [NonAction]
-        private T UncryptElement<T>(string str) where T : class
+        private T UnEncryptElement<T>(string str) where T : class
         {
             return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
 

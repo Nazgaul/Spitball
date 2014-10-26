@@ -1,8 +1,9 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce) {
-    // cd.pubsub.publish('initItem');
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {
+
+    var jsResources = window.JsResources;
     var index = 0, loadMore = false;
     $scope.navigation = {};
     $scope.popup = {};
@@ -14,7 +15,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         contentLoadMore: false
     };
     $scope.canNavigate = false;
-    $scope.flagText = JsResources.Flag;
+    $scope.flagText = jsResources.Flag;
 
     sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
@@ -59,7 +60,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                     $scope.preview = $sce.trustAsHtml(data.preview);
                 } else {
                     $scope.preview += data.preview;
-
+                    $analytics.eventTrack('Get Prview', {
+                        category: 'Item'
+                    });
                     loadMore = true;
                 }
                 $scope.$broadcast('update', data.preview); //for fullscreen
@@ -113,9 +116,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 }
             }
         });
-        modalInstance.result.then(function (d) {
+        modalInstance.result.then(function () {
             $scope.flagged = true;
-            $scope.flagText = JsResources.Flagged;
+            $scope.flagText = jsResources.Flagged;
 
         })['finally'](function () {
             modalInstance = undefined;
