@@ -230,7 +230,8 @@
     <value>أنت تدرس في</value>
   </data>
   <data name="CanConfuse" xml:space="preserve">
-    <value>يمكن أن يربك</value>
+    <value>تأكد من تحديد الاسم الصحيح. 
+تغيير اسمي الخلط بين زملائك.</value>
   </data>
   <data name="ChangeName" xml:space="preserve">
     <value>تغيير الاسم</value>
