@@ -60,14 +60,14 @@
                 return ttls[ttlString];
             }
 
-            var cache = $angularCacheFactory.get(ttlString);
+            //var cache = $angularCacheFactory.get(ttlString);
 
-            if (cache) {
-                ttls[ttlString] = cache;
-                return cache;
-            }
+            //if (cache) {
+            //    ttls[ttlString] = cache;
+            //    return cache;
+            //}
 
-            cache = $angularCacheFactory(ttlString, {
+            var cache = $angularCacheFactory(ttlString, {
                 maxAge: ttl
             });
 

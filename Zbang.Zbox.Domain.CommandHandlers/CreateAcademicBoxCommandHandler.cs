@@ -78,13 +78,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AcademicRepository.Save(box);
 
             var countOfBoxes = m_UniversityRepository.GetNumberOfBoxes(user.University.UniversityData) + 1;
+            department.UpdateNumberOfBoxes();
             // department.UpdateNumberOfBoxes(m_DepartmentRepository.GetBoxesInDepartment(department));
             user.University.UpdateNumberOfBoxes(countOfBoxes);
             user.University.UniversityData.UpdateNumberOfBoxes(countOfBoxes);
 
             m_UniversityRepository.Save(user.University);
             m_UniversityRepository.Save(user.University.UniversityData);
-            m_DepartmentRepository.Save(department);
+            while (department != null)
+            {
+                m_DepartmentRepository.Save(department);
+                department = department.Parent;
+            }
+
 
             var result = new CreateBoxCommandResult(box.Id, box.Url);
 
