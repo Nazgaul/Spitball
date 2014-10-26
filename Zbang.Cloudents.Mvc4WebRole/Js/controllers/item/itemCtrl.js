@@ -8,6 +8,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.navigation = {};
     $scope.popup = {};
     $scope.fromReply = {};
+    $scope.formData = {};
     $scope.preview = '';
     $scope.fullScreen = false;
     $scope.load = {
