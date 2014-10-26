@@ -132,8 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterJsRegular("angular-layout3",
 
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
-                new JsFileWithCdn("~/scripts/bindonce.js"),
-                //new JsFileWithCdn("~/Scripts/angular-cache-2.3.4.js"),
+                new JsFileWithCdn("~/scripts/bindonce.js"),                
                 new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),
@@ -196,6 +195,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/quiz/quizCreateCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCloseCtrl.js"),
                 new JsFileWithCdn("/js/controllers/invite/inviteCtrl.js"),
+                new JsFileWithCdn("/js/services/ajaxService.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),

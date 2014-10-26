@@ -1013,6 +1013,7 @@
     <Content Include="Js\pubsub2.js" />
     <Content Include="Js\Search.js" />
     <Content Include="Js\SearchDropDown.js" />
+    <Content Include="Js\services\ajaxService.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\cookies.js" />
     <Content Include="Js\services\dashboard.js" />

@@ -69,6 +69,12 @@ angular.module('angulartics.google.analytics', ['angulartics'])
           }
       }
   });
+  $analyticsProvider.registerTimingTrack(function (properties) {      
+      properties.label = properties.label || undefined;
+      if (window.ga) {
+          window.ga('send', 'timing', properties.category, properties.variable, properties.timeSpent, properties.label);
+      }
+  });
   $analyticsProvider.registerSetVariable(function (variable,value) {
       ga('set', variable, value);
   });
