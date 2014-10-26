@@ -1,8 +1,9 @@
 ﻿
 app.factory('sNewUpdates', [
     '$http',
+    'sBox',
     'sUserDetails',
-function ($http, sUserDetails) {
+function ($http, sBox, sUserDetails) {
 
     var updates = {};
     var response = {
@@ -43,8 +44,9 @@ function ($http, sUserDetails) {
         },
         removeUpdates: function (boxId) {
             boxId = parseInt(boxId, 10);
-            $http.post('/Box/DeleteUpdates/', { boxId: boxId }).success(function () {                
-            });
+            sBox.deleteUpdates({
+                boxId: boxId
+            }).success(function () { });            
         },
         loadUpdates: loadUpdates
     };

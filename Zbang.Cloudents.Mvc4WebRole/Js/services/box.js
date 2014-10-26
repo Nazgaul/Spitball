@@ -2,8 +2,9 @@
 mBox.factory('sBox',
     ['$http',
      '$q',
+     'ajaxService',
 
-    function ($http, $q) {
+    function ($http, $q, ajaxService) {
         var Box = '/Box/';
         function ajaxRequest(data, type, link) {
             var dfd = $q.defer();
@@ -67,7 +68,7 @@ mBox.factory('sBox',
             },
             updateInfo: function (data) {
                 return ajaxRequest(data, $http.post, 'UpdateInfo/');
-                
+
             },
             invite: function (data) {
                 var dfd = $q.defer();
@@ -100,6 +101,9 @@ mBox.factory('sBox',
             },
             tabs: function (data) {
                 return ajaxRequest(data, $http.get, 'Tabs/');
+            },
+            deleteUpdates: function (data) {
+                return ajaxService.post('/Box/DeleteUpdates/', data, true);
             }
         };
     }

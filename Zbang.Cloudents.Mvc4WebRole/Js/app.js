@@ -25,9 +25,6 @@ app.config([
         $provide.factory('requestinterceptor', ['$location', '$q', '$angularCacheFactory', function ($location, $q, $angularCacheFactory) {
             return {
                 'request': function(config) {
-                    if (config.method === 'POST') {
-                        $angularCacheFactory.clearAll();
-                    }
 
                     return config;
                 },
