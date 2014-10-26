@@ -40,9 +40,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoUniversity]
         [NonAjax]
         [NoCache]
-        //[UserNavNWelcome]
-        //[Route("box:desktop/my/{boxId:long}/{boxName}", Name = "PrivateBoxDesktop", Order = 1)]
-        //[Route("course:desktop/{universityName}/{boxId:long}/{boxName}", Name = "CourseBoxDesktop", Order = 2)]
         public ActionResult Index(long? universityId)
         {
             if (!User.Identity.IsAuthenticated && Request.UserAgent != null &&

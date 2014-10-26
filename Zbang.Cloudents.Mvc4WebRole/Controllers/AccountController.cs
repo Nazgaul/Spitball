@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -277,7 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             result.UniversityData));
                     return
                         Json(new JsonResponse(true,
-                            Url.Action("Index", "Library", new {returnUrl = CheckIfToLocal(returnUrl), @new = "true"})));
+                            Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" })));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
@@ -309,6 +311,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return PartialView(user);
             }
             return View(user);
+        }
+
+        [ZboxAuthorize, NoUniversity]
+        [NoCache, NonAjax]
+        public ActionResult SettingsDesktop()
+        {
+            return View("Empty");
+        }
+
+        [Ajax]
+        [ZboxAuthorize, NoUniversity]
+        public JsonResult SettingsData()
+        {
+            var userId = GetUserId();
+            var query = new GetUserDetailsQuery(userId);
+
+            var user = ZboxReadService.GetUserAccountDetails(query);
+            return Json(new JsonResponse(true, user));
+        }
+
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
+           Location = OutputCacheLocation.ServerAndClient,
+           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [Ajax]
+        [ZboxAuthorize, NoUniversity]
+        public ActionResult SettingPartial()
+        {
+            return PartialView("Settings");
         }
 
         const string SessionKey = "UserVerificationCode";
@@ -424,7 +454,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
-                FormsAuthenticationService.ChangeUniversity(command.UniversityId,command.UniversityDataId);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
                 return Json(new JsonResponse(true));
             }
             catch (ArgumentException)
