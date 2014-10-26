@@ -161,7 +161,7 @@
   margin-left: 55px;
 }
 .boxFeedList .bottomTA {
-  width: 485px;
+  width: 487px;
 }
 .boxFeedList .attachBtn {
   top: 24px;
@@ -215,10 +215,10 @@
 .feedReplies > li {
   margin-top: 15px;
   position: relative;
-  -webkit-animation: fadein 2s 0 ease;
-  -moz-animation: fadein 2s 0 ease;
-  -o-animation: fadein 2s 0 ease;
-  animation: fadein 2s 0 ease;
+  -webkit-animation: fadeinGrow 2s 0 ease;
+  -moz-animation: fadeinGrow 2s 0 ease;
+  -o-animation: fadeinGrow 2s 0 ease;
+  animation: fadeinGrow 2s 0 ease;
 }
 .feedReplies > li:before {
   content: '';

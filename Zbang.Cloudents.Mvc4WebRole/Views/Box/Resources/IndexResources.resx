@@ -304,4 +304,7 @@
   <data name="OnYourMind" xml:space="preserve">
     <value>What's on your mind?</value>
   </data>
+  <data name="BestInClass" xml:space="preserve">
+    <value>Best in our class</value>
+  </data>
 </root>

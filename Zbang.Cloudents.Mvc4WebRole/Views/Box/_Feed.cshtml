@@ -97,7 +97,28 @@
         <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
     </section>
-
+    <section class="leaderBoard">
+        <header>@IndexResources.BestInClass</header>
+        <ol class="bestUserList">
+            <li class="buItem">
+                Shlomi
+                <div class="rep">12660</div>
+                @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "crown" })
+            </li>
+            <li class="bestUser">
+                Noa
+                <div class="rep">9876</div>
+                @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "trophy" })
+            </li>
+            <li class="bestUser">
+                Matan
+                <div class="rep">2397</div>
+                @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "badge" })
+            </li>
+            <li class="bestUser">Ram<div class="rep">1234</div></li>
+            <li class="bestUser">Daniel<div class="rep">1233</div></li>
+        </ol>
+    </section>
     <section class="recommendedWpr">
         @*ng-if="recommendedCourses.length"*@
         <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>

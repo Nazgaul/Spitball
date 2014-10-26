@@ -13,9 +13,7 @@
 
                 ttl = ttl || 600000; //default to 10 mins
 
-                var cache = getCache(ttl);
-
-                $http.get(url, { params: data, cache: cache }).success(function (response) {
+                $http.get(url, { params: data, cache: getCache(ttl) }).success(function (response) {
                     dfd.resolve(response);
                     trackTime(startTime, url, data);
                 }).error(function (response) {
@@ -24,13 +22,17 @@
                 return dfd.promise;
 
             },
-            post: function (url, data) {
+            post: function (url, data, disableClearCache) {
                 var dfd = $q.defer(),
                 startTime = new Date().getTime();
-
                 $http.post(url, data).success(function (response) {
                     dfd.resolve(response);
                     trackTime(startTime, url, data);
+
+                    if (!disableClearCache) {
+                        $angularCacheFactory.clearAll();
+                    }
+
                 }).error(function (response) {
                     dfd.reject(response);
                 });
@@ -59,13 +61,6 @@
             if (ttls[ttlString]) {
                 return ttls[ttlString];
             }
-
-            //var cache = $angularCacheFactory.get(ttlString);
-
-            //if (cache) {
-            //    ttls[ttlString] = cache;
-            //    return cache;
-            //}
 
             var cache = $angularCacheFactory(ttlString, {
                 maxAge: ttl

@@ -10,13 +10,13 @@ mDashboard.factory('sDashboard',
          return {
 
              boxList: function () {
-                 return ajaxService.get(buildPath('/BoxList/'));
+                 return ajaxService.get(buildPath('BoxList'));
              },
              recommendedCourses: function () {
-                 return ajaxRequest($http.get, '/Dashboard/RecommendedCourses/');
+                 return ajaxService.get(buildPath('RecommendedCourses'));                 
              },
              disableFirstTime: function () {
-                 return ajaxRequest($http.post, '/Account/FirstTime/', { firstTime: 'Dashboard' });
+                 return ajaxService.post('/Account/FirstTime/',{ firstTime: 'Dashboard' });                 
              }
          }
      }
