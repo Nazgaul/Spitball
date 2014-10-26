@@ -1,8 +1,13 @@
 ﻿@import "varsAndMixins";
-
+.boxFeed {
+    ~ .recommendedWpr {
+        right: 30px; //rtl
+        left: auto;
+    }
+}
 .feedForm {
     .btn1 {
-        margin: 5px 0 0 8px; //rtl
+        margin: 8px 0 0 8px; //rtl
     }
     &.feedOpen {
         .feedTA {

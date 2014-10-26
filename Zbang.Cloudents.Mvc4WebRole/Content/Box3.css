@@ -640,6 +640,7 @@
 .boxItemList.sponsored .boxName {
   font-size: 15px;
   line-height: 30px;
+  padding-top: 191px;
 }
 .boxItemList.sponsored .thumbItem,
 .boxItemList.sponsored .listItem {

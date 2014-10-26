@@ -11,7 +11,16 @@
     }
     ~ .recommendedWpr {
         position: relative;
-        left: 30px;
+        left: 30px; //rtl
+        width: 336px;
+        display: inline-block; //override
+        border-radius: 5px;
+        .recommended {
+            .rFloat {
+                width: 95px; //diff rtl
+                text-align: right; //rtl
+            }
+        }
     }
 }
 
@@ -19,7 +28,7 @@
     position: relative;
     clear: both;
     .btn1 {
-        margin: 5px 8px 0 0; //rtl
+        margin: 8px 8px 0 0; //rtl
     }
     &.feedOpen {
         .feedTA {
@@ -91,15 +100,16 @@
 }
 .bottomTA {
     display: none;
-    height: 33px;
+    height: 40px;
     position: absolute;
     bottom: 1px;
     left: 55px; //rtl
-    width: 541px;
+    width: 543px;
     background: #eee;
     border-radius: 0 0 3px 3px;
     border: 1px solid #282828;
     border-top: none;
+    .boxSizing;
 }
 .feed-enter {
 	-webkit-transition: 1s linear all; /* Chrome */

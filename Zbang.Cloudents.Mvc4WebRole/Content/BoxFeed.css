@@ -12,13 +12,20 @@
 .boxFeed ~ .recommendedWpr {
   position: relative;
   left: 30px;
+  width: 336px;
+  display: inline-block;
+  border-radius: 5px;
+}
+.boxFeed ~ .recommendedWpr .recommended .rFloat {
+  width: 95px;
+  text-align: right;
 }
 .feedForm {
   position: relative;
   clear: both;
 }
 .feedForm .btn1 {
-  margin: 5px 8px 0 0;
+  margin: 8px 8px 0 0;
 }
 .feedForm.feedOpen .feedTA {
   min-height: 169px;
@@ -92,15 +99,18 @@
 }
 .bottomTA {
   display: none;
-  height: 33px;
+  height: 40px;
   position: absolute;
   bottom: 1px;
   left: 55px;
-  width: 541px;
+  width: 543px;
   background: #eee;
   border-radius: 0 0 3px 3px;
   border: 1px solid #282828;
   border-top: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .feed-enter {
   -webkit-transition: 1s linear all;

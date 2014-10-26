@@ -2,8 +2,12 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.boxFeed ~ .recommendedWpr {
+  right: 30px;
+  left: auto;
+}
 .feedForm .btn1 {
-  margin: 5px 0 0 8px;
+  margin: 8px 0 0 8px;
 }
 .feedForm.feedOpen .feedTA {
   direction: rtl !important;
