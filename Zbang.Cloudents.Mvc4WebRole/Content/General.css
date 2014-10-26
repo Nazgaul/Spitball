@@ -193,6 +193,7 @@ body.jsDark {
 }
 body.jsDark .siteHeader {
   background: #0f0f0f;
+  z-index: 1051;
 }
 body.jsDark .dashLibSearchInput {
   display: none;
