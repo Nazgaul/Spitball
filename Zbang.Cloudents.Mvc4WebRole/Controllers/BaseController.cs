@@ -49,8 +49,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void HandleUnknownAction(string actionName)
         {
             var parameters = Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("HandleUnknownAction {0} url {1} user {2} isAjax {4} params {3} "
-                , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest());
+            var info = string.Format("HandleUnknownAction {0} url {1} user {2} headers {5} isAjax {4} params {3} "
+                , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest(), Request.Headers);
+
+            
             TraceLog.WriteError(info);
             if (Request.IsAjaxRequest())
             {
@@ -151,14 +153,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var cultureInfo = new CultureInfo(language);
-                //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-                //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
                 Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
             }
             catch (CultureNotFoundException)
             {
-                // RemoveLanguageFromSession();
             }
         }
 

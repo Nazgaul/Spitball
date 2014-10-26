@@ -44,6 +44,7 @@ angular.module('angulartics', [])
     'eventTrack',
     'setVariable',
     'socialTrack',
+    'timingTrack',
     'setUsername',
     'setUserProperties',
     'setUserPropertiesOnce',

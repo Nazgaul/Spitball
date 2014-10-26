@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.WebPages;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -20,6 +21,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    ContextCondition = (c => c.GetOverriddenUserAgent() != null &&
             //        c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0)
             //});
+            if (IsMobileDisabled())
+            {
+                DisplayModeProvider.Instance.Modes.Clear();
+                DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode(string.Empty));
+                return;
+            }
 
             DisplayModeProvider.Instance.Modes.Insert(1, new DefaultDisplayMode("mobile")
             {
@@ -37,7 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 ContextCondition = (context => CheckIfIpadView(context))
             });
 
-            
+
 
             //DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("mobile")
             //{
@@ -45,9 +52,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //});
         }
 
+        private static bool IsMobileDisabled()
+        {
+            var mobileDisabled = ConfigFetcher.Fetch("IsMobileDisabled");
+            bool retVal;
+            bool.TryParse(mobileDisabled, out retVal);
+            return retVal;
+        }
+
         internal static bool CheckIfIpadView(HttpContextBase context)
         {
-            var value =  context.GetOverriddenUserAgent() != null &&
+            if (IsMobileDisabled())
+            {
+                return false;
+            }
+            var value = context.GetOverriddenUserAgent() != null &&
                    context.GetOverriddenUserAgent().IndexOf
                        ("iPad", StringComparison.OrdinalIgnoreCase) >= 0;
             return value;
@@ -55,13 +74,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         internal static bool CheckIfMobileView(HttpContextBase c)
         {
+            if (IsMobileDisabled())
+            {
+                return false;
+            }
             if (CheckIfIpadView(c))
             {
                 return false;
             }
+
             return (
                    c.GetOverriddenUserAgent() != null &&
-                   c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) || 
+                   c.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) ||
                    (c.GetOverriddenUserAgent() != null &&
                     c.GetOverriddenUserAgent().IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0);
         }

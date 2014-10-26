@@ -1,23 +1,16 @@
 ﻿//define('dashboard',['app'], function (app) {
 mDashboard.factory('sDashboard',
-    ['$http',
-     '$q',
-     function ($http, $q) {
-         function ajaxRequest(type, link, data) {
-             var dfd = $q.defer();
-             if (type === $http.get && data) {
-                 data = { params: data };
-             }
-             type(link, data).success(function (response) {
-                 dfd.resolve(response);
-             }).error(function (response) {
-                 dfd.reject(response);
-             });
-             return dfd.promise;
+    ['ajaxService',
+     function (ajaxService) {
+         var Item = '/Dashboard/';
+         function buildPath(path) {
+             return '/Dashboard/' + path + '/';
          }
+
          return {
+
              boxList: function () {
-                 return ajaxRequest($http.get, '/Dashboard/BoxList/');
+                 return ajaxService.get(buildPath('/BoxList/'));
              },
              recommendedCourses: function () {
                  return ajaxRequest($http.get, '/Dashboard/RecommendedCourses/');
