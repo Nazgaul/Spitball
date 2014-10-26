@@ -13,9 +13,7 @@
 
                 ttl = ttl || 600000; //default to 10 mins
 
-                var cache = getCache(ttl);
-
-                $http.get(url, { params: data, cache: cache }).success(function (response) {
+                $http.get(url, { params: data, cache: getCache(ttl) }).success(function (response) {
                     dfd.resolve(response);
                     trackTime(startTime, url, data);
                 }).error(function (response) {
@@ -59,14 +57,7 @@
             if (ttls[ttlString]) {
                 return ttls[ttlString];
             }
-
-            //var cache = $angularCacheFactory.get(ttlString);
-
-            //if (cache) {
-            //    ttls[ttlString] = cache;
-            //    return cache;
-            //}
-
+     
             var cache = $angularCacheFactory(ttlString, {
                 maxAge: ttl
             });
