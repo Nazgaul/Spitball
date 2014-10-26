@@ -2,7 +2,7 @@
 mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {
-
+    "use strict";
     var jsResources = window.JsResources;
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -47,8 +47,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             index: index,
             id: $routeParams.itemId,
             boxId: $routeParams.boxId
-
-
         }).then(function (response) {
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;
 
@@ -69,14 +67,15 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
         });
     }
-    $scope.loadMore = function () {
+
+    $scope.loadMore = function() {
         if (loadMore) {
             loadMore = false;
             ++index;
             getPreview();
         }
-    }
-    $scope.fullScreenWindow = function () {
+    };
+    $scope.fullScreenWindow = function() {
         $location.hash('fullscreen');
         var modalInstance = $modal.open({
             windowClass: 'fullscreen',
@@ -85,53 +84,53 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             backdrop: false,
             scope: $scope
         });
-        modalInstance.result.then(function () {
+        modalInstance.result.then(function() {
             $location.hash('');
-        })['finally'](function () {
+        })['finally'](function() {
             modalInstance = undefined;
         });
 
-        $scope.$on('$destroy', function () {
+        $scope.$on('$destroy', function() {
             if (modalInstance) {
                 modalInstance.dismiss();
                 modalInstance = undefined;
             }
         });
-    }
+    };
     if ($location.hash() === 'fullscreen') {
         $scope.fullScreenWindow();
     }
 
-    $scope.flagItemWindow = function () {
+    $scope.flagItemWindow = function() {
         var modalInstance = $modal.open({
             windowClass: 'flagItem',
             templateUrl: '/Item/Flag/',
             controller: 'itemFlagCtrl',
             backdrop: false,
             resolve: {
-                data: function () {
+                data: function() {
                     return {
                         id: $routeParams.itemId
                     };
                 }
             }
         });
-        modalInstance.result.then(function () {
+        modalInstance.result.then(function() {
             $scope.flagged = true;
             $scope.flagText = jsResources.Flagged;
 
-        })['finally'](function () {
+        })['finally'](function() {
             modalInstance = undefined;
         });
 
-        $scope.$on('$destroy', function () {
+        $scope.$on('$destroy', function() {
             if (modalInstance) {
                 modalInstance.dismiss();
                 modalInstance = undefined;
             }
         });
 
-    }
+    };
 
     $scope.renameWindow = function () {
         var modalInstance = $modal.open({
@@ -252,7 +251,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
 
     //#region share
     $scope.shareFacebook = function () {
-        var jsResources = window.JsResources;
         $scope.popup.share = false;
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
@@ -291,8 +289,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             }
         });     
     };
-    $scope.rate = function (t) {
+    $scope.rate = function(t) {
         sItem.rate({ ItemId: $routeParams.itemId, rate: t });
-    }
+    };
 }
         ]);

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -33,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpPost]
         public ActionResult JsLog(JavaScriptError log)
         {
-            TraceLog.WriteInfo("js error: " + log);
+            Trace.TraceWarning("js error: " + log);
             return Json(true);
         }
     }
