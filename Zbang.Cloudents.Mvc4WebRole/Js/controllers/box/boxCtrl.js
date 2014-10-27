@@ -1,5 +1,5 @@
-﻿mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']);
-mBox.controller('BoxCtrl',
+﻿mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
+    controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
          '$modal', '$location','$filter', '$timeout',
          'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
@@ -68,8 +68,6 @@ mBox.controller('BoxCtrl',
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
-                    $rootScope.$broadcast('uploadBox', $scope.boxId);
-
                 });
             });
 

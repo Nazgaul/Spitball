@@ -311,7 +311,7 @@
                     cd.pubsub.publish('clear_cache');
                 },
                 error: function (msg) {
-                    cd.displayErrors($this, msg);
+                    cd.displayErrors($this, msg);   
                 }
             });
 

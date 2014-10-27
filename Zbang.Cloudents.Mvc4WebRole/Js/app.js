@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
-    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'mInvite', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
+    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mAccount', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'mInvite', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
 
 app.config([
     '$routeProvider',
@@ -10,7 +10,7 @@ app.config([
     'insightsProvider',
     '$angularCacheFactoryProvider',
     function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, insightsProvider, $angularCacheFactoryProvider) {
-        
+
 
         insightsProvider.start('25195c1a-be80-4b61-a3f8-00d10e2efa62');
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -24,7 +24,7 @@ app.config([
 
         $provide.factory('requestinterceptor', ['$location', '$q', '$angularCacheFactory', function ($location, $q, $angularCacheFactory) {
             return {
-                'request': function(config) {
+                'request': function (config) {
 
                     return config;
                 },
@@ -168,6 +168,12 @@ app.config([
                 type: 'invite'
             },
             templateUrl: '/invite/IndexPartial'
+        }).
+        when('/account/settings', {
+            params: {
+                type: 'accountSettings'
+            },
+            templateUrl: '/Account/Settings'
         }).
         //#endregion
         //#region store

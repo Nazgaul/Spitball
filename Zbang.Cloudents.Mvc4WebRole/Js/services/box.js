@@ -89,6 +89,9 @@ mBox.factory('sBox',
             notification: function (data) {
                 return ajaxRequest(data, $http.get, 'GetNotification/');
             },
+            changeNotification: function (data) {
+                return ajaxService.post(Box + 'ChangeNotification/', data);
+            },
             follow: function (data) {
                 var dfd = $q.defer();
                 $http.post('/Share/SubscribeToBox/', data).success(function (response) {

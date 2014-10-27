@@ -919,6 +919,8 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
+    <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
+    <Content Include="Js\controllers\account\settingsCtrl.js" />
     <Content Include="Js\controllers\box\boxInviteCtrl.js" />
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
@@ -973,6 +975,7 @@
     <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
+    <Content Include="Js\directives\storageSpace.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\GenericEvents.js" />
@@ -1018,6 +1021,7 @@
     <Content Include="Js\services\cookies.js" />
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dropbox.js" />
+    <Content Include="Js\services\account.js" />
     <Content Include="Js\services\stacktrace.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />
@@ -1668,8 +1672,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

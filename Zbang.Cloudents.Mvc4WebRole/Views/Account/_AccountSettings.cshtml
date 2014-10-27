@@ -2,20 +2,19 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@{ViewContext.FormContext = new FormContext();}
-<div class="settingsTab accountSettings" id="AccountSetting">
+<div class="settingsTab accountSettings">
 
-
-    @Html.LabelFor(m => m.Email)
+    <label>Email:</label>
     <div class="changeEmail">
-        <div class="propValue">@Model.Email</div>
-        <button type="button" class="btnTxt" id="ChangeEmail">@AccountSettingsResources.ChangeEmail</button>
-        <div class="newEmail">
-            @Html.TextBoxFor(m => m.NewEmail.Email, new { @class = "inputText", placeholder = AccountSettingsResources.EnterEmail, id = "newEmail" })
-            <button type="button" class="btnTxt" id="AddBtn">@SharedResources.Change</button>
-            <span id="emailerr" class="validation-summary-errors"></span>
+        <div class="propValue">{{data.email}}</div>
+        <button ng-show="!params.changingEmail" type="button" class="btnTxt" ng-click="changeEmail()">@AccountSettingsResources.ChangeEmail</button>
+        <div class="newEmail" ng-show="params.changingEmail">
+            <input ng-show="params.changingEmail && !params.verifyCode" type=" text" class="inputText" placeholder="@AccountSettingsResources.EnterEmail" ng-model="emailForm.email" />
+            <input ng-show="params.verifyCode" type="text" class="inputText" placeholder="@AccountSettingsResources.EnterCode" ng-model="emailForm.verifyCode" />
+            <button type="button" class="btnTxt" ng-click="changeEmail()" ng-class="{checkMail : params.verifyCode}">{{params.changeEmailBtnText}}</button>
+            <span class="validation-summary-errors">{{params.changeEmailError}}</span>
             <div class="checkMailMsg">
-                <div class="semiFont">@AccountSettingsResources.CheckMail</div>
+                <div class="semifont">@AccountSettingsResources.CheckMail</div>
                 <div class="checkMailTxt">@AccountSettingsResources.CodeSent</div>
             </div>
         </div>
@@ -23,30 +22,29 @@
 
     <div class="section">
         <label>@AccountSettingsResources.Password</label>
-        <div class="changePwd">
-            <span id="passerr" class="validation-summary-errors"></span>  
-            @Html.LabelFor(m => m.Password.CurrentPassword)
-            @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "inputText", id = "oldpsw" })
-            @*@Html.ValidationMessageFor(m => m.Password.CurrentPassword)*@
-            @Html.LabelFor(m => m.Password.NewPassword)
-            @Html.PasswordFor(m => m.Password.NewPassword, new { @class = "inputText", id = "newpsw" })
-            @*@Html.ValidationMessageFor(m => m.Password.NewPassword)*@
+        <div class="changePwd" ng-class="{show: params.changingPassword}">
+
+            <span class="validation-summary-errors">{{params.passwordError}}</span>
+            <label for="oldpsw">Current password</label>
+            <input id="oldpsw" type="password" class="inputText" ng-model="passwordForm.oldPassword" />
+
+            <label for="newpsw">New password</label>
+            <input id="newpsw" type="password" class="inputText" ng-model="passwordForm.newPassword" />
 
         </div>
-        <button type="button" class="btnTxt" id="ChangePwd">@AccountSettingsResources.ChangePwd</button>
+        <button type="button" class="btnTxt" ng-click="changePassword()">@AccountSettingsResources.ChangePwd</button>
     </div>
 
     <div class="section">
-        @Html.LabelFor(m => m.Language)
-        @Html.DropDownListFor(m => m.Language.Language,
-            Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
-            {
-                Selected = s.Culture == Model.Language.Language,
-                Text = s.Name,
-                Value = s.Culture
-            }), new { @class = "inputText", id = "language" })
+      @Html.LabelFor(m => m.Language)
+            @Html.DropDownListFor(m => m.Language.Language,
+                Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
+                {                    
+                    Text = s.Name,
+                    Value = s.Culture
+                }), new { @class = "inputText", id = "language", ng_model = "languageForm.selected" })
     </div>
 
-    <input id="ChangeLanguage" type="button" class="btn1" value="@AccountSettingsResources.Save" />
+    <input type="button" class="btn1" value="@AccountSettingsResources.Save" ng-click="changeLanguage()" />
 
 </div>

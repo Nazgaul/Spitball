@@ -1,29 +1,32 @@
-﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Profile
-@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@using (Html.BeginForm("ChangeProfile", "Account", FormMethod.Post, new { @class = "settingsTab selected profileInfo", id = "Profile" }))
-{
-    @Html.LabelFor(m => m.FirstName)
-    <div class="nameWpr">
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", @placeholder = @SharedResources.FirstName, id = "Name" })@Html.ValidationMessageFor(m => m.FirstName)
+
+<form id="profile" name="userProfileForm" class="settingsTab profileInfo" novalidate ng-submit="saveUserInfo(userProfileForm.$valid)">    
+    <label>Name:</label>
+    <div class="nameWpr" ng-class="{error : submitted && userProfileForm.FirstName.$error.required }">
+        <input type="text" class="inputText" placeholder="@SharedResources.FirstName" id="FirstName" name="FirstName" ng-model="formData.firstName" required />
+        <label class="errorLabel">Firstname is required</label>
     </div>
-    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", @placeholder = @SharedResources.MiddleName })@Html.ValidationMessageFor(m => m.MiddleName)
-    <div class="lastnameWpr">
-        @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", @placeholder = @SharedResources.LastName })@Html.ValidationMessageFor(m => m.LastName)
+
+    <input type="text" class="inputText" placeholder="@SharedResources.MiddleName" id="MiddleName" name="MiddleName" ng-model="formData.middleName" />
+
+    <div class="lastnameWpr" ng-class="{error : submitted && userProfileForm.LastName.$error.required }">
+        <input type="text" class="inputText" placeholder="@SharedResources.LastName" id="LastName" name="LastName" ng-model="formData.lastName" required />
+        <label class="errorLabel">Lastname is required</label>
     </div>
     <div class="section">
-        @Html.LabelFor(m => m.Image)
-        <img id="accountSettingsThumb" class="profilePhoto" width="100" height="100" src="@Model.Image" alt="" />
-        <a href="#" class="photoBtn" id="uplImage">@AccountSettingsResources.UploadImage</a>
+        <label>Photo:</label>
+        <img class="profilePhoto" width="100" height="100" ng-src="{{data.image}}" alt="" />
+        <button type="button" class="photoBtn" pl-upload-standalone url="/Upload/ProfilePicture/" container="profile" on-error="onError(error)" on-uploaded="onUploaded(response)" on-files-added="onFilesAdded(files)">@AccountSettingsResources.UploadImage</button>
     </div>
-    <div class="schoolSection">
-        @Html.LabelFor(m => m.University)
+    <div class="schoolSection" bindonce>
+        <label>School:</label>
         <div class="schoolWpr">
-            <img class="imgBorder" width="32" height="32" alt="School logo" src="@Model.UniversityImage" />
-            <div class="propValue">@Model.University</div>
+            <img class="imgBorder" width="32" height="32" alt="School logo" ng-src="{{data.universityPic}}" />
+            <div class="propValue">{{data.university}}</div>
             <a class="changeUni regFont" href="@Url.Action("Choose", "Library")">@AccountSettingsResources.ChangeUni</a>
         </div>
     </div>
-    <input type="submit" class="btn1" value="@AccountSettingsResources.Save" />
-}
+    <input type="submit" class="btn1" value="@AccountSettingsResources.Save" ng-click="submitted=true" />
+</form>

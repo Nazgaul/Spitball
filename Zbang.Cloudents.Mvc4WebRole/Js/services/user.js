@@ -11,7 +11,8 @@
 mUser.factory('sUser', [
     '$http',
     '$q',
-    function ($http, $q) {
+    'ajaxService',
+    function ($http, $q, ajaxService) {
         var User = '/User/';
         return {
             friends: function (data) {
@@ -31,7 +32,7 @@ mUser.factory('sUser', [
                     dfd.reject(response);
                 });
                 return dfd.promise;
-            },         
+            },
             adminFriends: function (data) {
                 var dfd = $q.defer();
                 $http.get(User + 'AdminFriends/', { params: data }).success(function (response) {
@@ -76,7 +77,10 @@ mUser.factory('sUser', [
                     dfd.reject(response);
                 });
                 return dfd.promise;
-            }
-    };
-}
+            },
+            notification: function () {
+                return ajaxService.get(User + 'Notification/');
+            },
+        };
+    }
 ]);

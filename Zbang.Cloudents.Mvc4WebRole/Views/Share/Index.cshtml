@@ -49,7 +49,7 @@
 
                 <div class="invContent" load-spinner="params.loader" load-spinner-type="init" infinite-scroll="addContacts()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
                     <ul class="invList clearfix" bindonce>
-                        <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts track by contact.id | limitTo : params.contactLimit">
+                        <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts | limitTo : params.contactLimit">
                             <a bo-href="contact.url">
                                 <img alt="" class="friendImg" bo-src="contact.image" width="34" height="34">
                             </a>

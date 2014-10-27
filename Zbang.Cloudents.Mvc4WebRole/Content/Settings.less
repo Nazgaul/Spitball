@@ -1,212 +1,204 @@
 ﻿@import "varsAndMixins";
+
 .settingsMenu {
     width: 263px;
     background: #fff;
     border-right: 1px solid @borderColor;
     position: fixed;
     top: 44px;
-    bottom: 0; 
-    left:0; /*rtl*/  
+    bottom: 0;
+    left: 0; /*rtl*/
 }
-    .settingsMenu .selected
-    {
-        color: #000;
+
+.settingsMenu .selected {
+    color: #000;
+    font-weight: 600;
+}
+
+.settingsMenu ul {
+    margin: 33px 0 0 23px; /*rtl*/
+}
+
+.settingsMenu li {
+    font-size: 15px;
+    color: @textColor;
+    margin-bottom: 26px;
+    cursor: pointer;
+
+    &:hover {
+        color: @color;
     }
-    .settingsMenu ul
-    {
-        margin: 33px 0 0 23px; /*rtl*/
-    }
-    .settingsMenu li
-    {
-        font-size: 15px;
-        color: @textColor;
-        margin-bottom: 26px;
-        cursor: pointer;
-        &:hover
-        {
-            color: @color;
-        }
-    }
- 
- .settingsContent {
+}
+
+.settingsContent {
     //position: absolute;
     //top: 80px;
     //left: 288px; /*rtl*/
     width: 815px; // bug 1811
     text-align: left; /*rtl*/
     margin: 30px 20px 0 288px; /*rtl*/
-}   
+}
 
-    .settingsContent label
-    {
-        width: 140px;
-        font-size: 15px;
-        color: @textColor;
-        display: inline-block;
-        vertical-align: top;
-    }
+.settingsContent label {
+    width: 140px;
+    font-size: 15px;
+    color: @textColor;
+    display: inline-block;
+    vertical-align: top;
+}
 
-    .settingsContent .seeMore
-    {
-        float: none;
-    }    
+.settingsContent .seeMore {
+    float: none;
+}
 
 /*#region profile info */
-.profileInfo
-{
-    display: none;
-    &.selected
-    {
-        display: block;
-    }
-    .section
-    {
+.profileInfo {
+    .section {
         margin-top: 32px;
     }
-    label
-    {
+
+    label {
         width: 140px;
         line-height: 15px;
     }
-    .btn1
-    {
+
+    .btn1 {
         margin-right: 8px; /*take into account +4px because of inline block: 8+4=12*/
     }
 
-    .inputText
-    {
+    .inputText {
         width: 140px;
         margin: -6px 8px 0 0; /*rtl*/
         height: 29px;
         font-size: 15px;
-
     }
-    .profilePhoto
-    {
+
+    .profilePhoto {
         box-shadow: 2px 2px 2px rgba(0, 0, 0,0.4); /*rtl*/
         display: inline-block;
         vertical-align: top;
         margin-bottom: 3px; /*needed in order to view the bottom box-shadow (caused by vertical-align)*/
     }
-    .photoBtn
-    {
+
+    .photoBtn {
         display: inline-block;
         margin: 5px 0 0 5px; /*rtl*/
         color: @color;
     }
-    .changeUni
-    {
+
+    .changeUni {
         display: block;
         color: @color;
         cursor: pointer;
         margin: -7px 0 25px;
     }
 }
+
 .lastnameWpr, .nameWpr {
     display: inline-block;
     position: relative;
-    .input-validation-error {
-        border-color: @errorColor;
-    }
-    .field-validation-error {
+
+    .errorLabel {
+        color: @errorColor;
         position: absolute;
         top: 28px;
-        left:0;
+        left: 0;
         white-space: nowrap;
-        margin:0; //override
+        margin: 0; //override
+        display: none;
+    }
+
+    &.error {
+        input {
+            border-color: @errorColor;
+        }        
+
+        .errorLabel {
+            display: block;
+        }
     }
 }
-.photoBtns button
-{
+
+.photoBtns button {
     display: block;
     margin-bottom: 15px;
     width: 104px;
     padding: 3px 5px;
 }
-.schoolSection
-{
+
+.schoolSection {
     margin: 34px 0 10px;
 }
-.schoolWpr
-{
+
+.schoolWpr {
     padding-left: 44px; /*rtl*/
     position: relative;
     display: inline-block;
-    .imgBorder
-    {
+
+    .imgBorder {
         position: absolute;
-        left:0; /*rtl*/
+        left: 0; /*rtl*/
     }
 }
 /*#endregion */
 
 /*#region account settings */
-.accountSettings
-{
-    display: none;
-    &.selected
-    {
-        display: block;
-    }
-    .section
-    {
+.accountSettings {
+    .section {
         margin-top: 32px;
     }
-    
-    .inputText
-    {
+
+    .inputText {
         width: 210px;
         margin-bottom: 10px;
         .boxSizing;
     }
 
-    .inputText + .btnTxt
-    {
+    .inputText + .btnTxt {
         display: block;
     }
 }
-.propValue
-{
+
+.propValue {
     margin-bottom: 5px;
     font-size: 15px;
     color: #676767;
 }
-.sectionPrivacy
-{
+
+.sectionPrivacy {
     margin: 27px 0 30px;
 }
-.btnTxt
-{
+
+.btnTxt {
     color: @color;
-    &.checkMail ~ .checkMailMsg
-    {
-        opacity:1;
+
+    &.checkMail ~ .checkMailMsg {
+        opacity: 1;
     }
 }
-.changeEmail > .btnTxt
-{
-    display: block;    
+
+.changeEmail > .btnTxt {
+    display: block;
 }
 
-.accountSettings .btn1
-{
+.accountSettings .btn1 {
     margin-top: 30px;
 }
-.changeEmail
-{
+
+.changeEmail {
     display: inline-block;
 }
-.newEmail
-{
-    display: none;
+
+.newEmail {
+    /*display: none;*/
     position: relative;
-    .inputText
-    {
+
+    .inputText {
         margin-bottom: 12px;
     }
 }
-.checkMailMsg
-{
+
+.checkMailMsg {
     position: absolute;
     left: 200px; /*rtl*/
     top: 0;
@@ -214,9 +206,9 @@
     line-height: 15px;
     white-space: nowrap;
     .transition(opacity 1s);
-    opacity:0;
-    &:before
-    {
+    opacity: 0;
+
+    &:before {
         .pseudo;
         background: @common-sprite -179px -40px;
         width: 23px;
@@ -226,91 +218,81 @@
         top: 4px;
         left: 28px; /*rtl*/
     }
-    .checkMailTxt
-    {
+
+    .checkMailTxt {
         color: #676767;
     }
 }
-
 /*.changePwd span
 {
     display: none;
 }*/
-.changePwd span + input
-{
+.changePwd span + input {
     display: block;
 }
-.changePwd
-{
+
+.changePwd {
     display: none;
-    &.show
-    {
+
+    &.show {
         display: inline-block;
+
         ~ .btnTxt {
             margin-left: 143px; /*rtl*/
             display: block;
         }
     }
 
-    .inputText
-    {
+    .inputText {
         width: 210px;
         height: 28px;
         margin: 0 5px 5px 0; /*rtl*/
     }
 
-    input:first-child
-    {
+    input:first-child {
         display: block;
         margin: -12px 0 21px; /*override margin for first input*/
     }
+
     label {
         display: block;
         margin-bottom: 4px;
         color: #676767;
-    }    
+    }
 }
-    
+
 /*#endregion */
 
 /*#region manage friends */
-.manageFriends
-{
+.manageFriends {
     display: none;
 }
 /*#endregion */
 
 /*#region storage */
-.storage
-{
-    display: none;
-    &.selected
-    {
-        display: block;
-    }
-    .header
-    {
+.storage {
+    .header {
         font-size: 15px;
         color: @textColor;
         margin: 2px 0 11px -1px; /*rtl*/
     }
-    .storageBar
-    {
+
+    .storageBar {
         width: 550px;
         height: 20px;
         border-radius: 4px;
         background: #fff;
         margin-bottom: 39px;
         overflow: hidden;
-        .your
-        {
+
+        .your {
             height: 20px;
             background: @color;
             display: inline-block;
         }
-    }       
+    }
 }
-    
+
 /*temporarily removed from markup*/
 /*width and height properties only form design purposes*/
 /*.bar .shared
@@ -320,13 +302,11 @@
     height: 20px;
     background-color: #e5a13d;
 }*/
-.key
-{
+.key {
     margin-bottom: 32px;
 }
-    
-.key > span:before
-{
+
+.key > span:before {
     content: '';
     display: inline-block;
     width: 10px;
@@ -340,14 +320,12 @@
     content: '';
     background-color: #e5a13d;
 }*/
-.key .free:before
-{
+.key .free:before {
     content: '';
     background-color: #fff;
 }
 
-.key .percent
-{
+.key .percent {
     margin: 0 27px 0 2px; /*rtl*/
 }
 
@@ -355,11 +333,6 @@
 
 /*#region notifications */
 .notifications {
-    display: none;
-    &.selected
-    {
-        display: block;
-    }
     .settingsBox {
         display: inline-block;
         width: 310px;
@@ -402,12 +375,12 @@
         width: 180px;
     }
 }
-.boxesList
-{
+
+.boxesList {
     margin: 6px 0 39px 1px; /*rtl*/
 }
-.boxesList li
-{
+
+.boxesList li {
     margin-bottom: 18px;
     padding-bottom: 13px;
     border-bottom: 1px solid #dfd5da;

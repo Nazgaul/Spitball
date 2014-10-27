@@ -379,7 +379,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [Ajax]
-        public JsonResult ChangeNotification(long boxUid, NotificationSettings notification)
+        public JsonResult ChangeNotification(long boxId, NotificationSettings notification)
         {
             var userId = GetUserId();
             var command = new ChangeNotificationSettingsCommand(boxUid, userId, notification);

@@ -1,16 +1,15 @@
-﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Storage
-@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
 <div class="settingsTab storage" id="Storage">
     <div class="header boldFont">@AccountSettingsResources.Space</div>
-    <div id="storageBar" class="storageBar">
+    <div storage-space used-space="{{data.usedSpacePercent}}" class="storageBar">
         <span class="your"></span>
         @*<span class="shared"></span>*@ @*<------ temporarily not used*@
     </div>
     <div class="key">
-        <span id="your" class="your lFloat" data-used="@Model.Percent">@AccountSettingsResources.InUse<span class="percent boldFont">@Model.Percent%</span></span>
+        <span class="your lFloat">@AccountSettingsResources.InUse<span class="percent boldFont">{{data.usedSpacePercent | number: 0}}%</span></span>
         @*<span class="shared">Shared boxes<span class="percent">10%</span></span> *@ @*<------ temporarily not used*@
-        <span class="free">@AccountSettingsResources.Free<span class="percent">@Model.Free%</span></span>
+        <span class="free">@AccountSettingsResources.Free<span class="percent">{{data.freeSpacePercent | number: 0}}%</span></span>
     </div>
     @*<div class="seeMore">Buy more storage</div>*@ @*<------ temporarily not used*@
 </div>

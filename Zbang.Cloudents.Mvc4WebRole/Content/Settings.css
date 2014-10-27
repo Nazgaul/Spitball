@@ -14,6 +14,7 @@
 }
 .settingsMenu .selected {
   color: #000;
+  font-weight: 600;
 }
 .settingsMenu ul {
   margin: 33px 0 0 23px;
@@ -46,12 +47,6 @@
   float: none;
 }
 /*#region profile info */
-.profileInfo {
-  display: none;
-}
-.profileInfo.selected {
-  display: block;
-}
 .profileInfo .section {
   margin-top: 32px;
 }
@@ -95,17 +90,23 @@
   display: inline-block;
   position: relative;
 }
-.lastnameWpr .input-validation-error,
-.nameWpr .input-validation-error {
-  border-color: #d1294d;
-}
-.lastnameWpr .field-validation-error,
-.nameWpr .field-validation-error {
+.lastnameWpr .errorLabel,
+.nameWpr .errorLabel {
+  color: #d1294d;
   position: absolute;
   top: 28px;
   left: 0;
   white-space: nowrap;
   margin: 0;
+  display: none;
+}
+.lastnameWpr.error input,
+.nameWpr.error input {
+  border-color: #d1294d;
+}
+.lastnameWpr.error .errorLabel,
+.nameWpr.error .errorLabel {
+  display: block;
 }
 .photoBtns button {
   display: block;
@@ -129,12 +130,6 @@
 }
 /*#endregion */
 /*#region account settings */
-.accountSettings {
-  display: none;
-}
-.accountSettings.selected {
-  display: block;
-}
 .accountSettings .section {
   margin-top: 32px;
 }
@@ -172,7 +167,7 @@
   display: inline-block;
 }
 .newEmail {
-  display: none;
+  /*display: none;*/
   position: relative;
 }
 .newEmail .inputText {
@@ -250,12 +245,6 @@
 }
 /*#endregion */
 /*#region storage */
-.storage {
-  display: none;
-}
-.storage.selected {
-  display: block;
-}
 .storage .header {
   font-size: 15px;
   color: #383838;
@@ -312,12 +301,6 @@
 }
 /*#endregion */
 /*#region notifications */
-.notifications {
-  display: none;
-}
-.notifications.selected {
-  display: block;
-}
 .notifications .settingsBox {
   display: inline-block;
   width: 310px;

@@ -42,7 +42,7 @@
                  });
 
 
-                 sendObj.recepients = [emails];
+                 sendObj.recepients = emails;
 
                  sendFunc(sendObj).then(function (response) {
                      if (!response.success) {

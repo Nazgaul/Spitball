@@ -3,85 +3,29 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model Zbang.Zbox.ViewModel.Dto.UserDtos.UserAccountDto
 
-<div id="account" class="page">
+<div id="account" class="page" ng-controller="AccountSettingsCtrl">
     <div class="settingsMenu lFloat">
-        <ul id="settingsMenu">
-            <li class="selected boldFont" data-form="Profile">@AccountSettingsResources.ProfileInfo</li>
-            <li data-form="Account">@AccountSettingsResources.AccountSettings</li>
-            <li data-form="Storage">@AccountSettingsResources.Storage</li>
-            <li id="notifcationTab" data-form="Notification">@AccountSettingsResources.Notifications</li>
+        <ul>
+            <li ng-class="{selected : params.currentTab === 'profile'}" ng-click="selectTab('profile')">@AccountSettingsResources.ProfileInfo</li>
+            <li ng-class="{selected : params.currentTab === 'settings'}" ng-click="selectTab('settings')">@AccountSettingsResources.AccountSettings</li>
+            <li ng-class="{selected : params.currentTab === 'storage'}" ng-click="selectTab('storage')">@AccountSettingsResources.Storage</li>
+            <li ng-class="{selected : params.currentTab === 'notification'}" ng-click="selectTab('notification')">@AccountSettingsResources.Notifications</li>
         </ul>
     </div>
-    <div class="settingsContent" id="settingsContent">
-        @{
-            Html.RenderPartial("_AccountProfile", new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName });
-            Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language }, NewEmail = new ChangeMail { Code = null, Email = string.Empty }, Password = new Password { CurrentPassword = string.Empty, NewPassword = string.Empty } });
-            Html.RenderPartial("_AccountStorage", new Storage { AllocatedSize = Model.AllocatedSize, UsedSpace = Model.UsedSpace });
-            Html.RenderPartial("_AccountNotification", new Notification());
-        }
+    <div class="settingsContent">       
+            <div ng-switch="params.currentTab">
+                <div ng-switch-when="profile">
+                    @{Html.RenderPartial("_AccountProfile");}
+                </div>
+                <div ng-switch-when="settings">
+                    @{Html.RenderPartial("_AccountSettings", new AccountSettings { Language = new UserLanguage { Language = Model.Language } });}
+                </div>
+                <div ng-switch-when="storage">
+                    @{Html.RenderPartial("_AccountStorage");}
+                </div>
+                <div ng-switch-when="notification">
+                    @{Html.RenderPartial("_AccountNotification");}
+                </div>
+            </div>                                                
     </div>
 </div>
-@section scripts {
-    @Html.Script2("General")
-    @Html.Script2("cd1")
-<script>
-        $(function () {
-            document.getElementById('mLoading').style.display = 'none';
-            var d = document.getElementById('account');
-            d.style.display = 'block';
-            d.style.opacity = 1;
-            cd.pubsub.publish('account');
-        });
-</script>
-}
-@section search {
-    <form class="dashLibSearch" id="g_search">
-        <input id="g_searchQ" autocomplete="off"
-               type="search" name="query" class="dashLibSearchInput" placeholder="@SharedResources.Search" />
-        <button id="searchDropDownBtn" disabled type="submit"></button>
-        <div class="searchDD allResults">
-            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
-            <ul class="searchList boxes"></ul>
-            <h3>@SharedResources.Materials</h3>
-            <ul class="searchList items"></ul>
-            <h3>@SharedResources.People</h3>
-            <ul class="searchList people"></ul>
-            <h3>@SharedResources.ResultsOther</h3>
-            <ul class="searchList university"></ul>
-            <a class="showAll" target="_self">@SharedResources.AllResults&nbsp;<q></q></a>
-            <div class="emptySearch">@SharedResources.NoResults</div>
-        </div>
-    </form>
-<script type="text/html" id="boxesSearchTemplate">
-    <li>
-        <a href="{{url}}" data-navigation="box" class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <span class="searchDetail {{allDetails}}">{{proffessor}}</span>
-                <span class="searchDetail">{{courseCode}}</span>
-            </div>
-        </a>
-    </li>
-</script>
-<script type="text/html" id="itemsSearchTemplate">
-    <li>
-        <a href="{{url}}" data-navigation="item" class="searchItem">
-            <div class="otherUni semiFont">{{universityName}}</div>
-            <img class="lFloat imgBorder" width="40" height="50" src="{{image}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps">{{name}}</div>
-                <div class="boxLoc searchDetail" data-ignore-rtl="true" data-search-in="@SharedResources.In">{{boxName}}</div>
-            </div>
-        </a>
-    </li>
-</script>
-<script type="text/html" id="peopleSearchTemplate">
-    <li>
-        <a href="{{url}}" data-navigation="user" class="searchItem">
-            <img class="lFloat imgBorder userImg" src="{{image}}" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps">{{name}}</div>
-        </a>
-    </li>
-</script>
-}

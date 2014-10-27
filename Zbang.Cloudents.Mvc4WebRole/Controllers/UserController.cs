@@ -231,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Used in account settings notification
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public ActionResult Notification()
         {
             var userid = GetUserId();
