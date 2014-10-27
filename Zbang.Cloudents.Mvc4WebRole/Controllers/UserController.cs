@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -32,9 +33,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var model = await GetUserProfile(id);
 
-            if (id != GetUserId())
+            if (id != User.GetUserId())
             {
-                var userProfile = await GetUserProfile(GetUserId());
+                var userProfile = await GetUserProfile(User.GetUserId());
                 if (userProfile.Score > AdminReputation)
                 {
                     ViewBag.Admin = true;
@@ -80,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetUserFriendsQuery(GetUserId());
+                var query = new GetUserFriendsQuery(User.GetUserId());
                 var taskUserData = ZboxReadService.GetUserFriends(query);
                 Task<IEnumerable<UserDto>> taskFriendData = Task.FromResult<IEnumerable<UserDto>>(null);
                 if (userId.HasValue)
@@ -93,7 +94,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 IEnumerable<UserDto> friendFriends = null;
                 if (taskFriendData.Result != null)
                 {
-                    friendFriends = taskFriendData.Result.Where(w => w.Id != GetUserId());
+                    friendFriends = taskFriendData.Result.Where(w => w.Id != User.GetUserId());
                 }
                 return Json(new JsonResponse(true, new
                 {
@@ -115,7 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetUserWithFriendQuery(GetUserId(), userId);
+                var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
                 return Json(new JsonResponse(true, model));
             }
@@ -134,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
 
-                var usermodel = await GetUserProfile(GetUserId());
+                var usermodel = await GetUserProfile(User.GetUserId());
                 if (usermodel.Score < AdminReputation)
                 {
                     return Json(new JsonResponse(false));
@@ -155,7 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userDetail = FormsAuthenticationService.GetUserData();
 
-            var userModel = await GetUserProfile(GetUserId());
+            var userModel = await GetUserProfile(User.GetUserId());
             if (userModel.Score < AdminReputation)
             {
                 return Json(new JsonResponse(false));
@@ -174,7 +175,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetInvitesQuery(GetUserId());
+                var query = new GetInvitesQuery(User.GetUserId());
                 var model = await ZboxReadService.GetUserPersonalInvites(query);
 
 
@@ -190,7 +191,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<ActionResult> Activity(long userId)
         {
-            var query = new GetUserWithFriendQuery(GetUserId(), userId);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
             var model = await ZboxReadService.GetUserWithFriendActivity(query);
             return Json(new JsonResponse(true, model));
         }
@@ -234,7 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public ActionResult Notification()
         {
-            var userid = GetUserId();
+            var userid = User.GetUserId();
             var query = new GetUserDetailsQuery(userid);
             var result = ZboxReadService.GetUserBoxesNotification(query);
             return Json(new JsonResponse(true, result));
@@ -244,7 +245,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         public async Task<ActionResult> Updates()
         {
-            var model = await ZboxReadService.GetUpdates(new QueryBase(GetUserId()));
+            var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetUserId()));
             return Json(new JsonResponse(true, model));
         }
     }

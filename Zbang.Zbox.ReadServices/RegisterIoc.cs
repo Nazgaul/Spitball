@@ -12,6 +12,7 @@ namespace Zbang.Zbox.ReadServices
             ioc.RegisterType<IZboxReadService,  ZboxReadService>(LifeTimeManager.PerHttpRequest);
             //Ioc.RegisterType<IZboxApiReadService, ZboxApiReadService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IZboxReadServiceWorkerRole, ZboxReadServiceWorkerRole>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IZboxReadSecurityReadService, BaseReadService>(LifeTimeManager.PerHttpRequest);
 
         }
     }

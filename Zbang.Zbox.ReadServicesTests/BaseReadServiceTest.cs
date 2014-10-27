@@ -19,12 +19,11 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestInitialize]
         public void Setup()
         {
-            var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_HttpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
-            IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
+            var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
+            IocFactory.Unity.RegisterInstance(localStorageProvider);
 
             //  var blobProvider = Rhino.Mocks.MockRepository.GenerateStub<IBlobProvider>();
-            m_ZboxReadService = new ZboxReadService(m_HttpCacheProvider);
+            m_ZboxReadService = new ZboxReadService();
         }
 
         [TestMethod]

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -129,31 +130,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("_AntiForgeryToken");
         }
 
-
-        //[Ajax, HttpPut]
-        //public async Task<ActionResult> Statistics(Statistics model)
-        //{
-        //    try
-        //    {
-        //        if (model == null)
-        //        {
-        //            model = new Statistics();
-        //        }
-        //        if (model.Items == null)
-        //        {
-        //            model.Items = new StatisticItem[0];
-        //        }
-        //        await m_QueueProvider.Value.InsertMessageToTranactionAsync(new StatisticsData4(model.Items.Select(s =>
-        //              new StatisticsData4.StatisticItemData { Id = s.Uid, Action = (int)s.Action }), GetUserId(false), DateTime.UtcNow));
-
-        //        return Json(new JsonResponse(true));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (model != null) TraceLog.WriteError("On Statistics" + model, ex);
-        //        return Json(new JsonResponse(true));
-        //    }
-        //}
 
 
         [DonutOutputCache(Duration = TimeConsts.Day,
@@ -324,7 +300,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult InsertUser()
         {
             var universityId = long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
-            if (GetUserId() != universityId)
+            if (User.GetUserId() != universityId)
             {
                 return RedirectToAction("index");
             }
@@ -340,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return View(model);
             }
-            if (GetUserId() != universityId)
+            if (User.GetUserId() != universityId)
             {
                 return RedirectToAction("index");
             }

@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Dapper;
 using NHibernate;
-using NHibernate.Transform;
 using System;
 using System.Linq;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -15,13 +13,9 @@ using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
 
 namespace Zbang.Zbox.ReadServices
 {
-    public abstract class BaseReadService : IBaseReadService
+    public class BaseReadService : IBaseReadService, IZboxReadSecurityReadService
     {
-        private readonly IHttpContextCacheWrapper m_ContextCacheWrapper;
-        protected BaseReadService(IHttpContextCacheWrapper contextCacheWrapper)
-        {
-            m_ContextCacheWrapper = contextCacheWrapper;
-        }
+       
         #region login
         public async Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
@@ -36,26 +30,14 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return t;
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByFacebookId");
-            //    dbQuery.SetInt64("FacebookId", query.FacebookId);
-            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-            //    var t = dbQuery.UniqueResult<LogInUserDto>();
-            //    if (t == null)
-            //    {
-            //        throw new UserNotFoundException();
-            //    }
-            //    return t;
-            //}
         }
 
         public async Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-               var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByMembershipId,
-                    new {MembershipUserId = query.MembershipId});
+                var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByMembershipId,
+                     new { MembershipUserId = query.MembershipId });
                 var t = retVal.FirstOrDefault();
                 if (t == null)
                 {
@@ -63,18 +45,6 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return t;
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByMembershipId");
-            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-            //    dbQuery.SetGuid("MembershipUserId", query.MembershipId);
-            //    var t = dbQuery.UniqueResult<LogInUserDto>();
-            //    if (t == null)
-            //    {
-            //        throw new UserNotFoundException();
-            //    }
-            //    return t;
-            //}
         }
 
         public async Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)
@@ -82,7 +52,7 @@ namespace Zbang.Zbox.ReadServices
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByEmail,
-                     new {  query.Email });
+                     new { query.Email });
                 var t = retVal.FirstOrDefault();
                 if (t == null)
                 {
@@ -90,18 +60,6 @@ namespace Zbang.Zbox.ReadServices
                 }
                 return t;
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserByEmail");
-            //    dbQuery.SetResultTransformer(Transformers.AliasToBean<LogInUserDto>());
-            //    dbQuery.SetString("Email", query.Email);
-            //    var t = dbQuery.UniqueResult<LogInUserDto>();
-            //    if (t == null)
-            //    {
-            //        throw new UserNotFoundException();
-            //    }
-            //    return t;
-            //}
         }
         #endregion
 
@@ -113,12 +71,6 @@ namespace Zbang.Zbox.ReadServices
         /// <returns>If the user authorize to view return the type of the user otherwise throw exception that the box is denied</returns>
         protected UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
         {
-            const string key = "AllowedToSee";
-            var cacheElem = m_ContextCacheWrapper.GetObject(key);
-            if (cacheElem != null)
-            {
-                return (UserRelationshipType)cacheElem;
-            }
 
 
             IQuery boxQuery = UnitOfWork.CurrentSession.CreateQuery("select b.PrivacySettings.PrivacySetting from Box b where b.Id = :boxId ");
@@ -136,17 +88,14 @@ namespace Zbang.Zbox.ReadServices
             }
             return GetUserStatusToBox(box.Value.Value, userType.Value);
         }
-        protected UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
+        private UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
         {
-            const string key = "AllowedToSee";
             if (userRelationShipType == UserRelationshipType.Owner)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
             if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
             {
-                m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                 return userRelationShipType;
             }
 
@@ -154,12 +103,38 @@ namespace Zbang.Zbox.ReadServices
             {
                 if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
                 {
-                    m_ContextCacheWrapper.AddObject(key, userRelationShipType);
                     return userRelationShipType;
                 }
             }
 
             throw new BoxAccessDeniedException();
+        }
+
+
+        public UserRelationshipType GetUserStatusToBox(long boxId, long userId)
+        {
+            using (var conn = DapperConnection.OpenConnection())
+            {
+                using (
+                    var grid =
+
+                            conn.QueryMultiple(
+                                string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
+                                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
+                {
+                    try
+                    {
+                        var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                        var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
+                        return GetUserStatusToBox(privacySettings, userType);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        throw new BoxDoesntExistException();
+                    }
+                }
+
+            }
         }
 
         public long GetItemIdByBlobId(string blobId)

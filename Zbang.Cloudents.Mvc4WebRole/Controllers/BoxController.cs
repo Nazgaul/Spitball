@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -46,12 +45,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAjax]
         [Route("box/{boxUid:length(11)}")]
         [Obsolete]
+        [BoxPermission("boxUid")]
         public async Task<ActionResult> Index(string boxUid)
         {
             try
             {
                 var boxid = m_ShortCodesCache.Value.ShortCodeToLong(boxUid);
-                var query = new GetBoxSeoQuery(boxid, GetUserId(false));
+                var query = new GetBoxSeoQuery(boxid, User.GetUserId(false));
                 var model = await ZboxReadService.GetBoxSeo(query);
                 if (model == null)
                 {
@@ -72,9 +72,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NoCache]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> IndexDesktop(string universityName, long boxId, string boxName)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             try
             {
                 var query = new GetBoxSeoQuery(boxId, userId);
@@ -131,11 +132,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
+        [Obsolete]
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public ActionResult Index(string universityName, long boxId, string boxName)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             try
             {
                 var query = new GetBoxQuery(boxId, userId);
@@ -202,13 +204,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
         public async Task<ActionResult> Data(long id)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             try
             {
                 var query = new GetBoxQuery(id, userId);
                 var result = await ZboxReadService.GetBox2(query);
+                result.UserType = ViewBag.UserType;
                 return Json(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)
@@ -226,11 +230,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
         public async Task<ActionResult> Tabs(long id)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             try
             {
                 var query = new GetBoxQuery(id, userId);
@@ -244,12 +251,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+        //TODO: change to box permission with dapper
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
         public JsonResult Items(long id)
         {
-            var userId = GetUserId(false); // not really needs it
+            var userId = User.GetUserId(false);// not really needs it
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
@@ -262,26 +272,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
 
         [HttpGet, Ajax, ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonResult Quizes(long id)
+        [BoxPermission("id")]
+        public async Task<JsonResult> Quizes(long id)
         {
-            var userId = GetUserId(false); // not really needs it
+            var userId = User.GetUserId(false);// not really needs it
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxQuizes(query).ToList();
+                var result = await ZboxReadService.GetBoxQuizes(query);
 
-                var remove = result.Where(w => !w.Publish && w.OwnerId != GetUserId(false));
-                return Json(new JsonResponse(true, result.Except(remove)));
+                var quizDtos = result as QuizDto[] ?? result.ToArray();
+                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
+                return Json(new JsonResponse(true, quizDtos.Except(remove)));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -296,10 +308,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
-        //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
+        [BoxPermission("boxId")]
+        
         public JsonResult Members(long boxId)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
             return Json(new JsonResponse(true, result));
         }
@@ -314,7 +327,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Settings(long boxUid)
         {
 
-            var userId = GetUserId();
+            var userId = User.GetUserId();
 
             var query = new GetBoxQuery(boxUid, userId);
             var result = ZboxReadService.GetBoxSetting(query);
@@ -340,7 +353,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             try
             {
                 var commandBoxName = new ChangeBoxInfoCommand(model.BoxUid, userId, model.Name,
@@ -360,7 +373,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, GetUserId()), ex);
+                TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, User.GetUserId()), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -370,7 +383,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         public JsonResult GetNotification(long boxId)
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
 
             var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
             return Json(new JsonResponse(true, result.ToString("g")));
@@ -381,7 +394,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         public JsonResult ChangeNotification(long boxId, NotificationSettings notification)
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new ChangeNotificationSettingsCommand(boxUid, userId, notification);
             ZboxWriteService.ChangeNotificationSettings(command);
             return Json(new JsonResponse(true));
@@ -421,27 +434,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult Delete2(long id)
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new UnfollowBoxCommand(id, userId);
             ZboxWriteService.UnfollowBox(command);
             return Json(new JsonResponse(true));
         }
 
-        //[HttpPost]
-        //[Ajax]
-        //[ZboxAuthorize]
-        //[Obsolete]
-        //public ActionResult Unfollow(long boxUid)
-        //{
-        //    return DeleteUserFomBox(boxUid, GetUserId());
-        //}
 
         [NonAction]
         private ActionResult DeleteUserFomBox(long boxId, long userToDeleteId)
         {
             try
             {
-                var userId = GetUserId();
+                var userId = User.GetUserId();
                 var command = new DeleteUserFromBoxCommand(userId, userToDeleteId, boxId);
                 ZboxWriteService.DeleteUserFromBox(command);
 
@@ -450,7 +455,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", GetUserId(), boxId), ex);
+                TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", User.GetUserId(), boxId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -486,7 +491,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userId = GetUserId();
+                var userId = User.GetUserId();
                 var guid = Guid.NewGuid();
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
                 ZboxWriteService.CreateBoxItemTab(command);
@@ -508,7 +513,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             model.ItemId = model.ItemId ?? new long[0];
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
             ZboxWriteService.AssignBoxItemToTab(command);
             return Json(new JsonResponse(true));
@@ -521,7 +526,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
             ZboxWriteService.RenameBoxItemTab(command);
             return Json(new JsonResponse(true));
@@ -533,7 +538,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
             return Json(new JsonResponse(true));
@@ -560,7 +565,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         public JsonResult DeleteUpdates(long boxId)
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new DeleteUpdatesCommand(userId, boxId);
             ZboxWriteService.DeleteUpdates(command);
             return Json(new JsonResponse(true));

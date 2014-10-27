@@ -145,7 +145,7 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
 
         function removeItem(response) {
             if (!(response.Success || response.success)) {
-                alert('error deleting ' + item.type.toLowerCase()); //translate
+                alert('error deleting this item'); //translate
                 return;
             }
             var index = $scope.items.indexOf(item);

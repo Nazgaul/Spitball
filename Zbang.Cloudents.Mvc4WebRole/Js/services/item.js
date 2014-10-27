@@ -2,7 +2,7 @@
     ['ajaxService',
     function (ajaxService) {
         function buildPath(path) {
-            return '/Item/' + path + '/';
+            return '/item/' + path + '/';
         }
 
         return {

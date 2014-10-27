@@ -26,11 +26,10 @@ namespace Zbang.Zbox.ReadServicesTests
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var httpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
 
             IocFactory.Unity.RegisterInstance(localStorageProvider);
 
-            m_ZboxReadService = new ZboxReadService(httpCacheProvider);
+            m_ZboxReadService = new ZboxReadService();
         }
 
 
@@ -62,19 +61,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public void GetBoxMeta_Query_ReturnResult()
-        {
-            var query = new GetBoxQuery(4, 3);
-            try
-            {
-                var x = m_ZboxReadService.GetBoxMeta(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+      
 
 
         [TestMethod]
@@ -211,12 +198,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetBoxQuizes_Query_ReturnResult()
+        public async Task GetBoxQuizes_Query_ReturnResult()
         {
             var query = new GetBoxItemsPagedQuery(1, 1);
             try
             {
-                var x = m_ZboxReadService.GetBoxQuizes(query);
+                var x = await m_ZboxReadService.GetBoxQuizes(query);
             }
             catch (Exception ex)
             {
@@ -357,12 +344,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetBoxSeo_Query_ReturnResult()
+        public async Task GetBoxSeo_Query_ReturnResult()
         {
             try
             {
                 var query = new GetBoxSeoQuery(4, 3);
-                var x = m_ZboxReadService.GetBoxSeo(query).Result;
+                var x = await m_ZboxReadService.GetBoxSeo(query);
             }
             catch (Exception ex)
             {

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto;
-using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -64,7 +63,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPaged2(query);
         }
-        public IEnumerable<QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
             return m_ReadService.GetBoxQuizes(query);
         }
@@ -166,10 +165,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetInvite(query);
         }
 
-        public BoxMetaDto GetBoxMeta(GetBoxQuery query)
-        {
-            return m_ReadService.GetBoxMeta(query);
-        }
+      
 
         public Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
@@ -373,5 +369,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxSeo(query);
         }
+
+
     }
 }

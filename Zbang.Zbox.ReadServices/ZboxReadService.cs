@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -34,11 +33,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService
     {
-        public ZboxReadService(IHttpContextCacheWrapper contextCacheWrapper)
-            : base(contextCacheWrapper)
-        {
-        }
-        // 
+
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
@@ -128,10 +123,10 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-          
+
         }
 
-        
+
 
 
         /// <summary>
@@ -162,26 +157,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        /// <summary>
-        /// Get box meta data for invite page
-        /// </summary>
-        /// <param name="query"></param>
-        public Box.BoxMetaDto GetBoxMeta(GetBoxQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery boxQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxMetaForInvite");
-                boxQuery.SetInt64("BoxId", query.BoxId);
-                boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxMetaDto>());
-
-                var fBox = boxQuery.FutureValue<Box.BoxMetaDto>();
-                var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-
-                var retVal = fBox.Value;
-                retVal.RelationshipType = type;
-                return retVal;
-            }
-        }
+      
 
 
 
@@ -231,28 +207,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (
-                    var grid =
-                        await
-                            conn.QueryMultipleAsync(string.Format("{0} {1}",
-                            Sql.Box.BoxData,
-                            Sql.Security.GetUserToBoxRelationship),
-                            new { query.BoxId, query.UserId })
-                    )
+                var data = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId, query.UserId });
+                var retVal = data.FirstOrDefault();
+                if (retVal == null)
                 {
-                    var retVal = grid.Read<Box.BoxDto2>().FirstOrDefault();
-                    if (retVal == null)
-                    {
-                        throw new BoxDoesntExistException();
-                    }
-                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    retVal.UserType = GetUserStatusToBox(retVal.PrivacySetting, userRelationShip);
-                    return retVal;
+                    throw new BoxDoesntExistException();
                 }
+                return retVal;
             }
         }
 
-        
+
 
         public async Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
         {
@@ -294,26 +259,19 @@ namespace Zbang.Zbox.ReadServices
                 var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
                 queryBoxItem.SetInt64("BoxId", query.BoxId);
                 queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
-
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 return fitems.ToList();
             }
 
         }
 
-        public IEnumerable<Item.QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public async Task< IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
-                queryQuiz.SetInt64("BoxId", query.BoxId)
-                    .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
-                var fQuiz = queryQuiz.Future<Item.QuizDto>();
-
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                return fQuiz.ToList();
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new {BoxId = query.BoxId});
             }
+           
         }
 
 
@@ -332,14 +290,12 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileWithDetailDto), typeof(Item.LinkWithDetailDto)));
 
                 var item = dbQuery.FutureValue<Item.ItemWithDetailDto>();
-                var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 if (item.Value == null)
                 {
                     throw new ItemNotFoundException();
                 }
                 var retVal = item.Value;
-                retVal.UserType = type;
                 return retVal;
             }
         }
@@ -351,11 +307,9 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5} {6}",
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
                             Sql.Item.ItemDetail,
                             Sql.Item.Navigation,
-                            Sql.Security.GetBoxPrivacySettings,
-                            Sql.Security.GetUserToBoxRelationship,
                             Sql.Item.ItemComments,
                             Sql.Item.ItemCommentReply,
                             Sql.Item.UserItemRate),
@@ -367,9 +321,6 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    retVal.UserType = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    GetUserStatusToBox(privacySettings, retVal.UserType);
                     retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
 
 
@@ -395,23 +346,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4} {5}",
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
                     Sql.Box.GetBoxQuestion,
                     Sql.Box.GetBoxAnswers,
                     Sql.Box.GetBoxQnAItem,
-                    Sql.Security.GetBoxPrivacySettings,
-                    Sql.Security.GetUserToBoxRelationship,
                     Sql.Box.RecommendedCourses),
-                    new { query.BoxId, query.UserId}))
+                    new { query.BoxId, query.UserId }))
                 {
                     var retVal = new Qna.FeedDto();
                     var questions = grid.Read<Qna.QuestionDto>().ToList();
                     var answers = grid.Read<Qna.AnswerDto>().ToList();
                     var items = grid.Read<Qna.ItemDto>().ToList();
-
-                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    GetUserStatusToBox(privacySettings, userRelationShip);
 
                     foreach (var answer in answers)
                     {
@@ -429,48 +374,6 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    var questionDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuestion");
-            //    questionDbQuery.SetInt64("boxId", query.BoxId);
-            //    questionDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.QuestionDto>());
-            //    var fQuestion = questionDbQuery.Future<Qna.QuestionDto>();
-
-            //    var answerDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxAnswers");
-            //    answerDbQuery.SetInt64("boxId", query.BoxId);
-            //    answerDbQuery.SetInt64("userId", query.UserId);
-            //    answerDbQuery.SetResultTransformer(Transformers.AliasToBean<Qna.AnswerDto>());
-            //    var fAnswer = answerDbQuery.Future<Qna.AnswerDto>();
-
-            //    var itemsDbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQnAItem");
-            //    itemsDbQuery.SetInt64("boxId", query.BoxId);
-            //    itemsDbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Qna.FileDto), typeof(Qna.LinkDto)));
-
-
-
-            //    var fItems = itemsDbQuery.Future<Qna.ItemDto>();
-
-
-            //    CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-            //    var questions = fQuestion.ToList();
-            //    var answers = fAnswer.ToList();
-            //    IEnumerable<Qna.ItemDto> items = fItems.ToList();
-
-            //    foreach (var answer in answers)
-            //    {
-            //        answer.Files.AddRange(items.Where(w => w.AnserId.HasValue && w.AnserId.Value == answer.Id));
-
-            //    }
-            //    foreach (var question in questions)
-            //    {
-            //        question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
-            //        question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
-            //    }
-
-
-            //    return questions;
-            //}
-
         }
 
 
@@ -730,6 +633,8 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        /// 
+        //TODO:Dapper 
         public IEnumerable<User.UserMemberDto> GetBoxMembers(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
@@ -738,7 +643,6 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(Transformers.AliasToBean<User.UserMemberDto>());
                 dbQuery.SetInt64("BoxId", query.BoxId);
                 var fResult = dbQuery.Future<User.UserMemberDto>();
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 return fResult.ToList();
             }
         }
@@ -899,21 +803,14 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
-                    Sql.Seo.BoxSeo,
-                    Sql.Security.GetBoxPrivacySettings,
-                    Sql.Security.GetUserToBoxRelationship), new { query.BoxId, query.UserId }))
+                var d = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
+
+                var retVal = d.FirstOrDefault();
+                if (retVal == null)
                 {
-                    var retVal = await grid.ReadAsync<Box.BoxSeoDto>();
-                    if (retVal == null)
-                    {
-                        throw new BoxDoesntExistException();
-                    }
-                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    GetUserStatusToBox(privacySettings, userRelationShip);
-                    return retVal.FirstOrDefault();
+                    throw new BoxDoesntExistException();
                 }
+                return retVal;
             }
         }
 
@@ -922,12 +819,11 @@ namespace Zbang.Zbox.ReadServices
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
+                var sql = string.Format("{0} {1} {2} {3} {4} {5}",
                     Sql.Quiz.QuizQuery,
                     Sql.Quiz.Question,
                     Sql.Quiz.Answer,
-                    Sql.Security.GetBoxPrivacySettings,
-                    Sql.Security.GetUserToBoxRelationship,
+
                     Sql.Quiz.UserQuiz,
                     Sql.Quiz.UserAnswer,
                     Sql.Quiz.TopUsers
@@ -942,11 +838,6 @@ namespace Zbang.Zbox.ReadServices
                     {
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
-
-
-                    var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                    var userRelationShip = grid.Read<UserRelationshipType>().FirstOrDefault();
-                    GetUserStatusToBox(privacySettings, userRelationShip);
                     retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
                     var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
                     if (retVal.Sheet != null)

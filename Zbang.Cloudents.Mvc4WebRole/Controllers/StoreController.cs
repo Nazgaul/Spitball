@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -41,25 +43,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Index(int? universityId, int? producerId)
         {
             ViewBag.viewport = false;
-            if (User.Identity.IsAuthenticated && !universityId.HasValue)
+            if (!User.Identity.IsAuthenticated || universityId.HasValue) return View("Empty");
+            var userDetail = FormsAuthenticationService.GetUserData();
+            if (!userDetail.UniversityId.HasValue)
             {
-
-                var userDetail = FormsAuthenticationService.GetUserData();
-                if (!userDetail.UniversityId.HasValue)
+                return View("Empty");
+            }
+            var universityWrapper = userDetail.UniversityId.Value;
+            var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
+            if (storeUniversityId.HasValue && Request.Url != null)
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                var paramValues = HttpUtility.ParseQueryString(uriBuilder.Query);
+                if (paramValues["universityId"] == null)
                 {
-                    return View("Empty");
-                }
-                var universityWrapper = userDetail.UniversityId.Value;
-                var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
-                if (storeUniversityId.HasValue)
-                {
+                    paramValues.Add("universityId", storeUniversityId.Value.ToString(CultureInfo.InvariantCulture));
+                    uriBuilder.Query = paramValues.ToString();
 
-                    return RedirectToAction("Index", new
-                    {
-                        universityId = storeUniversityId,
-                        producerId = producerId
-                    });
+                    return Redirect(uriBuilder.ToString());
                 }
+                //return RedirectToAction("Index", new
+                //{
+                //    universityId = storeUniversityId,
+                //    producerId = producerId
+                //});
             }
             return View("Empty");
         }

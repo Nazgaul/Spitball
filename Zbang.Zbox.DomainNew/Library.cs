@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Domain
         }
 
         public void UpdateNumberOfBoxes()
-        {
+         {
             var x = this;
             while (x != null)
             {

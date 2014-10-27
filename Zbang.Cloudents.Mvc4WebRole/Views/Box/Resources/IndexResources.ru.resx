@@ -312,4 +312,7 @@
   <data name="OnYourMind" xml:space="preserve">
     <value>О чем вы думаете?</value>
   </data>
+  <data name="BestInClass" xml:space="preserve">
+    <value>Лучший в нашем классе</value>
+  </data>
 </root>

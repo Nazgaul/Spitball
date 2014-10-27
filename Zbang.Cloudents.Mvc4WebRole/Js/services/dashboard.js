@@ -2,9 +2,8 @@
 mDashboard.factory('sDashboard',
     ['ajaxService',
      function (ajaxService) {
-         var Item = '/Dashboard/';
          function buildPath(path) {
-             return '/Dashboard/' + path + '/';
+             return '/dashboard/' + path + '/';
          }
 
          return {

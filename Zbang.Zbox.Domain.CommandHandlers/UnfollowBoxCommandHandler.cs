@@ -14,17 +14,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        //private readonly IDepartmentRepository m_DepartmentRepository;
+        private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
 
         public UnfollowBoxCommandHandler(IRepository<Box> boxRepository,
-            IUserRepository userRepository, 
-            //IDepartmentRepository departmentRepository, 
+            IUserRepository userRepository,
+            IRepository<Library> departmentRepository, 
             IUniversityRepository universityRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
-           // m_DepartmentRepository = departmentRepository;
+            m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
         }
 
@@ -58,12 +58,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void DeleteBox(Box box)
         {
+            box.UserBoxRelationship.Clear();
+            box.IsDeleted = true;
+            box.UserTime.UpdateUserTime(box.Owner.Email);
             var academicBox = box as AcademicBox;
             if (academicBox != null)
             {
                 var university = academicBox.University;
+                var department = academicBox.Department;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
+                department.UpdateNumberOfBoxes();
                 university.UpdateNumberOfBoxes(--noOfBoxes);
+                while (department != null)
+                {
+                    m_DepartmentRepository.Save(department);
+                    department = department.Parent;
+                }
                 m_UniversityRepository.Save(university);
             }
             var users = box.UserBoxRelationship.Select(s => s.User);
@@ -72,9 +82,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id).Sum(s => s.Size);
                 m_UserRepository.Save(userInBox);
             }
-            box.UserBoxRelationship.Clear();
-            box.IsDeleted = true;
-            box.UserTime.UpdateUserTime(box.Owner.Email);
+           
             m_BoxRepository.Save(box);
         }
         private void UnFollowBox(Box box, long userId)

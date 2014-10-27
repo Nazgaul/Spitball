@@ -35,7 +35,7 @@ namespace Zbang.Zbox.ReadServices
 
         //PagedDto<ItemDto> GetBoxItemsPaged(GetBoxItemsPagedQuery query);
         IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
-        IEnumerable<QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query);
+        Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query);
         
         ItemWithDetailDto GetItem(GetItemQuery query);
 
@@ -73,7 +73,6 @@ namespace Zbang.Zbox.ReadServices
         Task<FeedDto> GetQuestions(GetBoxQuestionsQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
 
-        BoxMetaDto GetBoxMeta(GetBoxQuery query);
 
 
         //user page

@@ -20,7 +20,7 @@
     ORDER BY  
           BoxName asc;";
 
-       public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, 
+       public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
      l.Url as Url
      from zbox.Library l
     where l.Id = @UniversityId
@@ -34,7 +34,7 @@
 	 where l.LibraryId = @LibraryId";
 
        public const string GetLibraryNodeWithParent = @"
- select l.libraryid as Id, l.Name as Name, 
+ select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
      l.Url as Url
      from zbox.Library l
     where l.Id = @UniversityId

@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
-                var userId = GetUserId();
+                var userId = User.GetUserId();
 
                 var inviteCommand = new InviteToSystemCommand(userId, model.Recepients);
                 ZboxWriteService.InviteSystem(inviteCommand);
@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", User.GetUserId(), model), ex);
                 return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
-                var userId = GetUserId();
+                var userId = User.GetUserId();
 
                 var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.FirstName, model.MiddleName, model.LastName, model.Sex);
                 ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", User.GetUserId(), model), ex);
                 return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
@@ -103,7 +103,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                var userId = GetUserId();
+                var userId = User.GetUserId();
                 var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
                 ZboxWriteService.ShareBox(shareCommand);
                 return Json(new JsonResponse(true));
@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 ModelState.AddModelError(string.Empty, @"You do not have permission to share a box");
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             catch (ArgumentException ex)
@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
 
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, @"Unspecified error. try again later");
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var command = new ShareBoxFacebookCommand(userId, model.Id, model.UserName, model.BoxId, model.FirstName, model.MiddleName, model.LastName, model.Sex);
             ZboxWriteService.ShareBoxFacebook(command);
             return Json(new JsonResponse(true));
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
-                var userId = GetUserId();
+                var userId = User.GetUserId();
                 var command = new SendMessageCommand(userId, model.Recepients,
                         model.Note);
                 ZboxWriteService.SendMessage(command);
@@ -159,7 +159,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", User.GetUserId(), model), ex);
                 return Json(new JsonResponse(false, "Unspecified error. try again later"));
             }
         }
@@ -184,7 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult SubscribeToBox(long boxId)
         {
-            var userid = GetUserId();
+            var userid = User.GetUserId();
             try
             {
 
@@ -206,7 +206,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userid = GetUserId();
+                var userid = User.GetUserId();
                 var command = new DeleteUserFromBoxCommand(userid, userid, boxUid);
                 ZboxWriteService.DeleteUserFromBox(command);
                 //RemoveInvitesFromSession();
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeclineInvatation user: {0} BoxUid: {1}", GetUserId(), boxUid), ex);
+                TraceLog.WriteError(string.Format("DeclineInvatation user: {0} BoxUid: {1}", User.GetUserId(), boxUid), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -229,7 +229,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(true, new string[0]));
             }
-            var userid = GetUserId();
+            var userid = User.GetUserId();
             try
             {
                 var query = new GetInvitesQuery(userid, page);
@@ -300,7 +300,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false));
             }
-            var command = new AddReputationCommand(GetUserId());
+            var command = new AddReputationCommand(User.GetUserId());
             ZboxWriteService.AddReputation(command);
             return Json(new JsonResponse(true));
         }
@@ -308,7 +308,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public ActionResult NotificationAsRead(Guid messageId)
         {
-            var command = new MarkMessagesAsReadCommand(GetUserId(), messageId);
+            var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
             ZboxWriteService.MarkMessageAsRead(command);
             return Json(new JsonResponse(true));
         }
@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public ActionResult NotificationOld()
         {
-            var command = new MarkMessagesAsOldCommand(GetUserId());
+            var command = new MarkMessagesAsOldCommand(User.GetUserId());
             ZboxWriteService.MarkMessagesAsOld(command);
             return Json(new JsonResponse(true));
         }

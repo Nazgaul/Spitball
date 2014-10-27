@@ -1,112 +1,70 @@
 ﻿//define('box',['app'], function (app) {
 mBox.factory('sBox',
-    ['$http',
-     '$q',
+    [
      'ajaxService',
 
-    function ($http, $q, ajaxService) {
-        var Box = '/Box/';
-        function ajaxRequest(data, type, link) {
-            var dfd = $q.defer();
-            if (type === $http.get) {
-                data = { params: data };
-            }
-            type(Box + link, data).success(function (response) {
-                dfd.resolve(response);
-            }).error(function (response) {
-                dfd.reject(response);
-            });
-            return dfd.promise;
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/box/' + path + '/';
         }
         return {
             createPrivate: function (data) {
-                var dfd = $q.defer();
-                $http.post('/Dashboard/Create/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post('/Dashboard/Create/', data);
             },
             createAcademic: function (data) {
-                var dfd = $q.defer();
-                $http.post('/Library/CreateBox/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
-            },
-            update: function (data) {
-                return ajaxRequest(data, $http.post, 'UpdateInfo/');
-            },
-            items: function (data) {
-                return ajaxRequest(data, $http.get, 'Items/');
-            },
-            quizes: function (data) {
-                return ajaxRequest(data, $http.get, 'Quizes/');
-            },
-            info: function (data) {
-                return ajaxRequest(data, $http.get, 'Data/');
-            },
-            createTab: function (data) {
-                return ajaxRequest(data, $http.post, 'CreateTab/');
-            },
-            deleteTab: function (data) {
-                return ajaxRequest(data, $http.post, 'DeleteTab/');
-            },
-            renameTab: function (data) {
-                return ajaxRequest(data, $http.post, 'RenameTab/');
-            },
-            addItemsToTab: function (data) {
-                return ajaxRequest(data, $http.post, 'AddItemToTab/');
-            },
-            members: function (data) {
-                return ajaxRequest(data, $http.get, 'Members/');
+                return ajaxService.post('/Library/CreateBox/', data);
             },
             updateInfo: function (data) {
-                return ajaxRequest(data, $http.post, 'UpdateInfo/');
-
+                return ajaxService.post(buildPath('UpdateInfo'), data);
             },
+            items: function (data) {
+                return ajaxService.get(buildPath('Items'), data);
+            },
+            quizes: function (data) {
+                return ajaxService.get(buildPath('Quizes'), data);
+            },
+            info: function (data) {
+                return ajaxService.get(buildPath('Data'), data);
+            },
+            createTab: function (data) {
+                return ajaxService.post(buildPath('CreateTab'), data);
+            },
+            deleteTab: function (data) {
+                return ajaxService.post(buildPath('DeleteTab'), data);
+            },
+            renameTab: function (data) {
+                return ajaxService.post(buildPath('RenameTab'), data);
+            },
+            addItemsToTab: function (data) {
+                return ajaxService.post(buildPath('AddItemToTab'), data);
+            },
+            members: function (data) {
+                return ajaxService.get(buildPath('Members'), data);
+            },
+           
             invite: function (data) {
-                var dfd = $q.defer();
-                $http.post('/Share/InviteBox/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post('/Share/InviteBox/', data);
             },
             removeUser: function (data) {
-                return ajaxRequest(data, $http.post, 'RemoveUser/');
+                return ajaxService.post(buildPath('RemoveUser'), data);
             },
             remove: function (data) {
-                return ajaxRequest(data, $http.post, 'Delete2/');
+                return ajaxService.post(buildPath('Delete2'), data);
             },
             notification: function (data) {
-                return ajaxRequest(data, $http.get, 'GetNotification/');
+                return ajaxService.get(buildPath('GetNotification'), data);
             },
             changeNotification: function (data) {
                 return ajaxService.post(Box + 'ChangeNotification/', data);
             },
             follow: function (data) {
-                var dfd = $q.defer();
-                $http.post('/Share/SubscribeToBox/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post('/Share/SubscribeToBox/', data);
             },
             tabs: function (data) {
-                return ajaxRequest(data, $http.get, 'Tabs/');
+                return ajaxService.get(buildPath('Tabs'), data);
             },
             deleteUpdates: function (data) {
-                return ajaxService.post('/Box/DeleteUpdates/', data, true);
+                return ajaxService.post(buildPath('DeleteUpdates'), data,true);
             }
         };
     }

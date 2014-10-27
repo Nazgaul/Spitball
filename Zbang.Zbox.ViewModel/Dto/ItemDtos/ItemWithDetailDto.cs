@@ -38,7 +38,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int NumberOfViews { get; private set; }
         public abstract string Type { get; }
 
-        public UserRelationshipType UserType { get; set; }
 
         public string Blob { get; set; }
         public float Rate { get; private set; }
@@ -56,14 +55,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string Description { get; set; }
 
-        public bool Otakim
-        {
-            get
-            {
-
-                return !string.IsNullOrEmpty(Country) && Country.ToUpper() == "IL";
-            }
-        }
+       
 
     }
 }

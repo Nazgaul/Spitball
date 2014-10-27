@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
@@ -38,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var questionId = m_IdGenerator.Value.GetId();
-            var command = new AddCommentCommand(GetUserId(), model.BoxId, model.Content, questionId, model.Files);
+            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
             ZboxWriteService.AddQuestion(command);
             return Json(new JsonResponse(true, questionId));
         }
@@ -58,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var answerId = m_IdGenerator.Value.GetId();
-                var command = new AddAnswerToQuestionCommand(GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
+                var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
                 await ZboxWriteService.AddAnswer(command);
                 return Json(new JsonResponse(true, answerId));
             }
@@ -74,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpPost]
         public JsonResult RemoveFile(long itemId)
         {
-            var command = new DeleteFileFromQnACommand(itemId, GetUserId());
+            var command = new DeleteFileFromQnACommand(itemId, User.GetUserId());
             ZboxWriteService.DeleteFileFromQnA(command);
             return Json(new JsonResponse(true));
         }
@@ -85,13 +86,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new DeleteCommentCommand(questionId, GetUserId());
+                var command = new DeleteCommentCommand(questionId, User.GetUserId());
                 ZboxWriteService.DeleteComment(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), GetUserId()), ex);
+                TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), User.GetUserId()), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -101,36 +102,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new DeleteReplyCommand(answerId, GetUserId());
+                var command = new DeleteReplyCommand(answerId, User.GetUserId());
                 ZboxWriteService.DeleteAnswer(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, GetUserId()), ex);
+                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
                 return Json(new JsonResponse(false));
             }
         }
 
 
-        [Ajax, HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
+        [Ajax, HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("boxId")]
         public async Task<JsonResult> Index(long boxId)
         {
             try
             {
                 var retVal =
                   await  ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
-                        GetUserId(false)));
-
-
-                //retVal.ToList().ForEach(f =>
-                //{
-                //    f.Files.ForEach(fi => fi.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi.Id}));
-                //    f.Answers.ForEach(
-                //        fa =>
-                //            fa.Files.ForEach(
-                //                fi1 => fi1.DownloadUrl = Url.RouteUrl("ItemDownload2", new {boxId, itemId = fi1.Id})));
-                //});
+                        User.GetUserId(false)));
+              
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -41,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> File(long boxId, string fileName,
             long fileSize, Guid? tabId)
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             try
             {
                 var cookie = new CookieHelper(HttpContext);
@@ -196,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userid = GetUserId();
+                var userid = User.GetUserId();
 
                 var helper = new UrlTitleBringer();
                 var title = model.FileUrl;
@@ -235,7 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", GetUserId(), model.BoxId, model.FileUrl), ex);
+                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.FileUrl), ex);
                 return Json(new JsonResponse(false, BoxControllerResources.ProblemUrl));
             }
         }
@@ -244,7 +245,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId)
         {
 
-            var userId = GetUserId();
+            var userId = User.GetUserId();
 
 
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(name).ToLower();

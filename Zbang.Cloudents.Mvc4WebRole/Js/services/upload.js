@@ -1,30 +1,17 @@
 ﻿    mBox.factory('sUpload',
-        ['$http',
-         '$q',
+        ['ajaxService',
 
-        function ($http, $q) {
-            var upload = '/Upload/';
+        function (ajaxService) {
+            function buildPath(path) {
+                return '/Upload/' + path + '/';
+            }
 
             return {
                 'link': function (data) {
-                    var dfd = $q.defer();
-                    $http.post(upload + 'Link/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('Link'), data);
                 },
                 'dropbox': function (data) {
-                    var dfd = $q.defer();
-                    $http.post(upload + 'Dropbox/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('Dropbox'), data);
                 }
             };
         }
