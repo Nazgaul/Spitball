@@ -15,6 +15,7 @@
   width: 336px;
   display: inline-block;
   border-radius: 5px;
+  border-color: #282828;
 }
 .boxFeed ~ .recommendedWpr .recommended .rFloat {
   width: 95px;
@@ -400,7 +401,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 20px 20px 3px 20px;
+  padding: 20px 20px 0 20px;
   position: relative;
   left: 30px;
   overflow: hidden;
@@ -450,7 +451,12 @@
   left: 0;
   right: 0;
   margin: auto;
-  top: 98px;
+  top: 102px;
+}
+.bestUserList li:nth-child(-n + 3) .rep {
+  display: block;
+  width: auto;
+  margin-top: 2px;
 }
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
@@ -459,11 +465,17 @@
   font-size: 12px;
   font-weight: bold;
 }
+.bestUserList .elps {
+  display: inline-block;
+  max-width: 160px;
+  vertical-align: middle;
+}
 .bestUserList img {
   border-radius: 100%;
   border: 1px solid #c2c2c2;
   display: inline-block;
   vertical-align: middle;
+  margin: 0 5px;
 }
 .bestUserList svg {
   position: absolute;
@@ -472,7 +484,7 @@
 .bestUserList .top3Img {
   border: 1px solid #0f9d58;
   display: block;
-  margin: 10px 0 20px;
+  margin: 10px 0 23px;
 }
 .firstUser .top3Img {
   left: -40px;
@@ -480,7 +492,7 @@
 }
 .firstUser svg {
   left: -20px;
-  top: 115px;
+  top: 106px;
 }
 .secondUser .top3Img {
   left: -40px;
@@ -489,7 +501,7 @@
 }
 .secondUser svg {
   left: -10px;
-  top: 112px;
+  top: 102px;
 }
 .thirdUser .top3Img {
   left: -32px;
@@ -498,7 +510,7 @@
 }
 .thirdUser svg {
   left: -12px;
-  top: 115px;
+  top: 101px;
 }
 .svg-crown {
   width: 36px;
@@ -515,5 +527,8 @@
 .rep {
   font-weight: bold;
   color: #0f9d58;
+  display: inline-block;
+  width: 64px;
+  text-align: center;
 }
 /*#endregion */
