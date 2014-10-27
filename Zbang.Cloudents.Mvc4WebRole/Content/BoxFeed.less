@@ -15,6 +15,7 @@
         width: 336px;
         display: inline-block; //override
         border-radius: 5px;
+        border-color: #282828;
         .recommended {
             .rFloat {
                 width: 95px; //diff rtl
@@ -410,7 +411,7 @@
 .leaderBoard {
     width: 336px;
     .boxSizing;
-    padding: 20px 20px 3px 20px;
+    padding: 20px 20px 0 20px;
     position: relative;
     left: 30px; //rtl
     overflow: hidden;
@@ -456,7 +457,12 @@
                 position: absolute;
                 left: 0;right: 0;
                 margin: auto;
-                top: 98px;
+                top: 102px;
+            }
+            .rep {
+                display: block;
+                width: auto;
+                margin-top: 2px;
             }
         }
         &:before {
@@ -467,11 +473,17 @@
             font-weight: bold;
         }
     }
+    .elps {
+        display: inline-block;
+        max-width: 160px;
+        vertical-align: middle;
+    }
     img {
         border-radius: 100%;
         border: 1px solid @borderColor;
         display: inline-block;
         vertical-align: middle;
+        margin: 0 5px;
     }
     svg {
         position: absolute;
@@ -480,7 +492,7 @@
     .top3Img {
         border: 1px solid @color;
         display: block;
-        margin: 10px 0 20px;
+        margin: 10px 0 23px;
     }
 
 }
@@ -491,7 +503,7 @@
     }
     svg {
         left: -20px; //rtl
-        top: 115px;
+        top: 106px;
     }
 }
 .secondUser {
@@ -502,7 +514,7 @@
     }
     svg {
         left: -10px; //rtl
-        top: 112px;
+        top: 102px;
     }
 }
 
@@ -514,7 +526,7 @@
     }
     svg {
         left: -12px; //rtl
-        top: 115px;
+        top: 101px;
     }
 }
 .svg-crown {
@@ -532,5 +544,8 @@
 .rep {
     font-weight: bold;
     color: @color;
+    display: inline-block;
+    width: 64px; //width of the third best user
+    text-align: center;
 }
 /*#endregion */
