@@ -30,7 +30,7 @@
                 return ajaxService.get(buildPath('AdminBoxes'), data);
             },
             notification: function () {
-                return ajaxService.get(User + 'Notification/');
+                return ajaxService.get(buildPath('Notification'));
             }
     };
 }

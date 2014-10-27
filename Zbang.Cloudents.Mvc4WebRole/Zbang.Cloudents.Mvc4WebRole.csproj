@@ -916,7 +916,6 @@
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\web_upload.png" />
     <Content Include="Images\welcome-sprite.png" />
-    <Content Include="Js\AccountSettings.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\Bindings.js" />
