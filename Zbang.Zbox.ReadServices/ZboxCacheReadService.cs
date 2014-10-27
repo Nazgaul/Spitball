@@ -165,10 +165,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetInvite(query);
         }
 
-        public BoxMetaDto GetBoxMeta(GetBoxQuery query)
-        {
-            return m_ReadService.GetBoxMeta(query);
-        }
+      
 
         public Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {

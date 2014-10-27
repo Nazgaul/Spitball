@@ -308,6 +308,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
+        [BoxPermission("boxId")]
+        
         public JsonResult Members(long boxId)
         {
             var userId = User.GetUserId(false);

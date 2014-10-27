@@ -61,19 +61,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public void GetBoxMeta_Query_ReturnResult()
-        {
-            var query = new GetBoxQuery(4, 3);
-            try
-            {
-                var x = m_ZboxReadService.GetBoxMeta(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+      
 
 
         [TestMethod]

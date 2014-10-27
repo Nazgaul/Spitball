@@ -73,7 +73,6 @@ namespace Zbang.Zbox.ReadServices
         Task<FeedDto> GetQuestions(GetBoxQuestionsQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
 
-        BoxMetaDto GetBoxMeta(GetBoxQuery query);
 
 
         //user page

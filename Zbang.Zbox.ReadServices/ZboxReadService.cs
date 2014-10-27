@@ -157,26 +157,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        /// <summary>
-        /// Get box meta data for invite page
-        /// </summary>
-        /// <param name="query"></param>
-        public Box.BoxMetaDto GetBoxMeta(GetBoxQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery boxQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxMetaForInvite");
-                boxQuery.SetInt64("BoxId", query.BoxId);
-                boxQuery.SetResultTransformer(Transformers.AliasToBean<Box.BoxMetaDto>());
-
-                var fBox = boxQuery.FutureValue<Box.BoxMetaDto>();
-                var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-
-                var retVal = fBox.Value;
-                retVal.RelationshipType = type;
-                return retVal;
-            }
-        }
+      
 
 
 
@@ -652,6 +633,8 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        /// 
+        //TODO:Dapper 
         public IEnumerable<User.UserMemberDto> GetBoxMembers(GetBoxQuery query)
         {
             using (UnitOfWork.Start())
@@ -660,7 +643,6 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(Transformers.AliasToBean<User.UserMemberDto>());
                 dbQuery.SetInt64("BoxId", query.BoxId);
                 var fResult = dbQuery.Future<User.UserMemberDto>();
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 return fResult.ToList();
             }
         }
