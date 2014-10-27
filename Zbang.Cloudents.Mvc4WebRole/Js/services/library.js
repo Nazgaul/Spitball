@@ -1,62 +1,36 @@
 ﻿mLibrary.factory('sLibrary',
-    ['$http',
-     '$q',
-
-    function ($http, $q) {
-        var Lib = '/Library/';
-        function ajaxRequest(data, type, link) {
-            var dfd = $q.defer();
-            if (type === $http.get) {
-                data = { params: data };
-            }
-            type(Lib + link, data).success(function (response) {
-                dfd.resolve(response);
-            }).error(function (response) {
-                dfd.reject(response);
-            });
-            return dfd.promise;
+    ['ajaxService',
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/library/' + path + '/';
         }
         return {
-
             'items': function (data) {
-                return ajaxRequest(data, $http.get, 'Nodes/');
+                return ajaxService.get(buildPath('Nodes'), data);
             },
             departments: function (data) {
-                return ajaxRequest(data, $http.get, 'RussianDepartments/');
+                return ajaxService.get(buildPath('RussianDepartments'), data);
             },
             renameNode: function (data) {
-                return ajaxRequest(data, $http.post, 'RenameNode/');
+                return ajaxService.post(buildPath('RenameNode'), data);
             },
             searchUniversities: function (data) {
-                return ajaxRequest(data, $http.get, 'SearchUniversity/');
+                return ajaxService.get(buildPath('SearchUniversity'), data);
             },
             facebookFriends: function (data) {
-                return ajaxRequest(data, $http.get, 'GetFriends/');
+                return ajaxService.get(buildPath('GetFriends'), data);
             },
-            //searchDepartment: function (data) {
-            //    return ajaxRequest(data, $http.get, 'Departments/');
-            //},
             updateUniversity: function (data) {
-                var dfd = $q.defer();
-                $http.post('/Account/UpdateUniversity/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post('/Account/UpdateUniversity/', data);
             },
             createDepartment: function (data) {
-                return ajaxRequest(data, $http.post, 'Create/');
+                return ajaxService.post(buildPath('Create'), data);
             },
             deleteDepartment: function (data) {
-                return ajaxRequest(data, $http.post, 'DeleteNode/');
+                return ajaxService.post(buildPath('DeleteNode'), data);
             },
-            //chooseDeparment: function (data) {
-            //    return ajaxRequest(data, $http.post, 'SelectDepartment/');
-            //},
             createUniversity: function (data) {
-                return ajaxRequest(data, $http.post, 'CreateUniversity/');
+                return ajaxService.post(buildPath('CreateUniversity'), data);
             }
         };
     }

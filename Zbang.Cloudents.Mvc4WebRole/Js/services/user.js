@@ -1,29 +1,16 @@
-﻿//// Define you service here. Services can be added to same module as 'main' or a seperate module can be created.
-//angular.module('apiService', ['jmdobry.angular-cache']).config(['$angularCacheFactoryProvider', function ($angularCacheFactoryProvider) {
-//    $angularCacheFactoryProvider.setCacheDefaults({
-//        maxAge: 300000,
-//        deleteOnExpire: 'aggressive',
-//        recycleFreq: 60000,
-//        storageMode: 'sessionStorage'
-//    });
-//}]).
-//  
-mUser.factory('sUser', [
-    '$http',
-    '$q',
-    function ($http, $q) {
-        var User = '/User/';
+﻿mUser.factory('sUser', [
+    'ajaxService',
+   
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/user/' + path + '/';
+        }
         return {
             friends: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'Friends/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('Friends'), data);
             },
             minProfile: function (data) {
+                return ajaxService.post(buildPath('Link'), data);
                 var dfd = $q.defer();
                 $http.get(User + 'MinProfile/', { params: data }).success(function (response) {
                     dfd.resolve(response);
@@ -33,49 +20,21 @@ mUser.factory('sUser', [
                 return dfd.promise;
             },         
             adminFriends: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'AdminFriends/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('AdminFriends'), data);
+               
             },
             boxes: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'Boxes/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('Boxes'), data);
+              
             },
             invites: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'OwnedInvites/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('OwnedInvites'), data);
             },
             activity: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'Activity/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('Activity'), data);
             },
             departments: function (data) {
-                var dfd = $q.defer();
-                $http.get(User + 'AdminBoxes/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('AdminBoxes'), data);
             }
     };
 }

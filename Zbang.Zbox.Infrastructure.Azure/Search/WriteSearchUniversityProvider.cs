@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Extra4 = String.Join(
                     " ",
                     university.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
+                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל") || w.StartsWith("ב"))
                     .Select(s => s.Remove(0, 1)))
                 };
                 if (extraDetail != null)
