@@ -28,6 +28,9 @@
             },
             departments: function (data) {
                 return ajaxService.get(buildPath('AdminBoxes'), data);
+            },
+            notification: function () {
+                return ajaxService.get(User + 'Notification/');
             }
     };
 }

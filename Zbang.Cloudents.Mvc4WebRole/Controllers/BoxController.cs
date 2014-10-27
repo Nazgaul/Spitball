@@ -395,7 +395,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult ChangeNotification(long boxId, NotificationSettings notification)
         {
             var userId = User.GetUserId();
-            var command = new ChangeNotificationSettingsCommand(boxUid, userId, notification);
+            var command = new ChangeNotificationSettingsCommand(boxId, userId, notification);
             ZboxWriteService.ChangeNotificationSettings(command);
             return Json(new JsonResponse(true));
 
