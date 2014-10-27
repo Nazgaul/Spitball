@@ -279,6 +279,9 @@
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
+                $rootScope.$broadcast('followedBox', boxId);
+
+
                 if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;
                 }

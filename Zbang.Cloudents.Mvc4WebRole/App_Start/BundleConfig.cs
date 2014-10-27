@@ -148,7 +148,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("~/scripts/svg4everybody.js"),
 
-                new JsFileWithCdn("/js/modules/displayTime.js"),
+                new JsFileWithCdn("/js/modules/displayTime.js"),                
+                
                 new JsFileWithCdn("/js/modules/angular-timer.js"),
                 new JsFileWithCdn("/js/modules/wizard.js"),
                 new JsFileWithCdn("~/js/modules/textDirection.js"),
@@ -159,6 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
                 new JsFileWithCdn("/js/controllers/general/uploadListCtrl.js"),
                 new JsFileWithCdn("/js/controllers/account/settingsCtrl.js"),
+                new JsFileWithCdn("/js/controllers/account/notificationsCtrl.js"),                
                 new JsFileWithCdn("/js/controllers/account/notificationSettingsCtrl.js"),                
                 new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
@@ -327,61 +329,61 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             #region layout3
-            RegisterJsRegular("cd1",
-                new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
-                new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
-                new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
-                new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
+            //RegisterJsRegular("cd1",
+            //    new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
+            //    new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
+            //    new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
+            //    new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
+            //    new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
-                new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
-                //new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
+            //    new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
+            //    //new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
-                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
+            //    //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
 
-                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
-                new JsFileWithCdn("~/Js/Logon.js"),
-                new JsFileWithCdn("~/Js/Cache2.js"),
-                new JsFileWithCdn("~/Js/DataContext2.js"),
-                new JsFileWithCdn("~/Js/GenericEvents2.js"),
-
-
-                new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
-                new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
-                new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
+            //    //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+            //    new JsFileWithCdn("~/Js/Logon.js"),
+            //    new JsFileWithCdn("~/Js/Cache2.js"),
+            //    new JsFileWithCdn("~/Js/DataContext2.js"),
+            //    new JsFileWithCdn("~/Js/GenericEvents2.js"),
 
 
-               new JsFileWithCdn("~/Js/TooltipGuide.js"),
+            //    new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
+            //    new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
+            //    new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
 
 
-                //header
-                new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
+            //   new JsFileWithCdn("~/Js/TooltipGuide.js"),
+
+
+            //    //header
+            //    new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
 
              
-                new JsFileWithCdn("~/Js/Invite.js"),
+            //    new JsFileWithCdn("~/Js/Invite.js"),
              
 
-                //account settings
-                new JsFileWithCdn("~/Js/AccountSettings.js"),
+            //    //account settings
+            //    new JsFileWithCdn("~/Js/AccountSettings.js"),
 
-                //item
-                //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
+            //    //item
+            //    //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
 
-                //signalR
-               // new JsFileWithCdn("~/Js/RT.js"),
+            //    //signalR
+            //   // new JsFileWithCdn("~/Js/RT.js"),
 
-                //Social
-                new JsFileWithCdn("~/Js/SocialConnect.js"),
+            //    //Social
+            //    new JsFileWithCdn("~/Js/SocialConnect.js"),
 
-                //Search page
-                new JsFileWithCdn("~/Js/SearchDropdown.js"),
-                new JsFileWithCdn("~/Js/Search.js")
+            //    //Search page
+            //    new JsFileWithCdn("~/Js/SearchDropdown.js"),
+            //    new JsFileWithCdn("~/Js/Search.js")
              
-                );
+            //    );
 
             #endregion layout3
 

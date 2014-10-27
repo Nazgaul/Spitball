@@ -920,6 +920,7 @@
     <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
+    <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />
     <Content Include="Js\controllers\box\boxInviteCtrl.js" />

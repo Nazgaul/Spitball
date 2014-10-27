@@ -2,38 +2,38 @@
 
 <li class="navItem"><a href="@Url.Action("Index", "Dashboard")" tooltip="@SharedResources.Home" class="homeLink rFloat"></a></li>
 <li class="navItem"><a tooltip="@SharedResources.Help" target="_self" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a></li>
-<li class="navItem headerInvites" id="headerInvites">
-    <button class="navLinks newInvites" id="invites" tooltip="@SharedResources.Notifications">
-        <span id="invitesCounter" class="invitesCounter"></span>
+<li class="navItem headerInvites" ng-controller="NotificationsCtrl" dropdown>
+    <button class="navLinks newInvites" id="invites" tooltip="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+        <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
     </button>
-    <div id="notifyWpr" class="notifyWpr">
+    <div class="notifyWpr dropdown-menu" role="menu" ng-class="{ noResults : !notifications.length }">
         <div class="arrow upArrow"></div>
         <div class="notifyTop">@SharedResources.Notifications</div>
-        <ul id="invitesList" class="notifyList"></ul>
+        <ul class="notifyList" ng-repeat="notification in notifications" bindonce infinite-scroll="addNotifications()"
+            infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+            <li class="notifyItem" ng-class="{new : !notification.isRead }">
+                <a bo-href="notification.url" ng-click="markAsRead(notification)">
+                    <img class="imgBorder notifyImg" bo-src="notification.userPic" alt="" />
+                    <span class="semiFont notifier elps" bo-text="notification.userName"></span>
+
+                    <span class="createTime" display-time="{{notification.date}}"></span><br />
+                    <div class="inviteTxtWpr">
+                        @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
         <div class="notifyEmpty">@SharedResources.NoNotifications</div>
     </div>
 </li>
 
-<script type="text/html" id="inviteTemplate">
-    <li class="notifyItem{{isRead}}" id="{{id}}" data-boxid="{{boxId}}">
-        <a data-navigation="Box" href="{{url}}">
-            <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
-            <span class="semiFont notifier elps">{{senderName}}</span>
-            
-            <span class="createTime" date-time="{{date}}"></span><br />
-            <div class="inviteTxtWpr">
-                @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{boxName}}"</span>
-            </div>
-        </a>
+@*<script type="text/html" id="messageTemplate">
+        <li class="notifyItem{{isRead}}" id="{{id}}">
+            <a data-navigation="messaging" href="{{url}}">
+                <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
+                <span class="semiFont notifier elps">{{senderName}}</span>
+                <span class="createTime" date-time="{{date}}"></span>
+                <div class="elps notifyMsg">{{message}}</div>
+            </a>
     </li>
-</script>
-<script type="text/html" id="messageTemplate">
-    <li class="notifyItem{{isRead}}" id="{{id}}">
-        <a data-navigation="messaging" href="{{url}}">
-            <img class="imgBorder notifyImg" src="{{senderImg}}" alt="" />
-            <span class="semiFont notifier elps">{{senderName}}</span>
-            <span class="createTime" date-time="{{date}}"></span>
-            <div class="elps notifyMsg">{{message}}</div>
-        </a>
-</li>
-</script>
+    </script>*@
