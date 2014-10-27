@@ -1,38 +1,18 @@
 ﻿app.factory('sSearch',
-    ['$http',
-     '$q',
-    function ($http, $q) {
-        var Search = '/Search/';
+    ['ajaxService',
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/Search/' + path + '/';
+        }
         return {
             dropdown: function (data) {
-                var dfd = $q.defer();
-                $http.get(Search + 'Dropdown', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get(buildPath('Dropdown'), data);
             },
             searchByPage: function (data) {
-                var dfd = $q.defer();
-                $http.get(Search + 'Data', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get(buildPath('Data'), data);
             },
             searchOtherUnis: function (data) {
-                var dfd = $q.defer();
-                $http.get(Search + 'OtherUniversities', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get(buildPath('OtherUniversities'), data);
             }
             
         };

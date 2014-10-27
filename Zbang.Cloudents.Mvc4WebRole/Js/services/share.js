@@ -1,93 +1,37 @@
 ﻿app.factory('sShare',
-    ['$http',
-     '$q',
-
-    function ($http, $q) {
-        var Share = '/Share/';
+    ['ajaxService',
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/Share/' + path + '/';
+        }
         return {
             cloudentsFriends: function (data) {
-                var dfd = $q.defer();
-                $http.get('/User/Friends', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get('/User/Friends/', data);
             },
             googleFriends: function (data) {
-                var dfd = $q.defer();
-                $http.post('/User/GoogleContacts', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post('/User/GoogleContacts/', data);
             },
             message: function (data) {
-                var dfd = $q.defer();
-                $http.post(Share + '/Message', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Message'), data);
             },
             invite: {
                 box: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Share + 'InviteBox', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('InviteBox'), data);
                 },
                 cloudents: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Share + '/Invite', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('Invite'), data);
                 }
             },
             facebookInvite: {
                 box: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Share + '/InviteBoxFacebook', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('InviteBoxFacebook'), data);
                 },
                 cloudents: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Share + '/InviteFacebook', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('InviteFacebook'), data);
                 }
             },
             facebookReputation: function () {
-                var dfd = $q.defer();
-                $http.post(Share + '/Facebook', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Facebook'), null, true);
             }
         };
     }

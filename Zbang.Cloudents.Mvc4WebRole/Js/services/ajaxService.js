@@ -11,7 +11,7 @@
                 var dfd = $q.defer(),
                     startTime = new Date().getTime();
 
-                ttl = ttl || 600000; //default to 10 mins
+                ttl = ttl || 60000; //default to 1 mins
 
                 $http.get(url, { params: data, cache: getCache(ttl) }).success(function (response) {
                     dfd.resolve(response);

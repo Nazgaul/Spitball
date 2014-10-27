@@ -1,55 +1,25 @@
 ﻿app.factory('Store',
-    ['$http',
-     '$q',
+    ['ajaxService',
 
-    function ($http, $q) {
-        var Store = '/Store/';
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/Store/' + path + '/';
+        }
         return {
             products: function (data) {
-                var dfd = $q.defer();
-                $http.get(Store + 'Products/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get(buildPath('Products'), data);
             },
             search: function (data) {
-                var dfd = $q.defer();
-                $http.get(Store + 'Search/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('Search'), data);
             },
             order: function (data) {
-                var dfd = $q.defer();
-                $http.post(Store + 'Order/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.post(buildPath('Order'), data);
             },
-            validateCoupon: function(data) {
-                var dfd = $q.defer(0);
-                $http.get(Store + 'ValidCodeCoupon/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+            validateCoupon: function (data) {
+                return ajaxService.get(buildPath('ValidCodeCoupon'), data);
             },
             contact: function (data) {
-                var dfd = $q.defer(0);
-                $http.post(Store + 'Contact/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.post(buildPath('Contact'), data, true);
             }
         };
     }

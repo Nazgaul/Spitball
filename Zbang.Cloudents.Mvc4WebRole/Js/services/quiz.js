@@ -1,180 +1,65 @@
 ﻿mBox.factory('sQuiz', [
-    '$http',
-    '$q',
-    function ($http, $q) {
-        var Quiz = '/Quiz/';
+   'ajaxService',
+    function (ajaxService) {
+        function buildPath(path) {
+            return '/Quiz/' + path + '/';
+        }
         return {
             data: function (data) {
-                var dfd = $q.defer();
-                $http.get(Quiz + 'Data/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.get(buildPath('Data'), data);
             },
             saveAnswers: function (data) {
-                var dfd = $q.defer();
-                $http.post(Quiz + 'SaveAnswers/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;                
+                return ajaxService.post(buildPath('SaveAnswers'), data);
             },
             discussion: {
                 getDiscussion: function (data) {
-                    var dfd = $q.defer();
-                    $http.get(Quiz + 'Discussion/', { params: data }).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
+                    return ajaxService.get(buildPath('Discussion'), data);
                 },
                 createDiscussion: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'CreateDiscussion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('CreateDiscussion'), data);
                 },
                 deleteDiscussion: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'DeleteDiscussion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('DeleteDiscussion'), data);
                 }
             },
             create: function (data) {
-                var dfd = $q.defer();
-                $http.post(Quiz + 'Create/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Create'), data);
             },
             update: function (data) {
-                var dfd = $q.defer();
-                $http.post(Quiz + 'Update/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Update'), data);
             },
             'delete': function (data) {
-                var dfd = $q.defer();
-                $http.post(Quiz + 'Delete/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Delete'), data);
             },
             save: function (data) {
-                var dfd = $q.defer();
-                $http.post(Quiz + 'Save/', data).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-
-                return dfd.promise;
+                return ajaxService.post(buildPath('Save'), data);
             },
             getDraft: function (data) {
-                var dfd = $q.defer();
-                $http.get(Quiz + 'GetDraft/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
-
+                return ajaxService.get(buildPath('GetDraft'), data);
             },
             question: {
                 create: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'CreateQuestion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('CreateQuestion'), data);
                 },
                 update: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'UpdateQuestion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('UpdateQuestion'), data);
                 },
                 'delete': function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'DeleteQuestion/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('DeleteQuestion'), data);
                 }
             },
             answer: {
                 create: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'CreateAnswer/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('CreateAnswer'), data);
                 },
                 update: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'UpdateAnswer/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('UpdateAnswer'), data);
                 },
                 'delete': function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'DeleteAnswer/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
-
+                    return ajaxService.post(buildPath('DeleteAnswer'), data);
                 },
                 markCorrect: function (data) {
-                    var dfd = $q.defer();
-                    $http.post(Quiz + 'MarkCorrect/', data).success(function (response) {
-                        dfd.resolve(response);
-                    }).error(function (response) {
-                        dfd.reject(response);
-                    });
-                    return dfd.promise;
+                    return ajaxService.post(buildPath('MarkCorrect'), data);
 
                 }
             }          
