@@ -63,7 +63,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPaged2(query);
         }
-        public IEnumerable<QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
             return m_ReadService.GetBoxQuizes(query);
         }

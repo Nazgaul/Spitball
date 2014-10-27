@@ -278,26 +278,19 @@ namespace Zbang.Zbox.ReadServices
                 var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
                 queryBoxItem.SetInt64("BoxId", query.BoxId);
                 queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
-
                 var fitems = queryBoxItem.Future<Item.ItemDto>();
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
                 return fitems.ToList();
             }
 
         }
 
-        public IEnumerable<Item.QuizDto> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public async Task< IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var queryQuiz = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxQuiz");
-                queryQuiz.SetInt64("BoxId", query.BoxId)
-                    .SetResultTransformer(Transformers.AliasToBean<Item.QuizDto>());
-                var fQuiz = queryQuiz.Future<Item.QuizDto>();
-
-                CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                return fQuiz.ToList();
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new {BoxId = query.BoxId});
             }
+           
         }
 
 
@@ -316,14 +309,12 @@ namespace Zbang.Zbox.ReadServices
                 dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileWithDetailDto), typeof(Item.LinkWithDetailDto)));
 
                 var item = dbQuery.FutureValue<Item.ItemWithDetailDto>();
-                var type = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
 
                 if (item.Value == null)
                 {
                     throw new ItemNotFoundException();
                 }
                 var retVal = item.Value;
-                retVal.UserType = type;
                 return retVal;
             }
         }

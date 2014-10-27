@@ -25,7 +25,7 @@
     <return-scalar column="Url" type="string"/>
   </resultset>
 
-  <resultset name="QuizDto">
+  <!--<resultset name="QuizDto">
     <return-scalar column="Id" type="long"/>
     <return-scalar column="OwnerId" type="long"/>
     <return-scalar column="Owner" type="string"/>
@@ -38,7 +38,7 @@
     <return-scalar column="CommentsCount" type="int"/>
     <return-scalar column="Date" type="DateTime"/>
     <return-scalar column="Url" type="string"/>
-  </resultset>
+  </resultset>-->
 
 
 
@@ -91,7 +91,7 @@
     order by i.itemid desc
     ]]>
   </sql-query>
-  <sql-query name="GetBoxQuiz" read-only="1" resultset-ref="QuizDto">
+  <!--<sql-query name="GetBoxQuiz" read-only="1" resultset-ref="QuizDto">
     <![CDATA[
     select 
     id as Id, 
@@ -110,7 +110,7 @@
     join zbox.Users u on u.userid = q.UserId
     where boxid = :BoxId
     ]]>
-  </sql-query>
+  </sql-query>-->
 
 
 

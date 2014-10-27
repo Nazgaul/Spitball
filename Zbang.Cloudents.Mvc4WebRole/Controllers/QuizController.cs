@@ -38,6 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAjax]
         //[UserNavNWelcome]
         [NoCache]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
@@ -123,6 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax]
         [ZboxAuthorize]
         [HttpGet]
+        //TODO: add validation in here
         public async Task<ActionResult> Discussion(long quizId)
         {
             var query = new GetDisscussionQuery(quizId);
@@ -131,6 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        //TODO: add validation in here
         [HttpGet, Ajax]
         //[OutputCache(Duration = TimeConsts.Hour, 
         //    Location = OutputCacheLocation.Any, VaryByParam = "none",

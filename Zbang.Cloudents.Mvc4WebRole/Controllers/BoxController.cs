@@ -19,6 +19,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -255,6 +256,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
         public JsonResult Items(long id)
         {
             var userId = User.GetUserId(false);// not really needs it
@@ -270,27 +272,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
 
-        //TODO: change to box permission with dapper
         [HttpGet, Ajax, ZboxAuthorize(IsAuthenticationRequired = false)]
-        public JsonResult Quizes(long id)
+        [BoxPermission("id")]
+        public async Task<JsonResult> Quizes(long id)
         {
             var userId = User.GetUserId(false);// not really needs it
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxQuizes(query).ToList();
+                var result = await ZboxReadService.GetBoxQuizes(query);
 
-                var remove = result.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
-                return Json(new JsonResponse(true, result.Except(remove)));
+                var quizDtos = result as QuizDto[] ?? result.ToArray();
+                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
+                return Json(new JsonResponse(true, quizDtos.Except(remove)));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxUid {0} userId {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -305,7 +308,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax, HttpGet]
-        //[AjaxCache(TimeToCache = TimeConsts.Minute * 15)]
         public JsonResult Members(long boxId)
         {
             var userId = User.GetUserId(false);
