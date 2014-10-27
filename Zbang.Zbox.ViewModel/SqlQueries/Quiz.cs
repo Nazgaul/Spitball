@@ -54,5 +54,24 @@ where qd.QuizId = @QuizId";
 
         public const string NumberOfQuizSolved = @"select count(*) from zbox.SolvedQuiz
 where quizid = @QuizId";
+
+
+        public const string GetBoxQuiz = @"  select 
+    id as Id, 
+    q.userid as OwnerId,
+    u.UserName as Owner,
+    u.Url as UserUrl,
+    name as Name,
+    Publish,
+    rate as Rate,
+    NumberOfViews as NumOfViews,
+    Content as Description,
+    NumberOfComments as commentsCount,
+    q.CreationTime as Date,
+    q.Url as Url
+    from zbox.quiz q
+    join zbox.Users u on u.userid = q.UserId
+    where boxid = @BoxId";
+
     }
 }

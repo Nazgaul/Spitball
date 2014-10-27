@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NoCache]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
@@ -228,6 +229,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         [NoEtag]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
@@ -330,6 +332,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/print", Name = "ItemPrint")]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> Print(long boxId, long itemId)
         {
 
@@ -412,8 +415,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Preview
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("boxId")]
         //[AjaxCache(TimeConsts.Minute * 15)]
-        public async Task<ActionResult> Preview(string blobName, int index, long id, string boxId, int width = 0, int height = 0)
+        public async Task<ActionResult> Preview(string blobName, int index, long id, long boxId, int width = 0, int height = 0)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))

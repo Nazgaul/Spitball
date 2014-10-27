@@ -210,12 +210,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetBoxQuizes_Query_ReturnResult()
+        public async Task GetBoxQuizes_Query_ReturnResult()
         {
             var query = new GetBoxItemsPagedQuery(1, 1);
             try
             {
-                var x = m_ZboxReadService.GetBoxQuizes(query);
+                var x = await m_ZboxReadService.GetBoxQuizes(query);
             }
             catch (Exception ex)
             {
