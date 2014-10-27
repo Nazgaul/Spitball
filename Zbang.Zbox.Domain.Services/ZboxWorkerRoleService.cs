@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dapper;
 using NHibernate;
-using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
-using Zbang.Zbox.Infrastructure.Trace;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -77,35 +74,7 @@ namespace Zbang.Zbox.Domain.Services
 
             //    }
 
-            using (UnitOfWork.Start())
-            {
-                //        TraceLog.WriteInfo("Processing departments");
-                var departments = UnitOfWork.CurrentSession.QueryOver<Library>().Where(w => w.Id == Guid.Parse("3F49537C-0CD3-4A6C-8EAA-58F00ABED210"))
-                 .List();
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    foreach (var department in departments)
-                    {
-
-                        var x = UnitOfWork.CurrentSession.Get<Library>(department.Id);
-                        //var count = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
-                        //     .Where(w => w.Department == department)
-                        //     .And(w => w.IsDeleted == false)
-                        //     .RowCount();
-                        x.UpdateNumberOfBoxes();
-                        while (x != null)
-                        {
-                            UnitOfWork.CurrentSession.Save(x);
-                            x = x.Parent;
-                        }
-
-                    }
-                    tx.Commit();
-                }
-
-
-
-            }
+            
             //    using (UnitOfWork.Start())
             //    {
             //        var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
@@ -130,21 +99,29 @@ namespace Zbang.Zbox.Domain.Services
 
             using (UnitOfWork.Start())
             {
-                using (var tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var boxes = UnitOfWork.CurrentSession.QueryOver<Library>()
-                        .Where(w => w.Url == null).Skip(100 * index)
-                        .Take(100).List();
+                //        TraceLog.WriteInfo("Processing departments");
+                var departments = UnitOfWork.CurrentSession.QueryOver<Library>().List();
 
-                    foreach (var box in boxes)
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var department in departments)
                     {
-                        //quiz.GenerateUrl();
-                        box.GenerateUrl();
-                        UnitOfWork.CurrentSession.Save(box);
-                        retVal = true;
+
+                        var x = UnitOfWork.CurrentSession.Get<Library>(department.Id);
+                        x.UpdateNumberOfBoxes();
+                        while (x != null)
+                        {
+                            UnitOfWork.CurrentSession.Save(x);
+                            x = x.Parent;
+                        }
+
                     }
                     tx.Commit();
                 }
+                UnitOfWork.CurrentSession.Connection.Execute("ReputationAdmin",
+                    commandType: System.Data.CommandType.StoredProcedure);
+
+
             }
             return retVal;
         }
