@@ -404,3 +404,133 @@
 
 
 /*#endregion */
+
+/*#region leaderboard */
+
+.leaderBoard {
+    width: 336px;
+    .boxSizing;
+    padding: 20px 20px 3px 20px;
+    position: relative;
+    left: 30px; //rtl
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #282828;
+    margin-bottom: 50px;
+    header {
+        color: @color;
+        text-align: center;
+        font-size: 20px;
+        svg {
+            width: 32px;
+            height: 25px;
+            fill: @color;
+        }
+    }
+    .lbText {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+.bestUserList {
+    text-align: center;  
+    counter-reset: leaderBoard;
+    li {
+        position: relative;
+        border-top: 1px solid @borderColor;
+        display: inline-block;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        vertical-align: middle;
+        text-align:left; //rtl
+        &:nth-child(-n + 3) {
+            width: auto;
+            height: auto;
+            line-height: normal;
+            text-align: center;
+            border: none;
+            margin-bottom: 15px;
+            &:before {
+                display: block;
+                position: absolute;
+                left: 0;right: 0;
+                margin: auto;
+                top: 98px;
+            }
+        }
+        &:before {
+            content: counter(leaderBoard) ".";
+            counter-increment: leaderBoard;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    }
+    img {
+        border-radius: 100%;
+        border: 1px solid @borderColor;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    svg {
+        position: absolute;
+        fill: #ffc000;
+    }
+    .top3Img {
+        border: 1px solid @color;
+        display: block;
+        margin: 10px 0 20px;
+    }
+
+}
+.firstUser {
+    .top3Img {
+        left: -40px; //rtl
+        top: -90px;
+    }
+    svg {
+        left: -20px; //rtl
+        top: 115px;
+    }
+}
+.secondUser {
+    .top3Img {
+        left:-40px; //rtl
+        top: -90px;
+        margin-top: 20px;
+    }
+    svg {
+        left: -10px; //rtl
+        top: 112px;
+    }
+}
+
+.thirdUser {
+    .top3Img {
+        left:-32px; //rtl
+        top: -90px;
+        margin-top: 30px;
+    }
+    svg {
+        left: -12px; //rtl
+        top: 115px;
+    }
+}
+.svg-crown {
+    width: 36px;
+    height: 23px;
+}
+.svg-trophy {
+    width: 26px;
+    height: 29px;
+}
+.svg-badge {
+    width: 18px;
+    height: 30px;
+}
+.rep {
+    font-weight: bold;
+    color: @color;
+}
+/*#endregion */

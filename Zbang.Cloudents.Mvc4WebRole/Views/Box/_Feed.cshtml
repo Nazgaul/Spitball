@@ -98,25 +98,39 @@
 
     </section>
     <section class="leaderBoard">
-        <header>@IndexResources.BestInClass</header>
+        <header>
+            @Html.Svg("~/Images/Defs.svg", "leaderBoard")
+            <span class="lbText">@IndexResources.BestInClass</span>
+        </header>
         <ol class="bestUserList">
-            <li class="buItem">
-                Shlomi
+            <li class="firstUser">
+                <img class="top3Img" src="http://placehold.it/82x82" alt="" width="82" height="82" />
+                <div>Shlomi</div>
                 <div class="rep">12660</div>
-                @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "crown" })
+                @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
             </li>
-            <li class="bestUser">
-                Noa
+            <li class="secondUser lFloat">
+                <img class="top3Img" src="http://placehold.it/72x72" alt="" width="72" height="72" />
+                <div>Noa</div>
                 <div class="rep">9876</div>
-                @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "trophy" })
+                @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
             </li>
-            <li class="bestUser">
-                Matan
+            <li class="thirdUser rFloat">
+                <img class="top3Img" src="http://placehold.it/62x62" alt="" width="62" height="62" />
+                <div>Matan</div>
                 <div class="rep">2397</div>
-                @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "badge" })
+                @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
             </li>
-            <li class="bestUser">Ram<div class="rep">1234</div></li>
-            <li class="bestUser">Daniel<div class="rep">1233</div></li>
+            <li>
+                <img src="http://placehold.it/38x38" alt="" width="38" height="38" />
+                <span>Ram</span>
+                <span class="rep rFloat">1234</span>
+            </li>
+            <li>
+                <img src="http://placehold.it/38x38" alt="" width="38" height="38" />
+                <span>Daniel</span>
+                <span class="rep rFloat">1233</span>
+            </li>
         </ol>
     </section>
     <section class="recommendedWpr">
