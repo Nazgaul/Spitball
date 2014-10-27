@@ -25,6 +25,8 @@
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
       <Setting name="IsMobileDisabled" />
+      <Setting name="AzureSearchApiKey" />
+      <Setting name="AzureSeachApiUrl" />
     </ConfigurationSettings>
     <Startup>
       <Task commandLine="AppInsightsAgent\UnifiedBootstrap.bat" executionContext="elevated" taskType="simple">
