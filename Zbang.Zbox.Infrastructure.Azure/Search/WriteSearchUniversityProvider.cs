@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Library;
 
@@ -17,10 +18,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class WriteSearchUniversityProvider : IUniversityWriteSearchProvider
     {
         private readonly IZboxReadServiceWorkerRole m_DbReadService;
-        internal const string CloudentssearchSearchWindowsNet = "cloudents.search.windows.net";
-        internal const string ApiKey = "5B0433BFBBE625C9D60F7330CFF103F0";
-        internal const string CloudentsSearchApiPrefix = "https://cloudents.search.windows.net";
 
+        internal static readonly string ApiKey = ConfigFetcher.Fetch("AzureSearchApiKey");
+        internal static readonly string CloudentssearchSearchWindowsNet = ConfigFetcher.Fetch("AzureSeachApiUrl");
+        internal static readonly string CloudentsSearchApiPrefix = "https://" + CloudentssearchSearchWindowsNet;
         public WriteSearchUniversityProvider(IZboxReadServiceWorkerRole dbReadService)
         {
             m_DbReadService = dbReadService;

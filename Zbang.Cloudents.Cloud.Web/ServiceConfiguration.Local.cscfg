@@ -15,6 +15,8 @@
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
       <Setting name="IsMobileDisabled" value="true" />
+      <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
+      <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
