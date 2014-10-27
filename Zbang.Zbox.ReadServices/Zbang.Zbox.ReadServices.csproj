@@ -59,6 +59,7 @@
     <Compile Include="BaseReadService.cs" />
     <Compile Include="IBaseReadService.cs" />
     <Compile Include="IZboxCacheReadService.cs" />
+    <Compile Include="IZboxReadSecurityReadService.cs" />
     <Compile Include="IZboxReadService.cs" />
     <Compile Include="IZboxReadServiceWorkerRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

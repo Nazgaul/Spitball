@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -181,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
-            var query = new GetLibraryNodeQuery(userDetail.UniversityDataId.Value, guid, GetUserId());
+            var query = new GetLibraryNodeQuery(userDetail.UniversityDataId.Value, guid, User.GetUserId());
             var result = await ZboxReadService.GetLibraryNode(query);
             return Json(new JsonResponse(true, result));
 
@@ -283,13 +284,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[HttpPost, Ajax]
-        //public ActionResult SelectDepartment(Guid id)
-        //{
-        //    var command = new SelectDepartmentCommand(id, GetUserId());
-        //    ZboxWriteService.SelectDepartment(command);
-        //    return Json(new JsonResponse(true));
-        //}
 
         #region Create
 
@@ -311,7 +305,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var parentId = TryParseNullableGuid(model.ParentId);
-                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId, GetUserId());
+                var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId, User.GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Json(new JsonResponse(true, result));
@@ -352,7 +346,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
 
-                var userId = GetUserId();
+                var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
@@ -367,7 +361,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("CreateAcademic user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("CreateAcademic user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, LibraryControllerResources.Problem_with_create_a_course);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
@@ -422,7 +416,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             //
             var command = new CreateUniversityCommand(model.Name, model.Country,
-                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", GetUserId());
+                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", User.GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
             FormsAuthenticationService.ChangeUniversity(command.Id, command.Id);
@@ -495,7 +489,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> RussianDepartments()
         {
 
-            var query = new GetUserMinProfileQuery(GetUserId());
+            var query = new GetUserMinProfileQuery(User.GetUserId());
             var result = await ZboxReadService.GetUserMinProfile(query);
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -46,7 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On Seach/DropDown q: " + q + "userid: " + GetUserId(), ex);
+                TraceLog.WriteError("On Seach/DropDown q: " + q + "userid: " + User.GetUserId(), ex);
                 return Json(new JsonResponse(false, "need query"));
             }
         }
@@ -66,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On Seach/Data q: " + q + " page: " + page + "userid: " + GetUserId(), ex);
+                TraceLog.WriteError("On Seach/Data q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
                 return Json(new JsonResponse(false, "need query"));
             }
         }
@@ -76,7 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId != null)
             {
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), allResult, page);
+                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), allResult, page);
                 var result = await ZboxReadService.Search(query);
                 return result;
             }
@@ -97,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userDetail = FormsAuthenticationService.GetUserData();
                 if (userDetail.UniversityId != null)
                 {
-                    var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, GetUserId(), true, page);
+                    var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), true, page);
                     var result = await ZboxReadService.OtherUniversities(query);
                     return Json(new JsonResponse(true, result));
                 }
@@ -105,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On OtherUniversities q: " + q + " page: " + page + "userid: " + GetUserId(), ex);
+                TraceLog.WriteError("On OtherUniversities q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
                 return Json(new JsonResponse(false, "need query"));
             }
         }

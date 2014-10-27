@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -44,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> BoxList()
         {
-            var userid = GetUserId();
+            var userid = User.GetUserId();
             try
             {
 
@@ -78,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var userId = GetUserId();
+                var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
                 return Json(new JsonResponse(true, new { result.Url, result.Id }));
@@ -91,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", GetUserId(), model), ex);
+                TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
@@ -119,7 +120,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet]
         public async Task<JsonResult> RecommendedCourses()
         {
-            var query = new QueryBase(GetUserId());
+            var query = new QueryBase(User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
             return Json(new JsonResponse(true, result));
         }

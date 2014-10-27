@@ -112,18 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             };
         }
 
-        protected long GetUserId(bool isAuthorize = true)
-        {
-            long userId;
-
-            if (isAuthorize && string.IsNullOrEmpty(User.Identity.Name))
-            {
-                throw new UnauthorizedAccessException();
-            }
-            long.TryParse(User.Identity.Name, out userId);
-
-            return userId;
-        }
+       
 
         #region Language
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

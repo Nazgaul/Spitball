@@ -26,11 +26,10 @@ namespace Zbang.Zbox.ReadServicesTests
         public void Setup()
         {
             var localStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var httpCacheProvider = MockRepository.GenerateStub<IHttpContextCacheWrapper>();
 
             IocFactory.Unity.RegisterInstance(localStorageProvider);
 
-            m_ZboxReadService = new ZboxReadService(httpCacheProvider);
+            m_ZboxReadService = new ZboxReadService();
         }
 
 
@@ -357,12 +356,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetBoxSeo_Query_ReturnResult()
+        public async Task GetBoxSeo_Query_ReturnResult()
         {
             try
             {
                 var query = new GetBoxSeoQuery(4, 3);
-                var x = m_ZboxReadService.GetBoxSeo(query).Result;
+                var x = await m_ZboxReadService.GetBoxSeo(query);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -83,30 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[NonAjax]
-        //[OutputCache(CacheProfile = "NoCache")]
-        //public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName, string boxName)
-        //{
-
-        //    var model = await GetQuiz(boxId, quizId, quizName, true);
-
-        //    var serializer = new JsonNetSerializer();
-        //    ViewBag.userD = serializer.Serialize(model.Sheet);
-        //    ViewBag.boxName = boxName;
-        //    ViewBag.boxUrl = model.Quiz.Seo.BoxUrl;
-
-
-        //    if (model.Quiz.Seo != null && !string.IsNullOrEmpty(model.Quiz.Seo.Country))
-        //    {
-        //        var culture = Languages.GetCultureBaseOnCountry(model.Quiz.Seo.Country);
-        //        BaseControllerResources.Culture = culture;
-        //        ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix, model.Quiz.Name, BaseControllerResources.QuizTitleText, model.Quiz.Seo.BoxName, model.Quiz.Seo.UniversityName, BaseControllerResources.Cloudents);
-        //    }
-        //    ViewBag.metaDescription = model.Quiz.Questions.First().Text;
-
-        //    return View(model.Quiz);
-        //}
+      
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [Ajax]
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
@@ -121,9 +99,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> Data(long boxId, long quizId)
         {
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
             var query = new GetQuizQuery(quizId, userId, boxId);
             var tModel =  ZboxReadService.GetQuiz(query);
 
@@ -143,6 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Ajax]
         [ZboxAuthorize]
+        [HttpGet]
         public async Task<ActionResult> Discussion(long quizId)
         {
             var query = new GetDisscussionQuery(quizId);
@@ -197,7 +177,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command =
                     new SaveUserQuizCommand(
                       model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                        GetUserId(), model.QuizId, model.EndTime - model.StartTime);
+                        User.GetUserId(), model.QuizId, model.EndTime - model.StartTime);
                 ZboxWriteService.SaveUserAnswers(command);
 
                 return Json(new JsonResponse(true));
@@ -220,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("Quiz is published");
             }
-            if (values.OwnerId != GetUserId())
+            if (values.OwnerId != User.GetUserId())
             {
                 throw new ArgumentException("This is not the owner");
             }
@@ -237,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
             var id = m_IdGenerator.Value.GetId(IdGenerator.QuizScope);
-            var command = new CreateQuizCommand(GetUserId(), id, model.Name, model.BoxId);
+            var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
             ZboxWriteService.CreateQuiz(command);
 
             return Json(new JsonResponse(true, id));
@@ -251,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new UpdateQuizCommand(GetUserId(), model.Id, model.Name);
+            var command = new UpdateQuizCommand(User.GetUserId(), model.Id, model.Name);
             ZboxWriteService.UpdateQuiz(command);
             return Json(new JsonResponse(true));
         }
@@ -261,13 +241,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new DeleteQuizCommand(id, GetUserId());
+                var command = new DeleteQuizCommand(id, User.GetUserId());
                 ZboxWriteService.DeleteQuiz(command);
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Delete quiz id:" + id + " userid: " + GetUserId(), ex);
+                TraceLog.WriteError("Delete quiz id:" + id + " userid: " + User.GetUserId(), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -278,7 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new SaveQuizCommand(GetUserId(), model.QuizId);
+                var command = new SaveQuizCommand(User.GetUserId(), model.QuizId);
                 var result = ZboxWriteService.SaveQuiz(command);
                 return Json(new JsonResponse(true, result));
             }
@@ -306,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             }
             var id = m_IdGenerator.Value.GetId();
-            var command = new CreateQuestionCommand(model.Text, model.QuizId, GetUserId(), id);
+            var command = new CreateQuestionCommand(model.Text, model.QuizId, User.GetUserId(), id);
             ZboxWriteService.CreateQuestion(command);
             return Json(new JsonResponse(true, id));
         }
@@ -318,7 +298,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var command = new UpdateQuestionCommand(GetUserId(), model.Id, model.Text);
+            var command = new UpdateQuestionCommand(User.GetUserId(), model.Id, model.Text);
             ZboxWriteService.UpdateQuestion(command);
             return Json(new JsonResponse(true));
         }
@@ -328,7 +308,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new DeleteQuestionCommand(GetUserId(), id);
+                var command = new DeleteQuestionCommand(User.GetUserId(), id);
                 ZboxWriteService.DeleteQuestion(command);
                 return Json(new JsonResponse(true));
             }
@@ -355,7 +335,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
             var id = m_IdGenerator.Value.GetId();
-            var command = new CreateAnswerCommand(GetUserId(), id, model.Text, model.QuestionId);
+            var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
             ZboxWriteService.CreateAnswer(command);
             return Json(new JsonResponse(true, id));
         }
@@ -368,7 +348,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
 
-            var command = new UpdateAnswerCommand(GetUserId(), model.Text, model.Id);
+            var command = new UpdateAnswerCommand(User.GetUserId(), model.Text, model.Id);
             ZboxWriteService.UpdateAnswer(command);
             return Json(new JsonResponse(true));
         }
@@ -386,7 +366,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, GetUserId());
+                var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, User.GetUserId());
                 ZboxWriteService.MarkAnswerAsCorrect(command);
                 return Json(new JsonResponse(true));
             }
@@ -401,7 +381,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult DeleteAnswer(Guid id)
         {
-            var command = new DeleteAnswerCommand(GetUserId(), id);
+            var command = new DeleteAnswerCommand(User.GetUserId(), id);
             ZboxWriteService.DeleteAnswer(command);
             return Json(new JsonResponse(true));
         }
@@ -418,7 +398,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
             var id = m_IdGenerator.Value.GetId();
-            var command = new CreateDiscussionCommand(GetUserId(), model.Text, model.QuestionId, id);
+            var command = new CreateDiscussionCommand(User.GetUserId(), model.Text, model.QuestionId, id);
             ZboxWriteService.CreateItemInDiscussion(command);
             return Json(new JsonResponse(true, id));
         }
@@ -426,7 +406,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, Ajax, ZboxAuthorize]
         public ActionResult DeleteDiscussion(Guid id)
         {
-            var command = new DeleteDiscussionCommand(id, GetUserId());
+            var command = new DeleteDiscussionCommand(id, User.GetUserId());
             ZboxWriteService.DeleteItemInDiscussion(command);
             return Json(new JsonResponse(true, id));
 

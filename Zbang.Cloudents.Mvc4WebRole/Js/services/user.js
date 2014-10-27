@@ -10,14 +10,7 @@
                 return ajaxService.get(buildPath('Friends'), data);
             },
             minProfile: function (data) {
-                return ajaxService.post(buildPath('Link'), data);
-                var dfd = $q.defer();
-                $http.get(User + 'MinProfile/', { params: data }).success(function (response) {
-                    dfd.resolve(response);
-                }).error(function (response) {
-                    dfd.reject(response);
-                });
-                return dfd.promise;
+                return ajaxService.get(buildPath('MinProfile'), data);
             },         
             adminFriends: function (data) {
                 return ajaxService.get(buildPath('AdminFriends'), data);

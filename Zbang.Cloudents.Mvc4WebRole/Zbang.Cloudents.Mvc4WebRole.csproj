@@ -297,10 +297,12 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\JsonNetSerializer.cs" />
+    <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\AjaxAttribute.cs" />
+    <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />

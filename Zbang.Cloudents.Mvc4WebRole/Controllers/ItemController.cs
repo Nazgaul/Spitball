@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userId = GetUserId(false); // not really needs it
+                var userId = User.GetUserId(false); // not really needs it
 
                 var query = new GetItemQuery(userId, itemid, boxId);
                 var item = ZboxReadService.GetItem(query);
@@ -177,11 +177,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [Ajax]
+        [BoxPermission("boxId")]
         public async Task<ActionResult> Load(long boxId, long itemId)
         {
             try
             {
-                var userId = GetUserId(false);
+                var userId = User.GetUserId(false);
 
                 var query = new GetItemQuery(userId, itemId, boxId);
                 var tItem =  ZboxReadService.GetItem2(query);
@@ -197,7 +198,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }, userId, DateTime.UtcNow));
 
                 await Task.WhenAll(tItem, tTransAction);
-                return Json(new JsonResponse(true, tItem.Result));
+                var retVal = tItem.Result;
+                retVal.UserType = ViewBag.UserType;
+                return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)
             {
@@ -228,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
-            var userId = GetUserId(false);
+            var userId = User.GetUserId(false);
 
             var query = new GetItemQuery(userId, itemId, boxId);
 
@@ -289,7 +292,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
 
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             try
             {
                 var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
@@ -330,7 +333,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Print(long boxId, long itemId)
         {
 
-            var query = new GetItemQuery(GetUserId(false), itemId, boxId);
+            var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
 
             var item = ZboxReadService.GetItem(query);
 
@@ -366,13 +369,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var command = new DeleteItemCommand(itemId, GetUserId(), boxId);
+                var command = new DeleteItemCommand(itemId, User.GetUserId(), boxId);
                 ZboxWriteService.DeleteItem(command);
                 return Json(new JsonResponse(true, itemId));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", GetUserId(), boxId, itemId), ex);
+                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", User.GetUserId(), boxId, itemId), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -391,29 +394,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = m_IdGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, GetUserId(), model.Rate, id);
+                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
                 ZboxWriteService.RateItem(command);
 
                 return Json(new JsonResponse(true));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", GetUserId(), model.ItemId), ex);
+                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
                 return Json(new JsonResponse(false));
             }
         }
 
-        //[ZboxAuthorize]
-        //[HttpGet, Ajax]
-        //public async Task<JsonResult> Rate(long itemId)
-        //{
-
-        //    var query = new GetItemRateQuery(GetUserId(), itemId);
-        //    var retVal = await ZboxReadService.GetRate(query) ?? new ItemRateDto();
-
-        //    return Json(new JsonResponse(true, retVal), JsonRequestBehavior.AllowGet);
-
-        // }
 
 
 
@@ -505,7 +497,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
 
-            m_QueueProvider.InsertMessageToTranaction(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, GetUserId(), model.ItemId));
+            m_QueueProvider.InsertMessageToTranaction(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
             return Json(new JsonResponse(true));
         }
 
@@ -534,7 +526,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var command = new AddAnnotationCommand(model.Comment, model.ItemId, GetUserId());
+                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId());
                 ZboxWriteService.AddAnnotation(command);
                 return Json(new JsonResponse(true, command.AnnotationId));
             }
@@ -552,7 +544,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-            var command = new DeleteItemCommentCommand(model.CommentId, GetUserId());
+            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
             ZboxWriteService.DeleteAnnotation(command);
             return Json(new JsonResponse(true));
         }
@@ -566,7 +558,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
 
             }
-            var command = new AddReplyToAnnotationCommand(GetUserId(), model.ItemId, model.Comment, model.CommentId);
+            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId);
             ZboxWriteService.AddReplyAnnotation(command);
             return Json(new JsonResponse(true, command.ReplyId));
         }
@@ -578,7 +570,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
             }
-            var command = new DeleteItemCommentReplyCommand(GetUserId(), model.ReplyId);
+            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
             ZboxWriteService.DeleteItemCommentReply(command);
             return Json(new JsonResponse(true));
         }

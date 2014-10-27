@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 //using Microsoft.AspNet.SignalR.ServiceBus;
@@ -33,7 +29,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
 
-            //RouteConfig.RegisterHubs(); // signalr should be first
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             System.Web.Helpers.AntiForgeryConfig.RequireSsl = true;
@@ -64,23 +59,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
         }
 
-        private void ChangeThreadLanguage(string language)
-        {
-            if (!Languages.CheckIfLanguageIsSupported(language))
-            {
-                return;
-            }
-            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
-            try
-            {
-                var cultureInfo = new CultureInfo(language);
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-            }
-            catch (CultureNotFoundException)
-            {
-            }
-        }
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
             try
@@ -116,13 +94,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //{
                         //    continue;
                         //}
-                        var ipad = DisplayConfig.CheckIfIpadView(new HttpContextWrapper(HttpContext.Current)) ? "ipad": string.Empty;
+                        var iPad = DisplayConfig.CheckIfIpadView(new HttpContextWrapper(HttpContext.Current)) ? "iPad": string.Empty;
                         var mobile = DisplayConfig.CheckIfMobileView(new HttpContextWrapper(HttpContext.Current))
                             ? "mobile"
                             : string.Empty;
 
 
-                        value += ipad + mobile; //context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
+                        value += iPad + mobile; //context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
                     }
                 }
                 if (string.IsNullOrWhiteSpace(value))

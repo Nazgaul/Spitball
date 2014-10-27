@@ -1,12 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Queries;
+
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -14,21 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class CommentController : BaseController
     {
 
-        /// <summary>
-        /// Ajax for Comment list.
-        /// </summary>
-        /// <returns></returns>
-        //[HttpGet]
-        //[Ajax]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //public ActionResult Index(long boxUid)
-        //{
-           
-        //    var userId = GetUserId(false);
-        //    var query = new GetBoxCommentsQuery(boxUid, userId);
-        //    var result = ZboxReadService.GetBoxComments(query);
-        //    return Json(new JsonResponse(true, result));
-        //}
+      
 
 
         ///// <summary>
@@ -53,67 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-        #region AddComment
+       
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult Add(NewComment newComment)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-                }
-                //var result = string.IsNullOrEmpty(newComment.ItemUid) ? AddBoxComment(newComment) : AddItemComment(newComment);
-                //var result = AddBoxComment(newComment);
-                return Json(new JsonResponse(true));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                ModelState.AddModelError("Unauthorized", "You are not allowed to post comments");
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("AddComment user: {0} model: {1}", GetUserId(), newComment), ex);
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-
-        }
-        //private Zbox.ViewModel.DTOs.ActivityDtos.CommentDto AddBoxComment(NewComment comment)
-        //{
-        //    var command = new AddBoxCommentCommand(GetUserId(), comment.BoxUid, comment.CommentText);
-        //    var result = m_ZboxWriteService.AddBoxComment(command);
-
-        //    var commentDto = new Zbox.ViewModel.DTOs.ActivityDtos.CommentDto(
-        //        result.NewComment.Id, null, result.User.Name, result.User.Image, result.User.Id,
-        //        DateTime.SpecifyKind(result.NewComment.DateTimeUser.CreationTime, DateTimeKind.Unspecified),
-        //        result.Target.Name, result.Target.Id.ToString(), null, null, result.NewComment.CommentText);
-
-        //    return commentDto;
-
-        //}
-
-
-        #endregion
-
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult Delete(long commentId, long boxUid)
-        {
-            try
-            {
-                //var query = new DeleteCommentCommand(commentId, userId, boxUid);
-                //m_ZboxWriteService.DeleteComment(query);
-                return Json(new JsonResponse(true, commentId));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("DeleteComment user: {0} boxid: {1} commentId {2}", GetUserId(), boxUid, commentId), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
     }
 }

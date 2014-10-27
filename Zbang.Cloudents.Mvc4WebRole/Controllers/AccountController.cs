@@ -302,7 +302,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoCache]
         public ActionResult Settings()
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var query = new GetUserDetailsQuery(userId);
 
             var user = ZboxReadService.GetUserAccountDetails(query);
@@ -324,7 +324,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize, NoUniversity]
         public JsonResult SettingsData()
         {
-            var userId = GetUserId();
+            var userId = User.GetUserId();
             var query = new GetUserDetailsQuery(userId);
 
             var user = ZboxReadService.GetUserAccountDetails(query);
@@ -360,7 +360,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, AccountControllerResources.ChangeEmailCodeError));
             }
-            var id = GetUserId();
+            var id = User.GetUserId();
             try
             {
                 var command = new UpdateUserEmailCommand(id, model.Email);
@@ -410,7 +410,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
                 }
-                var id = GetUserId();
+                var id = User.GetUserId();
                 var profilePics = new ProfileImages(model.Image, model.LargeImage);
 
                 var command = new UpdateUserProfileCommand(id, profilePics.Image,
@@ -450,7 +450,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var id = GetUserId();
+                var id = User.GetUserId();
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
@@ -486,7 +486,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var id = GetUserId();
+            var id = User.GetUserId();
             var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
             var commandResult = ZboxWriteService.UpdateUserPassword(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
@@ -502,7 +502,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var id = GetUserId();
+            var id = User.GetUserId();
             var command = new UpdateUserLanguageCommand(id, model.Language);
             ZboxWriteService.UpdateUserLanguage(command);
             FormsAuthenticationService.ChangeLanguage(model.Language);
@@ -720,7 +720,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(GetUserId()));
+                var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
                 //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
                 var serializer = new JsonNetSerializer();
                 var jsonRetVal = serializer.Serialize(retVal);
@@ -742,7 +742,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize, Ajax]
         public JsonResult FirstTime(FirstTime firstTime)
         {
-            var userid = GetUserId();
+            var userid = User.GetUserId();
             var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
             ZboxWriteService.UpdateUserFirstTimeStatus(command);
 

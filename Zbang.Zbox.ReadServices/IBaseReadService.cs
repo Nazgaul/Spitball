@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -6,11 +7,6 @@ namespace Zbang.Zbox.ReadServices
 {
     public interface IBaseReadService
     {
-        #region BoxBasedData
-        //UserPermissionPerBoxDto GetUserPermission(GetBoxQuery query);
-
-        #endregion
-
         #region UserBasedData
 
         Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query);
@@ -18,7 +14,7 @@ namespace Zbang.Zbox.ReadServices
         Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query);
 
 
-
+        
 
 
         #endregion
