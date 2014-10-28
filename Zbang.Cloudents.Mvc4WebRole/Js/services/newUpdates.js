@@ -1,4 +1,4 @@
-﻿
+﻿"use strict";
 app.factory('sNewUpdates', [
     '$http',
     'sBox',
@@ -33,8 +33,13 @@ function ($http, sBox, sUserDetails) {
 
         },
         getUpdatesCount: function (boxId) {
-            var updates = {};            
+            var updates = {};
             if (!updates[boxId]) {
+                updates = {
+                    feed: 0,
+                    items: 0,
+                    quizzes: 0
+                }
                 return updates;
             }
             updates.feed = updates[boxId].questions.length + updates[boxId].answers.length;
@@ -42,7 +47,7 @@ function ($http, sBox, sUserDetails) {
             updates.quizzes = updates[boxId].quizzes.length;
 
             return updates;
-        },        
+        },
         setOld: function (boxId, type, id) {
             id = parseInt(id, 10);
 

@@ -1,4 +1,5 @@
-﻿app.directive('focusOn',
+﻿"use strict";
+app.directive('focusOn',
     [
 
     function () {

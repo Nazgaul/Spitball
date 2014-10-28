@@ -1,4 +1,5 @@
-﻿angular.module('Carousel', []).
+﻿"use strict";
+angular.module('Carousel', []).
     controller('CarouselController', ['$scope', '$timeout', function ($scope, $timeout) {
         var self = this,
         slides = self.slides = $scope.slides = [],

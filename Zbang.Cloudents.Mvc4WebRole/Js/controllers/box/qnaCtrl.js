@@ -1,4 +1,4 @@
-﻿//define('qnaCtrl', ['app'], function (app) {
+﻿"use strict";
 mBox.controller('QnACtrl',
 ['$scope', '$modal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 

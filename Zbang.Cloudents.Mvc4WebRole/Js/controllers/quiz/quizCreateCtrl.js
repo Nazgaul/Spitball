@@ -1,4 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails',
+﻿"use strict";
+mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails',
     function ($scope, $rootScope, $timeout, $modal, sQuiz, sUserDetails) {
         function Question(data) {
             data = data || {};

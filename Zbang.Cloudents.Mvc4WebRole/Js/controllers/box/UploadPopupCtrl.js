@@ -1,4 +1,5 @@
-﻿mBox.controller('UploadPopupCtrl',
+﻿"use strict";
+mBox.controller('UploadPopupCtrl',
     ['$scope', '$modalInstance', 'data',
     function ($scope, $modalInstance, data) {
         $scope.boxId = data.boxId;

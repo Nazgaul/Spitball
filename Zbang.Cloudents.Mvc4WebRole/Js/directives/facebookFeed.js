@@ -1,4 +1,5 @@
-﻿mLibrary.directive('facebookFeed',
+﻿"use strict";
+mLibrary.directive('facebookFeed',
    ['$window',
 
    function ($window) {

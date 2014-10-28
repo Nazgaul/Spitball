@@ -1,4 +1,5 @@
-﻿angular.module('wizard', []).
+﻿"use strict";
+angular.module('wizard', []).
     directive('wzStep', ['$templateCache', function ($templateCache) {
         return {
             restrict: 'EA',

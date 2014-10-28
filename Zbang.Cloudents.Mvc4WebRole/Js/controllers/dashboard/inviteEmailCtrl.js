@@ -1,4 +1,5 @@
-﻿angular.module('InviteEmail', []).
+﻿"use strict";
+angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
     ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout',
          function ($scope, $routeParams, sShare, sFocus, $timeout) {

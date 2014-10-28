@@ -1,4 +1,5 @@
-﻿app.factory('sGoogle',
+﻿"use strict";
+app.factory('sGoogle',
    ['$document', '$q', '$timeout', 'sShare',
    function ($document, $q, $timeout, Share) {
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',

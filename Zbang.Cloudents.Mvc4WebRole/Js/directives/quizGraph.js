@@ -1,4 +1,5 @@
-﻿app.directive('quizGraph',
+﻿"use strict";
+app.directive('quizGraph',
    ['$timeout', function ($timeout) {
        return {
            scope: false,

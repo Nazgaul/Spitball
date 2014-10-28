@@ -1,4 +1,5 @@
-﻿mAccount.controller('NotificationsCtrl',
+﻿"use strict";
+mAccount.controller('NotificationsCtrl',
     ['$scope', 'sShare', '$analytics',
 
         function ($scope, sShare, $analytics) {

@@ -1,4 +1,5 @@
-﻿app.factory('sFacebook',
+﻿"use strict";
+app.factory('sFacebook',
    ['$rootScope','$q', '$analytics', '$timeout', 'sShare',
    function ($rootScope, $q, $analytics, $timeout, sShare) {
        var isAuthenticated = false,

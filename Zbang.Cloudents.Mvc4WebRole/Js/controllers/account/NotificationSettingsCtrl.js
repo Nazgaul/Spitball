@@ -1,4 +1,5 @@
-﻿mAccount.controller('NotificationSettingsCtrl',
+﻿"use strict";
+mAccount.controller('NotificationSettingsCtrl',
     ['$scope', 'sBox', 'sUser',
 
         function ($scope, sBox, sUser) {

@@ -1,4 +1,5 @@
-﻿app.directive('categoryLink',
+﻿"use strict";
+app.directive('categoryLink',
     [ '$location',
         function ($location) {
             var search = $location.search()['universityid'] || $location.search()['universityId'];

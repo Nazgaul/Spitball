@@ -1,4 +1,5 @@
-﻿app.controller('HomeCtrl',
+﻿"use strict";
+app.controller('HomeCtrl',
     ['$scope', /*'debounce',*/'Store',
     function ($scope, /*debounce,*/ Store) {
 

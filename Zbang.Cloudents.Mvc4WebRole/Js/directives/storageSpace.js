@@ -1,4 +1,5 @@
-﻿app.directive('storageSpace',
+﻿"use strict";
+app.directive('storageSpace',
    [
    function () {
        return {

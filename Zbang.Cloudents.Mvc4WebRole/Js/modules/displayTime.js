@@ -1,4 +1,5 @@
-﻿angular.module('displayTime', []).
+﻿"use strict";
+angular.module('displayTime', []).
     factory('displayTimeService', ['$interval', '$rootScope',
         function ($interval, $rootScope) {
 

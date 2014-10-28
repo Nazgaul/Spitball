@@ -1,4 +1,5 @@
-﻿var libChoose = mLibrary.controller('LibChooseCtrl',
+﻿"use strict";
+var libChoose = mLibrary.controller('LibChooseCtrl',
         ['$scope',
             '$timeout',
             '$filter',

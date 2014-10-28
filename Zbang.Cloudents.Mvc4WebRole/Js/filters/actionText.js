@@ -1,4 +1,5 @@
-﻿mDashboard.filter('actionText',
+﻿"use strict";
+mDashboard.filter('actionText',
 [
     function () {
         var dashFeed = document.getElementById('dash_feed'),

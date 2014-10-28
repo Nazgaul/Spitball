@@ -1,4 +1,5 @@
-﻿var mItem = angular.module('mItem', []);
+﻿"use strict";
+var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {

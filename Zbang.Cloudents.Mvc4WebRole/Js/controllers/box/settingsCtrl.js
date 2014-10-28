@@ -1,4 +1,4 @@
-﻿//define('manageCtrl',['app'], function (app) {
+﻿"use strict";
 mBox.controller('SettingsCtrl',
     ['$scope', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
 

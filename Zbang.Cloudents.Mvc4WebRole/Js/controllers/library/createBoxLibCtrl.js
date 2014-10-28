@@ -1,4 +1,5 @@
-﻿mLibrary.controller('CreateBoxLibCtrl',
+﻿"use strict";
+mLibrary.controller('CreateBoxLibCtrl',
         ['$scope',
          '$modalInstance',
          'sBox',

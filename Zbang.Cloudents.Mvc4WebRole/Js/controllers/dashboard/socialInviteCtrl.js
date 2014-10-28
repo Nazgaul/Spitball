@@ -1,4 +1,5 @@
-﻿mDashboard.controller('SocialInviteCtrl',
+﻿"use strict";
+mDashboard.controller('SocialInviteCtrl',
     ['$scope', '$filter', '$location', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
          function ($scope, $filter, $location, sUser, sGoogle, sFacebook, sShare) {
 

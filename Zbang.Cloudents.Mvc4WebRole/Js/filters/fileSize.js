@@ -1,4 +1,5 @@
-﻿app.filter('fileSize',
+﻿"use strict";
+app.filter('fileSize',
 [
     function () {
 

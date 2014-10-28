@@ -1,4 +1,5 @@
-﻿mDashboard.controller('CreateBoxWizardCtrl',
+﻿"use strict";
+mDashboard.controller('CreateBoxWizardCtrl',
      ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data',
         function ($scope, $modalInstance, WizardHandler, sLibrary, sShare, sFacebook, data) {
 

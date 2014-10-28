@@ -1,4 +1,5 @@
-﻿app.directive("ngPlaceholder",
+﻿"use strict";
+app.directive("ngPlaceholder",
     ['$log', '$timeout',
 
     function ($log, $timeout) {

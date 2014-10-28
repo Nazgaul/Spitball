@@ -1,4 +1,5 @@
-﻿angular.module('textDirection', []).
+﻿"use strict";
+angular.module('textDirection', []).
     factory('textDirectionService', [function () {
         return {
             isRTL: function (value) {

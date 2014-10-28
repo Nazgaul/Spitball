@@ -1,4 +1,5 @@
-﻿app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails',
+﻿"use strict";
+app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails',
 function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
     var tooltipTemplate = $templateCache.get('userToolTip.html'),
         showTooltip = 'showTooltip'

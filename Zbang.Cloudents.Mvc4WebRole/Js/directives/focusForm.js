@@ -1,4 +1,5 @@
-﻿app.directive('focusForm',
+﻿"use strict";
+app.directive('focusForm',
     [
     function () {
         return {

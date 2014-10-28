@@ -1,4 +1,5 @@
-﻿app.controller('ContactCtrl',
+﻿"use strict";
+app.controller('ContactCtrl',
     ['$scope', '$timeout','Store',
     function ($scope, $timeout,Store) {
         $timeout(function () {

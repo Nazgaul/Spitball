@@ -1,4 +1,5 @@
-﻿app.directive('loadSpinner',
+﻿"use strict";
+app.directive('loadSpinner',
     [
 
     function () {

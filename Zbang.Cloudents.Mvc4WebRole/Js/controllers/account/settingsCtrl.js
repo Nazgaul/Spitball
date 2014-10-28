@@ -1,4 +1,5 @@
-﻿mAccount = angular.module('mAccount', ['angular-plupload']).
+﻿"use strict";
+var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
     ['$scope', '$window', '$timeout', 'sAccount',
 

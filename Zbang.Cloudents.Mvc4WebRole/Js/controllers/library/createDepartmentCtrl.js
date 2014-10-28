@@ -1,4 +1,5 @@
-﻿mLibrary.controller('CreateDepartmentCtrl',
+﻿"use strict";
+mLibrary.controller('CreateDepartmentCtrl',
         ['$scope',
          '$modalInstance',         
 

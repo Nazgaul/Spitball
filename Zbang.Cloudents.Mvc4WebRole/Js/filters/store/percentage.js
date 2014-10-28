@@ -1,4 +1,5 @@
-﻿app.filter('percentage', ['$window',
+﻿"use strict";
+app.filter('percentage', ['$window',
     function ($window) {
     return function (input, decimals, suffix) {
         decimals = angular.isNumber(decimals)? decimals :  3;

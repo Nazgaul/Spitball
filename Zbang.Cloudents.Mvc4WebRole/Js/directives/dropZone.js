@@ -1,4 +1,5 @@
-﻿app.directive('dropZone', ['$modalStack', function ($modalStack) {
+﻿"use strict";
+app.directive('dropZone', ['$modalStack', function ($modalStack) {
     return {
         link: function (scope, elem, attrs) {
 

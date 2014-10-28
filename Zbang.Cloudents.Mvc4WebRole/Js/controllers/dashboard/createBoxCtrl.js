@@ -1,4 +1,5 @@
-﻿mDashboard.controller('CreateBoxCtrl',
+﻿"use strict";
+mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
          function ($scope, sBox) {       

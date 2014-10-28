@@ -1,4 +1,5 @@
-﻿app.controller('UploadCtrl',
+﻿"use strict";
+app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', '$modal', 'sFacebook', '$filter',
         'sDropbox', 'sGoogle', 'sUpload','$timeout',
 

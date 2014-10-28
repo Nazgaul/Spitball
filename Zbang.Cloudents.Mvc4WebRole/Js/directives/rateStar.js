@@ -1,4 +1,5 @@
-﻿app.directive('rateStar',
+﻿"use strict";
+app.directive('rateStar',
 [
 
    function () {

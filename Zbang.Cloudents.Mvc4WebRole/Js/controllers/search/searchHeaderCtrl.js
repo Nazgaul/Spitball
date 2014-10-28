@@ -1,4 +1,5 @@
-﻿app.controller('SearchHeaderCtrl',
+﻿"use strict";
+app.controller('SearchHeaderCtrl',
     ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService',
     function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService) {
         $scope.params = {
