@@ -327,61 +327,61 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             #region layout3
-            RegisterJsRegular("cd1",
-                new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
-                new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
-                new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
-                new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
+            //RegisterJsRegular("cd1",
+            //    new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
+            //    new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
+            //    new JsFileWithCdn("~/Scripts/knockout-delegatedEvents.js"),
+            //    new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
+            //    new JsFileWithCdn("~/Scripts/jquery.slimscroll.js"),
 
-                new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
-                //new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
+            //    new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
+            //    //new JsFileWithCdn("~/Scripts/jquery.mousewheel.min.js"),
 
-                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
+            //    //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.js"),
 
-                //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
-                new JsFileWithCdn("~/Js/Logon.js"),
-                new JsFileWithCdn("~/Js/Cache2.js"),
-                new JsFileWithCdn("~/Js/DataContext2.js"),
-                new JsFileWithCdn("~/Js/GenericEvents2.js"),
-
-
-                new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
-                new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
-                new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
+            //    //new JsFileWithCdn("~/Scripts/jquery.mCustomScrollbar.concat.min.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+            //    new JsFileWithCdn("~/Js/Logon.js"),
+            //    new JsFileWithCdn("~/Js/Cache2.js"),
+            //    new JsFileWithCdn("~/Js/DataContext2.js"),
+            //    new JsFileWithCdn("~/Js/GenericEvents2.js"),
 
 
-               new JsFileWithCdn("~/Js/TooltipGuide.js"),
+            //    new JsFileWithCdn("~/Js/Dialog2.js"), //dialog message
+            //    new JsFileWithCdn("~/Js/Autocomplete.js"), //dialog message
+            //    new JsFileWithCdn("~/Js/Tooltip.js"), //dialog message
 
 
-                //header
-                new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
+            //   new JsFileWithCdn("~/Js/TooltipGuide.js"),
+
+
+            //    //header
+            //    new JsFileWithCdn("~/Js/NotificationsViewModel.js"),
 
              
-                new JsFileWithCdn("~/Js/Invite.js"),
+            //    new JsFileWithCdn("~/Js/Invite.js"),
              
 
-                //account settings
-                new JsFileWithCdn("~/Js/AccountSettings.js"),
+            //    //account settings
+            //    new JsFileWithCdn("~/Js/AccountSettings.js"),
 
-                //item
-                //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
+            //    //item
+            //    //new JsFileWithCdn("~/Js/ItemViewModel4.js"),
 
-                //signalR
-               // new JsFileWithCdn("~/Js/RT.js"),
+            //    //signalR
+            //   // new JsFileWithCdn("~/Js/RT.js"),
 
-                //Social
-                new JsFileWithCdn("~/Js/SocialConnect.js"),
+            //    //Social
+            //    new JsFileWithCdn("~/Js/SocialConnect.js"),
 
-                //Search page
-                new JsFileWithCdn("~/Js/SearchDropdown.js"),
-                new JsFileWithCdn("~/Js/Search.js")
+            //    //Search page
+            //    new JsFileWithCdn("~/Js/SearchDropdown.js"),
+            //    new JsFileWithCdn("~/Js/Search.js")
              
-                );
+            //    );
 
             #endregion layout3
 

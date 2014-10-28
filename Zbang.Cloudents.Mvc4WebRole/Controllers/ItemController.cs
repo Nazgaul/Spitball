@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
@@ -186,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId(false);
 
                 var query = new GetItemQuery(userId, itemId, boxId);
-                var tItem =  ZboxReadService.GetItem2(query);
+                var tItem = ZboxReadService.GetItem2(query);
 
                 var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
                       new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -245,8 +246,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Redirect(item.Blob);
             }
-           await m_QueueProvider.InsertMessageToTranactionAsync(
-                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+            await m_QueueProvider.InsertMessageToTranactionAsync(
+                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
                     {
                         new StatisticsData4.StatisticItemData
                         {
@@ -416,19 +417,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
-        //[AjaxCache(TimeConsts.Minute * 15)]
-        public async Task<ActionResult> Preview(string blobName, int index, long id, long boxId, int width = 0, int height = 0)
+        [AsyncTimeout(TimeConsts.Minute * 3)]
+        public async Task<ActionResult> Preview(string blobName, int index, long id, long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
                 uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
             }
-            //this will not work due to ie9
-            //if (!Request.Headers["Referer"].Contains(boxUid))
-            //{
-            //    return Json(new JsonResponse(false), JsonRequestBehavior.AllowGet);
-            //}
             if (!User.Identity.IsAuthenticated && index > 0)
             {
                 return Json(new JsonResponse(true));
@@ -448,7 +444,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         );
             try
             {
-                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3);
+                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return Json(new JsonResponse(true, new
@@ -456,15 +452,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         preview = RenderRazorViewToString("_PreviewFailed",
                             Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     }));
-                    
+
                 }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
                     return Json(new JsonResponse(true, new { preview = retVal.Content.First() }));
                 }
 
-                return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
-                    retVal.Content.Take(3)) }));
+                return Json(new JsonResponse(true, new
+                {
+                    preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
+                        retVal.Content.Take(3))
+                }));
 
             }
             catch (Exception ex)
@@ -472,8 +471,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
                 if (index == 0)
                 {
-                    return Json(new JsonResponse(true, new { preview = RenderRazorViewToString("_PreviewFailed", 
-                        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id })) }));
+                    return Json(new JsonResponse(true, new
+                    {
+                        preview = RenderRazorViewToString("_PreviewFailed",
+                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                    }));
                 }
                 return Json(new JsonResponse(true));
             }

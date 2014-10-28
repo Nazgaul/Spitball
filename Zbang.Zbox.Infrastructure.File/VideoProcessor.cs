@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.MediaServices;
@@ -22,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.File
             m_MediaServiceProvider = mediaServiceProvider;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);

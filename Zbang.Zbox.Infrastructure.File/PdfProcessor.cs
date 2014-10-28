@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading;
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using Aspose.Pdf.Text;
@@ -33,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
@@ -65,15 +66,6 @@ namespace Zbang.Zbox.Infrastructure.File
                     meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
                     continue;
                 }
-
-                //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-
-
-                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
-                //{
-                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-                //    continue;
-                //}
 
                 try
                 {
@@ -115,13 +107,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public static readonly string[] PdfExtenstions = { ".pdf" };
+        public static readonly string[] PdfExtensions = { ".pdf" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return PdfExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 

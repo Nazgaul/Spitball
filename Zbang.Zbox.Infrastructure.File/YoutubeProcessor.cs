@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
@@ -33,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"//www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum)
+        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))

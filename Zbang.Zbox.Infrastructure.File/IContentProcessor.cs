@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -6,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.File
     public interface IContentProcessor
     {
         //byte[] ConvertFileToWebSitePreview(Stream stream, int width, int height);
-        Task<PreviewResult> ConvertFileToWebSitePreview(Uri contentUrl, int width, int height, int indexNum);
+        Task<PreviewResult> ConvertFileToWebSitePreview(Uri contentUrl, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken));
 
         //string TypeOfView { get; }
 

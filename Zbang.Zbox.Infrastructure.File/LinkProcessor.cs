@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
 
-        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             if (blobUri.Scheme == "http")
             {

@@ -12,6 +12,7 @@
     <PerformanceCounterConfiguration counterSpecifier="\ASP.NET Applications(__Total__)\Errors Total/Sec" sampleRate="PT3M" />
     <PerformanceCounterConfiguration counterSpecifier="\ASP.NET\Requests Queued" sampleRate="PT3M" />
     <PerformanceCounterConfiguration counterSpecifier="\ASP.NET\Requests Rejected" sampleRate="PT3M" />
+    <PerformanceCounterConfiguration counterSpecifier="\Processor(_Total)\% Processor Time" sampleRate="PT3M" />
   </PerformanceCounters>
   <WindowsEventLog bufferQuotaInMB="1024" scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Warning">
     <DataSource name="Application!*" />
