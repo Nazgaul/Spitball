@@ -22,7 +22,7 @@
             $scope.inviteFacebook = function (contact) {
                 var dfd = $q.defer();
                 sFacebook.send({
-                    path: window.location.origin,
+                    path: '',
                     to: contact.id
                 }).then(function () {
                     var data = {
