@@ -1,4 +1,5 @@
-﻿app.directive('fbBlock',
+﻿"use strict";
+app.directive('fbBlock',
     [
         function () {
             return {
@@ -6,9 +7,21 @@
                 scope: false,
                 link: function (scope, elem, attrs) {
                     
-                    var fbDialog = angular.element('.fb_dialog  iframe').closest('.fb_dialog'),
-                        element,
-                        interval = setInterval(function () {
+                    var fbDialog,element,fInterval, interval;
+
+                    if (!fbDialog) {
+                        fInterval = setInterval(function () {
+                            fbDialog = angular.element('.fb_dialog iframe').closest('.fb_dialog');
+
+                            if (fbDialog.length) {
+                                clearInterval(fInterval);
+                                return;
+                            }
+
+                            angular.element(document.body).append(element);
+                        }, 50);
+                    }
+                    interval = setInterval(function () {
                         if (fbDialog.position().top > 0) {
                             clearInterval(interval);
                             element = angular.element('<div></div>');

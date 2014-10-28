@@ -1,4 +1,5 @@
-﻿var mLibrary = angular.module('mLibrary', []);
+﻿"use strict";
+var mLibrary = angular.module('mLibrary', []);
 mLibrary.controller('LibraryCtrl',
     ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
 function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {

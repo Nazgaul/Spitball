@@ -1,4 +1,5 @@
-﻿angular.module('mSearch', []).
+﻿"use strict";
+angular.module('mSearch', []).
     constant({
         constants: {
             tabs: {

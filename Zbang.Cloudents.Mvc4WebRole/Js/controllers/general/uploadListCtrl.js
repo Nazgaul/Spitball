@@ -1,4 +1,5 @@
-﻿app.controller('UploadListCtrl',
+﻿"use strict";
+app.controller('UploadListCtrl',
     ['$scope', '$rootScope', '$timeout', '$interval',
 
     function ($scope, $rootScope, $timeout, $interval) {

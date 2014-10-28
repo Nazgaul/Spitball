@@ -1,4 +1,5 @@
-﻿app.directive('backButton',
+﻿"use strict";
+app.directive('backButton',
    ['$rootScope','$location',
 
    function ($rootScope, $location) {

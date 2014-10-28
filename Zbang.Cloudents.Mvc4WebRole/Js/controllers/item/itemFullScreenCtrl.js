@@ -1,4 +1,5 @@
-﻿mItem.controller('itemFullScreenCtrl',
+﻿"use strict";
+mItem.controller('itemFullScreenCtrl',
 [
     '$scope', '$modalInstance','$sce',
     function ($scope, $modalInstance, $sce) {

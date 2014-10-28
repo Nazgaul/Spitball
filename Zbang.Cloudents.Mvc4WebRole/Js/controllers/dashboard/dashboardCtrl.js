@@ -1,4 +1,5 @@
-﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
+﻿"use strict";
+var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
@@ -16,7 +17,9 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
 
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
-        createBoxWized: '/Dashboard/CreateBox/'
+        createBoxWized: '/Dashboard/CreateBox/',
+        socialInvite: '/Dashboard/SocialInvitePartial'
+
     };
 
     $scope.myCourses = jsResources.CoursesFollow;
@@ -104,6 +107,16 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
         });
     };
 
+
+    $scope.inviteCloudents = function () {        
+            var modalInstance = $modal.open({
+                windowClass: "boxInvitePopup",
+                templateUrl: $scope.partials.socialInvite,
+                controller: 'InviteCloudentsCtrl',
+                backdrop: 'static'
+            });            
+    };
+
     //$scope.openCreateBox = function () {
     //    var modalInstance = $modal.open({
     //        windowClass: "privateBox",
@@ -111,7 +124,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     //        controller: 'CreateBoxCtrl',
     //        backdrop: 'static'
     //    });
-
+    
     //    modalInstance.result.then(function (box) {
     //        $location.path(box.url);
     //    }, function () {

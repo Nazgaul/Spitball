@@ -1,4 +1,5 @@
-﻿var mUser = angular.module('mUser', [])
+﻿"use strict";
+var mUser = angular.module('mUser', [])
     .constant('userConstants', {
         activity: {
             items: {

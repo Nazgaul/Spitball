@@ -1,4 +1,5 @@
-﻿app.controller('CategoryCtrl',
+﻿"use strict";
+app.controller('CategoryCtrl',
     ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store',
     function ($scope, $routeParams, $timeout, $location, $window, Store) {
         var consts = {

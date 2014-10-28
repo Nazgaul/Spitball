@@ -1,4 +1,5 @@
-﻿mBox.controller('createTabCtrl',
+﻿"use strict";
+mBox.controller('createTabCtrl',
 		['$scope',
 		 '$modalInstance',
 		 'sBox',

@@ -1,4 +1,5 @@
-﻿app.filter('orderByFilter',
+﻿"use strict";
+app.filter('orderByFilter',
 [
     function () {
         return function (items, filterData, reverse) {

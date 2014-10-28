@@ -1,4 +1,5 @@
-﻿app.directive('scrollToTop',
+﻿"use strict";
+app.directive('scrollToTop',
    ['$rootScope',
 
    function ($rootScope) {

@@ -1,4 +1,5 @@
-﻿app.controller('ViewCtrl',
+﻿"use strict";
+app.controller('ViewCtrl',
     ['$scope', '$timeout',
     function ($scope, $timeout) {
         $timeout(function () {

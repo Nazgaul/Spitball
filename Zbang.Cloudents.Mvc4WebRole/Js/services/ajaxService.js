@@ -1,4 +1,5 @@
-﻿mItem.factory('ajaxService',
+﻿"use strict";
+app.factory('ajaxService',
     ['$http',
      '$q',
      '$angularCacheFactory',

@@ -1,4 +1,5 @@
-﻿app.controller('ProductCtrl',
+﻿"use strict";
+app.controller('ProductCtrl',
     ['$scope','$timeout',
     function ($scope, $timeout) {
         $timeout(function () {

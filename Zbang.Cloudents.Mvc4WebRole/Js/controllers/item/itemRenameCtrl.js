@@ -1,4 +1,5 @@
-﻿mItem.controller('itemRenameCtrl',
+﻿"use strict";
+mItem.controller('itemRenameCtrl',
 [
     '$scope', '$modalInstance', 'data', 'sItem',
 function ($scope, $modalInstance, data, sItem) {

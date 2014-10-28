@@ -1,4 +1,4 @@
-﻿/// <reference path="/scripts/underscore-min.js" />
+﻿"use strict";
 mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
             'sUserDetails', 'sFacebook',

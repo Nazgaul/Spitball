@@ -1,3 +1,4 @@
+"use strict";
 /**
  * angular-timer - v1.1.6 - 2014-07-01 7:37 AM
  * https://github.com/siddii/angular-timer

@@ -1,4 +1,5 @@
-﻿app.directive('selectOnClick', function () {
+﻿"use strict";
+app.directive('selectOnClick', function () {
     return {
         restrict: 'A',
         link: function (scope, element) {

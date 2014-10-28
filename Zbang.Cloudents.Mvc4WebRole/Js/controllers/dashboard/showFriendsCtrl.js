@@ -1,4 +1,5 @@
-﻿mDashboard.controller('ShowFriendsCtrl',
+﻿"use strict";
+mDashboard.controller('ShowFriendsCtrl',
    ['$scope',
     '$modalInstance',
     '$filter',

@@ -1,4 +1,6 @@
-﻿app.filter('stringFormat', function () {
+﻿"use strict";
+app.filter('stringFormat', function () {
+
     function toFormattedString(useLocale, format, values) {
         var result = '';
 

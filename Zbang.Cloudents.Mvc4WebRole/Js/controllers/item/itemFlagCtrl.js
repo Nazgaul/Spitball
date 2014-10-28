@@ -1,4 +1,5 @@
-﻿mItem.controller('itemFlagCtrl',
+﻿"use strict";
+mItem.controller('itemFlagCtrl',
 [
     '$scope', '$modalInstance', 'data', '$timeout', 'sItem',
 function ($scope, $modalInstance, data, $timeout, sItem) {

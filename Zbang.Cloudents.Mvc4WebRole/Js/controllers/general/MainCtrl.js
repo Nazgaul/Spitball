@@ -1,4 +1,5 @@
-﻿app.controller('MainCtrl',
+﻿"use strict";
+app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
         function ($scope, $rootScope, $location, $modal, sUser, sFacebook, sUserDetails, sStore) {
             $scope.partials = {

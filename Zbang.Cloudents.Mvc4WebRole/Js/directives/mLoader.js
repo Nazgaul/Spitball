@@ -1,4 +1,5 @@
-﻿app.directive('loader',
+﻿"use strict";
+app.directive('loader',
     ['$rootScope', '$timeout',
 
     function ($rootScope, $timeout) {

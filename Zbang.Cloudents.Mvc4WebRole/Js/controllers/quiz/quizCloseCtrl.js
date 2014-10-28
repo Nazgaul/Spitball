@@ -1,4 +1,5 @@
-﻿mBox.controller('QuizCloseCtrl',
+﻿"use strict";
+mBox.controller('QuizCloseCtrl',
     ['$scope', '$modalInstance',
         function ($scope, $modalInstance) {
             $scope.publish = function () {

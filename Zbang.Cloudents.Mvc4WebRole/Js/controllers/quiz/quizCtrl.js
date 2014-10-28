@@ -1,4 +1,5 @@
-﻿var mQuiz = angular.module('mQuiz', ['timer']);
+﻿"use strict";
+var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
         ['$scope', '$window', '$timeout', '$filter', '$routeParams', '$modal', 'sQuiz', 'sUserDetails',
         function ($scope, $window, $timeout, $fliter, $routeParams, $modal, sQuiz, sUserDetails) {

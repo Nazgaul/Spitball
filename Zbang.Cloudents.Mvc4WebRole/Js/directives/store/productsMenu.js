@@ -1,4 +1,5 @@
-﻿app.directive('productsMenu',
+﻿"use strict";
+app.directive('productsMenu',
     ['$rootScope',
 
     function ($rootScope) {

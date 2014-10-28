@@ -1,4 +1,5 @@
-﻿mDashboard.controller('ChallengeCtrl',
+﻿"use strict";
+mDashboard.controller('ChallengeCtrl',
         ['$scope',
          '$modalInstance',
          'data',

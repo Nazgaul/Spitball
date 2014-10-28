@@ -1,4 +1,5 @@
-﻿libChoose.controller('restrictionPopUpCtrl',
+﻿"use strict";
+libChoose.controller('restrictionPopUpCtrl',
 [
     '$scope',
     '$modalInstance',

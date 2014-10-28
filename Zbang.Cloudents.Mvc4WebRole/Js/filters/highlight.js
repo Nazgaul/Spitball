@@ -1,4 +1,4 @@
-﻿
+﻿"use strict";
 app.filter('highlight',
 [
     function () {

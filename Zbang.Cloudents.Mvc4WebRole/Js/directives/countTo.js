@@ -1,4 +1,5 @@
-﻿app.directive('counter', function () {
+﻿"use strict";
+app.directive('counter', function () {
     var lastTime = 0;
     var vendors = ['webkit', 'moz', 'ms'];
     for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {

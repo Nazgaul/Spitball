@@ -1,4 +1,5 @@
-﻿mDashboard.controller('createAcademicBoxCtrl',
+﻿"use strict";
+mDashboard.controller('createAcademicBoxCtrl',
         ['$scope', 'sBox', '$modal', 'sLibrary',
         function ($scope, sBox, $modal, sLibrary) {
 

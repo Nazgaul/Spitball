@@ -1,4 +1,5 @@
-﻿app.controller('CheckoutCtrl',
+﻿"use strict";
+app.controller('CheckoutCtrl',
     ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
     function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
 

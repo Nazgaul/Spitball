@@ -1,4 +1,5 @@
-﻿app.filter('extToClass',
+﻿"use strict";
+app.filter('extToClass',
 [
     function () {    
         return function (item) {

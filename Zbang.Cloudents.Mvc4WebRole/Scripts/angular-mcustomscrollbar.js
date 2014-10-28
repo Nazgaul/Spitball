@@ -1,4 +1,4 @@
-﻿angular.module('custom_scrollbar', []).directive('mCustomScrollbar', ['$timeout', function ($timeout) {    
+﻿angular.module('custom_scrollbar', []).directive('mCustomScrollbar', ['$timeout', function ($timeout) {
     return {
         restrict: 'A',
         transclude: true,
@@ -15,10 +15,12 @@
             $win.resize(updateScroll);
 
             function updateScroll() {
-                $timeout(function() {
+                $timeout(function () {
+                    calcHeight();
+                    $elem.height(height);
                     $elem.mCustomScrollbar('update');
                     //setScroll();
-                }, 50);
+                }, 100);
             }
 
             function setScroll() {
@@ -29,12 +31,12 @@
                     theme: "dark",
                     advanced: { updateOnContentResize: false },
                     callbacks: {
-                        onScroll: function () {
-                            if (this.mcs.topPct > 75) {
-                                if ($attr.mCustomScrollbar) {
-                                    $scope.$apply($attr.mCustomScrollbar);
-                                }
+                        onTotalScrollOffset: 300,
+                        onTotalScroll: function () {
+                            if ($attr.mCustomScrollbar) {
+                                $scope.$apply($attr.mCustomScrollbar);
                             }
+
                         },
                         whileScrolling: function () {
                             if (this.mcs.topPct === 0) {
@@ -45,7 +47,7 @@
                         }
                     }
                 });
-                
+
             }
 
             function calcHeight() {
