@@ -32,7 +32,7 @@ mod.directive('infiniteScroll', [
                   //elementBottom = elem.offset().top + elem.height();
                   if (attrs.infiniteScrollElement) {
 
-                      remaining = $scrollElem[0].scrollHeight - $scrollElem.scrollTop();
+                      remaining = $scrollElem[0].scrollHeight - ($scrollElem.scrollTop() + $scrollElem.height());
                   } else {
                       remaining = $(document).height() - ($scrollElem.scrollTop() +  $scrollElem.height());
                   }
