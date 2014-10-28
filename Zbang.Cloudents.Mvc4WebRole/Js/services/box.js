@@ -65,6 +65,9 @@ mBox.factory('sBox',
             },
             deleteUpdates: function (data) {
                 return ajaxService.post(buildPath('DeleteUpdates'), data,true);
+            },
+            sideBar: function (data) {
+                return ajaxService.get(buildPath('SideBar'), data);
             }
         };
     }
