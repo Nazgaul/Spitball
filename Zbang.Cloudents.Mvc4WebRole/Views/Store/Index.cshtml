@@ -94,8 +94,8 @@
       
 </div>
     <div class="productsListWpr">
-        <ul class="productsList" bindonce infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
-            <li ng-repeat="product in products | limitTo: params.maxProducts">
+        <ul class="productsList" bindonce @*infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false"*@>
+            <li ng-repeat="product in products">@*| limitTo: params.maxProducts*@
                 <a bo-href="product.url + urlQueryString()" href="">
                     <img bo-src="product.pictureUrl" alt="" />
                     <div class="pContent">
