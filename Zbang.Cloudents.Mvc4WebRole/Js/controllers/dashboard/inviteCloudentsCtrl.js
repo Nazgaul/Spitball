@@ -1,8 +1,6 @@
-﻿mBox.controller('BoxInviteCtrl',
-        ['$scope', '$q', '$modalInstance', 'sShare', 'sFacebook', 'data',
-        function ($scope, $q, $modalInstance, sShare, sFacebook, data) {
-
-            $scope.box = data;
+﻿mDashboard.controller('InviteCloudentsCtrl',
+        ['$scope','$q', 'sFacebook', '$modalInstance',
+        function ($scope, $q, sFacebook, $modalInstance) {
 
             $scope.next = function () {
                 $modalInstance.close();
@@ -13,7 +11,7 @@
             };
 
             $scope.invite = function (contact) {
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
+                sShare.invite.cloudents({ recepients: [contact.id]}).then(function (response) {
                     if (!response.success) {
                         alert('Error');
                     }
@@ -23,7 +21,7 @@
             $scope.inviteFacebook = function (contact) {
                 var dfd = $q.defer();
                 sFacebook.send({
-                    path: $scope.box.url,
+                    path: window.location.origin,
                     to: contact.id
                 }).then(function () {
                     var data = {

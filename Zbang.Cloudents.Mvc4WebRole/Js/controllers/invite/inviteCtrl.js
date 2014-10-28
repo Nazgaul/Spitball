@@ -1,7 +1,7 @@
-﻿angular.module('mInvite', ['InviteEmail']).
+﻿angular.module('mInvite',).
     controller('InviteCtrl',
-        ['$scope', '$timeout', '$filter','$location',
-         'sShare', 'sGoogle', 'sFacebook', 'sUser',
+        ['$scope', 
+         'sShare', 
          function ($scope, $timeout, $filter, $location, sShare, sGoogle, sFacebook, sUser) {
              var globalParams = {
                  contactPage: 36

@@ -607,8 +607,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, Ajax]
         [OutputCache(CacheProfile = "PartialCache")]
-
-
         public ActionResult SocialInvitePartial()
         {
             try

@@ -50,50 +50,25 @@
 
              $scope.inviteContact = function (contact) {
 
-
                  if (currentState === states.google || currentState === states.cloudents) {
                      contact.invited = true;
-
-                     sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
-                         if (!response.success) {
-                             alert('Error');
-                         }
-                     });
-
+                     $scope.invite(contact);
                      return;
                  }
 
                  if (currentState === states.facebook) {
 
                      $scope.params.facebookInvite = true;
-                     sFacebook.send({
-                         path: $scope.box.url,
-                         to: contact.id
-                     }).then(function () {
-
+                     $scope.inviteFacebook(contact).then(function () {
+                         //success
                          $scope.params.facebookInvite = false;
-
                          contact.invited = true;
-
-                         var data = {
-                             boxId: $scope.box.id,
-                             id: contact.id,
-                             username: contact.username || contact.id,
-                             firstName: contact.firstname,
-                             middleName: contact.middlename,
-                             lastName: contact.lastname,
-                             sex: contact.gender
-                         };
-                         sShare.facebookInvite.box(data).then(function (response1) {
-                             if (!response1.success) {
-                                 alert('Error');
-                             }
-                         });
-                     }, function () {
+                     },
+                     function () {
+                         //error
                          $scope.params.facebookInvite = false;
-                         alert('Error');
-                     });
 
+                     });
                  }
              };
 

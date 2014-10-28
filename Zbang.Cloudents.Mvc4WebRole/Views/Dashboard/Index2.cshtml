@@ -30,9 +30,8 @@
                                 <img class="friendImg" user-tooltip-popup="{{friend.id}}" ng-src="{{friend.image}}" width="31" height="31" />
                             </a>
                         </li>
-                        <li class="friendItem friendBtn" data-action="true">
-                            <a target="_self" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents"
-                               href="@Url.RouteUrl("InviteCloudents")" class="inviteFriendBtn btn3"></a>
+                        <li class="friendItem friendBtn">
+                            <button type="button" data-dash-invite="@SharedResources.InviteFriends" data-dash-inviteto="@SharedResources.InviteCloudents" class="inviteFriendBtn btn3" ng-click="inviteCloudents()"></button>
                         </li>
                     </ul>
                 </div>

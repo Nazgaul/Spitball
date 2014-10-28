@@ -15,10 +15,12 @@
             $win.resize(updateScroll);
 
             function updateScroll() {
-                $timeout(function() {
+                $timeout(function () {
+                    calcHeight();
+                    $elem.height(height);
                     $elem.mCustomScrollbar('update');
                     //setScroll();
-                }, 50);
+                }, 100);
             }
 
             function setScroll() {
