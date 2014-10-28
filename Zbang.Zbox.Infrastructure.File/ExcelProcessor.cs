@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Imaging;
 using System.Globalization;
+using System.Threading;
 using Aspose.Cells;
 using Aspose.Cells.Rendering;
 using ImageResizer;
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);

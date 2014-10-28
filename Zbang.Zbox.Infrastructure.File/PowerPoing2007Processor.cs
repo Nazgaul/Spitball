@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading;
 using Aspose.Slides;
 using Aspose.Slides.Util;
 using ImageResizer;
@@ -30,7 +31,7 @@ namespace Zbang.Zbox.Infrastructure.File
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);

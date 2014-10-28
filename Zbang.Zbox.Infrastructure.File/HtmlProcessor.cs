@@ -1,4 +1,5 @@
-﻿using Aspose.Words;
+﻿using System.Threading;
+using Aspose.Words;
 using Aspose.Words.Saving;
 using ImageResizer;
 using System;
@@ -69,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var publicUrl = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 20);
             return Task.FromResult(new PreviewResult(String.Format(ContentFormat, publicUrl)));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -27,19 +28,19 @@ namespace Zbang.Zbox.Infrastructure.File
             return ThumbnailProvider.SoundFileTypePicture;
         }
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var url = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, url) } });
         }
 
-        public readonly string[] AudioExtenstions = { ".mp3" };
+        public readonly string[] AudioExtensions = { ".mp3" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return AudioExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return AudioExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
         }

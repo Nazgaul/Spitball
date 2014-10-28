@@ -1,4 +1,5 @@
-﻿using ImageResizer;
+﻿using System.Threading;
+using ImageResizer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.File
         private const int SubstractWidth = 100;
         const int SubstractHeight = 100;
 
-        private readonly Dictionary<Size, Size> m_PreviewDimenstion = new Dictionary<Size, Size> {
+        private readonly Dictionary<Size, Size> m_PreviewDimension = new Dictionary<Size, Size> {
             {new Size(1920,1080),new Size(1920-SubstractWidth,1080-SubstractHeight)},
             {new Size(1440,900),new Size(1440-SubstractWidth,900-SubstractHeight)},
                {new Size(1366,768),new Size(1366-SubstractWidth,768-SubstractHeight)},
@@ -30,7 +31,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             var blobsNamesInCache = new List<string>();
@@ -100,13 +101,13 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return new Size(1024, 768);
             }
-            var key = m_PreviewDimenstion.Keys.FirstOrDefault(f => f.Width <= userScreenWidth.Width && f.Height <= userScreenWidth.Height);
+            var key = m_PreviewDimension.Keys.FirstOrDefault(f => f.Width <= userScreenWidth.Width && f.Height <= userScreenWidth.Height);
             if (key == Size.Empty)
             //if (key == null)
             {
                 return new Size(1024, 768);
             }
-            return m_PreviewDimenstion[key];
+            return m_PreviewDimension[key];
         }
 
         public static readonly string[] ImageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };

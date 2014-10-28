@@ -121,6 +121,7 @@
     <Compile Include="Search\IUniversityWriteSearchProvider.cs" />
     <Compile Include="Search\ReadSearchUniversityProvider.cs" />
     <Compile Include="Search\SearchIndex.cs" />
+    <Compile Include="Search\SearchUniversity.cs" />
     <Compile Include="Search\WriteSearchUniversityProvider.cs" />
     <Compile Include="Search\University.cs" />
     <Compile Include="Storage\LocalStorageProvider.cs" />

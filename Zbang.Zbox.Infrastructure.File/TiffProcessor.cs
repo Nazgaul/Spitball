@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using Aspose.Imaging;
 using Aspose.Imaging.FileFormats.Jpeg;
 using Aspose.Imaging.FileFormats.Tiff;
@@ -29,7 +30,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);

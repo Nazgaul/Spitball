@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading;
 using Aspose.Words;
 using Aspose.Words.Saving;
 using ImageResizer;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -29,26 +31,26 @@ namespace Zbang.Zbox.Infrastructure.File
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum)
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
-            var word = new Lazy<Document>(() =>
+            var word = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                using (var sr = BlobProvider.DownloadFile(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName))
                 {
                     return new Document(sr);
                 }
             });
+         
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
 
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            // var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) {JpegQuality = 80};
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
             for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
             {
@@ -59,16 +61,16 @@ namespace Zbang.Zbox.Infrastructure.File
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
                     blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
+                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
                     continue;
                 }
                 svgOptions.PageIndex = pageIndex;
-                // imgOptions.PageIndex = pageIndex;
                 try
                 {
                     using (var ms = new MemoryStream())
                     {
-                        word.Value.Save(ms, svgOptions);
+                        var w = await word;
+                        w.Save(ms, svgOptions);
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         // parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
