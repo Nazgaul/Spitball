@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="boxItems clearfix" ng-controller="BoxItemsCtrl">
-    <a href="javascript:;" style="display:none;" pl-upload drop-area="pl_Dropzone" box-id="{{boxId}}" tab-id="{{currentTab.id}}"></a>
+    <button type="button" style="display:none;" pl-upload drop-area="pl_Dropzone" box-id="{{boxId}}" tab-id="{{currentTab.id}}"></button>
     <div class="dropZoneOpacity" id="pl_Dropzone" drop-zone>
         <div class="dropZone">
             <div class="dropMsg boldFont">@DialogResources.DropToUpload</div>

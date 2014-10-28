@@ -64,6 +64,10 @@
                 }
 
 
+                var updatesCount = sNewUpdates.getUpdatesCount();
+                $scope.params.newFeed = updatesCount.feed;
+                $scope.params.newItems = updatesCount.items;
+                $scope.params.newQuizzes = updatesCount.quizzes;
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
@@ -278,6 +282,9 @@
                 $scope.info.userType = 'subscribe';
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
+
+                $rootScope.$broadcast('followedBox', boxId);
+
 
                 if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;

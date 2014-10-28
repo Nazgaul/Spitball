@@ -98,6 +98,13 @@
 .boxTabs {
   display: inline-block;
 }
+.boxTabs li {
+  position: relative;
+}
+.boxTabs li .boxNotify {
+  right: 65px;
+  top: 7px;
+}
 .boxTab {
   font-size: 18px;
   padding: 0 22px;
