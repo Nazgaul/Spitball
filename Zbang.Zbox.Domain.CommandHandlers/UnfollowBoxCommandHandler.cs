@@ -32,7 +32,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Get(message.BoxId);
-            var user = m_UserRepository.Load(message.UserId);
             if (box == null || box.IsDeleted)
             {
                 throw new BoxDoesntExistException();
