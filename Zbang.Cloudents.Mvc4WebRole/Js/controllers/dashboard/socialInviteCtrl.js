@@ -42,11 +42,11 @@
 
              };
 
-             if (sFacebook.isAuthenticated()) {
+             if (sFacebook.isAuthenticated() || $scope.inviteCloudents) {
                  $scope.selectState(states.facebook);
              } else {
                  $scope.selectState(states.cloudents);
-             }
+             }            
 
              $scope.inviteContact = function (contact) {
 

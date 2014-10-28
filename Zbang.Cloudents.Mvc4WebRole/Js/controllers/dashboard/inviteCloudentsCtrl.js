@@ -2,6 +2,7 @@
         ['$scope','$q', 'sFacebook', '$modalInstance',
         function ($scope, $q, sFacebook, $modalInstance) {
 
+            $scope.inviteCloudents = true;
             $scope.next = function () {
                 $modalInstance.close();
             };
