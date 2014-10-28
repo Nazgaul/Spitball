@@ -417,7 +417,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
-        [AsyncTimeout(TimeConsts.Minute * 3)]
+        [AsyncTimeout(TimeConsts.Minute * 3 * 1000)]
         public async Task<ActionResult> Preview(string blobName, int index, long id, long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
         {
             Uri uri;

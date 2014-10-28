@@ -230,7 +230,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
+        [HttpGet, Ajax]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
+        public async Task<JsonResult> SideBar(long id)
+        {
+            var query = new GetBoxQuery(id, User.GetUserId(false));
+            var result = await ZboxReadService.GetBoxSideBar(query);
+            return Json(new JsonResponse(true, result));
+        }
 
         [HttpGet, Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -621,6 +629,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
+
+
+
+        
 
     }
 }

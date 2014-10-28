@@ -81,5 +81,13 @@ group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
 b.PictureUrl ,b.MembersCount,b.ItemCount , b.url
 order by x desc;
 ";
+
+        public const string LeaderBoard = @"
+select top(5) u.userid as id, u.UserImageLarge as image, u.username as name, u.UserReputation as score
+from zbox.userboxrel ub 
+join zbox.users u on ub.userid = u.userid
+ where boxid = @BoxId
+ and u.usertype <> 1
+ order by userreputation desc;";
     }
 }

@@ -3,70 +3,14 @@
                    assembly="Zbang.Zbox.ViewModel"
                    namespace="Zbang.Zbox.ViewModel.DTOs">
 
-  <resultset name="PublicUserDto">
-    <return-scalar column="Uid" type="long"/>
-    <return-scalar column="Name" type="string"/>
-    <return-scalar column="Image" type="string"/>
-  </resultset>
+
   <resultset name="UserRelationType">
     <return-scalar column="Type" type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure"/>
   </resultset>
  
  
 
-  <!--Used for log in -->
-  <!--<query name="GetUserByMembershipId" read-only="1">
-    <![CDATA[
-    select u.Id as Id, u.Name as Name, u.Culture as Culture, 
-    u.Image as Image, u.Email as Email,
-    u.FirstTime.Dashboard as FirstTimeDashboard,
-    u.FirstTime.Library as FirstTimeLibrary,
-    u.FirstTime.Item as FirstTimeItem,
-    u.FirstTime.Box as FirstTimeBox, 
-    u.Reputation as Score,
-    uu.OrgName as LibName,
-    uu.LargeImage as LibImage,
-    uu.Id as UniversityId
-    from User u left join u.University uu
-    where u.MembershipId= :MembershipUserId
-    ]]>
-  </query>-->
-  <!--Used for log in -->
-  <!--<query name="GetUserByFacebookId" read-only="1">
-    <![CDATA[
-    select u.Id as Id, u.Name as Name,u.Culture as Culture, 
-    u.Image as Image, u.Email as Email,
-    u.FirstTime.Dashboard as FirstTimeDashboard,
-    u.FirstTime.Library as FirstTimeLibrary,
-    u.FirstTime.Item as FirstTimeItem,
-    u.FirstTime.Box as FirstTimeBox, 
-    u.Reputation as Score,
-    uu.OrgName as LibName,
-    uu.LargeImage as LibImage,
-    uu.Id as UniversityId
-    from User u left join u.University uu
-    where u.FacebookId = :FacebookId
-    and u.IsRegisterUser =1
-    ]]>
-  </query>-->
-<!--Used for login via email-->
-  <!--<query name="GetUserByEmail" read-only="1">
-    <![CDATA[
-    select u.Id as Id, u.Name as Name,u.Culture as Culture, 
-    u.Image as Image, u.Email as Email,
-    u.FirstTime.Dashboard as FirstTimeDashboard,
-    u.FirstTime.Library as FirstTimeLibrary,
-    u.FirstTime.Item as FirstTimeItem,
-    u.FirstTime.Box as FirstTimeBox, 
-    u.Reputation as Score,
-    uu.OrgName as LibName,
-    uu.LargeImage as LibImage,
-    uu.Id as UniversityId
-    from User u left join u.University uu
-    where u.Email= :Email
-    and (MembershipId is not null or FacebookId is not null)
-    ]]>
-  </query>-->
+  
 
  
   <sql-query name="GetUserRelationToBox" read-only="1" resultset-ref="UserRelationType">
@@ -81,15 +25,6 @@
 	    order by 1 desc
     ]]>
   </sql-query>
-
-
-  <!--<query name="GetUserPublicData">
-    <![CDATA[
-    select u.id as Uid , u.Name as Name,u.Image as Image
-     from User u where u.Id=:UserId
-    ]]>
-  </query>-->
-
 
 
   <!--account settings-->

@@ -102,6 +102,7 @@
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
     <Compile Include="Dto\ItemRateDto.cs" />
+    <Compile Include="Dto\LeaderBoardDto.cs" />
     <Compile Include="Dto\Library\NodeDetails.cs" />
     <Compile Include="Dto\Library\RussianDepartmentDto.cs" />
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
@@ -114,7 +115,7 @@
     <Compile Include="Dto\PagedDto.cs" />
     <Compile Include="Dto\Qna\AnswerDto.cs" />
     <Compile Include="Dto\Qna\AnswerToFriendDto.cs" />
-    <Compile Include="Dto\Qna\FeedDto.cs" />
+    <Compile Include="Dto\Qna\SideDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
     <Compile Include="Dto\Qna\QuestionDto.cs" />
     <Compile Include="Dto\Qna\QuestionToFriendDto.cs" />
@@ -214,11 +215,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\CommentDto.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -241,17 +237,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\BoxesDto.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mappings\Emails.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Library.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -805,5 +805,19 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
+
+        [TestMethod]
+        public async Task GetBoxSideBar_Query_ReturnResult()
+        {
+            var query = new GetBoxQuery(60130, 1);
+            try
+            {
+                var x = await m_ZboxReadService.GetBoxSideBar(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
     }
 }

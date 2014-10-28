@@ -1,9 +1,0 @@
-﻿
-namespace Zbang.Zbox.ViewModel.Dto.Notification
-{
-    public class UserMailDataDto
-    {
-        public string Email { get; set; }
-        public long UserId { get; set; }
-    }
-}

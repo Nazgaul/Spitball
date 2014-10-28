@@ -1,6 +1,5 @@
 ﻿
 using System.IO;
-using Zbang.Zbox.Infrastructure.Enums;
 
 
 namespace Zbang.Zbox.Infrastructure.Profile
@@ -9,6 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
     {
        ProfileImages UploadProfilePictures(Stream profileImage);
        //ProfileImages GetDefaultProfileImage();
-       ProfileImages GetDefaultProfileImage(UserType userType = UserType.Regular);
+       ProfileImages GetDefaultProfileImage();
     }
 }

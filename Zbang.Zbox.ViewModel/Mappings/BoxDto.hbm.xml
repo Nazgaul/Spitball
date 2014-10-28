@@ -49,14 +49,14 @@
   </query>
 
 
-  <sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
+  <!--<sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
     <![CDATA[
    select b.boxId as Id, b.boxName as Name, b.pictureurl as Image, b.Url as Url
     from zbox.Box b 
     where b.boxId = :BoxId
     and b.IsDeleted = 0  
     ]]>
-  </sql-query>
+  </sql-query>-->
 
   <!--Box Page-->
   <sql-query name="GetBox" read-only="1" resultset-ref="Box">
@@ -129,11 +129,11 @@
   </sql-query>
 
   <!--box page - used to get the url to back button-->
-  <sql-query name="GetBoxLibNode" read-only="1" resultset-ref="NodeDto">
+  <!--<sql-query name="GetBoxLibNode" read-only="1" resultset-ref="NodeDto">
     <![CDATA[
     select l.LibraryId as Id, l.Name as Name 
     from zbox.librarybox lb join zbox.library l on lb.LibraryId = l.LibraryId
     where boxid = :BoxId 
     ]]>
-  </sql-query>
+  </sql-query>-->
 </hibernate-mapping>

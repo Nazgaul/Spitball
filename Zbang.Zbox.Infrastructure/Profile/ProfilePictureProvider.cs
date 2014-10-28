@@ -34,17 +34,11 @@ namespace Zbang.Zbox.Infrastructure.Profile
                 CreateProfileImages();
             }
         }
-        public ProfileImages GetDefaultProfileImage(UserType userType = UserType.Regular)
+        public ProfileImages GetDefaultProfileImage()
         {
-            if (userType == UserType.Regular)
-            {
-                //Random rand = RandomProvider.GetThreadRandom();
-                //var index = rand.Next(m_DefaultUserProfilePictures.Count);
-                //return m_DefaultUserProfilePictures[index];
-                return m_DefaultUserProfilePictures[0];
-            }
 
-            return m_LibDefaultProfilePicture;
+            return m_DefaultUserProfilePictures[0];
+
         }
 
         public ProfileImages UploadProfilePictures(Stream profileImage)
@@ -87,13 +81,13 @@ namespace Zbang.Zbox.Infrastructure.Profile
             var assembly = Assembly.GetExecutingAssembly();
             for (int i = StartIndexOfPicturesUser; i < StartIndexOfPicturesUser + NumberOfRandomPicturesOfUser; i++)
             {
-                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, FileName);
+                ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, FileName);
                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, FileName);
             }
             for (int i = 1; i <= NumberOfRandomPicturesOfLib; i++)
             {
-                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, LibName);
-                 ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, LibName);
+                ReadProfileResourceAndUpload(assembly, i, ImageSize.S50X50, LibName);
+                ReadProfileResourceAndUpload(assembly, i, ImageSize.S100X100, LibName);
             }
         }
 
