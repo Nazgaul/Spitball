@@ -235,7 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("id")]
         public async Task<JsonResult> SideBar(long id)
         {
-            var query = new GetBoxQuery(id, User.GetUserId(false));
+            var query = new GetBoxSideBarQuery(id);
             var result = await ZboxReadService.GetBoxSideBar(query);
             return Json(new JsonResponse(true, result));
         }

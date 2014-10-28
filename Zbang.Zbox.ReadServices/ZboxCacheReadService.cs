@@ -344,9 +344,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
         }
 
-        public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query)
+        public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
         {
-            return m_ReadService.GetRecommendedCourses(query);
+            return m_Cache.QueryAsync
+                (m_ReadService.GetRecommendedCourses, query);
         }
 
 
@@ -373,9 +374,10 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<SideDto> GetBoxSideBar(GetBoxQuery query)
+        public Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query)
         {
-            return m_ReadService.GetBoxSideBar(query);
+            return m_Cache.QueryAsync
+               (m_ReadService.GetBoxSideBar, query);
         }
 
         

@@ -50,7 +50,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetRecommendedCourses_Query_ReturnResult()
         {
-            var query = new QueryBase(1);
+            var query = new RecommendedCoursesQuery(920);
             try
             {
                 var x = m_ZboxReadService.GetRecommendedCourses(query).Result;
@@ -809,7 +809,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxSideBar_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(60130, 1);
+            var query = new GetBoxSideBarQuery(60130);
             try
             {
                 var x = await m_ZboxReadService.GetBoxSideBar(query);

@@ -47,18 +47,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
 
-            TCr retval = invokeFunction(command);
+            TCr retVal = invokeFunction(command);
             m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
-            //foreach (var cacheKey in retval.GetCacheKeys())
-            //{
-            //    m_Cache.RemoveFromCache(cacheKey);
-            //}
-            return retval;
+            return retVal;
         }
-        //public void ClearCacheByKey(string key)
-        //{
-        //    m_Cache.RemoveFromCache(key);
-        //}
 
         public void Command<TC>(Action<TC> invokeFunction, TC command)
             where TC : ICommandCache
@@ -68,21 +60,4 @@ namespace Zbang.Zbox.Infrastructure.Cache
             m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
         }
     }
-
-    //public static class ConstCacheKeys
-    //{
-    //    //public const string kItem = "Item";
-    //    //public const string kComment = "Comment";
-    //    //public const string kBoxUsers = "BoxUsers";
-    //    //public const string kUserRights = "UserRights";
-    //    //public const string Box = "box";
-    //    public const string KSeperator = "_";
-
-    //    public const string Items = "Items";
-    //    public const string Comments = "Comments";
-
-    //    public const string KShortCodes = "ShortCodes";
-    //}
-
-
 }

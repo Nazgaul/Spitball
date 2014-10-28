@@ -62,11 +62,11 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCourses(QueryBase query)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses, new { query.UserId });
+                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses, new { query.UniversityId });
             }
         }
 
@@ -339,7 +339,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Qna.SideDto> GetBoxSideBar(GetBoxQuery query)
+        public async Task<Qna.SideDto> GetBoxSideBar(GetBoxSideBarQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {

@@ -151,6 +151,7 @@
     <Compile Include="Queries\Emails\GetMembersLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
+    <Compile Include="Queries\GetBoxSideBarQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
     <Compile Include="Queries\GetInvitesQuery.cs" />
     <Compile Include="Queries\GetItemQuery.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Queries\GetUserDetailsQuery.cs" />
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
+    <Compile Include="Queries\RecommendedCoursesQuery.cs" />
     <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryBase.cs" />

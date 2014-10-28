@@ -120,7 +120,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Ajax, HttpGet]
         public async Task<JsonResult> RecommendedCourses()
         {
-            var query = new QueryBase(User.GetUserId());
+            var userDetail = FormsAuthenticationService.GetUserData();
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+            var universityWrapper = userDetail.UniversityDataId.Value;
+
+            var query = new RecommendedCoursesQuery(universityWrapper);
             var result = await ZboxReadService.GetRecommendedCourses(query);
             return Json(new JsonResponse(true, result));
         }
