@@ -97,59 +97,59 @@
         <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
     </section>
-    <section class="leaderBoard">
-        <header>
-            @Html.Svg("~/Images/Defs.svg", "leaderBoard")
-            <span class="lbText">@IndexResources.BestInClass</span>
-        </header>
-        <ol class="bestUserList">
-            <li class="firstUser">
-                <img class="top3Img" src="http://placehold.it/82x82" alt="" width="82" height="82" />
-                <div class="rep">12660</div>
-                <div>Shlomi</div>
-                @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-            </li>
-            <li class="secondUser lFloat">
-                <img class="top3Img" src="http://placehold.it/72x72" alt="" width="72" height="72" />
-                <div class="rep">9876</div>
-                <div>Noa</div>
-
-                @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-            </li>
-            <li class="thirdUser rFloat">
-                <img class="top3Img" src="http://placehold.it/62x62" alt="" width="62" height="62" />
-                <div class="rep">2397</div>
-                <div>Matan</div>
-                @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-            </li>
-            <li>
-                <img src="http://placehold.it/38x38" alt="" width="38" height="38" />
-                <span class="elps">Ram</span>
-                <span class="rep rFloat">1234</span>
-            </li>
-            <li>
-                <img src="http://placehold.it/38x38" alt="" width="38" height="38" />
-                <span class="elps">Daniel</span>
-                <span class="rep rFloat">1233</span>
-            </li>
-        </ol>
-    </section>
-    <section class="recommendedWpr">
-        @*ng-if="recommendedCourses.length"*@
-        <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
-        <ul>
-            <li class="recommended" ng-repeat="course in info.recommendedBoxes" bindonce>
-                <a bo-href="course.url" class="courseLink">
-                    <div class="rFloat">
-                        <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
-                        <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
-                    </div>
-                    <img bo-src="course.picture" alt="" width="68" height="68" />
-                    <div class="elps courseName" bo-text="course.name"></div>
-                    <div class="elps" bo-text="course.courseCode"></div>
-                    <div class="prof elps" bo-text="course.professor"></div>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <span ng-controller="SideBarCtrl">
+        <section class="leaderBoard">
+            <header>
+                @Html.Svg("~/Images/Defs.svg", "leaderBoard")
+                <span class="lbText">@IndexResources.BestInClass</span>
+            </header>
+            <ol class="bestUserList" bindonce>
+                <li class="firstUser" ng-if="leaderBoard.first">
+                    <img class="top3Img" bo-src="leaderBoard.first.image" alt="" width="82" height="82" />
+                    <div class="rep" bo-text="leaderBoard.first.score"></div>
+                    <div bo-text="leaderBoard.first.name"></div>
+                    @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
+                </li>
+                <li class="secondUser lFloat" ng-if="leaderBoard.second">
+                    <img class="top3Img" bo-src="leaderBoard.second.image" alt="" width="82" height="82" />
+                    <div class="rep" bo-text="leaderBoard.second.score"></div>
+                    <div bo-text="leaderBoard.second.name"></div>
+                    @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
+                </li>
+                <li class="thirdUser rFloat" ng-if="leaderBoard.third">
+                    <img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="82" height="82" />
+                    <div class="rep" bo-text="leaderBoard.third.score"></div>
+                    <div bo-text="leaderBoard.third.name"></div>
+                </li>
+                <li ng-if="leaderBoard.fourth">
+                    <img bo-src="leaderBoard.fourth.image" alt="" width="38" height="38" />
+                    <span class="elps" bo-text="leaderBoard.fourth.name"></span>
+                    <span class="rep rFloat" bo-text="leaderBoard.fourth.score"></span>
+                </li>
+                <li ng-if="leaderBoard.fifth">
+                    <img bo-src="leaderBoard.fifth.image" alt="" width="38" height="38" />
+                    <span class="elps" bo-text="leaderBoard.fifth.name"></span>
+                    <span class="rep rFloat" bo-text="leaderBoard.fifth.score"></span>
+                </li>
+            </ol>
+        </section>
+        <section class="recommendedWpr">
+            @*ng-if="recommendedCourses.length"*@
+            <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
+            <ul>
+                <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
+                    <a bo-href="course.url" class="courseLink">
+                        <div class="rFloat">
+                            <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                            <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
+                        </div>
+                        <img bo-src="course.picture" alt="" width="68" height="68" />
+                        <div class="elps courseName" bo-text="course.name"></div>
+                        <div class="elps" bo-text="course.courseCode"></div>
+                        <div class="prof elps" bo-text="course.professor"></div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </span>
 </div>

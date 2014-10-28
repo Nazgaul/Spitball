@@ -928,6 +928,7 @@
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
     <Content Include="Js\controllers\box\boxQuizzesCtrl.js" />
     <Content Include="Js\controllers\box\boxTabsCtrl.js" />
+    <Content Include="Js\controllers\box\sideBarCtrl.js" />
     <Content Include="Js\controllers\box\uploadPopupCtrl.js" />
     <Content Include="Js\controllers\dashboard\createAcademicBoxCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteCloudentsCtrl.js" />

@@ -72,10 +72,9 @@ mBox.controller('QnACtrl',
 
 
             var data = response.success ? response.payload : {}
-            $scope.info.questions = data.feed.map(function (question) {
+            $scope.info.questions = data.map(function (question) {
                 return new Question(question);
-            });
-            $scope.info.recommendedBoxes = data.recommendBoxes;
+            });             
 
             $scope.options.loader = false;
 
