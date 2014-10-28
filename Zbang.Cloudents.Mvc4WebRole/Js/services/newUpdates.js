@@ -37,9 +37,9 @@ function ($http, sBox, sUserDetails) {
             if (!updates[boxId]) {
                 return updates;
             }
-            updates.feed = updates[boxId].questions.length + updates[boxId].answers.length || 421;
-            updates.items = updates[boxId].items.length || 10;
-            updates.quizzes = updates[boxId].quizzes.length || 23;
+            updates.feed = updates[boxId].questions.length + updates[boxId].answers.length;
+            updates.items = updates[boxId].items.length;
+            updates.quizzes = updates[boxId].quizzes.length;
 
             return updates;
         },        
