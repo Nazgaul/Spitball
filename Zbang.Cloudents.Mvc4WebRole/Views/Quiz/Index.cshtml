@@ -21,7 +21,7 @@
                 @Html.Svg("~/Images/Defs.svg", "stopper")
                 <timer interval="1000" autostart="false">{{mminutes}}:{{sseconds}}</timer>
             </div>
-            <button type="button" ng-click="takeQuiz()">{{timer.state}}</button>
+            <button type="button" ng-click="takeQuiz()" analytics-on="click" analytics-event="Take" analytics-category="Quiz">{{timer.state}}</button>
         </div>
 
         <div class="userResults">
@@ -45,14 +45,14 @@
                     {{quiz.timeTaken}}
                 </div>
 
-                <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()">@QuizResources.RetakeQuiz</button>
+                <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()" analytics-on="click" analytics-event="Retake" analytics-category="Quiz">@QuizResources.RetakeQuiz</button>
             </div>
 
             <div class="topUsersWpr">
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
                 <ol>
                     <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true">
-                        <img ng- alt=" " ng-src=" {{user.image}}" />
+                        <img alt="" ng-src=" {{user.image}}" />
                         @Html.Svg("~/Images/Defs.svg", "star")
                     </li>
                 </ol>
@@ -69,7 +69,7 @@
     <div class="itemRight" bindonce>
 
         <div class="quizActionsWpr">
-            <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps">
+            <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
@@ -103,12 +103,12 @@
                         <div class="cTextAreaWpr">
                             <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage" />
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
-                            <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)">@SharedResources.Comment</button>
+                            <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)" analytics-on="click" analytics-event="Create Comment" analytics-category="Quiz">@SharedResources.Comment</button>
                         </div>
                     </div>
 
             </ul>
-            <button type="button" class="btn1 rFloat" ng-disabled="!quiz.testInProgress" ng-click="checkAnswers()">@QuizResources.CheckAnswers</button>
+            <button type="button" class="btn1 rFloat" ng-disabled="!quiz.testInProgress" ng-click="checkAnswers()" analytics-on="click" analytics-event="Check Answers" analytics-category="Quiz">@QuizResources.CheckAnswers</button>
         </div>
     </div>
 </div>
