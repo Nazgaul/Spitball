@@ -208,6 +208,7 @@ b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTim
 from zbox.Box b
 where b.isdeleted = 0
 and b.discriminator = 2
+and b.University = @UniversityId
 order by rank desc";
 
      

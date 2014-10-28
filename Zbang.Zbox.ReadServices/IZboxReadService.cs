@@ -37,7 +37,7 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
         Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query);
 
-        Task<SideDto> GetBoxSideBar(GetBoxQuery query);
+        Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query);
         
         ItemWithDetailDto GetItem(GetItemQuery query);
 
@@ -121,7 +121,7 @@ namespace Zbang.Zbox.ReadServices
         Task<int?> CloudentsUniversityToStoreUniversity(long universityId);
 
 
-        Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(QueryBase query);
+        Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);
 
        
     }
