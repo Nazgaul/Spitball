@@ -64,6 +64,10 @@
                 }
 
 
+                var updatesCount = sNewUpdates.getUpdatesCount();
+                $scope.params.newFeed = updatesCount.feed;
+                $scope.params.newItems = updatesCount.items;
+                $scope.params.newQuizzes = updatesCount.quizzes;
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');

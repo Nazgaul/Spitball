@@ -1,4 +1,4 @@
-﻿/*#region variables */
+/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -486,6 +486,10 @@
 .boxTitle {
   padding: 0 0 0 10px;
   /*rtl*/
+}
+.boxTabs .boxNotify {
+  right: auto;
+  left: 65px;
 }
 .emptyState {
   padding: 40px 236px 0 0;
@@ -2126,3 +2130,4 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
+/*# sourceMappingURL=RTL3.css.map */

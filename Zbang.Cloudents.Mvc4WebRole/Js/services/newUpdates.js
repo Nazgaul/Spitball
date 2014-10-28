@@ -32,6 +32,17 @@ function ($http, sBox, sUserDetails) {
             return false;
 
         },
+        getUpdatesCount: function (boxId) {
+            var updates = {};            
+            if (!updates[boxId]) {
+                return updates;
+            }
+            updates.feed = updates[boxId].questions.length + updates[boxId].answers.length || 421;
+            updates.items = updates[boxId].items.length || 10;
+            updates.quizzes = updates[boxId].quizzes.length || 23;
+
+            return updates;
+        },        
         setOld: function (boxId, type, id) {
             id = parseInt(id, 10);
 
@@ -46,7 +57,7 @@ function ($http, sBox, sUserDetails) {
             boxId = parseInt(boxId, 10);
             sBox.deleteUpdates({
                 boxId: boxId
-            }).then(function () { });            
+            }).then(function () { });
         },
         loadUpdates: loadUpdates
     };
