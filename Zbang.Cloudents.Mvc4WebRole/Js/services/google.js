@@ -1,7 +1,7 @@
 ﻿"use strict";
 app.factory('sGoogle',
    ['$document', '$q', '$timeout', 'sShare',
-   function ($document, $q, $timeout, Share) {
+   function ($document, $q, $timeout, sShare) {
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
            apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
@@ -9,7 +9,6 @@ app.factory('sGoogle',
        var api = {
            initDrive: function () {
                var defer = $q.defer();
-               pickerDefer = $q.defer();
                if (driveLoaded) {
                    $timeout(function () { defer.resolve(); });
                    return defer.promise;
@@ -143,7 +142,7 @@ app.factory('sGoogle',
                    return defer.promise;
                }
 
-               Share.googleFriends({ token: access_token }).then(function (data) {
+               sShare.googleFriends({ token: access_token }).then(function (data) {
                    if (!data.success) {
                        defer.resolve([]);
                        return;
