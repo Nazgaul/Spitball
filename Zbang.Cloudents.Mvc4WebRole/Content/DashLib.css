@@ -1115,6 +1115,7 @@
 .deptItem {
   display: inline-block;
   vertical-align: top;
+  float: left;
 }
 .deptLink {
   margin: 0 14px 35px 0;
@@ -1423,10 +1424,15 @@
 .libraryList .addBtn:before {
   background-position: -214px -43px;
 }
+.addDep {
+  margin-right: 14px;
+}
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryList > .libraryItem + .box {
   border: 1px dashed #bcbcbc;
+  display: inline-block;
+  float: left;
   box-shadow: none;
   font-size: 18px;
   color: #bcbcbc;
