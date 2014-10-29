@@ -2674,8 +2674,16 @@ select.inputText {
             }
         }
 
-        .libraryContent .contentWpr {
-            padding-top: 20px;
+        .libraryContent {
+            display: table;
+            .contentWpr {
+                padding-top: 20px;
+            }
+            .asideDash {
+                display: table-cell; //this fills the aside with the height of the content
+                min-height: ~'-webkit-calc(100vh - 60px)';
+                min-height: ~'calc(100vh - 60px)';
+            }
         }
 
         .boxPage .boxActions, .boxesHeader.topBar {

@@ -2491,8 +2491,16 @@ select.inputText {
     height: calc(100% - 25px);
     top: 25px;
   }
+  body .libraryContent {
+    display: table;
+  }
   body .libraryContent .contentWpr {
     padding-top: 20px;
+  }
+  body .libraryContent .asideDash {
+    display: table-cell;
+    min-height: -webkit-calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
   }
   body .boxPage .boxActions,
   body .boxesHeader.topBar {
