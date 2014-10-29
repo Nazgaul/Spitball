@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
-    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mAccount', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics', 'angulartics.google.analytics', 'angular-appinsights']);
+    'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mAccount', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics', 'angulartics.google.analytics']);
 
 app.config([
     '$routeProvider',
@@ -7,12 +7,8 @@ app.config([
     '$httpProvider',
     '$tooltipProvider',
     '$provide',
-    'insightsProvider',
     '$angularCacheFactoryProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, insightsProvider, $angularCacheFactoryProvider) {
-
-
-        insightsProvider.start('25195c1a-be80-4b61-a3f8-00d10e2efa62');
+    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, $angularCacheFactoryProvider) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
         $angularCacheFactoryProvider.setCacheDefaults({

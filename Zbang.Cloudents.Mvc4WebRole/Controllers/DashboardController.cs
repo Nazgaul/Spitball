@@ -48,15 +48,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             try
             {
-
-                var tc = new Microsoft.ApplicationInsights.TelemetryClient();
-                var sw = new Stopwatch();
-                sw.Start();
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetDashboard(query);
-                sw.Stop();
-
-                tc.TrackMetric("BoxList", sw.ElapsedMilliseconds);
 
                 return Json(new JsonResponse(true, data));
             }

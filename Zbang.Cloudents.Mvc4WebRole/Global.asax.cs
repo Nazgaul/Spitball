@@ -20,7 +20,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif
-            AreaRegistration.RegisterAllAreas();
+            //don't need this
+            //AreaRegistration.RegisterAllAreas();
 
             //IocConfig.RegisterIoc();
             DisplayConfig.RegisterDisplays();
