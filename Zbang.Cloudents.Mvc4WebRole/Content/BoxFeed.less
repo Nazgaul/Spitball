@@ -3,25 +3,29 @@
 .boxFeed {
     width: 598px;
     color: @textColor;
-    //display: inline-block;
+    display: inline-block;
     > .feedForm {
         .feedTA {
             border-color: #282828;
         }
     }
-    ~ .recommendedWpr {
-        position: relative;
-        left: 30px; //rtl
-        width: 336px;
-        display: inline-block; //override
-        border-radius: 5px;
-        border-color: #282828;
-        .recommended {
-            .rFloat {
-                width: 95px; //diff rtl
-                text-align: right; //rtl
+    ~ .boxSideBar{
+        display: inline-block;
+        .recommendedWpr {
+            position: relative;
+            left: 30px; //rtl
+            width: 336px;
+            display: inline-block; //override
+            border-radius: 5px;
+            border-color: #282828;
+            .recommended {
+                .rFloat {
+                    width: 95px; //diff rtl
+                    text-align: right; //rtl
+                }
             }
         }
+        
     }
 }
 
