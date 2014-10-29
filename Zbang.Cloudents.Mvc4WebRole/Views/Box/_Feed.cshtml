@@ -120,6 +120,7 @@
                     <img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="62" height="62" />
                     <div class="rep" bo-text="leaderBoard.third.score"></div>
                     <div bo-text="leaderBoard.third.name"></div>
+                    @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                 </li>
                 <li ng-if="leaderBoard.fourth">
                     <img bo-src="leaderBoard.fourth.image" alt="" width="38" height="38" />
