@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>Нет вопросов показать</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>участник не выбрал курсы</value>
+  </data>
   <data name="NotFollowing" xml:space="preserve">
     <value>В настоящее время не следуют какие-либо курсы</value>
   </data>

@@ -162,9 +162,6 @@
   <data name="May" xml:space="preserve">
     <value>قد </value>
   </data>
-  <data name="NoSelected" xml:space="preserve">
-    <value>لا توجد مقررات مختارة</value>
-  </data>
   <data name="November" xml:space="preserve">
     <value>نوفمبر </value>
   </data>

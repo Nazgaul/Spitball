@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>אין שאלות להצגה</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>משתמש לא בחר קורסים</value>
+  </data>
   <data name="NotFollowing" xml:space="preserve">
     <value>נכון לעכשיו אינך עוקב אחרי קורסים</value>
   </data>
