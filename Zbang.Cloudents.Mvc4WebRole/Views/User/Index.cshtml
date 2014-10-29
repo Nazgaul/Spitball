@@ -7,8 +7,8 @@
         <div class="upMemberBoxes">
             <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
             <ul class="upMemberBoxList">
-                <li ng-repeat="department in departments" bo-text="department.name"></li>
-                <li bo-if="!departments.length">Member did not join any courses</li>
+                <li class="elps" ng-repeat="department in departments" bo-text="department.name"></li>
+                <li bo-if="!departments.length">@UserResources.NoSelected</li>
             </ul>
             <div class="arrow downArrow"></div>
         </div>

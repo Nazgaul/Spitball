@@ -153,6 +153,9 @@
   <data name="NoQuestions" xml:space="preserve">
     <value>لا توجد أسئلة للعرض</value>
   </data>
+  <data name="NoSelected" xml:space="preserve">
+    <value>لا توجد مقررات مختارة</value>
+  </data>
   <data name="NotFollowing" xml:space="preserve">
     <value>حاليا لا تتبع أي من المقررات الدراسية</value>
   </data>

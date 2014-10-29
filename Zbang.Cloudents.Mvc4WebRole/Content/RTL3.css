@@ -1,4 +1,4 @@
-/*#region variables */
+﻿/*#region variables */
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -961,7 +961,7 @@
   /*diff rtl*/
 }
 .boxItemTt .ttPreview {
-  max-height: 55px;
+  max-height: 51px;
   /* diff rtl - heb has 4 lines*/
 }
 /*#endregion */
@@ -2130,4 +2130,3 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#endregion */
-/*# sourceMappingURL=RTL3.css.map */

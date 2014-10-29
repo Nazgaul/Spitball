@@ -2,7 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.boxFeed ~ .recommendedWpr {
+.boxFeed ~ .boxSideBar .recommendedWpr {
   right: 30px;
   left: auto;
 }
