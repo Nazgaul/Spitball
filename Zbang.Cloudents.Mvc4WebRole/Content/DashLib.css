@@ -633,6 +633,10 @@
   display: inline-block;
   color: #d1294d;
 }
+.formWpr .customError {
+  display: inline-block;
+  color: #d1294d;
+}
 .courseType {
   display: inline-block;
   margin-bottom: 25px;
@@ -1325,7 +1329,7 @@
   background: none;
   margin: 0;
 }
-.boxNotify {
+.notify {
   min-width: 9px;
   height: 9px;
   background: #d1294d;

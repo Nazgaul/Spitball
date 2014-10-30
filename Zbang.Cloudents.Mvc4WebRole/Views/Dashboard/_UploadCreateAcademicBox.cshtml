@@ -14,7 +14,8 @@
     <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
         @Html.LabelFor(m => m.CourseName)
         <span class="error">@DialogResources.RequiredField</span>
-        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.academicBox.courseName", required = "required" })
+        <span class="customError" ng-if="params.customError">{{params.customError}}</span>
+        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.academicBox.courseName", required = "required", ng_change = "clearErrors()" })
     </div>
     <div class="lFloat courseId">
         @Html.LabelFor(m => m.CourseId)
@@ -29,8 +30,6 @@
 
     <section class="deptChooseWpr">
         <header>@SharedResources.ChooseDept</header>
-
-        @*Guy: please replace this static list with the real one using the same classes*@
         <ul class="libraryList clearfix" bindonce>
             <li class="ng-scope libraryItem deptItem" ng-repeat="department in departments">
                 <button type="button" class="navigation deptLink union-sprite" ng-click="selectDepartment(department)">

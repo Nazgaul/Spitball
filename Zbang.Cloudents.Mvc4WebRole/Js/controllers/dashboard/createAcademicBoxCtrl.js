@@ -11,22 +11,28 @@ mDashboard.controller('createAcademicBoxCtrl',
                 academicBox: {}
             };
            
+            var createDisabled = false;
             $scope.create = function (isValid) {
+                $scope.params.customError = null;
+
                 if (!isValid) {
                     return;
                 }
-                $scope.formSubmit = true;
+                createDisabled = true;
+
                 sBox.createAcademic($scope.formData.academicBox).then(function (response) {
-                    $scope.formSubmit = false;
                     if (response.success) {
                         var data = response.success ? response.payload : [];
                         $scope.box.url = data.url;
-                        $scope.box.id = data.id;
+                        $scope.box.id = data.id;                        
                         $scope.next();
                         return;
                     }
                     //TODO: add error msg
-                    console.log(response.payload[0].value[0]);
+                    $scope.params.customError = response.payload[0].value[0];
+                }).finally(function () {
+                    createDisabled = false;
+
                 });
             };
 
@@ -79,6 +85,10 @@ mDashboard.controller('createAcademicBoxCtrl',
                 $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null;
                 nodeHistory.pop();
                 getNodes();
+            };
+
+            $scope.clearErrors = function () {
+                $scope.params.customError = null;
             };
 
             if ($scope.department && $scope.department.id) {
