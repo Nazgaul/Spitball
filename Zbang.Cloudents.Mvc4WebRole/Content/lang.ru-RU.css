@@ -53,6 +53,9 @@
 }
 /*#endregion */
 /*#region box page */
+.boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
+  width: 105px;
+}
 /*#region box item tool tips */
 .boxItemTt.boxItemTt .itemName {
   padding: 10px 12px 0 12px;
