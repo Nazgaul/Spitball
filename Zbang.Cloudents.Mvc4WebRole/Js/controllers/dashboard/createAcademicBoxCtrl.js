@@ -27,7 +27,7 @@ mDashboard.controller('createAcademicBoxCtrl',
 
             $scope.createDepartment = function () {
                 var modalInstance = $modal.open({
-                    windowClass: "boxSettings dashMembers",
+                    windowClass: "newDpt",
                     templateUrl: '/Library/CreateDepartmentPartial/',
                     controller: 'CreateDepartmentCtrl',
                     backdrop: 'static',
