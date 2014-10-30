@@ -110,8 +110,8 @@
             </div>
 
         </div>
-        <ul class="uploadList" id="uploadList" ng-repeat="file in uploader.fileList track by file.id" bindonce>
-            <li class="uploadItem">
+        <ul class="uploadList" id="uploadList" bindonce m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
+            <li class="uploadItem" ng-repeat="file in uploader.fileList track by file.id">
                 <span class="fileName elps" bo-text="file.name"></span>
                 <span class="fileSize" bo-bind="file.size | fileSize:true"></span>
                 <div class="uploadProgress">

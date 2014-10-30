@@ -2,25 +2,60 @@
     return {
         restrict: 'A',
         transclude: true,
+        scope: {
+            scrollDisabled: '='
+        },
         template: '<div><div ng-transclude></div></div>',
         replace: true,
         link: function ($scope, $elem, $attr) {
-            var $win = $(window), height = $attr.height, top, bottom;
+            var $win = $(window), height = $attr.height, top, bottom, lastHeight;
 
-            setScroll();
+            $scope.$watch('scrollDisabled', function (value) {
+                if (value) {
+                    return;
+                }
 
-            $scope.$on('update-scroll', updateScroll);
-            $scope.$on('elastic:resize', updateScroll);
-
-            $win.resize(updateScroll);
-
-            function updateScroll() {
                 $timeout(function () {
-                    calcHeight();
-                    $elem.height(height);
+                    setScroll();
+                    setEvents();
+                }, 40);
+            });
+
+            $scope.$on('$destroy', function () {
+                $elem.mCustomScrollbar('destroy');
+            });
+            $scope.$on('$routeChangeStart', function () {
+                $elem.mCustomScrollbar('destroy');
+            });
+
+
+            if (!$scope.scrollDisabled) {
+                setScroll();
+                setEvents();
+            }
+
+
+
+            function setEvents() {
+                $scope.$on('update-scroll', updateScroll);
+                $scope.$on('elastic:resize', updateScroll);
+                $win.resize(updateScroll);
+            }
+
+            function updateScroll(e, fixHeight) {
+
+                if (_.isNumber(fixHeight) && fixHeight >= 0) {
+                    lastHeight = $elem.height();
+                    $elem.height(fixHeight);
+                    return;
+                }
+
+                calcHeight();
+                $elem.height(height);
+                setTimeout(function () {
                     $elem.mCustomScrollbar('update');
                     //setScroll();
-                }, 100);
+                }, 300);
             }
 
             function setScroll() {
@@ -39,6 +74,7 @@
 
                         },
                         whileScrolling: function () {
+
                             if (this.mcs.topPct === 0) {
                                 $elem.removeClass($attr.mCustomScrollbarClass);
                                 return;
@@ -54,17 +90,21 @@
                 if ($attr.height) {
                     return;
                 }
-                top = $attr.top ? parseInt($attr.top) : $elem[0].getBoundingClientRect().top;
+
+                if (lastHeight) {
+                    height = lastHeight;
+                    lastHeight = null;
+                    return;
+                }
+                var rect = $elem[0].getBoundingClientRect();
+                top = $attr.top ? parseInt($attr.top) : rect.top;
                 bottom = $attr.bottom ? parseInt($attr.bottom) : 0;
                 height = $win.height() - (top + bottom);
+
+
             }
 
-            $scope.$on('$destroy', function () {
-                $elem.mCustomScrollbar('destroy');
-            });
-            $scope.$on('$routeChangeStart', function () {
-                $elem.mCustomScrollbar('destroy');
-            });
+
         }
     };
 }]);

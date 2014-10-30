@@ -26,7 +26,7 @@ app.controller('UploadListCtrl',
             _.forEach(files, function (file) {
                 file.progressWidth = 0;
                 file.plupload = true;
-                $scope.uploader.fileList.push(file);
+                addItemToList(file);
             });
 
             if (!$scope.uploader.collapsed) { //if view is collapsed we show uploading if not setting the currentFile will show the title 
@@ -35,12 +35,10 @@ app.controller('UploadListCtrl',
                 $scope.uploader.title = params.title.uploading;
             }
 
-            $scope.uploader.currentFile = _.find($scope.uploader.fileList, function (file) {
-                return !(file.error || file.uploaded);
-            });
-
             $scope.collapsed = false;
             $scope.uploader.uploading = true;
+
+            $scope.$broadcast('update-scroll');
 
 
         });
@@ -68,6 +66,7 @@ app.controller('UploadListCtrl',
                 return;
             }
 
+
             uFile.uploaded = true;
 
             if (finishedUploading()) {
@@ -75,6 +74,8 @@ app.controller('UploadListCtrl',
                 $scope.uploader.title = params.title.uploaded;
                 $scope.uploader.currentFile = null;
             }
+
+            setCurrentFileUploading();
         });
 
         $scope.cancelUpload = function (file) {
@@ -97,6 +98,8 @@ app.controller('UploadListCtrl',
             var index = $scope.uploader.fileList.indexOf(file);
             $scope.uploader.fileList.splice(index, 1);
 
+            $scope.$broadcast('update-scroll');
+
             if ($scope.uploader.fileList.length === 0) {
                 $scope.uploader.title = params.title.uploaded;
                 $scope.uploader.uploading = false;
@@ -113,7 +116,7 @@ app.controller('UploadListCtrl',
                 $scope.uploader.init = true;
             }
 
-            $scope.uploader.fileList.push(link);
+            addItemToList(link);
 
             if (!$scope.uploader.collapsed) { //if view is collapsed we show uploading if not setting the currentFile will show the title 
                 $scope.uploader.title = params.title.uploadingFiles;
@@ -121,16 +124,12 @@ app.controller('UploadListCtrl',
                 $scope.uploader.title = params.title.uploading;
             }
 
-
-            $scope.uploader.currentFile = _.find($scope.uploader.fileList, function (file) {
-                return !(file.error || file.uploaded);
-            });
-
             link.percent = 50;
-            link.progressWidth = params.progressMaxWidth * (link.percent / 100);
+            link.progressWidth = params.progressMaxWidth * (link.percent / 100);            
 
             $scope.uploader.uploading = true;
 
+            $scope.$broadcast('update-scroll');
 
         });
 
@@ -139,6 +138,8 @@ app.controller('UploadListCtrl',
             if (!uLink) {
                 return;
             }
+
+            setCurrentFileUploading();
 
             uLink.uploaded = true;
             uLink.percent = 100;
@@ -168,9 +169,7 @@ app.controller('UploadListCtrl',
                 $scope.uploader.init = true;
             }
 
-
-            $scope.uploader.fileList.push(db);
-
+            addItemToList(db);
 
             if (!$scope.uploader.collapsed) { //if view is collapsed we show uploading if not setting the currentFile will show the title 
                 $scope.uploader.title = params.title.uploadingFiles;
@@ -179,11 +178,7 @@ app.controller('UploadListCtrl',
             }
 
 
-            $scope.uploader.currentFile = _.find($scope.uploader.fileList, function (file) {
-                return !(file.error || file.uploaded);
-            });
-
-
+        
             db.percent = 50;
             db.progressWidth = params.progressMaxWidth * (db.percent / 100);
 
@@ -195,6 +190,8 @@ app.controller('UploadListCtrl',
             if (!uDb) {
                 return;
             }
+
+            setCurrentFileUploading();
 
             uDb.uploaded = true;
             uDb.percent = 100;
@@ -218,6 +215,7 @@ app.controller('UploadListCtrl',
 
 
         $scope.toggleCollapse = function () {
+            var scrollUpdated = true;
 
             if (!$scope.uploader.fileList.length) {
                 $scope.uploader.collapsed = false;
@@ -225,6 +223,7 @@ app.controller('UploadListCtrl',
             }
 
             $scope.uploader.collapsed = !$scope.uploader.collapsed;
+            $scope.$broadcast('update-scroll', $scope.uploader.collapsed ? 0 : null);
 
             if (!$scope.uploader.uploading) {
                 return;
@@ -232,10 +231,12 @@ app.controller('UploadListCtrl',
 
             if ($scope.uploader.collapsed) {
                 $scope.uploader.title = params.title.uploading;
+                //$scope.$broadcast('update-scroll', 0);
                 return;
             }
 
             $scope.uploader.title = params.title.uploadingFiles;
+
 
         };
 
@@ -243,6 +244,14 @@ app.controller('UploadListCtrl',
             init();
         };
 
+
+        function addItemToList(item) {
+            $scope.uploader.fileList.push(item);
+
+            if ($scope.uploader.fileList.length >= 5) {
+                $scope.uploader.scrollDisabled = false;
+            }
+        }
         function finishedUploading() {
             var files = $scope.uploader.fileList.filter(function (file) {
                 return file.error || file.uploaded;
@@ -266,10 +275,18 @@ app.controller('UploadListCtrl',
                 fileList: [],
                 uploading: false,
                 title: null,
-                init: false
+                init: false,
+                scrollDisabled: true
             };
         }
 
+        function setCurrentFileUploading() {
+
+            $scope.uploader.currentFile = _.find($scope.uploader.fileList, function (file) {
+                return !(file.error || file.uploaded);
+            });
+
+        }
 
         //@*data-finish="@DialogResources.UploadedFiles" data-maintitle="@DialogResources.UploadingFiles" data-minimizetile="@DialogResources.Uploading"*@
     }]

@@ -498,36 +498,54 @@ input[type="radio"].radio:checked + label:after {
 }
 /*#endregion */
 /*#region media queries */
-@media (max-width: 1024px) {
-  .quizTitle.quizTitle,
-  .quizPrevWpr.quizPrevWpr {
-    margin: 0 20px 0 0;
-    /*rtl*/
-  }
-}
 /*#region IPAD - SPECIFIC CODE */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .headingTexts.headingTexts {
-    padding: 0 40px 0 0;
-    top: 40px;
-  }
-  .logo.logo,
-  .videoWpr.videoWpr {
-    margin: 20px 40px 0 0;
-    /*rtl*/
-  }
-  .videoWpr.videoWpr {
-    margin: 0 40px 0 0;
-    /*rtl*/
-  }
-  .language.language {
-    margin-top: 209px;
-    /*diff rtl*/
-  }
-  .middleActions.middleActions {
-    margin: 0 50px 0 0;
-    /*rtl*/
-  }
-}
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .headingTexts.headingTexts {
+        padding: 0 40px 0 0;
+        top: 40px;
+    }
+    .logo.logo, .videoWpr.videoWpr {
+        margin: 20px 40px 0 0; //rtl
+    }
+    .videoWpr.videoWpr {
+        margin: 0 40px 0 0; //rtl
+    }
+    .language.language {
+        margin-top: 209px; //diff rtl //arabic only
+    }
+    //Item page
+    .middleActions.middleActions
+    {
+        margin: 0 50px 0 0; //rtl/
+    }
+}*/
 /*#endregion */
+/*//home page media queries
+
+@media (max-width: 1430px) {
+    .headerWpr.menuOpen .headerActions
+    {
+        left: 200px; //rtl
+        right: auto;
+    }
+}
+@media (max-width: 1024px) {
+    .logo {
+        margin: 20px 20px 0 0; //rtl
+    }
+    .headingTexts {
+        padding: 0 20px 0 0; //rtl
+    }
+    .videoWpr {
+        right: 20px; //rtl
+        left: auto;
+    }
+}
+
+//setupschool media queries
+@media (max-width: 1165px) {
+    .createSchool, .completeRegistration {
+        right: auto; //rtl
+    }
+}*/
 /*#endregion */

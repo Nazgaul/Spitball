@@ -173,27 +173,3 @@ footer {
   /*rtl*/
 }
 /*#endregion */
-/*#region media queries */
-@media (max-width: 1430px) {
-  .headerWpr.menuOpen .headerActions {
-    left: 200px;
-    /*rtl*/
-    right: auto;
-  }
-}
-@media (max-width: 1024px) {
-  .logo {
-    margin: 20px 20px 0 0;
-    /*rtl*/
-  }
-  .headingTexts {
-    padding: 0 20px 0 0;
-    /*rtl*/
-  }
-  .videoWpr {
-    right: 20px;
-    /*rtl*/
-    left: auto;
-  }
-}
-/*#endregion */

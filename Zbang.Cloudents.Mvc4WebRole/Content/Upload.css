@@ -327,7 +327,7 @@ button.stopUpload {
   vertical-align: top;
 }
 .uploadList {
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   max-height: 154px;
   visibility: visible;
@@ -345,6 +345,7 @@ button.stopUpload {
   height: 30px;
   padding: 0 10px;
   position: relative;
+  list-style-type: none;
 }
 .uploadItem:last-child {
   border-bottom: none;
