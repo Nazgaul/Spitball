@@ -1,15 +1,14 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.AccountSettings
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="settingsTab accountSettings">
+<div class="accountSettings">
 
-    <label>Email:</label>
+    @Html.LabelFor(m => m.Email)
     <div class="changeEmail">
         <div class="propValue">{{data.email}}</div>
         <button ng-show="!params.changingEmail" type="button" class="btnTxt" ng-click="changeEmail()">@AccountSettingsResources.ChangeEmail</button>
         <div class="newEmail" ng-show="params.changingEmail">
-            <input ng-show="params.changingEmail && !params.verifyCode" type=" text" class="inputText" placeholder="@AccountSettingsResources.EnterEmail" ng-model="emailForm.email" />
+            <input ng-show="params.changingEmail && !params.verifyCode" type="text" class="inputText" placeholder="@AccountSettingsResources.EnterEmail" ng-model="emailForm.email" />
             <input ng-show="params.verifyCode" type="text" class="inputText" placeholder="@AccountSettingsResources.EnterCode" ng-model="emailForm.verifyCode" />
             <button type="button" class="btnTxt" ng-click="changeEmail()" ng-class="{checkMail : params.verifyCode}">{{params.changeEmailBtnText}}</button>
             <span class="validation-summary-errors">{{params.changeEmailError}}</span>
@@ -25,10 +24,10 @@
         <div class="changePwd" ng-class="{show: params.changingPassword}">
 
             <span class="validation-summary-errors">{{params.passwordError}}</span>
-            <label for="oldpsw">Current password</label>
+            @Html.LabelFor(m => m.Password.CurrentPassword,new { @for="oldpsw"})
             <input id="oldpsw" type="password" class="inputText" ng-model="passwordForm.oldPassword" />
 
-            <label for="newpsw">New password</label>
+            @Html.LabelFor(m => m.Password.NewPassword,new {@for="newpsw"})
             <input id="newpsw" type="password" class="inputText" ng-model="passwordForm.newPassword" />
 
         </div>
@@ -44,7 +43,5 @@
                     Value = s.Culture
                 }), new { @class = "inputText", id = "language", ng_model = "languageForm.selected" })
     </div>
-
     <input type="button" class="btn1" value="@AccountSettingsResources.Save" ng-click="changeLanguage()" />
-
 </div>
