@@ -55,7 +55,7 @@ mBox.factory('sBox',
                 return ajaxService.get(buildPath('GetNotification'), data);
             },
             changeNotification: function (data) {
-                return ajaxService.post(Box + 'ChangeNotification/', data);
+                return ajaxService.post(buildPath('ChangeNotification'), data);
             },
             follow: function (data) {
                 return ajaxService.post('/Share/SubscribeToBox/', data);
