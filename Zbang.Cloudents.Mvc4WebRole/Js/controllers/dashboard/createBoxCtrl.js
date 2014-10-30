@@ -4,11 +4,18 @@ mDashboard.controller('CreateBoxCtrl',
          'sBox',
          function ($scope, sBox) {       
 
-             $scope.create = function (isValid) {
-                 //TODO: add disabled state
+             var createDisabled = false;
+             $scope.create = function (isValid) {                 
+                 if (createDisabled) {
+                     return;
+                 }
+
                  if (!isValid) {
                      return;
                  }
+
+                 createDisabled = true;
+
                  sBox.createPrivate($scope.formData).then(function (response) {
                      if (response.success) {
                          var data = response.payload || {};
@@ -19,6 +26,8 @@ mDashboard.controller('CreateBoxCtrl',
                      }
                      $scope.formData.error = response.payload[0].value[0];
                      //$modalInstance.close(box.payload || box.Payload);
+                 }).finally(function () {
+                     createDisabled = false;
                  });
 
 
