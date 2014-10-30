@@ -18,8 +18,6 @@ app.directive('loader',
                     elem.css({ opacity: 0, display: 'none' });
                     var $view = $(document.querySelector('.page'));
                     $view.css({ opacity: 1, display: 'block' });
-                    cd.pubsub.publish('showTime');
-
                 });
             }
         };

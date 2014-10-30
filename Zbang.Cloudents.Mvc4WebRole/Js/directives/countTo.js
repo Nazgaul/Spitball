@@ -1,6 +1,6 @@
 ﻿"use strict";
 app.directive('counter', function () {
-    var lastTime = 0;
+    var lastTime = 0, startVal = 0;
     var vendors = ['webkit', 'moz', 'ms'];
     for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
@@ -43,12 +43,11 @@ app.directive('counter', function () {
             });
 
             var d = elem[0],
-             startVal = 0,
              endVal = angular.isNumber(attrs.counterTarget) ? Number(attrs.counterTarget) : 0,
              startTime = null,
              timestamp = null,
              remaining = null,
-             frameVal = this.startVal,
+             frameVal = startVal,
              rAF = null,                         
              duration = angular.isNumber(attrs.counterDuration) ? Number(attrs.counterDuration) * 1000 : 2000
 

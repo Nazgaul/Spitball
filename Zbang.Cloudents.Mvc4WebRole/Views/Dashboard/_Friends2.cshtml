@@ -8,8 +8,7 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar">
         <button data-id="Members" type="button" class="tabBtn">@IndexResources.Members</button>
-        <a target="_self"
-           href="@Url.RouteUrl("InviteCloudents")" class="btn3 inviteBtn rFloat">@IndexResources.Invite</a>
+        <button class="btn3 inviteBtn rFloat" ng-click="inviteFriends()">@IndexResources.Invite</button>
         <div class="arrow tabArrow"></div>
     </div>
     <div class="membersContent">

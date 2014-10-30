@@ -158,13 +158,7 @@ app.config([
                 type: 'user'
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
-        }).
-        when('/invite/', {
-            params: {
-                type: 'invite'
-            },
-            templateUrl: '/invite/IndexPartial'
-        }).
+        }).        
         when('/account/settings', {
             params: {
                 type: 'accountSettings'

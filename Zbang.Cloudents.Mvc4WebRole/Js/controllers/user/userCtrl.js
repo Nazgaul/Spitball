@@ -44,6 +44,7 @@ var mUser = angular.module('mUser', [])
         },
         partials: {
             message: '/Share/MessagePartial/',
+            socialInvite: '/Dashboard/SocialInvitePartial'
         }
     });
 mUser.controller('UserCtrl',
@@ -59,9 +60,9 @@ mUser.controller('UserCtrl',
             $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id;
 
             getData();
-            //$timeout(function () {
-            $rootScope.$broadcast('viewContentLoaded');
-            //});
+            $timeout(function () {
+                $rootScope.$broadcast('viewContentLoaded');
+            });
         });
 
         //sendUserMessage - is on main.js as well
@@ -97,6 +98,15 @@ mUser.controller('UserCtrl',
         };
         //#endregion
 
+
+        $scope.inviteCloudents = function () {
+            var modalInstance = $modal.open({
+                windowClass: "boxInvitePopup",
+                templateUrl: userConstants.partials.socialInvite,
+                controller: 'InviteCloudentsCtrl',
+                backdrop: 'static'
+            });
+        };
 
 
         //#region admin

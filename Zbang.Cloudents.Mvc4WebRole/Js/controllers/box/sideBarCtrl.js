@@ -15,7 +15,6 @@ mBox.controller('SideBarCtrl',
                 if (!leaderBoard || leaderBoard.length === 0) {
                     return;
                 }
-                console.log(leaderBoard);
 
                 $scope.leaderBoard = {
                     first: leaderBoard[0] == null ? null : {

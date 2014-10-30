@@ -146,7 +146,10 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 }
             });
 
-            modalInstance2.result.then(function (/*box*/) {
+            modalInstance2.result.then(function (response) {
+                if (response.invite) {
+                    $scope.inviteCloudents();
+                }
             })['finally'](function () {
                 modalInstance = undefined;
             });

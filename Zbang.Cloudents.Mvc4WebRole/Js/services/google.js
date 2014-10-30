@@ -39,14 +39,17 @@ app.factory('sGoogle',
                var defer = $q.defer(),
                    js = document.createElement('script');
                js.id = "jsGoogleContact";
-               js.src = " https://apis.google.com/js/client.js";
+               js.src = "https://apis.google.com/js/client.js";
                document.getElementsByTagName('head')[0].appendChild(js);
                var breakLoop = 0;
                var interval = window.setInterval(function () {
-                   if (window.gapi !== undefined && window.gapi.client !== undefined) {
-                       window.clearInterval(interval);
-                       gapi.client.setApiKey(apiKey);
-                       defer.resolve(true);
+                   if (window.gapi !== undefined) {
+                       window.gapi.load('client', function () {
+                           window.clearInterval(interval);
+                           gapi.client.setApiKey(apiKey);
+                           defer.resolve(true);
+                       });
+                       
                    }
                    breakLoop++;
                    if (breakLoop > 500) {
