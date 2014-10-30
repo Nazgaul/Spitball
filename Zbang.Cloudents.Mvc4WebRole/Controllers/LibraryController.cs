@@ -208,7 +208,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var guid = TryParseNullableGuid(id);
             var userDetail = FormsAuthenticationService.GetUserData();
 
-            if (!userDetail.UniversityId.HasValue)
+            if (!userDetail.UniversityDataId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
@@ -217,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, "Error"));
             }
 
-            var command = new DeleteNodeFromLibraryCommand(guid.Value, userDetail.UniversityId.Value);
+            var command = new DeleteNodeFromLibraryCommand(guid.Value, userDetail.UniversityDataId.Value);
             ZboxWriteService.DeleteNodeLibrary(command);
             return Json(new JsonResponse(true));
 
@@ -256,13 +256,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var userDetail = FormsAuthenticationService.GetUserData();
-            if (!userDetail.UniversityId.HasValue)
+            if (!userDetail.UniversityDataId.HasValue)
             {
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
             }
             try
             {
-                var command = new RenameNodeCommand(model.NewName, guid.Value, userDetail.UniversityId.Value);
+                var command = new RenameNodeCommand(model.NewName, guid.Value, userDetail.UniversityDataId.Value);
 
                 ZboxWriteService.RenameNodeLibrary(command);
                 return Json(new JsonResponse(true));
