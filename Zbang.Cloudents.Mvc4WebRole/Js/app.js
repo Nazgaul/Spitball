@@ -373,6 +373,8 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
                     $rootScope.back.url = previous.loadedTemplateUrl;
                     break;
                 case 'library':
+                    $rootScope.back.title = previous.params.libraryName;
+                    $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
                     break;
                 default:
                     setBackDashboard();
