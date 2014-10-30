@@ -226,6 +226,9 @@
   left: auto;
 }
 /*#region new department look */
+.deptItem {
+  float: right;
+}
 .deptLink {
   margin: 0 0 35px 14px;
   /*rtl*/
@@ -413,6 +416,14 @@
 }
 .hoverItem.commentImg:before {
   margin: 0 0 0 4px;
+}
+.addDep {
+  margin: 0 0 0 14px;
+}
+.libraryItem.addDep,
+.libraryItem.addCourse,
+.libraryList > .libraryItem + .box {
+  float: right;
 }
 .boxWpr {
   margin: 30px 84px 0 7px;
