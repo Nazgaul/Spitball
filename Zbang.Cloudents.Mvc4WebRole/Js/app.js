@@ -242,7 +242,7 @@ app.config([
                     type: 'terms'
                 }
             }).
-            when('/store/thankyou/:productId', {
+            when('/store/thankyou/', {
                 templateUrl: '/store/ThankyouPartial/',
                 controller: 'ViewCtrl',
                 params: {
