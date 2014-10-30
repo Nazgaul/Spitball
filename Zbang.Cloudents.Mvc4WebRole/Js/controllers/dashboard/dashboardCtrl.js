@@ -4,9 +4,9 @@ mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
       '$window', 'sDashboard', 'sBox',
-      'sUser', 'sNewUpdates', '$location',
+      'sUser', 'sNewUpdates', '$location','$analytics',
 
-function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location) {
+function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
@@ -14,6 +14,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     $scope.params = {};
     //cd.pubsub.publish('dash_boxes');//statistics
     cd.analytics.setLibrary($('.uniText').text());
+    //$analytics
 
     $scope.partials = {
         friends: '/Dashboard/FriendsPartial/',
