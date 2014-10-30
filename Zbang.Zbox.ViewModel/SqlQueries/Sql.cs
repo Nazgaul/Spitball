@@ -223,7 +223,7 @@ order by rank desc";
      u.Email as Email,
      u.UserReputation as Score,
      uu.OrgName as LibName,
-     uu.Image as LibImage,
+     uu.LargeImage as LibImage,
      case when u.UserReputation >= uu.AdminScore then 1 else 0 end as isAdmin
      from zbox.Users u 
 	 left join zbox.University uu on u.UniversityId = uu.Id

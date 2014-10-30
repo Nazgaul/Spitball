@@ -5,11 +5,18 @@ mBox.controller('SideBarCtrl',
 
             sBox.sideBar({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : {};
-
-                $scope.recommendedCourses = data.recommendBoxes;
+              
+                parseRecommendedCourses(data.recommendBoxes);
                 parseLeaderboard(data.leaderBoard);
 
             });
+
+            function parseRecommendedCourses(recommendedCourses) {
+                if (!recommendedCourses || recommendedCourses.length === 0) {
+                    return;
+                }
+                $scope.recommendedCourses = recommendedCourses;
+            }
 
             function parseLeaderboard(leaderBoard) {
                 if (!leaderBoard || leaderBoard.length === 0) {

@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someBox = new Box("some box", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
             var someFile = new File("some ItemName", someUser, 5, "someblobName", someThumbnail, someBox, "some img url");
             someFile.GetType().GetProperty("Id").SetValue(someFile, someItemId);
-            var userItems = new List<Item>() { someFile };
+            var userItems = 50;
 
             someBox.GetType().GetProperty("Picture").SetValue(someBox, someThumbnail);
             someBox.GetType().GetProperty("Items").SetValue(someBox, itemsInBox);

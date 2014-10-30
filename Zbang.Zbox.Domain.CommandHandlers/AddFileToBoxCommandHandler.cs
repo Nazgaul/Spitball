@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_BoxRepository.Save(box, true);
 
-            user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id).Sum(s => s.Size);
+            user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
             m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_UserRepository.Save(user);
 
