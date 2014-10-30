@@ -33,20 +33,22 @@ function ($http, sBox, sUserDetails) {
 
         },
         getUpdatesCount: function (boxId) {
-            var updates = {};
+            var updateCount = {};
             if (!updates[boxId]) {
-                updates = {
+                updateCount = {
                     feed: 0,
                     items: 0,
                     quizzes: 0
                 }
                 return updates;
             }
-            updates.feed = updates[boxId].questions.length + updates[boxId].answers.length;
-            updates.items = updates[boxId].items.length;
-            updates.quizzes = updates[boxId].quizzes.length;
+            updateCount = {
+                feed:  updates[boxId].questions.length + updates[boxId].answers.length,
+                items : updates[boxId].items.length,
+                quizzes : updates[boxId].quizzes.length
+            };
 
-            return updates;
+            return updateCount;
         },
         setOld: function (boxId, type, id) {
             id = parseInt(id, 10);

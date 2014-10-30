@@ -65,7 +65,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 }
 
 
-                var updatesCount = sNewUpdates.getUpdatesCount();
+                var updatesCount = sNewUpdates.getUpdatesCount($scope.boxId);
                 $scope.params.newFeed = updatesCount.feed;
                 $scope.params.newItems = updatesCount.items;
                 $scope.params.newQuizzes = updatesCount.quizzes;
