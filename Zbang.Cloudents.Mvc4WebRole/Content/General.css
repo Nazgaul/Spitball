@@ -2442,6 +2442,12 @@ select.inputText {
   padding: 0;
 }
 /*#endregion */
+.mtouch .boxRename.boxRename,
+.mtouch .itemRenameBtn.itemRenameBtn,
+.mtouch .ratePopup.ratePopup .closeDialog,
+.mtouch .removeItem.removeItem {
+  display: inline-block;
+}
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
   body input.radio[type="radio"]:checked + label:after {
@@ -2461,129 +2467,181 @@ select.inputText {
 }
 /*#endregion */
 /*#region media queries */
-@media (max-width: 1024px) {
-  .mno-touch body {
-    position: relative;
-    display: table;
-  }
-  body .siteHeader,
-  body .boxPage .leftPanel,
-  body .boxPage .boxActions,
-  body .asideLib,
-  body .asideDash,
-  body .settingsMenu,
-  body .itemPage .leftPanel,
-  body .itemPage .topBar,
-  body .itemPage .secondBar,
-  body .boxPage .leftPanel {
-    position: absolute;
-  }
-  body .quizTitle,
-  body .quizPrevWpr {
-    margin-left: 20px;
-    /*rtl*/
-  }
-  body .contentWpr {
-    background: url(/Images/gray_jean80.png?v=1) repeat #ffffff;
-  }
-  body .contentWpr.featured .unionFeatured {
-    height: -webkit-calc(100% - 25px);
-    height: calc(100% - 25px);
-    top: 25px;
-  }
-  body .libraryContent {
-    display: table;
-  }
-  body .libraryContent .contentWpr {
-    padding-top: 20px;
-  }
-  body .libraryContent .asideDash {
-    display: table-cell;
-    min-height: -webkit-calc(100vh - 60px);
-    min-height: calc(100vh - 60px);
-  }
-  body .boxPage .boxActions,
-  body .boxesHeader.topBar {
-    position: static;
-  }
-  body .box-content {
-    padding-top: 25px;
-  }
-  body .scrolling #dash_right:before {
-    display: none;
-  }
-}
-.mtouch .boxRename.boxRename,
-.mtouch .itemRenameBtn.itemRenameBtn,
-.mtouch .ratePopup.ratePopup .closeDialog,
-.mtouch .removeItem.removeItem {
-  display: inline-block;
-}
+/*@media (max-width: 1024px) {
+
+    .mno-touch {
+
+        body {
+            position: relative;
+            display: table;
+        }
+    }
+    body {
+        .siteHeader,
+        .boxPage .leftPanel,
+        .boxPage .boxActions,
+        .asideLib,
+        .asideDash,
+        .settingsMenu,
+        .itemPage .leftPanel,
+        .itemPage .topBar,
+        .itemPage .secondBar,
+        .boxPage .leftPanel {
+            position: absolute;
+        }
+
+        .quizTitle, .quizPrevWpr {
+            margin-left: 20px; //rtl
+        }
+
+        .contentWpr {
+            background: url(/Images/gray_jean80.png?v=1) repeat #fff;
+
+            &.featured {
+                .unionFeatured {
+                    height: ~"-webkit-calc(100% - 25px)";
+                    height: ~"calc(100% - 25px)";
+                    top: 25px;
+                }
+            }
+        }
+
+        .libraryContent {
+            display: table;
+            .contentWpr {
+                padding-top: 20px;
+            }
+            .asideDash {
+                display: table-cell; //this fills the aside with the height of the content
+                min-height: ~'-webkit-calc(100vh - 60px)';
+                min-height: ~'calc(100vh - 60px)';
+            }
+        }
+
+        .boxPage .boxActions, .boxesHeader.topBar {
+            position: static;
+        }
+
+        .box-content {
+            padding-top: 25px; 
+        }
+
+        .scrolling {
+            #dash_right:before {
+                display: none;
+            }
+        }
+    }
+}*/
 /*#region IPAD - SPECIFIC CODE */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .siteHeader.siteHeader,
-  body.body {
-    min-width: 0;
-  }
-  /*#region home page */
-  .headingTexts.headingTexts {
-    padding-left: 40px;
-    /*rtl*/
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .topImg.topImg {
-    height: 615px;
-  }
-  .videoWpr.videoWpr {
-    left: auto;
-  }
-  .logo.logo,
-  .videoWpr.videoWpr {
-    margin-left: 40px;
-    /*rtl*/
-  }
-  .language.language {
-    margin-top: 214px;
-  }
-  /*#endregion */
-  .inviteSources.inviteSources {
-    margin-top: 0;
-  }
-  /*.printDD.printDD .printTxt2 {
-        padding: 0;
-    }*/
-  .divWrapper.divWrapper {
-    width: 680px;
-  }
-  .imageContent.imageContent {
-    max-width: 680px;
-  }
-  .middleActions.middleActions {
-    margin-left: 50px;
-    /* rtl*/
-    max-width: none;
-  }
-  .middleActionItem.middleActionItem {
-    padding: 0 6px;
-  }
-  .listViewBtn.listViewBtn,
-  .thumbViewBtn.thumbViewBtn {
-    width: 32px;
-  }
-  .listItem.listItem .boxName {
-    max-width: 140px;
-  }
-  .quizPrevWpr.quizPrevWpr,
-  .quizTitle.quizTitle {
-    width: 680px;
-  }
-  .modal2.modal2 {
-    position: absolute;
-  }
-}
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .siteHeader.siteHeader, body.body {
+        min-width: 0;
+    }
+    //home page
+    .headingTexts.headingTexts {
+            padding-left: 40px; //rtl
+            .boxSizing;
+    }
+    .topImg.topImg {
+        height: 615px;
+    }
+    .videoWpr.videoWpr {
+        left: auto;
+    }
+    .logo.logo, .videoWpr.videoWpr {
+        margin-left: 40px; //rtl
+    }
+    .language.language {
+        margin-top: 214px;
+    }
+
+    //invite page
+    .inviteSources.inviteSources {
+        margin-top:0;
+    }
+    
+    //item page
+    .divWrapper.divWrapper {
+        width: 680px;
+    }
+
+    .imageContent.imageContent {
+        max-width: 680px;
+    }
+    .middleActions.middleActions
+    {
+        margin-left: 50px; //rtl
+        max-width: none;
+    }
+    .middleActionItem.middleActionItem {
+        padding: 0 6px;
+    }
+    //box page
+    .listViewBtn.listViewBtn, .thumbViewBtn.thumbViewBtn {
+        width: 32px;
+    }
+    .listItem.listItem .boxName {
+        max-width: 140px;
+    }
+    //quiz page
+    .quizPrevWpr.quizPrevWpr, .quizTitle.quizTitle
+    {
+        width: 680px;
+    }
+
+    .modal2.modal2 {
+        position: absolute;
+    }
+}*/
 /*#endregion */
+/*//home page media queries
+
+@media (max-width: 1430px) {
+    .headerWpr.menuOpen .headerActions
+    {
+        right: 200px; //rtl
+    }
+}
+@media (max-width: 1024px) {
+    .logo {
+        margin-left: 20px; //rtl
+    }
+    .headingTexts {
+        padding-left: 20px; //rtl
+    }
+    .videoWpr {
+        left: 20px; //rtl
+    }
+}
+
+//setupschool media queries
+@media (max-width: 1165px) {
+    .createSchool, .completeRegistration {
+        width: auto;
+        left: auto; //rtl
+    }
+}
+
+//box page media queries
+@media (max-width: 1145px) {
+
+    .boxItemsHeader.boxItemsHeader {
+        font-size: 12px;
+
+        .boxManage {
+            font-size: 12px;
+        }
+    }
+    .manageTxt {
+        display: block;
+    }
+    .boxManage.boxManage {
+        .btn1 , .btn2 {
+            margin-top: 10px;
+        }
+    }
+}*/
 /*#endregion */
 /*#region cssCheck*/
 #cssCheck {
