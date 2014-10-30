@@ -98,13 +98,6 @@
 .boxTabs {
   display: inline-block;
 }
-.boxTabs li {
-  position: relative;
-}
-.boxTabs li .boxNotify {
-  right: 65px;
-  top: 7px;
-}
 .boxTab {
   font-size: 18px;
   padding: 0 22px;
@@ -115,9 +108,14 @@
   box-sizing: border-box;
   text-transform: capitalize;
   cursor: pointer;
+  position: relative;
 }
 .boxTab.current {
   border-bottom: 7px solid #0f9d58;
+}
+.boxTab .notify {
+  right: 0;
+  top: 7px;
 }
 .inviteFriendsBtn {
   margin-top: 12px;

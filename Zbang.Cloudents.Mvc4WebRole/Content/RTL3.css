@@ -461,7 +461,7 @@
   /*rtl*/
   left: auto;
 }
-.boxNotify {
+.notify {
   left: 16px;
   /*rtl*/
   right: auto;
@@ -497,10 +497,6 @@
 .boxTitle {
   padding: 0 0 0 10px;
   /*rtl*/
-}
-.boxTabs .boxNotify {
-  right: auto;
-  left: 65px;
 }
 .emptyState {
   padding: 40px 236px 0 0;
@@ -685,6 +681,10 @@
 }
 .boxRight {
   padding: 0 243px 0 0;
+}
+.boxTab .notify {
+  left: 0;
+  right: auto;
 }
 .shareDD {
   left: -5px;
