@@ -1,6 +1,7 @@
 ﻿322,,Beit Berel,
 790,,,
 920,,The Open University,openu
+984,Вивт,Воронежский институт высоких технологий - АНОО ВПО,
 1127,, Ben-Gurion University of the Negev,
 1128,הגילדה, Bar-Ilan University,
 1129,, University of Haifa,
@@ -25,7 +26,7 @@
 1149,אחווה, Achva Academic college,
 1150,,talpiot,
 1151,, Netanya Academic College,
-1152,,sapir college,
+1152,המככלה האקדמית ספיר,sapir,מכללת ספיר
 1153,,,
 1154,,"Gordon College of Education,",
 1155,,The David Yellin Academic College of Education,dyellin
@@ -33,6 +34,8 @@
 1157,, College of Judea and Samaria,ariel
 1158,,Peres Academic Center,pac
 1159,,Ruppin Academic Center,ruppin
+1160,המרכז הבינתחומי הרצליה,IDC,Interdisciplinary Center Herzliya
+1161,"מל""א",mla,
 1162,"ע""ר",ono academic college,
 1163,,Weizmann Institute of Science,
 1164,HIT,holon institute of technology,
@@ -42,6 +45,7 @@
 1168,, Afeka College of Engineering,
 1171,,levinsky,
 1172,,minsha,
+1173,,smkb,
 1174,,reidman,
 1175,,maale,
 1176,,shaanan,
@@ -53,27 +57,18 @@
 5582,,zefat,
 6077,,carmel,
 6114,tcb,,
-6698,jct,The Jerusalem College of Technology בית ספר גבוה לטכנולוגיה ירושלים,
+6698,jct,מרכז אקדמי לב ,"בית ספר גבוה לטכנולוגיה ירושלים, מכון טל"
 6738,,,
 6793,,lander,
 6820,,avni,
 7257,jamd, Jerusalem Academy of Music and Dance,
 8327,ash-college, Ashkelon Academic College,
-9970,,,
-11317,mta,Academic College of Tel Aviv,
-11318,yvc,Max Stern Yezreel Valley College,
-14831,, Ohalo College,
-38982,,macademy,
-64805,, College of Management Academic Studies,
-75260,,,
-117917,כינרת,kinneret,
-1161,"מל""א",mla,
-1173,,smkb,
-19878,,ash-limudim,
-22906,,tut-coach,
 9886,KCL,,
 9887,ICL,,
+9970,,,
 11271,RU,,
+11317,mta,Academic College of Tel Aviv,
+11318,yvc,Max Stern Yezreel Valley College,
 12711,LSE,,
 12712,UCL,,
 12715,MMU,,
@@ -81,7 +76,12 @@
 12770,UWE,,
 12795,HAN,,
 12805,HU,,
+14831,, Ohalo College,
+19878,,ash-limudim,
+22906,,tut-coach,
+38982,,macademy,
 53950,KIT,,
-984,Вивт,Воронежский институт высоких технологий - АНОО ВПО,
+64805,, College of Management Academic Studies,
+75260,,,
+117917,כינרת,kinneret,
 164597,המרכז האקדמי שערי משפט,Shaarei Mishpat College,שערי משפט
-1160,המרכז הבינתחומי הרצליה,IDC,Interdisciplinary Center Herzliya

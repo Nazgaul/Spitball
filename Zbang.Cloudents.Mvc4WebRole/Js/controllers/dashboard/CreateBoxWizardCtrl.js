@@ -24,7 +24,10 @@ mDashboard.controller('CreateBoxWizardCtrl',
                     wizard = WizardHandler.wizard();
                 }
 
+
                 wizard.next();
+                $scope.$broadcast('update-scroll');
+
             };
 
             $scope.cancel = function () {

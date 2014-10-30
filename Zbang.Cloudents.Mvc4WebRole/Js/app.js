@@ -175,7 +175,7 @@ app.config([
         //#region store
              when('/store/', {
                  templateUrl: function (params) {
-                     var url = '/Store/';
+                     var url = '/Store/IndexPartial/';
                      return buildQueryString(url, params);
                  },
                  controller: 'CategoryCtrl',
@@ -186,7 +186,7 @@ app.config([
              }).
             when('/store/category/:categoryId/', {
                 templateUrl: function (params) {
-                    var url = '/Store/';
+                    var url = '/Store/IndexPartial/';
                     return buildQueryString(url, params);
                 },
                 controller: 'CategoryCtrl',

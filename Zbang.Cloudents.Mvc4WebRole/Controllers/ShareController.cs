@@ -28,21 +28,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ShortCodesCache = shortToLongCache;
         }
 
-        [ZboxAuthorize, HttpGet]
-        [NonAjax]
-        [Route("invite", Name = "InviteCloudents")]
-        public ActionResult Index()
-        {
-            return View("Empty");
-        }
+        //[ZboxAuthorize, HttpGet]
+        //[Route("invite", Name = "InviteCloudents")]
+        //public ActionResult Index()
+        //{
+        //    return View("Empty");
+        //}
 
-        [Route("invite/IndexPartial")]
-        [OutputCache(CacheProfile = "PartialCache")]
-        [HttpGet, Ajax, ZboxAuthorize]
-        public ActionResult IndexPartial()
-        {
-            return PartialView("Index");
-        }
+        //[Route("invite/IndexPartial")]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //[HttpGet, Ajax, ZboxAuthorize]
+        //public ActionResult IndexPartial()
+        //{
+        //    return PartialView("Index");
+        //}
 
         [HttpPost, ZboxAuthorize]
         public ActionResult Invite(InviteSystem model)
@@ -165,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //TODO: partial
-        [HttpGet, Ajax]
+        [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult MessagePartial()
         {
@@ -222,7 +221,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         [HttpGet]
-        [Ajax]
         public async Task<ActionResult> Notifications(int page = 0)
         {
             if (!User.Identity.IsAuthenticated)
@@ -305,7 +303,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public ActionResult NotificationAsRead(Guid messageId)
         {
             var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
@@ -313,7 +311,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public ActionResult NotificationOld()
         {
             var command = new MarkMessagesAsOldCommand(User.GetUserId());

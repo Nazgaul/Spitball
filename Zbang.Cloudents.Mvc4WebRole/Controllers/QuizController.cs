@@ -35,7 +35,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [NonAjax]
         //[UserNavNWelcome]
         [NoCache]
         [BoxPermission("boxId")]
@@ -87,7 +86,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
       
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [Ajax]
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
           Location = OutputCacheLocation.ServerAndClient,
           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
@@ -98,7 +96,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
         public async Task<ActionResult> Data(long boxId, long quizId)
@@ -121,11 +118,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, tModel.Result));
         }
 
-        [Ajax]
         [ZboxAuthorize]
         [HttpGet]
         //TODO: add validation in here
-        public async Task<ActionResult> Discussion(long quizId)
+        public async Task<JsonResult> Discussion(long quizId)
         {
             var query = new GetDisscussionQuery(quizId);
             var model = await ZboxReadService.GetDiscussion(query);
@@ -134,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         //TODO: add validation in here
-        [HttpGet, Ajax]
+        [HttpGet]
         //[OutputCache(Duration = TimeConsts.Hour, 
         //    Location = OutputCacheLocation.Any, VaryByParam = "none",
         //    VaryByCustom = CustomCacheKeys.Lang)]
@@ -153,7 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         
 
-        [Ajax, HttpGet]
+        [HttpGet]
         [ZboxAuthorize]
         [OutputCache(CacheProfile = "PartialCache")]
 
@@ -162,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("CreateQuiz");
         }
 
-        [Ajax, HttpPost]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult SaveAnswers(SaveUserAnswers model)
         {
@@ -192,7 +188,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Ajax, HttpGet]
+        [HttpGet]
         [ZboxAuthorize]
         public async Task<ActionResult> GetDraft(long quizId)
         {
@@ -211,7 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region Quiz
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult Create(Quiz model)
         {
@@ -226,7 +222,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, id));
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult Update(UpdateQuiz model)
         {
@@ -238,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.UpdateQuiz(command);
             return Json(new JsonResponse(true));
         }
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult Delete(long id)
         {
@@ -255,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult Save(SaveQuiz model)
         {
@@ -274,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region question
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult CreateQuestion(Question model)
         {
@@ -293,7 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.CreateQuestion(command);
             return Json(new JsonResponse(true, id));
         }
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult UpdateQuestion(UpdateQuestion model)
         {
@@ -305,7 +301,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.UpdateQuestion(command);
             return Json(new JsonResponse(true));
         }
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult DeleteQuestion(Guid id)
         {
@@ -324,7 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region Answer
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult CreateAnswer(Answer model)
         {
@@ -342,7 +338,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.CreateAnswer(command);
             return Json(new JsonResponse(true, id));
         }
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult UpdateAnswer(UpdateAnswer model)
         {
@@ -355,7 +351,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.UpdateAnswer(command);
             return Json(new JsonResponse(true));
         }
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public ActionResult MarkCorrect(MarkAnswer model)
         {
 
@@ -380,7 +376,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
         public ActionResult DeleteAnswer(Guid id)
         {
@@ -393,7 +389,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region Discussion
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public ActionResult CreateDiscussion(Discussion model)
         {
             if (!ModelState.IsValid)
@@ -406,7 +402,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, id));
         }
 
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public ActionResult DeleteDiscussion(Guid id)
         {
             var command = new DeleteDiscussionCommand(id, User.GetUserId());

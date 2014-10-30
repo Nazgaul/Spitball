@@ -18,10 +18,15 @@ mDashboard.controller('createAcademicBoxCtrl',
                 $scope.formSubmit = true;
                 sBox.createAcademic($scope.formData.academicBox).then(function (response) {
                     $scope.formSubmit = false;
-                    var data = response.success ? response.payload : [];
-                    $scope.box.url = data.url;
-                    $scope.box.id = data.id;
-                    $scope.next();
+                    if (response.success) {
+                        var data = response.success ? response.payload : [];
+                        $scope.box.url = data.url;
+                        $scope.box.id = data.id;
+                        $scope.next();
+                        return;
+                    }
+                    //TODO: add error msg
+                    console.log(response.payload[0].value[0]);
                 });
             };
 

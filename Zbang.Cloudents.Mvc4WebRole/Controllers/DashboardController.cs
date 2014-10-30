@@ -41,9 +41,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Ajax]
         [HttpGet]
-        public async Task<ActionResult> BoxList()
+        public async Task<JsonResult> BoxList()
         {
             var userid = User.GetUserId();
             try
@@ -94,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         #region Friends
-        [HttpGet, Ajax]
+        [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult FriendsPartial()
         {
@@ -110,7 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        [Ajax, HttpGet]
+        [HttpGet]
         public async Task<JsonResult> RecommendedCourses()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -122,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, result));
         }
 
-        [Ajax, HttpGet]
+        [HttpGet]
         [Route("dashboard/CreateBox")]
         [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult CreateBox()
@@ -138,7 +137,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Ajax, HttpGet]
+        [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult SocialInvitePartial()
         {

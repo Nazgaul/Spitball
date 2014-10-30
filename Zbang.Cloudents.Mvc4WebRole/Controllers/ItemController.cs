@@ -49,12 +49,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Ajax]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
             Location = System.Web.UI.OutputCacheLocation.ServerAndClient,
             VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
-        public ActionResult IndexPartial()
+        public PartialViewResult IndexPartial()
         {
             return PartialView("Index");
         }
@@ -109,7 +108,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [NonAjax]
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
@@ -178,7 +176,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
-        [Ajax]
         [BoxPermission("boxId")]
         public async Task<ActionResult> Load(long boxId, long itemId)
         {
@@ -265,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
-        [HttpGet, ZboxAuthorize, Ajax]
+        [HttpGet, ZboxAuthorize]
         public ActionResult Rename()
         {
 
@@ -287,7 +284,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns></returns>
         [ZboxAuthorize]
         [HttpPost]
-        [Ajax]
         public JsonResult Rename(Rename model)
         {
             if (!ModelState.IsValid)
@@ -388,7 +384,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        [Ajax]
         public JsonResult Rate(RateModel model)
         {
             if (!ModelState.IsValid)
@@ -414,11 +409,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region Preview
-        [HttpGet, Ajax]
+        [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
         [AsyncTimeout(TimeConsts.Minute * 3 * 1000)]
-        public async Task<ActionResult> Preview(string blobName, int index, long id, long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
+        public async Task<JsonResult> Preview(string blobName, int index, long id, long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -484,18 +479,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region flagItem
-        [Ajax]
         [HttpGet]
         [ZboxAuthorize]
-        public ActionResult Flag()
+        public PartialViewResult Flag()
         {
             return PartialView("_FlagItem", new FlagBadItem());
         }
 
         [HttpPost]
         [ZboxAuthorize]
-        [Ajax]
-        public ActionResult FlagRequest(FlagBadItem model)
+        public JsonResult FlagRequest(FlagBadItem model)
         {
 
             if (!ModelState.IsValid)
@@ -509,7 +502,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-        [Ajax, HttpGet]
+        [HttpGet]
         public ActionResult FullScreen()
         {
             try
@@ -523,8 +516,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, ZboxAuthorize, Ajax]
-        public ActionResult AddComment(NewAnnotation model)
+        [HttpPost, ZboxAuthorize,]
+        public JsonResult AddComment(NewAnnotation model)
         {
             if (!ModelState.IsValid)
             {
@@ -543,8 +536,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpPost]
         [ZboxAuthorize]
-        [Ajax]
-        public ActionResult DeleteComment(DeleteItemComment model)
+        public JsonResult DeleteComment(DeleteItemComment model)
         {
             if (!ModelState.IsValid)
             {
@@ -556,8 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpPost]
         [ZboxAuthorize]
-        [Ajax]
-        public ActionResult ReplyComment(ReplyItemComment model)
+        public JsonResult ReplyComment(ReplyItemComment model)
         {
             if (!ModelState.IsValid)
             {
@@ -569,7 +560,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, command.ReplyId));
         }
 
-        [HttpPost, ZboxAuthorize, Ajax]
+        [HttpPost, ZboxAuthorize]
         public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
         {
             if (!ModelState.IsValid)
