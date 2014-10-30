@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [HttpGet, NoUniversity, Ajax]
+        [HttpGet, NoUniversity]
         public async Task<ActionResult> IndexPartial()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //TODO: put output cache
-        [HttpGet, NonAjax]
+        [HttpGet]
         [NoCache]
         public ActionResult Choose()
         {
@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public PartialViewResult ChoosePartial()
         {
             var country = UserLanguage.GetCountryByIp(HttpContext);
@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<JsonResult> SearchUniversity(string term)
         {
             if (string.IsNullOrEmpty(term))
@@ -132,8 +132,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax]
-        public async Task<ActionResult> GetFriends(string authToken)
+        [HttpGet]
+        public async Task<JsonResult> GetFriends(string authToken)
         {
             if (string.IsNullOrEmpty(authToken))
             {
@@ -172,7 +172,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        [Ajax]
         public async Task<JsonResult> Nodes(string section)
         {
             var guid = TryParseNullableGuid(section);
@@ -203,7 +202,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region DeleteNode
-        [HttpPost, Ajax]
+        [HttpPost]
         public JsonResult DeleteNode(string id)
         {
             var guid = TryParseNullableGuid(id);
@@ -227,7 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region RenameNode
 
-        [HttpGet, Ajax]
+        [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
 
         public ActionResult Rename()
@@ -243,7 +242,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         public JsonResult RenameNode(RenameLibraryNode model)
         {
             var guid = TryParseNullableGuid(model.Id);
@@ -276,8 +275,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         [ActionName("SelectDepartment")]
-        [Ajax, HttpGet]
-        public async Task<ActionResult> SelectDepartmentRussian(long universityId)
+        [HttpGet]
+        public async Task<JsonResult> SelectDepartmentRussian(long universityId)
         {
             var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
@@ -288,8 +287,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Create
 
 
-        [HttpPost, Ajax]
-        public ActionResult Create(CreateLibraryItem model)
+        [HttpPost]
+        public JsonResult Create(CreateLibraryItem model)
         {
             if (!ModelState.IsValid)
             {
@@ -322,9 +321,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [Ajax]
         //[ValidateAntiForgeryToken]
-        public ActionResult CreateBox(CreateAcademicBox model)
+        public JsonResult CreateBox(CreateAcademicBox model)
         {
             if (!ModelState.IsValid)
             {
@@ -367,7 +365,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
 
         public ActionResult CreateDepartmentPartial()
@@ -383,32 +381,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpGet, Ajax]
-        //[OutputCache(Duration = TimeConsts.Hour, Location = OutputCacheLocation.Any, VaryByParam = "none", VaryByCustom = CustomCacheKeys.Lang)]
-        //public ActionResult CreateAcademicBoxPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_UploadCreateAcademicBox");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_UploadCreateAcademicBox", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
+       
         #endregion
 
-        [Ajax]
         [HttpGet]
-        public ActionResult NewUniversity()
+        public PartialViewResult NewUniversity()
         {
             return PartialView("_AddSchoolDialog", new CreateUniversity());
         }
 
         [HttpPost]
-        [Ajax]
-        public ActionResult CreateUniversity(CreateUniversity model)
+        
+        public JsonResult CreateUniversity(CreateUniversity model)
         {
             if (!ModelState.IsValid)
             {
@@ -428,8 +412,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        [Ajax, HttpGet]
-        public ActionResult InsertCode(long universityId)
+        [HttpGet]
+        public JsonResult InsertCode(long universityId)
         {
             // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
@@ -466,8 +450,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             // ViewBag.userName = userData.Name;
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
         }
-        [Ajax, HttpGet]
-        public ActionResult InsertId(long universityId)
+        [HttpGet]
+        public JsonResult InsertId(long universityId)
         {
             // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
             switch (universityId)
@@ -485,8 +469,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [Ajax, HttpGet]
-        public async Task<ActionResult> RussianDepartments()
+        [HttpGet]
+        public async Task<JsonResult> RussianDepartments()
         {
 
             var query = new GetUserMinProfileQuery(User.GetUserId());
@@ -504,21 +488,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, retVal));
         }
 
-        //public async Task<JsonResult> Departments(string term)
-        //{
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    if (userDetail.UniversityId == null)
-        //    {
-        //        return Json(new JsonResponse(false));
-        //    }
-        //    var universityId = userDetail.UniversityId.Value;
-        //    var query = new GetDepartmentsByTermQuery(universityId, term);
-        //    var retVal = await ZboxReadService.GetDepartments(query);
-        //    return Json(new JsonResponse(true, retVal));
-        //}
+        
 
-        [HttpPost, Ajax]
-        public ActionResult Verify(string code)
+        [HttpPost]
+        public JsonResult Verify(string code)
         {
             var isValid = code == "cloudvivt";
             return Json(new JsonResponse(true, isValid));

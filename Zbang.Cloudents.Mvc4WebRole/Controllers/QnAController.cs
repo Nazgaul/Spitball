@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [ZboxAuthorize]
-        [Ajax, HttpPost]
+        [HttpPost]
         public JsonResult AddQuestion(Question model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files==null || model.Files.Length == 0))
@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize]
-        [Ajax, HttpPost]
+        [HttpPost]
         public async Task<JsonResult> AddAnswer(Answer model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
        
 
         [ZboxAuthorize]
-        [Ajax, HttpPost]
+        [HttpPost]
         public JsonResult RemoveFile(long itemId)
         {
             var command = new DeleteFileFromQnACommand(itemId, User.GetUserId());
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize]
-        [Ajax, HttpPost]
+        [HttpPost]
         public JsonResult DeleteQuestion(Guid questionId)
         {
             try
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [ZboxAuthorize]
-        [Ajax, HttpPost]
+        [HttpPost]
         public JsonResult DeleteAnswer(Guid answerId)
         {
             try
@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Ajax, HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("boxId")]
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("boxId")]
         public async Task<JsonResult> Index(long boxId)
         {
             try

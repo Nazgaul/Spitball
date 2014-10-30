@@ -269,14 +269,12 @@
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
-    <Compile Include="Filters\AjaxAttribute.cs" />
     <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
-    <Compile Include="Filters\NonAjaxAttribute.cs" />
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
@@ -286,7 +284,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Extensions\BlobFileStream.cs" />
-    <Compile Include="Helpers\AjaxConstaint.cs" />
     <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsSessionStateStore.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />

@@ -31,8 +31,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("MembersOnly");
         }
 
-        [Ajax, HttpPost]
-        public ActionResult JsLog(JavaScriptError log)
+        [HttpPost]
+        public JsonResult JsLog(JavaScriptError log)
         {
             Trace.TraceWarning("js error: " + log);
             return Json(true);

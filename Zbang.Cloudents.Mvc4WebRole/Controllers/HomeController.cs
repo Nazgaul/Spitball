@@ -39,7 +39,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[ZboxAuthorize]
         [NoUniversity]
-        [NonAjax]
         [NoCache]
         public ActionResult Index(long? universityId)
         {

@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [Ajax, HttpGet]
+        [HttpGet]
         public async Task<ActionResult> DropDown(string q)
         {
             try
@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Ajax, HttpGet]
+        [HttpGet]
         public async Task<ActionResult> Data(string q, int page)
         {
             try
@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
        
 
 
-        [Ajax, HttpGet]
+        [HttpGet]
         public async Task<ActionResult> OtherUniversities(string q, int page)
         {
             try
