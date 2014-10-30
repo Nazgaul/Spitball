@@ -71,17 +71,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [HttpGet,  StoreCategories]
+        [HttpGet, StoreCategories]
         public async Task<ActionResult> IndexPartial(int? universityId)
         {
             var model = await ZboxReadService.GetBanners(universityId);
-            return PartialView("Index",model.ToList());
+            return PartialView("Index", model.ToList());
         }
 
         [HttpGet]
         public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
-            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId,producerId));
+            var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId, producerId));
             return Json(new JsonResponse(true, products));
         }
 
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, StoreCategories]
-        public async Task<ActionResult> Product(long productId, int? universityId)
+        public async Task<ActionResult> ProductPartial(long productId, int? universityId)
         {
             var query = new GetStoreProductQuery(productId);
             var tModel = ZboxReadService.GetProduct(query);
@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 tBanners.Result.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
             model.TotalPrice = model.Price + model.DeliveryPrice;
             model.Id = productId;
-            return PartialView(model);
+            return PartialView("Product", model);
         }
 
         [HttpGet]
@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, StoreCategories]
-        public async Task<ActionResult> CheckOut(long productId)
+        public async Task<ActionResult> CheckOutPartial(long productId)
         {
             var query = new GetStoreProductQuery(productId);
             var model = await ZboxReadService.GetProductCheckOut(query);
@@ -134,7 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             ViewBag.data = serializer.Serialize(model);
             ViewBag.NumberOfPayments = model.NumberOfPayments;
-            return PartialView(model);
+            return PartialView("CheckOut", model);
         }
 
         [HttpPost]
@@ -166,20 +166,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, StoreCategories]
-        [Route("store/about")]
-        public async Task<PartialViewResult> About(int? universityId)
+        public async Task<PartialViewResult> AboutPartial(int? universityId)
         {
             var banner = await ZboxReadService.GetBanners(universityId);
-            return PartialView(banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product));
+            return PartialView("About", banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product));
         }
         [HttpGet, StoreCategories]
-        [Route("store/contact")]
 
-        public async Task<PartialViewResult> Contact(int? universityId)
+        public async Task<PartialViewResult> ContactPartial(int? universityId)
         {
             var banner = await ZboxReadService.GetBanners(universityId);
             ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
-            return PartialView(new StoreContact());
+            return PartialView("Contact", new StoreContact());
         }
 
         [HttpPost]
@@ -196,20 +194,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpGet, StoreCategories]
-        [Route("store/sales")]
-        public ActionResult Sales()
-        {
-            return PartialView();
-        }
+        //[HttpGet, StoreCategories]
+        //public ActionResult SalesPartial()
+        //{
+        //    return PartialView("Sales");
+        //}
 
         [HttpGet, StoreCategories]
-        [Route("store/terms")]
-        public async Task<PartialViewResult> Terms(int? universityId)
+        public async Task<PartialViewResult> TermsPartial(int? universityId)
         {
             var banner = await ZboxReadService.GetBanners(universityId);
             ViewBag.banner = banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product);
-            return PartialView();
+            return PartialView("Terms");
         }
 
 
@@ -217,10 +213,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, StoreCategories]
-        [Route("store/thankyou")]
-        public ActionResult Thankyou()
+        public ActionResult ThankyouPartial()
         {
-            return PartialView();
+            return PartialView("Thankyou");
         }
     }
 }
