@@ -181,6 +181,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
+        [RemoveBoxCookie]
         public ActionResult SubscribeToBox(long boxId)
         {
             var userid = User.GetUserId();
@@ -199,24 +200,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult DeclineInvatation(long boxUid)
-        {
-            try
-            {
-                var userid = User.GetUserId();
-                var command = new DeleteUserFromBoxCommand(userid, userid, boxUid);
-                ZboxWriteService.DeleteUserFromBox(command);
-                //RemoveInvitesFromSession();
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("DeclineInvatation user: {0} BoxUid: {1}", User.GetUserId(), boxUid), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public ActionResult DeclineInvatation(long boxUid)
+        //{
+        //    try
+        //    {
+        //        var userid = User.GetUserId();
+        //        var command = new DeleteUserFromBoxCommand(userid, userid, boxUid);
+        //        ZboxWriteService.DeleteUserFromBox(command);
+        //        //RemoveInvitesFromSession();
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("DeclineInvatation user: {0} BoxUid: {1}", User.GetUserId(), boxUid), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]

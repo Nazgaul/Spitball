@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                         BoxId = boxId,
                         Expire = DateTime.UtcNow.AddMinutes(5),
                         UserId = userId,
-                        UserType = UserRelationshipType.Owner
+                        UserType = userType
                     });
 
             }
@@ -88,6 +88,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             public DateTime Expire { get; set; }
             public long UserId { get; set; }
             public UserRelationshipType UserType { get; set; }
+        }
+    }
+
+    public class RemoveBoxCookieAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var cookieHelper = new CookieHelper(filterContext.HttpContext);
+            cookieHelper.RemoveCookie("p");
+            base.OnActionExecuting(filterContext);
         }
     }
 }

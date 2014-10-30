@@ -284,7 +284,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
-                $rootScope.$broadcast('followedBox', boxId);
+                $rootScope.$broadcast('followedBox', $scope.boxId);
 
 
                 if (nonAjax) { //if user uploaded a file he automatically join the box
