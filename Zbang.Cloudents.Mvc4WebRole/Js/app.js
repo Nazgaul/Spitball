@@ -242,7 +242,7 @@ app.config([
                     type: 'terms'
                 }
             }).
-            when('/store/thankyou/', {
+            when('/store/thankyou/:productId', {
                 templateUrl: '/store/Thankyou/',
                 controller: 'ViewCtrl',
                 params: {
@@ -320,7 +320,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         }
         //if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
         //    $location.path('/library/choose/');
-        //}
+        //}Start
         sNewUpdates.loadUpdates();
     });
 

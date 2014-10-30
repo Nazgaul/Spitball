@@ -4,7 +4,7 @@ mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        '$modal', '$document',
       '$window', 'sDashboard', 'sBox',
-      'sUser', 'sNewUpdates', '$location','$analytics',
+      'sUser', 'sNewUpdates', '$location', '$analytics',
 
 function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
     var jsResources = window.JsResources;
@@ -36,7 +36,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
             resolve: {
                 data: function () {
                     return {
-                        isPrivate: true                        
+                        isPrivate: true
                     }
                 }
             }
@@ -49,7 +49,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 $location.path(response.url);
                 if (response.isItems) {
                     $location.hash('items');
-                }                
+                }
             }
         }, function () {
             $rootScope.params.createBoxWizard = false; //user cancelled
@@ -63,7 +63,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 modalInstance = undefined;
             }
         });
-    };    
+    };
     function firstTimeDashboard() {
         sDashboard.recommendedCourses().then(function (response) {
             var data = response.success ? response.payload : {};
@@ -109,13 +109,13 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     };
 
 
-    $scope.inviteCloudents = function () {        
-            var modalInstance = $modal.open({
-                windowClass: "boxInvitePopup",
-                templateUrl: $scope.partials.socialInvite,
-                controller: 'InviteCloudentsCtrl',
-                backdrop: 'static'
-            });            
+    $scope.inviteCloudents = function () {
+        var modalInstance = $modal.open({
+            windowClass: "boxInvitePopup",
+            templateUrl: $scope.partials.socialInvite,
+            controller: 'InviteCloudentsCtrl',
+            backdrop: 'static'
+        });
     };
 
     //$scope.openCreateBox = function () {
@@ -125,7 +125,7 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     //        controller: 'CreateBoxCtrl',
     //        backdrop: 'static'
     //    });
-    
+
     //    modalInstance.result.then(function (box) {
     //        $location.path(box.url);
     //    }, function () {
@@ -207,11 +207,15 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
                 academic.push(boxes[i]);
             } else {
                 group.push(boxes[i]);
-            }            
+            }
             //show box updates                
-            boxes[i].numOfUpdates = sNewUpdates.getBoxUpdates(boxes[i].id);
-        }
+            (function (box) {
+                sNewUpdates.getBoxUpdates(boxes[i].id, function (count) {
+                    box.numOfUpdates = count;
 
+                });
+            })(boxes[i]);
+        }
 
 
         $scope.academicBoxes = academic;
