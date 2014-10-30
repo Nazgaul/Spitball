@@ -80,13 +80,3 @@
   /*rtl*/
 }
 /*#endregion */
-/*#region chairman - only displayed for hebrew */
-/*#endregion */
-/*#region media queries */
-@media (max-width: 1165px) {
-  .createSchool,
-  .completeRegistration {
-    right: auto;
-  }
-}
-/*#endregion */

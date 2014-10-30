@@ -2602,6 +2602,15 @@ select.inputText {
 
 /*#endregion */
 
+.mtouch{   
+    // this applies to rename btn in library,box and item pages
+    //NB: display:block broke layout in library page.
+    .boxRename.boxRename, .itemRenameBtn.itemRenameBtn,
+    .ratePopup.ratePopup .closeDialog, .removeItem.removeItem 
+    {
+        display: inline-block; 
+    }
+}
 
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
@@ -2624,7 +2633,6 @@ select.inputText {
             padding-top: 8px;
         }
     }
-
 }
 /*#endregion */
 
@@ -2635,7 +2643,7 @@ select.inputText {
 //This is in order to maintain the ability to scroll horizontally to the RHS of the top bar.
 // Facebook does this too.
 
-@media (max-width: 1024px) {
+/*@media (max-width: 1024px) {
 
     .mno-touch {
 
@@ -2659,7 +2667,7 @@ select.inputText {
         }
 
         .quizTitle, .quizPrevWpr {
-            margin-left: 20px; /*rtl*/
+            margin-left: 20px; //rtl
         }
 
         .contentWpr {
@@ -2700,25 +2708,16 @@ select.inputText {
             }
         }
     }
-}
+}*/
 
-.mtouch{   
-    // this applies to rename btn in library,box and item pages
-    //NB: display:block broke layout in library page.
-    .boxRename.boxRename, .itemRenameBtn.itemRenameBtn,
-    .ratePopup.ratePopup .closeDialog, .removeItem.removeItem 
-    {
-        display: inline-block; 
-    }
-}
 /*#region IPAD - SPECIFIC CODE */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .siteHeader.siteHeader, body.body {
         min-width: 0;
     }
-    /*#region home page */
+    //home page
     .headingTexts.headingTexts {
-            padding-left: 40px; /*rtl*/
+            padding-left: 40px; //rtl
             .boxSizing;
     }
     .topImg.topImg {
@@ -2728,12 +2727,11 @@ select.inputText {
         left: auto;
     }
     .logo.logo, .videoWpr.videoWpr {
-        margin-left: 40px; /*rtl*/
+        margin-left: 40px; //rtl
     }
     .language.language {
         margin-top: 214px;
     }
-    /*#endregion */
 
     //invite page
     .inviteSources.inviteSources {
@@ -2741,9 +2739,6 @@ select.inputText {
     }
     
     //item page
-    /*.printDD.printDD .printTxt2 {
-        padding: 0;
-    }*/
     .divWrapper.divWrapper {
         width: 680px;
     }
@@ -2753,7 +2748,7 @@ select.inputText {
     }
     .middleActions.middleActions
     {
-        margin-left: 50px; /* rtl*/
+        margin-left: 50px; //rtl
         max-width: none;
     }
     .middleActionItem.middleActionItem {
@@ -2775,10 +2770,60 @@ select.inputText {
     .modal2.modal2 {
         position: absolute;
     }
-}
+}*/
 
 
 /*#endregion */
+
+/*//home page media queries
+
+@media (max-width: 1430px) {
+    .headerWpr.menuOpen .headerActions
+    {
+        right: 200px; //rtl
+    }
+}
+@media (max-width: 1024px) {
+    .logo {
+        margin-left: 20px; //rtl
+    }
+    .headingTexts {
+        padding-left: 20px; //rtl
+    }
+    .videoWpr {
+        left: 20px; //rtl
+    }
+}
+
+//setupschool media queries
+@media (max-width: 1165px) {
+    .createSchool, .completeRegistration {
+        width: auto;
+        left: auto; //rtl
+    }
+}
+
+//box page media queries
+@media (max-width: 1145px) {
+
+    .boxItemsHeader.boxItemsHeader {
+        font-size: 12px;
+
+        .boxManage {
+            font-size: 12px;
+        }
+    }
+    .manageTxt {
+        display: block;
+    }
+    .boxManage.boxManage {
+        .btn1 , .btn2 {
+            margin-top: 10px;
+        }
+    }
+}*/
+
+
 
 /*#endregion */
 
