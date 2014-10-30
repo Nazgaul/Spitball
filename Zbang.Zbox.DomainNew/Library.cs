@@ -74,10 +74,10 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("newName");
             }
-            if (newName.Contains('.'))
-            {
-                throw new ArgumentException(@"name cannot contain dot", "newName");
-            }
+            //if (newName.Contains('.'))
+            //{
+            //    throw new ArgumentException(@"name cannot contain dot", "newName");
+            //}
             newName = newName.Trim();
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))

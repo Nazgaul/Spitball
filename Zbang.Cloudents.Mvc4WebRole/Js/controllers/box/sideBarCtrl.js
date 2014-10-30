@@ -18,19 +18,19 @@ mBox.controller('SideBarCtrl',
                 console.log(leaderBoard);
 
                 $scope.leaderBoard = {
-                    first: {
+                    first: leaderBoard[0] == null ? null : {
                         id: leaderBoard[0].id,
                         name: leaderBoard[0].name.split(" ")[0],
                         score: leaderBoard[0].score,
                         image: leaderBoard[0].image
                     },
-                    second: {
+                    second: leaderBoard[1] == null ? null : {
                         id: leaderBoard[1].id,
                         name: leaderBoard[1].name.split(" ")[0],
                         score: leaderBoard[1].score,
                         image: leaderBoard[1].image
                     },
-                    third: {
+                    third: leaderBoard[2] == null ? null : {
                         id: leaderBoard[2].id,
                         name: leaderBoard[2].name.split(" ")[0],
                         score: leaderBoard[2].score,
