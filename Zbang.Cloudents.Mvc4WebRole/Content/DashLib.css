@@ -633,6 +633,10 @@
   display: inline-block;
   color: #d1294d;
 }
+.formWpr .customError {
+  display: inline-block;
+  color: #d1294d;
+}
 .courseType {
   display: inline-block;
   margin-bottom: 25px;
