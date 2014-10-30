@@ -165,7 +165,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetInvite(query);
         }
 
-      
+
 
         public Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
@@ -376,10 +376,9 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query)
         {
-            return m_Cache.QueryAsync
-               (m_ReadService.GetBoxSideBar, query);
+            return m_ReadService.GetBoxSideBar(query);
         }
 
-        
+
     }
 }

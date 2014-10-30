@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId);
 
         UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId);
-        IEnumerable<Item> GetItemsByUser(long userId);
+        long GetItemsByUser(long userId);
         User GetOwnerByBoxId(long boxId);
 
         bool IsNotUsedCode(string code, long userId);

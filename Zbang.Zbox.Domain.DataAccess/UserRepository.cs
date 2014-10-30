@@ -71,14 +71,15 @@ namespace Zbang.Zbox.Domain.DataAccess
             .Where(w => w.Box.Id == boxId).SingleOrDefault();
         }
 
-        public IEnumerable<Item> GetItemsByUser(long userId)
+        public long GetItemsByUser(long userId)
         {
             var x = UnitOfWork.CurrentSession.QueryOver<Item>().
                          Where(w => w.Uploader.Id == userId).Where(w => w.IsDeleted == false)
-
-                            //.Select(NHibernate.Criterion.Projections.Sum<Item>(s=>s.Size)).SingleOrDefault();
                         .List<Item>();
-            return x;
+
+           var y =  x.Where(w => w.Box.IsDeleted == false).Sum(s => s.Size);
+
+            return y;
 
         }
 
