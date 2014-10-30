@@ -165,9 +165,6 @@
   <data name="May" xml:space="preserve">
     <value>מאי</value>
   </data>
-  <data name="NoSelected" xml:space="preserve">
-    <value>משתמש לא בחר קורסים</value>
-  </data>
   <data name="November" xml:space="preserve">
     <value>נובמבר</value>
   </data>

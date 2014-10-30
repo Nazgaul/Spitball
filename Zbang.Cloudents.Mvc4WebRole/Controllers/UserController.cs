@@ -76,7 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, await GetUserProfile(userId)));
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Friends(long? userId)
         {
             try
@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Boxes(long userId)
         {
             try
@@ -128,7 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region Admin
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> AdminBoxes(long userId)
         {
             try
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> AdminFriends()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
@@ -170,7 +170,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> OwnedInvites()
         {
             try
@@ -188,7 +188,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Activity(long userId)
         {
             var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, model));
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         public async Task<ActionResult> GoogleContacts(string token)
         {
             if (string.IsNullOrEmpty(token))
@@ -242,7 +242,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Updates()
         {
             var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetUserId()));

@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("node");
             }
-
+           
             if (node.University.Id != message.UniversityId)
             {
                 throw new UnauthorizedAccessException("node not connected to university");

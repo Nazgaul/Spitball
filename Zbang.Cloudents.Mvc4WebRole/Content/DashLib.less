@@ -1159,8 +1159,8 @@
 }
 
 .uploadSrcWpr {
-    height: 275px;
-    margin: 0 -25px -25px -25px;
+    height: 300px;
+    margin: 0 -25px -60px -25px;
     background: #eee;
     border-radius: 0 0 5px 5px;
 
@@ -1298,6 +1298,7 @@
 .deptItem {
     display: inline-block;
     vertical-align: top; // to make Safari happy
+    float: left; //rtl
 }
 
 .deptLink {
@@ -1630,11 +1631,15 @@
         background-position: -214px -43px;
     }
 }
-
+.addDep {
+    margin-right: 14px; //rtl
+}
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryList > .libraryItem + .box {
     border: 1px dashed #bcbcbc;
+    display: inline-block;
+    float:left;//rtl
     box-shadow: none;
     font-size: 18px;
     color: #bcbcbc;

@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ChangeThreadLanguage("he-IL");
         }
 
-        [HttpGet, NonAjax, NoUniversity]
+        [HttpGet, NoUniversity]
         [Route("store/category/{categoryid:int}", Name = "storeCategory")]
         [Route("store/product/{productid:int}/{productname}")]
         [Route("store/terms", Name = "StoreTerms")]
@@ -71,29 +71,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [HttpGet, Ajax, ActionName("Index"), StoreCategories]
-        [Route("store")]
-        public async Task<ActionResult> IndexAjax(int? universityId)
+        [HttpGet,  StoreCategories]
+        public async Task<ActionResult> IndexPartial(int? universityId)
         {
             var model = await ZboxReadService.GetBanners(universityId);
-            return PartialView(model.ToList());
+            return PartialView("Index",model.ToList());
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
             var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId,producerId));
             return Json(new JsonResponse(true, products));
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> ValidCodeCoupon(int code)
         {
             var retVal = await ZboxReadService.ValidateCoupon(code);
             return Json(new JsonResponse(true, new { isValid = retVal }));
         }
 
-        [HttpGet, Ajax, StoreCategories]
+        [HttpGet, StoreCategories]
         public async Task<ActionResult> Product(long productId, int? universityId)
         {
             var query = new GetStoreProductQuery(productId);
@@ -109,7 +108,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(model);
         }
 
-        [HttpGet, Ajax]
+        [HttpGet]
         public async Task<ActionResult> Search(string term, int? universityId)
         {
             if (string.IsNullOrEmpty(term))
@@ -122,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         public async Task<ActionResult> CheckOut(long productId)
         {
             var query = new GetStoreProductQuery(productId);
@@ -138,7 +137,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(model);
         }
 
-        [Ajax, HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Order(StoreOrder model)
         {
             if (!ModelState.IsValid)
@@ -166,14 +165,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
         }
 
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         [Route("store/about")]
         public async Task<PartialViewResult> About(int? universityId)
         {
             var banner = await ZboxReadService.GetBanners(universityId);
             return PartialView(banner.FirstOrDefault(f => f.Location == Zbox.Infrastructure.Enums.StoreBannerLocation.Product));
         }
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         [Route("store/contact")]
 
         public async Task<PartialViewResult> Contact(int? universityId)
@@ -183,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView(new StoreContact());
         }
 
-        [Ajax, HttpPost]
+        [HttpPost]
         [Route("store/contact")]
         public ActionResult Contact(StoreContact model)
         {
@@ -197,14 +196,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         [Route("store/sales")]
         public ActionResult Sales()
         {
             return PartialView();
         }
 
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         [Route("store/terms")]
         public async Task<PartialViewResult> Terms(int? universityId)
         {
@@ -217,7 +216,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [Ajax, HttpGet, StoreCategories]
+        [HttpGet, StoreCategories]
         [Route("store/thankyou")]
         public ActionResult Thankyou()
         {

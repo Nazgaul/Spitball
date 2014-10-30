@@ -254,6 +254,10 @@
     left: auto;
 }
 /*#region new department look */
+.deptItem {
+    float: right; //rtl
+}
+
 .deptLink {
     margin: 0 0 35px 14px; /*rtl*/
     padding: 2px 15px 6px 9px; /*rtl*/
@@ -475,6 +479,16 @@
 
 &.hoverItem.commentImg:before {
     margin: 0 0 0 4px;
+}
+
+.addDep {
+    margin: 0 0 0 14px; //rtl
+}
+
+.libraryItem.addDep,
+.libraryItem.addCourse,
+.libraryList > .libraryItem + .box {
+    float:right;//rtl
 }
 
 .box .boxName, .itemName {
@@ -1045,7 +1059,7 @@
         width: 40px; /*diff rtl*/
     }
     .ttPreview {
-        max-height: 55px; /* diff rtl - heb has 4 lines*/
+        max-height: 51px; /* diff rtl - heb has 4 lines*/
     }
 }
 /*#endregion */

@@ -96,9 +96,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Login
         [HttpPost]
-        [Ajax]
+        //[Ajax]
         [RequireHttps]
-        public async Task<ActionResult> FacebookLogin(string token, long? universityId, string returnUrl)
+        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl)
         {
             try
             {
@@ -166,7 +166,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [Ajax]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
@@ -233,26 +232,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
 
-        [HttpPost]
-        [Ajax]
-        public JsonResult CheckEmail(Register model)
-        {
-            try
-            {
-                //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
-                return Json(true);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On check email", ex);
-                return Json(true);
-            }
-        }
+        //[HttpPost]
+        //[Ajax]
+        //public JsonResult CheckEmail(Register model)
+        //{
+        //    try
+        //    {
+        //        //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
+        //        return Json(true);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("On check email", ex);
+        //        return Json(true);
+        //    }
+        //}
 
         [HttpPost]
-        [Ajax]
+        //[Ajax]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl)
+        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -314,13 +313,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize, NoUniversity]
-        [NoCache, NonAjax]
+        [NoCache]
         public ActionResult SettingsDesktop()
         {
             return View("Empty");
         }
 
-        [Ajax]
         [ZboxAuthorize, NoUniversity]
         public JsonResult SettingsData()
         {
@@ -334,18 +332,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
            Location = OutputCacheLocation.ServerAndClient,
            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
-        [Ajax]
         [ZboxAuthorize, NoUniversity]
-        public ActionResult SettingPartial()
+        public PartialViewResult SettingPartial()
         {
             return PartialView("Settings");
         }
 
         const string SessionKey = "UserVerificationCode";
         [HttpPost]
-        [Ajax]
         [ZboxAuthorize]
-        public ActionResult EnterCode(long? code)
+        public JsonResult EnterCode(long? code)
         {
             if (!code.HasValue)
             {
@@ -375,9 +371,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, model.Email));
         }
 
-        [HttpPost, Ajax]
+        [HttpPost]
         [ZboxAuthorize]
-        public ActionResult ChangeEmail(ChangeMail model)
+        public JsonResult ChangeEmail(ChangeMail model)
         {
             if (!ModelState.IsValid)
             {
@@ -423,7 +419,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, new { error = "User doesn't exists" }));
             }
         }
-        [HttpPost, Ajax, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
             var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
@@ -530,7 +526,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [NonAjax]
         public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
@@ -577,7 +572,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View(model);
         }
 
-        [NonAjax]
         [HttpGet, NoCache]
         public ActionResult Confirmation()
         {
@@ -739,7 +733,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize, Ajax]
+        [HttpPost, ZboxAuthorize]
         public JsonResult FirstTime(FirstTime firstTime)
         {
             var userid = User.GetUserId();

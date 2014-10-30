@@ -50,7 +50,6 @@ app.controller('UploadCtrl',
             });
 
             modalInstance.result.then(function (url) {
-
                 var data = {
                     id: guid(),
                     name: url,
@@ -58,11 +57,7 @@ app.controller('UploadCtrl',
                     boxId: $scope.boxId || $scope.box.id, //fix for step 3
                     tabId: $scope.tabId
                 };
-
-
-
-
-                sUpload.link(data).then(function (response) {
+                sUpload.link(data).then(function(response) {
                     if (!response.success) {
                         $rootScope.$broadcast('UploadLinkError', data);
                         alert('error');
@@ -77,13 +72,13 @@ app.controller('UploadCtrl',
                         boxId: data.boxId,
                         tabId: data.tabId,
                         questionId: $scope.questionId,
-                        newQuestion : $scope.newQuestion
+                        newQuestion: $scope.newQuestion
                     }
 
                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
 
                     $rootScope.$broadcast('ItemUploaded', sentObj);
-                }, function () {
+                }, function() {
                     $rootScope.$broadcast('UploadLinkError', data);
                 });
 

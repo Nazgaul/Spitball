@@ -5,11 +5,15 @@
 .boxFeed {
   width: 598px;
   color: #383838;
+  display: inline-block;
 }
 .boxFeed > .feedForm .feedTA {
   border-color: #282828;
 }
-.boxFeed ~ .recommendedWpr {
+.boxFeed ~ .boxSideBar {
+  display: inline-block;
+}
+.boxFeed ~ .boxSideBar .recommendedWpr {
   position: relative;
   left: 30px;
   width: 336px;
@@ -17,7 +21,7 @@
   border-radius: 5px;
   border-color: #282828;
 }
-.boxFeed ~ .recommendedWpr .recommended .rFloat {
+.boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   width: 95px;
   text-align: right;
 }

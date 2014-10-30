@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Domain.Resources;
 
 namespace Zbang.Zbox.Domain
 {
@@ -59,7 +60,7 @@ namespace Zbang.Zbox.Domain
             }
             if (Children.Any(a => a.Name == nodeName))
             {
-                throw new ArgumentException("cannot have node with the same name");
+                throw new ArgumentException(DomainResources.DeptNameExists);
             }
             var libraryNode = new Library(id, nodeName, this, University);
 
@@ -74,19 +75,19 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("newName");
             }
-            if (newName.Contains('.'))
-            {
-                throw new ArgumentException(@"name cannot contain dot", "newName");
-            }
+            //if (newName.Contains('.'))
+            //{
+            //    throw new ArgumentException(@"name cannot contain dot", "newName");
+            //}
             newName = newName.Trim();
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))
             {
-                throw new ArgumentException("cannot have the same name as siblings");
+                throw new ArgumentException(DomainResources.DeptNameExists);
             }
             if (Parent != null && Parent.Children.Any(a => a.Name == newName))
             {
-                throw new ArgumentException("cannot have the same name as siblings");
+                throw new ArgumentException(DomainResources.DeptNameExists);
             }
 
             Name = newName;

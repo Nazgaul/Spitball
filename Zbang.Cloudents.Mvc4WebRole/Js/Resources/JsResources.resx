@@ -162,9 +162,6 @@
   <data name="May" xml:space="preserve">
     <value>May</value>
   </data>
-  <data name="NoSelected" xml:space="preserve">
-    <value>Member did not join any classes</value>
-  </data>
   <data name="November" xml:space="preserve">
     <value>Nov</value>
   </data>

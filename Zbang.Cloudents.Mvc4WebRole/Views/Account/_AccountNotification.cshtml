@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
-<div class="settingsTab notifications" ng-controller="NotificationSettingsCtrl" infinite-scroll="addBoxes()"
+<div class="notifications" ng-controller="NotificationSettingsCtrl" infinite-scroll="addBoxes()"
      infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <ul class="boxesList" ng-repeat="box in boxes | limitTo: params.boxListLength" bindonce>
         <li>

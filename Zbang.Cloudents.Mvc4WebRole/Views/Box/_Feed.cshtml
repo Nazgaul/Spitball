@@ -97,38 +97,39 @@
         <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
     </section>
-    <span ng-controller="SideBarCtrl">
+    <div class="boxSideBar" ng-controller="SideBarCtrl">
         <section class="leaderBoard">
             <header>
-                @Html.Svg("~/Images/Defs.svg", "leaderBoard")
+                @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                 <span class="lbText">@IndexResources.BestInClass</span>
             </header>
             <ol class="bestUserList" bindonce>
                 <li class="firstUser" ng-if="leaderBoard.first">
                     <img class="top3Img" bo-src="leaderBoard.first.image" alt="" width="82" height="82" />
-                    <div class="rep" bo-text="leaderBoard.first.score"></div>
+                    <div class="rep" bo-text="leaderBoard.first.score | number "></div>
                     <div bo-text="leaderBoard.first.name"></div>
                     @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
                 </li>
                 <li class="secondUser lFloat" ng-if="leaderBoard.second">
-                    <img class="top3Img" bo-src="leaderBoard.second.image" alt="" width="82" height="82" />
-                    <div class="rep" bo-text="leaderBoard.second.score"></div>
+                    <img class="top3Img" bo-src="leaderBoard.second.image" alt="" width="72" height="72" />
+                    <div class="rep" bo-text="leaderBoard.second.score | number "></div>
                     <div bo-text="leaderBoard.second.name"></div>
                     @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                 </li>
                 <li class="thirdUser rFloat" ng-if="leaderBoard.third">
-                    <img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="82" height="82" />
-                    <div class="rep" bo-text="leaderBoard.third.score"></div>
+                    <img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="62" height="62" />
+                    <div class="rep" bo-text="leaderBoard.third.score | number "></div>
                     <div bo-text="leaderBoard.third.name"></div>
+                    @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                 </li>
                 <li ng-if="leaderBoard.fourth">
                     <img bo-src="leaderBoard.fourth.image" alt="" width="38" height="38" />
-                    <span class="elps" bo-text="leaderBoard.fourth.name"></span>
+                    <span class="elps" bo-text="leaderBoard.fourth.name | number "></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fourth.score"></span>
                 </li>
                 <li ng-if="leaderBoard.fifth">
                     <img bo-src="leaderBoard.fifth.image" alt="" width="38" height="38" />
-                    <span class="elps" bo-text="leaderBoard.fifth.name"></span>
+                    <span class="elps" bo-text="leaderBoard.fifth.name | number "></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fifth.score"></span>
                 </li>
             </ol>
@@ -151,5 +152,5 @@
                 </li>
             </ul>
         </section>
-    </span>
+    </div>
 </div>

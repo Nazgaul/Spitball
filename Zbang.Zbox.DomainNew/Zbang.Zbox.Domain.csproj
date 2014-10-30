@@ -76,6 +76,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Library.cs" />
+    <Compile Include="Resources\DomainResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RussianDepartment.cs" />
     <Compile Include="Discussion.cs" />
     <Compile Include="FirstTime.cs" />
@@ -119,6 +124,13 @@
     <EmbeddedResource Include="Mappings\UserBoxRel.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DomainResources.ar.resx" />
+    <EmbeddedResource Include="Resources\DomainResources.he.resx" />
+    <EmbeddedResource Include="Resources\DomainResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DomainResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DomainResources.ru.resx" />
     <EmbeddedResource Include="Resources\QuestionResource.ar.resx" />
     <EmbeddedResource Include="Resources\QuestionResource.en-gb.resx" />
     <EmbeddedResource Include="Resources\QuestionResource.he.resx" />
