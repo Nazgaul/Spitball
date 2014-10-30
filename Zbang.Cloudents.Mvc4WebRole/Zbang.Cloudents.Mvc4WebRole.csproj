@@ -859,6 +859,7 @@
     <Content Include="Images\Store\social.png.css">
       <DependentUpon>social.png</DependentUpon>
     </Content>
+    <Content Include="Images\Store\thank-students.png" />
     <Content Include="Images\Store\tw-off.png" />
     <Content Include="Images\Store\tw-on.png" />
     <Content Include="Images\Store\yt-off.png" />
