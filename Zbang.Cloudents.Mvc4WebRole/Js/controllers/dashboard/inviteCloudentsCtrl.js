@@ -22,34 +22,34 @@ mDashboard.controller('InviteCloudentsCtrl',
 
             $scope.inviteFacebook = function (contact) {
                 var dfd = $q.defer();
-                sFacebook.send({
-                    path: '',
-                    to: contact.id
-                }).then(function () {
-                    var data = {
-                        boxId: $scope.box.id,
-                        id: contact.id,
-                        username: contact.username || contact.id,
-                        firstName: contact.firstname,
-                        middleName: contact.middlename,
-                        lastName: contact.lastname,
-                        sex: contact.gender
-                    };
 
-                    sShare.facebookInvite.box(data).then(function (response1) {
-                        if (!response1.success) {
-                            alert('Error');
-                            dfd.reject();
-                        }
+                var data = {
+                    boxId: $scope.box.id,
+                    id: contact.id,
+                    username: contact.username || contact.id,
+                    firstName: contact.firstname,
+                    middleName: contact.middlename,
+                    lastName: contact.lastname,
+                    sex: contact.gender
+                };
 
-                        dfd.resolve();
+                sShare.facebookInvite.box(data).then(function (response) {
+                    if (!response.success) {
+                        alert('Error');
+                        dfd.reject();
+                        return;
+                    }
+
+                    sFacebook.send({
+                        path: response.payload.url,
+                        to: contact.id
+                    }).then(function () {
+
+                    }, function () {
+                        dfd.reject();
                     });
-
-
-                }, function () {
-                    dfd.reject();
-                });
-                return dfd.promise;
+                    return dfd.promise;
+                });             
             };
 
         }

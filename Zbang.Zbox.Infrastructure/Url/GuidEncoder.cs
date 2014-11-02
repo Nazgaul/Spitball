@@ -34,5 +34,20 @@ namespace Zbang.Zbox.Infrastructure.Url
             var buffer = Convert.FromBase64String(encoded + "==");
             return new Guid(buffer);
         }
+
+        public static Guid? TryParseNullableGuid(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+            Guid guid;
+            if (Guid.TryParse(str, out guid))
+            {
+                return guid;
+            }
+            return Decode(str);
+
+        }
     }
 }

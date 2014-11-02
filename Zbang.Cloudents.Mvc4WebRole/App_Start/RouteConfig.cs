@@ -165,13 +165,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
               );
 
-            //routes.MapRoute(
-            //  "Invite",
-            //  "invite/{boxid}",
-            //  new { controller = "Share", action = "Index", boxid = UrlParameter.Optional }
-            //  );
-
-
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 

@@ -1,12 +1,15 @@
-﻿namespace Zbang.Zbox.Domain.Commands
+﻿using System;
+
+namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateFacebookUserCommand : CreateUserCommand
     {
         const string ResolveName = "Facebook";
 
         public CreateFacebookUserCommand(long facebookId, string email, string userImage,
-            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture)
-            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail, culture)
+            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture,
+            Guid? inviteId)
+            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail, culture, inviteId)
         {
             FacebookUserId = facebookId;
             UserImage = userImage;
