@@ -13,6 +13,9 @@
                 return ajaxService.get(buildPath('Load'), data);
             },
             preview: function (data) {
+                if (!data.blobName || !(_.isNumber(data.index)) || !(_.isNumber(data.id))  ||   !(_.isNumber(data.boxId))  ) {
+                    //TODO: add component to do reload    
+                }
                 return ajaxService.get(buildPath('Preview'), data);
             },
             addComment: function (data) {
