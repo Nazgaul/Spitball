@@ -42,6 +42,10 @@ var mUser = angular.module('mUser', [])
             score: 1000000,
             membersLimit: 50
         },
+        sort: {
+            asc: 0,
+            des: 1
+        },
         partials: {
             message: '/Share/MessagePartial/',
             socialInvite: '/Dashboard/SocialInvitePartial'
@@ -51,6 +55,10 @@ mUser.controller('UserCtrl',
     ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
     function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
 
+
+        $scope.params = {
+            sortDirection: userConstants.sort.des
+        };
 
         //#region profile
         $scope.profile = {};
@@ -156,9 +164,27 @@ mUser.controller('UserCtrl',
             }
             lastQuery = $scope.admin.members.search;
             $scope.admin.members.limit = userConstants.admin.membersLimit;
-            $scope.admin.members.list = $filter('orderByFilter')($scope.admin.members.fullList, { field: 'name', input: $scope.admin.members.search });
+            $scope.admin.members.list = $filter('orderByFilter')($scope.admin.members.fullList, 'name');
 
         }, 150);
+
+        $scope.sortByDeptartment = function () {
+            var reverse;
+            if ($scope.params.sortDirection === userConstants.sort.des) {
+                $scope.params.sortDirection = userConstants.sort.asc;
+                reverse = false;
+            } else if ($scope.params.sortDirection === userConstants.sort.asc) {
+                $scope.params.sortDirection = userConstants.sort.des;
+                reverse = true;
+            }
+
+            var array = $filter('orderBy')($scope.admin.members.list, ['department','name'], reverse);
+
+            _.forEach(array, function (a) {
+                console.log(a.department + ' ' + a.name);
+            });
+            $scope.admin.members.list = array;
+        };
 
         $scope.sendMembersMessage = function () {
             var sendData = {
