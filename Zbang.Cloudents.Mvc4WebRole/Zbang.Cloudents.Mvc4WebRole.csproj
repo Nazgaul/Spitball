@@ -1521,7 +1521,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
-    <None Include="Views\Dashboard\_Invite.cshtml" />
+    <Content Include="Views\Dashboard\_Invite.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
