@@ -6,14 +6,14 @@
 <form id="profile" name="userProfileForm" class="profileInfo" novalidate ng-submit="saveUserInfo(userProfileForm.$valid)">
     @Html.LabelFor(m=>m.FirstName)    
     <div class="nameWpr" ng-class="{error : submitted && userProfileForm.FirstName.$error.required }">
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", placeholder = @SharedResources.FirstName, id = "FirstName", ng_model = "formData.firstName", required = "required" })
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", ng_placeholder = @SharedResources.FirstName, id = "FirstName", ng_model = "formData.firstName", required = "required" })
         <label class="errorLabel">Firstname is required</label>
     </div>
     
-    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", placeholder = @SharedResources.MiddleName, id="MiddleName", ng_model="formData.middleName" })
+    @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", ng_placeholder = @SharedResources.MiddleName, id = "MiddleName", ng_model = "formData.middleName" })
 
     <div class="lastnameWpr" ng-class="{error : submitted && userProfileForm.LastName.$error.required }">
-        @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", placeholder = @SharedResources.LastName, id = "LastName", ng_model = "formData.lastName", required = "required" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", ng_placeholder = @SharedResources.LastName, id = "LastName", ng_model = "formData.lastName", required = "required" })
         <label class="errorLabel">Lastname is required</label>
     </div>
     <div class="section">
