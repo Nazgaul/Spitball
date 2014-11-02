@@ -676,13 +676,20 @@
   right: 0;
   top: 50px;
 }
+.boxItemList.sponsored .thumbItem:first-child .boxName {
+  padding-top: 191px;
+}
 .boxItemList.sponsored .thumbItem:first-child .sponsoredBg {
   width: 100%;
   position: absolute;
   top: 0;
-  height: 179px;
+  height: 188px;
   border: none;
-  border-bottom: 1px solid #c2c2c2;
+  border: 1px solid #c2c2c2;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .boxItemList.sponsored .thumbItem:first-child .boxItemTt {
   left: 0;
