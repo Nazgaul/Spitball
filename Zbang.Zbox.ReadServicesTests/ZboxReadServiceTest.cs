@@ -61,7 +61,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-      
+
 
 
         [TestMethod]
@@ -571,7 +571,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuestionsQuery(60130, 1);
             try
             {
-              var x =  await m_ZboxReadService.GetQuestions(query);
+                var x = await m_ZboxReadService.GetQuestions(query);
             }
             catch (Exception ex)
             {
@@ -809,7 +809,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxSideBar_Query_ReturnResult()
         {
-            var query = new GetBoxSideBarQuery(60130);
+            var query = new GetBoxSideBarQuery(60130, 1);
             try
             {
                 var x = await m_ZboxReadService.GetBoxSideBar(query);

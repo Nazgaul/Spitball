@@ -19,18 +19,22 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.canNavigate = false;
     $scope.flagText = jsResources.Flag;
 
-    sItem.load({ itemId: $routeParams.itemId, boxId: $routeParams.boxId }).then(function (response) {
+    var itemId = $routeParams.itemId, boxId = $routeParams.boxId;
+
+    sItem.load({ itemId: itemId, boxId: boxId }).then(function (response) {
         var data = response.success ? response.payload : [];
-        $scope.item = data;
-        $scope.item.url = $location.absUrl();
-        $scope.item.downloadUrl = $location.url() + 'download/';
-        $scope.item.printUrl = $location.url() + 'print/';
-        getPreview();
-        $timeout(function () {
-            $rootScope.$broadcast('viewContentLoaded');
-            $scope.$broadcast('update-scroll');
-            $scope.canNavigate = true;
-        });
+        if (response.success) {
+            $scope.item = data;
+            $scope.item.url = $location.absUrl();
+            $scope.item.downloadUrl = $location.url() + 'download/';
+            $scope.item.printUrl = $location.url() + 'print/';
+            getPreview();
+            $timeout(function() {
+                $rootScope.$broadcast('viewContentLoaded');
+                $scope.$broadcast('update-scroll');
+                $scope.canNavigate = true;
+            });
+        }
     });
 
     function getPreview() {
@@ -47,8 +51,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         sItem.preview({
             blobName: $scope.item.blob,
             index: index,
-            id: $routeParams.itemId,
-            boxId: $routeParams.boxId
+            id: itemId,
+            boxId: boxId
         }).then(function (response) {
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;
 
@@ -112,7 +116,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             resolve: {
                 data: function() {
                     return {
-                        id: $routeParams.itemId
+                        id: itemId
                     };
                 }
             }
@@ -143,7 +147,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
                 data: function () {
                     return {
                         name: $scope.item.name,
-                        id: $routeParams.itemId
+                        id: itemId
                     };
                 }
             }
@@ -169,7 +173,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         }
         $scope.commentp = true;
         //TODO: add disable state
-        $scope.formData.itemId = $routeParams.itemId;
+        $scope.formData.itemId = itemId;
         sItem.addComment($scope.formData).then(function (response) {
             $scope.commentp = false;
 
@@ -227,7 +231,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
             return;
         }
         comment.replyp = true;
-        $scope.fromReply.itemId = $routeParams.itemId;
+        $scope.fromReply.itemId = itemId;
         $scope.fromReply.commentId = comment.id;
 
         sItem.replyComment($scope.fromReply).then(function (response) {
@@ -292,7 +296,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         });     
     };
     $scope.rate = function(t) {
-        sItem.rate({ ItemId: $routeParams.itemId, rate: t });
+        sItem.rate({ ItemId: itemId, rate: t });
     };
 }
         ]);

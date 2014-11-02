@@ -190,7 +190,7 @@ app.config([
             }).
             when('/store/product/:productId/:productName/', {
                 templateUrl: function (params) {
-                    var url = '/store/product/';
+                    var url = '/store/ProductPartial/';
                     return buildQueryString(url, params);
                 },
                 controller: 'ProductCtrl',
@@ -200,7 +200,7 @@ app.config([
             }).
             when('/store/about/', {
                 templateUrl: function (params) {
-                    var url = '/Store/About/';
+                    var url = '/Store/AboutPartial/';
                     return buildQueryString(url, params);
 
                 },
@@ -211,7 +211,7 @@ app.config([
             }).
             when('/store/contact/', {
                 templateUrl: function (params) {
-                    var url = '/Store/Contact/';
+                    var url = '/Store/ContactPartial/';
                     return buildQueryString(url, params);
 
                 },
@@ -222,7 +222,7 @@ app.config([
             }).
             when('/store/checkout/:productId/', {
                 templateUrl: function (params) {
-                    var url = '/Store/Checkout/';
+                    var url = '/Store/CheckOutPartial/';
                     return buildQueryString(url, params);
                 },
 
@@ -233,7 +233,7 @@ app.config([
             }).
             when('/store/terms/', {
                 templateUrl: function (params) {
-                    var url = '/store/Terms/';
+                    var url = '/store/TermsPartial/';
                     return buildQueryString(url, params);
 
                 },
@@ -243,7 +243,7 @@ app.config([
                 }
             }).
             when('/store/thankyou/', {
-                templateUrl: '/store/Thankyou/',
+                templateUrl: '/store/ThankyouPartial/',
                 controller: 'ViewCtrl',
                 params: {
                     type: 'thankyou'
@@ -320,7 +320,7 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', fu
         }
         //if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
         //    $location.path('/library/choose/');
-        //}
+        //}Start
         sNewUpdates.loadUpdates();
     });
 

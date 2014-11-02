@@ -74,7 +74,7 @@ select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professo
 b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,count(*)  as x
 from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
 where userid in (
-select userid from zbox.userboxrel where boxid = @BoxId)
+select userid from zbox.userboxrel where boxid = @BoxId and userid <> @UserId)
 and b.boxid <> @BoxId
 
 group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,

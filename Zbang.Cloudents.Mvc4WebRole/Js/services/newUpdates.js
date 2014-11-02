@@ -3,50 +3,104 @@ app.factory('sNewUpdates', [
     '$http',
     'sBox',
     'sUserDetails',
-function ($http, sBox, sUserDetails) {
+    '$interval',
+function ($http, sBox, sUserDetails,$interval) {
 
-    var updates = {};
+    var updates = {},
+        updatesLoaded = false;
     var response = {
-        getBoxUpdates: function (boxId) {
+        getBoxUpdates: function (boxId, callback) {
             boxId = parseInt(boxId, 10);
-            var count = 0;
 
-            if (!updates[boxId]) {
-                return '';
+
+            if (updatesLoaded) {
+                boxUpdates();
+                return;
             }
 
-            for (var key in updates[boxId]) {
-                count += updates[boxId][key].length;
-            }
-
-            return count > 0 ? count : '';
-
-        },
-        isNew: function (boxId, type, id) {
-            id = parseInt(id, 10);
-
-            if (updates[boxId] && updates[boxId][type]) {
-                return updates[boxId][type].indexOf(id) > -1 ? true : false;
-            }
-
-            return false;
-
-        },
-        getUpdatesCount: function (boxId) {
-            var updates = {};
-            if (!updates[boxId]) {
-                updates = {
-                    feed: 0,
-                    items: 0,
-                    quizzes: 0
+            var interval = $interval(function () {
+                if (!updatesLoaded) {
+                    return;
                 }
-                return updates;
-            }
-            updates.feed = updates[boxId].questions.length + updates[boxId].answers.length;
-            updates.items = updates[boxId].items.length;
-            updates.quizzes = updates[boxId].quizzes.length;
+                $interval.cancel(interval);
+                boxUpdates();
 
-            return updates;
+            }, 20);
+
+            function boxUpdates() {
+                var count = 0;
+
+                if (!updates[boxId]) {
+                    callback('');
+                }
+
+                for (var key in updates[boxId]) {
+                    count += updates[boxId][key].length;
+                }
+
+                return callback(count > 0 ? count : '');
+            }
+        },
+        isNew: function (boxId, type, id,callback) {
+            id = parseInt(id, 10);
+                        
+            
+            if (updatesLoaded) {
+                isNew();
+                return;
+            }
+            var interval = $interval(function () {
+                if (!updatesLoaded) {
+                    return;
+                }
+                $interval.cancel(interval);
+                isNew();
+            }, 20);
+
+            function isNew() {
+                if (updates[boxId] && updates[boxId][type]) {
+                    callback(updates[boxId][type].indexOf(id) > -1 ? true : false);
+                }
+            }
+       
+        },
+        getUpdatesCount: function (boxId,callback) {
+
+
+            if (updatesLoaded) {
+                updatesCount();
+                return;
+            }
+
+            var interval = $interval(function () {
+                if (!updatesLoaded) {
+                    return;
+                }
+                $interval.cancel(interval);
+                updatesCount();
+            }, 20);
+
+            function updatesCount() {
+                var updateCount = {};
+
+                if (!updates[boxId]) {
+                    updateCount = {
+                        feed: 0,
+                        items: 0,
+                        quizzes: 0
+                    }
+                    callback(updateCount);
+                    return;
+                }
+                updateCount = {
+                    feed: updates[boxId].questions.length + updates[boxId].answers.length,
+                    items: updates[boxId].items.length,
+                    quizzes: updates[boxId].quizzes.length
+                };
+
+                callback(updateCount);
+            }
+           
         },
         setOld: function (boxId, type, id) {
             id = parseInt(id, 10);
@@ -90,7 +144,8 @@ function ($http, sBox, sUserDetails) {
                     updates[boxId].questions = [];
                     updates[boxId].answers = [];
 
-                }
+                }                
+
                 if (update.itemId) {
                     addUpdate(updates[boxId].items, update.itemId);
                     continue;
@@ -107,6 +162,7 @@ function ($http, sBox, sUserDetails) {
                     addUpdate(updates[boxId].answers, update.questionId);
                 }
             }
+            updatesLoaded = true;
         });
 
         function addUpdate(array, id) {

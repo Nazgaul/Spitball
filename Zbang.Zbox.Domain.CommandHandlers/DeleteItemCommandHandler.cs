@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
             }
             var uploaderFile = item.Uploader;
-            uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id).Sum(s => s.Size);
+            uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id);
             var reputation = uploaderFile.AddReputation(ReputationAction.DeleteItem);
             m_ReputationRepository.Save(reputation);
 

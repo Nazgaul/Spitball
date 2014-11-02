@@ -347,7 +347,7 @@ namespace Zbang.Zbox.ReadServices
                    Sql.Box.RecommendedCourses,
                    Sql.Box.LeaderBoard
                    ),
-                   new { query.BoxId }))
+                   new { query.BoxId, query.UserId }))
                 {
                     var retVal = new Qna.SideDto
                     {

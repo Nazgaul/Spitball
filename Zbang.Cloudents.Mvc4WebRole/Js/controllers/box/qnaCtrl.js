@@ -13,7 +13,9 @@ mBox.controller('QnACtrl',
             that.userId = data.userId;
             that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
             that.createTime = data.creationTime;
-            that.isNew = sNewUpdates.isNew($scope.boxId, 'questions', that.id);
+            sNewUpdates.isNew($scope.boxId, 'questions', that.id, function (isNew) {
+                that.isNew = isNew;
+            });
             that.answers = data.answers.map(function (answer) {
                 var answerObj = new Answer(answer);
                 if (answerObj.isNew) {
@@ -38,7 +40,9 @@ mBox.controller('QnACtrl',
             that.isAnswer = data.answer;
             that.createTime = data.creationTime;
             that.files = data.files.map(function (file) { return new File(file); });
-            that.isNew = sNewUpdates.isNew($scope.boxId, 'answers', that.id);
+            sNewUpdates.isNew($scope.boxId, 'answers', that.id, function (isNew) {
+                that.isNew = isNew;
+            });
         }
 
         function File(data) {

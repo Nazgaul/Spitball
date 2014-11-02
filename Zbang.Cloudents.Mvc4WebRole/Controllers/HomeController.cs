@@ -323,5 +323,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.AddStudent(command);
             return RedirectToAction("InsertUser", new { complete = "complete" });
         }
+
+        [HttpGet]
+        public JsonResult Version()
+        {
+            return JsonOk(VersionHelper.CurrentVersion());
+        }
     }
 }

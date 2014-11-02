@@ -23,7 +23,9 @@ mBox.controller('BoxQuizzesCtrl',
             sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.quizzes = _.map(data, function (quiz) {
-                    quiz.isNew = sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id);
+                    sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id, function (isNew) {
+                        quiz.isNew = isNew;
+                    });
                     return quiz;
                 });
                 $scope.quizzes.sort(sort);

@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
-
+        
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
             return new JsonNetResult
@@ -110,6 +110,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ContentEncoding = contentEncoding,
                 JsonRequestBehavior = behavior
             };
+        }
+
+        protected JsonResult JsonOk(object data)
+        {
+            return Json(new JsonResponse(true, data));
+        }
+        protected JsonResult JsonError(object data)
+        {
+            return Json(new JsonResponse(false, data));
         }
 
        

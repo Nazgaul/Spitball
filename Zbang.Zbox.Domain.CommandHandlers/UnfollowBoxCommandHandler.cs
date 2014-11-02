@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var users = box.UserBoxRelationship.Select(s => s.User);
             foreach (var userInBox in users)
             {
-                userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id).Sum(s => s.Size);
+                userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id);
                 m_UserRepository.Save(userInBox);
             }
            

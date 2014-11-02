@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Zbang.Zbox.Infrastructure.Consts;
 namespace Zbang.Zbox.Domain
@@ -105,6 +106,8 @@ namespace Zbang.Zbox.Domain
         //}
 
         public abstract string ChangeName(string newName);
+
+        public ICollection<ItemRate> ItemRates { get; set; }
     }
 
     public class Link : Item
