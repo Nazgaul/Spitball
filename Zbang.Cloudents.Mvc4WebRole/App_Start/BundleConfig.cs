@@ -199,6 +199,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/quiz/quizCreateCtrl.js"),
                 new JsFileWithCdn("/js/controllers/quiz/quizCloseCtrl.js"),
                 new JsFileWithCdn("/js/services/ajaxService.js"),
+                new JsFileWithCdn("/js/services/versionChecker.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
