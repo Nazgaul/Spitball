@@ -23,33 +23,38 @@ mBox.controller('BoxInviteCtrl',
 
             $scope.inviteFacebook = function (contact) {
                 var dfd = $q.defer();
-                sFacebook.send({
-                    path: $scope.box.url,
-                    to: contact.id
-                }).then(function () {
-                    var data = {
-                        boxId: $scope.box.id,
-                        id: contact.id,
-                        username: contact.username || contact.id,
-                        firstName: contact.firstname,
-                        middleName: contact.middlename,
-                        lastName: contact.lastname,
-                        sex: contact.gender
-                    };
 
-                    sShare.facebookInvite.box(data).then(function (response1) {
-                        if (!response1.success) {
-                            alert('Error');
-                            dfd.reject();
-                        }
+                var data = {
+                    boxId: $scope.box.id,
+                    id: contact.id,
+                    username: contact.username || contact.id,
+                    firstName: contact.firstname,
+                    middleName: contact.middlename,
+                    lastName: contact.lastname,
+                    sex: contact.gender
+                };
+
+                sShare.facebookInvite.box(data).then(function (response) {
+                    if (response1.success) {
+                        alert('Error');
+                        dfd.reject();
+                        return;
+                    }
+
+                    sFacebook.send({
+                        path: response.payload.url,
+                        to: contact.id
+                    }).then(function () {
 
                         dfd.resolve();
+
+                    }, function () {
+                        dfd.reject();
                     });
 
 
-                }, function () {
-                    dfd.reject();
                 });
+
                 return dfd.promise;
             };
 
