@@ -61,7 +61,7 @@ mDashboard.controller('CreateBoxWizardCtrl',
                 };
 
                 sShare.facebookInvite.box(data).then(function (response) {
-                    if (response1.success) {
+                    if (response.success) {
                         alert('Error');
                         dfd.reject();
                         return;
