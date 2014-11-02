@@ -48,10 +48,10 @@ mBox.controller('QnACtrl',
         function File(data) {
             var that = this;
             data = data || {};
-            that.id = data.id; 
+            that.id = data.id;
             that.name = data.name;
             that.thumbnail = data.thumbnail;
-            
+
 
             var userId = sUserDetails.getDetails().id;
             that.isOwner = data.ownerId === userId;
@@ -78,7 +78,7 @@ mBox.controller('QnACtrl',
             var data = response.success ? response.payload : {}
             $scope.info.questions = data.map(function (question) {
                 return new Question(question);
-            });             
+            });
 
             $scope.options.loader = false;
 
@@ -137,7 +137,7 @@ mBox.controller('QnACtrl',
                     id: questionId,
                     userName: sUserDetails.getDetails().name,
                     userImage: sUserDetails.getDetails().image,
-                    userId: sUserDetails.getDetails().id, 
+                    userId: sUserDetails.getDetails().id,
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls($scope.qFormData.content),
                     creationTime: new Date().toISOString(),
@@ -185,7 +185,7 @@ mBox.controller('QnACtrl',
                     id: answerId,
                     userName: sUserDetails.getDetails().name,
                     userImage: sUserDetails.getDetails().image,
-                    userId: sUserDetails.getDetails().id, 
+                    userId: sUserDetails.getDetails().id,
                     userUrl: sUserDetails.getDetails().url,
                     content: extractUrls(question.aFormData.content),
                     rating: 0,
@@ -198,7 +198,7 @@ mBox.controller('QnACtrl',
                 question.answers.push(new Answer(obj));
                 $scope.$broadcast('update-scroll');
 
-              
+
                 //updatetime
                 //notify
                 question.aFormData = {};
@@ -255,41 +255,41 @@ mBox.controller('QnACtrl',
 
         var qAttach, aAttach, questionAttach;
         $scope.$on('ItemUploaded', function (e, data) {
-                if (data.boxId !== $scope.boxId) {
+            if (data.boxId !== $scope.boxId) {
+                return;
+            }
+
+            data.itemDto.uid = data.itemDto.id;
+
+            if (data.newQuestion) {
+                if ($scope.qFormData.files && $scope.qFormData.files.length) {
+                    $scope.qFormData.files.push(data.itemDto);
                     return;
                 }
 
-                data.itemDto.uid = data.itemDto.id;
+                $scope.qFormData.files = [data.itemDto];
 
-                if (data.newQuestion) {
-                    if ($scope.qFormData.files && $scope.qFormData.files.length) {
-                        $scope.qFormData.files.push(data.itemDto);
-                        return;
-                    }
+                return;
+            }
 
-                    $scope.qFormData.files = [data.itemDto];
+            if (data.questionId) {
+                var question = _.find($scope.info.questions, function (q) {
+                    return data.questionId === q.id;
+                });
 
+                if (!question) {
                     return;
                 }
 
-                if (data.questionId) {
-                    var question = _.find($scope.info.questions, function (q) {
-                        return data.questionId === q.id;
-                    });
+                if (question.aFormData.files && question.aFormData.files.length) {
+                    question.aFormData.files.push(data.itemDto);
+                    return;
+                }
 
-                    if (!question) {
-                        return;
-                    }
-
-                    if (question.aFormData.files && question.aFormData.files.length) {
-                        question.aFormData.files.push(data.itemDto);
-                        return;
-                    }
-
-                    question.aFormData.files = [data.itemDto];
-                }          
+                question.aFormData.files = [data.itemDto];
+            }
         });
-  
+
         $scope.addQuestionAttachment = function () {
 
             if (!sUserDetails.isAuthenticated()) {
@@ -353,7 +353,7 @@ mBox.controller('QnACtrl',
                         return data;
                     }
                 }
-            });           
+            });
 
             modalInstance.result.then(function (response) {
                 $scope.followBox(true);

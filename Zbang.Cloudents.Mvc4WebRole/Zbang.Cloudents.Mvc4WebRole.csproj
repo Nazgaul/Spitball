@@ -1032,6 +1032,7 @@
     <Content Include="Js\Mobile\MWallViewModel.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
+    <Content Include="Js\services\versionChecker.js" />
     <Content Include="Js\SocialConnect.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\Tooltip.js" />

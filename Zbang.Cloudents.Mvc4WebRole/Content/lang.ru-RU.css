@@ -56,6 +56,9 @@
 .boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   width: 105px;
 }
+.box-content .membersContent .searchWpr {
+  margin: 10px 175px 0 0;
+}
 /*#region box item tool tips */
 .boxItemTt.boxItemTt .itemName {
   padding: 10px 12px 0 12px;
