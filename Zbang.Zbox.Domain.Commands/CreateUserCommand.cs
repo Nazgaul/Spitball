@@ -1,12 +1,14 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using System;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommand
     {
         protected CreateUserCommand(string emailId, long? universityId, string firstName, string middleName, string lastName, bool sex,
-            bool marketEmail, string culture)
+            bool marketEmail, string culture, Guid? inviteId)
         {
+            InviteId = inviteId;
             Culture = culture;
             Email = emailId;
             if (universityId.HasValue && universityId.Value == 19878)
@@ -37,5 +39,7 @@ namespace Zbang.Zbox.Domain.Commands
         public string Culture { get; private set; }
 
         public abstract string CommandResolveName { get; }
+
+        public Guid? InviteId { get; private set; }
     }
 }

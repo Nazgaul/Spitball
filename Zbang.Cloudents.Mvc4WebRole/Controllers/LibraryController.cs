@@ -174,7 +174,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> Nodes(string section)
         {
-            var guid = TryParseNullableGuid(section);
+            var guid = GuidEncoder.TryParseNullableGuid(section);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityDataId.HasValue)
@@ -186,26 +186,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, result));
 
         }
-        private Guid? TryParseNullableGuid(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return null;
-            }
-            Guid guid;
-            if (Guid.TryParse(str, out guid))
-            {
-                return guid;
-            }
-            return GuidEncoder.Decode(str);
-
-        }
+        
 
         #region DeleteNode
         [HttpPost]
         public JsonResult DeleteNode(string id)
         {
-            var guid = TryParseNullableGuid(id);
+            var guid = GuidEncoder.TryParseNullableGuid(id);
             var userDetail = FormsAuthenticationService.GetUserData();
 
             if (!userDetail.UniversityDataId.HasValue)
@@ -245,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public JsonResult RenameNode(RenameLibraryNode model)
         {
-            var guid = TryParseNullableGuid(model.Id);
+            var guid = GuidEncoder.TryParseNullableGuid(model.Id);
             if (!guid.HasValue)
             {
                 ModelState.AddModelError(string.Empty, "Error");
@@ -303,7 +290,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var parentId = TryParseNullableGuid(model.ParentId);
+                var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, userDetail.UniversityId.Value, parentId, User.GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
@@ -335,7 +322,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ModelState.AddModelError(string.Empty, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
-            var guid = TryParseNullableGuid(model.DepartmentId);
+            var guid = GuidEncoder.TryParseNullableGuid(model.DepartmentId);
             if (!guid.HasValue)
             {
                 ModelState.AddModelError(string.Empty, "Departmentid is required");
