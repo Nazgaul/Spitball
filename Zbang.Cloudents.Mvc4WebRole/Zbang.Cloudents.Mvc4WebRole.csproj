@@ -910,7 +910,6 @@
     <Content Include="Js\controllers\general\mainCtrl.js" />
     <Content Include="Js\controllers\dashboard\inviteEmailCtrl.js" />
     <Content Include="Js\controllers\general\uploadListCtrl.js" />
-    <Content Include="Js\controllers\invite\inviteCtrl.js" />
     <Content Include="Js\controllers\item\itemFlagCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\item\itemRenameCtrl.js" />

@@ -107,7 +107,9 @@
 }
 .modal.rename {
   padding-left: 290px;
-  top: 10%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .modal.deptSettings header {
   color: #0f9d58;
