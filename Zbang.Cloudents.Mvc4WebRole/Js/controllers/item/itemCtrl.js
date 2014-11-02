@@ -51,7 +51,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
         sItem.preview({
             blobName: $scope.item.blob,
             index: index,
-            id: itemId,
+            uid: itemId,
             boxId: boxId
         }).then(function (response) {
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;

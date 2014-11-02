@@ -274,6 +274,7 @@
     <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
+    <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
