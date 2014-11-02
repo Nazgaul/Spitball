@@ -138,6 +138,7 @@ app.controller('CheckoutCtrl',
                 }
                 $scope.order.buttonDisabled = false;
                 $location.path(response.payload.url);
+                $location.search('productId',$routeParams.productId)
             });
         };
     }]

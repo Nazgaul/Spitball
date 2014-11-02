@@ -65,10 +65,12 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 }
 
 
-                var updatesCount = sNewUpdates.getUpdatesCount($scope.boxId);
-                $scope.params.newFeed = updatesCount.feed;
-                $scope.params.newItems = updatesCount.items;
-                $scope.params.newQuizzes = updatesCount.quizzes;
+                sNewUpdates.getUpdatesCount($scope.boxId, function (updatesCount) {
+                    $scope.params.newFeed = updatesCount.feed;
+                    $scope.params.newItems = updatesCount.items;
+                    $scope.params.newQuizzes = updatesCount.quizzes;
+                });
+                
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');

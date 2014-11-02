@@ -514,6 +514,11 @@ mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal'
                 $rootScope.options.quizOpen = false;
             }
         });
+
+        $scope.$on('$locationChangeStart', function () {
+            $scope.quiz.showPreview = false;
+        });
+
     }]).directive('quizPreview', ['$rootScope','$timeout', function ($rootScope,$timeout) {
         return function (scope, element, attrs) {
             scope.$watch(attrs.show,
