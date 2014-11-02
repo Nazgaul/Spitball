@@ -52,10 +52,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DevTrends.MvcDonutCaching.DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        [DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
             + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
-            Location = System.Web.UI.OutputCacheLocation.Server
+            Location = OutputCacheLocation.Server
             )]
         public ActionResult Index(string lang)
         {
@@ -68,10 +68,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index");
             }
-            //if (!string.IsNullOrEmpty(lang))
-            //{
-            //    ChangeThreadLanguage(lang);
-            //}
             return View("Index2");
         }
 
@@ -96,9 +92,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Login
         [HttpPost]
-        //[Ajax]
         [RequireHttps]
-        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl)
+        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl, string invId)
         {
             try
             {
@@ -122,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale);
+                        false, facebookUserData.locale, GuidEncoder.TryParseNullableGuid(invId));
                     var commandResult = ZboxWriteService.CreateUser(command);
                     user = new LogInUserDto
                     {
@@ -159,7 +154,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 TraceLog.WriteError("FacebookLogin", ex);
                 return Json(new JsonResponse(false, new { error = AccountControllerResources.FacebookGetDataError }));
-
             }
         }
 
@@ -251,7 +245,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         //[Ajax]
         [ValidateAntiForgeryToken]
-        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl)
+        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl, string invId)
         {
             if (!ModelState.IsValid)
             {
@@ -268,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, model.Language.Language);
+                        model.MarketEmail, model.Language.Language, GuidEncoder.TryParseNullableGuid(invId));
                     var result = ZboxWriteService.CreateUser(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,

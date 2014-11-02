@@ -5,8 +5,9 @@ namespace Zbang.Zbox.Domain.Commands
     public class CreateMembershipUserCommand : CreateUserCommand
     {
         const string ResolveName = "Membership";
-        public CreateMembershipUserCommand(Guid membershipId, string email, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture)
-            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail, culture)
+        public CreateMembershipUserCommand(Guid membershipId, string email, long? universityId, string firstName, string middleName,
+            string lastName, bool sex, bool marketEmail, string culture, Guid? inviteId)
+            : base(email, universityId, firstName, middleName, lastName, sex, marketEmail, culture, inviteId)
         {
             //UniversityName = universityName;
             MembershipUserId = membershipId;
