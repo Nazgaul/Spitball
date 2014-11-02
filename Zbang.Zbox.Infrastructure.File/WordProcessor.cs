@@ -73,7 +73,6 @@ namespace Zbang.Zbox.Infrastructure.File
                         w.Save(ms, svgOptions);
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        // parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
                         parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
                         meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
                     }
@@ -97,12 +96,12 @@ namespace Zbang.Zbox.Infrastructure.File
             return string.Format("{0}{3}_{2}_{1}.svg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
         }
 
-        public static readonly string[] WordExtenstions = { ".rtf", ".docx", ".doc", ".txt", ".odt" };
+        public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".txt", ".odt" };
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return WordExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
         }
