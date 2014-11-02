@@ -35,6 +35,11 @@
     <property name="ThumbnailBlobName"/>
     <property name="ThumbnailUrl"/>
     <property name="Url" length="4000"/>
+
+    <bag name="ItemRates"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ItemId"/>
+      <one-to-many class="ItemRate"/>
+    </bag>
     
     <subclass name="Link" discriminator-value="Link">
       <property name="Sponsored"/>
