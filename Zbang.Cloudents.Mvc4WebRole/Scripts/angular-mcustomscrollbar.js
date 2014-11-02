@@ -3,7 +3,8 @@
         restrict: 'A',
         transclude: true,
         scope: {
-            scrollDisabled: '='
+            scrollDisabled: '=',
+            addItems: '&'
         },
         template: '<div><div ng-transclude></div></div>',
         replace: true,
@@ -55,7 +56,7 @@
                 setTimeout(function () {
                     $elem.mCustomScrollbar('update');
                     //setScroll();
-                }, 300);
+                }, 250);
             }
 
             function setScroll() {
@@ -66,12 +67,12 @@
                     theme: "dark",
                     advanced: { updateOnContentResize: false },
                     callbacks: {
-                        onTotalScrollOffset: 300,
+                        onTotalScrollOffset: 600,
                         onTotalScroll: function () {
-                            if ($attr.mCustomScrollbar) {
-                                $scope.$apply($attr.mCustomScrollbar);
-                            }
-
+                            $scope.$apply(function () {
+                                $scope.addItems();
+                            });
+                            
                         },
                         whileScrolling: function () {
 

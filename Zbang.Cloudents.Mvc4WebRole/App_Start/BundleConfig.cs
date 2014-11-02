@@ -107,8 +107,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                 new JsFileWithCdn("~/scripts/jquery-2.1.1.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                     new JsFileWithCdn("~/scripts/underscore.js"),
-                new JsFileWithCdn("~/scripts/angular.js",
-                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"),
+                new JsFileWithCdn("~/scripts/angular.js"),//, fix for IE9 as usual check next version for angular fix
+                    //"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"),
 
 
                 new JsFileWithCdn("~/scripts/angular-route.js",

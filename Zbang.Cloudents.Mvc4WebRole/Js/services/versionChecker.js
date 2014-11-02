@@ -2,9 +2,11 @@
 app.factory('sVerChecker', ['$http',
     function ($http) {
         var clientVersion = $('[data-version]').attr('data-version'),
-            currentVersion;
+            currentVersion,
+            timeInterval = 600000;
 
-        setInterval(checkVersion, 10000);
+
+        setInterval(checkVersion, timeInterval);
 
         return {
             checkVersion: checkVersion
