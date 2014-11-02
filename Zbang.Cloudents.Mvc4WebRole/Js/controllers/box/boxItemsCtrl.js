@@ -27,7 +27,6 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.items = _.map(data, function (item) {
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
-                console.log(isNew);
             });
             return item;
         });
