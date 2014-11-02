@@ -178,11 +178,8 @@ mUser.controller('UserCtrl',
                 reverse = true;
             }
 
-            var array = $filter('orderBy')($scope.admin.members.list, ['department','name'], reverse);
+            var array = $filter('orderBy')($scope.admin.members.list, ['department', 'name'], reverse);
 
-            _.forEach(array, function (a) {
-                console.log(a.department + ' ' + a.name);
-            });
             $scope.admin.members.list = array;
         };
 
