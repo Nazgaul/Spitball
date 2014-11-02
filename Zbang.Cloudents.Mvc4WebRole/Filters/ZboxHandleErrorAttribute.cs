@@ -10,6 +10,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     {
         public override void OnException(ExceptionContext filterContext)
         {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
             var sb = new StringBuilder();
             foreach (var formKey in filterContext.HttpContext.Request.Form.AllKeys)
             {

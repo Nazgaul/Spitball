@@ -29,18 +29,27 @@ app.config([
                     // do something on success
                     switch (response.status) {
                         case 200:
-                            return response;
+                            return response;                        
                     }
                 },
                 'responseError': function (response) {
                     // do something on success
                     switch (response.status) {
+                        case 400:
+                            alert('Version mismatch, page will refresh');
+                            window.location.reload(true);
+                            break;
                         case 401:
                         case 403:
                             window.open('/account', '_self');
                             break;
                         case 404:
                             window.open('/error', '_self');
+                            break;
+                        case 412:
+                            alert('Version mismatch, page will refresh');
+                            window.location.reload(true);
+                            break;
                         case 500:
                             window.open('/error', '_self');
                         default:
@@ -59,7 +68,7 @@ app.config([
         $tooltipProvider.options({
             placement: 'bottom',
             animation: true,
-            popupDelay: 500,
+            popupDelay: 500
             //appendToBody: true
         });
 
@@ -158,7 +167,7 @@ app.config([
                 type: 'user'
             },
             templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
-        }).        
+        }).
         when('/account/settings', {
             params: {
                 type: 'accountSettings'
@@ -303,7 +312,9 @@ app.config([
     }
 ]);
 
-app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', function ($rootScope, $window, $location, sUserDetails, sNewUpdates) {
+app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
+    sVerChecker.checkVersion();
+
     $rootScope.initDetails = function (userData) {
         sUserDetails.setDetails(userData);
 
