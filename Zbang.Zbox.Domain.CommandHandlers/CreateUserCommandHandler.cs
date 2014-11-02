@@ -31,13 +31,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
         }
 
-        public virtual CreateUserCommandResult Execute(CreateUserCommand command)
-        {
-            if (command == null) throw new ArgumentNullException("command");
-            User user = UserRepository.GetUserByEmail(command.Email);
-            var result = new CreateUserCommandResult(user);
-            return result;
-        }
+        public abstract CreateUserCommandResult Execute(CreateUserCommand command);
+        //{
+        //    if (command == null) throw new ArgumentNullException("command");
+        //    User user = UserRepository.GetUserByEmail(command.Email);
+        //    var result = new CreateUserCommandResult(user);
+        //    return result;
+        //}
 
         protected void TriggerWelcomeMail(User user)
         {
@@ -57,6 +57,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UserRepository.Save(invite.Sender);
         }
 
+        protected User GetUserByInviteId(Guid? invId)
+        {
+            if (!invId.HasValue)
+            {
+                return null;
+            }
+            var invite = m_InviteToCloudentsRepository.Load(invId.Value);
+            if (invite.Recipient.IsRegisterUser)
+            {
+                return null;
+            }
+            return invite.Recipient;
+        }
+
 
 
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
@@ -69,10 +83,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             result.UniversityId = university.Id;
-            user.UpdateUniversity(university, string.Empty, null, null, null);
+            user.UpdateUniversity(university, null, null, null, null);
         }
 
-
+        //protected User CreateUser()
+        //{
+        //    var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
+        //    user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
+        //        command.FirstName,
+        //        command.MiddleName,
+        //        command.LastName, command.Sex, command.MarketEmail, command.Culture);
+        //    UserRepository.Save(user, true);
+        //    user.GenerateUrl();
+        //}
 
     }
 }
