@@ -13,18 +13,18 @@
         </a>
     </li>
     <li class="navItem userSettings" id="userDetails" data-menu="user" dropdown>
-        <div tooltip="@DialogResources.Settings" tooltip-placement="right-bottom" class="userDrpSettings" dropdown-toggle></div>        
+        <div tooltip="@DialogResources.Settings" tooltip-placement="right-bottom" class="userDrpSettings" dropdown-toggle></div>
         <ul class="userMenu dropdown-menu" role="menu">
             <li class="menuItem">
                 <a class="menuLink" href="@Url.Action("Settings", "Account")">@UserDetailResources.AccountSettings</a>
             </li>
             <li class="menuItem">
                 <a class="menuLink" target="_self" href="@Url.Action("Help","Home")">@UserDetailResources.Feedback</a>
-                
+
             </li>
             <li class="menuItem">
-                
-                @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { @class = "menuLink" , target="_self" })
+
+                @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { @class = "menuLink", target = "_self" })
             </li>
             <li class="menuItem">
                 @Html.ActionLink(FooterResources.ContactUs, "ContactUs", "Home", null, new { @class = "menuLink", target = "_self" })
@@ -36,7 +36,7 @@
                 @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "menuLink", target = "_self" })
             </li>
             <li class="menuItem">
-                <a id="logOut" target="_self" class="menuLink" href="@Url.Action("LogOff", "Account")">@UserDetailResources.LogOut</a>
+                <button class="menuLink" ng-click="$root.logout()">@UserDetailResources.LogOut</button>
             </li>
         </ul>
     </li>

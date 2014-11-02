@@ -64,7 +64,7 @@ app.factory('ajaxService',
             }
 
             var cache = $angularCacheFactory(ttlString, {
-                maxAge: ttl
+                maxAge: ttl                
             });
 
             ttls[ttlString] = cache;

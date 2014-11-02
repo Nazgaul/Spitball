@@ -14,7 +14,7 @@ app.config([
         $angularCacheFactoryProvider.setCacheDefaults({
             maxAge: 1500000, //25 minutes
             deleteOnExpire: 'aggressive',
-            recycleFreq: 600000,
+            recycleFreq: 30000,
             storageMode: 'sessionStorage'
         });
 

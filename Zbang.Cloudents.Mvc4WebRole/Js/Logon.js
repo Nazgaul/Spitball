@@ -69,6 +69,7 @@
         }
         var c = 'disabled';
         var d = $form.serializeArray();
+        d.push({ invId: cd.getParameterByName('invId') });
 
         $submit.attr(c, c);
         $.ajax({
@@ -107,7 +108,8 @@
 
         var d = $form.serializeArray();
         d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
-        d.push({ name: 'returnUrl', value: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)})
+        d.push({ name: 'returnUrl', value: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname) })
+        d.push({ invId: cd.getParameterByName('invId') });
         $submit.attr('disabled', 'disabled');
         $.ajax({
             url: $form.prop('action'),
@@ -150,6 +152,7 @@
             data: {
                 token: accessToken,
                 universityId: cd.getParameterByName('universityId'),
+                invId:cd.getParameterByName('invId'),
                 returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
             },
             success: function (data) {
@@ -218,7 +221,7 @@
     //cd.sessionStorageWrapper.clear();
     //cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
-        email: $('#NewEmail').data('valRegex'),
+        email: $('#NewEmail').data('valRegex')
     });
     $('#dLangSelect').change(function () {
         cd.setCookie('lang', $(this).val(), 10);
