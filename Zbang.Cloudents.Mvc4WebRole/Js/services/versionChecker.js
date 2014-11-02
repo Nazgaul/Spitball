@@ -17,7 +17,7 @@ app.factory('sVerChecker', ['$http',
                     currentVersion = data.payload;
 
                     if (clientVersion !== currentVersion) {
-                        alert('Version mismatch, browser will refresh');
+                        alert('Version mismatch, page will refresh');
                         window.location.reload(true);
                     }
                 }

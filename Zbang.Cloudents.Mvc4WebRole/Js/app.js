@@ -36,7 +36,9 @@ app.config([
                     // do something on success
                     switch (response.status) {
                         case 400:
-                            window.location.reload(true); break;
+                            alert('Version mismatch, page will refresh');
+                            window.location.reload(true);
+                            break;
                         case 401:
                         case 403:
                             window.open('/account', '_self');
@@ -45,7 +47,9 @@ app.config([
                             window.open('/error', '_self');
                             break;
                         case 412:
-                            window.location.reload(true);                                break;
+                            alert('Version mismatch, page will refresh');
+                            window.location.reload(true);
+                            break;
                         case 500:
                             window.open('/error', '_self');
                         default:
