@@ -54,7 +54,12 @@ mDashboard.controller('createAcademicBoxCtrl',
                         return;
                     }
 
-                    result.parentId = _.last(nodeHistory).id;
+                    parent = _.last(nodeHistory);
+                    if (parent) {
+                        result.parentId = parent.id;
+                    }
+
+
 
                     sLibrary.createDepartment(result).then(function (response) {
                         if (!response.success) {
