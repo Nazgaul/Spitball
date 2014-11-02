@@ -4472,7 +4472,9 @@ function Browser(window, document, $log, $sniffer) {
 
   var lastBrowserUrl = location.href,
       baseElement = document.find('base'),
-      newLocation = null;
+//      newLocation = null;
+        reloadLocation = null;
+
 
   /**
    * @name $browser#url
@@ -4500,7 +4502,9 @@ function Browser(window, document, $log, $sniffer) {
 
     // setter
     if (url) {
-      if (lastBrowserUrl == url) return;
+        if (lastBrowserUrl == url) return;
+
+        var sameBase = lastBrowserUrl && stripHash(lastBrowserUrl) === stripHash(url);
       lastBrowserUrl = url;
       if ($sniffer.history) {
         if (replace) history.replaceState(null, '', url);
@@ -4510,7 +4514,10 @@ function Browser(window, document, $log, $sniffer) {
           baseElement.attr('href', baseElement.attr('href'));
         }
       } else {
-        newLocation = url;
+          //newLocation = url;
+          if (!sameBase) {
+              reloadLocation = url;
+          }
         if (replace) {
           location.replace(url);
         } else {
@@ -4523,7 +4530,10 @@ function Browser(window, document, $log, $sniffer) {
       // - newLocation is a workaround for an IE7-9 issue with location.replace and location.href
       //   methods not updating location.href synchronously.
       // - the replacement is a workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=407172
-      return newLocation || location.href.replace(/%27/g,"'");
+        //return newLocation || location.href.replace(/%27/g,"'");
+        return reloadLocation || location.href.replace(/%27/g, "'");
+
+
     }
   };
 
@@ -4531,7 +4541,7 @@ function Browser(window, document, $log, $sniffer) {
       urlChangeInit = false;
 
   function fireUrlChange() {
-    newLocation = null;
+    //newLocation = null;
     if (lastBrowserUrl == self.url()) return;
 
     lastBrowserUrl = self.url();
