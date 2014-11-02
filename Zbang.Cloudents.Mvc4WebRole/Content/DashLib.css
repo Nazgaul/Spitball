@@ -44,19 +44,21 @@
   padding-left: 314px;
   /*rtl*/
   width: 100%;
-}
-.boxesHeader.topBar.editName {
-  padding-top: 25px;
-}
-.boxesHeader.topBar.editName #lib_Back {
-  width: 100%;
-  max-width: -webkit-calc(100% - 15px);
-  max-width: calc(100% - 15px);
-}
-.boxesHeader.topBar.editName .inputText {
-  width: 100%;
-  font-size: 14px;
-  display: inline-block;
+  /*&.editName {
+        padding-top: 25px;
+
+        #lib_Back {
+            width: 100%;
+            max-width: ~'-webkit-calc(100% - 15px)';
+            max-width: ~'calc(100% - 15px)';
+        }
+
+        .inputText {
+            width: 100%;
+            font-size: 14px;
+            display: inline-block;
+        }
+    }*/
 }
 .boxesHeader.topBar:hover .boxRename {
   display: inline-block;
@@ -87,13 +89,6 @@
 .back:hover:before {
   background-position: 0 -21px;
 }
-/*#lib_Back{
-    height: 19px;
-    display:inline-block;
-    vertical-align:top; 
-    max-width: ~'-webkit-calc(100% - 25px)';
-    max-width: ~'calc(100% - 25px)';
-}*/
 .boxTitle {
   font-size: 22px;
   color: #383838;
@@ -522,21 +517,16 @@
   width: 100%;
   text-align: center;
 }
-.followEmpty h2,
 .groupEmpty h2 {
   font-size: 22px;
 }
-.followEmpty:before,
 .groupEmpty:before {
   content: '';
   display: block;
   width: 104px;
   height: 104px;
   margin: 70px auto 10px;
-  background: url(/Images/dashboardEmpty-sprite.png) -1px -1px no-repeat;
-}
-.groupEmpty:before {
-  background-position: -106px -1px;
+  background: url(/Images/dashboardEmpty-sprite.png) -106px -1px no-repeat;
 }
 /*#endregion */
 /*#region setup course 'popups' */
@@ -803,6 +793,9 @@
 }
 .socialWpr button {
   margin: 15px 0 33px;
+}
+.socialWpr button:disabled {
+  opacity: .1;
 }
 .socialWpr svg {
   width: 70px;

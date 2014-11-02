@@ -6,7 +6,7 @@
     <header>@IndexResources.InviteFriends</header>
 
     <div class="socialWpr">
-        <button class="cloudentsBtn" ng-click="selectState('cl')" ng-if="!inviteCloudents">
+        <button class="cloudentsBtn" ng-click="selectState('cl')" ng-disabled="!inviteCloudents">
             @Html.Svg("~/Images/Defs.svg", "cloudentsSocial")
         </button>
         <button class="fbBtn" ng-click="selectState('fb')">

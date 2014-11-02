@@ -46,7 +46,7 @@
     padding-left: 314px; /*rtl*/
     width: 100%;
 
-    &.editName {
+    /*&.editName {
         padding-top: 25px;
 
         #lib_Back {
@@ -60,7 +60,7 @@
             font-size: 14px;
             display: inline-block;
         }
-    }
+    }*/
 
     &:hover {
         .boxRename {
@@ -98,13 +98,7 @@
         background-position: 0 -21px;
     }
 }
-/*#lib_Back{
-    height: 19px;
-    display:inline-block;
-    vertical-align:top; 
-    max-width: ~'-webkit-calc(100% - 25px)';
-    max-width: ~'calc(100% - 25px)';
-}*/
+
 .boxTitle {
     font-size: 22px;
     color: #383838;
@@ -585,7 +579,7 @@
     text-align: center;
 }
 
-.followEmpty, .groupEmpty {
+ .groupEmpty { //, .followEmpty{
     h2 {
         font-size: 22px;
     }
@@ -596,13 +590,8 @@
         width: 104px;
         height: 104px;
         margin: 70px auto 10px;
-        background: @dashEmpty-sprite -1px -1px no-repeat;
-    }
-}
-
-.groupEmpty {
-    &:before {
-        background-position: -106px -1px;
+        //background: @dashEmpty-sprite -1px -1px no-repeat;
+        background: @dashEmpty-sprite -106px -1px no-repeat;
     }
 }
 
@@ -805,7 +794,6 @@
     }
 }
 
-
 /*#region social invite */
 .socialInvite {
     //display: none;
@@ -843,7 +831,6 @@
 
     &.js-cloudState {
         .cloudentsBtn {
-            //background-position: 0 -598px;
             svg {
                 fill: @color;
             }
@@ -878,7 +865,6 @@
 
     &.js-gmState {
         .gmailBtn {
-            //background-position: 0 -962px;
             svg {
                 fill: @gmailColor;
             }
@@ -908,11 +894,10 @@
     height: 100px;
 
     button {
-        //width: 91px;
-        //height: 91px;
-        //background: @site-sprite no-repeat;
-        //margin: 40px 0;
         margin: 15px 0 33px;
+        &:disabled {
+            opacity: .1;
+        }
     }
 
     svg {
@@ -920,19 +905,8 @@
         height: 70px;
         fill: #282828;
     }
-
-    .cloudentsBtn {
-        //background-position: 0 -507px;
-    }
-
     .fbBtn {
-        //margin: 40px 60px;
         margin: 15px 60px 33px 60px;
-        //background-position: 0 -689px;
-    }
-
-    .gmailBtn {
-        //background-position: 0 -871px;
     }
 }
 
@@ -1206,7 +1180,6 @@
 }
 /*#endregion */
 /*#endregion */
-
 
 /*#region IframeProducts*/
 .products {
