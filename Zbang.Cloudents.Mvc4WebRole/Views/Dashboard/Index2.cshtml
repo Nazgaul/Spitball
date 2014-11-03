@@ -59,8 +59,9 @@
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader">
-                @*<div class="rFloat">
-                    <button class="navLinks newInvites rFloat" id="invites" tooltip="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                <div class="rFloat">
+                    <button class="rFloat notificationBtn" id="invites" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                        @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
                         <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
                     </button>
                     <div class="notifyWpr dropdown-menu" role="menu" ng-class="{ noResults : !notifications.length }">
@@ -82,11 +83,20 @@
                         </ul>
                         <div class="notifyEmpty">@SharedResources.NoNotifications</div>
                     </div>
-                    <a tooltip="@SharedResources.Help" target="_self" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>
-                    <button  type="button" class="rFloat inviteFriendsBtn" tooltip="@SharedResources.Invite" ng-click="inviteFriends($event)">
+                    <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
+                        @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
+                    </a>
+                    <a title="" class="lFloat storeLink" href="~/Store">
+                        @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+                    </a>
+                </div>
+                <div class="dhContent">
+                    <span class="dhText">@SharedResources.Dashboard</span>
+                    <input autocomplete="off"  class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
+                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends($event)">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
-                </div>*@
+                </div>
             </div>
             @*NEW COURSE SECTION*@
             <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">

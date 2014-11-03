@@ -19,7 +19,7 @@
 .libraryContent header {
   font-size: 18px;
   line-height: 100%;
-  padding: 27px 0 25px;
+  padding: 26px 0;
 }
 .libraryContent {
   vertical-align: top;
@@ -227,8 +227,7 @@
   margin-left: 290px;
   /*rtl*/
   position: relative;
-  padding: 0 10px 0 24px;
-  /*rtl*/
+  padding: 0 30px;
   height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -528,6 +527,101 @@
   margin: 70px auto 10px;
   background: url(/Images/dashboardEmpty-sprite.png) -106px -1px no-repeat;
 }
+/*#endregion */
+/*#region dashboard header */
+.dashHeader {
+  height: 65px;
+  line-height: 65px;
+  vertical-align: middle;
+  border-bottom: 1px dashed #c2c2c2;
+  overflow: hidden;
+}
+.dashHeader > .rFloat {
+  width: 170px;
+  position: relative;
+  top: 8px;
+  height: 48px;
+}
+.dashHeader > .rFloat:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 36px;
+  background: #282828;
+  top: 8px;
+  left: 60px;
+}
+.notificationBtn {
+  position: relative;
+  top: 13px;
+}
+.helpLink {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 26px;
+  line-height: normal;
+  position: relative;
+  top: 14px;
+}
+.storeLink {
+  position: relative;
+  top: 4px;
+}
+.dhContent {
+  overflow: hidden;
+}
+.dhContent .dashLibSearchInput {
+  width: 420px;
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  font-size: 18px;
+  margin: 17px 20px 0 20px;
+  vertical-align: top;
+}
+.dhContent svg {
+  fill: #0f9d58;
+  position: relative;
+  top: 5px;
+}
+.dhText {
+  font-size: 28px;
+  color: #0f9d58;
+}
+/*<div class="dashHeader">
+    <div class="rFloat">
+        <button class="navLinks newInvites rFloat" id="invites" tooltip="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+            <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
+        </button>
+        <div class="notifyWpr dropdown-menu" role="menu" ng-class="{ noResults : !notifications.length }">
+            <div class="arrow upArrow"></div>
+            <div class="notifyTop">@SharedResources.Notifications</div>
+            <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
+                infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications track by notification.msgId">
+                    <a bo-href="notification.url" ng-click="markAsRead(notification)">
+                        <img class="imgBorder notifyImg" bo-src="notification.userPic" alt="" />
+                        <span class="semiFont notifier elps" bo-text="notification.userName"></span>
+
+                        <span class="createTime" display-time="{{notification.date}}"></span><br />
+                        <div class="inviteTxtWpr">
+                            @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="notifyEmpty">@SharedResources.NoNotifications</div>
+        </div>
+        <a tooltip="@SharedResources.Help" target="_self" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>
+        <button  type="button" class="rFloat inviteFriendsBtn" tooltip="@SharedResources.Invite" ng-click="inviteFriends($event)">
+            @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+        </button>
+    </div>
+    <div class="dhContent">
+        <span class="dhText">@SharedResources.Dashboard</span>
+        <input autocomplete="off"  class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" />
+    </div>
+</div>*/
 /*#endregion */
 /*#region setup course 'popups' */
 .formWpr {
