@@ -1,7 +1,7 @@
 ﻿"use strict";
 app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
-        function ($scope, $rootScope, $location, $modal, sUser, sFacebook, sUserDetails, sStore) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore) {
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }
@@ -32,7 +32,7 @@ app.controller('MainCtrl',
                 $location.url(url, '', url).replace();
             }
 
-            
+
 
 
             $scope.$on('message', function (e, user) {
@@ -120,8 +120,8 @@ app.controller('MainCtrl',
                 if (!current.$$route) {
                     return;
                 }
-                
-                $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;       
+
+                $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
                 $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
 
 
@@ -196,7 +196,7 @@ app.controller('MainCtrl',
                 return !$rootScope.params.isStore;
             }
 
-           $rootScope.validateCoupon = function () {
+            $rootScope.validateCoupon = function () {
                 var invalidCouponMessage = 'קופון שגוי';
                 if (!$rootScope.params.store.coupon.code) {
                     return;
@@ -211,9 +211,9 @@ app.controller('MainCtrl',
 
                 $rootScope.params.store.coupon.buttonDisabled = true;
 
-              
 
-                
+
+
                 sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                     if (!response.success) {
@@ -233,6 +233,10 @@ app.controller('MainCtrl',
 
             };
 
+            $rootScope.logout = function () {
+                $angularCacheFactory.removeAll();
+                window.location.href = '/account/logoff';
+            };
 
             //$scope.info = {
             //    currentLanguage: (function () {
