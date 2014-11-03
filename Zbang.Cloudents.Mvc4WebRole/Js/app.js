@@ -1,6 +1,7 @@
-﻿var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
+﻿(function (angular) {
+    "use strict";
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
     'pasvaz.bindonce', 'ui.bootstrap', 'ngAnimate', 'mAccount', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics', 'angulartics.google.analytics']);
-
 app.config([
     '$routeProvider',
     '$locationProvider',
@@ -18,7 +19,8 @@ app.config([
             storageMode: 'sessionStorage'
         });
 
-        $provide.factory('requestinterceptor', ['$location', '$q', '$angularCacheFactory', function ($location, $q, $angularCacheFactory) {
+        $provide.factory('requestinterceptor', [function () {
+
             return {
                 'request': function (config) {
 
@@ -29,7 +31,7 @@ app.config([
                     // do something on success
                     switch (response.status) {
                         case 200:
-                            return response;                        
+                            return response;
                     }
                 },
                 'responseError': function (response) {
@@ -52,6 +54,7 @@ app.config([
                             break;
                         case 500:
                             window.open('/error', '_self');
+                            break;
                         default:
                             window.open('/error', '_self');
                             break;
@@ -60,8 +63,6 @@ app.config([
                 }
             };
         }]);
-
-
 
         $httpProvider.interceptors.push('requestinterceptor');
 
@@ -304,7 +305,7 @@ app.config([
                 catch (loggingError) {
                     $log.warn('Error logging failed');
                     $log.log(loggingError);
-                };
+                }
             };
         }]);
 
@@ -414,3 +415,4 @@ app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 's
         $rootScope.back.title = 'Dashboard';
     }
 }]);
+}(window.angular));
