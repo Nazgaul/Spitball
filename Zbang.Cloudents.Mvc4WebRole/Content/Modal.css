@@ -105,12 +105,6 @@
 .modal.createTab .btn1 {
   text-transform: capitalize;
 }
-.modal.rename {
-  padding-left: 290px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 .modal.deptSettings header {
   color: #0f9d58;
   font-size: 18px;

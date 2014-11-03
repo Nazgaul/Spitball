@@ -1,0 +1,110 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Item page */
+.svg-download {
+  width: 31px;
+  height: 23px;
+  fill: #fff;
+}
+.svg-back {
+  width: 35px;
+  height: 35px;
+  fill: #fff;
+}
+.svg-print {
+  width: 24px;
+  height: 24px;
+}
+.svg-fullscreen {
+  width: 19px;
+  height: 19px;
+}
+.svg-smallscreen {
+  width: 19px;
+  height: 19px;
+}
+.svg-share {
+  width: 24px;
+  height: 21px;
+}
+.svg-eye {
+  width: 29px;
+  height: 17px;
+  fill: #fff;
+}
+.svg-star {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+.rate {
+  fill: #ffc104;
+}
+.rate:hover {
+  fill: #fff;
+}
+.svg-prev,
+.svg-next {
+  width: 13px;
+  height: 18px;
+  fill: #3399ff;
+}
+.svg-prev {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.svg-pencil {
+  width: 17px;
+  height: 21px;
+  fill: #fff;
+}
+.svg-flag {
+  width: 17px;
+  height: 28px;
+  fill: #fff;
+  position: relative;
+  top: 8px;
+  margin-right: 5px;
+}
+/*#endregion */
+/*#region dashboard */
+.svg-notification {
+  width: 22px;
+  height: 25px;
+  fill: #c2c2c2;
+}
+.svg-help {
+  width: 23px;
+  height: 23px;
+  fill: #c2c2c2;
+}
+.svg-bag {
+  width: 30px;
+  height: 33px;
+  fill: #0f9d58;
+}
+/*#endregion */
+/*#region box page */
+.svg-inviteUser {
+  width: 27px;
+  height: 27px;
+  fill: #fff;
+}
+.svg-plus {
+  width: 14px;
+  height: 14px;
+  fill: #3399ff;
+}
+.svg-tick {
+  width: 15px;
+  height: 14px;
+  fill: #0f9d58;
+}
+/*#endregion */
+/*#region quiz page */
+/*#endregion */

@@ -700,6 +700,9 @@
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\SVG.css">
+      <DependentUpon>SVG.less</DependentUpon>
+    </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
@@ -1125,6 +1128,7 @@
     <Content Include="Content\ItemRtl.less" />
     <Content Include="Content\BoxFeed.less" />
     <Content Include="Content\BoxFeedRtl.less" />
+    <Content Include="Content\SVG.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

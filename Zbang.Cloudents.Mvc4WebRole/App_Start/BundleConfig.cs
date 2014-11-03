@@ -57,6 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterCss("newcore3", "~/Content/General.css",
                 "~/Content/HeaderFooter.css",
                 "~/Content/Site3.css",
+                "~/Content/SVG.css",
                 "~/Content/AccountInfo.css",
                 "~/Content/Animations.css",
                 "~/Content/UserPage.css",
