@@ -198,6 +198,30 @@
 .createSchool .schoolTypeWpr {
   width: 38%;
 }
+.createSchool .uniList {
+  box-shadow: none;
+  border: 1px solid #c2c2c2;
+  width: 616px;
+  margin-top: 8px;
+  position: absolute;
+  max-height: 200px;
+}
+.createSchool .uniList li:hover {
+  background: #eee;
+}
+.createSchool .uniList .uniCount {
+  display: none;
+}
+.createSchool .uniList .uniDetails {
+  padding: 0;
+  display: block;
+}
+.createSchool .uniList .uniName {
+  padding: 0 8px;
+  line-height: 36px;
+  cursor: pointer;
+  font-size: 17px;
+}
 .createSchool,
 .completeRegistration {
   width: 646px;

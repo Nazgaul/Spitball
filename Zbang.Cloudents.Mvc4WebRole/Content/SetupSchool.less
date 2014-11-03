@@ -190,6 +190,32 @@
     .schoolTypeWpr {
         width: 38%;
     }
+    .uniList {
+        box-shadow: none; //override
+        border: 1px solid @borderColor;
+        width: 616px;
+        margin-top: 8px;
+        position: absolute;
+        max-height: 200px;
+        li {
+            &:hover {
+                background: #eee;
+            }
+        }
+        .uniCount {
+            display: none;
+        }
+        .uniDetails {
+            padding:0;
+            display: block;
+        }
+        .uniName {
+            padding: 0 8px;
+            line-height: 36px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+    }
 }
 .createSchool, .completeRegistration {
     width: 646px;
