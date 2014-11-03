@@ -225,6 +225,11 @@
   /*rtl*/
   left: auto;
 }
+/*#region dashboard header */
+.dashHeader > .rFloat:before {
+  right: 60px;
+}
+/*#endregion */
 /*#region new department look */
 .deptItem {
   float: right;
