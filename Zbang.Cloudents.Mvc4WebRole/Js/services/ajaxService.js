@@ -8,13 +8,18 @@ app.factory('ajaxService',
     function ($http, $q, $angularCacheFactory, $analytics) {
         var ttls = {},
         service = {
-            get: function (url, data, ttl) {
+            get: function (url, data, ttl, noCache) {
                 var dfd = $q.defer(),
                     startTime = new Date().getTime();
-
-                ttl = ttl || 60000; //default to 1 mins
-
-                $http.get(url, { params: data, cache: getCache(ttl) }).success(function (response) {
+                
+                var getObj = {
+                    params: data
+                };
+                if (!noCache) {
+                    ttl = ttl || 60000; //default to 1 mins
+                    getObj.cache = getCache(ttl);
+                }
+                $http.get(url, getObj).success(function (response) {
                     dfd.resolve(response);
                     trackTime(startTime, url, data);
                 }).error(function (response) {
