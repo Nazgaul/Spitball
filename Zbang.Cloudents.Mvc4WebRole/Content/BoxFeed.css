@@ -489,23 +489,8 @@
   display: block;
   margin-bottom: 7px;
 }
-.firstUser {
-  /*&.firstUser:before {
-        display: none;
-    }*/
-}
-.secondUser {
-  /*&.secondUser:before {
-        display: none;
-    }*/
-}
 .secondUser .top3Img {
   margin-top: 20px;
-}
-.thirdUser {
-  /*&.thirdUser:before {
-        display: none;
-    }*/
 }
 .thirdUser .top3Img {
   margin-top: 30px;
@@ -524,9 +509,12 @@
 }
 .rep {
   font-weight: bold;
-  color: #0f9d58;
+  color: #383838;
   display: inline-block;
   width: 64px;
   text-align: center;
+}
+.rep:after {
+  content: '\00a0' attr(data-pts);
 }
 /*#endregion */

@@ -64,11 +64,11 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin-top: 10px;
-  /*img {
-        border: 1px solid @borderColor;
-        border-radius: 5px;
-        .boxSizing;
-    }*/
+  padding: 5px;
+  box-shadow: inset 0 0 0 4px #fff;
+}
+.lbEmpty {
+  display: none;
 }
 /*#region products (old) */
 /*.productsHeader {

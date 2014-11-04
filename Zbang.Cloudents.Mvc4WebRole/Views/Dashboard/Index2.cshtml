@@ -17,21 +17,28 @@
                     <span class="lbText">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.BestInClass</span>
                 </header>
                 @Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })
+                <div class="lbEmpty">
+                    <div class="lbEmptyTxtWpr">
+                        <div class="lbEmptyTxt1">@IndexResources.GetPoints</div>
+                        <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
+                    </div>
+                    @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
+                </div>
                 <ol class="bestUserList">
                     <li class="firstUser">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep">12660</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">12660</div>
                     </li>
                     <li class="secondUser lFloat">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        <div class="rep">9876</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">9876</div>
                     </li>
                     <li class="thirdUser rFloat">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        <div class="rep">2397</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">2397</div>
                     </li>
                 </ol>
                 @*<ol class="bestUserList" bindonce>
@@ -66,7 +73,23 @@
                 </ol>*@
             </section>
 
-
+            <section class="recommendedWpr">
+                <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
+                <ul>
+                    <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
+                        <a bo-href="course.url" class="courseLink">
+                            <div class="rFloat">
+                                <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                                <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
+                            </div>
+                            <img bo-src="course.picture" alt="" width="68" height="68" />
+                            <div class="elps courseName" bo-text="course.name"></div>
+                            <div class="elps" bo-text="course.courseCode"></div>
+                            <div class="prof elps" bo-text="course.professor"></div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
 
 
             @if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
