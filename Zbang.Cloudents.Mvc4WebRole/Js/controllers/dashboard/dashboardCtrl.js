@@ -17,16 +17,7 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
     cd.analytics.setLibrary($('.uniText').text());
     //$analytics
 
-    $scope.partials = {
-        friends: '/Dashboard/FriendsPartial/',
-        createBoxWized: '/Dashboard/CreateBox/',
-        socialInvite: '/Dashboard/SocialInvitePartial'
-
-    };
-
     $scope.myCourses = jsResources.CoursesFollow;
-
-    var modalInstance;
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
 

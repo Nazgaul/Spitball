@@ -45,11 +45,7 @@ var mUser = angular.module('mUser', [])
         sort: {
             asc: 0,
             des: 1
-        },
-        partials: {
-            message: '/Share/MessagePartial/',
-            socialInvite: '/Dashboard/SocialInvitePartial'
-        }
+        }        
     });
 mUser.controller('UserCtrl',
     ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',

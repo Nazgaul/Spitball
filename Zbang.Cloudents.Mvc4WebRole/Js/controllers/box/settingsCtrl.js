@@ -16,10 +16,6 @@ mBox.controller('SettingsCtrl',
          $scope.info.inviteUrl = $location.path() + 'invite/';
          $scope.info.user = sUserDetails.getDetails();
 
-         $scope.partials = {
-             shareEmail: '/Share/MessagePartial/',
-         };
-
          //$scope.params = {
          //    state: data.tab === 'settings' ? states.settings : states.members,
          //    search: ''

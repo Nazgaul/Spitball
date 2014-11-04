@@ -22,13 +22,6 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 members: 'members'
             };
 
-            $scope.partials = {
-                shareEmail: '/Share/MessagePartial/',
-                boxSettings: '/Box/SettingsPartial/',
-                uploader: '/Box/UploadPartial/',
-                boxSocialInvite:'/Box/SocialInvitePartial/'
-            };
-
             $scope.popup = {
                 share: false
             }
