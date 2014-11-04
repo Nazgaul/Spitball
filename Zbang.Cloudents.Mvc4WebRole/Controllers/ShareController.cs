@@ -32,20 +32,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ShortCodesCache = shortToLongCache;
         }
 
-        //[ZboxAuthorize, HttpGet]
-        //[Route("invite", Name = "InviteCloudents")]
-        //public ActionResult Index()
-        //{
-        //    return View("Empty");
-        //}
-
-        //[Route("invite/IndexPartial")]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //[HttpGet, Ajax, ZboxAuthorize]
-        //public ActionResult IndexPartial()
-        //{
-        //    return PartialView("Index");
-        //}
 
         [HttpPost, ZboxAuthorize]
         public ActionResult Invite(InviteSystem model)
@@ -79,12 +65,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
                 var userId = User.GetUserId();
-                var id = m_IdGenerator.Value.GetId();
-                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, id, string.Format("{0} {1}", model.FirstName, model.LastName));
+                
+                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, string.Format("{0} {1}", model.FirstName, model.LastName));
 
                 ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
 
-                return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(id)) });
+                if (!inviteCommand.Id.HasValue)
+                {
+                    return JsonError("User is already connected to cloudents");
+                }
+                return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(inviteCommand.Id.Value)) });
             }
             catch (Exception ex)
             {

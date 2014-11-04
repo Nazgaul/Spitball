@@ -33,7 +33,7 @@ mDashboard.controller('InviteCloudentsCtrl',
                     sex: contact.gender
                 };
 
-                sShare.facebookInvite.box(data).then(function (response) {
+                sShare.facebookInvite.cloudents(data).then(function (response) {
                     if (!response.success) {
                         alert('Error');
                         dfd.reject();

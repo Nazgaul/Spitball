@@ -7,10 +7,9 @@ namespace Zbang.Zbox.Domain.Commands
     {
 
         public InviteToSystemFacebookCommand(long senderId, long recipientFacebookUserId,
-            Guid id, string facebookUserName)
+             string facebookUserName)
         {
             FacebookUserName = facebookUserName;
-            Id = id;
             SenderId = senderId;
             FacebookUserId = recipientFacebookUserId;
             //FacebookName = recepientFacebookName;
@@ -21,7 +20,7 @@ namespace Zbang.Zbox.Domain.Commands
         public long SenderId { get; private set; }
         public long FacebookUserId { get; private set; }
 
-        public Guid Id { get; private set; }
+        public Guid? Id { get; set; }
         //public string FacebookName { get; private set; }
 
 
