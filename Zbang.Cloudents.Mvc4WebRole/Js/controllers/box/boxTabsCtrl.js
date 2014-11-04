@@ -5,11 +5,7 @@ mBox.controller('BoxTabsCtrl',
             "use strict";
             var jsResources = window.JsResources;
             $scope.params = {};
-
-            $scope.partials = {
-                createTab: '/Box/CreateTabPartial/'
-            };
-
+         
             sBox.tabs({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.params.tabs = data;

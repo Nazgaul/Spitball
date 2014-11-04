@@ -3,9 +3,7 @@
         function ($scope, $filter, sModal, sBox, $timeout) {
             "use strict";
             //Members
-            $scope.partials = {
-                shareEmail: '/Share/MessagePartial/',
-            };
+
             $scope.params = {};
 
             var members;;

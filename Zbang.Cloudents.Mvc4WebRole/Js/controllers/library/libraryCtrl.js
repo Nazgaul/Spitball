@@ -20,11 +20,6 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
         items: []
     };
 
-    var partials = {
-        //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
-        createDepartment: '/Library/CreateDepartmentPartial/'
-    }
-
     addItems();
 
     function addItems() {

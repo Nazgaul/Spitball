@@ -3,11 +3,7 @@ app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
         function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore) {
             "use strict";
-            $scope.partials = {
-                shareEmail: '/Share/MessagePartial/'
-            }
-
-
+           
             $scope.firstTime = $scope.viewBag;
 
             $rootScope.options = {
@@ -33,13 +29,7 @@ app.controller('MainCtrl',
                 $location.url(url, '', url).replace();
             }
             
-            $scope.$on('messageFB', function (e, obj) {
-                sFacebook.share(obj.url, obj.name, obj.caption, obj.description, obj.picture).then(function () {
-                    cd.pubsub.publish('addPoints', { type: 'shareFb' });
-                });
-            });
-
-            $rootScope.checkReg = function (event) {
+          $rootScope.checkReg = function (event) {
                 if (!sUserDetails.isAuthenticated()) {
                     event.preventDefault();
                     cd.pubsub.publish('register', { action: true });
