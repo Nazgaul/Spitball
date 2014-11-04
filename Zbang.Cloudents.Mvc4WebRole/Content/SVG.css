@@ -88,6 +88,15 @@
   height: 33px;
   fill: #0f9d58;
 }
+.svg-podium {
+  width: 266px;
+  height: 70px;
+  stroke: #c2c2c2;
+  stroke-width: 4px;
+  fill: #fff;
+  position: absolute;
+  top: 152px;
+}
 /*#endregion */
 /*#region box page */
 .svg-inviteUser {

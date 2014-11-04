@@ -450,17 +450,17 @@
   margin-bottom: 15px;
 }
 .bestUserList li:nth-child(-n + 3):before {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
-  top: 102px;
+  /*display: block;
+                position: absolute;
+                left: 0;right: 0;
+                margin: auto;
+                top: 102px;*/
+  display: none;
 }
 .bestUserList li:nth-child(-n + 3) .rep {
   display: block;
   width: auto;
-  margin-top: 2px;
+  margin-top: 13px;
 }
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
@@ -482,39 +482,33 @@
   margin: 0 5px;
 }
 .bestUserList svg {
-  position: absolute;
   fill: #ffc000;
 }
 .bestUserList .top3Img {
   border: 1px solid #0f9d58;
   display: block;
-  margin: 10px 0 23px;
+  margin-bottom: 7px;
 }
-.firstUser .top3Img {
-  left: -40px;
-  top: -90px;
+.firstUser {
+  /*&.firstUser:before {
+        display: none;
+    }*/
 }
-.firstUser svg {
-  left: -20px;
-  top: 106px;
+.secondUser {
+  /*&.secondUser:before {
+        display: none;
+    }*/
 }
 .secondUser .top3Img {
-  left: -40px;
-  top: -90px;
   margin-top: 20px;
 }
-.secondUser svg {
-  left: -10px;
-  top: 102px;
+.thirdUser {
+  /*&.thirdUser:before {
+        display: none;
+    }*/
 }
 .thirdUser .top3Img {
-  left: -32px;
-  top: -90px;
   margin-top: 30px;
-}
-.thirdUser svg {
-  left: -12px;
-  top: 101px;
 }
 .svg-crown {
   width: 36px;
