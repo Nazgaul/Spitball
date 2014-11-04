@@ -41,9 +41,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 box.CalculateMembers();
                 m_BoxRepository.Save(box);
             }
-            var user = m_UserRepository.Get(command.UserToDeleteId); // we using get because load raise exception on save
-            user.RemoveInviteState(box);
-            m_UserRepository.Save(user);
         }
     }
 }

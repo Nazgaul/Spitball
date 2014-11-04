@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public CreateFacebookUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
-            IInviteToCloudentsRepository inviteToCloudentsRepository,
+            IRepository<InviteToSystem> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)
         {
@@ -28,41 +28,33 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("email cannot be null or empty");
             }
+            GiveReputation(command.InviteId);
 
-            User user = UserRepository.GetUserByEmail(command.Email);
-            var newUser = false;
+
+            var user = GetUserByEmail(command.Email);
+            if (user != null && IsUserRegistered(user))
+            {
+                throw new ArgumentException("user is already registered");
+            }
             if (user == null)//email was invited to a box new user
             {
                 user = UserRepository.GetUserByFacebookId(facebookCommand.FacebookUserId); // facebook invite
+                if (user != null && IsUserRegistered(user))
+                {
+                    throw new ArgumentException("user is already registered");
+                }
                 if (user == null)
                 {
-                    newUser = true;
-                    user = new User(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
-                        command.FirstName, command.MiddleName, command.LastName, command.Sex, command.MarketEmail, command.Culture);
+                    user = CreateUser(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
+                    command.FirstName,
+                    command.MiddleName,
+                    command.LastName, command.Sex, command.MarketEmail, command.Culture);
                     UserRepository.Save(user, true);
                     user.GenerateUrl();
                 }
             }
-            if (!user.IsRegisterUser)
-            {
-                user.Email = facebookCommand.Email;
-                //user.Name = command.UserName;
-                user.FirstName = command.FirstName;
-                user.MiddleName = command.MiddleName;
-                user.LastName = command.LastName;
-                user.CreateName();
-                user.Sex = command.Sex;
-                user.MarketEmail = command.MarketEmail;
-
-
-                TriggerWelcomeMail(user);
-                user.IsRegisterUser = true;
-                user.Quota.AllocateStorage();
-                if (!newUser)
-                {
-                    AddReputation(user);
-                }
-            }
+            UpdateUser(user, command);
+           
             user.FacebookId = facebookCommand.FacebookUserId;
 
             var retVal = new CreateFacebookUserCommandResult(user);

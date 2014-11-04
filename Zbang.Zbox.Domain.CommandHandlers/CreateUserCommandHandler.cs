@@ -15,13 +15,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
-        private readonly IInviteToCloudentsRepository m_InviteToCloudentsRepository;
+        private readonly IRepository<InviteToSystem> m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
-            IInviteToCloudentsRepository inviteToCloudentsRepository,
+            IRepository<InviteToSystem> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
         {
             UserRepository = userRepository;
@@ -32,43 +32,68 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
         public abstract CreateUserCommandResult Execute(CreateUserCommand command);
-        //{
-        //    if (command == null) throw new ArgumentNullException("command");
-        //    User user = UserRepository.GetUserByEmail(command.Email);
-        //    var result = new CreateUserCommandResult(user);
-        //    return result;
-        //}
 
-        protected void TriggerWelcomeMail(User user)
+        private void TriggerWelcomeMail(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
             m_QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
-        protected void AddReputation(User user)
+        protected void GiveReputation(Guid? invId)
         {
-            var invite = m_InviteToCloudentsRepository.GetInviteToCloudents(user);
+            if (!invId.HasValue)
+            {
+                return;
+            }
+            var invite = m_InviteToCloudentsRepository.Get(invId.Value); // Load won't give null
             if (invite == null)
             {
                 return;
             }
-            var reputation = invite.Sender.AddReputation(Infrastructure.Enums.ReputationAction.Invite);
+            if (invite.IsUsed)
+            {
+                return;
+            }
+            var reputation = invite.Sender.AddReputation(invite.GiveAction());
             m_ReputationRepository.Save(reputation);
+            invite.UsedInvite();
             UserRepository.Save(invite.Sender);
+            m_InviteToCloudentsRepository.Save(invite);
         }
 
-        protected User GetUserByInviteId(Guid? invId)
+
+        protected User GetUserByEmail(string email)
         {
-            if (!invId.HasValue)
-            {
-                return null;
-            }
-            var invite = m_InviteToCloudentsRepository.Load(invId.Value);
-            if (invite.Recipient.IsRegisterUser)
-            {
-                return null;
-            }
-            return invite.Recipient;
+            return UserRepository.GetUserByEmail(email);
+        }
+
+        protected User CreateUser(string email, string image, string largeImage, 
+            string firstName, string middleName, string lastName,
+            bool sex, bool marketEmail, string culture)
+        {
+            return new User(email,image, largeImage,
+                   firstName,
+                   middleName,
+                   lastName, sex, marketEmail, culture);
+        }
+
+        protected bool IsUserRegistered(User user)
+        {
+            return user.IsRegisterUser;
+        }
+
+        protected void UpdateUser(User user , CreateUserCommand command )
+        {
+            user.IsRegisterUser = true;
+
+            user.FirstName = command.FirstName;
+            user.MiddleName = command.MiddleName;
+            user.LastName = command.LastName;
+            user.CreateName();
+            user.Sex = command.Sex;
+            user.MarketEmail = command.MarketEmail;
+            TriggerWelcomeMail(user);
+            user.Quota.AllocateStorage();
         }
 
 

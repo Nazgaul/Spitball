@@ -3,7 +3,7 @@ mAccount.controller('NotificationsCtrl',
     ['$scope', 'sShare', '$analytics',
 
         function ($scope, sShare, $analytics) {
-            var jsResources = window.JsResources;
+           // var jsResources = window.JsResources;
 
             $scope.params = {
                 notificationsListLength: 12,
@@ -26,18 +26,18 @@ mAccount.controller('NotificationsCtrl',
 
                 $scope.params.wasOpened = true;
 
-                sShare.markNotificationsAsOld().then(function () {
-                    _.forEach($scope.notifications, function (notification) {
-                        notification.isNew = false;
-                    });
+                //sShare.markNotificationsAsOld().then(function () {
+                //    _.forEach($scope.notifications, function (notification) {
+                //        notification.isNew = false;
+                //    });
 
-                    $scope.params.newNotifications = 0;
-                });
+                //    $scope.params.newNotifications = 0;
+                //});
             };
             $scope.markAsRead = function (notification) {
-                sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
-                    notification.isRead = true;
-                });
+                //sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
+                //    notification.isRead = true;
+                //});
 
                 $analytics.eventTrack('Site header', {
                     category: 'Notifications',
@@ -46,8 +46,8 @@ mAccount.controller('NotificationsCtrl',
             };
 
             $scope.$on('followedBox', function (e, boxId) {
-                var notification = _.find($scope.notifications, function (notification) {
-                    return notification.boxId === boxId;
+                var notification = _.find($scope.notifications, function (notification2) {
+                    return notification2.boxId === boxId;
                 });
 
                 var index = $scope.notifications.indexOf(notification);

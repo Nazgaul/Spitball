@@ -6,10 +6,11 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -19,12 +20,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
         private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
+        private readonly Lazy<IIdGenerator> m_IdGenerator;
+
 
         public ShareController(
             Lazy<IShortCodesCache> shortToLongCache,
-            Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
+            Lazy<IInviteLinkDecrypt> inviteLinkDecrypt, Lazy<IIdGenerator> idGenerator)
         {
             m_InviteLinkDecrypt = inviteLinkDecrypt;
+            m_IdGenerator = idGenerator;
             m_ShortCodesCache = shortToLongCache;
         }
 
@@ -75,11 +79,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
                 var userId = User.GetUserId();
+                var id = m_IdGenerator.Value.GetId();
+                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, id, string.Format("{0} {1}", model.FirstName, model.LastName));
 
-                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, model.UserName, model.FirstName, model.MiddleName, model.LastName, model.Sex);
                 ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
 
-                return Json(new JsonResponse(true));
+                return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(id)) });
             }
             catch (Exception ex)
             {
@@ -135,7 +140,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = User.GetUserId();
-            var command = new ShareBoxFacebookCommand(userId, model.Id, model.UserName, model.BoxId, model.FirstName, model.MiddleName, model.LastName, model.Sex);
+            var id = m_IdGenerator.Value.GetId();
+            var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, id, string.Format("{0} {1}", model.FirstName, model.LastName));
             ZboxWriteService.ShareBoxFacebook(command);
             return Json(new JsonResponse(true));
         }
@@ -291,6 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+
         [HttpPost]
         [ZboxAuthorize]
         public ActionResult Facebook(string postId)
@@ -304,20 +311,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpPost, ZboxAuthorize]
-        public ActionResult NotificationAsRead(Guid messageId)
-        {
-            var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
-            ZboxWriteService.MarkMessageAsRead(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult NotificationAsRead(Guid messageId)
+        //{
+        //    var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
+        //    ZboxWriteService.MarkMessageAsRead(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        public ActionResult NotificationOld()
-        {
-            var command = new MarkMessagesAsOldCommand(User.GetUserId());
-            ZboxWriteService.MarkMessagesAsOld(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult NotificationOld()
+        //{
+        //    var command = new MarkMessagesAsOldCommand(User.GetUserId());
+        //    ZboxWriteService.MarkMessagesAsOld(command);
+        //    return Json(new JsonResponse(true));
+        //}
     }
 }

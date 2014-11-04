@@ -4,16 +4,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class InvitationToCloudentsMailParams : MailParameters
     {
-        public InvitationToCloudentsMailParams(string senderName, string senderImage, CultureInfo culture)
-            : base(culture)
-        {
-            SenderName = senderName;
-            SenderImage = senderImage;
-        }
+        //public InvitationToCloudentsMailParams(string senderName, string senderImage, CultureInfo culture)
+        //    : base(culture)
+        //{
+        //    SenderName = senderName;
+        //    SenderImage = senderImage;
+        //}
 
-        public InvitationToCloudentsMailParams(string senderName, string senderImage, CultureInfo culture, string senderEmail)
+        public InvitationToCloudentsMailParams(string senderName, string senderImage, CultureInfo culture, string senderEmail, string url)
             : base(culture, senderEmail, senderName)
         {
+            Url = url;
             SenderName = senderName;
             SenderImage = senderImage;
         }
@@ -25,5 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             get { return InvitationToCloudentsResolver; }
         }
+
+        public string Url { get; private set; }
     }
 }

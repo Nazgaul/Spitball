@@ -7,23 +7,34 @@ namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class UrlConsts
     {
-        private const string CloudentsUrl = "https://www.cloudents.com";
+        public const string CloudentsUrl = "https://www.cloudents.com";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
-        private const string DepartmentUrl = "/department/{2}/{0}/{1}/";
+        //private const string DepartmentUrl = "/department/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
 
         private const string LibraryUrl = "/library/{0}/{1}/";
 
-        private const string StoreCategoryUrl = "/store/category/{0}/";
+        //private const string StoreCategoryUrl = "/store/category/{0}/";
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
+        private const string LogInUrl = "/account/?invId={0}";
 
 
 
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
-        public const string BoxUrlInvite = CloudentsUrl + "/Share/FromEmail?key={0}&email={1}";
+        private const string BoxUrlInvite = "?invId={0}";
+
+        public static string BuildInviteUrl(string boxUrl, string invId)
+        {
+            return CloudentsUrl+ boxUrl + string.Format(BoxUrlInvite, invId);
+        }
+
+        public static string BuildInviteCloudentsUrl(string invId)
+        {
+            return CloudentsUrl + string.Format(LogInUrl, invId);
+        }
 
         public static string BuildUserUrl(long id, string name, bool fullUrl = false)
         {
@@ -54,19 +65,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
             return relativeUrl;
         }
 
-        public static string BuildDepartmentUrl(long id, string name, string universityName)
-        {
-            if (name == null) throw new ArgumentNullException("name");
-            if (universityName == null) throw new ArgumentNullException("universityName");
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("name");
-            }
-            string relativeUrl = VirtualPathUtility.AppendTrailingSlash(
-                string.Format(DepartmentUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
-            return relativeUrl;
-        }
-        
+
+
 
 
         public static string BuildItemUrl(long boxId, string boxName, long itemId, string itemName, string universityName, bool fullUrl = false)
@@ -109,10 +109,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
 
 
-        public static string BuildStoreCatergoryUrl(int categoryId)
-        {
-            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreCategoryUrl, categoryId));
-        }
+      
         public static string BuildStoreProductUrl(long productId, string productName)
         {
             if (productName == null) throw new ArgumentNullException("productName");

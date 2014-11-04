@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Enums;
+﻿using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {
@@ -6,7 +7,7 @@ namespace Zbang.Zbox.Domain
     {
         protected UserBoxRel()
         {
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserTime = new UserTimeDetails("Sys");
         }
         public UserBoxRel(User user, Box box, UserRelationshipType userType)
@@ -31,6 +32,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual User User { get; set; }
         public virtual Box Box { get; set; }
+
+        protected virtual ICollection<Invite> Invites { get; set; }
 
 
         //used for hashcode & equals

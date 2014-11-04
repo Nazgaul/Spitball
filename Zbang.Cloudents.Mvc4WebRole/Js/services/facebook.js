@@ -70,7 +70,7 @@ app.factory('sFacebook',
                share();
 
                function share() {
-                   var defer = $q.defer();
+                   //var defer = $q.defer();
                    url = url || window.location.href;
                    FB.ui({
                        method: 'feed',
@@ -88,7 +88,7 @@ app.factory('sFacebook',
                            });
                            //cd.pubsub.publish('addPoints', { type: 'shareFb' });
                            var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                           sShare.facebookReputation({ postId: postId })
+                           sShare.facebookReputation({ postId: postId });
                            cd.pubsub.publish('addPoints', { type: 'shareFb' });
                        }
                    });
@@ -161,7 +161,7 @@ app.factory('sFacebook',
                            gender: friend.gender === 'male' ? 1 : 0
                        });
                    }
-                   dfd.resolve(contacts)
+                   dfd.resolve(contacts);
                });
 
                return dfd.promise;

@@ -9,27 +9,27 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
-        public InviteMailData(string invitorName, string boxName, string boxUrl
-            , string emailAddress, string culture, string invitorImage, string invitorEmail)
+        public InviteMailData(string inviterName, string boxName, string boxUrl
+            , string emailAddress, string culture, string inviterImage, string inviterEmail)
             : base(emailAddress, culture)
         {
-            InvitorName = invitorName;
+            InviterName = inviterName;
             BoxName = boxName;
             BoxUrl = boxUrl;
-            InvitoryImage = invitorImage;
-            InvitoryEmail = invitorEmail;
+            InviterImage = inviterImage;
+            InviterEmail = inviterEmail;
         }
         [ProtoMember(1)]
-        public string InvitorName { get; private set; }
+        public string InviterName { get; private set; }
         [ProtoMember(2)]
         public string BoxName { get; private set; }
         [ProtoMember(3)]
         public string BoxUrl { get; private set; }
         [ProtoMember(4)]
-        public string InvitoryImage { get; private set; }
+        public string InviterImage { get; private set; }
 
         [ProtoMember(5)]
-        public string InvitoryEmail { get; private set; }
+        public string InviterEmail { get; private set; }
 
         public override string MailResover
         {

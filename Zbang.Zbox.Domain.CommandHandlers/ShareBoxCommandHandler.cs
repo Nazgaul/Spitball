@@ -21,84 +21,85 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Box> m_BoxRepository;
-        private readonly IProfilePictureProvider m_ProfilePictureProvider;
-        private readonly IInviteLinkGenerator m_InviteLinkGenerator;
+        private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
         private readonly IIdGenerator m_IdGenerator;
-        private readonly IInviteRepository m_InviteRepository;
+        private readonly IRepository<InviteToBox> m_InviteRepository;
+        private readonly IProfilePictureProvider m_ProfilePictureProvider;
 
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
-            IProfilePictureProvider profilePictureProvider,
-            IInviteLinkGenerator inviteLinkGenerator,
             IIdGenerator idGenerator,
-            IInviteRepository inviteRepository
-            )
+            IRepository<InviteToBox> inviteRepository, IRepository<UserBoxRel> userBoxRelRepository, IProfilePictureProvider profilePictureProvider)
         {
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
-            m_ProfilePictureProvider = profilePictureProvider;
-            m_InviteLinkGenerator = inviteLinkGenerator;
             m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
+            m_UserBoxRelRepository = userBoxRelRepository;
+            m_ProfilePictureProvider = profilePictureProvider;
         }
 
         public void Handle(ShareBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            User sender;
-            Box box;
 
-            ValidateSenderInput(command, out sender, out box);
-
-            foreach (var recipient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
-            {
-                var recipientUser = GetUser(recipient);
-                if (recipientUser == null)
-                {
-                    if (!Validation.IsEmailValid2(recipient))
-                    {
-                        continue;
-                    }
-                    var images = m_ProfilePictureProvider.GetDefaultProfileImage();
-                    recipientUser = new User(recipient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
-                    m_UserRepository.Save(recipientUser, true);
-                }
-
-                var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
-                if (userType == UserRelationshipType.Subscribe || userType == UserRelationshipType.Owner)
-                {
-                    continue;
-                }
-
-                var currentInvite = m_InviteRepository.GetCurrentInvite(recipientUser, box) ??
-                                    new Invite(m_IdGenerator.GetId(), sender, recipientUser, box);
-                //don't want to spam to email
-                if (currentInvite.SendTime.HasValue && currentInvite.SendTime.Value.AddHours(1) > DateTime.UtcNow)
-                {
-                    continue;
-                }
-                currentInvite.UpdateSendTime();
-                m_InviteRepository.Save(currentInvite);
-                var hash = m_InviteLinkGenerator.GenerateInviteUrl(currentInvite.Id, box.Url, sender.Id, recipientUser.Email);
-                var inviteUrl = string.Format(UrlConsts.BoxUrlInvite, hash, recipientUser.Email);
-
-                m_QueueProvider.InsertMessageToMailNew(new InviteMailData(sender.Name, box.Name,
-                    inviteUrl,
-                    recipientUser.Email, recipientUser.Culture, sender.Image, sender.Email));
-            }
-        }
-
-        private void ValidateSenderInput(ShareBoxCommand command, out User sender, out Box box)
-        {
-            sender = m_UserRepository.Load(command.InviteeId);
-            box = m_BoxRepository.Load(command.BoxId);
             var senderType = m_UserRepository.GetUserToBoxRelationShipType(command.InviteeId, command.BoxId);
             if (senderType == UserRelationshipType.None || senderType == UserRelationshipType.Invite)
             {
                 throw new UnauthorizedAccessException("User is not connected to box");
             }
+
+            var sender = m_UserRepository.Load(command.InviteeId);
+            var box = m_BoxRepository.Load(command.BoxId);
+
+            foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            {
+                var recipientUser = GetUser(recipientEmail);
+                Guid id = m_IdGenerator.GetId();
+                if (recipientUser == null)
+                {
+                    if (!Validation.IsEmailValid2(recipientEmail))
+                    {
+                        continue;
+                    }
+
+                    var inviteToBox = new InviteToBox(id, sender, box, null, m_ProfilePictureProvider.GetDefaultProfileImage().LargeImage.AbsoluteUri, recipientEmail);
+                    m_InviteRepository.Save(inviteToBox);
+                    SendInvite(sender.Name, box.Name,
+                        id,
+                        recipientEmail, sender.Image, sender.Email,
+                        System.Globalization.CultureInfo.CurrentCulture.Name, box.Url);
+                    continue;
+
+
+                }
+
+                var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
+                if (userType != UserRelationshipType.None)
+                {
+                    continue;
+                }
+
+                var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Invite);
+                var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null);
+
+                m_UserBoxRelRepository.Save(newInvite);
+                m_InviteRepository.Save(inviteToBoxExistingUser);
+                SendInvite(sender.Name, box.Name,
+                        id,
+                        recipientEmail, sender.Image, sender.Email, recipientUser.Culture, box.Url);
+            }
+        }
+
+        private void SendInvite(string senderName, string boxName, Guid id, string recipientEmail, string senderImage, string senderEmail, string culture, string boxUrl)
+        {
+            var invId = GuidEncoder.Encode(id);
+            var url = UrlConsts.BuildInviteUrl(boxUrl, invId);
+            m_QueueProvider.InsertMessageToMailNew(new InviteMailData(senderName, boxName,
+                  url,
+                  recipientEmail, culture, senderImage, senderEmail));
         }
 
         private User GetUser(string recipient)
@@ -109,11 +110,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return m_UserRepository.Get(userid);
             }
             var user = m_UserRepository.GetUserByEmail(recipient);
-            if (user != null)
-            {
-                return user;
-            }
-            return null;
+            return user;
         }
     }
 }

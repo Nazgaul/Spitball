@@ -5,14 +5,14 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.Mail
 {
-    internal class ForgotPassword : Imail2
+    internal class ForgotPassword : IMail2
     {
         private readonly IMailComponent m_MailComponent;
         public ForgotPassword(IMailComponent mailComponent)
         {
             m_MailComponent = mailComponent;
         }
-        public bool Excecute(BaseMailData data)
+        public bool Execute(BaseMailData data)
         {
             var parameters2 = data as ForgotPasswordData2;
             if (parameters2 == null) return false;

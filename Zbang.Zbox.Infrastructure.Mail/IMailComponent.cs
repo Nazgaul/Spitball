@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public interface IMailComponent
     {
         void GenerateAndSendEmail(string recipient, MailParameters parameters);
-        void GenerateAndSendEmail(IEnumerable<string> recepients, MailParameters parameters);
+        void GenerateAndSendEmail(IEnumerable<string> recipients, MailParameters parameters);
 
         Task DeleteUnsubscribe(string email);
     }

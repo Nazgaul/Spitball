@@ -13,27 +13,26 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Box> m_BoxRepository;
-        private readonly IIdGenerator m_IdGenerator;
         private readonly IInviteRepository m_InviteRepository;
+        private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
         private readonly IFacebookService m_FacebookPictureService;
 
         public ShareBoxFacebookCommandHandler(
             IUserRepository userRepository,
             IRepository<Box> boxRepository,
-            IIdGenerator idGenerator,
             IInviteRepository inviteRepository,
-            IFacebookService facebookPictureService)
+             IRepository<UserBoxRel> userBoxRelRepository, IFacebookService facebookPictureService)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
-            m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
+            m_UserBoxRelRepository = userBoxRelRepository;
             m_FacebookPictureService = facebookPictureService;
         }
         public void Handle(ShareBoxFacebookCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-           
+
             var sender = m_UserRepository.Load(message.SenderId);
             var box = m_BoxRepository.Load(message.BoxId);
 
@@ -46,24 +45,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var recipient = m_UserRepository.GetUserByFacebookId(message.FacebookUserId);
             if (recipient == null)
             {
-                recipient = new User(message.FacebookUserName + "@facebook.com",
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Square),
-                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal),
-                    message.FirstName,
-                    message.MiddleName,
-                    message.LastName,
-                    message.Sex,
-                    false, System.Globalization.CultureInfo.CurrentCulture.Name) { FacebookId = message.FacebookUserId };
-                m_UserRepository.Save(recipient, true);
+                var inviteToBox = new InviteToBox(message.Id, sender, box, null, m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal), message.FacebookUserName);
+                m_InviteRepository.Save(inviteToBox);
+                return;
+            }
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(recipient.Id, box.Id);
+            if (userType != UserRelationshipType.None)
+            {
+                return;
             }
 
-            var currentInvite = m_InviteRepository.GetCurrentInvite(recipient, box) ??
-                                new Invite(m_IdGenerator.GetId(), sender, recipient, box);
-            currentInvite.UpdateSendTime();
-            m_InviteRepository.Save(currentInvite);
+            var newInvite = new UserBoxRel(recipient, box, UserRelationshipType.Invite);
+            var inviteToBoxExistingUser = new InviteToBox(message.Id, sender, box, newInvite, null, null);
 
-
-
+            m_UserBoxRelRepository.Save(newInvite);
+            m_InviteRepository.Save(inviteToBoxExistingUser);
         }
     }
 }

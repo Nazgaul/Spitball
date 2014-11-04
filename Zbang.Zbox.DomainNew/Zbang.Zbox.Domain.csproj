@@ -75,6 +75,7 @@
     <Compile Include="CommentReplies.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Invite.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Resources\DomainResources.Designer.cs">
       <AutoGen>True</AutoGen>

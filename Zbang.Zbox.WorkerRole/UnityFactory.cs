@@ -61,12 +61,12 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IJob, StoreDataSync>(Product);
             Unity.RegisterType<IJob, ProcessStoreOrder>(StoreOrder);
 
-            Unity.RegisterType<Imail2, Welcome>(BaseMailData.WelcomeResolver);
-            Unity.RegisterType<Imail2, Invite2>(BaseMailData.InviteResolver);
-            Unity.RegisterType<Imail2, ForgotPassword>(BaseMailData.ForgotPasswordResolver);
-            Unity.RegisterType<Imail2, Message2>(BaseMailData.MessageResolver);
-            Unity.RegisterType<Imail2, ChangeEmail>(BaseMailData.ChangeEmailResolver);
-            Unity.RegisterType<Imail2, InviteToCloudents>(BaseMailData.InviteToCloudentsResolver);
+            Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);
+            Unity.RegisterType<IMail2, Invite2>(BaseMailData.InviteResolver);
+            Unity.RegisterType<IMail2, ForgotPassword>(BaseMailData.ForgotPasswordResolver);
+            Unity.RegisterType<IMail2, Message2>(BaseMailData.MessageResolver);
+            Unity.RegisterType<IMail2, ChangeEmail>(BaseMailData.ChangeEmailResolver);
+            Unity.RegisterType<IMail2, InviteToCloudents>(BaseMailData.InviteToCloudentsResolver);
 
 
             //Unity.RegisterType<IDomainProcess, AddFriend>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.AddAFriendResolver);

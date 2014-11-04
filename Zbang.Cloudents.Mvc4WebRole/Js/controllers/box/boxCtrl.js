@@ -20,7 +20,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 items: 'items',
                 quizzes: 'quizzes',
                 members: 'members'
-            };
+            }
 
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
@@ -31,7 +31,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
             $scope.popup = {
                 share: false
-            }
+            };
 
             $scope.options = {
                 loader: true,
@@ -62,7 +62,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $scope.strings = {
                     share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
                     invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
-                }
+                };
 
 
                 sNewUpdates.getUpdatesCount($scope.boxId, function (updatesCount) {
@@ -176,7 +176,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                                 image: $scope.info.image,
                                 url: $scope.info.url
 
-                            }
+                            };
                         }
                     }
                 });
@@ -229,7 +229,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                                     notification: notification,
                                     boxId: $scope.boxId,
                                     tab: tab
-                                }
+                                };
                             }
                         }
                     });
@@ -281,7 +281,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                 $scope.action = {
                     userFollow: true
-                }
+                };
                 $scope.info.userType = 'subscribe';
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
