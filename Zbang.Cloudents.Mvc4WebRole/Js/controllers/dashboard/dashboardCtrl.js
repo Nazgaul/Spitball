@@ -2,11 +2,11 @@
 var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
-       '$modal', '$document',
+       'sModal', '$document',
       '$window', 'sDashboard', 'sBox',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout,sModal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
@@ -28,41 +28,27 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     var modalInstance;
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
-        modalInstance = $modal.open({
-            templateUrl: $scope.partials.createBoxWized,
-            controller: 'CreateBoxWizardCtrl',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-                data: function () {
-                    return {
-                        isPrivate: true
+
+        sModal.open('createBoxWizard', {
+            data: { 
+                isPrivate: true 
+            },
+            callback: {
+                close: function (response) {
+                    $rootScope.params.createBoxWizard = false;
+                    if (response) {
+                        $scope.newUniversity = 0;
+                        $location.path(response.url);
+                        if (response.isItems) {
+                            $location.hash('items');
+                        }
                     }
+                },
+                always: function () {
+                    $rootScope.params.createBoxWizard = false; //user cancelled
                 }
             }
-        });
-        modalInstance.result.then(function (response) {
-
-            $rootScope.params.createBoxWizard = false;
-            if (response) {
-                $scope.newUniversity = 0;
-                $location.path(response.url);
-                if (response.isItems) {
-                    $location.hash('items');
-                }
-            }
-        }, function () {
-            $rootScope.params.createBoxWizard = false; //user cancelled
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });
+        });              
     };
     function firstTimeDashboard() {
         sDashboard.recommendedCourses().then(function (response) {
@@ -109,13 +95,8 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     };
 
 
-    $scope.inviteCloudents = function () {
-        var modalInstance = $modal.open({
-            windowClass: "boxInvitePopup",
-            templateUrl: $scope.partials.socialInvite,
-            controller: 'InviteCloudentsCtrl',
-            backdrop: 'static'
-        });
+    $scope.inviteFriends = function () {
+        sModal.open('cloudentsInvite');        
     };
 
     //$scope.openCreateBox = function () {
@@ -132,36 +113,36 @@ function ($scope, $rootScope, $timeout, $modal, $document, $window, sDashboard, 
     //    });
     //};
 
-    $scope.openShowFriends = function () {
-        sUser.friends().then(function (data) {
-            var modalInstance2 = $modal.open({
-                windowClass: "boxSettings dashMembers",
-                templateUrl: $scope.partials.friends,
-                controller: 'ShowFriendsCtrl',
-                backdrop: 'static',
-                resolve: {
-                    friends: function () {
-                        return data.payload.my;
-                    }
-                }
-            });
+    //$scope.openShowFriends = function () {
+    //    sUser.friends().then(function (data) {
+    //        var modalInstance2 = $modal.open({
+    //            windowClass: "boxSettings dashMembers",
+    //            templateUrl: $scope.partials.friends,
+    //            controller: 'ShowFriendsCtrl',
+    //            backdrop: 'static',
+    //            resolve: {
+    //                friends: function () {
+    //                    return data.payload.my;
+    //                }
+    //            }
+    //        });
 
-            modalInstance2.result.then(function (response) {
-                if (response.invite) {
-                    $scope.inviteCloudents();
-                }
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
+    //        modalInstance2.result.then(function (response) {
+    //            if (response.invite) {
+    //                $scope.inviteCloudents();
+    //            }
+    //        })['finally'](function () {
+    //            modalInstance = undefined;
+    //        });
 
-            $scope.$on('$destroy', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
-                }
-            });
-        });
-    };
+    //        $scope.$on('$destroy', function () {
+    //            if (modalInstance) {
+    //                modalInstance.dismiss();
+    //                modalInstance = undefined;
+    //            }
+    //        });
+    //    });
+    //};
 
     $scope.removeConfirm = function (box) {
         if (box.userType === 'none') {

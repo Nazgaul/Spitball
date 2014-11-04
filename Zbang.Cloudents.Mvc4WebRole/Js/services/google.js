@@ -33,14 +33,26 @@ app.factory('sGoogle',
                    return defer.promise;
                },
                initGApi: function () {
-                   if (clientLoaded || clientLoading) {
+
+                   if (clientLoading) {
                        return;
+                   }
+
+                   var defer = $q.defer();
+
+                   if (clientLoaded) {
+
+                       $timeout(function () {
+                           defer.resolve(true);
+                       });
+
+                       return defer.promise;
                    }
 
                    clientLoading = true;
 
-                   var defer = $q.defer(),
-                       js = document.createElement('script');
+
+                   var js = document.createElement('script');
                    js.id = "jsGoogleContact";
                    js.src = "https://apis.google.com/js/client.js";
                    document.getElementsByTagName('head')[0].appendChild(js);
@@ -50,6 +62,8 @@ app.factory('sGoogle',
                            window.clearInterval(interval);
                            window.gapi.load('client', function () {
                                gapi.client.setApiKey(apiKey);
+                               clientLoaded = true;
+                               clientLoading = false;
                                defer.resolve(true);
                            });
 

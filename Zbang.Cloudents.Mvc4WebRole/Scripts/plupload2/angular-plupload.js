@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', function ($rootScope, $timeout, sUserDetails) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory) {
 	    return {
 	        restrict: 'A',
 	        scope: {},
@@ -95,6 +95,8 @@ angular.module('angular-plupload', [])
 
 	            uploader.bind('FileUploaded', function (up, file, res) {
 	                var response = JSON.parse(res.response);
+
+	                $angularCacheFactory.clearAll();
 
 	                if (scope.$$phase) {
 	                    post();
@@ -235,6 +237,8 @@ angular.module('angular-plupload', [])
 
                 uploader.bind('FileUploaded', function (up, file, res) {
                     var response = JSON.parse(res.response);
+
+                    $angularCacheFactory.clearAll();
 
                     if (scope.$$phase) {
                         scope.onUploaded({ response: response });

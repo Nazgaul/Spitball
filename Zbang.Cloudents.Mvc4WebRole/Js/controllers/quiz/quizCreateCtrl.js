@@ -1,6 +1,6 @@
 ﻿"use strict";
-mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal', 'sQuiz', 'sUserDetails',
-    function ($scope, $rootScope, $timeout, $modal, sQuiz, sUserDetails) {
+mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails',
+    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails) {
         function Question(data) {
             data = data || {};
             var that = this;
@@ -103,39 +103,24 @@ mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$modal'
                 return;
             }
 
-            var modalInstance = $modal.open({
-                windowClass: 'quitQuiz',
-                templateUrl: 'quizMenuTemplate',
-                controller: 'QuizCloseCtrl',
-                backdrop: 'static'
-            });
-
-            modalInstance.result.then(function (response) {
-
-                $rootScope.options.quizOpen = false;
-
-
-                switch (response) {
-                    case 'publish':
-                        publish(isValid);
-                        break;
-                    case 'delete':
-                        deleteQuiz();
-                        break;
-                    case 'draft':
-                        saveDraft();
-                        break;
-                }
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
-
-            $scope.$on('$destroy', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
+            sModal.open('quitQuiz', {
+                callback: {
+                    close: function (response) {
+                        switch (response) {
+                            case 'publish':
+                                publish(isValid);
+                                break;
+                            case 'delete':
+                                deleteQuiz();
+                                break;
+                            case 'draft':
+                                saveDraft();
+                                break;
+                        }
+                    }
                 }
             });
+
         };
 
         $scope.saveQuiz = function () {

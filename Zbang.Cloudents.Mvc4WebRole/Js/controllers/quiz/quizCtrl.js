@@ -1,8 +1,8 @@
 ﻿"use strict";
 var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
-        ['$scope', '$window', '$timeout', '$filter', '$routeParams', '$modal', 'sQuiz', 'sUserDetails',
-        function ($scope, $window, $timeout, $fliter, $routeParams, $modal, sQuiz, sUserDetails) {
+        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails',
+        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails) {
             //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
             var questions,
@@ -58,7 +58,7 @@ mQuiz.controller('QuizCtrl',
                     }
                 }
                 function populateTopUsers() {
-                    var topUsers = $scope.quiz.topUsers || [];                    
+                    var topUsers = $scope.quiz.topUsers || [];
                     for (var i = topUsers.length; i < 3; i++) {
                         topUsers.push({ name: '', image: '' });
                     }
@@ -76,51 +76,36 @@ mQuiz.controller('QuizCtrl',
                         return;
                     }
 
-                    modalInstance = $modal.open({
-                        windowClass: 'quizPopup',
-                        templateUrl: '/Quiz/ChallengePartial/?quizid=' + $scope.quiz.id,
-                        controller: 'ChallengeCtrl',
-                        backdrop: 'static',
-                        resolve: {
-                            data: function () {
-                                return {
-                                    users: $scope.quiz.topUsers
-                                };
+                    sModal.open('quizChallenge', {
+                        data: {
+                            users: $scope.quiz.topUsers, // data
+                            quizId: $scope.quiz.id
+                        },
+                        callback: {
+                            close: function () {
+                                solveQuiz();
+                                getDiscussion();
+                                $scope.quiz.afraid = true;
+                            },
+                            dismiss: function () {
+                                startTimer();
                             }
                         }
-                    });
 
-                    modalInstance.result.then(function () {                        
-                        solveQuiz();
-                        getDiscussion();
-                        $scope.quiz.afraid = true;
-                    },function() {
-                        startTimer();
-                    })['finally'](function () {
-                        modalInstance = undefined;
                     });
-
-                    $scope.$on('$destroy', function () {
-                        if (modalInstance) {
-                            modalInstance.dismiss();
-                            modalInstance = undefined;
-                        }
-                    });
-
-                    return;
                 }, 1000);
             });
             $scope.timer = {
                 state: JsResources.Play
             };
-       
+
             //#region quiz
             $scope.takeQuiz = function () {
                 if ($scope.quiz.afraid) {
                     $scope.quiz.afraid = false;
                     $scope.quiz.questions = _.clone(questions); //reset the data
                 }
-                
+
                 $timeout.cancel(challengeTimeout);
 
 
@@ -176,13 +161,6 @@ mQuiz.controller('QuizCtrl',
                 startTimer();
 
             };
-            $scope.$on('$destroy', function () {
-                $timeout.cancel(challengeTimeout);
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                }
-            });
-
 
             $scope.$on('timer-stopped', function (event, data) {
                 if ($scope.quiz.paused) {
@@ -211,6 +189,7 @@ mQuiz.controller('QuizCtrl',
             });
 
             function solveQuiz() {
+                var question;
                 for (var i = 0; i < $scope.quiz.questions.length; i++) {
                     question = $scope.quiz.questions[i];
                     question.correct = true;
@@ -218,7 +197,7 @@ mQuiz.controller('QuizCtrl',
                         return question.correctAnswer === answer.id;
                     });
 
-                    correctAnswer.correct = true;                    
+                    correctAnswer.correct = true;
                     correctAnswer.isChecked = true;
                 }
             }
@@ -253,7 +232,7 @@ mQuiz.controller('QuizCtrl',
                     markCorrect();
                 }
 
-                 
+
                 function markCorrect() {
                     var correctAnswer = _.find(question.answers, function (answer) {
                         return question.correctAnswer === answer.id;

@@ -1000,6 +1000,7 @@
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\account.js" />
+    <Content Include="Js\services\modalWrapper.js" />
     <Content Include="Js\services\stacktrace.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />

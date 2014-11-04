@@ -52,8 +52,8 @@ var mUser = angular.module('mUser', [])
         }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', '$modal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
-    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, $modal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
 
 
         $scope.params = {
@@ -76,44 +76,18 @@ mUser.controller('UserCtrl',
         //sendUserMessage - is on main.js as well
         $scope.sendUserMessage2 = function () {
 
-            var modalInstance = $modal.open({
-                windowClass: "personalMsg",
-                templateUrl: userConstants.partials.message,
-                controller: 'ShareCtrl',
-                backdrop: 'static',
-                resolve: {
-                    data: function () {
-                        return {
-                            users: [$scope.profile],
-                            singleMessage: true
-                        }
-                    }
+            sModal.open('shareEmail', { 
+                data: {
+                    users: [$scope.profile],
+                    singleMessage: true
                 }
-            });
-
-            modalInstance.result.then(function () {
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
-
-            $scope.$on('$destroy', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
-                }
-            });
-
+            });            
         };
         //#endregion
 
 
         $scope.inviteCloudents = function () {
-            var modalInstance = $modal.open({
-                windowClass: "boxInvitePopup",
-                templateUrl: userConstants.partials.socialInvite,
-                controller: 'InviteCloudentsCtrl',
-                backdrop: 'static'
-            });
+            sModal.open('cloudentsInvite');
         };
 
 
@@ -198,29 +172,7 @@ mUser.controller('UserCtrl',
                 sendData.groupMessage = true;
             }
 
-            var modalInstance = $modal.open({
-                windowClass: "personalMsg",
-                templateUrl: userConstants.partials.message,
-                controller: 'ShareCtrl',
-                backdrop: 'static',
-                resolve: {
-                    data: function () {
-                        return sendData;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function () {
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
-
-            $scope.$on('$destroy', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
-                }
-            });
+            sModal.open('shareEmail', { data: sendData });
 
         };
 

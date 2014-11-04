@@ -1,7 +1,7 @@
 ﻿"use strict";
 mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', '$modal', 'sBox', '$timeout',
-        function ($scope, $filter, $modal, sBox, $timeout) {
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout',
+        function ($scope, $filter, sModal, sBox, $timeout) {
             //Members
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',
@@ -22,33 +22,12 @@ mBox.controller('BoxMembersCtrl',
 
 
             $scope.sendUserMessage = function (member) {
-                var modalInstance = $modal.open({
-                    windowClass: "invite",
-                    templateUrl: $scope.partials.shareEmail,
-                    controller: 'ShareCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                singleMessage: true,
-                                users: [member]
-                            };
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function () {
-                })['finally'](function () {
-                    modalInstance = undefined;
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.dismiss();
-                        modalInstance = undefined;
-                    }
-                });
-                
+                sModal.open('shareEmail', {
+                    data: {
+                        singleMessage: true,
+                        users: [member]
+                    }                    
+                });                
             };
 
             $scope.removeUser = function (member) {
