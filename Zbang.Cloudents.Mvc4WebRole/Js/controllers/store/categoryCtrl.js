@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.controller('CategoryCtrl',
     ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store',
     function ($scope, $routeParams, $timeout, $location, $window, Store) {
+        "use strict";
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9

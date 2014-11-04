@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 angular.module('mSearch', []).
     constant({
         constants: {
@@ -21,6 +21,7 @@ controller('SearchCtrl',
 'textDirectionService',
 'constants',
 function ($scope, $timeout, $location, sSearch, textDirectionService, constants) {
+    "use strict";
     $scope.params = {
         currentPage: 0,
         currentTab: constants.tabs.boxes,

@@ -1,7 +1,6 @@
-﻿'use strict';
-
-angular.module('angular-plupload', [])
+﻿angular.module('angular-plupload', [])
 	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory) {
+	    "use strict";
 	    return {
 	        restrict: 'A',
 	        scope: {},
@@ -178,6 +177,7 @@ angular.module('angular-plupload', [])
 	    };
 	}]).
     directive('plUploadStandalone', ['$timeout', function ($timeout) {
+        "use strict";
         return {
             restrict: 'A',
             scope: {

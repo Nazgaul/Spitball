@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mAccount.controller('NotificationSettingsCtrl',
     ['$scope', 'sBox', 'sUser',
-
         function ($scope, sBox, sUser) {
+            "use strict";
+
             var jsResources = window.JsResources;
 
             $scope.params = {

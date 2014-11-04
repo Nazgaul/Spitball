@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
@@ -6,7 +6,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
          'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
         function ($scope, $rootScope, $routeParams, sModal, $location, $filter,
                   $timeout, sBox, sNewUpdates, sUserDetails, sFacebook) {
-
+            "use strict";
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;

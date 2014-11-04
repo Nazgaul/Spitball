@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.filter('highlight',
 [
     function () {
+        "use strict";
         return function (text, search, caseSensitive, className) {
             className = className || 'boldPart';
 

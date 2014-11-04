@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.directive('fbBlock',
     [
         function () {
+            "use strict";
             return {
                 restrict: "A",
                 scope: false,

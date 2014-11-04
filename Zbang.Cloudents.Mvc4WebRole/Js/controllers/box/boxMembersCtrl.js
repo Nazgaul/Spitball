@@ -1,7 +1,7 @@
-﻿"use strict";
-mBox.controller('BoxMembersCtrl',
+﻿mBox.controller('BoxMembersCtrl',
         ['$scope', '$filter', 'sModal', 'sBox', '$timeout',
         function ($scope, $filter, sModal, sBox, $timeout) {
+            "use strict";
             //Members
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/',

@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store',
         function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore) {
+            "use strict";
             $scope.partials = {
                 shareEmail: '/Share/MessagePartial/'
             }

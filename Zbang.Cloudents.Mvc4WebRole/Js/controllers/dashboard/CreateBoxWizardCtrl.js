@@ -1,8 +1,8 @@
-﻿"use strict";
+﻿
 mDashboard.controller('CreateBoxWizardCtrl',
      ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data',
         function ($scope, $modalInstance, WizardHandler, sLibrary, sShare, sFacebook, data) {
-
+            "use strict";
             var wizard;
 
             if (data.isAcademic) {

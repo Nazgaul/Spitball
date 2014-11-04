@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 mBox.controller('UploadPopupCtrl',
     ['$scope', '$modalInstance', 'data',
     function ($scope, $modalInstance, data) {
+        "use strict";
         $scope.boxId = data.boxId;
         $scope.tabId = data.tabId;
         $scope.questionId = data.questionId;

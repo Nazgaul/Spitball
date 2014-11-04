@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mBox.controller('QnACtrl',
 ['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 
     function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope) {
+        "use strict";
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;

@@ -1,5 +1,6 @@
-﻿"use strict";
+﻿
 app.directive('contenteditable', function () {
+    "use strict";
     return {
         scope: {
             editCallback: '&editCallback'

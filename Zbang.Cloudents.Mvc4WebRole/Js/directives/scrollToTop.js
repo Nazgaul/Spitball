@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('scrollToTop',
    ['$rootScope',
 
    function ($rootScope) {
+       "use strict";
        return {
            restrict: "A",
            scope : {

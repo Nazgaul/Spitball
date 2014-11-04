@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('rateStar',
 [
 
    function () {
+       "use strict";
        var cRate = 'rate';
        function rate(elem, attrs) {
            var children = elem.children();

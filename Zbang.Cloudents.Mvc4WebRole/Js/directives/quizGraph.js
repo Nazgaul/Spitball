@@ -1,6 +1,7 @@
-﻿"use strict";
+﻿
 app.directive('quizGraph',
    ['$timeout', function ($timeout) {
+       "use strict";
        return {
            scope: false,
            restrict: "A",

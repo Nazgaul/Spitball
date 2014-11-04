@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 mBox.controller('BoxTabsCtrl',
         ['$scope', '$rootScope', '$filter', 'sModal', 'sBox', 'sUserDetails',
         function ($scope, $rootScope, $filter, sModal, sBox, sUserDetails) {
+            "use strict";
             var jsResources = window.JsResources;
             $scope.params = {};
 

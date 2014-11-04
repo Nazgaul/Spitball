@@ -1,8 +1,8 @@
-﻿"use strict";
+﻿
 mBox.controller('SideBarCtrl',
     ['$scope', 'sBox',
         function ($scope, sBox) {
-
+            "use strict";
             sBox.sideBar({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : {};
               

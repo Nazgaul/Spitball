@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 var mUser = angular.module('mUser', [])
     .constant('userConstants', {
         activity: {
@@ -54,7 +54,7 @@ var mUser = angular.module('mUser', [])
 mUser.controller('UserCtrl',
     ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
     function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
-
+        "use strict";
 
         $scope.params = {
             sortDirection: userConstants.sort.des

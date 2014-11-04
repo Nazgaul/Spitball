@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 var mLibrary = angular.module('mLibrary', []);
 mLibrary.controller('LibraryCtrl',
     ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
 function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
-
+    "use strict";
     var jsResources = window.JsResources;
 
     var types = {

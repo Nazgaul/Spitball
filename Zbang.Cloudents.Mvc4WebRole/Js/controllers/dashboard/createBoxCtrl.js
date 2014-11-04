@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
          function ($scope, sBox) {       
-
+             "use strict";
              var createDisabled = false;
              $scope.create = function (isValid) {                 
                  if (createDisabled) {

@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('focusOn',
     [
 
     function () {
+        "use strict";
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {

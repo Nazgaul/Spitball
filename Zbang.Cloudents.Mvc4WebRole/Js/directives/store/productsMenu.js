@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('productsMenu',
     ['$rootScope',
 
     function ($rootScope) {
+        "use strict";
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {

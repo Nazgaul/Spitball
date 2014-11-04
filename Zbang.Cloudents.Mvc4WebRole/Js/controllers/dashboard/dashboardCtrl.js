@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
@@ -6,7 +6,8 @@ mDashboard.controller('DashboardCtrl',
       '$window', 'sDashboard', 'sBox',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout,sModal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+    "use strict";
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];

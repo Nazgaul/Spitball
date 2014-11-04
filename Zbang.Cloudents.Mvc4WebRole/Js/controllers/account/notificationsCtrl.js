@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mAccount.controller('NotificationsCtrl',
     ['$scope', 'sShare', '$analytics',
-
         function ($scope, sShare, $analytics) {
+            "use strict";
+
             var jsResources = window.JsResources;
 
             $scope.params = {

@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.controller('CarouselCtrl',
     ['$scope', '$timeout',
     function ($scope, $timeout) {
+        "use strict";
         var currentTimeout,
             transition,
             interval = 3500;

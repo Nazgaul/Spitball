@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 var libChoose = mLibrary.controller('LibChooseCtrl',
         ['$scope',
             '$timeout',
@@ -11,7 +11,7 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
          'sUserDetails',
          '$analytics',
          function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
-
+             "use strict";
              $scope.formData = {};
              $scope.display = {
                  searchUniversity: true

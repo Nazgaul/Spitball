@@ -1,10 +1,10 @@
-﻿"use strict";
+﻿
 app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
         'sDropbox', 'sGoogle', 'sUpload', '$timeout',
 
     function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout) {
-
+        "use strict";
         $scope.sources = {
             dropboxLoaded: false,
             googleDriveLoaded: false
@@ -239,6 +239,8 @@ mBox.controller('UploadLinkCtrl',
     ['$scope', '$modalInstance',
 
     function ($scope, $modalInstance) {
+        "use strict";
+
         $scope.formData = {};
 
         $scope.add = function () {

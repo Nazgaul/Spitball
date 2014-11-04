@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.filter('orderByFilter',
 [
     function () {
+        "use strict";
         return function (items, filterData, reverse) {
             var filtered = [],
                 searchValue = filterData.input ? filterData.input.toLowerCase() : '';

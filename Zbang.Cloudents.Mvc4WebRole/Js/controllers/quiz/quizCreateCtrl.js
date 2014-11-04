@@ -1,6 +1,6 @@
-﻿"use strict";
-mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails',
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails',
     function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails) {
+        "use strict";
         function Question(data) {
             data = data || {};
             var that = this;
@@ -506,6 +506,7 @@ mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal'
 
     }]).directive('quizPreview', ['$rootScope','$timeout', function ($rootScope,$timeout) {
         return function (scope, element, attrs) {
+            "use strict";
             scope.$watch(attrs.show,
               function (newValue) {
 

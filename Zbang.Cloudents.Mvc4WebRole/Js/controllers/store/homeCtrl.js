@@ -1,8 +1,8 @@
-﻿"use strict";
+﻿
 app.controller('HomeCtrl',
     ['$scope', /*'debounce',*/'Store',
     function ($scope, /*debounce,*/ Store) {
-
+        "use strict";
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9

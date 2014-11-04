@@ -1,7 +1,9 @@
-﻿"use strict";
+﻿
 app.factory('sGoogle',
    ['$document', '$q', '$timeout', 'sShare',
    function ($document, $q, $timeout, sShare) {
+       "use strict";
+
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
            apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],

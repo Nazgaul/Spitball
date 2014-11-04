@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mItem.controller('itemFullScreenCtrl',
 [
     '$scope', '$modalInstance','$sce',
     function ($scope, $modalInstance, $sce) {
+        "use strict";
         $scope.preview2 = $scope.$parent.preview;
         
         $scope.$parent.fullScreen = true;

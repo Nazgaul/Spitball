@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 mLibrary.controller('libraryRenameCtrl',
 ['$scope', '$modalInstance', 'data','sUserDetails',
 function ($scope, $modalInstance, data, sUserDetails) {
+    "use strict";
     $scope.formdata = {}
     $scope.formdata.newName = data.name;
 
