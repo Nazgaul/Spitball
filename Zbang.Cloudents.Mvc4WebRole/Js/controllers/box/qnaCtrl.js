@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mBox.controller('QnACtrl',
-['$scope', '$modal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
 
-    function ($scope, $modal, sUserDetails, sNewUpdates, sQnA, $rootScope) {
+    function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope) {
+        "use strict";
         var jsResources = window.JsResources;
         function Question(data) {
             var that = this;
@@ -343,30 +344,15 @@ mBox.controller('QnACtrl',
         };
 
         function openUpload(data) {
-            var modalInstance = $modal.open({
-                windowClass: "uploader",
-                templateUrl: $scope.partials.uploader,
-                controller: 'UploadPopupCtrl',
-                backdrop: 'static',
-                resolve: {
-                    data: function () {
-                        return data;
+
+            sModal.open('upload',{
+                data: data,
+                callback: {
+                    close: function(response) {
+                        $scope.followBox(true);
                     }
                 }
-            });
-
-            modalInstance.result.then(function (response) {
-                $scope.followBox(true);
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
-
-            $scope.$on('$destroy', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
-                }
-            });
+            });            
         }
 
         function extractUrls(d) {

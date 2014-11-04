@@ -296,4 +296,13 @@ dashboard</value>
   <data name="FindFriends" xml:space="preserve">
     <value>Find friends</value>
   </data>
+  <data name="FindClasses" xml:space="preserve">
+    <value>Find classes, documents and friends</value>
+  </data>
+  <data name="GetPoints" xml:space="preserve">
+    <value>Get your points!</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Upload files, invite friends, create quizzes and take your place as the leader of the school</value>
+  </data>
 </root>

@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('loadSpinner',
     [
 
     function () {
+        "use strict";
         var loaders = {
             init: {
                 css: '<div class="smallLoader upLoader"><div class="spinner"></div>',

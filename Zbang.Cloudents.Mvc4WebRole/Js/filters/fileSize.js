@@ -1,8 +1,8 @@
-﻿"use strict";
+﻿
 app.filter('fileSize',
 [
     function () {
-
+        "use strict";
         return function (filesize, parentecies) {
 
             var formatted = plupload.formatSize(filesize);

@@ -1,9 +1,11 @@
-﻿"use strict";
+﻿
 var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
     ['$scope', '$window', '$timeout', 'sAccount',
 
         function ($scope, $window, $timeout, sAccount) {
+            "use strict";
+
             var jsResources = window.JsResources,
                 emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
 

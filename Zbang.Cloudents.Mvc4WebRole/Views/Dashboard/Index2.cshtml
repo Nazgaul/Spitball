@@ -7,11 +7,91 @@
     <div class="dashContent" >
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
-                <span class="uniLogo">
-                    <img alt="University logo" width="70" height="70" src="@Model.Img" />
-                </span>
-                <span class="uniName"><span class="uniText">@Model.Name</span></span>
+                <img class="uniLogo lFloat" alt="University logo" width="80" height="80" src="@Model.Img" />
+                <span class="ghost"><span class="vCentered">@Model.Name</span></span>
             </a>
+
+            <section class="leaderBoard">
+                <header>
+                    @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
+                    <span class="lbText">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.BestInClass</span>
+                </header>
+                @Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })
+                <div class="lbEmpty">
+                    <div class="lbEmptyTxtWpr">
+                        <div class="lbEmptyTxt1">@IndexResources.GetPoints</div>
+                        <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
+                    </div>
+                    @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
+                </div>
+                <ol class="bestUserList">
+                    <li class="firstUser">
+                        <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                        @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
+                        <div class="rep" data-pts="@SharedResources.Pts">12660</div>
+                    </li>
+                    <li class="secondUser lFloat">
+                        <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
+                        <div class="rep" data-pts="@SharedResources.Pts">9876</div>
+                    </li>
+                    <li class="thirdUser rFloat">
+                        <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                        <div class="rep" data-pts="@SharedResources.Pts">2397</div>
+                    </li>
+                </ol>
+                @*<ol class="bestUserList" bindonce>
+                    <li class="firstUser" ng-if="leaderBoard.first">
+                        <img class="top3Img" bo-src="leaderBoard.first.image" user-tooltip-popup="{{leaderBoard.first.id}}" alt="" width="82" height="82" />
+                        <div class="rep" bo-text="leaderBoard.first.score | number"></div>
+                        <div bo-text="leaderBoard.first.name"></div>
+                        @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
+                    </li>
+                    <li class="secondUser lFloat" ng-if="leaderBoard.second">
+                        <img class="top3Img" bo-src="leaderBoard.second.image" user-tooltip-popup="{{leaderBoard.second.id}}" alt="" width="72" height="72" />
+                        <div class="rep" bo-text="leaderBoard.second.score | number"></div>
+                        <div bo-text="leaderBoard.second.name"></div>
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
+                    </li>
+                    <li class="thirdUser rFloat" ng-if="leaderBoard.third">
+                        <img class="top3Img" bo-src="leaderBoard.third.image" user-tooltip-popup="{{leaderBoard.third.id}}" alt="" width="62" height="62" />
+                        <div class="rep" bo-text="leaderBoard.third.score | number"></div>
+                        <div bo-text="leaderBoard.third.name"></div>
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                    </li>
+                    <li ng-if="leaderBoard.fourth">
+                        <img bo-src="leaderBoard.fourth.image" user-tooltip-popup="{{leaderBoard.fourth.id}}" alt="" width="38" height="38" />
+                        <span class="elps" bo-text="leaderBoard.fourth.name"></span>
+                        <span class="rep rFloat" bo-text="leaderBoard.fourth.score | number"></span>
+                    </li>
+                    <li ng-if="leaderBoard.fifth">
+                        <img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" />
+                        <span class="elps" bo-text="leaderBoard.fifth.name"></span>
+                        <span class="rep rFloat" bo-text="leaderBoard.fifth.score | number"></span>
+                    </li>
+                </ol>*@
+            </section>
+
+            <section class="recommendedWpr">
+                <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
+                <ul>
+                    <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
+                        <a bo-href="course.url" class="courseLink">
+                            <div class="rFloat">
+                                <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
+                                <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
+                            </div>
+                            <img bo-src="course.picture" alt="" width="68" height="68" />
+                            <div class="elps courseName" bo-text="course.name"></div>
+                            <div class="elps" bo-text="course.courseCode"></div>
+                            <div class="prof elps" bo-text="course.professor"></div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+
             @if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
             {
                 <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertisementUrl'" ng-click="productStore()">
@@ -20,7 +100,7 @@
                     <div class="closeProducts"></div>
                 </button>
             }
-            <div class="dashLists">
+            @*<div class="dashLists">
                 <div class="dashFriends">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="openShowFriends()" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
                     <ul class="friendsList">
@@ -54,10 +134,50 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
+            <div class="dashHeader">
+                <div class="rFloat">
+                    <button class="rFloat notificationBtn" id="invites" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                        @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+                        <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
+                    </button>
+                    <div class="notifyWpr dropdown-menu" role="menu" ng-class="{ noResults : !notifications.length }">
+                        <div class="arrow upArrow"></div>
+                        <div class="notifyTop">@SharedResources.Notifications</div>
+                        <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
+                            infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+                            <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications track by notification.msgId">
+                                <a bo-href="notification.url" ng-click="markAsRead(notification)">
+                                    <img class="imgBorder notifyImg" bo-src="notification.userPic" alt="" />
+                                    <span class="semiFont notifier elps" bo-text="notification.userName"></span>
+
+                                    <span class="createTime" display-time="{{notification.date}}"></span><br />
+                                    <div class="inviteTxtWpr">
+                                        @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="notifyEmpty">@SharedResources.NoNotifications</div>
+                    </div>
+                    <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
+                        @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
+                    </a>
+                    <a title="" class="lFloat storeLink" href="~/Store">
+                        @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+                    </a>
+                </div>
+                <div class="dhContent">
+                    <span class="dhText">@SharedResources.Dashboard</span>
+                    <input autocomplete="off"  class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
+                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends($event)">
+                        @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+                    </button>
+                </div>
+            </div>
             @*NEW COURSE SECTION*@
             <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">
                 <div class="topWpr">

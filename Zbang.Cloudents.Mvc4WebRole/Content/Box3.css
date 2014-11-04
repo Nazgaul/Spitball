@@ -36,21 +36,6 @@
   height: 23px;
   fill: #383838;
 }
-.boxPage .svg-inviteUser {
-  width: 24px;
-  height: 28px;
-  fill: #fff;
-}
-.boxPage .svg-plus {
-  width: 14px;
-  height: 14px;
-  fill: #3399ff;
-}
-.boxPage .svg-tick {
-  width: 15px;
-  height: 14px;
-  fill: #0f9d58;
-}
 .boxPage .boxRename {
   display: none;
   position: absolute;

@@ -1,12 +1,12 @@
-﻿"use strict";
+﻿
 var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
-         '$modal', '$location','$filter', '$timeout',
+         'sModal', '$location','$filter', '$timeout',
          'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
-        function ($scope, $rootScope, $routeParams, $modal, $location, $filter,
+        function ($scope, $rootScope, $routeParams, sModal, $location, $filter,
                   $timeout, sBox, sNewUpdates, sUserDetails, sFacebook) {
-
+            "use strict";
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -21,13 +21,6 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 quizzes: 'quizzes',
                 members: 'members'
             }
-
-            $scope.partials = {
-                shareEmail: '/Share/MessagePartial/',
-                boxSettings: '/Box/SettingsPartial/',
-                uploader: '/Box/UploadPartial/',
-                boxSocialInvite:'/Box/SocialInvitePartial/'
-            };
 
             $scope.popup = {
                 share: false
@@ -125,31 +118,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
             $scope.shareEmail = function () {
                 $scope.popup.share = false;
 
-                var modalInstance = $modal.open({
-                    windowClass: "invite",
-                    templateUrl: $scope.partials.shareEmail,
-                    controller: 'ShareCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return null;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function () {
-                }, function () {
-                    //dismiss
-                })['finally'](function () {
-                    modalInstance = undefined;
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance = undefined;
-                        modalInstance.close();
-                    }
-                });
+                sModal.open('shareEmail');
             };
 
             $scope.inviteFriends = function () {
@@ -163,37 +132,15 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
-                var modalInstance = $modal.open({
-                    windowClass: "boxInvitePopup",
-                    templateUrl: $scope.partials.boxSocialInvite,
-                    controller: 'BoxInviteCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function() {
-                            return {
-                                id: $scope.boxId,
-                                name: $scope.info.name,
-                                image: $scope.info.image,
-                                url: $scope.info.url
 
-                            };
-                        }
-                    }
+                sModal.open('boxInvite', {
+                    data: {
+                        id: $scope.boxId,
+                        name: $scope.info.name,
+                        image: $scope.info.image,
+                        url: $scope.info.url
+                    }                    
                 });
-                modalInstance.result.then(function () {
-                }, function () {
-                    //dismiss
-                })['finally'](function () {
-                    modalInstance = undefined;
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance = undefined;
-                        modalInstance.close();
-                    }
-                });
-
             };
             //#endregion
 
@@ -217,53 +164,35 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 sBox.notification({ boxId: $scope.boxId }).then(function (response) {
                     var notification = response.success ? response.payload : '';
 
-                    var modalInstance = $modal.open({
-                        windowClass: "boxSettings",
-                        templateUrl: $scope.partials.boxSettings,
-                        controller: 'SettingsCtrl',
-                        backdrop: 'static',
-                        resolve: {
-                            data: function () {
-                                return {
-                                    info: $scope.info,
-                                    notification: notification,
-                                    boxId: $scope.boxId,
-                                    tab: tab
-                                };
+                    sModal.open('boxSettings', {
+                        data: {
+                            info: $scope.info,
+                            notification: notification,
+                            boxId: $scope.boxId,
+                            tab: tab
+                        },
+                        callback: {
+                            close: function(result) {
+                                if (result.invite) { //invite popup
+                                    $scope.inviteFriends();
+                                    return;
+                                }
+
+                                $scope.info.name = result.name;
+                                $scope.info.privacy = result.boxPrivacy;
+
+                                if (!result.queryString) {
+                                    return;
+                                }
+                                $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
+                                var path = $location.path(),
+                                    boxName = '/' + path.split('/')[4] + '/';//boxName
+
+                                path = path.replace(boxName, '/' + result.queryString + '/');
+                                $location.url(path, '', path).replace();
                             }
                         }
-                    });
-
-                    modalInstance.result.then(function (result) {
-
-                        if (result.invite) { //invite popup
-                            $scope.inviteFriends();
-                            return;
-                        }
-
-                        $scope.info.name = result.name;
-                        $scope.info.privacy = result.boxPrivacy;
-
-                        if (!result.queryString) {
-                            return;
-                        }
-                        $scope.info.url = $scope.info.url.lastIndexOf('/') + result.queryString + '/';
-                        var path = $location.path(),
-                            boxName = '/' + path.split('/')[4] + '/';//boxName
-
-                        path = path.replace(boxName, '/' + result.queryString + '/');
-                        $location.url(path, '', path).replace();
-
-                    })['finally'](function () {
-                        modalInstance = undefined;
-                    });
-
-                    $scope.$on('$destroy', function () {
-                        if (modalInstance) {
-                            modalInstance.dismiss();
-                            modalInstance = undefined;
-                        }
-                    });
+                    });                    
                 });
             };
 

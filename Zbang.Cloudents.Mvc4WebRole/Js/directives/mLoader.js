@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('loader',
     ['$rootScope', '$timeout',
 
     function ($rootScope, $timeout) {
+        "use strict";
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {

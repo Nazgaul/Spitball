@@ -1,8 +1,8 @@
-﻿"use strict";
+﻿
 mBox.controller('BoxInviteCtrl',
         ['$scope', '$q', '$modalInstance', 'sShare', 'sFacebook', 'data',
         function ($scope, $q, $modalInstance, sShare, sFacebook, data) {
-
+            "use strict";
             $scope.box = data;
 
             $scope.next = function () {

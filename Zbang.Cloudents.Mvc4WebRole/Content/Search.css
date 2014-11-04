@@ -283,6 +283,7 @@
   display: inline-block;
   float: none;
   margin: 0 0 20px 0;
+  line-height: 18px;
 }
 .box.sCourseItem:nth-child(odd) {
   margin: 0 20px 20px 0;
@@ -290,9 +291,6 @@
 }
 .box.sCourseItem:hover {
   background: #f9f9f9;
-}
-.box.sCourseItem {
-  line-height: 18px;
 }
 .box.sCourseItem .boxImg {
   margin-right: 24px;

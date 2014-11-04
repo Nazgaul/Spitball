@@ -1,8 +1,7 @@
-﻿"use strict";
-angular.module('Cookie', ['ng']).
+﻿angular.module('Cookie', ['ng']).
 factory('cookieService', ['$document',
   function ($document) {
-      'use strict';
+      "use strict";
 
       return (function () {
           function cookieFun(key, value, options) {

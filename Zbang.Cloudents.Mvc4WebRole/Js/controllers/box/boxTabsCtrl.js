@@ -1,14 +1,11 @@
-﻿"use strict";
+﻿
 mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$modal', 'sBox', 'sUserDetails',
-        function ($scope, $rootScope, $filter, $modal, sBox, sUserDetails) {
+        ['$scope', '$rootScope', '$filter', 'sModal', 'sBox', 'sUserDetails',
+        function ($scope, $rootScope, $filter, sModal, sBox, sUserDetails) {
+            "use strict";
             var jsResources = window.JsResources;
             $scope.params = {};
-
-            $scope.partials = {
-                createTab: '/Box/CreateTabPartial/'
-            };
-
+         
             sBox.tabs({ id: $scope.boxId }).then(function (response) {
                 var data = response.success ? response.payload : [];
                 $scope.params.tabs = data;
@@ -35,32 +32,16 @@ mBox.controller('BoxTabsCtrl',
             };
 
             $scope.renameTab = function (tab) {
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId,
-                                tabName: tab.name,
-                                tabId: tab.id
-                            };
+                sModal.open('tab', {
+                    data: {
+                        boxId: $scope.boxId,
+                        tabName: tab.name,
+                        tabId: tab.id
+                    },
+                    callback: {
+                        close: function (name) {
+                            tab.name = name;
                         }
-                    }
-                });
-
-                modalInstance.result.then(function (name) {
-                    tab.name = name;
-                })['finally'](function () {
-                    modalInstance = undefined;
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.dismiss();
-                        modalInstance = undefined;
                     }
                 });
             };
@@ -76,37 +57,18 @@ mBox.controller('BoxTabsCtrl',
                     return;
                 }
 
-                var modalInstance = $modal.open({
-                    windowClass: "createTab",
-                    templateUrl: $scope.partials.createTab,
-                    controller: 'createTabCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        data: function () {
-                            return {
-                                boxId: $scope.boxId
-                            };
+                sModal.open('tab', {
+                    data: {
+                        boxId: $scope.boxId
+                    },
+                    callback: {
+                        close: function (tab) {
+                            if (!$scope.params.tabs) {
+                                $scope.params.tabs = [];
+                            }
+                            $scope.params.tabs.unshift(tab);
+                            $rootScope.$broadcast('update-scroll');
                         }
-                    }
-
-
-                });
-
-                modalInstance.result.then(function (tab) {
-                    if (!$scope.params.tabs) {
-                        $scope.params.tabs = [];
-                    }
-                    $scope.params.tabs.unshift(tab);
-                    $rootScope.$broadcast('update-scroll');
-
-                })['finally'](function () {
-                    modalInstance = undefined;
-                });
-
-                $scope.$on('$destroy', function () {
-                    if (modalInstance) {
-                        modalInstance.dismiss();
-                        modalInstance = undefined;
                     }
                 });
             };

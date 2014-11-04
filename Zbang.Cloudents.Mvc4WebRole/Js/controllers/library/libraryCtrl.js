@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 var mLibrary = angular.module('mLibrary', []);
 mLibrary.controller('LibraryCtrl',
-    ['$scope', '$location', '$routeParams', '$timeout', '$modal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
-function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
-
+    ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
+function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
+    "use strict";
     var jsResources = window.JsResources;
 
     var types = {
@@ -19,11 +19,6 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
         isRootLevel: !$routeParams.libraryId,
         items: []
     };
-
-    var partials = {
-        //    //createAcademicBox: '/Library/CreateAcademicBoxPartial/',
-        createDepartment: '/Library/CreateDepartmentPartial/'
-    }
 
     addItems();
 
@@ -76,73 +71,56 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
 
     $scope.createBox = function () {
         $rootScope.params.createBoxWizard = true;
-        var modalInstance = $modal.open({
-            templateUrl: '/Dashboard/CreateBox/',
-            controller: 'CreateBoxWizardCtrl',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-                data: function () {
-                    return {
-                        isAcademic: true,
-                        department: {
-                            id: $scope.info.libraryId,
-                            name: $scope.info.libraryName
+
+        sModal.open('createBoxWizard', { 
+            data: {
+                isAcademic: true,
+                department: {
+                    id: $scope.info.libraryId,
+                    name: $scope.info.libraryName
+                }
+            },
+            callback: {
+                close: function(response) {
+                    $rootScope.params.createBoxWizard = false;
+                    if (response) {
+                        if (response) {
+                            $location.path(response.url);
+                            if (response.isItems) {
+                                $location.hash('items');
+                            }
                         }
                     }
+                },
+                always: function () {
+                    $rootScope.params.createBoxWizard = false; //user cancelled
                 }
             }
-        });
-        modalInstance.result.then(function (response) {
-
-            $rootScope.params.createBoxWizard = false;
-            if (response) {
-                $location.path(response.url);
-                if (response.isItems) {
-                    $location.hash('items');
-                }
-            }
-        }, function () {
-            $rootScope.params.createBoxWizard = false; //user cancelled
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });
+        });        
     };
 
     $scope.createDepartment = function () {
-        var modalInstance = $modal.open({
-            windowClass: "rename",
-            templateUrl: partials.createDepartment,
-            controller: 'CreateDepartmentCtrl',
-            backdrop: 'static',
-        });
+        sModal.open('createDep',{
+            callback: {
+                close : function (result) {
+                    result.parentId = $scope.info.libraryId;
 
-        modalInstance.result.then(function (result) {
-            result.parentId = $scope.info.libraryId;
+                    var item = _.find($scope.info.items, function (item2) {
+                        return item2.name === result.name;
+                    });
 
-            var item = _.find($scope.info.items, function (item2) {
-                return item2.name === result.name;
-            });
+                    if (item) {
+                        alert('already exists');
+                        return;
+                    }
 
-            if (item) {
-                alert('already exists');
-                return;
+                    sLibrary.createDepartment(result).then(function (response) {
+                        $scope.info.items.push(response.payload);
+                        $scope.info.type = types.department;
+                    });
+                }
             }
-
-            sLibrary.createDepartment(result).then(function (response) {
-                $scope.info.items.push(response.payload);
-                $scope.info.type = types.department;
-            });
-        });
-
-
+        });        
     };
 
     //$scope.deleteDepartment = function () {
@@ -227,46 +205,33 @@ function ($scope, $location, $routeParams, $timeout, $modal, sUserDetails, sLibr
     };
 
     $scope.renameWindow = function () {
-        var modalInstance = $modal.open({
-            windowClass: 'deptSettings',
-            templateUrl: '/Library/Rename/',
-            controller: 'libraryRenameCtrl',
-            resolve: {
-                data: function () {
-                    return {
-                        name: $scope.back.title,
-                        canDelete: $scope.info.type === types.empty || $scope.info.items.length === 0
-                    };
-                }
-            }
-        });
-        modalInstance.result.then(function (d) {
-            if (d === 'delete') {
-                sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
-                    $location.path($scope.back.url).replace();
-                });
-                return;
-            }
-            if (!(d.newName && d.newName.length) || d.newName === $scope.back.title) {
-                return;
-            }
-            sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
-                if (!(response.success || response.Success)) {
-                    alert(response.payload);
-                    return;
-                }
-                $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
-            });
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
 
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
+        sModal.open('depSettings', {
+            data: {
+                name: $scope.back.title,
+                canDelete: $scope.info.type === types.empty || $scope.info.items.length === 0
+            },
+            callback:{
+                close: function(d) {
+                    if (d === 'delete') {
+                        sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
+                            $location.path($scope.back.url).replace();
+                        });
+                        return;
+                    }
+                    if (!(d.newName && d.newName.length) || d.newName === $scope.back.title) {
+                        return;
+                    }
+                    sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
+                        if (!(response.success || response.Success)) {
+                            alert(response.payload);
+                            return;
+                        }
+                        $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
+                    });
+                }
             }
-        });
+        });           
     };
 
 

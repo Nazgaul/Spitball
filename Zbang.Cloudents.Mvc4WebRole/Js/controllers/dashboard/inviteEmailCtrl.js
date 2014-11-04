@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
     ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout',
          function ($scope, $routeParams, sShare, sFocus, $timeout) {
-
+             "use strict";
              var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/),
                  sendFunc, sendObj = {};
              
@@ -143,7 +143,7 @@ angular.module('InviteEmail', []).
          }]).directive('inputResizer',
     ['$timeout',
         function ($timeout) {
-
+            "use strict";
             return {
                 restrict: 'A',
                 scope: {

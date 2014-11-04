@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mBox.controller('SettingsCtrl',
     ['$scope', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
 
      function ($scope, $modalInstance, $location, sUserDetails, sBox, data) {
+         "use strict";
          //Settings
          var states = {
              settings: 1,
@@ -14,10 +15,6 @@ mBox.controller('SettingsCtrl',
 
          $scope.info.inviteUrl = $location.path() + 'invite/';
          $scope.info.user = sUserDetails.getDetails();
-
-         $scope.partials = {
-             shareEmail: '/Share/MessagePartial/',
-         };
 
          //$scope.params = {
          //    state: data.tab === 'settings' ? states.settings : states.members,

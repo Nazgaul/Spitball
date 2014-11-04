@@ -1,7 +1,9 @@
-﻿"use strict";
+﻿
 app.directive('bagData',
     [
         function () {
+            "use strict";
+
         return {
             restrict: "A",
             scope: false,

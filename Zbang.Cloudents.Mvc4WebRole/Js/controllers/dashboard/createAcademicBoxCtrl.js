@@ -1,14 +1,16 @@
-﻿"use strict";
+﻿
 mDashboard.controller('createAcademicBoxCtrl',
-        ['$scope', 'sBox', '$modal', 'sLibrary',
-        function ($scope, sBox, $modal, sLibrary) {
-
+        ['$scope', 'sBox', 'sModal', 'sLibrary',
+        function ($scope, sBox, sModal, sLibrary) {
+            "use strict";
             var nodeHistory = [];
 
-            $scope.params = {};
+            $scope.params = {
+                isAdmin: sUserDetails.getDetails().isAdmin
+            };
 
             $scope.formData = {
-                academicBox: {}
+                academicBox: {}               
             };
            
             var createDisabled = false;
@@ -37,46 +39,40 @@ mDashboard.controller('createAcademicBoxCtrl',
             };
 
             $scope.createDepartment = function () {
-                var modalInstance = $modal.open({
-                    windowClass: "newDpt",
-                    templateUrl: '/Library/CreateDepartmentPartial/',
-                    controller: 'CreateDepartmentCtrl',
-                    backdrop: 'static',
-                });
+                sModal.open('createDep', {
+                    callback: {
+                        close: function (result) {
+                            var node = _.find($scope.departments, function (item2) {
+                                return item2.name === result.name;
+                            });
 
-                modalInstance.result.then(function (result) {
-                    var node = _.find($scope.departments, function (item2) {
-                        return item2.name === result.name;
-                    });
+                            if (node) {
+                                alert('already exists');
+                                return;
+                            }
 
-                    if (node) {
-                        alert('already exists');
-                        return;
+                            parent = _.last(nodeHistory);
+                            if (parent) {
+                                result.parentId = parent.id;
+                            }
+
+                            sLibrary.createDepartment(result).then(function (response) {
+                                if (!response.success) {
+                                    alert(response.payload);
+                                    return;
+                                }
+
+                                var department = {
+                                    id: response.payload.id,
+                                    name: response.payload.name
+                                };
+
+                                nodeHistory.push(department);
+                                $scope.formData.academicBox.departmentId = department.id;
+                                $scope.params.selectedDepartment = department;
+                            });
+                        }
                     }
-
-                    parent = _.last(nodeHistory);
-                    if (parent) {
-                        result.parentId = parent.id;
-                    }
-
-
-
-                    sLibrary.createDepartment(result).then(function (response) {
-                        if (!response.success) {
-                            alert(response.payload);
-                            return;
-                        }                        
-
-                        var department = {
-                            id: response.payload.id,
-                            name: response.payload.name
-                        };
-
-                        nodeHistory.push(department);
-                        $scope.formData.academicBox.departmentId = department.id;
-                        $scope.params.selectedDepartment = department;
-
-                    });
                 });
             };
 

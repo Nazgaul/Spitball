@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 var libChoose = mLibrary.controller('LibChooseCtrl',
         ['$scope',
             '$timeout',
@@ -11,7 +11,7 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
          'sUserDetails',
          '$analytics',
          function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
-
+             "use strict";
              $scope.formData = {};
              $scope.display = {
                  searchUniversity: true
@@ -19,9 +19,7 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
 
              //var allDepartments;
 
-             console.log('s');
              sFacebook.getToken().then(function (token) {
-                 console.log('z');
                  if (!token) {
                      return;
                  }
@@ -50,8 +48,20 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
              //#endregion
 
              //#region search
-             var lastQuery;
-             $scope.search = debounce(function () {
+             var lastQuery,
+                search = debounce(function (query) {
+                    if (query === lastQuery) {
+                        return;
+                    }
+
+                    lastQuery = query;
+
+                    return
+
+                }, 200);
+
+             $scope.selectSearch = debounce(function () {
+
                  var query = $scope.formData.searchInput || '';
 
                  if (query.length < 2) {
@@ -62,21 +72,15 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                      return;
                  }
 
-
-                 if (query === lastQuery) {
-                     return;
-                 }
-
-                 lastQuery = query;
-
                  sLibrary.searchUniversities({ term: query }).then(function (response) {
                      var data = response.success ? response.payload : [];
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
+                     console.log(data);
 
                      if (data.length) {
-                         $analytics.eventTrack('search ' + query, {
+                         $analytics.eventTrack('search ' + $scope.formData.searchInput, {
                              category: 'Select university',
                              label: _.map(data, function (university) {
                                  return university.name;
@@ -87,11 +91,25 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
 
                      $analytics.eventTrack('empty search', {
                          category: 'Select university',
-                         label: query
+                         label: $scope.formData.searchInput
                      });
                  });
-             }, 200);
+             });
 
+             $scope.createSearch = function () {
+                 var query = $scope.formData.createUniversity.name || '';
+
+                 if (query.length < 2) {
+                     $scope.createUniversities = null;
+                     lastQuery = null;
+                     return;
+                 }
+
+                 sLibrary.searchUniversities({ term: query }).then(function (response) {
+                     var data = response.success ? response.payload : [];
+                     $scope.createUniversities = data;
+                 });
+             };
 
              $scope.selectUniversity = function (university, isFacebook) {
                  $scope.selectedUni = university;
@@ -113,33 +131,17 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                          //sUserDetails.setUniversity(university);
 
                      } else {
-                         var modalInstance = $modal.open({
-                             windowClass: 'libChoosePopUp',
-                             template: data.html,
-                             controller: 'restrictionPopUpCtrl',
-                             resolve: {
-                                 data: function () {
-                                     return {
-                                         university: university
-                                     };
+                         sModal.open('uniRestriction', {
+                             data: {
+                                 university: university
+                             },
+                             html: data.html,
+                             callback: {
+                                 close: function () {
+                                     $analytics.setVariable('dimension1', university.name);
+                                     window.open('/dashboard/', '_self');
                                  }
-                             }
-                         });
-                         modalInstance.result.then(function () {
-                             //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                             //$scope.display.choose = true;
-                             $analytics.setVariable('dimension1', university.name);
-                             window.open('/dashboard/', '_self');
-                             //getDepartments();
-                             //sUserDetails.setDepartment(null);
-                         })['finally'](function () {
-                             modalInstance = undefined;
-                         });
 
-                         $scope.$on('$destroy', function () {
-                             if (modalInstance) {
-                                 modalInstance.dismiss();
-                                 modalInstance = undefined;
                              }
                          });
                      }

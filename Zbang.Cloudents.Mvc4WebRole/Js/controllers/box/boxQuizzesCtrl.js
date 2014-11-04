@@ -1,7 +1,9 @@
-﻿"use strict";
+﻿
 mBox.controller('BoxQuizzesCtrl',
 		['$scope', '$rootScope', '$timeout', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
         function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
+            "use strict";
+
             var jsResources = window.JsResources;
 
 

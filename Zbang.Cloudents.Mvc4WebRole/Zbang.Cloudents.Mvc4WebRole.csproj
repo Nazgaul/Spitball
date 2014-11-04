@@ -701,6 +701,9 @@
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\SVG.css">
+      <DependentUpon>SVG.less</DependentUpon>
+    </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
@@ -998,6 +1001,7 @@
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\account.js" />
+    <Content Include="Js\services\modalWrapper.js" />
     <Content Include="Js\services\stacktrace.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />
@@ -1126,6 +1130,7 @@
     <Content Include="Content\ItemRtl.less" />
     <Content Include="Content\BoxFeed.less" />
     <Content Include="Content\BoxFeedRtl.less" />
+    <Content Include="Content\SVG.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

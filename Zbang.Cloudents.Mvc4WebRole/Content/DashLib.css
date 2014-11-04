@@ -15,12 +15,9 @@
   position: relative;
   height: 100%;
 }
-.dashContent header,
-.libraryContent header {
-  font-size: 18px;
-  line-height: 100%;
-  padding: 27px 0 25px;
-}
+/*.dashContent header, .libraryContent header {
+    
+}*/
 .libraryContent {
   vertical-align: top;
 }
@@ -37,6 +34,11 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 /*#region boxesHeader */
+.boxesHeader {
+  font-size: 18px;
+  line-height: 100%;
+  padding: 26px 0;
+}
 .boxesHeader.topBar {
   top: 50px;
   left: 0;
@@ -44,19 +46,6 @@
   padding-left: 314px;
   /*rtl*/
   width: 100%;
-}
-.boxesHeader.topBar.editName {
-  padding-top: 25px;
-}
-.boxesHeader.topBar.editName #lib_Back {
-  width: 100%;
-  max-width: -webkit-calc(100% - 15px);
-  max-width: calc(100% - 15px);
-}
-.boxesHeader.topBar.editName .inputText {
-  width: 100%;
-  font-size: 14px;
-  display: inline-block;
 }
 .boxesHeader.topBar:hover .boxRename {
   display: inline-block;
@@ -87,13 +76,6 @@
 .back:hover:before {
   background-position: 0 -21px;
 }
-/*#lib_Back{
-    height: 19px;
-    display:inline-block;
-    vertical-align:top; 
-    max-width: ~'-webkit-calc(100% - 25px)';
-    max-width: ~'calc(100% - 25px)';
-}*/
 .boxTitle {
   font-size: 22px;
   color: #383838;
@@ -232,8 +214,7 @@
   margin-left: 290px;
   /*rtl*/
   position: relative;
-  padding: 0 10px 0 24px;
-  /*rtl*/
+  padding: 0 30px;
   height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -522,21 +503,91 @@
   width: 100%;
   text-align: center;
 }
-.followEmpty h2,
 .groupEmpty h2 {
   font-size: 22px;
 }
-.followEmpty:before,
 .groupEmpty:before {
   content: '';
   display: block;
   width: 104px;
   height: 104px;
   margin: 70px auto 10px;
-  background: url(/Images/dashboardEmpty-sprite.png) -1px -1px no-repeat;
+  background: url(/Images/dashboardEmpty-sprite.png) -106px -1px no-repeat;
 }
-.groupEmpty:before {
-  background-position: -106px -1px;
+/*#endregion */
+/*#region dashboard header */
+.dashHeader {
+  height: 65px;
+  line-height: 65px;
+  vertical-align: middle;
+  border-bottom: 1px dashed #c2c2c2;
+  overflow: hidden;
+}
+.dashHeader > .rFloat {
+  width: 170px;
+  position: relative;
+  top: 8px;
+  height: 48px;
+}
+.dashHeader > .rFloat:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 36px;
+  background: #0f9d58;
+  top: 8px;
+  left: 60px;
+}
+.notificationBtn {
+  position: relative;
+  top: 13px;
+}
+.helpLink {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 26px;
+  line-height: normal;
+  position: relative;
+  top: 14px;
+}
+.storeLink {
+  position: relative;
+  top: 4px;
+}
+.dhContent {
+  overflow: hidden;
+}
+.dhContent .dashLibSearchInput {
+  width: 420px;
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  font-size: 18px;
+  margin: 17px 20px 0 20px;
+  vertical-align: top;
+}
+.dhContent .dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dhContent .dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dhContent .dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dhContent .dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.dhContent svg {
+  fill: #0f9d58;
+  position: relative;
+  top: 5px;
+}
+.dhText {
+  font-size: 28px;
+  color: #0f9d58;
 }
 /*#endregion */
 /*#region setup course 'popups' */
@@ -655,13 +706,6 @@
   top: 2px;
   color: #0371c8;
   font-size: 13px;
-}
-.newAcademic {
-  /*&.editDept {
-        .chooseDeptList {
-            display: block;
-        }
-    }*/
 }
 .newAcademic .chooseDeptList {
   width: 600px;
@@ -803,6 +847,9 @@
 }
 .socialWpr button {
   margin: 15px 0 33px;
+}
+.socialWpr button:disabled {
+  opacity: .1;
 }
 .socialWpr svg {
   width: 70px;
@@ -1217,9 +1264,8 @@
   vertical-align: top;
   float: left;
   /*rtl*/
-  border: 1px solid #dedede;
+  border: 1px solid #c2c2c2;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   background-color: #fff;
   -webkit-transition: border-color 0.2s;
@@ -1282,6 +1328,7 @@
   /*rtl*/
   width: 77px;
   height: 96px;
+  border-radius: 3px 0 0 3px;
   border-right: 1px solid #dedede;
   /*rtl*/
   -webkit-box-sizing: border-box;

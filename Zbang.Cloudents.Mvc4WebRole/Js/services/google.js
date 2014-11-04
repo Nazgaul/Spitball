@@ -1,7 +1,9 @@
-﻿"use strict";
+﻿
 app.factory('sGoogle',
    ['$document', '$q', '$timeout', 'sShare',
    function ($document, $q, $timeout, sShare) {
+       "use strict";
+
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
            apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
@@ -33,14 +35,26 @@ app.factory('sGoogle',
                    return defer.promise;
                },
                initGApi: function () {
-                   if (clientLoaded || clientLoading) {
+
+                   if (clientLoading) {
                        return;
+                   }
+
+                   var defer = $q.defer();
+
+                   if (clientLoaded) {
+
+                       $timeout(function () {
+                           defer.resolve(true);
+                       });
+
+                       return defer.promise;
                    }
 
                    clientLoading = true;
 
-                   var defer = $q.defer(),
-                       js = document.createElement('script');
+
+                   var js = document.createElement('script');
                    js.id = "jsGoogleContact";
                    js.src = "https://apis.google.com/js/client.js";
                    document.getElementsByTagName('head')[0].appendChild(js);
@@ -50,6 +64,8 @@ app.factory('sGoogle',
                            window.clearInterval(interval);
                            window.gapi.load('client', function () {
                                gapi.client.setApiKey(apiKey);
+                               clientLoaded = true;
+                               clientLoading = false;
                                defer.resolve(true);
                            });
 

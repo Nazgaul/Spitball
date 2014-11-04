@@ -1,10 +1,10 @@
-﻿"use strict";
+﻿
 app.controller('UploadCtrl',
-    ['$scope', '$rootScope', '$q', '$modal', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload','$timeout',
+    ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
+        'sDropbox', 'sGoogle', 'sUpload', '$timeout',
 
-    function ($scope, $rootScope, $q, $modal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout) {
-           
+    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout) {
+        "use strict";
         $scope.sources = {
             dropboxLoaded: false,
             googleDriveLoaded: false
@@ -36,71 +36,53 @@ app.controller('UploadCtrl',
         });
 
         $scope.saveLink = function () {
-            if ($scope.close) { //fix for step 3
-                $scope.close();//{
-                //    saveLink:true
-                //});
+            if ($scope.close) {//fix for step 3
+                $scope.close();
             }
 
-            var modalInstance = $modal.open({
-                windowClass: "uploadLink",
-                templateUrl: '/Box/UploadLinkPartial/',
-                controller: 'UploadLinkCtrl',
-                backdrop: 'static'
-            });
+            sModal.open('uploadLink', {
+                callback: {
+                    close: function (url) {
+                        var data = {
+                            id: guid(),
+                            name: url,
+                            fileUrl: url,
+                            boxId: $scope.boxId || $scope.box.id, //fix for step 3
+                            tabId: $scope.tabId
+                        };
+                        sUpload.link(data).then(function (response) {
+                            if (!response.success) {
+                                $rootScope.$broadcast('UploadLinkError', data);
+                                alert('error');
+                                return;
+                            }
 
-            modalInstance.result.then(function (url) {
-                var data = {
-                    id: guid(),
-                    name: url,
-                    fileUrl: url,
-                    boxId: $scope.boxId || $scope.box.id, //fix for step 3
-                    tabId: $scope.tabId
-                };
-                sUpload.link(data).then(function(response) {
-                    if (!response.success) {
-                        $rootScope.$broadcast('UploadLinkError', data);
-                        alert('error');
-                        return;
+                            $rootScope.$broadcast('LinkUploaded', data);
+
+
+                            var sentObj = {
+                                itemDto: response.payload,
+                                boxId: data.boxId,
+                                tabId: data.tabId,
+                                questionId: $scope.questionId,
+                                newQuestion: $scope.newQuestion
+                            }
+
+                            cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
+
+                            $rootScope.$broadcast('ItemUploaded', sentObj);
+                        }, function () {
+                            $rootScope.$broadcast('UploadLinkError', data);
+                        });
+
+                        data.size = 1024;
+                        $rootScope.$broadcast('LinkAdded', data);
+                        if ($scope.completeWizard) {//fix for step 3
+                            $scope.completeWizard(true);
+                        }
                     }
-
-                    $rootScope.$broadcast('LinkUploaded', data);
-
-
-                    var sentObj = {
-                        itemDto: response.payload,
-                        boxId: data.boxId,
-                        tabId: data.tabId,
-                        questionId: $scope.questionId,
-                        newQuestion: $scope.newQuestion
-                    }
-
-                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
-
-                    $rootScope.$broadcast('ItemUploaded', sentObj);
-                }, function() {
-                    $rootScope.$broadcast('UploadLinkError', data);
-                });
-
-                data.size = 1024;
-                $rootScope.$broadcast('LinkAdded', data);
-                if ($scope.close) {//fix for step 3
-                    $scope.close();
-                } else {
-                    $scope.completeWizard(true);
-                }            
-
-            })['finally'](function () {
-                modalInstance = undefined;
-            });
-
-            $scope.$on('$locationChangeStart', function () {
-                if (modalInstance) {
-                    modalInstance.dismiss();
-                    modalInstance = undefined;
                 }
-            });
-
+            });          
         };
 
         $scope.saveDropbox = function () {
@@ -145,7 +127,7 @@ app.controller('UploadCtrl',
                         });
 
                         data.size = fileData.bytes;
-                        $rootScope.$broadcast('DropboxAdded', data);                    
+                        $rootScope.$broadcast('DropboxAdded', data);
 
                     })(file);
                 });
@@ -196,7 +178,7 @@ app.controller('UploadCtrl',
                                     questionId: $scope.questionId,
                                     newQuestion: $scope.newQuestion
                                 }
-                                
+
 
                                 if (_.last(files) === fileData) {
                                     cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
@@ -212,7 +194,7 @@ app.controller('UploadCtrl',
                             data.size = fileData.size;
                             $rootScope.$broadcast('LinkAdded', data);
 
-                    
+
 
 
                         })(file);
@@ -221,7 +203,7 @@ app.controller('UploadCtrl',
             }
             if ($scope.close) {//fix for step 3
                 $scope.close();
-            }  else {
+            } else {
                 $scope.completeWizard(true);
             }
         };
@@ -257,6 +239,8 @@ mBox.controller('UploadLinkCtrl',
     ['$scope', '$modalInstance',
 
     function ($scope, $modalInstance) {
+        "use strict";
+
         $scope.formData = {};
 
         $scope.add = function () {

@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 mDashboard.controller('ShowFriendsCtrl',
    ['$scope',
     '$modalInstance',
@@ -6,6 +6,7 @@ mDashboard.controller('ShowFriendsCtrl',
     'friends',
 
     function ($scope, $modalInstance, $filter, friends) {
+        "use strict";
         $scope.formData = {};
         $scope.params = {
             search: '',
