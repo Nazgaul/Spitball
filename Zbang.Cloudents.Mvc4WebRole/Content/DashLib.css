@@ -15,12 +15,9 @@
   position: relative;
   height: 100%;
 }
-.dashContent header,
-.libraryContent header {
-  font-size: 18px;
-  line-height: 100%;
-  padding: 26px 0;
-}
+/*.dashContent header, .libraryContent header {
+    
+}*/
 .libraryContent {
   vertical-align: top;
 }
@@ -37,6 +34,11 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 /*#region boxesHeader */
+.boxesHeader {
+  font-size: 18px;
+  line-height: 100%;
+  padding: 26px 0;
+}
 .boxesHeader.topBar {
   top: 50px;
   left: 0;
@@ -533,7 +535,7 @@
   position: absolute;
   width: 1px;
   height: 36px;
-  background: #282828;
+  background: #0f9d58;
   top: 8px;
   left: 60px;
 }
@@ -564,6 +566,20 @@
   margin: 17px 20px 0 20px;
   vertical-align: top;
 }
+.dhContent .dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dhContent .dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dhContent .dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dhContent .dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
 .dhContent svg {
   fill: #0f9d58;
   position: relative;
@@ -573,40 +589,6 @@
   font-size: 28px;
   color: #0f9d58;
 }
-/*<div class="dashHeader">
-    <div class="rFloat">
-        <button class="navLinks newInvites rFloat" id="invites" tooltip="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
-            <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
-        </button>
-        <div class="notifyWpr dropdown-menu" role="menu" ng-class="{ noResults : !notifications.length }">
-            <div class="arrow upArrow"></div>
-            <div class="notifyTop">@SharedResources.Notifications</div>
-            <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
-                infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
-                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications track by notification.msgId">
-                    <a bo-href="notification.url" ng-click="markAsRead(notification)">
-                        <img class="imgBorder notifyImg" bo-src="notification.userPic" alt="" />
-                        <span class="semiFont notifier elps" bo-text="notification.userName"></span>
-
-                        <span class="createTime" display-time="{{notification.date}}"></span><br />
-                        <div class="inviteTxtWpr">
-                            @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <div class="notifyEmpty">@SharedResources.NoNotifications</div>
-        </div>
-        <a tooltip="@SharedResources.Help" target="_self" class="feedBack rFloat" href="@Url.Action("Help", "Home")"></a>
-        <button  type="button" class="rFloat inviteFriendsBtn" tooltip="@SharedResources.Invite" ng-click="inviteFriends($event)">
-            @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-        </button>
-    </div>
-    <div class="dhContent">
-        <span class="dhText">@SharedResources.Dashboard</span>
-        <input autocomplete="off"  class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" />
-    </div>
-</div>*/
 /*#endregion */
 /*#region setup course 'popups' */
 .formWpr {
@@ -724,13 +706,6 @@
   top: 2px;
   color: #0371c8;
   font-size: 13px;
-}
-.newAcademic {
-  /*&.editDept {
-        .chooseDeptList {
-            display: block;
-        }
-    }*/
 }
 .newAcademic .chooseDeptList {
   width: 600px;
@@ -1289,9 +1264,8 @@
   vertical-align: top;
   float: left;
   /*rtl*/
-  border: 1px solid #dedede;
+  border: 1px solid #c2c2c2;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   background-color: #fff;
   -webkit-transition: border-color 0.2s;
@@ -1354,6 +1328,7 @@
   /*rtl*/
   width: 77px;
   height: 96px;
+  border-radius: 3px 0 0 3px;
   border-right: 1px solid #dedede;
   /*rtl*/
   -webkit-box-sizing: border-box;

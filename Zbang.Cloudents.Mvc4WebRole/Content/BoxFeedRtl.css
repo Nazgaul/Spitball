@@ -101,28 +101,4 @@
 .bestUserList li {
   text-align: right;
 }
-.firstUser .top3Img {
-  right: -40px;
-  left: auto;
-}
-.firstUser svg {
-  right: -20px;
-  left: auto;
-}
-.secondUser .top3Img {
-  right: -40px;
-  left: auto;
-}
-.secondUser svg {
-  right: -10px;
-  left: auto;
-}
-.thirdUser .top3Img {
-  right: -32px;
-  left: auto;
-}
-.thirdUser svg {
-  right: -12px;
-  left: auto;
-}
 /*#endregion */
