@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mLibrary.directive('facebookFeed',
    ['$window',
 
    function ($window) {
+       "use strict";
        return {
            restrict: "A",
            link: function (scope, elem, attrs) {

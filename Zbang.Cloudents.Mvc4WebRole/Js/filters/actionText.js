@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 mDashboard.filter('actionText',
 [
     function () {
+        "use strict";
         var dashFeed = document.getElementById('dash_feed'),
             dashWallTextItem = dashFeed.getAttribute('data-itemText'),
             dashWallTextComment = dashFeed.getAttribute('data-commenttext');

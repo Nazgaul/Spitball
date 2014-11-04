@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.directive('focusForm',
     [
     function () {
+        "use strict";
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {

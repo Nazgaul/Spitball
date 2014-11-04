@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 libChoose.controller('restrictionPopUpCtrl',
 [
     '$scope',
@@ -6,6 +6,7 @@ libChoose.controller('restrictionPopUpCtrl',
     'data',
     'sLibrary',
     function ($scope, $modalInstance, data, sLibrary) {
+        "use strict";
         $scope.formData = {
             UniversityId: data.university.id
         };

@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.controller('ContactCtrl',
     ['$scope', '$timeout','Store',
-    function ($scope, $timeout,Store) {
+    function ($scope, $timeout, Store) {
+        "use strict";
         $timeout(function () {
             $scope.$emit('viewContentLoaded');
         });

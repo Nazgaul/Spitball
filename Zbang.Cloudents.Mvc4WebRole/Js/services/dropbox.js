@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 mBox.factory('sDropbox',
     ['$document', '$q', '$timeout',
     function ($document, $q, $timeout) {
+        "use strict";
         var loaded;
         return {
             init: function () {

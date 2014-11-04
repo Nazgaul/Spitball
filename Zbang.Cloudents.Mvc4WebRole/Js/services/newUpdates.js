@@ -1,11 +1,11 @@
-﻿"use strict";
+﻿
 app.factory('sNewUpdates', [
     '$http',
     'sBox',
     'sUserDetails',
     '$interval',
 function ($http, sBox, sUserDetails,$interval) {
-
+    "use strict";
     var updates = {},
         updatesLoaded = false;
     var response = {

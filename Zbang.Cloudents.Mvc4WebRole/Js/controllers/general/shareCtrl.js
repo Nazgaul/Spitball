@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 app.controller('ShareCtrl',
     ['$scope', '$rootScope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
 
     function ($scope, $rootScope, $modalInstance, sShare, sGoogle, sFocus, data) {
-
+        "use strict";
         data = data || {};
 
         $scope.options = {
@@ -256,7 +256,7 @@ app.controller('ShareCtrl',
 app.directive('resizeInput',
     ['$timeout',
         function ($timeout) {
-
+            "use strict";
             return {
                 restrict: 'A',
                 scope: {

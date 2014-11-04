@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$modal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
+		['$scope', '$rootScope', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
             'sUserDetails', 'sFacebook',
-function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
+function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
+    "use strict";
     var jsResources = window.JsResources;
 
     var consts = {
@@ -45,34 +46,14 @@ function ($scope, $rootScope, $modal, $filter, $timeout, sItem, sBox, sNewUpdate
             return;
         }
 
-        var modalInstance = $modal.open({
-            windowClass: "uploader",
-            templateUrl: $scope.partials.uploader,
-            controller: 'UploadPopupCtrl',
-            backdrop: 'static',
-            resolve: {
-                data: function () {
-                    return {
-                        boxId: $scope.boxId,
-                        tabId: $scope.tabId,
-                        boxUrl: $scope.info.url
-                    }
-                }
-            }
-        });
 
-        modalInstance.result.then(function () {
-
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });
+        sModal.open('upload', {
+            data: {
+                boxId: $scope.boxId,
+                tabId: $scope.tabId,
+                boxUrl: $scope.info.url
+            }            
+        });        
     };
 
     $scope.$on('ItemUploaded', function (e, data) {

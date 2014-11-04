@@ -1,9 +1,9 @@
-﻿"use strict";
+﻿
 mItem.controller('itemFlagCtrl',
 [
     '$scope', '$modalInstance', 'data', '$timeout', 'sItem',
 function ($scope, $modalInstance, data, $timeout, sItem) {
-
+    "use strict";
     $scope.secondStep = false;
     $scope.disable = false;
     $scope.formdata = {

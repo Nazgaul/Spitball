@@ -1,8 +1,7 @@
-﻿"use strict";
-var mItem = angular.module('mItem', []);
+﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', '$modal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {
     "use strict";
     var jsResources = window.JsResources;
     var index = 0, loadMore = false;
@@ -83,89 +82,48 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     };
     $scope.fullScreenWindow = function() {
         $location.hash('fullscreen');
-        var modalInstance = $modal.open({
-            windowClass: 'fullscreen',
-            templateUrl: '/item/fullscreen/',
-            controller: 'itemFullScreenCtrl',
-            backdrop: false,
-            scope: $scope
-        });
-        modalInstance.result.then(function() {
-            $location.hash('');
-        })['finally'](function() {
-            modalInstance = undefined;
-        });
 
-        $scope.$on('$destroy', function() {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
+        sModal.open('itemFullscreen', {
+            scope: $scope,
+            callback: {
+                close: function (response) {
+                    $location.hash('');
+                }
             }
         });
     };
+
     if ($location.hash() === 'fullscreen') {
         $scope.fullScreenWindow();
     }
 
-    $scope.flagItemWindow = function() {
-        var modalInstance = $modal.open({
-            windowClass: 'flagItem',
-            templateUrl: '/Item/Flag/',
-            controller: 'itemFlagCtrl',
-            backdrop: false,
-            resolve: {
-                data: function() {
-                    return {
-                        id: itemId
-                    };
+    $scope.flagItemWindow = function () {
+        sModal.open('flagItem',{
+            data: {
+                id: itemId 
+            },
+            callback: {
+                close: function () {
+                    $scope.flagged = true;
+                    $scope.flagText = jsResources.Flagged;
                 }
             }
-        });
-        modalInstance.result.then(function() {
-            $scope.flagged = true;
-            $scope.flagText = jsResources.Flagged;
-
-        })['finally'](function() {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function() {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });
-
+        });        
     };
 
     $scope.renameWindow = function () {
-        var modalInstance = $modal.open({
-            windowClass: 'rename',
-            templateUrl: '/Item/Rename/',
-            controller: 'itemRenameCtrl',
-            resolve: {
-                data: function () {
-                    return {
-                        name: $scope.item.name,
-                        id: itemId
-                    };
+        sModal.open('itemRename', { 
+            data: {
+                name: $scope.item.name,
+                id: itemId
+            },
+            callback: {
+                close: function (d) {
+                    $scope.item.name = d.name;
+                    $location.path(d.url).replace();
                 }
             }
-        });
-        modalInstance.result.then(function (d) {
-            $scope.item.name = d.name;
-            modalInstance = null; //avoid exception on destroy
-            $location.path(d.url).replace();
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });
+        });        
     };
     $scope.create = function (isValid) {
         if (!isValid) {
@@ -271,29 +229,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, $modal, sUserDetail
     $scope.shareEmail = function () {
         $scope.popup.share = false;
 
-        var modalInstance = $modal.open({
-            windowClass: "invite",
-            templateUrl: $scope.partials.shareEmail,
-            controller: 'ShareCtrl',
-            backdrop: 'static',
-            resolve: {
-                data: function () {
-                    return null;
-                }
-            }
-        });
+        sModal.open('shareEmail');
 
-        modalInstance.result.then(function () {
-        })['finally'](function () {
-            modalInstance = undefined;
-        });
-
-        $scope.$on('$destroy', function () {
-            if (modalInstance) {
-                modalInstance.dismiss();
-                modalInstance = undefined;
-            }
-        });     
     };
     $scope.rate = function(t) {
         sItem.rate({ ItemId: itemId, rate: t });

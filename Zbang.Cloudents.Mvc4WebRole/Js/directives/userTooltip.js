@@ -1,10 +1,12 @@
-﻿"use strict";
-app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails',
-function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
+﻿
+app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails','sModal',
+function ($timeout, $templateCache, $compile, sUser, sUserDetails, sModal) {
+    "use strict";
+
     var tooltipTemplate = $templateCache.get('userToolTip.html'),
         showTooltip = 'showTooltip'
     return {
-        restrict: 'A',
+        restrict: 'A',        
         link: function (scope, element, attributes) {
             var hoverIntentPromise,
                 leaveIntentPromise,
@@ -91,6 +93,15 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails) {
                 }, 250);
 
             });
+
+            scope.sendUserMessage = function (user) {
+                sModal.open('shareEmail', { 
+                    data: {
+                        singleMessage: true,
+                        users: [user]
+                    }
+                });
+            };
 
             scope.$on('$destroy', function () {
                 if (tooltipElement) {

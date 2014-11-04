@@ -1,6 +1,7 @@
-﻿"use strict";
+﻿
 app.directive('departmentTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser',
     function ($timeout, $templateCache, $compile, sUser) {
+        "use strict";
         var tooltipTemplate = $templateCache.get('memberDepartmentToolTip.html');
         return {
             restrict: 'A',            

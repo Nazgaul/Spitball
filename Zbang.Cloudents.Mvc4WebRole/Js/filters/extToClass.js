@@ -1,7 +1,8 @@
-﻿"use strict";
+﻿
 app.filter('extToClass',
 [
-    function () {    
+    function () {
+        "use strict";
         return function (item) {
             if (!item) {
                 return;

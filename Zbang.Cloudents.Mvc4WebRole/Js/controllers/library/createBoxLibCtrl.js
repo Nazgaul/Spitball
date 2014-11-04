@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 mLibrary.controller('CreateBoxLibCtrl',
         ['$scope',
          '$modalInstance',
@@ -6,6 +6,7 @@ mLibrary.controller('CreateBoxLibCtrl',
          'parentId',
 
          function ($scope, $modalInstance, sBox, parentId) {
+             "use strict";
              $scope.formData = {
                  parentId: parentId
              };

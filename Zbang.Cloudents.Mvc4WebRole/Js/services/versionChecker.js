@@ -1,6 +1,7 @@
-﻿"use strict";
+﻿
 app.factory('sVerChecker', ['$http', '$angularCacheFactory',
     function ($http, $angularCacheFactory) {
+        "use strict";
         var clientVersion = $('[data-version]').attr('data-version'),
             currentVersion,
             timeInterval = 600000;

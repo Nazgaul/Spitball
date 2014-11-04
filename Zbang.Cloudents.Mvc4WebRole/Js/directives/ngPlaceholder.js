@@ -1,8 +1,9 @@
-﻿"use strict";
+﻿
 app.directive("ngPlaceholder",
     ['$log', '$timeout',
 
     function ($log, $timeout) {
+        "use strict";
         return {
             restrict: "A",
             link: function (scope, elem, attrs) {

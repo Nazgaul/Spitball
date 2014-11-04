@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿
 app.factory('ajaxService',
     ['$http',
      '$q',
@@ -6,6 +6,7 @@ app.factory('ajaxService',
      '$analytics',
 
     function ($http, $q, $angularCacheFactory, $analytics) {
+        "use strict";
         var ttls = {},
         service = {
             get: function (url, data, ttl, noCache) {

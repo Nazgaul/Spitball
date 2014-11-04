@@ -1,10 +1,10 @@
-﻿"use strict";
+﻿
 mLibrary.controller('CreateDepartmentCtrl',
         ['$scope',
          '$modalInstance',         
 
          function ($scope, $modalInstance) {
-             
+             "use strict";
              $scope.formData = {};
 
              $scope.create = function (isValid) {
