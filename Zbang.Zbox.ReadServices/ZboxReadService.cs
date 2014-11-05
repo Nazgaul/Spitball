@@ -44,7 +44,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.BoxDto>(Sql.Sql.UserBoxes, new {query.UserId});
+                return await conn.QueryAsync<Box.BoxDto>(Sql.Sql.UserBoxes, new { query.UserId });
             }
 
         }
@@ -54,12 +54,18 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0}",Sql.Sql.DashboardInfo),
-                    new  {universityDbQuery = query.UniversityId}))
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                    Sql.Sql.DashboardInfo,
+                    Sql.Sql.RecommendedCourses,
+                    Sql.Sql.UniversityLeaderBoard),
+                    new { query.UniversityId }))
                 {
                     var retVal = new DashboardDto
                     {
-                        Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault()
+                        Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
+                        Recommended = await grid.ReadAsync<Box.RecommendBoxDto>(),
+                        LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
+
                     };
 
                     return retVal;
@@ -91,7 +97,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.DashboardInfo, new { universityDbQuery = query.UniversityId });
+                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.DashboardInfo,
+                    new { query.UniversityId });
                 return retVal.FirstOrDefault();
             }
         }
@@ -162,7 +169,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-      
+
 
 
 
@@ -270,13 +277,13 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task< IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new {BoxId = query.BoxId});
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new { BoxId = query.BoxId });
             }
-           
+
         }
 
 
@@ -660,7 +667,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-               return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new {BoxId = query.BoxId});
+                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new { BoxId = query.BoxId });
             }
         }
 
@@ -867,7 +874,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-       
+
 
         public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
         {
@@ -998,6 +1005,6 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-       
+
     }
 }

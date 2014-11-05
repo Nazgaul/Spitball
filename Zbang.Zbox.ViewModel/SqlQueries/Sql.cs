@@ -96,7 +96,7 @@
         public const string DashboardInfo = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
                   uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
                   from zbox.university uWrap  
-                  where uWrap.Id = @universityDbQuery";
+                  where uWrap.Id = @UniversityId";
 
        
         /// <summary>
@@ -190,6 +190,12 @@ and b.discriminator = 2
 and b.University = @UniversityId
 order by rank desc";
 
+
+        public const string UniversityLeaderBoard = @"select top(3) u.userid as id, u.UserImageLarge as image, u.username as name, u.UserReputation as score
+from zbox.Users u 
+where u.UniversityId = @UniversityId
+and u.usertype <> 1
+ order by userreputation desc";
      
 
         public const string UserAuthenticationDetail =
