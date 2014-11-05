@@ -873,6 +873,7 @@
     <Content Include="Images\Store\tw-on.png" />
     <Content Include="Images\Store\yt-off.png" />
     <Content Include="Images\Store\yt-on.png" />
+    <Content Include="Images\students.jpg" />
     <Content Include="Images\students.png" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\table-bg1.png" />
