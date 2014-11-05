@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
-        private const string InvId = "invId";
+       // private const string InvId = "invId";
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
@@ -69,7 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (guid.HasValue)
                 {
                     var h = new CookieHelper(HttpContext);
-                    h.InjectCookie(InvId, new Invite { InviteId = guid.Value });
+                    h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
             if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
@@ -121,8 +121,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 catch (UserNotFoundException)
                 {
-                   
-                    var inv = cookie.ReadCookie<Invite>(InvId);
+
+                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
                     Guid? invId = null;
                     if (inv != null)
                     {
@@ -156,7 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ));
                 //TODO: bring it back
                 // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
-                cookie.RemoveCookie(InvId);
+                cookie.RemoveCookie(Invite.CookieName);
                 return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) }));
             }
             catch (ArgumentException)
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
                 }
                 var cookie = new CookieHelper(HttpContext);
-                cookie.RemoveCookie(InvId);
+                cookie.RemoveCookie(Invite.CookieName);
             }
             catch (Exception ex)
             {
@@ -266,7 +266,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     var cookie = new CookieHelper(HttpContext);
-                    var inv = cookie.ReadCookie<Invite>(InvId);
+                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
                     Guid? invId = null;
                     if (inv != null)
                     {
@@ -284,7 +284,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             result.User.Culture,
                             result.UniversityId,
                             result.UniversityData));
-                    cookie.RemoveCookie(InvId);
+                    cookie.RemoveCookie(Invite.CookieName);
                     return
                         Json(new JsonResponse(true,
                             Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" })));

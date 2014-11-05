@@ -55,11 +55,11 @@ mAccount.controller('NotificationsCtrl',
                 $scope.params.notificationsListLength += $scope.params.notificationsListPage;
             };
             function countNewNotifications() {
-                var newNotifications = _.filter($scope.notifications, function (notification) {
-                    return notification.isNew;
-                });
+                //var newNotifications = _.filter($scope.notifications, function (notification) {
+                //    return notification.isNew;
+                //});
 
-                $scope.params.newNotifications = newNotifications.length;
+                $scope.params.newNotifications = $scope.notifications.length;
             }
 
 

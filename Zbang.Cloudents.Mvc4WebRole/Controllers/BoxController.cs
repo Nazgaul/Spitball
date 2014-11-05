@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NoCache]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> IndexDesktop(string universityName, long boxId, string boxName)
+        public async Task<ActionResult> IndexDesktop(long boxId)
         {
             var userId = User.GetUserId(false);
             try
