@@ -12,17 +12,14 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
 
     $scope.flagItem = function () {
         $scope.disable = true;
-        sItem.flag($scope.formdata).then(function (response) {
-            if (!response.success) {
-                alert(response.payload);
-                return;
-            }
-
+        sItem.flag($scope.formdata).then(function (response) {            
             $scope.secondStep = true;
 
             $timeout(function () {
                 $modalInstance.close();
             }, 3000);
+        }, function (response) {
+            alert(response);
         });
 
     }

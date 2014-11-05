@@ -12,7 +12,7 @@ app.factory('ajaxService',
             get: function (url, data, ttl, noCache) {
                 var dfd = $q.defer(),
                     startTime = new Date().getTime();
-                
+
                 var getObj = {
                     params: data
                 };
@@ -21,8 +21,13 @@ app.factory('ajaxService',
                     getObj.cache = getCache(ttl);
                 }
                 $http.get(url, getObj).success(function (response) {
-                    dfd.resolve(response);
                     trackTime(startTime, url, data);
+                    if (response.success) {
+                        dfd.resolve(response.payload);
+                        return;
+                    }
+                    dfd.reject(response.payload);
+
                 }).error(function (response) {
                     dfd.reject(response);
                 });
@@ -33,12 +38,16 @@ app.factory('ajaxService',
                 var dfd = $q.defer(),
                 startTime = new Date().getTime();
                 $http.post(url, data).success(function (response) {
-                    dfd.resolve(response);
                     trackTime(startTime, url, data);
-
                     if (!disableClearCache) {
                         $angularCacheFactory.clearAll();
                     }
+
+                    if (response.success) {
+                        dfd.resolve(response.payload);
+                        return;
+                    }
+                    dfd.reject(response.payload);
 
                 }).error(function (response) {
                     dfd.reject(response);
@@ -70,7 +79,7 @@ app.factory('ajaxService',
             }
 
             var cache = $angularCacheFactory(ttlString, {
-                maxAge: ttl                
+                maxAge: ttl
             });
 
             ttls[ttlString] = cache;

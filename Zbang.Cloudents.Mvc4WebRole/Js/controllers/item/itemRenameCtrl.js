@@ -14,12 +14,11 @@ function ($scope, $modalInstance, data, sItem) {
         $scope.disable = true;
 
         sItem.rename($scope.formdata).then(function (response) {
+            $modalInstance.close(response);
+        }, function (response) {
+            alert(response);
+        }).finally(function () {
             $scope.disable = false;
-            if (!response.success) {
-                alert(response.payload);
-                return;
-            }
-            $modalInstance.close(response.payload);
         });
 
     };

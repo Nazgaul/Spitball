@@ -1,16 +1,15 @@
-﻿
-var libChoose = mLibrary.controller('LibChooseCtrl',
+﻿mLibrary.controller('LibChooseCtrl',
         ['$scope',
             '$timeout',
             '$filter',
-           '$modal',
+           'sModal',
            '$location',
            'debounce',
          'sLibrary',
          'sFacebook',
          'sUserDetails',
          '$analytics',
-         function ($scope, $timeout, $filter, $modal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
+         function ($scope, $timeout, $filter, sModal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
              "use strict";
              $scope.formData = {};
              $scope.display = {
@@ -23,10 +22,8 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                  if (!token) {
                      return;
                  }
-                 sLibrary.facebookFriends({ authToken: token }).then(function (response) {
-                     var data = response.success ? response.payload : [];
+                 sLibrary.facebookFriends({ authToken: token }).then(function (data) {
                      $scope.FBUniversities = data;
-
                      if (!data.length) {
                          $analytics.eventTrack('no facebook', {
                              category: 'Select university'
@@ -72,8 +69,7 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                      return;
                  }
 
-                 sLibrary.searchUniversities({ term: query }).then(function (response) {
-                     var data = response.success ? response.payload : [];
+                 sLibrary.searchUniversities({ term: query }).then(function (data) {                     
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
@@ -105,16 +101,14 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                      return;
                  }
 
-                 sLibrary.searchUniversities({ term: query }).then(function (response) {
-                     var data = response.success ? response.payload : [];
+                 sLibrary.searchUniversities({ term: query }).then(function (data) {                     
                      $scope.createUniversities = data;
                  });
              };
 
              $scope.selectUniversity = function (university, isFacebook) {
                  $scope.selectedUni = university;
-                 sLibrary.updateUniversity({ UniversityId: university.id }).then(function (response) {
-                     var data = response.success ? response.payload : [];
+                 sLibrary.updateUniversity({ UniversityId: university.id }).then(function (data) {                     
                      if (!data) {
                          //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                          //$scope.display.choose = true;
@@ -246,11 +240,9 @@ var libChoose = mLibrary.controller('LibChooseCtrl',
                  if (!isValid) {
                      return;
                  }
-                 sLibrary.createUniversity($scope.formData.createUniversity).then(function (response) {
-                     //var university = response.success ? response.payload : null;
-                     if (response.success) {
-                         window.open('/dashboard/', '_self');
-                     }
+                 sLibrary.createUniversity($scope.formData.createUniversity).then(function () {
+                     //var university = response.success ? response.payload : null;                     
+                         window.open('/dashboard/', '_self');                     
                      //if (!university) {
                      //}
                      //$scope.selectedUni = university;

@@ -14,11 +14,7 @@ app.controller('ContactCtrl',
                 return;
             }
 
-            Store.contact($scope.formData).then(function (response) {
-                if (!response.success) {
-                    alert(response.payload);
-                    return;
-                }
+            Store.contact($scope.formData).then(function() {               
 
                 alert('Thank you');
                 $scope.submitted = false;
@@ -32,6 +28,8 @@ app.controller('ContactCtrl',
                     text: null
                 };
 
+            }, function () {
+                alert(response);
             });
 
 

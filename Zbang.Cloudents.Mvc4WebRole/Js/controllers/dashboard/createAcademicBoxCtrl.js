@@ -1,7 +1,6 @@
-﻿
-mDashboard.controller('createAcademicBoxCtrl',
-        ['$scope', 'sBox', 'sModal', 'sLibrary',
-        function ($scope, sBox, sModal, sLibrary) {
+﻿mDashboard.controller('createAcademicBoxCtrl',
+        ['$scope', 'sBox', 'sModal', 'sUserDetails','sLibrary',
+        function ($scope, sBox, sModal, sUserDetails, sLibrary) {
             "use strict";
             var nodeHistory = [];
 
@@ -22,16 +21,14 @@ mDashboard.controller('createAcademicBoxCtrl',
                 }
                 createDisabled = true;
 
-                sBox.createAcademic($scope.formData.academicBox).then(function (response) {
-                    if (response.success) {
-                        var data = response.success ? response.payload : [];
+                sBox.createAcademic($scope.formData.academicBox).then(function (data) {                    
                         $scope.box.url = data.url;
                         $scope.box.id = data.id;                        
                         $scope.next();
-                        return;
-                    }
-                    //TODO: add error msg
-                    $scope.params.customError = response.payload[0].value[0];
+                                                            
+                }, function (response) {
+                    $scope.params.customError = response[0].value[0];
+
                 }).finally(function () {
                     createDisabled = false;
 
@@ -115,9 +112,7 @@ mDashboard.controller('createAcademicBoxCtrl',
                 query();
 
                 function query() {
-                    nodesPromise.then(function (response) {
-                        var data = response.success ? response.payload : {};
-
+                    nodesPromise.then(function (data) {
                         if (data.nodes.length) {
                             $scope.departments = data.nodes; //show new  nodes;
                             return;

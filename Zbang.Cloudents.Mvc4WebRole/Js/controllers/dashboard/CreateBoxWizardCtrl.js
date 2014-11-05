@@ -61,12 +61,6 @@ mDashboard.controller('CreateBoxWizardCtrl',
                 };
 
                 sShare.facebookInvite.box(data).then(function (response) {
-                    if (response.success) {
-                        alert('Error');
-                        dfd.reject();
-                        return;
-                    }
-
                     sFacebook.send({
                         path: response.payload.url,
                         to: contact.id
@@ -77,6 +71,9 @@ mDashboard.controller('CreateBoxWizardCtrl',
                     });
 
 
+                }, function () {
+                    alert('Error');
+                    dfd.reject();
                 });
 
                 return dfd.promise;

@@ -20,12 +20,11 @@ mQuiz.controller('QuizCtrl',
 
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
-                $scope.quiz = response.payload.quiz;
-                questions = angular.copy(response.payload.quiz.questions, questions);
+                $scope.quiz = response.quiz;
+                questions = angular.copy(response.quiz.questions, questions);
                 if (sUserDetails.isAuthenticated()) {
                     var savedSheet = $window.localStorage.getItem($scope.quiz.id);
                     if (savedSheet) {
-
                         $scope.formData = JSON.parse(savedSheet);
                         submitResult();
                         setResults();
@@ -38,9 +37,9 @@ mQuiz.controller('QuizCtrl',
                 }
 
                 populateTopUsers();
-                if (response.payload.sheet) {
-                    response.payload.sheet.answerSheet = response.payload.sheet.questions;
-                    $scope.formData = response.payload.sheet;
+                if (response.sheet) {
+                    response.payload.sheet.answerSheet = response.sheet.questions;
+                    $scope.formData = response.sheet;
                     $scope.formData.quizId = $routeParams.quizId;
 
                     if ($scope.formData) {
@@ -96,6 +95,7 @@ mQuiz.controller('QuizCtrl',
                     });
                 }, 1000);
             });
+
             $scope.timer = {
                 state: JsResources.Play
             };
@@ -344,9 +344,8 @@ mQuiz.controller('QuizCtrl',
 
                 question.comments.push(comment);
                 question.newComment = '';
-                sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(
-                    function (response) {
-                        comment.id = response.payload;
+                sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(function (response) {
+                        comment.id = response;
                     }
                     //,
                     //function (response) { }
@@ -363,8 +362,7 @@ mQuiz.controller('QuizCtrl',
                    );
             };
             function getDiscussion() {
-                sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (response) {
-                    var data = response.success ? response.payload : {};
+                sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (data) {
                     _.forEach(data, function (comment) {
                         var question = _.find($scope.quiz.questions, function (question) {
                             return comment.questionId === question.id;

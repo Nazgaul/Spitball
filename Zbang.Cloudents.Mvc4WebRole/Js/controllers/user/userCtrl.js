@@ -60,7 +60,7 @@ mUser.controller('UserCtrl',
         $scope.profile = {};
 
         sUser.minProfile({ userId: $routeParams.userId }).then(function (response) {
-            $scope.profile = response.payload;
+            $scope.profile = response;
             $scope.profile.isSelf = $scope.profile.id === sUserDetails.getDetails().id;
 
             getData();
@@ -306,18 +306,26 @@ mUser.controller('UserCtrl',
         function getData() {
             $scope.promises = {};
 
-            $scope.promises.boxes = sUser.boxes({ userId: $scope.profile.id }).then(boxesResponse);
+            $scope.promises.boxes = sUser.boxes({ userId: $scope.profile.id }).then(boxesResponse).finally(function () {
+                $scope.boxes.loading = false;
+            });
 
 
-            $scope.promises.activity = sUser.activity({ userId: $scope.profile.id }).then(activityResponse);
+            $scope.promises.activity = sUser.activity({ userId: $scope.profile.id }).then(activityResponse).finally(function () {
+                $scope.activity.loading = false;
+            });
 
 
             if ($scope.profile.isSelf) {  //need to show invites only when self user page
-                $scope.promises.invites = sUser.invites().then(invitesResponse);
+                $scope.promises.invites = sUser.invites().then(invitesResponse).finally(function () {
+                    $scope.invites.loading = false;
+                });
             }
 
             if (!$scope.admin.visible()) {  //dont show members list for non admins
-                $scope.promises.friends = sUser.friends({ userId: $scope.profile.id }).then(friendsResponse);
+                $scope.promises.friends = sUser.friends({ userId: $scope.profile.id }).then(friendsResponse).finally(function () {
+                    $scope.friends.loading = false;
+                });
                 return;
             }
 
@@ -326,32 +334,30 @@ mUser.controller('UserCtrl',
 
             $scope.promises.admin = $q.all([membersPromise, departmentsPromise]);
 
-            $scope.promises.admin.then(adminRespose);
+            $scope.promises.admin.then(adminRespose).finally(function () {
+                $scope.admin.members.loading = false;
+            });
 
 
             function invitesResponse(response) {
-                $scope.invites.list = response.payload;
-                $scope.invites.loading = false;
+                $scope.invites.list = response;                
             }
 
             function friendsResponse(response) {
                 var commonFriend;
-                _.each(response.payload.user, function (userFriend) {
-                    commonFriend = _.find(response.payload.my, function (myFriend) {
+                _.each(response.user, function (userFriend) {
+                    commonFriend = _.find(response.my, function (myFriend) {
                         return userFriend.id === myFriend.id;
                     });
 
                     commonFriend ? $scope.friends.common.list.push(commonFriend) : $scope.friends.all.list.push(userFriend);
                 });
-
-                $scope.friends.loading = false;
-
             }
 
             function boxesResponse(response) {
                 var box;
-                for (var i = 0, l = response.payload.length; i < l; i++) {
-                    box = response.payload[i];
+                for (var i = 0, l = response.length; i < l; i++) {
+                    box = response[i];
                     if (box.userType === 'subscribe' || box.userType === 'owner') {
                         $scope.boxes.common.list.push(box);
                     }
@@ -359,23 +365,19 @@ mUser.controller('UserCtrl',
                         $scope.boxes.following.list.push(box);
                     }
                 }
-                $scope.boxes.loading = false;
-
             }
 
             function activityResponse(response) {
-                $scope.activity.items.list = response.payload.items;
-                $scope.activity.questions.list = response.payload.questions;
-                $scope.activity.answers.list = response.payload.answers;
-
-                $scope.activity.loading = false;
+                $scope.activity.items.list = response.items;
+                $scope.activity.questions.list = response.questions;
+                $scope.activity.answers.list = response.answers;
             }
 
             function adminRespose(response) {
-                $scope.admin.members.fullList = $scope.admin.members.list = $filter('orderByFilter')(response[0].payload, { field: 'name', input: '' });
-                $scope.admin.members.departmemnts = response[1].payload;
-                $scope.admin.members.loading = false;
+                $scope.admin.members.fullList = $scope.admin.members.list = $filter('orderByFilter')(response[0], { field: 'name', input: '' });
+                $scope.admin.members.departmemnts = response[1];
             }
+
         }
     }
     ]);

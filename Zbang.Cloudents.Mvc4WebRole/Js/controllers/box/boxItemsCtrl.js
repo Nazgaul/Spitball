@@ -23,9 +23,8 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         currentTab: null
     };
 
-    sBox.items({ id: $scope.boxId }).then(function (response) {
-        var data = response.success ? response.payload : [];
-        $scope.items = _.map(data, function (item) {
+    sBox.items({ id: $scope.boxId }).then(function (boxItems) {        
+        $scope.items = _.map(boxItems, function (item) {
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });

@@ -1,5 +1,4 @@
-﻿
-mBox.controller('SettingsCtrl',
+﻿mBox.controller('SettingsCtrl',
     ['$scope', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
 
      function ($scope, $modalInstance, $location, sUserDetails, sBox, data) {
@@ -42,12 +41,11 @@ mBox.controller('SettingsCtrl',
 
          $scope.save = function () {
              sBox.updateInfo($scope.formData).then(function (response) {
-                 if (response.success) {
-                     $scope.formData.queryString = response.payload.queryString;
-                     $modalInstance.close($scope.formData);
-                 } else {
-                     alert(response.payload[0].value[0]);
-                 }
+                 $scope.formData.queryString = response.payload.queryString;
+                 $modalInstance.close($scope.formData);
+
+             }, function (response) {
+                 alert(response[0].value[0]);
              });
          };
 
@@ -80,7 +78,7 @@ mBox.controller('SettingsCtrl',
 
          $scope.inviteFriends = function () {
              $modalInstance.close({
-                 invite:true
+                 invite: true
              });
          };
      }

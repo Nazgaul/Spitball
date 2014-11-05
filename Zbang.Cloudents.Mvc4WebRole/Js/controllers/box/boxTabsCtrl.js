@@ -6,9 +6,8 @@ mBox.controller('BoxTabsCtrl',
             var jsResources = window.JsResources;
             $scope.params = {};
          
-            sBox.tabs({ id: $scope.boxId }).then(function (response) {
-                var data = response.success ? response.payload : [];
-                $scope.params.tabs = data;
+            sBox.tabs({ id: $scope.boxId }).then(function (tabs) {                
+                $scope.params.tabs = tabs;
                 $rootScope.$broadcast('update-scroll');
             });
 

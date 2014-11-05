@@ -51,17 +51,12 @@ app.controller('UploadCtrl',
                             tabId: $scope.tabId
                         };
                         sUpload.link(data).then(function (response) {
-                            if (!response.success) {
-                                $rootScope.$broadcast('UploadLinkError', data);
-                                alert('error');
-                                return;
-                            }
-
+                            
                             $rootScope.$broadcast('LinkUploaded', data);
 
 
                             var sentObj = {
-                                itemDto: response.payload,
+                                itemDto: response,
                                 boxId: data.boxId,
                                 tabId: data.tabId,
                                 questionId: $scope.questionId,
@@ -101,16 +96,11 @@ app.controller('UploadCtrl',
 
                         };
                         sUpload.dropbox(data).then(function (response) {
-                            if (!response.success) {
-                                $rootScope.$broadcast('UploadDropboxError', data);
-                                alert('error');
-
-                                return;
-                            }
+                            
                             $rootScope.$broadcast('DropboxUploaded', data);
 
                             var sentObj = {
-                                itemDto: response.payload,
+                                itemDto: response,
                                 boxId: data.boxId,
                                 tabId: data.tabId,
                                 questionId: $scope.questionId,
@@ -162,17 +152,10 @@ app.controller('UploadCtrl',
                                 tabId: $scope.tabId
                             };
                             sUpload.link(data).then(function (response) {
-                                if (!response.success) {
-                                    $rootScope.$broadcast('UploadLinkError', data);
-                                    alert('error');
-                                    return;
-                                }
-
-
                                 $rootScope.$broadcast('LinkUploaded', data);
 
                                 var sentObj = {
-                                    itemDto: response.payload,
+                                    itemDto: response,
                                     boxId: data.boxId,
                                     tabId: data.tabId,
                                     questionId: $scope.questionId,

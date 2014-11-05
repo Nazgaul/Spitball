@@ -8,9 +8,8 @@
 
             var members;;
 
-            sBox.members({ boxId: $scope.boxId }).then(function (response) {
-                var data = response.success ? response.payload : [];
-                members = data;
+            sBox.members({ boxId: $scope.boxId }).then(function (boxMembers) {                
+                members = boxMembers;
 
                 $scope.members = $filter('orderByFilter')(members, { field: 'name', input: '' });
                 $scope.params.membersLength = members.length;

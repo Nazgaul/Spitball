@@ -24,7 +24,7 @@ app.controller('CategoryCtrl',
         else {
 
             Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
-                allProducts = response.payload;
+                allProducts = response;
                 $scope.products = allProducts;
             });
 
@@ -119,12 +119,12 @@ app.controller('CategoryCtrl',
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
-            Store.search({ term: query, universityId: $scope.params.universityId }).then(function (response) {
-                var data = response.success ? response.payload : {};
-                $scope.params.isSearching = false;
+            Store.search({ term: query, universityId: $scope.params.universityId }).then(function (data) {                
                 $scope.products = data;
                 $scope.params.maxProducts = consts.defaultMaxProducts;
             }, function () {
+            
+            }).finally(function () {
                 $scope.params.isSearching = false;
             });
         }

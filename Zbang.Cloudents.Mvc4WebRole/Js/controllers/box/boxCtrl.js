@@ -31,8 +31,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 activeTab: 'feed'
             };
 
-            sBox.info({ id: $scope.boxId }).then(function (response) {
-                var info = response.success ? response.payload : null;
+            sBox.info({ id: $scope.boxId }).then(function (info) {
+                
                 $scope.info = {
                     name: info.name,
                     courseId: info.courseId,
@@ -161,9 +161,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 }
 
 
-                sBox.notification({ boxId: $scope.boxId }).then(function (response) {
-                    var notification = response.success ? response.payload : '';
-
+                sBox.notification({ boxId: $scope.boxId }).then(function (notification) {
                     sModal.open('boxSettings', {
                         data: {
                             info: $scope.info,
