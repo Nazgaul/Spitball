@@ -514,7 +514,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpPost]
         public ActionResult ChangeLocale(string lang)
         {
             var cookie = new CookieHelper(HttpContext);

@@ -40,11 +40,11 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Box.BoxDto>> GetUserBoxes(GetBoxesQuery query)
+        public async Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.BoxDto>(Sql.Sql.UserBoxes, new { query.UserId });
+                return await conn.QueryAsync<BoxDto>(Sql.Sql.UserBoxes, new { query.UserId });
             }
 
         }

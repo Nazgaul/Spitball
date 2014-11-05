@@ -182,6 +182,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
     };
 
     function mapBoxes(boxes) {
+        console.log(boxes);
         var academic = [], group = [];
         for (var i = 0, l = boxes.length; i < l; i++) {
             boxes[i].boxPicture = boxes[i].boxPicture || '/images/emptyState/my_default3.png';
