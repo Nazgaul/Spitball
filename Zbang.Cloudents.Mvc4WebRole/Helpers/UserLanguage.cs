@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
@@ -10,6 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public static class UserLanguage
     {
+        public const string cookieName = "lang";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
 
@@ -29,19 +31,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 ChangeThreadLanguage(context.Request.QueryString["lang"]);
                 return;
             }
-            if (context.Request.Cookies["lang"] != null)
+            var cookie = new CookieHelper(context);
+            var lang = cookie.ReadCookie<Language>(cookieName);
+            if (lang == null)
             {
-                var value = server.HtmlEncode(context.Request.Cookies["lang"].Value);
-                ChangeThreadLanguage(value);
+                var country = GetCountryByIp(context);
+                if (country.ToLower() == "nl")
+                {
+                    country = "gb";
+                }
+                var culture = Languages.GetCultureBaseOnCountry(country);
+                cookie.InjectCookie(cookieName, new Language {Lang = culture.Name});
+                ChangeThreadCulture(culture);
                 return;
             }
-            var country = GetCountryByIp(context);
-            if (country.ToLower() == "nl")
-            {
-                country = "gb";
-            }
-            var culture = Languages.GetCultureBaseOnCountry(country);
-            ChangeThreadCulture(culture);
+            //if (context.Request.Cookies["lang"] != null)
+            //{
+            //    var value = server.HtmlEncode(context.Request.Cookies["lang"].Value);
+            ChangeThreadLanguage(lang.Lang);
+            //    return;
+            //}
+            //var country = GetCountryByIp(context);
+            //if (country.ToLower() == "nl")
+            //{
+            //    country = "gb";
+            //}
+            //var culture = Languages.GetCultureBaseOnCountry(country);
+            //ChangeThreadCulture(culture);
 
             //if (context.Request.UserLanguages == null) return;
             //foreach (var languageWithRating in context.Request.UserLanguages)
@@ -112,5 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             return (long)num;
         }
+
+
     }
 }
