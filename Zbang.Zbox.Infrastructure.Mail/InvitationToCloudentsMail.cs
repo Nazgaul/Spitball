@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{USERNAME}", inviteToCloudentsParams.SenderName);
             message.Html = message.Html.Replace("{Image}", inviteToCloudentsParams.SenderImage);
+            message.Html = message.Html.Replace("{{Url}}", inviteToCloudentsParams.Url);
 
         }
     }

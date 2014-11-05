@@ -44,13 +44,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var msgData = msg.FromMessageProto<BaseMailData>();
                 if (msgData == null)
                 {
-                    TraceLog.WriteInfo("New MailProcess - message is not in the currect format " + msg.Id);
+                    TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
                     return true;
                 }
                 try
                 {
-                    var mail = IocFactory.Unity.Resolve<Imail2>(msgData.MailResover);
-                    return mail.Excecute(msgData);
+                    var mail = IocFactory.Unity.Resolve<IMail2>(msgData.MailResover);
+                    return mail.Execute(msgData);
                 }
                 catch (NullReferenceException ex)
                 {

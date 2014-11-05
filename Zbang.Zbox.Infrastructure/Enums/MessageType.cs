@@ -1,12 +1,11 @@
 ﻿
 namespace Zbang.Zbox.Infrastructure.Enums
 {
-// ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper
+    // ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper
     public enum MessageType : int
     {
         None = 0,
-        Message,
-        Invite,
-        InviteToCloudents
+        Invite = 2,
+        InviteToCloudents = 3
     }
 }

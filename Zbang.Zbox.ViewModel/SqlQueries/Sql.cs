@@ -82,13 +82,13 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                                 b.commentcount as CommentCount,
                                 b.CourseCode,
                                 b.ProfessorName,
-								
                                 b.Discriminator as boxType,
 								b.Url as Url
                                   from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
                                   where 
                                   b.IsDeleted = 0   
                                   and ub.UserId = @UserId
+                                  and ub.usertype in (2,3)
                                   ORDER BY ub.UserBoxRelId desc;";
 
        

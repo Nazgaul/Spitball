@@ -5,10 +5,10 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class InviteRepository : NHibernateRepository<Invite>, IInviteRepository
     {
-        public Invite GetCurrentInvite(User recepient, Box box)
+        public InviteToBox GetUserInvite(UserBoxRel userBoxRel)
         {
-            return UnitOfWork.CurrentSession.QueryOver<Invite>()
-                .Where(w => w.Recipient == recepient && w.Box == box && w.IsActive)
+            return UnitOfWork.CurrentSession.QueryOver<InviteToBox>()
+                .Where(w => w.UserBoxRel == userBoxRel && !w.IsUsed)
                 .SingleOrDefault();
         }
     }

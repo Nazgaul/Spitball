@@ -84,8 +84,7 @@ namespace Zbang.Zbox.Domain.Common
         void AddReputation(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
-        void MarkMessageAsRead(MarkMessagesAsReadCommand command);
-        void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
+        //void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
 
         #region Quiz
         void CreateQuiz(CreateQuizCommand command);
@@ -117,6 +116,7 @@ namespace Zbang.Zbox.Domain.Common
 
 
         void CreateUniversity(CreateUniversityCommand command);
-       // void SelectDepartment(SelectDepartmentCommand command);
+
+
     }
 }

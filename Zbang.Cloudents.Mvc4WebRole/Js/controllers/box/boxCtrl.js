@@ -20,11 +20,11 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 items: 'items',
                 quizzes: 'quizzes',
                 members: 'members'
-            };
+            }
 
             $scope.popup = {
                 share: false
-            }
+            };
 
             $scope.options = {
                 loader: true,
@@ -55,7 +55,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $scope.strings = {
                     share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
                     invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
-                }
+                };
 
 
                 sNewUpdates.getUpdatesCount($scope.boxId, function (updatesCount) {
@@ -208,7 +208,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                 $scope.action = {
                     userFollow: true
-                }
+                };
                 $scope.info.userType = 'subscribe';
 
                 sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);

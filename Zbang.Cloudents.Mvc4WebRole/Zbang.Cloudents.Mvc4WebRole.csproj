@@ -313,6 +313,7 @@
     <Compile Include="Models\Account\Confirmation.cs" />
     <Compile Include="Models\Account\ForgotPassword.cs" />
     <Compile Include="Models\Account\ForgotPasswordLinkData.cs" />
+    <Compile Include="Models\Account\Invite.cs" />
     <Compile Include="Models\Account\LogOn.cs" />
     <Compile Include="Models\Account\LogOnRegister.cs" />
     <Compile Include="Models\Account\NewPassword.cs" />

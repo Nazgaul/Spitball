@@ -4,14 +4,14 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.Mail
 {
-    internal class ChangeEmail : Imail2
+    internal class ChangeEmail : IMail2
     {
         private readonly IMailComponent m_MailComponent;
         public ChangeEmail(IMailComponent mailComponent)
         {
             m_MailComponent = mailComponent;
         }
-        public bool Excecute(BaseMailData data)
+        public bool Execute(BaseMailData data)
         {
             var parameters = data as ChangeEmailData;
             if (parameters == null)

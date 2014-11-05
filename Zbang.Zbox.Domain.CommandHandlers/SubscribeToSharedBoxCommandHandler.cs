@@ -30,15 +30,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(SubscribeToSharedBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            bool isSubscribed = false;
-            User user = m_UserRepository.Load(command.Id);
-            Box box = m_BoxRepository.Load(command.BoxId);
+            var isSubscribed = false;
+            var user = m_UserRepository.Load(command.Id);
+            var box = m_BoxRepository.Load(command.BoxId);
 
-            UserRelationshipType type = m_UserRepository.GetUserToBoxRelationShipTypeWithInvite(user.Id, box.Id);
+            var userBoxRel = m_UserRepository.GetUserBoxRelationship(user.Id, box.Id);
+            var type = UserRelationshipType.None;
+            if (userBoxRel != null)
+            {
+                type = userBoxRel.UserRelationshipType;
+            }
             if (type == UserRelationshipType.Invite)
             {
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                var invite = m_InviteRepository.GetCurrentInvite(user, box);
+                var invite = m_InviteRepository.GetUserInvite(userBoxRel);
                 m_ReputationRepository.Save(invite.Sender.AddReputation(ReputationAction.InviteToBox));
 
                 isSubscribed = true;
@@ -53,12 +58,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(user);
             }
 
-            if (isSubscribed)
-            {
-                box.CalculateMembers();
-                box.UserTime.UpdateUserTime(user.Email);
-                m_BoxRepository.Save(box);
-            }
+            if (!isSubscribed) return;
+            box.CalculateMembers();
+            box.UserTime.UpdateUserTime(user.Email);
+            m_BoxRepository.Save(box);
         }
     }
 }

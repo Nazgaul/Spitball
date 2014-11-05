@@ -64,7 +64,8 @@ namespace Zbang.Zbox.ReadServices
         
 
         BoxSettingsDto GetBoxSetting(GetBoxQuery query);
-        IEnumerable<UserMemberDto> GetBoxMembers(GetBoxQuery query);
+
+        Task<IEnumerable<UserMemberDto>> GetBoxMembers(GetBoxQuery query);
 
         Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
 

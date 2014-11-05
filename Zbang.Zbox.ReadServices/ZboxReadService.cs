@@ -651,16 +651,11 @@ namespace Zbang.Zbox.ReadServices
         /// <param name="query"></param>
         /// <returns></returns>
         /// 
-        //TODO:Dapper 
-        public IEnumerable<User.UserMemberDto> GetBoxMembers(GetBoxQuery query)
+        public async Task<IEnumerable<User.UserMemberDto>> GetBoxMembers(GetBoxQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxMembers");
-                dbQuery.SetResultTransformer(Transformers.AliasToBean<User.UserMemberDto>());
-                dbQuery.SetInt64("BoxId", query.BoxId);
-                var fResult = dbQuery.Future<User.UserMemberDto>();
-                return fResult.ToList();
+               return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new {BoxId = query.BoxId});
             }
         }
 

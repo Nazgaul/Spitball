@@ -66,10 +66,10 @@
       <key column="UserId"/>
       <one-to-many class="UserBoxRel"/>
     </set>
-    <set name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <!--<set name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="RecepientId" foreign-key="MessageRecepientSender"/>
       <one-to-many class="Invite"/>
-    </set>
+    </set>-->
     <property name="LastAccessTime" type="DateTime2"  />
   </class>
 
