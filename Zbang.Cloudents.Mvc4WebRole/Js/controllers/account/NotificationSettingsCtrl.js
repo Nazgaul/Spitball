@@ -11,10 +11,8 @@ mAccount.controller('NotificationSettingsCtrl',
                 boxListPage: 20
             };
 
-            sUser.notification().then(function (response) {
-                var data = response.success ? response.payload : [];
-
-                $scope.boxes = data;
+            sUser.notification().then(function (notificationBoxList) {
+                $scope.boxes = notificationBoxList;
             });
 
             $scope.addBoxes = function () {

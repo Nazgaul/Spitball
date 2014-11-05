@@ -119,21 +119,6 @@
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId
-	  union 
-	  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , 1 as userStatus , u.url as Url
-	  from zbox.Message m
-	  join zbox.users u on u.UserId = m.RecepientId
-	  where m.BoxId = :BoxId
-    and isactive = 1
     ]]>
   </sql-query>
-
-  <!--box page - used to get the url to back button-->
-  <!--<sql-query name="GetBoxLibNode" read-only="1" resultset-ref="NodeDto">
-    <![CDATA[
-    select l.LibraryId as Id, l.Name as Name 
-    from zbox.librarybox lb join zbox.library l on lb.LibraryId = l.LibraryId
-    where boxid = :BoxId 
-    ]]>
-  </sql-query>-->
 </hibernate-mapping>

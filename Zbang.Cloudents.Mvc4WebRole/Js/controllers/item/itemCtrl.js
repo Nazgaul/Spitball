@@ -20,20 +20,17 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
 
     var itemId = $routeParams.itemId, boxId = $routeParams.boxId;
 
-    sItem.load({ itemId: itemId, boxId: boxId }).then(function (response) {
-        var data = response.success ? response.payload : [];
-        if (response.success) {
-            $scope.item = data;
-            $scope.item.url = $location.absUrl();
-            $scope.item.downloadUrl = $location.url() + 'download/';
-            $scope.item.printUrl = $location.url() + 'print/';
-            getPreview();
-            $timeout(function() {
-                $rootScope.$broadcast('viewContentLoaded');
-                $scope.$broadcast('update-scroll');
-                $scope.canNavigate = true;
-            });
-        }
+    sItem.load({ itemId: itemId, boxId: boxId }).then(function (data) {
+        $scope.item = data;
+        $scope.item.url = $location.absUrl();
+        $scope.item.downloadUrl = $location.url() + 'download/';
+        $scope.item.printUrl = $location.url() + 'print/';
+        getPreview();
+        $timeout(function () {
+            $rootScope.$broadcast('viewContentLoaded');
+            $scope.$broadcast('update-scroll');
+            $scope.canNavigate = true;
+        });
     });
 
     function getPreview() {
@@ -52,10 +49,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             index: index,
             id: itemId,
             boxId: boxId
-        }).then(function (response) {
-            $scope.load.contentLoading = $scope.load.contentLoadMore = false;
-
-            var data = response.success ? response.payload || {} : {};
+        }).then(function (data) {
+            $scope.load.contentLoading = $scope.load.contentLoadMore = false;            
             if (data.preview) {
                 if (data.preview.indexOf('iframe') > 0
                     || data.preview.indexOf('audio') > 0
@@ -73,14 +68,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     }
 
-    $scope.loadMore = function() {
+    $scope.loadMore = function () {
         if (loadMore) {
             loadMore = false;
             ++index;
             getPreview();
         }
     };
-    $scope.fullScreenWindow = function() {
+    $scope.fullScreenWindow = function () {
         $location.hash('fullscreen');
 
         sModal.open('itemFullscreen', {
@@ -98,9 +93,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     }
 
     $scope.flagItemWindow = function () {
-        sModal.open('flagItem',{
+        sModal.open('flagItem', {
             data: {
-                id: itemId 
+                id: itemId
             },
             callback: {
                 close: function () {
@@ -108,11 +103,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                     $scope.flagText = jsResources.Flagged;
                 }
             }
-        });        
+        });
     };
 
     $scope.renameWindow = function () {
-        sModal.open('itemRename', { 
+        sModal.open('itemRename', {
             data: {
                 name: $scope.item.name,
                 id: itemId
@@ -123,7 +118,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                     $location.path(d.url).replace();
                 }
             }
-        });        
+        });
     };
     $scope.create = function (isValid) {
         if (!isValid) {
@@ -133,13 +128,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         //TODO: add disable state
         $scope.formData.itemId = itemId;
         sItem.addComment($scope.formData).then(function (response) {
-            $scope.commentp = false;
-
-            if (!response.success) {
-                alert(response.payload);
-                return;
-            }
-
+            $scope.commentp = false;            
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
                 creationDate: new Date().toISOString(),
@@ -151,28 +140,27 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.formData = {};
             $scope.showBtn = false;
             $scope.$broadcast('update-scroll');
+
+        }, function (respoonse) {
+            alert(response);
         });
     };
     $scope.deleteComment = function (comment) {
-        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {
-            if (!response.success) {
-                alert(response.payload);
-                return;
-            }
+        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {            
             var indexC = $scope.item.comments.indexOf(comment);
             $scope.item.comments.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
+        }, function (response) {
+            alert(response);
         });
     };
     $scope.deleteReply = function (reply, comment) {
         sItem.deleteReply({ ReplyId: reply.id }).then(function (response) {
-            if (!response.success) {
-                alert(response.payload);
-                return;
-            }
             var indexC = comment.replies.indexOf(reply);
             comment.replies.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
+        }, function (response) {
+            alert(response.payload);
         });
     };
     $scope.canDelete = function (id) {
@@ -193,10 +181,6 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         $scope.fromReply.commentId = comment.id;
 
         sItem.replyComment($scope.fromReply).then(function (response) {
-            if (!response.success) {
-                alert(response.payload.error[0].value[0]);
-                return;
-            }
             comment.replies.unshift({
                 comment: $scope.fromReply.Comment,
                 creationDate: new Date().toISOString(),
@@ -209,6 +193,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             comment.showReplyF = false;
             comment.replyp = false;
             $scope.$broadcast('update-scroll');
+        }, function (response) {
+            alert(response.error[0].value[0]);
         });
     };
     //todo proper return;
@@ -232,7 +218,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         sModal.open('shareEmail');
 
     };
-    $scope.rate = function(t) {
+    $scope.rate = function (t) {
         sItem.rate({ ItemId: itemId, rate: t });
     };
 }

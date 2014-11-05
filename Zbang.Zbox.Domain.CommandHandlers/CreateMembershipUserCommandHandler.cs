@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IProfilePictureProvider profileProvider,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
-            IInviteToCloudentsRepository inviteToCloudentsRepository,
+            IRepository<InviteToSystem> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)
         {
@@ -32,39 +32,46 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("command.Email");
             }
+            GiveReputation(command.InviteId);
 
 
-            User user = UserRepository.GetUserByEmail(command.Email);
-            var newUser = false;
+            var user = GetUserByEmail(command.Email);
+
+            if (user != null && IsUserRegistered(user))
+            {
+                throw new ArgumentException("user is already registered");
+            }
+            //var newUser = false;
             if (user == null)//email was invited to a box new user
             {
-                newUser = true;
+               // newUser = true;
                 var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
-                user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
+                user = CreateUser(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     command.MiddleName,
-                    command.LastName, command.Sex, command.MarketEmail,command.Culture);
+                    command.LastName, command.Sex, command.MarketEmail, command.Culture);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
             }
-            if (!user.IsRegisterUser)
-            {
-                TriggerWelcomeMail(user);
-                user.IsRegisterUser = true;
+            UpdateUser(user, command);
+            //if (!user.IsRegisterUser)
+            //{
+            
+            //    user.IsRegisterUser = true;
 
-                user.FirstName = command.FirstName;
-                user.MiddleName = command.MiddleName;
-                user.LastName = command.LastName;
-                user.CreateName();
-                user.Sex = command.Sex;
-                user.MarketEmail = command.MarketEmail;
+            //    user.FirstName = command.FirstName;
+            //    user.MiddleName = command.MiddleName;
+            //    user.LastName = command.LastName;
+            //    user.CreateName();
+            //    user.Sex = command.Sex;
+            //    user.MarketEmail = command.MarketEmail;
 
-                user.Quota.AllocateStorage();
-                if (!newUser)
-                {
-                    AddReputation(user);
-                }
-            }
+            //    user.Quota.AllocateStorage();
+            //    if (!newUser)
+            //    {
+            //        AddReputation(user);
+            //    }
+            //}
             user.MembershipId = membershipCommand.MembershipUserId;
 
             var retVal = new CreateMembershipUserCommandResult(user);

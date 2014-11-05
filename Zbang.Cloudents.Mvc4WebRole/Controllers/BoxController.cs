@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NoCache]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> IndexDesktop(string universityName, long boxId, string boxName)
+        public async Task<ActionResult> IndexDesktop(long boxId)
         {
             var userId = User.GetUserId(false);
             try
@@ -275,10 +275,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [BoxPermission("boxId")]
 
-        public JsonResult Members(long boxId)
+        public async Task<JsonResult> Members(long boxId)
         {
             var userId = User.GetUserId(false);
-            var result = ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
+            var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
             return Json(new JsonResponse(true, result));
         }
 

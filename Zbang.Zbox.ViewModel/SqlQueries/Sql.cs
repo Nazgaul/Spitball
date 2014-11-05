@@ -82,13 +82,13 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
                                 b.commentcount as CommentCount,
                                 b.CourseCode,
                                 b.ProfessorName,
-								
                                 b.Discriminator as boxType,
 								b.Url as Url
                                   from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
                                   where 
                                   b.IsDeleted = 0   
                                   and ub.UserId = @UserId
+                                  and ub.usertype in (2,3)
                                   ORDER BY ub.UserBoxRelId desc;";
 
        
@@ -168,38 +168,17 @@ select top(50) userName as UserName, userimage as UserImage,userid as UserId,box
 
 
         public const string UserInvites = @"
-select * from (select u.UserImage as userpic,
- u.UserName as username,
- m.MessageId as msgId,
-  m.CreationTime as date,
-  m.NotRead as isread,
-  m.New as IsNew,
-  m.Text as message,
-b.BoxName,
-b.BoxId,
-b.Url
-from zbox.message m 
-inner join zbox.box b on m.BoxId = b.BoxId and b.IsDeleted = 0
-inner join zbox.users u on u.UserId = m.SenderId
-where m.RecepientId = @userid
- and TypeOfMsg = 2
- and isactive = 1
-/* union all
 select u.UserImage as userpic,
- u.UserName as username,
- m.MessageId as msgId,
-  m.CreationTime as date,
-  m.NotRead as isread,
-  m.New as IsNew,
-  m.Text as message,
-null,
-null,
-null
- from zbox.message m 
- inner join zbox.users u on u.UserId = m.SenderId
-where m.RecepientId = @userid
- and TypeOfMsg = 1*/ ) t
- order by t.msgid desc";
+ u.UserName as username, 
+ i.CreationTime as date,
+ b.BoxName,
+b.Url 
+from zbox.UserBoxRel ub
+join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0
+join zbox.Users u on i.SenderId = u.UserId
+join zbox.box b on ub.BoxId = b.BoxId
+where ub.UserType = 1
+and ub.UserId = @userid";
 
         public const string RecommendedCourses =
             @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,

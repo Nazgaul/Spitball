@@ -1,3 +1,4 @@
+using System;
 using Zbang.Zbox.Infrastructure.Commands;
 namespace Zbang.Zbox.Domain.Commands
 {
@@ -13,6 +14,5 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long BoxId { get; private set; }
 
-        
     }
 }

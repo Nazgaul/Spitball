@@ -19,7 +19,7 @@
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
     <div class="upContentWpr">
         <div class="upTop">
-            <a class="rFloat iconTxt" target="_self" ng-if="profile.isSelf"
+            <a class="rFloat iconTxt" ng-if="profile.isSelf"
                href="@Url.Action("Settings","Account")">@UserResources.EditAccount</a>
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>

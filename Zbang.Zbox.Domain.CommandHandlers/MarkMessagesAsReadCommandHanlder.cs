@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var message =  m_MessageRepositoy.Load(commandMessage.MessageId);
             if (message.Recipient.Id != commandMessage.UserId)
             {
-                throw new ArgumentException("User is not the recepients");
+                throw new ArgumentException("User is not the recipient");
             }
             message.UpdateMessageAsRead();
             m_MessageRepositoy.Save(message);

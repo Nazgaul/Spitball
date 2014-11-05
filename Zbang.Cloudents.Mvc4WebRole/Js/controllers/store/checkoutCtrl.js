@@ -1,5 +1,4 @@
-﻿
-app.controller('CheckoutCtrl',
+﻿app.controller('CheckoutCtrl',
     ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
     function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
         "use strict";
@@ -94,17 +93,15 @@ app.controller('CheckoutCtrl',
 
             $scope.coupon.buttonDisabled = true;
 
-            Store.validateCoupon({ code: parseInt($scope.coupon.code, 10) }).then(function (response) {
-                $scope.coupon.buttonDisabled = false;
-                if (!response.success) {
-                    return;
-                }
-                if (response.payload.isValid) {
+            Store.validateCoupon({ code: parseInt($scope.coupon.code, 10) }).then(function (response) {                
+                if (response.isValid) {
                     $scope.coupon.valid = true;
                     return;
                 }
                 alert(invalidCouponMessage);
             }, function () {
+            
+            }).finally(function () {
                 $scope.coupon.buttonDisabled = false;
             });
         };
@@ -132,13 +129,12 @@ app.controller('CheckoutCtrl',
             });
 
             Store.order($scope.formData).then(function (response) {
-                if (!response.success) {
-                    alert(response.payload);
-                    return;
-                }
+                $location.path(response.url);
+                $location.search('productId', $routeParams.productId)
+            }, function (response) {
+                alert(response);
+            }).always(function () {
                 $scope.order.buttonDisabled = false;
-                $location.path(response.payload.url);
-                $location.search('productId',$routeParams.productId)
             });
         };
     }]

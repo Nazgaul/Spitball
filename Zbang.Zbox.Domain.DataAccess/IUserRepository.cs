@@ -12,10 +12,11 @@ namespace Zbang.Zbox.Domain.DataAccess
         User GetUserByFacebookId(long facebookUserId);
 
         UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId);
+        UserBoxRel GetUserBoxRelationship(long userId, long boxId);
 
-        UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId);
+        //UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId);
         long GetItemsByUser(long userId);
-        User GetOwnerByBoxId(long boxId);
+        //User GetOwnerByBoxId(long boxId);
 
         bool IsNotUsedCode(string code, long userId);
     }

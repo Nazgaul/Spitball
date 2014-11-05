@@ -89,5 +89,19 @@ join zbox.users u on ub.userid = u.userid
  where boxid = @BoxId
  and u.usertype <> 1
  order by userreputation desc;";
+
+
+        public const string BoxMembers =
+            @"  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
+    from zbox.UserBoxRel ub 
+	    join zbox.users u on ub.UserId =  u.UserId
+	    where ub.BoxId=@BoxId
+union 
+	  select null as Id ,m .UserName as Name,m.Image as Image , 1 as userStatus , null as Url
+	  from zbox.invite m
+	  where m.BoxId = @BoxId
+	   and m.userboxrelid is null
+       and m.isused = 0
+	   order by userStatus desc;";
     }
 }

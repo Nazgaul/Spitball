@@ -102,7 +102,7 @@ app.controller('ShareCtrl',
         }
 
         sShare.cloudentsFriends().then(function (contacts) {
-            var mapped = contacts.payload.my.map(function (contact) {
+            var mapped = contacts.my.map(function (contact) {
                 return {
                     id: contact.uid,
                     name: contact.name,

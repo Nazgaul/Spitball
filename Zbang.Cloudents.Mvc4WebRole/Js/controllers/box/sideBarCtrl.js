@@ -3,9 +3,7 @@ mBox.controller('SideBarCtrl',
     ['$scope', 'sBox',
         function ($scope, sBox) {
             "use strict";
-            sBox.sideBar({ id: $scope.boxId }).then(function (response) {
-                var data = response.success ? response.payload : {};
-              
+            sBox.sideBar({ id: $scope.boxId }).then(function (data) {                             
                 parseRecommendedCourses(data.recommendBoxes);
                 parseLeaderboard(data.leaderBoard);
 

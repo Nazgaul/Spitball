@@ -30,7 +30,7 @@ app.factory('sModal',
                     return buildObj(null, { url: '/Dashboard/CreateBox/' }, 'CreateBoxWizardCtrl', false, false, params.data);
                 },
                 itemFullscreen: function (params) {
-                    return buildObj('fullscreen', { url: '/Item/fullscreen/' }, 'itemFullScreenCtrl', 'static', true, params.scope);
+                    return buildObj('fullscreen', { url: '/Item/fullscreen/' }, 'itemFullScreenCtrl', 'static', true, null, params.scope);
                 },
                 flagItem: function (params) {
                     return buildObj('flagItem', { url: '/Item/Flag/' }, 'itemFlagCtrl', 'static', true, params.data);
@@ -62,7 +62,7 @@ app.factory('sModal',
                         modalInstance = $modal.open(modalParams);
 
                     modalInstance.result.then(function (response) {
-                        
+
                         if (angular.isFunction(params.callback.close)) {
                             params.callback.close(response);
                         }
@@ -114,7 +114,7 @@ app.factory('sModal',
                 }
 
                 if (template.html) {
-                    params.tempalte = template.html;
+                    params.template = template.html;
                 }
 
                 return params;

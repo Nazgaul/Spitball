@@ -95,8 +95,6 @@
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
     <Compile Include="InviteToSystemFacebookCommand.cs" />
-    <Compile Include="MarkMessagesAsOldCommand.cs" />
-    <Compile Include="MarkMessagesAsReadCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />

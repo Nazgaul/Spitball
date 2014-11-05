@@ -1,7 +1,7 @@
 ﻿
 mDashboard.controller('InviteCloudentsCtrl',
-        ['$scope','$q', 'sFacebook', '$modalInstance',
-        function ($scope, $q, sFacebook, $modalInstance) {
+        ['$scope','$q', 'sFacebook', '$modalInstance','sShare',
+        function ($scope, $q, sFacebook, $modalInstance, sShare) {
             "use strict";
             $scope.inviteCloudents = true;
             $scope.next = function () {
@@ -24,7 +24,7 @@ mDashboard.controller('InviteCloudentsCtrl',
                 var dfd = $q.defer();
 
                 var data = {
-                    boxId: $scope.box.id,
+                    //boxId: $scope.box.id,
                     id: contact.id,
                     username: contact.username || contact.id,
                     firstName: contact.firstname,
@@ -33,7 +33,7 @@ mDashboard.controller('InviteCloudentsCtrl',
                     sex: contact.gender
                 };
 
-                sShare.facebookInvite.box(data).then(function (response) {
+                sShare.facebookInvite.cloudents(data).then(function (response) {
                     if (!response.success) {
                         alert('Error');
                         dfd.reject();
@@ -48,8 +48,9 @@ mDashboard.controller('InviteCloudentsCtrl',
                     }, function () {
                         dfd.reject();
                     });
-                    return dfd.promise;
-                });             
+                    
+                });
+                return dfd.promise;
             };
 
         }

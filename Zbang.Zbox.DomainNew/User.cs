@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserBoxRel = new HashSet<UserBoxRel>();
 
-            Invites = new HashSet<Invite>();
+            //Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Domain
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
-        protected virtual ICollection<Invite> Invites { get; set; }
+       // protected virtual ICollection<Invite> Invites { get; set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
@@ -130,15 +130,15 @@ namespace Zbang.Zbox.Domain
             return null;
         }
 
-        public void RemoveInviteState(Box box)
-        {
-            var invites = Invites.Where(w => Equals(w.Box, box)).ToList();
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse - this is nhibernate issue
-            if (invites != null)
-            {
-                invites.ForEach(f => f.IsActive = false);
-            }
-        }
+        //public void RemoveInviteState(Box box)
+        //{
+        //    var invites = Invites.Where(w => Equals(w.Box, box)).ToList();
+        //    // ReSharper disable once ConditionIsAlwaysTrueOrFalse - this is nhibernate issue
+        //    if (invites != null)
+        //    {
+        //        invites.ForEach(f => f.IsActive = false);
+        //    }
+        //}
 
         public Reputation AddReputation(ReputationAction action)
         {
@@ -150,7 +150,7 @@ namespace Zbang.Zbox.Domain
 
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)
         {
-            RemoveInviteState(box);
+            //RemoveInviteState(box);
             var userType = UserBoxRel.FirstOrDefault(w => Equals(w.Box, box));
             if (userType == null)
             {

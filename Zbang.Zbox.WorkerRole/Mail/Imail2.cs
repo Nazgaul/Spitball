@@ -2,8 +2,8 @@
 
 namespace Zbang.Zbox.WorkerRole.Mail
 {
-    internal interface Imail2
+    internal interface IMail2
     {
-        bool Excecute(BaseMailData data);
+        bool Execute(BaseMailData data);
     }
 }

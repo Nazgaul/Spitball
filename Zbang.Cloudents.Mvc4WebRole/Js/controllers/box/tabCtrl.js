@@ -8,47 +8,41 @@ mBox.controller('createTabCtrl',
 		 function ($scope, $modalInstance, sBox, data) {
 		     "use strict";
 		     var jsResources = window.JsResources;
-		 	$scope.formData = {
-		 		boxId: data.boxId,
-		 		tabId: data.tabId,
-		 		name: data.tabName
-		 	};
+		     $scope.formData = {
+		         boxId: data.boxId,
+		         tabId: data.tabId,
+		         name: data.tabName
+		     };
 
-		 	$scope.params = {
-		 	    title : data.tabId ? jsResources.FolderRename : jsResources.FolderCreate,
-		 	    action: data.tabId ? jsResources.Rename : jsResources.Create
-		 	};
+		     $scope.params = {
+		         title: data.tabId ? jsResources.FolderRename : jsResources.FolderCreate,
+		         action: data.tabId ? jsResources.Rename : jsResources.Create
+		     };
 
-		 	$scope.create = function (isValid) {
-		 		if (!isValid) {
-		 			return;
-		 		}
+		     $scope.create = function (isValid) {
+		         if (!isValid) {
+		             return;
+		         }
 
-		 		if ($scope.formData.tabId) {
-		 			sBox.renameTab($scope.formData).then(function (response) {
-		 				if (response.success) {
-		 					$modalInstance.close($scope.formData.name);
-		 					return;
-		 				}
+		         if ($scope.formData.tabId) {
+		             sBox.renameTab($scope.formData).then(function () {
+		                 $modalInstance.close($scope.formData.name);
+		             }, function () {
+		                 alert(jsResources.RenameError);
+		             });
 
-		 				alert(jsResources.RenameError);
-		 			});
+		             return;
+		         }
 
-		 			return;
-		 		}
+		         sBox.createTab($scope.formData).then(function (tab) {
+		             $modalInstance.close(tab);
+		         }, function (response) {
+		             alert(response)
+		         });
+		     };
 
-		 		sBox.createTab($scope.formData).then(function (tab) {
-		 			if (!tab.success) {
-		 				alert(tab.payload);
-		 				return;
-		 			}
-
-		 			$modalInstance.close(tab.payload || tab.Payload);
-		 		});
-		 	};
-
-		 	$scope.cancel = function () {
-		 		$modalInstance.dismiss();
-		 	};
+		     $scope.cancel = function () {
+		         $modalInstance.dismiss();
+		     };
 		 }
-	]);
+		]);

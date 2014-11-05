@@ -36,12 +36,12 @@
             getNotifications: function () {
                 return ajaxService.get(buildPath('Notifications'));
             },
-            markNotificationAsRead: function (data) {
-                return ajaxService.post(buildPath('NotificationAsRead'), data);
-            },
-            markNotificationsAsOld: function (data) {
-                return ajaxService.post(buildPath('NotificationOld'), data);
-            }
+            //markNotificationAsRead: function (data) {
+            //    return ajaxService.post(buildPath('NotificationAsRead'), data);
+            //},
+            //markNotificationsAsOld: function (data) {
+            //    return ajaxService.post(buildPath('NotificationOld'), data);
+            //}
 
         };
     }

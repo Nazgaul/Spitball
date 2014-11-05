@@ -43,20 +43,19 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
         });              
     };
     function firstTimeDashboard() {
-        sDashboard.recommendedCourses().then(function (response) {
-            var data = response.success ? response.payload : {};
-            $scope.recommendedCourses = data;
+        sDashboard.recommendedCourses().then(function (recommendedCourses) {            
+            $scope.recommendedCourses = recommendedCourses;
         });
         sDashboard.disableFirstTime();
     }
 
 
     sDashboard.boxList().then(function (data) {
-        $scope.wall = data.payload.wall;
-        $scope.friends = data.payload.friends;
+        //$scope.leaderBoard = data.payload.leaderBoard;
+        //$scope.recommendedCourses = data.payload.recommendedCourses;
 
-        mapBoxes(data.payload.boxes);
-        if (!data.payload.boxes.length) {
+        mapBoxes(data.boxes);
+        if (!data.boxes.length) {
             firstTimeDashboard();
         }
 

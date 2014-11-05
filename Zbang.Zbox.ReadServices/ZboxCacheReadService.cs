@@ -138,7 +138,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxSetting(query);
         }
 
-        public IEnumerable<UserMemberDto> GetBoxMembers(GetBoxQuery query)
+        public Task<IEnumerable<UserMemberDto>> GetBoxMembers(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMembers(query);
         }

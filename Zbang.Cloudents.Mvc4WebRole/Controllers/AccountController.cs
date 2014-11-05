@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
-
+       // private const string InvId = "invId";
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
@@ -57,11 +57,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
             Location = OutputCacheLocation.Server
             )]
-        public ActionResult Index(string lang)
+        public ActionResult Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
+            }
+            if (!string.IsNullOrEmpty(invId))
+            {
+                var guid = GuidEncoder.TryParseNullableGuid(invId);
+                if (guid.HasValue)
+                {
+                    var h = new CookieHelper(HttpContext);
+                    h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+                }
             }
             if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
             {
@@ -93,10 +102,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Login
         [HttpPost]
         [RequireHttps]
-        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl, string invId)
+        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl)
         {
             try
             {
+                var cookie = new CookieHelper(HttpContext);
                 LogInUserDto user;
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(token);
@@ -111,13 +121,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 catch (UserNotFoundException)
                 {
+
+                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
+                    Guid? invId = null;
+                    if (inv != null)
+                    {
+                        invId = inv.InviteId;
+                    }
                     var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
                         facebookUserData.Image, facebookUserData.LargeImage, universityId,
                         facebookUserData.first_name,
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale, GuidEncoder.TryParseNullableGuid(invId));
+                        false, facebookUserData.locale, invId);
                     var commandResult = ZboxWriteService.CreateUser(command);
                     user = new LogInUserDto
                     {
@@ -139,6 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ));
                 //TODO: bring it back
                 // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
+                cookie.RemoveCookie(Invite.CookieName);
                 return Json(new JsonResponse(true, new { isnew = isNew, url = Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) }));
             }
             catch (ArgumentException)
@@ -169,7 +187,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-
                 Guid membershipUserId;
                 var loginStatus = m_MembershipService.Value.ValidateUser(model.Email, model.Password, out membershipUserId);
                 if (loginStatus == LogInStatus.Success)
@@ -197,6 +214,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
                 }
+                var cookie = new CookieHelper(HttpContext);
+                cookie.RemoveCookie(Invite.CookieName);
             }
             catch (Exception ex)
             {
@@ -207,7 +226,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[NonAction]
         private string CheckIfToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -218,6 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //TODO: do a post on log out
+        [RemoveBoxCookie]
         public ActionResult LogOff()
         {
 
@@ -226,26 +245,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //[Ajax]
-        //public JsonResult CheckEmail(Register model)
-        //{
-        //    try
-        //    {
-        //        //  var retVal = await m_EmailVerification.Value.VerifyEmailAsync(model.NewEmail);
-        //        return Json(true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("On check email", ex);
-        //        return Json(true);
-        //    }
-        //}
+       
 
         [HttpPost]
-        //[Ajax]
         [ValidateAntiForgeryToken]
-        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, string returnUrl, string invId)
+        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId, 
+            string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -254,15 +259,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = Guid.NewGuid().ToString();
             try
             {
+               
                 Guid userProviderKey;
                 var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
                     out userProviderKey);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    var cookie = new CookieHelper(HttpContext);
+                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
+                    Guid? invId = null;
+                    if (inv != null)
+                    {
+                        invId = inv.InviteId;
+                    }
+
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, model.Language.Language, GuidEncoder.TryParseNullableGuid(invId));
+                        model.MarketEmail, model.Language.Language, invId);
                     var result = ZboxWriteService.CreateUser(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,
@@ -270,6 +284,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             result.User.Culture,
                             result.UniversityId,
                             result.UniversityData));
+                    cookie.RemoveCookie(Invite.CookieName);
                     return
                         Json(new JsonResponse(true,
                             Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" })));
@@ -497,6 +512,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.UpdateUserLanguage(command);
             FormsAuthenticationService.ChangeLanguage(model.Language);
             return Json(new JsonResponse(true));
+        }
+
+        [HttpPost]
+        public ActionResult ChangeLocale(string lang)
+        {
+            var cookie = new CookieHelper(HttpContext);
+            cookie.InjectCookie(Helpers.UserLanguage.cookieName, new Language { Lang = lang });
+            return RedirectToAction("Index");
         }
 
 

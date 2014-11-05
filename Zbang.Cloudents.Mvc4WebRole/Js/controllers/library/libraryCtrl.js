@@ -1,6 +1,6 @@
 ﻿
-var mLibrary = angular.module('mLibrary', []);
-mLibrary.controller('LibraryCtrl',
+var mLibrary = angular.module('mLibrary', []).
+    controller('LibraryCtrl',
     ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
 function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
     "use strict";
@@ -24,7 +24,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
 
     function addItems() {
         sLibrary.items({ section: $scope.info.libraryId }).then(function (response) {
-            processData(response.payload);
+            processData(response);
         });
     }
 
@@ -72,7 +72,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
     $scope.createBox = function () {
         $rootScope.params.createBoxWizard = true;
 
-        sModal.open('createBoxWizard', { 
+        sModal.open('createBoxWizard', {
             data: {
                 isAcademic: true,
                 department: {
@@ -81,7 +81,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                 }
             },
             callback: {
-                close: function(response) {
+                close: function (response) {
                     $rootScope.params.createBoxWizard = false;
                     if (response) {
                         if (response) {
@@ -96,13 +96,13 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                     $rootScope.params.createBoxWizard = false; //user cancelled
                 }
             }
-        });        
+        });
     };
 
     $scope.createDepartment = function () {
-        sModal.open('createDep',{
+        sModal.open('createDep', {
             callback: {
-                close : function (result) {
+                close: function (result) {
                     result.parentId = $scope.info.libraryId;
 
                     var item = _.find($scope.info.items, function (item2) {
@@ -115,12 +115,12 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                     }
 
                     sLibrary.createDepartment(result).then(function (response) {
-                        $scope.info.items.push(response.payload);
+                        $scope.info.items.push(response);
                         $scope.info.type = types.department;
                     });
                 }
             }
-        });        
+        });
     };
 
     //$scope.deleteDepartment = function () {
@@ -211,8 +211,8 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                 name: $scope.back.title,
                 canDelete: $scope.info.type === types.empty || $scope.info.items.length === 0
             },
-            callback:{
-                close: function(d) {
+            callback: {
+                close: function (d) {
                     if (d === 'delete') {
                         sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
                             $location.path($scope.back.url).replace();
@@ -223,15 +223,13 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                         return;
                     }
                     sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
-                        if (!(response.success || response.Success)) {
-                            alert(response.payload);
-                            return;
-                        }
                         $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
+                    }, function (response) {
+                        alert(response);
                     });
                 }
             }
-        });           
+        });
     };
 
 

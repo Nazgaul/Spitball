@@ -30,20 +30,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(SubscribeToSharedBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            bool isSubscribed = false;
-            User user = m_UserRepository.Load(command.Id);
-            Box box = m_BoxRepository.Load(command.BoxId);
+            var isSubscribed = false;
+            var user = m_UserRepository.Load(command.Id);
+            var box = m_BoxRepository.Load(command.BoxId);
 
-            UserRelationshipType type = m_UserRepository.GetUserToBoxRelationShipTypeWithInvite(user.Id, box.Id);
+            var userBoxRel = m_UserRepository.GetUserBoxRelationship(user.Id, box.Id);
+            var type = UserRelationshipType.None;
+            if (userBoxRel != null)
+            {
+                type = userBoxRel.UserRelationshipType;
+            }
             if (type == UserRelationshipType.Invite)
             {
+                
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                var invite = m_InviteRepository.GetCurrentInvite(user, box);
-                m_ReputationRepository.Save(invite.Sender.AddReputation(ReputationAction.InviteToBox));
-
-                isSubscribed = true;
                 m_UserRepository.Save(user);
-                m_UserRepository.Save(invite.Sender);
+                GiveReputation(userBoxRel);
+                isSubscribed = true;
+                
+                
             }
 
             if (type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
@@ -53,12 +58,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserRepository.Save(user);
             }
 
-            if (isSubscribed)
-            {
-                box.CalculateMembers();
-                box.UserTime.UpdateUserTime(user.Email);
-                m_BoxRepository.Save(box);
-            }
+            if (!isSubscribed) return;
+            box.CalculateMembers();
+            box.UserTime.UpdateUserTime(user.Email);
+            m_BoxRepository.Save(box);
+        }
+
+        private void GiveReputation(UserBoxRel userBoxRel)
+        {
+            var invite = m_InviteRepository.GetUserInvite(userBoxRel);
+            if (invite == null)
+                return;
+            if (invite.IsUsed)
+                return;
+            m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
+            invite.UsedInvite();
+            m_UserRepository.Save(invite.Sender);
         }
     }
 }

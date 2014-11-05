@@ -22,19 +22,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             try
             {
-
-                //var smtpClient = SendGrid.Transport.SMTP.GetInstance(
-                //    new System.Net.NetworkCredential("cloudents", "zbangitnow"), "smtp.sendgrid.net", 587);
-                //var smtpClient = SendGridMail.Transport.SMTP.GetInstance(
-                //  new System.Net.NetworkCredential("3f61a514-0610-412e-9024-b4eb5670eb9d", "bb138472-93c1-4d47-91dc-a376e3c9dce2")
-                //  , "smtp-server.embarkemail.com", 25);
-
                 var transport = new Web(new NetworkCredential(SendGridUserName, SendGridPassword));
                 transport.Deliver(message);
-
-                //smtpClient.Deliver(message);
-                // var objectToken = message.To;
-                //m_SmtpClient.Send(message);//.Send(message);
             }
             catch (Exception ex)
             {
@@ -57,7 +46,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.EnableClickTracking();
             mail.GenerateMail(sendGridMail, parameters);
 
-            sendGridMail.AddTo(recipient);
+            sendGridMail.AddTo("yaari.ram@gmail.com");
+            //sendGridMail.AddTo(recipient);
             var embarkeData = new Dictionary<string, string>
             {
                { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
@@ -89,18 +79,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 var content =
                     new StringContent(string.Empty);
-                var x = await client.PostAsync(string.Format("https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",SendGridUserName,SendGridPassword,email)
+                await client.PostAsync(string.Format("https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",SendGridUserName,SendGridPassword,email)
                     ,content);
             }
         }
 
 
 
-        public void GenerateAndSendEmail(IEnumerable<string> recepients, MailParameters parameters)
+        public void GenerateAndSendEmail(IEnumerable<string> recipients, MailParameters parameters)
         {
-            foreach (var recepient in recepients)
+            foreach (var recipient in recipients)
             {
-                GenerateAndSendEmail(recepient, parameters);
+                GenerateAndSendEmail(recipient, parameters);
             }
         }
     }

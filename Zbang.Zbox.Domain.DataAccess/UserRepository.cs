@@ -32,31 +32,31 @@ namespace Zbang.Zbox.Domain.DataAccess
             return criteria.SingleOrDefault();
         }
 
-        public UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId)
-        {
-            var fUserBoxRel = UnitOfWork.CurrentSession.QueryOver<UserBoxRel>()
-                                        .Where(w => w.User.Id == userId)
-                                        .Where(w => w.Box.Id == boxId).Future<UserBoxRel>();
-            //.SingleOrDefault();
-            var fUserInvite = UnitOfWork.CurrentSession.QueryOver<Invite>()
-                                        .Where(w => w.Recipient.Id == userId)
-                                        .Where(w => w.Box.Id == boxId)
-                                        .Where(w => w.IsActive).Future<Invite>();
+        //public UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId)
+        //{
+        //    var fUserBoxRel = UnitOfWork.CurrentSession.QueryOver<UserBoxRel>()
+        //                                .Where(w => w.User.Id == userId)
+        //                                .Where(w => w.Box.Id == boxId).Future<UserBoxRel>();
+        //    //.SingleOrDefault();
+        //    //var fUserInvite = UnitOfWork.CurrentSession.QueryOver<Invite>()
+        //    //                            .Where(w => w.Recipient.Id == userId)
+        //    //                            .Where(w => w.Box.Id == boxId)
+        //    //                            .Where(w => w.IsActive).Future<Invite>();
 
-            var userBoxRel = fUserBoxRel.SingleOrDefault();
+        //    var userBoxRel = fUserBoxRel.SingleOrDefault();
 
 
-            if (userBoxRel == null)
-            {
-                if (fUserInvite.SingleOrDefault() == null)
-                {
-                    return UserRelationshipType.None;
-                }
-                return UserRelationshipType.Invite;
+        //    //if (userBoxRel == null)
+        //    //{
+        //    //    if (fUserInvite.SingleOrDefault() == null)
+        //    //    {
+        //    //        return UserRelationshipType.None;
+        //    //    }
+        //    //    return UserRelationshipType.Invite;
 
-            }
-            return userBoxRel.UserRelationshipType;
-        }
+        //    //}
+        //    return userBoxRel.UserRelationshipType;
+        //}
         public UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId)
         {
             var userBoxRel = GetUserBoxRelationship(userId, boxId);
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 return UserRelationshipType.None;
             return userBoxRel.UserRelationshipType;
         }
-        private UserBoxRel GetUserBoxRelationship(long userId, long boxId)
+        public UserBoxRel GetUserBoxRelationship(long userId, long boxId)
         {
             return UnitOfWork.CurrentSession.QueryOver<UserBoxRel>().
             Where(w => w.User.Id == userId)
@@ -83,11 +83,11 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         }
 
-        public User GetOwnerByBoxId(long boxId)
-        {
-            return UnitOfWork.CurrentSession.QueryOver<UserBoxRel>().
-                Where(w => w.Box.Id == boxId).Where(w => w.UserRelationshipType == UserRelationshipType.Owner).SingleOrDefault().User;
-        }
+        //public User GetOwnerByBoxId(long boxId)
+        //{
+        //    return UnitOfWork.CurrentSession.QueryOver<UserBoxRel>().
+        //        Where(w => w.Box.Id == boxId).Where(w => w.UserRelationshipType == UserRelationshipType.Owner).SingleOrDefault().User;
+        //}
 
         public bool IsNotUsedCode(string code, long userId)
         {
