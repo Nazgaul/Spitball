@@ -24,7 +24,7 @@
                 <div class="unionLinks">
                     @if (!string.IsNullOrEmpty(Model.WebSiteUrl))
                     {
-                        <a target="_blank" href="@Model.WebSiteUrl" class="outbound u-Website union-sprite"></a>
+                        <a target="_blank" href="@Model.WebSiteUrl" class="outbound u-Website union-sprite" analytics-on="click" analytics-category="Library" analytics-event="Go to org website" analytics-label="number of clicks on the union website page icon"></a>
                     }
                     @if (!string.IsNullOrEmpty(Model.MailAddress))
                     {
@@ -32,7 +32,7 @@
                     }
                     @if (!string.IsNullOrEmpty(Model.FacebookUrl))
                     {
-                        <a target="_blank" href="@Model.FacebookUrl" class="outbound u-Fb union-sprite"></a>
+                        <a target="_blank" href="@Model.FacebookUrl" class="outbound u-Fb union-sprite" analytics-on="click" analytics-category="Library" analytics-event="Go to org Facebook page" analytics-label="number of clicks on the union facebook page icon"></a>
                     }
                     @if (!string.IsNullOrEmpty(Model.TwitterUrl))
                     {

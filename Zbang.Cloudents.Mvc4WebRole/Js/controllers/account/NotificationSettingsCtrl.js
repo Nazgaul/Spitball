@@ -20,6 +20,7 @@ mAccount.controller('NotificationSettingsCtrl',
             };
 
             $scope.updateNotification = function (box) {
-                sBox.changeNotification({ boxId: box.id, notification: box.notifications }).then(function () { });
+                sBox.changeNotification({ boxId: box.id, notification: box.notifications });
+                //TODO analytics
             };
         }]);

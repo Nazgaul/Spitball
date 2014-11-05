@@ -8,8 +8,7 @@
     <div class="step3">
         <div class="dragDropBox" id="fileZone">
             <div class="dragDropTxtE">@DialogResources.DragAndDrop</div>
-            <button pl-upload  box-id="{{boxId}}" tab-id="{{tabId}}" question-id="{{questionId}}" new-question="{{newQuestion}}" destroy drop-area="fileZone" @*href="#" id="AddFiles"*@ class="btn1">@DialogResources.ChooseFile</button>
-            @*<input id="AddFiles" class="btn1" type="file" multiple value="@DialogResources.ChooseFile" />*@
+            <button pl-upload  box-id="{{boxId}}" tab-id="{{tabId}}" question-id="{{questionId}}" new-question="{{newQuestion}}" destroy drop-area="fileZone" class="btn1" analytics-on="click" analytics-category="Box upload" analytics-event="Choose Files">@DialogResources.ChooseFile</button>            
         </div>
     </div>
     <div class="chooseFrom">
@@ -29,5 +28,5 @@
             </li>
         </ul>
     </div>
-    <button class="closeDialog" ng-click="cancel()"></button>
+    <button class="closeDialog" ng-click="cancel()" ></button>
 </div>

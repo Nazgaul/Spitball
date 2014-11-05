@@ -29,6 +29,7 @@ mDashboard.controller('SocialInviteCtrl',
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
                  $scope.params.contacts = null;
+                 //TODO analytics
              }
 
              $scope.filterContacts = function () {
@@ -75,12 +76,14 @@ mDashboard.controller('SocialInviteCtrl',
 
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
+                     //TODO analytics
                      sFacebook.loginFacebook().then(function () {
                          $scope.selectState(states.facebook);
                      });
                      return;
                  }
                  if (currentState === states.google) {
+                     //TODO analytics
                      sGoogle.checkAuth(false).then(function () {
                          $scope.selectState(states.google);
                      });

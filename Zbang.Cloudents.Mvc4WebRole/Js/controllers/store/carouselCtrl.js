@@ -28,18 +28,21 @@ app.controller('CarouselCtrl',
             $timeout(function () {
                 transition = false;
             }, 500);
+            //TODO analytics
         };
 
         $scope.next = function () {
             var newIndex = ($scope.params.currentIndex + 1) % $scope.params.slidesLength;
             $scope.select(newIndex);
             $scope.params.reverse = false;
+            //TODO analytics
 
         };
 
         $scope.prev = function () {
             var newIndex = $scope.params.currentIndex - 1 < 0 ? $scope.params.slidesLength - 1 : $scope.params.currentIndex - 1;
             $scope.select(newIndex);
+            //TODO analytics
         };
 
         $scope.isActive = function (index) {

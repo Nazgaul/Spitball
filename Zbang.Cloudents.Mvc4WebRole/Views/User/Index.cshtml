@@ -20,7 +20,7 @@
     <div class="upContentWpr">
         <div class="upTop">
             <a class="rFloat iconTxt" ng-if="profile.isSelf"
-               href="@Url.Action("Settings","Account")">@UserResources.EditAccount</a>
+               href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">@UserResources.EditAccount</a>
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
             <h1 class="semiFont" id="upUsername">@Model.Name</h1>
             <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
@@ -118,7 +118,7 @@
                 <div class="upTabContent filesTab" ng-class="{empty: !activity.items.list.length}">
                     <ul>
                         <li class="uploadsItem" ng-repeat="item in activity.items.list | limitTo: activity.items.limit">
-                            <a bo-href="item.url">
+                            <a bo-href="item.url" analytics-on="click" analytics-category="User" analytics-event="Navgiate to item" analytics-label="User clicked on an item in activity section">
                                 <img class="upImg" alt="" width="55" height="67" bo-src="item.image" />
                                 <div class="boxName clamp2" bo-text="item.name"></div>
                                 <div class="stars">
@@ -141,7 +141,7 @@
                         <span class="qaBoxname elps" bo-text="question.boxName"></span>
                         <div class="qaWpr">
                             <div class="qaQuestion" bo-html="question.content"></div>
-                            <a class="qLink rFloat" href="" bo-href="question.url">@UserResources.GotoQuestion</a>
+                            <a class="qLink rFloat" href="" bo-href="question.url" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
                             <span class="qAnswerCount" data-up-qacount="{{qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
                         </div>
                         </li>
@@ -162,7 +162,7 @@
                                 <div class="qaQuestion" bo-html="answer.qContent"></div>
                                 <div class="answeredBy elps" bo-text="profile.name"></div>
                                 <div bo-html="answer.content"></div>
-                                <a class="qLink rFloat" href="" bo-href="answer.url">@UserResources.GotoQuestion</a>
+                                <a class="qLink rFloat" href="" bo-href="answer.url" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on an answer in the activity section">@UserResources.GotoQuestion</a>
                                 <span class="qAnswerCount" data-up-qacount="{{answer.answersCount}}">&nbsp;@SharedResources.Answers</span>
                             </div>
                         </li>
@@ -185,7 +185,7 @@
                         <h4 class="semiFont">@UserResources.InCommon</h4>
                         <ul class="inCommonList clearfix">
                             <li class="box" ng-repeat="box in boxes.common.list | limitTo: boxes.common.limit">
-                                <a bo-href="box.url">
+                                <a bo-href="box.url" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in commmon course section">
                                     <img class="boxImg" alt="" width="74" height="98" src="" bo-src="box.picture">
                                     <div class="boxWpr clamp2">
                                         <span class="boxName" bo-text="box.name"></span>
@@ -199,7 +199,7 @@
                         <h4 class="semiFont">@SharedResources.Following</h4>
                         <ul class="followingList">
                             <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit">
-                                <a bo-href="box.url">
+                                <a bo-href="box.url" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in friend's courses section">
                                     <img class="boxImg" alt="" width="74" height="98" src="" bo-src="box.picture">
                                     <div class="boxWpr clamp2">
                                         <span class="boxName" bo-text="box.name"></span>
@@ -228,7 +228,7 @@
                         </span>
                         <ul class="inCommonList">
                             <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{friend.id}}">
-                                <a bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
+                                <a bo-href="friend.url" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in common friends section"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
                                 <div class="userItemName" bo-text="friend.name"></div>
                             </li>
                         </ul>
@@ -239,7 +239,7 @@
                         </span>
                         <ul class="inAllFriendList">
                             <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{friend.id}}">
-                                <a href="" bo-href="friend.url"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
+                                <a href="" bo-href="friend.url" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section"><img class="userItemImg" bo-src="friend.image" src="" width="74" height="74" /></a>
                                 <div class="userItemName" bo-text="friend.name"></div>
                             </li>
                         </ul>

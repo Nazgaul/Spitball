@@ -34,6 +34,8 @@ mBox.controller('createTabCtrl',
 		             return;
 		         }
 
+		         //TODO analytics 
+
 		         sBox.createTab($scope.formData).then(function (tab) {
 		             $modalInstance.close(tab);
 		         }, function (response) {
@@ -43,6 +45,7 @@ mBox.controller('createTabCtrl',
 
 		     $scope.cancel = function () {
 		         $modalInstance.dismiss();
+		         //TODO analytics 
 		     };
 		 }
 		]);

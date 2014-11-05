@@ -12,11 +12,11 @@
             <span class="following" ng-if="isUserFollowing()">
                 @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-tick" })&nbsp;<span>@SharedResources.Following</span>
             </span>
-            <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()">
+            <button class="followBtn" type="button" ng-if="!(isUserFollowing())" ng-click="followBox()" analytics-on="click" analytics-event="Follow box" analytics-category="Box" analytics-label="User followed a box">
                 @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;<span>@SharedResources.Follow</span>
             </button>
 
-            <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')">
+            <button type="button" class="boxRename" tooltip-append-to-body="true" tooltip="@IndexResources.BoxSettings" ng-click="openBoxSettings('settings')" analytics-on="click" analytics-event="Box settings" analytics-category="Box" analytics-label="User clicked on box settings">
                 @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
             </button>
         </div>
@@ -94,7 +94,7 @@
             </section>
             
             <button @*ng-href="{{info.inviteUrl}}"*@ type="button"
-               @*target="_self"*@ class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends($event)">
+                    @*target="_self"*@ class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">

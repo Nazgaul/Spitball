@@ -1,9 +1,9 @@
 ﻿
 var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount',
+    ['$scope', '$window', '$timeout', 'sAccount','$analytics',
 
-        function ($scope, $window, $timeout, sAccount) {
+        function ($scope, $window, $timeout, sAccount,$analytics) {
             "use strict";
 
             var jsResources = window.JsResources,
@@ -39,6 +39,8 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     return;
                 }
 
+
+                //TODO: analytics selecttab
                 $scope.params.currentTab = tab;
             };
 
@@ -53,6 +55,8 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     if (response.success) {
                         $scope.submitted = false;
                         alert('Your settings are saved');
+
+                        //TODO analytics
                     }
                 });
             };
@@ -62,6 +66,8 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 $scope.formData.image = response.urlSmall;
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
+
+                //TODO analytics
             };
 
             $scope.onError = function (error) {
@@ -120,6 +126,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                         $scope.emailForm = {};
 
                         alert(jsResources.EmailChanged);
+                        //TODO analytics
 
 
 
@@ -190,7 +197,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
                     alert(jsResources.PwdChanged);
-
+                    //TODO analytics
                 }, function (response) {
                     $scope.params.passwordError = response;
                 });
@@ -200,6 +207,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 if ($scope.languageForm.selected === $scope.data.language) {
                     return;
                 }
+                //TODO analytics
                 sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function (response) {
                     $window.location.reload();
                 });

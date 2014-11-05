@@ -11,11 +11,17 @@ mLibrary.controller('CreateDepartmentCtrl',
                  if (!isValid) {
                      return;
                  }
+
+                 //TODO analytics
+
                 $modalInstance.close($scope.formData);
              };
 
              $scope.cancel = function () {
                  $modalInstance.dismiss();
+
+                 //TODO analytics
+
              };
          }
         ]);

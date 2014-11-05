@@ -14,6 +14,8 @@ app.controller('ContactCtrl',
                 return;
             }
 
+            //TODO analytics
+
             Store.contact($scope.formData).then(function() {               
 
                 alert('Thank you');

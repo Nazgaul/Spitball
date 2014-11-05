@@ -4,25 +4,14 @@
      function ($scope, $modalInstance, $location, sUserDetails, sBox, data) {
          "use strict";
          //Settings
-         var states = {
-             settings: 1,
-             //members: 2
-         };
+         
          $scope.info = data.info;
          $scope.info.boxId = data.boxId;
 
 
          $scope.info.inviteUrl = $location.path() + 'invite/';
          $scope.info.user = sUserDetails.getDetails();
-
-         //$scope.params = {
-         //    state: data.tab === 'settings' ? states.settings : states.members,
-         //    search: ''
-         //};
-         $scope.params = {
-             state: states.settings
-         };
-
+         
          $scope.formData = {
              name: $scope.info.name,
              notification: data.notification,
@@ -43,6 +32,7 @@
              sBox.updateInfo($scope.formData).then(function (response) {
                  $scope.formData.queryString = response.payload.queryString;
                  $modalInstance.close($scope.formData);
+                 //TODO analytics 
 
              }, function (response) {
                  alert(response[0].value[0]);
@@ -51,6 +41,7 @@
 
          $scope.cancel = function () {
              $modalInstance.dismiss();
+             //TODO analytics 
          };
 
          $scope.delete = function () {
@@ -58,6 +49,8 @@
              sBox.remove({ id: $scope.info.boxId }).then(function () {
                  $location.path('/dashboard/');
              });
+
+             //TODO analytics 
          };
          var jsResources = window.JsResources;
          $scope.deleteOrUnfollow = function () {
@@ -80,6 +73,8 @@
              $modalInstance.close({
                  invite: true
              });
+
+             //TODO analytics 
          };
      }
     ]);

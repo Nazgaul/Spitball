@@ -38,7 +38,7 @@ mQuiz.controller('QuizCtrl',
 
                 populateTopUsers();
                 if (response.sheet) {
-                    response.payload.sheet.answerSheet = response.sheet.questions;
+                    response.sheet.answerSheet = response.sheet.questions;
                     $scope.formData = response.sheet;
                     $scope.formData.quizId = $routeParams.quizId;
 
@@ -106,7 +106,6 @@ mQuiz.controller('QuizCtrl',
                     $scope.quiz.afraid = false;
                     $scope.quiz.questions = _.clone(questions); //reset the data
                 }
-
                 $timeout.cancel(challengeTimeout);
 
 
@@ -115,12 +114,14 @@ mQuiz.controller('QuizCtrl',
 
             $scope.checkAnswers = function () {
                 checkAnswers();
+                //TODO analytics
                 $scope.$broadcast('timer-stop');
             };
 
             $scope.retakeQuiz = function () {
                 $timeout.cancel(challengeTimeout);
                 resetQuiz();
+                //TODO analytics
             };
 
             $scope.markCorrect = function (question, answer) {
@@ -277,18 +278,20 @@ mQuiz.controller('QuizCtrl',
             function startResumeQuiz() {
                 if ($scope.quiz.testInProgress) {
                     pauseTimer();
+
+                    //TODO analytics
                     return;
                 }
 
 
                 if ($scope.quiz.paused) {
-
+                    //TODO analytics
                     resumeTimer();
                     return;
                 }
 
                 startTimer();
-
+                //TODO analytics
             };
 
 
@@ -346,20 +349,17 @@ mQuiz.controller('QuizCtrl',
                 question.newComment = '';
                 sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(function (response) {
                         comment.id = response;
-                    }
-                    //,
-                    //function (response) { }
-                   );
+                    });
+
+                //TODO analytics
             };
 
             $scope.deleteComment = function (question, comment) {
                 var index = question.comments.indexOf(comment);
                 question.comments.splice(index, 1);
 
-                sQuiz.discussion.deleteDiscussion({ id: comment.id }).then(
-                    //function (response) { },
-                    //function (response) { }
-                   );
+                sQuiz.discussion.deleteDiscussion({ id: comment.id });
+                //TODO analytics
             };
             function getDiscussion() {
                 sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (data) {

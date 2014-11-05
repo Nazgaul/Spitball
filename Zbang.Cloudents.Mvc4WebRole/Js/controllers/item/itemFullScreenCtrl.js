@@ -10,6 +10,8 @@ mItem.controller('itemFullScreenCtrl',
         $scope.closeFullScreen = function() {
             $modalInstance.close();
             $scope.$parent.fullScreen = false;
+            //TODO analytics
+
         };
 
         $scope.$on('update', function (e,preview) {

@@ -16,8 +16,6 @@
                  searchUniversity: true
              };
 
-             //var allDepartments;
-
              sFacebook.getToken().then(function (token) {
                  if (!token) {
                      return;
@@ -69,7 +67,7 @@
                      return;
                  }
 
-                 sLibrary.searchUniversities({ term: query }).then(function (data) {                     
+                 sLibrary.searchUniversities({ term: query }).then(function (data) {
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
@@ -101,14 +99,14 @@
                      return;
                  }
 
-                 sLibrary.searchUniversities({ term: query }).then(function (data) {                     
+                 sLibrary.searchUniversities({ term: query }).then(function (data) {
                      $scope.createUniversities = data;
                  });
              };
 
              $scope.selectUniversity = function (university, isFacebook) {
                  $scope.selectedUni = university;
-                 sLibrary.updateUniversity({ UniversityId: university.id }).then(function (data) {                     
+                 sLibrary.updateUniversity({ UniversityId: university.id }).then(function (data) {
                      if (!data) {
                          //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                          //$scope.display.choose = true;
@@ -144,90 +142,6 @@
 
              //#endregion
 
-             //#region facebook
-
-
-             ////#region create department
-
-             //$scope.createDepartment = function () {
-             //    $scope.display.createDep = true;
-             //    //$scope.display.choose = false;
-             //};
-
-             //$scope.createDepartmentSubmit = function (isValid) {
-             //    if (!isValid) {
-             //        return;
-             //    }
-
-
-             //    $scope.createDepartmentForm.$invalid = true;
-             //    sLibrary.createDepartment($scope.formData.createDepartment).then(function (response) {
-             //        if (response.success) {
-
-             //            sUserDetails.setDepartment({
-             //                name: $scope.formData.createDepartment.name,
-             //                id: response.payload.id
-             //            });
-             //            window.open('/dashboard', '_self');
-             //            //$location.path('/dashboard/');
-
-             //        }
-             //    });
-             //};
-
-             ////#endregion
-
-             ////#region choose department
-             //$scope.searchDepartment = debounce(function () {
-             //    if (!$scope.params.departmentSearch) {
-             //        $scope.departments = $filter('orderBy')(allDepartments, 'name');
-             //        $scope.selectedDepartment = null;
-             //        return;
-             //    }
-
-             //    if ($scope.selectedDepartment && $scope.params.departmentSearch !== $scope.selectedDepartment.name) {
-             //        $scope.selectedDepartment = null;
-             //    }
-
-             //    if (allDepartments.length) {
-             //        $scope.departments = $filter('orderByFilter')(allDepartments, { field: 'name', input: $scope.params.departmentSearch });
-             //    }
-
-
-             //}, 200);
-
-             //$scope.selectDepartment = function (department) {
-             //    $scope.selectedDepartment = department;
-             //    $scope.params.departmentSearch = department.name;
-             //    $scope.departments = null;
-
-             //};
-             ////$scope.chooseDepartment = function () {
-             ////    sLibrary.chooseDeparment({ id: $scope.selectedDepartment.id }).then(function (response) {
-             ////        if (response.success) {
-             ////            sUserDetails.setDepartment($scope.selectedDepartment);
-             ////            var navUrl = $location.search().returnUrl || '/dashboard/';
-             ////            window.open(navUrl, '_self');
-             ////            //$location.path('/dashboard/');
-             ////        }
-             ////    });
-             ////};
-
-             //$scope.backDepartment = function () {
-             //    $scope.selectedDepartment = null;
-             //    $scope.departments = $scope.params.departmentSearch = null;
-             //    $scope.display.choose =  false;
-             //    $scope.display.searchUniversity = $scope.display.facebook = true;
-             //};
-
-             //$scope.backCreateDepartment = function () {
-             //    $scope.formData.createDepartment = {};
-             //    $scope.display.createDep = false;
-             //    $scope.display.choose = true;
-             //};
-             ////#endregion
-
-
 
              $scope.createUniversity = function () {
                  $scope.display.createUniversity = true;
@@ -241,32 +155,12 @@
                      return;
                  }
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function () {
-                     //var university = response.success ? response.payload : null;                     
-                         window.open('/dashboard/', '_self');                     
-                     //if (!university) {
-                     //}
-                     //$scope.selectedUni = university;
-                     //$scope.display.createUniversity = $scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
-                     //$scope.display.createDep = true;
+                     window.open('/dashboard/', '_self');
+
+
+                     //TODO analytics
+
                  });
-             };
-
-             //$scope.backUniversity = function () {
-             //    $scope.formData.createUniversity = {};
-             //    $scope.display.createUniversity = false;
-             //    $scope.display.search = $scope.display.searchUniversity = true;
-             //};
-
-             //#endregion 
-
-
-             //cd.analytics.trackEvent('Library Choose', 'Search', term);
-             //function getDepartments() {
-             //    sLibrary.items().then(function (response) {
-             //        var data = response.success ? response.payload : [];
-             //        allDepartments = data.nodes;
-             //        $scope.departments = allDepartments;
-             //    });
-             //}
+             };          
          }
         ]);

@@ -15,16 +15,6 @@ function ($scope, $modalInstance, data, sUserDetails) {
 
     $scope.renameDepartment = function () {
         $modalInstance.close($scope.formdata);
-        //$scope.disable = true;
-
-        //sItem.rename($scope.formdata).then(function (response) {
-        //    $scope.disable = false;
-        //    if (!response.success) {
-        //        alert(response.payload);
-        //        return;
-        //    }
-            
-        //});
     };
     $scope.deleteDepartment = function() {
         $modalInstance.close('delete');

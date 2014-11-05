@@ -17,6 +17,9 @@ mAccount.controller('NotificationsCtrl',
 
 
             $scope.openNotifications = function () {
+
+                //TODO analytics
+
                 if ($scope.params.wasOpened) {
                     return;
                 }
@@ -38,7 +41,7 @@ mAccount.controller('NotificationsCtrl',
 
                 $analytics.eventTrack('Site header', {
                     category: 'Notifications',
-                    label: 'User clicked an invitation'
+                    label: 'User clicked a notification'
                 });
             };
 

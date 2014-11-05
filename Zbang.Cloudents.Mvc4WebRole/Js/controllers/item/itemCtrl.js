@@ -50,7 +50,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             id: itemId,
             boxId: boxId
         }).then(function (data) {
-            $scope.load.contentLoading = $scope.load.contentLoadMore = false;            
+            $scope.load.contentLoading = $scope.load.contentLoadMore = false;
             if (data.preview) {
                 if (data.preview.indexOf('iframe') > 0
                     || data.preview.indexOf('audio') > 0
@@ -76,6 +76,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }
     };
     $scope.fullScreenWindow = function () {
+        //TODO analytics
         $location.hash('fullscreen');
 
         sModal.open('itemFullscreen', {
@@ -104,6 +105,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                 }
             }
         });
+        //TODO analytics
     };
 
     $scope.renameWindow = function () {
@@ -119,16 +121,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                 }
             }
         });
+
+        //TODO analytics
     };
     $scope.create = function (isValid) {
         if (!isValid) {
             return;
         }
         $scope.commentp = true;
-        //TODO: add disable state
         $scope.formData.itemId = itemId;
         sItem.addComment($scope.formData).then(function (response) {
-            $scope.commentp = false;            
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
                 creationDate: new Date().toISOString(),
@@ -143,16 +145,22 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
 
         }, function (respoonse) {
             alert(response);
+        }).finally(function () {
+            $scope.commentp = false;
         });
+
+        //TODO analytics
     };
     $scope.deleteComment = function (comment) {
-        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {            
+        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {
             var indexC = $scope.item.comments.indexOf(comment);
             $scope.item.comments.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
         }, function (response) {
             alert(response);
         });
+
+        //TODO analytics
     };
     $scope.deleteReply = function (reply, comment) {
         sItem.deleteReply({ ReplyId: reply.id }).then(function (response) {
@@ -162,6 +170,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }, function (response) {
             alert(response.payload);
         });
+        //TODO analytics
     };
     $scope.canDelete = function (id) {
         return id == sUserDetails.getDetails().id; //id is string
@@ -191,13 +200,16 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             });
             $scope.fromReply = {};
             comment.showReplyF = false;
-            comment.replyp = false;
+
             $scope.$broadcast('update-scroll');
         }, function (response) {
             alert(response.error[0].value[0]);
-        });
+        }).finally(function () {
+            comment.replyp = false;
+        });;
+
+        //TODO analytics
     };
-    //todo proper return;
 
     //#region share
     $scope.shareFacebook = function () {
@@ -210,16 +222,20 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
        ).then(function () {
            cd.pubsub.publish('addPoints', { type: 'shareFb' });
        });
+
+        //TODO analytics
     };
 
     $scope.shareEmail = function () {
         $scope.popup.share = false;
 
         sModal.open('shareEmail');
-
+        //TODO analytics
     };
     $scope.rate = function (t) {
         sItem.rate({ ItemId: itemId, rate: t });
+
+        //TODO analytics
     };
 }
         ]);

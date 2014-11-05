@@ -12,10 +12,14 @@ mDashboard.controller('ChallengeCtrl',
 
              $scope.afraidTry = function () {
                  $modalInstance.close();
+                 //TODO analytics
+
              };
 
              $scope.takeChance = function () {
                  $modalInstance.dismiss();
+                 //TODO analytics
+
              };
          }
         ]);

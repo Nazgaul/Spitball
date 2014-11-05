@@ -120,6 +120,10 @@
                         return file.id;
                     });
                 }
+                $analytics.eventTrack('Feed', {
+                    category: 'Add a question',
+                    label: 'User post a question in the feed'
+                });
 
                 sQnA.post.question($scope.qFormData).then(function (questionId) {
 
@@ -142,10 +146,7 @@
 
                     cd.pubsub.publish('addPoints', { type: 'question' });
 
-                    $analytics.eventTrack('Feed', {
-                        category: 'Add a question',
-                        label: 'User post a question in the feed'
-                    });
+
 
                     //cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
 
@@ -178,7 +179,7 @@
 
 
                 sQnA.post.answer(question.aFormData).then(function (response) {
-                    var answerId = response.payload;
+                    var answerId = response;
 
 
                     var obj = {
@@ -213,24 +214,27 @@
                 $scope.info.questions.splice(index, 1);
 
                 sQnA.delete.question({ questionId: question.id });
+
+                //TODO analytics 
             };
 
             $scope.deleteAnswer = function (question, answer) {
                 var index = question.answers.indexOf(answer);
                 question.answers.splice(index, 1);
                 sQnA.delete.answer({ answerId: answer.id });
+
+                //TODO analytics 
             };
 
             $scope.removeAttachment = function (obj, item) {
-                sQnA.delete.attachment({ itemId: item.id }).then(function (response) {
-                    if (!response.success) {
-                        alert(response.payload);
-                        return;
-                    }
-
+                sQnA.delete.attachment({ itemId: item.id }).then(function () {                
                     var index = obj.files.indexOf(item);
                     obj.files.splice(index, 1);
+                }, function (response) {
+                        alert(response);
                 });
+
+                //TODO analytics 
             };
 
             $scope.downloadItem = function (event/*, item*/) {
@@ -239,6 +243,8 @@
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
+
+                //TODO analytics 
             };
 
             var qAttach, aAttach, questionAttach;
@@ -291,6 +297,8 @@
                 };
 
                 openUpload(data);
+
+                //TODO analytics 
             };
 
             $scope.removeQuestionAttachment = function (file) {
@@ -298,6 +306,8 @@
                 if (index !== -1) {
                     $scope.qFormData.files.splice(index, 1);
                 }
+
+                //TODO analytics 
             }
 
             $scope.addAnswerAttachment = function (question) {
@@ -313,12 +323,16 @@
                 };
 
                 openUpload(data);
+
+                //TODO analytics 
             };
             $scope.removeAnswerAttachment = function (question, file) {
                 var index = question.aFormData.files.indexOf(file);
                 if (index !== -1) {
                     question.aFormData.files.splice(index, 1);
                 }
+
+                //TODO analytics 
             }
 
             $scope.checkAuth = function () {

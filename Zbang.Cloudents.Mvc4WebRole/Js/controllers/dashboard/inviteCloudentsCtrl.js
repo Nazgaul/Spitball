@@ -21,9 +21,10 @@ mDashboard.controller('InviteCloudentsCtrl',
             };
 
             $scope.inviteFacebook = function (contact) {
-                var dfd = $q.defer();
+                //TODO analytics
 
-                var data = {
+                var dfd = $q.defer();
+                    data = {
                     //boxId: $scope.box.id,
                     id: contact.id,
                     username: contact.username || contact.id,
@@ -34,12 +35,6 @@ mDashboard.controller('InviteCloudentsCtrl',
                 };
 
                 sShare.facebookInvite.cloudents(data).then(function (response) {
-                    if (!response.success) {
-                        alert('Error');
-                        dfd.reject();
-                        return;
-                    }
-
                     sFacebook.send({
                         path: response.payload.url,
                         to: contact.id
@@ -49,6 +44,9 @@ mDashboard.controller('InviteCloudentsCtrl',
                         dfd.reject();
                     });
                     
+                }, function () {
+                    alert('Error');
+                    dfd.reject();
                 });
                 return dfd.promise;
             };

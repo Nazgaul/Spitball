@@ -82,12 +82,15 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
                     firstTimeDashboard();
                 }
             });
+            //TODO analytics
         });
     };
 
 
     $scope.inviteFriends = function () {
-        sModal.open('cloudentsInvite');        
+        sModal.open('cloudentsInvite');
+        //TODO analytics
+
     };
 
     //$scope.openCreateBox = function () {
