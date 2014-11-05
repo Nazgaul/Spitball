@@ -22,9 +22,8 @@ mBox.controller('BoxQuizzesCtrl',
                 starsLength: 5,
                 starsWidth: 69,
             };
-            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (response) {
-                var data = response.success ? response.payload : [];
-                $scope.quizzes = _.map(data, function (quiz) {
+            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (quizzes) {                
+                $scope.quizzes = _.map(quizzes, function (quiz) {
                     sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id, function (isNew) {
                         quiz.isNew = isNew;
                     });

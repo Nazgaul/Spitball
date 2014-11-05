@@ -20,8 +20,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
             };
             $scope.languageForm = {};
 
-            sAccount.settings.data().then(function (response) {
-                var data = response.success ? response.payload : {};
+            sAccount.settings.data().then(function (data) {
                 $scope.formData.firstName = data.firstName;
                 $scope.formData.middleName = data.middleName;
                 $scope.formData.lastName = data.lastName;
@@ -43,7 +42,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 $scope.params.currentTab = tab;
             };
 
-          
+
             $scope.saveUserInfo = function (isValid) {
 
                 if (!isValid) {
@@ -57,7 +56,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     }
                 });
             };
-            
+
             //#region upload
             $scope.onUploaded = function (response) {
                 $scope.formData.image = response.urlSmall;
@@ -82,7 +81,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
             };
 
             $scope.onFilesAdded = function (files) {
-                $scope.data.image = '/Images/loader2.gif';                
+                $scope.data.image = '/Images/loader2.gif';
             };
 
             //#endregion
@@ -114,11 +113,6 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     }
 
                     sAccount.submitCode({ code: code }).then(function (response) {
-                        if (!response.success) {
-                            alert(response.payload);
-                            return;
-                        }
-
                         $scope.params.changeEmailBtnText = 'Change email';
                         $scope.params.changingEmail = $scope.params.verifyCode = false;
                         $scope.data.email = $scope.emailForm.email;
@@ -129,6 +123,8 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
 
 
 
+                    }, function (response) {
+                        alert(response);
                     });
                 }
 
@@ -152,14 +148,11 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 }
 
                 sAccount.changeEmail({ email: email }).then(function (response) {
-                    if (response.success && response.payload.code) {
-                        $scope.params.verifyCode = true;
-                        $scope.params.changeEmailBtnText = 'Save';
-                        return;
-                    }
+                    $scope.params.verifyCode = true;
+                    $scope.params.changeEmailBtnText = 'Save';
 
-                    alert(response.payload[0].value[0]);
-
+                }, function (response) {
+                    alert(response[0].value[0]);
                 });
 
 
@@ -193,15 +186,13 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 }
 
 
-                sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function (response) {
-                    if (!response.success) {
-                        $scope.params.passwordError = response.payload;
-                        return;
-                    }
-
+                sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function (response) {                   
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
                     alert(jsResources.PwdChanged);
+
+                }, function (response) {
+                    $scope.params.passwordError = response;
                 });
             };
 

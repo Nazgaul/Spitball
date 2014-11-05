@@ -141,8 +141,7 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
         }
 
         $timeout(function () {
-            sSearch.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (response) {
-                var data = response.success ? response.payload : {};
+            sSearch.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (data) {
                 parseData(data);
                 $scope.params.itemsLoading = false;
                 $scope.params.boxesLoading = false;
@@ -171,8 +170,7 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
 
         $timeout(function () {
 
-            sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (response) {
-                var data = response.success ? response.payload : {};
+            sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
                 parseData(data);
                 setInitTab();
                 $scope.data.loading = false;
@@ -187,8 +185,7 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
 
         $scope.params.isOtherItems = true;
 
-        sSearch.searchOtherUnis({ q: query, page: $scope.params.otherItemsPage }).then(function (response) {
-            var data = response.success ? response.payload : {};
+        sSearch.searchOtherUnis({ q: query, page: $scope.params.otherItemsPage }).then(function (data) {
             $scope.data.otherItems = $scope.data.otherItems ? $scope.data.otherItems.concat(data) : data;
             $scope.params.itemsLoading = false;
         }, function () {

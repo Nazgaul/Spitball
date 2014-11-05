@@ -137,18 +137,15 @@ app.controller('MainCtrl',
 
 
                 sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
-                    $rootScope.params.store.coupon.buttonDisabled = false;
-                    if (!response.success) {
-                        return;
-                    }
-                    if (response.payload.isValid) {
+                    $rootScope.params.store.coupon.buttonDisabled = false;                    
+                    if (response.isValid) {
                         $rootScope.params.store.coupon.valid = true;
                         $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
                         cd.pubsub.publish('resetLoginPopup');
                         return;
                     }
                     alert(invalidCouponMessage);
-                }, function () {
+                }).finally(function() {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                 });
 

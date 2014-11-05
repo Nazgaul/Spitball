@@ -46,8 +46,7 @@ app.controller('SearchHeaderCtrl',
 
             lastQuery = query;
 
-            Search.dropdown({ q: query }).then(function (response) {
-                var data = response.success ? response.payload : {};
+            Search.dropdown({ q: query }).then(function (data) {
                 parseData(data);
                 if ($scope.params.preventDropDown) {
                     $scope.params.preventDropDown = false;

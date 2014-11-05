@@ -17,16 +17,11 @@ mLibrary.controller('CreateBoxLibCtrl',
                  }
 
                  sBox.createAcademic($scope.formData).then(function (response) {
-                     if (!response.success) {
-                         alert(response.payload || response.Payload);
-                         return;
-                     }
-                     $modalInstance.close(response.payload || response.Payload);
+                     $modalInstance.close(response);
                  },
                  function () {
-                     alert('error creating box');
-                 }
-                 );
+                     alert(response);
+                 });
              };
 
              $scope.cancel = function () {

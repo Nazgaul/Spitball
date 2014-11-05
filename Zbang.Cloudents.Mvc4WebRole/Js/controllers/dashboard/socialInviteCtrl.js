@@ -105,10 +105,8 @@ mDashboard.controller('SocialInviteCtrl',
                              isConnected: true
                          };
 
-                         sUser.friends().then(function (response) {
-                             var data = response.success ? response.payload : [],
-                                cloudentsUsers = data.my;
-                             currentUsers = cloudentsUsers;
+                         sUser.friends().then(function (data) {                             
+                             currentUsers = data.my;
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                              $scope.$broadcast('update-scroll');
                          });

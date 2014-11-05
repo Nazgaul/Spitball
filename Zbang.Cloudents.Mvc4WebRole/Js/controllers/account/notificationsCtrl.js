@@ -10,11 +10,8 @@ mAccount.controller('NotificationsCtrl',
                 notificationsListPage: 12
             };
 
-            sShare.getNotifications().then(function (response) {
-                var data = response.success ? response.payload : [];
-
-                $scope.notifications = data;
-
+            sShare.getNotifications().then(function (notifications) {                
+                $scope.notifications = notifications;
                 countNewNotifications();
             });
 

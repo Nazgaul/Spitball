@@ -14,10 +14,8 @@ app.controller('HomeCtrl',
         };
 
         Store.products().then(function (response) {
-            allProducts = response.payload;
+            allProducts = response;
             $scope.products = allProducts;
-            
-
         });
 
         $scope.addProducts = function () {
@@ -52,13 +50,10 @@ app.controller('HomeCtrl',
 
             var query = $scope.params.search;
             $scope.params.isSearching = true;
-
-            Store.search({ term: query }).then(function (response) {
-                var data = response.success ? response.payload : {};
-                $scope.params.isSearching = false;
+            Store.search({ term: query }).then(function () {
                 $scope.products = data;
                 $scope.params.maxProducts = consts.productsIncrement;
-            }, function () {
+            }).finally(function () {
                 $scope.params.isSearching = false;
             });
         };

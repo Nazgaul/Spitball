@@ -73,8 +73,8 @@
             $scope.quiz.id = data.quizId;
 
             sQuiz.getDraft({ quizId: data.quizId }).then(function (draft) {
-                $scope.quiz.name = draft.payload.name;
-                $scope.quiz.questions = draft.payload.questions;
+                $scope.quiz.name = draft.name;
+                $scope.quiz.questions = draft.questions;
                 $scope.params.isDraft = true;
                 for (var i = 0, l = $scope.quiz.questions.length; i < l ; i++) {
                     var answersLength = $scope.quiz.questions[i].answers.length;
@@ -133,9 +133,6 @@
             }
 
             sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
-                if (!response) {
-                    return;
-                }
                 addItemToBox(false);
             });
         };
@@ -157,7 +154,9 @@
             $scope.params.focus = false;
             $scope.params.showCreateQuiz = false;
 
-            sQuiz.delete({ id: quizId }).then(function () {
+            sQuiz.delete({
+                id: quizId
+            }).then(function () {
                 $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
             });
         }
@@ -328,24 +327,24 @@
         //#region helpers
         var createQuiz = function () {
             return sQuiz.create({
-                boxId: $scope
-                    .quiz.courseId, name: $scope.quiz.name
+                boxId: $scope.quiz.courseId,
+                name: $scope.quiz.name
             }).then(function (data) {
-                $scope.quiz.id = data.payload;
+                $scope.quiz.id = data;
                 addItemToBox(false);
-                return data.payload;
+                return data;
             });
         };
         var createQuestion = function (question) {
             return sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
-                question.id = data.payload;
-                return data.payload;
+                question.id = data;
+                return data;
             });
         };
         var createAnswer = function (question, answer) {
             return sQuiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
-                answer.id = data.payload;
-                return data.payload;
+                answer.id = data;
+                return data;
             });
         };
         //#endregion
@@ -474,14 +473,12 @@
                 quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: cd.getParameterFromUrl(1), boxName: $scope.quiz.courseName, quizName: $scope.quiz.name
             }
             ).then(function (data) {
-                if (!data.success) {
-                    alert(data.payload || data.Payload);
-                    return;
-                }
                 cd.pubsub.publish('addPoints', { type: 'quiz' });
-                addItemToBox(true, data.payload.url);
+                addItemToBox(true, data.url);
                 $scope.params.showCreateQuiz = false;
                 $rootScope.options.quizOpen = false;
+            }, function (data) {
+                alert(data);
             });
         };
 

@@ -1,5 +1,4 @@
-﻿
-libChoose.controller('restrictionPopUpCtrl',
+﻿mLibrary.controller('restrictionPopUpCtrl',
 [
     '$scope',
     '$modalInstance',
@@ -21,12 +20,9 @@ libChoose.controller('restrictionPopUpCtrl',
                 return;
             }
             sLibrary.updateUniversity($scope.formData).then(function (response) {
-                if (!response.success) {
-                    alert(response.payload[0].value[0]);
-                    return;
-                }
-
                 $modalInstance.close();
+            }, function (response) {
+                alert(response[0].value[0]);
             });
         };
 
