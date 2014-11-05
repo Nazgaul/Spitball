@@ -292,20 +292,23 @@
   padding: 8px 28px 12px 20px;
 }
 .recommended {
-  padding: 0 80px 0 0;
+  /*.rFloat {
+        border: none;
+        border-right: 1px solid @borderColor; //rtl
+        padding: 0 35px 0 0; //rtl
+    }*/
 }
 .recommended img {
   right: 0;
   left: auto;
 }
-.recommended .rFloat {
-  border: none;
-  border-right: 1px solid #c2c2c2;
-  padding: 0 35px 0 0;
+.recommended .friends,
+.recommended .files {
+  padding: 0 25px 0 0;
 }
 .recommended .friends:after,
 .recommended .files:after {
-  right: -25px;
+  right: 0;
   left: auto;
 }
 /*#endregion */

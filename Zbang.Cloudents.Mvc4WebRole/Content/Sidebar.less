@@ -3,10 +3,10 @@
 
 .asideDash {
     height: 100%;
-    background: #f1f1f1;
+    background: #fff;
     border-right: 1px solid @borderColor; /*rtl*/
     .boxSizing;
-    color: #383838;
+    color: @textColor;
     width: 290px;
     position: fixed;
     z-index: 5;
@@ -14,16 +14,30 @@
     .leaderBoard {
         width: 290px;
         left: 0;
+        background: #ebebeb;
         border: none;
         padding: 0 12px;
         border-bottom: 1px solid @borderColor;
         border-radius: 0; //override
+        margin-bottom: 0; //override
         header {
-            padding: 26px 0 10px;
+            padding: 16px 0 10px;
             font-size: 18px;
         }
     }
-    
+    .recommendedWpr {
+        border: none; //override
+        padding: 0; //override
+        display: block; // //override
+        
+        header {
+            font-size: 18px; //override
+            border: none; //override
+            margin: 0; //override
+            padding: 20px 0 8px; //override
+            text-align: center;
+        }
+    }
     
 }
 
@@ -33,6 +47,7 @@
     text-align: center;
     border-bottom: 1px solid @borderColor;
     padding: 0 8px;
+    background: #ebebeb;
     &:after {
         content: '';
         display: block;
@@ -42,7 +57,7 @@
         top: 1px;
     }
     &:hover {
-        background: #fff;
+        background: #d7d7d7;
     }
     .ghost {
         height: 100%;
@@ -51,7 +66,10 @@
         overflow: hidden;
         padding: 0 8px;
         .boxSizing;
-    }  
+    } 
+    .vCentered {
+        line-height: 19px;
+    } 
 }
 
 .uniLogo {
@@ -63,9 +81,7 @@
     padding: 5px;
     box-shadow: inset 0 0 0 4px #fff;
 }
-.lbEmpty {
-    display: none;
-}
+
 /*#region products (old) */
 
 /*.productsHeader {

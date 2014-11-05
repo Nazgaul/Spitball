@@ -95,7 +95,14 @@
   stroke-width: 4px;
   fill: #fff;
   position: absolute;
-  top: 152px;
+  top: 142px;
+}
+.svg-trophyEmpty {
+  width: 164px;
+  height: 129px;
+  position: relative;
+  top: 35px;
+  margin-top: -29px;
 }
 /*#endregion */
 /*#region box page */
