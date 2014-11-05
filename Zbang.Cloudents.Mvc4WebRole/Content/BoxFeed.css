@@ -413,6 +413,13 @@
   border: 1px solid #282828;
   margin-bottom: 50px;
 }
+.leaderBoard.empty .bestUserList,
+.leaderBoard.empty .svg-podium {
+  display: none;
+}
+.leaderBoard.empty .lbEmpty {
+  display: block;
+}
 .leaderBoard header {
   color: #0f9d58;
   text-align: center;
@@ -427,9 +434,64 @@
   display: inline-block;
   vertical-align: top;
 }
+.lbEmpty {
+  display: none;
+  text-align: center;
+}
+.lbEmptyTxtWpr {
+  border: 1px solid #c2c2c2;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 20px;
+  background: #f6f6f6;
+}
+.lbEmptyTxt1 {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #c2c2c2;
+  margin-bottom: 6px;
+}
 .bestUserList {
   text-align: center;
   counter-reset: leaderBoard;
+}
+.bestUserList .firstUser,
+.bestUserList .secondUser,
+.bestUserList .thirdUser {
+  width: auto;
+  height: auto;
+  line-height: normal;
+  text-align: center;
+  border: none;
+  margin-bottom: 15px;
+}
+.bestUserList .firstUser:before,
+.bestUserList .secondUser:before,
+.bestUserList .thirdUser:before {
+  /*display: block;
+            position: absolute;
+            left: 0;right: 0;
+            margin: auto;
+            top: 102px;*/
+  display: none;
+}
+.bestUserList .firstUser .rep,
+.bestUserList .secondUser .rep,
+.bestUserList .thirdUser .rep {
+  display: block;
+  width: auto;
+  margin-top: 13px;
+}
+.bestUserList .firstUser.empty .top3Img,
+.bestUserList .secondUser.empty .top3Img,
+.bestUserList .thirdUser.empty .top3Img {
+  border-color: #8a8a8a;
+}
+.bestUserList .firstUser.empty svg,
+.bestUserList .secondUser.empty svg,
+.bestUserList .thirdUser.empty svg {
+  fill: #ccc;
 }
 .bestUserList li {
   position: relative;
@@ -440,27 +502,8 @@
   line-height: 50px;
   vertical-align: middle;
   text-align: left;
-}
-.bestUserList li:nth-child(-n + 3) {
-  width: auto;
-  height: auto;
-  line-height: normal;
-  text-align: center;
-  border: none;
-  margin-bottom: 15px;
-}
-.bestUserList li:nth-child(-n + 3):before {
-  /*display: block;
-                position: absolute;
-                left: 0;right: 0;
-                margin: auto;
-                top: 102px;*/
-  display: none;
-}
-.bestUserList li:nth-child(-n + 3) .rep {
-  display: block;
-  width: auto;
-  margin-top: 13px;
+  /*&:nth-child(-n + 3) {
+        }*/
 }
 .bestUserList li:before {
   content: counter(leaderBoard) ".";

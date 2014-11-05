@@ -42,13 +42,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (type == UserRelationshipType.Invite)
             {
+                
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                var invite = m_InviteRepository.GetUserInvite(userBoxRel);
-                m_ReputationRepository.Save(invite.Sender.AddReputation(ReputationAction.InviteToBox));
-
-                isSubscribed = true;
                 m_UserRepository.Save(user);
-                m_UserRepository.Save(invite.Sender);
+                GiveReputation(userBoxRel);
+                isSubscribed = true;
+                
+                
             }
 
             if (type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
@@ -62,6 +62,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.CalculateMembers();
             box.UserTime.UpdateUserTime(user.Email);
             m_BoxRepository.Save(box);
+        }
+
+        private void GiveReputation(UserBoxRel userBoxRel)
+        {
+            var invite = m_InviteRepository.GetUserInvite(userBoxRel);
+            if (invite == null)
+                return;
+            if (invite.IsUsed)
+                return;
+            m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
+            invite.UsedInvite();
+            m_UserRepository.Save(invite.Sender);
         }
     }
 }

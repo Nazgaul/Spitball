@@ -473,36 +473,69 @@
 }
 
 .recommended {
-    .courseLink {
-        display: block;
-        height: 100%;
-    }
-
-    padding-left: 80px; //rtl
+    height: 70px;
     .boxSizing;
     position: relative;
     font-size: 15px;
-    height: 68px;
-
+    display: block;
+    + .recommended {
+        border-top: 1px solid @borderColor;
+    }
+    .courseLink {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        white-space: noWrap; 
+        font-size: 13px;
+        &:hover .rcDetails {
+            margin-left: -105px;
+        }
+    }
+    .rcDetails {
+        width: 100%;
+        padding-left: 62px;
+        position: relative;
+        top: -5px;
+        .boxSizing;
+        display: inline-block;
+        background: #fff;
+        margin:0;
+        .transition(margin .5s .5s);
+        
+        &.rcFull {
+            .prof:after {
+                content:  '\00a0' '|' '\00a0';
+                color: @textColor;
+            }
+        }
+    }
+    .rcStats {
+        width: 105px;
+        height: 70px;
+        display: inline-block;
+        background: #282828;
+        padding-top: 12px;
+        .boxSizing;
+        color: #fff;
+    }
     img {
         position: absolute;
-        top: 0;
-        left: 0; //rtl
+        left: 8px; //rtl
         border-radius: 10px;
     }
 
-    .rFloat {
+    /*.rFloat {
         border-left: 1px solid @borderColor; //rtl
         width: 115px;
         .boxSizing;
         padding-left: 35px; //rtl
         font-size: 13px;
         margin-top: 10px;
-    }
+    }*/
 
-    &:nth-child(2) {
+    /*&:nth-child(2) {
         margin: 10px 0;
-    }
+    }*/
 
     .courseName {
         padding-top: 4px;
@@ -516,9 +549,9 @@
 
     .friends, .files {
         position: relative;
-
+        padding-left: 25px; //rtl
         &:before {
-            content: attr(data-friends-count) '\00a0';
+            content: attr(bo-attr-data-friends-count) '\00a0';
             display: inline-block;
         }
 
@@ -528,7 +561,7 @@
             height: 21px;
             background: @site-sprite 0 -1405px no-repeat;
             position: absolute;
-            left: -25px; //rtl
+            left: 0; //rtl
             top: 0;
         }
     }
@@ -537,7 +570,7 @@
         margin-top: 10px;
 
         &:before {
-            content: attr(data-files-count) '\00a0';
+            content: attr(bo-attr-data-files-count) '\00a0';
         }
 
         &:after {

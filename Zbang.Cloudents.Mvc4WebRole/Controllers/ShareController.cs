@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -96,7 +97,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
 
-
                 var userId = User.GetUserId();
                 var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
                 ZboxWriteService.ShareBox(shareCommand);
@@ -183,7 +183,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             try
             {
-
                 var command = new SubscribeToSharedBoxCommand(userid, boxId);
                 ZboxWriteService.SubscribeToSharedBox(command);
                 return Json(new JsonResponse(true));
@@ -218,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         [HttpGet]
-        public async Task<ActionResult> Notifications(int page = 0)
+        public async Task<ActionResult> Notifications()
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -227,7 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             try
             {
-                var query = new GetInvitesQuery(userid, page);
+                var query = new GetInvitesQuery(userid);
                 var invites = await ZboxReadService.GetInvites(query);
                 return Json(new JsonResponse(true, invites));
             }

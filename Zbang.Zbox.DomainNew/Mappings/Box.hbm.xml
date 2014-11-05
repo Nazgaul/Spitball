@@ -53,6 +53,11 @@
       <one-to-many class="Comment"/>
     </bag>
 
+    <bag name="Updates" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId" />
+      <one-to-many class="Updates"/>
+    </bag>
+    
     <property name="MembersCount" >
       <column name="MembersCount" default="0" not-null="true"/>
     </property>
