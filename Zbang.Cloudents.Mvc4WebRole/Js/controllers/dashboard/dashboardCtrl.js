@@ -2,11 +2,11 @@
 var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
-       'sModal', '$document',
-      '$window', 'sDashboard', 'sBox',
+       'sModal','$q',
+      'sDashboard', 'sBox',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
     "use strict";
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
@@ -14,8 +14,8 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
     $scope.groupBoxes = [];
     $scope.params = {};
     //cd.pubsub.publish('dash_boxes');//statistics
-    cd.analytics.setLibrary($('.uniText').text());
-    //$analytics
+
+    //cd.analytics.setLibrary($('.uniText').text()); //TODO
 
     $scope.myCourses = jsResources.CoursesFollow;
     $scope.openCreateBoxWizard = function () {
@@ -42,30 +42,37 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
             }
         });              
     };
-    function firstTimeDashboard() {
-        sDashboard.recommendedCourses().then(function (recommendedCourses) {            
-            $scope.recommendedCourses = recommendedCourses;
-        });
+    function firstTimeDashboard() {        
         sDashboard.disableFirstTime();
     }
 
+    $q.all([sDashboard.boxList(), sDashboard.sideBar()]).then(function (response) {
+        var boxList = response[0],
+            sideBar = response[1];
 
-    sDashboard.boxList().then(function (data) {
-        //$scope.leaderBoard = data.payload.leaderBoard;
-        //$scope.recommendedCourses = data.payload.recommendedCourses;
+        console.log(boxList);
+        console.log(sideBar);
 
-        mapBoxes(data.boxes);
-        if (!data.boxes.length) {
+        mapBoxes(boxList);
+        if (!boxList.length) {
             firstTimeDashboard();
         }
+
+        $scope.params.name = sideBar.info.name;
+        $scope.params.image = sideBar.info.image;
+
+        $scope.recommendedCourses = sideBar.recommended;
+
+        $scope.leaderBoard = sideBar.leaderboard;
 
         $scope.contentLoaded = true;
         $scope.$broadcast('update-scroll');
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });
-
-    });
+        
+        
+    });  
 
     $scope.removeBox = function (box) {
         cd.confirm2($scope.removeConfirm(box)).then(function () {

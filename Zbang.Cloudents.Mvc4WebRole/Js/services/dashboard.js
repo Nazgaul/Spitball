@@ -10,9 +10,9 @@ mDashboard.factory('sDashboard',
 
              boxList: function () {
                  return ajaxService.get(buildPath('BoxList'));
-             },
-             recommendedCourses: function () {
-                 return ajaxService.get(buildPath('RecommendedCourses'));                 
+             },             
+             sideBar: function () {
+                 return ajaxService.get(buildPath('Sidebar'));
              },
              disableFirstTime: function () {
                  return ajaxService.post('/Account/FirstTime/',{ firstTime: 'Dashboard' });                 
