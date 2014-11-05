@@ -45,7 +45,7 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
             return;
         }
 
-
+        //TODO analytics
         sModal.open('upload', {
             data: {
                 boxId: $scope.boxId,
@@ -86,6 +86,8 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.iOptions.itemsLimit = consts.itemsLimit;
         $scope.iOptions.lastView = $scope.iOptions.currentView;
         $scope.iOptions.currentView = view;
+
+        //TODO analytics
     };
 
     $scope.getView = function () {
@@ -123,6 +125,8 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
                 boxId: $scope.boxId
             }
             sItem.delete(data).then(removeItem);
+
+            //TODO analytics
         });
 
         function removeItem(response) {
@@ -244,10 +248,14 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
 
         saveItemsToTab(savedItems);
         resetLastView();
+
+        //TODO analytics
     };
 
     $scope.manageCancel = function () {
         resetLastView();
+
+        //TODO analytics
     };
 
     function saveItemsToTab(items, tabId) {

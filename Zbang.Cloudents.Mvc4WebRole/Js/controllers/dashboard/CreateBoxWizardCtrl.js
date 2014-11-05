@@ -33,6 +33,7 @@ mDashboard.controller('CreateBoxWizardCtrl',
             $scope.cancel = function () {
                 if (!$scope.box.url) {
                     $modalInstance.dismiss();
+                    //TODO analytics
                     return;
                 }
 
@@ -40,17 +41,18 @@ mDashboard.controller('CreateBoxWizardCtrl',
             };
 
             $scope.invite = function (contact) {
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
-                    if (!response.success) {
-                        alert('Error');
-                    }
+                //TODO analytics
+                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function() {                    
+                }, function () {
+                    alert('Error');
                 });
             };
 
             $scope.inviteFacebook = function (contact) {
-                var dfd = $q.defer();
+                //TODO analytics
 
-                var data = {
+                var dfd = $q.defer(),
+                    data = {
                     boxId: $scope.box.id,
                     id: contact.id,
                     username: contact.username || contact.id,
@@ -80,6 +82,7 @@ mDashboard.controller('CreateBoxWizardCtrl',
             };
 
             $scope.completeWizard = function (items) {
+                //TODO analytics
                 var url = $scope.box.url;
                 $modalInstance.close({
                     url: url,

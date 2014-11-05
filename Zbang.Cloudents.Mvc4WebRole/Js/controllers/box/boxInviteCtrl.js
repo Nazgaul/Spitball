@@ -11,17 +11,19 @@ mBox.controller('BoxInviteCtrl',
 
             $scope.cancel = function () {
                 $modalInstance.dismiss();
+                //TODO analytics
             };
 
             $scope.invite = function (contact) {
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {
-                    if (!response.success) {
-                        alert('Error');
-                    }
+                //TODO analytics
+                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {                    
+                }, function () {
+                    alert('Error');
                 });
             };
 
             $scope.inviteFacebook = function (contact) {
+                //TODO analytics
                 var dfd = $q.defer();
 
                 var data = {

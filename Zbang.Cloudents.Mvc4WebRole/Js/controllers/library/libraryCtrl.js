@@ -1,8 +1,8 @@
 ﻿
 var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sLibrary', 'sBox', '$rootScope', '$analytics',
-function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibrary, sBox, $rootScope, $analytics) {
+    ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
+function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
     "use strict";
     var jsResources = window.JsResources;
 
@@ -83,14 +83,15 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
             callback: {
                 close: function (response) {
                     $rootScope.params.createBoxWizard = false;
+                    //TODO analytics
+
                     if (response) {
-                        if (response) {
-                            $location.path(response.url);
-                            if (response.isItems) {
-                                $location.hash('items');
-                            }
+                        $location.path(response.url);
+                        if (response.isItems) {
+                            $location.hash('items');
                         }
                     }
+
                 },
                 always: function () {
                     $rootScope.params.createBoxWizard = false; //user cancelled
@@ -118,6 +119,9 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                         $scope.info.items.push(response);
                         $scope.info.type = types.department;
                     });
+
+                    //TODO analytics
+
                 }
             }
         });
@@ -132,8 +136,11 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
     $scope.subscribe = function (box) {
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
-        cd.postFb(box.name, jsResources.IJoined.format(box.name), location.href);
-        cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
+        sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [box.name]), box.url);
+
+
+        //cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
+        //TODO analytics
     };
 
     $scope.unsubscribe = function (box) {
@@ -151,6 +158,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
         }
 
         sBox.remove({ id: box.id });
+        //TODO analytics
 
         box.userType = 'none';
 
@@ -206,6 +214,8 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
 
     $scope.renameWindow = function () {
 
+        //TODO analytics
+
         sModal.open('depSettings', {
             data: {
                 name: $scope.back.title,
@@ -214,6 +224,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
             callback: {
                 close: function (d) {
                     if (d === 'delete') {
+                        //TODO analytics
                         sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
                             $location.path($scope.back.url).replace();
                         });
@@ -222,6 +233,8 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
                     if (!(d.newName && d.newName.length) || d.newName === $scope.back.title) {
                         return;
                     }
+
+                    //TODO analytics
                     sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
                         $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
                     }, function (response) {
@@ -232,32 +245,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sLibr
         });
     };
 
-
-    //$scope.rename = function (newName) {
-    //    if (!(newName && newName.length)) {
-    //        return;
-    //    }
-    //    sLibrary.renameNode({ id: $scope.info.libraryId, newName: newName }).then(function (response) {
-    //        if (!(response.success || response.Success)) {
-    //            alert(response.Payload);
-    //            return;
-    //        }
-    //        $location.path('/library/' + $scope.info.libraryId + '/' + newName).replace(); //TODO maybe return new url
-    //    });
-    //};
-
-
-    //#endregion
-
-
-    //#region analytics    
-    $('.u-Website').click(function () {
-        cd.analytics.trackEvent('Library', 'Go to org website', 'number of clicks on the union website icon');
-    });
-    $('.u-Fb').click(function () {
-        cd.analytics.trackEvent('Library', 'Go to org Facebok page', 'number of clicks on the union facebook page icon');
-    });
-    //cd.analytics.setLibrary($('.unionName').text());
+    //#region analytics        
     $analytics.setVariable('dimension1', $scope.info.universityName);
 
     //#endregion

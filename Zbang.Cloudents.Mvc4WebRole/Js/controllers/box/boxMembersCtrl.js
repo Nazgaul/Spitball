@@ -24,7 +24,9 @@
                         singleMessage: true,
                         users: [member]
                     }                    
-                });                
+                });
+
+                //TODO analytics
             };
 
             $scope.removeUser = function (member) {
@@ -36,8 +38,8 @@
 
                 });
 
-                if (member.sUserStatus === 'Subscribe') {
-                    remove();
+                if (member.sUserStatus === 'Subscribe') {                    
+                    remove(true);
                     member.removed = true;
                     return;
                 }
@@ -48,10 +50,13 @@
                     member.uninvitedItem = true;
                 }
 
-                function remove() {
+                function remove(isMember) {
+                    //TODO analytics member or invited
                     var index = $scope.members.indexOf(member);
                     $scope.members.splice(index, 1);
                 }
+
+
             };
 
             $scope.reinviteUser = function (member) {
@@ -62,6 +67,7 @@
                 sBox.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
                     member.action = false;
                 });
+                //TODO analytics 
             };
 
             $scope.searchMembers = function () {

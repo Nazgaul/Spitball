@@ -1,9 +1,7 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (cd, $) {
     "use strict";
-    if (window.scriptLoaded.isLoaded('welc')) {
-        return;
-    }
+
     cd.putPlaceHolder();
     //drop downs
     var slideSpeed = 150;
@@ -85,12 +83,7 @@
 
         });
     });
-    //#endregion
-
-    $('[data-language]').click(function () {
-        cd.setCookie('lang', $(this).data('language'), 10);
-    });
-    
+    //#endregion    
 
     //mobile view
     $('#langSelect').val(cd.getCookie('lang') || 'en-US').change(function () {
@@ -133,13 +126,9 @@
         } else {
             $('aside').find('a[href$="' + url + '"]').parent().addClass('currentItem');
         }
-        $('aside').find('[data-language="' + $('html').attr('lang') + '"]').parent().addClass('currentItem');
     }
 
-
-    $('.language').find('[data-language="' + $('html').attr('lang') + '"]').addClass('currentItem');
-
     $.extend($.validator.messages, {
-        email: $('#NewEmail').data('valRegex'),
+        email: $('#NewEmail').data('valRegex')
     });
 })(cd, jQuery);

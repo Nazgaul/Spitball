@@ -36,6 +36,9 @@ app.controller('UploadCtrl',
         });
 
         $scope.saveLink = function () {
+
+            //TODO analytics
+
             if ($scope.close) {//fix for step 3
                 $scope.close();
             }
@@ -81,7 +84,7 @@ app.controller('UploadCtrl',
         };
 
         $scope.saveDropbox = function () {
-
+     //TODO analytics
             sDropbox.choose().then(function (files) {
 
                 _.forEach(files, function (file) {
@@ -140,6 +143,7 @@ app.controller('UploadCtrl',
             loadPicker();
 
             function loadPicker() {
+                //TODO analytics
                 sGoogle.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false
                     _.forEach(files, function (file) {
                         (function (fileData) {
@@ -193,6 +197,8 @@ app.controller('UploadCtrl',
 
         $scope.cancel = function () {
             $scope.dismiss();
+
+            //TODO analytics
         };
 
         $scope.$on('BeforeUpload', function () {
@@ -228,10 +234,14 @@ mBox.controller('UploadLinkCtrl',
 
         $scope.add = function () {
             $modalInstance.close($scope.formData.url);
+
+            //TODO analytics
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
+
+            //TODO anayltics
         };
     }
     ]);

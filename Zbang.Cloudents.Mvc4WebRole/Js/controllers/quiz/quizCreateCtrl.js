@@ -140,6 +140,7 @@
         function publish(isValid) {
             $scope.params.focus = false;
             $scope.submit(isValid);
+            //TODO analytics
 
         }
 
@@ -147,6 +148,8 @@
             if (!$scope.quiz.id) {
                 return;
             }
+
+
             var quizId = $scope.quiz.id,
                 boxId = $scope.quiz.courseId;
 
@@ -159,11 +162,16 @@
             }).then(function () {
                 $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
             });
+
+            //TODO analytics
+
         }
 
         function saveDraft() {
             $scope.params.showCreateQuiz = false;
             $scope.params.focus = false;
+
+            //TODO analytics
 
             if ($scope.isEmptyQuiz()) {
                 if (!$scope.quiz.id) {
@@ -184,6 +192,8 @@
                 $scope.addAnswer(question, false);
             }
 
+            //TODO analytics
+
             $rootScope.$broadcast('update-scroll');
         };
         $scope.saveQuestion = function (question) {
@@ -195,9 +205,7 @@
             }
 
             if (!question.id) {
-                createQuestion(question).then(function () {
-
-                });
+                createQuestion(question);
                 return;
             }
 
@@ -241,6 +249,8 @@
             answer.focus = focus;
             question.answers.push(answer);
             $rootScope.$broadcast('update-scroll');
+            //TODO analytics user added an answer if focus tab key used
+
         };
 
         $scope.removeAnswer = function (question, index) {
@@ -256,8 +266,9 @@
                 question.correctAnswer = null;
             }
 
-            sQuiz.answer.delete({ id: answerId }).then(function () {
-            });
+            sQuiz.answer.delete({ id: answerId });
+
+            //TODO analytics
 
         };
 
@@ -322,6 +333,7 @@
 
         $scope.previewQuiz = function () {
             $scope.quiz.showPreview = !$scope.quiz.showPreview;
+            //TODO analytics
         };
 
         //#region helpers
@@ -492,7 +504,6 @@
         $scope.$on('closeQuizCreate', function (e, quizId) {
             if (quizId === $scope.quiz.id) {
                 $scope.params.showCreateQuiz = false;
-
                 $rootScope.options.quizOpen = false;
             }
         });

@@ -81,6 +81,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $location.hash(tab);
                 $scope.options.activeTab = tab;
                 $scope.options.loader = true;
+
             };
             if ($location.hash()) {
                 if ($scope.states.hasOwnProperty($location.hash())) {
@@ -96,7 +97,9 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
+                $scope.options.currentTab = tab;
                 $scope.tabId = tab.id;
+
 
             });
 
@@ -113,12 +116,16 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                         null //picture
                      );
                 $scope.popup.share = false;
+
+                //TODO analytics
             };
 
             $scope.shareEmail = function () {
                 $scope.popup.share = false;
 
                 sModal.open('shareEmail');
+
+                //TODO analytics
             };
 
             $scope.inviteFriends = function () {
@@ -132,6 +139,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
+                //TODO analytics
 
                 sModal.open('boxInvite', {
                     data: {
@@ -159,6 +167,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     alert(jsResources.NeedToFollowBox);
                     return;
                 }
+
+                //TODO analytics
 
 
                 sBox.notification({ boxId: $scope.boxId }).then(function (notification) {
@@ -220,6 +230,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
+                //TODO analytics
+
                 sBox.follow({ BoxId: $scope.boxId }).then(function () {
                     $scope.info.membersLength++;
                 });
@@ -237,9 +249,6 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
             };
 
             //#endregion
-            $scope.$on('selectTab', function (e, tab) {
-                $scope.options.currentTab = tab;
-            });         
         }
 
 

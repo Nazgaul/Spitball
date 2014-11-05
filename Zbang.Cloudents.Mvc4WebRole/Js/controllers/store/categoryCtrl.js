@@ -119,6 +119,8 @@ app.controller('CategoryCtrl',
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
+            //TODO analytics
+
             Store.search({ term: query, universityId: $scope.params.universityId }).then(function (data) {                
                 $scope.products = data;
                 $scope.params.maxProducts = consts.defaultMaxProducts;

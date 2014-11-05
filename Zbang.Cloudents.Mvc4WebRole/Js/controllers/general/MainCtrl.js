@@ -155,6 +155,9 @@ app.controller('MainCtrl',
             $rootScope.logout = function () {
                 $angularCacheFactory.removeAll();
                 window.location.href = '/account/logoff';
+
+                //TODO analytics
+
             };
 
             //$scope.info = {

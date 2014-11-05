@@ -186,7 +186,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/dashboard/inviteCloudentsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libChooseCtrl.js"),
-                new JsFileWithCdn("/js/controllers/library/createBoxLibCtrl.js"),
+                //new JsFileWithCdn("/js/controllers/library/createBoxLibCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/createDepartmentCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/restrictionPopUpCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libraryRenameCtrl.js"),

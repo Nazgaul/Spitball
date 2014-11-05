@@ -11,7 +11,7 @@
         <section class="sCourses">
             <ul load-spinner="params.boxesLoading" load-spinner-type="page">
                 <li class="box sCourseItem" ng-repeat="box in data.boxes">
-                    <a bo-href="box.url">
+                    <a bo-href="box.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to box">
                         <img class="lFloat boxImg" alt="" width="77" height="98" bo-src="box.image">
                         <div class="sTitle elps" bo-html="box.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
                         <span class="sDetail" bo-class="{allDetails: box..proffessor && box.courseCode}" bo-html="box.proffessor | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
@@ -33,7 +33,7 @@
         <section class="sMembers" load-spinner="params.usersLoading" load-spinner-type="page">
             <ul>
                 <li class="userItem" ng-repeat="user in data.users" user-tooltip-popup="{{user.id}}">
-                    <a bo-href="user.url">
+                    <a bo-href="user.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to user">
                         <img class="userItemImg" bo-src="user.image" width="74" height="74" />
                     </a>
                     <div class="userItemName" bo-html="user.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
@@ -45,7 +45,7 @@
 </div>
 
 <script type="text/ng-template" id="sMaterialItemTemplate">
-    <a class="sMaterialLink" bo-href="item.url">
+    <a class="sMaterialLink" bo-href="item.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to item">
         <div class="sOtherUni semiFont" bo-class="{dot: item.uniName}" bo-text="item.uniName"></div>
         <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" bo-src="item.image">
         <div class="sTitle elps" bo-html="item.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>

@@ -21,8 +21,11 @@ mBox.controller('BoxTabsCtrl',
                         alert(jsResources.DeleteError);
                         return;
                     }
+
                 });
 
+
+                //TODO analytics
                 var index = $scope.params.tabs.indexOf(tab);
                 $scope.params.tabs.splice(index, 1);
                 $scope.params.currentTab = null;
@@ -43,6 +46,8 @@ mBox.controller('BoxTabsCtrl',
                         }
                     }
                 });
+
+                //TODO analytics
             };
 
             $scope.createTab = function () {
@@ -70,18 +75,16 @@ mBox.controller('BoxTabsCtrl',
                         }
                     }
                 });
+
+                //TODO analytics
             };
 
             $scope.manageTab = function () {
                 $rootScope.$broadcast('manageTab');
+                //TODO analytics
             };
 
-            $scope.selectTab = function (tab) {
-                //$scope.info.currentTab = tab;
-                //if (!tab) { //all
-                //    return;
-                //}
-
+            $scope.selectTab = function (tab) {           
                 $scope.params.currentTab = tab;
                 $rootScope.$broadcast('selectTab', tab);
             };
@@ -91,6 +94,8 @@ mBox.controller('BoxTabsCtrl',
                     item: item,
                     tabId: tabId
                 }
+
+                //TODO analytics 
                 $rootScope.$broadcast('tabItemAdded', data);
             };
         }]);

@@ -5,7 +5,7 @@
 /*#region library sidebar */
 .asideDash {
   height: 100%;
-  background: #f1f1f1;
+  background: #fff;
   border-right: 1px solid #c2c2c2;
   /*rtl*/
   -webkit-box-sizing: border-box;
@@ -19,14 +19,28 @@
 .asideDash .leaderBoard {
   width: 290px;
   left: 0;
+  background: #ebebeb;
   border: none;
   padding: 0 12px;
   border-bottom: 1px solid #c2c2c2;
   border-radius: 0;
+  margin-bottom: 0;
 }
 .asideDash .leaderBoard header {
-  padding: 26px 0 10px;
+  padding: 16px 0 10px;
   font-size: 18px;
+}
+.asideDash .recommendedWpr {
+  border: none;
+  padding: 0;
+  display: block;
+}
+.asideDash .recommendedWpr header {
+  font-size: 18px;
+  border: none;
+  margin: 0;
+  padding: 20px 0 8px;
+  text-align: center;
 }
 .dashTop {
   display: block;
@@ -34,6 +48,7 @@
   text-align: center;
   border-bottom: 1px solid #c2c2c2;
   padding: 0 8px;
+  background: #ebebeb;
 }
 .dashTop:after {
   content: '';
@@ -44,7 +59,7 @@
   top: 1px;
 }
 .dashTop:hover {
-  background: #fff;
+  background: #d7d7d7;
 }
 .dashTop .ghost {
   height: 100%;
@@ -56,6 +71,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.dashTop .vCentered {
+  line-height: 19px;
+}
 .uniLogo {
   display: inline-block;
   border-radius: 100%;
@@ -66,9 +84,6 @@
   margin-top: 10px;
   padding: 5px;
   box-shadow: inset 0 0 0 4px #fff;
-}
-.lbEmpty {
-  display: none;
 }
 /*#region products (old) */
 /*.productsHeader {

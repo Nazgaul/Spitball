@@ -6,8 +6,8 @@
     <h3 class="modal-title"><span>{{info.name}}</span></h3>
 </div>
 <div class="modal-body" bindonce>
-    <div class="popupTopBar" ng-class="params.state === 1 ? 'tabSettings' : 'tabMembers'">
-        <button data-id="Settings" type="button" class="tabBtn" ng-click="params.state = 1">@DialogResources.Settings</button>
+    <div class="popupTopBar">
+        <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
         <button type="button" class="rFloat btn3 inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">@IndexResources.Invite</button>
         <div class="arrow tabArrow"></div>
     </div>

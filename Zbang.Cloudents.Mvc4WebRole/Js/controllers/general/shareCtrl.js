@@ -146,6 +146,7 @@ app.controller('ShareCtrl',
         };
 
         $scope.loadGoogleContacts = function () {
+            //TODO analytics google connect button
             sGoogle.checkAuth(false).then(function () {
                 getGoogleContacts();
             });
@@ -177,6 +178,7 @@ app.controller('ShareCtrl',
             if (!$scope.formData.emailList.length) {
                 $scope.formData.placeholder = 'Username or email';
             }
+            //TODO analytics
         };
 
         $scope.editItem = function (item2) {
@@ -189,6 +191,7 @@ app.controller('ShareCtrl',
 
             $scope.$broadcast('itemChange');
             sFocus('shareInput');
+            //TODO analytics
         };
 
         $scope.keydownListener = function (e) {
@@ -211,13 +214,13 @@ app.controller('ShareCtrl',
 
         $scope.keyupListener = function (e) {
             if (e.keyCode === 188 || e.keyCode === 186 || e.keyCode === 9) { // , ; TAB 
-                addFriendByEmail();
+                addFriendByEmail(true);
             }
 
 
         };
 
-        function addFriendByEmail() {
+        function addFriendByEmail(isAutoAdd) {
             if (!$scope.formData.searchInput) {
                 return;
             }
@@ -231,6 +234,10 @@ app.controller('ShareCtrl',
 
             for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
                 if ($scope.formData.emailList[i].name === item2.name || $scope.formData.emailList[i].id === item2.id) {
+                    if (isAutoAdd) {
+                        return;
+                    }
+
                     alert('Contact already exists'); //translate
                     return;
                 }

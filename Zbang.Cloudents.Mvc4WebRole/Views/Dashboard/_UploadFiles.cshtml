@@ -4,7 +4,7 @@
 <section class="uploadFiles" ng-controller="UploadCtrl">
     <header>@DialogResources.UploadFiles</header>
 
-    <div class="dragDropArea" id="wizFileZone" pl-upload box-id="{{box.id}}" destroy drop-area="wizFileZone">@DialogResources.DragAndDrop</div>
+    <div class="dragDropArea" id="wizFileZone" pl-upload box-id="{{box.id}}" destroy drop-area="wizFileZone" analytics-on="click" analytics-category="Create box wizard upload" analytics-event="Choose Files">@DialogResources.DragAndDrop</div>
 
     <div class="uploadSrcWpr">
         <button type="button" class="linkBtn" ng-click="saveLink()">@DialogResources.SiteLink</button>

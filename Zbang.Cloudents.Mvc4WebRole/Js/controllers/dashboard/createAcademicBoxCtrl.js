@@ -67,6 +67,8 @@
                                 nodeHistory.push(department);
                                 $scope.formData.academicBox.departmentId = department.id;
                                 $scope.params.selectedDepartment = department;
+
+                                //TODO analytics
                             });
                         }
                     }
@@ -77,12 +79,16 @@
                 nodeHistory.push(department);
                 $scope.formData.academicBox.departmentId = department.id;                
                 getNodes();
+                //TODO analytics
+
             };
 
             $scope.changeDepartment = function () {
                 $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null;
                 nodeHistory.pop();
                 getNodes();
+                //TODO analytics
+
             };
 
             $scope.clearErrors = function () {

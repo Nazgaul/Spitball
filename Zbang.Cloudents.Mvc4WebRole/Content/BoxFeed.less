@@ -422,6 +422,15 @@
     border-radius: 5px;
     border: 1px solid #282828;
     margin-bottom: 50px;
+    &.empty {
+        .bestUserList, .svg-podium {
+            display: none;
+        }
+        
+        .lbEmpty {
+            display: block;
+        }
+    }
     header {
         color: @color;
         text-align: center;
@@ -437,9 +446,57 @@
         vertical-align: top;
     }
 }
+.lbEmpty {
+    display: none;
+    text-align: center;
+}
+.lbEmptyTxtWpr {
+    border: 1px solid @borderColor;
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: #f6f6f6;
+}
+.lbEmptyTxt1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid @borderColor;
+    margin-bottom: 6px;
+}
 .bestUserList {
     text-align: center;  
     counter-reset: leaderBoard;
+    
+    .firstUser, .secondUser, .thirdUser {
+        width: auto;
+        height: auto;
+        line-height: normal;
+        text-align: center;
+        border: none;
+        margin-bottom: 15px;
+        &:before {
+            /*display: block;
+            position: absolute;
+            left: 0;right: 0;
+            margin: auto;
+            top: 102px;*/
+            display: none; //don't display counter on top 3 users
+        }
+        .rep {
+            display: block;
+            width: auto;
+            margin-top: 13px;
+        }
+        &.empty {
+            .top3Img {
+                border-color: #8a8a8a;
+            }
+            svg {
+                fill: #ccc;
+            }
+        }
+    }
     li {
         position: relative;
         border-top: 1px solid @borderColor;
@@ -449,27 +506,8 @@
         line-height: 50px;
         vertical-align: middle;
         text-align:left; //rtl
-        &:nth-child(-n + 3) {
-            width: auto;
-            height: auto;
-            line-height: normal;
-            text-align: center;
-            border: none;
-            margin-bottom: 15px;
-           &:before {
-                /*display: block;
-                position: absolute;
-                left: 0;right: 0;
-                margin: auto;
-                top: 102px;*/
-                display: none;
-            }
-            .rep {
-                display: block;
-                width: auto;
-                margin-top: 13px;
-            }
-        }
+        /*&:nth-child(-n + 3) {
+        }*/
         &:before {
             content: counter(leaderBoard) ".";
             counter-increment: leaderBoard;
@@ -501,6 +539,7 @@
     }
 
 }
+
 .secondUser {
     .top3Img {
         margin-top: 20px;

@@ -77,13 +77,18 @@ mUser.controller('UserCtrl',
                     users: [$scope.profile],
                     singleMessage: true
                 }
-            });            
+            });
+
+            //TODO analytics
+
         };
         //#endregion
 
 
         $scope.inviteCloudents = function () {
             sModal.open('cloudentsInvite');
+
+            //TODO analytics
         };
 
 
@@ -125,6 +130,8 @@ mUser.controller('UserCtrl',
             } else {
                 $scope.admin.members.selected = 0;
             }
+
+            //TODO analytics
         };
 
         var lastQuery;
@@ -151,6 +158,8 @@ mUser.controller('UserCtrl',
             var array = $filter('orderBy')($scope.admin.members.list, ['department', 'name'], reverse);
 
             $scope.admin.members.list = array;
+
+            //TODO analytics
         };
 
         $scope.sendMembersMessage = function () {
@@ -169,7 +178,7 @@ mUser.controller('UserCtrl',
             }
 
             sModal.open('shareEmail', { data: sendData });
-
+            //TODO analytics
         };
 
         //#endregion
@@ -207,6 +216,8 @@ mUser.controller('UserCtrl',
             $scope.activity.answers.limit = userConstants.activity.answers.init;
 
             $scope.activity.currentTab = type;
+
+            //TODO analytics
         }
 
         //#endregion
@@ -226,6 +237,8 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
+                //TODO analytics
+
                 if (!$scope.boxes.showAll) {
                     $scope.boxes.showAll = true;
                     $scope.boxes.common.limit = $scope.boxes.common.list.length;
@@ -237,6 +250,8 @@ mUser.controller('UserCtrl',
                 $scope.boxes.following.limit = userConstants.boxes.following.init;
             },
             followBox: function (box) {
+                //TODO analytics
+
                 sBox.follow({ boxId: box.id }).then(function () {
                     $location.path(box.url);
                 });
@@ -259,6 +274,8 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
+                //TODO analytics
+
                 if (!$scope.friends.showAll) {
                     $scope.friends.showAll = true;
                     $scope.friends.common.limit = $scope.friends.common.list.length;
@@ -287,6 +304,8 @@ mUser.controller('UserCtrl',
                     $scope.invites.limit = $scope.invites.list.length;
                     return;
                 }
+                //TODO analytics
+
                 $scope.invites.showAll = false;
                 $scope.invites.limit = userConstants.invites.list.init;
             },
@@ -295,6 +314,8 @@ mUser.controller('UserCtrl',
                     sShare.invite.cloudents({ recepients: [invite.userid] }).then(function () { });
                     return;
                 }
+
+                //TODO analytics
 
                 sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { });
 

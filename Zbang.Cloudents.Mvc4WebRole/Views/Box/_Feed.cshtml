@@ -83,15 +83,14 @@
                         </li>
                     </ul>
                     <div class="bottomTA">
-                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)">@SharedResources.Post</button>
+                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@SharedResources.Post</button>
                     </div>
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                     </button>
                 </form>
             </li>
-            <!--
-            -->
+
         </ul>
 
         <div class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>

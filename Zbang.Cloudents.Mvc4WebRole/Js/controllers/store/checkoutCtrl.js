@@ -112,6 +112,8 @@
                 sFocus('storeCoupon');
                 return;
             }
+
+            //TODO analytics
             $scope.page.step = 2;
             $window.scrollTo(0, 0);
         };
@@ -127,6 +129,8 @@
             $scope.formData.features = _.map($scope.formData.features, function (feature, key) {
                 return feature.id;
             });
+
+            //TODO analytics
 
             Store.order($scope.formData).then(function (response) {
                 $location.path(response.url);

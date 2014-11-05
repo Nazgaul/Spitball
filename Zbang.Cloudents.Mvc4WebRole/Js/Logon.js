@@ -1,10 +1,6 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (cd, $) {
-    "use strict";
-
-    if (window.scriptLoaded.isLoaded('log')) {
-        return;
-    }
+    "use strict";   
     var eById = document.getElementById.bind(document),
         $registerPopup = $(eById('register')), $registerForm = $(eById('registerForm')),
         $cancelPopup = $(eById('cancelRegisterPopup')), regPopup = eById('regPopup'),
@@ -223,18 +219,7 @@
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex')
     });
-    $('#dLangSelect').change(function () {
-        cd.setCookie('lang', $(this).val(), 10);
-        var data = $('#registerForm').serializeArray();
-        var x = [];
-        for (var d in data) {
-            if (data[d].name === 'FirstName' || data[d].name === 'LastName' || data[d].name === 'NewEmail') {
-                x.push(data[d]);
-            }
-        }
-        sessionStorage.setItem('registerForm', JSON.stringify(x));
-        location.reload();
-    });
+
     $(function () {
         var data = sessionStorage.getItem('registerForm');
         if (!data) {

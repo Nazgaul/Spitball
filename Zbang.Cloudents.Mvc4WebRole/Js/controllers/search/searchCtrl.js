@@ -62,6 +62,8 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
         getOtherUnisItems();
         $scope.params.showOtherUnis = false;
 
+        //TODO analytics click the show more from other unis
+
     };
 
     $scope.setCurrentTab = function (tab) {
@@ -78,6 +80,8 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
                 length = $scope.data.users.length;
                 break;
         }
+
+        //TODO analytics make variable for tab name and trackevent here
         $scope.params.noResults = (length === 0);
     };
 
@@ -90,7 +94,6 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
     };
 
     $scope.addToList = function () {
-        console.log('here');
         if ($scope.data.loading) {
             return;
         }
@@ -168,14 +171,17 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
         $scope.data.loading = true;
         $scope.params.noResults = false;
 
-        $timeout(function () {
+        //TODO analytics
 
+        $timeout(function () {
             sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
                 parseData(data);
                 setInitTab();
-                $scope.data.loading = false;
             }, function () {
                 $scope.data.loading = false;
+            }).finally(function () {
+                $scope.data.loading = false;
+
             });
         }, 500);
     }

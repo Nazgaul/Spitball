@@ -13,6 +13,8 @@ function ($scope, $modalInstance, data, sItem) {
     $scope.renameItem = function () {
         $scope.disable = true;
 
+        //TODO analytics
+
         sItem.rename($scope.formdata).then(function (response) {
             $modalInstance.close(response);
         }, function (response) {
@@ -24,6 +26,8 @@ function ($scope, $modalInstance, data, sItem) {
     };
 
     $scope.cancel = function () {
+        //TODO analytics
+
         $modalInstance.dismiss();
     };
 }

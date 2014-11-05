@@ -45,6 +45,8 @@ mBox.controller('BoxQuizzesCtrl',
                     return;
                 }
 
+                //TODO analytics 
+
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
                 $timeout(function () {
                     $rootScope.options.quizOpen = true;
@@ -64,7 +66,7 @@ mBox.controller('BoxQuizzesCtrl',
                     }
 
                     sQuiz.delete(data).then(remove);
-
+                    //TODO analytics
                 });
 
                 function remove(response) {
@@ -93,6 +95,7 @@ mBox.controller('BoxQuizzesCtrl',
 
             $scope.selectQuiz = function (e, item) {
                 if (!item.publish) {
+                    //TODO analytics edit draft
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
                     $timeout(function () {
                         $rootScope.options.quizOpen = true;
@@ -108,6 +111,8 @@ mBox.controller('BoxQuizzesCtrl',
                 $scope.qOptions.itemsLimit = consts.itemsLimit;
                 $scope.qOptions.lastView = $scope.qOptions.currentView;
                 $scope.qOptions.currentView = view;
+
+                //TODO analytics
             };
 
             $scope.getView = function () {

@@ -918,7 +918,6 @@
     <Content Include="Js\controllers\item\itemFlagCtrl.js" />
     <Content Include="Js\controllers\item\itemFullScreenCtrl.js" />
     <Content Include="Js\controllers\item\itemRenameCtrl.js" />
-    <Content Include="Js\controllers\library\createBoxLibCtrl.js" />
     <Content Include="Js\controllers\library\createDepartmentCtrl.js" />
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
     <Content Include="Js\controllers\library\libraryRenameCtrl.js" />
@@ -942,7 +941,6 @@
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />
     <Content Include="Js\controllers\store\contactCtrl.js" />
-    <Content Include="Js\controllers\store\homeCtrl.js" />
     <Content Include="Js\controllers\store\productCtrl.js" />
     <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />

@@ -31,7 +31,10 @@ angular.module('InviteEmail', []).
 
 
              $scope.submit = function () {
-                 addEmail();
+                 //TODO analytics
+
+                 addEmail(true);
+
                  for (var i = 0, l = $scope.formData.emailList.length; i < l; i++) {
                      if ($scope.formData.emailList[i].invalid) {
                          return;
@@ -75,6 +78,7 @@ angular.module('InviteEmail', []).
 
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
+                 //TODO analytics
              };
 
              $scope.edit = function (email) {
@@ -86,6 +90,7 @@ angular.module('InviteEmail', []).
                  $scope.remove(email);
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
+                 //TODO analytics
              };
 
 
@@ -113,7 +118,7 @@ angular.module('InviteEmail', []).
              };
 
 
-             function addEmail() {
+             function addEmail(isAutoAdd) {
                  if (!$scope.formData.emailInput) {
                      return;
                  }
@@ -124,6 +129,9 @@ angular.module('InviteEmail', []).
 
                      index = $scope.formData.emailList.indexOf(email);
                  if (index > -1) {
+                     if (isAutoAdd) {
+                         return;
+                     }
                      alert('Contact already exists'); //translate
                      return;
                  }

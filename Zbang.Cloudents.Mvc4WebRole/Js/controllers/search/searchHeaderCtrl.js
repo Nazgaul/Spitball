@@ -46,6 +46,8 @@ app.controller('SearchHeaderCtrl',
 
             lastQuery = query;
 
+            //TODO analytics
+
             Search.dropdown({ q: query }).then(function (data) {
                 parseData(data);
                 if ($scope.params.preventDropDown) {
@@ -62,6 +64,9 @@ app.controller('SearchHeaderCtrl',
             if (!isValid) {
                 return;
             }
+
+            //TODO analytics
+
             $location.url('/search/?q=' + $scope.formData.query);
 
         };

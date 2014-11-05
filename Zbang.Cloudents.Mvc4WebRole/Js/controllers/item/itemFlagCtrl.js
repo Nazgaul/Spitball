@@ -12,7 +12,7 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
 
     $scope.flagItem = function () {
         $scope.disable = true;
-        sItem.flag($scope.formdata).then(function (response) {            
+        sItem.flag($scope.formdata).then(function (response) {
             $scope.secondStep = true;
 
             $timeout(function () {
@@ -20,7 +20,11 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
             }, 3000);
         }, function (response) {
             alert(response);
+        }).finally(function () {
+            $scope.disable = false;
         });
+
+        //TODO analytics
 
     }
     $scope.cancel = function () {
@@ -28,6 +32,8 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
             $modalInstance.close();
         }
         $modalInstance.dismiss();
+        //TODO analytics
+
     };
 }
 ]);
