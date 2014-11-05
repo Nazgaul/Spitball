@@ -514,6 +514,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
+        public ActionResult ChangeLocale(string x)
+        {
+            return RedirectToAction("Index");
+        }
+
 
         #endregion
         #region passwordReset
