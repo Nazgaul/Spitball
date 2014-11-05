@@ -40,21 +40,31 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<DashboardDto> GetDashboard(GetBoxesQuery query)
+        public async Task<IEnumerable<Box.BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = new DashboardDto();
-                using (var grid = await conn.QueryMultipleAsync(Sql.Sql.UserBoxes + Sql.Sql.FriendList + Sql.Sql.GetWallList,
-                    new { query.UserId }))
-                {
-                    retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                    retVal.Friends = await grid.ReadAsync<User.UserDto>();
-                    retVal.Wall = await grid.ReadAsync<WallDto>();
-                }
-                return retVal;
+                return await conn.QueryAsync<Box.BoxDto>(Sql.Sql.UserBoxes, new {query.UserId});
             }
 
+        }
+
+
+        public async Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query)
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0}",Sql.Sql.DashboardInfo),
+                    new  {universityDbQuery = query.UniversityId}))
+                {
+                    var retVal = new DashboardDto
+                    {
+                        Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault()
+                    };
+
+                    return retVal;
+                }
+            }
         }
 
         /// <summary>
@@ -79,14 +89,9 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
         {
-            const string sqlQuery = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
-                uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
-                  from zbox.university uWrap  
-                  where uWrap.Id = @universityDbQuery";
-
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(sqlQuery, new { universityDbQuery = query.UniversityId });
+                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.DashboardInfo, new { universityDbQuery = query.UniversityId });
                 return retVal.FirstOrDefault();
             }
         }
@@ -988,6 +993,8 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
+
+
 
 
 

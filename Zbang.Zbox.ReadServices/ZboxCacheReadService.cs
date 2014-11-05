@@ -33,9 +33,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<DashboardDto> GetDashboard(GetBoxesQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
-            return m_ReadService.GetDashboard(query);
+            return m_ReadService.GetUserBoxes(query);
         }
 
         public Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
@@ -380,5 +380,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
+
+
+        public Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query)
+        {
+            return m_ReadService.GetDashboardSideBar(query);
+        }
     }
 }

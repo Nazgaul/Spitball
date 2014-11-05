@@ -40,6 +40,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index2", model);
         }
 
+        [HttpGet]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index2");
+        }
 
         [HttpGet]
         public async Task<JsonResult> BoxList()
@@ -48,15 +53,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxesQuery(userid);
-                var data = await ZboxReadService.GetDashboard(query);
+                var data = await ZboxReadService.GetUserBoxes(query);
 
-                return Json(new JsonResponse(true, data));
+                return JsonOk(data);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
                 return Json(new JsonResponse(false));
             }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> SideBar()
+        {
+            var userDetail = FormsAuthenticationService.GetUserData();
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+            var universityWrapper = userDetail.UniversityId.Value;
+
+            var query = new GetDashboardQuery(universityWrapper);
+            var model = await ZboxReadService.GetDashboardSideBar(query);
+
+            return JsonOk(model);
+
         }
 
         #region CreateBox

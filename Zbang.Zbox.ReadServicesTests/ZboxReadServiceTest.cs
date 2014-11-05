@@ -34,18 +34,34 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
         [TestMethod]
-        public void GetDashboard_Query_ReturnResult()
+        public async Task GetUserBoxes_Query_ReturnResult()
         {
             var query = new GetBoxesQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetDashboard(query).Result;
+                var x = await m_ZboxReadService.GetUserBoxes(query);
             }
             catch (Exception ex)
             {
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
+
+        [TestMethod]
+        public async Task GetDashboardSideBar_Query_ReturnResult()
+        {
+            var query = new GetDashboardQuery(920);
+            try
+            {
+                var x = await m_ZboxReadService.GetDashboardSideBar(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        
 
         [TestMethod]
         public void GetRecommendedCourses_Query_ReturnResult()

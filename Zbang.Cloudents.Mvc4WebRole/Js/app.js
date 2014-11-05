@@ -83,7 +83,7 @@
                params: {
                    type: 'dashboard'
                },
-               templateUrl: '/dashboard/'
+               templateUrl: '/dashboard/indexpartial/'
            }).
            when('/box/my/:boxId/:boxName/', {
                params: {

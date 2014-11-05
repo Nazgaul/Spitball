@@ -24,8 +24,9 @@ namespace Zbang.Zbox.ReadServices
     {
         //PagedDto2<BoxDto> GetBoxes(GetBoxesQuery query);
         //Task<IEnumerable<BoxDto>> GetBoxes(GetBoxesQuery query);
-        Task<DashboardDto> GetDashboard(GetBoxesQuery query);
-       
+        Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query);
+
+        Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query);
 
         Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query);
 

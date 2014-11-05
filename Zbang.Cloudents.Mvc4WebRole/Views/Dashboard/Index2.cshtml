@@ -1,4 +1,4 @@
-﻿@model Zbang.Zbox.ViewModel.Dto.Dashboard.UniversityDashboardInfoDto
+﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
@@ -7,8 +7,8 @@
     <div class="dashContent" >
         <aside class="asideDash lFloat">
             <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
-                <img class="uniLogo lFloat" alt="University logo" width="80" height="80" src="@Model.Img" />
-                <span class="ghost"><span class="vCentered">@Model.Name</span></span>
+                <img class="uniLogo lFloat" alt="University logo" width="80" height="80" src="" />
+                <span class="ghost"><span class="vCentered"></span></span>
             </a>
 
             <section class="leaderBoard">
@@ -92,14 +92,14 @@
             </section>
 
 
-            @if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
+            @*@if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
             {
                 <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertisementUrl'" ng-click="productStore()">
                     <h2 class="productsHeader">חנות האגודה</h2>
                     <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
                     <div class="closeProducts"></div>
                 </button>
-            }
+            }*@
             @*<div class="dashLists">
                 <div class="dashFriends">
                     <h3 class="sectionHeader friends">@MainViewResources.Friends <button ng-click="openShowFriends()" class="showAll rFloat" type="button">@SharedResources.ShowAll</button></h3>
