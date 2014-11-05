@@ -54,8 +54,8 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
         //$scope.leaderBoard = data.payload.leaderBoard;
         //$scope.recommendedCourses = data.payload.recommendedCourses;
 
-        mapBoxes(data.boxes);
-        if (!data.boxes.length) {
+        mapBoxes(data);
+        if (!data.length) {
             firstTimeDashboard();
         }
 
@@ -175,6 +175,7 @@ function ($scope, $rootScope, $timeout, sModal, $document, $window, sDashboard, 
     };
 
     function mapBoxes(boxes) {
+        console.log(boxes);
         var academic = [], group = [];
         for (var i = 0, l = boxes.length; i < l; i++) {
             boxes[i].boxPicture = boxes[i].boxPicture || '/images/emptyState/my_default3.png';

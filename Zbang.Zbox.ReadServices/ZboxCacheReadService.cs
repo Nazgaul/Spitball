@@ -17,7 +17,6 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
 using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
@@ -33,7 +32,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
+        public Task<IEnumerable<ViewModel.Dto.BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
             return m_ReadService.GetUserBoxes(query);
         }
@@ -86,7 +85,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public BoxDto GetBox(GetBoxQuery query)
+        public ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query)
         {
             return m_ReadService.GetBox(query);
         }

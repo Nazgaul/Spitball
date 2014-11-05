@@ -16,7 +16,7 @@ using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
-using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDtos.BoxDto;
+using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
 namespace Zbang.Zbox.ReadServices
 {
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.ReadServices
 
        // IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 
-        BoxDto GetBox(GetBoxQuery query);
+        ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query);
         Task<BoxDto2> GetBox2(GetBoxQuery query);
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
