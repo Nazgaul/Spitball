@@ -443,6 +443,7 @@
 .unionStats .stat {
   display: block;
   font-size: 14px;
+  text-transform: capitalize;
 }
 .courses {
   position: relative;
@@ -482,6 +483,9 @@
   background: #f1f1f1;
   position: relative;
   top: -9px;
+}
+.libTop .uniLogo {
+  margin-left: 8px;
 }
 .unionLinksWpr {
   display: table-row;

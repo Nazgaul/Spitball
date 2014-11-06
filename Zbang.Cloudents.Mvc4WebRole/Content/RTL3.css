@@ -571,6 +571,9 @@
   /*rtl*/
   right: auto;
 }
+.libTop .uniLogo {
+  margin: 0 8px 0 0;
+}
 .outbound {
   border-left: 1px solid #c2c2c2;
   /*rtl*/

@@ -9,9 +9,8 @@
             <div class="libTopWpr">
                 <div class="libTop">
 
-                    <div class="uniLogo">
-                        <img src="@Model.Image" alt="" width="68" height="68" />
-                    </div>
+                <img src="@Model.Image" class="uniLogo lFloat" alt="University logo" width="80" height="80"  />
+
                 <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</div>
                     <div class="unionStats">
                         <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
