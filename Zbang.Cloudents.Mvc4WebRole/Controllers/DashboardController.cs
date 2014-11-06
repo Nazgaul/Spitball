@@ -44,9 +44,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-           Location = OutputCacheLocation.ServerAndClient,
-           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
+        //   Location = OutputCacheLocation.ServerAndClient,
+        //   VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");

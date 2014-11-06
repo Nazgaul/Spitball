@@ -10,8 +10,6 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDSA9ig4ElWiS6DMZwmkwiwwDQYJKoZIhvcNAQEBBQAEggEAxljenZZYff/WiclNROWuWKFpLRVeUsqA582wfwY64Ua+liF3G6YQZCBLdga+XZIie16OYdP9GauVjlitQ5WL+BpPj7He+oXTLT5HeUFqDcElUwck6WDUyNsDk2TnmnzRnp2G1+90AbSiGlCpvIxcSJeLbc3NYRGT7bV8loscANIeEXGrziaR0slW9/Rg5ONeI7kku+uW3gATUNYA71jH7qIsdKEckrXyDxBtFA7aBf9JTER5PiVuPsRyWQJOx/1oYQ9k0sv9gtfxDcFd/xCaz820wfEaPwcqlj1eMEpALq0lAFj8sBk38y3aft8IdP85h96mNoC8ZnfbVD+GazSPKDArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECPIbX0CHT7wqgAijXM2wtD90RA==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-02-26T23:59:59.0000000+02:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
-      <!--<Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />-->
-      <!--<Setting name="CdnEndpoint" value="https://az158719.vo.msecnd.net" />-->
       <Setting name="CdnEndpoint" value="https://az414807.vo.msecnd.net" />
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;" />
       <Setting name="CacheUse" value="true" />
@@ -19,6 +17,7 @@
       <Setting name="IsMobileDisabled" value="true" />
       <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
+      <Setting name="NewRelic.LicenseKey" value="3c7434bc408ced6499a908faffb43f35a74b90c8" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
