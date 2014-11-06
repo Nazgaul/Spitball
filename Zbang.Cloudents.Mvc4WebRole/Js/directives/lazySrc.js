@@ -1,5 +1,4 @@
-﻿
-angular.module('lazySrc', [])
+﻿angular.module('lazySrc', [])
     .directive('lazySrcContainer', function ($window, $document) {
         "use strict";
         return {

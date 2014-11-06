@@ -11,8 +11,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
-    $scope.groupBoxes = [];
-    $scope.params = {};
+    $scope.groupBoxes = [];   
     //cd.pubsub.publish('dash_boxes');//statistics
 
     //cd.analytics.setLibrary($('.uniText').text()); //TODO
@@ -37,6 +36,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
                     }
                 },
                 always: function () {
+                    
                     $rootScope.params.createBoxWizard = false; //user cancelled
                 }
             }
@@ -50,21 +50,25 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
         var boxList = response[0],
             sideBar = response[1];
 
-        console.log(boxList);
-        console.log(sideBar);
-
         mapBoxes(boxList);
         if (!boxList.length) {
             firstTimeDashboard();
         }
 
-        $scope.params.name = sideBar.info.name;
-        $scope.params.image = sideBar.info.image;
+        $scope.params = {
+            name:sideBar.info.name,
+            image:sideBar.info.img
+        };
 
+        $scope.leaderBoard = {
+            first: sideBar.leaderBoard[0],
+            second: sideBar.leaderBoard[1],
+            third: sideBar.leaderBoard[2],
+            length: sideBar.leaderBoard.length
+        };
+        
         $scope.recommendedCourses = sideBar.recommended;
-
-        $scope.leaderBoard = sideBar.leaderboard;
-
+      
         $scope.contentLoaded = true;
         $scope.$broadcast('update-scroll');
         $timeout(function () {
@@ -100,51 +104,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
 
     };
 
-    //$scope.openCreateBox = function () {
-    //    var modalInstance = $modal.open({
-    //        windowClass: "privateBox",
-    //        templateUrl: $scope.partials.createBox,
-    //        controller: 'CreateBoxCtrl',
-    //        backdrop: 'static'
-    //    });
-
-    //    modalInstance.result.then(function (box) {
-    //        $location.path(box.url);
-    //    }, function () {
-    //    });
-    //};
-
-    //$scope.openShowFriends = function () {
-    //    sUser.friends().then(function (data) {
-    //        var modalInstance2 = $modal.open({
-    //            windowClass: "boxSettings dashMembers",
-    //            templateUrl: $scope.partials.friends,
-    //            controller: 'ShowFriendsCtrl',
-    //            backdrop: 'static',
-    //            resolve: {
-    //                friends: function () {
-    //                    return data.payload.my;
-    //                }
-    //            }
-    //        });
-
-    //        modalInstance2.result.then(function (response) {
-    //            if (response.invite) {
-    //                $scope.inviteCloudents();
-    //            }
-    //        })['finally'](function () {
-    //            modalInstance = undefined;
-    //        });
-
-    //        $scope.$on('$destroy', function () {
-    //            if (modalInstance) {
-    //                modalInstance.dismiss();
-    //                modalInstance = undefined;
-    //            }
-    //        });
-    //    });
-    //};
-
+  
     $scope.removeConfirm = function (box) {
         if (box.userType === 'none') {
             return;
@@ -204,7 +164,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
         $scope.academicBoxes = academic;
         $scope.groupBoxes = group;
 
-    }
+    }   
 
     $scope.productStore = function () {
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;

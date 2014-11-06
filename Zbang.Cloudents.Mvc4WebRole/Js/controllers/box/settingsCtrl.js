@@ -30,7 +30,7 @@
 
          $scope.save = function () {
              sBox.updateInfo($scope.formData).then(function (response) {
-                 $scope.formData.queryString = response.payload.queryString;
+                 $scope.formData.queryString = response.queryString;
                  $modalInstance.close($scope.formData);
                  //TODO analytics 
 
