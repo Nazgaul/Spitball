@@ -28,7 +28,7 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails, sModal) {
                     $body.append(tooltipElement)
 
                     sUser.minProfile({ userId: attributes.userTooltipPopup }).then(function (response) {
-                        scope.user = response.payload;
+                        scope.user = response;
                         $compile(tooltipElement)(scope);
                     });
 

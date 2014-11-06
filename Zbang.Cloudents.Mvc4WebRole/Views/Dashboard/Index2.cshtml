@@ -6,33 +6,43 @@
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
     <div class="dashContent" >
         <aside class="asideDash lFloat">
-            <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)">
-                <img class="uniLogo lFloat" alt="University logo" width="80" height="80" src="" />
-                <span class="ghost"><span class="vCentered"></span></span>
+            <a class="dashTop" href="@Url.RouteUrl("LibraryDesktop",null)" bindonce>
+                <img class="uniLogo lFloat" alt="University logo" width="80" height="80" ng-src="{{params.image}}" />
+                <span class="ghost"><span class="vCentered">{{params.name}}</span></span>
             </a>
 
-            <section class="leaderBoard empty">
+            <section class="leaderBoard" ng-class="{empty: !leaderBoard.length }">
                 <header>
                     @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                     <span class="lbText">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.BestInClass</span>
                 </header>
                 @Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })
 
-                @*<ol class="bestUserList">
-                    <li class="firstUser">
-                        <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                <ol class="bestUserList">           
+                    <li class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
+                        <img class="top3Img" ng-src="{{leaderBoard.first.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep" data-pts="@SharedResources.Pts">12660</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score}}</div>
                     </li>
-                    <li class="secondUser lFloat">
-                        <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                    <li ng-if="leaderBoard.second" class="secondUser lFloat" user-tooltip-popup="{{leaderBoard.second.id}}">
+                        <img class="top3Img" ng-src="{{leaderBoard.second.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        <div class="rep" data-pts="@SharedResources.Pts">9876</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score}}</div>
                     </li>
-                    <li class="thirdUser empty rFloat">
+                    <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })                        
+                    </li>
+
+                    <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
+                        <img class="top3img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        <div class="rep" data-pts="@SharedResources.Pts">2397</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score}}</div>
+                    </li>
+
+                    <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
+                        <img class="top3img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })                        
                     </li>
                 </ol>
                 <div class="lbEmpty">
@@ -41,7 +51,7 @@
                         <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
                     </div>
                     @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
-                </div>*@
+                </div>
             </section>
 
             <section class="recommendedWpr" bindonce>
@@ -50,17 +60,16 @@
                     <li class="recommended" ng-repeat="course in recommendedCourses">
 
                         <a bo-href="course.url" class="courseLink">
-                            @*Guy: if both prof and code are present - add class 'rcFull' here*@
-                            <div class="rcDetails rcFull">
-                                <img alt="" width="46" height="46" bo-src="course.url" /> @*bo-src="course.picture"*@
-                                <div class="elps courseName" bo-text="course.name"></div> @*bo-text="course.name"*@
-                                <span class="prof elps" bo-text="course.professorName"></span> @*bo-text="course.professor"*@
-                                <span class="elps" bo-text="course.code"></span> @*bo-text="course.courseCode"*@
+                            <div class="rcDetails" ng-class="{ rcFull : course.professor && course.courseCode }">
+                                <img alt="" width="46" height="46" bo-src="course.url" />
+                                <div class="elps courseName" bo-text="course.name"></div> 
+                                <span class="prof elps" bo-text="course.professor"></span>
+                                <span class="elps" bo-text="course.courseCode"></span> 
 
                             </div>
                             <div class="rcStats">
-                                <div class="friends" bo-attr bo-attr-data-friends-count="course.friends">@SharedResources.Friends</div> @*bo-attr-data-friends-count="course.membersCount"*@
-                                <div class="files" bo-attr bo-attr-data-files-count="course.files">@SharedResources.Files</div> @*bo-attr-data-files-count="course.itemCount"*@
+                                <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">@SharedResources.Friends</div> 
+                                <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">@SharedResources.Files</div> 
                             </div>
                         </a>
                     </li>                   
@@ -107,14 +116,14 @@
                     <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
                         @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
                     </a>
-                    <a title="" class="lFloat storeLink" href="~/Store">
+                    <a title="" class="lFloat storeLink" href="/store">
                         @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
                     </a>
                 </div>
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
                     <input autocomplete="off"  class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
-                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends($event)">
+                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
                 </div>
@@ -137,7 +146,7 @@
                     <div class="createCourse">
                         <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
                     </div>
-                    <section class="recommendedWpr" ng-if="recommendedCourses.length">
+                    @*<section class="recommendedWpr" ng-if="recommendedCourses.length">
                         <header>@IndexResources.RecommendedCourses</header>
                         <ul>
                             <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
@@ -153,7 +162,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </section>
+                    </section>*@
                 </div>
             </section>
 

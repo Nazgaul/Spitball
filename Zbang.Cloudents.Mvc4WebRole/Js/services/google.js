@@ -165,12 +165,8 @@ app.factory('sGoogle',
                        return defer.promise;
                    }
 
-                   sShare.googleFriends({ token: access_token }).then(function (data) {
-                       if (!data.success) {
-                           defer.resolve([]);
-                           return;
-                       }
-                       var feed = JSON.parse(data.payload).feed;
+                   sShare.googleFriends({ token: access_token }).then(function (data) {                       
+                       var feed = JSON.parse(data).feed;
                        for (var i = 0 ; i < feed.entry.length; i++) {
                            var contact = {}, entry = feed.entry[i];
                            if (entry.gd$email) {
@@ -196,6 +192,8 @@ app.factory('sGoogle',
 
                        defer.resolve(contacts);
 
+                   }, function () {
+                       defer.resolve([]);
                    });
 
                    return defer.promise;

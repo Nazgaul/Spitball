@@ -1,5 +1,4 @@
-﻿
-app.directive('loadSpinner',
+﻿app.directive('loadSpinner',
     [
 
     function () {
