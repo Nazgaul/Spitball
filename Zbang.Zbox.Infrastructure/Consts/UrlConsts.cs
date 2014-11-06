@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         public static string BuildInviteUrl(string boxUrl, string invId)
         {
-            return CloudentsUrl+ boxUrl + string.Format(BoxUrlInvite, invId);
+            return CloudentsUrl + boxUrl + string.Format(BoxUrlInvite, invId);
         }
 
         public static string BuildInviteCloudentsUrl(string invId)
@@ -109,7 +109,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
 
 
-      
+
         public static string BuildStoreProductUrl(long productId, string productName)
         {
             if (productName == null) throw new ArgumentNullException("productName");
@@ -136,10 +136,12 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             char previousChar = '\0';
             var sb = new StringBuilder();
+            name = name.Replace(Convert.ToChar(160), ' ');
             foreach (var character in name)
             {
                 switch (character)
                 {
+
                     case '<':
                     case '>':
                     case '*':
