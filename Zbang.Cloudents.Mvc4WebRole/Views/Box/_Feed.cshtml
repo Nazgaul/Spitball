@@ -42,10 +42,13 @@
                             </div>
                         </li>
                     </ul>
-
-                    <div class="shareBtn lFloat">
-                        <label for="boxShare" class="iconTop">@SharedResources.Share</label>
+                    <div>
+                        <button class="commentBtn" type="button">@SharedResources.Comment</button>
+                        <div class="shareBtn">
+                            <label for="boxShare" class="iconTop">@SharedResources.Share</label>
+                        </div>
                     </div>
+                    
                     <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
                         @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
                     </button>
@@ -73,6 +76,7 @@
                         </div>
                     </li>
                 </ul>
+                @*Ram: When user click on comment btn - add class 'show' to feedForm*@
                 <form name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
                     <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
                     <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>

@@ -163,9 +163,13 @@
 }
 .boxFeedList .feedForm {
   padding-top: 15px;
+  display: none;
 }
 .boxFeedList .feedForm .feedImg {
   margin: 0 0 0 15px;
+}
+.boxFeedList .feedForm.show {
+  display: block;
 }
 .boxFeedList .feedTA {
   width: 487px;
@@ -207,9 +211,14 @@
   margin-top: 15px;
   font-size: 16px;
 }
+.feedWpr .commentBtn:after {
+  content: '\00a0' '|' '\00a0';
+}
+.feedWpr .commentBtn,
 .feedWpr .shareBtn {
   display: inline-block;
   color: #3399ff;
+  margin: 0;
   font-size: 12px;
 }
 .feedWpr .trash {

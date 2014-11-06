@@ -157,8 +157,12 @@
     }
     .feedForm {
         padding-top: 15px;
+        display: none;
         .feedImg {
             margin: 0 0 0 15px; //rtl override
+        }
+        &.show {
+            display: block;
         }
     }
     .feedTA {
@@ -202,9 +206,15 @@
         margin-top: 15px;
         font-size: 16px;
     }
-    .shareBtn {
+    .commentBtn {
+        &:after {
+            content: '\00a0' '|' '\00a0';
+        }
+    }
+    .commentBtn, .shareBtn {
         display: inline-block;
-        color: @itemBlue; 
+        color: @itemBlue;
+        margin:0; //override
         font-size: 12px;
     }
     .trash {
