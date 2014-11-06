@@ -48,20 +48,15 @@
                                 return;
                             }
 
-                            parent = _.last(nodeHistory);
+                            var parent = _.last(nodeHistory);
                             if (parent) {
                                 result.parentId = parent.id;
                             }
 
                             sLibrary.createDepartment(result).then(function (response) {
-                                if (!response.success) {
-                                    alert(response.payload);
-                                    return;
-                                }
-
                                 var department = {
-                                    id: response.payload.id,
-                                    name: response.payload.name
+                                    id: response.id,
+                                    name: response.name
                                 };
 
                                 nodeHistory.push(department);
@@ -69,6 +64,8 @@
                                 $scope.params.selectedDepartment = department;
 
                                 //TODO analytics
+                            }, function(response) {
+                                alert(response);
                             });
                         }
                     }
