@@ -151,94 +151,63 @@
 .invitesCounterShow {
     display: inline;
 }
-.notifyWpr{
-    width: 378px;
+.notifyWpr {
+    width: 400px;
     position: absolute;
-    top: 50px;
-    margin-left: -167px; /*rtl*/
-    border: 1px solid @borderColor;
-    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    display:none;
-    .upArrow{
-        &:before
-        {
-            background: #fff;
-            bottom: -6px;
-        }
-    }
-    &.noResults
-    {
-        .notifyEmpty
-        {
-            display: block;
-        }
-        .notifyTop
-        {
-            text-align: left; /*rtl*/
-        }
+    right: 30px; //rtl
+    top: 22px;
+    border-radius: 10px;
+    display: block;
+    &.dropdown-menu {
+        border: none;
     }
 }
-.notifyTop{
-    line-height: 13px;
-    padding: 7px 10px;
-    background: #fff;
-    border-bottom: 1px solid @borderColor;
-    margin-top: -10px;
-    border-radius: 5px 5px 0 0;
-}
-.notifyEmpty
-{
+
+.notifyEmpty {
     display: none;
-    padding-bottom:48px;
-    background: #FFF;
+    background: #d1294d;
     text-align: center;
-    border-radius: 0 0 5px 5px;
-    padding-top: 1px; //need this so that it covers the share btn. TODO: look into this
-    &:before
-    {
-       content: '';
-       display: block;
-        width: 99px;
-        height: 99px;
-        background: @common-sprite -155px -89px no-repeat;
-        margin: 43px auto -6px auto;
-    }
+    width: 400px;
+    height: 136px;
+    color: #fff;
+    border-radius: 10px;
+    line-height: normal;
 }
-.notifyList 
-{
-    background: #fff;
-    max-height: 421px;
+.notifyList {
+    //background: #fff;
+    max-height: 525px;
     overflow: auto;
-    border-radius: 0 0 5px 5px;
 }
 .notifyItem {
-    border-bottom: 1px solid rgb(159,158,157);
-    border-bottom: 1px solid rgba(159,158,157,.5);
-    box-shadow: 0 1px 0 #fff;
-    padding: 10px 8px 0 70px; /*rtl*/
+    //border-bottom: 1px solid rgb(159,158,157);
+    //border-bottom: 1px solid rgba(159,158,157,.5);
+    //box-shadow: 0 1px 0 #fff;
+    padding: 15px 15px 0 100px; /*rtl*/
     position: relative;
-    height: 70px;
-    background: #fff;
-    line-height: normal;
+    width: 400px;
+    height: 100px;
+    background: #acacac;
+    //line-height: normal;
     overflow: hidden;
+    
+    &:hover {
+        background: #bbb;
+    }
+    &.new {
+        background: #d1294d;
+        &:hover {
+            background: #e25c6a;
+        }
+    }
+    + .notiftItem {
+        margin-top: 5px;
+    }
 
-    &.new
-    {
-        background: #f2f2f2;
-    }
-    &:hover
-    {
-        background: #f9f9f9;
-    }
-    &:last-child {
-        border-bottom: 0;
-    }
     a {
         padding: 4px 6px;
-        line-height: normal;
+        //line-height: normal;
         /*display: table-cell;*/
-        color: @textColor;
+        //color: @textColor;
     }
     .notifier {
         max-width: 185px;
@@ -251,8 +220,12 @@
 .notifyImg
 {
     position: absolute;
-    left: 10px; /*rtl*/
-    top: 10px;
+    left: 20px; /*rtl*/
+    top: 15px;
+    width: 72px;
+    height: 72px;
+    .boxSizing;
+    border: 3px solid #fff;
 }
 .inviteTxtWpr
 {

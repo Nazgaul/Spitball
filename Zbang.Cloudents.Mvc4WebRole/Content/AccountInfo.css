@@ -147,83 +147,54 @@
   display: inline;
 }
 .notifyWpr {
-  width: 378px;
+  width: 400px;
   position: absolute;
-  top: 50px;
-  margin-left: -167px;
-  /*rtl*/
-  border: 1px solid #c2c2c2;
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  display: none;
-}
-.notifyWpr .upArrow:before {
-  background: #fff;
-  bottom: -6px;
-}
-.notifyWpr.noResults .notifyEmpty {
+  right: 30px;
+  top: 22px;
+  border-radius: 10px;
   display: block;
 }
-.notifyWpr.noResults .notifyTop {
-  text-align: left;
-  /*rtl*/
-}
-.notifyTop {
-  line-height: 13px;
-  padding: 7px 10px;
-  background: #fff;
-  border-bottom: 1px solid #c2c2c2;
-  margin-top: -10px;
-  border-radius: 5px 5px 0 0;
+.notifyWpr.dropdown-menu {
+  border: none;
 }
 .notifyEmpty {
   display: none;
-  padding-bottom: 48px;
-  background: #FFF;
+  background: #d1294d;
   text-align: center;
-  border-radius: 0 0 5px 5px;
-  padding-top: 1px;
-}
-.notifyEmpty:before {
-  content: '';
-  display: block;
-  width: 99px;
-  height: 99px;
-  background: url(/Images/common17-sprite.png?v=4) -155px -89px no-repeat;
-  margin: 43px auto -6px auto;
+  width: 400px;
+  height: 136px;
+  color: #fff;
+  border-radius: 10px;
+  line-height: normal;
 }
 .notifyList {
-  background: #fff;
-  max-height: 421px;
+  max-height: 525px;
   overflow: auto;
-  border-radius: 0 0 5px 5px;
 }
 .notifyItem {
-  border-bottom: 1px solid #9f9e9d;
-  border-bottom: 1px solid rgba(159, 158, 157, 0.5);
-  box-shadow: 0 1px 0 #fff;
-  padding: 10px 8px 0 70px;
+  padding: 15px 15px 0 100px;
   /*rtl*/
   position: relative;
-  height: 70px;
-  background: #fff;
-  line-height: normal;
+  width: 400px;
+  height: 100px;
+  background: #acacac;
   overflow: hidden;
 }
-.notifyItem.new {
-  background: #f2f2f2;
-}
 .notifyItem:hover {
-  background: #f9f9f9;
+  background: #bbb;
 }
-.notifyItem:last-child {
-  border-bottom: 0;
+.notifyItem.new {
+  background: #d1294d;
+}
+.notifyItem.new:hover {
+  background: #e25c6a;
+}
+.notifyItem + .notiftItem {
+  margin-top: 5px;
 }
 .notifyItem a {
   padding: 4px 6px;
-  line-height: normal;
   /*display: table-cell;*/
-  color: #383838;
 }
 .notifyItem .notifier {
   max-width: 185px;
@@ -234,9 +205,15 @@
 }
 .notifyImg {
   position: absolute;
-  left: 10px;
+  left: 20px;
   /*rtl*/
-  top: 10px;
+  top: 15px;
+  width: 72px;
+  height: 72px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 3px solid #fff;
 }
 .inviteTxtWpr {
   line-height: 15px;

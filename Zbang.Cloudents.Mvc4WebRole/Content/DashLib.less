@@ -499,7 +499,7 @@
     line-height: 65px;
     vertical-align: middle;
     border-bottom: 1px dashed @borderColor;
-    overflow: hidden;
+    //overflow: hidden;
     > .rFloat {
         width: 170px;
         position: relative;
@@ -519,6 +519,13 @@
 .notificationBtn {
     position: relative;
     top: 13px;
+    &:hover {
+        ~ .noResults {
+            .notifyEmpty {
+                display: block;
+            }
+        }
+    }
 }
 .helpLink {
     display: inline-block;

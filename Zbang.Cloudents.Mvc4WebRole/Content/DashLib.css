@@ -438,7 +438,6 @@
   line-height: 65px;
   vertical-align: middle;
   border-bottom: 1px dashed #c2c2c2;
-  overflow: hidden;
 }
 .dashHeader > .rFloat {
   width: 170px;
@@ -458,6 +457,9 @@
 .notificationBtn {
   position: relative;
   top: 13px;
+}
+.notificationBtn:hover ~ .noResults .notifyEmpty {
+  display: block;
 }
 .helpLink {
   display: inline-block;

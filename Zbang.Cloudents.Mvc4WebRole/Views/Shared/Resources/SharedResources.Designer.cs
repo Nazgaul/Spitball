@@ -846,7 +846,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have no new notifications.
+        ///   Looks up a localized string similar to You have no notifications.
         /// </summary>
         public static string NoNotifications {
             get {

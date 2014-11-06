@@ -604,8 +604,8 @@
   left: auto;
 }
 .notifyWpr {
-  margin: 0 -170px 0 0;
-  /*rtl*/
+  left: 30px;
+  right: auto;
 }
 .notifyWpr.noResults .notifyTop {
   text-align: right;

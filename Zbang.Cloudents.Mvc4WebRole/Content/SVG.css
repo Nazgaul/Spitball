@@ -78,6 +78,9 @@
   height: 25px;
   fill: #c2c2c2;
 }
+.svg-notification:hover {
+  fill: #d1294d;
+}
 .svg-help {
   width: 23px;
   height: 23px;
@@ -88,21 +91,30 @@
   height: 33px;
   fill: #0f9d58;
 }
-.svg-podium {
-  width: 266px;
-  height: 70px;
-  stroke: #c2c2c2;
-  stroke-width: 4px;
-  fill: #fff;
-  position: absolute;
-  top: 142px;
-}
+/*.svg-podium {
+    //width: 100%;
+    width: 266px;
+    height: 70px;
+    stroke: @borderColor;
+    stroke-width: 4px;
+    fill: #fff;
+    position: absolute;
+    top: 142px;
+}*/
 .svg-trophyEmpty {
   width: 164px;
   height: 129px;
   position: relative;
   top: 35px;
   margin-top: -29px;
+}
+.svg-notificationCloud {
+  width: 120px;
+  height: 100px;
+  fill: #fff;
+  display: block;
+  margin: 0 auto;
+  padding: 8px 0 3px;
 }
 /*#endregion */
 /*#region box page */
