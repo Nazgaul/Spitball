@@ -8,5 +8,6 @@ disallow: /Account/ChangeLanguage/
 disallow: /Account/ForgotPassword/
 disallow: /account/resetpassword/
 disallow: /account/welcome/
+disallow: /store/
 
 Sitemap: https://www.cloudents.com/sitemap.xml
