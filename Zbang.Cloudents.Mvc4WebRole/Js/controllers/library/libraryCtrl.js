@@ -118,6 +118,8 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
                     sLibrary.createDepartment(result).then(function (response) {
                         $scope.info.items.push(response);
                         $scope.info.type = types.department;
+                    },function(response) {
+                        alert(response);
                     });
 
                     //TODO analytics

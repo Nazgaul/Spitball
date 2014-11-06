@@ -88,6 +88,7 @@ from zbox.userboxrel ub
 join zbox.users u on ub.userid = u.userid
  where boxid = @BoxId
  and u.usertype <> 1
+ and ub.UserType > 1
  order by userreputation desc;";
 
 

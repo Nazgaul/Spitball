@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Domain.Resources;
 
 namespace Zbang.Zbox.Domain
 {
@@ -64,11 +65,11 @@ namespace Zbang.Zbox.Domain
 
         public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
         {
-            if (Libraries.Any(f => f.Name == nodeName))
+            if (UniversityData.Libraries.Any(f => f.Name == nodeName))
             {
-                throw new ArgumentException("cannot have node with the same name");
+                throw new ArgumentException(DomainResources.DeptNameExists);
             }
-            var library = new Library(id, nodeName, null, this);
+            var library = new Library(id, nodeName, null, UniversityData);
             Libraries.Add(library);
             return library;
         }

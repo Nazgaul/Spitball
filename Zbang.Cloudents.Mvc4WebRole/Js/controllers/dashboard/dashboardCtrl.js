@@ -74,6 +74,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });
+        $analytics.setVariable('dimension1', sideBar.info.uniName);
         
         
     });  
