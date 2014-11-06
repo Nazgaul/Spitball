@@ -30,11 +30,16 @@
   color: #0f9d58;
 }
 .settingsContent {
-  width: 815px;
+  width: 100%;
   text-align: left;
   /*rtl*/
-  margin: 30px 20px 0 288px;
-  /*rtl*/
+  padding: 30px 20px 0 288px;
+  min-height: -webkit-calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
+  background: #eee;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .settingsContent label {
   width: 140px;
@@ -341,6 +346,7 @@
 .boxesList {
   margin: 6px 0 39px 1px;
   /*rtl*/
+  width: 815px;
 }
 .boxesList li {
   margin-bottom: 18px;

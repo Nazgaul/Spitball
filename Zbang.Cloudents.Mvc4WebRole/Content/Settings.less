@@ -3,7 +3,7 @@
 .settingsMenu {
     width: 263px;
     background: #fff;
-    border-right: 1px solid @borderColor;
+    border-right: 1px solid @borderColor; //rtl
     position: fixed;
     top: 44px;
     bottom: 0;
@@ -31,12 +31,14 @@
 }
 
 .settingsContent {
-    //position: absolute;
-    //top: 80px;
-    //left: 288px; /*rtl*/
-    width: 815px; // bug 1811
+    width: 100%;
     text-align: left; /*rtl*/
-    margin: 30px 20px 0 288px; /*rtl*/
+    padding: 30px 20px 0 288px; //rtl
+    min-height: ~'-webkit-calc(100vh - 50px)';
+    min-height: ~'calc(100vh - 50px)';
+    background: #eee;
+    .boxSizing;
+    
 }
 
 .settingsContent label {
@@ -378,6 +380,7 @@
 
 .boxesList {
     margin: 6px 0 39px 1px; /*rtl*/
+    width: 815px; // bug 1811
 }
 
 .boxesList li {

@@ -1110,6 +1110,8 @@
   right: 0;
   /*rtl*/
   left: auto;
+  border: none;
+  border-left: 1px solid #c2c2c2;
 }
 .settingsMenu ul {
   margin: 33px 23px 0 0;
@@ -1118,7 +1120,7 @@
 .settingsContent {
   text-align: right;
   /*rtl*/
-  margin: 30px 288px 0 20px;
+  padding: 30px 288px 0 20px;
   /*rtl*/
 }
 /*#region profile info */
