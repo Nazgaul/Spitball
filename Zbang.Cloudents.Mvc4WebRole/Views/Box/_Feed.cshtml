@@ -97,7 +97,7 @@
 
     </section>
     <div class="boxSideBar" ng-controller="SideBarCtrl">
-        <section class="leaderBoard">
+        <section class="leaderBoard" ng-if="leaderBoard">
             <header>
                 @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                 <span class="lbText">@SharedResources.BestInSchool</span>
