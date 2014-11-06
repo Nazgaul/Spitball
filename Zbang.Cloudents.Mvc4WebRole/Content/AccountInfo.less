@@ -139,7 +139,7 @@
     color: #fff;
     position: absolute;
     top: 5px;
-    left: 18px;
+    left: 18px; //rtl
     height: 12px;
     min-width: 12px;
     line-height: 11px;
@@ -156,10 +156,10 @@
     position: absolute;
     right: 30px; //rtl
     top: 22px;
-    border-radius: 10px;
     display: block;
     &.dropdown-menu {
-        border: none;
+        border: none; //override
+        box-shadow: none; //override
     }
 }
 
@@ -174,20 +174,18 @@
     line-height: normal;
 }
 .notifyList {
-    //background: #fff;
     max-height: 525px;
     overflow: auto;
+    color: #fff;
 }
 .notifyItem {
-    //border-bottom: 1px solid rgb(159,158,157);
-    //border-bottom: 1px solid rgba(159,158,157,.5);
-    //box-shadow: 0 1px 0 #fff;
-    padding: 15px 15px 0 100px; /*rtl*/
     position: relative;
+    font-size: 14px;
     width: 400px;
     height: 100px;
     background: #acacac;
-    //line-height: normal;
+    border-radius: 10px;
+    line-height: normal;
     overflow: hidden;
     
     &:hover {
@@ -199,22 +197,24 @@
             background: #e25c6a;
         }
     }
-    + .notiftItem {
+    + .notifyItem {
         margin-top: 5px;
     }
 
     a {
-        padding: 4px 6px;
-        //line-height: normal;
-        /*display: table-cell;*/
-        //color: @textColor;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 15px 15px 0 100px; /*rtl*/
+        .boxSizing;
+    }
+    .notifyDetails {
+        margin-top: 12px;
     }
     .notifier {
         max-width: 185px;
         display: inline-block;
-    }
-    .createTime{
-        margin-top: 2px;
+        vertical-align: top;
     }
 }
 .notifyImg
@@ -224,18 +224,11 @@
     top: 15px;
     width: 72px;
     height: 72px;
+    border-radius: 100%;
     .boxSizing;
     border: 3px solid #fff;
 }
-.inviteTxtWpr
-{
-    line-height: 15px;
-    margin-top: -2px;
-    color: #676767;
-    .semiFont{
-        color: @textColor;
-    }
-}
+
 .notifyMsg
 {
     line-height: 15px;

@@ -151,11 +151,11 @@
   position: absolute;
   right: 30px;
   top: 22px;
-  border-radius: 10px;
   display: block;
 }
 .notifyWpr.dropdown-menu {
   border: none;
+  box-shadow: none;
 }
 .notifyEmpty {
   display: none;
@@ -170,14 +170,16 @@
 .notifyList {
   max-height: 525px;
   overflow: auto;
+  color: #fff;
 }
 .notifyItem {
-  padding: 15px 15px 0 100px;
-  /*rtl*/
   position: relative;
+  font-size: 14px;
   width: 400px;
   height: 100px;
   background: #acacac;
+  border-radius: 10px;
+  line-height: normal;
   overflow: hidden;
 }
 .notifyItem:hover {
@@ -189,19 +191,26 @@
 .notifyItem.new:hover {
   background: #e25c6a;
 }
-.notifyItem + .notiftItem {
+.notifyItem + .notifyItem {
   margin-top: 5px;
 }
 .notifyItem a {
-  padding: 4px 6px;
-  /*display: table-cell;*/
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px 0 100px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.notifyItem .notifyDetails {
+  margin-top: 12px;
 }
 .notifyItem .notifier {
   max-width: 185px;
   display: inline-block;
-}
-.notifyItem .createTime {
-  margin-top: 2px;
+  vertical-align: top;
 }
 .notifyImg {
   position: absolute;
@@ -210,18 +219,11 @@
   top: 15px;
   width: 72px;
   height: 72px;
+  border-radius: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 3px solid #fff;
-}
-.inviteTxtWpr {
-  line-height: 15px;
-  margin-top: -2px;
-  color: #676767;
-}
-.inviteTxtWpr .semiFont {
-  color: #383838;
 }
 .notifyMsg {
   line-height: 15px;

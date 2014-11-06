@@ -728,8 +728,7 @@ input[type="radio"][disabled] + label:before {
   right: 0;
   /*rtl*/
 }
-.menuItem,
-.notifyList a {
+.menuItem {
   color: #0d864b;
   display: block;
 }

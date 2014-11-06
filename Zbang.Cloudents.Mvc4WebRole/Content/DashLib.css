@@ -461,6 +461,9 @@
 .notificationBtn:hover ~ .noResults .notifyEmpty {
   display: block;
 }
+.notificationBtn .invitesCounter {
+  top: -8px;
+}
 .helpLink {
   display: inline-block;
   vertical-align: middle;

@@ -603,27 +603,23 @@
   /*rtl*/
   left: auto;
 }
-.notifyWpr {
-  left: 30px;
-  right: auto;
-}
-.notifyWpr.noResults .notifyTop {
-  text-align: right;
-  /*rtl*/
-}
-.notifyItem {
-  padding: 10px 70px 0 8px;
-  /*rtl*/
-}
-.notifyImg {
-  right: 10px;
-  /*rtl*/
-  left: auto;
-}
 .invitesCounter {
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5);
   right: 18px;
   /* rtl*/
+  left: auto;
+}
+.notifyWpr {
+  left: 30px;
+  right: auto;
+}
+.notifyItem a {
+  padding: 15px 100px 0 15px;
+  /*rtl*/
+}
+.notifyImg {
+  right: 20px;
+  /*rtl*/
   left: auto;
 }
 /*#endregion */
