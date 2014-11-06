@@ -20,6 +20,7 @@
         border-bottom: 1px solid @borderColor;
         border-radius: 0; //override
         margin-bottom: 0; //override
+        min-height: 220px;
         header {
             padding: 16px 0 10px;
             font-size: 18px;
@@ -39,6 +40,36 @@
         }
     }
     
+}
+.podium {
+    width: 96px;
+    height: 68px;
+    border: 1px solid #aaa;
+    position: absolute;
+    top: 142px;
+    left: 96px;
+    border-radius: 3px;
+    background: #fff;
+    &:before, &:after {
+        content: '';
+        width: 82px;
+        height: 45px;
+        position: absolute;
+        left: -83px;
+        bottom: -1px;
+        border: 1px solid #aaa;
+        border-right: none;
+        background: #fff;
+        border-radius: 3px 0 0 3px;
+    }
+    &:after {
+        height: 24px;
+        right: -83px;
+        left: auto;
+        border: 1px solid #aaa;
+        border-left: none;
+        border-radius: 0 3px 3px 0;
+    }
 }
 
 .dashTop {

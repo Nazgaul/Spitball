@@ -16,7 +16,8 @@
                     @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                     <span class="lbText">@SharedResources.BestInSchool</span>
                 </header>
-                @Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })
+                <div class="podium"></div>
+                @*@Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })*@
 
                 <ol class="bestUserList">
                     <li class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
