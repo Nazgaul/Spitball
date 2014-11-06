@@ -76,7 +76,7 @@
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader"  ng-controller="NotificationsCtrl">
-                <div class="rFloat" >
+                <div class="rFloat">
                     <div dropdown>
                         <button class="rFloat notificationBtn" id="invites" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
                             @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
@@ -109,12 +109,15 @@
                         @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
                     </a>
                     @*<a title="" class="lFloat storeLink" href="/store">
-                @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
-            </a>*@
+                        @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+                    </a>*@
                 </div>
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
+                    <div class="searchInputWpr">
+                        <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
+                        @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+                    </div>
                     <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>

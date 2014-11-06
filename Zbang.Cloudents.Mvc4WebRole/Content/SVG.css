@@ -73,6 +73,10 @@
 }
 /*#endregion */
 /*#region dashboard */
+.svg-search {
+  width: 19px;
+  height: 20px;
+}
 .svg-notification {
   width: 22px;
   height: 25px;
@@ -91,16 +95,6 @@
   height: 33px;
   fill: #0f9d58;
 }
-/*.svg-podium {
-    //width: 100%;
-    width: 266px;
-    height: 70px;
-    stroke: @borderColor;
-    stroke-width: 4px;
-    fill: #fff;
-    position: absolute;
-    top: 142px;
-}*/
 .svg-trophyEmpty {
   width: 164px;
   height: 129px;

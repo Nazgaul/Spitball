@@ -490,6 +490,7 @@
   font-size: 18px;
   margin: 17px 20px 0 20px;
   vertical-align: top;
+  color: #383838;
 }
 .dhContent .dashLibSearchInput::-webkit-input-placeholder {
   color: #c2c2c2;
@@ -505,10 +506,25 @@
 .dhContent .dashLibSearchInput:-ms-input-placeholder {
   color: #c2c2c2;
 }
+.dhContent .dashLibSearchInput:focus ~ svg {
+  fill: #383838;
+}
 .dhContent svg {
   fill: #0f9d58;
   position: relative;
   top: 5px;
+}
+.searchInputWpr {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+.searchInputWpr svg {
+  position: absolute;
+  right: 33px;
+  fill: #a5a5a5;
+  top: 22px;
+  cursor: pointer;
 }
 .dhText {
   font-size: 28px;
