@@ -624,6 +624,7 @@ body.item .modal-backdrop.in {
   padding: 0;
   display: inline-block;
   background: transparent;
+  top: auto;
 }
 .itemFulscrn {
   text-align: center;
