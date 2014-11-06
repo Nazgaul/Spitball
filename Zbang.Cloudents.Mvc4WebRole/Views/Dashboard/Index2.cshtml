@@ -23,28 +23,28 @@
                     <li class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.first.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score | number}}</div>
                     </li>
                     <li ng-if="leaderBoard.second" class="secondUser lFloat" user-tooltip-popup="{{leaderBoard.second.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.second.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | number}}</div>
                     </li>
-                    <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
+                    @*<li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })                        
-                    </li>
+                    </li>*@
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
                         <img class="top3img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | number}}</div>
                     </li>
 
-                    <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
+                    @*<li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
                         <img class="top3img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })                        
-                    </li>
+                    </li>*@
                 </ol>
                 <div class="lbEmpty">
                     <div class="lbEmptyTxtWpr">
@@ -55,37 +55,26 @@
                 </div>
             </section>
 
-            <section class="recommendedWpr" bindonce>
+            <section class="recommendedWpr" bindonce ng-if="recommendedCourses.length">
                 <header>@IndexResources.RecommendedCourses</header>
                 <ul>
                     <li class="recommended" ng-repeat="course in recommendedCourses">
 
                         <a bo-href="course.url" class="courseLink">
                             <div class="rcDetails" ng-class="{ rcFull : course.professor && course.courseCode }">
-                                <img alt="" width="46" height="46" bo-src="course.url" />
-                                <div class="elps courseName" bo-text="course.name"></div> 
+                                <img alt="" width="46" height="46" bo-src="course.picture" />
+                                <div class="elps courseName" bo-text="course.name"></div>
                                 <span class="prof elps" bo-text="course.professor"></span>
-                                <span class="elps" bo-text="course.courseCode"></span> 
-
+                                <span class="elps" bo-text="course.courseCode"></span>
                             </div>
                             <div class="rcStats">
-                                <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">@SharedResources.Friends</div> 
-                                <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">@SharedResources.Files</div> 
+                                <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">@SharedResources.Friends</div>
+                                <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">@SharedResources.Files</div>
                             </div>
                         </a>
-                    </li>                   
+                    </li>
                 </ul>
             </section>
-
-
-            @*@if (!string.IsNullOrEmpty(Model.AdvertisementUrl))
-            {
-                <button type="button" class="productsBtn" ng-init="options.storeUrl='@Model.AdvertisementUrl'" ng-click="productStore()">
-                    <h2 class="productsHeader">חנות האגודה</h2>
-                    <div>הנחות ומבצעים יחודיים לחברי האגודה</div>
-                    <div class="closeProducts"></div>
-                </button>
-            }*@       
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">

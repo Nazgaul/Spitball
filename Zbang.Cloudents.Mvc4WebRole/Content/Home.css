@@ -65,7 +65,7 @@ body {
   right: 15px;
   /*rtl*/
   top: 15px;
-  background: url(/Images/hp18-sprite.png?v=1) -949px -244px no-repeat;
+  background: url(/Images/hp18-sprite.png?v=2) -949px -244px no-repeat;
   width: 11px;
   height: 12px;
 }
@@ -172,7 +172,7 @@ body {
   display: inline-block;
   width: 289px;
   height: 240px;
-  background: url(/Images/hp18-sprite.png?v=1) -172px -1px no-repeat;
+  background: url(/Images/hp18-sprite.png?v=2) -172px -1px no-repeat;
   float: right;
   /*rtl*/
   margin-top: 35px;
@@ -180,7 +180,7 @@ body {
 .logo {
   width: 190px;
   height: 52px;
-  background: url(/Images/hp18-sprite.png?v=1) -881px -271px no-repeat;
+  background: url(/Images/hp18-sprite.png?v=2) -881px -271px no-repeat;
   /*rtl*/
   margin-top: 20px;
 }
@@ -319,7 +319,7 @@ aside .last {
   display: inline-block;
   width: 69px;
   height: 69px;
-  background: url(/Images/hp18-sprite.png?v=1) -3px -4px no-repeat;
+  background: url(/Images/hp18-sprite.png?v=2) -3px -4px no-repeat;
   position: absolute;
   left: 0;
 }
@@ -500,7 +500,7 @@ section.unions .btn:hover {
 .union:before {
   content: '';
   display: inline-block;
-  background: url(/Images/hp18-sprite.png?v=1) no-repeat;
+  background: url(/Images/hp18-sprite.png?v=2) no-repeat;
   vertical-align: middle;
 }
 .uName,
