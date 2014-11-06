@@ -659,4 +659,7 @@
   <data name="Flag" xml:space="preserve">
     <value>דווח</value>
   </data>
+  <data name="Flagged" xml:space="preserve">
+    <value>דווח</value>
+  </data>
 </root>

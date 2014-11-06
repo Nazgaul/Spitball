@@ -652,4 +652,7 @@
   <data name="Flag" xml:space="preserve">
     <value>علامة</value>
   </data>
+  <data name="Flagged" xml:space="preserve">
+    <value>تمت الإشارة</value>
+  </data>
 </root>

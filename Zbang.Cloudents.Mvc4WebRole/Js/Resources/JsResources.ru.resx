@@ -662,4 +662,7 @@
   <data name="Flag" xml:space="preserve">
     <value>Пожаловаться</value>
   </data>
+  <data name="Flagged" xml:space="preserve">
+    <value>Помечено флагжком</value>
+  </data>
 </root>
