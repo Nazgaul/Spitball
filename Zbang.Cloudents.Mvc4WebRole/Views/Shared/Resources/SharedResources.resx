@@ -600,4 +600,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="ChooseDept" xml:space="preserve">
     <value>Choose a department</value>
   </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>Best in school</value>
+  </data>
 </root>

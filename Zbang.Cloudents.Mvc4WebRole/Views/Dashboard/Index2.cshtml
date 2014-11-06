@@ -14,11 +14,11 @@
             <section class="leaderBoard empty">
                 <header>
                     @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
-                    <span class="lbText">@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.BestInClass</span>
+                    <span class="lbText">@SharedResources.BestInSchool</span>
                 </header>
                 @Html.Svg("~/Images/Defs.svg", "podium", new { @class = "svg-podium" })
 
-                @*<ol class="bestUserList">
+                <ol class="bestUserList">
                     <li class="firstUser">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
@@ -41,7 +41,7 @@
                         <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
                     </div>
                     @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
-                </div>*@
+                </div>
             </section>
 
             <section class="recommendedWpr" bindonce>

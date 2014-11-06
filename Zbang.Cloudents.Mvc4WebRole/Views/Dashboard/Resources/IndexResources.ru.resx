@@ -291,4 +291,14 @@
   <data name="FindFriends" xml:space="preserve">
     <value>Найти друзей</value>
   </data>
+  <data name="FindClasses" xml:space="preserve">
+    <value>Найти классы, документы и друзей</value>
+  </data>
+  <data name="GetPoints" xml:space="preserve">
+    <value>Получите ваши очки!
+</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Загружайте файлы, приглашайте друзей, создавайте экзамены и занимайте свое место в качестве лидера школы</value>
+  </data>
 </root>

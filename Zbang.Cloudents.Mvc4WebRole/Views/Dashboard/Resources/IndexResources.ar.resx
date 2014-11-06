@@ -294,4 +294,16 @@
   <data name="FindFriends" xml:space="preserve">
     <value>العثور على أصدقاء</value>
   </data>
+  <data name="FindClasses" xml:space="preserve">
+    <value>البحث عن الطبقات، والوثائق والأصدقاء
+</value>
+  </data>
+  <data name="GetPoints" xml:space="preserve">
+    <value>الحصول على نقاط الخاص بك!
+</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>تحميل الملفات، دعوة الأصدقاء، وخلق مسابقات وتأخذ مكانك كقائد للمدرسة
+</value>
+  </data>
 </root>

@@ -295,4 +295,14 @@
   <data name="FindFriends" xml:space="preserve">
     <value>מצא חברים</value>
   </data>
+  <data name="FindClasses" xml:space="preserve">
+    <value>מצא קורסים, מסמכים וחברים</value>
+  </data>
+  <data name="GetPoints" xml:space="preserve">
+    <value>קבל את הנקודות שלך!
+</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>תעלו קבצים, תזמינו חברים, צרו בחנים, והובילו את טבלת הניקוד של המוסד האקדמי שלכם.</value>
+  </data>
 </root>
