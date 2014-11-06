@@ -8,6 +8,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Store
         public int ParentId { get; set; }
         public string Name { get; set; }
 
-        //public string Url { get; set; }
+        public string Url { get; set; }
     }
 }
