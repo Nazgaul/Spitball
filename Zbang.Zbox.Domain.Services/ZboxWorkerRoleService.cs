@@ -2,6 +2,7 @@
 using NHibernate;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
+using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 
@@ -74,7 +75,7 @@ namespace Zbang.Zbox.Domain.Services
 
             //    }
 
-            
+
             //    using (UnitOfWork.Start())
             //    {
             //        var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
@@ -99,6 +100,17 @@ namespace Zbang.Zbox.Domain.Services
 
             using (UnitOfWork.Start())
             {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
+                    var universityRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IUniversityRepository>();
+                    foreach (var university in universities)
+                    {
+                        university.UpdateNumberOfBoxes(universityRepository.GetNumberOfBoxes(university));
+                        UnitOfWork.CurrentSession.Save(university);
+                    }
+                    tx.Commit();
+                }
                 //        TraceLog.WriteInfo("Processing departments");
                 var departments = UnitOfWork.CurrentSession.QueryOver<Library>().List();
 
@@ -122,6 +134,7 @@ namespace Zbang.Zbox.Domain.Services
                     commandType: System.Data.CommandType.StoredProcedure);
 
 
+              
             }
             return retVal;
         }
