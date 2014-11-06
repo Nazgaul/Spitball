@@ -13,13 +13,13 @@
 
     .leaderBoard {
         width: 100%;
-        left: 0;
+        left: 0; //rtl
         background: #ebebeb;
         border: none;
         padding: 0 12px;
         border-bottom: 1px solid @borderColor;
         border-radius: 0; //override
-        margin-bottom: 0; //override
+        margin: 1px 0 0; //override
         min-height: 220px;
         header {
             padding: 16px 0 10px;
@@ -27,27 +27,148 @@
         }
     }
     .recommendedWpr {
-        border: none; //override
-        padding: 0; //override
-        display: block; // //override
+        //border: none; //override
+        //padding: 0; //override
+        //display: block; // //override
         
         header {
-            font-size: 18px; //override
-            border: none; //override
-            margin: 0; //override
-            padding: 20px 0 8px; //override
+            //font-size: 18px; //override
+            //border: none; //override
+            //margin: 0; //override
+            //padding: 20px 0 8px; //override
             text-align: center;
         }
     }
     
 }
+
+.recommendedWpr {
+    //color: @textColor;
+    //vertical-align: top;
+    background: #fff;
+    header {
+        font-size: 18px;
+        padding: 20px 0 8px; 
+    }
+}
+
+.recommended {
+    height: 70px;
+    .boxSizing;
+    position: relative;
+    font-size: 15px;
+    display: block;
+    + .recommended {
+        border-top: 1px solid @borderColor;
+    }
+    .courseLink {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        white-space: noWrap; 
+        font-size: 13px;
+        &:hover .rcDetails {
+            margin-left: -105px; //rtl
+        }
+    }
+    .rcDetails {
+        width: 100%;
+        height: 70px;
+        vertical-align: top;
+        padding-left: 62px; //rtl
+        position: relative;
+        top: 12px;
+        .boxSizing;
+        display: inline-block;
+        background: #fff;
+        margin:0;
+        .transition(margin .5s .5s);
+        
+        &.rcFull {
+            .prof:after {
+                content:  '\00a0' '|' '\00a0';
+                color: @textColor;
+            }
+        }
+    }
+    .rcStats {
+        width: 105px;
+        height: 70px;
+        display: inline-block;
+        background: #282828;
+        color: #fff;
+    }
+    img {
+        position: absolute;
+        left: 8px; //rtl
+        border-radius: 10px;
+    }
+
+    /*.rFloat {
+        border-left: 1px solid @borderColor; //rtl
+        width: 115px;
+        .boxSizing;
+        padding-left: 35px; //rtl
+        font-size: 13px;
+        margin-top: 10px;
+    }*/
+
+    /*&:nth-child(2) {
+        margin: 10px 0;
+    }*/
+
+    .courseName {
+        padding-top: 4px;
+        color: @color;
+        font-weight: bold;
+    }
+
+    .prof {
+        font-size: 13px;
+    }
+
+    .friends, .files {
+        position: relative;
+        padding-left: 30px; //rtl
+        &:before {
+            content: attr(bo-attr-data-friends-count) '\00a0';
+            display: inline-block;
+        }
+
+        &:after {
+            .pseudo;
+            width: 21px;
+            height: 21px;
+            background: @site-sprite 0 -1405px no-repeat;
+            position: absolute;
+            left: 4px; //rtl
+            top: 0;
+        }
+    }
+    .friends {
+        margin-top: 12px;
+    }
+    .files {
+        margin-top: 10px;
+
+        &:before {
+            content: attr(bo-attr-data-files-count) '\00a0';
+        }
+
+        &:after {
+            background-position: 0 -1384px;
+        }
+    }
+}
+
+
 .podium {
     width: 96px;
     height: 68px;
     border: 1px solid #aaa;
     position: absolute;
     top: 142px;
-    left: 96px;
+    left: 96px; //rtl
     border-radius: 3px;
     background: #fff;
     &:before, &:after {
@@ -55,20 +176,20 @@
         width: 82px;
         height: 45px;
         position: absolute;
-        left: -83px;
+        left: -83px; //rtl
         bottom: -1px;
         border: 1px solid #aaa;
-        border-right: none;
+        border-right: none; //rtl
         background: #fff;
-        border-radius: 3px 0 0 3px;
+        border-radius: 3px 0 0 3px; //rtl
     }
     &:after {
         height: 24px;
-        right: -83px;
+        right: -83px; //rtl
         left: auto;
         border: 1px solid #aaa;
-        border-left: none;
-        border-radius: 0 3px 3px 0;
+        border-left: none; //rtl
+        border-radius: 0 3px 3px 0; //rtl
     }
 }
 
@@ -77,15 +198,18 @@
     height: 102px;
     text-align: center;
     border-bottom: 1px solid @borderColor;
-    padding: 0 8px;
+    padding: 0 8px 0 12px; //rtl
     background: #ebebeb;
+    position: relative;
     &:after {
         content: '';
         display: block;
         height: 1px;
         background: #fff;
-        position: relative;
-        top: 1px;
+        width: 100%;
+        position: absolute;
+        bottom: -2px;
+        left: 0; //rtl
     }
     &:hover {
         background: #d7d7d7;

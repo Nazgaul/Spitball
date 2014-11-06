@@ -226,9 +226,13 @@
   left: auto;
 }
 /*#region dashboard header */
-.dashHeader > .rFloat:before {
-  right: 60px;
-}
+/*.dashHeader { // Temporarily commented out
+    > .rFloat {
+        &:before {
+            right: 60px; //rtl
+        }
+    }
+}*/
 /*#endregion */
 /*#region new department look */
 .deptItem {
@@ -287,29 +291,6 @@
 }
 .createCourse:first-child {
   padding: 0 0 0 8px;
-}
-.recommendedWpr {
-  padding: 8px 28px 12px 20px;
-}
-.recommended {
-  /*.rFloat {
-        border: none;
-        border-right: 1px solid @borderColor; //rtl
-        padding: 0 35px 0 0; //rtl
-    }*/
-}
-.recommended img {
-  right: 0;
-  left: auto;
-}
-.recommended .friends,
-.recommended .files {
-  padding: 0 25px 0 0;
-}
-.recommended .friends:after,
-.recommended .files:after {
-  right: 0;
-  left: auto;
 }
 /*#endregion */
 /*#region setup course 'popups' */
@@ -518,11 +499,67 @@
 /*#endregion */
 /*#region Sidebar.css */
 /*#region library sidebar */
-/*.asideLibDiv {
-    &:before {
-        margin: 0 0 0 10px; //rtl
-    }
-}*/
+.asideDash {
+  border-left: 1px solid #c2c2c2;
+  /*rtl*/
+  border-right: none;
+}
+.asideDash .leaderBoard {
+  right: 0;
+  left: auto;
+}
+.recommended {
+  /*.rFloat {
+        border: none;
+        border-right: 1px solid @borderColor; //rtl
+        padding: 0 35px 0 0; //rtl
+    }*/
+}
+.recommended .courseLink:hover .rcDetails {
+  margin: 0 -105px 0 0;
+}
+.recommended .rcDetails {
+  padding: 0 62px 0 0;
+}
+.recommended img {
+  right: 8px;
+  left: auto;
+}
+.recommended .friends,
+.recommended .files {
+  padding: 0 30px 0 0;
+}
+.recommended .friends:after,
+.recommended .files:after {
+  right: 4px;
+  left: auto;
+}
+.podium {
+  right: 96px;
+  left: auto;
+}
+.podium:before,
+.podium:after {
+  right: -83px;
+  left: auto;
+  border: 1px solid #aaa;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+}
+.podium:after {
+  left: -83px;
+  right: auto;
+  border: 1px solid #aaa;
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+}
+.dashTop {
+  padding: 0 12px 0 8px;
+}
+.dashTop:after {
+  right: 0;
+  left: auto;
+}
 .courses:before,
 .courses:after {
   right: -3px;
@@ -539,62 +576,7 @@
   /*rtl*/
   border-right: none;
 }
-/*.asideList {
-    padding: 0 10px 0 2px; //rtl
-    
-    &.dash > .activityItem {
-        margin: 0 0 7px 8px; //rtl
-    }
-}
-
-.asideImg ~ span {
-    margin: 0 4px 0 0; //rtl/
-}
-
-.asideImg ~ .latest {
-    margin: -1px 4px 0 0; //rtl
-}*/
 /*#endregion */
-.asideDash {
-  border-left: 1px solid #c2c2c2;
-  /*rtl*/
-  border-right: none;
-}
-/*.productsBtn {
-    text-align: right; //rtl
-    &:before {
-        float: right; //rtl
-    }
-
-    &:after {
-        left: 10px; //rtl
-        right: auto;
-        .flipH();
-    }
-}
-
-.closeProducts {
-    float: left; //rtl
-    margin: -32px 0 0 -1px; //rtl
-    border-radius: 0 5px 5px 0; //rtl
-    border-left: 1px solid #fff; //rtl
-    border-right: 1px solid #c2c2c2;
-}
-
-.dashLists {
-    .friendsList {
-        padding: 11px 11px 7px 7px; //rtl
-    }
-}
-
-.friendItem {
-    margin: 0 0 6px 6px; //rtl
-}
-
-//if < 5 items: float friendBtn right.
-.friendItem:last-child:nth-child(-n + 5) {
-    float: left; //rtl
-}*/
 /*#endregion */
 /*#region AccountInfo.css */
 .headerRightWpr {

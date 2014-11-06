@@ -9,23 +9,30 @@
             border-color: #282828;
         }
     }
-    ~ .boxSideBar{
+    ~ .boxSideBar {
         display: inline-block;
         .recommendedWpr {
             position: relative;
             left: 30px; //rtl
+            border: 1px solid #282828;
             width: 336px;
             display: inline-block; //override
             border-radius: 5px;
-            border-color: #282828;
+            padding: 8px 20px 12px 28px; //rtl
+            header {
+                font-size: 20px; //override
+                border-bottom: 1px solid @borderColor;
+                padding: 0 0 10px 0; //override
+                margin: 3px 0 10px;
+        
+            }
             .recommended {
                 .rFloat {
                     width: 95px; //diff rtl
                     text-align: right; //rtl
                 }
             }
-        }
-        
+        } 
     }
 }
 
@@ -529,13 +536,16 @@
         margin: 0 5px;
     }
     svg {
-        //position: absolute;
+        display: block;
+        margin: 0 auto;
         fill: #ffc000;
     }
     .top3Img {
         border: 1px solid @color;
         display: block;
-        margin-bottom: 7px;
+        margin: 0 auto 7px;
+        width: 50px;
+        height: 50px;
     }
 
 }

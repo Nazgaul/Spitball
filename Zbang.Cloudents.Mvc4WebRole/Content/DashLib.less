@@ -404,7 +404,7 @@
     .boxSizing;
 }
 
-.browseCourses, .createCourse, .recommendedWpr {
+.browseCourses, .createCourse {
     display: table-cell;
     .boxSizing;
     position: relative;
@@ -457,129 +457,6 @@
     }
 }
 
-.recommendedWpr {
-    border: 1px solid @borderColor;
-    padding: 8px 20px 12px 28px; //rtl
-    color: @textColor;
-    vertical-align: top;
-    background: #fff;
-
-    header {
-        font-size: 20px;
-        border-bottom: 1px solid @borderColor;
-        margin: 3px 0 10px;
-        padding: 0 0 10px 0; //override
-    }
-}
-
-.recommended {
-    height: 70px;
-    .boxSizing;
-    position: relative;
-    font-size: 15px;
-    display: block;
-    + .recommended {
-        border-top: 1px solid @borderColor;
-    }
-    .courseLink {
-        display: block;
-        height: 100%;
-        overflow: hidden;
-        white-space: noWrap; 
-        font-size: 13px;
-        &:hover .rcDetails {
-            margin-left: -105px;
-        }
-    }
-    .rcDetails {
-        width: 100%;
-        padding-left: 62px;
-        position: relative;
-        top: -5px;
-        .boxSizing;
-        display: inline-block;
-        background: #fff;
-        margin:0;
-        .transition(margin .5s .5s);
-        
-        &.rcFull {
-            .prof:after {
-                content:  '\00a0' '|' '\00a0';
-                color: @textColor;
-            }
-        }
-    }
-    .rcStats {
-        width: 105px;
-        height: 70px;
-        display: inline-block;
-        background: #282828;
-        padding-top: 12px;
-        .boxSizing;
-        color: #fff;
-    }
-    img {
-        position: absolute;
-        left: 8px; //rtl
-        border-radius: 10px;
-    }
-
-    /*.rFloat {
-        border-left: 1px solid @borderColor; //rtl
-        width: 115px;
-        .boxSizing;
-        padding-left: 35px; //rtl
-        font-size: 13px;
-        margin-top: 10px;
-    }*/
-
-    /*&:nth-child(2) {
-        margin: 10px 0;
-    }*/
-
-    .courseName {
-        padding-top: 4px;
-        color: @color;
-        font-weight: bold;
-    }
-
-    .prof {
-        font-size: 13px;
-    }
-
-    .friends, .files {
-        position: relative;
-        padding-left: 25px; //rtl
-        &:before {
-            content: attr(bo-attr-data-friends-count) '\00a0';
-            display: inline-block;
-        }
-
-        &:after {
-            .pseudo;
-            width: 21px;
-            height: 21px;
-            background: @site-sprite 0 -1405px no-repeat;
-            position: absolute;
-            left: 0; //rtl
-            top: 0;
-        }
-    }
-
-    .files {
-        margin-top: 10px;
-
-        &:before {
-            content: attr(bo-attr-data-files-count) '\00a0';
-        }
-
-        &:after {
-            background-position: 0 -1384px;
-        }
-    }
-}
-
-/////////////////////////////////////
 .unionCourses {
     .emptyDash ~ .myAreaList {
         min-height: 200px;
@@ -628,7 +505,7 @@
         position: relative;
         top: 8px;
         height: 48px; //
-        &:before {
+        /*&:before { // Temporarily commented out
             .pseudo;
             position: absolute;
             width: 1px;
@@ -636,10 +513,8 @@
             background: @color;
             top: 8px;
             left: 60px; //rtl
-        }
+        }*/
     }
-    
-
 }
 .notificationBtn {
     position: relative;

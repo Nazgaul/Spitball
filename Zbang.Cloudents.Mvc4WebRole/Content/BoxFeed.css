@@ -16,10 +16,17 @@
 .boxFeed ~ .boxSideBar .recommendedWpr {
   position: relative;
   left: 30px;
+  border: 1px solid #282828;
   width: 336px;
   display: inline-block;
   border-radius: 5px;
-  border-color: #282828;
+  padding: 8px 20px 12px 28px;
+}
+.boxFeed ~ .boxSideBar .recommendedWpr header {
+  font-size: 20px;
+  border-bottom: 1px solid #c2c2c2;
+  padding: 0 0 10px 0;
+  margin: 3px 0 10px;
 }
 .boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   width: 95px;
@@ -525,12 +532,16 @@
   margin: 0 5px;
 }
 .bestUserList svg {
+  display: block;
+  margin: 0 auto;
   fill: #ffc000;
 }
 .bestUserList .top3Img {
   border: 1px solid #0f9d58;
   display: block;
-  margin-bottom: 7px;
+  margin: 0 auto 7px;
+  width: 50px;
+  height: 50px;
 }
 .secondUser .top3Img {
   margin-top: 20px;

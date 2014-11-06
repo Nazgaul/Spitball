@@ -256,15 +256,13 @@
 
 
 /*#region dashboard header */
-.dashHeader {
+/*.dashHeader { // Temporarily commented out
     > .rFloat {
         &:before {
             right: 60px; //rtl
         }
     }
-    
-
-}
+}*/
 
 /*#endregion */
 
@@ -323,28 +321,6 @@
 .createCourse {
     &:first-child {
         padding:0 0 0 8px; //rtl
-    }
-}
-.recommendedWpr {
-    padding: 8px 28px 12px 20px; //rtl
-}
-.recommended {
-    //padding: 0 56px 0 0; //rtl
-    img {
-        right:0; //rtl
-        left: auto;
-    }
-    /*.rFloat {
-        border: none;
-        border-right: 1px solid @borderColor; //rtl
-        padding: 0 35px 0 0; //rtl
-    }*/
-    .friends, .files {
-        padding: 0 25px 0 0; //rtl
-        &:after {
-            right: 0; //rtl
-            left: auto;
-        }
     }
 }
 
@@ -592,13 +568,68 @@
 
 /*#region Sidebar.css */
 /*#region library sidebar */
-
-/*.asideLibDiv {
-    &:before {
-        margin: 0 0 0 10px; //rtl
+.asideDash {
+    border-left: 1px solid @borderColor; /*rtl*/
+    border-right: none;
+    .leaderBoard {
+        right: 0; //rtl
+        left: auto;
     }
-}*/
+}
+.recommended {
+    //padding: 0 56px 0 0; //rtl
+    .courseLink {
+        &:hover .rcDetails {
+            margin: 0 -105px 0 0; //rtl
+        }
+    }
+    .rcDetails {
+        padding: 0 62px 0 0; //rtl
+    }
+    img {
+        right:8px; //rtl
+        left: auto;
+    }
+    /*.rFloat {
+        border: none;
+        border-right: 1px solid @borderColor; //rtl
+        padding: 0 35px 0 0; //rtl
+    }*/
+    .friends, .files {
+        padding: 0 30px 0 0; //rtl
+        &:after {
+            right: 4px; //rtl
+            left: auto;
+        }
+    }
+}
 
+.podium {
+    right: 96px; //rtl
+    left: auto;
+    &:before, &:after {
+        right: -83px; //rtl
+        left: auto;
+        border: 1px solid #aaa;
+        border-left: none; //rtl
+        border-radius: 0 3px 3px 0; //rtl
+        
+    }
+    &:after {
+        left: -83px; //rtl
+        right: auto;
+        border: 1px solid #aaa;
+        border-right: none; //rtl
+        border-radius: 3px 0 0 3px; //rtl
+    }
+}
+.dashTop {
+    padding: 0 12px 0 8px; //rtl 
+    &:after {
+        right: 0; //rtl
+        left: auto;
+    }
+}
 .courses {
     &:before, &:after {
         right: -3px; /*rtl*/
@@ -618,64 +649,10 @@
 
 
 
-/*.asideList {
-    padding: 0 10px 0 2px; //rtl
-    
-    &.dash > .activityItem {
-        margin: 0 0 7px 8px; //rtl
-    }
-}
-
-.asideImg ~ span {
-    margin: 0 4px 0 0; //rtl/
-}
-
-.asideImg ~ .latest {
-    margin: -1px 4px 0 0; //rtl
-}*/
-
 /*#endregion */
 
-.asideDash {
-    border-left: 1px solid @borderColor; /*rtl*/
-    border-right: none;
-}
 
-/*.productsBtn {
-    text-align: right; //rtl
-    &:before {
-        float: right; //rtl
-    }
 
-    &:after {
-        left: 10px; //rtl
-        right: auto;
-        .flipH();
-    }
-}
-
-.closeProducts {
-    float: left; //rtl
-    margin: -32px 0 0 -1px; //rtl
-    border-radius: 0 5px 5px 0; //rtl
-    border-left: 1px solid #fff; //rtl
-    border-right: 1px solid #c2c2c2;
-}
-
-.dashLists {
-    .friendsList {
-        padding: 11px 11px 7px 7px; //rtl
-    }
-}
-
-.friendItem {
-    margin: 0 0 6px 6px; //rtl
-}
-
-//if < 5 items: float friendBtn right.
-.friendItem:last-child:nth-child(-n + 5) {
-    float: left; //rtl
-}*/
 
 /*#endregion */
 

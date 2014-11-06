@@ -5,6 +5,10 @@
 .boxFeed ~ .boxSideBar .recommendedWpr {
   right: 30px;
   left: auto;
+  padding: 8px 28px 12px 20px;
+}
+.boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
+  text-align: left;
 }
 .feedForm .btn1 {
   margin: 8px 0 0 8px;

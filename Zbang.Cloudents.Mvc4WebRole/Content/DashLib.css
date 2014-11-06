@@ -360,8 +360,7 @@
   box-sizing: border-box;
 }
 .browseCourses,
-.createCourse,
-.recommendedWpr {
+.createCourse {
   display: table-cell;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -407,126 +406,6 @@
   border: 1px solid #c2c2c2;
   background: #fff;
 }
-.recommendedWpr {
-  border: 1px solid #c2c2c2;
-  padding: 8px 20px 12px 28px;
-  color: #383838;
-  vertical-align: top;
-  background: #fff;
-}
-.recommendedWpr header {
-  font-size: 20px;
-  border-bottom: 1px solid #c2c2c2;
-  margin: 3px 0 10px;
-  padding: 0 0 10px 0;
-}
-.recommended {
-  height: 70px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  position: relative;
-  font-size: 15px;
-  display: block;
-  /*.rFloat {
-        border-left: 1px solid @borderColor; //rtl
-        width: 115px;
-        .boxSizing;
-        padding-left: 35px; //rtl
-        font-size: 13px;
-        margin-top: 10px;
-    }*/
-  /*&:nth-child(2) {
-        margin: 10px 0;
-    }*/
-}
-.recommended + .recommended {
-  border-top: 1px solid #c2c2c2;
-}
-.recommended .courseLink {
-  display: block;
-  height: 100%;
-  overflow: hidden;
-  white-space: noWrap;
-  font-size: 13px;
-}
-.recommended .courseLink:hover .rcDetails {
-  margin-left: -105px;
-}
-.recommended .rcDetails {
-  width: 100%;
-  padding-left: 62px;
-  position: relative;
-  top: -5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
-  background: #fff;
-  margin: 0;
-  -webkit-transition: margin 0.5s 0.5s;
-  -moz-transition: margin 0.5s 0.5s;
-  -o-transition: margin 0.5s 0.5s;
-  transition: margin 0.5s 0.5s;
-}
-.recommended .rcDetails.rcFull .prof:after {
-  content: '\00a0' '|' '\00a0';
-  color: #383838;
-}
-.recommended .rcStats {
-  width: 105px;
-  height: 70px;
-  display: inline-block;
-  background: #282828;
-  padding-top: 12px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
-}
-.recommended img {
-  position: absolute;
-  left: 8px;
-  border-radius: 10px;
-}
-.recommended .courseName {
-  padding-top: 4px;
-  color: #0f9d58;
-  font-weight: bold;
-}
-.recommended .prof {
-  font-size: 13px;
-}
-.recommended .friends,
-.recommended .files {
-  position: relative;
-  padding-left: 25px;
-}
-.recommended .friends:before,
-.recommended .files:before {
-  content: attr(bo-attr-data-friends-count) '\00a0';
-  display: inline-block;
-}
-.recommended .friends:after,
-.recommended .files:after {
-  content: '';
-  display: inline-block;
-  width: 21px;
-  height: 21px;
-  background: url(/Images/site.png?v=3) 0 -1405px no-repeat;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.recommended .files {
-  margin-top: 10px;
-}
-.recommended .files:before {
-  content: attr(bo-attr-data-files-count) '\00a0';
-}
-.recommended .files:after {
-  background-position: 0 -1384px;
-}
 .unionCourses .emptyDash ~ .myAreaList {
   min-height: 200px;
   border-bottom: 1px solid #c2c2c2;
@@ -566,16 +445,15 @@
   position: relative;
   top: 8px;
   height: 48px;
-}
-.dashHeader > .rFloat:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  width: 1px;
-  height: 36px;
-  background: #0f9d58;
-  top: 8px;
-  left: 60px;
+  /*&:before { // Temporarily commented out
+            .pseudo;
+            position: absolute;
+            width: 1px;
+            height: 36px;
+            background: @color;
+            top: 8px;
+            left: 60px; //rtl
+        }*/
 }
 .notificationBtn {
   position: relative;
