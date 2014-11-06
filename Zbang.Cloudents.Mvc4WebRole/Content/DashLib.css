@@ -457,9 +457,13 @@
 .notificationBtn {
   position: relative;
   top: 13px;
-}
-.notificationBtn:hover ~ .noResults .notifyEmpty {
-  display: block;
+  /*&:hover {
+        ~ .noResults {
+            .notifyEmpty {
+                display: block;
+            }
+        }
+    }*/
 }
 .notificationBtn .invitesCounter {
   top: -8px;

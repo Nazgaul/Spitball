@@ -65,15 +65,13 @@ mBox.controller('BoxQuizzesCtrl',
                         id: quiz.id,
                     }
 
-                    sQuiz.delete(data).then(remove);
+                    sQuiz.delete(data).then(remove,function() {
+                        alert('error deleting ' + quiz.name); //translate
+                    });
                     //TODO analytics
                 });
 
-                function remove(response) {
-                    if (!(response.Success || response.success)) {
-                        alert('error deleting ' + quiz.name); //translate
-                        return;
-                    }
+                function remove() {
                     var index = $scope.quizzes.indexOf(quiz);
 
                     if (index > -1) {

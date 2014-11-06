@@ -1507,7 +1507,7 @@ iframe .registerFirst.store {
 .open {
   position: relative;
 }
-.open > .dropdown-menu {
+.open .dropdown-menu {
   display: block;
 }
 /*#endregion */

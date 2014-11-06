@@ -48,12 +48,7 @@ angular.module('InviteEmail', []).
 
                  sendObj.recepients = emails;
 
-                 sendFunc(sendObj).then(function (response) {
-                     if (!response.success) {
-                         sendObj.recepients = null;
-                         return;
-                     }
-
+                 sendFunc(sendObj).then(function () {
                      $scope.params.invFormSent = true; //animation
                      $timeout(function () { $scope.params.invFormSent = false; }, 2000);//animation
 

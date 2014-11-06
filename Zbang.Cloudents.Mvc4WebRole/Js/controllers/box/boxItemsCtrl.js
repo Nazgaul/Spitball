@@ -23,7 +23,7 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         currentTab: null
     };
 
-    sBox.items({ id: $scope.boxId }).then(function (boxItems) {        
+    sBox.items({ id: $scope.boxId }).then(function (boxItems) {
         $scope.items = _.map(boxItems, function (item) {
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
@@ -51,8 +51,8 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
                 boxId: $scope.boxId,
                 tabId: $scope.tabId,
                 boxUrl: $scope.info.url
-            }            
-        });        
+            }
+        });
     };
 
     $scope.$on('ItemUploaded', function (e, data) {
@@ -124,16 +124,14 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
                 itemId: item.id,
                 boxId: $scope.boxId
             }
-            sItem.delete(data).then(removeItem);
+            sItem.delete(data).then(removeItem, function () {
+                alert('error deleting this item'); //translate
+            });
 
             //TODO analytics
         });
 
         function removeItem(response) {
-            if (!(response.Success || response.success)) {
-                alert('error deleting this item'); //translate
-                return;
-            }
             var index = $scope.items.indexOf(item);
             $scope.items.splice(index, 1);
             index = $scope.filteredItems.indexOf(item);
@@ -266,10 +264,9 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
             nDelete: !tabId //delete is false if only one item added from draganddrop
         };
 
-        sBox.addItemsToTab(data).then(function (response) {
-            if (!response.success) {
-                alert(jsResources.FolderItemError);
-            }
+        sBox.addItemsToTab(data).then(function () { }, function (response) {
+            alert(jsResources.FolderItemError);
+
         });
 
     }

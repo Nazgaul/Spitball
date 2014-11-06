@@ -1,9 +1,9 @@
 ﻿
 var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount','$analytics',
+    ['$scope', '$window', '$timeout', 'sAccount', '$analytics',
 
-        function ($scope, $window, $timeout, sAccount,$analytics) {
+        function ($scope, $window, $timeout, sAccount, $analytics) {
             "use strict";
 
             var jsResources = window.JsResources,
@@ -51,13 +51,11 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     return;
                 }
 
-                sAccount.changeProfile($scope.formData).then(function (response) {
-                    if (response.success) {
-                        $scope.submitted = false;
-                        alert('Your settings are saved');
+                sAccount.changeProfile($scope.formData).then(function () {
+                    $scope.submitted = false;
+                    alert('Your settings are saved');
 
-                        //TODO analytics
-                    }
+                    //TODO analytics
                 });
             };
 
@@ -86,7 +84,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 alert(error.message);
             };
 
-            $scope.onFilesAdded = function (files) {
+            $scope.onFilesAdded = function () {
                 $scope.data.image = '/Images/loader2.gif';
             };
 
@@ -118,7 +116,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                         return;
                     }
 
-                    sAccount.submitCode({ code: code }).then(function (response) {
+                    sAccount.submitCode({ code: code }).then(function () {
                         $scope.params.changeEmailBtnText = 'Change email';
                         $scope.params.changingEmail = $scope.params.verifyCode = false;
                         $scope.data.email = $scope.emailForm.email;
@@ -154,7 +152,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     return;
                 }
 
-                sAccount.changeEmail({ email: email }).then(function (response) {
+                sAccount.changeEmail({ email: email }).then(function () {
                     $scope.params.verifyCode = true;
                     $scope.params.changeEmailBtnText = 'Save';
 
@@ -193,7 +191,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 }
 
 
-                sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function (response) {                   
+                sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function () {
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
                     alert(jsResources.PwdChanged);
@@ -208,7 +206,7 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     return;
                 }
                 //TODO analytics
-                sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function (response) {
+                sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function () {
                     $window.location.reload();
                 });
             };

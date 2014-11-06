@@ -5,8 +5,8 @@ mBox.controller('BoxTabsCtrl',
             "use strict";
             var jsResources = window.JsResources;
             $scope.params = {};
-         
-            sBox.tabs({ id: $scope.boxId }).then(function (tabs) {                
+
+            sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
                 $scope.params.tabs = tabs;
                 $rootScope.$broadcast('update-scroll');
             });
@@ -16,11 +16,8 @@ mBox.controller('BoxTabsCtrl',
                     boxId: $scope.boxId,
                     TabId: tab.id
                 }
-                sBox.deleteTab(data).then(function (response) {
-                    if (!response.success) {
-                        alert(jsResources.DeleteError);
-                        return;
-                    }
+                sBox.deleteTab(data).then(function () { }, function () {
+                    alert(jsResources.DeleteError);
 
                 });
 
@@ -84,7 +81,7 @@ mBox.controller('BoxTabsCtrl',
                 //TODO analytics
             };
 
-            $scope.selectTab = function (tab) {           
+            $scope.selectTab = function (tab) {
                 $scope.params.currentTab = tab;
                 $rootScope.$broadcast('selectTab', tab);
             };

@@ -13,10 +13,8 @@ mDashboard.controller('InviteCloudentsCtrl',
             };
 
             $scope.invite = function (contact) {
-                sShare.invite.cloudents({ recepients: [contact.id] }).then(function (response) {
-                    if (!response.success) {
-                        alert('Error');
-                    }
+                sShare.invite.cloudents({ recepients: [contact.id] }).then(function () { }, function () {
+                    alert('Error');
                 });
             };
 

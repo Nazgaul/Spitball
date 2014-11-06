@@ -151,11 +151,11 @@
   position: absolute;
   right: 30px;
   top: 22px;
-  display: block;
 }
 .notifyWpr.dropdown-menu {
   border: none;
   box-shadow: none;
+  background: none;
 }
 .notifyEmpty {
   display: none;

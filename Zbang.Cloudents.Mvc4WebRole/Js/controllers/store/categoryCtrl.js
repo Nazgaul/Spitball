@@ -1,7 +1,7 @@
 ﻿
 app.controller('CategoryCtrl',
     ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store',
-    function ($scope, $routeParams, $timeout, $location, $window, Store) {
+    function ($scope, $routeParams, $timeout, $location, $window, sStore) {
         "use strict";
         var consts = {
             defaultMaxProducts: 9,
@@ -23,7 +23,7 @@ app.controller('CategoryCtrl',
         }
         else {
 
-            Store.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
+            sStore.products({ categoryId: $routeParams.categoryId, universityId: $routeParams.universityid, producerId: $routeParams.producerid }).then(function (response) {
                 allProducts = response;
                 $scope.products = allProducts;
             });
@@ -65,7 +65,7 @@ app.controller('CategoryCtrl',
 
         //    lastQuery = query;
 
-        //    Store.search({ term: query }).then(function (response) {
+        //    sStore.search({ term: query }).then(function (response) {
         //        var data = response.success ? response.payload : {};
         //        $scope.products = data;
         //        $scope.params.maxProducts = consts.productsIncrement;
@@ -84,9 +84,9 @@ app.controller('CategoryCtrl',
             }
         });
         $scope.$on('$routeUpdate', function () {
-            var query = $location.search()['q'];
-            if (query) {
-                $scope.params.search = query;
+            var query2 = $location.search()['q'];
+            if (query2) {
+                $scope.params.search = query2;
                 search();
                 return;
             }
@@ -114,14 +114,14 @@ app.controller('CategoryCtrl',
         };
 
         function search() {
-            var query = $scope.params.search;
+            var query2 = $scope.params.search;
             $scope.params.isSearching = true;
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
             //TODO analytics
 
-            Store.search({ term: query, universityId: $scope.params.universityId }).then(function (data) {                
+            sStore.search({ term: query2, universityId: $scope.params.universityId }).then(function (data) {                
                 $scope.products = data;
                 $scope.params.maxProducts = consts.defaultMaxProducts;
             }, function () {
