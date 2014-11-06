@@ -93,10 +93,10 @@
                                   and ub.usertype in (2,3)
                                   ORDER BY ub.UserBoxRelId desc;";
 
-        public const string DashboardInfo = @"select coalesce( uWrap.OrgName , uWrap.universityName) as Name,
-                  uWrap.LargeImage as Img  , uWrap.AdvertisementUrl as AdvertisementUrl, NoOfBoxes as NoOfBoxes
-                  from zbox.university uWrap  
-                  where uWrap.Id = @UniversityId";
+        public const string DashboardInfo = @"select  coalesce( uWrap.OrgName , uWrap.universityName) as Name , uWrap.universityName as UniName,
+uWrap.LargeImage as Img
+from zbox.university uWrap  
+where uWrap.Id = @UniversityId";
 
        
         /// <summary>

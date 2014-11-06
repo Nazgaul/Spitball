@@ -299,7 +299,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (ArgumentException ex)
             {
                 TraceLog.WriteError("Library Create", ex);
-                return Json(new JsonResponse(false, "unspecified error"));
+                return Json(new JsonResponse(false, ex.Message));
             }
         }
 
