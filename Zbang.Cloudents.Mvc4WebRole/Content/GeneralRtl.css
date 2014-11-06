@@ -85,7 +85,7 @@ input[type="radio"].radio:checked + label:after {
   /*rtl*/
   right: auto;
 }
-.menuLink {
+.menuLink.menuLink {
   text-align: right;
   /*rtl*/
 }
