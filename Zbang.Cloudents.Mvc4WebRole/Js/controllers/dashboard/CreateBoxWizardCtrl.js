@@ -1,7 +1,7 @@
 ﻿
 mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data',
-        function ($scope, $modalInstance, WizardHandler, sLibrary, sShare, sFacebook, data) {
+     ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data','$q',
+        function ($scope, $modalInstance, sWizardHandler, sLibrary, sShare, sFacebook, data, $q) {
             "use strict";
             var wizard;
 
@@ -21,7 +21,7 @@ mDashboard.controller('CreateBoxWizardCtrl',
 
             $scope.next = function () {
                 if (!wizard) {
-                    wizard = WizardHandler.wizard();
+                    wizard = sWizardHandler.wizard();
                 }
 
 
@@ -52,7 +52,7 @@ mDashboard.controller('CreateBoxWizardCtrl',
                 //TODO analytics
 
                 var dfd = $q.defer(),
-                    data = {
+                    data2 = {
                     boxId: $scope.box.id,
                     id: contact.id,
                     username: contact.username || contact.id,
@@ -62,9 +62,9 @@ mDashboard.controller('CreateBoxWizardCtrl',
                     sex: contact.gender
                 };
 
-                sShare.facebookInvite.box(data).then(function (response) {
+                sShare.facebookInvite.box(data2).then(function (response) {
                     sFacebook.send({
-                        path: response.payload.url,
+                        path: response.url,
                         to: contact.id
                     }).then(function () {
                         dfd.resolve();

@@ -6,10 +6,9 @@ namespace Zbang.Zbox.Domain.Commands
     public class ShareBoxFacebookCommand : ICommand
     {
         public ShareBoxFacebookCommand(long senderId, long recipientFacebookUserId,
-             long boxId, Guid id, string facebookUserName)
+             long boxId, string facebookUserName)
         {
             FacebookUserName = facebookUserName;
-            Id = id;
             SenderId = senderId;
             FacebookUserId = recipientFacebookUserId;
             BoxId = boxId;
@@ -19,9 +18,10 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long BoxId { get; private set; }
 
-        public Guid Id { get; private set; }
 
 
         public string FacebookUserName { get; private set; }
+
+        public string Url { get; set; }
     }
 }

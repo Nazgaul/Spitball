@@ -130,10 +130,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             var userId = User.GetUserId();
-            var id = m_IdGenerator.Value.GetId();
-            var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, id, string.Format("{0} {1}", model.FirstName, model.LastName));
+            var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, string.Format("{0} {1}", model.FirstName, model.LastName));
             ZboxWriteService.ShareBoxFacebook(command);
-            return Json(new JsonResponse(true));
+            return JsonOk(new {url = command.Url});
         }
 
         [HttpPost]

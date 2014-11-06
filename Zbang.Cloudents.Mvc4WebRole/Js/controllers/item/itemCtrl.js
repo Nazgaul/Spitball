@@ -82,7 +82,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         sModal.open('itemFullscreen', {
             scope: $scope,
             callback: {
-                close: function (response) {
+                close: function () {
                     $location.hash('');
                 }
             }
@@ -134,7 +134,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
                 creationDate: new Date().toISOString(),
-                id: response.payload,
+                id: response,
                 replies: [],
                 userId: sUserDetails.getDetails().id,
                 userName: sUserDetails.getDetails().name
@@ -144,7 +144,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.$broadcast('update-scroll');
 
         }, function (respoonse) {
-            alert(response);
+            alert(respoonse);
         }).finally(function () {
             $scope.commentp = false;
         });
@@ -152,7 +152,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         //TODO analytics
     };
     $scope.deleteComment = function (comment) {
-        sItem.deleteComment({ CommentId: comment.id }).then(function (response) {
+        sItem.deleteComment({ CommentId: comment.id }).then(function () {
             var indexC = $scope.item.comments.indexOf(comment);
             $scope.item.comments.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
@@ -163,12 +163,12 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         //TODO analytics
     };
     $scope.deleteReply = function (reply, comment) {
-        sItem.deleteReply({ ReplyId: reply.id }).then(function (response) {
+        sItem.deleteReply({ ReplyId: reply.id }).then(function () {
             var indexC = comment.replies.indexOf(reply);
             comment.replies.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
         }, function (response) {
-            alert(response.payload);
+            alert(response);
         });
         //TODO analytics
     };
@@ -193,7 +193,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             comment.replies.unshift({
                 comment: $scope.fromReply.Comment,
                 creationDate: new Date().toISOString(),
-                id: response.payload,
+                id: response,
                 userId: sUserDetails.getDetails().id,
                 userName: sUserDetails.getDetails().name
 

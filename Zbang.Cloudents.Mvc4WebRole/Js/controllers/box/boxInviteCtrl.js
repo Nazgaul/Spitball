@@ -16,7 +16,7 @@ mBox.controller('BoxInviteCtrl',
 
             $scope.invite = function (contact) {
                 //TODO analytics
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function (response) {                    
+                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {                    
                 }, function () {
                     alert('Error');
                 });
@@ -26,7 +26,7 @@ mBox.controller('BoxInviteCtrl',
                 //TODO analytics
                 var dfd = $q.defer();
 
-                var data = {
+                var data2 = {
                     boxId: $scope.box.id,
                     id: contact.id,
                     username: contact.username || contact.id,
@@ -36,9 +36,9 @@ mBox.controller('BoxInviteCtrl',
                     sex: contact.gender
                 };
 
-                sShare.facebookInvite.box(data).then(function (response) {
+                sShare.facebookInvite.box(data2).then(function (response) {
                     sFacebook.send({
-                        path: response.payload.url,
+                        path: response.url,
                         to: contact.id
                     }).then(function () {
 

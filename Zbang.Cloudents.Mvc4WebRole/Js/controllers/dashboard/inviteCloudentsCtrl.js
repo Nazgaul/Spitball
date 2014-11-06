@@ -1,6 +1,6 @@
 ﻿
 mDashboard.controller('InviteCloudentsCtrl',
-        ['$scope','$q', 'sFacebook', '$modalInstance','sShare',
+        ['$scope', '$q', 'sFacebook', '$modalInstance', 'sShare',
         function ($scope, $q, sFacebook, $modalInstance, sShare) {
             "use strict";
             $scope.inviteCloudents = true;
@@ -13,7 +13,7 @@ mDashboard.controller('InviteCloudentsCtrl',
             };
 
             $scope.invite = function (contact) {
-                sShare.invite.cloudents({ recepients: [contact.id]}).then(function (response) {
+                sShare.invite.cloudents({ recepients: [contact.id] }).then(function (response) {
                     if (!response.success) {
                         alert('Error');
                     }
@@ -23,27 +23,27 @@ mDashboard.controller('InviteCloudentsCtrl',
             $scope.inviteFacebook = function (contact) {
                 //TODO analytics
 
-                var dfd = $q.defer();
+                var dfd = $q.defer(),
                     data = {
-                    //boxId: $scope.box.id,
-                    id: contact.id,
-                    username: contact.username || contact.id,
-                    firstName: contact.firstname,
-                    middleName: contact.middlename,
-                    lastName: contact.lastname,
-                    sex: contact.gender
-                };
+                        //boxId: $scope.box.id,
+                        id: contact.id,
+                        username: contact.username || contact.id,
+                        firstName: contact.firstname,
+                        middleName: contact.middlename,
+                        lastName: contact.lastname,
+                        sex: contact.gender
+                    };
 
                 sShare.facebookInvite.cloudents(data).then(function (response) {
                     sFacebook.send({
-                        path: response.payload.url,
+                        path: response.url,
                         to: contact.id
                     }).then(function () {
 
                     }, function () {
                         dfd.reject();
                     });
-                    
+
                 }, function () {
                     alert('Error');
                     dfd.reject();
