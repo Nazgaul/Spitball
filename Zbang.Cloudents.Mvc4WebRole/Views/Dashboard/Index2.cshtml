@@ -29,10 +29,10 @@
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                         <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | number}}</div>
                     </li>
-                    <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
+                    @*<li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
                         <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })                        
-                    </li>
+                    </li>*@
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
                         <img class="top3img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
@@ -40,10 +40,10 @@
                         <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | number}}</div>
                     </li>
 
-                    <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
+                    @*<li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
                         <img class="top3img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })                        
-                    </li>
+                    </li>*@
                 </ol>
                 <div class="lbEmpty">
                     <div class="lbEmptyTxtWpr">
