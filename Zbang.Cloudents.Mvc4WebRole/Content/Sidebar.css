@@ -25,6 +25,7 @@
   border-bottom: 1px solid #c2c2c2;
   border-radius: 0;
   margin-bottom: 0;
+  min-height: 220px;
 }
 .asideDash .leaderBoard header {
   padding: 16px 0 10px;
@@ -41,6 +42,37 @@
   margin: 0;
   padding: 20px 0 8px;
   text-align: center;
+}
+.podium {
+  width: 96px;
+  height: 68px;
+  border: 1px solid #aaa;
+  position: absolute;
+  top: 142px;
+  left: 96px;
+  border-radius: 3px;
+  background: #fff;
+}
+.podium:before,
+.podium:after {
+  content: '';
+  width: 82px;
+  height: 45px;
+  position: absolute;
+  left: -83px;
+  bottom: -1px;
+  border: 1px solid #aaa;
+  border-right: none;
+  background: #fff;
+  border-radius: 3px 0 0 3px;
+}
+.podium:after {
+  height: 24px;
+  right: -83px;
+  left: auto;
+  border: 1px solid #aaa;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
 }
 .dashTop {
   display: block;
