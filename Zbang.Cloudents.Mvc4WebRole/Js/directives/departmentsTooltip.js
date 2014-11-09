@@ -34,8 +34,8 @@ app.directive('departmentTooltipPopup', ['$timeout', '$templateCache', '$compile
                             element.append(tooltipElement);
                         }
 
-                        sUser.departments({ userId: userId }).then(function (response) {
-                            scope.departments = response.success ? response.payload : [];
+                        sUser.departments({ userId: userId }).then(function (data) {
+                            scope.departments = data;
                             $compile(tooltipElement)(scope);
                         });
 
