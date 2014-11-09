@@ -127,6 +127,19 @@
   height: 14px;
   fill: #0f9d58;
 }
+.svg-user,
+.svg-doc {
+  width: 19px;
+  height: 18px;
+  fill: #fff;
+  position: absolute;
+  left: 4px;
+  top: 0;
+}
+.svg-doc {
+  width: 17px;
+  height: 17px;
+}
 /*#endregion */
 /*#region quiz page */
 /*#endregion */

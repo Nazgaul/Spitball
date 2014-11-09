@@ -33,7 +33,7 @@
                         </li>*@
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
-                        <img class="top3img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
+                        <img class="top3Img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                         <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | number}}</div>
                     </li>
@@ -65,8 +65,14 @@
                                 <span class="elps" bo-text="course.courseCode"></span>
                             </div>
                             <div class="rcStats">
-                                <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">@SharedResources.Friends</div>
-                                <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">@SharedResources.Files</div>
+                                <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
+                                    @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
+                                    <span>@SharedResources.Friends</span>
+                                </div>
+                                <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">
+                                    @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+                                    <span>@SharedResources.Files</span>
+                                </div>
                             </div>
                         </a>
                     </li>

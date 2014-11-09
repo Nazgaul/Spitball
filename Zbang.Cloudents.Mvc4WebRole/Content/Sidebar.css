@@ -120,34 +120,32 @@
 .recommended .files {
   position: relative;
   padding-left: 30px;
+  /*&:after {
+            .pseudo;
+            width: 21px;
+            height: 21px;
+            background: @site-sprite 0 -1405px no-repeat;
+            position: absolute;
+            left: 4px; //rtl
+            top: 0;
+        }*/
 }
 .recommended .friends:before,
 .recommended .files:before {
   content: attr(bo-attr-data-friends-count) '\00a0';
   display: inline-block;
 }
-.recommended .friends:after,
-.recommended .files:after {
-  content: '';
-  display: inline-block;
-  width: 21px;
-  height: 21px;
-  background: url(/Images/site.png?v=3) 0 -1405px no-repeat;
-  position: absolute;
-  left: 4px;
-  top: 0;
-}
 .recommended .friends {
   margin-top: 12px;
 }
 .recommended .files {
   margin-top: 10px;
+  /*&:after {
+            background-position: 0 -1384px;
+        }*/
 }
 .recommended .files:before {
   content: attr(bo-attr-data-files-count) '\00a0';
-}
-.recommended .files:after {
-  background-position: 0 -1384px;
 }
 .podium {
   width: 96px;
