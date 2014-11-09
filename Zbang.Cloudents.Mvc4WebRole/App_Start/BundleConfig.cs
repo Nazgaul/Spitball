@@ -250,6 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
+                new JsFileWithCdn("/js/filters/kNumber.js"),
                 new JsFileWithCdn("/js/filters/fileSize.js"),
                 new JsFileWithCdn("/js/filters/extToClass.js"),
                 new JsFileWithCdn("/js/filters/trustedHtml.js"),

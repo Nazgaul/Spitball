@@ -958,6 +958,7 @@
     <Content Include="Js\directives\storageSpace.js" />
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\filters\fileSize.js" />
+    <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />

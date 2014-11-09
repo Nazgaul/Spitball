@@ -20,12 +20,12 @@
                     <li class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.first.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score | number}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score | kNumber}}</div>
                     </li>
                     <li ng-if="leaderBoard.second" class="secondUser lFloat" user-tooltip-popup="{{leaderBoard.second.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.second.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | number}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | kNumber}}</div>
                     </li>
                     @*<li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
                             <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
@@ -35,7 +35,7 @@
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | number}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | kNumber}}</div>
                     </li>
 
                     @*<li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
@@ -81,7 +81,7 @@
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
-            <div class="dashHeader"  ng-controller="NotificationsCtrl">
+            <div class="dashHeader" ng-controller="NotificationsCtrl">
                 <div class="rFloat">
                     <div dropdown>
                         <button class="rFloat notificationBtn" id="invites" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
@@ -115,15 +115,50 @@
                         @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
                     </a>
                     @*<a title="" class="lFloat storeLink" href="/store">
-                        @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
-                    </a>*@
+                            @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+                        </a>*@
                 </div>
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    <div class="searchInputWpr">
-                        <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" />
-                        @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+                    <div class="searchInputWpr" ng-controller="SearchHeaderCtrl">
+                        <form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
+                            <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@IndexResources.FindClasses" ng-keyup="search()"
+                                    ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+                            <button type="submit" ng-disabled="newSearch.query.$invalid"> 
+                                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+                            </button>
+                        </form>
+                        <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+                            <span ng-if="searchResults.boxes.length">
+                                <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+                                <ul class="searchList boxes">
+                                    <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+                                </ul>
+                            </span>
+                            <span ng-if="searchResults.items.length">
+                                <h3>@SharedResources.Materials</h3>
+                                <ul class="searchList items">
+                                    <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+                                </ul>
+                            </span>
+                            <span ng-if="searchResults.people.length">
+                                <h3>@SharedResources.People</h3>
+                                <ul class="searchList people">
+                                    <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+                                </ul>
+                            </span>
+                            <span ng-if="searchResults.otherItems.length">
+                                <h3>@SharedResources.ResultsOther</h3>
+                                <ul class="searchList university">
+                                    <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
+                                </ul>
+                            </span>
+                            <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+                            <div class="emptySearch">@SharedResources.NoResults</div>
+                        </div>
                     </div>
+
+
                     <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>

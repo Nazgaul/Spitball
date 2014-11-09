@@ -44,6 +44,7 @@ app.controller('MainCtrl',
                 }
 
                 $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
+                $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
                 $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
 
 
@@ -85,6 +86,30 @@ app.controller('MainCtrl',
                 return $rootScope.params.isStore;
             }
 
+            $rootScope.showSearch = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isDashboard) && !angular.isDefined($rootScope.params.isStore)) {
+                    return false;
+                }
+
+                return !$rootScope.params.isDashboard && !$rootScope.params.isStore;
+            }
+
+            $rootScope.isSearch = function () {
+                if (!$rootScope.params) {
+                    return false;
+                }
+                if (!angular.isDefined($rootScope.params.isStore)) {
+                    return false;
+                }
+
+
+                return !$rootScope.params.isStore;
+            }
+
+
             $rootScope.isQuiz = function () {
                 if (!$rootScope.params) {
                     return false;
@@ -104,18 +129,6 @@ app.controller('MainCtrl',
                 }
 
                 return $rootScope.params.isQuiz;
-            }
-
-            $rootScope.isSearch = function () {
-                if (!$rootScope.params) {
-                    return false;
-                }
-                if (!angular.isDefined($rootScope.params.isStore)) {
-                    return false;
-                }
-
-
-                return !$rootScope.params.isStore;
             }
 
             $rootScope.validateCoupon = function () {

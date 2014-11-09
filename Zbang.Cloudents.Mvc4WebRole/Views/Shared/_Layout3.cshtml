@@ -71,8 +71,8 @@
                         Html.RenderAction("GetUserDetail3", "Account", true);
                     }
                 </ul>
-            </nav>
-            <div ng-if="!$root.isStore()">
+            </nav>                                                                          
+            <div ng-if="$root.showSearch()">
                 @RenderSection("search", false)
             </div>
         </div>
