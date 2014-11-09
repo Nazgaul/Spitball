@@ -106,21 +106,22 @@
                 @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                 <span class="lbText">@IndexResources.BestInClass</span>
             </header>
+            <div class="podium"></div>
             <ol class="bestUserList" bindonce>
                 <li class="firstUser" ng-if="leaderBoard.first">
-                    <img class="top3Img" bo-src="leaderBoard.first.image" user-tooltip-popup="{{leaderBoard.first.id}}" alt="" width="82" height="82" />
+                    <img class="top3Img" bo-src="leaderBoard.first.image" user-tooltip-popup="{{leaderBoard.first.id}}" alt="" width="48" height="48" />
                     <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.first.score | kNumber"></div>
                     <div bo-text="leaderBoard.first.name"></div>
                     @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
                 </li>
                 <li class="secondUser lFloat" ng-if="leaderBoard.second">
-                    <img class="top3Img" bo-src="leaderBoard.second.image" user-tooltip-popup="{{leaderBoard.second.id}}" alt="" width="72" height="72" />
+                    <img class="top3Img" bo-src="leaderBoard.second.image" user-tooltip-popup="{{leaderBoard.second.id}}" alt="" width="48" height="48" />
                     <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.second.score | kNumber"></div>
                     <div bo-text="leaderBoard.second.name"></div>
                     @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                 </li>
                 <li class="thirdUser rFloat" ng-if="leaderBoard.third">
-                    <img class="top3Img" bo-src="leaderBoard.third.image" user-tooltip-popup="{{leaderBoard.third.id}}" alt="" width="62" height="62" />
+                    <img class="top3Img" bo-src="leaderBoard.third.image" user-tooltip-popup="{{leaderBoard.third.id}}" alt="" width="48" height="48" />
                     <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
                     <div bo-text="leaderBoard.third.name"></div>
                     @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
