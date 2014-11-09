@@ -226,9 +226,25 @@
             $rootScope.$broadcast('update-scroll');
 
             if (!question.id) {
+                var interval = setInterval(function () {
+                    if (!question.id) {
+                        return;
+                    }
+
+                    clearInterval(interval);
+                    postDelete();
+
+
+                },20);
                 return;
             }
-            sQuiz.question.delete({ id: question.id });
+
+            postDelete();
+
+            function postDelete() {
+                sQuiz.question.delete({ id: question.id });
+            }
+            
         };
 
         $scope.addTabAnswer = function (e, question, answer) {
@@ -253,19 +269,39 @@
         };
 
         $scope.removeAnswer = function (question, index) {
-            var answerId = question.answers[index].id;
+            var answer = question.answers[index];
+
+            if (index === -1) {
+                return; //something went wrong
+            }
+         
             question.answers.splice(index, 1);
             $rootScope.$broadcast('update-scroll');
 
-            if (!answerId) {
-                return;
-            }
-
-            if (question.correctAnswer === answerId) {
+          
+            if (question.correctAnswer === answer.id) {
                 question.correctAnswer = null;
             }
 
-            sQuiz.answer.delete({ id: answerId });
+            if (!answer.id) {
+                var interval = setInterval(function () {
+                    if (!answer.id) {
+                        return;
+                    }
+
+                    clearInterval(interval);
+                    postDelete();
+
+
+                }, 20);
+                return;
+            }
+
+            postDelete();
+
+            function postDelete() {
+                sQuiz.answer.delete({ id: answer.id});
+            }
 
             //TODO analytics
 
