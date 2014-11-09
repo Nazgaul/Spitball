@@ -155,6 +155,10 @@
                 });
             };
 
+            $scope.displayComment = function (question) {
+                question.displayComment = !question.displayComment;
+            };
+
             $scope.postAnswer = function (question) {
 
                 if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') { //parent is box controller

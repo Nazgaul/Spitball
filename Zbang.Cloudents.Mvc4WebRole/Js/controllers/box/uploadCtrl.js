@@ -69,8 +69,9 @@ app.controller('UploadCtrl',
                             cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
 
                             $rootScope.$broadcast('ItemUploaded', sentObj);
-                        }, function () {
+                        }, function (response) {                           
                             $rootScope.$broadcast('UploadLinkError', data);
+                            alert(response);
                         });
 
                         data.size = 1024;

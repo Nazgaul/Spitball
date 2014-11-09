@@ -209,7 +209,7 @@
                             </li>
                         </ul>
                     </span>
-                    <div ng-show="!(boxes.common.list.length && boxes.following.list.length)" class="coursesEmpty">@UserResources.NotFollowing</div>
+                    <div ng-show="!boxes.following.list.length" class="coursesEmpty">@UserResources.NotFollowing</div>
                 </div>
             </section>
             <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
