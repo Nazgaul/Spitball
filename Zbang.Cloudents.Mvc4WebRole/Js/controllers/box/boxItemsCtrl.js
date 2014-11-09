@@ -205,7 +205,15 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.iOptions.currentTab = tab;
 
         $scope.iOptions.itemsLimit = consts.itemsLimit;
-        $scope.filteredItems = $filter('filter')($scope.items, filterItems);
+
+        var filteredItems = $filter('filter')($scope.items, filterItems);
+
+        if (tab) {            
+            $scope.filteredItems = $filter('orderBy')(filteredItems, 'name');
+        } else {
+            $scope.filteredItems = filteredItems;
+        }
+
         isSponsoredView();
     });
 
