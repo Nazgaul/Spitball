@@ -53,7 +53,9 @@
                 }
                 
 
-                rounded = rounded.toFixed(2);
+                if (abbr) {
+                    rounded = rounded.toFixed(2);
+                }
 
                 return rounded + abbr;
             }

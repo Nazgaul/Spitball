@@ -20,11 +20,7 @@ mAccount.controller('NotificationsCtrl',
 
                 //TODO analytics
 
-                if ($scope.params.wasOpened) {
-                    return;
-                }
-
-                $scope.params.wasOpened = true;
+                $scope.params.wasOpened = !$scope.params.wasOpened;               
 
                 //sShare.markNotificationsAsOld().then(function () {
                 //    _.forEach($scope.notifications, function (notification) {
@@ -38,6 +34,8 @@ mAccount.controller('NotificationsCtrl',
                 //sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
                 //    notification.isRead = true;
                 //});
+
+                notification.isRead = true;
 
                 $analytics.eventTrack('Site header', {
                     category: 'Notifications',

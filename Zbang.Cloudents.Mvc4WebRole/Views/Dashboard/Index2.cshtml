@@ -78,7 +78,7 @@
             <div class="dashHeader" ng-controller="NotificationsCtrl">
                 <div class="rFloat">
                     <div dropdown>
-                        <button class="rFloat notificationBtn" id="invites" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                        <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
                             @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
                             <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
                         </button>
