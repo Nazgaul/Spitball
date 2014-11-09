@@ -228,8 +228,7 @@
             if (!question.id) {
                 return;
             }
-            sQuiz.question.delete({ id: question.id }).then(function () {
-            });
+            sQuiz.question.delete({ id: question.id });
         };
 
         $scope.addTabAnswer = function (e, question, answer) {
