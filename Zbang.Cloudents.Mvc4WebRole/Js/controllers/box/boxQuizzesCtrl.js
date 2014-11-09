@@ -54,7 +54,7 @@ mBox.controller('BoxQuizzesCtrl',
             };
             $scope.deleteAllow = function (item) {
                 return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
-                       ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().score > 1000000);
+                       ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().isAdmin);
             };
 
 

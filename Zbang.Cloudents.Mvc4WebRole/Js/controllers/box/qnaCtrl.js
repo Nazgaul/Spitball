@@ -102,7 +102,7 @@
 
             $scope.canDelete = function (obj) { //question || answer
                 var userId = sUserDetails.getDetails().id;
-                return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().score > 1000000;
+                return obj.userId === userId || $scope.info.ownerId === userId || sUserDetails.getDetails().isAdmin;
             };
 
 

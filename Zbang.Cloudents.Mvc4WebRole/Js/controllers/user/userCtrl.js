@@ -39,7 +39,6 @@ var mUser = angular.module('mUser', [])
             }
         },
         admin: {
-            score: 1000000,
             membersLimit: 50
         },
         sort: {
@@ -95,7 +94,7 @@ mUser.controller('UserCtrl',
         //#region admin
         $scope.admin = {
             visible: function () {
-                return $scope.profile.score >= userConstants.admin.score && $scope.profile.isSelf;
+                return sUserDetails.getDetails().isAdmin && $scope.profile.isSelf;
             },
             members: {
                 limit: userConstants.admin.membersLimit,
