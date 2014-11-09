@@ -28,7 +28,7 @@
                          });
                      }
 
-                     if (!$scope.display.search || $scope.formData.searchInput) {
+                     if (!$scope.display.search || !$scope.formData.searchInput.length) {
                          $scope.display.facebook = true;
                      }
 
@@ -59,9 +59,11 @@
 
                  var query = $scope.formData.searchInput || '';
 
-                 if (query.length < 2) {
-                     $scope.display.search = false;
+                 if (!query.length) {
                      $scope.display.facebook = true;
+                 }
+                 if (query.length < 2) {
+                     $scope.display.search = false;                  
                      $scope.universities = null;
                      lastQuery = null;
                      return;
