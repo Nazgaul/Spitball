@@ -121,14 +121,13 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
                     sLibrary.createDepartment(result).then(function (response) {
                         $scope.info.items.push(response);
                         $scope.info.type = types.department;
-                    },function(response) {
+                    }, function (response) {
                         alert(response);
                     });
 
                     $analytics.eventTrack('Library', {
                         category: 'Create Department'
                     });
-                });
 
                 }
             }
@@ -226,7 +225,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
 
     $scope.renameWindow = function () {
 
-      
+
         sModal.open('depSettings', {
             data: {
                 name: $scope.back.title,
