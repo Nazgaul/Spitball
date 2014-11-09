@@ -6,18 +6,15 @@
 <div id="library" class="page union" ng-controller="LibraryCtrl">
     <div class="libraryContent" bindonce>
         <aside class="asideDash lFloat">
-            <div class="libTopWpr">
-                <div class="libTop">
+            <div class="dashLibTop">
+                <img src="@Model.Image" class="uniLogo lFloat" alt="University logo" width="80" height="80" />
+                <span class="ghost"><span class="vCentered" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</span></span>
+            </div>
 
-                <img src="@Model.Image" class="uniLogo lFloat" alt="University logo" width="80" height="80"  />
-
-                <div id="univeristyName" class="unionName boldFont" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</div>
-                    <div class="unionStats">
-                        <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
-                        <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
-                        <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
-                    </div>
-                </div>
+            <div class="unionStats">
+                <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
+                <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
+                <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
             </div>
             <div class="unionLinksWpr">
                 <div class="unionLinks">
