@@ -11,6 +11,8 @@
   background: #fff;
   min-height: 88px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
 }
 .searchDD h3 {
   background: #f9f9f9;
@@ -156,7 +158,7 @@
   display: none;
 }
 .searchPage .upArrow {
-  top: -16px;
+  top: -17px;
   /*rtl (font issue)*/
   height: 13px;
 }
