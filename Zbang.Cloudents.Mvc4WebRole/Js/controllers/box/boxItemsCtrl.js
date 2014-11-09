@@ -147,7 +147,7 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
 
     $scope.deleteAllow = function (item) {
         return ($scope.info.userType === 'subscribe' || $scope.info.userType === 'owner') &&
-               ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().score > 1000000);
+               ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().isAdmin);
     };
 
     function filterItems(item) {
