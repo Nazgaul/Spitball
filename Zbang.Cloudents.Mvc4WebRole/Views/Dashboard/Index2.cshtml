@@ -27,10 +27,10 @@
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                         <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | kNumber}}</div>
                     </li>
-                    @*<li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
-                            <img class="top3Img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
-                            @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        </li>*@
+                    <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
+                        <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
+                    </li>
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
                         <img class="top3Img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
@@ -38,10 +38,10 @@
                         <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | kNumber}}</div>
                     </li>
 
-                    @*<li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
-                            <img class="top3img" src="http://placehold.it/48x48" alt="" width="48" height="48" />
-                            @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        </li>*@
+                    <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
+                        <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                    </li>
                 </ol>
                 <div class="lbEmpty">
                     <div class="lbEmptyTxtWpr">

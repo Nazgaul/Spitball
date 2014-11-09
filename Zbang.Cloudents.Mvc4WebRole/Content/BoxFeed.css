@@ -503,11 +503,18 @@
 .bestUserList .secondUser.empty .top3Img,
 .bestUserList .thirdUser.empty .top3Img {
   border-color: #8a8a8a;
+  background: #ccc;
+  overflow: hidden;
 }
 .bestUserList .firstUser.empty svg,
 .bestUserList .secondUser.empty svg,
 .bestUserList .thirdUser.empty svg {
   fill: #ccc;
+}
+.bestUserList .firstUser.empty .svg-user,
+.bestUserList .secondUser.empty .svg-user,
+.bestUserList .thirdUser.empty .svg-user {
+  fill: #fff;
 }
 .bestUserList li {
   position: relative;
@@ -534,7 +541,6 @@
   vertical-align: middle;
 }
 .bestUserList img {
-  border-radius: 100%;
   border: 1px solid #c2c2c2;
   display: inline-block;
   vertical-align: middle;
@@ -545,12 +551,21 @@
   margin: 0 auto;
   fill: #ffc000;
 }
+.bestUserList .svg-user {
+  fill: #fff;
+  width: 54px;
+  height: 54px;
+  position: relative;
+  left: -2px;
+  top: 3px;
+}
 .bestUserList .top3Img {
   border: 1px solid #0f9d58;
   display: block;
   margin: 0 auto 8px;
   width: 50px;
   height: 50px;
+  border-radius: 100%;
 }
 .secondUser .top3Img {
   margin-top: 17px;
