@@ -154,7 +154,7 @@
 .notifyWpr {
     width: 400px;
     position: absolute;
-    right: 30px; //rtl
+    right: 40px; //rtl
     top: 22px;
     //display: block;
     &.dropdown-menu {
@@ -178,6 +178,8 @@
     max-height: 525px;
     overflow: auto;
     color: #fff;
+    overflow-x: hidden;
+    margin-right: -15px; //rtl (this is in order to move the scrollbar away from the item)
 }
 .notifyItem {
     position: relative;

@@ -613,8 +613,11 @@
   left: auto;
 }
 .notifyWpr {
-  left: 30px;
+  left: 40px;
   right: auto;
+}
+.notifyList {
+  margin: 0 0 0 -15px;
 }
 .notifyItem a {
   padding: 15px 100px 0 15px;
