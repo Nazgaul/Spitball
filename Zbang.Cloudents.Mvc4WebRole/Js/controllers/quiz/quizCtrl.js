@@ -114,14 +114,18 @@ mQuiz.controller('QuizCtrl',
 
             $scope.checkAnswers = function () {
                 checkAnswers();
-                //TODO analytics
+                $analytics.eventTrack('Quiz', {
+                    category: 'Check Answers'                    
+                });
                 $scope.$broadcast('timer-stop');
             };
 
             $scope.retakeQuiz = function () {
                 $timeout.cancel(challengeTimeout);
                 resetQuiz();
-                //TODO analytics
+                $analytics.eventTrack('Quiz', {
+                    category: 'Retake'
+                });
             };
 
             $scope.markCorrect = function (question, answer) {
@@ -279,19 +283,24 @@ mQuiz.controller('QuizCtrl',
                 if ($scope.quiz.testInProgress) {
                     pauseTimer();
 
-                    //TODO analytics
-                    return;
+                    $analytics.eventTrack('Quiz', {
+                        category: 'Pause Quiz'
+                    }); return;
                 }
 
 
                 if ($scope.quiz.paused) {
-                    //TODO analytics
+                    $analytics.eventTrack('Quiz', {
+                        category: 'Resume Quiz'
+                    });
                     resumeTimer();
                     return;
                 }
 
                 startTimer();
-                //TODO analytics
+                $analytics.eventTrack('Quiz', {
+                    category: 'Start Quiz'
+                });
             };
 
 
@@ -351,7 +360,9 @@ mQuiz.controller('QuizCtrl',
                         comment.id = response;
                     });
 
-                //TODO analytics
+                $analytics.eventTrack('Quiz', {
+                    category: 'Create Comment'
+                });
             };
 
             $scope.deleteComment = function (question, comment) {
@@ -359,7 +370,9 @@ mQuiz.controller('QuizCtrl',
                 question.comments.splice(index, 1);
 
                 sQuiz.discussion.deleteDiscussion({ id: comment.id });
-                //TODO analytics
+                $analytics.eventTrack('Quiz', {
+                    category: 'Delete Comment'
+                });
             };
             function getDiscussion() {
                 sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (data) {

@@ -1,5 +1,4 @@
-﻿
-app.controller('UploadCtrl',
+﻿app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
         'sDropbox', 'sGoogle', 'sUpload', '$timeout',
 
@@ -37,7 +36,9 @@ app.controller('UploadCtrl',
 
         $scope.saveLink = function () {
 
-            //TODO analytics
+            $analytics.eventTrack('Upload', {
+                category: 'Save Link'
+            });
 
             if ($scope.close) {//fix for step 3
                 $scope.close();
@@ -85,7 +86,10 @@ app.controller('UploadCtrl',
         };
 
         $scope.saveDropbox = function () {
-     //TODO analytics
+            $analytics.eventTrack('Upload', {
+                category: 'Save Dropbox'
+            });
+
             sDropbox.choose().then(function (files) {
 
                 _.forEach(files, function (file) {
@@ -142,9 +146,10 @@ app.controller('UploadCtrl',
                 return;
             }
             loadPicker();
-
+            $analytics.eventTrack('Upload', {
+                category: 'Save Drive'
+            });
             function loadPicker() {
-                //TODO analytics
                 sGoogle.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false
                     _.forEach(files, function (file) {
                         (function (fileData) {
@@ -198,8 +203,6 @@ app.controller('UploadCtrl',
 
         $scope.cancel = function () {
             $scope.dismiss();
-
-            //TODO analytics
         };
 
         $scope.$on('BeforeUpload', function () {
@@ -236,13 +239,16 @@ mBox.controller('UploadLinkCtrl',
         $scope.add = function () {
             $modalInstance.close($scope.formData.url);
 
-            //TODO analytics
+            $analytics.eventTrack('Link', {
+                category: 'Saved Link'
+            });
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
-
-            //TODO anayltics
+            $analytics.eventTrack('Link', {
+                category: 'Cancel'
+            });
         };
     }
     ]);

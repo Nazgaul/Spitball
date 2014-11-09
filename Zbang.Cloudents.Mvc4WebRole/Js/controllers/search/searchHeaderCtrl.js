@@ -46,8 +46,10 @@ app.controller('SearchHeaderCtrl',
 
             lastQuery = query;
 
-            //TODO analytics
-
+            $analytics.eventTrack('Search Header', {
+                category: 'Search',
+                label: 'User searched for ' + query
+            });
             Search.dropdown({ q: query }).then(function (data) {
                 parseData(data);
                 if ($scope.params.preventDropDown) {
@@ -65,7 +67,9 @@ app.controller('SearchHeaderCtrl',
                 return;
             }
 
-            //TODO analytics
+            $analytics.eventTrack('Search', {
+                category: 'Full Search'                
+            });
 
             $location.url('/search/?q=' + $scope.formData.query);
 

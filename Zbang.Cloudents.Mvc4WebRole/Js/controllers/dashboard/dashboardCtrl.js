@@ -26,6 +26,9 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
             },
             callback: {
                 close: function (response) {
+                    $analytics.eventTrack('Dashboard', {
+                        category: 'Finish Wizard'
+                    });
                     $rootScope.params.createBoxWizard = false;
                     if (response) {
                         $scope.newUniversity = 0;
@@ -94,15 +97,18 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
                     firstTimeDashboard();
                 }
             });
-            //TODO analytics
+            $analytics.eventTrack('Dashboard', {
+                category: 'Remove Box'
+            });
         });
     };
 
 
     $scope.inviteFriends = function () {
         sModal.open('cloudentsInvite');
-        //TODO analytics
-
+        $analytics.eventTrack('Dashboard', {
+            category: 'Invite Friends'
+        });
     };
 
   

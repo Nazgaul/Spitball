@@ -1,5 +1,4 @@
-﻿
-app.controller('ShareCtrl',
+﻿app.controller('ShareCtrl',
     ['$scope', '$rootScope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
 
     function ($scope, $rootScope, $modalInstance, sShare, sGoogle, sFocus, data) {
@@ -146,7 +145,9 @@ app.controller('ShareCtrl',
         };
 
         $scope.loadGoogleContacts = function () {
-            //TODO analytics google connect button
+            $analytics.eventTrack('Share Email', {
+                category: 'Google Connect'
+            });
             sGoogle.checkAuth(false).then(function () {
                 getGoogleContacts();
             });
@@ -178,7 +179,9 @@ app.controller('ShareCtrl',
             if (!$scope.formData.emailList.length) {
                 $scope.formData.placeholder = 'Username or email';
             }
-            //TODO analytics
+            $analytics.eventTrack('Share Email', {
+                category: 'Remove email'
+            });
         };
 
         $scope.editItem = function (item2) {
@@ -191,7 +194,9 @@ app.controller('ShareCtrl',
 
             $scope.$broadcast('itemChange');
             sFocus('shareInput');
-            //TODO analytics
+            $analytics.eventTrack('Share Email', {
+                category: 'Edit email'
+            });
         };
 
         $scope.keydownListener = function (e) {

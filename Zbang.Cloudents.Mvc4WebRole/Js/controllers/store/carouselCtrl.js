@@ -28,21 +28,27 @@ app.controller('CarouselCtrl',
             $timeout(function () {
                 transition = false;
             }, 500);
-            //TODO analytics
+            $analytics.eventTrack('Store Carousel', {
+                category: 'Select'                
+            });
         };
 
         $scope.next = function () {
             var newIndex = ($scope.params.currentIndex + 1) % $scope.params.slidesLength;
             $scope.select(newIndex);
             $scope.params.reverse = false;
-            //TODO analytics
+            $analytics.eventTrack('Store Carousel', {
+                category: 'Next'
+            });
 
         };
 
         $scope.prev = function () {
             var newIndex = $scope.params.currentIndex - 1 < 0 ? $scope.params.slidesLength - 1 : $scope.params.currentIndex - 1;
             $scope.select(newIndex);
-            //TODO analytics
+            $analytics.eventTrack('Store Carousel', {
+                category: 'Previous'
+            });
         };
 
         $scope.isActive = function (index) {

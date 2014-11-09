@@ -119,7 +119,10 @@ app.controller('CategoryCtrl',
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
-            //TODO analytics
+            $analytics.eventTrack('Store Category', {
+                category: 'Search',
+                label: 'User searched for ' + query2
+            });
 
             sStore.search({ term: query2, universityId: $scope.params.universityId }).then(function (data) {                
                 $scope.products = data;

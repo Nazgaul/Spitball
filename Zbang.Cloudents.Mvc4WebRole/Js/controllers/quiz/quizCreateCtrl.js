@@ -163,16 +163,18 @@
                 $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
             });
 
-            //TODO analytics
-
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Deleted Quiz'
+            });
         }
 
         function saveDraft() {
             $scope.params.showCreateQuiz = false;
             $scope.params.focus = false;
 
-            //TODO analytics
-
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Save Draft'
+            });
             if ($scope.isEmptyQuiz()) {
                 if (!$scope.quiz.id) {
                     return;
@@ -192,8 +194,9 @@
                 $scope.addAnswer(question, false);
             }
 
-            //TODO analytics
-
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Add Question'
+            });
             $rootScope.$broadcast('update-scroll');
         };
         $scope.saveQuestion = function (question) {
@@ -219,6 +222,10 @@
             if (index === 0) {
                 return;  //don't want to remove the first question
             }
+
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Remove Question'
+            });
 
             var question = $scope.quiz.questions[index];
 
@@ -264,7 +271,9 @@
             answer.focus = focus;
             question.answers.push(answer);
             $rootScope.$broadcast('update-scroll');
-            //TODO analytics user added an answer if focus tab key used
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Add Answer'
+            });
 
         };
 
@@ -279,6 +288,10 @@
             $rootScope.$broadcast('update-scroll');
 
           
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Remove Answer'
+            });
+
             if (question.correctAnswer === answer.id) {
                 question.correctAnswer = null;
             }
@@ -359,6 +372,10 @@
                 return;
             }
 
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Mark Correct'
+            });
+
             sQuiz.answer.markCorrect({ answerId: answer.id }).then(function (data) {
                 if (!data) {
                     console.log('error mark answer as true');
@@ -368,7 +385,9 @@
 
         $scope.previewQuiz = function () {
             $scope.quiz.showPreview = !$scope.quiz.showPreview;
-            //TODO analytics
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Preview Quiz'
+            });
         };
 
         //#region helpers
@@ -505,6 +524,10 @@
             if ($scope.isEmptyQuiz()) {
                 $scope.quiz.empty = true;
                 $scope.quiz.validated = false;
+                $analytics.eventTrack('Quiz Create', {
+                    category: 'Empty Quiz',
+                    label: 'User tried to publish an empty quiz'
+                });
                 return;
             }
 
@@ -512,9 +535,20 @@
             $scope.quiz.empty = false;
 
             if (!isValid) {
+
+                $analytics.eventTrack('Quiz Create', {
+                    category: 'Invalid Quiz',
+                    label: 'User tried to publish an invalid quiz'
+
+                });
                 return;
             }
 
+
+            $analytics.eventTrack('Quiz Create', {
+                category: 'Save Quiz',
+                label: 'User publish a quiz'
+            });
 
             sQuiz.save({
                 quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: cd.getParameterFromUrl(1), boxName: $scope.quiz.courseName, quizName: $scope.quiz.name

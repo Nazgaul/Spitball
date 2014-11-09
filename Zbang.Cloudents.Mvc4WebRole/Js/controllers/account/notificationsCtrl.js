@@ -1,5 +1,4 @@
-﻿
-mAccount.controller('NotificationsCtrl',
+﻿mAccount.controller('NotificationsCtrl',
     ['$scope', 'sShare', '$analytics',
         function ($scope, sShare, $analytics) {
             "use strict";
@@ -18,7 +17,10 @@ mAccount.controller('NotificationsCtrl',
 
             $scope.openNotifications = function () {
 
-                //TODO analytics
+                $analytics.eventTrack('Notifications', {
+                    category: 'Notifications',
+                    label: 'User ' + ($scope.params.wasOpened ? 'closed' : 'opened') + ' notifications'
+                });
 
                 $scope.params.wasOpened = !$scope.params.wasOpened;               
 
@@ -37,7 +39,7 @@ mAccount.controller('NotificationsCtrl',
 
                 notification.isRead = true;
 
-                $analytics.eventTrack('Site header', {
+                $analytics.eventTrack('Notifications', {
                     category: 'Notifications',
                     label: 'User clicked a notification'
                 });

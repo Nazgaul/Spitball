@@ -12,13 +12,17 @@ mDashboard.controller('ChallengeCtrl',
 
              $scope.afraidTry = function () {
                  $modalInstance.close();
-                 //TODO analytics
+                 $analytics.eventTrack('Quiz Chanllenge', {
+                     category: 'Afraid to try'
+                 });
 
              };
 
              $scope.takeChance = function () {
                  $modalInstance.dismiss();
-                 //TODO analytics
+                 $analytics.eventTrack('Quiz Chanllenge', {
+                     category: 'Take Chance'
+                 });
 
              };
          }

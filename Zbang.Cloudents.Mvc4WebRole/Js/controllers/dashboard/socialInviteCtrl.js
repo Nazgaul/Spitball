@@ -29,7 +29,10 @@ mDashboard.controller('SocialInviteCtrl',
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
                  $scope.params.contacts = null;
-                 //TODO analytics
+                 $analytics.eventTrack('Social Invite', {
+                     category: 'Select State',
+                     label: 'User selected to invite from ' + state
+                 });
              }
 
              $scope.filterContacts = function () {
@@ -76,15 +79,18 @@ mDashboard.controller('SocialInviteCtrl',
 
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
-                     //TODO analytics
                      sFacebook.loginFacebook().then(function () {
+                         $analytics.eventTrack('Social Invite', {
+                             category: 'Facebook Connect'                             
+                         });
                          $scope.selectState(states.facebook);
                      });
                      return;
                  }
                  if (currentState === states.google) {
-                     //TODO analytics
-                     sGoogle.checkAuth(false).then(function () {
+                     $analytics.eventTrack('Social Invite', {
+                         category: 'Google Connect'
+                     }); sGoogle.checkAuth(false).then(function () {
                          $scope.selectState(states.google);
                      });
                      return;

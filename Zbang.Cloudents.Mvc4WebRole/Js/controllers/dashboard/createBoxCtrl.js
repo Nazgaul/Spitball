@@ -1,5 +1,4 @@
-﻿
-mDashboard.controller('CreateBoxCtrl',
+﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
          function ($scope, sBox) {
@@ -20,9 +19,9 @@ mDashboard.controller('CreateBoxCtrl',
                      $scope.box.url = data.url;
                      $scope.box.id = data.id;
                      $scope.next();
-                     //TODO analytics
-
-                     //$modalInstance.close(box.payload || box.Payload);
+                     $analytics.eventTrack('Box Wizard', {
+                         category: 'Create Private'
+                     });
                  }, function (response) {
                      $scope.formData.error = response[0].value[0];
                  }).finally(function () {

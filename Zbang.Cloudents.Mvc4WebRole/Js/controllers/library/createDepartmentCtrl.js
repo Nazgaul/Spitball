@@ -1,5 +1,4 @@
-﻿
-mLibrary.controller('CreateDepartmentCtrl',
+﻿mLibrary.controller('CreateDepartmentCtrl',
         ['$scope',
          '$modalInstance',         
 
@@ -12,7 +11,9 @@ mLibrary.controller('CreateDepartmentCtrl',
                      return;
                  }
 
-                 //TODO analytics
+                 $analytics.eventTrack('Create Department', {
+                     category: 'Department Created'
+                 });
 
                 $modalInstance.close($scope.formData);
              };
@@ -20,7 +21,9 @@ mLibrary.controller('CreateDepartmentCtrl',
              $scope.cancel = function () {
                  $modalInstance.dismiss();
 
-                 //TODO analytics
+                 $analytics.eventTrack('Create Department', {
+                     category: 'Cancel Create'
+                 });
 
              };
          }

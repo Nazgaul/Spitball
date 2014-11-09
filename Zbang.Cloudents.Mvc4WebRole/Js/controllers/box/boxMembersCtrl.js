@@ -26,7 +26,10 @@
                     }                    
                 });
 
-                //TODO analytics
+                $analytics.eventTrack('Box Members', {
+                    category: 'Send Message',
+                    label: 'User sent a message to another member'
+                });
             };
 
             $scope.removeUser = function (member) {
@@ -51,7 +54,11 @@
                 }
 
                 function remove(isMember) {
-                    //TODO analytics member or invited
+                    $analytics.eventTrack('Box Members', {
+                        category: 'Remove User',
+                        label: 'User removed a member or someone invited'
+                    });
+
                     var index = $scope.members.indexOf(member);
                     $scope.members.splice(index, 1);
                 }
@@ -67,7 +74,9 @@
                 sBox.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
                     member.action = false;
                 });
-                //TODO analytics 
+                $analytics.eventTrack('Box Members', {
+                    category: 'Reinvite'
+                });
             };
 
             $scope.searchMembers = function () {

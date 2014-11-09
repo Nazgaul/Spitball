@@ -158,7 +158,9 @@
                      window.open('/dashboard/', '_self');
 
 
-                     //TODO analytics
+                     $analytics.eventTrack('Choose University', {
+                         category: 'Create University'
+                     });
 
                  });
              };          

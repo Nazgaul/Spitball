@@ -1,5 +1,4 @@
-﻿
-mBox.controller('BoxTabsCtrl',
+﻿mBox.controller('BoxTabsCtrl',
         ['$scope', '$rootScope', '$filter', 'sModal', 'sBox', 'sUserDetails',
         function ($scope, $rootScope, $filter, sModal, sBox, sUserDetails) {
             "use strict";
@@ -22,7 +21,10 @@ mBox.controller('BoxTabsCtrl',
                 });
 
 
-                //TODO analytics
+                $analytics.eventTrack('Box Tabs', {
+                    category: 'Removed Tab'
+                });
+
                 var index = $scope.params.tabs.indexOf(tab);
                 $scope.params.tabs.splice(index, 1);
                 $scope.params.currentTab = null;
@@ -44,7 +46,9 @@ mBox.controller('BoxTabsCtrl',
                     }
                 });
 
-                //TODO analytics
+                $analytics.eventTrack('Box Tabs', {
+                    category: 'Rename Tab'
+                });
             };
 
             $scope.createTab = function () {
@@ -73,12 +77,16 @@ mBox.controller('BoxTabsCtrl',
                     }
                 });
 
-                //TODO analytics
+                $analytics.eventTrack('Box Tabs', {
+                    category: 'Create Tab'
+                });
             };
 
             $scope.manageTab = function () {
                 $rootScope.$broadcast('manageTab');
-                //TODO analytics
+                $analytics.eventTrack('Box Tabs', {
+                    category: 'Manage Tab'
+                });
             };
 
             $scope.selectTab = function (tab) {
@@ -92,7 +100,11 @@ mBox.controller('BoxTabsCtrl',
                     tabId: tabId
                 }
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Tabs', {
+                    category: 'Dragged Item',
+                    label: 'User dragged an item to a tab'
+                });
+
                 $rootScope.$broadcast('tabItemAdded', data);
             };
         }]);

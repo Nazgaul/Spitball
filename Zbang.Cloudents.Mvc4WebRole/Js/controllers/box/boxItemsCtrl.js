@@ -1,5 +1,4 @@
-﻿
-mBox.controller('BoxItemsCtrl',
+﻿mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
             'sUserDetails', 'sFacebook',
 function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
@@ -45,7 +44,11 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
             return;
         }
 
-        //TODO analytics
+        $analytics.eventTrack('Box Items', {
+            category: 'Upload',
+            label: 'User opened the upload popup'
+        });
+
         sModal.open('upload', {
             data: {
                 boxId: $scope.boxId,
@@ -87,7 +90,10 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         $scope.iOptions.lastView = $scope.iOptions.currentView;
         $scope.iOptions.currentView = view;
 
-        //TODO analytics
+        $analytics.eventTrack('Box Items', {
+            category: 'Change view',
+            label: 'User changed view to ' + view
+        });
     };
 
     $scope.getView = function () {
@@ -128,7 +134,9 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
                 alert('error deleting this item'); //translate
             });
 
-            //TODO analytics
+            $analytics.eventTrack('Box Items', {
+                category: 'Delete'                
+            });
         });
 
         function removeItem(response) {
@@ -247,13 +255,19 @@ function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdate
         saveItemsToTab(savedItems);
         resetLastView();
 
-        //TODO analytics
+        $analytics.eventTrack('Box Items', {
+            category: 'Manage Save',
+            label: 'User saved manage changes'
+        });
     };
 
     $scope.manageCancel = function () {
         resetLastView();
 
-        //TODO analytics
+        $analytics.eventTrack('Box Items', {
+            category: 'Manage Cancel',
+            label: 'User cancelled manage changes'
+        });
     };
 
     function saveItemsToTab(items, tabId) {

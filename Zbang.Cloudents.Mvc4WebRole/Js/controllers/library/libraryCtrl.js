@@ -83,7 +83,10 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
             callback: {
                 close: function (response) {
                     $rootScope.params.createBoxWizard = false;
-                    //TODO analytics
+
+                    $analytics.eventTrack('Library', {
+                        category: 'Finish Wizard'
+                    });
 
                     if (response) {
                         $location.path(response.url);
@@ -122,7 +125,10 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
                         alert(response);
                     });
 
-                    //TODO analytics
+                    $analytics.eventTrack('Library', {
+                        category: 'Create Department'
+                    });
+                });
 
                 }
             }
@@ -142,7 +148,9 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
 
 
         //cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
-        //TODO analytics
+        $analytics.eventTrack('Library', {
+            category: 'Follow box'
+        });
     };
 
     $scope.unsubscribe = function (box) {
@@ -160,7 +168,9 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
         }
 
         sBox.remove({ id: box.id });
-        //TODO analytics
+        $analytics.eventTrack('Library', {
+            category: 'Leave Box'
+        });
 
         box.userType = 'none';
 
@@ -216,8 +226,7 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
 
     $scope.renameWindow = function () {
 
-        //TODO analytics
-
+      
         sModal.open('depSettings', {
             data: {
                 name: $scope.back.title,
@@ -226,7 +235,9 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
             callback: {
                 close: function (d) {
                     if (d === 'delete') {
-                        //TODO analytics
+                        $analytics.eventTrack('Library', {
+                            category: 'Delete Department'
+                        });
                         sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
                             $location.path($scope.back.url).replace();
                         });
@@ -236,7 +247,10 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
                         return;
                     }
 
-                    //TODO analytics
+                    $analytics.eventTrack('Library', {
+                        category: 'Rename Department'
+                    });
+
                     sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
                         $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
                     }, function (response) {

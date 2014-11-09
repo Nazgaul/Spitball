@@ -219,7 +219,9 @@
 
                 sQnA.delete.question({ questionId: question.id });
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Remove Question'
+                });
             };
 
             $scope.deleteAnswer = function (question, answer) {
@@ -227,7 +229,9 @@
                 question.answers.splice(index, 1);
                 sQnA.delete.answer({ answerId: answer.id });
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Remove Answer'
+                });
             };
 
             $scope.removeAttachment = function (obj, item) {
@@ -238,17 +242,21 @@
                         alert(response);
                 });
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Remove attachment'
+                });
             };
 
             $scope.downloadItem = function (event/*, item*/) {
-                if (!sUserDetails.isAuthenticated()) {
+                if (!sUserDetails.isAuthenticated()) {                   
                     event.preventDefault();
                     cd.pubsub.publish('register', { action: true });
                     return;
                 }
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Download Item'
+                });
             };
 
             var qAttach, aAttach, questionAttach;
@@ -266,6 +274,11 @@
                     }
 
                     $scope.qFormData.files = [data.itemDto];
+
+
+                    $analytics.eventTrack('Box Feed', {
+                        category: 'Added Question Attachment'
+                    });
 
                     return;
                 }
@@ -285,6 +298,10 @@
                     }
 
                     question.aFormData.files = [data.itemDto];
+
+                    $analytics.eventTrack('Box Feed', {
+                        category: 'Added Answser Attachment'
+                    });
                 }
             });
 
@@ -302,7 +319,9 @@
 
                 openUpload(data);
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Add question upload popup'
+                });
             };
 
             $scope.removeQuestionAttachment = function (file) {
@@ -311,7 +330,9 @@
                     $scope.qFormData.files.splice(index, 1);
                 }
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Remove question attachment'
+                });
             }
 
             $scope.addAnswerAttachment = function (question) {
@@ -327,8 +348,10 @@
                 };
 
                 openUpload(data);
-
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Add answer upload popup'
+                });
+                
             };
             $scope.removeAnswerAttachment = function (question, file) {
                 var index = question.aFormData.files.indexOf(file);
@@ -336,7 +359,9 @@
                     question.aFormData.files.splice(index, 1);
                 }
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Feed', {
+                    category: 'Remove question attachment'
+                });
             }
 
             $scope.checkAuth = function () {

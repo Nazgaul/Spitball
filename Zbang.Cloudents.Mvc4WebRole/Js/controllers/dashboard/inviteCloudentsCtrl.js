@@ -19,7 +19,9 @@ mDashboard.controller('InviteCloudentsCtrl',
             };
 
             $scope.inviteFacebook = function (contact) {
-                //TODO analytics
+                $analytics.eventTrack('Invite to Cloudents', {
+                    category: 'Invite'
+                });
 
                 var dfd = $q.defer(),
                     data = {
@@ -37,7 +39,11 @@ mDashboard.controller('InviteCloudentsCtrl',
                         path: response.url,
                         to: contact.id
                     }).then(function () {
+                        dfd.resolve();
 
+                        $analytics.eventTrack('Invite to Cloudents', {
+                            category: 'Facebook Invite'
+                        });
                     }, function () {
                         dfd.reject();
                     });

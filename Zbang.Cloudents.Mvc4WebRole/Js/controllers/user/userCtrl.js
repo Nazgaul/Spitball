@@ -78,7 +78,11 @@ mUser.controller('UserCtrl',
                 }
             });
 
-            //TODO analytics
+            $analytics.eventTrack('User', {
+                category: 'Send Message',
+                label: 'User send a message to another user'
+            });
+
 
         };
         //#endregion
@@ -87,7 +91,9 @@ mUser.controller('UserCtrl',
         $scope.inviteCloudents = function () {
             sModal.open('cloudentsInvite');
 
-            //TODO analytics
+            $analytics.eventTrack('User', {
+                category: 'Invite Cloudents'                
+            });
         };
 
 
@@ -130,7 +136,9 @@ mUser.controller('UserCtrl',
                 $scope.admin.members.selected = 0;
             }
 
-            //TODO analytics
+            $analytics.eventTrack('User Admin', {
+                category: 'Select All Members'                
+            });
         };
 
         var lastQuery;
@@ -158,7 +166,9 @@ mUser.controller('UserCtrl',
 
             $scope.admin.members.list = array;
 
-            //TODO analytics
+            $analytics.eventTrack('User Admin', {
+                category: 'Sort Department'
+            });
         };
 
         $scope.sendMembersMessage = function () {
@@ -177,7 +187,9 @@ mUser.controller('UserCtrl',
             }
 
             sModal.open('shareEmail', { data: sendData });
-            //TODO analytics
+            $analytics.eventTrack('User Admin', {
+                category: 'Send message to users'
+            });
         };
 
         //#endregion
@@ -216,7 +228,10 @@ mUser.controller('UserCtrl',
 
             $scope.activity.currentTab = type;
 
-            //TODO analytics
+            $analytics.eventTrack('User Activity', {
+                category: 'Select Tab',
+                label: 'User selected the ' + type + ' tab'
+            });
         }
 
         //#endregion
@@ -236,7 +251,9 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
-                //TODO analytics
+                $analytics.eventTrack('User Boxes', {
+                    category: 'Show All'
+                });
 
                 if (!$scope.boxes.showAll) {
                     $scope.boxes.showAll = true;
@@ -249,7 +266,9 @@ mUser.controller('UserCtrl',
                 $scope.boxes.following.limit = userConstants.boxes.following.init;
             },
             followBox: function (box) {
-                //TODO analytics
+                $analytics.eventTrack('User Boxes', {
+                    category: 'Follow Box'
+                });
 
                 sBox.follow({ boxId: box.id }).then(function () {
                     $location.path(box.url);
@@ -273,8 +292,9 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
-                //TODO analytics
-
+                $analytics.eventTrack('User Friends', {
+                    category: 'Show All'
+                });
                 if (!$scope.friends.showAll) {
                     $scope.friends.showAll = true;
                     $scope.friends.common.limit = $scope.friends.common.list.length;
@@ -303,7 +323,9 @@ mUser.controller('UserCtrl',
                     $scope.invites.limit = $scope.invites.list.length;
                     return;
                 }
-                //TODO analytics
+                $analytics.eventTrack('User Invites', {
+                    category: 'Show All'
+                });
 
                 $scope.invites.showAll = false;
                 $scope.invites.limit = userConstants.invites.list.init;
@@ -314,8 +336,9 @@ mUser.controller('UserCtrl',
                     return;
                 }
 
-                //TODO analytics
-
+                $analytics.eventTrack('User Invites', {
+                    category: 'Reinvite'
+                });
                 sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { });
 
                 invite.submitted = true;

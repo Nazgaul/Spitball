@@ -63,7 +63,10 @@
                                 $scope.formData.academicBox.departmentId = department.id;
                                 $scope.params.selectedDepartment = department;
 
-                                //TODO analytics
+                                $analytics.eventTrack('Box Wizard', {
+                                    category: 'Create Department'
+                                });
+
                             }, function(response) {
                                 alert(response);
                             });
@@ -76,16 +79,18 @@
                 nodeHistory.push(department);
                 $scope.formData.academicBox.departmentId = department.id;                
                 getNodes();
-                //TODO analytics
-
+                $analytics.eventTrack('Box Wizard', {
+                    category: 'Select Department'
+                });
             };
 
             $scope.changeDepartment = function () {
                 $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null;
                 nodeHistory.pop();
                 getNodes();
-                //TODO analytics
-
+                $analytics.eventTrack('Box Wizard', {
+                    category: 'Change Department'
+                });
             };
 
             $scope.clearErrors = function () {
