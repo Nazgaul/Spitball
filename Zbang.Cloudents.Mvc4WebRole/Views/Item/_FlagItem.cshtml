@@ -39,7 +39,7 @@
                     @Html.TextBoxFor(x => x.Other, new { @class = "inputText", ng_model = "formdata.Other", autocomplete = "off" })
                 </li>
             </ul>
-            <input type="submit" class="btn1 next" ng-disabled="disable || (formdata.BadItem === 'Other' && !formdata.Other.length)" value="@FlagItemResources.SendReport" />
+            <input type="submit" class="btn1 next" ng-disabled="disable || !formdata.BadItem || (formdata.BadItem === 'Other' && !formdata.Other.length)" value="@FlagItemResources.SendReport" />
             <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
         </form>
 
