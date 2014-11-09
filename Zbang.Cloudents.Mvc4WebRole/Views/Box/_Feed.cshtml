@@ -151,14 +151,22 @@
             <ul>
                 <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
                     <a bo-href="course.url" class="courseLink">
-                        <div class="rFloat">
-                            <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">@SharedResources.Friends</div>
-                            <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">@SharedResources.Files</div>
+                        <div class="rcDetails">  @*ng-class="{ rcFull : course.professor && course.courseCode }"*@
+                            <img alt="" width="46" height="46" bo-src="course.picture" />
+                            <div class="elps courseName" bo-text="course.name"></div>
+                            <span class="prof elps" bo-text="course.professor"></span>
+                            <span class="elps" bo-text="course.courseCode"></span>
                         </div>
-                        <img bo-src="course.picture" alt="" width="68" height="68" />
-                        <div class="elps courseName" bo-text="course.name"></div>
-                        <div class="elps" bo-text="course.courseCode"></div>
-                        <div class="prof elps" bo-text="course.professor"></div>
+                        <div class="rcStats">
+                            <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
+                                @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
+                                <span>@SharedResources.Friends</span>
+                            </div>
+                            <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">
+                                @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+                                <span>@SharedResources.Files</span>
+                            </div>
+                        </div>
                     </a>
                 </li>
             </ul>

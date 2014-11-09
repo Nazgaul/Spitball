@@ -153,7 +153,9 @@
   border: 1px solid #aaa;
   position: absolute;
   top: 142px;
-  left: 96px;
+  left: 0;
+  right: 0;
+  margin: auto;
   border-radius: 3px;
   background: #fff;
 }

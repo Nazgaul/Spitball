@@ -534,10 +534,6 @@
   right: 4px;
   left: auto;
 }
-.podium {
-  right: 96px;
-  left: auto;
-}
 .podium:before,
 .podium:after {
   right: -83px;
