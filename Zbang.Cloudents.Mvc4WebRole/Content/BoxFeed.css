@@ -471,6 +471,7 @@
 .bestUserList {
   text-align: center;
   counter-reset: leaderBoard;
+  min-height: 180px;
 }
 .bestUserList .firstUser,
 .bestUserList .secondUser,
