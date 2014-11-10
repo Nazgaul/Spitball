@@ -48,8 +48,8 @@ mDashboard.controller('InviteCloudentsCtrl',
                         dfd.reject();
                     });
 
-                }, function () {
-                    alert('Error');
+                }, function (response) {
+                    alert(response);
                     dfd.reject();
                 });
                 return dfd.promise;
