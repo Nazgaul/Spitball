@@ -1,11 +1,10 @@
 ﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
-       'sModal','$q',
-      'sDashboard', 'sBox',
+       'sModal','sDashboard', 'sBox',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
     "use strict";
     var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
@@ -48,15 +47,7 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
         sDashboard.disableFirstTime();
     }
 
-    $q.all([sDashboard.boxList(), sDashboard.sideBar()]).then(function (response) {
-        var boxList = response[0],
-            sideBar = response[1];
-
-        mapBoxes(boxList);
-        if (!boxList.length) {
-            firstTimeDashboard();
-        }
-
+    sDashboard.sideBar().then(function(sideBar){
         $scope.params = {
             name:sideBar.info.name,
             image:sideBar.info.img
@@ -70,16 +61,27 @@ function ($scope, $rootScope, $timeout, sModal,$q, sDashboard, sBox, sUser, sNew
         };
         
         $scope.recommendedCourses = sideBar.recommended;
-      
+        $analytics.setVariable('dimension1', sideBar.info.uniName);
+
+    });
+        
+    sDashboard.boxList().then(function (boxList) {
+        if (!boxList.length) {
+            firstTimeDashboard();
+        }
+        mapBoxes(boxList);
+
         $scope.contentLoaded = true;
-        $scope.$broadcast('update-scroll');
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });
-        $analytics.setVariable('dimension1', sideBar.info.uniName);
+
+    });
+       
+    
         
-        
-    });  
+
+      
 
     $scope.removeBox = function (box) {
         cd.confirm2($scope.removeConfirm(box)).then(function () {

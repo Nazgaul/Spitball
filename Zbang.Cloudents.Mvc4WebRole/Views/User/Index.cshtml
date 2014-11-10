@@ -154,10 +154,10 @@
                 <div class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
                     <ul>
                         <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
-                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" bo-src="answer.boxPicture" />
+                            <img class="lFloat imgBorder" alt="" width="28" height="36" bo-src="answer.boxPicture" />
                             <span class="qaBoxname elps" bo-text="answer.boxName"></span>
                             <div class="qaWpr">
-                                <img class="lFloat imgBorder" src="" alt="" width="33" height="33" bo-src="answer.qUserImage" />
+                                <img class="lFloat imgBorder" alt="" width="33" height="33" bo-src="answer.qUserImage" />
                                 <span class="qaUsername semiFont elps" bo-text="answer.qUserName"></span>
                                 <div class="qaQuestion" bo-html="answer.qContent"></div>
                                 <div class="answeredBy elps" bo-text="profile.name"></div>
@@ -259,13 +259,13 @@
                     <ul class="upInviteList">
                         <li class="upInviteItem" ng-repeat="invite in invites.list | limitTo: invites.limit" ng-class="{ upPending: !invite.status}">
                             <img class="userItemImg" width="74" height="74" bo-src="invite.userImage" />
-                            <div class="usrName semiFont elps" bo-text="invite.username"></div>
+                            <div class="usrName semiFont elps" bo-text="invite.userName"></div>
                             <div class="inviteStatus" bo-text="invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'"></div>
                             <div class="invitedToWpr">
                                 <img class="upImg" alt="" width="28" height="36" bo-src="invite.boxPicture" />
                                 <div class="invitedTo" bo-text="invite.boxName || 'Cloudents'"></div>
                             </div>
-                            <button type="button" class="btn1" ng-if="invite.inviteType==='invite'" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
+                            <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(UserName)" ng-disabled="invite.submitted">{{invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
                         </li>
                     </ul>
 
