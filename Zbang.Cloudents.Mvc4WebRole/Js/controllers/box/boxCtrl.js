@@ -1,5 +1,4 @@
-﻿
-var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
+﻿var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
          'sModal', '$location','$filter', '$timeout','$analytics',
