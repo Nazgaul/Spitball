@@ -17,7 +17,7 @@
                 </header>
                 <div class="podium"></div>
                 <ol class="bestUserList" bindonce>
-                    <li ng-if="leaderBoard.first" class="firstuser" user-tooltip-popup="{{leaderBoard.first.id}}">
+                    <li ng-if="leaderBoard.first" class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
                         <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.first.image" alt="" width="48" height="48" /></a>
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
                         <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.first.score | kNumber"></div>
