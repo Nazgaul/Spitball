@@ -5,7 +5,7 @@
 .boxFeed ~ .boxSideBar .recommendedWpr {
   right: 30px;
   left: auto;
-  padding: 8px 28px 12px 20px;
+  padding: 8px 12px 12px 0;
 }
 .boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   text-align: left;
