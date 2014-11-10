@@ -489,18 +489,14 @@
   height: auto;
   line-height: normal;
   text-align: center;
-  border: none;
   margin-bottom: 15px;
+  display: inline-block;
 }
 .bestUserList .firstUser:before,
 .bestUserList .secondUser:before,
 .bestUserList .thirdUser:before {
-  /*display: block;
-            position: absolute;
-            left: 0;right: 0;
-            margin: auto;
-            top: 102px;*/
-  display: none;
+  position: absolute;
+  visibility: hidden;
 }
 .bestUserList .firstUser .rep,
 .bestUserList .secondUser .rep,
@@ -528,15 +524,24 @@
 }
 .bestUserList li {
   position: relative;
-  border-top: 1px solid #c2c2c2;
-  display: inline-block;
+  display: block;
   width: 100%;
   height: 50px;
   line-height: 50px;
   vertical-align: middle;
   text-align: left;
-  /*&:nth-child(-n + 3) {
-        }*/
+}
+.bestUserList li:nth-child(n + 4) {
+  margin: 0 -50px;
+  padding: 0 15px;
+  clear: both;
+  width: 336px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bestUserList li:nth-child(n + 4):hover {
+  background: #eee;
 }
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
