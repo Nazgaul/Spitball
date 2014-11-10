@@ -331,14 +331,14 @@ mUser.controller('UserCtrl',
             },
             reInvite: function (invite) {
                 if (invite.inviteType === 'inviteToCloudents') {
-                    sShare.invite.cloudents({ recepients: [invite.userid] }).then(function () { });
+                    sShare.invite.cloudents({ recepients: [invite.email] }).then(function () { });
                     return;
                 }
 
                 $analytics.eventTrack('User Invites', {
                     category: 'Reinvite'
                 });
-                sShare.invite.box({ boxId: invite.boxId, recepients: [invite.userid] }).then(function () { });
+                sShare.invite.box({ boxId: invite.boxId, recepients: [invite.email] }).then(function () { });
 
                 invite.submitted = true;
             }

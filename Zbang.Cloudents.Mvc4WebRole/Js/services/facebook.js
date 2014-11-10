@@ -190,7 +190,7 @@
 
                setTimeout();
 
-               FB.api('/me/feed', 'post', { message: text, link: link }, function () {
+               FB.api('/me/feed', 'post', { message: text, link: encodeURI(link) }, function () {
                });
 
                function setTimeout() {

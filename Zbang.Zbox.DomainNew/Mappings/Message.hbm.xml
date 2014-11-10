@@ -46,6 +46,8 @@
     <subclass name="InviteToBox" discriminator-value="Invite" >
       <many-to-one column="BoxId" class="Box" name="Box" foreign-key="InviteBoxBoxId" not-null="false"/>
       <many-to-one column="UserBoxRelId" class="UserBoxRel" name="UserBoxRel" not-null="false" foreign-key="InviteUserBoxRelId" />
+      <property name="Read" column="IsRead" not-null="false" />
+      <property name="New" not-null="false" />
      </subclass>
     <subclass name="InviteToSystem" discriminator-value="InviteToCloudents" >
     </subclass>
