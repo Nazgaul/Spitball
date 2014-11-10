@@ -525,7 +525,6 @@
 /*#region setup course 'popups' */
 .formWpr {
   width: 650px;
-  margin: -32px auto 0;
   padding: 25px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -982,7 +981,7 @@
   cursor: pointer;
 }
 .uploadSrcWpr {
-  height: 300px;
+  height: 259px;
   margin: 0 -25px -60px -25px;
   background: #eee;
   border-radius: 0 0 5px 5px;
@@ -994,7 +993,7 @@
 .uploadSrcWpr button:before {
   content: '';
   background: url(/Images/site.png?v=3) no-repeat;
-  margin: 85px auto 10px;
+  margin: 50px auto 10px;
   display: block;
 }
 .uploadSrcWpr .linkBtn:before {
