@@ -71,7 +71,7 @@
                 member.action = true;
                 $timeout(function () { member.reinvited = true; }, 10);
                 member.action = false;
-                sBox.invite({ Recepients: [member.id], boxUid: $scope.info.boxId }).then(function () { //uid
+                sBox.invite({ Recepients: [member.email], boxUid: $scope.info.boxId }).then(function () { //uid
                     member.action = false;
                 });
                 $analytics.eventTrack('Box Members', {
