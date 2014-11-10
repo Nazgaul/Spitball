@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Zbox.Infrastructure.Culture
 @model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
@@ -32,13 +33,25 @@
     @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
     <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
-    @Html.DropDownListFor(m => m.Language.Language,
+    
+    @*TODO: find a way to make this automatically*@
+    
+    @*@Html.DropDownListFor(m => m.Language.Language,
             Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
             {
-                Selected = s.Culture == System.Threading.Thread.CurrentThread.CurrentUICulture.Name,
+                Selected = s.Culture == System.Threading.Thread.CurrentThread.CurrentUICulture.Name,                
                 Text = s.Name,
-                Value = s.Culture
-            }), new { @class = "inputText rFloat", id = "dLangSelect" })
+                Value = s.Culture,                
+            }), new { @class = "inputText rFloat", id = "dLangSelect", data_href = Url.Action("ChangeLocale", "Account", new { Lang = S.Culture }) })*@
+
+    <select class="inputText rFloat" id="dLangSelect" name="Language">
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+    </select>
 
     @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox"})
     @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })

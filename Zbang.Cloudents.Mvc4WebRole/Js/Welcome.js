@@ -85,6 +85,29 @@
     });
     //#endregion    
 
+    $('#dLangSelect').change(function (e) {
+        var data = $('#registerForm').serializeArray();
+        var x = [];
+        for (var d in data) {
+            if (data[d].name === 'FirstName' || data[d].name === 'LastName' || data[d].name === 'NewEmail') {
+                x.push(data[d]);
+            }
+        }
+        sessionStorage.setItem('registerForm', JSON.stringify(x));
+        window.location.href = this.getAttribute('data-href');
+    });
+    $(function () {
+        var data = sessionStorage.getItem('registerForm');
+        if (!data) {
+            return;
+        }
+        var arr = JSON.parse(data);
+        for (var i = 0; i < arr.length ; i++) {
+            $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
+        }
+        sessionStorage.removeItem('registerForm');
+    });
+
     //mobile view
     $('#langSelect').val(cd.getCookie('lang') || 'en-US').change(function () {
         cd.setCookie('lang', $(this).val(), 10);

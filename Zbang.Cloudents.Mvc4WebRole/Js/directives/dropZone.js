@@ -12,6 +12,9 @@ app.directive('dropZone', ['$modalStack', function ($modalStack) {
                     if ($modalStack.getTop()) {
                         return;
                     }
+                    if (e.dataTransfer.types.indexOf('Files') === -1) {
+                        return;
+                    }
                     elem.show();                    
                 }
                 

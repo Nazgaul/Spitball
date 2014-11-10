@@ -81,8 +81,8 @@
                     });
 
 
-                }, function () {
-                    alert('Error');
+                }, function (response) {
+                    alert(response);
                     dfd.reject();
                 });
 
