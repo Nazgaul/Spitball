@@ -2,9 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.boxPage {
-  overflow-x: hidden;
-}
 .boxPage .leftPanel {
   border: none;
   height: 100%;
@@ -65,8 +62,14 @@
   width: 100%;
   height: 100%;
   padding-left: 243px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.boxActions.topBar {
+.boxTopBar {
+  white-space: nowrap;
+}
+.boxTopBar.topBar {
   width: -webkit-calc(100% - 243px);
   width: calc(100% - 243px);
   background: #282828;
@@ -77,8 +80,11 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.boxActions .inviteFriendsBtn {
+.boxTopBar .inviteFriendsBtn {
   margin-top: 16px;
+}
+.boxActions {
+  display: inline-block;
 }
 .boxTabs {
   display: inline-block;
@@ -501,12 +507,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
-  width: -webkit-calc(100% - 243px);
-  width: calc(100% - 243px);
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
   position: relative;
-  overflow: hidden;
 }
 .box-content .membersContent {
   max-width: 706px;

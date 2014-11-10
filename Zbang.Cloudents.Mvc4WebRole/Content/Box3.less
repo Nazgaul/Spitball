@@ -1,8 +1,6 @@
 ﻿@import "varsAndMixins";
 
 .boxPage {
-    overflow-x: hidden;
-
     .leftPanel {
         border: none;
         height: 100%;
@@ -58,11 +56,13 @@
     width: 100%;
     height: 100%;
     padding-left: @boxSideBarWidth; //rtl
+    .boxSizing;
 }
-.boxActions {
+.boxTopBar {
+    white-space: nowrap;
     &.topBar {
         width: ~"-webkit-calc(100% - @{boxSideBarWidth})";
-        width: ~"calc(100% - @{boxSideBarWidth})";
+        width: ~"calc(100% - @{boxSideBarWidth})";  // because the topBar is fixed this is necessary
         background:#282828;
         color:#fff;
         height: 60px;
@@ -72,6 +72,9 @@
     .inviteFriendsBtn {
         margin-top: 16px;
     }
+}
+.boxActions {
+    display: inline-block; 
 }
 .boxTabs {
     display: inline-block;    
@@ -520,12 +523,12 @@
     padding: 75px 25px 15px 25px;
     .boxSizing;
     background: #fff;
-    width: ~'-webkit-calc(100% - @{boxSideBarWidth})';
-    width: ~'calc(100% - @{boxSideBarWidth})';
+    //width: ~'-webkit-calc(100% - @{boxSideBarWidth})';
+    //width: ~'calc(100% - @{boxSideBarWidth})';
     min-height: ~'-webkit-calc(100vh - @{header-height})';
     min-height: ~'calc(100vh - @{header-height})';
     position: relative;
-    overflow: hidden; //TODO: CHECK THIS
+    //overflow: hidden; //TODO: CHECK THIS
     .membersContent {
         max-width: 706px;
         .searchWpr {

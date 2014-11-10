@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.feedfullWpr {
+  white-space: nowrap;
+}
 .boxFeed {
   width: 598px;
   color: #383838;
@@ -31,6 +34,12 @@
 .boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   width: 95px;
   text-align: right;
+}
+.boxSideBar .leaderBoard {
+  padding: 20px 50px 0 50px;
+}
+.boxSideBar .podium {
+  top: 136px;
 }
 .feedForm {
   position: relative;

@@ -2478,7 +2478,7 @@ select.inputText {
     body {
         .siteHeader,
         .boxPage .leftPanel,
-        .boxPage .boxActions,
+        .boxPage .boxTopBar,
         .asideDash,
         .settingsMenu,
         .itemPage .leftPanel,
@@ -2516,7 +2516,7 @@ select.inputText {
             }
         }
 
-        .boxPage .boxActions, .boxesHeader.topBar {
+        .boxPage .boxTopBar, .boxesHeader.topBar {
             position: static;
         }
 
