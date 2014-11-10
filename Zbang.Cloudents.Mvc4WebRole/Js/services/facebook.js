@@ -1,7 +1,6 @@
-﻿
-app.factory('sFacebook',
-   ['$rootScope','$q', '$analytics', '$timeout', 'sShare',
-   function ($rootScope, $q, $analytics, $timeout, sShare) {
+﻿app.factory('sFacebook',
+   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare',
+   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare) {
        "use strict";
        var isAuthenticated = false,
            accessToken,
@@ -30,6 +29,10 @@ app.factory('sFacebook',
            js.src = "//connect.facebook.net/en_US/all.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
+
+       var cache = $angularCacheFactory('facebookPost', {
+           maxAge: 300000
+       });
 
        function loginStatus() {
            var retries = 0,
@@ -175,21 +178,26 @@ app.factory('sFacebook',
                    return;
                }
 
-               if (alreadySent) {
+               
+               var isSent = cache.get('isSent');
+               
+               if (isSent) {
+                   setTimeout();
                    return;
                }
 
-               alreadySent = true;
+               
+
+               setTimeout();
 
                FB.api('/me/feed', 'post', { message: text, link: link }, function () {
                });
 
-               $timeout(function () {
-                   alreadySent = false;
-               }, 6000000);
-
-
-
+               function setTimeout() {
+                   $timeout(function () {
+                       cache.put('isSent', true);
+                   }, 1000);
+               }
            },
            getToken: function () {
                var defer = $q.defer();

@@ -1,8 +1,8 @@
 ﻿app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload', '$timeout',
+        'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics',
 
-    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout) {
+    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics) {
         "use strict";
         $scope.sources = {
             dropboxLoaded: false,

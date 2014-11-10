@@ -1,8 +1,8 @@
 ﻿mLibrary.controller('CreateDepartmentCtrl',
         ['$scope',
          '$modalInstance',         
-
-         function ($scope, $modalInstance) {
+'$analytics',
+         function ($scope, $modalInstance, $analytics) {
              "use strict";
              $scope.formData = {};
 

@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', 'sModal', 'sBox', '$timeout',
-        function ($scope, $filter, sModal, sBox, $timeout) {
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout','$analytics',
+        function ($scope, $filter, sModal, sBox, $timeout, $analytics) {
             "use strict";
             //Members
 

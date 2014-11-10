@@ -1,7 +1,7 @@
 ﻿
 app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService',
-    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService) {
+    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService','$analytics',
+    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService, $analytics) {
         "use strict";
         $scope.params = {
             maxItems: 6,

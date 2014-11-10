@@ -1,8 +1,8 @@
 ﻿
 angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
-    ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout',
-         function ($scope, $routeParams, sShare, sFocus, $timeout) {
+    ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout','$analytics',
+         function ($scope, $routeParams, sShare, sFocus, $timeout, $analytics) {
              "use strict";
              var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/),
                  sendFunc, sendObj = {};

@@ -16,10 +16,11 @@ controller('SearchCtrl',
 ['$scope',
 '$timeout',
 '$location',
+'$analytics',
 'sSearch',
 'textDirectionService',
 'constants',
-function ($scope, $timeout, $location, sSearch, textDirectionService, constants) {
+function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService, constants) {
     "use strict";
     $scope.params = {
         currentPage: 0,

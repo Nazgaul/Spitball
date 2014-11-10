@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
-        function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz) {
             "use strict";
 
             var jsResources = window.JsResources;
@@ -21,7 +21,7 @@
                 starsLength: 5,
                 starsWidth: 69,
             };
-            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (quizzes) {                
+            sBox.quizes({ id: $scope.boxId, pageNumber: 0 }).then(function (quizzes) {
                 $scope.quizzes = _.map(quizzes, function (quiz) {
                     sNewUpdates.isNew($scope.boxId, 'quizzes', quiz.id, function (isNew) {
                         quiz.isNew = isNew;
@@ -66,7 +66,7 @@
                         id: quiz.id,
                     }
 
-                    sQuiz.delete(data).then(remove,function() {
+                    sQuiz.delete(data).then(remove, function () {
                         alert('error deleting ' + quiz.name); //translate
                     });
                     $analytics.eventTrack('Box Quizzes', {
@@ -104,7 +104,7 @@
                     $timeout(function () {
                         $rootScope.options.quizOpen = true;
                     });
-                }                
+                }
             };
 
             //#region view
@@ -161,7 +161,7 @@
                 $scope.quizzes.unshift(quizItem); //add quiz
 
                 calcQuizCount();
-                
+
             });
 
             $scope.$on('QuizDeleted', function (e, data) {
@@ -181,7 +181,7 @@
 
                 $scope.quizzes.splice(index, 1);
                 calcQuizCount();
-                
+
             });
 
             function sort(a, b) {

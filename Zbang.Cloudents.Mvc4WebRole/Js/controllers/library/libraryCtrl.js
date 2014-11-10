@@ -1,8 +1,8 @@
 ﻿
 var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
-function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
+    ['$scope', '$location','$filter', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
+function ($scope, $location, $filter, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
     "use strict";
     var jsResources = window.JsResources;
 
@@ -141,9 +141,12 @@ function ($scope, $location, $routeParams, $timeout, sModal, sUserDetails, sFace
     //};
 
     $scope.subscribe = function (box) {
+        sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [box.name]), box.url);
+
+
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
-        sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [box.name]), box.url);
+        
 
 
         //cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');

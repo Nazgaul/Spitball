@@ -1,5 +1,4 @@
-﻿
-var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
+﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
        'sModal','$q',

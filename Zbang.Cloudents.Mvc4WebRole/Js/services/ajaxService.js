@@ -1,5 +1,4 @@
-﻿
-app.factory('ajaxService',
+﻿app.factory('ajaxService',
     ['$http',
      '$q',
      '$angularCacheFactory',
