@@ -4,7 +4,7 @@
 /*#endregion */
 .settingsMenu {
   width: 263px;
-  background: #fff;
+  background: #eee;
   border-right: 1px solid #c2c2c2;
   position: fixed;
   top: 44px;
@@ -36,7 +36,7 @@
   padding: 30px 20px 0 288px;
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
-  background: #eee;
+  background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
