@@ -928,6 +928,7 @@
   height: 30px;
   line-height: 15px;
   overflow: hidden;
+  direction: ltr;
 }
 .socialList button {
   color: #0371c8;
