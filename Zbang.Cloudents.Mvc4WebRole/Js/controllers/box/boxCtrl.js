@@ -200,6 +200,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                                 $scope.info.name = result.name;
                                 $scope.info.privacy = result.boxPrivacy;
+                                $scope.info.professor = result.professor;
+                                $scope.info.courseId = result.courseCode;
 
                                 if (!result.queryString) {
                                     return;
