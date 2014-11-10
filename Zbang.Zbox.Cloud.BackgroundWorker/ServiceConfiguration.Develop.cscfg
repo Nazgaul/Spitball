@@ -12,6 +12,8 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-03-28T23:59:59.0000000+03:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
+      <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
+      <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
       <Setting name="SyncHatavotTimeInSeconds" value="5" />
     </ConfigurationSettings>
     <Certificates>

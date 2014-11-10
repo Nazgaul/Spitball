@@ -235,6 +235,42 @@ aside li.currentItem {
 aside .last {
   margin-bottom: 30px;
 }
+.en-US a:first-item {
+  color: #a7a7a7;
+}
+.en-US li:firstitem {
+  opacity: 1;
+}
+.en-GB a:nth-child(2) {
+  color: #a7a7a7;
+}
+.en-GB li:nth-child(2) {
+  opacity: 1;
+}
+.ru-RU a:nth-child(3) {
+  color: #a7a7a7;
+}
+.ru-RU li:nth-child(3) {
+  opacity: 1;
+}
+.he-IL a:nth-child(4) {
+  color: #a7a7a7;
+}
+.he-IL li:nth-child(4) {
+  opacity: 1;
+}
+.ar-AE a:nth-child(5) {
+  color: #a7a7a7;
+}
+.ar-AE li:nth-child(5) {
+  opacity: 1;
+}
+.zh-CN a:nth-child(6) {
+  color: #a7a7a7;
+}
+.zh-CN li:nth-child(6) {
+  opacity: 1;
+}
 /*#endregion */
 .headerActions {
   margin-top: 2px;

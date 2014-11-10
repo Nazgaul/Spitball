@@ -39,8 +39,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var id = m_IdGenerator.GetId();
             message.Id = id;
-            var invite = new InviteToSystem(id, sender, message.FacebookUserName,
-                m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal)
+            var invite = new InviteToSystem(id, sender, 
+                m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal),
+                message.FacebookUserName
                );
             m_InviteToCloudents.Save(invite);
         }
