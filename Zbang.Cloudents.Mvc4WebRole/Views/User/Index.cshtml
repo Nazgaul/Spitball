@@ -27,58 +27,56 @@
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
         </div>
 
-        @if (ViewBag.Admin)
-        {
-            <section class="upMembers" ng-if="admin.visible()">
-                <h2>@UserResources.UniMembers</h2>
-                <div class="membersContent" ng-class="{noResults : admin.members.list && !admin.members.list.length}">
-                    <div class="membersTop">
-                        <input id="upMemberSettings" ng-checked="admin.members.selectAll" ng-click="toggleSelectAll()" type="checkbox" class="checkbox" />
-                        <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
-                        <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()" ng-show="admin.members.selected > 0">@SharedResources.Message</button>
-                        <div class="searchWpr rFloat">
-                            <span class="membersCount lFloat">{{admin.members.fullList.length + ' @SharedResources.Members'}}</span>
-                            <div class="inputWpr">
-                                <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" ng-keyup="filterMembers()" ng-model="admin.members.search" />
-                            </div>
+        <section class="upMembers" ng-if="admin.visible()">
+            <h2>@UserResources.UniMembers</h2>
+            <div class="membersContent" ng-class="{noResults : admin.members.list && !admin.members.list.length}">
+                <div class="membersTop">
+                    <input id="upMemberSettings" ng-checked="admin.members.selectAll" ng-click="toggleSelectAll()" type="checkbox" class="checkbox" />
+                    <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
+                    <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()" ng-show="admin.members.selected > 0">@SharedResources.Message</button>
+                    <div class="searchWpr rFloat">
+                        <span class="membersCount lFloat">{{admin.members.fullList.length + ' @SharedResources.Members'}}</span>
+                        <div class="inputWpr">
+                            <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember" ng-keyup="filterMembers()" ng-model="admin.members.search" />
                         </div>
                     </div>
-                    <div class="memberTopRow">
-                        <span class="memberCol">@SharedResources.Name</span>
-                        <input type="checkbox" class="checkbox" id="cbDept" />
-
-                        <span class="dateCol">@UserResources.JoinDate</span>
-                        <span class="courseCol">@SharedResources.Courses</span>
-                        <label for="cbDept" class="deptCol" ng-click="sortByDeptartment()">@SharedResources.Department</label>
-                        <div id="deptPopup" class="deptPopup">
-                            <ul>
-
-                                <li ng-repeat="department in admin.departments">
-                                    <input id="{{'dep_' + department.id}}" ng-class="{selected : department.isChecked}" type="checkbox" class="checkbox" ng-model="department.isChecked" />
-                                    <label for="{{'dep_' + department.id}}" class="cbLabel">{{department.name + ' ' + department.year}}</label>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
-                        <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
-                            <input id=" {{'mbr_' + member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
-                            <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
-                                <img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" />
-                                <span class="upMemberName elps">{{member.name}}</span>
-                            </label>
-
-                            <span class="dateCol">{{member.joinDate | date:'dd/MM/yyyy'}}</span>
-                            <span class="courseCol"><span class="courseList" department-tooltip-popup department-user-id="{{member.id}}" department-append-to-body="true"></span></span>
-                            <span class="deptCol elps">{{member.department}}</span>
-
-                        </li>
-                    </ul>
-                    <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
                 </div>
-            </section>
-        }
+                <div class="memberTopRow">
+                    <span class="memberCol">@SharedResources.Name</span>
+                    <input type="checkbox" class="checkbox" id="cbDept" />
+
+                    <span class="dateCol">@UserResources.JoinDate</span>
+                    <span class="courseCol">@SharedResources.Courses</span>
+                    <label for="cbDept" class="deptCol" ng-click="sortByDeptartment()">@SharedResources.Department</label>
+                    <div id="deptPopup" class="deptPopup">
+                        <ul>
+
+                            <li ng-repeat="department in admin.departments">
+                                <input id="{{'dep_' + department.id}}" ng-class="{selected : department.isChecked}" type="checkbox" class="checkbox" ng-model="department.isChecked" />
+                                <label for="{{'dep_' + department.id}}" class="cbLabel">{{department.name + ' ' + department.year}}</label>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
+                    <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
+                        <input id=" {{'mbr_' + member.id}} " type=" checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
+                        <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
+                            <img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" />
+                            <span class="upMemberName elps">{{member.name}}</span>
+                        </label>
+
+                        <span class="dateCol">{{member.joinDate | date:'dd/MM/yyyy'}}</span>
+                        <span class="courseCol"><span class="courseList" department-tooltip-popup department-user-id="{{member.id}}" department-append-to-body="true"></span></span>
+                        <span class="deptCol elps">{{member.department}}</span>
+
+                    </li>
+                </ul>
+                <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
+            </div>
+        </section>
+
         <aside class="upSidebar rFloat">
             <section ng-if="!admin.visible()">
                 <h2>@SharedResources.Points</h2>
@@ -138,12 +136,12 @@
                     <ul>
                         <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
                             <img class="lFloat imgBorder" src="" alt="" width="28" height="36" bo-src="question.boxPicutre" />
-                        <span class="qaBoxname elps" bo-text="question.boxName"></span>
-                        <div class="qaWpr">
-                            <div class="qaQuestion" bo-html="question.content"></div>
-                            <a class="qLink rFloat" href="" bo-href="question.url" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
-                            <span class="qAnswerCount" data-up-qacount="{{qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
-                        </div>
+                            <span class="qaBoxname elps" bo-text="question.boxName"></span>
+                            <div class="qaWpr">
+                                <div class="qaQuestion" bo-html="question.content"></div>
+                                <a class="qLink rFloat" href="" bo-href="question.url" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
+                            </div>
                         </li>
                     </ul>
 
@@ -179,8 +177,8 @@
             <section class="upCourses" ng-if="!profile.isSelf" ng-class="{noCourses : !(boxes.following.list.length || boxes.common.list.length) }">
                 <h2>@UserResources.CoursesGroups</h2>
                 <div class="upSectionWpr"
-                      ng-class="{truncated : !((boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf)}"
-                      load-spinner="boxes.loading">
+                     ng-class="{truncated : !((boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf)}"
+                     load-spinner="boxes.loading">
                     <span ng-if="boxes.common.list.length">
                         <h4 class="semiFont">@UserResources.InCommon</h4>
                         <ul class="inCommonList clearfix">

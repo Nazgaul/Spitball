@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        public const int AdminReputation = 1000000;
+        //public const int AdminReputation = 1000000;
        
         [NoCache]
         public async Task<ActionResult> Index(long userId, string userName)
@@ -32,22 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.Admin = false;
 
             var model = await GetUserProfile(id);
-
-            if (id != User.GetUserId())
-            {
-                var userProfile = await GetUserProfile(User.GetUserId());
-                if (userProfile.Score > AdminReputation)
-                {
-                    ViewBag.Admin = true;
-                }
-            }
-            else
-            {
-                if (model.Score > AdminReputation)
-                {
-                    ViewBag.Admin = true;
-                }
-            }
+          
             if (UrlBuilder.NameToQueryString(model.Name) != userName)
             {
                 return RedirectToAction("Index", "Error");
@@ -135,11 +120,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
 
-                var usermodel = await GetUserProfile(User.GetUserId());
-                if (usermodel.Score < AdminReputation)
-                {
-                    return Json(new JsonResponse(false));
-                }
+                //var usermodel = await GetUserProfile(User.GetUserId());
+                //if (usermodel.Score < AdminReputation)
+                //{
+                //    return Json(new JsonResponse(false));
+                //}
                 var universityId = userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
