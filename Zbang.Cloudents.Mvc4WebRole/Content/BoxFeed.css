@@ -81,7 +81,7 @@
   display: none;
 }
 .feedImg {
-  border-radius: 3px;
+  border-radius: 100%;
   margin-right: 15px;
   border: 1px solid #c2c2c2;
   -webkit-box-sizing: border-box;
