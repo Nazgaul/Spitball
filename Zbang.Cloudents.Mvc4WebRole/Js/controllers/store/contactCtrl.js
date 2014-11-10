@@ -14,7 +14,10 @@ app.controller('ContactCtrl',
                 return;
             }
 
-            //TODO analytics
+            $analytics.eventTrack('Store Contact', {
+                category: 'Submit Form'
+            });
+
 
             Store.contact($scope.formData).then(function() {               
 

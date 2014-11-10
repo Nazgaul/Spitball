@@ -76,7 +76,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }
     };
     $scope.fullScreenWindow = function () {
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Full Screen'
+        });
         $location.hash('fullscreen');
 
         sModal.open('itemFullscreen', {
@@ -105,7 +107,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                 }
             }
         });
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Flag Item'
+        });
     };
 
     $scope.renameWindow = function () {
@@ -122,7 +126,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             }
         });
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Rename Popup'
+        });
     };
     $scope.create = function (isValid) {
         if (!isValid) {
@@ -149,7 +155,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.commentp = false;
         });
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Add Comment'
+        });
     };
     $scope.deleteComment = function (comment) {
         sItem.deleteComment({ CommentId: comment.id }).then(function () {
@@ -160,7 +168,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             alert(response);
         });
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Delete Comment'
+        });
     };
     $scope.deleteReply = function (reply, comment) {
         sItem.deleteReply({ ReplyId: reply.id }).then(function () {
@@ -170,7 +180,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }, function (response) {
             alert(response);
         });
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Delete Reply'
+        });
     };
     $scope.canDelete = function (id) {
         return id == sUserDetails.getDetails().id; //id is string
@@ -208,7 +220,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             comment.replyp = false;
         });;
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Add Reply'
+        });
     };
 
     //#region share
@@ -223,19 +237,25 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
            cd.pubsub.publish('addPoints', { type: 'shareFb' });
        });
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Share Facebook'
+        });
     };
 
     $scope.shareEmail = function () {
         $scope.popup.share = false;
 
         sModal.open('shareEmail');
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Share Email'
+        });
     };
     $scope.rate = function (t) {
         sItem.rate({ ItemId: itemId, rate: t });
 
-        //TODO analytics
+        $analytics.eventTrack('Item', {
+            category: 'Rate Item'
+        });
     };
 }
         ]);

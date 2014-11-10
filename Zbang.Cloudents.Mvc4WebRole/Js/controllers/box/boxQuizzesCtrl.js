@@ -1,5 +1,4 @@
-﻿
-mBox.controller('BoxQuizzesCtrl',
+﻿mBox.controller('BoxQuizzesCtrl',
 		['$scope', '$rootScope', '$timeout', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
         function ($scope, $rootScope, $timeout, sBox, sNewUpdates, sUserDetails, sQuiz) {
             "use strict";
@@ -45,7 +44,9 @@ mBox.controller('BoxQuizzesCtrl',
                     return;
                 }
 
-                //TODO analytics 
+                $analytics.eventTrack('Box Quizzes', {
+                    category: 'Add Quiz'
+                });
 
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
                 $timeout(function () {
@@ -68,7 +69,9 @@ mBox.controller('BoxQuizzesCtrl',
                     sQuiz.delete(data).then(remove,function() {
                         alert('error deleting ' + quiz.name); //translate
                     });
-                    //TODO analytics
+                    $analytics.eventTrack('Box Quizzes', {
+                        category: 'Remove Quiz'
+                    });
                 });
 
                 function remove() {
@@ -93,12 +96,15 @@ mBox.controller('BoxQuizzesCtrl',
 
             $scope.selectQuiz = function (e, item) {
                 if (!item.publish) {
-                    //TODO analytics edit draft
+                    $analytics.eventTrack('Box Quizzes', {
+                        category: 'Edit Quiz'
+                    });
+
                     $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
                     $timeout(function () {
                         $rootScope.options.quizOpen = true;
                     });
-                }
+                }                
             };
 
             //#region view
@@ -110,7 +116,10 @@ mBox.controller('BoxQuizzesCtrl',
                 $scope.qOptions.lastView = $scope.qOptions.currentView;
                 $scope.qOptions.currentView = view;
 
-                //TODO analytics
+                $analytics.eventTrack('Box Quizzes', {
+                    category: 'Change View',
+                    label: 'User changed view to ' + view
+                });
             };
 
             $scope.getView = function () {

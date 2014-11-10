@@ -10,13 +10,11 @@ mBox.controller('UploadPopupCtrl',
 
 
         $scope.close = function () {
-            $modalInstance.close();
-            //TODO analytics close for box with uploaded files
+            $modalInstance.close();            
         };
 
         $scope.dismiss = function () {
-            $modalInstance.dismiss();
-            //TODO analytics close fox box no files
+            $modalInstance.dismiss();            
         };
 
     }

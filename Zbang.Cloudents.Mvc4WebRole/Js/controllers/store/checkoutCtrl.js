@@ -113,7 +113,10 @@
                 return;
             }
 
-            //TODO analytics
+            $analytics.eventTrack('Store Checkout', {
+                category: 'Step two'                
+            });
+
             $scope.page.step = 2;
             $window.scrollTo(0, 0);
         };
@@ -130,7 +133,10 @@
                 return feature.id;
             });
 
-            //TODO analytics
+            $analytics.eventTrack('Store Checkout', {
+                category: 'Order'
+            });
+
 
             Store.order($scope.formData).then(function (response) {
                 $location.path(response.url);

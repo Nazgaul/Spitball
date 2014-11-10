@@ -32,7 +32,9 @@
              sBox.updateInfo($scope.formData).then(function (response) {
                  $scope.formData.queryString = response.queryString;
                  $modalInstance.close($scope.formData);
-                 //TODO analytics 
+                 $analytics.eventTrack('Box Settings', {
+                     category: 'Save Settings'
+                 });
 
              }, function (response) {
                  alert(response[0].value[0]);
@@ -41,7 +43,9 @@
 
          $scope.cancel = function () {
              $modalInstance.dismiss();
-             //TODO analytics 
+             $analytics.eventTrack('Box Settings', {
+                 category: 'Cancel'
+             });
          };
 
          $scope.delete = function () {
@@ -50,7 +54,10 @@
                  $location.path('/dashboard/');
              });
 
-             //TODO analytics 
+             $analytics.eventTrack('Box Settings', {
+                 category: 'Delete/Unfollow',
+                 label: 'User deleted or unfollowed a box'
+             });
          };
          var jsResources = window.JsResources;
          $scope.deleteOrUnfollow = function () {
@@ -74,7 +81,9 @@
                  invite: true
              });
 
-             //TODO analytics 
+             $analytics.eventTrack('Box Settings', {
+                 category: 'Invite Friends'
+             });
          };
      }
     ]);

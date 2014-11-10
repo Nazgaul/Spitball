@@ -33,23 +33,29 @@ mDashboard.controller('CreateBoxWizardCtrl',
             $scope.cancel = function () {
                 if (!$scope.box.url) {
                     $modalInstance.dismiss();
-                    //TODO analytics
+                    $analytics.eventTrack('Box Wizard', {
+                        category: 'Cancel'
+                    });
                     return;
                 }
 
+           
                 wizard.finish();
             };
 
             $scope.invite = function (contact) {
-                //TODO analytics
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function() {                    
+                $analytics.eventTrack('Box Wizard', {
+                    category: 'Invite'
+                });
+
+                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {
                 }, function () {
                     alert('Error');
                 });
             };
 
             $scope.inviteFacebook = function (contact) {
-                //TODO analytics
+            
 
                 var dfd = $q.defer(),
                     data2 = {
@@ -68,6 +74,9 @@ mDashboard.controller('CreateBoxWizardCtrl',
                         to: contact.id
                     }).then(function () {
                         dfd.resolve();
+                        $analytics.eventTrack('Box Wizard', {
+                    category: 'Facebook Invite'
+                });
                     }, function () {
                         dfd.reject();
                     });
@@ -81,12 +90,14 @@ mDashboard.controller('CreateBoxWizardCtrl',
                 return dfd.promise;
             };
 
-            $scope.completeWizard = function (items) {
-                //TODO analytics
+            $scope.completeWizard = function (items) {                
                 var url = $scope.box.url;
                 $modalInstance.close({
                     url: url,
                     isItems: items
+                });
+                $analytics.eventTrack('Box Wizard', {
+                    category: 'Finish'
                 });
             };
         }]

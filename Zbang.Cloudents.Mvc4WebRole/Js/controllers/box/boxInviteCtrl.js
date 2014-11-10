@@ -1,5 +1,4 @@
-﻿
-mBox.controller('BoxInviteCtrl',
+﻿mBox.controller('BoxInviteCtrl',
         ['$scope', '$q', '$modalInstance', 'sShare', 'sFacebook', 'data',
         function ($scope, $q, $modalInstance, sShare, sFacebook, data) {
             "use strict";
@@ -10,12 +9,15 @@ mBox.controller('BoxInviteCtrl',
             };
 
             $scope.cancel = function () {
-                $modalInstance.dismiss();
-                //TODO analytics
+                $modalInstance.dismiss();                
             };
 
             $scope.invite = function (contact) {
-                //TODO analytics
+                $analytics.eventTrack('Box Invite', {
+                    category: 'Gmail/Cloudents',
+                    label: 'User invited a friend to box from google or cloudents'
+                });
+
                 sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {                    
                 }, function () {
                     alert('Error');
@@ -23,7 +25,8 @@ mBox.controller('BoxInviteCtrl',
             };
 
             $scope.inviteFacebook = function (contact) {
-                //TODO analytics
+                
+
                 var dfd = $q.defer();
 
                 var data2 = {
@@ -41,8 +44,12 @@ mBox.controller('BoxInviteCtrl',
                         path: response.url,
                         to: contact.id
                     }).then(function () {
-
                         dfd.resolve();
+
+                        $analytics.eventTrack('Box Invite', {
+                            category: 'Facebook',
+                            label: 'User invited a friend to box from facebook'
+                        });
 
                     }, function () {
                         dfd.reject();
@@ -53,6 +60,8 @@ mBox.controller('BoxInviteCtrl',
                     alert('Error');
                     dfd.reject();
                 });
+
+
 
                 return dfd.promise;
             };

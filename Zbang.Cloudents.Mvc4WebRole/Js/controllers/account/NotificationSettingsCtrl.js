@@ -21,6 +21,9 @@ mAccount.controller('NotificationSettingsCtrl',
 
             $scope.updateNotification = function (box) {
                 sBox.changeNotification({ boxId: box.id, notification: box.notifications });
-                //TODO analytics
+                $analytics.eventTrack('Account settings', {
+                    category: 'Notifications',
+                    label: 'User updated a notification'
+                });
             };
         }]);

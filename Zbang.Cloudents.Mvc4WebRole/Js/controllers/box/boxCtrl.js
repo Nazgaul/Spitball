@@ -117,7 +117,10 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                      );
                 $scope.popup.share = false;
 
-                //TODO analytics
+                $analytics.eventTrack('Box', {
+                    category: 'Facebook Share',
+                    label: 'User shared a box on facebook ' + $scope.boxId + ' ' + $scope.info.name
+                });
             };
 
             $scope.shareEmail = function () {
@@ -125,7 +128,10 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                 sModal.open('shareEmail');
 
-                //TODO analytics
+                $analytics.eventTrack('Box', {
+                    category: 'Email Share',
+                    label: 'User clicked on share by email'
+                });
             };
 
             $scope.inviteFriends = function () {
@@ -139,7 +145,10 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
-                //TODO analytics
+                $analytics.eventTrack('Box', {
+                    category: 'Invite Friends',
+                    label: 'User clicked on invite friends'
+                });
 
                 sModal.open('boxInvite', {
                     data: {
@@ -168,7 +177,10 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
-                //TODO analytics
+                $analytics.eventTrack('Box', {
+                    category: 'Settings',
+                    label: 'User clicked on box settings'
+                });
 
 
                 sBox.notification({ boxId: $scope.boxId }).then(function (notification) {
@@ -230,7 +242,10 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
-                //TODO analytics
+                $analytics.eventTrack('Box', {
+                    category: 'Follow',
+                    label: 'User followd a box ' + $scope.boxId + ' ' + $scope.info.name
+                });
 
                 sBox.follow({ BoxId: $scope.boxId }).then(function () {
                     $scope.info.membersLength++;

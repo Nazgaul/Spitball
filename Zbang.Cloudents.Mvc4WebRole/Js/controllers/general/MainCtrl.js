@@ -169,8 +169,9 @@ app.controller('MainCtrl',
                 $angularCacheFactory.removeAll();
                 window.location.href = '/account/logoff';
 
-                //TODO analytics
-
+                $analytics.eventTrack('Site Header', {
+                    category: 'Logout'
+                });
             };
 
             //$scope.info = {

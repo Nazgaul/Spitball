@@ -24,16 +24,18 @@ function ($scope, $modalInstance, data, $timeout, sItem) {
             $scope.disable = false;
         });
 
-        //TODO analytics
-
+        $analytics.eventTrack('Flag Item', {
+            category: 'Item was flagged ' + $scope.formdata.id
+        });
     }
     $scope.cancel = function () {
         if ($scope.secondStep) {
             $modalInstance.close();
         }
         $modalInstance.dismiss();
-        //TODO analytics
-
+        $analytics.eventTrack('Flag Item', {
+            category: 'Cancel'
+        });
     };
 }
 ]);

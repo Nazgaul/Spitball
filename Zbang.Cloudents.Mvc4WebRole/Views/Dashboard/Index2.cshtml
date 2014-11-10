@@ -16,16 +16,16 @@
                     <span class="lbText">@SharedResources.BestInSchool</span>
                 </header>
                 <div class="podium"></div>
-                <ol class="bestUserList">
-                    <li class="firstUser" user-tooltip-popup="{{leaderBoard.first.id}}">
-                        <img class="top3Img" ng-src="{{leaderBoard.first.image}}" alt="" width="48" height="48" />
+                <ol class="bestUserList" bindonce>
+                    <li ng-if="leaderBoard.first" class="firstuser" user-tooltip-popup="{{leaderBoard.first.id}}">
+                        <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.first.image" alt="" width="48" height="48" /></a>
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.first.score | kNumber}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.first.score | kNumber"></div>
                     </li>
                     <li ng-if="leaderBoard.second" class="secondUser lFloat" user-tooltip-popup="{{leaderBoard.second.id}}">
-                        <img class="top3Img" ng-src="{{leaderBoard.second.image}}" alt="" width="48" height="48" />
+                        <a bo-href="leaderBoard.second.url"><img class="top3Img" bo-src="leaderBoard.second.image" alt="" width="48" height="48" /></a>
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.second.score | kNumber}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.second.score | kNumber"></div>
                     </li>
                     <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
                         <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
@@ -33,9 +33,9 @@
                     </li>
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
-                        <img class="top3Img" ng-src="{{leaderBoard.third.image}}" alt="" width="48" height="48" />
+                        <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="48" height="48" /></a>
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{leaderBoard.third.score | kNumber}}</div>
+                        <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
                     </li>
 
                     <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">

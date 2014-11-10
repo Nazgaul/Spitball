@@ -230,6 +230,7 @@
 /*#region Lib Aside */
 .unionStats {
   padding: 10px 0;
+  background: #ebebeb;
 }
 .unionStats .files,
 .unionStats .courses,
@@ -297,7 +298,7 @@
   display: table;
   table-layout: fixed;
   width: 100%;
-  background: #fff;
+  background: #ebebeb;
 }
 .outbound:last-child {
   border: none;

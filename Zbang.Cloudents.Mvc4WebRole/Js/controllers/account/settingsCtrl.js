@@ -1,5 +1,4 @@
-﻿
-var mAccount = angular.module('mAccount', ['angular-plupload']).
+﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
     ['$scope', '$window', '$timeout', 'sAccount', '$analytics',
 
@@ -42,6 +41,11 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
 
                 //TODO: analytics selecttab
                 $scope.params.currentTab = tab;
+
+                $analytics.eventTrack('Account Settings', {
+                    category: 'Select Tab',
+                    label: 'User selected ' +tab
+                });
             };
 
 
@@ -55,7 +59,10 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     $scope.submitted = false;
                     alert('Your settings are saved');
 
-                    //TODO analytics
+                    $analytics.eventTrack('User Information', {
+                        category: 'Save Settings',
+                        label: 'User saved settings'
+                    });
                 });
             };
 
@@ -65,7 +72,10 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
 
-                //TODO analytics
+                $analytics.eventTrack('User Information', {
+                    category: 'Upload Image',
+                    label: 'User uploaded an image'
+                });
             };
 
             $scope.onError = function (error) {
@@ -124,7 +134,10 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                         $scope.emailForm = {};
 
                         alert(jsResources.EmailChanged);
-                        //TODO analytics
+                        $analytics.eventTrack('Account settings', {
+                            category: 'Email Changed',
+                            label: 'User changed email'
+                        });
 
 
 
@@ -155,7 +168,10 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 sAccount.changeEmail({ email: email }).then(function () {
                     $scope.params.verifyCode = true;
                     $scope.params.changeEmailBtnText = 'Save';
-
+                    $analytics.eventTrack('Account settings', {
+                        category: 'Email Change',
+                        label: 'User started changing email proccess'
+                    });
                 }, function (response) {
                     alert(response[0].value[0]);
                 });
@@ -195,7 +211,10 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
                     alert(jsResources.PwdChanged);
-                    //TODO analytics
+                    $analytics.eventTrack('Account settings', {
+                        category: 'Password Change',
+                        label: 'User changed password'
+                    });
                 }, function (response) {
                     $scope.params.passwordError = response;
                 });
@@ -205,8 +224,13 @@ var mAccount = angular.module('mAccount', ['angular-plupload']).
                 if ($scope.languageForm.selected === $scope.data.language) {
                     return;
                 }
-                //TODO analytics
+
                 sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function () {
+                    $analytics.eventTrack('Account settings', {
+                        category: 'Language Change',
+                        label: 'User changed language to ' + $scope.languageForm.selected
+                    });
+
                     $window.location.reload();
                 });
             };

@@ -1,5 +1,4 @@
-﻿
-angular.module('mSearch', []).
+﻿angular.module('mSearch', []).
     constant({
         constants: {
             tabs: {
@@ -62,26 +61,34 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
         getOtherUnisItems();
         $scope.params.showOtherUnis = false;
 
-        //TODO analytics click the show more from other unis
+        $analytics.eventTrack('Search', {
+            category: 'Show More',
+            label: 'Show more from other universities'
+        });        
 
     };
 
     $scope.setCurrentTab = function (tab) {
-        var length;
+        var length, tabName;
         $scope.params.currentTab = tab;
         switch (tab) {
             case constants.tabs.boxes:
                 length = $scope.data.boxes.length;
+                tabName = 'boxes';
                 break;
             case constants.tabs.items:
                 length = $scope.data.items.length || $scope.data.otherItems.length;
+                tabName = 'items';
                 break;
             case constants.tabs.users:
                 length = $scope.data.users.length;
+                tabName = 'users';
                 break;
         }
-
-        //TODO analytics make variable for tab name and trackevent here
+        $analytics.eventTrack('Search', {
+            category: 'Select Tab',
+            label:'User clicked the ' + tabName  + 'tab'
+        });
         $scope.params.noResults = (length === 0);
     };
 
@@ -171,7 +178,10 @@ function ($scope, $timeout, $location, sSearch, textDirectionService, constants)
         $scope.data.loading = true;
         $scope.params.noResults = false;
 
-        //TODO analytics
+        $analytics.eventTrack('Search', {
+            category: 'Search',
+            label: 'User searched for ' + query
+        });
 
         $timeout(function () {
             sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {

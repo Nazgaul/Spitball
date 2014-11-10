@@ -1,5 +1,4 @@
-﻿
-mBox.controller('createTabCtrl',
+﻿mBox.controller('createTabCtrl',
 		['$scope',
 		 '$modalInstance',
 		 'sBox',
@@ -27,6 +26,9 @@ mBox.controller('createTabCtrl',
 		         if ($scope.formData.tabId) {
 		             sBox.renameTab($scope.formData).then(function () {
 		                 $modalInstance.close($scope.formData.name);
+		                 $analytics.eventTrack('Box Tabs', {
+		                     category: 'Renamed Tab'
+		                 });
 		             }, function () {
 		                 alert(jsResources.RenameError);
 		             });
@@ -34,10 +36,13 @@ mBox.controller('createTabCtrl',
 		             return;
 		         }
 
-		         //TODO analytics 
+
 
 		         sBox.createTab($scope.formData).then(function (tab) {
 		             $modalInstance.close(tab);
+		             $analytics.eventTrack('Box Tabs', {
+		                 category: 'Created Tab'
+		             });
 		         }, function (response) {
 		             alert(response)
 		         });

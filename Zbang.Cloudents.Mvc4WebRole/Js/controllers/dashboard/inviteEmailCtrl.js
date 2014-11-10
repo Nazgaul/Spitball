@@ -31,7 +31,10 @@ angular.module('InviteEmail', []).
 
 
              $scope.submit = function () {
-                 //TODO analytics
+                 $analytics.eventTrack('Invite by email', {
+                     category: 'Invite',
+                     label:'Social popup user invited by email'
+                 });
 
                  addEmail(true);
 
@@ -73,7 +76,10 @@ angular.module('InviteEmail', []).
 
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
-                 //TODO analytics
+                 $analytics.eventTrack('Invite by email', {
+                     category: 'Remove',
+                     label: 'User removed an email'
+                 });
              };
 
              $scope.edit = function (email) {
@@ -85,7 +91,10 @@ angular.module('InviteEmail', []).
                  $scope.remove(email);
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
-                 //TODO analytics
+                 $analytics.eventTrack('Invite by email', {
+                     category: 'Edit',
+                     label: 'User edit an email'
+                 });
              };
 
 
