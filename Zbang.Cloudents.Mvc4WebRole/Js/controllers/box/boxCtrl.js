@@ -69,6 +69,14 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
+
+                if ($location.hash()) {
+                    if ($scope.states.hasOwnProperty($location.hash())) {
+                        $scope.setTab($location.hash());
+                    } else {
+                        $location.hash('');
+                    }
+                }
             });
 
 
@@ -83,13 +91,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $scope.options.loader = true;
 
             };
-            if ($location.hash()) {
-                if ($scope.states.hasOwnProperty($location.hash())) {
-                    $scope.setTab($location.hash());
-                } else {
-                    $location.hash('');
-                }
-            }
+         
 
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
