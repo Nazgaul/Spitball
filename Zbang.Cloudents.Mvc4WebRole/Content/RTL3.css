@@ -293,6 +293,12 @@
   padding: 0 0 0 8px;
 }
 /*#endregion */
+/*#region dashboard header */
+.searchInputWpr svg {
+  left: 33px;
+  right: auto;
+}
+/*#endregion */
 /*#region setup course 'popups' */
 .formWpr:after {
   right: -26px;

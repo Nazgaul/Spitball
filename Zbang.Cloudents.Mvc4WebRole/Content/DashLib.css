@@ -460,13 +460,6 @@
 .notificationBtn {
   position: relative;
   top: 13px;
-  /*&:hover {
-        ~ .noResults {
-            .notifyEmpty {
-                display: block;
-            }
-        }
-    }*/
 }
 .notificationBtn .invitesCounter {
   top: -8px;
