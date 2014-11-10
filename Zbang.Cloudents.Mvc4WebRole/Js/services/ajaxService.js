@@ -3,8 +3,9 @@
      '$q',
      '$angularCacheFactory',
      '$analytics',
+     '$log',
 
-    function ($http, $q, $angularCacheFactory, $analytics) {
+    function ($http, $q, $angularCacheFactory, $analytics, $log) {
         "use strict";
         var ttls = {},
         service = {
@@ -26,9 +27,11 @@
                         return;
                     }
                     dfd.reject(response.payload);
+                    logError(url, data, response.payload);
 
                 }).error(function (response) {
                     dfd.reject(response);
+                    logError(url, data, response.payload);
                 });
                 return dfd.promise;
 
@@ -46,10 +49,13 @@
                         dfd.resolve(response.payload);
                         return;
                     }
+
                     dfd.reject(response.payload);
+                    logError(url, data, response.payload);
 
                 }).error(function (response) {
                     dfd.reject(response);
+                    logError(url, data, response.payload);
                 });
                 return dfd.promise;
             }
@@ -57,6 +63,15 @@
 
         return service;
 
+        function logError(url, data, payload) {
+            var log = {
+                url: url,
+                data: data,
+                payload: payload
+            };
+
+            $log.error(angular.toJson(log));
+        }
         function trackTime(startTime, url, data) {
             var timeSpent = new Date().getTime() - startTime + 'ms';
 

@@ -27,6 +27,6 @@ mItem.controller('itemFullScreenCtrl',
              //   $scope.preview2 += $scope.$parent.preview;
 
             //});
-        });
+        });        
     }
 ]);
