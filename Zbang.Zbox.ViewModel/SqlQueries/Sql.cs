@@ -162,9 +162,10 @@ where uWrap.Id = @UniversityId";
         /// </summary>
         public const string UserPersonalInvites = @" select i.Image as userImage, i.UserName as username, 
  b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid,
- i.IsUsed as status
+ i.IsUsed as status, i.TypeOfMsg as InviteType
    from zbox.Invite i
-   left join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0";
+   left join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
+ where senderid = @Me";
 
 
         public const string UserInvites = @"

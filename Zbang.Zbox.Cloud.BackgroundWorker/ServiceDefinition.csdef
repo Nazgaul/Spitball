@@ -11,6 +11,8 @@
       <Setting name="StorageCdnEndpoint" />
       <Setting name="ZBox" />
       <Setting name="SyncHatavotTimeInSeconds" />
+      <Setting name="AzureSearchApiKey" />
+      <Setting name="AzureSeachApiUrl" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />

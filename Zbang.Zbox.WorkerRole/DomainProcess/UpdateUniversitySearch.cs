@@ -14,8 +14,6 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 
         public bool Execute(Infrastructure.Transport.DomainProcess data)
         {
-
-
             var parameters = data as UniversityData;
             if (parameters == null)
             {

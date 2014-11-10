@@ -338,7 +338,7 @@ mUser.controller('UserCtrl',
                 $analytics.eventTrack('User Invites', {
                     category: 'Reinvite'
                 });
-                sShare.invite.box({ boxId: invite.boxid, recepients: [invite.userid] }).then(function () { });
+                sShare.invite.box({ boxId: invite.boxId, recepients: [invite.userid] }).then(function () { });
 
                 invite.submitted = true;
             }

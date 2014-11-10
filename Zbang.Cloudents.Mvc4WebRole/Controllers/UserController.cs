@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var model = await ZboxReadService.GetUserPersonalInvites(query);
 
 
-                return Json(new JsonResponse(true, model));
+                return JsonOk(model);
             }
             catch (Exception ex)
             {

@@ -52,11 +52,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
-            Location = OutputCacheLocation.Server
-            )]
+        //[DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang + ";"
+        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
+        //    Location = OutputCacheLocation.Server
+        //    )]
         public ActionResult Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
