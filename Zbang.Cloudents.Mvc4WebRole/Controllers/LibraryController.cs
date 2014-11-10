@@ -460,14 +460,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> RussianDepartments()
         {
 
-            var query = new GetUserMinProfileQuery(User.GetUserId());
-            var result = await ZboxReadService.GetUserMinProfile(query);
+            //var query = new GetUserMinProfileQuery(User.GetUserId());
+            //var result = await ZboxReadService.GetUserMinProfile(query);
 
 
-            if (result.Score < UserController.AdminReputation)
-            {
-                return Json(new JsonResponse(false));
-            }
+            //if (result.Score < UserController.AdminReputation)
+            //{
+            //    return Json(new JsonResponse(false));
+            //}
             var userDetail = FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityId.Value;
 
