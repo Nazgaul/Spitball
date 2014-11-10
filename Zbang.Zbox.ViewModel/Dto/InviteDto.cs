@@ -6,8 +6,9 @@ namespace Zbang.Zbox.ViewModel.Dto
     public class InviteDto
     {
         private DateTime m_Date;
-        //public Guid MsgId { get; set; }
-        //public long? BoxId { get; set; }
+        public Guid MsgId { get; set; }
+        public long? BoxId { get; set; }
+
         public string UserPic { get; set; }
         public string UserName { get; set; }
         public DateTime Date
@@ -18,8 +19,8 @@ namespace Zbang.Zbox.ViewModel.Dto
                 m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
             }
         }
-        //public bool IsRead { get; set; }
-        //public bool IsNew { get; set; }
+        public bool IsRead { get; set; }
+        public bool IsNew { get; set; }
 
         //public string Message { get; set; }
 

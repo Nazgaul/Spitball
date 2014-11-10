@@ -169,11 +169,11 @@ where uWrap.Id = @UniversityId";
 
 
         public const string UserInvites = @"
-select u.UserImage as userpic,
+select id as MsgId, u.UserImage as userpic,
  u.UserName as username, 
  i.CreationTime as date,
  b.BoxName,
-b.Url 
+b.Url , new as new, isRead as [read]
 from zbox.UserBoxRel ub
 join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0
 join zbox.Users u on i.SenderId = u.UserId
@@ -192,7 +192,8 @@ and b.University = @UniversityId
 order by rank desc";
 
 
-        public const string UniversityLeaderBoard = @"select top(3) u.userid as id, u.UserImageLarge as image, u.username as name, u.UserReputation as score
+        public const string UniversityLeaderBoard = @"
+select top(3) u.userid as id, u.UserImageLarge as image, u.username as name, u.UserReputation as score, u.url as url
 from zbox.Users u 
 where u.UniversityId = @UniversityId
 and u.usertype <> 1
