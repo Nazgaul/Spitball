@@ -94,7 +94,7 @@
             }
         }
         sessionStorage.setItem('registerForm', JSON.stringify(x));
-        window.location.href = this.getAttribute('data-href');
+        window.location.href = this.selectedOptions[0].getAttribute('data-href')
     });
     $(function () {
         var data = sessionStorage.getItem('registerForm');
