@@ -681,7 +681,7 @@ input[type="radio"][disabled] + label:before {
 .navUser .userImg {
   vertical-align: top;
   margin-top: 9px;
-  border-radius: 3px;
+  border-radius: 100%;
   position: absolute;
 }
 .userAnchor {

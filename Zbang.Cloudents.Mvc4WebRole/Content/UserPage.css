@@ -187,6 +187,9 @@
   display: inline-block;
   margin: 2px 0 0 0;
 }
+.uploadsItem .upImg {
+  border-radius: 3px;
+}
 .uploadsItem .views {
   margin: 0 0 0 12px;
   /*rtl*/
@@ -366,7 +369,7 @@
   left: 0;
   /*rtl*/
   border: 1px solid #c2c2c2;
-  border-radius: 3px;
+  border-radius: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -539,6 +542,9 @@
 .upFriends + .upShowAll {
   margin-top: -20px;
 }
+.upFriends .userItemImg {
+  border-radius: 100%;
+}
 .upInvites .upSectionWpr {
   min-height: 167px;
   padding: 0;
@@ -619,6 +625,7 @@
   /*diff rtl*/
 }
 .upInviteItem .userItemImg {
+  border-radius: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -721,6 +728,9 @@
 .upMembers .memberItem:first-child {
   padding-top: 5px;
   margin-top: 10px;
+}
+.upMembers .friendImg {
+  border-radius: 100%;
 }
 .memberTopRow {
   text-align: left;

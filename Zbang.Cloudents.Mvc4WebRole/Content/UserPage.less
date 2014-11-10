@@ -214,6 +214,10 @@
         }
     }
 
+    .upImg {
+        border-radius:3px;
+    }
+
     .views {
         margin: 0 0 0 12px; /*rtl*/ // override
         display: inline-block;
@@ -416,7 +420,7 @@
     top: 0;
     left: 0; /*rtl*/
     border: 1px solid @borderColor;
-    border-radius: 3px;
+    border-radius: 100%;
     .boxSizing;
 }
 
@@ -611,6 +615,11 @@
     margin-top: -20px;
 }
 
+.upFriends {
+    .userItemImg {
+        border-radius:100%;
+    }
+}
 .upInvites {
     .upSectionWpr {
         min-height: 167px;
@@ -680,6 +689,7 @@
     }
 
     .userItemImg {
+        border-radius:100%;
         position: absolute;
         top: 0;
         left: 0; /*rtl*/
@@ -804,6 +814,10 @@
             padding-top: 5px;
             margin-top: 10px;
         }
+    }
+
+    .friendImg { 
+        border-radius:100%;
     }
 }
 
