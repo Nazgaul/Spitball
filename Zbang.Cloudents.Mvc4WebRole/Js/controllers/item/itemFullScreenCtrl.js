@@ -16,8 +16,7 @@ mItem.controller('itemFullScreenCtrl',
 
         };
 
-        $scope.$on('update', function (e,preview) {
-            console.log(preview);
+        $scope.$on('update', function (e, preview) {      
             if (preview.indexOf('iframe') > 0) {
                 $scope.preview2 = $sce.trustAsHtml(preview);
             } else {

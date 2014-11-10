@@ -21,6 +21,13 @@ app.directive('scrollToTop',
 
                elm.bind('scroll', function () {
                    if (elm[0].scrollTop !== 0 && isTop) {
+
+                       if (scope.$$phase) {
+                           scope.$parent.params.scrollToTop = false;
+                           isTop = false;
+                           return;
+                       }
+
                        scope.$apply(function () {
                            scope.$parent.params.scrollToTop = false;
                            isTop = false;
