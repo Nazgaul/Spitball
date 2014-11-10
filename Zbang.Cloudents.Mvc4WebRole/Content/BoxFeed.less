@@ -499,16 +499,12 @@
         width: auto;
         height: auto;
         line-height: normal;
-        text-align: center;
-        border: none;
-        margin-bottom: 15px;
+        text-align: center; //override
+        margin-bottom: 15px; //override
+        display: inline-block; //override
         &:before {
-            /*display: block;
             position: absolute;
-            left: 0;right: 0;
-            margin: auto;
-            top: 102px;*/
-            display: none; //don't display counter on top 3 users
+            visibility: hidden;  //don't display counter on top 3 users
         }
         .rep {
             display: block;
@@ -532,15 +528,23 @@
     }
     li {
         position: relative;
-        border-top: 1px solid @borderColor;
-        display: inline-block;
+        display: block;
         width: 100%;
         height: 50px;
         line-height: 50px;
         vertical-align: middle;
         text-align:left; //rtl
-        /*&:nth-child(-n + 3) {
-        }*/
+
+        &:nth-child(n + 4) {
+            margin: 0 -50px;
+            padding: 0 15px;
+            clear: both;
+            width: 336px;
+            .boxSizing;
+            &:hover {
+                background: #eee;
+            }
+        }
         &:before {
             content: counter(leaderBoard) ".";
             counter-increment: leaderBoard;
