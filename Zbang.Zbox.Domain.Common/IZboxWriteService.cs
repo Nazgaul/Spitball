@@ -84,7 +84,8 @@ namespace Zbang.Zbox.Domain.Common
         void AddReputation(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
-        //void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
+        void MarkMessageAsRead(MarkMessagesAsReadCommand command);
+        void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
 
         #region Quiz
         void CreateQuiz(CreateQuizCommand command);

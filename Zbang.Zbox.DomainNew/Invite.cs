@@ -53,25 +53,37 @@ namespace Zbang.Zbox.Domain
 
         }
 
-
-
         public InviteToBox(Guid id, User sender, Box box, UserBoxRel userBoxRel, string image, string userName)
             : base(id, sender, image, userName)
         {
             Box = box;
             UserBoxRel = userBoxRel;
+            New = true;
+            Read = false;
         }
         public virtual Box Box { get; protected set; }
         public virtual UserBoxRel UserBoxRel { get; protected set; }
 
+        public virtual bool Read { get; protected set; }
+        public virtual bool New { get; protected set; }
+
         public override ReputationAction GiveAction()
         {
-            return Infrastructure.Enums.ReputationAction.InviteToBox;
+            return ReputationAction.InviteToBox;
         }
 
         public override string UrlToRedirect()
         {
             return Box.Url;
+        }
+
+        public void UpdateMessageAsRead()
+        {
+            Read = true;
+        }
+        public void UpdateMessageAsOld()
+        {
+            New = false;
         }
     }
 

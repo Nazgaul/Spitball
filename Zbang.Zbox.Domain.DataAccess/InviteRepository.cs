@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+﻿using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
@@ -10,6 +11,12 @@ namespace Zbang.Zbox.Domain.DataAccess
             return UnitOfWork.CurrentSession.QueryOver<InviteToBox>()
                 .Where(w => w.UserBoxRel == userBoxRel && !w.IsUsed)
                 .SingleOrDefault();
+        }
+
+        public IEnumerable<InviteToBox> GetUserInvites(long recipientId)
+        {
+            return UnitOfWork.CurrentSession.QueryOver<InviteToBox>()
+                .Where(w => w.UserBoxRel.User.Id == recipientId).List();
         }
     }
 }

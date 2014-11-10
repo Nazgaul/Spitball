@@ -87,6 +87,8 @@
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="InviteToSystemFacebookCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
+    <Compile Include="MarkMessagesAsOldCommandHandler.cs" />
+    <Compile Include="MarkMessagesAsReadCommandHandler.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
