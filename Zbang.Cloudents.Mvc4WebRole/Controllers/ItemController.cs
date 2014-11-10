@@ -429,16 +429,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor == null)
                 return
-                    Json(
-                        new JsonResponse(true,
-                            new
-                            {
-                                // [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
-                                preview =
-                                    RenderRazorViewToString("_PreviewFailed",
-                                        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                            })
-                        );
+                    JsonOk(
+                        new
+                        {
+                            // [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
+                            preview =
+                                RenderRazorViewToString("_PreviewFailed",
+                                    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                        });
+
             try
             {
                 var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3, cancellationToken);
@@ -474,7 +473,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
                     }));
                 }
-                return Json(new JsonResponse(true));
+                return JsonOk(null);
             }
         }
         #endregion
