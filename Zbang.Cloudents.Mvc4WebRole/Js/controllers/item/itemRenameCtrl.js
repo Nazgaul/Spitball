@@ -1,8 +1,7 @@
-﻿
-mItem.controller('itemRenameCtrl',
+﻿mItem.controller('itemRenameCtrl',
 [
-    '$scope', '$modalInstance', 'data', 'sItem',
-function ($scope, $modalInstance, data, sItem) {
+    '$scope', '$modalInstance', '$analytics','data', 'sItem',
+function ($scope, $modalInstance,$analytics, data, sItem) {
     "use strict";
     $scope.formdata = {}
     $scope.formdata.newName = data.name;

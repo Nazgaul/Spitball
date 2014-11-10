@@ -1,7 +1,7 @@
 ﻿app.controller('ShareCtrl',
-    ['$scope', '$rootScope', '$modalInstance', 'sShare', 'sGoogle', 'sFocus', 'data',
+    ['$scope', '$rootScope', '$modalInstance','$analytics', 'sShare', 'sGoogle', 'sFocus', 'data',
 
-    function ($scope, $rootScope, $modalInstance, sShare, sGoogle, sFocus, data) {
+    function ($scope, $rootScope, $modalInstance, $analytics, sShare, sGoogle, sFocus, data) {
         "use strict";
         data = data || {};
 

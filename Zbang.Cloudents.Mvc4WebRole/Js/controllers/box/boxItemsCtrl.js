@@ -1,7 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
+		['$scope', '$rootScope', '$analytics','sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
             'sUserDetails', 'sFacebook',
-function ($scope, $rootScope, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
+function ($scope, $rootScope,$analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
     "use strict";
     var jsResources = window.JsResources;
 

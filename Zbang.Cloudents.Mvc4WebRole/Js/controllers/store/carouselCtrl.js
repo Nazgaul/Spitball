@@ -1,7 +1,7 @@
 ﻿
 app.controller('CarouselCtrl',
-    ['$scope', '$timeout',
-    function ($scope, $timeout) {
+    ['$scope', '$timeout','$analytics',
+    function ($scope, $timeout, $analytics) {
         "use strict";
         var currentTimeout,
             transition,

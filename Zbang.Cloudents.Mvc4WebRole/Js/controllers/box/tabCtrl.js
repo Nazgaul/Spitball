@@ -1,10 +1,11 @@
 ﻿mBox.controller('createTabCtrl',
 		['$scope',
 		 '$modalInstance',
+         '$analytics',
 		 'sBox',
 		 'data',
 
-		 function ($scope, $modalInstance, sBox, data) {
+		 function ($scope, $modalInstance, $analytics, sBox, data) {
 		     "use strict";
 		     var jsResources = window.JsResources;
 		     $scope.formData = {

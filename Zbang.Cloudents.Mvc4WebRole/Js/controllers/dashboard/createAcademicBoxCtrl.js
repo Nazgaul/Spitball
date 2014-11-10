@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('createAcademicBoxCtrl',
-        ['$scope', 'sBox', 'sModal', 'sUserDetails','sLibrary',
-        function ($scope, sBox, sModal, sUserDetails, sLibrary) {
+        ['$scope', '$analytics','sBox', 'sModal', 'sUserDetails','sLibrary',
+        function ($scope, $analytics, sBox, sModal, sUserDetails, sLibrary) {
             "use strict";
             var nodeHistory = [];
 

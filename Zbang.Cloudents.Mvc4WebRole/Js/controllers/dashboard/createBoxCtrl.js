@@ -1,7 +1,8 @@
 ﻿mDashboard.controller('CreateBoxCtrl',
         ['$scope',
          'sBox',
-         function ($scope, sBox) {
+         '$analytics',
+         function ($scope, sBox, $analytics) {
              "use strict";
              var createDisabled = false;
              $scope.create = function (isValid) {

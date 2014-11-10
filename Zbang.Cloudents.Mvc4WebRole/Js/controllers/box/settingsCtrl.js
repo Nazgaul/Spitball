@@ -1,7 +1,7 @@
 ﻿mBox.controller('SettingsCtrl',
-    ['$scope', '$modalInstance', '$location', 'sUserDetails', 'sBox', 'data',
+    ['$scope', '$modalInstance', '$location','$analytics', 'sUserDetails', 'sBox', 'data',
 
-     function ($scope, $modalInstance, $location, sUserDetails, sBox, data) {
+     function ($scope, $modalInstance, $location,$analytics, sUserDetails, sBox, data) {
          "use strict";
          //Settings
          

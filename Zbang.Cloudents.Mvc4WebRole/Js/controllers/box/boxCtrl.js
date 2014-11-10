@@ -2,10 +2,10 @@
 var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
-         'sModal', '$location','$filter', '$timeout',
+         'sModal', '$location','$filter', '$timeout','$analytics',
          'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
         function ($scope, $rootScope, $routeParams, sModal, $location, $filter,
-                  $timeout, sBox, sNewUpdates, sUserDetails, sFacebook) {
+                  $timeout,$analytics, sBox, sNewUpdates, sUserDetails, sFacebook) {
             "use strict";
             var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
@@ -228,12 +228,13 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
+                sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
+
                 $scope.action = {
                     userFollow: true
                 };
                 $scope.info.userType = 'subscribe';
 
-                sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
 
                 $rootScope.$broadcast('followedBox', $scope.boxId);
 

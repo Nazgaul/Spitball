@@ -2,8 +2,9 @@
 mDashboard.controller('ChallengeCtrl',
         ['$scope',
          '$modalInstance',
+         '$analytics',
          'data',
-         function ($scope, $modalInstance, data) {
+         function ($scope, $modalInstance, $analytics,data) {
              "use strict";
              $scope.popupUsers = data.users;
              for (var i = data.users.length; i < 4; i++) {

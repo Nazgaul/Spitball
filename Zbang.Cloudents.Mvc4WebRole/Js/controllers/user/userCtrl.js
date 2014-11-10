@@ -1,5 +1,4 @@
-﻿
-var mUser = angular.module('mUser', [])
+﻿var mUser = angular.module('mUser', [])
     .constant('userConstants', {
         activity: {
             items: {
@@ -47,8 +46,8 @@ var mUser = angular.module('mUser', [])
         }        
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants',
-    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants','$analytics',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics) {
         "use strict";
 
         $scope.params = {

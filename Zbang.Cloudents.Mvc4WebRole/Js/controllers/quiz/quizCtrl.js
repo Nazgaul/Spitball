@@ -1,8 +1,8 @@
 ﻿
 var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
-        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails',
-        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails) {
+        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails','$analytics',
+        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics) {
             "use strict";
             //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 

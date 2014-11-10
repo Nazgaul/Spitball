@@ -1,7 +1,7 @@
 ﻿
 mDashboard.controller('InviteCloudentsCtrl',
-        ['$scope', '$q', 'sFacebook', '$modalInstance', 'sShare',
-        function ($scope, $q, sFacebook, $modalInstance, sShare) {
+        ['$scope', '$q', 'sFacebook', '$modalInstance','$analytics', 'sShare',
+        function ($scope, $q, sFacebook, $modalInstance, $analytics, sShare) {
             "use strict";
             $scope.inviteCloudents = true;
             $scope.next = function () {

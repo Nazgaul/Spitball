@@ -1,6 +1,6 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus',
-    function ($scope,$rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus) {
+    ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus','$analytics',
+    function ($scope, $rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus, $analytics) {
         "use strict";
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $scope.product = $scope.viewBag;
