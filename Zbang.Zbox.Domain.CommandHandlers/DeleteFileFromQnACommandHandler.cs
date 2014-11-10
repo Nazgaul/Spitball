@@ -22,10 +22,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(message.UserId);
             var box = item.Box;
 
-            const int reputationNeedToDeleteItem = 1000000;
+            
 
 
-            var authorize = item.Uploader.Id == message.UserId || box.Owner.Id == message.UserId || user.Reputation > reputationNeedToDeleteItem;
+            var authorize = item.Uploader.Id == message.UserId || box.Owner.Id == message.UserId || user.Reputation > user.University.AdminScore;
             if (!authorize)
             {
                 throw new UnauthorizedAccessException("User is unauthorized to unlink file");

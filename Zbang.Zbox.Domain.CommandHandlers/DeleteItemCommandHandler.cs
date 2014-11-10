@@ -54,9 +54,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Item item = m_ItemRepository.Get(command.ItemId);
             User user = m_UserRepository.Load(command.UserId);
 
-            const int reputationNeedToDeleteItem = 1000000;
-
-            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user) || user.Reputation > reputationNeedToDeleteItem;
+            
+            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user) || user.Reputation > user.University.AdminScore;
 
             if (!isAuthorize)
             {
