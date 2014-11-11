@@ -1,17 +1,17 @@
 ﻿mBox.controller('SettingsCtrl',
-    ['$scope', '$modalInstance', '$location','$analytics', 'sUserDetails', 'sBox', 'data',
+    ['$scope', '$modalInstance', '$location', '$analytics', 'sUserDetails', 'sBox', 'data', 'resManager',
 
-     function ($scope, $modalInstance, $location,$analytics, sUserDetails, sBox, data) {
+     function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, data, resManager) {
          "use strict";
          //Settings
-         
+
          $scope.info = data.info;
          $scope.info.boxId = data.boxId;
 
 
          $scope.info.inviteUrl = $location.path() + 'invite/';
          $scope.info.user = sUserDetails.getDetails();
-         
+
          $scope.formData = {
              name: $scope.info.name,
              notification: data.notification,
@@ -59,21 +59,20 @@
                  label: 'User deleted or unfollowed a box'
              });
          };
-         var jsResources = window.JsResources;
          $scope.deleteOrUnfollow = function () {
 
              if ($scope.info.userType === 'none') {
                  return '';
              }
              if ($scope.info.userType === 'owner') {
-                 return jsResources.Delete;
+                 return resManager.get('Delete');
              }
 
              if ($scope.info.membersLength <= 2 && $scope.info.comments < 2 && !$scope.info.itemsLength) {
-                 return jsResources.Delete;
+                 return resManager.get('Delete');
              }
 
-             return jsResources.LeaveGroup;
+             return resManager.get('LeaveGroup');
          };
 
          $scope.inviteFriends = function () {

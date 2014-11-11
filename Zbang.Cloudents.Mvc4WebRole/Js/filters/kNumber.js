@@ -3,7 +3,6 @@
     function () {
         "use strict";
         return function (number) {
-            var jsResources = window.JsResources;
             if (!number) {
                 return number;
             }

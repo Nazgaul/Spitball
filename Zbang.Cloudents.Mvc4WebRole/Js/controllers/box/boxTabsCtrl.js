@@ -1,8 +1,7 @@
-﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$analytics','sModal', 'sBox', 'sUserDetails',
-        function ($scope, $rootScope, $filter,$analytics, sModal, sBox, sUserDetails) {
+﻿mBox.controller('BoxTabsCtrl'
+        ['$scope', '$rootScope', '$filter', '$analytics','sModal', 'sBox', 'sUserDetails','resManager',
+        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, resManager) {
             "use strict";
-            var jsResources = window.JsResources;
             $scope.params = {};
 
             sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
@@ -16,7 +15,7 @@
                     TabId: tab.id
                 }
                 sBox.deleteTab(data).then(function () { }, function () {
-                    alert(jsResources.DeleteError);
+                    alert(resManager.get('DeleteError'));
 
                 });
 
@@ -58,7 +57,7 @@
                 }
 
                 if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(jsResources.NeedToFollowBox);
+                    alert(resManager.get('NeedToFollowBox'));
                     return;
                 }
 

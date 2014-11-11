@@ -1,9 +1,8 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', '$filter', 'sFacebook', '$sce', '$analytics',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, $filter, sFacebook, $sce, $analytics) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics) {
     "use strict";
-    var jsResources = window.JsResources;
     var index = 0, loadMore = false;
     $scope.navigation = {};
     $scope.popup = {};
@@ -16,7 +15,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         contentLoadMore: false
     };
     $scope.canNavigate = false;
-    $scope.flagText = jsResources.Flag;
+    $scope.flagText = resManager.get('Flag');
 
     var itemId = $routeParams.itemId, boxId = $routeParams.boxId;
 
@@ -103,7 +102,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             callback: {
                 close: function () {
                     $scope.flagged = true;
-                    $scope.flagText = jsResources.Flagged;
+                    $scope.flagText = resManager.get('Flagged');
                 }
             }
         });
@@ -231,7 +230,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
           $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
-          $filter('stringFormat')(jsResources.IShared + ' {0} ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin, [$scope.item.name]),
+          resManager.get('IShared') + ' ' + $scope.item.name + ' ' + resManager.get('OnCloudents') + '<center>&#160;</center><center></center>' + resManager.get('CloudentsJoin'),
             null //picture
        ).then(function () {
            cd.pubsub.publish('addPoints', { type: 'shareFb' });
