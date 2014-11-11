@@ -64,11 +64,11 @@ input[type="radio"].radio:checked + label:after {
 .navUser .userName {
   text-align: right;
   /*rtl*/
-  margin: 8px 36px 0 0;
+  margin: 8px 40px 0 0;
   /*rtl*/
 }
 .userPts {
-  margin: 0 36px 0 0;
+  margin: 0 40px 0 0;
   /*rtl*/
 }
 .userSettings {

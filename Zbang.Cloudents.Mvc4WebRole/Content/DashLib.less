@@ -14,16 +14,12 @@
     height: 100%;
 }
 
-/*.dashContent header, .libraryContent header {
-    
-}*/
-
 .libraryContent {
     vertical-align: top;
 
     .contentWpr {
         //padding-top: 105px;
-        padding-top: 80px;
+        //padding-top: 80px;
     }
 
     header {
@@ -38,6 +34,11 @@
     }
     .boxesHeader .topLevel.topLevel {
         padding: 7px 0 0;//override
+    }
+    .dashLibTop {
+        &:hover {
+            background: #ebebeb;
+        }
     }
 }
 
@@ -494,13 +495,16 @@
     height: 65px;
     line-height: 65px;
     vertical-align: middle;
-    border-bottom: 1px dashed @borderColor;
+    background: #282828;
+    margin: 0 -30px;
+    padding: 0 30px;
+    .boxSizing;
     > .rFloat {
         width: 170px;
         position: relative;
         top: 8px;
         height: 48px; //
-        /*&:before { // Temporarily commented out
+        /*&:before { // Temporarily commented out (store separator)
             .pseudo;
             position: absolute;
             width: 1px;
@@ -509,6 +513,9 @@
             top: 8px;
             left: 60px; //rtl
         }*/
+    }
+    .open .svg-notification {
+        fill: #d1294d;
     }
 }
 .notificationBtn {
@@ -548,9 +555,12 @@
         }
     }
     svg {
-        fill: @color;
+        fill: #fff;
         position: relative;
         top: 5px;
+        &:hover {
+            fill: @color;
+        }
     }
 }
 .searchInputWpr {
@@ -567,9 +577,8 @@
 }
 .dhText {
     font-size: 28px;
-    color: @color;
+    color: #fff;
 }
-
 /*#endregion */
 
 /*#region setup course 'popups' */
@@ -1189,7 +1198,9 @@
         }
     }
 }
-
+.libraryList {
+    margin-top: 42px;
+}
 .libraryList, .myAreaList {
     display: block;
     clear: both;

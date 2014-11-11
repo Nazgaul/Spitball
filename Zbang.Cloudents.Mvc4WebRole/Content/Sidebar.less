@@ -22,20 +22,11 @@
         margin: 1px 0 0; //override
         min-height: 220px;
         header {
-            padding: 16px 0 10px;
-            font-size: 18px;
+            padding: 16px 0 7px;
         }
     }
     .recommendedWpr {
-        //border: none; //override
-        //padding: 0; //override
-        //display: block; // //override
-        
         header {
-            //font-size: 18px; //override
-            //border: none; //override
-            //margin: 0; //override
-            //padding: 20px 0 8px; //override
             text-align: center;
         }
     }
@@ -43,23 +34,30 @@
 }
 
 .recommendedWpr {
-    //color: @textColor;
-    //vertical-align: top;
     background: #fff;
+    padding: 0 12px;
     header {
-        font-size: 18px;
-        padding: 20px 0 8px; 
+        font-size: 20px;
+        padding: 13px 0 8px; 
     }
 }
 
 .recommended {
-    height: 70px;
+    height: 80px;
     .boxSizing;
     position: relative;
     font-size: 15px;
     display: block;
+    margin-right: -12px; //rtl
     + .recommended {
-        border-top: 1px solid @borderColor;
+        &:after {
+            .pseudo;
+            width: ~'calc(100% - 12px)';
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            top:0;
+        }
     }
     .courseLink {
         display: block;
@@ -73,17 +71,18 @@
     }
     .rcDetails {
         width: 100%;
-        height: 70px;
+        height: 63px;
         vertical-align: top;
-        padding-left: 62px; //rtl
-        position: relative;
-        top: 12px;
+        padding: 15px 0 0 69px; //rtl
         .boxSizing;
         display: inline-block;
         background: #fff;
         margin:0;
-        .transition(margin .5s .5s);
-        
+        .transition(margin .2s .5s);
+        position: relative; //img to move on hover
+        &.ghost {
+            text-align: left; //rtl
+        }
         &.rcFull {
             .prof:after {
                 content:  '\00a0' '|' '\00a0';
@@ -93,34 +92,28 @@
     }
     .rcStats {
         width: 105px;
-        height: 70px;
+        height: 60px;
         display: inline-block;
         background: #282828;
         color: #fff;
+        margin-top: 9px;
+        //position: relative;
+        //top: 6px;
     }
     img {
         position: absolute;
         left: 8px; //rtl
-        border-radius: 10px;
+        border-radius: 5px;
+        border: 1px solid #c2c2c2;
     }
 
-    /*.rFloat {
-        border-left: 1px solid @borderColor; //rtl
-        width: 115px;
-        .boxSizing;
-        padding-left: 35px; //rtl
-        font-size: 13px;
-        margin-top: 10px;
-    }*/
-
-    /*&:nth-child(2) {
-        margin: 10px 0;
-    }*/
-
     .courseName {
-        padding-top: 4px;
-        color: @color;
-        font-weight: bold;
+        color: #0f9d58;
+        font-size: 15px;
+        white-space: normal;
+        max-height: 34px;
+        overflow: hidden;
+        line-height: 16px;
     }
 
     .prof {
@@ -129,9 +122,9 @@
 
     .friends, .files {
         position: relative;
-        padding-left: 30px; //rtl
+        padding-left: 23px; //rtl
         &:before {
-            content: attr(bo-attr-data-friends-count) '\00a0';
+            content: attr(bo-attr-data-friends-count);
             display: inline-block;
         }
 
@@ -146,13 +139,13 @@
         }*/
     }
     .friends {
-        margin-top: 12px;
+        margin-top: 9px;
     }
     .files {
-        margin-top: 10px;
+        margin-top: 7px;
 
         &:before {
-            content: attr(bo-attr-data-files-count) '\00a0';
+            content: attr(bo-attr-data-files-count);
         }
 
         /*&:after {
@@ -163,21 +156,21 @@
 
 
 .podium {
-    width: 96px;
+    width: 86px;
     height: 68px;
     border: 1px solid #aaa;
     position: absolute;
-    top: 142px;
+    top: 151px;
     left:0;right:0;
     margin: auto;
     border-radius: 3px;
     background: #fff;
     &:before, &:after {
         content: '';
-        width: 82px;
+        width: 86px;
         height: 45px;
         position: absolute;
-        left: -83px; //rtl
+        left: -87px; //rtl
         bottom: -1px;
         border: 1px solid #aaa;
         border-right: none; //rtl
@@ -185,8 +178,8 @@
         border-radius: 3px 0 0 3px; //rtl
     }
     &:after {
-        height: 24px;
-        right: -83px; //rtl
+        height: 27px;
+        right: -87px; //rtl
         left: auto;
         border: 1px solid #aaa;
         border-left: none; //rtl
@@ -196,10 +189,10 @@
 
 .dashLibTop {
     display: block;
-    height: 102px;
+    height: 109px;
     text-align: center;
     border-bottom: 1px solid @borderColor;
-    padding: 0 8px 0 12px; //rtl
+    padding: 0 8px 0 15px; //rtl
     background: #ebebeb;
     position: relative;
     &:after {
@@ -228,15 +221,24 @@
         max-height: 60px;
     } 
 }
-
+.logoWpr {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid @borderColor;
+    .boxSizing;
+    display: inline-block;
+    border-radius: 100%;
+    margin-top: 15px;
+}
 .uniLogo {
     display: inline-block;
     border-radius: 100%;
-    border: 1px solid @borderColor;
+    
     .boxSizing;
-    margin-top: 10px;
+    //margin-top: 15px;
     padding: 5px;
-    box-shadow: inset 0 0 0 4px #fff;
+    //box-shadow: inset 0 0 0 4px #fff;
 }
 /*#region Lib Aside */
 
@@ -329,7 +331,7 @@
     .boxSizing;
 
     &:hover {
-        background: #f8f8f8;
+        background: #d7d7d7;
     }
 
     &:before {

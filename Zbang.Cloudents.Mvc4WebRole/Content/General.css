@@ -675,7 +675,7 @@ input[type="radio"][disabled] + label:before {
   text-align: left;
   /*rtl*/
   color: #fff;
-  margin: 8px 0 0 36px;
+  margin: 8px 0 0 40px;
   /*rtl*/
 }
 .navUser .userImg {
@@ -693,7 +693,7 @@ input[type="radio"][disabled] + label:before {
   font-size: 11px;
   color: #fff;
   line-height: 7px;
-  margin-left: 36px;
+  margin-left: 40px;
   /*rtl*/
 }
 .userPts:after {

@@ -5,10 +5,18 @@
 .boxFeed ~ .boxSideBar .recommendedWpr {
   right: 30px;
   left: auto;
-  padding: 8px 12px 12px 0;
 }
 .boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
   text-align: left;
+}
+.boxSideBar .podium:before,
+.boxSideBar .podium:after {
+  right: -91px;
+  left: auto;
+}
+.boxSideBar .podium:after {
+  left: -91px;
+  right: auto;
 }
 .feedForm .btn1 {
   margin: 8px 0 0 8px;

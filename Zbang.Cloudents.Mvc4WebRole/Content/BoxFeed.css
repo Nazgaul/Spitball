@@ -23,7 +23,7 @@
   width: 336px;
   display: inline-block;
   border-radius: 5px;
-  padding: 8px 0 12px 12px;
+  padding: 8px 12px 0 12px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -39,10 +39,30 @@
   text-align: right;
 }
 .boxSideBar .leaderBoard {
-  padding: 20px 50px 0 50px;
+  padding: 20px 32px 10px 32px;
 }
 .boxSideBar .podium {
-  top: 136px;
+  width: 90px;
+  top: 149px;
+}
+.boxSideBar .podium:before,
+.boxSideBar .podium:after {
+  width: 90px;
+  left: -91px;
+}
+.boxSideBar .podium:after {
+  right: -91px;
+  left: auto;
+}
+.boxSideBar .bestUserList .firstUser,
+.boxSideBar .bestUserList .secondUser,
+.boxSideBar .bestUserList .thirdUser {
+  width: 90px;
+}
+.boxSideBar .bestUserList .firstUser .rep,
+.boxSideBar .bestUserList .secondUser .rep,
+.boxSideBar .bestUserList .thirdUser .rep {
+  margin-top: 10px;
 }
 .feedForm {
   position: relative;
@@ -87,6 +107,8 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  position: relative;
+  top: 2px;
 }
 .feedTA {
   width: 543px;
@@ -440,7 +462,7 @@
   overflow: hidden;
   border-radius: 5px;
   border: 1px solid #282828;
-  margin-bottom: 50px;
+  margin-bottom: 31px;
 }
 .leaderBoard.empty .bestUserList,
 .leaderBoard.empty .svg-podium {
@@ -455,8 +477,8 @@
   font-size: 20px;
 }
 .leaderBoard header svg {
-  width: 32px;
-  height: 25px;
+  width: 36px;
+  height: 29px;
   fill: #0f9d58;
 }
 .leaderBoard .lbText {
@@ -485,11 +507,13 @@
   text-align: center;
   counter-reset: leaderBoard;
   min-height: 180px;
+  position: relative;
+  top: 8px;
 }
 .bestUserList .firstUser,
 .bestUserList .secondUser,
 .bestUserList .thirdUser {
-  width: auto;
+  width: 86px;
   height: auto;
   line-height: normal;
   text-align: center;
@@ -536,7 +560,7 @@
   text-align: left;
 }
 .bestUserList li:nth-child(n + 4) {
-  margin: 0 -50px;
+  margin: 0 -32px;
   padding: 0 15px;
   clear: both;
   width: 336px;
@@ -544,15 +568,15 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.bestUserList li:nth-child(n + 4):hover {
-  background: #eee;
-}
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
   counter-increment: leaderBoard;
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
+}
+.bestUserList li:nth-child(2n + 4) {
+  background: #eee;
 }
 .bestUserList .elps {
   display: inline-block;
@@ -564,6 +588,7 @@
   display: inline-block;
   vertical-align: middle;
   margin: 0 5px;
+  border-radius: 100%;
 }
 .bestUserList svg {
   display: block;
@@ -584,13 +609,12 @@
   margin: 0 auto 8px;
   width: 50px;
   height: 50px;
-  border-radius: 100%;
 }
 .secondUser .top3Img {
   margin-top: 17px;
 }
 .thirdUser .top3Img {
-  margin-top: 38px;
+  margin-top: 35px;
 }
 .svg-crown {
   width: 36px;

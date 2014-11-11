@@ -586,27 +586,26 @@
         left: auto;
     }
 }
+
 .recommended {
-    //padding: 0 56px 0 0; //rtl
+    margin: 0 0 0 -12px; //rtl
     .courseLink {
         &:hover .rcDetails {
             margin: 0 -105px 0 0; //rtl
         }
     }
     .rcDetails {
-        padding: 0 62px 0 0; //rtl
+        padding: 15px 69px 0 0; //rtl
+        &.ghost {
+            text-align: right; //rtl
+        }
     }
     img {
         right:8px; //rtl
         left: auto;
     }
-    /*.rFloat {
-        border: none;
-        border-right: 1px solid @borderColor; //rtl
-        padding: 0 35px 0 0; //rtl
-    }*/
     .friends, .files {
-        padding: 0 30px 0 0; //rtl
+        padding: 0 23px 0 0; //rtl
         &:after {
             right: 4px; //rtl
             left: auto;
@@ -616,7 +615,7 @@
 
 .podium {
     &:before, &:after {
-        right: -83px; //rtl
+        right: -87px; //rtl
         left: auto;
         border: 1px solid #aaa;
         border-left: none; //rtl
@@ -624,15 +623,15 @@
         
     }
     &:after {
-        left: -83px; //rtl
+        left: -87px; //rtl
         right: auto;
         border: 1px solid #aaa;
         border-right: none; //rtl
         border-radius: 3px 0 0 3px; //rtl
     }
 }
-.dashTop {
-    padding: 0 12px 0 8px; //rtl 
+.dashLibTop {
+    padding: 0 15px 0 8px; //rtl 
     &:after {
         right: 0; //rtl
         left: auto;
