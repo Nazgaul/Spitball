@@ -1,8 +1,7 @@
-﻿
-var mQuiz = angular.module('mQuiz', ['timer']);
+﻿var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
-        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails','$analytics',
-        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics) {
+        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails','$analytics','resManager',
+        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics,resManager) {
             "use strict";
             //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
@@ -97,7 +96,7 @@ mQuiz.controller('QuizCtrl',
             });
 
             $scope.timer = {
-                state: JsResources.Play
+                state: resManager.get('Play')
             };
 
             //#region quiz
@@ -269,7 +268,7 @@ mQuiz.controller('QuizCtrl',
                 $scope.formData.startTime = null;
                 $scope.quiz.testInProgress = false;
                 $scope.quiz.userDone = false;
-                $scope.timer.state = JsResources.Play;
+                $scope.timer.state = resManager.get('Play');
                 $scope.$broadcast('timer-clear');
 
                 angular.copy(questions, $scope.quiz.questions);
@@ -306,7 +305,7 @@ mQuiz.controller('QuizCtrl',
 
             function startTimer() {
                 $scope.$broadcast('timer-start');
-                $scope.timer.state = JsResources.Pause;
+                $scope.timer.state = resManager.get('Pause');
                 $scope.quiz.testInProgress = true;
                 $scope.formData.startTime = new Date();
             }
@@ -315,13 +314,13 @@ mQuiz.controller('QuizCtrl',
                 $scope.quiz.paused = true;
                 $scope.$broadcast('timer-stop');
                 $scope.quiz.testInProgress = false;
-                $scope.timer.state = JsResources.Play;
+                $scope.timer.state = resManager.get('Play');
             }
             function resumeTimer() {
                 $scope.$broadcast('timer-resume');
                 $scope.quiz.paused = false;
                 $scope.quiz.testInProgress = true;
-                $scope.timer.state = JsResources.Pause;
+                $scope.timer.state = resManager.get('Pause');
             }
             //#endregion
 
@@ -330,14 +329,14 @@ mQuiz.controller('QuizCtrl',
 
             $scope.getCommentsLength = function (comments) {
                 if (!comments) {
-                    return JsResources.AddComment;
+                    return resManager.get('AddComment');
                 }
 
                 if (comments.length === 1) {
-                    return comments.length + ' ' + JsResources.Comment;
+                    return comments.length + ' ' + resManager.get('Comment');
                 }
 
-                return comments.length + ' ' + JsResources.Comments;
+                return comments.length + ' ' + resManager.get('Comments');
             };
 
             $scope.createComment = function (question) {

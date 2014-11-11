@@ -1,11 +1,7 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz',
-        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager) {
             "use strict";
-
-            var jsResources = window.JsResources;
-
-
             var consts = {
                 view: {
                     thumb: 'thumb',
@@ -40,7 +36,7 @@
                 }
 
                 if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(jsResources.NeedToFollowBox);
+                    alert(resManager.get('NeedToFollowBox'));
                     return;
                 }
 
@@ -60,7 +56,7 @@
 
 
             $scope.removeQuiz = function (quiz) {
-                cd.confirm2(jsResources.SureYouWantToDelete + ' ' + (quiz.name || '') + "?").then(function () {
+                cd.confirm2(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
 
                     var data = {
                         id: quiz.id,

@@ -1,9 +1,8 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$analytics','sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates',
+		['$scope', '$rootScope', '$analytics','sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates','resManager',
             'sUserDetails', 'sFacebook',
-function ($scope, $rootScope,$analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook) {
+function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook, resManager) {
     "use strict";
-    var jsResources = window.JsResources;
 
     var consts = {
         view: {
@@ -65,7 +64,7 @@ function ($scope, $rootScope,$analytics, sModal, $filter, $timeout, sItem, sBox,
 
         $scope.followBox(true);
 
-        sFacebook.postFeed($filter('stringFormat')(jsResources.IUploaded, [data.itemDto.name]), $scope.info.url);
+        sFacebook.postFeed(resManager.getParsed('IUploaded', [data.itemDto.name]), $scope.info.url);
 
         if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
             return;
@@ -125,7 +124,7 @@ function ($scope, $rootScope,$analytics, sModal, $filter, $timeout, sItem, sBox,
     };
 
     $scope.deleteItem = function (item) {
-        cd.confirm2(jsResources.SureYouWantToDelete + ' ' + item.name + "?").then(function () {
+        cd.confirm2(resManager.get('SureYouWantToDelete') + ' ' + item.name + "?").then(function () {
             var data = {
                 itemId: item.id,
                 boxId: $scope.boxId
@@ -287,7 +286,7 @@ function ($scope, $rootScope,$analytics, sModal, $filter, $timeout, sItem, sBox,
         };
 
         sBox.addItemsToTab(data).then(function () { }, function (response) {
-            alert(jsResources.FolderItemError);
+            alert(resManager.get('FolderItemError'));
 
         });
 

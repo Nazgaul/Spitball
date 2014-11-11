@@ -1,11 +1,8 @@
-﻿
-var mLibrary = angular.module('mLibrary', []).
+﻿var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location','$filter', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
-function ($scope, $location, $filter, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
+    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
+function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
     "use strict";
-    var jsResources = window.JsResources;
-
     var types = {
         box: 'box',
         department: 'department',
@@ -141,12 +138,11 @@ function ($scope, $location, $filter, $routeParams, $timeout, sModal, sUserDetai
     //};
 
     $scope.subscribe = function (box) {
-        sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [box.name]), box.url);
-
+        sFacebook.postFeed(resManager.getParsed('IJoined', [box.name]), box.url);
 
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
-        
+
 
 
         //cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
@@ -160,10 +156,10 @@ function ($scope, $location, $filter, $routeParams, $timeout, sModal, sUserDetai
         isDelete = box.userType === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
         if (isDelete) {
-            isok = confirm(jsResources.DeleteCourse);
+            isok = confirm(resManager.get('DeleteCourse'));
         }
         else {
-            isok = confirm(jsResources.SureYouWantTo + ' ' + jsResources.ToLeaveGroup);
+            isok = confirm(resManager.get('SureYouWantTo') + ' ' + resManager.get('ToLeaveGroup'));
         }
         if (!isok) {
             return;
