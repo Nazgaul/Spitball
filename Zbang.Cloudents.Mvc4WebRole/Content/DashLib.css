@@ -47,12 +47,6 @@
   /*rtl*/
   width: 100%;
 }
-.boxesHeader.topBar:hover .boxRename {
-  display: inline-block;
-}
-.boxesHeader.topBar:hover .boxRename:hover {
-  background-position: -52px -21px;
-}
 .boxesHeader.topBar h2 {
   padding: 8px 8px 0 0;
   /*rtl*/
@@ -89,8 +83,11 @@
 }
 .boxRename {
   vertical-align: top;
-  display: none;
-  margin-top: 28px;
+  visibility: hidden;
+  display: inline-block;
+  position: relative;
+  left: -4px;
+  top: 24px;
 }
 .boxRename .svg-settings {
   width: 25px;
@@ -457,6 +454,12 @@
 .dashHeader .open .svg-notification {
   fill: #d1294d;
 }
+.dashHeader:hover .boxRename {
+  visibility: visible;
+}
+.dashHeader .svg-settings {
+  fill: #c2c2c2;
+}
 .notificationBtn {
   position: relative;
   top: 13px;
@@ -507,10 +510,12 @@
 }
 .dhContent svg {
   fill: #fff;
+}
+.dhContent .svg-inviteUser {
   position: relative;
   top: 5px;
 }
-.dhContent svg:hover {
+.dhContent .svg-inviteUser:hover {
   fill: #0f9d58;
 }
 .searchInputWpr {

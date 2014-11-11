@@ -53,15 +53,6 @@
     left: 0; /*rtl*/
     padding-left: 314px; /*rtl*/
     width: 100%;
-    &:hover {
-        .boxRename {
-            display: inline-block;
-
-            &:hover {
-                background-position: -52px -21px;
-            }
-        }
-    }
 
     h2 {
         padding: 8px 8px 0 0; /*rtl*/
@@ -103,8 +94,11 @@
 
 .boxRename {
     vertical-align: top;
-    display: none;
-    margin-top: 28px;
+    visibility: hidden;
+    display: inline-block;
+    position: relative;
+    left: -4px; //rtl
+    top: 24px;
     .svg-settings {
         width: 25px;
         height: 23px;
@@ -517,6 +511,14 @@
     .open .svg-notification {
         fill: #d1294d;
     }
+    &:hover {
+        .boxRename {
+            visibility: visible;
+        }
+    }
+    .svg-settings {
+        fill: #c2c2c2;
+    }
 }
 .notificationBtn {
     position: relative;
@@ -556,6 +558,8 @@
     }
     svg {
         fill: #fff;
+    }
+    .svg-inviteUser {
         position: relative;
         top: 5px;
         &:hover {

@@ -206,6 +206,7 @@
 }
 .sTabs button {
   text-transform: capitalize;
+  color: #fff;
 }
 .sTabs.sTab2 ~ .upArrow:before {
   left: 98px;
