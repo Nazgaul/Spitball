@@ -15,14 +15,8 @@
   position: relative;
   height: 100%;
 }
-/*.dashContent header, .libraryContent header {
-    
-}*/
 .libraryContent {
   vertical-align: top;
-}
-.libraryContent .contentWpr {
-  padding-top: 80px;
 }
 .libraryContent header {
   padding-bottom: 0;
@@ -35,6 +29,9 @@
 }
 .libraryContent .boxesHeader .topLevel.topLevel {
   padding: 7px 0 0;
+}
+.libraryContent .dashLibTop:hover {
+  background: #ebebeb;
 }
 /*#region boxesHeader */
 .boxesHeader {
@@ -435,14 +432,19 @@
   height: 65px;
   line-height: 65px;
   vertical-align: middle;
-  border-bottom: 1px dashed #c2c2c2;
+  background: #282828;
+  margin: 0 -30px;
+  padding: 0 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .dashHeader > .rFloat {
   width: 170px;
   position: relative;
   top: 8px;
   height: 48px;
-  /*&:before { // Temporarily commented out
+  /*&:before { // Temporarily commented out (store separator)
             .pseudo;
             position: absolute;
             width: 1px;
@@ -451,6 +453,9 @@
             top: 8px;
             left: 60px; //rtl
         }*/
+}
+.dashHeader .open .svg-notification {
+  fill: #d1294d;
 }
 .notificationBtn {
   position: relative;
@@ -501,9 +506,12 @@
   fill: #383838;
 }
 .dhContent svg {
-  fill: #0f9d58;
+  fill: #fff;
   position: relative;
   top: 5px;
+}
+.dhContent svg:hover {
+  fill: #0f9d58;
 }
 .searchInputWpr {
   position: relative;
@@ -519,7 +527,7 @@
 }
 .dhText {
   font-size: 28px;
-  color: #0f9d58;
+  color: #fff;
 }
 /*#endregion */
 /*#region setup course 'popups' */
@@ -1043,6 +1051,9 @@
   color: #0f9d58;
   border-color: #7a7a7a;
   background: #fff;
+}
+.libraryList {
+  margin-top: 42px;
 }
 .libraryList,
 .myAreaList {
