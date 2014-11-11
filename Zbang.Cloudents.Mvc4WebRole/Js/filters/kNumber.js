@@ -1,11 +1,13 @@
 ﻿app.filter('kNumber',
-[
-    function () {
+[   '$filter',
+    function ($filter) {
         "use strict";
         return function (number) {
             if (!number) {
                 return number;
             }
+
+            number = $filter('number')(number);
 
             return abbreviate();
 
@@ -23,14 +25,14 @@
                 }
                 else if (number >= 1e5) {
                     abbr = 'K'
-                }                
+                }
                 else {
                     abbr = ''
                 }
 
                 return annotate(abbr);
             }
-            
+
             function annotate(abbr) {
                 var rounded = 0
                 switch (abbr) {
@@ -50,7 +52,7 @@
                         rounded = number
                         break
                 }
-                
+
 
                 if (abbr) {
                     rounded = rounded.toFixed(2);
