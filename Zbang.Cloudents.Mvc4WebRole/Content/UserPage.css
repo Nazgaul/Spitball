@@ -20,6 +20,19 @@
   top: 50px;
   z-index: -1;
 }
+.userPage .barActions,
+.searchPage .barActions {
+  padding: 0 20px;
+  top: 14px;
+}
+.userPage .searchInputWpr,
+.searchPage .searchInputWpr {
+  margin-top: 6px;
+}
+.userPage .searchInputWpr + button,
+.searchPage .searchInputWpr + button {
+  margin-top: 21px;
+}
 .userPage h1 {
   font-size: 22px;
   margin-top: 18px;
@@ -27,16 +40,6 @@
   position: relative;
   /*z-index: 1;*/
   overflow: hidden;
-}
-.userPage h1:hover .settingsLink {
-  display: inline-block;
-  position: relative;
-  top: 5px;
-}
-.userPage h1:hover .settingsLink svg {
-  width: 25px;
-  height: 23px;
-  fill: #c2c2c2;
 }
 .userPage .settingsLink {
   display: none;
@@ -365,20 +368,19 @@
   margin-top: 23px;
   color: #676767;
 }
-.upTop .iconTxt {
-  margin-top: 12px;
+.upTop:hover .settingsLink {
+  display: inline-block;
+  position: relative;
+  top: 5px;
 }
-.upTop .iconTxt:before {
-  width: 15px;
-  height: 19px;
-  background-position: -52px -20px;
-}
-.upTop .iconTxt:hover {
-  color: #0371c8;
+.upTop:hover .settingsLink svg {
+  width: 25px;
+  height: 23px;
+  fill: #c2c2c2;
 }
 .upImg {
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
   /*rtl*/
   border: 5px solid #fff;
@@ -389,6 +391,9 @@
   /*&:hover {
         color: @attentionBlue;
     }*/
+}
+.upDetails {
+  display: inline-block;
 }
 .upContent {
   width: 772px;
@@ -703,7 +708,7 @@
 /*#endregion */
 /*#region union*/
 .upMembers {
-  margin-top: 27px;
+  margin-top: 50px;
 }
 .upMembers .membersContent {
   min-height: 275px;

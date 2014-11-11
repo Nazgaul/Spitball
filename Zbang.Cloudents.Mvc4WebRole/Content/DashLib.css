@@ -436,21 +436,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.dashHeader > .rFloat {
-  width: 170px;
-  position: relative;
-  top: 8px;
-  height: 48px;
-  /*&:before { // Temporarily commented out (store separator)
-            .pseudo;
-            position: absolute;
-            width: 1px;
-            height: 36px;
-            background: @color;
-            top: 8px;
-            left: 60px; //rtl
-        }*/
-}
 .dashHeader .open .svg-notification {
   fill: #d1294d;
 }
@@ -479,44 +464,8 @@
   position: relative;
   top: 4px;
 }
-.dhContent {
-  overflow: hidden;
-}
-.dhContent .dashLibSearchInput {
-  width: 420px;
-  border: 1px solid #c2c2c2;
-  border-radius: 15px;
-  font-size: 18px;
-  margin: 17px 20px 0 20px;
-  vertical-align: top;
-  color: #383838;
-}
-.dhContent .dashLibSearchInput::-webkit-input-placeholder {
-  color: #c2c2c2;
-}
-.dhContent .dashLibSearchInput:-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.dhContent .dashLibSearchInput::-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.dhContent .dashLibSearchInput:-ms-input-placeholder {
-  color: #c2c2c2;
-}
-.dhContent .dashLibSearchInput:focus ~ svg {
-  fill: #383838;
-}
 .dhContent svg {
   fill: #fff;
-}
-.dhContent .svg-inviteUser {
-  position: relative;
-  top: 5px;
-}
-.dhContent .svg-inviteUser:hover {
-  fill: #0f9d58;
 }
 .searchInputWpr {
   position: relative;
@@ -529,6 +478,39 @@
   fill: #a5a5a5;
   top: 22px;
   cursor: pointer;
+}
+.searchInputWpr .dashLibSearchInput {
+  width: 420px;
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  font-size: 18px;
+  margin: 17px 20px 0 20px;
+  vertical-align: top;
+  color: #383838;
+}
+.searchInputWpr .dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.searchInputWpr .dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.searchInputWpr .dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.searchInputWpr .dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.searchInputWpr .dashLibSearchInput:focus ~ svg {
+  fill: #383838;
+}
+.searchInputWpr + button .svg-inviteUser {
+  position: relative;
+  top: 5px;
+}
+.searchInputWpr + button .svg-inviteUser:hover {
+  fill: #0f9d58;
 }
 .dhText {
   font-size: 28px;

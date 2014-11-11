@@ -1,0 +1,37 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div class="barActions rFloat">
+    <div dropdown>
+        <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+            <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
+        </button>
+        <div class="notifyWpr dropdown-menu" role="menu">
+            <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
+                infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
+                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications">
+                    <a bo-href="notification.url" ng-click="markAsRead(notification)">
+                        <img class="notifyImg" bo-src="notification.userPic" alt="" />
+                        <div class="notifyDetails">
+                            <span class="semiFont notifier elps" bo-text="notification.userName"></span>
+
+                            <span class="createTime" display-time="{{notification.date}}"></span><br />
+                            <div class="inviteTxtWpr">
+                                @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="notifyEmpty dropdown-menu" ng-if="!notifications.length">
+                @Html.Svg("~/Images/Defs.svg", "notificationCloud", new { @class = "svg-notificationCloud" })
+                <div>@SharedResources.NoNotifications</div>
+            </div>
+        </div>
+    </div>
+    <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
+        @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
+    </a>
+    @*<a title="" class="lFloat storeLink" href="/store">
+            @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+        </a>*@
+</div>

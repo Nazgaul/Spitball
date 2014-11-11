@@ -17,19 +17,27 @@
 
 
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
+    @{Html.RenderPartial("_BarActions");}
     <div class="upContentWpr">
         <div class="upTop">
-            
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
-            <h1 class="semiFont" id="upUsername">
-                <span>@Model.Name</span>
-                <a class="settingsLink" ng-if="profile.isSelf"
-                   href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
-                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
-                </a>
-            </h1>
-            <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
+            <div class="upDetails">
+                <h1 class="semiFont" id="upUsername">
+                    <span>@Model.Name</span>
+                    <a class="settingsLink" ng-if="profile.isSelf"
+                       href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
+                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                    </a>
+                </h1>
+                <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
+            </div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
+            <div class="rFloat">
+                @{Html.RenderPartial("_BarSearch");}
+                <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+                    @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+                </button>
+            </div>
         </div>
 
         <section class="upMembers" ng-if="admin.visible()">

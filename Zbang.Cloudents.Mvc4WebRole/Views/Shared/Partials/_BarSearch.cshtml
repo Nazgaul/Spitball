@@ -1,0 +1,39 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="searchInputWpr" ng-controller="SearchHeaderCtrl">
+    <form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
+        <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-keyup="search()"
+               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+        <button type="submit" ng-disabled="newSearch.query.$invalid">
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+        </button>
+    </form>
+    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+        <span ng-if="searchResults.boxes.length">
+            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+            <ul class="searchList boxes">
+                <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.items.length">
+            <h3>@SharedResources.Materials</h3>
+            <ul class="searchList items">
+                <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.people.length">
+            <h3>@SharedResources.People</h3>
+            <ul class="searchList people">
+                <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+            </ul>
+        </span>
+        <span ng-if="searchResults.otherItems.length">
+            <h3>@SharedResources.ResultsOther</h3>
+            <ul class="searchList university">
+                <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </span>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <div class="emptySearch">@SharedResources.NoResults</div>
+    </div>
+</div>

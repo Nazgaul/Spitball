@@ -493,21 +493,7 @@
     margin: 0 -30px;
     padding: 0 30px;
     .boxSizing;
-    > .rFloat {
-        width: 170px;
-        position: relative;
-        top: 8px;
-        height: 48px; //
-        /*&:before { // Temporarily commented out (store separator)
-            .pseudo;
-            position: absolute;
-            width: 1px;
-            height: 36px;
-            background: @color;
-            top: 8px;
-            left: 60px; //rtl
-        }*/
-    }
+    
     .open .svg-notification {
         fill: #d1294d;
     }
@@ -540,7 +526,23 @@
     top: 4px;
 }
 .dhContent {
-    overflow: hidden;
+    //overflow: hidden; Why was this here? (It hides the search results)
+    
+    svg {
+        fill: #fff;
+    }
+}
+.searchInputWpr {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    svg {
+        position: absolute;
+        right: 33px; //rtl
+        fill: #a5a5a5;
+        top: 22px;
+        cursor: pointer;
+    }
     .dashLibSearchInput {
         width: 420px;
         border: 1px solid @borderColor;
@@ -556,27 +558,12 @@
             }
         }
     }
-    svg {
-        fill: #fff;
-    }
-    .svg-inviteUser {
+    + button .svg-inviteUser {
         position: relative;
         top: 5px;
         &:hover {
             fill: @color;
         }
-    }
-}
-.searchInputWpr {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    svg {
-        position: absolute;
-        right: 33px; //rtl
-        fill: #a5a5a5;
-        top: 22px;
-        cursor: pointer;
     }
 }
 .dhText {

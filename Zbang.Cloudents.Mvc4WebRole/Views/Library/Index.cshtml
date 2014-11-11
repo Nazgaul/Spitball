@@ -73,43 +73,7 @@
                 <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
             }
             <div class="dashHeader" ng-controller="NotificationsCtrl">
-                <div class="rFloat">
-                    <div dropdown>
-                        <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
-                            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
-                            <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
-                        </button>
-                        <div class="notifyWpr dropdown-menu" role="menu">
-                            <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
-                                infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
-                                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications">
-                                    <a bo-href="notification.url" ng-click="markAsRead(notification)">
-                                        <img class="notifyImg" bo-src="notification.userPic" alt="" />
-                                        <div class="notifyDetails">
-                                            <span class="semiFont notifier elps" bo-text="notification.userName"></span>
-
-                                            <span class="createTime" display-time="{{notification.date}}"></span><br />
-                                            <div class="inviteTxtWpr">
-                                                @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="notifyEmpty dropdown-menu" ng-if="!notifications.length">
-                                @Html.Svg("~/Images/Defs.svg", "notificationCloud", new { @class = "svg-notificationCloud" })
-                                <div>@SharedResources.NoNotifications</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
-                        @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
-                    </a>
-                    @*<a title="" class="lFloat storeLink" href="/store">
-                    @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
-                </a>*@
-                </div>
-
+                @{Html.RenderPartial("_BarActions");}
                 <div class="dhContent">
                     <span bo-if="!info.libraryId" class="topLevel dhText">@MainViewResources.AllDepartments</span>
                     <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
@@ -119,43 +83,7 @@
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
                     </button>
-                    <div class="searchInputWpr" ng-controller="SearchHeaderCtrl">
-                        <form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
-                            <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-keyup="search()"
-                                   ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
-                            <button type="submit" ng-disabled="newSearch.query.$invalid">
-                                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
-                            </button>
-                        </form>
-                        <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
-                            <span ng-if="searchResults.boxes.length">
-                                <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
-                                <ul class="searchList boxes">
-                                    <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
-                                </ul>
-                            </span>
-                            <span ng-if="searchResults.items.length">
-                                <h3>@SharedResources.Materials</h3>
-                                <ul class="searchList items">
-                                    <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
-                                </ul>
-                            </span>
-                            <span ng-if="searchResults.people.length">
-                                <h3>@SharedResources.People</h3>
-                                <ul class="searchList people">
-                                    <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
-                                </ul>
-                            </span>
-                            <span ng-if="searchResults.otherItems.length">
-                                <h3>@SharedResources.ResultsOther</h3>
-                                <ul class="searchList university">
-                                    <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
-                                </ul>
-                            </span>
-                            <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
-                            <div class="emptySearch">@SharedResources.NoResults</div>
-                        </div>
-                    </div>
+                    @{Html.RenderPartial("_BarSearch");}
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">
