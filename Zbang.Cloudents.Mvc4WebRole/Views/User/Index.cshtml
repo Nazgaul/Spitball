@@ -19,10 +19,15 @@
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
     <div class="upContentWpr">
         <div class="upTop">
-            <a class="rFloat iconTxt" ng-if="profile.isSelf"
-               href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">@UserResources.EditAccount</a>
+            
             <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
-            <h1 class="semiFont" id="upUsername">@Model.Name</h1>
+            <h1 class="semiFont" id="upUsername">
+                <span>@Model.Name</span>
+                <a class="settingsLink" ng-if="profile.isSelf"
+                   href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
+                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                </a>
+            </h1>
             <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
         </div>
