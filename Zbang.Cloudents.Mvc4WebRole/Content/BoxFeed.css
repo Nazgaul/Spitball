@@ -539,6 +539,7 @@
   border-color: #8a8a8a;
   background: #ccc;
   overflow: hidden;
+  border-radius: 100%;
 }
 .bestUserList .firstUser.empty svg,
 .bestUserList .secondUser.empty svg,

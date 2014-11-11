@@ -19,14 +19,9 @@
 .boxPage .backWpr {
   margin: 13px 25px 0 0;
   padding: 0;
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-.boxPage .backWpr:before {
-  display: none;
+  /*&:before {
+            display: none;
+        }*/
 }
 .boxPage .svg-settings {
   width: 30px;

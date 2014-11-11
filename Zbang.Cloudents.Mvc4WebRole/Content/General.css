@@ -2190,38 +2190,30 @@ select.inputText {
 .backWpr {
   text-align: left;
   /*rtl*/
-  padding-left: 40px;
-  /*rtl*/
-  margin-top: 22px;
-  position: relative;
+  margin-top: 16px;
   display: inline-block;
   line-height: 16px;
   height: 35px;
 }
-.backWpr:hover:before {
-  background-position: -204px -35px;
-}
-.backWpr:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  /*rtl*/
-  width: 35px;
-  height: 35px;
-  background: url(/Images/common17-sprite.png?v=4) -204px 0 no-repeat;
-  overflow: hidden;
-  border-radius: 18px;
-}
 .backWpr h2 {
   font-size: 15px;
   height: 18px;
+  display: inline-block;
+  color: #fff;
+  vertical-align: top;
+  margin-top: 9px;
+  font-weight: normal;
+  padding: 0 10px;
 }
 .backWpr.noArrow {
   padding-left: 0;
 }
-.backWpr.noArrow:before {
-  display: none;
+.backWpr .svg-back {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 .sectionHeader {
   height: 34px;

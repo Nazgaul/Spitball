@@ -470,15 +470,18 @@ input[type="radio"] {
 }
 .backWpr {
     text-align: right; /*rtl*/
-    padding: 0 40px 0 0; /*rtl*/
-    &:before {
+    //padding: 0 40px 0 0; /*rtl*/
+    //.flipH(1); //rtl
+    /*&:before {
         .flipH;
-        right: 0; /*rtl*/
+        right: 0; //rtl
         left: auto;
-    }
-
+    }*/
     &.noArrow {
         padding-right:0;
+    }
+    .svg-back {
+        .flipH(1); //rtl
     }
 }
 

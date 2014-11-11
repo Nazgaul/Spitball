@@ -561,7 +561,10 @@
 .boxTitle {
     padding: 0 0 0 10px; /*rtl*/
 }
-
+.boxRename {
+    right: -4px; //rtl
+    left: auto;
+}
 .emptyState {
     padding: 40px 236px 0 0; /*rtl*/
 }
@@ -726,7 +729,7 @@
     }
     .backWpr {
         margin: 13px 0 0 25px; //rtl
-        .flipH(1); //rtl
+        //.flipH(1); //rtl
     }
 }
 .boxRight {
@@ -1994,9 +1997,9 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
-    .backWpr:before {
+    /*.backWpr:before {
         .flipH(1); //rtl
-    }
+    }*/
     .leftPanel.leftPanel {
         right: 0; /*rtl*/
         left: auto;

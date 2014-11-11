@@ -113,6 +113,7 @@
                 <div class="dhContent">
                     <span bo-if="!info.libraryId" class="topLevel dhText">@MainViewResources.AllDepartments</span>
                     <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
+                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
                         <h2>{{back.title}}</h2>
                     </a>
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
@@ -155,11 +156,6 @@
                             <div class="emptySearch">@SharedResources.NoResults</div>
                         </div>
                     </div>
-
-
-                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
-                        @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-                    </button>
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">

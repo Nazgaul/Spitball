@@ -492,6 +492,10 @@
   padding: 0 0 0 10px;
   /*rtl*/
 }
+.boxRename {
+  right: -4px;
+  left: auto;
+}
 .emptyState {
   padding: 40px 236px 0 0;
   /*rtl*/
@@ -638,11 +642,6 @@
 }
 .boxPage .backWpr {
   margin: 13px 0 0 25px;
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-  -o-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
 }
 .boxRight {
   padding: 0 243px 0 0;
@@ -2000,12 +1999,10 @@ body.quiz .shareBtn {
 }
 /*#endregion */
 /*#region Quiz item page */
-.quizPage .backWpr:before {
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-  -o-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
+.quizPage {
+  /*.backWpr:before {
+        .flipH(1); //rtl
+    }*/
 }
 .quizPage .leftPanel.leftPanel {
   right: 0;
