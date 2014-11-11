@@ -124,7 +124,7 @@
                 </li>
 
                 <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
-                    <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="48" height="48" /></a>
+                    <a bo-href="leaderBoard.third.url"><img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="48" height="48" /></a>
                     @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                     <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
                 </li>
@@ -139,7 +139,7 @@
                     <span class="rep rFloat" bo-text="leaderBoard.fourth.score | kNumber"></span>
                 </li>
                 <li ng-if="leaderBoard.fifth">
-                    <a bo-href="leaderBoard.fourth.url"><img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
+                    <a bo-href="leaderBoard.fifth.url"><img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
                     <span class="elps" bo-text="leaderBoard.fifth.name"></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fifth.score | kNumber"></span>
                 </li>

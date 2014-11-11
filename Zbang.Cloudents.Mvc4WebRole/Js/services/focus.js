@@ -1,5 +1,4 @@
-﻿
-app.factory('sFocus',
+﻿app.factory('sFocus',
     ['$rootScope', '$timeout',
     function ($rootScope, $timeout) {
         "use strict";

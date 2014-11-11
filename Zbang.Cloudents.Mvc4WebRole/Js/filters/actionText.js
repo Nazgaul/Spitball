@@ -1,5 +1,4 @@
-﻿
-mDashboard.filter('actionText',
+﻿mDashboard.filter('actionText',
 [
     function () {
         "use strict";
