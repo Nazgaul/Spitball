@@ -146,9 +146,6 @@ app.controller('MainCtrl',
 
                 $rootScope.params.store.coupon.buttonDisabled = true;
 
-
-
-
                 sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
                     $rootScope.params.store.coupon.buttonDisabled = false;                    
                     if (response.isValid) {

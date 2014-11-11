@@ -667,6 +667,9 @@
   max-height: 32px;
   overflow: hidden;
 }
+.invitedToWpr .upImg {
+  border-radius: 3px;
+}
 /*.invitedToImg
 {
     position: absolute;
