@@ -22,9 +22,9 @@
                 else if (number >= 1e6) {
                     abbr = 'M'
                 }
-                else if (number >= 1e3) {
+                else if (number >= 1e5) {
                     abbr = 'K'
-                }
+                }                
                 else {
                     abbr = ''
                 }
@@ -45,7 +45,7 @@
                         rounded = number / 1e6
                         break
                     case 'K':
-                        rounded = number / 1e3
+                        rounded = number / 1e5
                         break
                     case '':
                         rounded = number

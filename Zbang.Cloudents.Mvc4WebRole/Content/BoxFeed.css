@@ -244,6 +244,7 @@
 .feedWpr .feedContent {
   margin-top: 15px;
   font-size: 16px;
+  white-space: normal;
 }
 .feedWpr .commentBtn:after {
   content: '\00a0' '|' '\00a0';

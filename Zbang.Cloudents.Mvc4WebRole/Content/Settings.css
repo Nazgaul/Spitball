@@ -71,8 +71,10 @@
   font-size: 15px;
 }
 .profileInfo .profilePhoto {
+  box-shadow: inset 0 0 0 4px #c2c2c2;
   border-radius: 100%;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  padding: 3px;
+  /*box-shadow: 2px 2px 2px rgba(0, 0, 0,0.4);*/
   /*rtl*/
   display: inline-block;
   vertical-align: top;
@@ -81,7 +83,7 @@
 }
 .profileInfo .photoBtn {
   display: inline-block;
-  margin: 5px 0 0 5px;
+  margin: 41px 0 0 5px;
   /*rtl*/
   color: #0f9d58;
 }
@@ -264,6 +266,7 @@
   background: #fff;
   margin-bottom: 39px;
   overflow: hidden;
+  border: 1px solid #c2c2c2;
 }
 .storage .storageBar .your {
   height: 20px;
@@ -300,6 +303,7 @@
 .key .free:before {
   content: '';
   background-color: #fff;
+  border: 1px solid #c2c2c2;
 }
 .key .percent {
   margin: 0 27px 0 2px;
