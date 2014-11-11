@@ -519,6 +519,9 @@
   display: block;
   margin: 10px 130px 0 0;
 }
+.box-content .membersContent .friendImg {
+  border-radius: 100%;
+}
 .box-content .membersTop {
   margin-bottom: 15px;
 }

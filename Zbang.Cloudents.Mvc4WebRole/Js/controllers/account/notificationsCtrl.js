@@ -3,7 +3,6 @@
         function ($scope, sShare, $analytics) {
             "use strict";
 
-
             $scope.params = {
                 notificationsListLength: 12,
                 notificationsListPage: 12
@@ -33,9 +32,9 @@
                 //});
             };
             $scope.markAsRead = function (notification) {
-                //sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
-                //    notification.isRead = true;
-                //});
+                sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
+                    notification.isRead = true;
+                });
 
                 notification.isRead = true;
 
@@ -58,9 +57,9 @@
                 $scope.params.notificationsListLength += $scope.params.notificationsListPage;
             };
             function countNewNotifications() {
-                //var newNotifications = _.filter($scope.notifications, function (notification) {
-                //    return notification.isNew;
-                //});
+                var newNotifications = _.filter($scope.notifications, function (notification) {
+                    return notification.isNew;
+                });
 
                 $scope.params.newNotifications = $scope.notifications.length;
             }

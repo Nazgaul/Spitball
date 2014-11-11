@@ -1,5 +1,4 @@
-﻿
-var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
+﻿var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
          'sModal', '$location','$filter', '$timeout','$analytics',
@@ -69,6 +68,14 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
+
+                if ($location.hash()) {
+                    if ($scope.states.hasOwnProperty($location.hash())) {
+                        $scope.setTab($location.hash());
+                    } else {
+                        $location.hash('');
+                    }
+                }
             });
 
 
@@ -83,13 +90,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $scope.options.loader = true;
 
             };
-            if ($location.hash()) {
-                if ($scope.states.hasOwnProperty($location.hash())) {
-                    $scope.setTab($location.hash());
-                } else {
-                    $location.hash('');
-                }
-            }
+         
 
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
@@ -200,6 +201,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
 
                                 $scope.info.name = result.name;
                                 $scope.info.privacy = result.boxPrivacy;
+                                $scope.info.professor = result.professor;
+                                $scope.info.courseId = result.courseCode;
 
                                 if (!result.queryString) {
                                     return;

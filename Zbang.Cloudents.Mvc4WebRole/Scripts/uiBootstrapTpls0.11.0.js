@@ -2528,6 +2528,11 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.b
                         }
 
                         function hideTooltipBind() {
+                            if (scope.$$phase) {
+                                hide();
+                                return;
+                            }
+
                             scope.$apply(function () {
                                 hide();
                             });

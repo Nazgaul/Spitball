@@ -1,5 +1,4 @@
-﻿
-app.directive('contenteditable', function () {
+﻿app.directive('contenteditable', function () {
     "use strict";
     return {
         scope: {

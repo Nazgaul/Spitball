@@ -71,6 +71,7 @@
   font-size: 15px;
 }
 .profileInfo .profilePhoto {
+  border-radius: 100%;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   /*rtl*/
   display: inline-block;

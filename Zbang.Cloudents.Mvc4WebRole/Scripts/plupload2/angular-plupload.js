@@ -49,9 +49,14 @@
 
 	                alert("Cannot upload, error: " + err.message + (err.file ? ", File: " + err.file.name : "") + "");
 
-	                $rootScope.$apply(function () {
+
+	                if ($rootScope.$$phase) {
 	                    $rootScope.$broadcast('UploadFileError', err.file);
-	                });
+	                } else {
+	                    $rootScope.$apply(function () {
+	                        $rootScope.$broadcast('UploadFileError', err.file);
+	                    });
+	                }
 
 
 	                up.refresh(); // Reposition Flash/Silverlight
@@ -73,10 +78,16 @@
 	                    file.uploader = up;
 	                });
 
-	                $rootScope.$apply(function () {
-	                    $rootScope.$broadcast('FilesAdded', files);
-	                });
 
+	                if ($rootScope.$$phase) {
+	                    $rootScope.$broadcast('FilesAdded', files);
+	                }
+	                else {
+	                    $rootScope.$apply(function () {
+	                        $rootScope.$broadcast('FilesAdded', files);
+	                    });
+
+	                }
 	                uploader.start();
 	            });
 
@@ -97,7 +108,7 @@
 
 	                $angularCacheFactory.clearAll();
 
-	                if (scope.$$phase) {
+	                if ($rootScope.$$phase) {
 	                    post();
 	                    return;
 	                }
@@ -123,7 +134,7 @@
 
 	            uploader.bind('UploadProgress', function (up, file) {
 
-	                if (scope.$$phase) {
+	                if ($rootScope.$$phase) {
 	                    $rootScope.$broadcast('UploadProgress', file);
 	                    return;
 	                }
@@ -176,7 +187,7 @@
 	        }
 	    };
 	}]).
-    directive('plUploadStandalone', ['$timeout', function ($timeout) {
+    directive('plUploadStandalone', ['$timeout', '$rootScope', function ($timeout, $rootScope) {
         "use strict";
         return {
             restrict: 'A',
@@ -209,7 +220,7 @@
 
 
                 uploader.bind('Error', function (up, err) {
-                    if (scope.$$phase) {
+                    if ($rootScope.$$phase) {
                         scope.onError({ error: err });
                         return;
                     }
@@ -240,7 +251,7 @@
 
                     $angularCacheFactory.clearAll();
 
-                    if (scope.$$phase) {
+                    if ($rootScope.$$phase) {
                         scope.onUploaded({ response: response });
                         return;
                     }
