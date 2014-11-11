@@ -58,11 +58,13 @@
                     <li class="recommended" ng-repeat="course in recommendedCourses">
 
                         <a bo-href="course.url" class="courseLink">
-                            <div class="rcDetails" ng-class="{ rcFull : course.professor && course.courseCode }">
-                                <img alt="" width="46" height="46" bo-src="course.picture" />
-                                <div class="elps courseName" bo-text="course.name"></div>
-                                <span class="prof elps" bo-text="course.professor"></span>
-                                <span class="elps" bo-text="course.courseCode"></span>
+                            <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
+                                <div class="vCentered">
+                                    <div class="courseName" bo-text="course.name"></div>
+                                    <span class="prof elps" bo-text="course.professor"></span>
+                                    <span class="elps" bo-text="course.courseCode"></span>
+                                </div>
+                                <img alt="" width="48" height="48" bo-src="course.picture" />
                             </div>
                             <div class="rcStats">
                                 <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
@@ -182,34 +184,11 @@
                     <div class="createCourse">
                         <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
                     </div>
-                    @*<section class="recommendedWpr" ng-if="recommendedCourses.length">
-                            <header>@IndexResources.RecommendedCourses</header>
-                            <ul>
-                                <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
-                                    <a bo-href="course.url" class="courseLink">
-                                        <div class="rFloat">
-                                            <div class="friends" bo-attr bo-attr-data-friends-count="course.membersCount">@SharedResources.Friends</div>
-                                            <div class="files" bo-attr bo-attr-data-files-count="course.itemCount">@SharedResources.Files</div>
-                                        </div>
-                                        <img bo-src="course.picture" alt="" width="68" height="68" />
-                                        <div class="elps courseName" bo-text="course.name"></div>
-                                        <div class="elps" bo-text="course.courseCode"></div>
-                                        <div class="prof elps" bo-text="course.professor"></div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </section>*@
                 </div>
             </section>
 
             <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
                 <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
-                @*<div ng-if="!academicBoxes.length" class="emptyDash">
-                        <div class="followEmpty">
-                            <h2 class="boldFont">@IndexResources.FollowCourses</h2>
-                            <div>@IndexResources.FindCourses</div>
-                        </div>
-                    </div>*@
                 <ol class="myAreaList clearfix">
                     <li class="box">
                         <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>

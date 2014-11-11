@@ -302,16 +302,18 @@
   display: block;
 }
 .boxTop .boxName {
-  font-size: 25px;
+  font-size: 27px;
   color: #383838;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   overflow: hidden;
   -ms-word-break: break-word;
   word-break: break-word;
-  max-height: 57px;
+  max-height: 53px;
   margin: 12px 0;
   display: inline-block;
+  font-weight: normal;
+  line-height: 26px;
 }
 .boxTop .imgBorder {
   background: #fff;

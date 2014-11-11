@@ -28,41 +28,37 @@
   min-height: 220px;
 }
 .asideDash .leaderBoard header {
-  padding: 16px 0 10px;
-  font-size: 18px;
+  padding: 16px 0 7px;
 }
 .asideDash .recommendedWpr header {
   text-align: center;
 }
 .recommendedWpr {
   background: #fff;
+  padding: 0 12px;
 }
 .recommendedWpr header {
-  font-size: 18px;
-  padding: 20px 0 8px;
+  font-size: 20px;
+  padding: 13px 0 8px;
 }
 .recommended {
-  height: 70px;
+  height: 80px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
   font-size: 15px;
   display: block;
-  /*.rFloat {
-        border-left: 1px solid @borderColor; //rtl
-        width: 115px;
-        .boxSizing;
-        padding-left: 35px; //rtl
-        font-size: 13px;
-        margin-top: 10px;
-    }*/
-  /*&:nth-child(2) {
-        margin: 10px 0;
-    }*/
+  margin-right: -12px;
 }
-.recommended + .recommended {
-  border-top: 1px solid #c2c2c2;
+.recommended + .recommended:after {
+  content: '';
+  display: inline-block;
+  width: calc(100% - 12px);
+  height: 1px;
+  background: #c2c2c2;
+  position: absolute;
+  top: 0;
 }
 .recommended .courseLink {
   display: block;
@@ -76,21 +72,23 @@
 }
 .recommended .rcDetails {
   width: 100%;
-  height: 70px;
+  height: 63px;
   vertical-align: top;
-  padding-left: 62px;
-  position: relative;
-  top: 12px;
+  padding: 15px 0 0 69px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   background: #fff;
   margin: 0;
-  -webkit-transition: margin 0.5s 0.5s;
-  -moz-transition: margin 0.5s 0.5s;
-  -o-transition: margin 0.5s 0.5s;
-  transition: margin 0.5s 0.5s;
+  -webkit-transition: margin 0.2s 0.5s;
+  -moz-transition: margin 0.2s 0.5s;
+  -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
+  position: relative;
+}
+.recommended .rcDetails.ghost {
+  text-align: left;
 }
 .recommended .rcDetails.rcFull .prof:after {
   content: '\00a0' '|' '\00a0';
@@ -98,20 +96,25 @@
 }
 .recommended .rcStats {
   width: 105px;
-  height: 70px;
+  height: 60px;
   display: inline-block;
   background: #282828;
   color: #fff;
+  margin-top: 9px;
 }
 .recommended img {
   position: absolute;
   left: 8px;
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
 }
 .recommended .courseName {
-  padding-top: 4px;
   color: #0f9d58;
-  font-weight: bold;
+  font-size: 15px;
+  white-space: normal;
+  max-height: 34px;
+  overflow: hidden;
+  line-height: 16px;
 }
 .recommended .prof {
   font-size: 13px;
@@ -119,7 +122,7 @@
 .recommended .friends,
 .recommended .files {
   position: relative;
-  padding-left: 30px;
+  padding-left: 23px;
   /*&:after {
             .pseudo;
             width: 21px;
@@ -132,27 +135,27 @@
 }
 .recommended .friends:before,
 .recommended .files:before {
-  content: attr(bo-attr-data-friends-count) '\00a0';
+  content: attr(bo-attr-data-friends-count);
   display: inline-block;
 }
 .recommended .friends {
-  margin-top: 12px;
+  margin-top: 9px;
 }
 .recommended .files {
-  margin-top: 10px;
+  margin-top: 7px;
   /*&:after {
             background-position: 0 -1384px;
         }*/
 }
 .recommended .files:before {
-  content: attr(bo-attr-data-files-count) '\00a0';
+  content: attr(bo-attr-data-files-count);
 }
 .podium {
-  width: 96px;
+  width: 86px;
   height: 68px;
   border: 1px solid #aaa;
   position: absolute;
-  top: 142px;
+  top: 151px;
   left: 0;
   right: 0;
   margin: auto;
@@ -162,10 +165,10 @@
 .podium:before,
 .podium:after {
   content: '';
-  width: 82px;
+  width: 86px;
   height: 45px;
   position: absolute;
-  left: -83px;
+  left: -87px;
   bottom: -1px;
   border: 1px solid #aaa;
   border-right: none;
@@ -173,8 +176,8 @@
   border-radius: 3px 0 0 3px;
 }
 .podium:after {
-  height: 24px;
-  right: -83px;
+  height: 27px;
+  right: -87px;
   left: auto;
   border: 1px solid #aaa;
   border-left: none;
@@ -182,10 +185,10 @@
 }
 .dashLibTop {
   display: block;
-  height: 102px;
+  height: 109px;
   text-align: center;
   border-bottom: 1px solid #c2c2c2;
-  padding: 0 8px 0 12px;
+  padding: 0 8px 0 15px;
   background: #ebebeb;
   position: relative;
 }
@@ -223,7 +226,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 5px;
   box-shadow: inset 0 0 0 4px #fff;
 }

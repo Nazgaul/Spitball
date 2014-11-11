@@ -3,13 +3,23 @@
    ~ .boxSideBar .recommendedWpr {
         right: 30px; //rtl
         left: auto;
-        //padding: 8px 28px 12px 20px; //rtl
-        padding: 8px 12px 12px 0; //rtl
         .recommended {
             .rFloat {
                // width: 95px; //diff rtl ??
                 text-align: left; //rtl
             }
+        }
+    }
+}
+.boxSideBar {
+    .podium {
+        &:before, &:after {
+            right: -91px; //rtl
+            left: auto;
+        }
+        &:after {
+            left: -91px; //rtl
+            right: auto;
         }
     }
 }
@@ -136,5 +146,4 @@
         text-align:right; //rtl
     }
 }
-
 /*#endregion */

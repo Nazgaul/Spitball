@@ -151,12 +151,14 @@
             <ul>
                 <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
                     <a bo-href="course.url" class="courseLink">
-                        <div class="rcDetails">
+                        <div class="rcDetails ghost">
+                            <div class="vCentered">
+                                <div class="courseName" bo-text="course.name"></div>
+                                <span class="prof elps" bo-text="course.professor"></span>
+                                <span class="elps" bo-text="course.courseCode"></span>
+                            </div>
                             @*ng-class="{ rcFull : course.professor && course.courseCode }"*@
-                            <img alt="" width="46" height="46" bo-src="course.picture" />
-                            <div class="elps courseName" bo-text="course.name"></div>
-                            <span class="prof elps" bo-text="course.professor"></span>
-                            <span class="elps" bo-text="course.courseCode"></span>
+                            <img alt="" width="48" height="48" bo-src="course.picture" />
                         </div>
                         <div class="rcStats">
                             <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
