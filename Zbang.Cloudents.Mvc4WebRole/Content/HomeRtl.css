@@ -79,22 +79,6 @@
   background-position: -963px -215px;
   /*rtl*/
 }
-aside {
-  left: -200px;
-  /*rtl*/
-  right: auto;
-  text-align: right;
-  /*rtl*/
-}
-aside > button {
-  left: 12px;
-  /*rtl*/
-  right: auto;
-}
-aside li {
-  float: right;
-  /*rtl*/
-}
 .headerActions {
   left: 0;
   /*rtl*/

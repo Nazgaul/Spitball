@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain
         public string YouTubeUrl { get; set; }
         public string LetterUrl { get; set; }
         public string AdvertisementUrl { get; set; }
-        public string Country { get; set; }
+        public virtual string Country { get; set; }
 
         public virtual UserTimeDetails UserTime { get; set; }
 
