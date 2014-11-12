@@ -12,19 +12,22 @@
         };
 
         function checkVersion() {
-            $http.get('/Home/Version/').then(function (response) {
-                var data = response.data;
-                if (data.success) {
-                    currentVersion = data.payload;
+            $.ajax({
+                type: 'GET',
+                url: '/Home/Version/',
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response.success) {
+                        currentVersion = response.payload;
 
-                    if (clientVersion !== currentVersion) {
-                        alert('Version mismatch, page will refresh');
-                        $angularCacheFactory.removeAll();
-                        window.location.reload(true);
+                        if (clientVersion !== currentVersion) {
+                            alert('Version mismatch, page will refresh');
+                            $angularCacheFactory.removeAll();
+                            window.location.reload(true);
+                        }
                     }
-                }
+                }                               
             });
-
         }
 
     }
