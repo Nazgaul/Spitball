@@ -13,5 +13,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
 
         public string BoxPicture { get; set; }
+
+        public string Email { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
     {
        ProfileImages UploadProfilePictures(Stream profileImage);
        //ProfileImages GetDefaultProfileImage();
-       ProfileImages GetDefaultProfileImage();
+       //ProfileImages GetDefaultProfileImage();
     }
 }

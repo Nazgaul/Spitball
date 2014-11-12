@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -50,7 +51,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var recipient = m_UserRepository.GetUserByFacebookId(message.FacebookUserId);
             if (recipient == null)
             {
-                var inviteToBox = new InviteToBox(id, sender, box, null, m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal), message.FacebookUserName);
+                var inviteToBox = new InviteToBox(id, sender, box, null,
+                    m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal), message.FacebookUserName,
+                    message.FacebookUserId.ToString(CultureInfo.InvariantCulture));
                 m_InviteRepository.Save(inviteToBox);
                 return;
             }
@@ -61,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var newInvite = new UserBoxRel(recipient, box, UserRelationshipType.Invite);
-            var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null);
+            var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null, message.FacebookUserId.ToString(CultureInfo.InvariantCulture));
            
             m_UserBoxRelRepository.Save(newInvite);
             m_InviteRepository.Save(inviteToBoxExistingUser);

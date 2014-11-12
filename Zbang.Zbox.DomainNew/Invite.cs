@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 
@@ -14,7 +10,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        protected Invite(Guid id, User sender, string image, string userName)
+        protected Invite(Guid id, User sender, string image, string userName, string email)
         {
             Id = id;
             Sender = sender;
@@ -22,6 +18,7 @@ namespace Zbang.Zbox.Domain
             IsUsed = false;
             Image = image;
             UserName = userName;
+            Email = email;
         }
 
         public virtual Guid Id { get; protected set; }
@@ -34,6 +31,8 @@ namespace Zbang.Zbox.Domain
         public string UserName { get; protected set; }
 
         public string Image { get; protected set; }
+
+        public string Email { get; set; }
 
         public virtual void UsedInvite()
         {
@@ -53,8 +52,8 @@ namespace Zbang.Zbox.Domain
 
         }
 
-        public InviteToBox(Guid id, User sender, Box box, UserBoxRel userBoxRel, string image, string userName)
-            : base(id, sender, image, userName)
+        public InviteToBox(Guid id, User sender, Box box, UserBoxRel userBoxRel, string image, string userName, string email)
+            : base(id, sender, image, userName, email)
         {
             Box = box;
             UserBoxRel = userBoxRel;
@@ -93,8 +92,8 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public InviteToSystem(Guid id, User sender, string image, string userName)
-            : base(id, sender, image, userName)
+        public InviteToSystem(Guid id, User sender, string image, string userName, string email)
+            : base(id, sender, image, userName, email)
         {
 
         }
