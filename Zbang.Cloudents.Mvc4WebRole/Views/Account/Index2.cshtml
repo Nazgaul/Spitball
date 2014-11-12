@@ -13,6 +13,7 @@
             <button type="button" class="headerSettings"></button>
         </div>
     </div>
+    @{Html.RenderPartial("_SettingsBar");}
     <div class="headingTexts">
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
@@ -36,7 +37,8 @@
         <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
         <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
     </div>
-    <aside class="sideBar">
+    
+    @*<aside class="sideBar">
         <button class="closeMenu" type="button"></button>
         <ul>
             <li><a href="~/">@HomeResources.Homepage</a></li>
@@ -56,7 +58,7 @@
             <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic site">@Languages.ArabicName</a></li>
             <li class="last"><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese site">@Languages.ChineseName</a></li>
         </ul>
-    </aside>
+    </aside>*@
 </div>
 
 <section class="available">

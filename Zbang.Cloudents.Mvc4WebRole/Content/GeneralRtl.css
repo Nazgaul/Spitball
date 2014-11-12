@@ -212,6 +212,24 @@ input[type="radio"].radio:checked + label:after {
   /*rtl*/
 }
 /*#endregion */
+/*#region side menu - SettingsBar partial */
+aside {
+  left: -200px;
+  /*rtl*/
+  right: auto;
+  text-align: right;
+  /*rtl*/
+}
+aside > button {
+  left: 12px;
+  /*rtl*/
+  right: auto;
+}
+aside li {
+  float: right;
+  /*rtl*/
+}
+/*#endregion */
 /*#region  dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu button {
   text-align: right;
