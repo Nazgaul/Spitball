@@ -1,5 +1,6 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
@@ -22,6 +23,9 @@ namespace Zbang.Zbox.Domain
             AddPicture(picture, pictureUrl);
             UserTime.CreatedUser = creator.Email;
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+
+            Resources.QuestionResource.Culture = Languages.GetCultureBaseOnCountry(University.Country);
+
             Questions.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
             CommentCount = 1;
 
