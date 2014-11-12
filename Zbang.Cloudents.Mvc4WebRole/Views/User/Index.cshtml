@@ -34,7 +34,7 @@
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
             <div class="rFloat">
                 @{Html.RenderPartial("_BarSearch");}
-                <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+                <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
                     @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                 </button>
             </div>
