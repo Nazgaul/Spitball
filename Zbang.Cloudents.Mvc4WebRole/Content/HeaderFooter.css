@@ -40,12 +40,6 @@ body {
 }
 .siteHeader .siteLogo {
   display: inline-block;
-  width: 211px;
-  height: 40px;
-  background: url(/Images/dash13-sprite.png?v=1) -1px -1px no-repeat;
-  /*rtl*/
-  margin: 10px 0 0 30px;
-  /*rtl*/
   position: relative;
   z-index: 1;
 }

@@ -3,6 +3,10 @@
 
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
+    <header class="siteHeader">
+       @{Html.RenderPartial("_Header");}
+    </header>
+    
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)" bindonce>

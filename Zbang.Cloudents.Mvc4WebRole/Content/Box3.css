@@ -19,9 +19,6 @@
 .boxPage .backWpr {
   margin: 13px 25px 0 0;
   padding: 0;
-  /*&:before {
-            display: none;
-        }*/
 }
 .boxPage .svg-settings {
   width: 30px;
@@ -34,6 +31,17 @@
   top: 0;
   right: -5px;
   margin: 0;
+}
+.boxPage .siteHeader {
+  background: #282828;
+}
+.boxPage .siteLogo {
+  height: 50px;
+  width: 243px;
+  background: #0f9d58;
+}
+.boxPage .shareBtn {
+  display: inline-block;
 }
 .following,
 .followBtn {

@@ -1,0 +1,18 @@
+﻿
+<a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
+    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
+</a> @*target="{{$root.isStore() ? '_self': '' }}"*@
+
+<div class="headerRightWpr">
+    <nav class="userSection rFloat">
+        <ul class="userNav">
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    Html.RenderPartial("TopMenu/_Actions");
+                }
+                Html.RenderAction("GetUserDetail3", "Account", true);
+            }
+        </ul>
+    </nav>
+</div>

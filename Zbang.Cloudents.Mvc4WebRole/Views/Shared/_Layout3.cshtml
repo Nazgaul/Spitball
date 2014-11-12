@@ -51,38 +51,8 @@
         }
     </script>
     <![endif]-->
-    <noscript>
-        <div>
-            Cloudents works best with javascript enabled
-        </div>
-    </noscript>
-    <header class="siteHeader">
-        <a class="siteLogo lFloat" data-version="@VersionHelper.CurrentVersion()"
-           href="@Url.Action("Index", "Dashboard")" target="{{$root.isStore() ? '_self': '' }}"></a>
-
-        <div class="headerRightWpr rFloat">
-            <nav class="userSection rFloat">
-                <ul class="userNav">
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            Html.RenderPartial("TopMenu/_Actions");
-                        }
-                        Html.RenderAction("GetUserDetail3", "Account", true);
-                    }
-                </ul>
-            </nav>                                                                          
-            <div ng-if="$root.showSearch()">
-                @RenderSection("search", false)
-            </div>
-        </div>
-        <h1 ng-class="{showStore : $root.isStore()}"><a href="@Url.RouteUrl("StoreRoot")">@StoreResources.Description</a></h1>
-        @if (ViewBag.Description != null)
-        {
-            <h1>@ViewBag.Description</h1>
-        }
-    </header>
-    <div class="bodyContent" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
+ 
+    <div class="bodyContent" data-version="@VersionHelper.CurrentVersion()" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
          bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
 

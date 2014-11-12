@@ -586,12 +586,6 @@
 /*#endregion */
 /*#endregion */
 /*#region AccountInfo.css */
-.headerRightWpr {
-  padding: 0 241px 0 0;
-  /*rtl*/
-  margin: 0 -241px 0 0;
-  /*rtl*/
-}
 .headerRightWpr .userSection {
   margin: 0 70px 0 0;
   /*rtl*/
