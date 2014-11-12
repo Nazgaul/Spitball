@@ -336,10 +336,7 @@ mUser.controller('UserCtrl',
                     facebookInvite();
                 }
 
-                function facebookInvite() {
-                    openFbModal({ url: 'https://www.cloudents.com' });
-                    return;
-                    
+                function facebookInvite() {                     
                     if (invite.inviteType === 'inviteToCloudents') {
                         sShare.facebookInvite.cloudents({ id: invite.email }).then(openFbModal);
                         return;

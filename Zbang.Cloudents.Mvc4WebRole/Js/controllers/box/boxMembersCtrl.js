@@ -77,9 +77,7 @@
                     facebookInvite();
                 }
 
-                function facebookInvite() {
-                    openFbModal({ url: 'https://www.cloudents.com' });
-                    return;
+                function facebookInvite() {       
                     sShare.facebookInvite.box({ id: member.email }).then(openFbModal);
 
                     function openFbModal(response) {
