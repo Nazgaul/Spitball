@@ -9,17 +9,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateMembershipUserCommandHandler : CreateUserCommandHandler
     {
-        private readonly IProfilePictureProvider m_ProfileProvider;
+        //private readonly IProfilePictureProvider m_ProfileProvider;
 
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
-            IProfilePictureProvider profileProvider,
+            // IProfilePictureProvider profileProvider,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)
         {
-            m_ProfileProvider = profileProvider;
+            // m_ProfileProvider = profileProvider;
         }
         public override CreateUserCommandResult Execute(CreateUserCommand command)
         {
@@ -44,9 +44,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //var newUser = false;
             if (user == null)//email was invited to a box new user
             {
-               // newUser = true;
-                var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
-                user = CreateUser(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
+                // newUser = true;
+                //var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
+                user = CreateUser(command.Email,
+                    null, null,
+                    //defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     command.MiddleName,
                     command.LastName, command.Sex, command.MarketEmail, command.Culture);
@@ -56,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UpdateUser(user, command);
             //if (!user.IsRegisterUser)
             //{
-            
+
             //    user.IsRegisterUser = true;
 
             //    user.FirstName = command.FirstName;

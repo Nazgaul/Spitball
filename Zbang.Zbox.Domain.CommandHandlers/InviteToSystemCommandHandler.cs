@@ -20,7 +20,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<InviteToSystem> m_InviteToCloudents;
-        private readonly IProfilePictureProvider m_ProfilePictureProvider;
 
         private readonly IIdGenerator m_IdGenerator;
 
@@ -32,7 +31,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_InviteToCloudents = inviteToCloudentsRepository;
             m_IdGenerator = idGenerator;
-            m_ProfilePictureProvider = profilePictureProvider;
         }
 
         public void Handle(InviteToSystemCommand command)
@@ -54,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     continue;
                 }
                 var id = m_IdGenerator.GetId();
-                var invite = new InviteToSystem(id, sender, m_ProfilePictureProvider.GetDefaultProfileImage().LargeImage.AbsoluteUri, recipientEmail);
+                var invite = new InviteToSystem(id, sender, null, recipientEmail, recipientEmail);
                 m_InviteToCloudents.Save(invite);
 
                 var invId = GuidEncoder.Encode(id);

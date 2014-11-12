@@ -94,12 +94,12 @@ join zbox.users u on ub.userid = u.userid
 
 
         public const string BoxMembers =
-            @"  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
+            @"  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url , null as Email
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId
 union 
-	  select null as Id ,m .UserName as Name,m.Image as Image , 1 as userStatus , null as Url
+	  select null as Id ,m .UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
 	  from zbox.invite m
 	  where m.BoxId = @BoxId
 	   and m.userboxrelid is null

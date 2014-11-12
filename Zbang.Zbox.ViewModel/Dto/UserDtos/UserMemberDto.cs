@@ -4,12 +4,9 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserMemberDto : UserDto
     {
-        protected UserRelationshipType UserStatus { get; set; }
+        public UserRelationshipType UserStatus { get; set; }
+        public string Email { get; set; }
 
-        //TODO: remove this to json.net
-        public string sUserStatus
-        {
-            get { return UserStatus.ToString("g"); }
-        }
+
     }
 }

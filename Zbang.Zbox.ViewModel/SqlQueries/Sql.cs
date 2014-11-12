@@ -161,7 +161,7 @@ where uWrap.Id = @UniversityId";
         ///  Used in user page to get user invites
         /// </summary>
         public const string UserPersonalInvites = @" select i.Image as userImage, i.UserName as username, 
- b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid,
+ b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid, i.email,
  i.IsUsed as status, i.TypeOfMsg as InviteType
    from zbox.Invite i
    left join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
@@ -197,6 +197,7 @@ select top(3) u.userid as id, u.UserImageLarge as image, u.username as name, u.U
 from zbox.Users u 
 where u.UniversityId = @UniversityId
 and u.usertype <> 1
+and userreputation > 0
  order by userreputation desc";
      
 

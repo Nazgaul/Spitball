@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', 'sModal', 'sBox', '$timeout','$analytics',
-        function ($scope, $filter, sModal, sBox, $timeout, $analytics) {
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager',
+        function ($scope, $filter, sModal, sBox, $timeout, $analytics, resManager) {
             "use strict";
             //Members
 
@@ -8,7 +8,7 @@
 
             var members;;
 
-            sBox.members({ boxId: $scope.boxId }).then(function (boxMembers) {                
+            sBox.members({ boxId: $scope.boxId }).then(function (boxMembers) {
                 members = boxMembers;
 
                 $scope.members = $filter('orderByFilter')(members, { field: 'name', input: '' });
@@ -23,7 +23,7 @@
                     data: {
                         singleMessage: true,
                         users: [member]
-                    }                    
+                    }
                 });
 
                 $analytics.eventTrack('Box Members', {
@@ -41,19 +41,19 @@
 
                 });
 
-                if (member.sUserStatus === 'Subscribe') {                    
+                if (member.userStatus === 'Subscribe') {                    
                     remove(true);
                     member.removed = true;
                     return;
                 }
 
-                if (member.sUserStatus === 'Invite') {
+                if (member.userStatus === 'Invite') {
                     $timeout(remove, 3000);
                     $timeout(function () { member.uninvited = true; }, 10);
                     member.uninvitedItem = true;
                 }
 
-                function remove(isMember) {
+                function remove() {
                     $analytics.eventTrack('Box Members', {
                         category: 'Remove User',
                         label: 'User removed a member or someone invited'
@@ -89,7 +89,7 @@
                 $scope.members = $filter('orderByFilter')(members, { field: 'name', input: $scope.params.search });
             };
 
-            $scope.userStatus = function (status) {                
+            $scope.userStatus = function (status) {
                 switch (status) {
                     case 'Subscribe':
                         return resManager.get('ActiveMember');//add resource

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -41,7 +42,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             message.Id = id;
             var invite = new InviteToSystem(id, sender, 
                 m_FacebookPictureService.GetFacebookUserImage(message.FacebookUserId, FacebookPictureType.Normal),
-                message.FacebookUserName
+                message.FacebookUserName,
+                message.FacebookUserId.ToString(CultureInfo.InvariantCulture)
                );
             m_InviteToCloudents.Save(invite);
         }

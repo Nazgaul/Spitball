@@ -782,12 +782,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetUserPersonalInvites_Query_ReturnResult()
+        public async Task GetUserPersonalInvites_Query_ReturnResult()
         {
             var query = new GetInvitesQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetUserPersonalInvites(query).Result;
+                var x = await m_ZboxReadService.GetUserPersonalInvites(query);
             }
             catch (Exception ex)
             {

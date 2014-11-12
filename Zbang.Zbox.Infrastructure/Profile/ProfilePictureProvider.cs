@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
 
         private readonly IBlobProvider m_BlobProvider;
         private readonly List<ProfileImages> m_DefaultUserProfilePictures = new List<ProfileImages>();
-        private ProfileImages m_LibDefaultProfilePicture;
 
         public ProfilePictureProvider(IBlobProvider blobProvider)
         {
@@ -34,12 +33,12 @@ namespace Zbang.Zbox.Infrastructure.Profile
                 CreateProfileImages();
             }
         }
-        public ProfileImages GetDefaultProfileImage()
-        {
+        //public ProfileImages GetDefaultProfileImage()
+        //{
 
-            return m_DefaultUserProfilePictures[0];
+        //    return m_DefaultUserProfilePictures[0];
 
-        }
+        //}
 
         public ProfileImages UploadProfilePictures(Stream profileImage)
         {
@@ -70,10 +69,6 @@ namespace Zbang.Zbox.Infrastructure.Profile
                 var uriLarge = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(FileName + i, ImageSize.S100X100);
                 m_DefaultUserProfilePictures.Add(new ProfileImages(uri, uriLarge));
             }
-
-            var libUri = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S50X50);
-            var libUriLarge = m_BlobProvider.ProfileContainerUrl + CreateBlobFileNameWithFolder(LibName + "1", ImageSize.S100X100);
-            m_LibDefaultProfilePicture = new ProfileImages(libUri, libUriLarge);
         }
 
         private void CreateProfileImages()
