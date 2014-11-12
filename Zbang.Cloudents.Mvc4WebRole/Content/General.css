@@ -680,7 +680,7 @@ input[type="radio"][disabled] + label:before {
 }
 .navUser .userImg {
   vertical-align: top;
-  margin-top: 9px;
+  margin-top: 6px;
   border-radius: 100%;
   position: absolute;
 }
@@ -710,17 +710,15 @@ input[type="radio"][disabled] + label:before {
   position: relative;
   padding: 0 8px;
   display: inline-block;
-}
-.userDrpSettings:after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 18px;
-  left: 0;
-  /*rtl*/
-  width: 17px;
-  height: 13px;
-  background: url(/Images/dash13-sprite.png?v=1) -254px -28px no-repeat;
+  /*&:after {
+        .pseudo;
+        position: absolute;
+        top: 18px;
+        left: 0;
+        width: 17px;
+        height: 13px;
+        background: @dashboard-sprite -254px -28px no-repeat;
+    }*/
 }
 .userMenuWrapper {
   width: 100%;
@@ -1438,6 +1436,23 @@ iframe .registerFirst.store {
 }
 .acceptTerms > a {
   color: #676767;
+}
+/*#endregion */
+/*#region general svgs */
+.svg-logo {
+  width: 183px;
+  height: 31px;
+  fill: #fff;
+  position: relative;
+  top: 10px;
+  left: 30px;
+}
+.svg-menu {
+  width: 23px;
+  height: 18px;
+  fill: #fff;
+  position: relative;
+  top: 5px;
 }
 /*#endregion */
 /*#region side menu - SettingsBar partial */

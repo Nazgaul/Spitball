@@ -12,7 +12,7 @@
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
             @{Html.RenderPartial("_BarSearch");}
-            <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+            <button class="inviteButton" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
             <section class="shareBtn">

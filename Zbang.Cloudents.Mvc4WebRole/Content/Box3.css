@@ -17,7 +17,7 @@
   box-sizing: border-box;
 }
 .boxPage .backWpr {
-  margin: 13px 25px 0 0;
+  margin: 8px 0 0 25px;
   padding: 0;
 }
 .boxPage .svg-settings {
@@ -35,13 +35,26 @@
 .boxPage .siteHeader {
   background: #282828;
 }
+.boxPage .siteHeader .shareBtn {
+  display: inline-block;
+  margin: 0 15px;
+  position: relative;
+  top: 11px;
+}
 .boxPage .siteLogo {
   height: 50px;
   width: 243px;
   background: #0f9d58;
 }
-.boxPage .shareBtn {
-  display: inline-block;
+.boxPage .searchInputWpr {
+  margin-top: -9px;
+}
+.boxPage .barActions {
+  top: 0;
+}
+.inviteButton {
+  vertical-align: top;
+  margin-top: 6px;
 }
 .following,
 .followBtn {
@@ -133,7 +146,7 @@
   margin-top: 2px;
 }
 .shareBtn:hover svg {
-  fill: #3399ff;
+  fill: #0f9d58;
 }
 .shareBtn label {
   cursor: pointer;
@@ -507,7 +520,7 @@
 }
 /*#endregion */
 .box-content {
-  padding: 75px 25px 15px 25px;
+  padding: 21px 25px 15px 25px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1237,7 +1250,7 @@
 /*#endregion */
 /*#region box layout replacement */
 .boxItems {
-  margin: 20px 20px 0 20px;
+  margin-top: 7px;
 }
 .boxItems .boxItemList {
   display: block;

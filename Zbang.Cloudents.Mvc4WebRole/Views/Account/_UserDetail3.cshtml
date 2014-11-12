@@ -13,7 +13,9 @@
         </a>
     </li>
     <li class="navItem userSettings" id="userDetails" data-menu="user" dropdown>
-        <div tooltip="@DialogResources.Settings" tooltip-placement="right-bottom" class="userDrpSettings" dropdown-toggle></div>
+        <div tooltip="@DialogResources.Settings" tooltip-placement="right-bottom" class="userDrpSettings" dropdown-toggle>
+            @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+        </div>
         <ul class="userMenu dropdown-menu" role="menu">
             <li class="menuItem">
                 <a class="menuLink" href="@Url.Action("Settings", "Account")">@UserDetailResources.AccountSettings</a>

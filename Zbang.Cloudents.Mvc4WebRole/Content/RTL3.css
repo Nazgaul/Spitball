@@ -587,7 +587,7 @@
 /*#endregion */
 /*#region AccountInfo.css */
 .headerRightWpr .userSection {
-  margin: 0 70px 0 0;
+  margin: 0 -10px 0 0;
   /*rtl*/
 }
 .signUp {
@@ -634,7 +634,7 @@
   border-right: none;
 }
 .boxPage .backWpr {
-  margin: 13px 0 0 25px;
+  margin: 8px 25px 0 0;
 }
 .boxRight {
   padding: 0 243px 0 0;
