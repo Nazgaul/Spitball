@@ -1,5 +1,4 @@
-﻿
-app.directive('fbBlock',
+﻿app.directive('fbBlock',
     [
         function () {
             "use strict";
