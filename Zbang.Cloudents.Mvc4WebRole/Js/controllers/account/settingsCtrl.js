@@ -1,12 +1,11 @@
 ﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount', '$analytics',
+    ['$scope', '$window', '$timeout', 'sAccount', 'resManager', '$analytics',
 
-        function ($scope, $window, $timeout, sAccount, $analytics) {
+        function ($scope, $window, $timeout, sAccount, resManager, $analytics) {
             "use strict";
 
-            var jsResources = window.JsResources,
-                emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
+            var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
 
             $scope.formData = {};
             $scope.emailForm = {};
@@ -38,13 +37,11 @@
                     return;
                 }
 
-
-                //TODO: analytics selecttab
                 $scope.params.currentTab = tab;
 
                 $analytics.eventTrack('Account Settings', {
                     category: 'Select Tab',
-                    label: 'User selected ' +tab
+                    label: 'User selected ' + tab
                 });
             };
 
@@ -80,7 +77,7 @@
 
             $scope.onError = function (error) {
                 if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                    alert(jsResources.IncorrectExtension);
+                    alert(resManager.get('IncorrectExtension'));
                 }
                 if (error.status === 401) {
                     $window.location.href = '/';
@@ -133,7 +130,7 @@
 
                         $scope.emailForm = {};
 
-                        alert(jsResources.EmailChanged);
+                        alert(resManager.get('EmailChanged'));
                         $analytics.eventTrack('Account settings', {
                             category: 'Email Changed',
                             label: 'User changed email'
@@ -210,7 +207,7 @@
                 sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function () {
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
-                    alert(jsResources.PwdChanged);
+                    alert(resManager.get('PwdChanged'));
                     $analytics.eventTrack('Account settings', {
                         category: 'Password Change',
                         label: 'User changed password'

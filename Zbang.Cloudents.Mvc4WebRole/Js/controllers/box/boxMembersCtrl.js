@@ -89,15 +89,14 @@
                 $scope.members = $filter('orderByFilter')(members, { field: 'name', input: $scope.params.search });
             };
 
-            $scope.userStatus = function (status) {
-                var jsResources = window.JsResources;
+            $scope.userStatus = function (status) {                
                 switch (status) {
                     case 'Subscribe':
-                        return jsResources.ActiveMember;//add resource
+                        return resManager.get('ActiveMember');//add resource
                     case 'Owner':
-                        return jsResources.Owner;
+                        return resManager.get('Owner');
                     case 'Invite':
-                        return jsResources.Pending; //add resource
+                        return resManager.get('Pending'); //add resource
                 }
             };
 

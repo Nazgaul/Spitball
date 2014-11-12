@@ -11,8 +11,9 @@
   background: #fff;
   min-height: 88px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  position: relative;
   z-index: 1;
+  position: absolute;
+  width: 100%;
 }
 .searchDD h3 {
   background: #f9f9f9;
@@ -206,6 +207,7 @@
 }
 .sTabs button {
   text-transform: capitalize;
+  color: #fff;
 }
 .sTabs.sTab2 ~ .upArrow:before {
   left: 98px;

@@ -39,39 +39,26 @@ app.controller('MainCtrl',
             };
 
             $scope.$on('$routeChangeSuccess', function (event, current) {
-                if (!current.$$route) {
-                    return;
+ 
+                try {
+                    $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
+                    $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
+                    $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
+
+
+                    $rootScope.params.store.currentTab = current.$$route.params.type;
+
+                    if (current.$$route.params.type === 'products' && current.params.categoryId === '646') {
+                        $rootScope.params.store.currentTab = 'sales';
+                    }
+
+                    if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
+                         !$scope.params.store.showRegisterPopup) {
+                        $scope.params.store.showRegisterPopup = true;
+                        cd.pubsub.publish('register', { action: true });
+                    }
                 }
-
-                $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
-                $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
-                $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
-
-
-
-                if (!current) {
-                    return;
-                }
-                if (!current.$$route) {
-                    return;
-                }
-                if (!current.$$route.params) {
-                    return;
-                }
-                if (!current.$$route.params.type) {
-                    return;
-                }
-
-                $rootScope.params.store.currentTab = current.$$route.params.type;
-
-                if (current.$$route.params.type === 'products' && current.params.categoryId === '646') {
-                    $rootScope.params.store.currentTab = 'sales';
-                }
-
-                if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
-                     !$scope.params.store.showRegisterPopup) {
-                    $scope.params.store.showRegisterPopup = true;
-                    cd.pubsub.publish('register', { action: true });
+                catch (ex) {
                 }
             });
 
@@ -145,9 +132,6 @@ app.controller('MainCtrl',
                 }
 
                 $rootScope.params.store.coupon.buttonDisabled = true;
-
-
-
 
                 sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
                     $rootScope.params.store.coupon.buttonDisabled = false;                    

@@ -64,11 +64,11 @@ input[type="radio"].radio:checked + label:after {
 .navUser .userName {
   text-align: right;
   /*rtl*/
-  margin: 8px 36px 0 0;
+  margin: 8px 40px 0 0;
   /*rtl*/
 }
 .userPts {
-  margin: 0 36px 0 0;
+  margin: 0 40px 0 0;
   /*rtl*/
 }
 .userSettings {
@@ -439,21 +439,21 @@ input[type="radio"].radio:checked + label:after {
 .backWpr {
   text-align: right;
   /*rtl*/
-  padding: 0 40px 0 0;
-  /*rtl*/
-}
-.backWpr:before {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  right: 0;
-  /*rtl*/
-  left: auto;
+  /*&:before {
+        .flipH;
+        right: 0; //rtl
+        left: auto;
+    }*/
 }
 .backWpr.noArrow {
   padding-right: 0;
+}
+.backWpr .svg-back {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
 }
 .sectionHeader {
   font-weight: normal;

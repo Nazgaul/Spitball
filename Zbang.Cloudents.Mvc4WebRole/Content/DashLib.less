@@ -14,16 +14,12 @@
     height: 100%;
 }
 
-/*.dashContent header, .libraryContent header {
-    
-}*/
-
 .libraryContent {
     vertical-align: top;
 
     .contentWpr {
         //padding-top: 105px;
-        padding-top: 80px;
+        //padding-top: 80px;
     }
 
     header {
@@ -39,6 +35,11 @@
     .boxesHeader .topLevel.topLevel {
         padding: 7px 0 0;//override
     }
+    .dashLibTop {
+        &:hover {
+            background: #ebebeb;
+        }
+    }
 }
 
 /*#region boxesHeader */
@@ -52,15 +53,6 @@
     left: 0; /*rtl*/
     padding-left: 314px; /*rtl*/
     width: 100%;
-    &:hover {
-        .boxRename {
-            display: inline-block;
-
-            &:hover {
-                background-position: -52px -21px;
-            }
-        }
-    }
 
     h2 {
         padding: 8px 8px 0 0; /*rtl*/
@@ -102,8 +94,11 @@
 
 .boxRename {
     vertical-align: top;
-    display: none;
-    margin-top: 28px;
+    visibility: hidden;
+    display: inline-block;
+    position: relative;
+    left: -4px; //rtl
+    top: 24px;
     .svg-settings {
         width: 25px;
         height: 23px;
@@ -494,21 +489,21 @@
     height: 65px;
     line-height: 65px;
     vertical-align: middle;
-    border-bottom: 1px dashed @borderColor;
-    > .rFloat {
-        width: 170px;
-        position: relative;
-        top: 8px;
-        height: 48px; //
-        /*&:before { // Temporarily commented out
-            .pseudo;
-            position: absolute;
-            width: 1px;
-            height: 36px;
-            background: @color;
-            top: 8px;
-            left: 60px; //rtl
-        }*/
+    background: #282828;
+    margin: 0 -30px;
+    padding: 0 30px;
+    .boxSizing;
+    
+    .open .svg-notification {
+        fill: #d1294d;
+    }
+    &:hover {
+        .boxRename {
+            visibility: visible;
+        }
+    }
+    .svg-settings {
+        fill: #c2c2c2;
     }
 }
 .notificationBtn {
@@ -531,7 +526,23 @@
     top: 4px;
 }
 .dhContent {
-    overflow: hidden;
+    //overflow: hidden; Why was this here? (It hides the search results)
+    
+    svg {
+        fill: #fff;
+    }
+}
+.searchInputWpr {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    svg {
+        position: absolute;
+        right: 33px; //rtl
+        fill: #a5a5a5;
+        top: 22px;
+        cursor: pointer;
+    }
     .dashLibSearchInput {
         width: 420px;
         border: 1px solid @borderColor;
@@ -547,29 +558,18 @@
             }
         }
     }
-    svg {
-        fill: @color;
+    + button .svg-inviteUser {
         position: relative;
         top: 5px;
-    }
-}
-.searchInputWpr {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    svg {
-        position: absolute;
-        right: 33px; //rtl
-        fill: #a5a5a5;
-        top: 22px;
-        cursor: pointer;
+        &:hover {
+            fill: @color;
+        }
     }
 }
 .dhText {
     font-size: 28px;
-    color: @color;
+    color: #fff;
 }
-
 /*#endregion */
 
 /*#region setup course 'popups' */
@@ -1189,7 +1189,9 @@
         }
     }
 }
-
+.libraryList {
+    margin-top: 42px;
+}
 .libraryList, .myAreaList {
     display: block;
     clear: both;

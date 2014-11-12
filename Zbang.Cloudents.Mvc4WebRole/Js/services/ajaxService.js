@@ -31,7 +31,7 @@
 
                 }).error(function (response) {
                     dfd.reject(response);
-                    logError(url, data, response.payload);
+                    logError(url, data, response);
                 });
                 return dfd.promise;
 
@@ -51,11 +51,11 @@
                     }
 
                     dfd.reject(response.payload);
-                    logError(url, data, response.payload);
+                    logError(url, data, response);
 
                 }).error(function (response) {
                     dfd.reject(response);
-                    logError(url, data, response.payload);
+                    logError(url, data, response);
                 });
                 return dfd.promise;
             }
@@ -64,13 +64,22 @@
         return service;
 
         function logError(url, data, payload) {
-            var log = {
-                url: url,
+            var log = {                
                 data: data,
                 payload: payload
             };
 
-            $log.error(angular.toJson(log));
+            $.ajax({
+                type: 'POST',
+                url: '/Error/JsLog',
+                contentType: 'application/json',
+                data: angular.toJson({
+                    errorUrl: url,
+                    errorMessage: log,
+                    cause: 'ajaxRequest',
+                    stackTrace:''
+                })
+            });
         }
         function trackTime(startTime, url, data) {
             var timeSpent = new Date().getTime() - startTime + 'ms';

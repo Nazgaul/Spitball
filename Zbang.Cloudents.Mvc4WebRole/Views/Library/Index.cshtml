@@ -7,9 +7,11 @@
     <div class="libraryContent" bindonce>
         <aside class="asideDash lFloat">
             <div class="dashLibTop">
-                <img src="@Model.Image" class="uniLogo lFloat" alt="University logo" width="80" height="80" />
+                <span class="logoWpr lFloat">
+                    <img src="@Model.Image" class="uniLogo" alt="University logo" width="80" height="80" />
+                </span>
                 <span class="ghost"><span class="vCentered" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</span></span>
-            </div>
+</div>
 
             <div class="unionStats">
                 <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
@@ -55,22 +57,35 @@
             var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
         }
 
-        <div class="boxesHeader topBar barShadow">
+        @*<div class="boxesHeader topBar barShadow">
             <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
             <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
-                <h2 @*contenteditable="false" id="libName" edit-callback="renameBox(t)"*@>{{back.title}}</h2>
+                <h2>{{back.title}}</h2>
             </a>
-            <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()" @*contenteditable-trigger="libName"*@>
+            <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
                 @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
             </button>
-        </div>
+        </div>*@
         <div class="contentWpr @cls">
 
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
             {
                 <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
             }
-
+            <div class="dashHeader" ng-controller="NotificationsCtrl">
+                @{Html.RenderPartial("_BarActions");}
+                <div class="dhContent">
+                    <span bo-if="!info.libraryId" class="topLevel dhText">@MainViewResources.AllDepartments</span>
+                    <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
+                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                        <h2>{{back.title}}</h2>
+                    </a>
+                    <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
+                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                    </button>
+                    @{Html.RenderPartial("_BarSearch");}
+                </div>
+            </div>
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'">
 

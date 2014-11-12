@@ -1,13 +1,11 @@
-﻿
-var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
+﻿var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
-         'sModal', '$location','$filter', '$timeout','$analytics',
+         'sModal', '$location','resManager', '$timeout','$analytics',
          'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
-        function ($scope, $rootScope, $routeParams, sModal, $location, $filter,
+        function ($scope, $rootScope, $routeParams, sModal, $location, resManager,
                   $timeout,$analytics, sBox, sNewUpdates, sUserDetails, sFacebook) {
             "use strict";
-            var jsResources = window.JsResources;
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
             $scope.boxName = $routeParams.boxName;
@@ -53,8 +51,8 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 };
 
                 $scope.strings = {
-                    share: $scope.info.boxType === 'academic' ? jsResources.ShareCourse : jsResources.ShareBox,
-                    invite: $scope.info.boxType === 'academic' ? jsResources.InviteCourse : jsResources.InviteBox
+                    share: $scope.info.boxType === 'academic' ? resManager.get('ShareCourse') : resManager.get('ShareBox'),
+                    invite: $scope.info.boxType === 'academic' ? resManager.get('InviteCourse') : resManager.get('InviteBox')
                 };
 
 
@@ -69,6 +67,14 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
+
+                if ($location.hash()) {
+                    if ($scope.states.hasOwnProperty($location.hash())) {
+                        $scope.setTab($location.hash());
+                    } else {
+                        $location.hash('');
+                    }
+                }
             });
 
 
@@ -83,13 +89,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 $scope.options.loader = true;
 
             };
-            if ($location.hash()) {
-                if ($scope.states.hasOwnProperty($location.hash())) {
-                    $scope.setTab($location.hash());
-                } else {
-                    $location.hash('');
-                }
-            }
+         
 
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
@@ -112,7 +112,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 sFacebook.share($scope.info.url, //url
                       $scope.info.name, //title
                        $scope.info.boxType === 'academic' ? $scope.info.name + ' - ' + $scope.info.ownerName : $scope.info.name, //caption
-                       jsResources.IShared + ' ' + $scope.info.name + ' ' + jsResources.OnCloudents + '<center>&#160;</center><center></center>' + jsResources.CloudentsJoin,
+                       resManager.get('IShared') + ' ' + $scope.info.name + ' ' + resManager.get('OnCloudents') + '<center>&#160;</center><center></center>' + resManager.get('CloudentsJoin'),
                         null //picture
                      );
                 $scope.popup.share = false;
@@ -141,7 +141,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    alert(jsResources.NeedToFollowBox);
+                    alert(resManager.get('NeedToFollowBox'));
                     return;
                 }
 
@@ -173,7 +173,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    alert(jsResources.NeedToFollowBox);
+                    alert(resManager.get('NeedToFollowBox'));
                     return;
                 }
 
@@ -230,7 +230,7 @@ var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
                     return;
                 }
 
-                sFacebook.postFeed($filter('stringFormat')(jsResources.IJoined, [$scope.info.name]), $scope.info.url);
+                sFacebook.postFeed(resManager.getParsed('IJoined', [$scope.info.name]), $scope.info.url);
 
                 $scope.action = {
                     userFollow: true

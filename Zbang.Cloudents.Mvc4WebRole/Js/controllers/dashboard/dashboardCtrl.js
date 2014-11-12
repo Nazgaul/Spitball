@@ -1,12 +1,11 @@
 ﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
-       'sModal','sDashboard', 'sBox',
+       'sModal','sDashboard', 'sBox','resManager',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sUser, sNewUpdates, $location, $analytics) {
     "use strict";
-    var jsResources = window.JsResources;
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];   
@@ -14,7 +13,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, sUser, sNewUpd
 
     //cd.analytics.setLibrary($('.uniText').text()); //TODO
 
-    $scope.myCourses = jsResources.CoursesFollow;
+    $scope.myCourses = resManager.get('CoursesFollow');
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
 
@@ -119,14 +118,14 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, sUser, sNewUpd
         }
 
         if (box.userType === 'owner') {
-            return jsResources.SureYouWantTo + ' ' + jsResources.ToDeleteBox;
+            return resManager.get('SureYouWantTo') + ' ' + resManager.get('ToDeleteBox');
         }
 
         if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
             return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
         }
 
-        return jsResources.SureYouWantTo + ' ' + jsResources.ToLeaveGroup;
+        return resManager.get('SureYouWantTo') + ' ' + resManager.get('ToLeaveGroup');
     };
 
     $scope.getTitle = function (box) {
@@ -135,10 +134,10 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, sUser, sNewUpd
         }
 
         if ((box.userType === 'owner') || (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount)) {
-            return jsResources.Delete;
+            return resManager.get('Delete');
         }
 
-        return jsResources.LeaveGroup;
+        return resManager.get('LeaveGroup');
     };
 
     $scope.showRemove = function (box) {

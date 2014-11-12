@@ -164,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
         public async Task<ActionResult> Data(long id)
-        {
+        {          
             var userId = User.GetUserId(false);
             try
             {

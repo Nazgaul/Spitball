@@ -1000,6 +1000,7 @@
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\account.js" />
     <Content Include="Js\services\modalWrapper.js" />
+    <Content Include="Js\services\resourceManager.js" />
     <Content Include="Js\services\stacktrace.js" />
     <Content Include="Js\services\facebook.js" />
     <Content Include="Js\services\focus.js" />
@@ -1639,6 +1640,8 @@
     <Content Include="Views\Item\_PreviewSvg.mobile.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Library\Rename.cshtml" />
+    <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
+    <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

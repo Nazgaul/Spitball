@@ -124,7 +124,7 @@
                 </li>
 
                 <li ng-if="leaderBoard.third" class="thirdUser rFloat" user-tooltip-popup="{{leaderBoard.third.id}}">
-                    <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="48" height="48" /></a>
+                    <a bo-href="leaderBoard.third.url"><img class="top3Img" bo-src="leaderBoard.third.image" alt="" width="48" height="48" /></a>
                     @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                     <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
                 </li>
@@ -139,7 +139,7 @@
                     <span class="rep rFloat" bo-text="leaderBoard.fourth.score | kNumber"></span>
                 </li>
                 <li ng-if="leaderBoard.fifth">
-                    <a bo-href="leaderBoard.fourth.url"><img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
+                    <a bo-href="leaderBoard.fifth.url"><img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
                     <span class="elps" bo-text="leaderBoard.fifth.name"></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fifth.score | kNumber"></span>
                 </li>
@@ -151,12 +151,14 @@
             <ul>
                 <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
                     <a bo-href="course.url" class="courseLink">
-                        <div class="rcDetails">
+                        <div class="rcDetails ghost">
+                            <div class="vCentered">
+                                <div class="courseName" bo-text="course.name"></div>
+                                <span class="prof elps" bo-text="course.professor"></span>
+                                <span class="elps" bo-text="course.courseCode"></span>
+                            </div>
                             @*ng-class="{ rcFull : course.professor && course.courseCode }"*@
-                            <img alt="" width="46" height="46" bo-src="course.picture" />
-                            <div class="elps courseName" bo-text="course.name"></div>
-                            <span class="prof elps" bo-text="course.professor"></span>
-                            <span class="elps" bo-text="course.courseCode"></span>
+                            <img alt="" width="48" height="48" bo-src="course.picture" />
                         </div>
                         <div class="rcStats">
                             <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">

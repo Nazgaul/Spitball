@@ -65,8 +65,6 @@ function ($http, sBox, sUserDetails,$interval) {
        
         },
         getUpdatesCount: function (boxId,callback) {
-
-
             if (updatesLoaded) {
                 updatesCount();
                 return;

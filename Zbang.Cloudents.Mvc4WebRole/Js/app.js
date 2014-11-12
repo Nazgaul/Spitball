@@ -316,6 +316,7 @@
 
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
         sVerChecker.checkVersion();
+        sNewUpdates.loadUpdates();
 
         $rootScope.initDetails = function (userData) {
             sUserDetails.setDetails(userData);
@@ -323,75 +324,56 @@
         };
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            $window.scrollTo(0, 0);
-
-            if (!next.$$route) {
-                return;
-            }
-            if (!next.$$route.params) {
-                return;
-            }
-            //if (sUserDetails.isAuthenticated() && !sUserDetails.getDepartment() && next.$$route.params.type !== 'libraryChoose') {
-            //    $location.path('/library/choose/');
-            //}Start
-            sNewUpdates.loadUpdates();
+            $window.scrollTo(0, 0);       
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
             if (!previous) {
-
-                if (!isCurrentRoute(current)) {
-                    return;
-                }
-
-                if (current.$$route.params.type === 'box') {
+             if (current.$$route.params.type === 'box') {
                     if (sUserDetails.isAuthenticated()) {
                         sNewUpdates.removeUpdates(current.params.boxId);
                     }
 
                     setBackDashboard();
+             }
+
+             return;
+            }          
+
+            try {
+                if (current.$$route.params.type === 'box') {
+                    if (sUserDetails.isAuthenticated()) {
+                        sNewUpdates.removeUpdates(current.params.boxId);
+                    }
+
+                    switch (previous.$$route.params.type) {
+                        case 'user':
+                            $rootScope.back.title = previous.pathParams.userName;
+                            $rootScope.back.url = previous.loadedTemplateUrl;
+                            break;
+                        case 'library':
+                            $rootScope.back.title = previous.params.libraryName;
+                            $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+                            break;
+                        case 'search':
+                            $rootScope.back.title = 'Search "' + previous.params.q + '"';
+                            $rootScope.back.url = previous.loadedTemplateUrl;
+                            break;
+                        default:
+                            setBackDashboard();
+                            break;
+                    }
                 }
-                return;
-            }
-            if (!previous.$$route) {
-                return;
-            }
-            if (!previous.$$route.params) {
-                return;
-            }
-            if (!previous.$$route.params.type) {
-                return;
-            }
 
-            if (!isCurrentRoute(current)) {
-                return;
-            }
-
-            if (current.$$route.params.type === 'box') {
-                if (sUserDetails.isAuthenticated()) {
-                    sNewUpdates.removeUpdates(current.params.boxId);
-                }
-
-                switch (previous.$$route.params.type) {
-                    case 'user':
-                        $rootScope.back.title = previous.pathParams.userName;
-                        $rootScope.back.url = previous.loadedTemplateUrl;
-                        break;
-                    case 'library':
-                        $rootScope.back.title = previous.params.libraryName;
-                        $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
-                        break;
-                    default:
-                        setBackDashboard();
-                        break;
+                if (current.$$route.params.type === 'library') {
+                    $rootScope.back.title = previous.pathParams.libraryName;
+                    $rootScope.back.url = previous.loadedTemplateUrl;
                 }
             }
-
-            if (current.$$route.params.type === 'library') {
-                $rootScope.back.title = previous.pathParams.libraryName;
-                $rootScope.back.url = previous.loadedTemplateUrl;
+            catch (ex) {
+                
             }
         });
 

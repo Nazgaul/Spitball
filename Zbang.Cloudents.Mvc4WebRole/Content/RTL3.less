@@ -536,12 +536,12 @@
     right: auto;
     box-shadow: -1px 1px 3px rgba(57,0,12,.5); /*rtl*/
 }
-//.unionCourses {
+
 .courseCode {
     right: 84px; /*rtl*/
     left: auto;
 }
-//}
+
 
 /*#region boxesHeader */
 .boxesHeader.topBar {
@@ -554,14 +554,17 @@
 }
 
 .back:before {
-    margin: 0 0 0 5px; /*rtl*/
+    margin: 0 0 0 5px; //rtl
     .flipH(-1); /*rtl flip*/
 }
 
 .boxTitle {
     padding: 0 0 0 10px; /*rtl*/
 }
-
+.boxRename {
+    right: -4px; //rtl
+    left: auto;
+}
 .emptyState {
     padding: 40px 236px 0 0; /*rtl*/
 }
@@ -586,27 +589,26 @@
         left: auto;
     }
 }
+
 .recommended {
-    //padding: 0 56px 0 0; //rtl
+    margin: 0 0 0 -12px; //rtl
     .courseLink {
         &:hover .rcDetails {
             margin: 0 -105px 0 0; //rtl
         }
     }
     .rcDetails {
-        padding: 0 62px 0 0; //rtl
+        padding: 15px 69px 0 0; //rtl
+        &.ghost {
+            text-align: right; //rtl
+        }
     }
     img {
         right:8px; //rtl
         left: auto;
     }
-    /*.rFloat {
-        border: none;
-        border-right: 1px solid @borderColor; //rtl
-        padding: 0 35px 0 0; //rtl
-    }*/
     .friends, .files {
-        padding: 0 30px 0 0; //rtl
+        padding: 0 23px 0 0; //rtl
         &:after {
             right: 4px; //rtl
             left: auto;
@@ -616,7 +618,7 @@
 
 .podium {
     &:before, &:after {
-        right: -83px; //rtl
+        right: -87px; //rtl
         left: auto;
         border: 1px solid #aaa;
         border-left: none; //rtl
@@ -624,15 +626,15 @@
         
     }
     &:after {
-        left: -83px; //rtl
+        left: -87px; //rtl
         right: auto;
         border: 1px solid #aaa;
         border-right: none; //rtl
         border-radius: 3px 0 0 3px; //rtl
     }
 }
-.dashTop {
-    padding: 0 12px 0 8px; //rtl 
+.dashLibTop {
+    padding: 0 15px 0 8px; //rtl 
     &:after {
         right: 0; //rtl
         left: auto;
@@ -727,7 +729,7 @@
     }
     .backWpr {
         margin: 13px 0 0 25px; //rtl
-        .flipH(1); //rtl
+        //.flipH(1); //rtl
     }
 }
 .boxRight {
@@ -1254,12 +1256,12 @@
         margin: -6px 0 0 8px; /*rtl*/
     }
 
-    .profilePhoto {
-        box-shadow: -2px 2px 2px rgba(0, 0, 0, .4); /*rtl*/
-    }
+    /*.profilePhoto {
+        box-shadow: -2px 2px 2px rgba(0, 0, 0, .4); /*rtl
+    }*/
 
     .photoBtn {
-        margin: 5px 5px 0 0; /*rtl*/
+        margin: 41px 5px 0 0; /*rtl*/
     }
 }
 
@@ -1467,7 +1469,7 @@
 /*#region userpage content */
 
 .upTop {
-    padding: 0 112px 0 0; /*rtl*/
+    padding: 0 120px 0 0; /*rtl*/
     .btn3 {
         &:before {
             margin: 0 0 0 5px; /*rtl*/
@@ -1995,9 +1997,9 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
-    .backWpr:before {
+    /*.backWpr:before {
         .flipH(1); //rtl
-    }
+    }*/
     .leftPanel.leftPanel {
         right: 0; /*rtl*/
         left: auto;

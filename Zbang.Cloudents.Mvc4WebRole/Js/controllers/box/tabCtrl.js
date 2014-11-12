@@ -3,20 +3,20 @@
 		 '$modalInstance',
          '$analytics',
 		 'sBox',
+         'resManager',
 		 'data',
 
-		 function ($scope, $modalInstance, $analytics, sBox, data) {
+		 function ($scope, $modalInstance, $analytics, sBox, resManager, data) {
 		     "use strict";
-		     var jsResources = window.JsResources;
 		     $scope.formData = {
 		         boxId: data.boxId,
 		         tabId: data.tabId,
 		         name: data.tabName
 		     };
 
-		     $scope.params = {
-		         title: data.tabId ? jsResources.FolderRename : jsResources.FolderCreate,
-		         action: data.tabId ? jsResources.Rename : jsResources.Create
+		     $scope.params = { 
+		         title: data.tabId ? resManager.get('FolderRename') : jresManager.get('FolderCreate'),
+		         action: data.tabId ? resManager.get('Rename') : resManager.get('Create')
 		     };
 
 		     $scope.create = function (isValid) {
@@ -31,7 +31,7 @@
 		                     category: 'Renamed Tab'
 		                 });
 		             }, function () {
-		                 alert(jsResources.RenameError);
+		                 alert(resManager.get('RenameError'));
 		             });
 
 		             return;
