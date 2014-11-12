@@ -40,11 +40,7 @@ mBox.factory('sBox',
             },
             members: function (data) {
                 return ajaxService.get(buildPath('Members'), data);
-            },
-           
-            invite: function (data) {
-                return ajaxService.post('/Share/InviteBox/', data);
-            },
+            },                    
             removeUser: function (data) {
                 return ajaxService.post(buildPath('RemoveUser'), data);
             },

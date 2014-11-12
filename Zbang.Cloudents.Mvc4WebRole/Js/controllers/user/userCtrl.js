@@ -46,8 +46,8 @@
         }        
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants','$analytics',
-    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants','$analytics','sFacebook',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics, sFacebook) {
         "use strict";
 
         $scope.params = {
@@ -329,18 +329,52 @@ mUser.controller('UserCtrl',
                 $scope.invites.showAll = false;
                 $scope.invites.limit = userConstants.invites.list.init;
             },
-            reInvite: function (invite) {
-                if (invite.inviteType === 'inviteToCloudents') {
-                    sShare.invite.cloudents({ recepients: [invite.email] }).then(function () { });
-                    return;
+            reInvite: function (invite) {                
+                if (isNaN(invite.email)) {
+                    emailInvite();
+                } else {
+                    facebookInvite();
                 }
 
-                $analytics.eventTrack('User Invites', {
-                    category: 'Reinvite'
-                });
-                sShare.invite.box({ boxId: invite.boxId, recepients: [invite.email] }).then(function () { });
+                function facebookInvite() {
+                    if (invite.inviteType === 'inviteToCloudents') {
+                        sShare.facebookInvite.cloudents({ id: invite.email }).then(openFbModal);
+                        return;
+                    }
 
-                invite.submitted = true;
+                    sShare.facebookInvite.box({ id: invite.email, boxId: invite.boxId }).then(openFbModal);
+
+                    function openFbModal(response) {
+                        $scope.params.facebookInvite = true;
+
+                        sFacebook.send({
+                            path: response.url,
+                            to: invite.email
+                        }).then(function () {
+                            $analytics.eventTrack('User', {
+                                category: 'Facebook ReInvite ' + invite.inviteType
+                            });
+
+                            invite.submitted = true;                            
+
+                        }).finally(function(){
+                            $scope.params.facebookInvite = false;
+                        });
+                    }
+                }
+
+
+                function emailInvite() {
+
+                    if (invite.inviteType === 'inviteToCloudents') {
+                        sShare.invite.cloudents({ recepients: [invite.email] });
+                        return;
+                    }
+
+                    sShare.invite.box({ boxId: invite.boxId, recepients: [invite.email] });
+
+                    invite.submitted = true;
+                }            
             }
         }
         //#endregion 

@@ -2,16 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.headerRightWpr {
-  padding-left: 241px;
-  /*rtl*/
-  margin-left: -241px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-}
 .headerRightWpr .dashLibSearch {
   max-width: 550px;
   width: auto;

@@ -1642,6 +1642,8 @@
     <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
+    <Content Include="Views\Shared\Partials\_SettingsBar.cshtml" />
+    <Content Include="Views\Shared\Partials\_Header.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
