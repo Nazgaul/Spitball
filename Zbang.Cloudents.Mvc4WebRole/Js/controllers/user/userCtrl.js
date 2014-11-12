@@ -336,13 +336,13 @@ mUser.controller('UserCtrl',
                     facebookInvite();
                 }
 
-                function facebookInvite() {                     
+                function facebookInvite() {
                     if (invite.inviteType === 'inviteToCloudents') {
                         sShare.facebookInvite.cloudents({ id: invite.email }).then(openFbModal);
                         return;
                     }
 
-                    sShare.facebookInvite.box({ id: invite.email }).then(openFbModal);
+                    sShare.facebookInvite.box({ id: invite.email, boxId: invite.boxId }).then(openFbModal);
 
                     function openFbModal(response) {
                         $scope.params.facebookInvite = true;
@@ -358,7 +358,7 @@ mUser.controller('UserCtrl',
                             invite.submitted = true;                            
 
                         }).finally(function(){
-                            $scope.params.facebookInvite = false;;
+                            $scope.params.facebookInvite = false;
                         });
                     }
                 }

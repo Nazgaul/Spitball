@@ -78,7 +78,9 @@
                 }
 
                 function facebookInvite() {       
-                    sShare.facebookInvite.box({ id: member.email }).then(openFbModal);
+                    sShare.facebookInvite.box({ id: member.email, boxId: $scope.boxId }).then(openFbModal, function () {
+                        member.action = false;
+                    });
 
                     function openFbModal(response) {
                         $scope.params.facebookInvite = true;
@@ -102,7 +104,7 @@
 
 
                 function emailInvite() {
-                    sShare.invite.box({ boxId: $scope.info.boxId, recepients: [member.email] }).then(function () {
+                    sShare.invite.box({ boxId: $scope.boxId, recepients: [member.email] }).then(function () {
                         member.action = false;
                     });
 
