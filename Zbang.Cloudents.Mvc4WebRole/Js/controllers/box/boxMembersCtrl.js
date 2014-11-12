@@ -1,10 +1,12 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager',
-        function ($scope, $filter, sModal, sBox, $timeout, $analytics, resManager) {
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager', 'sShare', 'sUserDetails','sFacebook',
+        function ($scope, $filter, sModal, sBox, $timeout, $analytics, resManager, sShare, sUserDetails, sFacebook) {
             "use strict";
             //Members
 
-            $scope.params = {};
+            $scope.params = {
+                userId: sUserDetails.getDetails().id
+            };
 
             var members;;
 
@@ -41,7 +43,7 @@
 
                 });
 
-                if (member.userStatus === 'Subscribe') {                    
+                if (member.userStatus === 'Subscribe') {
                     remove(true);
                     member.removed = true;
                     return;
@@ -67,16 +69,50 @@
             };
 
             $scope.reinviteUser = function (member) {
-                member.reinvitedItem = true;
                 member.action = true;
-                $timeout(function () { member.reinvited = true; }, 10);
-                member.action = false;
-                sBox.invite({ Recepients: [member.email], boxUid: $scope.info.boxId }).then(function () { //uid
-                    member.action = false;
-                });
-                $analytics.eventTrack('Box Members', {
-                    category: 'Reinvite'
-                });
+                
+                if (isNaN(member.email)) {
+                    emailInvite();
+                } else {
+                    facebookInvite();
+                }
+
+                function facebookInvite() {
+                    openFbModal({ url: 'https://www.cloudents.com' });
+                    return;
+                    sShare.facebookInvite.box({ id: member.email }).then(openFbModal);
+
+                    function openFbModal(response) {
+                        $scope.params.facebookInvite = true;
+
+                        sFacebook.send({
+                            path: response.url,
+                            to: member.email
+                        }).then(function () {
+                            $analytics.eventTrack('Box Members', {
+                                category: 'Facebook Reinvite'
+                            });
+                            $timeout(function () { member.reinvited = true; }, 50);              
+                           member.reinvitedItem = true;
+
+                        }).finally(function () {
+                            $scope.params.facebookInvite = false;
+                            member.action = false;
+                        });
+                    }
+                }
+
+
+                function emailInvite() {
+                    sShare.invite.box({ boxId: $scope.info.boxId, recepients: [member.email] }).then(function () {
+                        member.action = false;
+                    });
+
+                    $analytics.eventTrack('Box Members', {
+                        category: 'Reinvite'
+                    });
+                }
+
             };
 
             $scope.searchMembers = function () {

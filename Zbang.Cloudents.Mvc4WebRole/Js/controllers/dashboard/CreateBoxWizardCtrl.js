@@ -74,8 +74,8 @@
                     }).then(function () {
                         dfd.resolve();
                         $analytics.eventTrack('Box Wizard', {
-                    category: 'Facebook Invite'
-                });
+                            category: 'Facebook Invite'
+                        });
                     }, function () {
                         dfd.reject();
                     });
