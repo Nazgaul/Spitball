@@ -13,7 +13,7 @@
         .boxSizing;
     }
     .backWpr {
-        margin: 13px 25px 0 0; //rtl
+        margin: 8px 0 0 25px; //rtl
         padding:0;
     }
     .svg-settings {
@@ -21,8 +21,6 @@
         height: 23px;
         fill: #383838;
     }
-    
-    
     .boxRename {
         display: none;
         position: absolute;
@@ -32,15 +30,28 @@
     }
     .siteHeader {
         background: #282828;
+        .shareBtn {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            top: 11px;
+        }
     }
     .siteLogo {
         height: @header-height;
         width: @boxSideBarWidth;
         background: @color;
     }
-    .shareBtn {
-        display: inline-block;
+    .searchInputWpr  {
+        margin-top: -9px; //override
     }
+    .barActions {
+        top: 0; //override
+    }
+}
+.inviteButton {
+    vertical-align: top;
+    margin-top: 6px;
 }
 .following, .followBtn {
     display: block;
@@ -526,7 +537,7 @@
 /*#endregion */
 
 .box-content {
-    padding: 75px 25px 15px 25px;
+    padding: 21px 25px 15px 25px;
     .boxSizing;
     background: #fff;
     //width: ~'-webkit-calc(100% - @{boxSideBarWidth})';
@@ -1311,7 +1322,8 @@
 @container-min-width: (@min-cols * @item-with-margin - @min-margin);
 
 .boxItems {
-    margin: 20px 20px 0 20px;
+    //margin: 20px 20px 0 20px;
+    margin-top: 7px;
     .boxItemList {
         display: block;
         margin: 2px auto 0;

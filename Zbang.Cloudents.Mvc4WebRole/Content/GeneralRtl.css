@@ -75,11 +75,12 @@ input[type="radio"].radio:checked + label:after {
   margin: 0 0 0 10px;
   /*rtl*/
 }
-.userDrpSettings:after {
-  right: 0;
-  /*rtl*/
-  left: auto;
-}
+/*.userDrpSettings {
+    &:after {
+        right: 0; 
+        left: auto;
+    }
+}*/
 .userMenuWrapper {
   left: 0;
   /*rtl*/
