@@ -748,6 +748,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Details()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return JsonOk(null);
+            }
+            var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
+            return JsonOk(retVal);
+
+        }
+
 
         [HttpPost, ZboxAuthorize]
         public JsonResult FirstTime(FirstTime firstTime)
