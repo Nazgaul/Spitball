@@ -1438,6 +1438,23 @@ iframe .registerFirst.store {
   color: #676767;
 }
 /*#endregion */
+/*#region general svgs */
+.svg-logo {
+  width: 183px;
+  height: 31px;
+  fill: #fff;
+  position: relative;
+  top: 10px;
+  left: 30px;
+}
+.svg-menu {
+  width: 23px;
+  height: 18px;
+  fill: #fff;
+  position: relative;
+  top: 5px;
+}
+/*#endregion */
 /*#region side menu - SettingsBar partial */
 aside.sideBar {
   background: #39434a;

@@ -2,23 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region general */
-.svg-logo {
-  width: 183px;
-  height: 31px;
-  fill: #fff;
-  position: relative;
-  top: 10px;
-  left: 30px;
-}
-.svg-menu {
-  width: 23px;
-  height: 18px;
-  fill: #fff;
-  position: relative;
-  top: 5px;
-}
-/*#endregion */
 /*#region Item page */
 .svg-download {
   width: 31px;
