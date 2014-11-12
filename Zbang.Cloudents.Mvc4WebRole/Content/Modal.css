@@ -252,6 +252,7 @@
 }
 .modal .departmentChoose .popupHeader {
   margin: 0 0 15px;
+  box-sizing: border-box;
 }
 .modal .departmentChoose .closeDialog {
   right: 20px;

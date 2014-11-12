@@ -1,4 +1,4 @@
-﻿mBox.controller('BoxTabsCtrl'
+﻿mBox.controller('BoxTabsCtrl',
         ['$scope', '$rootScope', '$filter', '$analytics','sModal', 'sBox', 'sUserDetails','resManager',
         function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, resManager) {
             "use strict";

@@ -1,5 +1,4 @@
-﻿
-app.factory('sVerChecker', ['$http', '$angularCacheFactory',
+﻿app.factory('sVerChecker', ['$http', '$angularCacheFactory',
     function ($http, $angularCacheFactory) {
         "use strict";
         var clientVersion = $('[data-version]').attr('data-version'),

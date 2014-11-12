@@ -1,7 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
-		['$scope', '$rootScope', '$analytics','sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates','resManager',
+		['$scope', '$rootScope', '$analytics', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'resManager',
             'sUserDetails', 'sFacebook',
-function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, sUserDetails, sFacebook, resManager) {
+function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook) {
     "use strict";
 
     var consts = {
@@ -134,7 +134,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             });
 
             $analytics.eventTrack('Box Items', {
-                category: 'Delete'                
+                category: 'Delete'
             });
         });
 
@@ -207,7 +207,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         var filteredItems = $filter('filter')($scope.items, filterItems);
 
-        if (tab) {            
+        if (tab) {
             $scope.filteredItems = $filter('orderBy')(filteredItems, 'name');
         } else {
             $scope.filteredItems = filteredItems;
