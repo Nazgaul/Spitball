@@ -1,5 +1,4 @@
-﻿
-app.controller('MainCtrl',
+﻿app.controller('MainCtrl',
     ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store','$analytics',
         function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics) {
             "use strict";
@@ -73,28 +72,28 @@ app.controller('MainCtrl',
                 return $rootScope.params.isStore;
             }
 
-            $rootScope.showSearch = function () {
-                if (!$rootScope.params) {
-                    return false;
-                }
-                if (!angular.isDefined($rootScope.params.isDashboard) && !angular.isDefined($rootScope.params.isStore)) {
-                    return false;
-                }
+            //$rootScope.showSearch = function () {
+            //    if (!$rootScope.params) {
+            //        return false;
+            //    }
+            //    if (!angular.isDefined($rootScope.params.isDashboard) && !angular.isDefined($rootScope.params.isStore)) {
+            //        return false;
+            //    }
 
-                return !$rootScope.params.isDashboard && !$rootScope.params.isStore;
-            }
+            //    return !$rootScope.params.isDashboard && !$rootScope.params.isStore;
+            //}
 
-            $rootScope.isSearch = function () {
-                if (!$rootScope.params) {
-                    return false;
-                }
-                if (!angular.isDefined($rootScope.params.isStore)) {
-                    return false;
-                }
+            //$rootScope.isSearch = function () {
+            //    if (!$rootScope.params) {
+            //        return false;
+            //    }
+            //    if (!angular.isDefined($rootScope.params.isStore)) {
+            //        return false;
+            //    }
 
 
-                return !$rootScope.params.isStore;
-            }
+            //    return !$rootScope.params.isStore;
+            //}
 
 
             $rootScope.isQuiz = function () {

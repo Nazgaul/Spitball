@@ -7,7 +7,6 @@
                 return number;
             }
 
-            number = $filter('number')(number);
 
             return abbreviate();
 
@@ -57,6 +56,7 @@
                 if (abbr) {
                     rounded = rounded.toFixed(2);
                 }
+                rounded = $filter('number')(rounded);
 
                 return rounded + abbr;
             }

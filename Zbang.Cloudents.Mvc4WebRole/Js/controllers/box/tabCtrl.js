@@ -15,7 +15,7 @@
 		     };
 
 		     $scope.params = { 
-		         title: data.tabId ? resManager.get('FolderRename') : jresManager.get('FolderCreate'),
+		         title: data.tabId ? resManager.get('FolderRename') : resManager.get('FolderCreate'),
 		         action: data.tabId ? resManager.get('Rename') : resManager.get('Create')
 		     };
 

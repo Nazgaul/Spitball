@@ -3,28 +3,28 @@ app.factory('sModal',
         function ($rootScope, $modal, $modalStack, $log) {
             var modalList = {
                 shareEmail: function (params) {
-                    return buildObj('invite', { url: '/Share/MessagePartial/' }, 'ShareCtrl', 'static', true, params.data);
+                    return buildObj('invite', { url: '/Share/MessagePartial/' }, 'ShareCtrl', 'none', true, params.data);
                 },
                 boxInvite: function (params) {
-                    return buildObj('boxInvitePopup', { url: '/Box/SocialInvitePartial/' }, 'BoxInviteCtrl', 'static', true, params.data);
+                    return buildObj('boxInvitePopup', { url: '/Box/SocialInvitePartial/' }, 'BoxInviteCtrl', 'none', true, params.data);
                 },
                 cloudentsInvite: function () {
-                    return buildObj('boxInvitePopup', { url: '/Dashboard/SocialInvitePartial' }, 'InviteCloudentsCtrl', 'static', true);
+                    return buildObj('boxInvitePopup', { url: '/Dashboard/SocialInvitePartial' }, 'InviteCloudentsCtrl', 'none', true);
                 },
                 boxSettings: function (params) {
-                    return buildObj('boxSettings', { url: '/Box/SettingsPartial/' }, 'SettingsCtrl', 'static', true, params.data);
+                    return buildObj('boxSettings', { url: '/Box/SettingsPartial/' }, 'SettingsCtrl', 'none', true, params.data);
                 },
                 upload: function (params) {
-                    return buildObj('uploader', { url: '/Box/UploadPartial/' }, 'UploadPopupCtrl', 'static', true, params.data);
+                    return buildObj('uploader', { url: '/Box/UploadPartial/' }, 'UploadPopupCtrl', 'none', true, params.data);
                 },
                 tab: function (params) {
-                    return buildObj('createTab', { url: '/Box/CreateTabPartial/' }, 'createTabCtrl', 'static', true, params.data);
+                    return buildObj('createTab', { url: '/Box/CreateTabPartial/' }, 'createTabCtrl', 'none', true, params.data);
                 },
                 uploadLink: function () {
-                    return buildObj('uploadLink', { url: '/Box/UploadLinkPartial/' }, 'UploadLinkCtrl', 'static', true);
+                    return buildObj('uploadLink', { url: '/Box/UploadLinkPartial/' }, 'UploadLinkCtrl', 'none', true);
                 },
                 createDep: function () {
-                    return buildObj('newDpt', { url: '/Library/CreateDepartmentPartial/' }, 'CreateDepartmentCtrl', 'static', true);
+                    return buildObj('newDpt', { url: '/Library/CreateDepartmentPartial/' }, 'CreateDepartmentCtrl', 'none', true);
                 },
                 createBoxWizard: function (params) {
                     return buildObj(null, { url: '/Dashboard/CreateBox/' }, 'CreateBoxWizardCtrl', false, false, params.data);
@@ -33,19 +33,19 @@ app.factory('sModal',
                     return buildObj('fullscreen', { url: '/Item/fullscreen/' }, 'itemFullScreenCtrl', 'static', true, null, params.scope);
                 },
                 flagItem: function (params) {
-                    return buildObj('flagItem', { url: '/Item/Flag/' }, 'itemFlagCtrl', 'static', true, params.data);
+                    return buildObj('flagItem', { url: '/Item/Flag/' }, 'itemFlagCtrl', 'none', true, params.data);
                 },
                 itemRename: function (params) {
-                    return buildObj('rename', { url: '/Item/Rename/' }, 'itemRenameCtrl', 'static', true, params.data);
+                    return buildObj('rename', { url: '/Item/Rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {
-                    return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'static', true, params.data);
+                    return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'none', true, params.data);
                 },
                 depSettings: function (params) {
-                    return buildObj('deptSettings', { url: '/Library/Rename/' }, 'libraryRenameCtrl', 'static', true, params.data);
+                    return buildObj('deptSettings', { url: '/Library/Rename/' }, 'libraryRenameCtrl', 'none', true, params.data);
                 },
                 quitQuiz: function () {
-                    return buildObj('quitQuiz', { url: 'quizMenuTemplate' }, 'QuizCloseCtrl', 'static', true);
+                    return buildObj('quitQuiz', { url: 'quizMenuTemplate' }, 'QuizCloseCtrl', 'none', true);
                 },
                 quizChallenge: function (params) {
                     return buildObj('quizPopup', { url: '/Quiz/ChallengePartial/?quizid=' + params.data.quizId }, 'ChallengeCtrl', 'static', true, params.data);
