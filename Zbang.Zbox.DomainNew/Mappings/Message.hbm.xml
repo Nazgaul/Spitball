@@ -42,6 +42,7 @@
     
     <property name="Image" not-null="false" />
     <property name="UserName" not-null="false" />
+    <property name="Email" not-null="false"/>
     
     <subclass name="InviteToBox" discriminator-value="Invite" >
       <many-to-one column="BoxId" class="Box" name="Box" foreign-key="InviteBoxBoxId" not-null="false"/>

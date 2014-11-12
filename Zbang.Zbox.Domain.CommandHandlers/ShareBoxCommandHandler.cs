@@ -24,13 +24,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
         private readonly IIdGenerator m_IdGenerator;
         private readonly IRepository<InviteToBox> m_InviteRepository;
-        private readonly IProfilePictureProvider m_ProfilePictureProvider;
 
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
             IIdGenerator idGenerator,
-            IRepository<InviteToBox> inviteRepository, IRepository<UserBoxRel> userBoxRelRepository, IProfilePictureProvider profilePictureProvider)
+            IRepository<InviteToBox> inviteRepository, IRepository<UserBoxRel> userBoxRelRepository)
         {
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
@@ -38,7 +37,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
             m_UserBoxRelRepository = userBoxRelRepository;
-            m_ProfilePictureProvider = profilePictureProvider;
         }
 
         public void Handle(ShareBoxCommand command)
@@ -65,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         continue;
                     }
 
-                    var inviteToBox = new InviteToBox(id, sender, box, null, m_ProfilePictureProvider.GetDefaultProfileImage().LargeImage.AbsoluteUri, recipientEmail);
+                    var inviteToBox = new InviteToBox(id, sender, box, null, null, recipientEmail, recipientEmail);
                     m_InviteRepository.Save(inviteToBox);
                     SendInvite(sender.Name, box.Name,
                         id,
@@ -83,7 +81,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Invite);
-                var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null);
+                var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null, recipientEmail);
 
                 m_UserBoxRelRepository.Save(newInvite);
                 m_InviteRepository.Save(inviteToBoxExistingUser);

@@ -16,19 +16,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
-        private readonly IProfilePictureProvider m_ProfilePictureProvider;
         private readonly IIdGenerator m_IdGenerator;
         private readonly IRepository<Message> m_MessageRepository;
 
         public SendMessageCommandHandler(IQueueProvider queueProvider,
-            IUserRepository userRepository, IProfilePictureProvider profilePictureProvider,
+            IUserRepository userRepository, 
             IIdGenerator idGenerator,
         IRepository<Message> messageRepository
            )
         {
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
-            m_ProfilePictureProvider = profilePictureProvider;
             m_IdGenerator = idGenerator;
             m_MessageRepository = messageRepository;
         }
@@ -47,8 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     {
                         continue;
                     }
-                    var images = m_ProfilePictureProvider.GetDefaultProfileImage();
-                    recepientUser = new User(recepient, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
+                    recepientUser = new User(recepient, null,null);
                     m_UserRepository.Save(recepientUser);
 
 

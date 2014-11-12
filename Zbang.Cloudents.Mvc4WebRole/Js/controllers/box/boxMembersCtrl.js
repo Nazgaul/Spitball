@@ -41,19 +41,19 @@
 
                 });
 
-                if (member.sUserStatus === 'Subscribe') {
+                if (member.userStatus === 'Subscribe') {                    
                     remove(true);
                     member.removed = true;
                     return;
                 }
 
-                if (member.sUserStatus === 'Invite') {
+                if (member.userStatus === 'Invite') {
                     $timeout(remove, 3000);
                     $timeout(function () { member.uninvited = true; }, 10);
                     member.uninvitedItem = true;
                 }
 
-                function remove(isMember) {
+                function remove() {
                     $analytics.eventTrack('Box Members', {
                         category: 'Remove User',
                         label: 'User removed a member or someone invited'
