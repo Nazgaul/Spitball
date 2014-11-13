@@ -371,8 +371,9 @@ body.quiz .modal-backdrop.in {
 /*#endregion */
 /*#region Quiz Preview  */
 .quizPreviewTop {
-  width: 800px;
-  color: #fff;
+  height: 43px;
+  color: #0371c8;
+  background: #0f0f0f;
   text-align: center;
   margin: 0 auto;
 }
@@ -384,9 +385,7 @@ body.quiz .modal-backdrop.in {
   transform: scaleX(-1);
 }
 .quizPreviewScroll {
-  height: -webkit-calc(100% - 50px);
-  height: calc(100% - 50px);
-  margin-top: 50px;
+  height: 100%;
   overflow: auto;
   background: #282828;
   color: #fff;
@@ -409,19 +408,16 @@ body.quiz .modal-backdrop.in {
   display: none;
   font-size: 20px;
   font-weight: normal;
-  padding: 20px 30px 0 30px;
-  padding-top: 20px;
-  z-index: 1;
+  padding: 7px 30px 0 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .quizPreview .closePreview {
   z-index: 1;
   display: none;
-  margin: 16px 10px 0 0;
+  margin: 12px 25px 0 0;
   /*rtl*/
-  color: #fff;
-}
-.quizPreview .closePreview:hover:after {
-  background-position: -204px -35px;
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
@@ -438,11 +434,6 @@ body.quiz .modal-backdrop.in {
 .quizPreview .quizAList li .ng-binding {
   top: -17px;
   position: relative;
-}
-.backTxt {
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 8px;
 }
 .quizPrevWpr {
   width: 800px;

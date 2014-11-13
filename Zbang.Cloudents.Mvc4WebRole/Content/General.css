@@ -189,14 +189,14 @@ body {
   /*rtl*/
 }
 body.jsDark {
-  background: #282828;
-}
-body.jsDark .siteHeader {
-  background: #0f0f0f;
-  z-index: 1051;
-}
-body.jsDark .dashLibSearchInput {
-  display: none;
+  /*background: #282828;
+        .siteHeader {
+            background: #0f0f0f;
+            z-index: 1051; //changed to accomodate bootstrap modals (which have z-index 1051) - so that header is clickable in dashboard new class
+        }
+        .dashLibSearchInput {
+            display: none;
+        }*/
 }
 body.jsDark .bodyContent ~ .fade {
   -webkit-transition: none;
