@@ -167,8 +167,6 @@
   font-size: 18px;
 }
 .modal.flagItem {
-  right: auto;
-  left: 220px;
   top: 0;
 }
 .modal.flagItem li {
@@ -176,6 +174,8 @@
 }
 .modal.flagItem .modal-dialog {
   width: 570px;
+  right: auto;
+  left: 220px;
 }
 .modal.quitQuiz .btn1 {
   margin-top: 20px;

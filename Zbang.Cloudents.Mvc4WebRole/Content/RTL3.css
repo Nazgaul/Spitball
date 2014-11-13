@@ -39,7 +39,7 @@
   left: auto;
   padding-top: 5px;
 }
-.modal.flagItem {
+.modal.flagItem .modal-dialog {
   right: 220px;
   left: auto;
 }
