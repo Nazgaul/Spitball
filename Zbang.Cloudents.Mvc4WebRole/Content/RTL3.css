@@ -2027,6 +2027,9 @@ body.quiz .shareBtn {
   /*rtl*/
   left: auto;
 }
+/*.quizTime {
+    //margin-top: 146px; //diff rtl
+}*/
 .checkQuiz .userCorrect .quizQuestion,
 .afraid .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,

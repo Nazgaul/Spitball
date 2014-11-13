@@ -19,7 +19,8 @@
   font-family: Arial;
 }
 .itemPage .closePreview,
-.quizPage .closePreview {
+.quizPage .closePreview,
+.quizPreview .closePreview {
   margin: 12px 25px 0 0;
   /*rtl*/
 }

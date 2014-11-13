@@ -1,9 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone, afraid: quiz.afraid}">
-
+    <div class="quizTop">
+        <a ng-href="{{quiz.boxUrl + '#quizzes'}}" title="@SharedResources.Back" class="closePreview rFloat" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </a>
+        <div class="quizTitle elps">{{quiz.name}}</div>
+    </div>
     <div class="leftPanel lFloat" bindonce>
-        <div class="itemTop">
+        @*<div class="itemTop">
             <div tooltip="@SharedResources.Views" class="rFloat quizViews">
                 @Html.Svg("~/Images/Defs.svg", "eye")
                 {{quiz.numberOfViews}}
@@ -14,7 +19,7 @@
                 <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.owner}}</div>
                 <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
             </div>
-        </div>
+        </div>*@
 
         <div class="timeWpr">
             <div class="quizTime" id="quizTimer">
@@ -25,6 +30,19 @@
         </div>
 
         <div class="userResults">
+            <div class="timeRetakeWpr clearfix">
+                <div id="quizTimerResult" class="quizTimerResult lFloat">
+                    @Html.Svg("~/Images/Defs.svg", "time")
+                    {{quiz.timeTaken}}
+                </div>
+
+                <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()" analytics-on="click" analytics-event="Retake" analytics-category="Quiz">@QuizResources.RetakeQuiz</button>
+            </div>
+
+            <div class="userScoreWpr">
+                <div id="quizUserScore" class="userScore" data-user-score="{{quiz.result}}">@QuizResources.YourScore:</div>
+            </div>
+
             <div class="resultsWpr">
                 <div id="quizUserRight" class="results" data-results="{{quiz.correctAnswers}}">
                     @Html.Svg("~/Images/Defs.svg", "correct", new { @class = "svg-correct" })
@@ -34,18 +52,6 @@
                     @Html.Svg("~/Images/Defs.svg", "wrong", new { @class = "svg-wrong" })
                     @QuizResources.Wrong
                 </div>
-            </div>
-            <div class="userScoreWpr">
-                <div id="quizUserScore" class="userScore" data-user-score="{{quiz.result}}">@QuizResources.YourScore:</div>
-            </div>
-
-            <div class="timeRetakeWpr clearfix">
-                <div id="quizTimerResult" class="quizTimerResult lFloat">
-                    @Html.Svg("~/Images/Defs.svg", "time")
-                    {{quiz.timeTaken}}
-                </div>
-
-                <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()" analytics-on="click" analytics-event="Retake" analytics-category="Quiz">@QuizResources.RetakeQuiz</button>
             </div>
 
             <div class="topUsersWpr">
@@ -68,14 +74,14 @@
 
     <div class="itemRight" bindonce>
 
-        <div class="quizActionsWpr">
+        @*<div class="quizActionsWpr">
             <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{quiz.boxName}}</h2>
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
-            <div class="quizTitle elps">{{quiz.name}}</div>
-        </div>
+            
+        </div>*@
 
 
         <div class="quizPrevWpr">
