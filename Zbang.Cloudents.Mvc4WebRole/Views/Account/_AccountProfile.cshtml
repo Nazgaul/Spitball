@@ -24,7 +24,7 @@
     <div class="schoolSection" bindonce>
         @Html.LabelFor(m=>m.University)
         <div class="schoolWpr">
-            <img class="imgBorder" width="32" height="32" alt="School logo" ng-src="{{data.universityPic|default:'uni'}}" />
+            <img class="imgBorder" width="32" height="32" alt="School logo" ng-src="{{data.universityPic|defaultImage:'uni'}}" />
             <div class="propValue">{{data.university}}</div>
             <a class="changeUni regFont" href="@Url.Action("Choose", "Library")">@AccountSettingsResources.ChangeUni</a>
         </div>

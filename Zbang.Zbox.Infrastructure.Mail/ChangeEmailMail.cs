@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
-            //message.Text = textBody;
             message.Subject = Subject;
             message.AddSubstitution("{CODE}", new List<string> { changeMailParams.Code });
         }
