@@ -317,6 +317,7 @@
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
         sVerChecker.checkVersion();
         sNewUpdates.loadUpdates();
+        sUserDetails.initDetails();
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);       

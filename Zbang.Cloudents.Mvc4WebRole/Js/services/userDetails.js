@@ -1,19 +1,10 @@
 ﻿app.factory('sUserDetails',
- ['sAccount',
+ ['sAccount', '$filter',
 
- function (sAccount) {
-   
-     isAuthenticated = false;
-
-     sAccount.details().then(function (response) {
-
-         if (!response) {
-
-             return;
-         }
-
-         setDetails(response);
-     });
+ function (sAccount, $filter) {
+     "use strict";
+     var isAuthenticated = false,
+         userData;   
 
      function setDetails(data) {
          data = data || {};
@@ -24,7 +15,9 @@
          userData = {
              id: data.id,
              name: data.name,
-             image: data.image || '/Images/Defs.svg?23.1.5#user',
+             firstName : data.name.split(' ')[0],
+             lastName : data.name.split(' ')[1],
+             image: $filter('defaultImage')(data.image,'user'),
              score: data.score,
              url: data.url,
              isAdmin: data.isAdmin,
@@ -41,8 +34,19 @@
          };
 
      }
-     return {         
+     return {
          getDetails: function () {
+             if (!userData) {
+                 var interval = setInterval(function () {
+
+                     if (!userData) {
+                         return;
+                     }
+
+                     clearData
+
+                 }, 20);
+             }
              return userData;
          },
 
@@ -57,6 +61,17 @@
              return userData.university;
 
          },
+         initDetails: function () {
+             sAccount.details().then(function (response) {
+
+                 if (!response) {
+
+                     return;
+                 }
+
+                 setDetails(response);
+             });
+         }
          //setUniversity: function (uniName) {
          //    if (uniName) {
          //        userData.university = uniName;

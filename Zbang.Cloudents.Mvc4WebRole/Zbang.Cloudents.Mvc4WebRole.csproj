@@ -899,6 +899,7 @@
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />
+    <Content Include="Js\controllers\account\userDetailsCtrl.js" />
     <Content Include="Js\controllers\box\boxInviteCtrl.js" />
     <Content Include="Js\controllers\box\boxItemsCtrl.js" />
     <Content Include="Js\controllers\box\boxMembersCtrl.js" />
@@ -2195,7 +2196,7 @@
     <Content Include="Views\Account\_AccountStorage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\_UserDetail3.cshtml" />
+    <Content Include="Views\Shared\Partials\_UserDetail3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\ResetPassword.cshtml" />
