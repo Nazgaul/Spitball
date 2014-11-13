@@ -318,11 +318,6 @@
         sVerChecker.checkVersion();
         sNewUpdates.loadUpdates();
 
-        $rootScope.initDetails = function (userData) {
-            sUserDetails.setDetails(userData);
-
-        };
-
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);       
         });

@@ -1,7 +1,7 @@
 ﻿app.factory('sUserDetails',
- [
+ ['sAccount',
 
- function () {
+ function (sAccount) {
      var userData = {
          id: null,
          name: null,
@@ -13,6 +13,9 @@
          department: null
      },
      isAuthenticated = false;
+
+     sAccount.details().then(function (response) {
+     });
 
      return {
          setDetails: function (data) {

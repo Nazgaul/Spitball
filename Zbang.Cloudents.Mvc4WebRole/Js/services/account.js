@@ -5,6 +5,9 @@
             return '/Account/' + path + '/';
         }
         return {
+            details: function (data) {
+                return ajaxService.get(buildPath('Details'), data);
+            },
             settings: {
                 data: function () {
                     return ajaxService.get(buildPath('SettingsData'));

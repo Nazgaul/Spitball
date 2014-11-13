@@ -4,7 +4,7 @@
 
 @if (User != null && User.Identity.IsAuthenticated)
 {
-    <li class="navItem navUser" ng-init="initDetails(@ViewBag.userDetail)">
+    <li class="navItem navUser">
         <a href="@Model.Url" class="userAnchor">
             <img id="userImg" src="@Model.Image" class="lFloat userImg" alt="user image" width="36" height="36" />
             @*data-id we need for old code*@
@@ -46,7 +46,7 @@
 
 else
 {
-    <li class="navItem signUp" ng-init="initDetails()">
+    <li class="navItem signUp">
         <button class="btn addRegister">@LogOnResources.SignUp</button>
         <button class="btn addConnect">@SharedResources.SignIn</button>
     </li>
