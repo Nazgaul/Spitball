@@ -2,6 +2,13 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*#region general svg's */
+.svg-close {
+  width: 12px;
+  height: 12px;
+  fill: #ccc;
+}
+/*#endregion */
 /*#region Item page */
 .svg-download {
   width: 31px;

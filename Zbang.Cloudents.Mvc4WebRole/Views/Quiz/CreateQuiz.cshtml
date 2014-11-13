@@ -32,9 +32,8 @@
         <div class="quizPreviewScroll">
             @*<div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>*@
             <div class="quizPreviewTop">
-                <button type="button" class="closePreview lFloat" ng-click="previewQuiz()">
-                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-                    <span class="backTxt">@SharedResources.Back</span>
+                <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="previewQuiz()">
+                    @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
                 </button>
                 <h2 class="elps">{{quiz.name}}</h2>
             </div>

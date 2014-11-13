@@ -1934,7 +1934,7 @@ body.quiz .shareBtn {
   left: auto;
 }
 .quizPreview .closePreview {
-  margin: 16px 0 0 10px;
+  margin: 12px 0 0 25px;
   /*rtl*/
 }
 .commentWpr {
