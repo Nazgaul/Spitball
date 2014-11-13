@@ -16,6 +16,9 @@
 
 
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }" >
+    <header class="siteHeader">
+        @{Html.RenderPartial("_Header");}
+    </header>
     @{Html.RenderPartial("_BarActions");}
     <div class="upContentWpr" bindonce>
         <div class="upTop">
