@@ -21,7 +21,10 @@
         </p>
     </aside>
 }
-<div id="library" class="library page" ng-controller="LibChooseCtrl">
+<div class="library page" ng-controller="LibChooseCtrl">  @*id="library"*@
+    <header class="siteHeader">
+        @{Html.RenderPartial("_Header");}
+    </header>
     <div class="libEmpty libraryChoose" id="libraryChoose">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
