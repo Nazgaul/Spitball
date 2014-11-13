@@ -52,7 +52,7 @@
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
                 <ol>
                     <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true">
-                        <img alt="" ng-src=" {{user.image}}" />
+                        <img alt="" ng-src=" {{user.image | defaultImage:'user'}}" />
                         @Html.Svg("~/Images/Defs.svg", "star")
                     </li>
                 </ol>
@@ -93,7 +93,7 @@
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
                                 <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="comment.isDelete"></button>
-                                <img class="imgBorder" user-tooltip-popup="{{comment.userId}}" width=" 32" height="32" alt="" bo-src="comment.userPicture" />
+                                <img class="imgBorder" user-tooltip-popup="{{comment.userId}}" width=" 32" height="32" alt="" bo-src="comment.userPicture | defaultImage:'user'" />
                                 <span class="semiFont" bo-text="comment.userName"></span>
                                 <span class="createTime" display-time="{{comment.date}}"></span>
                                 <div class="commentTxt" bo-html="comment.text"></div>
@@ -101,7 +101,7 @@
                         </ul>
 
                         <div class="cTextAreaWpr">
-                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage" />
+                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" bo-src="profile.userImage | defaultImage:'user'" />
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
                             <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)" analytics-on="click" analytics-event="Create Comment" analytics-category="Quiz">@SharedResources.Comment</button>
                         </div>

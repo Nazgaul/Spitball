@@ -51,7 +51,7 @@
                     <ul class="invList clearfix" bindonce>
                         <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts | limitTo : params.contactLimit">
                             <a bo-href="contact.url">
-                                <img alt="" class="friendImg" bo-src="contact.image" width="34" height="34">
+                                <img alt="" class="friendImg" bo-src="contact.image | defaultImage:'user'" width="34" height="34">
                             </a>
                             <span class="invName elps" bo-text="contact.name"></span>
                             <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">

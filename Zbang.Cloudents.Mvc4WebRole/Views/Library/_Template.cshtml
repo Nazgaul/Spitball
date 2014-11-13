@@ -11,7 +11,7 @@
 <script type="text/ng-template" id="library-box">
     <a bo-href="item.url">
         <div>
-            <img class="boxImg" bo-src="item.boxPicture" alt="" width="77" height="98" />
+            <img class="boxImg" bo-src="item.boxPicture | defaultImage:'box'" alt="" width="77" height="98" />
             <ul class="boxHoverList">
                 <li class="hoverItem itemImg" bo-text="item.itemCount"></li>
                 <li class="hoverItem memberImg" bo-text="item.membersCount"></li>

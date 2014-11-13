@@ -954,6 +954,7 @@
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\storageSpace.js" />
     <Content Include="Js\directives\userDetails.js" />
+    <Content Include="Js\filters\defaultImage.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\GenericEvents.js" />
