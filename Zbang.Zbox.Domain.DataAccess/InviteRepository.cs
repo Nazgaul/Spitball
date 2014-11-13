@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using NHibernate.Criterion;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 
@@ -15,8 +17,9 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public IEnumerable<InviteToBox> GetUserInvites(long recipientId)
         {
-            return UnitOfWork.CurrentSession.QueryOver<InviteToBox>()
-                .Where(w => w.UserBoxRel.User.Id == recipientId).List();
+            var userBoxRels =  UnitOfWork.CurrentSession.QueryOver<UserBoxRel>()
+                .Where(w => w.User.Id == recipientId).List().ToArray();
+            return UnitOfWork.CurrentSession.QueryOver<InviteToBox>().Where(Restrictions.On<InviteToBox>(s=>s.UserBoxRel).IsIn(userBoxRels)).List();
         }
     }
 }

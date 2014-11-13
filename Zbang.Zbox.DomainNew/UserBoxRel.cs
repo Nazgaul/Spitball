@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; set; }
         public virtual Box Box { get; set; }
 
-        protected virtual ICollection<Invite> Invites { get; set; }
+        public virtual ICollection<InviteToBox> Invites { get; protected set; }
 
 
         //used for hashcode & equals

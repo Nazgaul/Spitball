@@ -23,13 +23,13 @@
 
                 $scope.params.wasOpened = !$scope.params.wasOpened;               
 
-                //sShare.markNotificationsAsOld().then(function () {
-                //    _.forEach($scope.notifications, function (notification) {
-                //        notification.isNew = false;
-                //    });
+                sShare.markNotificationsAsOld().then(function () {
+                    _.forEach($scope.notifications, function (notification) {
+                        notification.isNew = false;
+                    });
 
-                //    $scope.params.newNotifications = 0;
-                //});
+                    $scope.params.newNotifications = 0;
+                });
             };
             $scope.markAsRead = function (notification) {
                 sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {

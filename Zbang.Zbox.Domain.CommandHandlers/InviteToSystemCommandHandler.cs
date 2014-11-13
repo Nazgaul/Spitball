@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -7,7 +6,6 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -25,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public InviteToSystemCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
-            IIdGenerator idGenerator, IProfilePictureProvider profilePictureProvider)
+            IIdGenerator idGenerator)
         {
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
