@@ -19,7 +19,8 @@
   font-family: Arial;
 }
 .itemPage .closePreview,
-.quizPage .closePreview {
+.quizPage .closePreview,
+.quizPreview .closePreview {
   margin: 12px 25px 0 0;
   /*rtl*/
 }
@@ -113,81 +114,6 @@
   top: 17px;
 }
 /*#endregion */
-/*#region second bar - left */
-.secondBar {
-  width: 100%;
-  height: 70px;
-  position: fixed;
-  z-index: 1;
-  background: #282828;
-  color: #3399ff;
-  text-align: center;
-  top: 130px;
-}
-.secondBar .leftPart {
-  height: 70px;
-  text-align: center;
-  font-size: 15px;
-}
-.secondBar .views {
-  padding-top: 23px;
-}
-.secondBar .downloads {
-  padding-top: 17px;
-  display: inline-block;
-}
-.secondBar .svg-eye {
-  position: relative;
-  top: 3px;
-  margin-right: 5px;
-}
-.secondBar .svg-download {
-  position: relative;
-  top: 6px;
-  margin-right: 5px;
-}
-.secondBar .mainPart {
-  width: 800px;
-  height: 70px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin-left: 290px;
-  display: inline-block;
-}
-.secondBar .mainPart .navBtn {
-  padding-top: 25px;
-}
-.itemFlag {
-  font-size: 15px;
-  padding-top: 12px;
-  color: #fff;
-}
-.itemFlag .svg-flag {
-  fill: #fff;
-}
-.itemFlag:hover {
-  color: #3399ff;
-}
-.itemFlag:hover .svg-flag {
-  fill: #3399ff;
-}
-.itemFlag:disabled {
-  color: #6a6a6a;
-}
-.itemFlag:disabled .svg-flag {
-  fill: #6a6a6a;
-}
-.itemFlag:disabled.flagged {
-  color: #3399ff;
-}
-.itemFlag:disabled.flagged .svg-flag {
-  fill: #3399ff;
-}
-/*#endregion */
-/*#region second bar - main */
-/*#endregion */
-/*#endregion */
 /*#region left panel */
 .leftPanel {
   -webkit-box-sizing: border-box;
@@ -221,18 +147,45 @@
   position: relative;
   top: 5px;
 }
-.leftPanel .downloads {
-  display: inline-block;
+.leftPanel .svg-eye {
   position: relative;
-  top: 2px;
+  top: 3px;
+}
+.leftPanel .svg-download {
+  position: relative;
+  top: 5px;
 }
 .leftPanel .itemFlag {
-  font-size: 15px;
-  color: #fff;
   display: inline-block;
   position: relative;
   top: -6px;
   padding: 0;
+}
+.itemFlag {
+  font-size: 15px;
+  padding-top: 12px;
+  color: #fff;
+}
+.itemFlag .svg-flag {
+  fill: #fff;
+}
+.itemFlag:hover {
+  color: #3399ff;
+}
+.itemFlag:hover .svg-flag {
+  fill: #3399ff;
+}
+.itemFlag:disabled {
+  color: #6a6a6a;
+}
+.itemFlag:disabled .svg-flag {
+  fill: #6a6a6a;
+}
+.itemFlag:disabled.flagged {
+  color: #3399ff;
+}
+.itemFlag:disabled.flagged .svg-flag {
+  fill: #3399ff;
 }
 .uploadInfo {
   text-align: left;
@@ -540,6 +493,15 @@
   margin: auto;
 }
 /*New Item View*/
+.arrowsWpr {
+  width: 850px;
+  margin: 0 auto;
+  position: fixed;
+  left: 290px;
+  right: 0;
+  top: -webkit-calc(50vh + 32px);
+  top: calc(50vh + 32px);
+}
 .itemPreview {
   text-align: center;
   overflow: auto;
@@ -549,15 +511,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-top: 10px;
-}
-.arrowsWpr {
-  width: 850px;
-  margin: 0 auto;
-  position: fixed;
-  left: 290px;
-  right: 0;
-  top: -webkit-calc(50vh + 32px);
-  top: calc(50vh + 32px);
 }
 .iframeContent {
   width: 98%;

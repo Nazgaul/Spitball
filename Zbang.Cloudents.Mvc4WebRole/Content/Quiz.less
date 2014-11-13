@@ -397,9 +397,9 @@ body {
 /*#endregion */
 
 /*#region Quiz Preview  */
-.quizPreviewTop {
+.quizPreviewTop, .quizTop {
     height: 43px;
-    color: @attentionBlue;
+    color: @itemBlue;
     background: #0f0f0f;
     text-align: center;
     margin: 0 auto;
@@ -470,10 +470,9 @@ body {
 }
 .quizTitle{
     font-size: 18px;
-    padding-top: 27px;
+    padding-top: 11px;
     max-width: 430px;
     display: inline-block;
-    color: #fff;
     &:before
     {
         content: attr(data-questioncount) "\00a0";
@@ -674,13 +673,7 @@ body {
             .transition(none);
         }
     }
-    .quizActionsWpr {
-        width: 800px;
-        margin: 0 auto;
-        position: relative;
-        height: @header-height;
-        text-align: center;
-    }
+
     .sectionHeader {
         color: transparent;
     }
@@ -693,6 +686,12 @@ body {
         border: none;
         width: @leftSideBarWidth;
         margin: 0; //override
+    }
+    .quizTop {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
     }
     .backWpr {
         &:before {
@@ -883,14 +882,14 @@ body {
 .quizTime {
     color: #fff;
     font-size: 55px;
-    margin-top: 146px; //diff rtl
+    margin-top: 126px;
     text-align: center;
     svg {
         width: 233px;
 	    height: 264px;
         position: absolute;
         left:0;right:0;
-        top: 120px;
+        top: 27px;
         margin: 0 auto;
     }
     ~ button {
@@ -916,13 +915,14 @@ body {
 
 .resultsWpr {
     background: #282828;
-    padding: 14px 8px 0;
+    padding: 20px 8px;
     position: relative; //for animation
     .transition(all .5s ease-in);
     opacity:0;
     visibility: hidden;
     top: -113px;
     z-index: 5;
+    border-bottom: 1px solid #5a5a5a;
 }
 
 .results {

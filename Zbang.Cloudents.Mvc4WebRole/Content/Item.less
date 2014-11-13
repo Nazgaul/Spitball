@@ -15,7 +15,7 @@
     height: 100%;
     font-family: Arial;
 }
-.itemPage, .quizPage {
+.itemPage, .quizPage, .quizPreview {
     .closePreview {
         margin: 12px 25px 0 0; /*rtl*/
     }
@@ -120,94 +120,6 @@
 
 /*#endregion */
 
-/*#region second bar - left */
-.secondBar {
-    width: 100%;
-    height: @secondBarHeight;
-    position: fixed;
-    z-index: 1;
-    background: #282828;
-    color: @itemBlue;
-    text-align: center;
-    top: @header-height + @topBarHeight;
-
-    .leftPart {
-        height: @secondBarHeight;
-        text-align: center;
-        font-size: 15px;
-    }
-
-    .views {
-        padding-top: 23px;
-    }
-
-    .downloads {
-        padding-top: 17px;
-        display: inline-block;
-    }
-
-    .svg-eye {
-        position: relative;
-        top: 3px;
-        margin-right: 5px;  //rtl
-    }
-
-    .svg-download {
-        position: relative;
-        top: 6px;
-        margin-right: 5px; //rtl
-    }
-
-    .mainPart {
-        width: 800px;
-        height: @secondBarHeight;
-        .boxSizing;
-        margin-left: @leftSideBarWidth; //rtl
-        display: inline-block;
-
-        .navBtn {
-            padding-top: 25px;
-        }
-    }
-}
-.itemFlag
-{   
-    font-size: 15px;
-    padding-top: 12px;
-
-    color: #fff;
-    .svg-flag {
-        fill: #fff;
-    }
-    &:hover {
-        color: @itemBlue;
-        .svg-flag {
-            fill: @itemBlue;
-        }
-    }
-    &:disabled {
-        color: #6a6a6a;
-        .svg-flag {
-            fill: #6a6a6a;
-        }
-        &.flagged {
-            color: @itemBlue;
-            .svg-flag {
-                fill: @itemBlue;
-            }
-        }
-    }
-}
-
-/*#endregion */
-
-/*#region second bar - main */
-
-
-/*#endregion */
-
-/*#endregion */
-
 /*#region left panel */
 
 .leftPanel {
@@ -242,18 +154,48 @@
         position: relative;
         top: 5px;
     }
-    .downloads {
-        display: inline-block;
+    .svg-eye {
         position: relative;
-        top: 2px;
+        top: 3px;
     }
+    .svg-download {
+        position: relative;
+        top: 5px;
+    }
+
     .itemFlag {
-        font-size: 15px;
-        color: #fff;
         display: inline-block;
         position: relative;
         top: -6px;
         padding: 0; //override
+    }
+}
+.itemFlag
+{   
+    font-size: 15px;
+    padding-top: 12px;
+
+    color: #fff;
+    .svg-flag {
+        fill: #fff;
+    }
+    &:hover {
+        color: @itemBlue;
+        .svg-flag {
+            fill: @itemBlue;
+        }
+    }
+    &:disabled {
+        color: #6a6a6a;
+        .svg-flag {
+            fill: #6a6a6a;
+        }
+        &.flagged {
+            color: @itemBlue;
+            .svg-flag {
+                fill: @itemBlue;
+            }
+        }
     }
 }
 .uploadInfo {
@@ -589,6 +531,15 @@
 
 
 /*New Item View*/
+.arrowsWpr {
+    width: 850px;
+    margin: 0 auto;
+    position: fixed;
+    left:290px; //rtl
+    right:0;
+    top: ~'-webkit-calc(50vh + 32px)';
+    top: ~'calc(50vh + 32px)';
+}
 .itemPreview {
     text-align: center;
     overflow: auto; // We need this because want inner scroll and not page scroll
@@ -596,20 +547,8 @@
     height: ~"calc(100% - 130px)";
     .boxSizing;
     padding-top: 10px;
-    //position: fixed;
-    //left: 0;
-    //right: 0;
-    
 }
-.arrowsWpr {
-    width: 850px;
-    margin: 0 auto;
-    position: fixed;
-    left:290px;
-    right:0;
-    top: ~'-webkit-calc(50vh + 32px)';
-    top: ~'calc(50vh + 32px)';
-}
+
 //used for links
 .iframeContent {
     width: 98%;
