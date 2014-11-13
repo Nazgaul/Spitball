@@ -1,6 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserMinProfile
 
 <script type="text/ng-template" id="memberDepartmentToolTip.html">
     <div class="upMemberBoxesWpr" bindonce>
@@ -16,14 +15,14 @@
 </script>
 
 
-<div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }">
+<div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }" >
     <header class="siteHeader">
         @{Html.RenderPartial("_Header");}
     </header>
     @{Html.RenderPartial("_BarActions");}
-    <div class="upContentWpr">
+    <div class="upContentWpr" bindonce>
         <div class="upTop">
-            <img class="upImg" id="upUserImg" src="@Model.Image" width="100" height="100" alt="" />
+            <img class="upImg" bo-src="profile.image | defaultImage:'user'" width="100" height="100" alt="" />
             <div class="upDetails">
                 <h1 class="semiFont" id="upUsername">
                     <span>@Model.Name</span>
@@ -276,7 +275,7 @@
                             <div class="usrName semiFont elps" bo-text="invite.userName"></div>
                             <div class="inviteStatus" bo-text="invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'"></div>
                             <div class="invitedToWpr">
-                                <img class="upImg" alt="" width="28" height="36" bo-src="invite.boxPicture || '/Images/cloudents1-57x57.png'" />
+                                <img class="upImg" alt="" width="30" height="30" bo-src="invite.boxPicture || '/Images/cloudents1-57x57.png'" />
                                 <div class="invitedTo" bo-text="invite.boxName || 'Cloudents'"></div>
                             </div>
                             <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
