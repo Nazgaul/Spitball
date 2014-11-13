@@ -1,21 +1,25 @@
 ﻿@import "varsAndMixins";
 
 /*#region layout */
-body.item {
+/*body.item {
     .siteHeader {
         background: #0f0f0f;
     }
     .modal-backdrop.in {
         opacity: .7;
     }
-}
+}*/
 
 .itemPage, .boxPage, .quizPage {
     width: 100%;
     height: 100%;
     font-family: Arial;
 }
-
+.itemPage, .quizPage {
+    .closePreview {
+        margin: 12px 25px 0 0; /*rtl*/
+    }
+}
 .itemRight {
     width: 100%;
     height: 100%;
@@ -26,21 +30,15 @@ body.item {
 }
 
 .itemPage {
-    overflow-x: hidden;
+    //overflow-x: hidden; //TODO: check why this is necessary
     .topBar {
         color: #fff; //override
         border: none;
         padding: 0; //override
         background: #1e1e1e;
         width: 100%;
-
-        .mainPart {
-            width: 100%;
-            height: 80px;
-            .boxSizing;
-            padding-left: @leftSideBarWidth; //rtl
-            text-align: center;
-        }
+        height: 43px;
+        top:0;
     }
 
     .leftPart {
@@ -52,39 +50,25 @@ body.item {
         padding: 0 15px;
         .boxSizing;
     }
-    .backWpr.backWpr {
-        padding-left: 57px; //rtl
-        &:before {
-            display: none;
-        }
-    }
     .shareDD {
-        top: 75px;
+        top: 40px;
         color: @itemBlue;
+        right: -8px; //rtl
     }
 
     .leftPanel {
         width: @leftSideBarWidth;
         padding: 0 15px;
-        @topOffset: @header-height + @topBarHeight + @secondBarHeight;
-        height: ~'calc(100vh - @{topOffset})';
-        margin-top: @topBarHeight + @secondBarHeight;
+        height: ~'calc(100vh - 63px)';
         background: #282828;
         position: fixed;
+        top: 63px; // item topBarHeight = 43 + 20px margin top
     }
 
     > h1 {
         margin-top: -50px;
         height: 50px;
         overflow: hidden;
-    }
-
-    .svg-back {
-        display: inline-block;
-        position: absolute;
-        left: 12px; //rtl
-        top: 0;
-        .flipH;
     }
 }
 /*#endregion */
@@ -93,20 +77,17 @@ body.item {
 /*#region item topBars */
 
 /*#region topBar - main */
+.mainPart {
+    width: 100%;
+    .boxSizing;
+    padding-left: @leftSideBarWidth; //rtl
+    text-align: center;
+}
 .middleActionList {
     display: inline-block;
-    height: 80px;
     vertical-align: top;
-
     svg {
-        display: block;
-        margin-bottom: 5px;
         fill: #fff;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 20px;
-        margin: auto;
     }
 }
 
@@ -115,12 +96,10 @@ body.item {
     display: inline-block;
     margin: 0 15px;
     position: relative;
-    &:first-child {
-        margin-right: 22px; //rtl
-    }
+
     .actionLink, > label, > button {
         color: #fff;
-        padding-top: 45px;
+        padding-top: 9px;
         display: inline-block;
         cursor: pointer;
     }
@@ -133,9 +112,6 @@ body.item {
         svg {
             fill: @itemBlue;
         }
-    }
-    .svg-download {
-        .translateX(-2px); //rtl
     }
     .svg-print {
         top: 17px;
@@ -227,44 +203,6 @@ body.item {
 
 /*#region second bar - main */
 
-.uploadInfo {
-    text-align: left; //rtl
-    clear: both;
-    color: #fff;
-    .itemOwner, time {
-        display: inline-block;
-    }
-}
-.itemNameWpr {
-    display: inline-block;
-    position: relative;
-    margin-top: 6px;
-    &:hover {
-        .itemRenameBtn {
-            display: block;
-        }
-    }
-}
-
-.itemRenameBtn {
-    display: none;
-    position: absolute;
-    //top: 6px;
-    top: 0;
-    right: 0; //rtl
-}
-
-.item-name {
-    text-align: left; //rtl
-    color: @itemBlue;
-    font-size: 20px;
-    max-width: 750px;
-    padding-right: 24px; //rtl
-    margin: 10px -24px 0 0; //rtl
-    position: relative;
-    .boxSizing;
-    font-weight: normal;
-}
 
 /*#endregion */
 
@@ -299,6 +237,67 @@ body.item {
             }
         }
     }
+    
+    .views {
+        position: relative;
+        top: 5px;
+    }
+    .downloads {
+        display: inline-block;
+        position: relative;
+        top: 2px;
+    }
+    .itemFlag {
+        font-size: 15px;
+        color: #fff;
+        display: inline-block;
+        position: relative;
+        top: -6px;
+        padding: 0; //override
+    }
+}
+.uploadInfo {
+    text-align: left; //rtl
+    clear: both;
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 20px;
+    .itemOwner, time {
+        display: inline-block;
+    }
+}
+.firstRow {
+    position: relative;
+    margin-top: 6px;
+    &:hover {
+        .itemRenameBtn {
+            display: block;
+        }
+    }
+}
+.secondRow {
+    text-align: center;
+    color: #fff;
+    padding: 25px 0;
+    border-top: 1px solid #5a5a5a;
+}
+.itemRenameBtn {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0; //rtl
+}
+
+.item-name {
+    text-align: left; //rtl
+    color: @itemBlue;
+    font-size: 20px;
+    max-width: 750px;
+    padding-right: 24px; //rtl
+    margin: 0 -24px 10px 0; //rtl
+    position: relative;
+    .boxSizing;
+    font-weight: normal;
 }
 
 .itemComments {
@@ -598,8 +597,18 @@ body.item {
     .boxSizing;
     padding-top: 10px;
     //position: fixed;
-    left: 0;
-    right: 0;
+    //left: 0;
+    //right: 0;
+    
+}
+.arrowsWpr {
+    width: 850px;
+    margin: 0 auto;
+    position: fixed;
+    left:290px;
+    right:0;
+    top: ~'-webkit-calc(50vh + 32px)';
+    top: ~'calc(50vh + 32px)';
 }
 //used for links
 .iframeContent {
@@ -613,16 +622,10 @@ body.item {
 
 .previewWrapper {
     -webkit-overflow-scrolling: touch;
-   // position: relative;
-    //left: 0; //rtl
     height: 100%; //used for links
-    //.transition(all .3s);
-    //min-height: ~'-webkit-calc(100vh - 60px)';
-    //min-height: ~'calc(100vh - 60px)';
-    min-height: ~'-webkit-calc(100vh - 200px)';
-    min-height: ~'calc(100vh - 200px)';
-    margin-top: 140px;
-
+    min-height: ~'-webkit-calc(100vh - 63px)'; //43px for header + 20px margin top
+    min-height: ~'calc(100vh - 63px)';
+    
     .boldFont {
         font-size: 22px;
         white-space: pre-wrap;

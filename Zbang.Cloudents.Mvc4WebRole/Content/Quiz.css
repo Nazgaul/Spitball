@@ -414,10 +414,7 @@ body.quiz .modal-backdrop.in {
   box-sizing: border-box;
 }
 .quizPreview .closePreview {
-  z-index: 1;
   display: none;
-  margin: 12px 25px 0 0;
-  /*rtl*/
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
@@ -714,7 +711,7 @@ body.quiz .modal-backdrop.in {
   height: 73px;
   border-bottom: 1px solid #797979;
 }
-.quizPage .itemNameWpr {
+.quizPage .firstRow {
   position: relative;
   padding: 16px 15px 8px 56px;
   -webkit-box-sizing: border-box;
@@ -723,7 +720,7 @@ body.quiz .modal-backdrop.in {
   height: auto;
   display: block;
 }
-.quizPage .itemNameWpr svg {
+.quizPage .firstRow svg {
   width: 45px;
   height: 45px;
   position: absolute;

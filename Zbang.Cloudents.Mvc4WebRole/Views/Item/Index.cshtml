@@ -4,40 +4,39 @@
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div class="page itemPage" ng-controller="ItemCtrl">
     <div class="topBar">
-        <div class="leftPart">
+        @*<div class="leftPart">
             <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
                 <div>@SharedResources.Backto</div>
                 <h2 class="semiFont elps">{{item.boxName}}</h2>
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
-        </div>
+        </div>*@
+        <a title="@SharedResources.Close" class="closePreview rFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </a>
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
-                    <a class="actionLink" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item">
+                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item">
                         @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
-                        <div>@ItemsResources.Download</div>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
-                    <a class="actionLink" href="{{item.printUrl}}" target="_blank" analytics-on="click" analytics-event="Print" analytics-category="Item">
+                    <a class="actionLink" title="@ItemsResources.Print<" href="{{item.printUrl}}" target="_blank" analytics-on="click" analytics-event="Print" analytics-category="Item">
                         @Html.Svg("~/Images/Defs.svg", "print", new { @class = "svg-print" })
-                        <span>@ItemsResources.Print</span>
                     </a>
                 </li>
 
                 <li class="middleActionItem">
-                    <button type="button" ng-click="fullScreenWindow()">
+                    <button title="@ItemsResources.FullScreen" type="button" ng-click="fullScreenWindow()">
                         @Html.Svg("~/Images/Defs.svg", "fullscreen", new { @class = "svg-fullscreen" })
-                        <div>@ItemsResources.FullScreen</div>
                     </button>
                 </li>
 
                 <li class="middleActionItem">
                     <input class="checkbox" type="checkbox" id="itemShare" ng-model="popup.share" />
-                    <label for="itemShare" analytics-on="click" analytics-event="Share" analytics-category="Item">
-                        <span>@SharedResources.Share</span>
+                    <label title="@SharedResources.Share" for="itemShare" analytics-on="click" analytics-event="Share" analytics-category="Item">
                         @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
                     </label>
                     <div class="dropDown shareDD">
@@ -61,8 +60,31 @@
         </div>
     </div>
 
-    <div class="secondBar">
+    @*<div class="secondBar">
         <div class="leftPart">
+            
+        </div>
+
+        <div class="mainPart">
+            
+            
+        </div>
+    </div>*@
+
+    <div class="leftPanel lFloat">
+        <div class="firstRow">
+            <h2 class="item-name elps lFloat">
+                <span tooltip="{{item.name}}">{{item.name}}</span>
+                <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button" ng-click="renameWindow()">
+                    @Html.Svg("~/Images/Defs.svg", "pencil", new { @class = "svg-pencil" })
+                </button>
+            </h2>
+            <div class="uploadInfo">
+                <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <time>{{item.updateTime | date:'d MMMM yyyy'}}</time>
+            </div>
+        </div>
+        <div class="secondRow">
             <span class="lFloat views" tooltip="@SharedResources.Views">
                 @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
                 <span>{{item.numberOfViews}}</span>
@@ -76,26 +98,6 @@
                 <span>{{flagText}}</span>
             </button>
         </div>
-
-        <div class="mainPart">
-            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="rFloat navBtn" analytics-on="click" analytics-event="Navigate Previous Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
-            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="lFloat navBtn" analytics-on="click" analytics-event="Navigate Next Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
-            <div class="itemNameWpr">
-                <h2 class="item-name elps lFloat">
-                    <span tooltip="{{item.name}}">{{item.name}}</span>
-                    <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button" ng-click="renameWindow()">
-                        @Html.Svg("~/Images/Defs.svg", "pencil", new { @class = "svg-pencil" })
-                    </button>
-                </h2>
-                <div class="uploadInfo">
-                    <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <time>{{item.updateTime | date:'d MMMM yyyy'}}</time>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="leftPanel lFloat">
         <span class="rateTxt">@ItemsResources.Rate</span>
         <div class="rateWpr rFloat" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
             @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
@@ -155,6 +157,10 @@
         </section>
     </div>
     <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init" load-spinner-time="1000">
+        <div class="arrowsWpr">
+            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="rFloat navBtn" analytics-on="click" analytics-event="Navigate Previous Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
+            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="lFloat navBtn" analytics-on="click" analytics-event="Navigate Next Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
+        </div>
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
             <div load-spinner="load.contentLoadMore" load-spinner-type="page"></div>

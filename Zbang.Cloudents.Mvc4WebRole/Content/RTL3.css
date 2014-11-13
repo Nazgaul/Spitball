@@ -1933,10 +1933,6 @@ body.quiz .shareBtn {
   /*rtl*/
   left: auto;
 }
-.quizPreview .closePreview {
-  margin: 12px 0 0 25px;
-  /*rtl*/
-}
 .commentWpr {
   padding: 0 10px 0 0;
   /*rtl*/
