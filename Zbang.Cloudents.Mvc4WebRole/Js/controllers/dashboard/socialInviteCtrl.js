@@ -1,5 +1,4 @@
-﻿
-mDashboard.controller('SocialInviteCtrl',
+﻿mDashboard.controller('SocialInviteCtrl',
     ['$scope', '$filter', '$location','$analytics', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
          function ($scope, $filter, $location, $analytics, sUser, sGoogle, sFacebook, sShare) {
              "use strict";
@@ -115,7 +114,7 @@ mDashboard.controller('SocialInviteCtrl',
                          };
 
                          sUser.friends().then(function (data) {                             
-                             currentUsers = data.my;
+                             currentUsers = angular.copy(data.my);
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                              $scope.$broadcast('update-scroll');
                          });
@@ -136,7 +135,7 @@ mDashboard.controller('SocialInviteCtrl',
                          }
 
                          sGoogle.contacts().then(function (response) {
-                             currentUsers = response;
+                             currentUsers = angular.copy(response);
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                              $scope.$broadcast('update-scroll');
 
@@ -157,7 +156,7 @@ mDashboard.controller('SocialInviteCtrl',
                              return params;
                          }
                          sFacebook.contacts('id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)').then(function (response) {
-                             currentUsers = response;
+                             currentUsers= angular.copy(response);
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                              $scope.$broadcast('update-scroll');
 

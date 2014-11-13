@@ -1,22 +1,76 @@
 ﻿@{
-    ViewBag.Title = "Unsupported";
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    Layout = null;
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div class="unsupported">
-    <h2>@ErrorResources.BrowserUnsupported</h2>
-    <span>@ErrorResources.UseOtherBrowser</span>
 
-    <ul class="browsers">
-        <li>
-            <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer</a>
-        </li>
-        <li>
-            <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>
-        </li>
 
-        <li>
-            <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>          
-        </li>
-    </ul>
-</div>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Unsupported</title>
+    <link rel="SHORTCUT ICON" href="/favicon.ico" />
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
+
+
+    <meta name="title" content="Unsupported" />
+    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link rel="image_src" href="/Images/cloudents.png" />
+
+
+    <link rel="stylesheet" type="text/css" href="/Content/General.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/HeaderFooter.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/Static.css" />
+
+
+
+</head>
+<body>
+
+    <div class="wrap">
+        <header class="siteHeader">
+            <a class="siteLogo lFloat" href="/dashboard/">
+                @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
+            </a>
+        </header>
+        <div class="staticContent">
+
+            <div class="unsupported">
+                <h2>@ErrorResources.BrowserUnsupported</h2>
+                <span>@ErrorResources.UseOtherBrowser</span>
+
+                <ul class="browsers">
+                    <li>
+                        <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer</a>
+                    </li>
+                    <li>
+                        <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>
+                    </li>
+
+                    <li>
+                        <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <ul class="footer">
+            <li>Zbang.it&rlm;&nbsp;&lrm;&copy;2014&nbsp;All rights reserved&nbsp;V 23.1.5</li>
+            <li><a href="/home/aboutus/">About us</a></li>
+            <li><a href="/home/help/">Help</a></li>
+            <li><a href="/home/contactus/">Contact us</a></li>
+            <li><a href="/home/privacy/">Privacy policy</a></li>
+            <li class="removePipe"><a href="/home/termsofservice/">Terms of service</a></li>
+
+        </ul>
+    </footer>
+
+</body>
+</html>
