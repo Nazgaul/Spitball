@@ -149,7 +149,7 @@
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="{hidePoints : user.score <= 0}">
             <a ng-href="{{user.url}}" ng-click="$root.checkReg($event)">
-                <img class="ttImg" ng-src="{{user.image}}" width="99" height="99" />
+                <img class="ttImg" ng-src="{{user.image | defaultImage:'user'}}" width="99" height="99" />
             </a>
             <a class="ttUsername elps" ng-href="{{user.url}}" ng-click="$root.checkReg($event)">{{user.name}}</a>
             <div class="ttSchool elps">{{user.universityName}}</div>
@@ -161,7 +161,7 @@
     @*@Search*@
     <script type="text/ng-template" id="boxHeaderSearch">
         <a bo-href="box.url" class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image" alt="">
+            <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image | defaultImage:'box'" alt="">
             <div class="searchDetails">
                 <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
                 <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
@@ -181,14 +181,14 @@
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
         <a bo-href="person.url" class="searchItem">
-            <img class="lFloat imgBorder userImg" bo-src="person.image" alt="" width="33" height="33" />
+            <img class="lFloat imgBorder userImg" bo-src="person.image | defaultImage:'user'" alt="" width="33" height="33" />
             <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
         </a>
     </script>
 
     <script type="text/html" id="userToolTipTempalte">
         <a data-navigation="User" href="{{url}}">
-            <img class="ttImg" src="{{image}}" width="99" height="99" />
+            <img class="ttImg" src="{{image | defaultImage:'user'}}" width="99" height="99" />
         </a>
         <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
         <div class="ttSchool elps">{{university}}</div>

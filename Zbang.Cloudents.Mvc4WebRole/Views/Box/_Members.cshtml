@@ -13,7 +13,7 @@
     </div>
     <ul>
         <li class="memberItem" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-repeat="member in members">
-            <a ng-href="{{member.url}}"><img class="friendImg" alt="" ng-src="{{member.image}}" width="34" height="34" /></a>
+            <a ng-href="{{member.url}}"><img class="friendImg" alt="" ng-src="{{member.image | defaultImage:'user'}}" width="34" height="34" /></a>
             <span class="memberName elps" ng-bind="member.name"></span>
             <span class="memberStatus" ng-class="{memberPending : member.userStatus === 'invite'}" ng-if="member.userStatus !== 'owner'">
                 {{userStatus(member.userStatus)}}

@@ -70,7 +70,7 @@
                                     <span class="prof elps" bo-text="course.professor"></span>
                                     <span class="elps" bo-text="course.courseCode"></span>
                                 </div>
-                                <img alt="" width="48" height="48" bo-src="course.picture" />
+                                <img alt="" width="48" height="48" bo-src="course.picture | defaultImage:'box'" />
                             </div>
                             <div class="rcStats">
                                 <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
@@ -153,7 +153,7 @@
             <a bo-href="box.url">
                 <div ng-if="box.numOfUpdates > 0" class="notify">{{box.numOfUpdates}}</div>
                 <div>
-                    <img class="boxImg" ng-src="{{box.boxPicture}}" alt="" width="77" height="98" />
+                    <img class="boxImg" ng-src="{{box.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
                     <ul class="boxHoverList">
                         <li class="hoverItem itemImg" bo-text="box.itemCount"></li>
                         <li class="hoverItem memberImg" bo-text="box.membersCount"></li>

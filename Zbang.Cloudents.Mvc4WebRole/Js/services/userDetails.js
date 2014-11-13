@@ -2,48 +2,46 @@
  ['sAccount',
 
  function (sAccount) {
-     var userData = {
-         id: null,
-         name: null,
-         isAdmin:false,
-         image: $('body').data('pic'),
-         score: 0,
-         url: null,
-         university: null,
-         department: null
-     },
+   
      isAuthenticated = false;
 
      sAccount.details().then(function (response) {
+
+         if (!response) {
+
+             return;
+         }
+
+         setDetails(response);
      });
 
-     return {
-         setDetails: function (data) {
-             data = data || {};
-             if (!data.id) {
-                 return;
-             }
-             isAuthenticated = true;
-             userData = {
-                 id: parseInt(data.id, 10),
-                 name: data.name,
-                 image: data.image,
-                 score: parseInt(data.score, 10),
-                 url: data.url,
-                 isAdmin: data.isAdmin,
-                 university: {
-                     // id: data.universityId,
-                     name: data.libName,
-                     image: data.libImage
-                 },
-                 //department: {
-                 //    id: data.departmentId,
-                 //    name: data.departmentName
+     function setDetails(data) {
+         data = data || {};
+         if (!data.id) {
+             return;
+         }
+         isAuthenticated = true;
+         userData = {
+             id: data.id,
+             name: data.name,
+             image: data.image || '/Images/Defs.svg?23.1.5#user',
+             score: data.score,
+             url: data.url,
+             isAdmin: data.isAdmin,
+             university: {
+                 // id: data.universityId,
+                 name: data.libName,
+                 image: data.libImage
+             },
+             //department: {
+             //    id: data.departmentId,
+             //    name: data.departmentName
 
-                 //}
-             };
+             //}
+         };
 
-         },
+     }
+     return {         
          getDetails: function () {
              return userData;
          },

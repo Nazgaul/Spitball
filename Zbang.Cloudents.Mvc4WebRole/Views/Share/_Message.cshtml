@@ -28,7 +28,7 @@
             @*<label class="validateMsg" ng-show="submitted && !formData.emailList.length">@SharedResources.EmailRequired</label>*@
         </div>
         <div ng-if="options.singleMessage" class="singleEmailUserWpr">
-            <img class="eSingleImg" ng-src="{{singleUser.image}}" alt="{{singleUser.name}}" />
+            <img class="eSingleImg" ng-src="{{singleUser.image | defaultImage:'user'}}" alt="{{singleUser.name}}" />
             <div class="eSingleName">{{singleUser.name}}</div>
         </div>
         <label class="validateMsg" ng-show="submitted && sendMessageForm.message.$error.required">@DialogResources.MessageRequired</label>

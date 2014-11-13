@@ -6,7 +6,7 @@
         <form class="feedForm" name="qnaQform" focus-form="feedOpen"
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-            <img ng-src="{{info.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
+            <img ng-src="{{info.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
             <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                       ng-focus="checkAuth()"></textarea>
             <ul class="attachedList">
@@ -25,7 +25,7 @@
 
         <ul class="boxFeedList">
             <li class="" ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage}}" user-tooltip-popup="{{question.userId}}" />
+                <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{question.userId}}" />
 
                 <div class="feedWpr">
                     <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
@@ -55,7 +55,7 @@
                 </div>
                 <ul class="feedReplies rFloat">
                     <li ng-repeat="answer in question.answers track by answer.id">
-                        <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage}}" alt="" width="40" height="40" />
+                        <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
                         <div class="feedWpr">
                             <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
                             <div class="userName elps">{{answer.userName}}</div>
@@ -78,7 +78,7 @@
                 </ul>
                 @*Ram: When user click on comment btn - add class 'show' to feedForm*@
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    <img class="feedImg rFloat" ng-src="{{info.userImage}}" alt="" width="40" height="40" />
+                    <img class="feedImg rFloat" ng-src="{{info.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
                     <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
@@ -134,12 +134,12 @@
                 </li>
 
                 <li ng-if="leaderBoard.fourth">
-                    <a bo-href="leaderBoard.fourth.url"><img bo-src="leaderBoard.fourth.image" user-tooltip-popup="{{leaderBoard.fourth.id}}" alt="" width="38" height="38" /></a>
+                    <a bo-href="leaderBoard.fourth.url"><img bo-src="leaderBoard.fourth.image | defaultImage:'user'" user-tooltip-popup="{{leaderBoard.fourth.id}}" alt="" width="38" height="38" /></a>
                     <span class="elps" bo-text="leaderBoard.fourth.name"></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fourth.score | kNumber"></span>
                 </li>
                 <li ng-if="leaderBoard.fifth">
-                    <a bo-href="leaderBoard.fifth.url"><img bo-src="leaderBoard.fifth.image" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
+                    <a bo-href="leaderBoard.fifth.url"><img bo-src="leaderBoard.fifth.image | defaultImage:'user'" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" /></a>
                     <span class="elps" bo-text="leaderBoard.fifth.name"></span>
                     <span class="rep rFloat" bo-text="leaderBoard.fifth.score | kNumber"></span>
                 </li>

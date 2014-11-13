@@ -26,7 +26,7 @@
             infinite-scroll-distance="2" infinite-scroll-immediate-check="false" height="500" infinite-scroll-element="true">
             <li class="memberItem" ng-repeat="friend in friends track by friend.id | limitTo: params.maxFriends">
                 <a bo-href="friend.url">
-                    <img class="friendImg" alt="" user-tooltip-popup="{{friend.uid}}" bo-src="friend.image" width="34" height="34" />
+                    <img class="friendImg" alt="" user-tooltip-popup="{{friend.uid}}" bo-src="friend.image | defaultImage:'user'" width="34" height="34" />
                 </a>
                 <span class="memberName elps" bo-text="friend.name"></span>
                 <span class="rFloat memberActions">
