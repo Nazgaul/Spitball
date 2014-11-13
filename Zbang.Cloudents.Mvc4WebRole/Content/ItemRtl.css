@@ -6,27 +6,18 @@
 .itemRight {
   padding: 0 290px 0 0;
 }
-.itemPage .topBar .mainPart {
-  padding: 0 290px 0 0;
+.itemPage .closePreview,
+.quizPage .closePreview {
+  margin: 12px 0 0 25px;
+  /*rtl*/
 }
 .itemPage .leftPart {
   right: 0;
   left: auto;
 }
-.itemPage .svg-back {
-  right: 12px;
-  left: auto;
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-  -o-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
-}
-.itemPage .backWpr.backWpr {
-  padding: 0 57px 0 0;
-}
-.itemPage .backWpr.backWpr:before {
-  display: none;
+.itemPage .shareDD {
+  left: -8px;
+  right: auto;
 }
 /*#endregion */
 /*#region svg icons */
@@ -50,15 +41,8 @@
 /*#endregion */
 /*#region item topBars */
 /*#region topBar - main*/
-.middleActionItem:first-child {
-  margin: 0 0 0 22px;
-}
-.middleActionItem .svg-download {
-  -webkit-transform: translateX(2px);
-  -moz-transform: translateX(2px);
-  -o-transform: translateX(2px);
-  -ms-transform: translateX(2px);
-  transform: translateX(2px);
+.mainPart {
+  padding: 0 290px 0 0;
 }
 /*#endregion */
 /*#region second bar - left */
@@ -70,7 +54,11 @@
   margin: 0 290px 0 0;
 }
 /*#endregion */
-/*#region second bar - main */
+/*#endregion */
+/*#region left panel */
+.leftPanel .svg-star {
+  float: left;
+}
 .uploadInfo {
   text-align: right;
 }
@@ -81,13 +69,7 @@
 .item-name {
   text-align: right;
   padding: 0 0 0 24px;
-  margin: 10px 0 0 -24px;
-}
-/*#endregion */
-/*#endregion */
-/*#region left panel */
-.leftPanel .svg-star {
-  float: left;
+  margin: 0 0 10px -24px;
 }
 .itemComments .addComBtn {
   text-align: right;
