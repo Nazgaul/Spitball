@@ -886,6 +886,7 @@
     <Content Include="Images\user-icon.png" />
     <Content Include="Images\user-img.png" />
     <Content Include="Images\user-pic.png" />
+    <Content Include="Images\user.svg" />
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />
     <Content Include="Images\usrPic.png" />
