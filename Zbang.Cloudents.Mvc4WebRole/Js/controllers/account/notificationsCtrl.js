@@ -23,6 +23,9 @@
 
                 $scope.params.wasOpened = !$scope.params.wasOpened;               
 
+                if (!$scope.params.wasOpened) {
+                    return;
+                }
                 sShare.markNotificationsAsOld().then(function () {
                     _.forEach($scope.notifications, function (notification) {
                         notification.isNew = false;
