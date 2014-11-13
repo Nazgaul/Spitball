@@ -76,6 +76,19 @@
 
            $locationProvider.html5Mode(true).hashPrefix('!');
 
+
+           var originalWhen = $routeProvider.when;
+
+           $routeProvider.when = function (path, route) {
+
+               route.resolve = {
+                   currentUser: ['sUserDetails', function (sUserDetails) {
+                       return sUserDetails.initDetails();
+                   }]
+               };
+
+               return originalWhen.call($routeProvider, path, route);
+           };
            //#region routes
            $routeProvider.
            //#region cloudents
@@ -316,8 +329,7 @@
 
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
         sVerChecker.checkVersion();
-        sNewUpdates.loadUpdates();
-        sUserDetails.initDetails();
+        sNewUpdates.loadUpdates();        
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);       
@@ -327,14 +339,18 @@
 
             //title 
             if (!previous) {
-             if (current.$$route.params.type === 'box') {
-                    if (sUserDetails.isAuthenticated()) {
-                        sNewUpdates.removeUpdates(current.params.boxId);
+                try {
+                    if (current.$$route.params.type === 'box') {
+                        if (sUserDetails.isAuthenticated()) {
+                            sNewUpdates.removeUpdates(current.params.boxId);
+                        }
+
+                        setBackDashboard();
                     }
+                }
+                catch(ex) {
 
-                    setBackDashboard();
-             }
-
+                }
              return;
             }          
 

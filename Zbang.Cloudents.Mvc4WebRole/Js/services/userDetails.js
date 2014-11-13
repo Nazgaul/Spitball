@@ -36,18 +36,7 @@
      }
      return {
          getDetails: function () {
-             if (!userData) {
-                 var interval = setInterval(function () {
-
-                     if (!userData) {
-                         return;
-                     }
-
-                     clearData
-
-                 }, 20);
-             }
-             return userData;
+               return userData;
          },
 
          isAuthenticated: function () {
@@ -62,15 +51,21 @@
 
          },
          initDetails: function () {
-             sAccount.details().then(function (response) {
+             if (this.isAuthenticated()) {
+                 return;
+             }
 
+             var promise = sAccount.details();
+                 
+             promise.then(function(response){
                  if (!response) {
-
                      return;
                  }
 
                  setDetails(response);
              });
+
+             return promise;
          }
          //setUniversity: function (uniName) {
          //    if (uniName) {
