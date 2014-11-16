@@ -613,4 +613,8 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>اختر قسم</value>
   </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>الأفضل في المدرسة
+</value>
+  </data>
 </root>

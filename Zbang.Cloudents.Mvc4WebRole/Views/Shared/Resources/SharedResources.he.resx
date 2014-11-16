@@ -598,4 +598,7 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>בחר מחלקה</value>
   </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>הכי טוב במוסד הלימודים שלך</value>
+  </data>
 </root>

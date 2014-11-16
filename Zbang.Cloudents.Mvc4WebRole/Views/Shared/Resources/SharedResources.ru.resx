@@ -597,4 +597,8 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>Выбрать факультет</value>
   </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>Лучшее в школе
+</value>
+  </data>
 </root>
