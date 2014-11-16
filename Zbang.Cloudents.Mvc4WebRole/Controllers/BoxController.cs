@@ -69,9 +69,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
                     : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
             }
-            catch (BoxDoesntExistException ex)
+            catch (BoxDoesntExistException)
             {
-                TraceLog.WriteError("Box Index desktop", ex);
+                //TraceLog.WriteError("Box Index desktop", ex);
                 return RedirectToAction("Index", "Error");
             }
             catch (Exception ex)
