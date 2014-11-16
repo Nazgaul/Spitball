@@ -579,6 +579,7 @@
   display: inline-block;
   background: transparent;
   top: auto;
+  width: auto;
 }
 .itemFulscrn {
   text-align: center;
