@@ -145,6 +145,8 @@
                         cd.pubsub.publish('addPoints', { type: 'question' });
 
 
+                        $scope.info.feedLength++;
+
 
                         //cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
 
@@ -220,6 +222,7 @@
                     $analytics.eventTrack('Box Feed', {
                         category: 'Remove Question'
                     });
+                    $scope.info.feedLength--;
                 };
 
                 $scope.deleteAnswer = function (question, answer) {
@@ -257,7 +260,7 @@
                     });
                 };
 
-                var qAttach, aAttach, questionAttach;
+                //var qAttach, aAttach, questionAttach;
                 $scope.$on('ItemUploaded', function (e, data) {
                     if (data.boxId !== $scope.boxId) {
                         return;
@@ -376,7 +379,7 @@
                     sModal.open('upload', {
                         data: data,
                         callback: {
-                            close: function (response) {
+                            close: function () {
                                 $scope.followBox(true);
                             }
                         }
