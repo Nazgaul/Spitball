@@ -1587,7 +1587,7 @@
     <Content Include="Views\Account\Welcome.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Library\InsertCode.cshtml" />
-    <Content Include="Views\Account\_UserDetail3.mobile.cshtml" />
+    <Content Include="Views\Account\_UserDetail4.mobile.cshtml" />
     <Content Include="Views\Item\_PreviewImage.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.mobile.cshtml" />
@@ -1647,6 +1647,7 @@
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsBar.cshtml" />
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
+    <Content Include="Views\Account\_UserDetail4.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

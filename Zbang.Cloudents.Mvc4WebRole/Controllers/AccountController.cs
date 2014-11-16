@@ -723,7 +723,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ChildActionOnly]
         public ActionResult GetUserDetail3()
         {
-            const string userDetailView = "_UserDetail3";
+            const string userDetailView = "_UserDetail4";
             if (User == null || !(User.Identity.IsAuthenticated))
             {
                 return PartialView(userDetailView);
