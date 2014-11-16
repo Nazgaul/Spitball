@@ -623,6 +623,10 @@
 .boxPage .backWpr {
   margin: 8px 25px 0 0;
 }
+.boxPage .boxRename {
+  left: -5px;
+  right: auto;
+}
 .boxRight {
   padding: 0 243px 0 0;
 }
