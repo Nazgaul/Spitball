@@ -11,6 +11,7 @@ select
  ,b.ProfessorName as ProfessorName
  ,b.ItemCount as Items
  ,b.MembersCount as Members
+ ,(select count(*) from zbox.Question q where q.BoxId = @BoxId) as feeds
  ,b.PrivacySetting
  ,b.quizcount as Quizes
  ,b.OwnerId as OwnerId

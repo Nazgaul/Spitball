@@ -1,10 +1,10 @@
 ﻿var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
-         'sModal', '$location','resManager', '$timeout','$analytics',
-         'sBox','sNewUpdates', 'sUserDetails', 'sFacebook',
+         'sModal', '$location', 'resManager', '$timeout', '$analytics',
+         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook',
         function ($scope, $rootScope, $routeParams, sModal, $location, resManager,
-                  $timeout,$analytics, sBox, sNewUpdates, sUserDetails, sFacebook) {
+                  $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook) {
             "use strict";
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -30,7 +30,7 @@
             };
 
             sBox.info({ id: $scope.boxId }).then(function (info) {
-                
+
                 $scope.info = {
                     name: info.name,
                     courseId: info.courseId,
@@ -39,6 +39,7 @@
                     itemsLength: info.items || 0,
                     membersLength: info.members || 0,
                     quizLength: info.quizes || 0,
+                    feedLength: info.feeds || 0,
                     ownerName: info.ownerName,
                     ownerId: info.ownerId,
                     privacy: info.privacySetting,
@@ -61,24 +62,15 @@
                     $scope.params.newItems = updatesCount.items;
                     $scope.params.newQuizzes = updatesCount.quizzes;
                 });
-                
+
 
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
                 });
 
-                if ($location.hash()) {
-                    if ($scope.states.hasOwnProperty($location.hash())) {
-                        $scope.setTab($location.hash());
-                    } else {
-                        $location.hash('');
-                    }
-                }
+
             });
-
-
-
 
             $scope.setTab = function (tab) {
                 if ($scope.options.activeTab === tab) {
@@ -89,7 +81,15 @@
                 $scope.options.loader = true;
 
             };
-         
+
+            if ($location.hash()) {
+                if ($scope.states.hasOwnProperty($location.hash())) {
+                    $scope.setTab($location.hash());
+                } else {
+                    $location.hash('');
+                }
+            }
+
 
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
@@ -156,7 +156,7 @@
                         name: $scope.info.name,
                         image: $scope.info.image,
                         url: $scope.info.url
-                    }                    
+                    }
                 });
             };
             //#endregion
@@ -192,7 +192,7 @@
                             tab: tab
                         },
                         callback: {
-                            close: function(result) {
+                            close: function (result) {
                                 if (result.invite) { //invite popup
                                     $scope.inviteFriends();
                                     return;
@@ -214,7 +214,7 @@
                                 $location.url(path, '', path).replace();
                             }
                         }
-                    });                    
+                    });
                 });
             };
 
