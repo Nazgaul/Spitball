@@ -74,6 +74,7 @@
   width: 100%;
   margin: 0;
   position: relative;
+  bottom: -21px;
 }
 .modal.boxInvitePopup .btnWpr .btn1:before {
   content: attr(data-done);
