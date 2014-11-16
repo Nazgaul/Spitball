@@ -189,6 +189,7 @@ body {
   /*rtl*/
 }
 body.jsDark {
+  background: #282828;
   /*background: #282828;
         .siteHeader {
             background: #0f0f0f;
