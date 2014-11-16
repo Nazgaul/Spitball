@@ -220,19 +220,19 @@ input[type="radio"].radio:checked + label:after {
 /*#region general svgs */
 /*#endregion*/
 /*#region side menu - SettingsBar partial */
-aside {
+aside.sideBar {
   left: -200px;
   /*rtl*/
   right: auto;
   text-align: right;
   /*rtl*/
 }
-aside > button {
-  left: 12px;
+aside.sideBar > button {
+  right: 12px;
   /*rtl*/
-  right: auto;
+  left: auto;
 }
-aside li {
+aside.sideBar li {
   float: right;
   /*rtl*/
 }
