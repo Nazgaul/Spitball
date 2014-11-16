@@ -267,13 +267,13 @@
 }
 .setupCourse {
   color: #fff;
-  margin-left: -14px;
+  margin: 0 -30px;
 }
 .setupCourse .topWpr {
   height: 350px;
   background: #282828;
-  margin: 0 -10px 0 -24px;
-  padding: 0 74px;
+  text-align: center;
+  margin-top: -40px;
 }
 .setupCourse .setupCourseTxt1 {
   padding: 27px 0 0 0;
@@ -283,67 +283,47 @@
   font-size: 20px;
   color: #0f9d58;
   padding: 0;
-  margin-bottom: 12px;
+  margin-bottom: 145px;
+  line-height: 10px;
 }
 .setupCourse .closeDialog {
   background: url(/Images/site.png?v=3) 0 -94px no-repeat;
   width: 19px;
   height: 19px;
 }
+.setupCourse .svg-doc {
+  width: 38px;
+  height: 43px;
+  position: static;
+}
 .featureTxt1,
 .featureTxt2,
 .featureTxt3 {
-  width: 80px;
-  font-size: 13px;
+  font-size: 15px;
   position: relative;
   display: inline-block;
   text-align: center;
   vertical-align: top;
   line-height: 14px;
+  min-width: 265px;
 }
-.featureTxt1:before,
-.featureTxt2:before,
-.featureTxt3:before {
-  content: '';
-  display: block;
-  width: 108px;
-  height: 108px;
-  background: #fff;
-  border-radius: 100%;
-  margin: 40px 0 10px -15px;
-}
-.featureTxt1:after,
-.featureTxt2:after,
-.featureTxt3:after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  width: 65px;
-  height: 59px;
-  background: url(/Images/site.png?v=3) 0 -35px no-repeat;
-  top: 63px;
-  left: 7px;
-}
-.featureTxt1 {
-  margin-left: 15px;
+.featureTxt1 svg,
+.featureTxt2 svg,
+.featureTxt3 svg {
+  fill: #0f9d58;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 .featureTxt2 {
-  margin: 0 75px;
-}
-.featureTxt2:after {
-  width: 55px;
-  height: 65px;
-  background-position: 0 -1319px;
-  left: 12px;
-}
-.featureTxt3:after {
-  width: 56px;
-  height: 62px;
-  background-position: 0 -369px;
-  left: 12px;
+  border-left: 1px solid #0f9d58;
+  border-right: 1px solid #0f9d58;
+  margin: 0 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .chooseActionWpr {
-  padding: 12px 2px;
+  padding: 12px 0 12px 16px;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -445,6 +425,38 @@
 }
 .dashHeader .svg-settings {
   fill: #c2c2c2;
+}
+.dashHeader.setup {
+  height: 47px;
+  line-height: 47px;
+}
+.dashHeader.setup .dhText,
+.dashHeader.setup .svg-inviteUser {
+  display: none;
+}
+.dashHeader.setup .searchInputWpr {
+  position: absolute;
+  top: 145px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 420px;
+  z-index: 1;
+}
+.dashHeader.setup .dashLibSearchInput {
+  margin: 0;
+}
+.dashHeader.setup .dashLibSearchInput ~ button {
+  float: right;
+}
+.dashHeader.setup .svg-search {
+  right: 13px;
+  top: 6px;
+}
+.dashHeader.setup .barActions {
+  position: absolute;
+  right: 28px;
+  z-index: 1;
 }
 .notificationBtn {
   position: relative;

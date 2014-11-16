@@ -259,14 +259,23 @@
 
 
 /*#region dashboard header */
-/*.dashHeader { // Temporarily commented out
-    > .rFloat {
-        &:before {
-            right: 60px; //rtl
+.dashHeader {
+    &.setup {
+        .dashLibSearchInput  {
+            ~ button {
+                float: left; //rtl
+            }
+        }
+        .svg-search {
+            left: 13px; //rtl
+            right: auto;
+        }
+        .barActions {
+            left: 28px; //rtl
+            right: auto;
         }
     }
-}*/
-
+}
 /*#endregion */
 
 /*#region new department look */
@@ -292,30 +301,14 @@
 
 /*#region new dashboard */
 
-.setupCourse {
-    margin: 0 -14px 0 0; //rtl
-    .topWpr {
-        margin: 0 -24px 0 -10px; //rtl
+.featureTxt1, .featureTxt2, .featureTxt3 {
+    svg {
+        margin: 0 0 0 10px; //rtl
     }
 }
 
-.featureTxt1, .featureTxt2, .featureTxt3 {
-    &:before {
-        margin: 40px -15px 10px 0; //rtl
-    }
-    &:after {
-        right: 7px; //rtl
-        left: auto;
-    }
-}
-.featureTxt1 {
-    margin: 0 15px 0 0; //rtl
-}
-.featureTxt2, .featureTxt3 {
-    &:after {
-        right: 12px; //rtl
-        left: auto;
-    }
+.chooseActionWpr {
+    padding: 12px 16px 12px 0; //rtl
 }
 
 .browseCourses {
