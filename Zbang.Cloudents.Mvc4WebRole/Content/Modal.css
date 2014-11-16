@@ -61,10 +61,14 @@
   margin: 15px 48px 33px 48px;
 }
 .modal.boxInvitePopup .socialContentWpr {
-  margin: 0 0 -25px 0;
+  margin: 0 0 -21px 0;
 }
 .modal.boxInvitePopup .socialConnect {
-  padding: 20px 0 125px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 305px;
+  padding-top: 30px;
 }
 .modal.boxInvitePopup .btnWpr {
   width: 100%;
