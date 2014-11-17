@@ -3,7 +3,6 @@
           'sUserDetails',
             function ($scope, sUserDetails) {
             "use strict";
-            $scope.user = sUserDetails.getDetails();         
-
+            $scope.user = sUserDetails.getDetails();
             }
         ]);

@@ -1,8 +1,8 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store','$analytics',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout) {
             "use strict";
-           
+
             $scope.firstTime = $scope.viewBag;
 
             $rootScope.options = {
@@ -27,8 +27,8 @@
                 url = url.replace(location.origin, '');
                 $location.url(url, '', url).replace();
             }
-            
-          $rootScope.checkReg = function (event) {
+
+            $rootScope.checkReg = function (event) {
                 if (!sUserDetails.isAuthenticated()) {
                     event.preventDefault();
                     cd.pubsub.publish('register', { action: true });
@@ -38,7 +38,7 @@
             };
 
             $scope.$on('$routeChangeSuccess', function (event, current) {
- 
+
                 try {
                     $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
                     $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
@@ -133,7 +133,7 @@
                 $rootScope.params.store.coupon.buttonDisabled = true;
 
                 sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
-                    $rootScope.params.store.coupon.buttonDisabled = false;                    
+                    $rootScope.params.store.coupon.buttonDisabled = false;
                     if (response.isValid) {
                         $rootScope.params.store.coupon.valid = true;
                         $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
@@ -141,7 +141,7 @@
                         return;
                     }
                     alert(invalidCouponMessage);
-                }).finally(function() {
+                }).finally(function () {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                 });
 
@@ -150,7 +150,10 @@
 
             $rootScope.logout = function () {
                 $angularCacheFactory.removeAll();
-                window.location.href = '/account/logoff';
+                $timeout(function () {
+                    window.location.href = '/account/logoff';
+                }, 200);
+
 
                 $analytics.eventTrack('Site Header', {
                     category: 'Logout'

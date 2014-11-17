@@ -388,23 +388,7 @@
                 
             }
         });
-
-        function isCurrentRoute(current) {
-            if (!current) {
-                return false;
-            }
-            if (!current.$$route) {
-                return false;
-            }
-            if (!current.$$route.params) {
-                return false;
-            }
-            if (!current.$$route.params.type) {
-                return false;
-            }
-
-            return true;
-        }
+        
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
             $rootScope.back.title = 'Dashboard';

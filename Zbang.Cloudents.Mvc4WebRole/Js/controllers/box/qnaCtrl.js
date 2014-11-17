@@ -124,8 +124,6 @@
                     });
 
                     sQnA.post.question($scope.qFormData).then(function (questionId) {
-
-
                         var obj = {
                             id: questionId,
                             userName: sUserDetails.getDetails().name,

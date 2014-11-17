@@ -8,15 +8,15 @@
 
      function setDetails(data) {
          data = data || {};
-         if (!data.id) {
-             return;
+
+         if (!_.isEmpty(data)) {
+             isAuthenticated = true;
          }
-         isAuthenticated = true;
+
          userData = {
              id: data.id,
              name: data.name,
-             firstName : data.name.split(' ')[0],
-             lastName : data.name.split(' ')[1],
+             
              image: $filter('defaultImage')(data.image,'user'),
              score: data.score,
              url: data.url,
@@ -25,13 +25,18 @@
                  // id: data.universityId,
                  name: data.libName,
                  image: data.libImage
-             },
+             }
              //department: {
              //    id: data.departmentId,
              //    name: data.departmentName
 
              //}
          };
+
+         if (userData.name) {
+             userData.firstName = data.name.split(' ')[0];
+             userData.lastName = data.name.split(' ')[1];
+         }
 
      }
      return {
@@ -58,10 +63,7 @@
              var promise = sAccount.details();
                  
              promise.then(function(response){
-                 if (!response) {
-                     return;
-                 }
-
+           
                  setDetails(response);
              });
 

@@ -32,7 +32,7 @@
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
                     </a>
                 </h1>
-                <div class="upSchool" id="upUserSchool">@Model.UniversityName</div>
+                <div class="upSchool">{{profile.universityName}}</div>
             </div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
             <div class="rFloat">
