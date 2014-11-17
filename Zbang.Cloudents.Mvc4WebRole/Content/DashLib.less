@@ -1096,11 +1096,12 @@
     header {
         font-size: 20px;
         color: @txtColor;
+        margin-top: -10px;
     }
 }
 
 .dragDropArea {
-    height: 250px;
+    height: 240px;
     border: 1px solid @txtColor;
     border-radius: 3px;
     margin: 20px 0;
@@ -1121,11 +1122,14 @@
 }
 
 .uploadSrcWpr {
-    height: 259px;
-    margin: 0 -25px -60px -25px;
+    height: 249px;
+    margin: 0 -25px -70px -25px;
     background: #eee;
     border-radius: 0 0 5px 5px;
-
+    ~ .btnWpr {
+        position: relative;
+        top: 20px;
+    }
     button {
         display: inline-block;
         font-size: 18px;
