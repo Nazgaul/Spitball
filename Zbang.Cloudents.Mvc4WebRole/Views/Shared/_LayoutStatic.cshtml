@@ -57,7 +57,7 @@
                 var url = Url.Action("Index", "Account");
                 if (User != null && User.Identity.IsAuthenticated)
                 {
-                    url = Url.Action("Index", "Dashboard");// + "?r=siteheader";
+                    url = Url.Action("Index", "Dashboard");
                 }
             }
 
@@ -88,7 +88,9 @@
                 </ul>
 
             </div>
-            <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" data-navigation="Dashboard" href="@Url.Action("Index", "Dashboard")"></a>
+            <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
+                <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
+            </a>
         </header>
         <div class="staticContent">
             @RenderBody()

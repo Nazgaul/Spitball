@@ -81,6 +81,11 @@
                         window.location = returnUrl;
                         return;
                     }
+
+                    if (window.location.href.indexOf('error') > -1) {
+                        window.location.href = '/dashboard/';
+                        return;
+                    }
                     window.location.reload();
                     return;
                 }
@@ -118,6 +123,11 @@
                     window.sessionStorage.clear();
                     if (data.payload) {
                         window.location.href = data.payload;
+                        return;
+                    }
+                  
+                    if (window.location.href.indexOf('error') > -1) {
+                        window.location.href = '/dashboard/';
                         return;
                     }
                     window.location.reload();
@@ -173,6 +183,12 @@
                                 window.location.href = obj.url;
                                 return;
                             }
+                            
+                            if (window.location.href.indexOf('error') > -1) {
+                                window.location.href = '/dashboard/';
+                                return;
+                            }
+
                             window.location.reload();
                         });
                     });

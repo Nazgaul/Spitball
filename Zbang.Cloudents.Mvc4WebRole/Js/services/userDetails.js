@@ -13,10 +13,10 @@
              isAuthenticated = true;
          }
 
+
          userData = {
              id: data.id,
-             name: data.name,
-             
+             name: data.name,             
              image: $filter('defaultImage')(data.image,'user'),
              score: data.score,
              url: data.url,
@@ -37,6 +37,7 @@
              userData.firstName = data.name.split(' ')[0];
              userData.lastName = data.name.split(' ')[1];
          }
+
 
      }
      return {
@@ -63,7 +64,7 @@
              var promise = sAccount.details();
                  
              promise.then(function(response){
-           
+                            
                  setDetails(response);
              });
 
