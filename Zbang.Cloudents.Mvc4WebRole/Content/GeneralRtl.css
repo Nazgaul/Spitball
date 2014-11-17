@@ -522,6 +522,13 @@ aside.sideBar li {
   /*rtl*/
 }
 /*#endregion */
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+  body input.radio[type="radio"]:checked + label:after {
+    top: 4px;
+  }
+}
+/*#endregion */
 /*#region IE only CSS */
 @media screen and (min-width:0\0) {
   .notificationBtn .invitesCounter.invitesCounter {
