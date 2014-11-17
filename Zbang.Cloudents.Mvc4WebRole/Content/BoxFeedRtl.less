@@ -144,6 +144,12 @@
 .bestUserList {
     li {
         text-align:right; //rtl
+        &:nth-child(n + 4) {
+            .rep { //In FF the floated rep was dropping down!
+                left: 14px; //rtl
+                right: auto;
+            }
+        }
     }
 }
 /*#endregion */

@@ -569,6 +569,11 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.bestUserList li:nth-child(n + 4) .rep {
+  position: absolute;
+  right: 14px;
+  top: 2px;
+}
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
   counter-increment: leaderBoard;

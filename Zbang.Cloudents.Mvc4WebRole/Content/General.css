@@ -2563,6 +2563,10 @@ select.inputText {
   body input.radio[type="radio"]:checked + label:after {
     top: 6px;
   }
+  .boxSideBar .secondUser,
+  .boxSideBar .thirdUser {
+    margin-top: -124px;
+  }
 }
 /*#endregion */
 /*#region IE only CSS */

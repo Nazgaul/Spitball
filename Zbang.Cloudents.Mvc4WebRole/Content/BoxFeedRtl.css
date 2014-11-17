@@ -113,4 +113,8 @@
 .bestUserList li {
   text-align: right;
 }
+.bestUserList li:nth-child(n + 4) .rep {
+  left: 14px;
+  right: auto;
+}
 /*#endregion */
