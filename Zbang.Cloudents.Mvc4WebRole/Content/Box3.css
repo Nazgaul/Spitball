@@ -30,7 +30,9 @@
   position: absolute;
   top: 0;
   right: -5px;
+  left: auto;
   margin: 0;
+  visibility: visible;
 }
 .boxPage .siteHeader {
   background: #282828;

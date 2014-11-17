@@ -80,6 +80,16 @@
 }
 /*#endregion */
 /*#region dashboard */
+.svg-books {
+  width: 43px;
+  height: 36px;
+  fill: #0f9d58;
+}
+.svg-quizInner {
+  width: 30px;
+  height: 39px;
+  fill: #0f9d58;
+}
 .svg-search {
   width: 19px;
   height: 20px;

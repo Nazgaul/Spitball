@@ -14,7 +14,9 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public string Name { get; set; }
         public string CourseId { get; set; } 
         public string ProfessorName { get; set; } 
-        public int Items { get; set; } 
+        public int Items { get; set; }
+
+        public int Feeds { get; set; }
 
         public int Members { get; set; } 
         public int Quizes { get; set; }

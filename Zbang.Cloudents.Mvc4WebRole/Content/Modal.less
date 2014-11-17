@@ -66,15 +66,19 @@
             margin: 15px 48px 33px 48px; //for the arrows
         }
         .socialContentWpr {
-            margin: 0 0 -25px 0;
+            margin: 0 0 -21px 0;
         }
         .socialConnect {
-            padding: 20px 0 125px;
+            //padding: 20px 0 125px;
+            .boxSizing;
+            min-height: 305px;
+            padding-top: 30px;
         }
         .btnWpr {
             width: 100%;
             margin: 0; //override
             position: relative;
+            bottom:-21px; //bug 2888
             .btn1:before {
                 content: attr(data-done);
                 display: block;
@@ -199,14 +203,15 @@
     }
     &.flagItem {
         //width: 570px;
-        right: auto; //rtl
-        left: 220px;
+       
         top: 0;
         li {
             margin-top: 15px;
         }
         .modal-dialog {
             width: 570px;
+             right: auto; //rtl
+        left: 220px;
         }
     }
     &.quitQuiz {

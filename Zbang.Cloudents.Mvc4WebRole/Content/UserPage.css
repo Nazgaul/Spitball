@@ -352,7 +352,8 @@
 .upTop .btn3 {
   padding: 4px 12px;
   position: absolute;
-  top: 71px;
+  top: 83px;
+  left: 117px;
 }
 .upTop .btn3:before {
   content: '';
@@ -400,6 +401,9 @@
 }
 .upContent h2 {
   margin: 28px 0 15px;
+}
+.upContent .boxImg.boxImg {
+  height: 100%;
 }
 .upCourses .coursesEmpty {
   height: 150px;

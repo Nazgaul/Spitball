@@ -45,8 +45,11 @@
         }
     }
     &.flagItem {
-        right: 220px; //rtl
+        .modal-dialog {
+            right: 220px; //rtl
         left: auto; //rtl
+            }
+        
     }
     .closeDialog {
         left: 0; /*rtl*/
@@ -256,14 +259,23 @@
 
 
 /*#region dashboard header */
-/*.dashHeader { // Temporarily commented out
-    > .rFloat {
-        &:before {
-            right: 60px; //rtl
+.dashHeader {
+    &.setup {
+        .dashLibSearchInput  {
+            ~ button {
+                float: left; //rtl
+            }
+        }
+        .svg-search {
+            left: 13px; //rtl
+            right: auto;
+        }
+        .barActions {
+            left: 28px; //rtl
+            right: auto;
         }
     }
-}*/
-
+}
 /*#endregion */
 
 /*#region new department look */
@@ -289,30 +301,14 @@
 
 /*#region new dashboard */
 
-.setupCourse {
-    margin: 0 -14px 0 0; //rtl
-    .topWpr {
-        margin: 0 -24px 0 -10px; //rtl
+.featureTxt1, .featureTxt2, .featureTxt3 {
+    svg {
+        margin: 0 0 0 10px; //rtl
     }
 }
 
-.featureTxt1, .featureTxt2, .featureTxt3 {
-    &:before {
-        margin: 40px -15px 10px 0; //rtl
-    }
-    &:after {
-        right: 7px; //rtl
-        left: auto;
-    }
-}
-.featureTxt1 {
-    margin: 0 15px 0 0; //rtl
-}
-.featureTxt2, .featureTxt3 {
-    &:after {
-        right: 12px; //rtl
-        left: auto;
-    }
+.chooseActionWpr {
+    padding: 12px 16px 12px 0; //rtl
 }
 
 .browseCourses {
@@ -728,6 +724,10 @@
     .backWpr {
         margin: 8px 25px 0 0; //rtl
         //.flipH(1); //rtl
+    }
+    .boxRename {
+        left: -5px; //rtl
+        right: auto;
     }
 }
 .boxRight {
@@ -1469,6 +1469,8 @@
 .upTop {
     padding: 0 120px 0 0; /*rtl*/
     .btn3 {
+        right: 117px; //rtl
+        left: auto;
         &:before {
             margin: 0 0 0 5px; /*rtl*/
         }

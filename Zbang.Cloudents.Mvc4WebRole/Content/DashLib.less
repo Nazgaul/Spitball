@@ -305,12 +305,12 @@
 
 .setupCourse {
     color: #fff;
-    margin-left: -14px; //rtl
+    margin: 0 -30px;
     .topWpr {
         height: 350px;
         background: #282828;
-        margin: 0 -10px 0 -24px; //rtl
-        padding: 0 74px; //14px + 60px (because of the left margin of -14px)
+        text-align: center;
+        margin-top: -40px;
     }
 
     .setupCourseTxt1 {
@@ -322,7 +322,8 @@
         font-size: 20px;
         color: @color;
         padding: 0; //override
-        margin-bottom: 12px;
+        margin-bottom: 145px;
+        line-height: 10px;
     }
 
     .closeDialog {
@@ -330,64 +331,37 @@
         width: 19px;
         height: 19px;
     }
+    .svg-doc {
+        width: 38px;
+        height: 43px; 
+        position: static; //overrride  
+    }
 }
 
 .featureTxt1, .featureTxt2, .featureTxt3 {
-    width: 80px;
-    font-size: 13px;
+    font-size: 15px;
     position: relative;
     display: inline-block;
     text-align: center;
     vertical-align: top;
     line-height: 14px;
-
-    &:before {
-        content: '';
-        display: block;
-        width: 108px;
-        height: 108px;
-        background: #fff;
-        border-radius: 100%;
-        margin: 40px 0 10px -15px; //rtl
+    min-width: 265px;
+    svg {
+        fill: @color;
+        margin-right: 10px; //rtl
+        vertical-align: middle;
     }
-
-    &:after {
-        .pseudo;
-        position: absolute;
-        width: 65px;
-        height: 59px;
-        background: @site-sprite 0 -35px no-repeat;
-        top: 63px;
-        left: 7px; //rtl
-    }
-}
-
-.featureTxt1 {
-    margin-left: 15px; //rtl
 }
 
 .featureTxt2 {
-    margin: 0 75px;
-
-    &:after {
-        width: 55px;
-        height: 65px;
-        background-position: 0 -1319px;
-        left: 12px; //rtl
-    }
-}
-
-.featureTxt3 {
-    &:after {
-        width: 56px;
-        height: 62px;
-        background-position: 0 -369px;
-        left: 12px; //rtl
-    }
+    border-left: 1px solid @color;
+    border-right: 1px solid @color;
+    margin: 0 20px;
+    .boxSizing;
 }
 
 .chooseActionWpr {
-    padding: 12px 2px;
+    padding: 12px 0 12px 16px; //rtl
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -504,6 +478,36 @@
     }
     .svg-settings {
         fill: #c2c2c2;
+    }
+    &.setup {
+        height: 47px; //override
+        line-height: 47px; //override
+        .dhText, .svg-inviteUser {
+            display: none;
+        }
+        .searchInputWpr {
+            position: absolute;
+            top: 145px;
+            left: 0;right: 0;
+            margin: auto;
+            width: 420px;
+            z-index: 1;
+        }
+        .dashLibSearchInput  {
+            margin: 0;
+            ~ button {
+                float: right; //rtl
+            }
+        }
+        .svg-search {
+            right: 13px; //rtl
+            top: 6px;
+        }
+        .barActions {
+            position: absolute;
+            right: 28px; //rtl
+            z-index: 1;
+        }
     }
 }
 .notificationBtn {
@@ -787,8 +791,9 @@
         background: #eee;
         .boxSizing;
         //padding: 25px 0;
-        padding: 16px 0;
-        border-radius: 0 0 5px 5px;
+        //padding: 14px 0;
+        padding: 11px 0;
+        //border-radius: 0 0 5px 5px;
         .btn1:before {
             content: attr(data-continue);
             display: block;

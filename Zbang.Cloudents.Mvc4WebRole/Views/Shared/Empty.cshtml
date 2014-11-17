@@ -1,5 +1,4 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div ng-view></div>
+﻿<div ng-view></div>
 <div id="quizCreate" ng-controller="QuizCreateCtrl">
     <div ng-if="params.loadCreateQuiz">
         <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
