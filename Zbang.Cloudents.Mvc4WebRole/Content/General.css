@@ -2578,6 +2578,12 @@ select.inputText {
   .welcomeStore .or {
     padding-top: 8px;
   }
+  .notificationBtn .invitesCounter.invitesCounter {
+    position: fixed;
+    top: 63px;
+    left: auto;
+    margin-left: -6px;
+  }
 }
 /*#endregion */
 /*#region media queries */

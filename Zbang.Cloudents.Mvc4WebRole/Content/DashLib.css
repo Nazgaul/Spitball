@@ -465,6 +465,9 @@
 .notificationBtn .invitesCounter {
   top: -8px;
 }
+.notificationBtn:hover svg {
+  fill: #d1294d;
+}
 .helpLink {
   display: inline-block;
   vertical-align: middle;
