@@ -128,7 +128,7 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
                 defer.resolve();
             });
 
-            return promise;
+            return defer.promise;
         }
 
         var update;

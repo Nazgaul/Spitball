@@ -65,13 +65,13 @@
                  return defer.promise;
              }
 
-             var defer = sAccount.details();
+             var promise = sAccount.details();
 
-             defer.then(function (response) {
+             promise.then(function (response) {
                  setDetails(response);
              });
 
-             return defer;
+             return promise;
          }
          //setUniversity: function (uniName) {
          //    if (uniName) {
