@@ -259,14 +259,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = Guid.NewGuid().ToString();
             try
             {
-               
+                var cookie = new CookieHelper(HttpContext);
+                var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
                 Guid userProviderKey;
                 var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
                     out userProviderKey);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    var cookie = new CookieHelper(HttpContext);
-                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
+                    
                     Guid? invId = null;
                     if (inv != null)
                     {

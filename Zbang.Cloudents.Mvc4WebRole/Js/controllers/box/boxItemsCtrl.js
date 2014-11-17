@@ -138,7 +138,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             });
         });
 
-        function removeItem(response) {
+        function removeItem() {
             var index = $scope.items.indexOf(item);
             $scope.items.splice(index, 1);
             index = $scope.filteredItems.indexOf(item);
@@ -285,7 +285,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             nDelete: !tabId //delete is false if only one item added from draganddrop
         };
 
-        sBox.addItemsToTab(data).then(function () { }, function (response) {
+        sBox.addItemsToTab(data).then(function () { }, function () {
             alert(resManager.get('FolderItemError'));
 
         });
