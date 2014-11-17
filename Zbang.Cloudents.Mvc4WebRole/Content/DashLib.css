@@ -971,9 +971,10 @@
 .uploadFiles header {
   font-size: 20px;
   color: #39434a;
+  margin-top: -10px;
 }
 .dragDropArea {
-  height: 250px;
+  height: 240px;
   border: 1px solid #39434a;
   border-radius: 3px;
   margin: 20px 0;
@@ -991,10 +992,14 @@
   cursor: pointer;
 }
 .uploadSrcWpr {
-  height: 259px;
-  margin: 0 -25px -60px -25px;
+  height: 249px;
+  margin: 0 -25px -70px -25px;
   background: #eee;
   border-radius: 0 0 5px 5px;
+}
+.uploadSrcWpr ~ .btnWpr {
+  position: relative;
+  top: 20px;
 }
 .uploadSrcWpr button {
   display: inline-block;
