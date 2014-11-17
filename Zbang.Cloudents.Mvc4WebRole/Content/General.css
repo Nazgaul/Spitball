@@ -651,6 +651,9 @@ input[type="radio"][disabled] + label:before {
   position: relative;
   font-size: 13px;
 }
+.navItem.signUp {
+  margin: 0 20px;
+}
 .navUser,
 .userSettings {
   height: 50px;
@@ -2332,7 +2335,7 @@ select.inputText {
   clear: both;
 }
 .barActions {
-  width: 170px;
+  width: 100px;
   position: relative;
   top: 8px;
   height: 48px;
