@@ -184,6 +184,10 @@
                 return;
             }
             $scope.reset();
+
+            $rootScope.$broadcast('QuizCreateClose');
+
+
         }
 
         $scope.addQuestion = function (focus) {
@@ -391,7 +395,13 @@
         };
 
         //#region helpers
-        var createQuiz = function () {
+        var creatingQuiz = false, creatingQuestion = false,
+            createQuiz = function () {
+            if(creatingQuiz) {
+                return;
+            }
+            creatingQuiz=true;
+
             return sQuiz.create({
                 boxId: $scope.quiz.courseId,
                 name: $scope.quiz.name
@@ -399,12 +409,22 @@
                 $scope.quiz.id = data;
                 addItemToBox(false);
                 return data;
+            }).finally(function () {
+                creatingQuiz = false;
             });
         };
         var createQuestion = function (question) {
+
+            if (creatingQuestion) {
+                return;
+            }
+            creatingQuestion = true;
+
             return sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
                 question.id = data;
                 return data;
+            }).finally(function () {
+                creatingQuestion = false;
             });
         };
         var createAnswer = function (question, answer) {
@@ -577,7 +597,7 @@
             }
         });
 
-        $scope.$on('$locationChangeStart', function () {
+        $scope.$on('$routeChangeStart', function () {
             $scope.quiz.showPreview = false;
         });
 

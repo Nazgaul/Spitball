@@ -130,7 +130,10 @@
             //}
             //#endregion
 
+            $scope.$on('QuizCreateClose', function () {
+                $rootScope.options.quizOpen = false;
 
+            });
 
             $scope.$on('QuizAdded', function (e, quizItem) {
                 if (quizItem.boxId !== $scope.boxId) {
@@ -161,6 +164,9 @@
             });
 
             $scope.$on('QuizDeleted', function (e, data) {
+
+                $rootScope.options.quizOpen = false;
+
                 if (data.boxId !== $scope.boxId) {
                     return;
                 }

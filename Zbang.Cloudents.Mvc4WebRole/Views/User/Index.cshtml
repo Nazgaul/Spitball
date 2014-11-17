@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
-@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserMinProfile
+
 
 <script type="text/ng-template" id="memberDepartmentToolTip.html">
     <div class="upMemberBoxesWpr" bindonce>
@@ -21,12 +21,12 @@
         @{Html.RenderPartial("_Header");}
     </header>
     @{Html.RenderPartial("_BarActions");}
-    <div class="upContentWpr" bindonce>
+    <div class="upContentWpr" >
         <div class="upTop">
-            <img class="upImg" bo-src="profile.image | defaultImage:'user'" width="100" height="100" alt="" />
+            <img class="upImg" ng-src="{{profile.image | defaultImage:'user'}}" width="100" height="100" alt="" />
             <div class="upDetails">
                 <h1 class="semiFont" id="upUsername">
-                    <span>@Model.Name</span>
+                    <span>{{profile.name}}</span>
                     <a class="settingsLink" ng-if="profile.isSelf"
                        href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
@@ -75,12 +75,12 @@
                         </ul>
                     </div>
                 </div>
-                <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
+                <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading" bindonce>
                     <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
                         <input id=" {{'mbr_' + member.id}} " type=" checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                         <label for="{{'mbr_' + member.id}}" class="cbLabel memberCol">
-                            <img class="friendImg" alt="" ng-src="{{member.image | defaultImage:'user'}}" width="34" height="34" />
-                            <span class="upMemberName elps">{{member.name}}</span>
+                            <img class="friendImg" alt="" bo-src="member.image | defaultImage:'user'" width="34" height="34" />
+                            <span class="upMemberName elps" bo-text="member.name"></span>
                         </label>
 
                         <span class="dateCol">{{member.joinDate | date:'dd/MM/yyyy'}}</span>

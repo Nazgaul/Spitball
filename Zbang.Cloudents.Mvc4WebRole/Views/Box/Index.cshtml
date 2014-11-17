@@ -71,19 +71,19 @@
 
         <ul class="newActivity">
             @*<li class="boxTab lFloat" ng-class="{current: options.activeTab === states.feed}" ng-click="setTab(states.feed)" analytics-on="click" analytics-event="Feed" analytics-category="Box" analytics-label="Top bar">@SharedResources.Feed<div ng-if="params.newFeed > 0" class="notify">{{params.newFeed}}</div></li>*@
-            <li ng-click="setTab(states.feed)" analytics-on="click" analytics-event="Feed" analytics-category="Box" analytics-label="Side bar">
+            <li ng-class="{current: options.activeTab === states.feed}" ng-click="setTab(states.feed)" analytics-on="click" analytics-event="Feed" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.feedLength}}</span>
                 <div class="elps">@SharedResources.Feed</div>
             </li>
-            <li ng-click="setTab('items')" analytics-on="click" analytics-event="Items" analytics-category="Box" analytics-label="Side bar">
+            <li ng-class="{current: options.activeTab === states.items}" ng-click="setTab('items')" analytics-on="click" analytics-event="Items" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.itemsLength}}</span>
                 <div class="elps">@SharedResources.Items</div>
             </li>
-            <li ng-click="setTab('quizzes')" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Side bar">
+            <li ng-class="{current: options.activeTab === states.quizzes}" ng-click="setTab('quizzes')" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
                 <div class=" elps">@SharedResources.Quizzes</div>
             </li>
-            <li ng-click="setTab('members')" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Side bar">
+            <li ng-class="{current: options.activeTab === states.members}"  ng-click="setTab('members')" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.membersLength}}</span>
                 <div class="sectionLabel elps">@SharedResources.Members</div>
             </li>

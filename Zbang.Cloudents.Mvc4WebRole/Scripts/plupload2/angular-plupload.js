@@ -187,7 +187,7 @@
 	        }
 	    };
 	}]).
-    directive('plUploadStandalone', ['$timeout', '$rootScope', function ($timeout, $rootScope) {
+    directive('plUploadStandalone', ['$timeout', '$rootScope', '$angularCacheFactory', function ($timeout, $rootScope, $angularCacheFactory) {
         "use strict";
         return {
             restrict: 'A',
@@ -268,7 +268,7 @@
                 });
 
 
-                scope.$on('$locationChangeStart', function (event) {
+                scope.$on('$routeChangeStart', function (event) {
                     if (uploader.state === plupload.STOPPED) {
                         return;
                     }
