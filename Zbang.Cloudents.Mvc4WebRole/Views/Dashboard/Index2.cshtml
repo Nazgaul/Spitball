@@ -89,7 +89,7 @@
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
-            <div class="dashHeader setup" ng-controller="NotificationsCtrl">
+            <div class="dashHeader" ng-controller="NotificationsCtrl" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
                 @{Html.RenderPartial("_BarActions");}
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
