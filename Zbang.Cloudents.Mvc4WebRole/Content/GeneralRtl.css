@@ -228,9 +228,9 @@ aside.sideBar {
   /*rtl*/
 }
 aside.sideBar > button {
-  right: 12px;
+  left: 12px;
   /*rtl*/
-  left: auto;
+  right: auto;
 }
 aside.sideBar li {
   float: right;
