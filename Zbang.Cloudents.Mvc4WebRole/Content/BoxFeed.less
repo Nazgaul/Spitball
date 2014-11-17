@@ -567,6 +567,11 @@
             clear: both;
             width: 336px;
             .boxSizing;
+            .rep { //In FF the floated rep was dropping down!
+                position: absolute;
+                right: 14px; //rtl
+                top: 2px;
+            }
         }
         &:before {
             content: counter(leaderBoard) ".";
