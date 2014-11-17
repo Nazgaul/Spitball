@@ -65,6 +65,8 @@
 
             //#region upload
             $scope.onUploaded = function (response) {
+                $scope.params.uploading = false;
+
                 $scope.formData.image = response.urlSmall;
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
@@ -76,6 +78,9 @@
             };
 
             $scope.onError = function (error) {
+
+                $scope.params.uploading = false;
+
                 if (error.code === plupload.FILE_EXTENSION_ERROR) {
                     alert(resManager.get('IncorrectExtension'));
                 }
@@ -91,8 +96,8 @@
                 alert(error.message);
             };
 
-            $scope.onFilesAdded = function () {
-                $scope.data.image = '/Images/loader2.gif';
+            $scope.onFilesAdded = function () {                
+                $scope.params.uploading = true;
             };
 
             //#endregion

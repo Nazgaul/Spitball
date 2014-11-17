@@ -55,6 +55,17 @@
 .profileInfo .section {
   margin-top: 32px;
 }
+.profileInfo .section .profilePhotoLoader {
+  box-shadow: inset 0 0 0 4px #c2c2c2;
+  border-radius: 100%;
+  padding: 3px;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 3px;
+}
+.profileInfo .section .profilePhotoLoader .smallLoader {
+  position: static;
+}
 .profileInfo label {
   width: 140px;
   line-height: 15px;

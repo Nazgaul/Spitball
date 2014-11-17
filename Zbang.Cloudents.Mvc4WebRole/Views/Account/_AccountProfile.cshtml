@@ -18,7 +18,8 @@
     </div>
     <div class="section">
         @Html.LabelFor(m=>m.Image)
-        <img class="profilePhoto" width="100" height="100" ng-src="{{data.image | defaultImage:'user'}}" alt="" />
+        <img class="profilePhoto" width="100" height="100" ng-if="!params.uploading" ng-src="{{data.image | defaultImage:'user'}}" alt="" />
+        <div class="profilePhotoLoader" ng-if="params.uploading" load-spinner="params.uploading" load-spinner-type="init"></div>
         <button type="button" class="photoBtn" pl-upload-standalone url="/Upload/ProfilePicture/" container="main" on-error="onError(error)" on-uploaded="onUploaded(response)" on-files-added="onFilesAdded(files)" analytics-onanalytics-on="click" analytics-event="Upload image" analytics-category="Settings" analytics-label="User clicked upload image">@AccountSettingsResources.UploadImage</button>
     </div>
     <div class="schoolSection" bindonce>

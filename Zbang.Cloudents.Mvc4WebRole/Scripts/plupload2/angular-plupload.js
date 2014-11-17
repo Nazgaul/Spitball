@@ -187,7 +187,7 @@
 	        }
 	    };
 	}]).
-    directive('plUploadStandalone', ['$timeout', '$rootScope', function ($timeout, $rootScope) {
+    directive('plUploadStandalone', ['$timeout', '$rootScope', '$angularCacheFactory', function ($timeout, $rootScope, $angularCacheFactory) {
         "use strict";
         return {
             restrict: 'A',
