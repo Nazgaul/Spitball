@@ -55,7 +55,7 @@
         })
 
         .run(['$rootScope','$route','$location','insights',function($rootScope, $route, $location, insights) {
-            $rootScope.$on('$locationChangeSuccess', function() {
+            $rootScope.$on('$routeChangeSuccess', function() {
 
                 var pagePath;
                 try {
