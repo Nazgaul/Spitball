@@ -47,7 +47,9 @@
                     }
                 </ul>
             </nav>
-            @{Html.RenderPartial("_BarActions");}
+            <span ng-controller="NotificationsCtrl">
+                @{Html.RenderPartial("_BarActions");}
+            </span>
         </div>
     </header>
     <div class="leftPanel lFloat">
@@ -83,7 +85,7 @@
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
                 <div class=" elps">@SharedResources.Quizzes</div>
             </li>
-            <li ng-class="{current: options.activeTab === states.members}"  ng-click="setTab('members')" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Side bar">
+            <li ng-class="{current: options.activeTab === states.members}" ng-click="setTab('members')" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.membersLength}}</span>
                 <div class="sectionLabel elps">@SharedResources.Members</div>
             </li>
@@ -124,45 +126,45 @@
     </div>
     <div class="boxRight">
         @*<div class="boxTopBar topBar barShadow">
-            <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
-                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-            </a>
+                <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
+                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                </a>
 
-            <ul class="boxTabs">
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.feed}" ng-click="setTab(states.feed)" analytics-on="click" analytics-event="Feed" analytics-category="Box" analytics-label="Top bar">@SharedResources.Feed<div ng-if="params.newFeed > 0" class="notify">{{params.newFeed}}</div></li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.items}" ng-click="setTab(states.items)" analytics-on="click" analytics-event="Items" analytics-category="Box" analytics-label="Top bar">@SharedResources.Items<div ng-if="params.newItems > 0" class="notify">{{params.newItems}}</div></li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.quizzes}" ng-click="setTab(states.quizzes)" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Top bar">@SharedResources.Quizzes<div ng-if="params.newQuizzes > 0" class="notify">{{params.newQuizzes}}</div></li>
-                <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.members}" ng-click="setTab(states.members)" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Top bar">@SharedResources.Members</li>
-            </ul>
+                <ul class="boxTabs">
+                    <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.feed}" ng-click="setTab(states.feed)" analytics-on="click" analytics-event="Feed" analytics-category="Box" analytics-label="Top bar">@SharedResources.Feed<div ng-if="params.newFeed > 0" class="notify">{{params.newFeed}}</div></li>
+                    <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.items}" ng-click="setTab(states.items)" analytics-on="click" analytics-event="Items" analytics-category="Box" analytics-label="Top bar">@SharedResources.Items<div ng-if="params.newItems > 0" class="notify">{{params.newItems}}</div></li>
+                    <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.quizzes}" ng-click="setTab(states.quizzes)" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Top bar">@SharedResources.Quizzes<div ng-if="params.newQuizzes > 0" class="notify">{{params.newQuizzes}}</div></li>
+                    <li class="boxTab lFloat" ng-class="{current: options.activeTab === states.members}" ng-click="setTab(states.members)" analytics-on="click" analytics-event="Members" analytics-category="Box" analytics-label="Top bar">@SharedResources.Members</li>
+                </ul>
 
-            <div class="boxActions rFloat">
-                <section class="shareBtn rFloat">
-                    <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
-                    <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
-                        @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
-                    </label>
-                    <div class="dropDown shareDD">
-                        <label class="closeItem rFloat" for="boxShare"></label>
-                        <div class="arrow shareArrow"></div>
-                        <h4 class="semiFont">{{strings.share}}</h4>
-                        <div class="shareTxt">{{strings.invite}}</div>
-                        <ul class="shareList">
-                            <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
-                            }
-                        </ul>
-                        <div class="shareTxt">@SharedResources.OrCopyLink</div>
-                        <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
-                    </div>
-                </section>
+                <div class="boxActions rFloat">
+                    <section class="shareBtn rFloat">
+                        <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
+                        <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
+                            @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
+                        </label>
+                        <div class="dropDown shareDD">
+                            <label class="closeItem rFloat" for="boxShare"></label>
+                            <div class="arrow shareArrow"></div>
+                            <h4 class="semiFont">{{strings.share}}</h4>
+                            <div class="shareTxt">{{strings.invite}}</div>
+                            <ul class="shareList">
+                                <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
+                                }
+                            </ul>
+                            <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                            <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
+                        </div>
+                    </section>
 
-                <button type="button" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">
-                    @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-                </button>
-            </div>
-        </div>*@
+                    <button type="button" class="rFloat inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">
+                        @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+                    </button>
+                </div>
+            </div>*@
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_Feed");}

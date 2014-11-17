@@ -229,9 +229,9 @@
     }
     ]);
 mBox.controller('UploadLinkCtrl',
-    ['$scope', '$modalInstance',
+    ['$scope', '$modalInstance', '$analytics',
 
-    function ($scope, $modalInstance) {
+    function ($scope, $modalInstance, $analytics) {
         "use strict";
 
         $scope.formData = {};

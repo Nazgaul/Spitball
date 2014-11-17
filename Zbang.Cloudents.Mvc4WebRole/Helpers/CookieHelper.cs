@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public T ReadCookie<T>(string cookieName) where T : class
         {
             HttpCookie cookie = m_HttpContext.Request.Cookies[cookieName];
-            if (cookie == null)
+            if (cookie == null || string.IsNullOrEmpty(cookie.Value))
             {
                 return default(T);
             }

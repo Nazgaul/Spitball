@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoCache]
         public async Task<ActionResult> Index(long userId, string userName)
         {
-
+            //TODO: do that in partial like all the rest
             var id = userId;
             ViewBag.Admin = false;
 

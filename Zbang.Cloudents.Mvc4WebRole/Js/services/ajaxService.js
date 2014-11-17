@@ -17,7 +17,7 @@
                     params: data
                 };
                 if (!noCache) {
-                    ttl = ttl || 60000; //default to 1 mins
+                    ttl = ttl || 30000; //default to 1 mins
                     getObj.cache = getCache(ttl);
                 }
                 $http.get(url, getObj).success(function (response) {

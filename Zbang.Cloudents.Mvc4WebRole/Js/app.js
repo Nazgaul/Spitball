@@ -36,8 +36,10 @@
                        }
                    },
                    'responseError': function (response) {
+                       return;
                        // do something on success
                        switch (response.status) {
+                           
                            case 400:
                                alert('Version mismatch, page will refresh');
                                window.location.reload(true);
