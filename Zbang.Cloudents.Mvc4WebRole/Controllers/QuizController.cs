@@ -210,7 +210,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         public ActionResult Create(Quiz model)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));

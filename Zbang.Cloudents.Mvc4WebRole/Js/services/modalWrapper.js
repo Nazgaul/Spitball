@@ -85,7 +85,7 @@ app.factory('sModal',
             };
 
 
-            $rootScope.$on('$locationChangeStart', function () {
+            $rootScope.$on('$routeChangeStart', function () {
                 $modalStack.dismissAll();
                 //modalsOpened=[];
 

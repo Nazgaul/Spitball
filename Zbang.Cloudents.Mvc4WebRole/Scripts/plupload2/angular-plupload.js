@@ -268,7 +268,7 @@
                 });
 
 
-                scope.$on('$locationChangeStart', function (event) {
+                scope.$on('$routeChangeStart', function (event) {
                     if (uploader.state === plupload.STOPPED) {
                         return;
                     }
