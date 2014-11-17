@@ -135,6 +135,7 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
         $http.get('/User/Updates/').success(function (response2) {
             var data = response2.payload;
             if (!data) {
+                defer.resolve();
                 return;
             }
             for (var i = 0, l = data.length ; i < l; i++) {
