@@ -554,7 +554,13 @@ aside.sideBar {
     margin: 0 0 20px 31px; /*rtl*/
 }
 /*#endregion */ 
-
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+    body input.radio[type="radio"]:checked + label:after {
+        top: 4px; //diff rtl
+    } 
+}
+/*#endregion */
 
 /*#region IE only CSS */
 @media screen and (~'min-width:0\0') { 
