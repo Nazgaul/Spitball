@@ -80,10 +80,9 @@
            var originalWhen = $routeProvider.when;
 
            $routeProvider.when = function (path, route) {
-
                route.resolve = {
-                   currentUser: ['sUserDetails', function (sUserDetails) {
-                       return sUserDetails.initDetails();
+                   currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
+                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);                       
                    }]
                };
 
@@ -328,9 +327,7 @@
    ]);
 
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
-        sVerChecker.checkVersion();
-        sNewUpdates.loadUpdates();        
-
+        sVerChecker.checkVersion();        
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);       
         });

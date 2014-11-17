@@ -1,10 +1,10 @@
-﻿
-app.factory('sNewUpdates', [
-    '$http',
+﻿app.factory('sNewUpdates', [
+    '$http', '$q',
     'sBox',
     'sUserDetails',
     '$interval',
-function ($http, sBox, sUserDetails,$interval) {
+    '$timeout',
+function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
     "use strict";
     var updates = {},
         updatesLoaded = false;
@@ -41,10 +41,10 @@ function ($http, sBox, sUserDetails,$interval) {
                 return callback(count > 0 ? count : '');
             }
         },
-        isNew: function (boxId, type, id,callback) {
+        isNew: function (boxId, type, id, callback) {
             id = parseInt(id, 10);
-                        
-            
+
+
             if (updatesLoaded) {
                 isNew();
                 return;
@@ -62,9 +62,9 @@ function ($http, sBox, sUserDetails,$interval) {
                     callback(updates[boxId][type].indexOf(id) > -1 ? true : false);
                 }
             }
-       
+
         },
-        getUpdatesCount: function (boxId,callback) {
+        getUpdatesCount: function (boxId, callback) {
             if (updatesLoaded) {
                 updatesCount();
                 return;
@@ -98,7 +98,7 @@ function ($http, sBox, sUserDetails,$interval) {
 
                 callback(updateCount);
             }
-           
+
         },
         setOld: function (boxId, type, id) {
             id = parseInt(id, 10);
@@ -122,8 +122,13 @@ function ($http, sBox, sUserDetails,$interval) {
     return response;
 
     function loadUpdates() {
+        var defer = $q.defer();
         if (!sUserDetails.isAuthenticated()) {
-            return;
+            $timeout(function () {
+                defer.resolve();
+            });
+
+            return promise;
         }
 
         var update;
@@ -142,7 +147,7 @@ function ($http, sBox, sUserDetails,$interval) {
                     updates[boxId].questions = [];
                     updates[boxId].answers = [];
 
-                }                
+                }
 
                 if (update.itemId) {
                     addUpdate(updates[boxId].items, update.itemId);
@@ -161,7 +166,11 @@ function ($http, sBox, sUserDetails,$interval) {
                 }
             }
             updatesLoaded = true;
+
+            defer.resolve();
         });
+
+        return defer.promise;
 
         function addUpdate(array, id) {
             id = parseInt(id, 10);
