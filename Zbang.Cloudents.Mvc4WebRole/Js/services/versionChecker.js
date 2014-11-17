@@ -23,6 +23,7 @@
                         if (clientVersion === currentVersion) {
                             return;
                         }
+                        $angularCacheFactory.removeAll();
 
                         
                         $analytics.eventTrack('Version', {
@@ -32,9 +33,9 @@
 
 
                         alert('Version mismatch, page will refresh');
-                        $angularCacheFactory.removeAll();
-                        window.location.reload(true);
-
+                        $timeout(function () {
+                            window.location.reload(true);
+                        },150);
 
 
                     }

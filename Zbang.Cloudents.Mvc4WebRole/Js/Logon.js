@@ -74,6 +74,8 @@
             type: 'POST',
             success: function (data) {
                 if (data.success) {
+                    window.sessionStorage.clear();
+
                     var returnUrl = cd.getParameterByName('returnUrl');
                     if (returnUrl.length) {
                         window.location = returnUrl;
@@ -113,6 +115,7 @@
             type: 'POST',
             success: function (data) {
                 if (data.success) {
+                    window.sessionStorage.clear();
                     if (data.payload) {
                         window.location.href = data.payload;
                         return;
@@ -156,6 +159,7 @@
                     cd.notification('there is a problem signing you in with facebook');
                     return;
                 }
+                window.sessionStorage.clear();
                 var obj = data.payload;
                 if (obj.isnew) {
                     FB.api('/me', function (response) {
@@ -213,8 +217,7 @@
         cd.loader.registerFacebook();
 
     }
-
-    //cd.sessionStorageWrapper.clear();
+    
     //cd.localStorageWrapper.removeItem('history');//remove history
     $.extend($.validator.messages, {
         email: $('#NewEmail').data('valRegex')
