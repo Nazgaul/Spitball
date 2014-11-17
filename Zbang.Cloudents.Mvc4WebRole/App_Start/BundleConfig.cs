@@ -207,6 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
+                new JsFileWithCdn("/js/services/notificationManager.js"),
                 new JsFileWithCdn("/js/services/upload.js"),
                 new JsFileWithCdn("/js/services/newUpdates.js"),
                 new JsFileWithCdn("/js/services/focus.js"),
