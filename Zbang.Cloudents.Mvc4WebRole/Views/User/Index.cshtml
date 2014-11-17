@@ -22,11 +22,11 @@
     </header>
     @{Html.RenderPartial("_BarActions");}
     <div class="upContentWpr" >
-        <div class="upTop" bindonce>
+        <div class="upTop">
             <img class="upImg" ng-src="{{profile.image | defaultImage:'user'}}" width="100" height="100" alt="" />
             <div class="upDetails">
                 <h1 class="semiFont" id="upUsername">
-                    <span>@Model.Name</span>
+                    <span>{{profile.name}}</span>
                     <a class="settingsLink" ng-if="profile.isSelf"
                        href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
