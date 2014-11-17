@@ -1,10 +1,10 @@
 ﻿app.factory('sUserDetails',
- ['sAccount', '$filter',
+ ['sAccount', '$filter', '$timeout', '$q',
 
- function (sAccount, $filter) {
+ function (sAccount, $filter, $timeout, $q) {
      "use strict";
      var isAuthenticated = false,
-         userData;   
+         userData;
 
      function setDetails(data) {
          data = data || {};
@@ -16,8 +16,8 @@
 
          userData = {
              id: data.id,
-             name: data.name,             
-             image: $filter('defaultImage')(data.image,'user'),
+             name: data.name,
+             image: $filter('defaultImage')(data.image, 'user'),
              score: data.score,
              url: data.url,
              isAdmin: data.isAdmin,
@@ -42,7 +42,7 @@
      }
      return {
          getDetails: function () {
-               return userData;
+             return userData;
          },
 
          isAuthenticated: function () {
@@ -58,17 +58,20 @@
          },
          initDetails: function () {
              if (this.isAuthenticated()) {
-                 return;
+                 var defer = $q.defer();
+                 $timeout(function () {
+                     defer.resolve();
+                 });
+                 return defer.promise;
              }
 
-             var promise = sAccount.details();
-                 
-             promise.then(function(response){
-                            
+             var defer = sAccount.details();
+
+             defer.then(function (response) {
                  setDetails(response);
              });
 
-             return promise;
+             return defer;
          }
          //setUniversity: function (uniName) {
          //    if (uniName) {

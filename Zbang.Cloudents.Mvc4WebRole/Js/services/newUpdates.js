@@ -3,7 +3,8 @@
     'sBox',
     'sUserDetails',
     '$interval',
-function ($http, $q, sBox, sUserDetails, $interval) {
+    '$timeout',
+function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
     "use strict";
     var updates = {},
         updatesLoaded = false;
@@ -123,7 +124,11 @@ function ($http, $q, sBox, sUserDetails, $interval) {
     function loadUpdates() {
         var defer = $q.defer();
         if (!sUserDetails.isAuthenticated()) {
-            return;
+            $timeout(function () {
+                defer.resolve();
+            });
+
+            return promise;
         }
 
         var update;
