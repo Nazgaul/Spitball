@@ -67,7 +67,7 @@
 
              var promise = sAccount.details();
 
-             defer.then(function (response) {
+             promise.then(function (response) {
                  setDetails(response);
              });
 
