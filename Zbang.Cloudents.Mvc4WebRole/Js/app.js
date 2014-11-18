@@ -30,14 +30,15 @@
                    // optional method
                    'response': function (response) {
                        // do something on success
-                       switch (response.status) {
-                           case 200:
-                               return response;
-                       }
+                       //switch (response.status) {
+                       //    case 200:
+                       //        return response;
+                       //        break;
+                       //}
+
+                       return response;
                    },
-                   'responseError': function (response) {
-                       return;
-                       // do something on success
+                   'responseError': function (response) {                       
                        switch (response.status) {
                            
                            case 400:
@@ -63,6 +64,8 @@
                                break;
 
                        }
+
+                       return response;
                    }
                };
            }]);

@@ -35,7 +35,7 @@
                data-log="@User.Identity.IsAuthenticated.ToString().ToLower()" class="sprite1b panelBtn mySpace elps">@SharedResources.Dashboard</a>
         </li>
         <li><button type="button" data-modelNav="invites" class="sprite1b panelBtn invitesBtn">@SharedResources.Notifications<span id="f_invites" class="numberCircle rFloat"></span></button></li>
-        <li><button type="button" data-modelNav="updates" class="sprite1b panelBtn activityBtn elps">@MobileResources.FriendsActivity</button></li>
+        @*<li><button type="button" data-modelNav="updates" class="sprite1b panelBtn activityBtn elps">@MobileResources.FriendsActivity</button></li>*@
         <li>@Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { @class = "sprite1b panelBtn tos elps" })</li>
     </ul>
     <a id="logOut" class="logout" href="@Url.Action("LogOff","Account")">@UserDetailResources.LogOut</a>

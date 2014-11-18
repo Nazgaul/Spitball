@@ -153,6 +153,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [OutputCache(CacheProfile = "PartialCache")]
 
+
         public ActionResult CreateQuiz()
         {
             return PartialView("CreateQuiz");
@@ -209,6 +210,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Quiz
         [HttpPost]
         [ZboxAuthorize]
+        [RemoveBoxCookie]
         public ActionResult Create(Quiz model)
         {            
             if (!ModelState.IsValid)

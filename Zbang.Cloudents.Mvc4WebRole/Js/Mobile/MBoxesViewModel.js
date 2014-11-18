@@ -74,8 +74,8 @@
             dataContext.dashboard({
                 //data: { pageNumber: page, order: self.orderBy() },
                 success: function (data) {
-                    cd.pubsub.publish('dashSideD', { friend: data.friends, wall: data.wall });
-                    generateModel({ boxes: data.boxes });
+                    //cd.pubsub.publish('dashSideD', { friend: data.friends, wall: data.wall });
+                    generateModel({ boxes: data });
                 },
                 always: function () {
                     self.loaded(true);

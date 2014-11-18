@@ -217,6 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/account.js"),
                 new JsFileWithCdn("/js/services/share.js"),
                 new JsFileWithCdn("/js/services/resourceManager.js"),
+                new JsFileWithCdn("/js/services/notificationHandler.js"),
                 new JsFileWithCdn("/js/services/library.js"),
                 new JsFileWithCdn("/js/services/search.js"),
                 new JsFileWithCdn("/js/services/quiz.js"),
@@ -330,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
                 new JsFileWithCdn("~/Js/pubsub2.js"),
-
+                new JsFileWithCdn("~/scripts/svg4everybody.js"),
                 new JsFileWithCdn("~/Js/GmfcnHandler.js")
                 //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                 );

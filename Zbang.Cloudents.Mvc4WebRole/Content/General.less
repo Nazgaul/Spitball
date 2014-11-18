@@ -2483,7 +2483,8 @@ select.inputText {
     //width: 170px;
     width: 100px;
     position: relative;
-    top: 8px;
+    //top: 8px;
+    margin-top:8px;
     height: 48px; //
     /*&:before { // Temporarily commented out (store separator)
         .pseudo;
@@ -2770,12 +2771,12 @@ select.inputText {
             padding-top: 8px;
         }
     }
-    .notificationBtn .invitesCounter.invitesCounter {
+    /*.notificationBtn .invitesCounter.invitesCounter {
         position: fixed;
         top: 63px;
         left: auto; //rtl
         margin-left: -6px; //rtl
-    }
+    }*/
 }
 /*#endregion */
 
@@ -2786,6 +2787,7 @@ select.inputText {
 //This is in order to maintain the ability to scroll horizontally to the RHS of the top bar.
 // Facebook does this too.
 
+//@media (max-width: 1085px) {
 /*@media (max-width: 1024px) {
 
     .mno-touch {
@@ -2813,8 +2815,6 @@ select.inputText {
         }
 
         .contentWpr {
-            background: url(/Images/gray_jean80.png?v=1) repeat #fff;
-
             &.featured {
                 .unionFeatured {
                     height: ~"-webkit-calc(100% - 25px)";
@@ -2850,10 +2850,11 @@ select.inputText {
             }
         }
     }
-}*/
-
+}
+*/
 /*#region IPAD - SPECIFIC CODE */
-/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/*
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .siteHeader.siteHeader, body.body {
         min-width: 0;
     }
@@ -2912,13 +2913,13 @@ select.inputText {
     .modal2.modal2 {
         position: absolute;
     }
-}*/
-
+}
+*/
 
 /*#endregion */
 
-/*//home page media queries
-
+//home page media queries
+/*
 @media (max-width: 1430px) {
     .headerWpr.menuOpen .headerActions
     {
@@ -2963,9 +2964,9 @@ select.inputText {
             margin-top: 10px;
         }
     }
-}*/
+}
 
-
+*/
 
 /*#endregion */
 

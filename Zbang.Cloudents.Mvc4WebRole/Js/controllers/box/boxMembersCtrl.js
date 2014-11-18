@@ -1,5 +1,5 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager', 'sShare', 'sUserDetails','sFacebook',
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager', 'sShare', 'sUserDetails', 'sFacebook',
         function ($scope, $filter, sModal, sBox, $timeout, $analytics, resManager, sShare, sUserDetails, sFacebook) {
             "use strict";
             //Members
@@ -36,24 +36,24 @@
 
             $scope.removeUser = function (member) {
 
-                member.reinvited = false;
-                member.reinvitedItem = false;
+                //member.reinvited = false;
+                //member.reinvitedItem = false;
                 member.action = true;
-                sBox.removeUser({ boxId: $scope.info.boxId, userId: member.id }).then(function () { //uid
-
+                sBox.removeUser({ boxId: $scope.boxId, userId: member.id }).finally(function () {
+                    member.action = false;
                 });
+                remove();
+                //if (member.userStatus === 'subscribe') {
+                //    remove(true);
+                //    member.removed = true;
+                //    return;
+                //}
 
-                if (member.userStatus === 'Subscribe') {
-                    remove(true);
-                    member.removed = true;
-                    return;
-                }
-
-                if (member.userStatus === 'Invite') {
-                    $timeout(remove, 3000);
-                    $timeout(function () { member.uninvited = true; }, 10);
-                    member.uninvitedItem = true;
-                }
+                //if (member.userStatus === 'invite') {
+                //    $timeout(remove, 3000);
+                //    $timeout(function () { member.uninvited = true; });
+                //    member.uninvitedItem = true;
+                //}
 
                 function remove() {
                     $analytics.eventTrack('Box Members', {
@@ -61,8 +61,10 @@
                         label: 'User removed a member or someone invited'
                     });
 
-                    var index = $scope.members.indexOf(member);
-                    $scope.members.splice(index, 1);
+                    var index = members.indexOf(member);
+                    members.splice(index, 1);
+                    $scope.members = members;
+                    $scope.params.membersLength = $scope.members.length;
                 }
 
 
@@ -70,48 +72,22 @@
 
             $scope.reinviteUser = function (member) {
                 member.action = true;
-                
-                if (isNaN(member.email)) {
-                    emailInvite();
-                } else {
-                    facebookInvite();
-                }
+                member.reinvitedItem = true;
+                $timeout(function () {
+                    member.reinvited = true;
+                });
+                $timeout(function () {
+                    member.reinvited = false;
+                    member.reinvitedItem = false;
+                }, 1500);
 
-                function facebookInvite() {       
-                    sShare.facebookInvite.box({ id: member.email, boxId: $scope.boxId }).then(openFbModal, function () {
-                        member.action = false;
-                    });
+                sShare.invite.box({ boxId: $scope.boxId, recepients: [member.id] }).finally(function () {
+                    member.action = false;
+                });
 
-                    function openFbModal(response) {
-                        $scope.params.facebookInvite = true;
-
-                        sFacebook.send({
-                            path: response.url,
-                            to: member.email
-                        }).then(function () {
-                            $analytics.eventTrack('Box Members', {
-                                category: 'Facebook Reinvite'
-                            });
-                            $timeout(function () { member.reinvited = true; }, 50);              
-                           member.reinvitedItem = true;
-
-                        }).finally(function () {
-                            $scope.params.facebookInvite = false;
-                            member.action = false;
-                        });
-                    }
-                }
-
-
-                function emailInvite() {
-                    sShare.invite.box({ boxId: $scope.boxId, recepients: [member.email] }).then(function () {
-                        member.action = false;
-                    });
-
-                    $analytics.eventTrack('Box Members', {
-                        category: 'Reinvite'
-                    });
-                }
+                $analytics.eventTrack('Box Members', {
+                    category: 'Reinvite'
+                });
 
             };
 

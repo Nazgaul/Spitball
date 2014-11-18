@@ -277,7 +277,7 @@
                             <div class="inviteStatus" bo-text="invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'"></div>
                             <div class="invitedToWpr">
                                 <img class="upImg" alt="" width="30" height="30" bo-src="invite.boxPicture || '/Images/cloudents1-57x57.png'" />
-                                <div class="invitedTo" bo-text="invite.boxName || 'Cloudents'"></div>
+                                <div class="invitedTo elps" bo-text="invite.boxName || 'Cloudents'"></div>
                             </div>
                             <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
                         </li>

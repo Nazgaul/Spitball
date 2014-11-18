@@ -9,7 +9,7 @@
         template: '<div><div ng-transclude></div></div>',
         replace: true,
         link: function ($scope, $elem, $attr) {
-            var $win = $(window), height = $attr.height, top, bottom, lastHeight;
+            var $win = $(window), height = $attr.height, top, bottom, lastHeight, updateEvent, resizeEvent;
 
             $scope.$watch('scrollDisabled', function (value) {
                 if (value) {
@@ -24,6 +24,8 @@
 
             $scope.$on('$destroy', function () {
                 $elem.mCustomScrollbar('destroy');
+                updateEvent();
+                resizeEvent();
             });
             $scope.$on('$routeChangeStart', function () {
                 $elem.mCustomScrollbar('destroy');
@@ -38,8 +40,8 @@
 
 
             function setEvents() {
-                $scope.$on('update-scroll', updateScroll);
-                $scope.$on('elastic:resize', updateScroll);
+                updateEvent = $scope.$on('update-scroll', updateScroll);
+                resizeEvent = $scope.$on('elastic:resize', updateScroll);
                 $win.resize(updateScroll);
             }
 

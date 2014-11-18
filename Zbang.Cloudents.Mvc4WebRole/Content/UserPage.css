@@ -22,8 +22,8 @@
 }
 .userPage .barActions,
 .searchPage .barActions {
-  padding: 0 20px;
-  top: 14px;
+  top: 6px;
+  margin-right: 23px;
 }
 .userPage .searchInputWpr,
 .searchPage .searchInputWpr {
@@ -42,7 +42,15 @@
   overflow: hidden;
 }
 .userPage .settingsLink {
-  display: none;
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  visibility: hidden;
+}
+.userPage .svg-settings {
+  width: 25px;
+  height: 23px;
+  fill: #c2c2c2;
 }
 .userPage h2 {
   font-size: 18px;
@@ -109,6 +117,7 @@
   width: 28px;
   height: 40px;
   line-height: 40px;
+  background: #fff;
   border-radius: 3px;
   color: #39434a;
   font-size: 26px;
@@ -204,6 +213,8 @@
 }
 .uploadsItem .upImg {
   top: 0;
+  border-radius: 0;
+  border: 1px solid #c2c2c2;
 }
 .uploadsItem .views {
   margin: 0 0 0 12px;
@@ -260,6 +271,7 @@
   color: #39434a;
 }
 .qaWpr {
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 10px 5px 5px 10px;
@@ -324,6 +336,7 @@
 }
 .qaMore:hover {
   color: #0371c8;
+  background: #fff;
 }
 .emptyQuestions:before,
 .emptyAnswers:before {
@@ -367,20 +380,14 @@
   color: #676767;
 }
 .upTop:hover .settingsLink {
-  display: inline-block;
-  position: relative;
-  top: 5px;
-}
-.upTop:hover .settingsLink svg {
-  width: 25px;
-  height: 23px;
-  fill: #c2c2c2;
+  visibility: visible;
 }
 .upImg {
   position: absolute;
   top: 20px;
   left: 0;
   /*rtl*/
+  border: 5px solid #fff;
   border-radius: 100%;
 }
 .upSchool {
@@ -413,6 +420,7 @@
   display: block;
 }
 .upSectionWpr {
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-bottom: none;
   border-radius: 8px 8px 0 0;
@@ -537,6 +545,7 @@
   transition: height 0.5s;
 }
 .followingList .btn3 {
+  background: #fff;
   border: 1px solid #0371c8;
   padding: 3px 18px;
   position: absolute;
@@ -667,14 +676,11 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*padding: 9px 5px 0 35px; /*rtl*/
   position: relative;
   margin-top: 2px;
 }
 .invitedToWpr .invitedTo {
   line-height: 15px;
-  max-height: 32px;
-  overflow: hidden;
 }
 .invitedToWpr .upImg {
   margin-top: 2px;
@@ -712,6 +718,7 @@
   border: 1px solid #c2c2c2;
   border-radius: 8px;
   margin-top: 10px;
+  background: #fff;
   position: relative;
 }
 .upMembers .membersContent .emptySearch {
@@ -833,6 +840,7 @@
   width: 279px;
   height: 241px;
   overflow: auto;
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
 }
@@ -882,6 +890,7 @@
 .upMemberBoxes {
   width: 240px;
   max-height: 247px;
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   /*display: none;*/
@@ -902,6 +911,7 @@
 .upMemberBoxList {
   overflow: auto;
   max-height: 215px;
+  background: #fff;
 }
 .upMemberBoxList li {
   height: 30px;

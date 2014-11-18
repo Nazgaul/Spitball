@@ -1,18 +1,14 @@
 ﻿mAccount.controller('NotificationsCtrl',
-    ['$scope', 'sShare', '$analytics',
-        function ($scope, sShare, $analytics) {
+    ['$scope', 'sNotification', '$analytics', '$window', '$location', '$route',
+        function ($scope, sNotification, $analytics, $window, $location, $route) {
             "use strict";
 
             $scope.params = {
-                notificationsListLength: 12,
-                notificationsListPage: 12
-            };
-
-            sShare.getNotifications().then(function (notifications) {                
-                $scope.notifications = notifications;
-                countNewNotifications();
-            });
-
+                notificationsListLength: 7,
+                notificationsListPage: 7,
+            };            
+         
+            getDetails();
 
             $scope.openNotifications = function () {
 
@@ -21,25 +17,22 @@
                     label: 'User ' + ($scope.params.wasOpened ? 'closed' : 'opened') + ' notifications'
                 });
 
-                $scope.params.wasOpened = !$scope.params.wasOpened;               
+            };
 
-                if (!$scope.params.wasOpened) {
+
+            $scope.markAsRead = function (notification) {
+
+                if (notification.url === $location.path()) {
+                    $route.reload();
+                }
+
+
+                if (notification.isRead) {
                     return;
                 }
-                sShare.markNotificationsAsOld().then(function () {
-                    _.forEach($scope.notifications, function (notification) {
-                        notification.isNew = false;
-                    });
-
-                    $scope.params.newNotifications = 0;
-                });
-            };
-            $scope.markAsRead = function (notification) {
-                sShare.markNotificationAsRead({ messageId: notification.msgId }).then(function (response) {
-                    notification.isRead = true;
-                });
 
                 notification.isRead = true;
+                sNotification.setRead(notification.msgId);
 
                 $analytics.eventTrack('Notifications', {
                     category: 'Notifications',
@@ -52,20 +45,31 @@
                     return notification2.boxId === boxId;
                 });
 
+                if (!notification) {
+                    return;
+                }
+
                 var index = $scope.notifications.indexOf(notification);
                 $scope.notifications.splice(index, 1);
             });
 
+            $scope.$on('newNotifications', getDetails);
+
             $scope.addNotifications = function () {
                 $scope.params.notificationsListLength += $scope.params.notificationsListPage;
             };
-            function countNewNotifications() {
-                var newNotifications = _.filter($scope.notifications, function (notification) {
-                    return notification.isNew;
-                });
 
-                $scope.params.newNotifications = $scope.notifications.length;
+            $scope.updateState = function (isOpen) {
+                if (!isOpen) {
+                    return;
+                }
+
+                $scope.$broadcast('update-scroll');
             }
 
+            function getDetails() {
+                $scope.notifications = sNotification.getAll();
+                $scope.params.newNotifications = sNotification.getUnreadLength();              
+            }
 
         }]);
