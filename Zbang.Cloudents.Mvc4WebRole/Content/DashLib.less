@@ -467,7 +467,7 @@
     margin: 0 -30px;
     padding: 0 30px;
     .boxSizing;
-    
+    white-space: nowrap; // so that the invite friends button doesn't disappear
     .open .svg-notification {
         fill: #d1294d;
     }
@@ -545,6 +545,8 @@
     position: relative;
     display: inline-block;
     vertical-align: top;
+    //width: ~'-webkit-calc(100% - 300px)';
+    //width: ~'calc(100% - 300px)';
     svg {
         position: absolute;
         right: 33px; //rtl

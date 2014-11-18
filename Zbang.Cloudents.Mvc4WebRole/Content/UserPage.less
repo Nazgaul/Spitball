@@ -37,7 +37,15 @@
         overflow: hidden; //create new bfc so as not to cover the floated anchor
     }
     .settingsLink {
-        display: none;
+        position: relative;
+        top: 5px;
+        display: inline-block;
+        visibility: hidden;
+    }
+    .svg-settings {
+        width: 25px;
+        height: 23px;
+        fill: @borderColor;
     }
     h2 {
         font-size: 18px;
@@ -105,7 +113,7 @@
     width: 28px;
     height: 40px;
     line-height: 40px;
-    //background: #fff;
+    background: #fff;
     border-radius: 3px;
     color: #39434a;
     font-size: 26px;
@@ -228,6 +236,8 @@
 
     .upImg {
         top:0;
+        border-radius:0;
+        border:1px solid #c2c2c2;
     }
 
     .views {
@@ -294,7 +304,7 @@
 }
 
 .qaWpr {
-    //background: #fff;
+    background: #fff;
     border: 1px solid @borderColor;
     border-radius: 5px;
     padding: 10px 5px 5px 10px; /*rtl*/
@@ -365,7 +375,7 @@
 
     &:hover {
         color: @attentionBlue;
-        //background: #fff;
+        background: #fff;
     }
 }
 
@@ -414,14 +424,7 @@
     }
     &:hover {
         .settingsLink {
-            display: inline-block;
-            position: relative;
-            top: 5px;
-            svg {
-                width: 25px;
-                height: 23px;
-                fill: @borderColor;
-            }
+            visibility: visible;
         }
     }
 }
@@ -430,7 +433,7 @@
     position: absolute;
     top: 20px;
     left: 0; /*rtl*/
-    //border: 5px solid #fff;
+    border: 5px solid #fff;
     border-radius: 100%;
 }
 
@@ -472,7 +475,7 @@
 }
 
 .upSectionWpr {
-    //background: #fff;
+    background: #fff;
     border: 1px solid @borderColor;
     border-bottom: none;
     border-radius: 8px 8px 0 0;
@@ -608,7 +611,7 @@
     .transition(height .5s);
 
     .btn3 {
-        //background: #fff;
+        background: #fff;
         border: 1px solid @attentionBlue;
         padding: 3px 18px;
         position: absolute;
@@ -757,14 +760,11 @@
     width: 190px;
     height: 36px;
     .boxSizing;
-    /*padding: 9px 5px 0 35px; /*rtl*/
     position: relative;
     margin-top: 2px;
 
     .invitedTo {
         line-height: 15px;
-        max-height: 32px;
-        overflow: hidden;
     }
 
     .upImg {
@@ -806,7 +806,7 @@
         border: 1px solid @borderColor;
         border-radius: 8px;
         margin-top: 10px;
-        //background: #fff;
+        background: #fff;
         position: relative;
 
         .emptySearch {
@@ -930,7 +930,7 @@
     width: 279px;
     height: 241px;
     overflow: auto;
-    //background: #fff;
+    background: #fff;
     border: 1px solid @borderColor;
     border-radius: 3px;
 
@@ -979,7 +979,7 @@
 .upMemberBoxes {
     width: 240px;
     max-height: 247px;
-    //background: #fff;
+    background: #fff;
     border: 1px solid @borderColor;
     border-radius: 5px;
     /*display: none;*/
@@ -1001,6 +1001,7 @@
 .upMemberBoxList {
     overflow: auto;
     max-height: 215px;
+    background: #fff;
 
     li {
         height: 30px;

@@ -154,11 +154,11 @@
 /*#region Search page - 's' prefix stands for 'search' */
 .searchPage
 {
-    width: 1012px;
-    margin: 0 auto;
-    &:after
-    {
+    //width: 1012px;
+    //margin: 0 auto;
+    &:after {
         left:0; /*rtl*/
+        min-width: 1024px; //so that the background doesn't get truncated in narrow width browser
     }
     h2{
         font-size: 22px;
@@ -209,11 +209,19 @@
         vertical-align: top;
     }
     .userItem {
-        margin-right: 32px; /* diff rtl*/
+        margin-right: 30px; /* diff rtl*/
         &:nth-child(9n) {
             margin: 0;
         }
     }
+}
+.searchContent {
+    //max-width: 1012px;
+    //width: 95vw;
+    width: 1012px;
+    margin: 0 auto;
+    .boxSizing;
+    padding: 0 20px;
 }
 .sTabs {
     margin: 30px 0 32px;
@@ -322,7 +330,7 @@
 }
 
 .box.sCourseItem {
-    width: 473px;
+    width: 454px;
     display: inline-block;
     float: none;
     margin: 0 0 20px 0; // override other
