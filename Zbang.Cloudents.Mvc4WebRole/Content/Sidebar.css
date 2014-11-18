@@ -183,6 +183,9 @@
   border-left: none;
   border-radius: 0 3px 3px 0;
 }
+.empty .podium {
+  display: none;
+}
 .dashLibTop {
   display: block;
   height: 109px;

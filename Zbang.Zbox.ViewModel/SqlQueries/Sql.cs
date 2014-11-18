@@ -160,12 +160,24 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         ///  Used in user page to get user invites
         /// </summary>
-        public const string UserPersonalInvites = @" select i.Image as userImage, i.UserName as username, 
+        public const string UserPersonalInvites = @"
+   select i.Image as userImage, i.UserName as username, 
+ null as boxName,null as boxPicture,null as boxid, i.email,
+ i.IsUsed as status, i.TypeOfMsg as InviteType
+   from zbox.Invite i
+   where senderid =@Me
+   and TypeOfMsg = 3
+union all
+select u.UserImageLarge as userImage, u.UserName as username, 
  b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid, i.email,
  i.IsUsed as status, i.TypeOfMsg as InviteType
    from zbox.Invite i
-   left join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
- where senderid = @Me";
+   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
+   inner join zbox.Box b on ub.BoxId = b.BoxId
+   inner join zbox.Users u on ub.UserId = u.UserId
+   where senderid =@Me
+   and TypeOfMsg = 2
+";
 
 
         public const string UserInvites = @"

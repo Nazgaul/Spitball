@@ -205,17 +205,28 @@
 .firstRow:hover .itemRenameBtn {
   display: block;
 }
+.firstRow .tooltip {
+  border: 1px solid #3399ff;
+  left: 0!important;
+  top: 30px !important;
+  padding: 5px 4px;
+}
+.firstRow .tooltip-arrow {
+  top: -6px;
+  border-left: 1px solid #3399ff;
+  border-top: 1px solid #3399ff;
+}
 .secondRow {
   text-align: center;
   color: #fff;
-  padding: 25px 0;
+  padding: 10px 0 25px;
   border-top: 1px solid #5a5a5a;
 }
 .itemRenameBtn {
   display: none;
   position: absolute;
   top: 0;
-  right: 0;
+  right: -20px;
 }
 .item-name {
   text-align: left;
@@ -229,12 +240,14 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-weight: normal;
+  max-width: 290px;
+  display: inline-block;
 }
 .itemComments {
   color: #fff;
   border-top: 1px solid #5a5a5a;
   clear: both;
-  margin-top: 25px;
+  margin-top: 20px;
   font-size: 12px;
 }
 .itemComments .mCSB_container,

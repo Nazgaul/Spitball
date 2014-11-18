@@ -70,6 +70,7 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
+        protected virtual ICollection<InviteToBox> Invites { get; set; }
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }

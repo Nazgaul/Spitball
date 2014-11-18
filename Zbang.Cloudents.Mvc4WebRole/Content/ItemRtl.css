@@ -7,7 +7,8 @@
   padding: 0 290px 0 0;
 }
 .itemPage .closePreview,
-.quizPage .closePreview {
+.quizPage .closePreview,
+.quizPreview .closePreview {
   margin: 12px 0 0 25px;
   /*rtl*/
 }
@@ -63,8 +64,16 @@
 .uploadInfo {
   text-align: right;
 }
+.firstRow .tooltip {
+  right: 0!important;
+  left: auto;
+}
+.firstRow .tooltip-arrow {
+  border-left: none;
+  border-right: 1px solid #3399ff;
+}
 .itemRenameBtn {
-  left: 0;
+  left: 20px;
   right: auto;
 }
 .item-name {

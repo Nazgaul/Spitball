@@ -216,18 +216,29 @@
             display: block;
         }
     }
+    .tooltip {
+        border: 1px solid @itemBlue;
+        left: 0!important; //rtl //override js positioning
+        top: 30px !important; //override js positioning
+        padding: 5px 4px;
+    }
+    .tooltip-arrow {
+        top: -6px;
+        border-left: 1px solid @itemBlue; //rtl
+        border-top: 1px solid @itemBlue;
+    }
 }
 .secondRow {
     text-align: center;
     color: #fff;
-    padding: 25px 0;
+    padding: 10px 0 25px;
     border-top: 1px solid #5a5a5a;
 }
 .itemRenameBtn {
     display: none;
     position: absolute;
     top: 0;
-    right: 0; //rtl
+    right: -20px; //rtl
 }
 
 .item-name {
@@ -240,13 +251,15 @@
     position: relative;
     .boxSizing;
     font-weight: normal;
+    max-width: 290px;
+    display: inline-block;
 }
 
 .itemComments {
     color: #fff;
     border-top: 1px solid #5a5a5a;
     clear: both;
-    margin-top: 25px;
+    margin-top: 20px;
     font-size: 12px;
     .mCSB_container, .mCustomScrollBox {
         overflow-x: visible;

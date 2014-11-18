@@ -100,6 +100,33 @@
     -ms-flex-pack: center;
     justify-content: center;
 }
+.topSeparator(@topPadding: 10px) {
+    position: relative;
+    padding-top: @topPadding;
+    border-top: 1px solid @borderColor;
+    
+    &:before {
+        .pseudo;
+        height: 1px;
+        background: #fff;
+        width: 100%;
+        position: absolute;
+        top: 0;
+    }
+}
+.bottomSeparator(@bottomPadding: 10px) {
+    position: relative;
+    padding-bottom: @bottomPadding;
+    border-bottom: 1px solid @borderColor;
+    &:after {
+        .pseudo;
+        height: 1px;
+        background: #fff;
+        width: 100%;
+        position: absolute;
+        bottom: -2px;
+    }
+}
 .absoluteCenter(@width, @height)
 {
 	width: @width;
