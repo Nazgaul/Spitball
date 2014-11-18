@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -67,14 +68,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return UserRepository.GetUserByEmail(email);
         }
 
-        protected User CreateUser(string email, string image, string largeImage, 
+        protected User CreateUser(string email, string image, string largeImage,
             string firstName, string middleName, string lastName,
             bool sex, bool marketEmail, string culture)
         {
-            return new User(email,image, largeImage,
+            return new User(email, image, largeImage,
                    firstName,
                    middleName,
-                   lastName, sex, marketEmail, culture);
+                   lastName, sex, this.marketEmail(marketEmail), culture);
         }
 
         protected bool IsUserRegistered(User user)
@@ -82,7 +83,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return user.IsRegisterUser;
         }
 
-        protected void UpdateUser(User user , CreateUserCommand command )
+        protected void UpdateUser(User user, CreateUserCommand command)
         {
             user.IsRegisterUser = true;
 
@@ -91,9 +92,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.LastName = command.LastName;
             user.CreateName();
             user.Sex = command.Sex;
-            user.MarketEmail = command.MarketEmail;
+            user.MarketEmail = marketEmail(command.MarketEmail);
             TriggerWelcomeMail(user);
             user.Quota.AllocateStorage();
+        }
+
+        private bool marketEmail(bool marketEmail)
+        {
+            return marketEmail && System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() == "he-il";
         }
 
 
