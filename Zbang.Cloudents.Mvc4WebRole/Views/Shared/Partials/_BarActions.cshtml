@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="barActions rFloat">
-    <div dropdown>
+    <div dropdown ng-controller="NotificationsCtrl">
         <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
             @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
             <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
