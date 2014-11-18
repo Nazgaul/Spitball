@@ -42,7 +42,15 @@
   overflow: hidden;
 }
 .userPage .settingsLink {
-  display: none;
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  visibility: hidden;
+}
+.userPage .svg-settings {
+  width: 25px;
+  height: 23px;
+  fill: #c2c2c2;
 }
 .userPage h2 {
   font-size: 18px;
@@ -367,14 +375,7 @@
   color: #676767;
 }
 .upTop:hover .settingsLink {
-  display: inline-block;
-  position: relative;
-  top: 5px;
-}
-.upTop:hover .settingsLink svg {
-  width: 25px;
-  height: 23px;
-  fill: #c2c2c2;
+  visibility: visible;
 }
 .upImg {
   position: absolute;
@@ -673,8 +674,6 @@
 }
 .invitedToWpr .invitedTo {
   line-height: 15px;
-  max-height: 32px;
-  overflow: hidden;
 }
 .invitedToWpr .upImg {
   margin-top: 2px;
@@ -902,6 +901,7 @@
 .upMemberBoxList {
   overflow: auto;
   max-height: 215px;
+  background: #fff;
 }
 .upMemberBoxList li {
   height: 30px;

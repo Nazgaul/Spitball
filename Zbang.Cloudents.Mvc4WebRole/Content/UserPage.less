@@ -37,7 +37,15 @@
         overflow: hidden; //create new bfc so as not to cover the floated anchor
     }
     .settingsLink {
-        display: none;
+        position: relative;
+        top: 5px;
+        display: inline-block;
+        visibility: hidden;
+    }
+    .svg-settings {
+        width: 25px;
+        height: 23px;
+        fill: @borderColor;
     }
     h2 {
         font-size: 18px;
@@ -414,14 +422,7 @@
     }
     &:hover {
         .settingsLink {
-            display: inline-block;
-            position: relative;
-            top: 5px;
-            svg {
-                width: 25px;
-                height: 23px;
-                fill: @borderColor;
-            }
+            visibility: visible;
         }
     }
 }
@@ -763,8 +764,6 @@
 
     .invitedTo {
         line-height: 15px;
-        max-height: 32px;
-        overflow: hidden;
     }
 
     .upImg {
@@ -1001,6 +1000,7 @@
 .upMemberBoxList {
     overflow: auto;
     max-height: 215px;
+    background: #fff;
 
     li {
         height: 30px;
