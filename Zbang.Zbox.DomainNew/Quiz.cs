@@ -48,6 +48,8 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual ICollection<Question> Questions { get; protected set; }
 
+        public virtual ICollection<SolvedQuiz> SolvedQuizes { get; protected set; }
+
         public virtual string Url { get; set; }
 
         public virtual int Average { get; set; }

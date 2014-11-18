@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
@@ -37,6 +38,8 @@ namespace Zbang.Zbox.Domain
         public virtual Question Question { get; private set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
+
+        public virtual ICollection<SolvedQuestion> SolvedQuizAnswer { get; set; }
 
 
         public virtual void UpdateCorrectAnswer()
