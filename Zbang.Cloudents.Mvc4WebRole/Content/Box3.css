@@ -377,6 +377,10 @@
 .newActivity li.current {
   background: #ddd;
 }
+.newActivity .notify {
+  top: 12px;
+  right: 16px;
+}
 .newPosts {
   background: #3399ff;
   color: #fff;
