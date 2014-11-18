@@ -32,7 +32,6 @@
                 }
 
                 notification.isRead = true;
-
                 sNotification.setRead(notification.msgId);
 
                 $analytics.eventTrack('Notifications', {
