@@ -668,7 +668,6 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*padding: 9px 5px 0 35px; /*rtl*/
   position: relative;
   margin-top: 2px;
 }
