@@ -426,12 +426,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <param name="boxId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        /// 
         [HttpPost]
         [ZboxAuthorize]
         public JsonResult RemoveUser(long boxId, long userId)
         {
-            // var userToChangeId = m_ShortToLongCode.ShortCodeToLong(userUid, ShortCodesType.User);
             return DeleteUserFomBox(boxId, userId);
         }
         #endregion
