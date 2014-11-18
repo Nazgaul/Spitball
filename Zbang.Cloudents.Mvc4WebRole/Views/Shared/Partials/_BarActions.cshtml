@@ -1,8 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="barActions rFloat">
     <div dropdown ng-controller="NotificationsCtrl" on-toggle="updateState(open)">
-        <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
-            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+        <button type="button" class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
             <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
         </button>
         <div class="notifyWpr dropdown-menu" role="menu" height="525" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addNotifications()">

@@ -2337,7 +2337,7 @@ select.inputText {
 .barActions {
   width: 100px;
   position: relative;
-  top: 8px;
+  margin-top: 8px;
   height: 48px;
   /*&:before { // Temporarily commented out (store separator)
         .pseudo;
@@ -2581,12 +2581,12 @@ select.inputText {
   .welcomeStore .or {
     padding-top: 8px;
   }
-  .notificationBtn .invitesCounter.invitesCounter {
-    position: fixed;
-    top: 63px;
-    left: auto;
-    margin-left: -6px;
-  }
+  /*.notificationBtn .invitesCounter.invitesCounter {
+        position: fixed;
+        top: 63px;
+        left: auto; //rtl
+        margin-left: -6px; //rtl
+    }*/
 }
 /*#endregion */
 /*#region media queries */
