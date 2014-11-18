@@ -3,6 +3,9 @@
 @{
     ViewBag.data = ViewBag.data ?? null;
 }
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
 @if (ViewBag.country == "IL")
 {
     <aside class="chairman">
@@ -22,9 +25,7 @@
     </aside>
 }
 <div class="library page" ng-controller="LibChooseCtrl">  @*id="library"*@
-    <header class="siteHeader">
-        @{Html.RenderPartial("_Header");}
-    </header>
+   
     <div class="libEmpty libraryChoose" id="libraryChoose">
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>

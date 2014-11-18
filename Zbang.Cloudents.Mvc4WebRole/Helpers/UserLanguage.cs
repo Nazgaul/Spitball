@@ -108,7 +108,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             if (context.Request.IsLocal)
             {
-                userIp = "109.158.31.75";
+                //userIp = "109.158.31.75";
+                userIp = "81.218.135.73";
             }
             var ipNumber = Ip2Long(userIp);
             var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
