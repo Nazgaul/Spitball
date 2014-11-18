@@ -108,6 +108,9 @@
   width: 49%;
   display: inline-block;
 }
+.modal.uploadLink .modal-dialog {
+  background: #fff;
+}
 .modal.createTab .btn1 {
   text-transform: capitalize;
 }
@@ -373,6 +376,8 @@
 }
 .modal-dialog {
   width: auto;
+  max-height: 95vh;
+  max-width: 95vw;
   background: #FFF;
   padding: 0 20px 15px;
   border: 1px solid rgba(0, 0, 0, 0.2);

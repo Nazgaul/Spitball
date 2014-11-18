@@ -122,18 +122,15 @@
             display: inline-block;
         }
     }
-    &.privateBox, &.createTab, &.uploader, &.uploadLink, &.invite, &.personalMsg, &.rename
-	{
-		//width: 600px;
-	}
+    &.uploadLink {
+        .modal-dialog {
+            background: #fff;
+        }
+    }
     &.createTab {
         .btn1 {
             text-transform: capitalize;
         }
-    }
-    &.rename {
-        //padding-left: @leftSideBarWidth; //rtl
-        //.boxSizing;
     }
     &.deptSettings {
         //width: 600px;
@@ -429,6 +426,8 @@
 .modal-dialog {
     //position: relative;
     width: auto;
+    max-height: 95vh;
+    max-width: 95vw;
     background: #FFF;
     padding: 0 20px 15px;
     border: 1px solid rgba(0, 0, 0, 0.2);

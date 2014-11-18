@@ -829,7 +829,14 @@
         left: auto;
     }
 }
-
+/*#region Box sidebar */
+.newActivity {
+    .notify{
+        left: 16px;
+        right:auto;
+    }
+    }
+/*#endregion*/
 /*#region box folders */
 .boxMembers, .boxFolders {
     .sectionHeader {
@@ -1992,14 +1999,13 @@ body.quiz {
 
 /*#region Quiz item page */
 .quizPage {
-    /*.backWpr:before {
-        .flipH(1); //rtl
-    }*/
     .leftPanel.leftPanel {
         right: 0; /*rtl*/
         left: auto;
     }
-
+    .quizTop {
+        padding: 0 @leftSideBarWidth 0 0; //rtl
+    }
     .itemRight {
         padding: 0 @leftSideBarWidth 0 0;
         text-align: right; /*rtl*/

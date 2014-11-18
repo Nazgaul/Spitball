@@ -666,6 +666,10 @@ body.quiz .modal-backdrop.in {
   top: 0;
   width: 100%;
   z-index: 1;
+  padding-left: 290px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .quizPage .backWpr:before {
   width: 43px;
@@ -906,10 +910,10 @@ body.quiz .modal-backdrop.in {
   background: #282828;
   padding: 20px 8px;
   position: relative;
-  -webkit-transition: all 0.5s ease-in;
-  -moz-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
-  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in 1.6s;
+  -moz-transition: all 0.5s ease-in 1.6s;
+  -o-transition: all 0.5s ease-in 1.6s;
+  transition: all 0.5s ease-in 1.6s;
   opacity: 0;
   visibility: hidden;
   top: -113px;
@@ -991,16 +995,15 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px solid #797979;
   background: #282828;
-  height: 70px;
+  height: 55px;
   position: relative;
-  top: -73px;
+  top: -58px;
   z-index: 3;
-  -webkit-transition: all 0.5s ease-in 1.6s;
-  -moz-transition: all 0.5s ease-in 1.6s;
-  -o-transition: all 0.5s ease-in 1.6s;
-  transition: all 0.5s ease-in 1.6s;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
   opacity: 0;
   visibility: hidden;
 }
