@@ -1004,6 +1004,7 @@
     <Content Include="Js\services\account.js" />
     <Content Include="Js\services\modalWrapper.js" />
     <Content Include="Js\services\notificationHandler.js" />
+    <Content Include="Js\services\notificationManager.js" />
     <Content Include="Js\services\resourceManager.js" />
     <Content Include="Js\services\stacktrace.js" />
     <Content Include="Js\services\facebook.js" />

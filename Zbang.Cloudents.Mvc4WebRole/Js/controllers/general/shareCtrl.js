@@ -1,7 +1,7 @@
 ﻿app.controller('ShareCtrl',
-    ['$scope', '$rootScope', '$modalInstance','$analytics', 'sShare', 'sGoogle', 'sFocus', 'data',
+    ['$scope', '$rootScope', '$modalInstance', '$analytics', 'sShare', 'sGoogle', 'sFocus', 'sNotify', 'data',
 
-    function ($scope, $rootScope, $modalInstance, $analytics, sShare, sGoogle, sFocus, data) {
+    function ($scope, $rootScope, $modalInstance, $analytics, sShare, sGoogle, sFocus, sNotify, data) {
         "use strict";
         data = data || {};
 
@@ -78,7 +78,7 @@
                 sShare.message($scope.formData).then(function () {
                 });
                 $modalInstance.close();
-            }            
+            }
 
         }
 
@@ -113,12 +113,12 @@
 
         });
 
-        sGoogle.initGApi().then(function() {
+        sGoogle.initGApi().then(function () {
             if (sGoogle.isAuthenticated()) {
                 getGoogleContacts();
                 return;
             }
-            sGoogle.checkAuth(true).then(function() {
+            sGoogle.checkAuth(true).then(function () {
                 getGoogleContacts();
             });
         });
@@ -127,7 +127,7 @@
             $scope.formData.searchInput = null;
 
             if ($scope.formData.emailList.indexOf($item) > -1) {
-                alert('Contact already exists');//translate
+                sNotify.alert('Contact already exists');//translate
                 return;
             }
             $scope.formData.emailList.push($item);
@@ -243,7 +243,7 @@
                         return;
                     }
 
-                    alert('Contact already exists'); //translate
+                    sNotify.alert('Contact already exists'); //translate
                     return;
                 }
             }

@@ -4,7 +4,8 @@
     '$modalInstance',
     'data',
     'sLibrary',
-    function ($scope, $modalInstance, data, sLibrary) {
+    'sNotify',
+    function ($scope, $modalInstance, data, sLibrary, sNotify) {
         "use strict";
         $scope.formData = {
             UniversityId: data.university.id
@@ -22,7 +23,7 @@
             sLibrary.updateUniversity($scope.formData).then(function (response) {
                 $modalInstance.close();
             }, function (response) {
-                alert(response[0].value[0]);
+                sNotify.alert(response[0].value[0]);
             });
         };
 

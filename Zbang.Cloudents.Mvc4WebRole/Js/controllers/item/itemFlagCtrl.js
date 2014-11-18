@@ -1,8 +1,8 @@
 ﻿
 mItem.controller('itemFlagCtrl',
 [
-    '$scope', '$modalInstance', 'data', '$timeout','$analytics', 'sItem',
-function ($scope, $modalInstance, data, $timeout, $analytics, sItem) {
+    '$scope', '$modalInstance', 'data', '$timeout', '$analytics', 'sItem', 'sNotify',
+function ($scope, $modalInstance, data, $timeout, $analytics, sItem, sNotify) {
     "use strict";
     $scope.secondStep = false;
     $scope.disable = false;
@@ -19,7 +19,7 @@ function ($scope, $modalInstance, data, $timeout, $analytics, sItem) {
                 $modalInstance.close();
             }, 3000);
         }, function (response) {
-            alert(response);
+            sNotify.alert(response);
         }).finally(function () {
             $scope.disable = false;
         });

@@ -1,7 +1,7 @@
 ﻿mItem.controller('itemRenameCtrl',
 [
-    '$scope', '$modalInstance', '$analytics','data', 'sItem',
-function ($scope, $modalInstance,$analytics, data, sItem) {
+    '$scope', '$modalInstance', '$analytics','data', 'sItem','sNotify',
+function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {
     "use strict";
     $scope.formdata = {}
     $scope.formdata.newName = data.name;
@@ -19,7 +19,7 @@ function ($scope, $modalInstance,$analytics, data, sItem) {
         sItem.rename($scope.formdata).then(function (response) {
             $modalInstance.close(response);
         }, function (response) {
-            alert(response);
+            sNotify.alert(response);
         }).finally(function () {
             $scope.disable = false;
         });

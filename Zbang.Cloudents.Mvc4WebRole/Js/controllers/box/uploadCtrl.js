@@ -1,8 +1,8 @@
 ﻿app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics',
+        'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics','sNotify',
 
-    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics) {
+    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics,sNotify) {
         "use strict";
         $scope.sources = {
             dropboxLoaded: false,
@@ -72,7 +72,7 @@
                             $rootScope.$broadcast('ItemUploaded', sentObj);
                         }, function (response) {                           
                             $rootScope.$broadcast('UploadLinkError', data);
-                            alert(response);
+                            sNotify.alert(response);
                         });
 
                         data.size = 1024;

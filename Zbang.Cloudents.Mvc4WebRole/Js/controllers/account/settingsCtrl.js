@@ -1,8 +1,8 @@
 ﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount', 'resManager', '$analytics',
+    ['$scope', '$window', '$timeout', 'sAccount', '$analytics','sNotify',
 
-        function ($scope, $window, $timeout, sAccount, resManager, $analytics) {
+        function ($scope, $window, $timeout, sAccount, $analytics,sNotify) {
             "use strict";
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
@@ -54,7 +54,7 @@
 
                 sAccount.changeProfile($scope.formData).then(function () {
                     $scope.submitted = false;
-                    alert('Your settings are saved');
+                    sNotify.alert('Your settings are saved');
 
                     $analytics.eventTrack('User Information', {
                         category: 'Save Settings',
@@ -82,7 +82,7 @@
                 $scope.params.uploading = false;
 
                 if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                    alert(resManager.get('IncorrectExtension'));
+                    sNotify.tAlert('IncorrectExtension');
                 }
                 if (error.status === 401) {
                     $window.location.href = '/';
@@ -93,7 +93,7 @@
                     return;
                 }
 
-                alert(error.message);
+                sNotify.alert(error.message);
             };
 
             $scope.onFilesAdded = function () {                
@@ -135,7 +135,7 @@
 
                         $scope.emailForm = {};
 
-                        alert(resManager.get('EmailChanged'));
+                        sNotify.tAlert('EmailChanged');
                         $analytics.eventTrack('Account settings', {
                             category: 'Email Changed',
                             label: 'User changed email'
@@ -144,7 +144,7 @@
 
 
                     }, function (response) {
-                        alert(response);
+                        sNotify.alert(response);
                     });
                 }
 
@@ -175,7 +175,7 @@
                         label: 'User started changing email proccess'
                     });
                 }, function (response) {
-                    alert(response[0].value[0]);
+                    sNotify.alert(response[0].value[0]);
                 });
 
 
@@ -212,7 +212,7 @@
                 sAccount.changePassword({ currentPassword: oldPassword, newPassword: newPassword }).then(function () {
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
-                    alert(resManager.get('PwdChanged'));
+                    sNotify.tAlert('PwdChanged');
                     $analytics.eventTrack('Account settings', {
                         category: 'Password Change',
                         label: 'User changed password'
