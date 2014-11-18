@@ -7,7 +7,8 @@
   padding: 0 290px 0 0;
 }
 .itemPage .closePreview,
-.quizPage .closePreview {
+.quizPage .closePreview,
+.quizPreview .closePreview {
   margin: 12px 0 0 25px;
   /*rtl*/
 }
