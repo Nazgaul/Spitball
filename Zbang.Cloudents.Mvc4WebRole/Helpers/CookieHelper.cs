@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
@@ -31,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return default(T);
             }
-            var obj = Desialize<T>(cookie.Value);
+            var obj = DeSerialize<T>(cookie.Value);
 
             return obj as T;
         }
@@ -64,11 +65,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         }
 
-        private object Desialize<T>(string data) where T : class
+        private object DeSerialize<T>(string data) where T : class
         {
-            var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
-            var bytes = HttpServerUtility.UrlTokenDecode(data);
-            return pformatter.DeSerializeData(bytes);
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+            try
+            {
+                var pFormatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
+                var bytes = HttpServerUtility.UrlTokenDecode(data);
+                return pFormatter.DeSerializeData(bytes);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On deSerialize data is " + data, ex);
+                return null;
+            }
 
         }
     }
