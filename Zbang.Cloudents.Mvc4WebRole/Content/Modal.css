@@ -376,6 +376,8 @@
 }
 .modal-dialog {
   width: auto;
+  max-height: 95vh;
+  max-width: 95vw;
   background: #FFF;
   padding: 0 20px 15px;
   border: 1px solid rgba(0, 0, 0, 0.2);
