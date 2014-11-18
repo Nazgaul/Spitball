@@ -1,5 +1,5 @@
 ﻿mBox.controller('BoxMembersCtrl',
-        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager', 'sShare', 'sUserDetails','sFacebook',
+        ['$scope', '$filter', 'sModal', 'sBox', '$timeout', '$analytics', 'resManager', 'sShare', 'sUserDetails', 'sFacebook',
         function ($scope, $filter, sModal, sBox, $timeout, $analytics, resManager, sShare, sUserDetails, sFacebook) {
             "use strict";
             //Members
@@ -70,14 +70,14 @@
 
             $scope.reinviteUser = function (member) {
                 member.action = true;
-                
+
                 if (isNaN(member.email)) {
                     emailInvite();
                 } else {
                     facebookInvite();
                 }
 
-                function facebookInvite() {       
+                function facebookInvite() {
                     sShare.facebookInvite.box({ id: member.email, boxId: $scope.boxId }).then(openFbModal, function () {
                         member.action = false;
                     });
@@ -92,8 +92,8 @@
                             $analytics.eventTrack('Box Members', {
                                 category: 'Facebook Reinvite'
                             });
-                            $timeout(function () { member.reinvited = true; }, 50);              
-                           member.reinvitedItem = true;
+                            $timeout(function () { member.reinvited = true; }, 50);
+                            member.reinvitedItem = true;
 
                         }).finally(function () {
                             $scope.params.facebookInvite = false;
@@ -105,6 +105,9 @@
 
                 function emailInvite() {
                     sShare.invite.box({ boxId: $scope.boxId, recepients: [member.email] }).then(function () {
+                    }, function () {
+                        alert('Error')
+                    }).finally(function () {
                         member.action = false;
                     });
 
