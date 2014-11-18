@@ -36,8 +36,6 @@
                        }
                    },
                    'responseError': function (response) {
-                       return;
-                       // do something on success
                        switch (response.status) {
                            
                            case 400:
