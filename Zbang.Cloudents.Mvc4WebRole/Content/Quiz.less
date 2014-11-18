@@ -692,6 +692,8 @@ body {
         top: 0;
         width: 100%;
         z-index: 1;
+        padding-left: @leftSideBarWidth; //rtl
+        .boxSizing;
     }
     .backWpr {
         &:before {
@@ -917,7 +919,7 @@ body {
     background: #282828;
     padding: 20px 8px;
     position: relative; //for animation
-    .transition(all .5s ease-in);
+    .transition(all .5s ease-in 1.6s);
     opacity:0;
     visibility: hidden;
     top: -113px;
@@ -993,13 +995,12 @@ body {
 .timeRetakeWpr {
     padding: 10px 10px 0;
     .boxSizing;
-    border-bottom: 1px solid #797979;
     background: #282828;
-    height: 70px;
+    height: 55px;
     position: relative;
-    top: -73px;
+    top: -58px;
     z-index: 3;
-    .transition(all .5s ease-in 1.6s);
+    .transition(all .5s ease-in);
     opacity:0;
     visibility: hidden;
     .btn1 {
