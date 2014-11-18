@@ -108,6 +108,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
             result.UniversityId = university.Id;
+            result.UniversityData = university.UniversityData.Id;
             user.UpdateUniversity(university, null, null, null, null);
         }
 
