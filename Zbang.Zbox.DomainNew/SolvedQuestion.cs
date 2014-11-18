@@ -19,11 +19,11 @@ namespace Zbang.Zbox.Domain
             SolvedQuiz = solvedQuiz;
         }
         public Guid Id { get; set; }
-        public User User { get; set; }
-        public Question Question { get; set; }
-        public Answer Answer { get; set; }
-        public Quiz Quiz { get; set; }
+        public virtual User User { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual Answer Answer { get; set; }
+        public virtual Quiz Quiz { get; set; }
         public bool Correct { get; set; }
-        public SolvedQuiz SolvedQuiz { get; set; }
+        public virtual SolvedQuiz SolvedQuiz { get; set; }
     }
 }

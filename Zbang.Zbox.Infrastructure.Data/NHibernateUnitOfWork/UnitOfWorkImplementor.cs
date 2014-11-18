@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using NHibernate;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
@@ -73,8 +74,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             {
                 tx.Commit();
             }
-            catch
+            catch(Exception ex)
             {
+                TraceLog.WriteError(ex);
                 tx.Rollback();
                 throw;
             }

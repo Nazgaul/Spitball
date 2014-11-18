@@ -65,8 +65,18 @@
 .uploadInfo {
     text-align: right; //rtl
 }
+.firstRow {
+    .tooltip {
+        right: 0!important; //rtl //override js positioning
+        left: auto;
+    }
+    .tooltip-arrow {
+        border-left: none;
+        border-right: 1px solid @itemBlue; //rtl
+    }
+}
 .itemRenameBtn {
-    left: 0; //rtl
+    left: 20px; //rtl
     right: auto;
 }
 

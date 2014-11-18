@@ -57,6 +57,11 @@
       <key column="BoxId" />
       <one-to-many class="Updates"/>
     </bag>
+
+    <bag name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="BoxId" />
+      <one-to-many class="InviteToBox"/>
+    </bag>
     
     <property name="MembersCount" >
       <column name="MembersCount" default="0" not-null="true"/>

@@ -63,8 +63,16 @@
 .uploadInfo {
   text-align: right;
 }
+.firstRow .tooltip {
+  right: 0!important;
+  left: auto;
+}
+.firstRow .tooltip-arrow {
+  border-left: none;
+  border-right: 1px solid #3399ff;
+}
 .itemRenameBtn {
-  left: 0;
+  left: 20px;
   right: auto;
 }
 .item-name {

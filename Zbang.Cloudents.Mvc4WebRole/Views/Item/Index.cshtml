@@ -62,9 +62,9 @@
 
     <div class="leftPanel lFloat">
         <div class="firstRow">
-            <h2 class="item-name elps lFloat">
-                <span tooltip="{{item.name}}">{{item.name}}</span>
-                <button class="itemRenameBtn" tooltip="@SharedResources.Rename" type="button" ng-click="renameWindow()">
+            <h2 class="lFloat">
+                <span class="item-name elps" tooltip="{{item.name}}">{{item.name}}</span>
+                <button class="itemRenameBtn" title="@SharedResources.Rename" type="button" ng-click="renameWindow()">
                     @Html.Svg("~/Images/Defs.svg", "pencil", new { @class = "svg-pencil" })
                 </button>
             </h2>
