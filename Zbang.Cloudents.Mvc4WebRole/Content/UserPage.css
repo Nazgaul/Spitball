@@ -117,6 +117,7 @@
   width: 28px;
   height: 40px;
   line-height: 40px;
+  background: #fff;
   border-radius: 3px;
   color: #39434a;
   font-size: 26px;
@@ -212,6 +213,8 @@
 }
 .uploadsItem .upImg {
   top: 0;
+  border-radius: 0;
+  border: 1px solid #c2c2c2;
 }
 .uploadsItem .views {
   margin: 0 0 0 12px;
@@ -268,6 +271,7 @@
   color: #39434a;
 }
 .qaWpr {
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 10px 5px 5px 10px;
@@ -332,6 +336,7 @@
 }
 .qaMore:hover {
   color: #0371c8;
+  background: #fff;
 }
 .emptyQuestions:before,
 .emptyAnswers:before {
@@ -382,6 +387,7 @@
   top: 20px;
   left: 0;
   /*rtl*/
+  border: 5px solid #fff;
   border-radius: 100%;
 }
 .upSchool {
@@ -414,6 +420,7 @@
   display: block;
 }
 .upSectionWpr {
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-bottom: none;
   border-radius: 8px 8px 0 0;
@@ -538,6 +545,7 @@
   transition: height 0.5s;
 }
 .followingList .btn3 {
+  background: #fff;
   border: 1px solid #0371c8;
   padding: 3px 18px;
   position: absolute;
@@ -710,6 +718,7 @@
   border: 1px solid #c2c2c2;
   border-radius: 8px;
   margin-top: 10px;
+  background: #fff;
   position: relative;
 }
 .upMembers .membersContent .emptySearch {
@@ -831,6 +840,7 @@
   width: 279px;
   height: 241px;
   overflow: auto;
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
 }
@@ -880,6 +890,7 @@
 .upMemberBoxes {
   width: 240px;
   max-height: 247px;
+  background: #fff;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   /*display: none;*/

@@ -39,6 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
+        [RemoveBoxCookie]
         public async Task<ActionResult> File(long boxId, string fileName,
             long fileSize, Guid? tabId)
         {
@@ -189,6 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize]
+        [RemoveBoxCookie]
         public async Task<ActionResult> Link(AddLink model)
         {
             if (!ModelState.IsValid)
@@ -242,6 +244,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize]
+        [RemoveBoxCookie]
         public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId)
         {
 

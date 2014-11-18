@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -8,8 +10,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsOutsputCacheProvider : System.Web.Caching.OutputCacheProvider
     {
-        readonly Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider m_Cache 
+        readonly Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider m_Cache
             = new Microsoft.Web.DistributedCache.DistributedCacheOutputCacheProvider();
+
+        readonly string m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version
+            + ConfigurationManager.AppSettings["DataCache"];
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
@@ -22,27 +27,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 TraceLog.WriteError("CloudentsOutsputCacheProvider Initialize", ex);
             }
-            
+
         }
         public override object Add(string key, object entry, DateTime utcExpiry)
         {
             try
             {
-                return m_Cache.Add(key, entry, utcExpiry);
+                return m_Cache.Add(m_CachePrefix + key, entry, utcExpiry);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("CloudentsOutsputCacheProvider Add", ex);
                 return m_Cache;
             }
-            
+
         }
 
         public override object Get(string key)
         {
             try
             {
-                return m_Cache.Get(key);
+                return m_Cache.Get(m_CachePrefix + key);
             }
             catch (Exception ex)
             {
@@ -55,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                m_Cache.Remove(key);
+                m_Cache.Remove(m_CachePrefix + key);
             }
             catch (Exception ex)
             {
@@ -67,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             try
             {
-                m_Cache.Set(key, entry, utcExpiry);
+                m_Cache.Set(m_CachePrefix + key, entry, utcExpiry);
             }
             catch (Exception ex)
             {
