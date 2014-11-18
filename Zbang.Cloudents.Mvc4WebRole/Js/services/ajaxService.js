@@ -17,7 +17,7 @@
                     params: data
                 };
                 if (!noCache) {
-                    ttl = ttl || 30000; //default to 1 mins
+                    ttl = ttl || 15000; //default to 30 seconds
                     getObj.cache = getCache(ttl);
                 }
                 $http.get(url, getObj).success(function (response) {
@@ -71,7 +71,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/Error/JsLog',
+                url: '/error/jslog/',
                 contentType: 'application/json',
                 data: angular.toJson({
                     errorUrl: url,
