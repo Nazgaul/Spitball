@@ -1,6 +1,6 @@
 ﻿mAccount.controller('NotificationSettingsCtrl',
-    ['$scope', 'sBox', 'sUser',
-        function ($scope, sBox, sUser) {
+    ['$scope', 'sBox', 'sUser', '$analytics',
+        function ($scope, sBox, sUser, $analytics) {
             "use strict";
 
             $scope.params = {
