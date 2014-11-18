@@ -1,12 +1,12 @@
 ﻿app.factory('sNotification',
-    ['$rootScope', 'sShare', '$timeout',
-    function ($rootScope, sShare, $timeout) {
+    ['$rootScope', 'sShare', '$interval',
+    function ($rootScope, sShare, $interval) {
         "use strict";
 
         var notifications;
         getNotifications();
 
-        $timeout(checkNotifications, 60000);
+        $interval(checkNotifications, 60000);
 
 
         var service = {
@@ -65,12 +65,14 @@
                     newNotifications = true;
 
                 });
-            });
-            if (!newNotifications) {
-                return;
-            }
 
-            $rootScope.$broadcast('newNotifications')
+                if (!newNotifications) {
+                    return;
+                }
+
+                $rootScope.$broadcast('newNotifications')
+            });
+         
         }
         function getById(id) {
             return _.find(notifications, function (notification) {
