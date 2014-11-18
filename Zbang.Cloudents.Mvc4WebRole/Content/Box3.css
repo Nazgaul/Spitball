@@ -327,11 +327,11 @@
   overflow: hidden;
   -ms-word-break: break-word;
   word-break: break-word;
-  max-height: 53px;
+  max-height: 55px;
   margin: 12px 0;
   display: inline-block;
   font-weight: normal;
-  line-height: 26px;
+  line-height: 27px;
 }
 .boxTop .imgBorder {
   background: #fff;
