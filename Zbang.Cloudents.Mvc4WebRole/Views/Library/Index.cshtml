@@ -75,7 +75,7 @@
             {
                 <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
             }
-            <div class="dashHeader" ng-controller="NotificationsCtrl">
+            <div class="dashHeader">
                 @{Html.RenderPartial("_BarActions");}
                 <div class="dhContent">
                     <span bo-if="!info.libraryId" class="topLevel dhText">@MainViewResources.AllDepartments</span>

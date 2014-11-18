@@ -4,10 +4,9 @@
             "use strict";
 
             $scope.params = {
-                notificationsListLength: 12,
-                notificationsListPage: 12
-            };
-
+                notificationsListLength: 7,
+                notificationsListPage: 7,
+            };            
          
             getDetails();
 
@@ -18,9 +17,9 @@
                     label: 'User ' + ($scope.params.wasOpened ? 'closed' : 'opened') + ' notifications'
                 });
 
-                $scope.params.wasOpened = !$scope.params.wasOpened;
-
             };
+
+
             $scope.markAsRead = function (notification) {
 
                 if (notification.url === $location.path()) {
@@ -59,11 +58,19 @@
 
             $scope.addNotifications = function () {
                 $scope.params.notificationsListLength += $scope.params.notificationsListPage;
-            };           
+            };
+
+            $scope.updateState = function (isOpen) {
+                if (!isOpen) {
+                    return;
+                }
+
+                $scope.$broadcast('update-scroll');
+            }
 
             function getDetails() {
                 $scope.notifications = sNotification.getAll();
-                $scope.params.newNotifications = sNotification.getUnreadLength();
+                $scope.params.newNotifications = sNotification.getUnreadLength();              
             }
 
         }]);

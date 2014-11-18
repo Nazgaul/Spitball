@@ -159,8 +159,8 @@
   border: none;
 }
 .notifyList {
-  max-height: 525px;
-  overflow: auto;
+  /*max-height: 525px;
+    overflow: auto;*/
   color: #fff;
   overflow-x: hidden;
   margin-right: -15px;
