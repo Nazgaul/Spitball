@@ -56,7 +56,7 @@
     //#region togglevideo
     videoWrapper.addEventListener('click', function () {
         cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
-        this.className += ' open';       
+        videoWrapper.className += ' open';
         if (homeVideo.readyState) {
             homeVideo.currentTime = 0;
         }
