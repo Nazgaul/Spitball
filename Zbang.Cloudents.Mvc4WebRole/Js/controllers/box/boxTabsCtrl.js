@@ -5,7 +5,7 @@
             $scope.params = {};
 
             sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
-                $scope.params.tabs = tabs;
+                $scope.params.tabs = $filter('orderBy')(tabs, 'name');
                 $rootScope.$broadcast('update-scroll');
             });
 
@@ -70,7 +70,8 @@
                             if (!$scope.params.tabs) {
                                 $scope.params.tabs = [];
                             }
-                            $scope.params.tabs.unshift(tab);
+                            $scope.params.tabs.push(tab);
+                            $scope.params.tabs = $filter('orderBy')($scope.params.tabs, 'name');
                             $rootScope.$broadcast('update-scroll');
                         }
                     }
