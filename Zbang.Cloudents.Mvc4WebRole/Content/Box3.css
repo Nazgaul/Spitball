@@ -378,8 +378,16 @@
   background: #ddd;
 }
 .newActivity .notify {
-  top: 12px;
   right: 16px;
+}
+.newActivity .feedTab .notify {
+  top: 12px;
+}
+.newActivity .itemTab .notify {
+  top: 52px;
+}
+.newActivity .quizTab .notify {
+  top: 92px;
 }
 .newPosts {
   background: #3399ff;
