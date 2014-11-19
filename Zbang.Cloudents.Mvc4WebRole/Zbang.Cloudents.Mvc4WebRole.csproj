@@ -954,6 +954,7 @@
     <Content Include="Js\filters\defaultImage.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\filters\kNumber.js" />
+    <Content Include="Js\HomePage.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
