@@ -8,6 +8,7 @@
         closeMenu = document.querySelector('.sideBar .closeMenu');
 
     highlightPage();
+    homeVideo.load();
 
 
 
@@ -56,16 +57,17 @@
     //#region togglevideo
     videoWrapper.addEventListener('click', function () {
         cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
+        mVideo.style.display = 'block';
         setTimeout(function () {
             videoWrapper.className += ' open';
-        }, 20);
+        }, 0);
         
         if (homeVideo.readyState) {
             homeVideo.currentTime = 0;
         }
         setTimeout(function () {
             homeVideo.play();
-        }, 600);
+        }, 500);
 
     });
 
@@ -73,11 +75,14 @@
         if (e.target.id === 'homeVideo') {
             return;
         }
-        videoWrapper.className = 'videoWpr';
-        if (homeVideo.readyState) {
-            homeVideo.currentTime = 0;
-        }
-        homeVideo.pause();
+        mVideo.style.display = 'none';
+        setTimeout(function () {
+            videoWrapper.className = 'videoWpr';
+        }, 0);
+        //if (homeVideo.readyState) {
+        //    homeVideo.currentTime = 0;
+        //}
+        homeVideo.load();
 
     });
 

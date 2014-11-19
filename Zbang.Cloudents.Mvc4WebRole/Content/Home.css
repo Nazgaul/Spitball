@@ -317,10 +317,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  -webkit-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
-  -moz-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
-  -o-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
-  transition: transform 0.3s 0.3s, opacity 0.3s 3s;
+  -webkit-transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
+  -moz-transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
+  -o-transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
+  transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
 }
 .language {
   background: #39434a;
