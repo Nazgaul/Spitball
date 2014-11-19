@@ -3,6 +3,7 @@
     var headerSettings = document.getElementsByClassName('headerSettings')[0],
         headerWrapper = document.getElementsByClassName('headerWpr')[0],
         videoWrapper = document.getElementById('VideoWpr'),
+        homeVideo = document.getElementById('homeVideo'),
         mVideo = document.getElementById('mVideo'),
         closeMenu = document.querySelector('.sideBar .closeMenu');
 
@@ -53,45 +54,40 @@
     //#endregion
 
     //#region togglevideo
-    videoWrapper.addEventListener('click',function () {
-        cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');                
-        this.className += ' open';
-        var video = this;
-        if (video.readyState) {
-            video.currentTime = 0;
+    videoWrapper.addEventListener('click', function () {
+        cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
+        this.className += ' open';       
+        if (homeVideo.readyState) {
+            homeVideo.currentTime = 0;
         }
-        video.play();
-       
+        setTimeout(function () {
+            homeVideo.play();
+        }, 600);
+
     });
 
-    mVideo.addEventListener('click',function (e) {
+    mVideo.addEventListener('click', function (e) {
         if (e.target.id === 'homeVideo') {
             return;
-        }        
-        
-        videoWrapper.className = 'vidoeWrapper';
-
-        var video = this;
-        if (video.readyState) {
-            video.currentTime = 0;
         }
-        video.pause();
+        videoWrapper.className = 'vidoeWrapper';
+        if (homeVideo.readyState) {
+            homeVideo.currentTime = 0;
+        }
+        homeVideo.pause();
 
     });
 
     //#endregion
+
+
+    //$('.currentItem').removeClass('currentItem');
+    //var url = location.pathname.toLowerCase() + location.hash;
+    //if (url === "/account/") {
+    //    $('aside').find('li:first').addClass('currentItem');
+    //} else {
+    //    $('aside').find('a[href$="' + url + '"]').parent().addClass('currentItem');
+    //}
     //#endregion
 
-});
-
-
-//$('.currentItem').removeClass('currentItem');
-//var url = location.pathname.toLowerCase() + location.hash;
-//if (url === "/account/") {
-//    $('aside').find('li:first').addClass('currentItem');
-//} else {
-//    $('aside').find('a[href$="' + url + '"]').parent().addClass('currentItem');
-//}
-//#endregion
-
-})(window,window.document);
+})(window, window.document);
