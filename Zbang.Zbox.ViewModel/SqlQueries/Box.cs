@@ -30,7 +30,8 @@ select
 ItemTabId as id
 ,itemtabname as name
  from zbox.ItemTab
-where boxid = @BoxId;";
+where boxid = @BoxId
+order by name;";
 
 
         public const string GetBoxQuestion = @"
