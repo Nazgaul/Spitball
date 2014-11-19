@@ -460,11 +460,10 @@
   z-index: 1;
 }
 .notificationBtn {
-  position: relative;
-  top: 13px;
-}
-.notificationBtn .invitesCounter {
-  top: -8px;
+  margin-top: 13px;
+  /*.invitesCounter {
+        top: -8px;
+    }*/
 }
 .notificationBtn:hover svg {
   fill: #d1294d;

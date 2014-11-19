@@ -32,9 +32,11 @@
         border: 1px solid #fff;
         box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
+
     .boxesHeader .topLevel.topLevel {
-        padding: 7px 0 0;//override
+        padding: 7px 0 0; //override
     }
+
     .dashLibTop {
         &:hover {
             background: #ebebeb;
@@ -48,6 +50,7 @@
     line-height: 100%;
     padding: 26px 0;
 }
+
 .boxesHeader.topBar {
     top: 50px;
     left: 0; /*rtl*/
@@ -99,6 +102,7 @@
     position: relative;
     left: -4px; //rtl
     top: 24px;
+
     .svg-settings {
         width: 25px;
         height: 23px;
@@ -218,7 +222,7 @@
         label {
             display: block;
             text-align: left; /*rtl*/
-            font-size:14px;
+            font-size: 14px;
         }
 
         .inputText {
@@ -306,6 +310,7 @@
 .setupCourse {
     color: #fff;
     margin: 0 -30px;
+
     .topWpr {
         height: 350px;
         background: #282828;
@@ -331,10 +336,11 @@
         width: 19px;
         height: 19px;
     }
+
     .svg-doc {
         width: 38px;
-        height: 43px; 
-        position: static; //overrride  
+        height: 43px;
+        position: static; //overrride
     }
 }
 
@@ -346,6 +352,7 @@
     vertical-align: top;
     line-height: 14px;
     min-width: 265px;
+
     svg {
         fill: @color;
         margin-right: 10px; //rtl
@@ -440,7 +447,7 @@
     text-align: center;
 }
 
- .groupEmpty { //, .followEmpty{
+.groupEmpty { //, .followEmpty{
     h2 {
         font-size: 22px;
     }
@@ -471,38 +478,47 @@
     .open .svg-notification {
         fill: #d1294d;
     }
+
     &:hover {
         .boxRename {
             visibility: visible;
         }
     }
+
     .svg-settings {
         fill: #c2c2c2;
     }
+
     &.setup {
         height: 47px; //override
         line-height: 47px; //override
         .dhText, .svg-inviteUser {
             display: none;
         }
+
         .searchInputWpr {
             position: absolute;
             top: 145px;
-            left: 0;right: 0;
+            left: 0;
+            right: 0;
             margin: auto;
             width: 420px;
             z-index: 1;
         }
-        .dashLibSearchInput  {
+
+        .dashLibSearchInput {
             margin: 0;
+
             ~ button {
                 float: right; //rtl
             }
         }
+
         .svg-search {
             right: 13px; //rtl
             top: 6px;
         }
+
         .barActions {
             position: absolute;
             right: 28px; //rtl
@@ -510,18 +526,22 @@
         }
     }
 }
+
 .notificationBtn {
-    position: relative;
-    top: 13px;
-    .invitesCounter {
+    //position: relative;
+    margin-top: 13px;
+
+    /*.invitesCounter {
         top: -8px;
-    }
+    }*/
+
     &:hover {
         svg {
             fill: #d1294d;
         }
     }
 }
+
 .helpLink {
     display: inline-block;
     vertical-align: middle;
@@ -530,17 +550,19 @@
     position: relative;
     top: 14px;
 }
+
 .storeLink {
     position: relative;
     top: 4px;
 }
+
 .dhContent {
     //overflow: hidden; Why was this here? (It hides the search results)
-    
     svg {
         fill: #fff;
     }
 }
+
 .searchInputWpr {
     position: relative;
     display: inline-block;
@@ -554,6 +576,7 @@
         top: 22px;
         cursor: pointer;
     }
+
     .dashLibSearchInput {
         width: 420px;
         border: 1px solid @borderColor;
@@ -563,20 +586,24 @@
         vertical-align: top;
         color: @textColor;
         .placeholderColor(@borderColor);
+
         &:focus {
             ~ svg {
                 fill: @textColor;
             }
         }
     }
+
     + button .svg-inviteUser {
         position: relative;
         top: 5px;
+
         &:hover {
             fill: @color;
         }
     }
 }
+
 .dhText {
     font-size: 28px;
     color: #fff;
@@ -686,10 +713,10 @@
         }
     }
 
-     .customError {
+    .customError {
         display: inline-block;
         color: @errorColor;
-       }
+    }
 }
 
 
@@ -726,6 +753,7 @@
         margin: 0 0 -213px 0; //override
         min-height: 213px;
     }
+
     .deptChooseWpr {
         display: none;
         width: 602px;
@@ -735,20 +763,24 @@
         margin: 30px 0 16px;
         background: #eee;
         border-radius: 5px;
+
         header {
             position: relative;
             top: -30px;
             font-size: 18px;
         }
     }
+
     .chooseDept {
         display: block; //override
         .department, .courseName, .courseId, .professor {
             display: none;
         }
+
         .deptChooseWpr {
             display: block;
         }
+
         .libraryList {
             position: relative;
             .scale(.74);
@@ -760,15 +792,18 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
+
         .deptLink:before {
             top: -17px;
         }
+
         .addDep {
             border: 2px dashed #bcbcbc;
             height: 82px;
             padding-top: 31px;
             .boxSizing;
         }
+
         .addBtn:focus {
             outline: none;
         }
@@ -878,6 +913,7 @@
 
     button {
         margin: 15px 0 33px;
+
         &:disabled {
             opacity: .1;
         }
@@ -888,6 +924,7 @@
         height: 70px;
         fill: #282828;
     }
+
     .fbBtn {
         margin: 15px 60px 33px 60px;
     }
@@ -1128,10 +1165,12 @@
     margin: 0 -25px -70px -25px;
     background: #eee;
     border-radius: 0 0 5px 5px;
+
     ~ .btnWpr {
         position: relative;
         top: 20px;
     }
+
     button {
         display: inline-block;
         font-size: 18px;
@@ -1206,9 +1245,11 @@
         }
     }
 }
+
 .libraryList {
     margin-top: 42px;
 }
+
 .libraryList, .myAreaList {
     display: block;
     clear: both;
@@ -1414,7 +1455,7 @@
         }
     }
     // ('add course' btn has classes 'box' and 'libraryItem')
-    &.libraryItem  {
+    &.libraryItem {
         width: 222px;
     }
 
@@ -1601,19 +1642,22 @@
         background-position: -214px -43px;
     }
 }
+
 .addDep {
     margin-right: 14px; //rtl
 }
+
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryList > .libraryItem + .box {
     border: 1px dashed #bcbcbc;
     display: inline-block;
-    float:left;//rtl
+    float: left; //rtl
     box-shadow: none;
     font-size: 18px;
     color: #bcbcbc;
     width: 222px;
+
     &:hover {
         color: @color;
     }
@@ -1624,7 +1668,8 @@
     border-radius: 5px;
     padding: 13px 0 10px;
 }
-.libraryList > .libraryItem + .box { 
+
+.libraryList > .libraryItem + .box {
     height: 125px;
 }
 

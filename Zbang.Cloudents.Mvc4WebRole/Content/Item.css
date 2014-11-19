@@ -194,6 +194,9 @@
   font-size: 15px;
   margin-bottom: 20px;
 }
+.uploadInfo .itemOwner {
+  width: 160px;
+}
 .uploadInfo .itemOwner,
 .uploadInfo time {
   display: inline-block;
