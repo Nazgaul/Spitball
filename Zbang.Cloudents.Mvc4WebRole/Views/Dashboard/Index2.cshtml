@@ -23,13 +23,17 @@
                 </header>
                 <div class="podium"></div>
                 <ol class="bestUserList" bindonce>
-                    <li ng-if="leaderBoard.first" class="firstUser" >
-                        <a bo-href="leaderBoard.first.url"><img class="top3Img" bo-src="leaderBoard.first.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.first.id}}" /></a>
+                    <li ng-if="leaderBoard.first" class="firstUser">
+                        <a bo-href="leaderBoard.first.url" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
+                            <img class="top3Img" bo-src="leaderBoard.first.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.first.id}}" />
+                        </a>
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
                         <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.first.score | kNumber"></div>
                     </li>
                     <li ng-if="leaderBoard.second" class="secondUser lFloat">
-                        <a bo-href="leaderBoard.second.url"><img class="top3Img" bo-src="leaderBoard.second.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.second.id}}" /></a>
+                        <a bo-href="leaderBoard.second.url" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked second place">
+                            <img class="top3Img" bo-src="leaderBoard.second.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.second.id}}" />
+                        </a>
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                         <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.second.score | kNumber"></div>
                     </li>
@@ -39,7 +43,9 @@
                     </li>
 
                     <li ng-if="leaderBoard.third" class="thirdUser rFloat">
-                        <a bo-href="leaderBoard.third.url"><img class="top3Img" bo-src="leaderBoard.third.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.third.id}}" /></a>
+                        <a bo-href="leaderBoard.third.url" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked third place">
+                            <img class="top3Img" bo-src="leaderBoard.third.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.third.id}}" />
+                        </a>
                         @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
                         <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
                     </li>
@@ -63,7 +69,7 @@
                 <ul>
                     <li class="recommended" ng-repeat="course in recommendedCourses">
 
-                        <a bo-href="course.url" class="courseLink">
+                        <a bo-href="course.url" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
                             <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
                                 <div class="vCentered">
                                     <div class="courseName" bo-text="course.name"></div>

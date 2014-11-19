@@ -1498,10 +1498,10 @@ aside.sideBar li.currentItem {
 aside.sideBar .last {
   margin-bottom: 30px;
 }
-.en-US a:first-item {
+.en-US > a:first-child {
   color: #a7a7a7;
 }
-.en-US li:firstitem {
+.en-US li:first-child {
   opacity: 1;
 }
 .en-GB a:nth-child(2) {
