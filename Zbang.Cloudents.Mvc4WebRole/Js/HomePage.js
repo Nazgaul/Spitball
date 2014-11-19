@@ -56,7 +56,10 @@
     //#region togglevideo
     videoWrapper.addEventListener('click', function () {
         cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
-        videoWrapper.className += ' open';
+        setTimeout(function () {
+            videoWrapper.className += ' open';
+        }, 20);
+        
         if (homeVideo.readyState) {
             homeVideo.currentTime = 0;
         }
@@ -70,7 +73,7 @@
         if (e.target.id === 'homeVideo') {
             return;
         }
-        videoWrapper.className = 'vidoeWrapper';
+        videoWrapper.className = 'videoWpr';
         if (homeVideo.readyState) {
             homeVideo.currentTime = 0;
         }

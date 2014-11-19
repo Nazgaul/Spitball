@@ -277,20 +277,50 @@ body {
 .videoWpr:hover:after {
   background-position: -80px -4px;
 }
-.vidoeWrapper {
+.videoWpr.open ~ .videoWrapper {
+  display: block;
+}
+.videoWpr.open ~ .videoWrapper .video {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+.videoWrapper {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: none repeat scroll 0 0 rgba(17, 17, 17, 0.8);
+  background: rgba(17, 17, 17, 0.8);
   z-index: 5;
 }
 .video {
   opacity: 0;
-  width: 75%;
-  background: #000;
+  -webkit-transform: scale(0.01);
+  -moz-transform: scale(0.01);
+  -ms-transform: scale(0.01);
+  -o-transform: scale(0.01);
+  transform: scale(0.01);
+  width: 75vw;
+  height: 42.1875vw;
+  /* ratio = 9/16 * 75 = 42.1875 */
+  max-height: 75vh;
+  max-width: 133.3333vh;
+  /* 16/9 * 75 = 133.33 */
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
+  -moz-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
+  -o-transition: transform 0.3s 0.3s, opacity 0.3s 3s;
+  transition: transform 0.3s 0.3s, opacity 0.3s 3s;
 }
 .language {
   background: #39434a;
