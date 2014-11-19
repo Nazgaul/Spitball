@@ -309,7 +309,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterJsRegular("home",
                 new JsFileWithCdn("~/Js/Logon.js"),
-                new JsFileWithCdn("~/Js/Welcome.js"));
+                new JsFileWithCdn("~/Js/HomePage.js"));
             RegisterJsRegular("homeMobile",
                 new JsFileWithCdn("~/Js/Mobile/Logon.js"),
                 new JsFileWithCdn("~/Js/Mobile/Welcome.js"));
