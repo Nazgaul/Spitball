@@ -332,6 +332,25 @@
    ]);
 
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
+
+
+        //analytics
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+
+
+        //ga('require', 'displayfeatures');
+        //if (location.pathname.indexOf('account')) {
+        //    ga('send', 'pageview');
+        //}
+
+
+
         sVerChecker.checkVersion();        
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);       
@@ -340,7 +359,16 @@
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
-            if (!previous) {
+            if (!previous) { //no previous firsttime load
+
+                ga('create', 'UA-9850006-3', {
+                    'userId': sUserDetails.getDetails().id,
+                    'siteSpeedSampleRate': 70,
+                    'cookieDomain': 'cloudents.com',
+                    'alwaysSendReferrer': true
+                });
+
+
                 try {
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {
