@@ -893,7 +893,6 @@
     <Content Include="Images\web_upload.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\app.js" />
-    <Content Include="Js\Autocomplete.js" />
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
@@ -945,8 +944,6 @@
     <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\DataContext2.js" />
-    <Content Include="Js\Dialog.js" />
-    <Content Include="Js\Dialog2.js" />
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
@@ -958,7 +955,6 @@
     <Content Include="Js\filters\defaultImage.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\filters\kNumber.js" />
-    <Content Include="Js\GenericEvents.js" />
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
@@ -982,9 +978,7 @@
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
-    <Content Include="Js\GenericEvents2.js" />
     <Content Include="Js\GmfcnHandler.js" />
-    <Content Include="Js\InviteViewModel2.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\modules\carousel.js" />
@@ -992,10 +986,7 @@
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\wizard.js" />
     <Content Include="Js\Navigation2.js" />
-    <Content Include="Js\NotificationsViewModel.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\Search.js" />
-    <Content Include="Js\SearchDropDown.js" />
     <Content Include="Js\services\ajaxService.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\cookies.js" />
@@ -1028,7 +1019,6 @@
     </Content>
     <Content Include="Js\DataContext.js" />
     <Content Include="Js\externalScriptsInitializer.js" />
-    <Content Include="Js\Invite.js" />
     <Content Include="Js\Mobile\MAccountSettings.js" />
     <Content Include="Js\Mobile\MBaseViewModel.js" />
     <Content Include="Js\Mobile\MBoxesViewModel.js" />
@@ -1044,9 +1034,7 @@
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\services\versionChecker.js" />
-    <Content Include="Js\SocialConnect.js" />
     <Content Include="Js\Statistics.js" />
-    <Content Include="Js\Tooltip.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />
     <Content Include="Js\Utils.js" />
