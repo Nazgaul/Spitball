@@ -1,5 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails','$analytics',
-    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify',
+    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics, sNotify) {
         "use strict";
         function Question(data) {
             data = data || {};
@@ -246,7 +246,7 @@
                     postDelete();
 
 
-                },20);
+                }, 20);
                 return;
             }
 
@@ -255,7 +255,7 @@
             function postDelete() {
                 sQuiz.question.delete({ id: question.id });
             }
-            
+
         };
 
         $scope.addTabAnswer = function (e, question, answer) {
@@ -287,11 +287,11 @@
             if (index === -1) {
                 return; //something went wrong
             }
-         
+
             question.answers.splice(index, 1);
             $rootScope.$broadcast('update-scroll');
 
-          
+
             $analytics.eventTrack('Quiz Create', {
                 category: 'Remove Answer'
             });
@@ -317,7 +317,7 @@
             postDelete();
 
             function postDelete() {
-                sQuiz.answer.delete({ id: answer.id});
+                sQuiz.answer.delete({ id: answer.id });
             }
 
             //TODO analytics
@@ -397,22 +397,22 @@
         //#region helpers
         var creatingQuiz = false, creatingQuestion = false,
             createQuiz = function () {
-            if(creatingQuiz) {
-                return;
-            }
-            creatingQuiz=true;
+                if (creatingQuiz) {
+                    return;
+                }
+                creatingQuiz = true;
 
-            return sQuiz.create({
-                boxId: $scope.quiz.courseId,
-                name: $scope.quiz.name
-            }).then(function (data) {
-                $scope.quiz.id = data;
-                addItemToBox(false);
-                return data;
-            }).finally(function () {
-                creatingQuiz = false;
-            });
-        };
+                return sQuiz.create({
+                    boxId: $scope.quiz.courseId,
+                    name: $scope.quiz.name
+                }).then(function (data) {
+                    $scope.quiz.id = data;
+                    addItemToBox(false);
+                    return data;
+                }).finally(function () {
+                    creatingQuiz = false;
+                });
+            };
         var createQuestion = function (question) {
 
             if (creatingQuestion) {
@@ -579,7 +579,7 @@
                 $scope.params.showCreateQuiz = false;
                 $rootScope.options.quizOpen = false;
             }, function (data) {
-                alert(data);
+                sNotify.alert(data);
             });
         };
 
@@ -601,7 +601,7 @@
             $scope.quiz.showPreview = false;
         });
 
-    }]).directive('quizPreview', ['$rootScope','$timeout', function ($rootScope,$timeout) {
+    }]).directive('quizPreview', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return function (scope, element, attrs) {
             "use strict";
             scope.$watch(attrs.show,

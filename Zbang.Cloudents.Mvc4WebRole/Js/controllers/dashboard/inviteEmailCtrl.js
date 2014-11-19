@@ -1,8 +1,8 @@
 ﻿
 angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
-    ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout','$analytics',
-         function ($scope, $routeParams, sShare, sFocus, $timeout, $analytics) {
+    ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout','$analytics','sNotify',
+         function ($scope, $routeParams, sShare, sFocus, $timeout, $analytics,sNotify) {
              "use strict";
              var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/),
                  sendFunc, sendObj = {};
@@ -136,7 +136,7 @@ angular.module('InviteEmail', []).
                      if (isAutoAdd) {
                          return;
                      }
-                     alert('Contact already exists'); //translate
+                     sNotify.alert('Contact already exists'); //translate
                      return;
                  }
 

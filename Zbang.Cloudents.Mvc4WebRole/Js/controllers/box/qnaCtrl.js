@@ -1,6 +1,6 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager) {
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify',
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager,sNotify) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -106,7 +106,7 @@
 
                 $scope.postQuestion = function () {
                     if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') {
-                        alert(resManager.get('NeedToFollowBox'));
+                        sNotify.tAlert('NeedToFollowBox');
                         return;
                     }
 
@@ -149,7 +149,7 @@
                         //cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
 
                     }, function () {
-                        alert('Error');
+                        sNotify.alert('Error');
                     });
                 };
 
@@ -160,7 +160,7 @@
                 $scope.postAnswer = function (question) {
 
                     if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') { //parent is box controller
-                        alert(resManager.get('NeedToFollowBox'));
+                        sNotify.tAlert('NeedToFollowBox');
                         return;
                     }
 
@@ -207,7 +207,7 @@
                         question.aFormData = {};
 
                     }, function () {
-                        alert('Error');
+                        sNotify.alert('Error');
                     });
                 };
 
@@ -238,7 +238,7 @@
                         var index = obj.files.indexOf(item);
                         obj.files.splice(index, 1);
                     }, function (response) {
-                        alert(response);
+                        sNotify.alert(response);
                     });
 
                     $analytics.eventTrack('Box Feed', {

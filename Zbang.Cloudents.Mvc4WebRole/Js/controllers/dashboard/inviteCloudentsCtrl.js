@@ -1,7 +1,7 @@
 ﻿
 mDashboard.controller('InviteCloudentsCtrl',
-        ['$scope', '$q', 'sFacebook', '$modalInstance','$analytics', 'sShare',
-        function ($scope, $q, sFacebook, $modalInstance, $analytics, sShare) {
+        ['$scope', '$q', 'sFacebook', '$modalInstance', '$analytics', 'sShare', 'sNotify',
+        function ($scope, $q, sFacebook, $modalInstance, $analytics, sShare, sNotify) {
             "use strict";
             $scope.inviteCloudents = true;
             $scope.next = function () {
@@ -14,7 +14,7 @@ mDashboard.controller('InviteCloudentsCtrl',
 
             $scope.invite = function (contact) {
                 sShare.invite.cloudents({ recepients: [contact.id] }).then(function () { }, function () {
-                    alert('Error');
+                    sNotify.alert('Error');
                 });
             };
 
@@ -49,7 +49,7 @@ mDashboard.controller('InviteCloudentsCtrl',
                     });
 
                 }, function (response) {
-                    alert(response);
+                    sNotify.alert(response);
                     dfd.reject();
                 });
                 return dfd.promise;

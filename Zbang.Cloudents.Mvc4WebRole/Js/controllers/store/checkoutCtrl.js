@@ -1,6 +1,6 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope','$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus','$analytics',
-    function ($scope, $rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus, $analytics) {
+    ['$scope', '$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus', '$analytics', 'sNotify',
+    function ($scope, $rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus, $analytics, sNotify) {
         "use strict";
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $scope.product = $scope.viewBag;
@@ -13,7 +13,7 @@
                 $scope.coupon.valid = true;
                 $scope.coupon.buttonDisabled = true;
             }
-            
+
             if ($rootScope.params.store.coupon && $rootScope.params.store.coupon.valid) {
                 $scope.coupon.code = $rootScope.params.store.coupon.code;
                 $scope.coupon.valid = true;
@@ -87,20 +87,20 @@
             var isNumber = /^\d+$/.test($scope.coupon.code);
 
             if (!isNumber) {
-                alert(invalidCouponMessage);
+                sNotify.alert(invalidCouponMessage);
                 return;
             }
 
             $scope.coupon.buttonDisabled = true;
 
-            Store.validateCoupon({ code: parseInt($scope.coupon.code, 10) }).then(function (response) {                
+            Store.validateCoupon({ code: parseInt($scope.coupon.code, 10) }).then(function (response) {
                 if (response.isValid) {
                     $scope.coupon.valid = true;
                     return;
                 }
-                alert(invalidCouponMessage);
+                sNotify.alert(invalidCouponMessage);
             }, function () {
-            
+
             }).finally(function () {
                 $scope.coupon.buttonDisabled = false;
             });
@@ -108,13 +108,13 @@
 
         $scope.nextStep = function () {
             if (!$scope.coupon.valid) {
-                alert('אנא הכנס הפעל קוד קופון');
+                sNotify.alert('אנא הכנס הפעל קוד קופון');
                 sFocus('storeCoupon');
                 return;
             }
 
             $analytics.eventTrack('Store Checkout', {
-                category: 'Step two'                
+                category: 'Step two'
             });
 
             $scope.page.step = 2;
@@ -142,7 +142,7 @@
                 $location.path(response.url);
                 $location.search('productId', $routeParams.productId)
             }, function (response) {
-                alert(response);
+                sNotify.alert(response);
             }).always(function () {
                 $scope.order.buttonDisabled = false;
             });

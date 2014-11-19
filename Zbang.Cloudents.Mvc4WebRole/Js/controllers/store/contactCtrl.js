@@ -1,6 +1,7 @@
 ﻿app.controller('ContactCtrl',
-    ['$scope', '$timeout','Store','$analytics',
-    function ($scope, $timeout, Store, $analytics) {
+    ['$scope', '$timeout', 'Store', '$analytics', 'sNotify',
+
+    function ($scope, $timeout, Store, $analytics, sNotify) {
         "use strict";
         $timeout(function () {
             $scope.$emit('viewContentLoaded');
@@ -18,9 +19,9 @@
             });
 
 
-            Store.contact($scope.formData).then(function() {               
+            Store.contact($scope.formData).then(function () {
 
-                alert('Thank you');
+                sNotify.alert('Thank you');
                 $scope.submitted = false;
 
                 $scope.contactForm.$setPristine();
@@ -33,7 +34,7 @@
                 };
 
             }, function () {
-                alert(response);
+                sNotify.alert(response);
             });
 
 

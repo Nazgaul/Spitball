@@ -1,5 +1,5 @@
-﻿app.factory('sVerChecker', ['$http', '$angularCacheFactory', '$analytics','$timeout',
-    function ($http, $angularCacheFactory, $analytics, $timeout) {
+﻿app.factory('sVerChecker', ['$http', '$angularCacheFactory', '$analytics', '$timeout', 'sNotify',
+    function ($http, $angularCacheFactory, $analytics, $timeout, sNotify) {
         "use strict";
         var clientVersion = $('[data-version]').attr('data-version'),
             currentVersion,
@@ -25,17 +25,17 @@
                         }
                         $angularCacheFactory.removeAll();
 
-                        
+
                         $analytics.eventTrack('Version', {
                             category: 'Change',
                             label: 'Version change mismatch popup'
                         });
 
 
-                        alert('Version mismatch, page will refresh');
+                        sNotify.alert('Version mismatch, page will refresh');
                         $timeout(function () {
                             window.location.reload(true);
-                        },150);
+                        }, 150);
 
 
                     }

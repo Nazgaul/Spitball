@@ -1,5 +1,5 @@
 ﻿angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify) {
 	    "use strict";
 	    return {
 	        restrict: 'A',
@@ -47,7 +47,7 @@
 
 	            uploader.bind('Error', function (up, err) {
 
-	                alert("Cannot upload, error: " + err.message + (err.file ? ", File: " + err.file.name : "") + "");
+	                sNotify.alert("Cannot upload, error: " + err.message + (err.file ? ", File: " + err.file.name : "") + "");
 
 
 	                if ($rootScope.$$phase) {
@@ -120,7 +120,7 @@
 	                    $rootScope.$broadcast('FileUploaded', file);
 	                    response.payload.itemDto = response.payload.fileDto;
 	                    if (!response.success) {
-	                        alert(response.payload);
+	                        sNotify.alert(response.payload);
 	                        return;
 	                    }
 
@@ -187,7 +187,7 @@
 	        }
 	    };
 	}]).
-    directive('plUploadStandalone', ['$timeout', '$rootScope', '$angularCacheFactory', function ($timeout, $rootScope, $angularCacheFactory) {
+    directive('plUploadStandalone', ['$timeout', '$rootScope', '$angularCacheFactory', 'sNotify', function ($timeout, $rootScope, $angularCacheFactor, sNotify) {
         "use strict";
         return {
             restrict: 'A',
@@ -227,7 +227,7 @@
                     scope.$apply(function () {
                         scope.onError({ error: err });
                     });
-                   
+
                     up.refresh(); // Reposition Flash/Silverlight
                 });
 
@@ -241,7 +241,7 @@
                     scope.$apply(function () {
                         scope.onFilesAdded({ files: files });
                     });
-                    
+
                     uploader.start();
                     uploader.disableBrowse();
                 });
@@ -272,7 +272,7 @@
                     if (uploader.state === plupload.STOPPED) {
                         return;
                     }
-                    var isOk = confirm('Leaving page will stop the file upload, are you sure you want to leave?');
+                    var isOk = sNotify.confirm('Leaving page will stop the file upload, are you sure you want to leave?');
                     if (!isOk) {
                         event.preventDefault();
                     }

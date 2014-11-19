@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxInviteCtrl',
-        ['$scope', '$q', '$modalInstance','$analytics', 'sShare', 'sFacebook', 'data',
-        function ($scope, $q, $modalInstance, $analytics, sShare, sFacebook, data) {
+        ['$scope', '$q', '$modalInstance','$analytics', 'sShare', 'sFacebook', 'data','sNotify',
+        function ($scope, $q, $modalInstance, $analytics, sShare, sFacebook, data,sNotify) {
             "use strict";
             $scope.box = data;
 
@@ -20,7 +20,7 @@
 
                 sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {                    
                 }, function () {
-                    alert('Error');
+                    sNotify.alert('Error');
                 });
             };
 
@@ -57,7 +57,7 @@
 
 
                 }, function (response) {
-                    alert(response);
+                    sNotify.alert(response);
                     dfd.reject();
                 });
 

@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout,sNotify) {
             "use strict";
 
             $scope.firstTime = $scope.viewBag;
@@ -126,7 +126,7 @@
                 var isNumber = /^\d+$/.test($rootScope.params.store.coupon.code);
 
                 if (!isNumber) {
-                    alert(invalidCouponMessage);
+                    sNotify.alert(invalidCouponMessage);
                     return;
                 }
 
@@ -140,7 +140,7 @@
                         cd.pubsub.publish('resetLoginPopup');
                         return;
                     }
-                    alert(invalidCouponMessage);
+                    sNotify.alert(invalidCouponMessage);
                 }).finally(function () {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                 });

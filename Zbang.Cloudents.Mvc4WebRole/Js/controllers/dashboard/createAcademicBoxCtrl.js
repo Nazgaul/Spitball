@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('createAcademicBoxCtrl',
-        ['$scope', '$analytics','sBox', 'sModal', 'sUserDetails','sLibrary',
-        function ($scope, $analytics, sBox, sModal, sUserDetails, sLibrary) {
+        ['$scope', '$analytics', 'sBox', 'sModal', 'sUserDetails', 'sLibrary', 'sNotify',
+        function ($scope, $analytics, sBox, sModal, sUserDetails, sLibrary, sNotify) {
             "use strict";
             var nodeHistory = [];
 
@@ -9,9 +9,9 @@
             };
 
             $scope.formData = {
-                academicBox: {}               
+                academicBox: {}
             };
-           
+
             var createDisabled = false;
             $scope.create = function (isValid) {
                 $scope.params.customError = null;
@@ -21,11 +21,11 @@
                 }
                 createDisabled = true;
 
-                sBox.createAcademic($scope.formData.academicBox).then(function (data) {                    
-                        $scope.box.url = data.url;
-                        $scope.box.id = data.id;                        
-                        $scope.next();
-                                                            
+                sBox.createAcademic($scope.formData.academicBox).then(function (data) {
+                    $scope.box.url = data.url;
+                    $scope.box.id = data.id;
+                    $scope.next();
+
                 }, function (response) {
                     $scope.params.customError = response[0].value[0];
 
@@ -44,7 +44,7 @@
                             });
 
                             if (node) {
-                                alert('already exists');
+                                sNotify.alert('already exists');
                                 return;
                             }
 
@@ -67,8 +67,8 @@
                                     category: 'Create Department'
                                 });
 
-                            }, function(response) {
-                                alert(response);
+                            }, function (response) {
+                                sNotify.alert(response);
                             });
                         }
                     }
@@ -77,7 +77,7 @@
 
             $scope.selectDepartment = function (department) {
                 nodeHistory.push(department);
-                $scope.formData.academicBox.departmentId = department.id;                
+                $scope.formData.academicBox.departmentId = department.id;
                 getNodes();
                 $analytics.eventTrack('Box Wizard', {
                     category: 'Select Department'
