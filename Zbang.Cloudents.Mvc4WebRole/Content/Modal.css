@@ -21,9 +21,8 @@
   /*#region departmentChoose*/
   /*#endregion*/
 }
-.modal .closeDialog {
-  right: 0;
-  /*rtl*/
+.modal .svg-close {
+  fill: #fff;
 }
 .modal .modal-dialog {
   width: 600px;
@@ -37,8 +36,8 @@
 .modal.libChoosePopUp .modal-content {
   width: 600px;
 }
-.modal.newDpt .modal-dialog {
-  background: #fff;
+.modal.createWizard .modal-dialog {
+  width: 650px;
 }
 .modal.boxInvitePopup .modal-dialog {
   padding: 0;
@@ -107,9 +106,6 @@
 .modal.dashMembers .memberItem {
   width: 49%;
   display: inline-block;
-}
-.modal.uploadLink .modal-dialog {
-  background: #fff;
 }
 .modal.createTab .btn1 {
   text-transform: capitalize;
@@ -349,6 +345,11 @@
 .modal .departmentChoose.codeError .error {
   display: block;
 }
+.closeModal {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
@@ -378,10 +379,6 @@
   width: auto;
   max-height: 95vh;
   max-width: 95vw;
-  background: #FFF;
-  padding: 0 20px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   -moz-background-clip: padding-box;
@@ -409,6 +406,29 @@
 }
 .modal-content {
   position: relative;
+}
+.popupHeader,
+.modal-title {
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 18px;
+  background: #444;
+  border-radius: 6px 6px 0 0;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  font-weight: normal;
+}
+.modal-body {
+  padding: 15px 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 0 0 6px 6px;
 }
 /*#endregion*/
 .modal2 {

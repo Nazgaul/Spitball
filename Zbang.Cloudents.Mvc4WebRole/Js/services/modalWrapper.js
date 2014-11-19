@@ -27,7 +27,7 @@ app.factory('sModal',
                     return buildObj('newDpt', { url: '/Library/CreateDepartmentPartial/' }, 'CreateDepartmentCtrl', 'none', true);
                 },
                 createBoxWizard: function (params) {
-                    return buildObj(null, { url: '/Dashboard/CreateBox/' }, 'CreateBoxWizardCtrl', false, false, params.data);
+                    return buildObj('createWizard', { url: '/Dashboard/CreateBox/' }, 'CreateBoxWizardCtrl', false, false, params.data);
                 },
                 itemFullscreen: function (params) {
                     return buildObj('fullscreen', { url: '/Item/fullscreen/' }, 'itemFullScreenCtrl', 'static', true, null, params.scope);

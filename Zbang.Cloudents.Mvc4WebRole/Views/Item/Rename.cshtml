@@ -9,5 +9,7 @@
         <input type="submit" class="btn1 next" ng-disabled="disable" value="@SharedResources.Save">
         <button ng-click="cancel()" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
     </form>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </div>
