@@ -443,7 +443,6 @@
 }
 .boxFolder.current,
 .createFolder.current {
-  background: none;
   font-weight: 600;
   /*rtl*/
   border-right: none;
