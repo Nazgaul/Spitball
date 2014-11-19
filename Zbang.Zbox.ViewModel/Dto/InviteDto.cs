@@ -20,7 +20,7 @@ namespace Zbang.Zbox.ViewModel.Dto
             }
         }
         public bool IsRead { get; set; }
-        public bool IsNew { get; set; }
+       // public bool IsNew { get; set; }
 
         //public string Message { get; set; }
 

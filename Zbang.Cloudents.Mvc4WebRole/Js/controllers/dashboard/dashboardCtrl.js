@@ -1,10 +1,10 @@
 ﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
      ['$scope', '$rootScope', '$timeout',
-       'sModal','sDashboard', 'sBox','resManager',
+       'sModal','sDashboard', 'sBox','resManager','sNotify',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sNotify, sUser, sNewUpdates, $location, $analytics) {
     "use strict";
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
@@ -83,7 +83,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sU
       
 
     $scope.removeBox = function (box) {
-        cd.confirm2($scope.removeConfirm(box)).then(function () {
+        sNotify.confirm($scope.removeConfirm(box)).then(function () {
             sBox.remove({ id: box.id }).then(function () {
                 var index;
                 if (box.boxType === 'academic') {

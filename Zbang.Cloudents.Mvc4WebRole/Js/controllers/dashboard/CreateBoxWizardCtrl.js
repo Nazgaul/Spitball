@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('CreateBoxWizardCtrl',
-     ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data','$q','$analytics',
-        function ($scope, $modalInstance, sWizardHandler, sLibrary, sShare, sFacebook, data, $q, $analytics) {
+     ['$scope', '$modalInstance', 'WizardHandler', 'sLibrary', 'sShare', 'sFacebook', 'data','$q','$analytics','sNotify',
+        function ($scope, $modalInstance, sWizardHandler, sLibrary, sShare, sFacebook, data, $q, $analytics,sNotify) {
             "use strict";
             var wizard;
 
@@ -49,7 +49,7 @@
 
                 sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {
                 }, function () {
-                    alert('Error');
+                    sNotify.alert('Error');
                 });
             };
 
@@ -82,7 +82,7 @@
 
 
                 }, function (response) {
-                    alert(response);
+                    sNotify.alert(response);
                     dfd.reject();
                 });
 

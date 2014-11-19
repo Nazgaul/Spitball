@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics','sNotify',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics,sNotify) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -149,7 +149,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.$broadcast('update-scroll');
 
         }, function (respoonse) {
-            alert(respoonse);
+            sNotify.alert(respoonse);
         }).finally(function () {
             $scope.commentp = false;
         });
@@ -164,7 +164,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.item.comments.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
         }, function (response) {
-            alert(response);
+            sNotify.alert(response);
         });
 
         $analytics.eventTrack('Item', {
@@ -177,7 +177,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             comment.replies.splice(indexC, 1);
             $scope.$broadcast('update-scroll');
         }, function (response) {
-            alert(response);
+            sNotify.alert(response);
         });
         $analytics.eventTrack('Item', {
             category: 'Delete Reply'
@@ -214,7 +214,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
 
             $scope.$broadcast('update-scroll');
         }, function (response) {
-            alert(response.error[0].value[0]);
+            sNotify.alert(response.error[0].value[0]);
         }).finally(function () {
             comment.replyp = false;
         });;

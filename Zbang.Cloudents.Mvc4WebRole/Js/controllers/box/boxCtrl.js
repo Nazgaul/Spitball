@@ -2,9 +2,9 @@
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
          'sModal', '$location', 'resManager', '$timeout', '$analytics',
-         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook',
+         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook', 'sNotify',
         function ($scope, $rootScope, $routeParams, sModal, $location, resManager,
-                  $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook) {
+                  $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook, sNotify) {
             "use strict";
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -141,7 +141,7 @@
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    alert(resManager.get('NeedToFollowBox'));
+                    sNotify.tAlert('NeedToFollowBox');
                     return;
                 }
 
@@ -173,7 +173,7 @@
                 }
 
                 if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                    alert(resManager.get('NeedToFollowBox'));
+                    sNotify.tAlert('NeedToFollowBox');
                     return;
                 }
 

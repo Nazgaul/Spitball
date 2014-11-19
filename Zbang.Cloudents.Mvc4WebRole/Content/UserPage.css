@@ -22,8 +22,8 @@
 }
 .userPage .barActions,
 .searchPage .barActions {
-  padding: 0 20px;
-  top: 14px;
+  top: 6px;
+  margin-right: 23px;
 }
 .userPage .searchInputWpr,
 .searchPage .searchInputWpr {

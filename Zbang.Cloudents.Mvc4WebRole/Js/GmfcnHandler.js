@@ -63,6 +63,9 @@
         }, 3500);
 
         function changeScore() {
+            if (!usrPoints) {
+                usrPoints = eById('userPts');
+            }
             var currentScore = parseInt(usrPoints.textContent, 10);
             var numAnim = new countUp(currentScore, currentScore + points, 1);
 

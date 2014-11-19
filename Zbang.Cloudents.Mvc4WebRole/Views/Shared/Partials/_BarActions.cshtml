@@ -1,14 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="barActions rFloat">
-    <div dropdown ng-controller="NotificationsCtrl">
-        <button class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
-            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+    <div dropdown ng-controller="NotificationsCtrl" on-toggle="updateState(open)">
+        <button type="button" class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
             <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
         </button>
-        <div class="notifyWpr dropdown-menu" role="menu">
-            <ul class="notifyList" bindonce infinite-scroll="addNotifications()"
-                infinite-scroll-distance="1" infinite-scroll-immediate-check="false" infinite-scroll-element="true">
-                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications">
+        <div class="notifyWpr dropdown-menu" role="menu" height="525" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addNotifications()">
+            <ul class="notifyList" bindonce>
+                <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications | limitTo:params.notificationsListLength">
                     <a bo-href="notification.url" ng-click="markAsRead(notification)">
                         <img class="notifyImg" bo-src="notification.userPic | defaultImage:'user'" alt="" />
                         <div class="notifyDetails">

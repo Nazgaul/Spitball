@@ -1,7 +1,7 @@
 ﻿var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics',
-function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics) {
+    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics', 'sNotify',
+function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics, sNotify) {
     "use strict";
     var types = {
         box: 'box',
@@ -111,7 +111,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                     });
 
                     if (item) {
-                        alert('already exists');
+                        sNotify.alert('already exists');
                         return;
                     }
 
@@ -119,7 +119,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                         $scope.info.items.push(response);
                         $scope.info.type = types.department;
                     }, function (response) {
-                        alert(response);
+                        sNotify.alert(response);
                     });
 
                     $analytics.eventTrack('Library', {
@@ -152,33 +152,33 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
     };
 
     $scope.unsubscribe = function (box) {
-        var isok = false,
-        isDelete = box.userType === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
+        var defer,
+            isDelete = box.userType === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
 
         if (isDelete) {
-            isok = confirm(resManager.get('DeleteCourse'));
+            defer = sNotify.tConfirm('DeleteCourse');
         }
         else {
-            isok = confirm(resManager.get('SureYouWantTo') + ' ' + resManager.get('ToLeaveGroup'));
-        }
-        if (!isok) {
-            return;
+            defer = sNotify.confirm(resManager.get('SureYouWantTo') + ' ' + resManager.get('ToLeaveGroup'));
         }
 
-        sBox.remove({ id: box.id });
-        $analytics.eventTrack('Library', {
-            category: 'Leave Box'
+        defer.then(function () {
+            sBox.remove({ id: box.id });
+            $analytics.eventTrack('Library', {
+                category: 'Leave Box'
+            });
+
+            box.userType = 'none';
+
+            if (isDelete) {
+                var index = $scope.info.items.indexOf(box);
+                if (index > -1) {
+                    $scope.info.items.splice(index, 1);
+                }                
+            }
         });
 
-        box.userType = 'none';
 
-        if (isDelete) {
-            var index = $scope.info.items.indexOf(box);
-            if (index > -1) {
-                $scope.info.items.splice(index, 1);
-            }
-            return;
-        }
     };
 
 
@@ -252,7 +252,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                     sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
                         $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
                     }, function (response) {
-                        alert(response);
+                        sNotify.alert(response);
                     });
                 }
             }

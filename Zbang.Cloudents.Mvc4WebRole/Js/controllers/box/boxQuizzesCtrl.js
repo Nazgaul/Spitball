@@ -36,7 +36,7 @@
                 }
 
                 if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    alert(resManager.get('NeedToFollowBox'));
+                    sNotify.tAlert('NeedToFollowBox');
                     return;
                 }
 
@@ -63,7 +63,7 @@
                     }
 
                     sQuiz.delete(data).then(remove, function () {
-                        alert('error deleting ' + quiz.name); //translate
+                        sNotify.alert('error deleting ' + quiz.name); //translate
                     });
                     $analytics.eventTrack('Box Quizzes', {
                         category: 'Remove Quiz'

@@ -1,12 +1,12 @@
 ﻿app.factory('sNotification',
-    ['$rootScope', 'sShare', '$timeout',
-    function ($rootScope, sShare, $timeout) {
+    ['$rootScope', 'sShare', '$interval',
+    function ($rootScope, sShare, $interval) {
         "use strict";
 
         var notifications;
         getNotifications();
 
-        $timeout(checkNotifications, 60000);
+        $interval(checkNotifications, 60000);
 
 
         var service = {
@@ -45,7 +45,7 @@
         function getNotifications() {
             sShare.getNotifications().then(function (response) {
                 //notifications = response || [];
-                notifications = [{ "msgId": "ba3638dd-c8e4-466f-bc62-a3e600de3fb3", "userPic": "https://graph.facebook.com/1792674869/picture?type=square", "userName": "Pocket Aces", "date": "2014-11-17T11:29:10.9940435Z", "isRead": false, "isNew": false, "boxName": "qweqwe", "url": "/box/my/61220/qweqwe/" }, { "msgId": "579c7036-6137-4edf-89a8-a3e600dd182a", "userPic": "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "userName": "ram y", "date": "2014-11-17T11:24:58.9507837Z", "isRead": true, "isNew": false, "boxName": "test1'", "url": "/box/my/21929/test1/" }];
+                notifications = response;
 
                 $rootScope.$broadcast('newNotifications')
 
@@ -55,27 +55,27 @@
             var newNotifications = false;
             sShare.getNotifications().then(function (notifies) {
                 _.forEach(notifies, function (note) {
-                    var nExists = _.find(notifications, function (notification) {
-                        return notification.msgId === note.msgId;
-                    });
+                    var nExists = getById(note.msgId);
 
                     if (nExists) {
                         return;
                     }
 
-                    notifications.push(nExists);
+                    notifications.push(note);
                     newNotifications = true;
 
                 });
-            });
-            if (!newNotifications) {
-                return;
-            }
 
-            $rootScope.$broadcast('newNotifications')
+                if (!newNotifications) {
+                    return;
+                }
+
+                $rootScope.$broadcast('newNotifications')
+            });
+         
         }
         function getById(id) {
-            return _.filter(notifications, function (notification) {
+            return _.find(notifications, function (notification) {
                 return notification.msgId === id;
             });
 

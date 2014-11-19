@@ -593,9 +593,6 @@
 }
 .invitesCounter {
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5);
-  right: 18px;
-  /* rtl*/
-  left: auto;
 }
 .notifyWpr {
   left: 40px;
@@ -1266,6 +1263,11 @@
 .searchPage {
   text-align: right;
   /*rtl*/
+}
+.userPage .barActions,
+.searchPage .barActions {
+  margin-right: auto;
+  margin-left: 23px;
 }
 /*#region user page aside */
 .upSidebar {

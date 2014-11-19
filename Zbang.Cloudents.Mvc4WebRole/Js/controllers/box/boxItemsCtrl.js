@@ -1,7 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$analytics', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'resManager',
-            'sUserDetails', 'sFacebook',
-function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook) {
+            'sUserDetails', 'sFacebook','sNotify',
+function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook,sNotify) {
     "use strict";
 
     var consts = {
@@ -124,13 +124,13 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
     };
 
     $scope.deleteItem = function (item) {
-        cd.confirm2(resManager.get('SureYouWantToDelete') + ' ' + item.name + "?").then(function () {
+        sNotify.confirm(resManager.get('SureYouWantToDelete') + ' ' + item.name + "?").then(function () {
             var data = {
                 itemId: item.id,
                 boxId: $scope.boxId
             }
             sItem.delete(data).then(removeItem, function () {
-                alert('error deleting this item'); //translate
+                sNotify.alert('error deleting this item'); //translate
             });
 
             $analytics.eventTrack('Box Items', {
@@ -286,7 +286,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         };
 
         sBox.addItemsToTab(data).then(function () { }, function () {
-            alert(resManager.get('FolderItemError'));
+            sNotify.tAlert('FolderItemError');
 
         });
 
