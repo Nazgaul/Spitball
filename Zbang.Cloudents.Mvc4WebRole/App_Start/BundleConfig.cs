@@ -270,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("~/js/Bindings.js"),
                 //new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
                  new JsFileWithCdn("/js/Utils.js"),
-                 new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
+                 //new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
                  new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
@@ -279,7 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                   //new JsFileWithCdn("/js/Cache.js"),
                  new JsFileWithCdn("/js/DataContext.js"),
-                 new JsFileWithCdn("/js/Dialog.js"),
+                 //new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                  //new JsFileWithCdn("/js/Upload2.js"),
                 //new JsFileWithCdn("/js/Library.js"),
