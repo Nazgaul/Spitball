@@ -46,6 +46,9 @@ app.directive('rateStar',
 
                $(elem).click(function (e) {
                    var target = e.target;
+                   if (!target.tagName) { //fix for safari and maybe ie
+                       target = target.correspondingUseElement;
+                   }
                    var userRate = 0,
                    star = elem.children();
                    for (var i = 0; i < star.length; i++) {
