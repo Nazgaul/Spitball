@@ -69,22 +69,19 @@
                 </button>
             </h2>
             <div class="uploadInfo">
-                <span class="itemOwner" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <time>{{item.updateTime | date:'d MMMM yyyy'}}</time>
+                <span class="itemOwner elps" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <time>{{item.updateTime | date:'d MMM yyyy'}}</time>
             </div>
         </div>
         <div class="secondRow">
             <span class="lFloat views" tooltip="@SharedResources.Views">
-                @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
-                <span>{{item.numberOfViews}}</span>
+                @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })&nbsp;<span>{{item.numberOfViews}}</span>
             </span>
             <span ng-show="item.numberOfDownloads !== null" class="downloads" tooltip="@SharedResources.Downloads">
-                @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
-                <span>{{item.numberOfDownloads}}</span>
+                @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })&nbsp;<span>{{item.numberOfDownloads}}</span>
             </span>
             <button type="button" class="itemFlag rFloat" ng-disabled="!canFlag()" ng-class="{flagged: flagged}" ng-click=" flagItemWindow()">
-                @Html.Svg("~/Images/Defs.svg", "flag", new { @class = "svg-flag" })
-                <span>{{flagText}}</span>
+                @Html.Svg("~/Images/Defs.svg", "flag", new { @class = "svg-flag" })&nbsp;<span>{{flagText}}</span>
             </button>
         </div>
         <span class="rateTxt">@ItemsResources.Rate</span>
