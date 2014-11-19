@@ -947,7 +947,6 @@
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
-    <Content Include="Js\directives\lazySrc.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\storageSpace.js" />
@@ -1476,7 +1475,6 @@
     <Content Include="Scripts\plupload2\plupload.dev.js" />
     <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\stacktrace.js" />
-    <Content Include="Scripts\stopwatch.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1490,7 +1488,6 @@
       <DependentUpon>knockout-delegatedEvents.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Modernizr.js" />
-    <Content Include="Scripts\MutationObserver.js" />
     <Content Include="Scripts\plupload\plupload.browserplus.js" />
     <Content Include="Scripts\plupload\plupload.flash.js" />
     <Content Include="Scripts\plupload\plupload.flash.swf" />
@@ -1506,7 +1503,6 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
