@@ -37,7 +37,9 @@
         <input type="submit" class="btn1 next" value="@DialogResources.Send" ng-click="submitted=true" />
         <input type="button" class="btn2 cancel" value="@DialogResources.Cancel" ng-click="cancel()" />
     </form>
-    <button class="closeDialog" ng-click="cancel()"></button>
+    <button class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </div>
 
 <script type="text/ng-template" id="emailMenuItem">               

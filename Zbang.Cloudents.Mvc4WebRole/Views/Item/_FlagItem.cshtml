@@ -48,5 +48,7 @@
         <div class="requestSentDiv first">@FlagItemResources.ReportSent</div>
         <div class="requestSentDiv">@FlagItemResources.ContactYou</div>
     </div>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </div>
