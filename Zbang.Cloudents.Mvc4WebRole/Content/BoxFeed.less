@@ -64,7 +64,18 @@
                 margin-top: 10px;
             }
         }
-    }   
+    } 
+    .friends {
+        padding-top: 2px;
+    }
+    .files {
+        margin-top: 8px;
+        padding-top: 2px;
+
+        &:before {
+            content: attr(bo-attr-data-files-count);
+        }
+    }  
 }
 .feedForm {
     position: relative;

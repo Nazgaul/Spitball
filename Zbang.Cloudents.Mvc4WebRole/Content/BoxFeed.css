@@ -64,6 +64,16 @@
 .boxSideBar .bestUserList .thirdUser .rep {
   margin-top: 10px;
 }
+.boxSideBar .friends {
+  padding-top: 2px;
+}
+.boxSideBar .files {
+  margin-top: 8px;
+  padding-top: 2px;
+}
+.boxSideBar .files:before {
+  content: attr(bo-attr-data-files-count);
+}
 .feedForm {
   position: relative;
   clear: both;

@@ -122,21 +122,11 @@
 
     .friends, .files {
         position: relative;
-        padding-left: 23px; //rtl
+        padding-left: 26px; //rtl
         &:before {
             content: attr(bo-attr-data-friends-count);
             display: inline-block;
         }
-
-        /*&:after {
-            .pseudo;
-            width: 21px;
-            height: 21px;
-            background: @site-sprite 0 -1405px no-repeat;
-            position: absolute;
-            left: 4px; //rtl
-            top: 0;
-        }*/
     }
     .friends {
         margin-top: 9px;
@@ -147,10 +137,6 @@
         &:before {
             content: attr(bo-attr-data-files-count);
         }
-
-        /*&:after {
-            background-position: 0 -1384px;
-        }*/
     }
 }
 
