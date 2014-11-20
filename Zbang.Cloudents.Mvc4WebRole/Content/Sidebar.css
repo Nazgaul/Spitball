@@ -122,16 +122,7 @@
 .recommended .friends,
 .recommended .files {
   position: relative;
-  padding-left: 23px;
-  /*&:after {
-            .pseudo;
-            width: 21px;
-            height: 21px;
-            background: @site-sprite 0 -1405px no-repeat;
-            position: absolute;
-            left: 4px; //rtl
-            top: 0;
-        }*/
+  padding-left: 26px;
 }
 .recommended .friends:before,
 .recommended .files:before {
@@ -143,9 +134,6 @@
 }
 .recommended .files {
   margin-top: 7px;
-  /*&:after {
-            background-position: 0 -1384px;
-        }*/
 }
 .recommended .files:before {
   content: attr(bo-attr-data-files-count);
