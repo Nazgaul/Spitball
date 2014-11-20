@@ -20,7 +20,7 @@
 
         if (location.pathname.toLowerCase() === '/account/') {
             pages[0].className += ' currentItem';
-            return;
+            return;   
         }
         for (var i = 1, l = pages.length; i < l; i++) {
             var pageAnchor = pages[i].querySelector('a');
@@ -67,7 +67,7 @@
         }
         setTimeout(function () {
             homeVideo.play();
-        }, 500);
+        }, 600);
 
     });
 
