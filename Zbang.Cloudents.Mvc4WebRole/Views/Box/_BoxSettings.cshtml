@@ -8,7 +8,7 @@
 <div class="modal-body" bindonce>
     <div class="popupTopBar">
         <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
-        <button type="button" class="rFloat btn3 inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">@IndexResources.Invite</button>
+        <button type="button" class="rFloat btn3 inviteFriendsBtn" ng-click="inviteFriends()">@IndexResources.Invite</button>
         <div class="arrow tabArrow"></div>
     </div>
     <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">
@@ -74,6 +74,8 @@
         <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
         <button type="button" class="btn2 rFloat" ng-click="delete()" ng-bind="deleteOrUnfollow()">@SharedResources.Delete</button>
     </form>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </div>
 
