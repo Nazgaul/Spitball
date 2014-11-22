@@ -29,6 +29,10 @@
                 activeTab: 'feed'
             };
 
+            $scope.info = {
+                userType: 'none'
+            };
+
             sBox.info({ id: $scope.boxId }).then(function (info) {
 
                 $scope.info = {
