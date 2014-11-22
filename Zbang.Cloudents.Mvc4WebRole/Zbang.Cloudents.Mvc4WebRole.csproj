@@ -1034,6 +1034,7 @@
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\services\versionChecker.js" />
+    <Content Include="Js\staticShim.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />

@@ -37,18 +37,13 @@ app.controller('CarouselCtrl',
             var newIndex = ($scope.params.currentIndex + 1) % $scope.params.slidesLength;
             $scope.select(newIndex);
             $scope.params.reverse = false;
-            $analytics.eventTrack('Store Carousel', {
-                category: 'Next'
-            });
-
+         
         };
 
         $scope.prev = function () {
             var newIndex = $scope.params.currentIndex - 1 < 0 ? $scope.params.slidesLength - 1 : $scope.params.currentIndex - 1;
             $scope.select(newIndex);
-            $analytics.eventTrack('Store Carousel', {
-                category: 'Previous'
-            });
+         
         };
 
         $scope.isActive = function (index) {
