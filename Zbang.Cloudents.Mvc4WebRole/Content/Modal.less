@@ -519,17 +519,7 @@
         margin-left: 15px; /*rtl*/
     }
 }
-.popupHeader, .modal-title {
-    .boxName { //from upload popup
-        overflow: hidden;
-        -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: inline-block; // change that
-        padding-left: 8px; /*rtl*/
-    }
-}
+
 .popupWrppr
 {  
     max-height: 396px; //TODO: Why is this necessary? It can potentially cause problems cutting height of popup without defined height. Consider removing this.
@@ -550,12 +540,6 @@
         max-height: none; // reset max-height
     }
 
-    &.confirm
-    {
-        min-height: 175px; /* override upload popup*/
-        max-height: 380px;
-        width: 448px;
-    }
     &.registerNow
     {
         width:448px;
@@ -607,62 +591,6 @@
     }
 }
 
-.invHeader {
-    + q {
-        overflow: hidden;
-        -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-        padding-left: 8px; /*rtl*/
-    }
-}
-.confirm
-{
-    .popupHeader, .modal-title
-	{
-		margin-bottom: 25px; //bug 147
-	}
-	.message
-	{
-		margin: 20px 0 0 12px; /*rtl*/
-	}
-	.inputText
-	{
-		height: 28px;
-		padding: 0 4px 0 8px; /*rtl*/
-        .boxSizing;
-        width: 100%;
-        margin-bottom: 10px; 
-	}
-	select.inputText
-	{
-		width: 417px;
-		padding: 3px;
-	}
-}
-
-.extraText
-{
-	display: none;
-}
-/*.privateBox {
-
-    label {
-        font-size: 15px;
-        display: block;
-    }
-    .inputText {
-        margin: 5px 0 25px;
-    }
-
-    input[type="radio"] {
-        + label:before {
-            margin-top: -3px;
-        }
-    }
-}*/
 .private {
     .labelExplain {
         color: rgba(56,56,56,.75);
@@ -713,10 +641,6 @@
 /*#endregion */
 
 /*#region box settings and members */
-
-#dash_showfriends, #box_settings,#item_rename{
-    display:none;
-}
 
 .boxSettings
 {
@@ -786,9 +710,6 @@
     font-size: 15px;
     color: #676767;
     text-transform: capitalize;
-    //width: 85px;
-    //text-align: center;
-    //text-align: left;
 
     &:first-child {
         margin-right: 29px; /*rtl*/
