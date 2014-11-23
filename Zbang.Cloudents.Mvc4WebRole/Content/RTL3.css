@@ -107,11 +107,6 @@
 .requestSentDiv.first {
   font-size: 32px;
 }
-.invHeader + q,
-.popupHeader .boxName {
-  padding: 0 8px 0 0;
-  /*rtl*/
-}
 .private .labelExplain {
   margin: 0 17px 0 0;
 }
@@ -119,14 +114,6 @@
   left: 165px;
   /*diff rtl*/
   right: auto;
-}
-.confirm .message {
-  margin: 20px 12px 0 0;
-  /*rtl*/
-}
-.confirm .inputText {
-  padding: 0 8px 0 4px;
-  /*rtl*/
 }
 /*#region box settings and members */
 .boxSettings .inviteBtn:before {

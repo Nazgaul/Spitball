@@ -446,17 +446,6 @@
   margin-left: 15px;
   /*rtl*/
 }
-.popupHeader .boxName,
-.modal-title .boxName {
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
-  padding-left: 8px;
-  /*rtl*/
-}
 .popupWrppr {
   max-height: 396px;
   /*&.itemRename {
@@ -485,12 +474,6 @@
 .popupWrppr.uploadUrl {
   width: 610px;
   max-height: none;
-}
-.popupWrppr.confirm {
-  min-height: 175px;
-  /* override upload popup*/
-  max-height: 380px;
-  width: 448px;
 }
 .popupWrppr.registerNow {
   width: 448px;
@@ -527,57 +510,6 @@
   margin: 20px 0 15px;
   width: auto;
 }
-.invHeader + q {
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  padding-left: 8px;
-  /*rtl*/
-}
-.confirm .popupHeader,
-.confirm .modal-title {
-  margin-bottom: 25px;
-}
-.confirm .message {
-  margin: 20px 0 0 12px;
-  /*rtl*/
-}
-.confirm .inputText {
-  height: 28px;
-  padding: 0 4px 0 8px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  margin-bottom: 10px;
-}
-.confirm select.inputText {
-  width: 417px;
-  padding: 3px;
-}
-.extraText {
-  display: none;
-}
-/*.privateBox {
-
-    label {
-        font-size: 15px;
-        display: block;
-    }
-    .inputText {
-        margin: 5px 0 25px;
-    }
-
-    input[type="radio"] {
-        + label:before {
-            margin-top: -3px;
-        }
-    }
-}*/
 .private .labelExplain {
   color: rgba(56, 56, 56, 0.75);
   margin-left: 17px;
@@ -609,11 +541,6 @@
 }
 /*#endregion */
 /*#region box settings and members */
-#dash_showfriends,
-#box_settings,
-#item_rename {
-  display: none;
-}
 .boxSettings .inviteBtn {
   border: none;
   margin-top: 12px;

@@ -54,7 +54,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/BoxFeedRtl.css",
                 "~/Content/ItemRtl.css");
 
-            RegisterCss("newcore3", "~/Content/General.css",
+            RegisterCss("newcore3", "~/Content/Normalize.css", 
+                "~/Content/General.css",
                 "~/Content/HeaderFooter.css",
                 "~/Content/Site3.css",
                 "~/Content/SVG.css",
@@ -81,22 +82,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "~/Content/StaticRtl.css",
                 "~/Content/HeaderFooterRtl.css");
 
-            RegisterCss("static", "~/Content/General.css",
+            RegisterCss("static", "~/Content/Normalize.css",
+                "~/Content/General.css",
                 "~/Content/HeaderFooter.css",
                 "~/Content/Animations.css",
                 "~/Content/Static.css");
 
 
-            RegisterCss("home", "~/Content/General.css",
+            RegisterCss("home", "~/Content/Normalize.css", 
+                "~/Content/General.css",
                 "~/Content/Home.css");
 
             RegisterCss("homeRtl", "~/Content/GeneralRtl.css",
                 "~/Content/HomeRtl.css");
 
-            RegisterCss("mobile", "~/Content/General.css", "~/Content/Mobile.css");
+            RegisterCss("mobile", "~/Content/Normalize.css", "~/Content/General.css", "~/Content/Mobile.css");
             RegisterCss("mobileRtl", "~/Content/GeneralRtl.css", "~/Content/MobileRtl.css");
 
-            RegisterCss("siteMobile", "~/Content/General.css", "~/Content/SiteMobile.css");
+            RegisterCss("siteMobile", "~/Content/Normalize.css", "~/Content/General.css", "~/Content/SiteMobile.css");
             RegisterCss("siteMobileRtl", "~/Content/GeneralRtl.css",
                 "~/Content/SiteMobileRtl.css");
 

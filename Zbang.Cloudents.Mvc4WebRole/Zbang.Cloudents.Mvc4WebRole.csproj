@@ -654,6 +654,9 @@
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
+    <Content Include="Content\Normalize.css">
+      <DependentUpon>Normalize.less</DependentUpon>
+    </Content>
     <Content Include="Content\QnA.css">
       <DependentUpon>QnA.less</DependentUpon>
     </Content>
@@ -1123,6 +1126,7 @@
     <Content Include="Content\BoxFeed.less" />
     <Content Include="Content\BoxFeedRtl.less" />
     <Content Include="Content\SVG.less" />
+    <Content Include="Content\Normalize.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1597,7 +1601,6 @@
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
