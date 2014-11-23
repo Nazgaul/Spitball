@@ -912,18 +912,6 @@ input[type="radio"][disabled] + label:before {
   margin: 20px 0 15px;
   width: auto;
 }
-.popupHeader,
-.modal-title {
-  color: #fff;
-  font-size: 18px;
-  background: #444;
-  height: 40px;
-  line-height: 40px;
-  margin: 0 -20px 15px;
-  padding: 0 20px;
-  width: 100%;
-  font-weight: normal;
-}
 /*#endregion */
 /*#region connect and register pages */
 .enterTitle {
@@ -1510,10 +1498,10 @@ aside.sideBar li.currentItem {
 aside.sideBar .last {
   margin-bottom: 30px;
 }
-.en-US a:first-item {
+.en-US > a:first-child {
   color: #a7a7a7;
 }
-.en-US li:firstitem {
+.en-US li:first-child {
   opacity: 1;
 }
 .en-GB a:nth-child(2) {

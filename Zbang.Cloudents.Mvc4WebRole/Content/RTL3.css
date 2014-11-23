@@ -73,6 +73,10 @@
   margin: 20px 0 0 34px;
   /*rtl*/
 }
+.closeModal {
+  left: 20px;
+  right: auto;
+}
 .modal2 {
   right: 0;
   /*rtl*/
@@ -522,12 +526,7 @@
 }
 .recommended .friends,
 .recommended .files {
-  padding: 0 23px 0 0;
-}
-.recommended .friends:after,
-.recommended .files:after {
-  right: 4px;
-  left: auto;
+  padding: 0 26px 0 0;
 }
 .podium:before,
 .podium:after {

@@ -8,7 +8,7 @@
     <section class="changeName clearfix">
         <header>@MainViewResources.ChangeName</header>
         <form ng-submit="renameDepartment()">
-            <input class="inputText" type="text" select-on-click ng-model="formdata.newName" required />
+            <input class="inputText" type="text" select-on-click ng-model="formdata.newName" autofocus required />
             <div class="lFloat">@MainViewResources.CanConfuse</div>
             <input type="submit" class="btn1 next rFloat" ng-disabled="disable()" value="@SharedResources.Save">
         </form>
@@ -25,5 +25,7 @@
             @SharedResources.Delete
             </button>
 </section>
-    <button type="button" class="closeDialog" ng-click="cancel()"></button>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </div>
