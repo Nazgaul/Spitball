@@ -492,11 +492,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MobileBoxResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Comment\Resources\CommentResources.Designer.cs">
-      <DependentUpon>CommentResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -656,9 +651,6 @@
     </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
-    </Content>
-    <Content Include="Content\QnA.css">
-      <DependentUpon>QnA.less</DependentUpon>
     </Content>
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
@@ -1072,7 +1064,6 @@
     <Content Include="Content\lang.ru-RU.less" />
     <Content Include="Content\ItemMobile.less" />
     <Content Include="Content\ItemMobileRtl.less" />
-    <Content Include="Content\QnA.less" />
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
@@ -1537,8 +1528,6 @@
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
-    <Content Include="Views\Comment\_Comments.cshtml" />
-    <Content Include="Views\Comment\_Template.cshtml" />
     <Content Include="Views\Account\Index2.mobile.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
     <Content Include="Views\Account\LogOn.mobile.cshtml" />
@@ -1565,14 +1554,12 @@
     <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
     <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />
     <Content Include="Views\Box\_Items2.mobile.cshtml" />
-    <Content Include="Views\Comment\_Comments.mobile.cshtml" />
     <Content Include="Views\Item\Index.mobile.cshtml" />
     <Content Include="Views\Box\_Settings.mobile.cshtml" />
     <Content Include="Views\Account\Settings.mobile.cshtml" />
     <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
     <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
-    <Content Include="Views\Comment\Wall.cshtml" />
     <Content Include="Views\Box\Settings.mobile.cshtml" />
     <Content Include="Views\Box\_Invite.mobile.cshtml" />
     <Content Include="Views\Account\Welcome.mobile.cshtml" />
@@ -1994,15 +1981,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.ru.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.zh.resx" />
-    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.ar.resx" />
-    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.he.resx" />
-    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommentResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.ru.resx" />
-    <EmbeddedResource Include="Views\Comment\Resources\CommentResources.zh.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
