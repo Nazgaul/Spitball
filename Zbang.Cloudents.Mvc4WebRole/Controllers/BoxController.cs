@@ -82,9 +82,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-            Location = OutputCacheLocation.ServerAndClient,
-            VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
+        //    Location = OutputCacheLocation.ServerAndClient,
+        //    VaryByCustom =  CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang
+        //    , Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");
