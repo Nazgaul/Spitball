@@ -280,10 +280,7 @@
                 FB.api('/me/permissions', function (response) {
 
                     var perms = response.data[0];
-                    //console.log(perms)
-                    // Check for publish_stream permission in this case....
                     if (perms.email) {
-                        //console.log(accessToken);
                         logInFacebook(accessToken);
                         // User has permission
                         window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
@@ -395,11 +392,7 @@
         error = input.getAttribute('data-val-equalto');
         if (error && !equalTo(input, errorElement, error)) {
             return false;
-        }
-      
-      
-        console.timeEnd('length');
-
+        }                   
 
         //regex
         error = input.getAttribute('data-val-regex');
@@ -408,10 +401,8 @@
         }
 
         //length
-        error = input.getAttribute('data-val-length');
-        console.time('length');
+        error = input.getAttribute('data-val-length');        
         if (error && !valLength(input, errorElement, error)) {
-
             return false;
         }
 
