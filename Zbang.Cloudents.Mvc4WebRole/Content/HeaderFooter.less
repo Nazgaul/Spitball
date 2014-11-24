@@ -8,12 +8,12 @@ html, body {
     height: 100%;
 }
 html{
-    position: relative;
-    min-height: 100%;
+    //position: relative; //TODO: what is this for?
+    //min-height: 100%; //TODO: what is this for?
 }
 
 body {
-    min-width: 1024px;
+    //min-width: 1024px;
     overflow-y: scroll;
 }
 
@@ -43,14 +43,16 @@ body {
     //z-index:5; //changed to accomodate for new ng popups. TODO: CHeck that this doesn't ruin anything.
     position: fixed;
     //min-width: 1024px;
-    .siteLogo {
-        display: inline-block;
-        position: relative;
-        z-index: 1;
-    }
+    
 }
 
-
+.siteLogo {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding-left: 30px; //rtl
+    .boxSizing;
+}
 .userNav {
     //font-size: 0; // remove the inline-block space from  navItems
     height: @header-height;

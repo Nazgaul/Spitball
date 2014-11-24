@@ -52,7 +52,6 @@
         </div>
     </noscript>
     <div class="wrap">
-
         @{
             var url = Url.Action("Index", "Account");
             if (User != null && User.Identity.IsAuthenticated)
@@ -60,11 +59,10 @@
                 url = Url.Action("Index", "Dashboard");
             }
         }
-        @if (User == null || !(User.Identity.IsAuthenticated))
-        {
-            <header class="siteHeader headerWpr">
+        <header class="siteHeader headerWpr">
+            @if (User == null || !(User.Identity.IsAuthenticated))
+            {
                 <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
-                
                 <div class="headerActions rFloat">
                     <label for="sidebarCb" class="headerSettings rFloat">
                         @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
@@ -74,12 +72,19 @@
                     </ul>
                     @{Html.RenderPartial("_SettingsBar");}
                 </div>
-
-                <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
-                    <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
-                </a>
-            </header>
-        }
+            }
+            else
+            {
+                <div class="headerActions rFloat">
+                    <ul class="userNav">
+                        @{Html.RenderAction("GetUserDetail3", "Account", true);}
+                    </ul>
+                </div>
+            }
+            <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
+                <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
+            </a>
+        </header>
         <div class="staticContent">
             @RenderBody()
         </div>
