@@ -76,10 +76,6 @@ body {
   width: 1024px;
   margin: 0 auto;
 }
-.headerWpr.menuOpen ~ aside {
-  right: 0;
-  /*rtl*/
-}
 .headingTexts {
   width: 1024px;
   margin: 0 auto;
@@ -214,18 +210,6 @@ body {
 }
 .headerActions .btn:hover {
   background: #ececec;
-}
-.headerSettings {
-  display: inline-block;
-  margin: 6px 12px 0 4px;
-  /*rtl*/
-  width: 17px;
-  height: 13px;
-  background: url(/Images/common17-sprite.png?v=4) -2px -141px no-repeat;
-  vertical-align: top;
-}
-.headerSettings:hover {
-  background-position: -2px -156px;
 }
 .signupText {
   padding: 166px 0 15px;

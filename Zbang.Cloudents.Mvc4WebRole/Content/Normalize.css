@@ -5,8 +5,7 @@
  *    user zoom.
  */
 html {
-  font-family: sans-serif;
-  /* 1 */
+  font-family: Arial;
   -ms-text-size-adjust: 100%;
   /* 2 */
   -webkit-text-size-adjust: 100%;
@@ -20,6 +19,27 @@ body {
 }
 /* HTML5 display definitions
    ========================================================================== */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+input,
+button,
+img,
+p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+ul,
+ol {
+  list-style-type: none;
+}
 /**
  * Correct `block` display not defined for any HTML5 element in IE 8/9.
  * Correct `block` display not defined for `details` or `summary` in IE 10/11
@@ -69,6 +89,10 @@ video {
  */
 a {
   background-color: transparent;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 a:focus {
   outline: none;
@@ -207,6 +231,7 @@ textarea {
  */
 button {
   overflow: visible;
+  background: transparent;
 }
 button:focus {
   outline: none;
@@ -262,6 +287,11 @@ button,
 input {
   line-height: normal;
 }
+input,
+form,
+select {
+  outline: none;
+}
 /**
  * It's recommended that you don't attempt to style these elements.
  * Firefox's implementation doesn't respect box-sizing, padding, or width.
@@ -299,9 +329,13 @@ input[type="number"]::-webkit-outer-spin-button {
  * Safari (but not Chrome) clips the cancel button when the search input has
  * padding (and `textfield` appearance).
  */
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+/* remove safari's default input search style*/
+input[type="search"] {
   -webkit-appearance: none;
+}
+/* remove the webkit cancel ('x') button on search inputs */
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }
 ::-ms-clear {
   display: none;

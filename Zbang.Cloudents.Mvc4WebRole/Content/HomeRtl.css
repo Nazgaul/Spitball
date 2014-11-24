@@ -25,11 +25,6 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-.headerWpr.menuOpen ~ aside {
-  left: 0;
-  /*rtl*/
-  right: auto;
-}
 .headingTexts {
   text-align: right;
   /*rtl*/
@@ -87,10 +82,6 @@
   left: calc(50% - 512px);
   /*rtl*/
   right: auto;
-}
-.headerSettings {
-  margin: 6px 4px 0 12px;
-  /*rtl*/
 }
 .videoWpr {
   right: -webkit-calc(50% - 512px);

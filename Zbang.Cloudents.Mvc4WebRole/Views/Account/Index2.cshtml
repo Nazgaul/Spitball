@@ -8,12 +8,16 @@
 <div class="topImg">
     <div class="headerWpr">
         <div class="logo lFloat"></div>
+        <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
         <div class="headerActions rFloat">
+            <label for="sidebarCb" class="headerSettings rFloat">
+                @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+            </label>
             <button type="button" id="homeLogin" class="btn addConnect">@SharedResources.SignIn</button>
-            <button type="button" class="headerSettings"></button>
+            @{Html.RenderPartial("_SettingsBar");}
         </div>
     </div>
-    @{Html.RenderPartial("_SettingsBar");}
+   
     <div class="headingTexts">
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
@@ -37,28 +41,6 @@
         <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
         <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
     </div>
-    
-    @*<aside class="sideBar">
-        <button class="closeMenu" type="button"></button>
-        <ul>
-            <li><a href="~/">@HomeResources.Homepage</a></li>
-            <li><a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a></li>
-            <li><a href="@Url.Action("Help", "Home")">@SharedResources.Help</a></li>
-            <li><a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a></li>
-            <li><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
-            <li class="last"><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
-            <li class="sideBarSignupBtn addRegister">@LogOnResources.SignUp</li>
-            <li class="last addConnect">@SharedResources.SignIn</li>
-        </ul>
-        <ul class="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
-            <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a></li>
-            <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a></li>
-            <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian site">@Languages.RussianName</a></li>
-            <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew site">@Languages.HebrewName</a></li>
-            <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic site">@Languages.ArabicName</a></li>
-            <li class="last"><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese site">@Languages.ChineseName</a></li>
-        </ul>
-    </aside>*@
 </div>
 
 <section class="available">

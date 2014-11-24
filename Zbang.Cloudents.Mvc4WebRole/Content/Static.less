@@ -1,15 +1,13 @@
 ﻿@import "varsAndMixins";
 
 /*#region sticky footer */
-html {
-    height: 100%;
-}
 
 body {
     margin: 0;
     background: #fafafa;
-    height: 100%;
     color: @textColor;
+    overflow: visible; //override scroll
+    min-width: 0; //override
 }
 
 .header {
@@ -17,35 +15,39 @@ body {
     font-weight: bold;
     color: @color;
 }
-
+//sticky footer
 .wrap {
-    min-height: 100%; //sticky footer
-    min-height: ~"-webkit-calc(100vh + 50px)";
-    min-height: ~"calc(100vh + 50px)";
+    min-height: 100%; //fallback for old browsers
+    min-height: ~"-webkit-calc(100vh - 55px)"; //42px = footer height + 13px gap - TODO: where is this coming from?
+    min-height: ~"calc(100vh - 55px)";
     .boxSizing;
-    margin: -@header-height 0 -@footer-height;
-    padding: @header-height 0 @footer-height;
 }
 
 .staticContent {
-    margin: 115px auto 0;
-    //overflow:auto; //sticky footer
-    padding-bottom: @footer-height; //sticky footer
-    text-align: center; //needed especially for error page
-}
-
-footer {
-    position: relative; //sticky footer
-    margin-top: -@footer-height - 2px; //sticky footer
-    height: @footer-height; //sticky footer
-    clear: both; //sticky footer
-    line-height: 23px;
+    margin: 0 auto;
+    padding-top: 115px;
+    .boxSizing;
+    text-align: center; //dynamically center content without a width
 }
 
 /*#endregion */
 
 /*#region headeractions and menu */
 /*#region side menu */
+
+.headerSettings {
+    svg {
+        top: 2px; //override
+    }
+}
+//This probably is not necessary - esp. on narrow screens
+/*.sidebarCb { 
+    &:checked {
+        ~ .headerActions {
+            margin-right: 200px; //rtl
+        }
+    }
+}*/
 .sideBar {
     background: #39434a;
     position: fixed;
@@ -60,15 +62,6 @@ footer {
     font-size: 14px;
     color: #fff;
     .boxSizing;
-
-    > button {
-        position: absolute;
-        top: 19px;
-        right: 12px; /*rtl*/
-        width: 10px;
-        height: 10px;
-        background: @common-sprite -68px -15px no-repeat;
-    }
 
     li {
         line-height: 15px;
@@ -93,7 +86,6 @@ footer {
     }
 }
 
-
 /*#endregion */
 
 .headerActions {
@@ -101,7 +93,7 @@ footer {
     height: 50px;
     .transition(all, .5s);
     vertical-align: top;
-    //display: block;
+    white-space: nowrap;
     .btn {
         &:first-child {
             background: #fff;
@@ -134,30 +126,6 @@ footer {
         //float: left; /*rtl*/ //override rFloat on the signUp class in static pages
     }
 }
-
-.headerWpr {
-    &.menuOpen {
-        .headerActions {
-            margin-right: 200px; /*rtl*/
-        }
-
-        .sideBar {
-            right: 0; /*rtl*/
-        }
-    }
-}
-
-.headerSettings {
-    display: inline-block;
-    margin: 0 12px 0 8px; /*rtl*/
-    width: 17px;
-    height: 13px;
-    background: @dashboard-sprite -254px -28px no-repeat;
-    //vertical-align: top;
-    vertical-align: middle;
-    line-height: 50px;
-}
-
 
 /*#endregion */
 
@@ -227,8 +195,9 @@ footer {
 
 /*#region about us, contact us, privacy policy; terms of service */
 .staticPage {
-    color: #000;
-    margin: 0 auto;
+    display: inline-block;
+    padding: 0 25px;
+    .boxSizing;
 
     h1 {
         color: @color;
@@ -262,7 +231,7 @@ footer {
 
 .policy, .terms, .aboutUs, .contactUs {
     direction: ltr; /*no rtl*/
-    width: 645px;
+    max-width: 645px;
     text-align: left; /*no rtl*/
 }
 

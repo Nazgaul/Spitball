@@ -27,13 +27,8 @@ body {
     }
 }
 
-body, h1, h2, h3, h4, h5, h6, ol, ul, input, button, img, p {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
 
-noscript > div {
+/*noscript > div {
     border: 1px solid #dc552a;
     color: #111;
     padding: 0 6px;
@@ -47,47 +42,7 @@ noscript > div {
     right: 0;
     margin: 0 auto;
     width: 400px;
-}
-
-header, nav, footer {
-    display: block;
-}
-
-a {
-    outline: none;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-}
-
-ul, ol {
-    list-style-type: none;
-}
-
-input[type="button"], input[type="submit"], button {
-    cursor: pointer;
-}
-
-select[disabled="button"], input[type="submit"], button {
-    cursor: pointer;
-}
-
-button /*removed input element*/ {
-    background: transparent;
-}
-
-input, form, select {
-    outline: none;
-}
-
-    /* remove the webkit cancel ('x') button on search inputs */
-    input[type="search"]::-webkit-search-cancel-button {
-        display: none;
-    }
-    /* remove safari's default input search style*/
-    input[type="search"] {
-        -webkit-appearance: none;
-    }
+}*/
 
 /*#region placeholder text */
 //.placeholderFade();
@@ -464,110 +419,6 @@ input[type="radio"] {
     -ms-transform: rotate(-135deg);
     transform: rotate(-135deg);
     background: #bbb;
-}
-
-/*#endregion */
-
-/*#region site header classes */
-.userNav {
-    font-size: 0; // remove the inline-block space from  navItems
-    height: @header-height;
-}
-
-.navItem {
-    display: inline-block;
-    position: relative;
-    font-size: 13px; // return the font-size to items
-    &.signUp {
-        margin: 0 20px;
-    }
-}
-
-.navUser, .userSettings {
-    height: @header-height;
-    padding: 0 10px;
-    cursor: pointer;
-    vertical-align: top;
-
-    &:hover {
-        background: rgba(103,103,103,.45);
-    }
-}
-
-.navUser {
-    margin-left: 30px; /*rtl*/
-    line-height: 19px;
-    position: relative;
-
-    .userName {
-        font-size: 15px;
-        max-width: 127px;
-        min-width: 40px; // prevents pts from 'falling' on short user names
-        display: inline-block;
-        text-align: left; /*rtl*/
-        color: #fff;
-        margin: 8px 0 0 40px; /*rtl*/
-    }
-
-    .userImg {
-        vertical-align: top;
-        margin-top: 6px;
-        border-radius: 100%;
-        position: absolute;
-    }
-}
-.userAnchor {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-.userPts {
-    font-size: 11px;
-    color: #fff;
-    line-height: 7px;
-    margin-left: 40px; /*rtl*/
-    &:after {
-        display: inline-block;
-        content: attr(data-points);
-    }
-}
-
-.userSettings {
-    margin-right: 10px; /*rtl*/
-}
-
-.userDrpSettings {
-    cursor: pointer;
-    height: @header-height;
-    position: relative;
-    padding: 0 8px;
-    display: inline-block;
-}
-
-.userMenuWrapper {
-    width: 100%;
-    position: absolute;
-    right: 0; /*rtl*/
-}
-
-.menuItem {
-    color: @colorActive;
-    display: block;
-}
-
-    .menuItem:hover {
-        background: @borderColor;
-    }
-
-.menuLink.menuLink {
-    width: 100%;
-    display: block;
-    padding: 10px 5px;
-    text-align: left; /*rtl*/
-    .break;
-    line-height: 12px;
-    .boxSizing;
-    color: @textColor;
 }
 
 /*#endregion */
@@ -1289,9 +1140,40 @@ iframe .registerFirst.store {
     position: relative;
     top: 5px;
 }
+.svg-close {
+    width: 12px;
+    height: 12px;
+    fill: #ccc;
+}
 /*#endregion */
 
 /*#region side menu - SettingsBar partial */
+.headerSettings {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    position: relative;
+    vertical-align: middle;
+    height: 25px;
+    cursor: pointer;
+    svg {
+        width: 17px;
+        height: 13px;
+        fill: #fff;
+    }
+}
+
+.sidebarCb {
+    &:checked {
+        ~ .headerActions {
+            .sideBar {
+                right: 0; //rtl
+            }
+        }
+    }
+}
+
+
 aside.sideBar {
     background: #39434a;
     position: fixed;
@@ -1306,16 +1188,13 @@ aside.sideBar {
     font-size: 14px;
     color: #fff;
     .boxSizing;
-
-    > button {
+    .closeMenuBtn {
         position: absolute;
-        top: 19px;
-        right: 12px; /*rtl*/
-        width: 10px;
-        height: 10px;
-        background: @common-sprite -68px -15px no-repeat;
+        top: 10px;
+        right: 10px; //rtl
+        cursor: pointer;
+        line-height: normal;
     }
-
     li {
         line-height: 15px;
         display: inline-block;
@@ -1324,7 +1203,6 @@ aside.sideBar {
         opacity: 0.35;
         margin-bottom: 10px;
         cursor:pointer;
-
 
         &:hover {
             opacity: 1;
@@ -2670,12 +2548,7 @@ select.inputText {
 
 //home page media queries
 /*
-@media (max-width: 1430px) {
-    .headerWpr.menuOpen .headerActions
-    {
-        right: 200px; //rtl
-    }
-}
+
 @media (max-width: 1024px) {
     .logo {
         margin-left: 20px; //rtl

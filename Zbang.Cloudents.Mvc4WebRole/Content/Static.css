@@ -3,14 +3,12 @@
 /*#region mixins */
 /*#endregion */
 /*#region sticky footer */
-html {
-  height: 100%;
-}
 body {
   margin: 0;
   background: #fafafa;
-  height: 100%;
   color: #383838;
+  overflow: visible;
+  min-width: 0;
 }
 .header {
   font-size: 24px;
@@ -19,29 +17,33 @@ body {
 }
 .wrap {
   min-height: 100%;
-  min-height: -webkit-calc(100vh + 50px);
-  min-height: calc(100vh + 50px);
+  min-height: -webkit-calc(100vh - 55px);
+  min-height: calc(100vh - 55px);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: -50px 0 -24px;
-  padding: 50px 0 24px;
 }
 .staticContent {
-  margin: 115px auto 0;
-  padding-bottom: 24px;
+  margin: 0 auto;
+  padding-top: 115px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   text-align: center;
-}
-footer {
-  position: relative;
-  margin-top: -26px;
-  height: 24px;
-  clear: both;
-  line-height: 23px;
 }
 /*#endregion */
 /*#region headeractions and menu */
 /*#region side menu */
+.headerSettings svg {
+  top: 2px;
+}
+/*.sidebarCb { 
+    &:checked {
+        ~ .headerActions {
+            margin-right: 200px; //rtl
+        }
+    }
+}*/
 .sideBar {
   background: #39434a;
   position: fixed;
@@ -63,15 +65,6 @@ footer {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.sideBar > button {
-  position: absolute;
-  top: 19px;
-  right: 12px;
-  /*rtl*/
-  width: 10px;
-  height: 10px;
-  background: url(/Images/common17-sprite.png?v=4) -68px -15px no-repeat;
 }
 .sideBar li {
   line-height: 15px;
@@ -101,6 +94,7 @@ footer {
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
   vertical-align: top;
+  white-space: nowrap;
 }
 .headerActions .btn {
   display: inline-block;
@@ -126,24 +120,6 @@ footer {
 }
 .headerActions .btn:hover:first-child {
   background: #e1fff0;
-}
-.headerWpr.menuOpen .headerActions {
-  margin-right: 200px;
-  /*rtl*/
-}
-.headerWpr.menuOpen .sideBar {
-  right: 0;
-  /*rtl*/
-}
-.headerSettings {
-  display: inline-block;
-  margin: 0 12px 0 8px;
-  /*rtl*/
-  width: 17px;
-  height: 13px;
-  background: url(/Images/dash13-sprite.png?v=1) -254px -28px no-repeat;
-  vertical-align: middle;
-  line-height: 50px;
 }
 /*#endregion */
 /*#region error pages */
@@ -201,8 +177,11 @@ footer {
 /*#endregion */
 /*#region about us, contact us, privacy policy; terms of service */
 .staticPage {
-  color: #000;
-  margin: 0 auto;
+  display: inline-block;
+  padding: 0 25px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .staticPage h1 {
   color: #0f9d58;
@@ -235,7 +214,7 @@ footer {
 .contactUs {
   direction: ltr;
   /*no rtl*/
-  width: 645px;
+  max-width: 645px;
   text-align: left;
   /*no rtl*/
 }
