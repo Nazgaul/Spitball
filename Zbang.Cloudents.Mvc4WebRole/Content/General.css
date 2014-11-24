@@ -34,21 +34,6 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
 body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   /*margin: 0; //override default jQuery mCustom Scrollbar code*/
 }
-/*noscript > div {
-    border: 1px solid #dc552a;
-    color: #111;
-    padding: 0 6px;
-    font-size: 18px;
-    position: absolute;
-    top: 44px;
-    background: #fff;
-    line-height: 42px;
-    text-align: center;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 400px;
-}*/
 /*#region placeholder text */
 /*#endregion */
 /*#region Webkit scoll bar */
@@ -1086,7 +1071,6 @@ iframe .registerFirst.store {
   fill: #fff;
   position: relative;
   top: 10px;
-  left: 30px;
 }
 .svg-menu {
   width: 23px;
