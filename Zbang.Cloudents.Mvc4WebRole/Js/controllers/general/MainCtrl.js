@@ -6,9 +6,12 @@
             $scope.firstTime = $scope.viewBag;
 
             $rootScope.options = {
-                quizOpen: false
+                quizOpen: false         
             };
+
+
             $scope.params = {
+
                 store: {}
             }
 
@@ -137,7 +140,7 @@
                     if (response.isValid) {
                         $rootScope.params.store.coupon.valid = true;
                         $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
-                        cd.pubsub.publish('resetLoginPopup');
+                        sLogin.reset();
                         return;
                     }
                     sNotify.alert(invalidCouponMessage);

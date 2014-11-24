@@ -1,5 +1,4 @@
-﻿
-app.directive('bagData',
+﻿app.directive('bagData',
     [
         function () {
             "use strict";

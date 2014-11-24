@@ -1,7 +1,7 @@
 ﻿app.factory('sUserDetails',
- ['sAccount', '$filter', '$timeout', '$q',
+ ['$rootScope','sAccount', '$filter', '$timeout', '$q',
 
- function (sAccount, $filter, $timeout, $q) {
+ function ($rootScope,sAccount, $filter, $timeout, $q) {
      "use strict";
      var isAuthenticated = false,
          userData;
@@ -11,6 +11,9 @@
 
          if (!_.isEmpty(data)) {
              isAuthenticated = true;
+             $rootScope.user = {
+                 isAuthenticated: true
+             };
          }
 
 
