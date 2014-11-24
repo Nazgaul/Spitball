@@ -1,5 +1,5 @@
 ﻿angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', 'sLogin', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify, sLogin) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', 'sLogin', 'sGmfcnHandler', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify, sLogin, sGmfcnHandler) {
 	    "use strict";
 	    return {
 	        restrict: 'A',
@@ -147,8 +147,8 @@
 
 	            uploader.bind('UploadComplete', function (up, files) {
 
-	                if (files && files.length > 0) {
-	                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+	                if (files && files.length > 0) {	                    
+	                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
 	                }
 
 

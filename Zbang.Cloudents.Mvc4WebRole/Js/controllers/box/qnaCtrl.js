@@ -168,7 +168,8 @@
                         category: 'Add an answer',
                         label: 'User post an answer in the feed'
                     });
-                    cd.pubsub.publish('addPoints', { type: 'answer' });
+                    sGmfcnHandler.addPoints({ type: 'answer' });
+
 
                     question.aFormData.questionId = question.id;
                     question.aFormData.boxId = $scope.boxId;

@@ -1,8 +1,8 @@
 ﻿app.controller('UploadCtrl',
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
-        'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics','sNotify',
+        'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics','sNotify','sGmfcnHandler',
 
-    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics,sNotify) {
+    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics,sNotify,sGmfnHandler) {
         "use strict";
         $scope.sources = {
             dropboxLoaded: false,
@@ -66,8 +66,9 @@
                                 questionId: $scope.questionId,
                                 newQuestion: $scope.newQuestion
                             }
+                            
+                            sGmfcnHandler.addPoints({ type: 'itemUpload', amount: 1 });
 
-                            cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: 1 });
 
                             $rootScope.$broadcast('ItemUploaded', sentObj);
                         }, function (response) {                           
@@ -116,7 +117,8 @@
                             }
 
                             if (_.last(files) === fileData) {
-                                cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                                sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
+                                
                             }
 
                             $rootScope.$broadcast('ItemUploaded', sentObj);
@@ -174,7 +176,7 @@
 
 
                                 if (_.last(files) === fileData) {
-                                    cd.pubsub.publish('addPoints', { type: 'itemUpload', amount: files.length });
+                                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
                                 }
 
                                 $rootScope.$broadcast('ItemUploaded', sentObj);

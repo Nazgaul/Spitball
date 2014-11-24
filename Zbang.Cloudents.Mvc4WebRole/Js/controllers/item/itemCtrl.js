@@ -1,7 +1,9 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics', 'sNotify', 'sLogin',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
+            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
+    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -232,9 +234,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
           $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
           resManager.get('IShared') + ' ' + $scope.item.name + ' ' + resManager.get('OnCloudents') + '<center>&#160;</center><center></center>' + resManager.get('CloudentsJoin'),
             null //picture
-       ).then(function () {
-           cd.pubsub.publish('addPoints', { type: 'shareFb' });
-       });
+       );
 
         $analytics.eventTrack('Item', {
             category: 'Share Facebook'

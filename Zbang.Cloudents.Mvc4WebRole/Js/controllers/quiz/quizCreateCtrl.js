@@ -1,5 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify',
-    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics, sNotify) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify','sGmfcnHandler',
+    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
         "use strict";
         function Question(data) {
             data = data || {};
@@ -574,7 +574,7 @@
                 quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: cd.getParameterFromUrl(1), boxName: $scope.quiz.courseName, quizName: $scope.quiz.name
             }
             ).then(function (data) {
-                cd.pubsub.publish('addPoints', { type: 'quiz' });
+                sGmfcnHandler.addPoints({ type: 'quiz' });
                 addItemToBox(true, data.url);
                 $scope.params.showCreateQuiz = false;
                 $rootScope.options.quizOpen = false;
