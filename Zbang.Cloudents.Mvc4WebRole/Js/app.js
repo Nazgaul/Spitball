@@ -349,14 +349,7 @@
         //    ga('send', 'pageview');
         //}
 
-        ga('create', 'UA-9850006-3', {
-            'userId': sUserDetails.getDetails().id,
-            'siteSpeedSampleRate': 70,
-            'cookieDomain': 'cloudents.com',
-            'alwaysSendReferrer': true
-        });
-
-        ga('set', 'dimension3', sUserDetails.getDetails().id);
+  
 
 
         sVerChecker.checkVersion();
@@ -369,7 +362,14 @@
             //title 
             if (!previous) { //no previous firsttime load
 
+                ga('create', 'UA-9850006-3', {
+                    'userId': sUserDetails.getDetails().id,
+                    'siteSpeedSampleRate': 70,
+                    'cookieDomain': 'cloudents.com',
+                    'alwaysSendReferrer': true
+                });
 
+                ga('set', 'dimension3', sUserDetails.getDetails().id);
 
                 try {
                     if (current.$$route.params.type === 'box') {
