@@ -146,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
                 new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                 new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
-
+                new JsFileWithCdn("/scripts/CountUp.js"),
                 new JsFileWithCdn("~/scripts/elastic.js"),
                 new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
                 new JsFileWithCdn("~/scripts/svg4everybody.js"),
@@ -269,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/trustedHtml.js"),
                 new JsFileWithCdn("/js/filters/actionText.js"),
                 new JsFileWithCdn("/js/filters/orderBy.js"),
-                new JsFileWithCdn("/js/filters/stringFormat.js"),
+                new JsFileWithCdn("/js/filters/stringFormat.js")
 
                 //new JsFileWithCdn("/js/pubsub.js"),
                 //new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
@@ -290,8 +290,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //new JsFileWithCdn("/js/Upload2.js"),
                 //new JsFileWithCdn("/js/Library.js"),
                 //new JsFileWithCdn("/js/User.js"),
-                //new JsFileWithCdn("/js/NotificationsViewModel.js"),
-                new JsFileWithCdn("/scripts/CountUp.js")
+                //new JsFileWithCdn("/js/NotificationsViewModel.js"),                
                 //new JsFileWithCdn("/scripts/stopwatch.js")
              );
 

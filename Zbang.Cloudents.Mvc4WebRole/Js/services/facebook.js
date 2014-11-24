@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare',
-   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare) {
+   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare','sGmfcnHandler',
+   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler) {
        "use strict";
        var isAuthenticated = false,
            accessToken,
@@ -92,8 +92,8 @@
                            });
                            //cd.pubsub.publish('addPoints', { type: 'shareFb' });
                            var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                           sShare.facebookReputation({ postId: postId });
-                           cd.pubsub.publish('addPoints', { type: 'shareFb' });
+                           sShare.facebookReputation({ postId: postId });                           
+                           sGmfcnHandler.addPoints({ type: 'shareFb' });
                        }
                    });
                }
