@@ -91,7 +91,7 @@ window.fbAsyncInit = function () {
     //#region events
 
     //#region toggle menu
-  
+
     function toggleUserDropdown(e) {
         var dropdown = this.querySelector('.userMenu');
 
