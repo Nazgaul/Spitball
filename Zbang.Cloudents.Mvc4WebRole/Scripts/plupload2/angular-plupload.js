@@ -1,5 +1,5 @@
 ﻿angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', 'sLogin', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify, sLogin) {
 	    "use strict";
 	    return {
 	        restrict: 'A',
@@ -65,7 +65,7 @@
 	            uploader.bind('FilesAdded', function (up, files) {
 
 	                if (!sUserDetails.isAuthenticated()) {
-	                    cd.pubsub.publish('register', { action: true });
+	                    sLogin.registerAction();
 	                    return;
 	                }
 

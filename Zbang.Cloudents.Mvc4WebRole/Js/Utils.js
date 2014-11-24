@@ -247,7 +247,7 @@
             .removeClass("validation-summary-errors")
             .addClass("validation-summary-valid")
             .find("ul").empty();
-
+        
         $form.find("[data-valmsg-replace]")
             .removeClass("field-validation-error")
             .addClass("field-validation-valid")

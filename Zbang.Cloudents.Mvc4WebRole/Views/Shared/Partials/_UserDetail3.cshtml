@@ -2,8 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@if (User != null && User.Identity.IsAuthenticated)
-{
+<span ng-if="$root.user.isAuthenticated">
     <li class="navItem navUser" ng-controller="UserDetailsCtrl" bindonce>
         <a bo-href="user.url" class="userAnchor">
             <img id="userImg" bo-src="user.image" class="lFloat userImg" alt="user image" width="36" height="36" />
@@ -42,12 +41,11 @@
             </li>
         </ul>
     </li>
-}
+</span>
 
-else
-{
+<span ng-if="!$root.user.isAuthenticated">
     <li class="navItem signUp">
-        <button class="btn addRegister">@LogOnResources.SignUp</button>
-        <button class="btn addConnect">@SharedResources.SignIn</button>
+        <button class="btn addRegister" login-btn="register">@LogOnResources.SignUp</button>
+        <button class="btn addConnect" login-btn>@SharedResources.SignIn</button>
     </li>
-}
+</span>

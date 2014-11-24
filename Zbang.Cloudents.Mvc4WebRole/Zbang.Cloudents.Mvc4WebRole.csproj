@@ -925,7 +925,6 @@
     <Content Include="Js\controllers\box\uploadCtrl.js" />
     <Content Include="Js\controllers\dashboard\dashboardCtrl.js" />
     <Content Include="Js\controllers\dashboard\createBoxCtrl.js" />
-    <Content Include="Js\controllers\dashboard\showFriendsCtrl.js" />
     <Content Include="Js\controllers\item\itemCtrl.js" />
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
@@ -942,6 +941,7 @@
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
+    <Content Include="Js\directives\login.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\storageSpace.js" />
@@ -1003,6 +1003,7 @@
     <Content Include="Js\services\quiz.js" />
     <Content Include="Js\services\search.js" />
     <Content Include="Js\services\share.js" />
+    <Content Include="Js\services\login.js" />
     <Content Include="Js\services\store.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
@@ -1029,6 +1030,7 @@
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\services\versionChecker.js" />
+    <Content Include="Js\staticShim.js" />
     <Content Include="Js\Statistics.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />

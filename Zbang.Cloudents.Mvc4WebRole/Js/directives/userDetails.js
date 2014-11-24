@@ -1,5 +1,4 @@
-﻿
-app.directive('userDetails', ['sUserDetails', function (sUserDetails) {
+﻿app.directive('userDetails', ['sUserDetails', function (sUserDetails) {
     "use strict";
     return {
         restrict: 'A',

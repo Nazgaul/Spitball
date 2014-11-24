@@ -1,55 +1,118 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
-(function (cd, $) {
-    "use strict";   
+(function (document) {
+    "use strict";
+
+
+
     var eById = document.getElementById.bind(document),
-        $registerPopup = $(eById('register')), $registerForm = $(eById('registerForm')),
-        $cancelPopup = $(eById('cancelRegisterPopup')), regPopup = eById('regPopup'),
-        $connectPopup = $(eById('connect')), $connectForm = $(eById('login'));
+        registerPopup = eById('register'), registerForm = eById('registerForm'),
+        cancelPopup = eById('cancelRegisterPopup'), regPopup = eById('regPopup'),
+        connectPopup = eById('connect'), connectForm = eById('login'),
+        langSelect = eById('dLangSelect');
 
-    //#region Show and Hide popups
-    $(document).on('click', '.addConnect', function (e) {
-        e.preventDefault();
-        resetPopupView();
-        $connectPopup.addClass('connect');
-        focusOnElement($connectPopup);
-    })
-    .on('click', '.addRegister', function (e) {
 
-        e.preventDefault();
-        //resetPopupView(); // bring this back on we cant populate data
-        $registerPopup.addClass('register');
-        focusOnElement($registerPopup);
-    })
-    .on('click', '.registerFirst .emailBtn', function () {
-        $registerPopup.addClass('step2');
-    });
-
-    $('[data-closelogin]').click(resetPopupView);
-
-    cd.pubsub.subscribe('register', function (data) {
-        resetPopupView();
-        $registerPopup.addClass('register');
-        if (data.action) {
-            $registerPopup.addClass('registerFirst');
-        }
-
-        focusOnElement($registerPopup);
-    });
-
-    $cancelPopup.click(function () {
-        regPopup.style.display = 'none';
-    });
-
-    function focusOnElement($popup) {
-        $popup.find('.inputText').first().focus();
+    if (!connectPopup) {
+        return;
     }
 
-    cd.pubsub.subscribe('resetLoginPopup', resetPopupView);
+    var connectPopupFb = connectPopup.getElementsByClassName('facebook')[0],
+        registerPopupFb = registerPopup.getElementsByClassName('facebook')[0];
+
+
+    (function () {
+        var data = sessionStorage.getItem('registerForm');
+        if (!data) {
+            return;
+        }
+        var arr = JSON.parse(data), input;
+        for (var i = 0; i < arr.length ; i++) {
+            input = registerForm.querySelector('input[name="' + arr[i].name + '"]').value = arr[i].value;            
+        }
+
+        register();
+        
+        
+        sessionStorage.removeItem('registerForm');
+    })();
+
+    document.getElementById('maleRadio').checked = true;
+    //#region Show and Hide popups
+
+    registerPopup.addEventListener('click', function (e) {
+        var target = e.target;
+
+        if (!target.hasClass('addConnect')) {
+            return;
+        }
+
+        connect();
+
+    });
+    connectPopup.addEventListener('click', function (e) {
+        var target = e.target;
+
+        if (!target.hasClass('addRegister')) {
+            return;
+        }
+
+        register();
+    });
+    registerPopup.addEventListener('click', function (e) {
+        var target = e.target;
+        if (!target.hasClass('emailBtn')) {
+            return;
+        }
+
+        if (!registerPopup.hasClass('registerFirst')) {
+            return;
+        }
+
+        registerPopup.addClass('step2');
+    });
+    registerPopup.addEventListener('click', closePopup);
+    connectPopup.addEventListener('click', closePopup);
+
+    langSelect.addEventListener('change', function () {
+
+        var x = [], obj;
+        obj = registerForm.querySelector('input[name="FirstName"]');
+        x.push({ name: obj.name, value: obj.value });
+        obj = registerForm.querySelector('input[name="LastName"]');
+        x.push({ name: obj.name, value: obj.value });
+        obj = registerForm.querySelector('input[name="NewEmail"]');
+        x.push({ name: obj.name, value: obj.value });
+
+        window.sessionStorage.setItem('registerForm', JSON.stringify(x));
+        window.location.href = this.selectedOptions ? this.selectedOptions[0].getAttribute('data-href') : this.options[this.selectedIndex].getAttribute('data-href');
+    });
+
+    addChangeEvent(connectForm);
+    addChangeEvent(registerForm);
+
+
+
+    function focusOnElement(popup) {
+        popup.querySelector('.inputText').focus();
+    }
+
+
+    function closePopup(e) {
+        var target = e.target,
+         isClose = target.getAttribute('data-closelogin');
+
+        if (isClose) {         
+            resetPopupView();
+            resetErrors(connectForm);
+            resetErrors(registerForm);
+        }
+    }
+
     function resetPopupView() {
-        $registerPopup.removeClass('register registerFirst step2');
-        $connectPopup.removeClass('connect');
-        cd.resetForm($('#registerForm'));
-        cd.resetForm($('#login'));
+        registerPopup.removeClass('register registerFirst step2');
+        connectPopup.removeClass('connect');
+        resetErrors(connectForm);
+        resetErrors(registerForm);
+
         if (regPopup) {
             regPopup.style.display = 'none';
         }
@@ -57,94 +120,104 @@
 
     //#endregion
 
-    $connectForm.submit(function (e) {
-        e.preventDefault();
-        var $form = $(this), $submit = $form.find(':submit');
-        if (!(!$form.valid || $form.valid())) {
-            return;
-        }
-        var c = 'disabled';
-        var d = $form.serializeArray();
-        d.push({ name: 'invId', value: cd.getParameterByName('invId') });
+    //#region public
+    window.connectApi = {
+        connect: connect,
+        register: register,
+        registerAction: registerAction,
+        connectFb: connectFb,
+        reset: resetPopupView
+    }
 
-        $submit.attr(c, c);
-        $.ajax({
-            url: $form.prop('action'),
-            data: d,
-            type: 'POST',
-            success: function (data) {
-                if (data.success) {
-                    window.sessionStorage.clear();
+    function connect() {
+        resetPopupView();
+        connectPopup.addClass('connect');
+        focusOnElement(connectPopup);
+    }
 
-                    var returnUrl = cd.getParameterByName('returnUrl');
-                    if (returnUrl.length) {
-                        window.location = returnUrl;
-                        return;
-                    }
+    function register() {
+        registerPopup.addClass('register');
+        focusOnElement(registerPopup);
+    }
 
-                    if (window.location.href.indexOf('error') > -1) {
-                        window.location.href = '/dashboard/';
-                        return;
-                    }
-                    window.location.reload();
-                    return;
-                }
-                cd.resetErrors($form);
-                cd.displayErrors($form, data.payload);
-                $submit.removeAttr(c);
-            },
-            error: function () {
-                $submit.removeAttr(c);
-                cd.notification('Something went wrong please try again');
-            }
-        });
-    });
+    function registerAction() {
+        register();
+        registerPopup.addClass('registerFirst');
+    }
+    //#endregion
 
-    $registerForm.submit(function (e) {
+    connectForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        var $form = $(this), $submit = $form.find(':submit');
-        $form.validate().settings.ignore = ''; //we to this because hidden fields are not validated
-        if (!(!$form.valid || $form.valid())) {
+        if (!validateForm(connectForm)) {
             return;
         }
 
-        var d = $form.serializeArray();
-        d.push({ name: 'universityId', value: cd.getParameterByName('universityId') });
-        d.push({ name: 'returnUrl', value: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname) })
-        d.push({ name: 'invId', value: cd.getParameterByName('invId') });
-        $submit.attr('disabled', 'disabled');
-        $.ajax({
-            url: $form.prop('action'),
-            data: d,
-            type: 'POST',
-            success: function (data) {
-                if (data.success) {
-                    window.sessionStorage.clear();
-                    if (data.payload) {
-                        window.location.href = data.payload;
-                        return;
-                    }
-                  
-                    if (window.location.href.indexOf('error') > -1) {
-                        window.location.href = '/dashboard/';
-                        return;
-                    }
-                    window.location.reload();
-                    return;
-                }
-                cd.resetErrors($form);
-                cd.displayErrors($form, data.payload);
-                $submit.removeAttr('disabled');
+        var data = {
+            invId: gup('invId')
+        };
 
-            },
-            error: function () {
-                $submit.removeAttr('disabled');
-                cd.notification('Something went wrong please try again');
-            }
-        });
+        submit(connectForm, data);
     });
 
+    registerForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+
+        if (!validateForm(registerForm)) {
+            return;
+        }
+
+        var data = {
+            universityId: gup('universityId'),
+            returnUrl: gup('returnUrl'),
+            invId: gup('invId')
+        };
+
+        submit(registerForm, data);
+    });
+
+    function submit(form, data) {
+        var inputs = form.querySelectorAll('input');
+        for (var i = 0, l = inputs.length; i < l; ++i) {
+            if (inputs[i].type === 'submit') {
+                continue;
+            }
+            data[inputs[i].name] = inputs[i].value;
+        }
+
+        var submit = form.querySelector('input[type="submit"]')
+        submit.disabled = true;
+
+
+        ajax.post(form.action, data, function (data) {
+            submit.disabled = false;
+
+            if (!data.success) {
+                resetErrors(form);
+                displayErrors(form, data.payload);
+                return;
+            }
+            window.sessionStorage.clear();
+
+            if (data.payload) {
+                window.location.href = data.payload;
+                return;
+            }
+
+            if (window.location.href.indexof('error') > -1) {
+                window.location.href = '/dashboard/';
+                return;
+            }
+            window.location.reload();
+            return;
+
+        }, true);
+    }
+
+    //#region facebook
+    connectPopupFb.addEventListener('click', connectFb);
+    registerPopupFb.addEventListener('click', connectFb);
     function logInFacebook(accessToken) {
         var facebookText = {
             en: "I have just signed up to Cloudents.\nCloudents is a free online and mobile social studying platform. With a large collection of study material, course notes, summaries and Q&As Cloudents makes my studying easier.",
@@ -160,13 +233,13 @@
             url: "/Account/FacebookLogin/",
             data: {
                 token: accessToken,
-                universityId: cd.getParameterByName('universityId'),
-                invId: cd.getParameterByName('invId'),
-                returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname === '/account' ? null : window.location.pathname)
+                universityId: gup('universityId'),
+                invId: gup('invId'),
+                returnUrl: gup('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
             },
             success: function (data) {
                 if (!data.success) {
-                    cd.notification('there is a problem signing you in with facebook');
+                    alert('there is a problem signing you in with facebook');
                     return;
                 }
                 window.sessionStorage.clear();
@@ -183,7 +256,7 @@
                                 window.location.href = obj.url;
                                 return;
                             }
-                            
+
                             if (window.location.href.indexOf('error') > -1) {
                                 window.location.href = '/dashboard/';
                                 return;
@@ -199,56 +272,250 @@
                 }
             },
             error: function (msg) {
-                $('div.loading').hide();
-                $('#fbError').text(msg);
+                alert(msg);
             }
         });
     }
+    function connectFb() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                var accessToken = response.authResponse.accessToken;
+                FB.api('/me/permissions', function (response) {
 
-    var fbElement = $('.facebook');
-    if (fbElement.length) {
-        fbElement.click(function () {
-            FB.login(function (response) {
-                if (response.authResponse) {
-                    var accessToken = response.authResponse.accessToken;
-                    FB.api('/me/permissions', function (response) {
+                    var perms = response.data[0];
+                    if (perms.email) {
+                        logInFacebook(accessToken);
+                        // User has permission
+                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
+                    } else {
+                        alert('you need to give email permission');
+                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');                        
+                    }
+                });
+            }
 
-                        var perms = response.data[0];
-                        //console.log(perms)
-                        // Check for publish_stream permission in this case....
-                        if (perms.email) {
-                            //console.log(accessToken);
-                            logInFacebook(accessToken);
-                            // User has permission
-                            cd.analytics.trackEvent('Homepage', 'Facebook signup', 'Successful login useing facebook');
-                        } else {
-                            cd.notification('you need to give email permission');
-                            cd.analytics.trackEvent('Homepage', 'Facebook signup', 'Failed login useing facebook');
-                        }
-                    });
+        }, { scope: 'email,publish_stream,user_friends' });
+    }
+    //#endregion
+
+
+    //#region utils
+    var ajax = {};
+    ajax.send = function (url, callback, method, data, sync) {
+        var x = new XMLHttpRequest();
+        x.open(method, url, sync);
+        x.onreadystatechange = function () {
+            if (x.readyState == 4) {
+                if (x.status === 200) {
+                    callback(JSON.parse(x.responseText));
+                } else {
+                    alert('Something went wrong please try again');
                 }
+            }
 
-            }, { scope: 'email,publish_stream,user_friends' });
-        });
-        cd.loader.registerFacebook();
+        };
+        if (method == 'POST') {
+            x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        }
+        x.send(data)
+    };
+
+    ajax.get = function (url, data, callback, sync) {
+        var query = [];
+        for (var key in data) {
+            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+        }
+        ajax.send(url + '?' + query.join('&'), callback, 'GET', null, sync)
+    };
+
+    ajax.post = function (url, data, callback, sync) {
+        var query = [];
+        for (var key in data) {
+            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+        }
+        ajax.send(url, callback, 'POST', query.join('&'), sync)
+    };
+
+    function gup(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + name + "=([^&#]*)";
+        var regex = new RegExp(regexS);
+        var results = regex.exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return results[1];
+        }
+    }
+    //#endregion
+
+    function addChangeEvent(form) {
+        var inputs = form.querySelectorAll("input");
+        for (var i = 0, l = inputs.length; i < l; i++) {
+            placeHolder(inputs[i]);
+            inputs[i].oninput = function (e) {
+                var target = e.target;
+                validateInput(form, target);
+            };
+        }
+    }
+    function validateForm(form) {
+        var inputs = form.querySelectorAll('input'),
+            valid = true;
+        for (var i = 0, l = inputs.length; i < l; ++i) {
+            valid = validateInput(form, inputs[i]);
+        }
+
+        return valid;
+
+
 
     }
-    
-    //cd.localStorageWrapper.removeItem('history');//remove history
-    $.extend($.validator.messages, {
-        email: $('#NewEmail').data('valRegex')
-    });
+    function validateInput(form, input) {
 
-    $(function () {
-        var data = sessionStorage.getItem('registerForm');
-        if (!data) {
-            return;
+
+        if (input.type === 'hidden' || input.type === 'submit') {
+            return true;
         }
-        var arr = JSON.parse(data);
-        for (var i = 0; i < arr.length ; i++) {
-            $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
+
+        var error,
+            errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
+        if (!errorElement) {
+            return true;
         }
-        $('.addRegister').click();
-        sessionStorage.removeItem('registerForm');
-    });
-})(cd, jQuery);
+
+        //equal to other direction
+        var equalInput = form.querySelector('input[data-val-equalto-other="*.' + input.name + '"]');
+        if (equalInput) {
+            validateInput(form, equalInput);
+        }
+
+        //equal to
+        error = input.getAttribute('data-val-equalto');
+        if (error && !equalTo(input, errorElement, error)) {
+            return false;
+        }                   
+
+        //regex
+        error = input.getAttribute('data-val-regex');
+        if (error && !valRegex(input, errorElement, error)) {
+            return false;
+        }
+
+        //length
+        error = input.getAttribute('data-val-length');        
+        if (error && !valLength(input, errorElement, error)) {
+            return false;
+        }
+
+        //required
+        error = input.getAttribute('data-val-required');
+        if (error && !valRequired(input, errorElement, error)) {
+            return false;
+        }
+
+
+        return true;
+
+        function valRegex(input, errorElement, error) {
+            var pattern = input.getAttribute('data-val-regex-pattern');
+            if (error.length && input.value && pattern.length) {
+                var patternExp = new RegExp(pattern);
+                if (!patternExp.test(input.value)) {
+                    resetError(errorElement);
+                    appendError(input.name, errorElement, error);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function valRequired(input, errorElement, error) {
+            if (error.length) {
+
+                resetError(errorElement);
+
+                if (input.type === 'radio') {
+                    var radioBtns = document.querySelectorAll('input[name="' + input.name + '"]'),
+                        checked = false;
+                    for (var i = 0, l = radioBtns.length; i < l && !checked; i++) {
+                        checked = radioBtns[i].checked;
+                    }
+
+                    if (!checked) {
+                        appendError(input.name, errorElement, error);
+                    }
+
+                    return checked;
+                }
+                if (!input.value) {
+                    appendError(input.name, errorElement, error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function valLength(input, errorElement, error) {
+            var minLength = parseInt(input.getAttribute('data-val-length-min'), 10);
+            if (error.length && minLength) {
+                if (input.value && (input.value.length > 0 && input.value.length < minLength)) {
+                    resetError(errorElement);
+                    appendError(input.name, errorElement, error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function equalTo(input, errorElement, error) {
+            var otherInput = form.querySelector('input[name="' + input.getAttribute('data-val-equalto-other').substring(2) + '"]');
+            if (error.length && input && otherInput && input.value !== otherInput.value) {
+                resetError(errorElement);
+                appendError(input.name, errorElement, error);
+                return false;
+            }
+            return true;
+        }
+    }
+
+    function appendError(inputName, errorElement, error) {
+        errorElement.removeClass('field-validation-valid').addClass('field-validation-error');
+        errorElement.insertAdjacentHTML('beforeend', '<span for=' + inputName + '>' + error + '</span>');
+    }
+
+    function resetError(element) {
+        element.innerHTML = '';
+        element.removeClass('field-validation-error').addClass('field-validation-valid');
+    }
+
+    function resetErrors(form) {
+        var inputs = form.querySelectorAll('input'), input, errorElement;
+        for (var i = 0, l = inputs.length; i < l; ++i) {
+            input = inputs[i];
+            errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
+            if (!errorElement) {
+                continue;
+            }
+            resetError(errorElement);
+        }
+    }
+
+    function displayErrors(form, payload) {
+        var errorElement, error;
+        for (var i = 0, l = payload.length ; i < l; i++) {
+            errorElement = form.querySelector('[data-valmsg-for="' + payload[i].key + '"]');
+            if (!errorElement) {
+                continue;
+            }
+            resetError(errorElement);
+            error = payload[i].value[0];
+            appendError(payload[i].key, errorElement, error);
+
+        }
+    }
+
+})(window.document);

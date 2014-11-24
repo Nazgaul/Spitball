@@ -6,7 +6,7 @@
         var notifications;
         getNotifications();
 
-        $interval(checkNotifications, 60000);
+        //$interval(checkNotifications, 60000);
 
 
         var service = {
@@ -51,29 +51,29 @@
 
             });
         }
-        function checkNotifications() {
-            var newNotifications = false;
-            sShare.getNotifications().then(function (notifies) {
-                _.forEach(notifies, function (note) {
-                    var nExists = getById(note.msgId);
+        //function checkNotifications() {
+        //    var newNotifications = false;
+        //    sShare.getNotifications().then(function (notifies) {
+        //        _.forEach(notifies, function (note) {
+        //            var nExists = getById(note.msgId);
 
-                    if (nExists) {
-                        return;
-                    }
+        //            if (nExists) {
+        //                return;
+        //            }
 
-                    notifications.push(note);
-                    newNotifications = true;
+        //            notifications.push(note);
+        //            newNotifications = true;
 
-                });
+        //        });
 
-                if (!newNotifications) {
-                    return;
-                }
+        //        if (!newNotifications) {
+        //            return;
+        //        }
 
-                $rootScope.$broadcast('newNotifications')
-            });
+        //        $rootScope.$broadcast('newNotifications')
+        //    });
          
-        }
+        //}
         function getById(id) {
             return _.find(notifications, function (notification) {
                 return notification.msgId === id;

@@ -1,6 +1,6 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager,sNotify) {
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify','sLogin',
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager, sNotify, sLogin) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -249,7 +249,7 @@
                 $scope.downloadItem = function (event/*, item*/) {
                     if (!sUserDetails.isAuthenticated()) {
                         event.preventDefault();
-                        cd.pubsub.publish('register', { action: true });
+                        sLogin.registerAction();
                         return;
                     }
 
@@ -307,7 +307,7 @@
                 $scope.addQuestionAttachment = function () {
 
                     if (!sUserDetails.isAuthenticated()) {
-                        cd.pubsub.publish('register', { action: true });
+                        sLogin.registerAction();
                         return;
                     }
 
@@ -336,7 +336,7 @@
 
                 $scope.addAnswerAttachment = function (question) {
                     if (!sUserDetails.isAuthenticated()) {
-                        cd.pubsub.publish('register', { action: true });
+                        sLogin.registerAction();
                         return;
                     }
 
@@ -365,7 +365,7 @@
 
                 $scope.checkAuth = function () {
                     if (!sUserDetails.isAuthenticated()) {
-                        cd.pubsub.publish('register', { action: true });
+                        sLogin.registerAction();
                         return false;
                     }
 

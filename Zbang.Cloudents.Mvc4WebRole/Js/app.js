@@ -38,9 +38,9 @@
 
                        return response;
                    },
-                   'responseError': function (response) {                       
+                   'responseError': function (response) {
                        switch (response.status) {
-                           
+
                            case 400:
                                alert('Version mismatch, page will refresh');
                                window.location.reload(true);
@@ -87,7 +87,7 @@
            $routeProvider.when = function (path, route) {
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
-                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);                       
+                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);
                    }]
                };
 
@@ -349,11 +349,12 @@
         //    ga('send', 'pageview');
         //}
 
+  
 
 
-        sVerChecker.checkVersion();        
+        sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            $window.scrollTo(0, 0);       
+            $window.scrollTo(0, 0);
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
@@ -368,6 +369,7 @@
                     'alwaysSendReferrer': true
                 });
 
+                ga('set', 'dimension3', sUserDetails.getDetails().id);
 
                 try {
                     if (current.$$route.params.type === 'box') {
@@ -378,11 +380,11 @@
                         setBackDashboard();
                     }
                 }
-                catch(ex) {
+                catch (ex) {
 
                 }
-             return;
-            }          
+                return;
+            }
 
             try {
                 if (current.$$route.params.type === 'box') {
@@ -415,10 +417,10 @@
                 }
             }
             catch (ex) {
-                
+
             }
         });
-        
+
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
             $rootScope.back.title = 'Dashboard';
