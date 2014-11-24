@@ -35,22 +35,22 @@
 
     //#region events
     //#region toggle menu
-    headerSettings.addEventListener('click', function () {
-        var className = 'menuOpen';
-        var classString = headerWrapper.className, nameIndex = classString.indexOf(className);
-        if (nameIndex == -1) {
-            classString += ' ' + className;
-        }
-        else {
-            classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
-        }
-        headerWrapper.className = classString;
+    //headerSettings.addEventListener('click', function () {
+    //    var className = 'menuOpen';
+    //    var classString = headerWrapper.className, nameIndex = classString.indexOf(className);
+    //    if (nameIndex == -1) {
+    //        classString += ' ' + className;
+    //    }
+    //    else {
+    //        classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
+    //    }
+    //    headerWrapper.className = classString;
 
-    });
+    //});
 
-    closeMenu.addEventListener('click', function () {
-        headerWrapper.className = 'headerWpr';
-    });
+    //closeMenu.addEventListener('click', function () {
+    //    headerWrapper.className = 'headerWpr';
+    //});
 
     //#endregion
 

@@ -52,46 +52,34 @@
         </div>
     </noscript>
     <div class="wrap">
-        <header class="siteHeader headerWpr">
-            @{
-                var url = Url.Action("Index", "Account");
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    url = Url.Action("Index", "Dashboard");
-                }
+
+        @{
+            var url = Url.Action("Index", "Account");
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                url = Url.Action("Index", "Dashboard");
             }
+        }
+        @if (User == null || !(User.Identity.IsAuthenticated))
+        {
+            <header class="siteHeader headerWpr">
+                <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+                
+                <div class="headerActions rFloat">
+                    <label for="sidebarCb" class="headerSettings rFloat">
+                        @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+                    </label>
+                    <ul class="userNav">
+                        @{Html.RenderAction("GetUserDetail3", "Account", true);}
+                    </ul>
+                    @{Html.RenderPartial("_SettingsBar");}
+                </div>
 
-            <div class="headerActions rFloat">
-                <ul class="userNav">
-                    @{Html.RenderAction("GetUserDetail3", "Account", true);}
-
-                    @if (User == null || !(User.Identity.IsAuthenticated))
-                    {
-                        <li class="navItem">
-                            <button type="button" class="headerSettings"></button>
-                            <aside class="sideBar">
-                                <button class="closeMenu" type="button"></button>
-                                <ul>
-                                    <li><a href="~/">@HomeResources.Homepage</a></li>
-                                    <li><a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a></li>
-                                    <li><a href="@Url.Action("Help", "Home")">@SharedResources.Help</a></li>
-                                    <li><a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a></li>
-                                    <li><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
-
-                                    <li class="last"><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
-                                    <li class="sideBarSignupBtn addRegister" data-university="@ViewBag.universityId">@LogOnResources.SignUp</li>
-                                    <li class="last addConnect" data-university="@ViewBag.universityId">@SharedResources.SignIn</li>   
-                                </ul>
-                            </aside>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-            <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
-                <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
-            </a>
-        </header>
+                <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
+                    <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
+                </a>
+            </header>
+        }
         <div class="staticContent">
             @RenderBody()
         </div>
@@ -125,4 +113,5 @@
 
 
 </body>
+
 </html>

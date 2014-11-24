@@ -11,35 +11,8 @@
   text-align: right;
   /*rtl*/
 }
-.sideBar > button {
-  left: 12px;
-  /*rtl*/
-  right: auto;
-}
 .sideBar li {
   float: right;
-  /*rtl*/
-}
-.headerActions.menuOpen {
-  margin: 0 0 0 200px;
-  /*rtl */
-}
-.headerActions.menuOpen .sideBar {
-  left: 0;
-  /*rtl*/
-  right: auto;
-}
-.headerWpr.menuOpen .headerActions {
-  margin: 0 0 0 200px;
-  /*rtl*/
-}
-.headerWpr.menuOpen .sideBar {
-  left: 0;
-  /*rtl*/
-  right: auto;
-}
-.headerSettings {
-  margin: 0 8px 0 12px;
   /*rtl*/
 }
 /*#endregion */

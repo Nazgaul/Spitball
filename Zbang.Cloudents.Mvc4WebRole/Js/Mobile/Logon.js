@@ -23,13 +23,13 @@
             $userMenu.slideUp(slideSpeed);
         });
         //headerSettings
-        $('.headerSettings').click(function () {
-            $('.headerWpr').toggleClass('menuOpen');
-            cd.analytics.trackEvent('Homepage', 'Click on menu open');
-        });
-        $('.closeMenu').click(function () {
-            $('.headerWpr').removeClass('menuOpen');
-        });
+        //$('.headerSettings').click(function () {
+        //    $('.headerWpr').toggleClass('menuOpen');
+        //    cd.analytics.trackEvent('Homepage', 'Click on menu open');
+        //});
+        //$('.closeMenu').click(function () {
+        //    $('.headerWpr').removeClass('menuOpen');
+        //});
         //#region Video in homePage
         var videoElement = document.getElementById('homeVideo'), needToClacHeight = true;
         if (videoElement) {

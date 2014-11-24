@@ -14,7 +14,6 @@ html{
 
 body {
     min-width: 1024px;
-    //background: url(/Images/gray_jean80.png?v=1) repeat;
     overflow-y: scroll;
 }
 
@@ -43,12 +42,114 @@ body {
     z-index: 11;
     //z-index:5; //changed to accomodate for new ng popups. TODO: CHeck that this doesn't ruin anything.
     position: fixed;
-    min-width: 1024px;
+    //min-width: 1024px;
     .siteLogo {
         display: inline-block;
         position: relative;
         z-index: 1;
     }
+}
+
+
+.userNav {
+    //font-size: 0; // remove the inline-block space from  navItems
+    height: @header-height;
+}
+
+.navItem {
+    display: inline-block;
+    position: relative;
+    font-size: 13px; // return the font-size to items
+    &.signUp {
+        margin: 0 40px;
+    }
+}
+
+.navUser, .userSettings {
+    height: @header-height;
+    padding: 0 10px;
+    cursor: pointer;
+    vertical-align: top;
+
+    &:hover {
+        background: rgba(103,103,103,.45);
+    }
+}
+
+.navUser {
+    margin-left: 30px; /*rtl*/
+    line-height: 19px;
+    position: relative;
+
+    .userName {
+        font-size: 15px;
+        max-width: 127px;
+        min-width: 40px; // prevents pts from 'falling' on short user names
+        display: inline-block;
+        text-align: left; /*rtl*/
+        color: #fff;
+        margin: 8px 0 0 40px; /*rtl*/
+    }
+
+    .userImg {
+        vertical-align: top;
+        margin-top: 6px;
+        border-radius: 100%;
+        position: absolute;
+    }
+}
+.userAnchor {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.userPts {
+    font-size: 11px;
+    color: #fff;
+    line-height: 7px;
+    margin-left: 40px; /*rtl*/
+    &:after {
+        display: inline-block;
+        content: attr(data-points);
+    }
+}
+
+.userSettings {
+    margin-right: 10px; /*rtl*/
+}
+
+.userDrpSettings {
+    cursor: pointer;
+    height: @header-height;
+    position: relative;
+    padding: 0 8px;
+    display: inline-block;
+}
+
+.userMenuWrapper {
+    width: 100%;
+    position: absolute;
+    right: 0; /*rtl*/
+}
+
+.menuItem {
+    color: @colorActive;
+    display: block;
+}
+
+    .menuItem:hover {
+        background: @borderColor;
+    }
+
+.menuLink.menuLink {
+    width: 100%;
+    display: block;
+    padding: 10px 5px;
+    text-align: left; /*rtl*/
+    .break;
+    line-height: 12px;
+    .boxSizing;
+    color: @textColor;
 }
 
 .dashLibSearch {
@@ -114,19 +215,19 @@ body {
 
 /*#region footer */
 footer {
-
-    height: 42px;
-    line-height: 42px;
     width: 100%;
+    height: 42px;
     text-align: center;
+    padding: 12px 0;
+    .boxSizing;
+    font-size: 15px;
+    color: @textColor;
 }
 
 .footer {
-    margin: 0;
+    //margin: 0;
     li {
         display: inline;
-        //color: rgba(56,56,56,.50); 
-        color: #383838;
         opacity: 0.5;   
         &:hover
         {
@@ -137,24 +238,17 @@ footer {
         {
             opacity: 0.5;
         }
+        &:after {
+            content: '|';
+            font-size: 10px;
+            padding: 0 3px 0 6px; /*rtl*/
+        }
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
     }
-
-    li:after {
-        content: '|';
-        font-size: 10px;
-        padding: 0 3px 0 6px; /*rtl*/
-    }
-    .last:after {
-        content: '';
-    }
-    .removePipe:after{
-        content:'';
-    }
-
-    a {
-        text-decoration: none;
-    }
-
     a:hover {
         text-decoration: underline;
     }

@@ -2,7 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 <aside class="sideBar">
-    <button class="closeMenu" type="button"></button>
+    <label for="sidebarCb" class="closeMenuBtn">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </label>
+    @*<button class="closeMenu" type="button"></button>*@
     <ul>
         <li><a href="~/">@HomeResources.Homepage</a></li>
         <li><a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a></li>

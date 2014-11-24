@@ -69,38 +69,7 @@ input[type="radio"] {
 }
 /*#endregion */
 
-/*#region site header classes */
-.navUser {
-    margin: 0 30px 0 0; /*rtl*/
-    .userName {
-        text-align: right; /*rtl*/
-        margin: 8px 40px 0 0; /*rtl*/
-    }
 
-}
-.userPts{
-    margin: 0 40px 0 0; /*rtl*/
-}
-.userSettings
-{
-    margin: 0 0 0 10px; /*rtl*/
-}
-/*.userDrpSettings {
-    &:after {
-        right: 0; 
-        left: auto;
-    }
-}*/
-.userMenuWrapper {
-    left: 0; /*rtl*/
-    right: auto;
-}
-
-.menuLink.menuLink {
-    text-align: right; /*rtl*/
-}
-
-/*#endregion */
 
 /*#region popup */
 
@@ -249,16 +218,24 @@ input[type="radio"] {
 /*#endregion*/
 
 /*#region side menu - SettingsBar partial */
+.sidebarCb {
+    &:checked {
+        ~ .headerActions {
+            .sideBar {
+                left: 0; //rtl
+                right: auto;
+            }
+        }
+    }
+}
 aside.sideBar {
     left: -200px; /*rtl*/
     right:auto;
     text-align: right; /*rtl*/
-
-    > button {
-        left: 12px; /*rtl*/
-        right:auto;
+    .closeMenuBtn {
+        left: 10px; //rtl
+        right: auto;
     }
-
     li {
         float: right; /*rtl*/
     }
@@ -606,13 +583,6 @@ aside.sideBar {
 
 /*//home page media queries
 
-@media (max-width: 1430px) {
-    .headerWpr.menuOpen .headerActions
-    {
-        left: 200px; //rtl
-        right: auto;
-    }
-}
 @media (max-width: 1024px) {
     .logo {
         margin: 20px 20px 0 0; //rtl
