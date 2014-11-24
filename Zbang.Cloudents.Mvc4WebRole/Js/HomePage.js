@@ -40,13 +40,11 @@ window.fbAsyncInit = function () {
 
 (function (document) {
     "use strict";
-    var headerSettings = document.getElementsByClassName('headerSettings')[0],
-        headerWrapper = document.getElementsByClassName('headerWpr')[0],
-        videoWrapper = document.getElementById('VideoWpr'),
+    var videoWrapper = document.getElementById('VideoWpr'),
         homeVideo = document.getElementById('homeVideo'),
         mVideo = document.getElementById('mVideo'),
-        closeMenu = document.querySelector('.sideBar .closeMenu'),
         userDetails = document.getElementById('userDetails'),
+        sidebarCb = document.getElementById('sidebarCb'),
         facebookLogin = document.getElementById('facebookLogin');
 
     var isHomePage = location.pathname.toLowerCase().indexOf('/account') > -1;
@@ -65,10 +63,6 @@ window.fbAsyncInit = function () {
     }
     //#region highlightmenu
     function highlightPage(menu) {
-        headerSettings.addEventListener('click', toggleMenu);
-        closeMenu.addEventListener('click', toggleMenu);
-
-
         var pages = menu.children,
             url = location.href,
             pageAnchor;
@@ -103,9 +97,6 @@ window.fbAsyncInit = function () {
         dropdown.style.display = 'block'
 
     }
-    function toggleMenu() {
-        headerWrapper.toggleClass('menuOpen');
-    };
     //#endregion
 
     function homePageEvents() {
@@ -158,13 +149,13 @@ window.fbAsyncInit = function () {
         var target = e.target;
 
         if (target.hasClass('addConnect')) {
-            headerWrapper.removeClass('menuOpen');
+            sidebarCb.checked = false;
             connectApi.connect();
             return;
         }
 
         if (target.hasClass('addRegister')) {
-            headerWrapper.removeClass('menuOpen');
+            sidebarCb.checked = false;
             connectApi.register();
             return;
         }
