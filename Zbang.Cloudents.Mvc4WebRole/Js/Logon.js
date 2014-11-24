@@ -494,13 +494,24 @@
             }
             resetError(errorElement);
         }
+
+        var summary = form.querySelector('[data-error-msg="true"]');
+        if (summary) {
+            summary.parentElement.removeChild(summary);
+        }
     }
 
     function displayErrors(form, payload) {
-        var errorElement, error;
+        var errorElement, error, summary;
         for (var i = 0, l = payload.length ; i < l; i++) {
+
+            if (!payload[i].key) {
+                summary = payload[i].value[0];
+                continue;
+            }
+
             errorElement = form.querySelector('[data-valmsg-for="' + payload[i].key + '"]');
-            if (!errorElement) {
+            if (!errorElement) {                
                 continue;
             }
             resetError(errorElement);
@@ -508,6 +519,13 @@
             appendError(payload[i].key, errorElement, error);
 
         }
+
+        if (summary) {
+            form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>')
+        }
+        
+
+
     }
 
 })(window.document);
