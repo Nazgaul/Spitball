@@ -43,13 +43,13 @@ window.fbAsyncInit = function () {
     var headerSettings = document.getElementsByClassName('headerSettings')[0],
         headerWrapper = document.getElementsByClassName('headerWpr')[0],
         videoWrapper = document.getElementById('VideoWpr'),
-        homeVideo = document.getElementById('homeVideo'),     
+        homeVideo = document.getElementById('homeVideo'),
         mVideo = document.getElementById('mVideo'),
         closeMenu = document.querySelector('.sideBar .closeMenu'),
+        userDetails = document.getElementById('userDetails'),
         facebookLogin = document.getElementById('facebookLogin');
 
     var isHomePage = location.pathname.toLowerCase().indexOf('/account') > -1;
-    highlightPage();
 
 
     if (isHomePage) {
@@ -57,9 +57,19 @@ window.fbAsyncInit = function () {
         homePageEvents();
     }
 
+    var menu = document.querySelector('aside ul');
+    if (menu) {
+        highlightPage(menu);
+    } else {
+        userDetails.addEventListener('click', toggleUserDropdown);
+    }
     //#region highlightmenu
-    function highlightPage() {
-        var pages = document.querySelector('aside ul').children,
+    function highlightPage(menu) {
+        headerSettings.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+
+
+        var pages = menu.children,
             url = location.href,
             pageAnchor;
 
@@ -81,10 +91,18 @@ window.fbAsyncInit = function () {
     //#region events
 
     //#region toggle menu
-    headerSettings.addEventListener('click', toggleMenu);
+  
+    function toggleUserDropdown(e) {
+        var dropdown = this.querySelector('.userMenu');
 
-    closeMenu.addEventListener('click', toggleMenu);
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+            return;
+        }
 
+        dropdown.style.display = 'block'
+
+    }
     function toggleMenu() {
         headerWrapper.toggleClass('menuOpen');
     };
@@ -94,7 +112,7 @@ window.fbAsyncInit = function () {
         //#region togglevideo
 
         videoWrapper.addEventListener('click', function () {
-            window.ga('send', 'event', 'Homepage', 'Show Video', 'Clicking on play the video');            
+            window.ga('send', 'event', 'Homepage', 'Show Video', 'Clicking on play the video');
             mVideo.style.display = 'block';
             setTimeout(function () {
                 videoWrapper.addClass('open');
@@ -127,14 +145,14 @@ window.fbAsyncInit = function () {
         //#endregion
 
         //#region login
-      
+
         facebookLogin.addEventListener('click', function (e) {
             connectApi.connectFb();
         });
         //#endregion
     }
-    
-  
+
+
     //#region menu login
     document.addEventListener('click', function (e) {
         var target = e.target;
@@ -152,9 +170,9 @@ window.fbAsyncInit = function () {
         }
     });
     //#endregion
-  
 
-   
+
+
 
     //#endregion
 

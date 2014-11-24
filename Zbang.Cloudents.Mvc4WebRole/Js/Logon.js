@@ -228,16 +228,12 @@
             nl: 'Check Cloudents! Een plek om samen te werken aan opdrachten, studiemateriaal te vinden, proeftentamens te doen of ideeën en teksten te bespreken.'
         };
 
-        $.ajax({
-            type: 'POST',
-            url: "/Account/FacebookLogin/",
-            data: {
+        ajax.post('/Account/FacebookLogin/', {
                 token: accessToken,
                 universityId: gup('universityId'),
                 invId: gup('invId'),
                 returnUrl: gup('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
-            },
-            success: function (data) {
+            }, function (data) {
                 if (!data.success) {
                     alert('there is a problem signing you in with facebook');
                     return;
@@ -270,11 +266,7 @@
                 else {
                     window.location.reload();
                 }
-            },
-            error: function (msg) {
-                alert(msg);
-            }
-        });
+            });
     }
     function connectFb() {
         FB.login(function (response) {
