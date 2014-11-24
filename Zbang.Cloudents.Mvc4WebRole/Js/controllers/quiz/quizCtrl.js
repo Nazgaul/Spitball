@@ -1,7 +1,7 @@
 ﻿var mQuiz = angular.module('mQuiz', ['timer']);
 mQuiz.controller('QuizCtrl',
-        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails','$analytics','resManager',
-        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics,resManager) {
+        ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'resManager', 'sLogin',
+        function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics, resManager, sLogin) {
             "use strict";
             //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
 
@@ -114,7 +114,7 @@ mQuiz.controller('QuizCtrl',
             $scope.checkAnswers = function () {
                 checkAnswers();
                 $analytics.eventTrack('Quiz', {
-                    category: 'Check Answers'                    
+                    category: 'Check Answers'
                 });
                 $scope.$broadcast('timer-stop');
             };
@@ -181,7 +181,7 @@ mQuiz.controller('QuizCtrl',
 
                 if (!sUserDetails.isAuthenticated()) {
                     $window.localStorage.setItem($scope.quiz.id, JSON.stringify($scope.formData));
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
 
                 }
@@ -356,8 +356,8 @@ mQuiz.controller('QuizCtrl',
                 question.comments.push(comment);
                 question.newComment = '';
                 sQuiz.discussion.createDiscussion({ questionId: question.id, text: comment.text }).then(function (response) {
-                        comment.id = response;
-                    });
+                    comment.id = response;
+                });
 
                 $analytics.eventTrack('Quiz', {
                     category: 'Create Comment'

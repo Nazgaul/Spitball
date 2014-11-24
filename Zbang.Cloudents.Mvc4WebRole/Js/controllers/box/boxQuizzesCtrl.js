@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager',
-        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager','sLogin',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin) {
             "use strict";
             var consts = {
                 view: {
@@ -31,7 +31,7 @@
             //#region quiz
             $scope.addQuiz = function () {
                 if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
                 }
 

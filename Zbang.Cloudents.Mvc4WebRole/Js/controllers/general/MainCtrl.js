@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout,sNotify) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify','sLogin',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout,sNotify,sLogin) {
             "use strict";
 
             $scope.firstTime = $scope.viewBag;
@@ -31,7 +31,7 @@
             $rootScope.checkReg = function (event) {
                 if (!sUserDetails.isAuthenticated()) {
                     event.preventDefault();
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
                 }
 
@@ -54,7 +54,7 @@
                     if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
                          !$scope.params.store.showRegisterPopup) {
                         $scope.params.store.showRegisterPopup = true;
-                        cd.pubsub.publish('register', { action: true });
+                        sLogin.registerAction();
                     }
                 }
                 catch (ex) {
@@ -152,7 +152,7 @@
                 $angularCacheFactory.removeAll();
                 $timeout(function () {
                     window.location.href = '/account/logoff/';
-                }, 200);
+                }, 500);
 
 
                 $analytics.eventTrack('Site Header', {

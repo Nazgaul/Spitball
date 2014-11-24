@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify',
-        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify) {
+        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify','sLogin',
+        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin) {
             "use strict";
             $scope.params = {};
 
@@ -51,7 +51,7 @@
 
             $scope.createTab = function () {
                 if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
                 }
 

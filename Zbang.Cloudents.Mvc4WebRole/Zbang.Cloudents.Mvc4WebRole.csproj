@@ -925,7 +925,6 @@
     <Content Include="Js\controllers\box\uploadCtrl.js" />
     <Content Include="Js\controllers\dashboard\dashboardCtrl.js" />
     <Content Include="Js\controllers\dashboard\createBoxCtrl.js" />
-    <Content Include="Js\controllers\dashboard\showFriendsCtrl.js" />
     <Content Include="Js\controllers\item\itemCtrl.js" />
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
@@ -1003,6 +1002,7 @@
     <Content Include="Js\services\quiz.js" />
     <Content Include="Js\services\search.js" />
     <Content Include="Js\services\share.js" />
+    <Content Include="Js\services\login.js" />
     <Content Include="Js\services\store.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />

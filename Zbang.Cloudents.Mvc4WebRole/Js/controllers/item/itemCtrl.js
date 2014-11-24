@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
-        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics','sNotify',
-function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics,sNotify) {
+        ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook', '$sce', '$analytics', 'sNotify', 'sLogin',
+function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails, $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -39,7 +39,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.load.contentLoading = true;
         }
         if (!sUserDetails.isAuthenticated() && index > 0) {
-            cd.pubsub.publish('register', { action: true });
+            sLogin.registerAction();
             return;
         }
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0

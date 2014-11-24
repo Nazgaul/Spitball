@@ -1,7 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$analytics', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'resManager',
-            'sUserDetails', 'sFacebook','sNotify',
-function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook,sNotify) {
+            'sUserDetails', 'sFacebook','sNotify','sLogin',
+function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook, sNotify, sLogin) {
     "use strict";
 
     var consts = {
@@ -39,7 +39,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
     $scope.openUploadPopup = function () {
         if (!sUserDetails.isAuthenticated()) {
-            cd.pubsub.publish('register', { action: true });
+            sLogin.registerAction();
             return;
         }
 

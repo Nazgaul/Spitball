@@ -110,6 +110,8 @@
     function resetPopupView() {
         registerPopup.removeClass('register registerFirst step2');
         connectPopup.removeClass('connect');
+        resetErrors(connectForm);
+        resetErrors(registerForm);
 
         if (regPopup) {
             regPopup.style.display = 'none';
@@ -123,7 +125,8 @@
         connect: connect,
         register: register,
         registerAction: registerAction,
-        connectFb: connectFb
+        connectFb: connectFb,
+        reset: resetPopupView
     }
 
     function connect() {
@@ -139,7 +142,7 @@
 
     function registerAction() {
         register();
-        $registerPopup.addClass('registerFirst');
+        registerPopup.addClass('registerFirst');
     }
     //#endregion
 
@@ -477,10 +480,6 @@
             }
             return true;
         }
-
-
-
-
     }
 
     function appendError(inputName, errorElement, error) {
@@ -519,22 +518,4 @@
         }
     }
 
-    function setCookie(cname, cvalue,sPath) {
-        var d = new Date();
-        d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires + ';' +  (sPath ? 'path="' + sPath : "");
-    }
-    //$(function () {
-    //    var data = sessionStorage.getItem('registerForm');
-    //    if (!data) {
-    //        return;
-    //    }
-    //    var arr = JSON.parse(data);
-    //    for (var i = 0; i < arr.length ; i++) {
-    //        $('#registerForm').find('[name="' + arr[i].name + '"]')[0].value = arr[i].value;
-    //    }
-    //    $('.addRegister').click();
-    //    sessionStorage.removeItem('registerForm');
-    //});
 })(window.document);

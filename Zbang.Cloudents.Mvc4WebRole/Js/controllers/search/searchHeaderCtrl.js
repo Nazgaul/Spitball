@@ -1,7 +1,7 @@
 ﻿
 app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService','$analytics',
-    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService, $analytics) {
+    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin',
+    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService, $analytics, sLogin) {
         "use strict";
         $scope.params = {
             maxItems: 6,
@@ -58,7 +58,7 @@ app.controller('SearchHeaderCtrl',
                 }
 
                 $scope.params.showDropdown = true;
-                
+
             });
         }, 150);
 
@@ -68,7 +68,7 @@ app.controller('SearchHeaderCtrl',
             }
 
             $analytics.eventTrack('Search', {
-                category: 'Full Search'                
+                category: 'Full Search'
             });
 
             $location.url('/search/?q=' + $scope.formData.query);
@@ -83,7 +83,7 @@ app.controller('SearchHeaderCtrl',
 
         $scope.searchFocus = function () {
             if (!sUserDetails.isAuthenticated()) {
-                cd.pubsub.publish('register', { action: true });
+                sLogin.registerAction();
                 return;
             }
 
@@ -109,7 +109,7 @@ app.controller('SearchHeaderCtrl',
 
         $scope.$on('$routeChangeStart', function () {
             $scope.params.showDropdown = false;
-            $scope.formData.query = null;          
+            $scope.formData.query = null;
         });
 
         $scope.$on('$routeUpdate', function () {

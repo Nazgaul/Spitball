@@ -132,7 +132,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                     );
 
             RegisterJsRegular("angular-layout3",
-
+                new JsFileWithCdn("~/js/staticShim.js"),
+                new JsFileWithCdn("~/js/Logon.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
@@ -186,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/dashboard/inviteEmailCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/createAcademicBoxCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/SocialInviteCtrl.js"),
-                new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
+                //new JsFileWithCdn("/js/controllers/dashboard/showFriendsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/dashboard/inviteCloudentsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libraryCtrl.js"),
                 new JsFileWithCdn("/js/controllers/library/libChooseCtrl.js"),
@@ -206,6 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/services/ajaxService.js"),
                 new JsFileWithCdn("/js/services/modalWrapper.js"),
                 new JsFileWithCdn("/js/services/versionChecker.js"),
+                new JsFileWithCdn("/js/services/login.js"),
                 new JsFileWithCdn("/js/services/dropbox.js"),
                 new JsFileWithCdn("/js/services/google.js"),
                 new JsFileWithCdn("/js/services/qna.js"),
@@ -241,6 +243,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 new JsFileWithCdn("/js/directives/mLoader.js"),
+                new JsFileWithCdn("/js/directives/login.js"),
                 new JsFileWithCdn("/js/directives/backButton.js"),
                 new JsFileWithCdn("/js/directives/quizGraph.js"),
                 new JsFileWithCdn("/js/directives/focusOn.js"),
@@ -266,21 +269,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/filters/orderBy.js"),
                 new JsFileWithCdn("/js/filters/stringFormat.js"),
 
-                new JsFileWithCdn("/js/pubsub.js"),
+                //new JsFileWithCdn("/js/pubsub.js"),
                 //new JsFileWithCdn("/scripts/knockout-3.0.0.js"),
                 //new JsFileWithCdn("~/scripts/knockout-delegatedEvents.js"),
                 //new JsFileWithCdn("~/js/Bindings.js"),
                 //new JsFileWithCdn("/scripts/jquery.slimscroll.js"),
-                 new JsFileWithCdn("/js/Utils.js"),
+                 //new JsFileWithCdn("/js/Utils.js"),
                 //new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
-                 new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
-                new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
-                 new JsFileWithCdn("~/js/Logon.js"),
+                // new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                //new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
+                //new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small                
 
                   //new JsFileWithCdn("/js/Cache.js"),
-                 new JsFileWithCdn("/js/DataContext.js"),
+                 //new JsFileWithCdn("/js/DataContext.js"),
                 //new JsFileWithCdn("/js/Dialog.js"),
                  new JsFileWithCdn("~/js/GmfcnHandler.js"),
                 //new JsFileWithCdn("/js/Upload2.js"),

@@ -2,9 +2,9 @@
     controller('BoxCtrl',
         ['$scope', '$rootScope', '$routeParams',
          'sModal', '$location', 'resManager', '$timeout', '$analytics',
-         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook', 'sNotify',
+         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook', 'sNotify','sLogin',
         function ($scope, $rootScope, $routeParams, sModal, $location, resManager,
-                  $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook, sNotify) {
+                  $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook, sNotify, sLogin) {
             "use strict";
             $scope.boxId = parseInt($routeParams.boxId, 10);
             $scope.uniName = $routeParams.uniName;
@@ -140,7 +140,7 @@
 
             $scope.inviteFriends = function () {
                 if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
                 }
 
@@ -172,7 +172,7 @@
             $scope.openBoxSettings = function (tab) {
 
                 if (!sUserDetails.isAuthenticated()) {
-                    cd.pubsub.publish('register', { action: true });
+                    sLogin.registerAction();
                     return;
                 }
 
