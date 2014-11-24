@@ -230,9 +230,9 @@
             url: "/Account/FacebookLogin/",
             data: {
                 token: accessToken,
-                universityId: cd.getParameterByName('universityId'),
-                invId: cd.getParameterByName('invId'),
-                returnUrl: cd.getParameterByName('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
+                universityId: gup('universityId'),
+                invId: gup('invId'),
+                returnUrl: gup('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
             },
             success: function (data) {
                 if (!data.success) {
@@ -286,10 +286,10 @@
                         //console.log(accessToken);
                         logInFacebook(accessToken);
                         // User has permission
-                        cd.analytics.trackEvent('Homepage', 'Facebook signup', 'Successful login useing facebook');
+                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
                     } else {
-                        cd.notification('you need to give email permission');
-                        cd.analytics.trackEvent('Homepage', 'Facebook signup', 'Failed login useing facebook');
+                        alert('you need to give email permission');
+                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');                        
                     }
                 });
             }

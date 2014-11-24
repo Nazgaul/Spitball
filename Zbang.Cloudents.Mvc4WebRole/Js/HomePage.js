@@ -1,4 +1,23 @@
-﻿window.fbAsyncInit = function () {
+﻿(function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-9850006-3', {
+    'siteSpeedSampleRate': 70,
+    'cookieDomain': 'cloudents.com',
+    'alwaysSendReferrer': true
+});
+
+ga('require', 'displayfeatures');
+if (location.pathname.indexOf('account')) {
+    ga('send', 'pageview');
+}
+
+
+window.fbAsyncInit = function () {
     FB.init({
         appId: '450314258355338',
         status: true,
@@ -75,7 +94,7 @@
         //#region togglevideo
 
         videoWrapper.addEventListener('click', function () {
-            cd.analytics.trackEvent('Homepage', 'Show video', 'Clicking on play the video');
+            window.ga('send', 'event', 'Homepage', 'Show Video', 'Clicking on play the video');            
             mVideo.style.display = 'block';
             setTimeout(function () {
                 videoWrapper.addClass('open');

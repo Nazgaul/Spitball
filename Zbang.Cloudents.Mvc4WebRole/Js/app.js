@@ -38,9 +38,9 @@
 
                        return response;
                    },
-                   'responseError': function (response) {                       
+                   'responseError': function (response) {
                        switch (response.status) {
-                           
+
                            case 400:
                                alert('Version mismatch, page will refresh');
                                window.location.reload(true);
@@ -87,7 +87,7 @@
            $routeProvider.when = function (path, route) {
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
-                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);                       
+                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);
                    }]
                };
 
@@ -349,11 +349,19 @@
         //    ga('send', 'pageview');
         //}
 
+        ga('create', 'UA-9850006-3', {
+            'userId': sUserDetails.getDetails().id,
+            'siteSpeedSampleRate': 70,
+            'cookieDomain': 'cloudents.com',
+            'alwaysSendReferrer': true
+        });
+
+        ga('set', 'dimension3', sUserDetails.getDetails().id);
 
 
-        sVerChecker.checkVersion();        
+        sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            $window.scrollTo(0, 0);       
+            $window.scrollTo(0, 0);
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
@@ -361,12 +369,6 @@
             //title 
             if (!previous) { //no previous firsttime load
 
-                ga('create', 'UA-9850006-3', {
-                    'userId': sUserDetails.getDetails().id,
-                    'siteSpeedSampleRate': 70,
-                    'cookieDomain': 'cloudents.com',
-                    'alwaysSendReferrer': true
-                });
 
 
                 try {
@@ -378,11 +380,11 @@
                         setBackDashboard();
                     }
                 }
-                catch(ex) {
+                catch (ex) {
 
                 }
-             return;
-            }          
+                return;
+            }
 
             try {
                 if (current.$$route.params.type === 'box') {
@@ -415,10 +417,10 @@
                 }
             }
             catch (ex) {
-                
+
             }
         });
-        
+
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
             $rootScope.back.title = 'Dashboard';
