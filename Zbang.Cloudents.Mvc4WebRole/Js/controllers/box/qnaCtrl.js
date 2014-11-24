@@ -1,6 +1,6 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify','sLogin',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager, sNotify, sLogin) {
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify','sLogin','sGmfcnHandler',
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager, sNotify, sLogin, sGmfcnHandler) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -140,8 +140,8 @@
                         $scope.$broadcast('update-scroll');
                         $scope.qFormData = {};
 
-                        cd.pubsub.publish('addPoints', { type: 'question' });
 
+                        sGmfcnHandler.addPoints({ type: 'question' });
 
                         $scope.info.feedLength++;
 

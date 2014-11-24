@@ -2,7 +2,7 @@
     app.factory('sLogin',
         [
         function () {
-
+            "use strict";
             return {
                 connect: function () {
                     api.connect();

@@ -1,5 +1,4 @@
-﻿
-app.directive('focusOn',
+﻿app.directive('focusOn',
     [
 
     function () {
