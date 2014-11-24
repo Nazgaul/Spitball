@@ -131,9 +131,6 @@
         else
             element.className = className;
     }
-
-    //strings to make event attachment x-browser.. 
-    var addEvent = document.addEventListener;    
     //the class which is added when the placeholder is being used..
     var placeHolderClassName = 'usingPlaceHolder';
 
@@ -165,10 +162,10 @@
         };
 
         //the blur event..
-        textField[addEvent]('onblur', onBlur, false);
+        textField.addEventListener('blur', onBlur, false);
 
         //the focus event - removes the place holder if required..
-        textField[addEvent]('onfocus', function () {
+        textField.addEventListener('focus', function () {
             if (hasClassName(textField, placeHolderClassName)) {
                 removeClassName(textField, placeHolderClassName);
                 textField.value = "";
@@ -179,7 +176,7 @@
         //placeholder is attached set the value to be empty..
         var form = textField.form;
         if (form) {
-            form[addEvent]('onsubmit', function () {
+            form.addEventListener('submit', function () {
                 if (hasClassName(textField, placeHolderClassName))
                     textField.value = '';
             }, false);

@@ -82,7 +82,7 @@
             });
         }
         function trackTime(startTime, url, data) {
-            var timeSpent = new Date().getTime() - startTime + 'ms';
+            var timeSpent = new Date().getTime() - startTime;
 
             var properties = {
                 category: url.toLowerCase() !== '/item/preview/' ? 'ajax' : 'ajaxPreview',
