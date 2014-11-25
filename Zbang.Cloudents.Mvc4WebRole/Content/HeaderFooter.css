@@ -2,18 +2,13 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region sticky footer */
+/*#region main header classes */
 html,
 body {
   height: 100%;
 }
 body {
   overflow-y: scroll;
-}
-.header {
-  font-size: 24px;
-  font-weight: bold;
-  color: #0f9d58;
 }
 .bodyContent {
   padding-top: 50px;
@@ -22,8 +17,6 @@ body {
   box-sizing: border-box;
   height: 100%;
 }
-/*#endregion */
-/*#region header */
 .siteHeader {
   height: 50px;
   background-color: #0f9d58;
@@ -43,33 +36,14 @@ body {
 }
 .userNav {
   height: 50px;
-}
-.navItem {
   display: inline-block;
   position: relative;
   font-size: 13px;
 }
-.navItem.signUp {
+.userNav.signUp {
   margin: 0 40px;
 }
-.navUser,
-.userSettings {
-  height: 50px;
-  padding: 0 10px;
-  cursor: pointer;
-  vertical-align: top;
-}
-.navUser:hover,
-.userSettings:hover {
-  background: rgba(103, 103, 103, 0.45);
-}
-.navUser {
-  margin-left: 30px;
-  /*rtl*/
-  line-height: 19px;
-  position: relative;
-}
-.navUser .userName {
+.userNav .userName {
   font-size: 15px;
   max-width: 127px;
   min-width: 40px;
@@ -77,10 +51,12 @@ body {
   text-align: left;
   /*rtl*/
   color: #fff;
-  margin: 8px 0 0 40px;
+  margin: 6px 0 0 40px;
   /*rtl*/
+  line-height: normal;
+  vertical-align: top;
 }
-.navUser .userImg {
+.userNav .userImg {
   vertical-align: top;
   margin-top: 6px;
   border-radius: 100%;
@@ -88,59 +64,42 @@ body {
 }
 .userAnchor {
   display: block;
-  width: 100%;
-  height: 100%;
+  height: 50px;
 }
 .userPts {
   font-size: 11px;
   color: #fff;
-  line-height: 7px;
+  line-height: normal;
   margin-left: 40px;
   /*rtl*/
+  position: relative;
+  top: -24px;
 }
 .userPts:after {
   display: inline-block;
   content: attr(data-points);
 }
-.userSettings {
-  margin-right: 10px;
-  /*rtl*/
-}
-.userDrpSettings {
-  cursor: pointer;
+/*#endregion */
+/*#region box page header */
+.userSection {
+  line-height: 50px;
   height: 50px;
-  position: relative;
-  padding: 0 8px;
-  display: inline-block;
 }
-.userMenuWrapper {
-  width: 100%;
-  position: absolute;
-  right: 0;
-  /*rtl*/
+.headerRightWpr {
+  height: 50px;
 }
-.menuItem {
-  color: #0d864b;
-  display: block;
+.headerRightWpr .dashLibSearch {
+  max-width: 550px;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
 }
-.menuItem:hover {
-  background: #c2c2c2;
+.headerRightWpr .dashLibSearchInput {
+  border-radius: 5px;
 }
-.menuLink {
-  width: 100%;
-  display: block;
-  padding: 10px 5px;
-  text-align: left;
-  /*rtl*/
-  -ms-word-wrap: break-word;
-  word-wrap: break-word;
-  /* or "normal" */
-  overflow-wrap: break-word;
-  line-height: 12px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
+.headerRightWpr .userSection {
+  margin-left: 20px;
 }
 .dashLibSearch {
   display: block;

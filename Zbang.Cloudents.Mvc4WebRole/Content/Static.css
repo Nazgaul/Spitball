@@ -10,11 +10,6 @@ body {
   overflow: visible;
   min-width: 0;
 }
-.header {
-  font-size: 24px;
-  font-weight: bold;
-  color: #0f9d58;
-}
 .wrap {
   min-height: 100%;
   min-height: -webkit-calc(100vh - 55px);
