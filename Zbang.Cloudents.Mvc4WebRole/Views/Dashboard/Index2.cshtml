@@ -4,9 +4,9 @@
 
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
     <header class="siteHeader">
-       @{Html.RenderPartial("_Header");}
+        @{Html.RenderPartial("_Header");}
     </header>
-    
+
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)" bindonce>
@@ -135,34 +135,38 @@
                     </div>
                 </div>
             </section>
+            <div pl-dropzone-uploader="dashboard">
+                <div id="dropzoneBtn" style="display:none;"></div>
+                <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
+                    <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
+                    @*do not delete for drop zones*@
+                    <ol class="myAreaList clearfix">
+                        <li class="box browseBtn">
+                            <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
+                        </li>
+                        <li ng-repeat="box in academicBoxes" class="box dropzone" ng-include="'dashBoxTemplate'" bindonce pl-dropzone></li>
+                    </ol>
+                </section>
 
-            <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
-                <ol class="myAreaList clearfix">
-                    <li class="box">
-                        <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
-                    </li>
-                    <li ng-repeat="box in academicBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
-                    </li>
-                </ol>
-            </section>
-
-            <section class="groupBoxes" ng-if="academicBoxes.length || groupBoxes.length">
-                <header class="boxesHeader">@IndexResources.MyGroup</header>
-                <div ng-hide="groupBoxes.length > 0" class="emptyDash">
-                    <div class="groupEmpty">
-                        <h2 class="boldFont">@IndexResources.WhereStudy</h2>
-                        <div>@IndexResources.UploadContent</div>
+                <section class="groupBoxes" ng-if="academicBoxes.length || groupBoxes.length">
+                    <header class="boxesHeader">@IndexResources.MyGroup</header>
+                    <div ng-hide="groupBoxes.length > 0" class="emptyDash">
+                        <div class="groupEmpty">
+                            <h2 class="boldFont">@IndexResources.WhereStudy</h2>
+                            <div>@IndexResources.UploadContent</div>
+                        </div>
                     </div>
-                </div>
-                <ol class="myAreaList clearfix">
-                    <li ng-click="openCreateBoxWizard()" class="box">
-                        <button class="addBtn">@SharedResources.CreateNew</button>
-                    </li>
-                    <li ng-repeat="box in groupBoxes" class="box" ng-include="'dashBoxTemplate'" bindonce>
-                    </li>
-                </ol>
-            </section>
+                    <ol class="myAreaList clearfix">
+                        <li ng-click="openCreateBoxWizard()" class="box createWizard">
+                            <button class="addBtn">@SharedResources.CreateNew</button>
+                        </li>
+                        <li ng-repeat="box in groupBoxes" class="box dropzone" pl-dropzone ng-include="'dashBoxTemplate'" bindonce>
+                        </li>
+                    </ol>
+                </section>
+
+            </div>
+
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
             <a bo-href="box.url">

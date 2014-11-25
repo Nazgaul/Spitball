@@ -1,5 +1,4 @@
-﻿
-mBox.controller('UploadPopupCtrl',
+﻿mBox.controller('UploadPopupCtrl',
     ['$scope', '$modalInstance', 'data',
     function ($scope, $modalInstance, data) {
         "use strict";

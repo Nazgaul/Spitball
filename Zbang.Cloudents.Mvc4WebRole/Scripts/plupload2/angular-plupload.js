@@ -41,7 +41,7 @@
 	            //    options.drop_element = document.getElementById(iAttrs.dropArea);
 	            //}
 
-	            uploader = new plupload.Uploader(options);
+	            uploader = new plupload.Uploader(options);	            
 	            uploader.init();
 
 
@@ -57,7 +57,6 @@
 	                        $rootScope.$broadcast('UploadFileError', err.file);
 	                    });
 	                }
-
 
 	                up.refresh(); // Reposition Flash/Silverlight
 	            });
@@ -109,11 +108,19 @@
 	                $angularCacheFactory.clearAll();
 
 	                if ($rootScope.$$phase) {
+	                    if (!response.success) {
+	                        uploader.trigger('Error', {file: file, message : response.payload});
+	                        return;
+	                    }
 	                    post();
 	                    return;
 	                }
 
 	                $rootScope.$apply(function () {
+	                    if (!response.success) {
+	                        uploader.trigger('Error', { file: file, message: response.payload });
+	                        return;
+	                    }
 	                    post();
 	                });
 	                function post() {

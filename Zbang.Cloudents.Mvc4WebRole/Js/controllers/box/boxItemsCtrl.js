@@ -1,7 +1,7 @@
 ﻿mBox.controller('BoxItemsCtrl',
 		['$scope', '$rootScope', '$analytics', 'sModal', '$filter', '$timeout', 'sItem', 'sBox', 'sNewUpdates', 'resManager',
-            'sUserDetails', 'sFacebook','sNotify','sLogin',
-function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook, sNotify, sLogin) {
+            'sUserDetails', 'sFacebook', 'sNotify', 'sLogin', 'sTabCount',
+function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox, sNewUpdates, resManager, sUserDetails, sFacebook, sNotify, sLogin, sTabCount) {
     "use strict";
 
     var consts = {
@@ -22,12 +22,27 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
     };
 
     sBox.items({ id: $scope.boxId }).then(function (boxItems) {
+
+        var tabsCount = {};
+
         $scope.items = _.map(boxItems, function (item) {
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });
+
+            var tabId = item.tabId;
+
+            if (!tabId) {
+                return item;
+            }
+
+            tabsCount[tabId] = _.isUndefined(tabsCount[tabId]) ? 1 : tabsCount[tabId] + 1;
+
             return item;
         });
+
+        sTabCount.notifyAll(tabsCount);
+
 
         $scope.items.sort(sortItems);
         $scope.filteredItems = $filter('filter')($scope.items, filterItems);
@@ -68,6 +83,10 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
             return;
+        }
+
+        if (data.tabId) {
+            sTabCount.notifyAdd(data.tabId);
         }
 
         $scope.info.itemsLength++;
@@ -146,6 +165,9 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
                 $scope.filteredItems.splice(index, 1);
             }
             $scope.info.itemsLength--;
+            if (item.tabId) {
+                sTabCount.notifyRemove(item.tabId);
+            }
 
         }
     };

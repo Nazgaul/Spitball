@@ -1,8 +1,12 @@
 ﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify','sLogin',
-        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin) {
+        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify', 'sLogin', 'sTabCount',
+        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin, sTabCount) {
             "use strict";
             $scope.params = {};
+
+            sTabCount.countAll(showTabCount);
+            sTabCount.add(addCount);
+            sTabCount.remove(removeCount);
 
             sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
                 $scope.params.tabs = tabs;
@@ -70,6 +74,7 @@
                                 $scope.params.tabs = [];
                             }
                             $scope.params.tabs.unshift(tab);
+                            tab.itemCount = 0;
                             $rootScope.$broadcast('update-scroll');
                         }
                     }
@@ -105,4 +110,61 @@
 
                 $rootScope.$broadcast('tabItemAdded', data);
             };
-        }]);
+       
+            function showTabCount(count) {
+                _.forEach($scope.params.tabs, function (tab) {
+                    tab.itemCount = count[tab.id];
+                });
+            }
+
+            function addCount(tabId) {
+                var tab = getTab(tabId);
+                if (!tab) {
+                    return;
+                }
+
+                tab.itemCount++;
+            }
+            function removeCount(tabId) {
+                var tab = getTab(tabId);
+                if (!tab) {
+                    return;
+                }
+
+                tab.itemCount--;
+
+            }
+            function getTab(tabId) {
+                return _.find($scope.params.tabs, function (tab) {
+                    return tab.id === tabId;
+                });
+            }
+        }])
+mBox.factory('sTabCount',
+[function () {
+    "use strict";
+    var countAll, add, remove;
+    return {
+        notifyAll: function (count) {
+            countAll(count);
+        },
+        notifyRemove: function (tabId) {
+            remove(tabId);
+        },
+        notifyAdd: function (tabId) {
+            add(tabId);
+        },
+        countAll: function (cb) {
+            countAll = cb;
+        },
+        add: function (cb) {
+            add = cb;
+        },
+        remove: function (cb) {
+            remove = cb;
+        }
+
+    };
+}
+]);
+
