@@ -60,7 +60,7 @@
             }
         }
         <header class="siteHeader headerWpr">
-            @if (User == null || !(User.Identity.IsAuthenticated))
+            @*@if (User == null || !(User.Identity.IsAuthenticated))
             {
                 <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
                 <div class="headerActions rFloat">
@@ -69,7 +69,7 @@
                     </label>
                     <ul class="userNav">
                         @{Html.RenderAction("GetUserDetail3", "Account", true);}
-                    </ul>
+                    </ul>*
                     @{Html.RenderPartial("_SettingsBar");}
                 </div>
             }
@@ -80,7 +80,14 @@
                         @{Html.RenderAction("GetUserDetail3", "Account", true);}
                     </ul>
                 </div>
-            }
+            }*@
+            <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+            <div class="headerActions rFloat">
+                <label for="sidebarCb" class="headerSettings rFloat">
+                    @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+                </label>
+                @{Html.RenderAction("GetUserDetail3", "Account", true);}
+            </div>
             <a class="siteLogo" data-version="@VersionHelper.CurrentVersion()" href="@Url.Action("Index", "Dashboard")">
                 <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
             </a>

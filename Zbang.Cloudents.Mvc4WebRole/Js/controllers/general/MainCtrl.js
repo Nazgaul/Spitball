@@ -151,7 +151,8 @@
 
             };
 
-            $rootScope.logout = function () {
+            $rootScope.logout = function (e) {
+                e.preventDefault();
                 $angularCacheFactory.removeAll();
                 $timeout(function () {
                     window.location.href = '/account/logoff/';
