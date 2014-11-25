@@ -98,6 +98,8 @@
             $scope.$on('selectTab', function (e, tab) {
                 if (!tab) {
                     $scope.tabId = null;
+                    $scope.options.currentTab = null;
+
                     return;
                 }
 
