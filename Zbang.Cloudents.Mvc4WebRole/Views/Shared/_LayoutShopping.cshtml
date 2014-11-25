@@ -35,13 +35,7 @@
         <div class="headerRightWpr rFloat">
             <nav class="userSection rFloat">
                 <ul class="userNav">
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            Html.RenderPartial("TopMenu/_Actions");
-                        }
-                        Html.RenderAction("GetUserDetail3", "Account", true);
-                    }
+                    @{ Html.RenderAction("GetUserDetail3", "Account", true); }
                 </ul>
             </nav>
         </div>

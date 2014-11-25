@@ -5,13 +5,12 @@
 
 
 <nav class="userSection rFloat">
-    <ul class="userNav">
-        @{
-            if (User.Identity.IsAuthenticated)
-            {
-                Html.RenderPartial("TopMenu/_Actions");
-            }
-            Html.RenderPartial("_UserDetail3");
-        }
-    </ul>
+    @*@{ Html.RenderPartial("_UserDetail3"); }*@
+    <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+    <div class="headerActions rFloat">
+        <label for="sidebarCb" class="headerSettings rFloat">
+            @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+        </label>
+        @{Html.RenderPartial("_UserDetail3");}
+    </div>
 </nav>
