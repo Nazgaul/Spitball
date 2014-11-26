@@ -23,7 +23,7 @@
         <li>
             @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { target = "_self" })
         </li>
-        <li><a href="@Url.Action("LogOff", "Account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
+        <li class="last"><a href="@Url.Action("LogOff", "Account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
     </ul>
     <ul class="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
         <li><a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a></li>

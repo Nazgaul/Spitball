@@ -1,37 +1,27 @@
 ﻿@import "varsAndMixins";
 
-/*#region sticky footer */
+/*#region main header classes */
 html, body {
     //height: 100%; //TODO CHECK THIS. 
     // NB: I changed this to min-height because on devices like ipad 
     // modals only had height of viewport and stopped when scrolled down 
     height: 100%;
 }
-html{
+//html{
     //position: relative; //TODO: what is this for?
     //min-height: 100%; //TODO: what is this for?
-}
+//}
 
 body {
     //min-width: 1024px;
     overflow-y: scroll;
 }
 
-.header
-{
-    font-size: 24px;
-    font-weight: bold;
-    color: @color;
-}
 .bodyContent {
     padding-top: @header-height;
     .boxSizing;
     height: 100%;
 }
-
-/*#endregion */
-
-/*#region header */
 
 .siteHeader {
 
@@ -56,33 +46,12 @@ body {
 .userNav {
     //font-size: 0; // remove the inline-block space from  navItems
     height: @header-height;
-}
-
-.navItem {
     display: inline-block;
     position: relative;
     font-size: 13px; // return the font-size to items
     &.signUp {
         margin: 0 40px;
     }
-}
-
-.navUser, .userSettings {
-    height: @header-height;
-    padding: 0 10px;
-    cursor: pointer;
-    vertical-align: top;
-
-    &:hover {
-        background: rgba(103,103,103,.45);
-    }
-}
-
-.navUser {
-    margin-left: 30px; /*rtl*/
-    line-height: 19px;
-    position: relative;
-
     .userName {
         font-size: 15px;
         max-width: 127px;
@@ -90,7 +59,9 @@ body {
         display: inline-block;
         text-align: left; /*rtl*/
         color: #fff;
-        margin: 8px 0 0 40px; /*rtl*/
+        margin: 6px 0 0 40px; /*rtl*/
+        line-height: normal;
+        vertical-align: top;
     }
 
     .userImg {
@@ -100,58 +71,48 @@ body {
         position: absolute;
     }
 }
+
 .userAnchor {
     display: block;
-    width: 100%;
-    height: 100%;
+    height: @header-height;
 }
 .userPts {
     font-size: 11px;
     color: #fff;
-    line-height: 7px;
+    line-height: normal;
     margin-left: 40px; /*rtl*/
+    position: relative;
+    top: -24px;
     &:after {
         display: inline-block;
         content: attr(data-points);
     }
 }
+/*#endregion */
 
-.userSettings {
-    margin-right: 10px; /*rtl*/
-}
-
-.userDrpSettings {
-    cursor: pointer;
+/*#region box page header */
+.userSection {
+    line-height: @header-height;
     height: @header-height;
-    position: relative;
-    padding: 0 8px;
-    display: inline-block;
 }
-
-.userMenuWrapper {
-    width: 100%;
-    position: absolute;
-    right: 0; /*rtl*/
-}
-
-.menuItem {
-    color: @colorActive;
-    display: block;
-}
-
-    .menuItem:hover {
-        background: @borderColor;
+.headerRightWpr {
+    height: @header-height; //for box page
+    .dashLibSearch{
+        max-width: 550px;
+        width: auto; //override
+        height: auto; // override
+        background: none; // override 
+        border-radius: 0; // override 
     }
+    .dashLibSearchInput
+    {
+        border-radius: 5px;
 
-.menuLink {
-    width: 100%;
-    display: block;
-    padding: 10px 5px;
-    text-align: left; /*rtl*/
-    .break;
-    line-height: 12px;
-    .boxSizing;
-    color: #fff;
+    }
+    .userSection
+    {
+        margin-left: 20px; //rtl
+    }
 }
 
 .dashLibSearch {

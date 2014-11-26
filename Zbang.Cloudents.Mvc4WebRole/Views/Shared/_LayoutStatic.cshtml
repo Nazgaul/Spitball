@@ -59,28 +59,7 @@
                 url = Url.Action("Index", "Dashboard");
             }
         }
-        <header class="siteHeader headerWpr">
-            @*@if (User == null || !(User.Identity.IsAuthenticated))
-            {
-                <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
-                <div class="headerActions rFloat">
-                    <label for="sidebarCb" class="headerSettings rFloat">
-                        @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
-                    </label>
-                    <ul class="userNav">
-                        @{Html.RenderAction("GetUserDetail3", "Account", true);}
-                    </ul>*
-                    @{Html.RenderPartial("_SettingsBar");}
-                </div>
-            }
-            else
-            {
-                <div class="headerActions rFloat">
-                    <ul class="userNav">
-                        @{Html.RenderAction("GetUserDetail3", "Account", true);}
-                    </ul>
-                </div>
-            }*@
+        <header class="siteHeader">
             <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
             <div class="headerActions rFloat">
                 <label for="sidebarCb" class="headerSettings rFloat">
@@ -122,7 +101,6 @@
     @Html.Script2("General")
     @RenderSection("scripts", false)
     @Html.Script2("home")
-
 
 </body>
 

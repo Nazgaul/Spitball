@@ -1627,9 +1627,10 @@
     <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
-    <Content Include="Views\Shared\Partials\_SettingsBar.cshtml" />
+    <Content Include="Views\Shared\Partials\_SettingsAuth.cshtml" />
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
-    <Content Include="Views\Account\_UserDetail4.cshtml" />
+    <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
+    <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2242,9 +2243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_UploadDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\TopMenu\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />
