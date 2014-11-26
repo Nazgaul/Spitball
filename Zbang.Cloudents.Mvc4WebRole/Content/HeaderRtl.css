@@ -36,3 +36,21 @@
   left: 28px;
   right: auto;
 }
+/*#region notifications */
+.notifyWpr {
+  left: 40px;
+  right: auto;
+}
+.notifyList {
+  margin: 0 0 0 -15px;
+}
+.notifyItem a {
+  padding: 15px 100px 0 15px;
+  /*rtl*/
+}
+.notifyImg {
+  right: 20px;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */

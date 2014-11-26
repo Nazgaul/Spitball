@@ -670,9 +670,6 @@
   text-align: right;
   /*rtl*/
 }
-.boxSetting .ownerName {
-  max-width: none;
-}
 .boxSetting .inputText {
   margin-top: 10px;
   width: 135px;

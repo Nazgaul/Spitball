@@ -582,9 +582,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="Content\AccountInfo.css">
-      <DependentUpon>AccountInfo.less</DependentUpon>
-    </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
@@ -1040,7 +1037,6 @@
     <Content Include="Js\Utils.js" />
     <Content Include="Js\Welcome.js" />
     <Content Include="Js\Logon.js" />
-    <Content Include="Content\AccountInfo.less" />
     <Content Include="Content\General.less" />
     <Content Include="Content\Box3.less" />
     <Content Include="Content\Site3.less" />

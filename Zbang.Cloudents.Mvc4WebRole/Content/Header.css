@@ -34,14 +34,14 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.headerSettings {
+  height: 50px;
+}
 .userNav {
   height: 50px;
   display: inline-block;
   position: relative;
   font-size: 13px;
-}
-.userNav.signUp {
-  margin: 0 40px;
 }
 .userNav .userName {
   font-size: 15px;
@@ -61,6 +61,31 @@ body {
   margin-top: 6px;
   border-radius: 100%;
   position: absolute;
+}
+.signUp .btn {
+  display: inline-block;
+  margin: 0 4px;
+  font-size: 14px;
+  min-width: 78px;
+  height: 25px;
+  line-height: 25px;
+  background: #178b55;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.signUp .btn:first-child {
+  background: #fff;
+  color: #0f9d58;
+}
+.signUp .btn:hover {
+  background: #168350;
+}
+.signUp .btn:hover:first-child {
+  background: #e1fff0;
 }
 .userAnchor {
   display: block;
@@ -91,6 +116,7 @@ body {
 .headerRightWpr .userSection {
   margin-left: 20px;
 }
+/*#region search */
 .searchInputWpr {
   position: relative;
   display: inline-block;
@@ -146,6 +172,8 @@ body {
   border: none;
   outline: none;
 }
+/*#endregion */
+/*#region dashboard */
 .dashHeader {
   height: 65px;
   line-height: 65px;
@@ -199,12 +227,6 @@ body {
   right: 28px;
   z-index: 1;
 }
-.notificationBtn {
-  margin-top: 13px;
-}
-.notificationBtn:hover svg {
-  fill: #d1294d;
-}
 .helpLink {
   display: inline-block;
   vertical-align: middle;
@@ -221,6 +243,112 @@ body {
   font-size: 28px;
   color: #fff;
 }
+/*#endregion */
+/*#region notifications */
+.invitesCounter {
+  display: none;
+  background: #d1294d;
+  border-radius: 10px;
+  color: #fff;
+  position: absolute;
+  top: 5px;
+  height: 12px;
+  min-width: 12px;
+  line-height: 11px;
+  text-align: center;
+  z-index: 1;
+  padding: 4px;
+}
+.invitesCounterShow {
+  display: inline;
+}
+.notificationBtn {
+  margin-top: 13px;
+}
+.notificationBtn:hover svg {
+  fill: #d1294d;
+}
+.notifyWpr {
+  width: 400px;
+  position: absolute;
+  right: 40px;
+  top: 22px;
+}
+.notifyWpr.dropdown-menu {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+.notifyEmpty {
+  display: none;
+  background: #d1294d;
+  text-align: center;
+  width: 400px;
+  height: 136px;
+  color: #fff;
+  border-radius: 10px;
+  line-height: normal;
+  border: none;
+}
+.notifyList {
+  color: #fff;
+  overflow-x: hidden;
+  margin-right: -15px;
+}
+.notifyItem {
+  position: relative;
+  font-size: 14px;
+  width: 400px;
+  height: 100px;
+  background: #acacac;
+  border-radius: 10px;
+  line-height: normal;
+  overflow: hidden;
+}
+.notifyItem:hover {
+  background: #bbb;
+}
+.notifyItem.new {
+  background: #d1294d;
+}
+.notifyItem.new:hover {
+  background: #e25c6a;
+}
+.notifyItem + .notifyItem {
+  margin-top: 5px;
+}
+.notifyItem a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px 0 100px;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.notifyItem .notifyDetails {
+  margin-top: 12px;
+}
+.notifyItem .notifier {
+  max-width: 185px;
+  display: inline-block;
+  vertical-align: top;
+}
+.notifyImg {
+  position: absolute;
+  left: 20px;
+  /*rtl*/
+  top: 15px;
+  width: 72px;
+  height: 72px;
+  border-radius: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 3px solid #fff;
+}
+/*#endregion */
 /*#endregion */
 /*#region jQuery custom content scroller  */
 .mCSB_dragger_bar {
