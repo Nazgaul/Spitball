@@ -44,7 +44,7 @@
         <li ng-repeat="item in filteredItems | limitTo : iOptions.itemsLimit" class="{{iOptions.currentView + 'Item'}}"
             ng-include="getView(item)" ui-draggable="true" drag="item" drag-channel="boxItem"
             popover-template="boxItemTooltip" popover-append-to-body="true"
-            popover-trigger="mouseenter" popover-placement="left">
+            popover-trigger="mouseenter" popover-placement="bottom">
         </li>
     </ol> @*add drag option*@
 </div>

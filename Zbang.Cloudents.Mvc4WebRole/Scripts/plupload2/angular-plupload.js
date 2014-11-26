@@ -107,6 +107,18 @@
 
 	                $angularCacheFactory.clearAll();
 
+	                if (uploader.total.uploaded > 0 && uploader.total.queued === 0) {
+	                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: uploader.total.uploaded });
+
+	                    up.files = [];
+	                    up.splice();
+
+	                    if (iAttrs.destroy) {
+	                        up.destroy();
+	                    }
+
+	                }
+
 	                if ($rootScope.$$phase) {
 	                    if (!response.success) {
 	                        uploader.trigger('Error', {file: file, message : response.payload});
@@ -152,21 +164,9 @@
 
 	            });
 
-	            uploader.bind('UploadComplete', function (up, files) {
-
-	                if (files && files.length > 0) {	                    
-	                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
-	                }
-
-
-	                up.files = [];
-	                up.splice();
-
-	                if (iAttrs.destroy) {
-	                    up.destroy();
-	                }
-
-	            });
+	            //uploader.bind('UploadComplete', function (up, files) {
+	               
+	            //});
 
 	            scope.$on('$destroy', function () {
 	                uploader.disableBrowse();
