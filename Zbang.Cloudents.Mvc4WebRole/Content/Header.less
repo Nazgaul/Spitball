@@ -97,124 +97,143 @@ body {
 }
 .headerRightWpr {
     height: @header-height; //for box page
-    .dashLibSearch{
-        max-width: 550px;
-        width: auto; //override
-        height: auto; // override
-        background: none; // override 
-        border-radius: 0; // override 
-    }
-    .dashLibSearchInput
-    {
-        border-radius: 5px;
-
-    }
-    .userSection
-    {
+    
+    .userSection {
         margin-left: 20px; //rtl
     }
 }
-
-.dashLibSearch {
-    display: block;
-    width: 340px;
-    height: 32px;
-    line-height: 32px;
-    background: #fff;
-    margin-left: @searchMargin; /*rtl*/
-    border-radius: 5px;
-    vertical-align: top;
-    margin-top: 9px;
+.searchInputWpr {
     position: relative;
-    overflow: hidden; // create new bfc for search to take up remaining width
-    padding: 0 5px 5px 5px; // add bottom and side padding to allow for dropdown box shadow. (otherwise overflow hidden - hides it) 
-    /*&.showSearch {
-        display: block;
-    }*/
-    button
-    {
-        width: 19px;
-        height: 20px;
-        background: @dashboard-sprite -213px -2px no-repeat;
-        position: absolute;
-        top: 6px;
-        right: 12px; /*rtl*/
-        &:hover
-        {
-            background-position: -232px -2px;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 464px;
+    width: ~'-webkit-calc(100% - 320px)';
+    width: ~'calc(100% - 320px)';
+    border: 1px solid @borderColor;
+    border-radius: 15px;
+    margin: 17px 20px 0 20px;
+    line-height: normal;
+    background: #fff;
+    svg {
+        fill: #a5a5a5;
+        top: 22px;
+    }
+
+    + button .svg-inviteUser {
+        position: relative;
+        top: 5px;
+
+        &:hover {
+            fill: @color;
         }
-        &[disabled] {
-            background-position: -213px -2px;
-        }
-    }  
+    }
 }
-.dashLibSearchInput
-{
+.searchBtn {
+    position: absolute;
+    right: 10px; //rtl
+    top: 6px;
+}
+.dashLibSearchInput {
     width: 100%;
+    max-width: 420px;
     height: 32px;
-    padding: 0 35px 0 15px; /*rtl*/
-    //border-radius: 16px;
-    .boxSizing;
-    font-size:15px;
-    border: none; //remove red error borders and outlines
-    outline: none;
+    border-radius: 15px;
+    font-size: 18px;
+    padding-left: 10px; //rtl
+    .placeholderColor(@borderColor);
     &:focus {
         border: none; //remove red error borders and outlines
         outline: none;
     }
-    
 }
-.dashLibSearchInput::-webkit-input-placeholder{
-    color:@color;
-}
-.dashLibSearchInput::-moz-placeholder{
-    color:@color;
-    opacity:1; // somehow firefox needs that - otherwise the color is not the same
-}
-.dashLibSearchInput:-ms-input-placeholder{
-    color:@color;
-}
-/*#endregion */
 
-/*#region footer */
-footer {
-    width: 100%;
-    height: 42px;
-    text-align: center;
-    padding: 12px 0;
+.dashHeader {
+    height: 65px;
+    line-height: 65px;
+    vertical-align: middle;
+    background: #282828;
+    margin: 0 -30px;
+    padding: 0 30px;
     .boxSizing;
-    font-size: 15px;
-    color: @textColor;
-}
+    white-space: nowrap; // so that the invite friends button doesn't disappear
+    .open .svg-notification {
+        fill: #d1294d;
+    }
 
-.footer {
-    //margin: 0;
-    li {
-        display: inline;
-        opacity: 0.5;   
-        &:hover
-        {
-            //color: #383838;
-            opacity: 1;
+    &:hover {
+        .boxRename {
+            visibility: visible;
         }
-        &:first-child:hover
-        {
-            opacity: 0.5;
+    }
+
+    .svg-settings {
+        fill: #c2c2c2;
+    }
+
+    &.setup {
+        height: 47px; //override
+        line-height: 47px; //override
+        .dhText, .svg-inviteUser {
+            display: none;
         }
-        &:after {
-            content: '|';
-            font-size: 10px;
-            padding: 0 3px 0 6px; /*rtl*/
+
+        .searchInputWpr {
+            position: absolute;
+            top: 145px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 420px;
+            z-index: 1;
         }
-        &:last-child {
-            &:after {
-                display: none;
+
+        .dashLibSearchInput {
+            margin: 0;
+
+            ~ button {
+                float: right; //rtl
             }
         }
+
+        .svg-search {
+            right: 13px; //rtl
+            top: 6px;
+        }
+
+        .barActions {
+            position: absolute;
+            right: 28px; //rtl
+            z-index: 1;
+        }
     }
-    a:hover {
-        text-decoration: underline;
+}
+
+.notificationBtn {
+    margin-top: 13px;
+    &:hover {
+        svg {
+            fill: #d1294d;
+        }
     }
+}
+
+.helpLink {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 26px;
+    line-height: normal;
+    position: relative;
+    top: 14px;
+}
+
+.storeLink {
+    position: relative;
+    top: 4px;
+}
+
+.dhText {
+    font-size: 28px;
+    color: #fff;
 }
 /*#endregion */
 

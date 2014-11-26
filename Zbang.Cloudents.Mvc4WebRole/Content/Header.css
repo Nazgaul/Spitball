@@ -88,112 +88,138 @@ body {
 .headerRightWpr {
   height: 50px;
 }
-.headerRightWpr .dashLibSearch {
-  max-width: 550px;
-  width: auto;
-  height: auto;
-  background: none;
-  border-radius: 0;
-}
-.headerRightWpr .dashLibSearchInput {
-  border-radius: 5px;
-}
 .headerRightWpr .userSection {
   margin-left: 20px;
 }
-.dashLibSearch {
-  display: block;
-  width: 340px;
-  height: 32px;
-  line-height: 32px;
-  background: #fff;
-  margin-left: 70px;
-  /*rtl*/
-  border-radius: 5px;
-  vertical-align: top;
-  margin-top: 9px;
+.searchInputWpr {
   position: relative;
-  overflow: hidden;
-  padding: 0 5px 5px 5px;
-  /*&.showSearch {
-        display: block;
-    }*/
+  display: inline-block;
+  vertical-align: top;
+  max-width: 464px;
+  width: -webkit-calc(100% - 320px);
+  width: calc(100% - 320px);
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  margin: 17px 20px 0 20px;
+  line-height: normal;
+  background: #fff;
 }
-.dashLibSearch button {
-  width: 19px;
-  height: 20px;
-  background: url(/Images/dash13-sprite.png?v=1) -213px -2px no-repeat;
+.searchInputWpr svg {
+  fill: #a5a5a5;
+  top: 22px;
+}
+.searchInputWpr + button .svg-inviteUser {
+  position: relative;
+  top: 5px;
+}
+.searchInputWpr + button .svg-inviteUser:hover {
+  fill: #0f9d58;
+}
+.searchBtn {
   position: absolute;
+  right: 10px;
   top: 6px;
-  right: 12px;
-  /*rtl*/
-}
-.dashLibSearch button:hover {
-  background-position: -232px -2px;
-}
-.dashLibSearch button[disabled] {
-  background-position: -213px -2px;
 }
 .dashLibSearchInput {
   width: 100%;
+  max-width: 420px;
   height: 32px;
-  padding: 0 35px 0 15px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 15px;
-  border: none;
-  outline: none;
+  border-radius: 15px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+.dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
 }
 .dashLibSearchInput:focus {
   border: none;
   outline: none;
 }
-.dashLibSearchInput::-webkit-input-placeholder {
-  color: #0f9d58;
-}
-.dashLibSearchInput::-moz-placeholder {
-  color: #0f9d58;
-  opacity: 1;
-}
-.dashLibSearchInput:-ms-input-placeholder {
-  color: #0f9d58;
-}
-/*#endregion */
-/*#region footer */
-footer {
-  width: 100%;
-  height: 42px;
-  text-align: center;
-  padding: 12px 0;
+.dashHeader {
+  height: 65px;
+  line-height: 65px;
+  vertical-align: middle;
+  background: #282828;
+  margin: 0 -30px;
+  padding: 0 30px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font-size: 15px;
-  color: #383838;
+  white-space: nowrap;
 }
-.footer li {
-  display: inline;
-  opacity: 0.5;
+.dashHeader .open .svg-notification {
+  fill: #d1294d;
 }
-.footer li:hover {
-  opacity: 1;
+.dashHeader:hover .boxRename {
+  visibility: visible;
 }
-.footer li:first-child:hover {
-  opacity: 0.5;
+.dashHeader .svg-settings {
+  fill: #c2c2c2;
 }
-.footer li:after {
-  content: '|';
-  font-size: 10px;
-  padding: 0 3px 0 6px;
-  /*rtl*/
+.dashHeader.setup {
+  height: 47px;
+  line-height: 47px;
 }
-.footer li:last-child:after {
+.dashHeader.setup .dhText,
+.dashHeader.setup .svg-inviteUser {
   display: none;
 }
-.footer a:hover {
-  text-decoration: underline;
+.dashHeader.setup .searchInputWpr {
+  position: absolute;
+  top: 145px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 420px;
+  z-index: 1;
+}
+.dashHeader.setup .dashLibSearchInput {
+  margin: 0;
+}
+.dashHeader.setup .dashLibSearchInput ~ button {
+  float: right;
+}
+.dashHeader.setup .svg-search {
+  right: 13px;
+  top: 6px;
+}
+.dashHeader.setup .barActions {
+  position: absolute;
+  right: 28px;
+  z-index: 1;
+}
+.notificationBtn {
+  margin-top: 13px;
+}
+.notificationBtn:hover svg {
+  fill: #d1294d;
+}
+.helpLink {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 26px;
+  line-height: normal;
+  position: relative;
+  top: 14px;
+}
+.storeLink {
+  position: relative;
+  top: 4px;
+}
+.dhText {
+  font-size: 28px;
+  color: #fff;
 }
 /*#endregion */
 /*#region jQuery custom content scroller  */

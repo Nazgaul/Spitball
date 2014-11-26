@@ -4,7 +4,7 @@
     <form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
         <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-keyup="search()"
                ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
-        <button type="submit" ng-disabled="newSearch.query.$invalid">
+        <button class="searchBtn" type="submit" ng-disabled="newSearch.query.$invalid">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
         </button>
     </form>

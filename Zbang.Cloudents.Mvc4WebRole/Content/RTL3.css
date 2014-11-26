@@ -216,19 +216,6 @@
   /*rtl*/
   left: auto;
 }
-/*#region dashboard header */
-.dashHeader.setup .dashLibSearchInput ~ button {
-  float: left;
-}
-.dashHeader.setup .svg-search {
-  left: 13px;
-  right: auto;
-}
-.dashHeader.setup .barActions {
-  left: 28px;
-  right: auto;
-}
-/*#endregion */
 /*#region new department look */
 .deptItem {
   float: right;
@@ -269,12 +256,6 @@
 }
 .createCourse:first-child {
   padding: 0 0 0 8px;
-}
-/*#endregion */
-/*#region dashboard header */
-.searchInputWpr svg {
-  left: 33px;
-  right: auto;
 }
 /*#endregion */
 /*#region setup course 'popups' */

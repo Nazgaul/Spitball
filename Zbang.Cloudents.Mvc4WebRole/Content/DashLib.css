@@ -9,6 +9,8 @@
 .union {
   height: 100%;
   vertical-align: top;
+  min-width: 1058px;
+  overflow: auto;
 }
 .dashContent,
 .libraryContent {
@@ -403,134 +405,6 @@
   height: 104px;
   margin: 70px auto 10px;
   background: url(/Images/dashboardEmpty-sprite.png) -106px -1px no-repeat;
-}
-/*#endregion */
-/*#region dashboard header */
-.dashHeader {
-  height: 65px;
-  line-height: 65px;
-  vertical-align: middle;
-  background: #282828;
-  margin: 0 -30px;
-  padding: 0 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  white-space: nowrap;
-}
-.dashHeader .open .svg-notification {
-  fill: #d1294d;
-}
-.dashHeader:hover .boxRename {
-  visibility: visible;
-}
-.dashHeader .svg-settings {
-  fill: #c2c2c2;
-}
-.dashHeader.setup {
-  height: 47px;
-  line-height: 47px;
-}
-.dashHeader.setup .dhText,
-.dashHeader.setup .svg-inviteUser {
-  display: none;
-}
-.dashHeader.setup .searchInputWpr {
-  position: absolute;
-  top: 145px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 420px;
-  z-index: 1;
-}
-.dashHeader.setup .dashLibSearchInput {
-  margin: 0;
-}
-.dashHeader.setup .dashLibSearchInput ~ button {
-  float: right;
-}
-.dashHeader.setup .svg-search {
-  right: 13px;
-  top: 6px;
-}
-.dashHeader.setup .barActions {
-  position: absolute;
-  right: 28px;
-  z-index: 1;
-}
-.notificationBtn {
-  margin-top: 13px;
-  /*.invitesCounter {
-        top: -8px;
-    }*/
-}
-.notificationBtn:hover svg {
-  fill: #d1294d;
-}
-.helpLink {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 26px;
-  line-height: normal;
-  position: relative;
-  top: 14px;
-}
-.storeLink {
-  position: relative;
-  top: 4px;
-}
-.dhContent svg {
-  fill: #fff;
-}
-.searchInputWpr {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-}
-.searchInputWpr svg {
-  position: absolute;
-  right: 33px;
-  fill: #a5a5a5;
-  top: 22px;
-  cursor: pointer;
-}
-.searchInputWpr .dashLibSearchInput {
-  width: 420px;
-  border: 1px solid #c2c2c2;
-  border-radius: 15px;
-  font-size: 18px;
-  margin: 17px 20px 0 20px;
-  vertical-align: top;
-  color: #383838;
-}
-.searchInputWpr .dashLibSearchInput::-webkit-input-placeholder {
-  color: #c2c2c2;
-}
-.searchInputWpr .dashLibSearchInput:-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.searchInputWpr .dashLibSearchInput::-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.searchInputWpr .dashLibSearchInput:-ms-input-placeholder {
-  color: #c2c2c2;
-}
-.searchInputWpr .dashLibSearchInput:focus ~ svg {
-  fill: #383838;
-}
-.searchInputWpr + button .svg-inviteUser {
-  position: relative;
-  top: 5px;
-}
-.searchInputWpr + button .svg-inviteUser:hover {
-  fill: #0f9d58;
-}
-.dhText {
-  font-size: 28px;
-  color: #fff;
 }
 /*#endregion */
 /*#region setup course 'popups' */
