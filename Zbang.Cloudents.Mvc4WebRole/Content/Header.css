@@ -1,0 +1,360 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region main header classes */
+html,
+body {
+  height: 100%;
+}
+body {
+  overflow-y: scroll;
+}
+.bodyContent {
+  padding-top: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+}
+.siteHeader {
+  height: 50px;
+  background-color: #0f9d58;
+  top: 0;
+  width: 100%;
+  z-index: 11;
+  position: fixed;
+}
+.siteLogo {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  padding-left: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.headerSettings {
+  height: 50px;
+}
+.userNav {
+  height: 50px;
+  display: inline-block;
+  position: relative;
+  font-size: 13px;
+}
+.userNav .userName {
+  font-size: 15px;
+  max-width: 127px;
+  min-width: 40px;
+  display: inline-block;
+  text-align: left;
+  /*rtl*/
+  color: #fff;
+  margin: 6px 0 0 40px;
+  /*rtl*/
+  line-height: normal;
+  vertical-align: top;
+}
+.userNav .userImg {
+  vertical-align: top;
+  margin-top: 6px;
+  border-radius: 100%;
+  position: absolute;
+}
+.signUp .btn {
+  display: inline-block;
+  margin: 0 4px;
+  font-size: 14px;
+  min-width: 78px;
+  height: 25px;
+  line-height: 25px;
+  background: #178b55;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.signUp .btn:first-child {
+  background: #fff;
+  color: #0f9d58;
+}
+.signUp .btn:hover {
+  background: #168350;
+}
+.signUp .btn:hover:first-child {
+  background: #e1fff0;
+}
+.userAnchor {
+  display: block;
+  height: 50px;
+}
+.userPts {
+  font-size: 11px;
+  color: #fff;
+  line-height: normal;
+  margin-left: 40px;
+  /*rtl*/
+  position: relative;
+  top: -24px;
+}
+.userPts:after {
+  display: inline-block;
+  content: attr(data-points);
+}
+/*#endregion */
+/*#region box page header */
+.userSection {
+  line-height: 50px;
+  height: 50px;
+}
+.headerRightWpr {
+  height: 50px;
+}
+.headerRightWpr .userSection {
+  margin-left: 20px;
+}
+/*#region search */
+.searchInputWpr {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 464px;
+  width: -webkit-calc(100% - 320px);
+  width: calc(100% - 320px);
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  margin: 17px 20px 0 20px;
+  line-height: normal;
+  background: #fff;
+}
+.searchInputWpr svg {
+  fill: #a5a5a5;
+  top: 22px;
+}
+.searchInputWpr + button .svg-inviteUser {
+  position: relative;
+  top: 5px;
+}
+.searchInputWpr + button .svg-inviteUser:hover {
+  fill: #0f9d58;
+}
+.searchBtn {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+.dashLibSearchInput {
+  width: 100%;
+  max-width: 420px;
+  height: 32px;
+  border-radius: 15px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+.dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:focus {
+  border: none;
+  outline: none;
+}
+/*#endregion */
+/*#region dashboard */
+.dashHeader {
+  height: 65px;
+  line-height: 65px;
+  vertical-align: middle;
+  background: #282828;
+  margin: 0 -30px;
+  padding: 0 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.dashHeader .open .svg-notification {
+  fill: #d1294d;
+}
+.dashHeader:hover .boxRename {
+  visibility: visible;
+}
+.dashHeader .svg-settings {
+  fill: #c2c2c2;
+}
+.dashHeader.setup {
+  height: 47px;
+  line-height: 47px;
+}
+.dashHeader.setup .dhText,
+.dashHeader.setup .svg-inviteUser {
+  display: none;
+}
+.dashHeader.setup .searchInputWpr {
+  position: absolute;
+  top: 145px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 420px;
+  z-index: 1;
+}
+.dashHeader.setup .dashLibSearchInput {
+  margin: 0;
+}
+.dashHeader.setup .dashLibSearchInput ~ button {
+  float: right;
+}
+.dashHeader.setup .svg-search {
+  right: 13px;
+  top: 6px;
+}
+.dashHeader.setup .barActions {
+  position: absolute;
+  right: 28px;
+  z-index: 1;
+}
+.helpLink {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 26px;
+  line-height: normal;
+  position: relative;
+  top: 14px;
+}
+.storeLink {
+  position: relative;
+  top: 4px;
+}
+.dhText {
+  font-size: 28px;
+  color: #fff;
+}
+/*#endregion */
+/*#region notifications */
+.invitesCounter {
+  display: none;
+  background: #d1294d;
+  border-radius: 10px;
+  color: #fff;
+  position: absolute;
+  top: 5px;
+  height: 12px;
+  min-width: 12px;
+  line-height: 11px;
+  text-align: center;
+  z-index: 1;
+  padding: 4px;
+}
+.invitesCounterShow {
+  display: inline;
+}
+.notificationBtn {
+  margin-top: 13px;
+}
+.notificationBtn:hover svg {
+  fill: #d1294d;
+}
+.notifyWpr {
+  width: 400px;
+  position: absolute;
+  right: 40px;
+  top: 22px;
+}
+.notifyWpr.dropdown-menu {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+.notifyEmpty {
+  display: none;
+  background: #d1294d;
+  text-align: center;
+  width: 400px;
+  height: 136px;
+  color: #fff;
+  border-radius: 10px;
+  line-height: normal;
+  border: none;
+}
+.notifyList {
+  color: #fff;
+  overflow-x: hidden;
+  margin-right: -15px;
+}
+.notifyItem {
+  position: relative;
+  font-size: 14px;
+  width: 400px;
+  height: 100px;
+  background: #acacac;
+  border-radius: 10px;
+  line-height: normal;
+  overflow: hidden;
+}
+.notifyItem:hover {
+  background: #bbb;
+}
+.notifyItem.new {
+  background: #d1294d;
+}
+.notifyItem.new:hover {
+  background: #e25c6a;
+}
+.notifyItem + .notifyItem {
+  margin-top: 5px;
+}
+.notifyItem a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px 0 100px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.notifyItem .notifyDetails {
+  margin-top: 12px;
+}
+.notifyItem .notifier {
+  max-width: 185px;
+  display: inline-block;
+  vertical-align: top;
+}
+.notifyImg {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  width: 72px;
+  height: 72px;
+  border-radius: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 3px solid #fff;
+}
+/*#endregion */
+/*#endregion */
+/*#region jQuery custom content scroller  */
+.mCSB_dragger_bar {
+  background: rgba(103, 103, 103, 0.5) !important;
+  width: 7px !important;
+  border-radius: 3px;
+}
+.mCSB_draggerRail {
+  display: none;
+}
+/*#endregion */

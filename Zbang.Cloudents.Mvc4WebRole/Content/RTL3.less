@@ -247,27 +247,6 @@
     left: auto;
 }
 
-
-/*#region dashboard header */
-.dashHeader {
-    &.setup {
-        .dashLibSearchInput  {
-            ~ button {
-                float: left; //rtl
-            }
-        }
-        .svg-search {
-            left: 13px; //rtl
-            right: auto;
-        }
-        .barActions {
-            left: 28px; //rtl
-            right: auto;
-        }
-    }
-}
-/*#endregion */
-
 /*#region new department look */
 .deptItem {
     float: right; //rtl
@@ -307,16 +286,6 @@
 .createCourse {
     &:first-child {
         padding:0 0 0 8px; //rtl
-    }
-}
-
-/*#endregion */
-
-/*#region dashboard header */
-.searchInputWpr {
-    svg {
-        left: 33px; //rtl
-        right: auto;
     }
 }
 
@@ -651,46 +620,6 @@
 
 
 
-
-/*#endregion */
-
-/*#region AccountInfo.css */
-
-.signUp {
-    margin: 0 0 0 12px; /*rtl*/
-}
-
-.newInvites:after {
-    right: 10px; /*rtl*/
-    left: auto;
-}
-
-.newInvites.noInvites:after {
-    right: 11px; /*rtl*/
-    left: auto;
-}
-
-.invitesCounter {
-    box-shadow: -1px 1px 1px rgba(0,0,0,.5);
-}
-.notifyWpr {
-    left: 40px; //rtl
-    right: auto;
-}
-.notifyList {
-    margin: 0 0 0 -15px; //rtl (this is in order to move the scrollbar away from the item)
-}
-.notifyItem {
-    a {
-        padding: 15px 100px 0 15px; /*rtl*/
-    }
-}
-
-.notifyImg
-{
-    right: 20px; /*rtl*/
-    left: auto;
-}
 
 /*#endregion */
 
@@ -2021,9 +1950,7 @@ body.quiz {
         }
     }
 }
-/*.quizTime {
-    //margin-top: 146px; //diff rtl
-}*/
+
 .checkQuiz, .afraid {
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
@@ -2094,9 +2021,6 @@ body.quiz {
 }
 .quizPopupTxtWpr {
     text-align: right; //rtl
-    //line-height: 20px; //diff rtl
-    //width: 200px; //diff rtl
-    //margin-top: 10px; //diff rtl
 }
 /*#endregion */
 

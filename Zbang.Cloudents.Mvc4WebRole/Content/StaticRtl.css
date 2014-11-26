@@ -61,3 +61,11 @@
   /*rtl*/
 }
 /*#endregion */
+/*#region footer */
+.footer li:after {
+  padding: 0 6px 0 3px;
+}
+.footer li.addPipe:before {
+  padding: 0 3px 0 6px;
+}
+/*#endregion */

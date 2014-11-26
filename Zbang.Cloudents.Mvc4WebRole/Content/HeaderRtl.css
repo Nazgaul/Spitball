@@ -1,0 +1,56 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.siteLogo {
+  padding: 0 30px 0 0;
+}
+.userNav .userName {
+  text-align: right;
+  margin: 6px 40px 0 0;
+}
+.userPts {
+  margin: 0 40px 0 0;
+  /*rtl*/
+}
+.headerRightWpr .userSection {
+  margin: 0 20px 0 0;
+  /*rtl*/
+}
+.searchBtn {
+  left: 10px;
+  right: auto;
+}
+.dashLibSearchInput {
+  padding: 0 10px 0 0;
+  /*rtl*/
+}
+.dashHeader.setup .dashLibSearchInput ~ button {
+  float: left;
+}
+.dashHeader.setup .svg-search {
+  left: 13px;
+  right: auto;
+}
+.dashHeader.setup .barActions {
+  left: 28px;
+  right: auto;
+}
+/*#region notifications */
+.notifyWpr {
+  left: 40px;
+  right: auto;
+}
+.notifyList {
+  margin: 0 0 0 -15px;
+}
+.notifyItem a {
+  padding: 15px 100px 0 15px;
+  /*rtl*/
+}
+.notifyImg {
+  right: 20px;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */

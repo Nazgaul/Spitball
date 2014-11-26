@@ -586,3 +586,37 @@ body {
   top: 0;
 }
 /*#endregion */
+/*#region footer */
+footer {
+  width: 100%;
+  height: 42px;
+  text-align: center;
+  padding: 12px 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #383838;
+}
+.footer li {
+  display: inline;
+  opacity: 0.5;
+}
+.footer li:hover {
+  opacity: 1;
+}
+.footer li:first-child:hover {
+  opacity: 0.5;
+}
+.footer li:after {
+  content: '|';
+  font-size: 10px;
+  padding: 0 3px 0 6px;
+}
+.footer li:last-child:after {
+  display: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+/*#endregion */

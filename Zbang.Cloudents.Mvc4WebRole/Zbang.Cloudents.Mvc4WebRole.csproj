@@ -573,9 +573,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="Content\AccountInfo.css">
-      <DependentUpon>AccountInfo.less</DependentUpon>
-    </Content>
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
@@ -597,11 +594,11 @@
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
     </Content>
-    <Content Include="Content\HeaderFooter.css">
-      <DependentUpon>HeaderFooter.less</DependentUpon>
+    <Content Include="Content\Header.css">
+      <DependentUpon>Header.less</DependentUpon>
     </Content>
-    <Content Include="Content\HeaderFooterRtl.css">
-      <DependentUpon>HeaderFooterRtl.less</DependentUpon>
+    <Content Include="Content\HeaderRtl.css">
+      <DependentUpon>HeaderRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
@@ -1031,7 +1028,6 @@
     <Content Include="Js\Utils.js" />
     <Content Include="Js\Welcome.js" />
     <Content Include="Js\Logon.js" />
-    <Content Include="Content\AccountInfo.less" />
     <Content Include="Content\General.less" />
     <Content Include="Content\Box3.less" />
     <Content Include="Content\Site3.less" />
@@ -1051,8 +1047,8 @@
     <Content Include="Content\SiteMobile.less" />
     <Content Include="Content\SiteMobileRtl.less" />
     <Content Include="Content\StaticRtl.less" />
-    <Content Include="Content\HeaderFooter.less" />
-    <Content Include="Content\HeaderFooterRtl.less" />
+    <Content Include="Content\Header.less" />
+    <Content Include="Content\HeaderRtl.less" />
     <Content Include="Content\GeneralRtl.less" />
     <Content Include="Content\varsAndMixins.less" />
     <Content Include="Content\Animations.less" />
