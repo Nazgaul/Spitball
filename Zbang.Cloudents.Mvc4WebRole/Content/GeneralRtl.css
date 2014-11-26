@@ -493,15 +493,6 @@ aside.sideBar li {
   }
 }
 /*#endregion */
-/*#region IE only CSS */
-/*@media screen and (~'min-width:0\0') { 
-    .notificationBtn .invitesCounter.invitesCounter {
-        right: auto; //rtl
-        left: auto;
-        margin: 0 -6px 0 0; //rtl
-    }
-}*/
-/*#endregion */
 /*#region media queries */
 /*#region IPAD - SPECIFIC CODE */
 /*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {

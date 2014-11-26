@@ -43,15 +43,14 @@ body {
     padding-left: 30px; //rtl
     .boxSizing;
 }
+.headerSettings {
+    height: @header-height; //override
+}
 .userNav {
-    //font-size: 0; // remove the inline-block space from  navItems
     height: @header-height;
     display: inline-block;
     position: relative;
     font-size: 13px; // return the font-size to items
-    &.signUp {
-        margin: 0 40px;
-    }
     .userName {
         font-size: 15px;
         max-width: 127px;
@@ -71,7 +70,32 @@ body {
         position: absolute;
     }
 }
+.signUp {
+    .btn {
+        display: inline-block;
+        margin: 0 4px;
+        font-size: 14px;
+        min-width: 78px;
+        height: 25px;
+        line-height: 25px;
+        background: #178b55;
+        color: #fff;
+        border-radius: 5px;
+        padding: 0 20px;
+        .boxSizing;
 
+        &:first-child {
+            background: #fff;
+            color: @color;
+        }
+        &:hover {
+            background: #168350;
+            &:first-child {
+                background: #e1fff0;
+            }
+        }
+    }
+}
 .userAnchor {
     display: block;
     height: @header-height;
@@ -102,6 +126,7 @@ body {
         margin-left: 20px; //rtl
     }
 }
+/*#region search */
 .searchInputWpr {
     position: relative;
     display: inline-block;
@@ -146,7 +171,9 @@ body {
         outline: none;
     }
 }
+/*#endregion */
 
+/*#region dashboard */
 .dashHeader {
     height: 65px;
     line-height: 65px;
@@ -208,14 +235,6 @@ body {
     }
 }
 
-.notificationBtn {
-    margin-top: 13px;
-    &:hover {
-        svg {
-            fill: #d1294d;
-        }
-    }
-}
 
 .helpLink {
     display: inline-block;
@@ -235,6 +254,116 @@ body {
     font-size: 28px;
     color: #fff;
 }
+/*#endregion */
+
+/*#region notifications */
+.invitesCounter {
+    display: none;
+    background: @errorColor;
+    border-radius: 10px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    height: 12px;
+    min-width: 12px;
+    line-height: 11px;
+    text-align: center;
+    z-index: 1;
+    padding: 4px;
+}
+
+.invitesCounterShow {
+    display: inline;
+}
+.notificationBtn {
+    margin-top: 13px;
+    &:hover {
+        svg {
+            fill: #d1294d;
+        }
+    }
+}
+
+.notifyWpr {
+    width: 400px;
+    position: absolute;
+    right: 40px; //rtl
+    top: 22px;
+    &.dropdown-menu {
+        border: none; //override
+        box-shadow: none; //override
+        background:none;
+    }
+}
+
+.notifyEmpty {
+    display: none;
+    background: #d1294d;
+    text-align: center;
+    width: 400px;
+    height: 136px;
+    color: #fff;
+    border-radius: 10px;
+    line-height: normal;
+    border: none; //override
+}
+.notifyList {
+    color: #fff;
+    overflow-x: hidden;
+    margin-right: -15px; //rtl (this is in order to move the scrollbar away from the item)
+}
+.notifyItem {
+    position: relative;
+    font-size: 14px;
+    width: 400px;
+    height: 100px;
+    background: #acacac;
+    border-radius: 10px;
+    line-height: normal;
+    overflow: hidden;
+    
+    &:hover {
+        background: #bbb;
+    }
+    &.new {
+        background: #d1294d;
+        &:hover {
+            background: #e25c6a;
+        }
+    }
+    + .notifyItem {
+        margin-top: 5px;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 15px 15px 0 100px; //rtl
+        .boxSizing;
+    }
+    .notifyDetails {
+        margin-top: 12px;
+    }
+    .notifier {
+        max-width: 185px;
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+.notifyImg
+{
+    position: absolute;
+    left: 20px; //rtl
+    top: 15px;
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    .boxSizing;
+    border: 3px solid #fff;
+}
+/*#endregion */
+
 /*#endregion */
 
 /*#region jQuery custom content scroller  */

@@ -539,41 +539,6 @@
 }
 /*#endregion */
 /*#endregion */
-/*#region AccountInfo.css */
-.signUp {
-  margin: 0 0 0 12px;
-  /*rtl*/
-}
-.newInvites:after {
-  right: 10px;
-  /*rtl*/
-  left: auto;
-}
-.newInvites.noInvites:after {
-  right: 11px;
-  /*rtl*/
-  left: auto;
-}
-.invitesCounter {
-  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-.notifyWpr {
-  left: 40px;
-  right: auto;
-}
-.notifyList {
-  margin: 0 0 0 -15px;
-}
-.notifyItem a {
-  padding: 15px 100px 0 15px;
-  /*rtl*/
-}
-.notifyImg {
-  right: 20px;
-  /*rtl*/
-  left: auto;
-}
-/*#endregion */
 /*#region box3.css */
 .boxPage .leftPanel {
   border-left: 1px solid #c2c2c2;
@@ -1986,9 +1951,6 @@ body.quiz .shareBtn {
   /*rtl*/
   left: auto;
 }
-/*.quizTime {
-    //margin-top: 146px; //diff rtl
-}*/
 .checkQuiz .userCorrect .quizQuestion,
 .afraid .userCorrect .quizQuestion,
 .checkQuiz .userWrong .quizQuestion,
