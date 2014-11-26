@@ -87,7 +87,7 @@
             var properties = {
                 category: url.toLowerCase() !== '/item/preview/' ? 'ajax' : 'ajaxPreview',
                 timeSpent: timeSpent,
-                value: url,
+                variable: url,
                 label: JSON.stringify(data)
             };
 
