@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure
 
             ioc.RegisterType<Cache.ICache, Cache.Cache>(LifeTimeManager.Singleton);
             ioc.RegisterType<Cache.IWithCache, Cache.WithCache>(LifeTimeManager.Singleton);
-            ioc.RegisterType<Cache.IHttpContextCacheWrapper, Cache.HttpContextCacheWrapper>(LifeTimeManager.PerHttpRequest);
+            //ioc.RegisterType<Cache.IHttpContextCacheWrapper, Cache.HttpContextCacheWrapper>(LifeTimeManager.PerHttpRequest);
 
             ioc.RegisterType<Url.IShortCodesCache, Url.ShortCodesCache>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Url.IEncryptObject, Url.EncryptObject>(LifeTimeManager.PerHttpRequest);

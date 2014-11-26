@@ -7,8 +7,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsSessionStateStore : SessionStateStoreProviderBase
     {
-        readonly Microsoft.Web.DistributedCache.DistributedCacheSessionStateStoreProvider m_AzureAppFabricCache = 
-            new Microsoft.Web.DistributedCache.DistributedCacheSessionStateStoreProvider();
+        readonly Microsoft.Web.Redis.RedisSessionStateProvider m_AzureAppFabricCache =
+            new Microsoft.Web.Redis.RedisSessionStateProvider();
 
         public override string Description
         {

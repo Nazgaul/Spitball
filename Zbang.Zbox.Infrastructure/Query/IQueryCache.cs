@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Query
     {
         string CacheKey { get; }
         string CacheRegion { get; }
-        List<string> CacheTags { get;  }
         TimeSpan Expiration { get; }
     }
 }

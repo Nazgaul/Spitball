@@ -85,7 +85,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
             }
-            m_Cache.RemoveFromCache(m_CacheRegionName, null);
+            //m_Cache.RemoveFromCache(m_CacheRegionName, null);
             // m_Cache.Clear();
             Thread.Sleep(m_TimeToSleepAfterExecuting);
         }
@@ -133,7 +133,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
         {
-            var cacheItem = m_Cache.GetFromCache(box.BoxId.ToString(CultureInfo.InvariantCulture), m_CacheRegionName) as IEnumerable<UpdateMailParams.BoxUpdateDetails>;
+            var cacheItem =
+                m_Cache.GetFromCache<IEnumerable<UpdateMailParams.BoxUpdateDetails>>(
+                    box.BoxId.ToString(CultureInfo.InvariantCulture), m_CacheRegionName);
+                
             if (cacheItem != null)
             {
                 return cacheItem;
@@ -179,7 +182,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             boxupdates.AddRange(quizUpdate);
             boxupdates.AddRange(discussionUpdate);
             // m_Cache.Add(box.BoxId, boxupdates);
-            m_Cache.AddToCache(box.BoxId.ToString(CultureInfo.InvariantCulture), boxupdates, TimeSpan.FromDays(1), m_CacheRegionName);
+            m_Cache.AddToCache(box.BoxId.ToString(CultureInfo.InvariantCulture), boxupdates,
+                TimeSpan.FromHours(1), m_CacheRegionName);
 
             return boxupdates;
 
