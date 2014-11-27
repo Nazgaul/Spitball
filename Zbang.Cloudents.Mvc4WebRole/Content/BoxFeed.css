@@ -110,6 +110,26 @@
 .feedForm .attachedList {
   display: none;
 }
+.feedForm.upload .dropTxt {
+  display: block;
+}
+.dropTxt {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 55px;
+  right: 0;
+  margin: auto;
+  display: none;
+  border: 3px dashed #c2c2c2;
+  font-size: 20px;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  padding-top: 90px;
+}
 .feedImg {
   border-radius: 100%;
   margin-right: 15px;
@@ -527,15 +547,6 @@
   width: 86px;
   height: auto;
   line-height: normal;
-  text-align: center;
-  margin-bottom: 15px;
-  display: inline-block;
-}
-.bestUserList .firstUser:before,
-.bestUserList .secondUser:before,
-.bestUserList .thirdUser:before {
-  position: absolute;
-  visibility: hidden;
 }
 .bestUserList .firstUser .rep,
 .bestUserList .secondUser .rep,
@@ -571,14 +582,26 @@
   vertical-align: middle;
   text-align: left;
 }
+.bestUserList li:nth-child(-n + 3) {
+  text-align: center;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 86px;
+  height: auto;
+  line-height: normal;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bestUserList li:nth-child(-n + 3):before {
+  position: absolute;
+  visibility: hidden;
+}
 .bestUserList li:nth-child(n + 4) {
   margin: 0 -32px;
   padding: 0 15px;
   clear: both;
   width: 336px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .bestUserList li:nth-child(n + 4) .rep {
   position: absolute;
@@ -655,3 +678,4 @@
 .rep:after {
   content: '\00a0' attr(data-pts);
 }
+/*#endregion */

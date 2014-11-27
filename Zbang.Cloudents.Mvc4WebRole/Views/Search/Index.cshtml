@@ -1,8 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
 <div class="searchPage page" ng-controller="SearchCtrl" bindonce>
-    <header class="siteHeader">
-        @{Html.RenderPartial("_Header");}
-    </header>
     <div class="searchContent">
         <div id="sTabsMenu" class="sTabs" ng-class="params.currentTab">
             <button type="button" ng-click="setCurrentTab('sTab1')">@SharedResources.Courses</button>

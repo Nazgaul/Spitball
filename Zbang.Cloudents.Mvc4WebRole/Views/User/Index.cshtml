@@ -15,14 +15,13 @@
     </div>
 </script>
 
-
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
 <div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }" >
-    <header class="siteHeader">
-        @{Html.RenderPartial("_Header");}
-    </header>
-    @{Html.RenderPartial("_BarActions");}
     <div class="upContentWpr" >
         <div class="upTop">
+            @{Html.RenderPartial("_BarActions");}
             <img class="upImg" ng-src="{{profile.image | defaultImage:'user'}}" width="100" height="100" alt="" />
             <div class="upDetails">
                 <h1 class="semiFont" id="upUsername">
@@ -35,12 +34,10 @@
                 <div class="upSchool">{{profile.universityName}}</div>
             </div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
-            <div class="rFloat">
-                @{Html.RenderPartial("_BarSearch");}
-                <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
-                    @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-                </button>
-            </div>
+            @{Html.RenderPartial("_BarSearch");}
+            <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+            </button>
         </div>
 
         <section class="upMembers" ng-if="admin.visible()">
