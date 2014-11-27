@@ -72,7 +72,7 @@
   padding-top: 2px;
 }
 .boxSideBar .files:before {
-  content: attr(bo-attr-data-files-count);
+  content: attr(data-files-count);
 }
 .feedForm {
   position: relative;
@@ -655,4 +655,3 @@
 .rep:after {
   content: '\00a0' attr(data-pts);
 }
-/*#endregion */

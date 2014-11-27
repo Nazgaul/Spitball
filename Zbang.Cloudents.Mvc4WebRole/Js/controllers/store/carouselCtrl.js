@@ -1,5 +1,4 @@
-﻿
-app.controller('CarouselCtrl',
+﻿app.controller('CarouselCtrl',
     ['$scope', '$timeout','$analytics',
     function ($scope, $timeout, $analytics) {
         "use strict";
@@ -28,8 +27,8 @@ app.controller('CarouselCtrl',
             $timeout(function () {
                 transition = false;
             }, 500);
-            $analytics.eventTrack('Store Carousel', {
-                category: 'Select'                
+            $analytics.eventTrack('Select', {
+                category: 'Store Carousel'
             });
         };
 
