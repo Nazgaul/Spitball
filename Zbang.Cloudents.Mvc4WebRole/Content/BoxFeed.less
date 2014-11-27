@@ -2,6 +2,11 @@
 .feedfullWpr {
     white-space: nowrap;
 }
+.bodyContent.upload {
+    .dropTxt {
+        display: block;
+    }
+}
 .boxFeed {
     width: 598px;
     color: @textColor;
@@ -83,7 +88,7 @@
     .btn1 {
         margin: 8px 8px 0 0; //rtl
     }
-    &.feedOpen {
+    &.feedOpen, .bodyContent.upload & {
         .feedTA {
             min-height: 169px;
             max-height: 250px;
@@ -113,11 +118,6 @@
     }
     .attachedList {
         display: none;
-    }
-    &.upload {
-        .dropTxt {
-            display: block;
-        }
     }
 }
 .dropTxt {
