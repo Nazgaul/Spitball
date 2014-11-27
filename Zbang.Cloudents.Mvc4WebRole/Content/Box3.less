@@ -1,6 +1,7 @@
 ﻿@import "varsAndMixins";
 
 .boxPage {
+    min-width: 1260px; //this is specifically due to the feed tab
     .leftPanel {
         border: none;
         height: 100%;
@@ -11,10 +12,6 @@
         padding: 10px 25px 0 25px;
         border-right: 1px solid @borderColor; /*rtl*/
         .boxSizing;
-    }
-    .backWpr {
-        margin: 8px 0 0 25px; //rtl
-        padding:0;
     }
     .svg-settings {
         width: 30px;
@@ -29,26 +26,6 @@
         left: auto;
         margin:0; //override
         visibility: visible; //override
-    }
-    .siteHeader {
-        background: #282828;
-        .shareBtn {
-            display: inline-block;
-            margin: 0 15px;
-            position: relative;
-            top: 11px;
-        }
-    }
-    .siteLogo {
-        height: @header-height;
-        width: @boxSideBarWidth;
-        background: @color;
-    }
-    .searchInputWpr  {
-        margin-top: 8px; //override
-    }
-    .barActions {
-        margin-top:0;
     }
 }
 .inviteButton {

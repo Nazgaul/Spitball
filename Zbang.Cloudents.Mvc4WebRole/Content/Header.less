@@ -33,7 +33,36 @@ body {
     //z-index:5; //changed to accomodate for new ng popups. TODO: CHeck that this doesn't ruin anything.
     position: fixed;
     //min-width: 1024px;
-    
+    &.headerBox {
+        background: #282828;
+        //min-width: 1260px; //same as boxPage class
+        // the above rule won't help because the siteHeader is fixed!
+        .backWpr {
+            margin: 8px 0 0 25px; //rtl
+            padding:0;
+        }
+        .shareBtn {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+            top: 11px;
+        }
+        .siteLogo {
+            height: @header-height;
+            width: @boxSideBarWidth;
+            background: @color;
+        }
+        .searchInputWpr  {
+            margin-top: 8px; //override
+            width: ~'-webkit-calc(100% - 700px)'; //if we remove min-width on the boxPage class
+            width: ~'calc(100% - 700px)';         //... then we might need someing like this
+            //min-width: 48px;                      //... then we might need someing like this
+            min-width: 190px; //in order that the drop down still displays corectly
+        }   
+        .barActions {
+            margin-top:0;
+        }
+    }   
 }
 
 .siteLogo {
@@ -131,7 +160,7 @@ body {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    max-width: 464px;
+    max-width: 460px;
     width: ~'-webkit-calc(100% - 320px)';
     width: ~'calc(100% - 320px)';
     border: 1px solid @borderColor;
@@ -160,11 +189,12 @@ body {
 }
 .dashLibSearchInput {
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
     height: 32px;
     border-radius: 15px;
     font-size: 18px;
-    padding-left: 10px; //rtl
+    padding: 0 40px 0 10px; //rtl
+    .boxSizing;
     .placeholderColor(@borderColor);
     &:focus {
         border: none; //remove red error borders and outlines
