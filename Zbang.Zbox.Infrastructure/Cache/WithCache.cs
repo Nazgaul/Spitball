@@ -21,10 +21,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
             if (getItemCallback == null) throw new ArgumentNullException("getItemCallback");
             string cacheKey = queryParam.CacheKey;
 
-            var item = m_Cache.GetFromCache(cacheKey, queryParam.CacheRegion) as TD;
+            var item = m_Cache.GetFromCache<TD>(cacheKey, queryParam.CacheRegion);
             if (item != null) return item;
             item = getItemCallback(queryParam);
-            m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion, queryParam.CacheTags);
+            m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
             return item;
         }
 
@@ -34,30 +34,30 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             string cacheKey = queryParam.CacheKey;
 
-            var item = m_Cache.GetFromCache(cacheKey, queryParam.CacheRegion) as TD;
+            var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
             if (item != null) return item;
             item = await getItemCallbackAsync(queryParam);
-            m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion, queryParam.CacheTags);
+            await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
             return item;
         }
 
-        public TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
-            where TCr : ICommandResult
-            where TC : ICommandCache
-        {
-            if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
+        //public TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
+        //    where TCr : ICommandResult
+        //    where TC : ICommandCache
+        //{
+        //    if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
 
-            TCr retVal = invokeFunction(command);
-            m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
-            return retVal;
-        }
+        //    TCr retVal = invokeFunction(command);
+        //    m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
+        //    return retVal;
+        //}
 
-        public void Command<TC>(Action<TC> invokeFunction, TC command)
-            where TC : ICommandCache
-        {
-            if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
-            invokeFunction(command);
-            m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
-        }
+        //public void Command<TC>(Action<TC> invokeFunction, TC command)
+        //    where TC : ICommandCache
+        //{
+        //    if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
+        //    invokeFunction(command);
+        //    m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
+        //}
     }
 }

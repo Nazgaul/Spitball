@@ -36,6 +36,7 @@
 
     <meta property="fb:app_id" content="450314258355338">
     @*<base href="/dashboard/" />*@
+    <base href="/">
 
     @Html.Css2("newcore3")
     @Html.CssRtl("newrtl3")
@@ -80,10 +81,10 @@
             </div>
 
         </div>
-        <ul class="uploadList" id="uploadList" bindonce m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
-            <li class="uploadItem" ng-repeat="file in uploader.fileList track by file.id">
-                <span class="fileName elps" bo-text="file.name"></span>
-                <span class="fileSize" bo-bind="file.size | fileSize:true"></span>
+        <ul class="uploadList" id="uploadList" m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
+            <li class="uploadItem" ng-repeat="file in ::uploader.fileList track by file.id">
+                <span class="fileName elps" {{::file.name}}"</span>
+                <span class="fileSize">{{file.size | fileSize:true}}</span>
                 <div class="uploadProgress">
                     <button type="button" class="fileCancel rFloat" ng-style="{ display: file.plupload ? 'block' : 'none'}" ng-hide="file.uploaded || file.error" ng-click="cancelUpload(file)">@DialogResources.Cancel</button>
                     <button type="button" class="fileDone rFloat" disabled="disabled" ng-style="{display : file.uploaded ? 'inline-block' : 'none' }"></button>
@@ -147,54 +148,45 @@
     <script type="text/javascript" src="~/js/CDNFallback.js"></script>
 
     <script type="text/ng-template" id="userToolTip.html">
-        <div class="userTooltip" ng-class="{hidePoints : user.score <= 0}">
-            <a ng-href="{{user.url}}" ng-click="$root.checkReg($event)">
-                <img class="ttImg" ng-src="{{user.image | defaultImage:'user'}}" width="99" height="99" />
+        <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
+            <a ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">
+                <img class="ttImg" ng-src="{{::user.image | defaultImage:'user'}}" width="99" height="99" />
             </a>
-            <a class="ttUsername elps" ng-href="{{user.url}}" ng-click="$root.checkReg($event)">{{user.name}}</a>
-            <div class="ttSchool elps">{{user.universityName}}</div>
-            <span class="ttPoints lFloat" data-tt-points="{{user.score}}">&nbsp;@SharedResources.Points</span>
+            <a class="ttUsername elps" ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">{{::user.name}}</a>
+            <div class="ttSchool elps">{{::user.universityName}}</div>
+            <span class="ttPoints lFloat" data-tt-points="{{::user.score}}">&nbsp;@SharedResources.Points</span>
             <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>
         </div>
     </script>
 
     @*@Search*@
     <script type="text/ng-template" id="boxHeaderSearch">
-        <a bo-href="box.url" class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" bo-src="box.image | defaultImage:'box'" alt="">
+        <a ng-href="{{::box.url}}" class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="box.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
-                <span class="searchDetail" bo-style="{allDetails: box.proffessor && box.courseCode}" bo-html="box.proffessor | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
-                <span class="searchDetail" bo-html="box.courseCode | highlight:formData.query:false" ></span>
+                <div class="searchTitle semiFont elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
+                <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
+                <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
             </div>
         </a>
     </script>
     <script type="text/ng-template" id="itemHeaderSearch">
-        <a bo-href="item.url" class="searchItem">
-            <div class="otherUni semiFont" ng-if="item.universityName" bo-text="item.universityName"></div>
-            <img class="lFloat imgBorder" width="40" height="50" bo-src="item.image" alt="">
+        <a ng-href="{{::item.url}}" class="searchItem">
+            <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
+            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::item.image}}" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" bo-html="item.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
-                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In" bo-text="item.boxname"></div>
+                <div class="searchTitle semiFont elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
+                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
             </div>
         </a>
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
-        <a bo-href="person.url" class="searchItem">
-            <img class="lFloat imgBorder userImg" bo-src="person.image | defaultImage:'user'" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps" bo-html="person.name | highlight:formData.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
+        <a ng-href="{{::person.url}}" class="searchItem">
+            <img class="lFloat imgBorder userImg" ng-src="{{person.image | defaultImage:'user'}}" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps" ng-bind-html="::person.name | highlight:formData.query:false" dir="{{::params.txetDirection}}"></div>
         </a>
     </script>
-
-    <script type="text/html" id="userToolTipTempalte">
-        <a data-navigation="User" href="{{url}}">
-            <img class="ttImg" src="{{image | defaultImage:'user'}}" width="99" height="99" />
-        </a>
-        <a class="ttUsername elps" data-navigation="User" href="{{url}}">{{name}}</a>
-        <div class="ttSchool elps">{{university}}</div>
-        <span class="ttPoints lFloat" data-tt-points="{{score}}">&nbsp;Points</span>
-        <button type="button" class="btn3 rFloat">Message</button>
-    </script>
+        
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
 

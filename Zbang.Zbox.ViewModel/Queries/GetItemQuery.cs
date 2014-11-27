@@ -18,19 +18,6 @@ namespace Zbang.Zbox.ViewModel.Queries
         public long ItemId { get; private set; }
 
 
-        readonly List<string> m_Tags = new List<string>();
-
-        List<string> IQueryCache.CacheTags
-        {
-            get
-            {
-                return m_Tags;
-            }
-        }
-
-
-    
-
         string IQueryCache.CacheKey
         {
             get { return ItemId.ToString(CultureInfo.InvariantCulture); }

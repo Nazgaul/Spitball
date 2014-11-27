@@ -32,12 +32,12 @@ namespace Zbang.Zbox.Infrastructure.Cache
         /// <param name="invokeFunction">The func to excecute the command</param>
         /// <param name="command">command result</param>
         /// <returns></returns>
-        TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
-            where TCr : ICommandResult
-            where TC : ICommandCache;
+        //TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
+        //    where TCr : ICommandResult
+        //    where TC : ICommandCache;
 
-        void Command<TC>(Action<TC> invokeFunction, TC command)
-           where TC : ICommandCache;
+        //void Command<TC>(Action<TC> invokeFunction, TC command)
+        //   where TC : ICommandCache;
         //void ClearCacheByKey(string key);
     }
 }

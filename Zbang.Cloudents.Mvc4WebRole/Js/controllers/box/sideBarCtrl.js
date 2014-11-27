@@ -1,5 +1,4 @@
-﻿
-mBox.controller('SideBarCtrl',
+﻿mBox.controller('SideBarCtrl',
     ['$scope', 'sBox',
         function ($scope, sBox) {
             "use strict";

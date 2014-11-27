@@ -126,7 +126,7 @@
 }
 .recommended .friends:before,
 .recommended .files:before {
-  content: attr(bo-attr-data-friends-count);
+  content: attr(data-friends-count);
   display: inline-block;
 }
 .recommended .friends {
@@ -136,7 +136,7 @@
   margin-top: 7px;
 }
 .recommended .files:before {
-  content: attr(bo-attr-data-files-count);
+  content: attr(data-files-count);
 }
 .podium {
   width: 87px;

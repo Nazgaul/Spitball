@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxTabsCtrl',
-        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify', 'sLogin', 'sTabCount',
-        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin, sTabCount) {
+        ['$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify', 'sLogin', 'sTabCount', '$location',
+        function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin, sTabCount, $location) {
             "use strict";
             $scope.params = {};
 
@@ -10,6 +10,15 @@
 
             sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
                 $scope.params.tabs = tabs;
+
+                var tabId = $location.search().tabId;
+                if (tabId) {
+                    var tab = _.find($scope.params.tabs, function (tab) {
+                        return tab.id === tabId;
+                    });
+                    $scope.params.currentTab = tab;
+                    $rootScope.$broadcast('selectTab', tab);
+                }
                 $rootScope.$broadcast('update-scroll');
             });
 
@@ -93,8 +102,13 @@
             };
 
             $scope.selectTab = function (tab) {
-                $scope.params.currentTab = tab;
-                $rootScope.$broadcast('selectTab', tab);
+                if (!tab) {
+                    $location.search({ tabId: null });
+                    $scope.params.currentTab = null;
+                    $rootScope.$broadcast('selectTab', null);
+                    return;
+                }
+                $location.search({ tabId: tab.id });
             };
 
             $scope.addDraggedItem = function (item, tabId) {
@@ -110,7 +124,16 @@
 
                 $rootScope.$broadcast('tabItemAdded', data);
             };
-       
+
+            $scope.$on('$routeUpdate', function () {
+                var tabId = $location.search().tabId,
+                    tab = _.find($scope.params.tabs, function (tab) {
+                        return tab.id === tabId;
+                    });
+                $scope.params.currentTab = tab;
+                $rootScope.$broadcast('selectTab', tab);
+            });
+
             function showTabCount(count) {
                 _.forEach($scope.params.tabs, function (tab) {
                     tab.itemCount = count[tab.id];

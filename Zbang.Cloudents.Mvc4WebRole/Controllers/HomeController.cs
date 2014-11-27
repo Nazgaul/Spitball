@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Help()
         {
             const string faqQuestionCacheName = "faqQuestionCacheName";
-            var model = m_CacheProvider.Value.GetFromCache(faqQuestionCacheName, faqQuestionCacheName) as IEnumerable<Category>;
+            var model = m_CacheProvider.Value.GetFromCache<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
             if (model != null)
             {
