@@ -24,6 +24,18 @@ body {
   width: 100%;
   z-index: 11;
   position: fixed;
+  /*&.userHeader, &.searchHeader {
+        .searchInputWpr  {
+            margin-top: 6px;
+            + button {
+                margin-top: 21px;
+            }
+        }
+        ~ .barActions {
+            top: 6px;
+            margin-right: 23px;
+        }
+    }*/
 }
 .siteHeader.headerBox {
   background: #282828;
@@ -60,6 +72,9 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.headerActions {
+  height: 50px;
 }
 .headerSettings {
   height: 50px;

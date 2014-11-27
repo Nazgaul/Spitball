@@ -27,11 +27,13 @@
 }
 .userPage .searchInputWpr,
 .searchPage .searchInputWpr {
-  margin-top: 6px;
+  margin-top: 21px;
+  width: 460px;
 }
 .userPage .searchInputWpr + button,
 .searchPage .searchInputWpr + button {
-  margin-top: 21px;
+  position: relative;
+  top: -15px;
 }
 .userPage h1 {
   font-size: 22px;
@@ -350,14 +352,19 @@
 .upContentWpr {
   width: 1021px;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding: 0 20px 20px 20px;
   position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .upTop {
   padding-left: 120px;
   /*rtl*/
+  margin-right: -20px;
   position: relative;
-  height: 100px;
+  height: 75px;
+  background: #282828;
 }
 .upTop .btn3 {
   padding: 4px 12px;
@@ -400,7 +407,7 @@
   display: inline-block;
 }
 .upContent {
-  width: 772px;
+  width: 732px;
 }
 .upContent h2 {
   margin: 28px 0 15px;
@@ -710,7 +717,7 @@
 /*#endregion */
 /*#region union*/
 .upMembers {
-  margin-top: 50px;
+  margin-top: 75px;
 }
 .upMembers .membersContent {
   min-height: 275px;

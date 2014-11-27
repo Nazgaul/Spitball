@@ -3,10 +3,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
 <div id="library" class="page union" ng-controller="LibraryCtrl">
-    <header class="siteHeader">
-        @{Html.RenderPartial("_Header");}
-    </header>
     <div class="libraryContent" bindonce>
         <aside class="asideDash lFloat">
             <div class="dashLibTop">

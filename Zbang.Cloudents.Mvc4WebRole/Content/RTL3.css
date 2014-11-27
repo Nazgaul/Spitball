@@ -1254,6 +1254,7 @@
 .upTop {
   padding: 0 120px 0 0;
   /*rtl*/
+  margin: 0 0 0 -20px;
 }
 .upTop .btn3 {
   right: 117px;
