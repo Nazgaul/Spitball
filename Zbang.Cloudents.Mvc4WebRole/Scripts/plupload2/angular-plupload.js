@@ -40,6 +40,30 @@
 	            //    options.browse_button = null;
 	            //    options.drop_element = document.getElementById(iAttrs.dropArea);
 	            //}
+	            dropElement.addEventListener('dragenter', function (e) {
+	                if (collection.length === 0) {
+	                    if (e.dataTransfer.types.indexOf('Files') === -1) {
+	                        return;
+	                    }
+	                    $analytics.trackEvent('Drag Enter', {
+	                        category: iAttrs.dropArea
+	                    });
+	                }	 
+
+	            });
+
+
+	            document.addEventListener('dragleave', function (e) {	             
+	                $analytics.trackEvent('Drag Leave', {
+	                    category: iAttrs.dropArea
+	                });
+	            });
+
+	            document.addEventListener('drop', function (e) {	               
+	                $analytics.trackEvent('Drop', {
+	                    category: iAttrs.dropArea
+	                });
+	            });
 
 	            uploader = new plupload.Uploader(options);	            
 	            uploader.init();

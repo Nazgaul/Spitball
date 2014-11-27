@@ -1,5 +1,5 @@
 ﻿mDashboard.directive('plDropzoneUploader',
-    [function () {
+    ['$analytics',function ($analytics) {
         "use strict";
         return {
             restrict: 'A',
@@ -157,10 +157,31 @@
 
                 function toggle() {
                     $(this).toggleClass('upload');
+                    if ($(this).hasClass('upload')) {
+                        $analytics.trackEvent('Drag Enter', {
+                            category: attrs.plDropzoneUploader
+                        });
+
+                    }
+                    return;
+
+                    $analytics.trackEvent('Drag Leave', {
+                        category: attrs.plDropzoneUploader
+                    });
                 }
                 function toggleOff() {
                     $(this).removeClass('upload');
+
+                    $analytics.trackEvent('Drag Drop', {
+                        category: attrs.plDropzoneUploader
+                    });
                 }
+
+                scope.$on('$destroy', function () {
+                    $main.off('dragenter', toggle);
+                    $main.off('dragleave', toggle);
+                    $main.off('drop', toggleOff);
+                });
             }
         };
     }]).
