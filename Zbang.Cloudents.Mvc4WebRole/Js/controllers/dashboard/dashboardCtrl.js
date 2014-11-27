@@ -53,9 +53,11 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         };
 
         $scope.leaderBoard = {
-            first: sideBar.leaderBoard[0],
+            first: sideBar.leaderBoard[0],            
             second: sideBar.leaderBoard[1],
+            secondExist: !_.isUndefined(sideBar.leaderBoard[1]),
             third: sideBar.leaderBoard[2],
+            thirdExist: !_.isUndefined(sideBar.leaderBoard[2]),
             length: sideBar.leaderBoard.length
         };
         
