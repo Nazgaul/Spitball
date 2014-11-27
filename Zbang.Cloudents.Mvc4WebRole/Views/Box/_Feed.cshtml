@@ -22,6 +22,7 @@
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
             </button>
+            <div class="dropTxt">@DialogResources.DropToUpload</div>
         </form>
 
         <ul class="boxFeedList">
@@ -92,6 +93,7 @@
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                     </button>
+                    <div class="dropTxt">@DialogResources.DropToUpload</div>
                 </form>
             </li>
 
