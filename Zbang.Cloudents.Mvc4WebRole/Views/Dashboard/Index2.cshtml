@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </section>
-            <div pl-dropzone-uploader="dashboard">
+            <div pl-dropzone-uploader="dashboard" drop-element="dropzone-element">
                 <div id="dropzoneBtn" style="display:none;"></div>
                 <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
                     <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
@@ -147,7 +147,7 @@
                         <li class="box browseBtn">
                             <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                         </li>
-                        <li ng-repeat="box in ::academicBoxes" class="box dropzone" ng-include="'dashBoxTemplate'" pl-dropzone></li>
+                        <li ng-repeat="box in ::academicBoxes" class="box" dropzone-element ng-include="'dashBoxTemplate'" pl-dropzone></li>
                     </ol>
                 </section>
 
@@ -163,7 +163,7 @@
                         <li ng-click="openCreateBoxWizard()" class="box createWizard">
                             <button class="addBtn">@SharedResources.CreateNew</button>
                         </li>
-                        <li ng-repeat="box in ::groupBoxes" class="box dropzone" pl-dropzone ng-include="'dashBoxTemplate'">
+                        <li ng-repeat="box in ::groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashBoxTemplate'">
                         </li>
                     </ol>
                 </section>

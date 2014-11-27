@@ -34,7 +34,7 @@
             <li class="ng-scope libraryItem deptItem" ng-repeat="department in departments">
                 <button type="button" class="navigation deptLink union-sprite" ng-click="selectDepartment(department)">
                     <div class="deptNameWpr clamp2">
-                        <div class="deptName" bo-text="department.name"></div>
+                        <div class="deptName">{{::department.name}}</div>
                     </div>
 
                 </button>

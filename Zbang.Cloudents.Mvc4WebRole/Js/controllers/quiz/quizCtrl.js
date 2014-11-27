@@ -3,8 +3,6 @@ mQuiz.controller('QuizCtrl',
         ['$scope', '$window', '$timeout', '$filter', '$routeParams', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'resManager', 'sLogin',
         function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics, resManager, sLogin) {
             "use strict";
-            //cd.pubsub.publish('quiz', $routeParams.quizId);//statistics
-
             var questions,
                 challengeTimeout, modalInstance;
 

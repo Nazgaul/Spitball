@@ -56,7 +56,7 @@
 
 
             $scope.removeQuiz = function (quiz) {
-                cd.confirm2(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
+                sNotify(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
 
                     var data = {
                         id: quiz.id,

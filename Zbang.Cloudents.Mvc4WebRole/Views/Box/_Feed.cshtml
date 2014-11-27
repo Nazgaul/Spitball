@@ -8,7 +8,7 @@
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
             <img ng-src="{{info.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
-            <textarea text-direction name="content" class="feedTA dropzone" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
+            <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                       ng-focus="checkAuth()" pl-dropzone new-question="true" box-id="{{boxId}}"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
@@ -79,7 +79,7 @@
                 </ul>
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
                     <img class="feedImg rFloat" ng-src="{{info.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
-                    <textarea text-direction name="content" class="feedTA dropzone" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" pl-dropzone question-id="{{question.id}}" box-id="{{boxId}}"></textarea>
+                    <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" pl-dropzone question-id="{{question.id}}" box-id="{{boxId}}"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                             <span class="attachName elps">{{file.name}}</span>

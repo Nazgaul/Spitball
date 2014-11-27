@@ -1,5 +1,5 @@
 ﻿mDashboard.directive('plDropzoneUploader',
-    [function() {
+    [function () {
         "use strict";
         return {
             restrict: 'A',
@@ -10,23 +10,22 @@
                         multi_selection: true,
                         browse_button: 'dropzoneBtn',
                         chunk_size: '3mb',
-                        container: 'boxFeed',
                         url: '/Upload/File/',
                         flash_swf_url: '/Scripts/plupload2/Moxie.swf',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
                         }
-                    };            
+                    };
 
-                this.addFileBox = function (boxId,files) {                    
+                this.addFileBox = function (boxId, files) {
                     $scope.currentBoxId = boxId;
                     uploader.addFile(files);
                 };
-                this.addFileFeedQuestion = function (boxId,files) {
+                this.addFileFeedQuestion = function (boxId, files) {
                     $scope.newQuestion = true;
                     this.addFileBox(boxId, files);
                 };
-                this.addFileFeedReply = function (boxId,questionId, files) {
+                this.addFileFeedReply = function (boxId, questionId, files) {
                     $scope.questionId = questionId;
                     this.addFileBox(boxId, files);
                 };
@@ -141,16 +140,21 @@
                     });
                 }
             }],
-            link: function (scope, elem, attrs,controller) {
-                
-                controller.init(attrs.plDropzoneUploader);
+            link: function (scope, elem, attrs, controller) {
 
-                $(document).on('dragenter', '.dropzone', function () {
+                controller.init(attrs.plDropzoneUploader);
+                if (!attrs.dropElement) {
+                    $(document).on('dragenter', toggle);
+                    $(document).on('dragleave', toggle);
+                    return;
+                }
+                $(document).on('dragenter', '[dropzone-element]', toggle);
+                $(document).on('dragenter', '[dropzone-element]', toggle);
+
+
+                function toggle() {
                     $(this).toggleClass('upload');
-                });
-                $(document).on('dragleave', '.dropzone', function () {
-                    $(this).toggleClass('upload');
-                });
+                }
             }
         };
     }]).
@@ -159,14 +163,14 @@
     function () {
         "use strict";
         return {
-            restrict: "A",         
+            restrict: "A",
             require: '^plDropzoneUploader',
             //scope:false,
-            link: function (scope, elem, attrs,controller) {
+            link: function (scope, elem, attrs, controller) {
                 var dropzone = new mOxie.FileDrop({
                     drop_zone: elem[0]
                 });
-                             
+
 
                 dropzone.ondrop = function (event) {
                     if (attrs.newQuestion === 'true') { //feed
@@ -177,7 +181,7 @@
                         controller.addFileFeedReply(parseInt(attrs.boxId), attrs.questionId, dropzone.files);
                         return;
                     }
-                    controller.addFileBox(scope.box.id,dropzone.files); //dashboard
+                    controller.addFileBox(scope.box.id, dropzone.files); //dashboard
                 };
 
                 dropzone.init();

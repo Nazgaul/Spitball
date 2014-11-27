@@ -20,10 +20,10 @@
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
         <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
         <div height="285" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
-            <ul class="socialList" bindonce ng-class="{noResults : users.length === 0}">
+            <ul class="socialList" ng-class="{noResults : users.length === 0}">
                 <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
-                    <img width="64" height="64" bo-src="contact.image | defaultImage:'user'" alt="" />
-                    <div class="contactName" bo-text="contact.name"></div>
+                    <img width="64" height="64" ng-src="{{::contact.image | defaultImage:'user'}}" alt="" />
+                    <div class="contactName">{{::contact.name}}</div>
                     <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
                 </li>
                 <li class="emptySearch">@SharedResources.NoResults</li>
@@ -40,8 +40,8 @@
     </div>
     <div fb-block ng-if="params.facebookInvite"></div>
 </section>
-<aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
-    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
+<aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl">
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()" input-resizer>
         <h3>@IndexResources.InviteViaEmail</h3>
 
         <div class="inputText emailUser" ng-click="focusInput()">

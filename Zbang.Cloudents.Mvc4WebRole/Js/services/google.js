@@ -1,7 +1,6 @@
-﻿
-app.factory('sGoogle',
-   ['$document', '$q', '$timeout', 'sShare',
-   function ($document, $q, $timeout, sShare) {
+﻿app.factory('sGoogle',
+   ['$document', '$q', '$timeout', 'sShare', '$filter',
+   function ($document, $q, $timeout, sShare, $filter) {
        "use strict";
 
        var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
@@ -165,7 +164,7 @@ app.factory('sGoogle',
                        return defer.promise;
                    }
 
-                   sShare.googleFriends({ token: access_token }).then(function (data) {                       
+                   sShare.googleFriends({ token: access_token }).then(function (data) {
                        var feed = JSON.parse(data).feed;
                        for (var i = 0 ; i < feed.entry.length; i++) {
                            var contact = {}, entry = feed.entry[i];
@@ -173,7 +172,7 @@ app.factory('sGoogle',
                                contact.id = entry.gd$email[0].address;
 
                                if (entry.title.$t !== '') {
-                                   contact.name = cd.escapeHtmlChars(entry.title.$t);
+                                   contact.name = $filter('escapeHtmlChars')(entry.title.$t);
                                } else {
                                    contact.name = entry.gd$email[0].address;
                                }

@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/Logon.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
+                new JsFileWithCdn("~/scripts/ui-bootstrap-tpls-0.12.0.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
@@ -261,6 +261,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
+                new JsFileWithCdn("/js/filters/escapeHtmlChars.js"),                
                 new JsFileWithCdn("/js/filters/kNumber.js"),
                 new JsFileWithCdn("/js/filters/defaultImage.js"),
                 new JsFileWithCdn("/js/filters/fileSize.js"),

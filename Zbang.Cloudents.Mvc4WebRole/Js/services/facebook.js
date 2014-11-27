@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare','sGmfcnHandler',
-   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler) {
+   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare','sGmfcnHandler','$filter',
+   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler, $filter) {
        "use strict";
        var isAuthenticated = false,
            accessToken,
@@ -156,9 +156,9 @@
                        friend = response.data[i];
                        contacts.push({
                            id: friend.id,
-                           firstname: cd.escapeHtmlChars(friend.first_name),
-                           middlename: cd.escapeHtmlChars(friend.middle_name),
-                           lastname: cd.escapeHtmlChars(friend.last_name),
+                           firstname: $filter('escapeHtmlChars')(friend.first_name),
+                           middlename: $filter('escapeHtmlChars')(friend.middle_name),
+                           lastname: $filter('escapeHtmlChars')(friend.last_name),
                            name: friend.first_name + ' ' + (friend.middle_name ? friend.middle_name + ' ' : '') + friend.last_name,
                            username: friend.username,
                            image: friend.picture.data.url,

@@ -937,6 +937,7 @@
     <Content Include="Js\directives\userDetails.js" />
     <Content Include="Js\directives\userPoints.js" />
     <Content Include="Js\filters\defaultImage.js" />
+    <Content Include="Js\filters\escapeHtmlChars.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\HomePage.js" />
@@ -1882,6 +1883,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4..js" />

@@ -9,9 +9,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];   
-    //cd.pubsub.publish('dash_boxes');//statistics
 
-    //cd.analytics.setLibrary($('.uniText').text()); //TODO
 
     $scope.myCourses = resManager.get('CoursesFollow');
     $scope.openCreateBoxWizard = function () {

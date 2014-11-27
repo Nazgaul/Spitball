@@ -85,20 +85,20 @@
 </script>
 
 <script type="text/ng-template" id="boxQuizTooltip">
-    <div bo-class="{noPreview : !item.description}" class="boxItemTt" bindonce>
-        <div class="itemName" bo-text="item.name"></div>
+    <div bo-class="{noPreview : !item.description}" class="boxItemTt">
+        <div class="itemName">{{::item.name}}</div>
         <div class="ttTop">
             <div class="moreFilesThumb quiz"></div>
             <div class="detailsWpr">
                 <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                <a bo-href="item.userUrl" class="ttLink elps" bo-text="item.owner"></a>
+                <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
                 <div class="lFloat ttDetail">@SharedResources.Created:</div>
-                <div>{{item.date | displayTimeFilter}}</div>
+                <div>{{::item.date | displayTimeFilter}}</div>
             </div>
-            <div class="lFloat ttDetail" data-numdownload="{{item.numOfViews}}">@SharedResources.Views</div>
-            <div class="rFloat ttDetail" data-numcommment="{{item.commentsCount}}">@SharedResources.Comments</div>
+            <div class="lFloat ttDetail" data-numdownload="{{::item.numOfViews}}">@SharedResources.Views</div>
+            <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
         </div>
-        <div class="ttPreview" bo-text="item.description"></div>
+        <div class="ttPreview">{{::item.description}}</div>
 
     </div>
 </script>

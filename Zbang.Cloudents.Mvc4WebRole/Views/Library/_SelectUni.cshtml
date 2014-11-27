@@ -37,27 +37,27 @@
         <ul class="fbUniList" bindonce ng-style="{display: display.facebook ? 'block' : 'none'}">
             <li ng-repeat="university in FBUniversities">
                 <div class="schoolItem" ng-click="selectUniversity(university,true)">
-                    <img bo-src="university.image | defaultImage:'uni'" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+                    <img ng-src="{{::university.image | defaultImage:'uni'}}" class="lFloat uniImg" width="66" height="66" alt="{{::university.name}}" />
                     <div class="uniDetails">
                         <button type="button" class="btn3 rFloat">@SharedResources.Choose</button>
-                        <div class="uniName elps boldFont" bo-text="university.name"></div>
+                        <div class="uniName elps boldFont">{{::university.name}}</div>
                         @*<div class="friendsCount" bo-attr bo-attr-data-friendscount="university.friendsCount">@MainViewResources.FriendsRegistered</div> *@
                     </div>
                 </div>
                 <ul class="fbFriendsList">
-                    <li ng-repeat="friend in university.friends">
-                        <img bo-src="friend.image | defaultImage:'user'" class="lFloat imgBorder" width="32" height="32" bo-attr-tooltip="friend.name" bo-attr bo-attr-alt="friend.name" />
+                    <li ng-repeat="friend in ::university.friends">
+                        <img ng-src="{{::friend.image | defaultImage:'user'}}" class="lFloat imgBorder" width="32" height="32" tooltip="{{::friend.name}}" alt="{{::friend.name}}" />
                     </li>
                 </ul>
             </li>
         </ul>
 
-        <ul class="uniList" ng-class="{noResults : universities.length === 0 }" bindonce ng-style="{display: display.search ? 'block' : 'none'}">
-            <li class="schoolItem" ng-repeat="university in universities track by university.id" ng-click="selectUniversity(university)">
-                <img bo-src="university.image | defaultImage:'uni'" class="lFloat uniImg" width="66" height="66" bo-attr bo-attr-alt="university.name" />
+        <ul class="uniList" ng-class="{noResults : universities.length === 0 }" ng-style="{display: display.search ? 'block' : 'none'}">
+            <li class="schoolItem" ng-repeat="university in ::universities track by university.id" ng-click="selectUniversity(university)">
+                <img ng-src="{{::university.image | defaultImage:'uni'}}" class="lFloat uniImg" width="66" height="66" alt="{{::university.name}}" />
                 <span class="uniDetails">
-                    <span class="uniName elps boldFont" bo-text="university.name"></span>
-                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@ bo-text="university.membersCount"></span>
+                    <span class="uniName elps boldFont">{{::university.name}}</span>
+                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@>{{::university.membersCount}}</span>
                 </span>
             </li>
             <li class="emptySearch">@SharedResources.NoResults</li>
