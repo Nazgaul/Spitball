@@ -2022,7 +2022,6 @@
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
-    <Content Include="Views\Dashboard\_Friends2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutShopping.cshtml" />
