@@ -5,6 +5,9 @@
 .feedfullWpr {
   white-space: nowrap;
 }
+.bodyContent.upload .dropTxt {
+  display: block;
+}
 .boxFeed {
   width: 598px;
   color: #383838;
@@ -81,7 +84,8 @@
 .feedForm .btn1 {
   margin: 8px 8px 0 0;
 }
-.feedForm.feedOpen .feedTA {
+.feedForm.feedOpen .feedTA,
+.bodyContent.upload .feedForm .feedTA {
   min-height: 169px;
   max-height: 250px;
   overflow: auto;
@@ -92,26 +96,27 @@
   border-color: #282828;
   direction: ltr !important;
 }
-.feedForm.feedOpen .feedTA ~ .bottomTA {
+.feedForm.feedOpen .feedTA ~ .bottomTA,
+.bodyContent.upload .feedForm .feedTA ~ .bottomTA {
   display: block;
 }
-.feedForm.feedOpen .feedTA ~ .attachBtn {
+.feedForm.feedOpen .feedTA ~ .attachBtn,
+.bodyContent.upload .feedForm .feedTA ~ .attachBtn {
   bottom: 2px;
   left: 70px;
   top: auto;
   right: auto;
 }
-.feedForm.feedOpen .svg-attachment {
+.feedForm.feedOpen .svg-attachment,
+.bodyContent.upload .feedForm .svg-attachment {
   fill: #282828;
 }
-.feedForm.feedOpen .attachedList {
+.feedForm.feedOpen .attachedList,
+.bodyContent.upload .feedForm .attachedList {
   display: block;
 }
 .feedForm .attachedList {
   display: none;
-}
-.feedForm.upload .dropTxt {
-  display: block;
 }
 .dropTxt {
   position: absolute;
