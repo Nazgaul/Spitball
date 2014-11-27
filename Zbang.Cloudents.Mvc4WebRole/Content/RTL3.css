@@ -157,10 +157,6 @@
   /*rtl*/
   border-right: none;
 }
-.membersList {
-  margin: 0 -5px 0 -13px;
-  padding: 0 5px 0 13px;
-}
 .memberItem {
   padding: 5px 5px 5px 0;
   /*rtl*/
