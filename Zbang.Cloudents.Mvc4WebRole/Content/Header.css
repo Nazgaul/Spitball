@@ -24,18 +24,6 @@ body {
   width: 100%;
   z-index: 11;
   position: fixed;
-  /*&.userHeader, &.searchHeader {
-        .searchInputWpr  {
-            margin-top: 6px;
-            + button {
-                margin-top: 21px;
-            }
-        }
-        ~ .barActions {
-            top: 6px;
-            margin-right: 23px;
-        }
-    }*/
 }
 .siteHeader.headerBox {
   background: #282828;
@@ -57,8 +45,6 @@ body {
 }
 .siteHeader.headerBox .searchInputWpr {
   margin-top: 8px;
-  width: -webkit-calc(100% - 700px);
-  width: calc(100% - 700px);
   min-width: 190px;
 }
 .siteHeader.headerBox .barActions {
