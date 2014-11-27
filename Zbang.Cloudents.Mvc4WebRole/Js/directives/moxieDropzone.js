@@ -144,8 +144,8 @@
 
                 controller.init(attrs.plDropzoneUploader);
                 if (!attrs.dropElement) {
-                    $(document).on('dragenter', toggle);
-                    $(document).on('dragleave', toggle);
+                    $('#main').on('dragenter', toggle);
+                    $('#main').on('dragleave', toggle);
                     return;
                 }
                 $(document).on('dragenter', '[dropzone-element]', toggle);
