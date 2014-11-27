@@ -115,8 +115,8 @@
                     @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
                     <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
                 </li>
-                <li ng-switch="leaderBoard.secondExist">
-                    <div ng-switch-when="true" class="secondUser lFloat">
+                <li ng-switch="leaderBoard.secondExist" class="lFloat">
+                    <div ng-switch-when="true" class="secondUser">
                         <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked second place">
                             <img class="top3Img" ng-src="{{::leaderBoard.second.image | defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
                         </a>
@@ -128,8 +128,8 @@
                         @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                 </li>
 
-                <li ng-switch="leaderBoard.thirdExist">
-                    <div ng-switch-when="true" class="thirdUser rFloat">
+                <li ng-switch="leaderBoard.thirdExist" class="rFloat">
+                    <div ng-switch-when="true" class="thirdUser">
                         <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked third place">
                             <img class="top3Img" ng-src="{{::leaderBoard.third.image| defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
                         </a>

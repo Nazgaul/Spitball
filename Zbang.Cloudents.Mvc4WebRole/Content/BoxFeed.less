@@ -535,13 +535,6 @@
         width: 86px;
         height: auto;
         line-height: normal;
-        text-align: center; //override
-        margin-bottom: 15px; //override
-        display: inline-block; //override
-        &:before {
-            position: absolute;
-            visibility: hidden;  //don't display counter on top 3 users
-        }
         .rep {
             display: block;
             width: auto;
@@ -572,12 +565,24 @@
         vertical-align: middle;
         text-align:left; //rtl
 
+        &:nth-child(-n + 3) {
+            text-align: center; //override
+            margin-bottom: 15px; //override
+            display: inline-block; //override
+            width: 86px;
+            height: auto;
+            line-height: normal;
+            .boxSizing;
+            &:before {
+                position: absolute;
+                visibility: hidden;  //don't display counter on top 3 users
+            }
+        }
         &:nth-child(n + 4) {
             margin: 0 -32px;
             padding: 0 15px;
             clear: both;
             width: 336px;
-            .boxSizing;
             .rep { //In FF the floated rep was dropping down!
                 position: absolute;
                 right: 14px; //rtl

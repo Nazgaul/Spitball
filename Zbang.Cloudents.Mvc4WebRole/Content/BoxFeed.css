@@ -527,15 +527,6 @@
   width: 86px;
   height: auto;
   line-height: normal;
-  text-align: center;
-  margin-bottom: 15px;
-  display: inline-block;
-}
-.bestUserList .firstUser:before,
-.bestUserList .secondUser:before,
-.bestUserList .thirdUser:before {
-  position: absolute;
-  visibility: hidden;
 }
 .bestUserList .firstUser .rep,
 .bestUserList .secondUser .rep,
@@ -571,14 +562,26 @@
   vertical-align: middle;
   text-align: left;
 }
+.bestUserList li:nth-child(-n + 3) {
+  text-align: center;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 86px;
+  height: auto;
+  line-height: normal;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bestUserList li:nth-child(-n + 3):before {
+  position: absolute;
+  visibility: hidden;
+}
 .bestUserList li:nth-child(n + 4) {
   margin: 0 -32px;
   padding: 0 15px;
   clear: both;
   width: 336px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .bestUserList li:nth-child(n + 4) .rep {
   position: absolute;
