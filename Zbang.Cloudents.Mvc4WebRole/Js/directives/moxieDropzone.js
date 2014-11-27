@@ -143,17 +143,23 @@
             link: function (scope, elem, attrs, controller) {
 
                 controller.init(attrs.plDropzoneUploader);
+                var $main = angular.element('#main');
                 if (!attrs.dropElement) {
-                    $('#main').on('dragenter', toggle);
-                    $('#main').on('dragleave', toggle);
+                    $main.on('dragenter', toggle);
+                    $main.on('dragleave', toggle);
+                    $main.on('drop', toggleOff);
                     return;
                 }
-                $(document).on('dragenter', '[dropzone-element]', toggle);
-                $(document).on('dragenter', '[dropzone-element]', toggle);
+                $main.on('dragenter', '[dropzone-element]', toggle);
+                $main.on('dragleave', '[dropzone-element]', toggle);
+                $main.on('drop', '[dropzone-element]', toggleOff);
 
 
                 function toggle() {
                     $(this).toggleClass('upload');
+                }
+                function toggleOff() {
+                    $(this).removeClass('upload');
                 }
             }
         };
