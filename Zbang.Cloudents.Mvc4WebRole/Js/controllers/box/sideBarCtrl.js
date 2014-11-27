@@ -23,7 +23,9 @@
                 $scope.leaderBoard = {
                     first: leaderBoard[0],
                     second: leaderBoard[1],
+                    secondExist: !_.isUndefined(leaderBoard[1]),
                     third: leaderBoard[2],
+                    thirdExist: !_.isUndefined(leaderBoard[2]),
                     fourth: leaderBoard[3],
                     fifth: leaderBoard[4]
                 };
