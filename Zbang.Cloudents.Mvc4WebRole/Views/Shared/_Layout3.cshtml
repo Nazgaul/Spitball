@@ -82,9 +82,9 @@
 
         </div>
         <ul class="uploadList" id="uploadList" m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
-            <li class="uploadItem" ng-repeat="file in ::uploader.fileList track by file.id">
-                <span class="fileName elps" {{::file.name}}"</span>
-                <span class="fileSize">{{file.size | fileSize:true}}</span>
+            <li class="uploadItem" ng-repeat="file in uploader.fileList track by file.id">
+                <span class="fileName elps">{{::file.name}}</span>
+                <span class="fileSize">{{::file.size | fileSize:true}}</span>
                 <div class="uploadProgress">
                     <button type="button" class="fileCancel rFloat" ng-style="{ display: file.plupload ? 'block' : 'none'}" ng-hide="file.uploaded || file.error" ng-click="cancelUpload(file)">@DialogResources.Cancel</button>
                     <button type="button" class="fileDone rFloat" disabled="disabled" ng-style="{display : file.uploaded ? 'inline-block' : 'none' }"></button>

@@ -258,7 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/contentEditable.js"),
                 new JsFileWithCdn("/js/directives/rateStar.js"),
-
+                new JsFileWithCdn("/js/directives/boxItemTooltip.js"),
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
                 new JsFileWithCdn("/js/filters/escapeHtmlChars.js"),                

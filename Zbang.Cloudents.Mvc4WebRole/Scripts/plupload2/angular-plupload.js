@@ -1,5 +1,5 @@
 ﻿angular.module('angular-plupload', [])
-	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', 'sLogin', 'sGmfcnHandler', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify, sLogin, sGmfcnHandler) {
+	.directive('plUpload', ['$rootScope', '$timeout', 'sUserDetails', '$angularCacheFactory', 'sNotify', 'sLogin', 'sGmfcnHandler', '$analytics', function ($rootScope, $timeout, sUserDetails, $angularCacheFactory, sNotify, sLogin, sGmfcnHandler, $analytics) {
 	    "use strict";
 	    return {
 	        restrict: 'A',
@@ -41,31 +41,28 @@
 	            //    options.drop_element = document.getElementById(iAttrs.dropArea);
 	            //}
 	            dropElement.addEventListener('dragenter', function (e) {
-	                if (collection.length === 0) {
 	                    if (e.dataTransfer.types.indexOf('Files') === -1) {
 	                        return;
 	                    }
-	                    $analytics.trackEvent('Drag Enter', {
+	                    $analytics.eventTrack('Drag Enter', {
 	                        category: iAttrs.dropArea
-	                    });
-	                }	 
-
+	                    });	                
 	            });
 
 
-	            document.addEventListener('dragleave', function (e) {	             
-	                $analytics.trackEvent('Drag Leave', {
+	            document.addEventListener('dragleave', function (e) {
+	                $analytics.eventTrack('Drag Leave', {
 	                    category: iAttrs.dropArea
 	                });
 	            });
 
-	            document.addEventListener('drop', function (e) {	               
-	                $analytics.trackEvent('Drop', {
+	            document.addEventListener('drop', function (e) {
+	                $analytics.eventTrack('Drop', {
 	                    category: iAttrs.dropArea
 	                });
 	            });
 
-	            uploader = new plupload.Uploader(options);	            
+	            uploader = new plupload.Uploader(options);
 	            uploader.init();
 
 
@@ -145,7 +142,7 @@
 
 	                if ($rootScope.$$phase) {
 	                    if (!response.success) {
-	                        uploader.trigger('Error', {file: file, message : response.payload});
+	                        uploader.trigger('Error', { file: file, message: response.payload });
 	                        return;
 	                    }
 	                    post();
@@ -189,7 +186,7 @@
 	            });
 
 	            //uploader.bind('UploadComplete', function (up, files) {
-	               
+
 	            //});
 
 	            scope.$on('$destroy', function () {

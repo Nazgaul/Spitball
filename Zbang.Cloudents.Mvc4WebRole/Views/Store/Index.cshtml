@@ -94,32 +94,32 @@
       
 </div>
     <div class="productsListWpr">
-        <ul class="productsList" bindonce @*infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false"*@>
+        <ul class="productsList" @*infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false"*@>
             <li ng-repeat="product in products">@*| limitTo: params.maxProducts*@
-                <a bo-href="product.url + urlQueryString()" href="">
-                    <img bo-src="product.pictureUrl" alt="" />
+                <a ng-href="{{product.url + urlQueryString()}}" href="">
+                    <img ng-src="{{::product.pictureUrl}}" alt="" />
                     <div class="pContent">
                         <div class="desc">
-                            <div class="" bo-text="product.name"></div>
-                            <p class="hoverDesc" bo-text="product.extraDetails"></p>
+                            <div>{{::product.name}}</div>
+                            <p class="hoverDesc">{{::product.extraDetails}}</p>
                         </div>
-                        <table bo-if="product.salePrice > 0">
+                        <table ng-if="product.salePrice > 0">
                             <tr>
                                 <td>@StoreResources.RegPrice:</td>
-                                <td bo-text="(product.salePrice | currency:'').slice(0,-4)"></td>
+                                <td>{{(product.salePrice | currency:'').slice(0,-4)}}</td>
                                 <td>₪</td>
                             </tr>
                             <tr>
                                 <td>@StoreResources.StudentPrice:</td>
-                                <td bo-text="(product.salePrice - product.coupon | currency:'').slice(0,-4)"></td>
+                                <td>{{(product.salePrice - product.coupon | currency:'').slice(0,-4)}}</td>
                                 <td>₪</td>
                             </tr>
                         </table>
                     </div>
                     <div class="productHover">
 
-                        <span class="lFloat" bo-if="product.salePrice > 0" bo-text="product.numberOfSales + ' @StoreResources.Sold'"></span>
-                        <span class="lFloat sale" bo-if="product.salePrice > 0" bo-text="product.coupon / product.salePrice | percentage:0:'@StoreResources.Off'"></span> @*0 is the digits after the dot, % off is suffix*@
+                        <span class="lFloat" ng-if="product.salePrice > 0">{{::product.numberOfSales}} @StoreResources.Sold</span>
+                        <span class="lFloat sale" ng-if="product.salePrice > 0">{{::product.coupon / product.salePrice | percentage:0}} @StoreResources.Off</span> @*0 is the digits after the dot, % off is suffix*@
                         <div class="moreDetailsWpr">
                             @StoreResources.MoreDetails
                         </div>

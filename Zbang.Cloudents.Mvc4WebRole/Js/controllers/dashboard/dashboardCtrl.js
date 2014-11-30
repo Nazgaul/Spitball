@@ -179,7 +179,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         var w = 935, h = 600,
          left = (screen.width / 2) - (w / 2) + dualScreenLeft,
          top = (screen.height / 2) - (h / 2) + dualScreenTop;        
-        $analytics.trackEvent('Dashboard', {
+        $analytics.eventTrack('Dashboard', {
             category: 'AdvertismentClick'
         });
         window.open($scope.options.storeUrl, '', 'height=' + h + ',menubar=0,status=0,toolbar=0,scrollbars=1,width=' + w + ',left=' + left + ',top=' + top + '');

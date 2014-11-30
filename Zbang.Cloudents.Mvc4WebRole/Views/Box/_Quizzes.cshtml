@@ -85,7 +85,7 @@
 </script>
 
 <script type="text/ng-template" id="boxQuizTooltip">
-    <div bo-class="{noPreview : !item.description}" class="boxItemTt">
+    <div ng-class="::{noPreview : !item.description}" class="boxItemTt">
         <div class="itemName">{{::item.name}}</div>
         <div class="ttTop">
             <div class="moreFilesThumb quiz"></div>

@@ -1,10 +1,10 @@
-﻿app.directive('dropZone', ['$modalStack', function ($modalStack) {
+﻿app.directive('dropZone', ['$modalStack', '$analytics', function ($modalStack, $analytics) {
     "use strict";
     return {
         link: function (scope, elem, attrs) {
 
             var collection = $();
-            
+
 
             document.addEventListener('dragenter', function (e) {
                 if (collection.length === 0) {
@@ -14,12 +14,12 @@
                     if (e.dataTransfer.types.indexOf('Files') === -1) {
                         return;
                     }
-                    $analytics.trackEvent('Drag Enter', {
+                    $analytics.eventTrack('Drag Enter', {
                         category: 'Box Items'
                     });
-                    elem.show();                    
+                    elem.show();
                 }
-                
+
                 collection = collection.add(e.target);
 
             }, false);
@@ -30,7 +30,7 @@
                 if (collection.length === 0) {
                     elem.hide();
                 }
-                $analytics.trackEvent('Drag Leave', {
+                $analytics.eventTrack('Drag Leave', {
                     category: 'Box Items'
                 });
             });
@@ -39,7 +39,7 @@
                 e.preventDefault();
                 elem.hide();
                 collection = $();
-                $analytics.trackEvent('Drag Drop', {
+                $analytics.eventTrack('Drag Drop', {
                     category: 'Box Items'
                 });
             });

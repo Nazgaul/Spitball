@@ -3,7 +3,7 @@
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
-<div class="searchPage page" ng-controller="SearchCtrl" bindonce>
+<div class="searchPage page" ng-controller="SearchCtrl">
     <div class="searchContent">
         <div id="sTabsMenu" class="sTabs" ng-class="params.currentTab">
             <button type="button" ng-click="setCurrentTab('sTab1')">@SharedResources.Courses</button>
@@ -16,11 +16,11 @@
             <section class="sCourses">
                 <ul load-spinner="params.boxesLoading" load-spinner-type="page">
                     <li class="box sCourseItem" ng-repeat="box in data.boxes">
-                        <a bo-href="box.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to box">
-                            <img class="lFloat boxImg" alt="" width="77" height="98" bo-src="box.image | defaultImage:'box'">
-                            <div class="sTitle elps" bo-html="box.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
-                            <span class="sDetail" bo-class="{allDetails: box..proffessor && box.courseCode}" bo-html="box.proffessor | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
-                            <span class="sDetail" bo-html="box.courseCode | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></span>
+                        <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to box">
+                            <img class="lFloat boxImg" alt="" width="77" height="98" ng-src="{{::box.image | defaultImage:'box'}}">
+                            <div class="sTitle elps" ng-bind-html="::box.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
+                            <span class="sDetail" ng-class="::{allDetails: box..proffessor && box.courseCode}" ng-bind-html="{{::box.proffessor | highlight:params.query:false}}" dir="{{::params.textDirection}}"></span>
+                            <span class="sDetail" ng-bind-html="::box.courseCode | highlight:params.query:false" dir="{{::params.textDirection}}"></span>
                         </a>
                     </li>
                 </ul>
@@ -37,11 +37,11 @@
             </section>
             <section class="sMembers" load-spinner="params.usersLoading" load-spinner-type="page">
                 <ul>
-                    <li class="userItem" ng-repeat="user in data.users" user-tooltip-popup="{{user.id}}">
-                        <a bo-href="user.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to user">
-                            <img class="userItemImg" bo-src="user.image | defaultImage:'user'" width="74" height="74" />
+                    <li class="userItem" ng-repeat="user in data.users" user-tooltip-popup="{{::user.id}}">
+                        <a ng-href="{{::user.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to user">
+                            <img class="userItemImg" ng-src="{{::user.image | defaultImage:'user'}}" width="74" height="74" />
                         </a>
-                        <div class="userItemName" bo-html="user.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
+                        <div class="userItemName" ng-bind-html="::user.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
                     </li>
                 </ul>
             </section>
@@ -51,14 +51,14 @@
 </div>
 
 <script type="text/ng-template" id="sMaterialItemTemplate">
-    <a class="sMaterialLink" bo-href="item.url" analytics-on="click" analytics-category="Search" analytics-event="Navigate to item">
-        <div class="sOtherUni semiFont" bo-class="{dot: item.uniName}" bo-text="item.uniName"></div>
-        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" bo-src="item.image">
-        <div class="sTitle elps" bo-html="item.name | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
-        <div class="sSnippet" bo-html="item.content | highlight:params.query:false" bo-attr bo-attr-dir="params.textDirection"></div>
+    <a class="sMaterialLink" ng-href="{{::item.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to item">
+        <div class="sOtherUni semiFont" ng-class="::{dot: item.uniName}">{{::item.uniName}}</div>
+        <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" ng-src="{{::item.image}}">
+        <div class="sTitle elps" ng-bind-html="::item.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
+        <div class="sSnippet" ng-bind-html="::item.content | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
         <div class="stars">
-            <div class="full" bo-style="{width: itemRating(item.rate)}"></div>
+            <div class="full" ng-style="::{width: itemRating(item.rate)}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views" bo-text="item.views || 0"></div>
+        <div data-title="@SharedResources.Views" class="views">{{::item.views || 0}}</div>
     </a>
 </script>

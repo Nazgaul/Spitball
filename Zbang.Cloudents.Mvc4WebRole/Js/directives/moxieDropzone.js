@@ -158,21 +158,21 @@
                 function toggle() {
                     $(this).toggleClass('upload');
                     if ($(this).hasClass('upload')) {
-                        $analytics.trackEvent('Drag Enter', {
+                        $analytics.eventTrack('Drag Enter', {
                             category: attrs.plDropzoneUploader
                         });
 
                     }
                     return;
 
-                    $analytics.trackEvent('Drag Leave', {
+                    $analytics.eventTrack('Drag Leave', {
                         category: attrs.plDropzoneUploader
                     });
                 }
                 function toggleOff() {
                     $(this).removeClass('upload');
 
-                    $analytics.trackEvent('Drag Drop', {
+                    $analytics.eventTrack('Drag Drop', {
                         category: attrs.plDropzoneUploader
                     });
                 }

@@ -30,11 +30,11 @@
         <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
         <h2>@MainViewResources.ChooseSchool</h2>
 
-        <div class="uniWpr" ng-style="{display: display.searchUniversity ? 'block' : 'none'}" bindonce>
+        <div class="uniWpr" ng-style="{display: display.searchUniversity ? 'block' : 'none'}">
             <input type="text" class="inputText" ng-placeholder="@MainViewResources.SearchFor" autocomplete="off"
                    ng-model="formData.searchInput" ng-keyup="selectSearch()" />
         </div>
-        <ul class="fbUniList" bindonce ng-style="{display: display.facebook ? 'block' : 'none'}">
+        <ul class="fbUniList" ng-style="{display: display.facebook ? 'block' : 'none'}">
             <li ng-repeat="university in FBUniversities">
                 <div class="schoolItem" ng-click="selectUniversity(university,true)">
                     <img ng-src="{{::university.image | defaultImage:'uni'}}" class="lFloat uniImg" width="66" height="66" alt="{{::university.name}}" />
@@ -71,7 +71,7 @@
             Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity { Country = ViewBag.country });
         }
 
-        @*<div class="completeRegistration" ng-style="{display: display.complete ? 'block' : 'none'}" bindonce>
+        @*<div class="completeRegistration" ng-style="{display: display.complete ? 'block' : 'none'}">
             <div class="top">
                 <img class="uniImg" ng-src="{{selectedUni.image}}" alt="" width="66" height="66" />
                 <div class="uniRegTxt1" data-school="{{selectedUni.name}}">@MainViewResources.YouStudyAt</div>
