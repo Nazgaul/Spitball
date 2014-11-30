@@ -28,8 +28,7 @@
         <li ng-repeat="item in quizzes track by item.id" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
             ng-include="getView(item)"
-            popover-template="boxQuizTooltip" popover-append-to-body="true"
-            popover-trigger="{{ !item.publish ? 'none' : 'mouseenter'}}" popover-placement="left">
+            box-item-tooltip template="boxItemTooltip">
         </li>
     </ol>
 </div>
