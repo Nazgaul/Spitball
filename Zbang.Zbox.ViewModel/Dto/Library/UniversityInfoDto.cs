@@ -1,5 +1,7 @@
-﻿namespace Zbang.Zbox.ViewModel.Dto.Library
+﻿using System;
+namespace Zbang.Zbox.ViewModel.Dto.Library
 {
+    [Serializable]
     public class UniversityInfoDto
     {
         public string Name { get; set; }

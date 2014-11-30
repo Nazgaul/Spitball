@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 
@@ -22,11 +21,6 @@ namespace Zbang.Zbox.ViewModel.Queries
        public string CacheRegion
        {
            get { return "RecommendedCourses"; }
-       }
-
-       public List<string> CacheTags
-       {
-           get { return new List<string>(); }
        }
 
        public TimeSpan Expiration

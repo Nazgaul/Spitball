@@ -20,6 +20,7 @@
                     ttl = ttl || 15000; //default to 30 seconds
                     getObj.cache = getCache(ttl);
                 }
+                url = url.toLowerCase();
                 $http.get(url, getObj).success(function (response) {
                     trackTime(startTime, url, data);
                     if (response.success) {
@@ -39,6 +40,7 @@
             post: function (url, data, disableClearCache) {
                 var dfd = $q.defer(),
                 startTime = new Date().getTime();
+                url = url.toLowerCase();
                 $http.post(url, data).success(function (response) {
                     trackTime(startTime, url, data);
                     if (!disableClearCache) {

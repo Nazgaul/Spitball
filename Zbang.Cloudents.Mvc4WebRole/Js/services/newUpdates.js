@@ -79,7 +79,7 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
             }, 20);
 
             function updatesCount() {
-                var updateCount = {};
+                var updateCount;
 
                 if (!updates[boxId]) {
                     updateCount = {

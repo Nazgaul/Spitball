@@ -9,13 +9,13 @@ mDashboard.factory('sDashboard',
          return {
 
              boxList: function () {
-                 return ajaxService.get(buildPath('BoxList'));
+                 return ajaxService.get(buildPath('boxlist'));
              },             
              sideBar: function () {
-                 return ajaxService.get(buildPath('Sidebar'));
+                 return ajaxService.get(buildPath('sidebar'));
              },
              disableFirstTime: function () {
-                 return ajaxService.post('/Account/FirstTime/',{ firstTime: 'Dashboard' });                 
+                 return ajaxService.post('/account/firsttime/',{ firstTime: 'Dashboard' });                 
              }
          }
      }

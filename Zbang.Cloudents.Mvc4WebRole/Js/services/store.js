@@ -3,23 +3,23 @@
 
     function (ajaxService) {
         function buildPath(path) {
-            return '/Store/' + path + '/';
+            return '/store/' + path + '/';
         }
         return {
             products: function (data) {
-                return ajaxService.get(buildPath('Products'), data);
+                return ajaxService.get(buildPath('products'), data);
             },
             search: function (data) {
-                return ajaxService.get(buildPath('Search'), data);
+                return ajaxService.get(buildPath('search'), data);
             },
             order: function (data) {
-                return ajaxService.post(buildPath('Order'), data);
+                return ajaxService.post(buildPath('order'), data);
             },
             validateCoupon: function (data) {
-                return ajaxService.get(buildPath('ValidCodeCoupon'), data);
+                return ajaxService.get(buildPath('validcodecoupon'), data);
             },
             contact: function (data) {
-                return ajaxService.post(buildPath('Contact'), data, true);
+                return ajaxService.post(buildPath('contact'), data, true);
             }
         };
     }

@@ -1,6 +1,6 @@
 ﻿app.factory('sGmfcnHandler',
-    ['ajaxService',
-    function (ajaxService) {
+    [
+    function () {
         "use strict";
 
         var pointsTable = {

@@ -23,14 +23,9 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
             get { return "UniversityDetail"; }
         }
 
-        public List<string> CacheTags
-        {
-            get { return null; }
-        }
-
         public TimeSpan Expiration
         {
-            get { return TimeSpan.FromMinutes(30); }
+            get { return TimeSpan.FromMinutes(60); }
         }
     }
 }

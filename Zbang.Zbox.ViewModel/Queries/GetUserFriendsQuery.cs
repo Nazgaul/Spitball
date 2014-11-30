@@ -1,7 +1,4 @@
-﻿
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries
@@ -25,14 +22,6 @@ namespace Zbang.Zbox.ViewModel.Queries
             get { return "Friend"; }
         }
 
-        public List<string> CacheTags
-        {
-            get
-            {
-                return null;
-            }
-          
-        }
 
         public TimeSpan Expiration
         {

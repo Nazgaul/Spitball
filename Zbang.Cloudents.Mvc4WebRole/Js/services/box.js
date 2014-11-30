@@ -9,61 +9,61 @@ mBox.factory('sBox',
         }
         return {
             createPrivate: function (data) {
-                return ajaxService.post('/Dashboard/Create/', data);
+                return ajaxService.post('/dashboard/create/', data);
             },
             createAcademic: function (data) {
-                return ajaxService.post('/Library/CreateBox/', data);
+                return ajaxService.post('/library/createbox/', data);
             },
             updateInfo: function (data) {
-                return ajaxService.post(buildPath('UpdateInfo'), data);
+                return ajaxService.post(buildPath('updateinfo'), data);
             },
             items: function (data) {
-                return ajaxService.get(buildPath('Items'), data);
+                return ajaxService.get(buildPath('items'), data);
             },
             quizes: function (data) {
-                return ajaxService.get(buildPath('Quizes'), data);
+                return ajaxService.get(buildPath('quizes'), data);
             },
             info: function (data) {
-                return ajaxService.get(buildPath('Data'), data);
+                return ajaxService.get(buildPath('data'), data);
             },
             createTab: function (data) {
-                return ajaxService.post(buildPath('CreateTab'), data);
+                return ajaxService.post(buildPath('createtab'), data);
             },
             deleteTab: function (data) {
-                return ajaxService.post(buildPath('DeleteTab'), data);
+                return ajaxService.post(buildPath('deletetab'), data);
             },
             renameTab: function (data) {
-                return ajaxService.post(buildPath('RenameTab'), data);
+                return ajaxService.post(buildPath('renametab'), data);
             },
             addItemsToTab: function (data) {
-                return ajaxService.post(buildPath('AddItemToTab'), data);
+                return ajaxService.post(buildPath('additemtotab'), data);
             },
             members: function (data) {
-                return ajaxService.get(buildPath('Members'), data);
+                return ajaxService.get(buildPath('members'), data);
             },                    
             removeUser: function (data) {
-                return ajaxService.post(buildPath('RemoveUser'), data);
+                return ajaxService.post(buildPath('removeuser'), data);
             },
             remove: function (data) {
-                return ajaxService.post(buildPath('Delete2'), data);
+                return ajaxService.post(buildPath('delete2'), data);
             },
             notification: function (data) {
-                return ajaxService.get(buildPath('GetNotification'), data);
+                return ajaxService.get(buildPath('getnotification'), data);
             },
             changeNotification: function (data) {
-                return ajaxService.post(buildPath('ChangeNotification'), data);
+                return ajaxService.post(buildPath('changenotification'), data);
             },
             follow: function (data) {
-                return ajaxService.post('/Share/SubscribeToBox/', data);
+                return ajaxService.post('/share/subscribetobox/', data);
             },
             tabs: function (data) {
-                return ajaxService.get(buildPath('Tabs'), data);
+                return ajaxService.get(buildPath('tabs'), data);
             },
             deleteUpdates: function (data) {
-                return ajaxService.post(buildPath('DeleteUpdates'), data,true);
+                return ajaxService.post(buildPath('deleteupdates'), data,true);
             },
             sideBar: function (data) {
-                return ajaxService.get(buildPath('SideBar'), data);
+                return ajaxService.get(buildPath('sidebar'), data);
             }
         };
     }

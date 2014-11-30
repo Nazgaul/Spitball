@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
@@ -32,16 +34,16 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return null;
             }
-            var pformatter = new Transport.ProtobufSerializer<T>();
-            return pformatter.SerializeData(o);
+            //var pformatter = new Transport.ProtobufSerializer<T>();
+            //return pformatter.SerializeData(o);
 
-            //BinaryFormatter binaryFormatter = new BinaryFormatter();
-            //using (MemoryStream memoryStream = new MemoryStream())
-            //{
-            //    binaryFormatter.Serialize(memoryStream, o);
-            //    byte[] objectDataAsStream = memoryStream.ToArray();
-            //    return objectDataAsStream;
-            //}
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                binaryFormatter.Serialize(memoryStream, o);
+                byte[] objectDataAsStream = memoryStream.ToArray();
+                return objectDataAsStream;
+            }
         }
 
         static T Deserialize<T>(byte[] stream) where T : class
@@ -50,14 +52,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return default(T);
             }
-            var pformatter = new Transport.ProtobufSerializer<T>();
-            return pformatter.DeSerializeData(stream);
-            //BinaryFormatter binaryFormatter = new BinaryFormatter();
-            //using (MemoryStream memoryStream = new MemoryStream(stream))
-            //{
-            //    T result = (T)binaryFormatter.Deserialize(memoryStream);
-            //    return result;
-            //}
+            //var pformatter = new Transport.ProtobufSerializer<T>();
+            //return pformatter.DeSerializeData(stream);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            using (MemoryStream memoryStream = new MemoryStream(stream))
+            {
+                T result = (T)binaryFormatter.Deserialize(memoryStream);
+                return result;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.Infrastructure.Cache
@@ -22,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             string cacheKey = queryParam.CacheKey;
 
             var item = m_Cache.GetFromCache<TD>(cacheKey, queryParam.CacheRegion);
+           
             if (item != null) return item;
             item = getItemCallback(queryParam);
             m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
@@ -36,6 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
             var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
             if (item != null) return item;
+
             item = await getItemCallbackAsync(queryParam);
             await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
             return item;

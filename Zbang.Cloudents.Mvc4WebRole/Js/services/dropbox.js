@@ -9,7 +9,7 @@ mBox.factory('sDropbox',
                 var defer = $q.defer();
 
                 if (loaded) {
-                    $timeout(function () { defer.resolve() });
+                    $timeout(function () { defer.resolve(); });
                     return defer.promise;
                 }
 
@@ -29,7 +29,7 @@ mBox.factory('sDropbox',
                 }, 20);
 
 
-                return defer.promise
+                return defer.promise;
             },
             choose: function () {
                 var defer = $q.defer();

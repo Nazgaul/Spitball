@@ -106,9 +106,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query)
         {
-            return m_Cache.QueryAsync
-                (m_ReadService.GetUserFriends, query);
-            //return m_ReadService.GetUserFriends(query);
+            return m_ReadService.GetUserFriends(query);
         }
 
         public UserDetailDto GetUserData(GetUserDetailsQuery query)
@@ -383,7 +381,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query)
         {
-            return m_ReadService.GetDashboardSideBar(query);
+            return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBar, query);
         }
     }
 }

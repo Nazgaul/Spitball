@@ -1,6 +1,6 @@
 ﻿app.factory('sNotification',
-    ['$rootScope', 'sShare', '$interval',
-    function ($rootScope, sShare, $interval) {
+    ['$rootScope', 'sShare', 
+    function ($rootScope, sShare) {
         "use strict";
 
         var notifications;
@@ -47,7 +47,7 @@
                 //notifications = response || [];
                 notifications = response;
 
-                $rootScope.$broadcast('newNotifications')
+                $rootScope.$broadcast('newNotifications');
 
             });
         }

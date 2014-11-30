@@ -43,9 +43,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //   Location = OutputCacheLocation.ServerAndClient,
-        //   VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(Duration = TimeConsts.Minute * 15,
+           Location = OutputCacheLocation.ServerAndClient,
+           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 

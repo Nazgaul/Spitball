@@ -1,6 +1,9 @@
 ﻿
+using System;
+
 namespace Zbang.Zbox.ViewModel.Dto
 {
+    [Serializable]
     public class LeaderBoardDto
     {
         public long Id { get; set; }
