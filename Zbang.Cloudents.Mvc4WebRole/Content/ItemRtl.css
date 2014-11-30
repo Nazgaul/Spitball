@@ -72,10 +72,6 @@
   border-left: none;
   border-right: 1px solid #3399ff;
 }
-.itemRenameBtn {
-  left: 20px;
-  right: auto;
-}
 .item-name {
   text-align: right;
   padding: 0 0 0 24px;

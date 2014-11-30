@@ -339,6 +339,9 @@ body {
 .notifyItem:hover {
   background: #bbb;
 }
+.notifyItem:hover .trash {
+  display: block;
+}
 .notifyItem.new {
   background: #d1294d;
 }
@@ -364,6 +367,15 @@ body {
   max-width: 185px;
   display: inline-block;
   vertical-align: top;
+}
+.notifyItem .trash {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: none;
+}
+.notifyItem .svg-trash {
+  fill: #fff;
 }
 .notifyImg {
   position: absolute;

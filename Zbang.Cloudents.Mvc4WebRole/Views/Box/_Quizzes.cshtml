@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 
 <div class="boxItems" ng-controller="BoxQuizzesCtrl">
-    
+
     <div class="boxItemsHeader">
 
         <div class="quizEmptyWpr" ng-if="!quizzes.length && !options.loader">
@@ -23,7 +23,7 @@
         </button>
     </div>
 
-    
+
     <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <li ng-repeat="item in quizzes track by item.id" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
@@ -86,19 +86,21 @@
 
 <script type="text/ng-template" id="boxQuizTooltip">
     <div ng-class="::{noPreview : !item.description}" class="boxItemTt">
-        <div class="itemName">{{::item.name}}</div>
-        <div class="ttTop">
-            <div class="moreFilesThumb quiz"></div>
-            <div class="detailsWpr">
-                <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
-                <div class="lFloat ttDetail">@SharedResources.Created:</div>
-                <div>{{::item.date | displayTimeFilter}}</div>
+ <div class="arrowBottom">
+        <div ng-class="::{noPreview : !item.description}" class="boxItemTt">
+            <div class="itemName">{{::item.name}}</div>
+            <div class="ttTop">
+                <div class="moreFilesThumb quiz"></div>
+                <div class="detailsWpr">
+                    <div class="lFloat ttDetail">@SharedResources.Owner</div>
+                    <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
+                    <div class="lFloat ttDetail">@SharedResources.Created:</div>
+                    <div>{{::item.date | displayTimeFilter}}</div>
+                </div>
+                <div class="lFloat ttDetail" data-numdownload="{{::item.numOfViews}}">@SharedResources.Views</div>
+                <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
             </div>
-            <div class="lFloat ttDetail" data-numdownload="{{::item.numOfViews}}">@SharedResources.Views</div>
-            <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
+            <div class="ttPreview">{{::item.description}}</div>
         </div>
-        <div class="ttPreview">{{::item.description}}</div>
-
     </div>
 </script>

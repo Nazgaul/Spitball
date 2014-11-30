@@ -216,7 +216,8 @@
     margin-top: 6px;
     &:hover {
         .itemRenameBtn {
-            display: block;
+            display: inline-block;
+            vertical-align: top;
         }
     }
     .tooltip {
@@ -239,9 +240,6 @@
 }
 .itemRenameBtn {
     display: none;
-    position: absolute;
-    top: 0;
-    right: -20px; //rtl
 }
 
 .item-name {
@@ -250,7 +248,6 @@
     font-size: 20px;
     padding-right: 24px; //rtl
     margin: 0 -24px 10px 0; //rtl
-    position: relative;
     .boxSizing;
     font-weight: normal;
     max-width: 290px;
