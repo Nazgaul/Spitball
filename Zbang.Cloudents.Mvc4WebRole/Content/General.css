@@ -1701,7 +1701,7 @@ aside.sideBar .last {
   margin: auto;
 }
 .arrowBottom {
-  position: absolute;
+  position: fixed;
   border-radius: 5px;
   border: 1px solid #c2c2c2;
 }
