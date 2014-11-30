@@ -1804,7 +1804,9 @@ aside.sideBar {
 }
 .arrowBottom {
     position: fixed;
-    border-radius: 5px;
+    display: none;
+    .animation(fadein,.3s);
+    /*border-radius: 5px;*/
     border: 1px solid @borderColor;
     &:before {
         .pseudo;
