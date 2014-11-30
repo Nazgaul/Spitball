@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Url { get; set; }
 
     }
-
+    [Serializable]
     public class UserMinProfile
     {
         public long Id { get; set; }

@@ -21,14 +21,9 @@ namespace Zbang.Zbox.ViewModel.Queries.User
             get { return "GetDashboardQuery"; }
         }
 
-        public System.Collections.Generic.List<string> CacheTags
-        {
-            get { return null; }
-        }
-
         public System.TimeSpan Expiration
         {
-            get { return System.TimeSpan.FromMinutes(1); }
+            get { return System.TimeSpan.FromMinutes(30); }
         }
     }
 }

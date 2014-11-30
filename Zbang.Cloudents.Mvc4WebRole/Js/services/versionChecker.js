@@ -14,7 +14,7 @@
         function checkVersion() {
             $.ajax({
                 type: 'GET',
-                url: '/Home/Version/',
+                url: '/home/version/',
                 contentType: 'application/json',
                 success: function (response) {
                     if (response.success) {

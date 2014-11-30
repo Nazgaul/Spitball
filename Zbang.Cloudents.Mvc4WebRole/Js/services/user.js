@@ -7,30 +7,30 @@
         }
         return {
             friends: function (data) {
-                return ajaxService.get(buildPath('Friends'), data);
+                return ajaxService.get(buildPath('friends'), data);
             },
             minProfile: function (data) {
-                return ajaxService.get(buildPath('MinProfile'), data);
+                return ajaxService.get(buildPath('minprofile'), data);
             },         
             adminFriends: function (data) {
-                return ajaxService.get(buildPath('AdminFriends'), data);
+                return ajaxService.get(buildPath('adminfriends'), data);
                
             },
             boxes: function (data) {
-                return ajaxService.get(buildPath('Boxes'), data);
+                return ajaxService.get(buildPath('boxes'), data);
               
             },
             invites: function (data) {
-                return ajaxService.get(buildPath('OwnedInvites'), data);
+                return ajaxService.get(buildPath('ownedinvites'), data);
             },
             activity: function (data) {
-                return ajaxService.get(buildPath('Activity'), data);
+                return ajaxService.get(buildPath('activity'), data);
             },
             departments: function (data) {
-                return ajaxService.get(buildPath('AdminBoxes'), data);
+                return ajaxService.get(buildPath('adminboxes'), data);
             },
             notification: function () {
-                return ajaxService.get(buildPath('Notification'));
+                return ajaxService.get(buildPath('notification'));
             }
     };
 }

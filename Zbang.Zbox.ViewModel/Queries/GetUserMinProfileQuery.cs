@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 
@@ -21,11 +20,6 @@ namespace Zbang.Zbox.ViewModel.Queries
         public string CacheRegion
         {
             get { return "UserMinProfile"; }
-        }
-
-        public List<string> CacheTags
-        {
-            get { return null; }
         }
 
         public TimeSpan Expiration

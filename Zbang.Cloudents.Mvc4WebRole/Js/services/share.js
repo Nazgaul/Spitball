@@ -2,45 +2,45 @@
     ['ajaxService',
     function (ajaxService) {
         function buildPath(path) {
-            return '/Share/' + path + '/';
+            return '/share/' + path + '/';
         }
         return {
             cloudentsFriends: function (data) {
-                return ajaxService.get('/User/Friends/', data);
+                return ajaxService.get('/user/friends/', data);
             },
             googleFriends: function (data) {
-                return ajaxService.post('/User/GoogleContacts/', data);
+                return ajaxService.post('/user/googlecontacts/', data);
             },
             message: function (data) {
-                return ajaxService.post(buildPath('Message'), data);
+                return ajaxService.post(buildPath('message'), data);
             },
             invite: {
                 box: function (data) {
-                    return ajaxService.post(buildPath('InviteBox'), data);
+                    return ajaxService.post(buildPath('invitebox'), data);
                 },
                 cloudents: function (data) {
-                    return ajaxService.post(buildPath('Invite'), data);
+                    return ajaxService.post(buildPath('invite'), data);
                 }
             },
             facebookInvite: {
                 box: function (data) {
-                    return ajaxService.post(buildPath('InviteBoxFacebook'), data);
+                    return ajaxService.post(buildPath('inviteboxfacebook'), data);
                 },
                 cloudents: function (data) {
-                    return ajaxService.post(buildPath('InviteFacebook'), data);
+                    return ajaxService.post(buildPath('invitefacebook'), data);
                 }
             },
             facebookReputation: function () {
-                return ajaxService.post(buildPath('Facebook'), null, true);
+                return ajaxService.post(buildPath('facebook'), null, true);
             },
             getNotifications: function () {
-                return ajaxService.get(buildPath('Notifications'));
+                return ajaxService.get(buildPath('notifications'));
             },
             markNotificationAsRead: function (data) {
-                return ajaxService.post(buildPath('NotificationAsRead'), data);
+                return ajaxService.post(buildPath('notificationasread'), data);
             },
             markNotificationsAsOld: function (data) {
-                return ajaxService.post(buildPath('NotificationOld'), data);
+                return ajaxService.post(buildPath('notificationold'), data);
             }
 
         };

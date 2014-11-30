@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
+    [Serializable]
     public class RecommendBoxDto
     {
         public string Name { get; set; }

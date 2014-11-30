@@ -2,34 +2,34 @@
     ['ajaxService',
     function (ajaxService) {
         function buildPath(path) {
-            return '/Account/' + path + '/';
+            return '/account/' + path + '/';
         }
         return {
             details: function (data) {
-                return ajaxService.get(buildPath('Details'), data);
+                return ajaxService.get(buildPath('details'), data);
             },
             settings: {
                 data: function () {
-                    return ajaxService.get(buildPath('SettingsData'));
+                    return ajaxService.get(buildPath('settingsdata'));
                 }
             },
-            firstTime: function () {
-                return ajaxService.post(buildPath('FirstTime'),data);
+            firstTime: function (data) {
+                return ajaxService.post(buildPath('firsttime'),data);
             },            
             changePassword: function (data) {
-                return ajaxService.post(buildPath('ChangePassword'),data);
+                return ajaxService.post(buildPath('changepassword'),data);
             },
             changeEmail: function (data) {
-                return ajaxService.post(buildPath('ChangeEmail'), data);
+                return ajaxService.post(buildPath('changeemail'), data);
             },
             changeProfile: function (data) {
-                return ajaxService.post(buildPath('ChangeProfile'), data);
+                return ajaxService.post(buildPath('changeprofile'), data);
             },
             changeLanguage: function (data) {
-                return ajaxService.post(buildPath('ChangeLanguage'), data);
+                return ajaxService.post(buildPath('changelanguage'), data);
             },
             submitCode: function(data) {
-                return ajaxService.post(buildPath('EnterCode'), data);
+                return ajaxService.post(buildPath('entercode'), data);
             }
         };
 

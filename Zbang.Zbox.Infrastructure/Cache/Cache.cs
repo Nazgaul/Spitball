@@ -1,28 +1,25 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using StackExchange.Redis;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
     public class Cache : ICache, IDisposable
     {
 
-        private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
+        private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
 
         public static ConnectionMultiplexer Connection
         {
             get
             {
-                return lazyConnection.Value;
+                return LazyConnection.Value;
             }
         }
         private const string AppKey = "DataCache";
@@ -61,13 +58,13 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return Task.FromResult(true);
             }
             var newKey = BuildCacheKey(key, region);
-            var db = Connection.GetDatabase();
+            var db = Connection.GetDatabase(/*region.GetHashCode()*/);
             return db.SetAsync(newKey, value, expiration);
         }
 
         private string BuildCacheKey(string key, string region)
         {
-            var newKey = String.Format("{0}_{1}_{2}", m_CachePrefix, region, key);
+            var newKey = String.Format("{2}_{0}_{1}", m_CachePrefix, key, region);
             return newKey;
         }
         public bool AddToCache<T>(string key, T value, TimeSpan expiration, string region) where T : class
@@ -81,52 +78,36 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expiration);
                 return true;
             }
-            var newKey = BuildCacheKey(region, key);
-            var db = Connection.GetDatabase();
+            var newKey = BuildCacheKey(key, region);
+            var db = Connection.GetDatabase(/*region.GetHashCode()*/);
             db.Set(newKey, value, expiration);
             return true;
         }
 
-        //public bool RemoveFromCache(string region, List<string> tags)
-        //{
-        //    if (!m_IsCacheAvailable)
-        //    {
-        //        return false;
-        //    }
-        //    if (!IsAppFabricCache())
-        //    {
-        //        var enumerator = m_Cache.GetEnumerator();
+        public bool RemoveFromCache(string region)
+        {
+            if (!m_IsCacheAvailable)
+            {
+                return false;
+            }
+            if (!IsAppFabricCache())
+            {
+                var enumerator = m_Cache.GetEnumerator();
 
-        //        while (enumerator.MoveNext())
-        //        {
-        //            m_Cache.Remove(enumerator.Key.ToString());
-        //        }
-        //        return true;
-        //    }
-        //    // try
-        //    // {
-        //    //var dataCache = m_DataCacheFactory.GetDefaultCache();
-        //    if (tags != null)
-        //    {
-        //        //var elements = dataCache.GetObjectsByAnyTag(tags.Select(s => new DataCacheTag(s)), region);
-        //        //foreach (var elem in elements)
-        //        //{
-        //        //    dataCache.Remove(elem.Key);
-        //        //}
-        //    }
-        //    else
-        //    {
-        //        //dataCache.RemoveRegion(region);
-        //    }
-
-        //    return true;
-        //    // }
-        //    //catch (DataCacheException ex)
-        //    //{
-        //    //    TraceLog.WriteError(ex);
-        //    //    return false;
-        //    //}
-        //}
+                while (enumerator.MoveNext())
+                {
+                    m_Cache.Remove(enumerator.Key.ToString());
+                }
+                return true;
+            }
+            var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
+            var db = Connection.GetDatabase();
+            foreach (var key in server.Keys(pattern: region + "*"))
+            {
+                db.KeyDelete(key);
+            }
+            return true;
+        }
 
         public async Task<T> GetFromCacheAsync<T>(string key, string region) where T : class
         {
@@ -138,7 +119,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return m_Cache[region + "_" + key] as T;
 
 
-            IDatabase cache = Connection.GetDatabase();
+            IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
             var cacheKey = BuildCacheKey(key, region);
 
             return await cache.GetAsync<T>(cacheKey);
@@ -155,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 return m_Cache[region + "_" + key] as T;
 
 
-            IDatabase cache = Connection.GetDatabase();
+            IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
             var cacheKey = BuildCacheKey(key, region);
 
             return cache.Get<T>(cacheKey);
@@ -164,6 +145,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         private bool IsAppFabricCache()
         {
+            return true;
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);

@@ -6,31 +6,31 @@
         }
         return {
             'items': function (data) {
-                return ajaxService.get(buildPath('Nodes'), data);
+                return ajaxService.get(buildPath('nodes'), data);
             },
             departments: function (data) {
-                return ajaxService.get(buildPath('RussianDepartments'), data);
+                return ajaxService.get(buildPath('russiandepartments'), data);
             },
             renameNode: function (data) {
-                return ajaxService.post(buildPath('RenameNode'), data);
+                return ajaxService.post(buildPath('renamenode'), data);
             },
             searchUniversities: function (data) {
-                return ajaxService.get(buildPath('SearchUniversity'), data);
+                return ajaxService.get(buildPath('searchuniversity'), data);
             },
             facebookFriends: function (data) {
-                return ajaxService.get(buildPath('GetFriends'), data);
+                return ajaxService.get(buildPath('getfriends'), data);
             },
             updateUniversity: function (data) {
-                return ajaxService.post('/Account/UpdateUniversity/', data);
+                return ajaxService.post('/account/updateuniversity/', data);
             },
             createDepartment: function (data) {
-                return ajaxService.post(buildPath('Create'), data);
+                return ajaxService.post(buildPath('create'), data);
             },
             deleteDepartment: function (data) {
-                return ajaxService.post(buildPath('DeleteNode'), data);
+                return ajaxService.post(buildPath('deletenode'), data);
             },
             createUniversity: function (data) {
-                return ajaxService.post(buildPath('CreateUniversity'), data);
+                return ajaxService.post(buildPath('createuniversity'), data);
             }
         };
     }

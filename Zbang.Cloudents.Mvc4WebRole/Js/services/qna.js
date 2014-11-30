@@ -3,7 +3,7 @@
 
         function (ajaxService) {
             function buildPath(path) {
-                return '/QnA/' + path + '/';
+                return '/qna/' + path + '/';
             }
 
             return {
@@ -12,21 +12,21 @@
                 },
                 post: {
                     question: function (data) {
-                        return ajaxService.post(buildPath('AddQuestion'), data);
+                        return ajaxService.post(buildPath('addquestion'), data);
                     },
                     answer: function (data) {
-                        return ajaxService.post(buildPath('AddAnswer'), data);
+                        return ajaxService.post(buildPath('addanswer'), data);
                     },
                 },
                 'delete': {
                     question: function (data) {
-                        return ajaxService.post(buildPath('DeleteQuestion'), data);
+                        return ajaxService.post(buildPath('deletequestion'), data);
                     },
                     answer: function (data) {
-                        return ajaxService.post(buildPath('DeleteAnswer'), data);
+                        return ajaxService.post(buildPath('deleteanswer'), data);
                     },
                     attachment: function (data) {
-                        return ajaxService.post(buildPath('RemoveFile'), data);
+                        return ajaxService.post(buildPath('removefile'), data);
                     }
                 }
             };

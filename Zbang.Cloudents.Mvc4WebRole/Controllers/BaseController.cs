@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var info = string.Format("HandleUnknownAction {0} url {1} user {2} headers {5} isAjax {4} params {3} "
                 , actionName, Request.RawUrl, User.Identity.Name, parameters, Request.IsAjaxRequest(), Request.Headers);
 
-            
+
             TraceLog.WriteError(info);
             if (Request.IsAjaxRequest())
             {
@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
-        
+
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
             return new JsonNetResult
@@ -112,16 +112,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             };
         }
 
-        protected JsonResult JsonOk(object data)
+        protected JsonResult JsonOk(object data = null)
         {
             return Json(new JsonResponse(true, data));
         }
-        protected JsonResult JsonError(object data)
+        protected JsonResult JsonError(object data = null)
         {
             return Json(new JsonResponse(false, data));
         }
 
-       
+
 
         #region Language
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

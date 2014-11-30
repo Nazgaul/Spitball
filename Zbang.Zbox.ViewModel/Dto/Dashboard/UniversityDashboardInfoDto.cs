@@ -1,5 +1,8 @@
-﻿namespace Zbang.Zbox.ViewModel.Dto.Dashboard
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.Dto.Dashboard
 {
+    [Serializable]
     public class UniversityDashboardInfoDto
     {
         public string Name { get; set; }
