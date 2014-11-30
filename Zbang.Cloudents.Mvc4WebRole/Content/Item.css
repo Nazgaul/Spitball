@@ -206,7 +206,8 @@
   margin-top: 6px;
 }
 .firstRow:hover .itemRenameBtn {
-  display: block;
+  display: inline-block;
+  vertical-align: top;
 }
 .firstRow .tooltip {
   border: 1px solid #3399ff;
@@ -227,9 +228,6 @@
 }
 .itemRenameBtn {
   display: none;
-  position: absolute;
-  top: 0;
-  right: -20px;
 }
 .item-name {
   text-align: left;
@@ -237,7 +235,6 @@
   font-size: 20px;
   padding-right: 24px;
   margin: 0 -24px 10px 0;
-  position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
