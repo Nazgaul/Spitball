@@ -104,20 +104,22 @@
 </script>
 
 <script type="text/ng-template" id="boxItemTooltip">
-    <div ng-class="::{noPreview : !item.description}" class="boxItemTt" ng-init="extension = item.name.slice(item.name.lastIndexOf('.') + 1) ">
-        <div class="itemName">{{::item.name}}</div>
-        <div class="ttTop">
-            <div class="moreFilesThumb {{::item | extToClass}}">{{::extension}}</div>
-            <div class="detailsWpr">
-                <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
+    <div class="arrowBottom">
+        <div ng-class="::{noPreview : !item.description}" class="boxItemTt" ng-init="extension = item.name.slice(item.name.lastIndexOf('.') + 1) ">
+            <div class="itemName">{{::item.name}}</div>
+            <div class="ttTop">
+                <div class="moreFilesThumb {{::item | extToClass}}">{{::extension}}</div>
+                <div class="detailsWpr">
+                    <div class="lFloat ttDetail">@SharedResources.Owner</div>
+                    <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
 
-                <div class="lFloat ttDetail">@SharedResources.Uploaded</div>
-                <div>{{::item.date | displayTimeFilter}}</div>
+                    <div class="lFloat ttDetail">@SharedResources.Uploaded</div>
+                    <div>{{::item.date | displayTimeFilter}}</div>
+                </div>
+                <div class="lFloat ttDetail" data-numdownload="{{::item.numOfDownloads}}">@SharedResources.Downloads</div>
+                <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
             </div>
-            <div class="lFloat ttDetail" data-numdownload="{{::item.numOfDownloads}}">@SharedResources.Downloads</div>
-            <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
+            <div class="ttPreview">{{::item.description}}</div>
         </div>
-        <div class="ttPreview">{{::item.description}}</div>
     </div>
 </script>

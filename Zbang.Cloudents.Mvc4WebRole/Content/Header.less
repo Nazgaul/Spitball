@@ -353,6 +353,9 @@ body {
     
     &:hover {
         background: #bbb;
+        .trash {
+            display: block;
+        }
     }
     &.new {
         background: #d1294d;
@@ -378,6 +381,15 @@ body {
         max-width: 185px;
         display: inline-block;
         vertical-align: top;
+    }
+    .trash {
+        position: absolute;
+        bottom: 12px;
+        right: 12px; //rtl
+        display: none;
+    }
+    .svg-trash {
+        fill: #fff;
     }
 }
 .notifyImg

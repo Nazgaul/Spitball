@@ -51,6 +51,10 @@
   padding: 15px 100px 0 15px;
   /*rtl*/
 }
+.notifyItem .trash {
+  left: 12px;
+  right: auto;
+}
 .notifyImg {
   right: 20px;
   /*rtl*/
