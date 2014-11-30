@@ -1049,7 +1049,7 @@ body.quiz .modal-backdrop.in {
 .topUser {
   width: 37px;
   height: 37px;
-  border-radius: 3px;
+  border-radius: 50%;
   background: url(/Images/quizSprite.png?v=4) 0 -613px no-repeat;
   display: inline-block;
   position: relative;
@@ -1074,7 +1074,7 @@ body.quiz .modal-backdrop.in {
   right: -10px;
 }
 .topUser img {
-  border-radius: 3px;
+  border-radius: 50%;
   height: 37px;
   width: 37px;
 }
