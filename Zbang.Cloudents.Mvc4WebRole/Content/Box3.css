@@ -544,8 +544,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
-  min-height: -webkit-calc(100vh - 50px);
-  min-height: calc(100vh - 50px);
+  min-height: -webkit-calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   position: relative;
 }
 .box-content .membersContent {

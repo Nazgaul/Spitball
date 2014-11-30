@@ -211,6 +211,11 @@ aside.sideBar li {
   /*rtl*/
   right: auto;
 }
+.emailListWpr .dropdown-menu {
+  right: 25px!important;
+  /*rtl*/
+  left: auto !important;
+}
 /*#endregion */
 /*#region dropdown */
 .dropDown {

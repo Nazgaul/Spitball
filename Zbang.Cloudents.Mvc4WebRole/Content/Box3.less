@@ -545,10 +545,10 @@
     padding: 21px 25px 15px 25px;
     .boxSizing;
     background: #fff;
-    //width: ~'-webkit-calc(100% - @{boxSideBarWidth})';
-    //width: ~'calc(100% - @{boxSideBarWidth})';
-    min-height: ~'-webkit-calc(100vh - @{header-height})';
-    min-height: ~'calc(100vh - @{header-height})';
+    //min-height: ~'-webkit-calc(100vh - @{header-height})';
+    //min-height: ~'calc(100vh - @{header-height})';
+    min-height: ~'-webkit-calc(100vh - 60px)';
+    min-height: ~'calc(100vh - 60px)'; //TODO: Where are the other 10px coming from?
     position: relative;
     //overflow: hidden; //TODO: CHECK THIS
     .membersContent {
