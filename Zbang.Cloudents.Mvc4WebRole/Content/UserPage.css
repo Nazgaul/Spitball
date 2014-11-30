@@ -30,10 +30,10 @@
   margin-top: 21px;
   width: 460px;
 }
-.userPage .searchInputWpr + button,
-.searchPage .searchInputWpr + button {
+.userPage .searchInputWpr + button .svg-inviteUser,
+.searchPage .searchInputWpr + button .svg-inviteUser {
   position: relative;
-  top: -15px;
+  top: -14px;
 }
 .userPage h1 {
   font-size: 22px;
@@ -399,9 +399,7 @@
 }
 .upSchool {
   color: #c2c2c2;
-  /*&:hover {
-        color: @attentionBlue;
-    }*/
+  max-width: 220px;
 }
 .upDetails {
   display: inline-block;
