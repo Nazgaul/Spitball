@@ -1707,7 +1707,6 @@ aside.sideBar .last {
   -moz-animation: fadein 0.3s 0 ease;
   -o-animation: fadein 0.3s 0 ease;
   animation: fadein 0.3s 0 ease;
-  /*border-radius: 5px;*/
   border: 1px solid #c2c2c2;
 }
 .arrowBottom:before {
