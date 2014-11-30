@@ -1,5 +1,13 @@
 ﻿@import "varsAndMixins";
 
+.siteHeader {
+    &.headerBox {
+        .backWpr {
+            margin: 8px 25px 0 0; //rtl
+        }
+    }   
+}
+
 .siteLogo {
     padding: 0 30px 0 0; //rtl
 }
@@ -28,7 +36,7 @@
 
 .dashLibSearchInput
 {
-    padding: 0 10px 0 0; /*rtl*/
+    padding: 0 10px 0 40px; /*rtl*/
 }
 .dashHeader {
     &.setup {
@@ -58,6 +66,10 @@
 .notifyItem {
     a {
         padding: 15px 100px 0 15px; /*rtl*/
+    }
+    .trash {
+        left: 12px; //rtl
+        right: auto;
     }
 }
 

@@ -8,8 +8,8 @@
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
             <img ng-src="{{info.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
-            <textarea text-direction name="content" class="feedTA dropzone" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
-                      ng-focus="checkAuth()" pl-dropzone new-question="true" box-id="{{boxId}}"></textarea>
+            <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
+                      ng-focus="checkAuth()"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
                     <span class="attachName elps">{{file.name}}</span>
@@ -22,6 +22,7 @@
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
             </button>
+            <div class="dropTxt" pl-dropzone new-question="true" box-id="{{boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
         </form>
 
         <ul class="boxFeedList">
@@ -79,7 +80,7 @@
                 </ul>
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
                     <img class="feedImg rFloat" ng-src="{{info.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
-                    <textarea text-direction name="content" class="feedTA dropzone" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" pl-dropzone question-id="{{question.id}}" box-id="{{boxId}}"></textarea>
+                    <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                             <span class="attachName elps">{{file.name}}</span>
@@ -92,6 +93,7 @@
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                     </button>
+                    <div class="dropTxt" pl-dropzone question-id="{{question.id}}" box-id="{{boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
                 </form>
             </li>
 
@@ -101,79 +103,80 @@
 
     </section>
     <div class="boxSideBar" ng-controller="SideBarCtrl">
-        <section class="leaderBoard" ng-if="leaderBoard.first">
+        <section class="leaderBoard" ng-if="::leaderBoard.first">
             <header>
                 @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
                 <span class="lbText">@IndexResources.BestInClass</span>
             </header>
             <div class="podium"></div>
-            <ol class="bestUserList" bindonce>
-                <li ng-if="leaderBoard.first" class="firstUser">
-                    <a bo-href="leaderBoard.first.url" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked first place">
-                        <img class="top3Img" bo-src="leaderBoard.first.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.first.id}}" />
+            <ol class="bestUserList">
+                <li ng-if="::leaderBoard.first" class="firstUser">
+                    <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked first place">
+                        <img class="top3Img" ng-src="{{::leaderBoard.first.image| defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
                     </a>
                     @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                    <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.first.score | kNumber"></div>
+                    <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
                 </li>
-                <li ng-if="leaderBoard.second" class="secondUser lFloat">
-                    <a bo-href="leaderBoard.second.url" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked second place">
-                        <img class="top3Img" bo-src="leaderBoard.second.image | defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.second.id}}" />
-                    </a>
-                    @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                    <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.second.score | kNumber"></div>
-                </li>
-                <li ng-if="!leaderBoard.second" class="secondUser empty lFloat">
-                    <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
-                    @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                </li>
-
-                <li ng-if="leaderBoard.third" class="thirdUser rFloat">
-                    <a bo-href="leaderBoard.third.url" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked third place">
-                        <img class="top3Img" bo-src="leaderBoard.third.image| defaultImage:'user'" alt="" width="48" height="48" user-tooltip-popup="{{leaderBoard.third.id}}" />
-                    </a>
-                    @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                    <div class="rep" data-pts="@SharedResources.Pts" bo-text="leaderBoard.third.score | kNumber"></div>
-                </li>
-                <li ng-if="!leaderBoard.third" class="thirdUser empty rFloat">
-                    <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
-                    @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                <li ng-switch="leaderBoard.secondExist" class="lFloat">
+                    <div ng-switch-when="true" class="secondUser">
+                        <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked second place">
+                            <img class="top3Img" ng-src="{{::leaderBoard.second.image | defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
+                        </a>
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
+                        <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
+                    </div>
+                    <div ng-switch-when="false" class="secondUser empty lFloat">
+                        <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                        @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
                 </li>
 
-                <li ng-if="leaderBoard.fourth" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fourth place">
-                    <a bo-href="leaderBoard.fourth.url"><img bo-src="leaderBoard.fourth.image | defaultImage:'user'" user-tooltip-popup="{{leaderBoard.fourth.id}}" alt="" width="38" height="38" /></a>
-                    <span class="elps" bo-text="leaderBoard.fourth.name"></span>
-                    <span class="rep" bo-text="leaderBoard.fourth.score | kNumber"></span>
+                <li ng-switch="leaderBoard.thirdExist" class="rFloat">
+                    <div ng-switch-when="true" class="thirdUser">
+                        <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked third place">
+                            <img class="top3Img" ng-src="{{::leaderBoard.third.image| defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
+                        </a>
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                        <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
+                    </div>
+                    <div ng-switch-when="false" class="thirdUser empty rFloat">
+                        <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                        @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
+                    </div>
                 </li>
-                <li ng-if="leaderBoard.fifth">
-                    <a bo-href="leaderBoard.fifth.url" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fifth place">
-                        <img bo-src="leaderBoard.fifth.image | defaultImage:'user'" user-tooltip-popup="{{leaderBoard.fifth.id}}" alt="" width="38" height="38" />
+
+                <li ng-if="::leaderBoard.fourth" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fourth place">
+                    <a ng-href="{{::leaderBoard.fourth.url}}"><img ng-src="{{::leaderBoard.fourth.image | defaultImage:'user'}}" user-tooltip-popup="{{::leaderBoard.fourth.id}}" alt="" width="38" height="38" /></a>
+                    <span class="elps">{{::leaderBoard.fourth.name}}</span>
+                    <span class="rep">{{::leaderBoard.fourth.score | kNumber}}</span>
+                </li>
+                <li ng-if="::leaderBoard.fifth">
+                    <a ng-href="{{::leaderBoard.fifth.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fifth place">
+                        <img ng-src="{{::leaderBoard.fifth.image | defaultImage:'user'}}" user-tooltip-popup="{{::leaderBoard.fifth.id}}" alt="" width="38" height="38" />
                     </a>
-                    <span class="elps" bo-text="leaderBoard.fifth.name"></span>
-                    <span class="rep" bo-text="leaderBoard.fifth.score | kNumber"></span>
+                    <span class="elps">{{::leaderBoard.fifth.name}}</span>
+                    <span class="rep">{{::leaderBoard.fifth.score | kNumber}}</span>
                 </li>
             </ol>
         </section>
-        <section class="recommendedWpr" ng-if="recommendedCourses.length">
-            @*ng-if="recommendedCourses.length"*@
+        <section class="recommendedWpr" ng-if="::recommendedCourses.length">
             <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
             <ul>
-                <li class="recommended" ng-repeat="course in recommendedCourses" bindonce>
-                    <a bo-href="course.url" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Box Recommended" analytics-label="User choosed a box on recommneded">
+                <li class="recommended" ng-repeat="course in ::recommendedCourses">
+                    <a ng-href="{{::course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Box Recommended" analytics-label="User choosed a box on recommneded">
                         <div class="rcDetails ghost">
                             <div class="vCentered">
-                                <div class="courseName" bo-text="course.name"></div>
-                                <span class="prof elps" bo-text="course.professor"></span>
-                                <span class="elps" bo-text="course.courseCode"></span>
+                                <div class="courseName">{{::course.name}}</div>
+                                <span class="prof elps">{{::course.professor}}</span>
+                                <span class="elps">{{::course.courseCode}}</span>
                             </div>
-                            @*ng-class="{ rcFull : course.professor && course.courseCode }"*@
-                            <img alt="" width="48" height="48" bo-src="course.picture" />
+                            <img alt="" width="48" height="48" ng-src="{{::course.picture}}" />
                         </div>
                         <div class="rcStats">
-                            <div class="friends" bo-attr bo-attr-data-friends-count="{{course.membersCount}}">
+                            <div class="friends" data-friends-count="{{::course.membersCount}}">
                                 @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
                                 <span>@SharedResources.Friends</span>
                             </div>
-                            <div class="files" bo-attr bo-attr-data-files-count="{{course.itemCount}}">
+                            <div class="files" data-files-count="{{::course.itemCount}}">
                                 @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
                                 <span>@SharedResources.Files</span>
                             </div>

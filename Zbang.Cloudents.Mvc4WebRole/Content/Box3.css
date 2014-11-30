@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.boxPage {
+  min-width: 1260px;
+}
 .boxPage .leftPanel {
   border: none;
   height: 100%;
@@ -16,10 +19,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.boxPage .backWpr {
-  margin: 8px 0 0 25px;
-  padding: 0;
-}
 .boxPage .svg-settings {
   width: 30px;
   height: 23px;
@@ -33,26 +32,6 @@
   left: auto;
   margin: 0;
   visibility: visible;
-}
-.boxPage .siteHeader {
-  background: #282828;
-}
-.boxPage .siteHeader .shareBtn {
-  display: inline-block;
-  margin: 0 15px;
-  position: relative;
-  top: 11px;
-}
-.boxPage .siteLogo {
-  height: 50px;
-  width: 243px;
-  background: #0f9d58;
-}
-.boxPage .searchInputWpr {
-  margin-top: 8px;
-}
-.boxPage .barActions {
-  margin-top: 0;
 }
 .inviteButton {
   vertical-align: top;
@@ -565,8 +544,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
-  min-height: -webkit-calc(100vh - 50px);
-  min-height: calc(100vh - 50px);
+  min-height: -webkit-calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   position: relative;
 }
 .box-content .membersContent {

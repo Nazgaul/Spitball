@@ -5,6 +5,9 @@
 .feedfullWpr {
   white-space: nowrap;
 }
+.bodyContent.upload .dropTxt {
+  display: block;
+}
 .boxFeed {
   width: 598px;
   color: #383838;
@@ -72,7 +75,7 @@
   padding-top: 2px;
 }
 .boxSideBar .files:before {
-  content: attr(bo-attr-data-files-count);
+  content: attr(data-files-count);
 }
 .feedForm {
   position: relative;
@@ -81,7 +84,8 @@
 .feedForm .btn1 {
   margin: 8px 8px 0 0;
 }
-.feedForm.feedOpen .feedTA {
+.feedForm.feedOpen .feedTA,
+.bodyContent.upload .feedForm .feedTA {
   min-height: 169px;
   max-height: 250px;
   overflow: auto;
@@ -92,23 +96,44 @@
   border-color: #282828;
   direction: ltr !important;
 }
-.feedForm.feedOpen .feedTA ~ .bottomTA {
+.feedForm.feedOpen .feedTA ~ .bottomTA,
+.bodyContent.upload .feedForm .feedTA ~ .bottomTA {
   display: block;
 }
-.feedForm.feedOpen .feedTA ~ .attachBtn {
+.feedForm.feedOpen .feedTA ~ .attachBtn,
+.bodyContent.upload .feedForm .feedTA ~ .attachBtn {
   bottom: 2px;
   left: 70px;
   top: auto;
   right: auto;
 }
-.feedForm.feedOpen .svg-attachment {
+.feedForm.feedOpen .svg-attachment,
+.bodyContent.upload .feedForm .svg-attachment {
   fill: #282828;
 }
-.feedForm.feedOpen .attachedList {
+.feedForm.feedOpen .attachedList,
+.bodyContent.upload .feedForm .attachedList {
   display: block;
 }
 .feedForm .attachedList {
   display: none;
+}
+.dropTxt {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 55px;
+  right: 0;
+  margin: auto;
+  display: none;
+  border: 3px dashed #c2c2c2;
+  font-size: 20px;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  padding-top: 90px;
 }
 .feedImg {
   border-radius: 100%;
@@ -527,15 +552,6 @@
   width: 86px;
   height: auto;
   line-height: normal;
-  text-align: center;
-  margin-bottom: 15px;
-  display: inline-block;
-}
-.bestUserList .firstUser:before,
-.bestUserList .secondUser:before,
-.bestUserList .thirdUser:before {
-  position: absolute;
-  visibility: hidden;
 }
 .bestUserList .firstUser .rep,
 .bestUserList .secondUser .rep,
@@ -571,14 +587,26 @@
   vertical-align: middle;
   text-align: left;
 }
+.bestUserList li:nth-child(-n + 3) {
+  text-align: center;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 86px;
+  height: auto;
+  line-height: normal;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bestUserList li:nth-child(-n + 3):before {
+  position: absolute;
+  visibility: hidden;
+}
 .bestUserList li:nth-child(n + 4) {
   margin: 0 -32px;
   padding: 0 15px;
   clear: both;
   width: 336px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .bestUserList li:nth-child(n + 4) .rep {
   position: absolute;

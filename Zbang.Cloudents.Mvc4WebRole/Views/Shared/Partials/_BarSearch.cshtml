@@ -8,31 +8,31 @@
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
         </button>
     </form>
-    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" bindonce ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
-        <span ng-if="searchResults.boxes.length">
+    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+        <div ng-if="searchResults.boxes.length">
             <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
             <ul class="searchList boxes">
                 <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
             </ul>
-        </span>
-        <span ng-if="searchResults.items.length">
+        </div>
+        <div ng-if="searchResults.items.length">
             <h3>@SharedResources.Materials</h3>
             <ul class="searchList items">
                 <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
             </ul>
-        </span>
-        <span ng-if="searchResults.people.length">
+        </div>
+        <div ng-if="searchResults.people.length">
             <h3>@SharedResources.People</h3>
             <ul class="searchList people">
                 <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
             </ul>
-        </span>
-        <span ng-if="searchResults.otherItems.length">
+        </div>
+        <div ng-if="searchResults.otherItems.length">
             <h3>@SharedResources.ResultsOther</h3>
             <ul class="searchList university">
                 <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
             </ul>
-        </span>
+        </div>
         <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
         <div class="emptySearch">@SharedResources.NoResults</div>
     </div>

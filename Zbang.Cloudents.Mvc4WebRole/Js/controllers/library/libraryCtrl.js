@@ -143,9 +143,6 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
 
-
-
-        //cd.analytics.trackEvent('Follow', 'Follow', 'Clicking on follow button, on the departement level');
         $analytics.eventTrack('Library', {
             category: 'Follow box'
         });

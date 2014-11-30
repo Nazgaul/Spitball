@@ -1213,10 +1213,6 @@ aside.sideBar .last {
   top: 50px;
   border: 1px solid #959595;
   border-top: none;
-  /*span {
-            color: red;
-            cursor: none;
-        }*/
 }
 .emailListWpr .dropdown-menu {
   width: 360px;

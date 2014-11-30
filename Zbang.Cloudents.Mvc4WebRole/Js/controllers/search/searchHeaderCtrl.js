@@ -37,6 +37,7 @@ app.controller('SearchHeaderCtrl',
 
             if (!query) {
                 $scope.params.showDropdown = false;
+                lastQuery = null;
                 return;
             }
 

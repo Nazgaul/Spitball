@@ -2,11 +2,11 @@
 @using Zbang.Zbox.Infrastructure.Enums
 <div class="notifications" ng-controller="NotificationSettingsCtrl" infinite-scroll="addBoxes()"
      infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-    <ul class="boxesList" ng-repeat="box in boxes | limitTo: params.boxListLength" bindonce>
+    <ul class="boxesList" ng-repeat="box in ::boxes | limitTo: params.boxListLength">
         <li>
             <div class="settingsBox">
-                <a class="elps semiFont" bo-href="box.url" bo-text="box.name"></a>
-                <div>@SharedResources.Owner:&nbsp;<span bo-text="box.owner"></span></div>
+                <a class="elps semiFont" ng-href="::box.url">{{::box.name}}</a>
+                <div>@SharedResources.Owner:&nbsp;<span>{{::box.owner}}</span></div>
             </div>
             <div class="select rFloat">
                 <select class="inputText" ng-model="box.notifications" ng-change="updateNotification(box)">

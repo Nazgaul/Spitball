@@ -145,9 +145,6 @@
 
                         $scope.info.feedLength++;
 
-
-                        //cd.analytics.trackEvent('Question', 'Add a question', 'The number of question added by users');
-
                     }, function () {
                         sNotify.alert('Error');
                     });

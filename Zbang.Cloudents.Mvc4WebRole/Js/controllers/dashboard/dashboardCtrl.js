@@ -9,9 +9,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
     $scope.groupBoxes = [];   
-    //cd.pubsub.publish('dash_boxes');//statistics
 
-    //cd.analytics.setLibrary($('.uniText').text()); //TODO
 
     $scope.myCourses = resManager.get('CoursesFollow');
     $scope.openCreateBoxWizard = function () {
@@ -53,9 +51,11 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         };
 
         $scope.leaderBoard = {
-            first: sideBar.leaderBoard[0],
+            first: sideBar.leaderBoard[0],            
             second: sideBar.leaderBoard[1],
+            secondExist: !_.isUndefined(sideBar.leaderBoard[1]),
             third: sideBar.leaderBoard[2],
+            thirdExist: !_.isUndefined(sideBar.leaderBoard[2]),
             length: sideBar.leaderBoard.length
         };
         
@@ -179,7 +179,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         var w = 935, h = 600,
          left = (screen.width / 2) - (w / 2) + dualScreenLeft,
          top = (screen.height / 2) - (h / 2) + dualScreenTop;        
-        $analytics.trackEvent('Dashboard', {
+        $analytics.eventTrack('Dashboard', {
             category: 'AdvertismentClick'
         });
         window.open($scope.options.storeUrl, '', 'height=' + h + ',menubar=0,status=0,toolbar=0,scrollbars=1,width=' + w + ',left=' + left + ',top=' + top + '');

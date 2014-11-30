@@ -1,5 +1,5 @@
 ﻿mDashboard.directive('plDropzoneUploader',
-    [function() {
+    ['$analytics',function ($analytics) {
         "use strict";
         return {
             restrict: 'A',
@@ -10,23 +10,22 @@
                         multi_selection: true,
                         browse_button: 'dropzoneBtn',
                         chunk_size: '3mb',
-                        container: 'boxFeed',
                         url: '/Upload/File/',
                         flash_swf_url: '/Scripts/plupload2/Moxie.swf',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
                         }
-                    };            
+                    };
 
-                this.addFileBox = function (boxId,files) {                    
+                this.addFileBox = function (boxId, files) {
                     $scope.currentBoxId = boxId;
                     uploader.addFile(files);
                 };
-                this.addFileFeedQuestion = function (boxId,files) {
+                this.addFileFeedQuestion = function (boxId, files) {
                     $scope.newQuestion = true;
                     this.addFileBox(boxId, files);
                 };
-                this.addFileFeedReply = function (boxId,questionId, files) {
+                this.addFileFeedReply = function (boxId, questionId, files) {
                     $scope.questionId = questionId;
                     this.addFileBox(boxId, files);
                 };
@@ -141,15 +140,47 @@
                     });
                 }
             }],
-            link: function (scope, elem, attrs,controller) {
-                
-                controller.init(attrs.plDropzoneUploader);
+            link: function (scope, elem, attrs, controller) {
 
-                $(document).on('dragenter', '.dropzone', function () {
+                controller.init(attrs.plDropzoneUploader);
+                var $main = angular.element('#main');
+                if (!attrs.dropElement) {
+                    $main.on('dragenter', toggle);
+                    $main.on('dragleave', toggle);
+                    $main.on('drop', toggleOff);
+                    return;
+                }
+                $main.on('dragenter', '[dropzone-element]', toggle);
+                $main.on('dragleave', '[dropzone-element]', toggle);
+                $main.on('drop', '[dropzone-element]', toggleOff);
+
+
+                function toggle() {
                     $(this).toggleClass('upload');
-                });
-                $(document).on('dragleave', '.dropzone', function () {
-                    $(this).toggleClass('upload');
+                    if ($(this).hasClass('upload')) {
+                        $analytics.eventTrack('Drag Enter', {
+                            category: attrs.plDropzoneUploader
+                        });
+
+                    }
+                    return;
+
+                    $analytics.eventTrack('Drag Leave', {
+                        category: attrs.plDropzoneUploader
+                    });
+                }
+                function toggleOff() {
+                    $(this).removeClass('upload');
+
+                    $analytics.eventTrack('Drag Drop', {
+                        category: attrs.plDropzoneUploader
+                    });
+                }
+
+                scope.$on('$destroy', function () {
+                    $main.off('dragenter', toggle);
+                    $main.off('dragleave', toggle);
+                    $main.off('drop', toggleOff);
                 });
             }
         };
@@ -159,14 +190,14 @@
     function () {
         "use strict";
         return {
-            restrict: "A",         
+            restrict: "A",
             require: '^plDropzoneUploader',
             //scope:false,
-            link: function (scope, elem, attrs,controller) {
+            link: function (scope, elem, attrs, controller) {
                 var dropzone = new mOxie.FileDrop({
                     drop_zone: elem[0]
                 });
-                             
+
 
                 dropzone.ondrop = function (event) {
                     if (attrs.newQuestion === 'true') { //feed
@@ -177,7 +208,7 @@
                         controller.addFileFeedReply(parseInt(attrs.boxId), attrs.questionId, dropzone.files);
                         return;
                     }
-                    controller.addFileBox(scope.box.id,dropzone.files); //dashboard
+                    controller.addFileBox(scope.box.id, dropzone.files); //dashboard
                 };
 
                 dropzone.init();

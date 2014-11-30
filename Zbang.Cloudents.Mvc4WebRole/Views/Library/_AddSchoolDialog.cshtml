@@ -16,11 +16,11 @@
         @Html.LabelFor(m => m.Name)
         @*@Html.ValidationMessageFor(m => m.Name)*@
         @Html.TextBoxFor(m => m.Name, new { @class = "inputText schoolName", ng_model = "formData.createUniversity.name", required = "required", ng_keyup = "createSearch()" })
-        <ul class="uniList" bindonce ng-style="{display: createUniversities.length > 0 ? 'block' : 'none'}">
+        <ul class="uniList" ng-style="{display: createUniversities.length > 0 ? 'block' : 'none'}">
             <li ng-repeat="university in createUniversities track by university.id" ng-click="selectUniversity(university)">
                 <span class="uniDetails">
-                    <span class="uniName elps boldFont" bo-text="university.name"></span>
-                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@ bo-text="university.membersCount"></span>
+                    <span class="uniName elps boldFont">{{::university.name}}</span>
+                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@>{{::university.membersCount}}</span>
                 </span>
             </li>
             <li class="emptySearch">@SharedResources.NoResults</li>

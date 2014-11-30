@@ -157,10 +157,6 @@
   /*rtl*/
   border-right: none;
 }
-.membersList {
-  margin: 0 -5px 0 -13px;
-  padding: 0 5px 0 13px;
-}
 .memberItem {
   padding: 5px 5px 5px 0;
   /*rtl*/
@@ -544,9 +540,6 @@
   border-left: 1px solid #c2c2c2;
   /*rtl*/
   border-right: none;
-}
-.boxPage .backWpr {
-  margin: 8px 25px 0 0;
 }
 .boxPage .boxRename {
   left: -5px;
@@ -1257,6 +1250,7 @@
 .upTop {
   padding: 0 120px 0 0;
   /*rtl*/
+  margin: 0 0 0 -20px;
 }
 .upTop .btn3 {
   right: 117px;

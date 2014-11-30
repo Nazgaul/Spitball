@@ -1092,10 +1092,10 @@
   border-radius: 3px;
   position: relative;
   background-color: #fff;
-  -webkit-transition: border-color 0.2s;
-  -moz-transition: border-color 0.2s;
-  -o-transition: border-color 0.2s;
-  transition: border-color 0.2s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
   height: 98px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1104,9 +1104,7 @@
   /*rtl*/
   width: 222px;
   font-size: 13px;
-}
-.box:hover {
-  border-color: #c2c2c2;
+  transform: scale3d(1, 1, 1);
 }
 .box:hover ul {
   display: inline-block;
@@ -1125,6 +1123,13 @@
 }
 .box.libraryItem {
   width: 222px;
+}
+.box.upload {
+  -webkit-transform: scale3d(1.08, 1.08, 1);
+  -moz-transform: scale3d(1.08, 1.08, 1);
+  -ms-transform: scale3d(1.08, 1.08, 1);
+  -o-transform: scale3d(1.08, 1.08, 1);
+  transform: scale3d(1.08, 1.08, 1);
 }
 .box a,
 .box .addBtn {

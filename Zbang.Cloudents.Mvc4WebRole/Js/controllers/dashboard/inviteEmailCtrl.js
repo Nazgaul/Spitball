@@ -1,5 +1,4 @@
-﻿
-angular.module('InviteEmail', []).
+﻿angular.module('InviteEmail', []).
     controller('InviteEmailCtrl',
     ['$scope','$routeParams', 'sShare', 'sFocus', '$timeout','$analytics','sNotify',
          function ($scope, $routeParams, sShare, sFocus, $timeout, $analytics,sNotify) {
@@ -168,6 +167,8 @@ angular.module('InviteEmail', []).
 
                     scope.$on('itemChange', function () {
                         $timeout(setWidth, 0);
+                        
+                        $wrapper[0].scrollTo(0, $wrapper[0].scrollHeight);
                     });
 
 

@@ -109,19 +109,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                 new JsFileWithCdn("~/scripts/jquery-2.1.1.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                     new JsFileWithCdn("~/scripts/underscore.js"),
-                new JsFileWithCdn("~/scripts/angular.min.js"),//, fix for IE9 as usual check next version for angular fix
-                //"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"),
+                new JsFileWithCdn("~/scripts/angular.min.js",//, fix for IE9 as usual check next version for angular fix
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"),
 
 
-                new JsFileWithCdn("~/scripts/angular-route.js"),//,
-                //"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.min.js"),
+                new JsFileWithCdn("~/scripts/angular-route.js",//,
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-route.min.js"),
                 new JsFileWithCdn("~/js/services/cookies.js"),
 
-            new JsFileWithCdn("~/scripts/angular-sanitize.js"),
-                //"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-sanitize.min.js"),
+            new JsFileWithCdn("~/scripts/angular-sanitize.js",
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.min.js"),
 
-                    new JsFileWithCdn("~/scripts/angular-animate.js"),
-                //"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-animate.min.js"),
+                    new JsFileWithCdn("~/scripts/angular-animate.js",
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-animate.min.js"),
                     new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("/scripts/angular-cache-2.4.1.js"),
@@ -135,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/Logon.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
-                new JsFileWithCdn("~/scripts/uiBootstrapTpls0.11.0.js"),
+                new JsFileWithCdn("~/scripts/ui-bootstrap-tpls-0.12.0.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
@@ -258,9 +258,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/directives/facebookFeed.js"),
                 new JsFileWithCdn("/js/directives/contentEditable.js"),
                 new JsFileWithCdn("/js/directives/rateStar.js"),
-
+                new JsFileWithCdn("/js/directives/boxItemTooltip.js"),
 
                 new JsFileWithCdn("/js/filters/highlight.js"),
+                new JsFileWithCdn("/js/filters/escapeHtmlChars.js"),                
                 new JsFileWithCdn("/js/filters/kNumber.js"),
                 new JsFileWithCdn("/js/filters/defaultImage.js"),
                 new JsFileWithCdn("/js/filters/fileSize.js"),

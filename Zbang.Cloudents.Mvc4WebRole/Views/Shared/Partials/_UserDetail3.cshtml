@@ -2,12 +2,12 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div ng-if="$root.user.isAuthenticated" class="userNav" ng-controller="UserDetailsCtrl" bindonce>
-    <a bo-href="user.url" class="userAnchor">
-        <img id="userImg" bo-src="user.image" class="lFloat userImg" alt="user image" width="36" height="36" />
+<div ng-if="::$root.user.isAuthenticated" class="userNav" ng-controller="UserDetailsCtrl">
+    <a ng-href="{{::user.url}}" class="userAnchor">
+        <img id="userImg" ng-src="{{::user.image}}" class="lFloat userImg" alt="user image" width="36" height="36" />
         @*data-id we need for old code*@
-        <div id="userName" class="userName elps" bo-attr bo-attr-title="user.name" bo-text="user.firstName"></div>
-        <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts" bo-text="user.score" user-points></div>
+        <div id="userName" class="userName elps" title="{{::user.name}}">{{::user.firstName}}</div>
+        <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts" user-points>{{::user.score}}</div>
     </a>
     @{Html.RenderPartial("_SettingsAuth");}
 </div>

@@ -1,5 +1,4 @@
-﻿
-app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails','sModal',
+﻿app.directive('userTooltipPopup', ['$timeout', '$templateCache', '$compile', 'sUser', 'sUserDetails','sModal',
 function ($timeout, $templateCache, $compile, sUser, sUserDetails, sModal) {
     "use strict";
 

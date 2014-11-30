@@ -3,18 +3,18 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
 <div id="library" class="page union" ng-controller="LibraryCtrl">
-    <header class="siteHeader">
-        @{Html.RenderPartial("_Header");}
-    </header>
-    <div class="libraryContent" bindonce>
+    <div class="libraryContent">
         <aside class="asideDash lFloat">
             <div class="dashLibTop">
                 <span class="logoWpr lFloat">
                     <img src="@Model.Image" class="uniLogo" alt="University logo" width="80" height="80" />
                 </span>
                 <span class="ghost"><span class="vCentered" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</span></span>
-</div>
+            </div>
 
             <div class="unionStats">
                 <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
@@ -55,20 +55,20 @@
                             allowtransparency="true" width="274"></iframe>
                 }
             </div>
-        </aside>        
+        </aside>
         @{
             var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
         }
 
         @*<div class="boxesHeader topBar barShadow">
-            <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-            <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
-                <h2>{{back.title}}</h2>
-            </a>
-            <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
-                @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
-            </button>
-        </div>*@
+                <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
+                <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
+                    <h2>{{back.title}}</h2>
+                </a>
+                <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
+                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                </button>
+            </div>*@
         <div class="contentWpr @cls">
 
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
@@ -77,11 +77,11 @@
             }
             <div class="dashHeader">
                 @{Html.RenderPartial("_BarActions");}
-                <div class="dhContent">
-                    <span bo-if="!info.libraryId" class="topLevel dhText">@MainViewResources.AllDepartments</span>
-                    <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
+                <div class="dhContent" ng-switch="info.isRootLevel">
+                    <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
+                    <a ng-switch-when="false" id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" ng-href="{{::back.url}}">
                         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-                        <h2>{{back.title}}</h2>
+                        <h2>{{::back.title}}</h2>
                     </a>
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
@@ -90,9 +90,7 @@
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">
-                <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'">
-
-                </li>                
+                <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>
                 <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
                     <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
                 </li>
@@ -100,7 +98,7 @@
                     <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
                 </li>
             </ul>
-            @*@{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}*@
+            @*@{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}*@            
         </div>
     </div>
 </div>

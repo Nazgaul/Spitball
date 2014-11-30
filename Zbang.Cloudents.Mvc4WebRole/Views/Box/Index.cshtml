@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
-    <header class="siteHeader">
+    <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
             @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
         </a>
@@ -43,7 +43,7 @@
                     <label for="sidebarCb" class="headerSettings rFloat">
                         @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
                     </label>
-                   @{ Html.RenderPartial("_UserDetail3"); }
+                    @{ Html.RenderPartial("_UserDetail3"); }
                 </div>
             </nav>
 

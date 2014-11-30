@@ -7,19 +7,22 @@
         </button>
         <div class="notifyWpr dropdown-menu" role="menu" >
             <div height="525" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addNotifications()">
-                <ul class="notifyList" bindonce>
-                    <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in notifications | limitTo:params.notificationsListLength">
-                        <a bo-href="notification.url" ng-click="markAsRead(notification)">
-                            <img class="notifyImg" bo-src="notification.userPic | defaultImage:'user'" alt="" />
+                <ul class="notifyList">
+                    <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in ::notifications | limitTo:params.notificationsListLength">
+                        <a ng-href="{{notification.url}}" ng-click="markAsRead(notification)">
+                            <img class="notifyImg" ng-src="{{notification.userPic | defaultImage:'user'}}" alt="" />
                             <div class="notifyDetails">
-                                <span class="semiFont notifier elps" bo-text="notification.userName"></span>
+                                <span class="semiFont notifier elps">{{notification.userName}}</span>
 
-                                <span class="createTime" display-time="{{notification.date}}"></span><br />
+                                <span class="createTime" display-time="{{::notification.date}}"></span><br />
                                 <div class="inviteTxtWpr">
                                     @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
                                 </div>
                             </div>
                         </a>
+                        <button type="button" class="trash">
+                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                        </button>
                     </li>
                 </ul>
             </div>
