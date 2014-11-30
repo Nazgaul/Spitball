@@ -1710,6 +1710,9 @@ aside.sideBar .last {
   border: 1px solid #c2c2c2;
   border-radius: 5px;
 }
+.arrowBottom.showTooltip {
+  display: block;
+}
 .arrowBottom:before {
   content: '';
   display: inline-block;
