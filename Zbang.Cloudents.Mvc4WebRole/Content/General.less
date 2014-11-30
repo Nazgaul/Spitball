@@ -1767,7 +1767,7 @@ aside.sideBar {
     border-radius: 3px;
 }
 
-.tooltip-arrow {
+.tooltip-arrow, .arrowBottom:before {
     position: absolute;
     top: -4px;
     -moz-transform: rotate(45deg);
@@ -1801,6 +1801,18 @@ aside.sideBar {
         height:9px;
         left:0;right:0;
         margin: auto;
+    }
+}
+.arrowBottom {
+    position: absolute;
+    border-radius: 5px;
+    border: 1px solid @borderColor;
+    &:before {
+        .pseudo;
+        background: #f5f5f5;
+        border-left: 1px solid @borderColor;
+        border-top: 1px solid @borderColor;
+        top: -6px;
     }
 }
 /*#endregion */

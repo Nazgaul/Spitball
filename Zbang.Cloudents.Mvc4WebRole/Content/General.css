@@ -1665,7 +1665,8 @@ aside.sideBar .last {
   background: #282828;
   border-radius: 3px;
 }
-.tooltip-arrow {
+.tooltip-arrow,
+.arrowBottom:before {
   position: absolute;
   top: -4px;
   -moz-transform: rotate(45deg);
@@ -1698,6 +1699,19 @@ aside.sideBar .last {
   left: 0;
   right: 0;
   margin: auto;
+}
+.arrowBottom {
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
+}
+.arrowBottom:before {
+  content: '';
+  display: inline-block;
+  background: #f5f5f5;
+  border-left: 1px solid #c2c2c2;
+  border-top: 1px solid #c2c2c2;
+  top: -6px;
 }
 /*#endregion */
 /*#region popover */
