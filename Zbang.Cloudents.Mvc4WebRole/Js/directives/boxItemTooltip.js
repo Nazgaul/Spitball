@@ -3,6 +3,9 @@ function ($timeout, $templateCache, $compile, $window) {
     "use strict";
 
     var tooltipTemplate, showTooltip = 'showTooltip';
+    angular.element(window).on('scroll', function () {
+        $('.showTooltip').removeClass('showTooltip');
+    });
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
