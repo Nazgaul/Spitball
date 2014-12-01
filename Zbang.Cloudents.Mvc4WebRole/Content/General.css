@@ -1702,6 +1702,8 @@ aside.sideBar .last {
 }
 .arrowBottom {
   position: fixed;
+  z-index: 5;
+  background: #fff;
   display: none;
   -webkit-animation: fadein 0.3s 0 ease;
   -moz-animation: fadein 0.3s 0 ease;
