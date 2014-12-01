@@ -63,23 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //base.HandleUnknownAction(actionName);
         }
 
-        /*
-                protected void DeleteCookies()
-                {
-                    var cookiesToDelete = Request.Cookies.AllKeys.Where(w => w.StartsWith("cdAuth") || w.StartsWith("cdA"));
-                    foreach (var cookieName in cookiesToDelete)
-                    {
-                        if (cookieName == FormsAuthentication.FormsCookieName && User.Identity.IsAuthenticated)
-                        {
-                            continue;
-                        }
-                        if (Request.Cookies[cookieName] == null) continue;
-                        var c = new HttpCookie(cookieName) { Expires = DateTime.Now.AddDays(-1) };
-                        Response.Cookies.Add(c);
-                    }
-
-                }
-        */
+       
 
         protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
         {
