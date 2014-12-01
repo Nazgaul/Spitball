@@ -1,14 +1,19 @@
-﻿app.directive('boxItemTooltip', ['$timeout', '$templateCache', '$compile', '$window',
-function ($timeout, $templateCache, $compile, $window) {
+﻿app.directive('boxItemTooltip', ['$timeout', '$templateCache', '$compile',
+    function ($timeout, $templateCache, $compile) {
     "use strict";
 
     var tooltipTemplate, showTooltip = 'showTooltip';
     angular.element(window).on('scroll', function () {
-        $('.showTooltip').removeClass('showTooltip');
+        $('.showTooltip').removeClass(showTooltip);
     });
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
+
+            if (scope.$parent.$parent.getView() === 'itemListView') {
+                return;
+            }
+
             var hoverIntentPromise,
                 leaveIntentPromise,
                 $body = angular.element(document.body),
