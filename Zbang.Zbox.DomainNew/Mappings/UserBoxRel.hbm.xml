@@ -12,7 +12,7 @@
     <property not-null="true" name="UserRelationshipType" column="UserType" index="iUserBoxRelBoxIdUserType"/>
     <property not-null="true" name="NotificationSettings"/>
 
-    <property name="UserId" column="UserId" insert="false" update="false" index="iUserBoxRelUserId"  />
+    <property name="UserId" column="UserId" insert="false" update="false"  />
     <property name="BoxId" column="BoxId" insert="false" update="false" index="iUserBoxRelBoxIdUserType"  />
 
     <many-to-one name="User" class="User" column="UserId" not-null="true" unique-key="userboxrelUserIdBoxId"/>

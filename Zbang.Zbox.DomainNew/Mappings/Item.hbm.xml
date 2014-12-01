@@ -12,12 +12,15 @@
     <property name="IsDeleted" index="iBoxIsDeleted"/>
     <many-to-one name="Uploader" class="User" column="UserId" not-null="true"/>
     <property name="Size"/>
-    <!--<property name="Uid" access="readonly"/>-->
     <property name="NumberOfViews"/>
     <property name="NumberOfComments"/>
     <component name="DateTimeUser" class="UserTimeDetails">
-      <property name="CreationTime" not-null="true" insert="true" update="false" />
-      <property name="UpdateTime"  not-null="true" insert="true"  />
+      <property name="CreationTime" insert="true" update="false">
+        <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
+      </property>
+      <property name="UpdateTime"  insert="true">
+        <column name="UpdateTime" not-null="true" sql-type="datetime2(2)" />
+      </property>
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>

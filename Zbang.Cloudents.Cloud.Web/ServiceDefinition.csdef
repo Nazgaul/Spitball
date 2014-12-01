@@ -27,7 +27,6 @@
       <Setting name="IsMobileDisabled" />
       <Setting name="AzureSearchApiKey" />
       <Setting name="AzureSeachApiUrl" />
-      <Setting name="NewRelic.LicenseKey" />
     </ConfigurationSettings>
     <Startup>
       <!--<Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple">

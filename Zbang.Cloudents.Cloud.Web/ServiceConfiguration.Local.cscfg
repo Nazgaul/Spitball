@@ -17,7 +17,6 @@
       <Setting name="IsMobileDisabled" value="true" />
       <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
-      <Setting name="NewRelic.LicenseKey" value="3c7434bc408ced6499a908faffb43f35a74b90c8" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
