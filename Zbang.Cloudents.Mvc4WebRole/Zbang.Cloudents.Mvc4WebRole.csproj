@@ -965,7 +965,6 @@
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
-    <Content Include="Js\GmfcnHandler.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\modules\carousel.js" />
@@ -1024,7 +1023,6 @@
     <Content Include="Js\services\userPoints.js" />
     <Content Include="Js\services\versionChecker.js" />
     <Content Include="Js\staticShim.js" />
-    <Content Include="Js\Statistics.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />
     <Content Include="Js\Utils.js" />

@@ -331,7 +331,7 @@
        }
    ]);
 
-    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker) {
+    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', '$angularCacheFactory', '$http', '$templateCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, $angularCacheFactory, $http, $templateCache) {
 
 
         //analytics
@@ -348,10 +348,7 @@
         //if (location.pathname.indexOf('account')) {
         //    ga('send', 'pageview');
         //}
-
-  
-
-
+ 
         sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);
@@ -421,9 +418,27 @@
             }
         });
 
+
+
+        var htmlCache = $angularCacheFactory('htmlCache', {
+            maxAge: 2592000000,
+            deleteOnExpire: 'aggressive',            
+            storageMode: 'localStorage'
+        });
+                
+        $http.get('/dashboard/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/dashboard/indexpartial/', res); } );
+        $http.get('/box/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/box/IndexPartial/', res); });
+        $http.get('/item/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/item/IndexPartial/', res); });
+        $http.get('/quiz/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/quiz/IndexPartial/', res); });
+        $http.get('/library/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/library/IndexPartial/', res); });
+
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
             $rootScope.back.title = 'Dashboard';
+        }
+
+        function putInCache(key,res) {
+            $templateCache.put(key, res.data);
         }
     }]);
 }(window.angular));
