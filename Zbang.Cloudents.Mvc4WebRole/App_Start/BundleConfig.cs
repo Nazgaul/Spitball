@@ -115,7 +115,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 new JsFileWithCdn("~/scripts/angular-route.js",//,
                 "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-route.min.js"),
-                new JsFileWithCdn("~/js/services/cookies.js"),
+                new JsFileWithCdn("~/scripts/angular-cookies.js",
+                    "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-cookies.min.js"),
 
             new JsFileWithCdn("~/scripts/angular-sanitize.js",
                 "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.min.js"),
@@ -135,7 +136,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("~/js/Logon.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
-                new JsFileWithCdn("~/scripts/ui-bootstrap-tpls-0.12.0.js"),
+                new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.12.0.js"),
                 new JsFileWithCdn("~/scripts/angular-draganddrop.js"),
                 new JsFileWithCdn("~/scripts/angular-debounce.js"),
                 new JsFileWithCdn("~/scripts/jquery.mousewheel.min.js"),
