@@ -147,7 +147,7 @@
                         <li class="box browseBtn">
                             <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                         </li>
-                        <li ng-repeat="box in ::academicBoxes" class="box" dropzone-element ng-include="'dashBoxTemplate'" pl-dropzone></li>
+                        <li ng-repeat="box in academicBoxes" class="box" dropzone-element ng-include="'dashBoxTemplate'" pl-dropzone></li>
                     </ol>
                 </section>
 
@@ -163,7 +163,7 @@
                         <li ng-click="openCreateBoxWizard()" class="box createWizard">
                             <button class="addBtn">@SharedResources.CreateNew</button>
                         </li>
-                        <li ng-repeat="box in ::groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashBoxTemplate'">
+                        <li ng-repeat="box in groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashBoxTemplate'">
                         </li>
                     </ol>
                 </section>
@@ -173,20 +173,20 @@
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
             <a ng-href="{{::box.url}}">
-                <div ng-if="box.numOfUpdates > 0" class="notify">{{box.numOfUpdates}}</div>
+                <div ng-if="box.numOfUpdates > 0" class="notify">{{::box.numOfUpdates}}</div>
                 <div>
-                    <img class="boxImg" ng-src="{{box.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
+                    <img class="boxImg" ng-src="{{::box.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
                     <ul class="boxHoverList">
-                        <li class="hoverItem itemImg">{{box.itemCount}}</li>
-                        <li class="hoverItem memberImg">{{box.membersCount}}</li>
-                        <li class="hoverItem commentImg">{{box.commentCount}}</li>
+                        <li class="hoverItem itemImg">{{::box.itemCount}}</li>
+                        <li class="hoverItem memberImg">{{::box.membersCount}}</li>
+                        <li class="hoverItem commentImg">{{::box.commentCount}}</li>
                     </ul>
                 </div>
                 <div class="boxWpr clamp2">
-                    <span class="boxName">{{box.name}}</span>
+                    <span class="boxName">{{::box.name}}</span>
                 </div>
-                <span class="courseCode elps">{{box.courseCode}}</span>
-                <span class="courseCode propName elps">{{box.professor}}</span>
+                <span class="courseCode elps">{{::box.courseCode}}</span>
+                <span class="courseCode propName elps">{{::box.professor}}</span>
             </a>
             <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}"></button>
         </script>

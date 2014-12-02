@@ -1,7 +1,7 @@
 ﻿app.factory('sUserDetails',
- ['$rootScope','sAccount', '$filter', '$timeout', '$q',
+ ['$rootScope','sAccount', '$filter', '$timeout', '$q','$http',
 
- function ($rootScope,sAccount, $filter, $timeout, $q) {
+ function ($rootScope,sAccount, $filter, $timeout, $q,$http) {
      "use strict";
      var isAuthenticated = false,
          userData;
@@ -9,7 +9,9 @@
      function setDetails(data) {
          data = data || {};
 
-         if (!_.isEmpty(data)) {
+         $http.defaults.headers.post['X-CSRFToken'] = data.token;
+
+         if (!_.isUndefined(data.id)) {
              isAuthenticated = true;
              $rootScope.user = {
                  isAuthenticated: true
@@ -71,7 +73,7 @@
              var promise = sAccount.details();
 
              promise.then(function (response) {
-                 setDetails(response);
+                 setDetails(response);                 
              });
 
              return promise;

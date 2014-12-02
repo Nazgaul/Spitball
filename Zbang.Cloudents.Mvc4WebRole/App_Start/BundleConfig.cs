@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
             RegisterJsRegular("angular-general",
-                                new JsFileWithCdn("~/scripts/jquery-2.1.1.min.js",
+                                new JsFileWithCdn("~/scripts/jquery.min.js",
                     "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                     new JsFileWithCdn("~/scripts/underscore.js"),
                 new JsFileWithCdn("~/scripts/angular.min.js",//, fix for IE9 as usual check next version for angular fix
