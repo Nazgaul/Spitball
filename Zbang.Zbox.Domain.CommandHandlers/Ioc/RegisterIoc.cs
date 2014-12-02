@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnfollowBoxCommandHandler));
             
 
-            ioc.RegisterType(typeof(ICommandHandler<AddFileToBoxCommand, AddFileToBoxCommandResult>), typeof(AddFileToBoxCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>), typeof(AddFileToBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<AddLinkToBoxCommand, AddLinkToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>), typeof(ChangeFileNameCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateThumbnailCommand>), typeof(UpdateThumbnailCommandHandler));

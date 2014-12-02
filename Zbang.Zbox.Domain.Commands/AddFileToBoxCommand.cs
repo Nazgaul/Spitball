@@ -6,16 +6,18 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddFileToBoxCommand : ICommand
     {
-        public AddFileToBoxCommand(long userId, long boxId, string blobAddressName,
-            string fileName, long length, 
-            //string uploadId,
-            Guid? tabId)
+        public AddFileToBoxCommand(long userId, 
+            long boxId, 
+            string blobAddressName,
+            string fileName, 
+            long length, 
+            Guid? tabId, bool isQuestion)
         {
+            IsQuestion = isQuestion;
             UserId = userId;
             BoxId = boxId;
             BlobAddressName = blobAddressName;
             FileName = fileName;
-            //UploadId = uploadId;
             Length = length;
             TabId = tabId;
 
@@ -23,19 +25,19 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long UserId { get; private set; }
 
-        public long BoxId { get; set; }
+        public long BoxId { get; private set; }
 
-        public string BlobAddressName { get; set; }
-
-
-        public string FileName { get; set; }
-
-        public long Length { get; set; }
-
-        //public string UploadId { get; set; }
+        public string BlobAddressName { get; private set; }
 
 
+        public string FileName { get; private set; }
 
-        public Guid? TabId { get; set; }
+        public long Length { get; private set; }
+
+        public bool IsQuestion { get; private set; }
+
+
+
+        public Guid? TabId { get; private set; }
     }
 }

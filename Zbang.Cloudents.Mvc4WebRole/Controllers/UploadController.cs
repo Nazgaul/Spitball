@@ -40,8 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public async Task<ActionResult> File(long boxId, string fileName,
-            long fileSize, Guid? tabId)
+        public async Task<ActionResult> File(UploadFile model)
         {
             var userId = User.GetUserId();
             try
@@ -49,21 +48,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
-                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
+                    return JsonError(BoxControllerResources.NoFilesReceived);
                 }
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
+                    return JsonError(BoxControllerResources.NoFilesReceived);
                 }
-                if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
+                if (string.IsNullOrEmpty(Path.GetExtension(model.FileName)))
                 {
-                    return Json(new JsonResponse(false, BoxControllerResources.NoFilesReceived));
+                    return JsonError(BoxControllerResources.NoFilesReceived);
                 }
                 var uploadedfile = HttpContext.Request.Files[0];
                 if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
 
-                FileUploadDetails fileUploadedDetails = GetCookieUpload(fileSize, fileName, uploadedfile);
+                FileUploadDetails fileUploadedDetails = GetCookieUpload(model.FileSize, model.FileName, uploadedfile);
 
 
                 string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName).ToLower();
@@ -74,34 +73,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
-
-                    return Json(new JsonResponse(true));
+                    return JsonOk();
                 }
                 await m_BlobProvider.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
 
-                var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
+                var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
-                     fileUploadedDetails.TotalUploadBytes, tabId);
-                var result = ZboxWriteService.AddFileToBox(command);
+                     fileUploadedDetails.TotalUploadBytes, model.TabId, model.Question);
+                var result = await ZboxWriteService.AddFileToBox(command);
 
                 var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                     result.File.Uploader.Url,
                     result.File.ThumbnailUrl,
-                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
+                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0,
+                    DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
                     result.File.Url)
                 {
-                    DownloadUrl =  Url.RouteUrl("ItemDownload2", new {  boxId, itemId = result.File.Id })
+                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result.File.Id })
                 };
                 cookie.RemoveCookie("upload");
-                return Json(new JsonResponse(true, new { fileDto, boxId = boxId }));
+                return JsonOk(new { fileDto, boxId = model.BoxId });
 
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxUid {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
-                    boxId, fileName, fileSize, userId,
+                TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxId {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
+                    model.BoxId, model.FileName, model.FileSize, userId,
                     HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
-                return Json(new JsonResponse(false, BoxControllerResources.Error));
+                return JsonError(BoxControllerResources.Error);
             }
 
         }
@@ -226,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
                     0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url)
                  {
-                     DownloadUrl = Url.RouteUrl("ItemDownload2", new {  boxId = result.Link.Box.Id, itemId = result.Link.Id })
+                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result.Link.Box.Id, itemId = result.Link.Id })
                  };
                 return Json(new JsonResponse(true, item));
             }
@@ -272,14 +271,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                name,
-                size, tabId);
-            var result = ZboxWriteService.AddFileToBox(command);
+                size, tabId, false);
+            var result = await ZboxWriteService.AddFileToBox(command);
             var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
                 result.File.Uploader.Url,
                 result.File.ThumbnailUrl,
                 string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url)
             {
-                DownloadUrl = Url.RouteUrl("ItemDownload2", new {  boxId, itemId = result.File.Id })
+                DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result.File.Id })
             };
             return Json(new JsonResponse(true, fileDto));
 

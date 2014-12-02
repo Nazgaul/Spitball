@@ -40,42 +40,16 @@ namespace Zbang.Zbox.Domain.Services
 
             using (UnitOfWork.Start())
             {
-                var m_UserRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IUserRepository>();
-                var m_InviteRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<InviteToBox>>();
-                var m_IdGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
-                var m_BoxRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<Box>>();
-                var m_UserBoxRelRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<UserBoxRel>>();
-
-               var retVal = UnitOfWork.CurrentSession.Connection.Query(
-                    "select RecepientId,BoxId,SenderId from zbox.message where TypeOfMsg = 2");
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    foreach (var obj in retVal)
+
+                    var files = UnitOfWork.CurrentSession.QueryOver<File>().Where(w => w.Url == null)
+                        .And(w=>w.IsDeleted == false)
+                        .List();
+                    foreach (var file in files)
                     {
-                        try
-                        {
-                            long recipientId = obj.RecepientId, senderId = obj.SenderId, boxId = obj.BoxId;
-                            var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientId, boxId);
-                            if (userType != UserRelationshipType.None)
-                            {
-                                continue;
-                            }
-                            Guid id = m_IdGenerator.GetId();
-                            var recipientUser = m_UserRepository.Load(recipientId);
-                            var box = m_BoxRepository.Load(boxId);
-                            var sender = m_UserRepository.Load(senderId);
-
-                            var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Invite);
-                            var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null,
-                                recipientUser.Email);
-
-                            m_UserBoxRelRepository.Save(newInvite);
-                            m_InviteRepository.Save(inviteToBoxExistingUser);
-                        }
-                        catch
-                        {
-                        }
-
+                        file.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(file);
                     }
                     tx.Commit();
                 }
@@ -179,7 +153,7 @@ namespace Zbang.Zbox.Domain.Services
                     commandType: System.Data.CommandType.StoredProcedure);
 
 
-              
+
             }
             return retVal;
         }

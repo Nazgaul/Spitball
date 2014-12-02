@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Box()
         {
-            UserBoxRelationship = new HashSet<UserBoxRel>(); //new Iesi.Collections.Generic.HashedSet<UserBoxRel>();
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Items = new List<Item>();
 
@@ -57,7 +56,7 @@ namespace Zbang.Zbox.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
 
-        public virtual ICollection<UserBoxRel> UserBoxRelationship { get; private set; }
+        public virtual ICollection<UserBoxRel> UserBoxRelationship { get; protected set; }
         public virtual ICollection<Item> Items { get; private set; }
         protected virtual ICollection<Quiz> Quizzes { get; set; }
 
@@ -112,41 +111,46 @@ namespace Zbang.Zbox.Domain
 
        
 
-        public File AddFile(string fileName, User user, long length,
-            string blobAddressName, string thumbnailBlobAddressName, string thumbnailUrl)
+        public File AddFile(string fileName, 
+            User user,
+            long length,
+            string blobAddressName, 
+            string thumbnailBlobAddressName,
+            string thumbnailUrl)
         {
-            if (Items.OfType<File>().FirstOrDefault(f => f.ItemContentUrl == blobAddressName) != null)
-            {
-                throw new ArgumentException("Only one file can be connected to one blob");
-            }
-            var file = new File(GetUniqueFileName(fileName), user, length, blobAddressName, thumbnailBlobAddressName, this, thumbnailUrl);
+            //if (Items.OfType<File>().FirstOrDefault(f => f.ItemContentUrl == blobAddressName) != null)
+            //{
+            //    throw new ArgumentException("Only one file can be connected to one blob");
+            //}
+            var file = new File(fileName, user, length, blobAddressName, thumbnailBlobAddressName, this, thumbnailUrl);
             return AddItem(file) as File;
         }
 
-        public string GetUniqueFileName(string fileName)
-        {
-            //Find exact macth
-            var foundMatch = (from file in Items
-                              where String.Equals(file.Name, fileName, StringComparison.CurrentCultureIgnoreCase) && !file.IsDeleted
-                              select file).Count();
-            if (foundMatch > 0)
-            {
-                var index = 0;
-                //Find next available index
-                do
-                {
-                    index++;
-                    foundMatch = (from file in Items
-                                  where
-                                      String.Equals(file.Name, string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index,
-                                          Path.GetExtension(fileName)), StringComparison.CurrentCultureIgnoreCase)
-                        select file).Count();
-                } while (foundMatch > 0);
-                fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index, Path.GetExtension(fileName));
-            }
+        //public string GetUniqueFileName(string fileName)
+        //{
+        //    //Find exact macth
+        //    var foundMatch = (from file in Items
+        //                      where String.Equals(file.Name, fileName, StringComparison.CurrentCultureIgnoreCase) 
+        //                      && !file.IsDeleted
+        //                      select file).Count();
+        //    if (foundMatch > 0)
+        //    {
+        //        var index = 0;
+        //        //Find next available index
+        //        do
+        //        {
+        //            index++;
+        //            foundMatch = (from file in Items
+        //                          where
+        //                              String.Equals(file.Name, string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index,
+        //                                  Path.GetExtension(fileName)), StringComparison.CurrentCultureIgnoreCase)
+        //                select file).Count();
+        //        } while (foundMatch > 0);
+        //        fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index, Path.GetExtension(fileName));
+        //    }
 
-            return fileName;
-        }
+        //    return fileName;
+        //}
 
         public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
         {
@@ -231,8 +235,7 @@ namespace Zbang.Zbox.Domain
         {
             unchecked
             {
-                int result;
-                result = 13 * Name.GetHashCode();
+                int result = 13 * Name.GetHashCode();
                 result += 11 * UserTime.CreationTime.GetHashCode();
                 result += 19 * UserTime.CreatedUser.GetHashCode();
                 result += 17 * IsDeleted.GetHashCode();

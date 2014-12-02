@@ -80,6 +80,7 @@
     <Compile Include="InviteRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />
     <Compile Include="IQuizRepository.cs" />
+    <Compile Include="ItemRepository.cs" />
     <Compile Include="ItemTabRepository.cs" />
     <Compile Include="IUniversityRepository.cs" />
     <Compile Include="IUpdatesRepository.cs" />

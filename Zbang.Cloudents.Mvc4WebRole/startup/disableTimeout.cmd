@@ -7,9 +7,4 @@
 
 %windir%\system32\inetsrv\appcmd set config  -section:system.webServer/httpCompression /+"dynamicTypes.[mimeType='image/svg+xml',enabled='True']" /commit:apphost
 %windir%\system32\inetsrv\appcmd set config  -section:system.webServer/httpCompression /+"staticTypes.[mimeType='image/svg+xml',enabled='True']" /commit:apphost
-
-
-
-iisreset
-
 exit /b 0

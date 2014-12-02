@@ -119,11 +119,11 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public AddFileToBoxCommandResult AddFileToBox(AddFileToBoxCommand command)
+        public async Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
-                AddFileToBoxCommandResult result = m_CommandBus.Dispatch<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
+                AddFileToBoxCommandResult result =await m_CommandBus.DispatchAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
 
                 return result;

@@ -37,5 +37,8 @@
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="true" sizeInMB="100" />
       <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
     </LocalResources>
+    <Startup>
+      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple"/>
+    </Startup>
   </WebRole>
 </ServiceDefinition>

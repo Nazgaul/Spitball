@@ -4,10 +4,18 @@ using Zbang.Zbox.Infrastructure.Commands;
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
     public interface ICommandHandler<in TCommand, out TCommandResult>
-                                    where TCommand: ICommand
-                                    where TCommandResult: ICommandResult
+        where TCommand : ICommand
+        where TCommandResult : ICommandResult
     {
         TCommandResult Execute(TCommand command);
+    }
+
+
+    public interface ICommandHandlerAsync<in TCommand, TCommandResult>
+        where TCommand : ICommand
+        where TCommandResult : ICommandResult
+    {
+        Task<TCommandResult> ExecuteAsync(TCommand command);
     }
 
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
@@ -20,5 +28,5 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         Task HandleAsync(TCommand message);
     }
 
-   
+
 }

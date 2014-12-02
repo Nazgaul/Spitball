@@ -422,6 +422,7 @@
     <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
     <Compile Include="Models\Tabs\DeleteBoxItemTab.cs" />
     <Compile Include="Models\UpdateBoxInfo.cs" />
+    <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
       <DependentUpon>AccountSettingsResources.resx</DependentUpon>
@@ -2060,12 +2061,6 @@
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
     <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
-    <Content Include="startup\w3svc.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="startup\w3Automatic.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

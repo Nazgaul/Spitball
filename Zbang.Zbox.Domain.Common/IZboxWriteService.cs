@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.Common
         //void DeleteBox(DeleteBoxCommand command);
         void UnfollowBox(UnfollowBoxCommand command);
 
-        AddFileToBoxCommandResult AddFileToBox(AddFileToBoxCommand command);
+        Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
         AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command);
         //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
         //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
