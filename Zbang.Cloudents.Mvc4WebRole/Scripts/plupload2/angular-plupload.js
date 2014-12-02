@@ -3,7 +3,6 @@
 	    "use strict";
 	    return {
 	        restrict: 'A',
-	        scope: {},
 	        link: function (scope, iElement, iAttrs) {
 	            var uploader;
 
@@ -116,7 +115,8 @@
 	                    fileName: file.name,
 	                    fileSize: file.size,
 	                    boxId: iAttrs.boxId,
-	                    tabId: iAttrs.tabId || null
+	                    tabId: iAttrs.tabId || null,
+                        question: iAttrs.newQuestion === 'true'
 	                };
 
 	                $rootScope.$broadcast('BeforeUpload');
