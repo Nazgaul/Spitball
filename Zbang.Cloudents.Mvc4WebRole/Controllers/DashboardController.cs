@@ -44,7 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [DonutOutputCache(CacheProfile="PartialPage",
+        [DonutOutputCache(CacheProfile = "PartialPage",
            Options = OutputCacheOptions.IgnoreQueryString
            )]
         public ActionResult IndexPartial()

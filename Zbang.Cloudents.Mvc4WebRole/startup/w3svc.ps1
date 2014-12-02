@@ -1,0 +1,1 @@
+﻿Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\W3SVC -Name Start -Value 2
