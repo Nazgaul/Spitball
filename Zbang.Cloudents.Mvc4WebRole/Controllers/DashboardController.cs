@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -10,7 +8,6 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
@@ -92,47 +89,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             try
             {
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
-                return Json(new JsonResponse(true, new { result.Url, result.Id }));
+                return JsonOk(new { result.Url, result.Id });
 
             }
             catch (BoxNameAlreadyExistsException)
             {
                 ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
         }
 
         #endregion
 
-        #region Friends
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult FriendsPartial()
-        {
-            try
-            {
-                return PartialView("_Friends2");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("FriendsPartial", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-        #endregion
 
         [HttpGet]
         public async Task<JsonResult> RecommendedCourses()
@@ -143,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new RecommendedCoursesQuery(universityWrapper);
             var result = await ZboxReadService.GetRecommendedCourses(query);
-            return Json(new JsonResponse(true, result));
+            return JsonOk(result);
         }
 
         [HttpGet]
@@ -158,7 +139,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("PrivateBoxPartial ", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -173,7 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_Invite", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
