@@ -1,18 +1,26 @@
 ﻿app.directive('boxItemTooltip', ['$timeout', '$templateCache', '$compile',
-function ($timeout, $templateCache, $compile) {
+    function ($timeout, $templateCache, $compile) {
     "use strict";
 
-    var tooltipTemplate,showTooltip = 'showTooltip';
+    var tooltipTemplate, showTooltip = 'showTooltip';
+    angular.element(window).on('scroll', function () {
+        $('.showTooltip').removeClass(showTooltip);
+    });
     return {
-        restrict: 'A',        
+        restrict: 'A',
         link: function (scope, element, attrs) {
+
+            if (scope.$parent.$parent.getView() === 'itemListView') {
+                return;
+            }
+
             var hoverIntentPromise,
                 leaveIntentPromise,
                 $body = angular.element(document.body),
                 delay = 500,
                 tooltipElement,
                 tooltipTemplate = $templateCache.get(attrs.template);
-           
+
             scope.$watch(attrs.boxItemTooltip, function (newValue) {
                 scope[attrs.boxItemTooltip] = newValue || {};
             });
@@ -38,7 +46,7 @@ function ($timeout, $templateCache, $compile) {
                             $timeout.cancel(leaveIntentPromise);
                         },
                         mouseleave: function () {
-                            tooltipElement.removeClass(showTooltip);
+                            tooltipElement.removeClass(showTooltip + ' top');
                         }
                     });
 
@@ -46,13 +54,19 @@ function ($timeout, $templateCache, $compile) {
 
 
                 function setPosition() {
-                    var positionX, positionY, pos, offset,
-                    isLtr = $('html').css('direction') === 'ltr';
-
+                    var positionX, positionY, pos, offset;
                     pos = element[0].getBoundingClientRect();
-                    positionY = pos.top - tooltipElement.outerHeight(true) - 5;
+                    
+                    offset = $(window).height() - (pos.bottom + tooltipElement.outerHeight(true));
+                    if (offset < 0) {
+                        positionY = pos.top;
+                        tooltipElement.addClass('top');
+                    } else {
+                        positionY = pos.bottom - 15;
+                    }
 
-                    positionX = pos.left;
+
+                    positionX = pos.left + element.width() / 2 - tooltipElement.outerWidth(true) / 2;
                     tooltipElement.css({ top: positionY, left: positionX });
                 }
             });
@@ -61,16 +75,20 @@ function ($timeout, $templateCache, $compile) {
                 $timeout.cancel(hoverIntentPromise);
 
                 leaveIntentPromise = $timeout(function () {
-                    tooltipElement.removeClass(showTooltip);
+                    tooltipElement.removeClass(showTooltip + ' top');
+
                 }, 250);
 
             });
 
-            scope.$on('$destroy', function () {
+            scope.$on('$destroy', destroy);
+           
+            function destroy() {
                 if (tooltipElement) {
                     tooltipElement.remove();
                 }
-            });
+            }
+
         }
     };
 }]);

@@ -44,7 +44,9 @@
                 $http.post(url, data).success(function (response) {
                     trackTime(startTime, url, data);
                     if (!disableClearCache) {
-                        $angularCacheFactory.clearAll();
+                        _.forEach(ttls, function (ttl) {                            
+                            ttl.removeAll();
+                        });
                     }
 
                     if (response.success) {

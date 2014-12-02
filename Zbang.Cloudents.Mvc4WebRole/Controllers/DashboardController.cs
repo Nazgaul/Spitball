@@ -24,6 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
+        //this is for mobile only
         [NoCache]
         public async Task<ActionResult> Index()
         {
@@ -43,9 +44,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 15,
-           Location = OutputCacheLocation.ServerAndClient,
-           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(CacheProfile = "PartialPage",
+           Options = OutputCacheOptions.IgnoreQueryString
+           )]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");

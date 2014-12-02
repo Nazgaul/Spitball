@@ -145,7 +145,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         private bool IsAppFabricCache()
         {
-            return true;
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);

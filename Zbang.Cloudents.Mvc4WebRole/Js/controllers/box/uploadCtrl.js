@@ -52,7 +52,8 @@
                             name: url,
                             fileUrl: url,
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
-                            tabId: $scope.tabId
+                            tabId: $scope.tabId,
+                            question: $scope.newQuestion
                         };
                         sUpload.link(data).then(function (response) {
                             
@@ -101,7 +102,8 @@
                             name: fileData.name,
                             fileUrl: fileData.link,
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
-                            tabId: $scope.tabId
+                            tabId: $scope.tabId,
+                            question: $scope.newQuestion
 
                         };
                         sUpload.dropbox(data).then(function (response) {

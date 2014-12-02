@@ -54,7 +54,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //issue with ie
         [DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 5,
+            + CustomCacheKeys.Mobile,
+            Duration = TimeConsts.Minute * 5,
             Location = OutputCacheLocation.Server
             )]
         public ActionResult Index(string lang, string invId)

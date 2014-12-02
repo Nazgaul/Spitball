@@ -22,12 +22,16 @@ namespace Zbang.Zbox.Domain
                 throw new ArgumentNullException("box");
             }
             Id = id;
-            Items = items;
+            Items = items ?? new List<Item>();
             User = user;
             Box = box;
             if (text != null)
             {
                 text = text.Trim();
+            }
+            if (text == string.Empty)
+            {
+                text = null;
             }
             Text = text;
             DateTimeUser = new UserTimeDetails(user.Email);
@@ -45,6 +49,11 @@ namespace Zbang.Zbox.Domain
 
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
+
+        public void AddItem(Item item)
+        {
+            Items.Add(item);
+        }
 
         public void RemoveItem(Item item)
         {

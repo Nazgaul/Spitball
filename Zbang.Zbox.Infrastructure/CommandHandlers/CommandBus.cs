@@ -11,10 +11,16 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             where TCommand : Commands.ICommand
             where TCommandResult : Commands.ICommandResult
         {
-
             return m_Container.Resolve<ICommandHandler<TCommand, TCommandResult>>().Execute(command);
-
         }
+
+        public Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command)
+            where TCommand : Commands.ICommand
+            where TCommandResult : Commands.ICommandResult
+        {
+            return m_Container.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>().ExecuteAsync(command);
+        }
+
 
         public TCommandResult Dispatch<TCommand, TCommandResult>(TCommand command, string name)
             where TCommand : Commands.ICommand

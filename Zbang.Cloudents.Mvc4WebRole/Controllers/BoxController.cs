@@ -85,7 +85,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(Duration = TimeConsts.Minute * 5,
             Location = OutputCacheLocation.ServerAndClient,
             VaryByCustom = CustomCacheKeys.Lang
-            , Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+            , Options = OutputCacheOptions.IgnoreQueryString,
+            VaryByParam = "none")]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");

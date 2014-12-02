@@ -32,7 +32,7 @@
 
     function javascriptFailCallback() {
         //because of old script we remove angular
-        if (window.cd && window.jQuery /*&& window.angular*/) {
+        if (window.jQuery /*&& window.angular*/) {
             return;
         }
 

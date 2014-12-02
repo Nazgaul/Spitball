@@ -9,9 +9,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         Task InsertMessageToStoreAsync(StoreData message);
         void InsertMessageToCache(FileProcessData message);
+
+        Task InsertMessageToCacheAsync(FileProcessData message);
+
         void InsertMessageToMailNew(BaseMailData message);
 
-       // void InsertMessageToThumbnail(GenerateThumbnail message);
         void InsertMessageToTranaction(DomainProcess message);
         Task InsertMessageToTranactionAsync(DomainProcess message);
         Task InsertMessageToDownloadAsync(UrlToDownloadData message);

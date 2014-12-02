@@ -27,23 +27,7 @@
       <Setting name="IsMobileDisabled" />
       <Setting name="AzureSearchApiKey" />
       <Setting name="AzureSeachApiUrl" />
-      <Setting name="NewRelic.LicenseKey" />
     </ConfigurationSettings>
-    <Startup>
-      <!--<Task commandLine="newrelic.cmd" executionContext="elevated" taskType="simple">
-        <Environment>
-          <Variable name="EMULATED">
-            <RoleInstanceValue xpath="/RoleEnvironment/Deployment/@emulated" />
-          </Variable>
-          <Variable name="IsWorkerRole" value="false" />
-          <Variable name="LICENSE_KEY">
-            <RoleInstanceValue xpath="/RoleEnvironment/CurrentInstance/ConfigurationSettings/ConfigurationSetting[@name='NewRelic.LicenseKey']/@value" />
-          </Variable>
-        </Environment>
-      </Task>-->
-      <!--<Task commandLine="startup\disableTimeout.cmd" executionContext="elevated" taskType="simple" />-->
-      <!--<Task commandLine="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe install" executionContext="elevated" taskType="simple" />-->
-    </Startup>
     <Certificates>
       <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
       <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
@@ -53,5 +37,8 @@
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="true" sizeInMB="100" />
       <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
     </LocalResources>
+    <Startup>
+      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple"/>
+    </Startup>
   </WebRole>
 </ServiceDefinition>

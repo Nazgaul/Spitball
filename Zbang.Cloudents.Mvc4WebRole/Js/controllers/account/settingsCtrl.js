@@ -1,8 +1,8 @@
 ﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount', '$analytics','sNotify',
+    ['$scope', '$window', '$timeout', 'sAccount', '$analytics','sNotify','$angularCacheFactory',
 
-        function ($scope, $window, $timeout, sAccount, $analytics,sNotify) {
+        function ($scope, $window, $timeout, sAccount, $analytics, sNotify, $angularCacheFactory) {
             "use strict";
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
@@ -226,6 +226,8 @@
                 if ($scope.languageForm.selected === $scope.data.language) {
                     return;
                 }
+
+                $angularCacheFactory.get('htmlCache').removeAll();                
 
                 sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function () {
                     $analytics.eventTrack('Account settings', {

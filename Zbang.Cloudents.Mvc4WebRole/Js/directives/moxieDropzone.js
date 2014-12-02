@@ -78,7 +78,8 @@
                         up.settings.multipart_params = {
                             fileName: file.name,
                             fileSize: file.size,
-                            boxId: $scope.currentBoxId
+                            boxId: $scope.currentBoxId,
+                            question: file.newQuestion
                         };
 
                         $rootScope.$broadcast('BeforeUpload');

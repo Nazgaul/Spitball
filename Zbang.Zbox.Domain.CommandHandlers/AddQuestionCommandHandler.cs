@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IRepository<Comment> m_QuestionRepository;
+        private readonly IRepository<Comment> m_CommentRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -25,14 +25,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public AddQuestionCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
-            IRepository<Comment> questionRepository
+            IRepository<Comment> commentRepository
             , IRepository<Item> itemRepository,
             IRepository<Reputation> reputationRepository,
             IQueueProvider queueProvider)
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
-            m_QuestionRepository = questionRepository;
+            m_CommentRepository = commentRepository;
             m_ItemRepository = itemRepository;
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
@@ -58,13 +58,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
 
-            var question = new Comment(user, text, box, message.Id, files);
-            m_QuestionRepository.Save(question);
+            var comment = new Comment(user, text, box, message.Id, files);
+            m_CommentRepository.Save(comment);
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
             box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) + 1);
-            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, question.Id));
+            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, comment.Id));
             m_BoxRepository.Save(box);
 
         }

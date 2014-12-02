@@ -68,7 +68,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                     var command = new AddFileToBoxCommand(msgData.UserId, msgData.BoxId, msgData.BlobUrl,
                        msgData.FileName,
-                      msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId);
+                      msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId, false);
                     m_ZboxWriteService.AddFileToBox(command);
                     return true;
                 }

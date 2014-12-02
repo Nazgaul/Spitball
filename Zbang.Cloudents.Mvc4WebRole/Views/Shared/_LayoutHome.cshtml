@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using System.Globalization
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
     </div>
     <footer id="footer">
         <ul class="footer">
-            <li>@FooterResources.ZbangIt&rlm;&nbsp;&lrm;&copy;@DateTime.UtcNow.Year.ToString()&nbsp;@FooterResources.RightsReserved&nbsp;V @VersionHelper.CurrentVersion()</li>
+            <li>@FooterResources.ZbangIt&rlm;&nbsp;&lrm;&copy;@DateTime.UtcNow.Year.ToString(CultureInfo.InvariantCulture)&nbsp;@FooterResources.RightsReserved&nbsp;V @VersionHelper.CurrentVersion()</li>
             <li><a href="@Url.Action("AboutUs", "Home")">@FooterResources.AboutUs</a></li>
             <li><a href="@Url.Action("Help", "Home")">@SharedResources.Help</a></li>
             <li><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
@@ -58,7 +59,7 @@
     @{Html.RenderPartial("_Welcome");}
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
-    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
+    @*<script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>*@
     @*@Html.Script2("General")*@
     @Html.Script2("home")
 

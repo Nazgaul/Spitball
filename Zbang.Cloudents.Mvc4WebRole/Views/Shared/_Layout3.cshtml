@@ -17,7 +17,8 @@
     <title>@ViewBag.title</title>
     <link rel="SHORTCUT ICON" href="~/favicon.ico" />
 
-    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" ||
+        System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
@@ -42,9 +43,8 @@
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
 </head>
-<body data-pic="@Url.CdnContent("/Images/EmptyState/user-pic.png")" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),
-      'jsDark jsCreateDashboard' : $root.params.createBoxWizard}">
-    @*class="jsDark"*@
+<body ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),'jsDark jsCreateDashboard' : $root.params.createBoxWizard}">
+
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
@@ -52,23 +52,18 @@
         }
     </script>
     <![endif]-->
- 
+
     <div class="bodyContent" data-version="@VersionHelper.CurrentVersion()" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
          bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
         @RenderBody()
-
         <div id="fb-root"></div>
-
     </div>
-
     <div id="mLoading" class="loading" data-loader>
         <div class="spinner"></div>
     </div>
     <div class="ptsPopup" id="ptsPopup" user-points-popup data-pts-before="@SharedResources.SweetPoints" data-pts-after="@SharedResources.Pts">
         <div class="digitWpr"></div>
     </div>
-
-
     <div class="uploads" id="uploads" ng-controller="UploadListCtrl" ng-class="{collapsed : uploader.collapsed }" ng-style="{display: uploader.init ? 'block' : 'none'}">
         @*collapsed*@
         <div class="uploadTop" ng-click="toggleCollapse()">
@@ -76,10 +71,9 @@
             <span class="uploadDetails elps" ng-show="uploader.collapsed && uploader.currentFile"><q>{{uploader.currentFile.name}}</q></span>
             <span class="uploadPercent" ng-show="uploader.collapsed && uploader.currentFile">{{uploader.currentFile.percent}}%</span>
             <div class="uploadBtns">
-                @*<button type="button" class="minimize" id="uploads_minimize"></button>*@
+                @*<button type="button" class="minimize" id="uploads_minimize"></button>*@<button type="button" class="minimize" id="uploads_minimize"></button>
                 <button type="button" class="stopUpload" ng-click="closeView()" ng-style="{display: !uploader.uploading ? 'inline-block' : 'none' }"></button>
             </div>
-
         </div>
         <ul class="uploadList" id="uploadList" m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
             <li class="uploadItem" ng-repeat="file in uploader.fileList track by file.id">
@@ -146,7 +140,6 @@
         }
     }
     <script type="text/javascript" src="~/js/CDNFallback.js"></script>
-
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
             <a ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">
@@ -197,19 +190,13 @@
             <h3 class="elps" ng-bind-html="::person.name | highlight:formData.query:false" dir="{{::params.txetDirection}}"></h3>
         </a>
     </script>
-        
     @*@Search*@
-    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-
+    <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
     @RenderSection("scripts", false)
-
-
-
-
-
     @*@if (User.Identity.IsAuthenticated)
-    {
-        <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
-    }*@
+        {
+            <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
+        }*@
+    <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings[" pushurl"]"></iframe>
 </body>
 </html>

@@ -40,9 +40,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 {
                     userType = ZboxReadService.GetUserStatusToBox(boxId, userId);
                 }
-                catch (BoxDoesntExistException ex)
+                catch (BoxDoesntExistException)
                 {
-                    TraceLog.WriteError("Box Index desktop", ex);
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                     {
                         {"action", "Index"},

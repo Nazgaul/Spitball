@@ -159,17 +159,14 @@ namespace Zbang.Zbox.Domain
 
         public override string ChangeName(string newName)
         {
-            var fileNameExtension = Path.GetExtension(Name);
-
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(newName).RemoveEndOfString(NameLength);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(newName);
             if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(Name))
             {
                 return Name;
             }
 
-            var newUniquefileName = Box.GetUniqueFileName(fileNameWithoutExtension + fileNameExtension);// command.NewFileName);
 
-            Name = newUniquefileName;
+            Name = newName;
             GenerateUrl();
             return Name;
         }

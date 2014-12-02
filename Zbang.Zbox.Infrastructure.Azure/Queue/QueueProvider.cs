@@ -51,6 +51,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             queue.InsertToQueueProto(message);
         }
 
+        public Task InsertMessageToCacheAsync(FileProcessData message)
+        {
+            var queue = GetCacheQueue();
+            return queue.InsertToQueueProtoAsync(message);
+        }
+
         public void InsertMessageToMailNew(BaseMailData message)
         {
             GetMailQueueNew().InsertToQueueProto(message);
