@@ -2060,6 +2060,12 @@
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
     <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
+    <Content Include="startup\w3svc.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="startup\w3Automatic.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
