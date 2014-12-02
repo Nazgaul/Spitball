@@ -67,6 +67,10 @@ input[type="radio"].radio:checked + label:after {
   /*rtl*/
   right: auto;
 }
+.closeModal {
+  left: 20px;
+  right: auto;
+}
 .popupWrppr .cancel,
 .modal .cancel {
   margin: 18px 10px 0 0;
@@ -104,16 +108,15 @@ input[type="radio"].radio:checked + label:after {
 }
 .fbImg:after,
 .emailImg:after {
-  right: 24px;
-  /*rtl*/
+  right: 12px;
   left: auto;
 }
 .emailImg {
-  right: 4px;
+  right: 8px;
   left: auto;
 }
 .emailImg:after {
-  right: 35px;
+  right: 6px;
   /*rtl*/
   left: auto;
 }
@@ -453,6 +456,18 @@ aside.sideBar li {
   font-weight: normal;
   /*diff rtl*/
 }
+.inviteUsersBtn {
+  right: 600px;
+  left: auto;
+}
+.boxPage .inviteUsersBtn {
+  right: 700px;
+  left: auto;
+}
+.userPage .inviteUsersBtn {
+  left: 120px;
+  right: auto;
+}
 /*.emptySearch
 {
     &:before
@@ -465,10 +480,10 @@ aside.sideBar li {
         left: auto;
     }
 }*/
-.iconTxt:before {
-  margin: 0 0 0 6px;
-  /*rtl*/
-}
+/*.iconTxt:before
+{
+    margin: 0 0 0 6px; //rtl
+}*/
 .ptsPopup {
   right: -webkit-calc(50% - 112px);
   /*rtl*/

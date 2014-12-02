@@ -576,7 +576,8 @@
     height: 100%; //used for links
     min-height: ~'-webkit-calc(100vh - 63px)'; //43px for header + 20px margin top
     min-height: ~'calc(100vh - 63px)';
-    
+    width: 800px;
+    margin: 0 auto;
     .boldFont {
         font-size: 22px;
         white-space: pre-wrap;
@@ -592,6 +593,10 @@
     width: 800px;
     margin: 0 auto 10px;
     z-index: 0; //bug 581
+    /*~ .divWrapper img {
+        -webkit-filter: blur(2px); //blur images starting from the 2nd page
+        filter: blur(2px);
+    }*/
 }
 
 .imageContent {

@@ -16,7 +16,9 @@
                     <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
                     answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
                 </ul>
-                <button type="button" class="quizAddQuestion iconTxt" ng-click="addQuestion(true)">@QuizResources.AddQuestion</button>
+                <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
+                    @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
+                </button>
             </div>
             <div class="quizBottom">
                 <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>

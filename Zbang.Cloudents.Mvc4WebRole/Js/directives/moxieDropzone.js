@@ -79,7 +79,7 @@
                             fileName: file.name,
                             fileSize: file.size,
                             boxId: $scope.currentBoxId,
-                            question: $scope.newQuestion
+                            question: file.newQuestion
                         };
 
                         $rootScope.$broadcast('BeforeUpload');

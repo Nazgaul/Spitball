@@ -1,12 +1,13 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
+<div class="searchInputWpr searchDash" ng-controller="SearchHeaderCtrl">
+    @{Html.RenderPartial("_BarSearch");}
+</div>
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
 <div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
-    
-
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)">
@@ -99,12 +100,11 @@
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
-                @{Html.RenderPartial("_BarActions");}
+                
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    @{Html.RenderPartial("_BarSearch");}
-
-                    <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+                    @{Html.RenderPartial("_BarActions");}
+                    <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
                 </div>
@@ -138,6 +138,7 @@
                     </div>
                 </div>
             </section>
+
             <div pl-dropzone-uploader="dashboard" drop-element="dropzone-element">
                 <div id="dropzoneBtn" style="display:none;"></div>
                 <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">

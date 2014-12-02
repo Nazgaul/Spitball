@@ -351,11 +351,6 @@
 .modal .departmentChoose.codeError .error {
   display: block;
 }
-.closeModal {
-  position: absolute;
-  top: 12px;
-  right: 20px;
-}
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;

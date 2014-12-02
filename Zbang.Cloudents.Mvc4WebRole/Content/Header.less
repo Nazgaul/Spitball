@@ -43,8 +43,9 @@ body {
         .shareBtn {
             display: inline-block;
             margin: 0 15px;
-            position: relative;
-            top: 11px;
+            position: absolute;
+            top: 12px;
+            left: 730px; //rtl
         }
         .siteLogo {
             height: @header-height;
@@ -94,7 +95,7 @@ body {
     .userImg {
         vertical-align: top;
         margin-top: 6px;
-        border-radius: 100%;
+        border-radius: 50%;
         position: absolute;
     }
 }
@@ -170,15 +171,6 @@ body {
     svg {
         fill: #a5a5a5;
         top: 22px;
-    }
-
-    + button .svg-inviteUser {
-        position: relative;
-        top: 5px;
-
-        &:hover {
-            fill: @color;
-        }
     }
 }
 .searchBtn {

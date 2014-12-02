@@ -1,6 +1,323 @@
 ﻿@import "varsAndMixins";
 
+.searchInputWpr {
+	width: 365px;
+	height: 32px;
+    border: none; //override
+    border-radius: 16px;
+	position: absolute;
+	z-index: 4; //under aside which is 5
+	top: 67px;
+	left: 500px; //rtl
+    margin:0;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	-webkit-transition-property: height, width, top, left, border-radius; //rtl 
+	transition-property: height, width, top, left, border-radius; //rtl 
+	-webkit-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    &.searchLib {
+        left: 550px; //rtl
+    }
+    &.searchBox {
+        top: 9px;
+        z-index: 12;
+        left: 320px; //rtl
+    }
+    &.searchUser {
+        margin: auto;
+        left:0;right:0;
+        top: 72px;
+    }
+    &:hover {
+        background: #f1f1f1;
+        width:100%;
+	    height: 100%;
+        max-width: none; //override
+	    top: 0;
+        left: 0; //rtl 
+        border-radius:0;
+        ~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
+            display: none !important; //override js
+        }
+        form {
+	        width: 80%;
+	        height: 160px;
+	        -webkit-transform: translate3d(0,3em,0);
+	        transform: translate3d(0,3em,0);
+        }
+        .dashLibSearchInput {
+            font-size: 3.6vw;
+            padding: 0 10% 8px 0; 
+        }
+        .searchBtn {
+	        pointer-events: auto;
+            width: 60px;
+            height: 60px;
+	        -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	        transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	        -webkit-transition: -webkit-transform 0.3s;
+	        transition: transform 0.3s;
+	        -webkit-transition-delay: 0.5s;
+	        transition-delay: 0.5s;
+            .svg-search {
+                width: 60px;
+                height: 60px;
+                &:hover {
+                    fill: @itemBlue;
+                }
+            }
+        }
+        
+        .closeSearch {
+	        opacity: 1;
+	        pointer-events: auto;
+	        -webkit-transform: scale3d(1,1,1);
+	        transform: scale3d(1,1,1);
+	        -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	        transition: opacity 0.3s, transform 0.3s;
+	        -webkit-transition-delay: 0.5s;
+	        transition-delay: 0.5s;
+        }
+        .search-content {
+	        opacity: 1;
+	        height: auto;
+	        overflow: visible; /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
+	        pointer-events: auto;
+	        -webkit-transition: opacity 0.3s 0.5s;
+	        transition: opacity 0.3s 0.5s;
+        }
+        .column:first-child {
+	        -webkit-transition-delay: 0.4s;
+	        transition-delay: 0.4s;
+        }
+
+        .column:nth-child(2) {
+	        -webkit-transition-delay: 0.45s;
+	        transition-delay: 0.45s;
+        }
+
+        .column:nth-child(3) {
+	        -webkit-transition-delay: 0.5s;
+	        transition-delay: 0.5s;
+        }
+
+        .column {
+	        opacity: 1;
+	        -webkit-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+        }
+
+    }
+    &.hideInput .dashLibSearchInput {
+	    color: transparent;
+	    -webkit-transition: color 0.3s;
+	    transition: color 0.3s;
+    }
+    form {
+	    width: 100%;
+	    height: 40px;
+	    margin: 0 auto;
+	    position: relative;
+	    -webkit-transition-property: width, height, -webkit-transform;
+	    transition-property: width, height, transform;
+	    -webkit-transition-duration: 0.5s;
+	    transition-duration: 0.5s;
+	    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    }
+    .dashLibSearchInput {
+         .boxSizing;
+    }
+}
+.dashLibSearchInput {
+	width: 100%;
+	height: 100%;
+	padding: 0 10% 8px 16px; //rtl 
+    border-radius: 0; //override
+	border: none;
+	background: transparent;
+	color: @itemBlue;
+	-webkit-transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
+	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
+    max-width: none; //override;
+}
+
+
+/* hide placeholder when active in Chrome */
+.gn-search:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.searchBtn {
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	right: 0; //rtl 
+	top: 43%;
+	border: none;
+	pointer-events: none;
+	transform-origin: 50% 50%;
+	//opacity: 0;
+	-webkit-transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
+	transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
+    .svg-search {
+        width: 40px;
+        height: 40px;
+        fill: @borderColor;
+    }
+}
+
+
+.closeSearch {
+	position: absolute;
+	right: 1em; //rtl 
+	top: 1em;
+	overflow: hidden;
+	cursor: pointer;
+	pointer-events: none;
+	opacity: 0;
+	-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);
+    .svg-close {
+        width: 20px;
+        height: 20px;
+        &:hover {
+            fill: @itemBlue;
+        }
+    }
+}
+
+.search-content {
+	color: #333;
+	margin-top: 4.5em;
+	width: 80%;
+	height: 0;
+	overflow: hidden;
+	padding: 0 10%;
+	background: #f1f1f1;
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.column {
+	width: 30%;
+	padding: 0 0 6em;
+	opacity: 0;
+	-webkit-transform: translate3d(0,100px,0);
+	transform: translateY(100px);
+	-webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+	transition: transform 0.5s, opacity 0.5s;
+    &:nth-child(2) {
+	    margin: 0 5%;
+    }
+
+    h2 {
+	    font-size: 1em;
+	    letter-spacing: 1px;
+	    text-transform: uppercase;
+	    font-weight: 800;
+	    color: @itemBlue;
+	    padding: 0.5em 0;
+    }
+}
+
+.round {
+	border-radius: 50%;
+}
+
+.searchLink {
+    height: 74px;
+	padding: 0.75em 0.75em 0.75em 70px; //rtl
+	display: block;
+	margin: 0.3em 0;
+	cursor: pointer;
+	border-radius: 5px;
+	background: rgba(118,117,128,0.1);
+    .boxSizing;
+    position: relative;
+    &:hover, &:focus {
+        background: rgba(118,117,128,0.2);
+    }
+    &:hover {
+        h3 {
+            color: @itemBlue;
+        }
+    }
+    img {
+        position: absolute;
+        left: 6px; //rtl
+    }
+    h3 {
+        vertical-align: middle;
+	    font-size: 1.2em;
+	    display: inline-block;
+	    font-weight: 700;
+	    margin: 0;
+	    color: rgba(145,145,145,0.7);
+        max-width: 100%; //needed to override the nowrap property on the elps
+    }
+    mark {
+        background: none;
+    }
+    .userImg {
+        border-radius: 50%;
+        top:0;bottom:0;
+        margin: auto;
+    }
+    .vCentered {
+        max-width: 98%;
+    }
+    /*&.noResults
+    {
+        text-align: center;
+        .searchList, h3, .showAll //.showAll prob not necessary
+        {
+            display: none !important;
+        }
+    }*/
+}
+
+@media screen and (max-width: 53.125em) {
+	.dashLibSearchInput {
+		padding: 0 25% 0 10px;
+	}
+	.searchInputWpr.open {
+        .dashLibSearchInput {
+		    font-size: 2em;
+	    }
+        .searchBtn {
+		    -webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+		    transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+	    }
+	}
+	.column {
+		float: none;
+		width: auto;
+		padding: 0 0 2em;
+	}
+	.column:nth-child(2) {
+		margin: 0;
+	}
+	
+}
+
+@media screen and (max-width: 60.625em) {
+	.searchInputWpr.open {
+		width: 80%;
+		top: 10%;
+		right: 10%; //rtl
+	}
+}
+
+
+
 /*#region search drop down */
+
 .searchDD{
     display:none;
     margin-top: 5px;
@@ -30,7 +347,8 @@
         }
     }
     .boldPart{
-        background: #cde3f4;
+        //background: #cde3f4;
+        font-weight: bold;
         display: inline-block;
         padding-bottom: 4px;
     }
@@ -48,18 +366,7 @@
             background: #f5f5f5;
         }
     }
-    &.noResults
-    {
-        text-align: center;
-        .searchList, h3, .showAll //.showAll prob not necessary
-        {
-            display: none !important;
-        }
-        /*.emptySearch
-        {
-            display: inline-block;
-        }*/
-    }
+    
 }
 
 .searchList 
@@ -88,10 +395,10 @@
     {
         margin-left: 56px; /*rtl*/
     }
-    .userImg
+    /*.userImg
     {
-        margin-left: 3px; /*rtl*/
-    }
+        margin-left: 3px; //rtl
+    }*/
 }
 
 .searchDetails

@@ -35,8 +35,9 @@ body {
 .siteHeader.headerBox .shareBtn {
   display: inline-block;
   margin: 0 15px;
-  position: relative;
-  top: 11px;
+  position: absolute;
+  top: 12px;
+  left: 730px;
 }
 .siteHeader.headerBox .siteLogo {
   height: 50px;
@@ -87,7 +88,7 @@ body {
 .userNav .userImg {
   vertical-align: top;
   margin-top: 6px;
-  border-radius: 100%;
+  border-radius: 50%;
   position: absolute;
 }
 .signUp .btn {
@@ -161,13 +162,6 @@ body {
 .searchInputWpr svg {
   fill: #a5a5a5;
   top: 22px;
-}
-.searchInputWpr + button .svg-inviteUser {
-  position: relative;
-  top: 5px;
-}
-.searchInputWpr + button .svg-inviteUser:hover {
-  fill: #0f9d58;
 }
 .searchBtn {
   position: absolute;

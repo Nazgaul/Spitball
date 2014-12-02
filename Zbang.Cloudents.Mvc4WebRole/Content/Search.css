@@ -2,6 +2,308 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.searchInputWpr {
+  width: 365px;
+  height: 32px;
+  border: none;
+  border-radius: 16px;
+  position: absolute;
+  z-index: 4;
+  top: 67px;
+  left: 500px;
+  margin: 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transition-property: height, width, top, left, border-radius;
+  transition-property: height, width, top, left, border-radius;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+.searchInputWpr.searchLib {
+  left: 550px;
+}
+.searchInputWpr.searchBox {
+  top: 9px;
+  z-index: 12;
+  left: 320px;
+}
+.searchInputWpr.searchUser {
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 72px;
+}
+.searchInputWpr:hover {
+  background: #f1f1f1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  top: 0;
+  left: 0;
+  border-radius: 0;
+}
+.searchInputWpr:hover ~ .siteHeader,
+.searchInputWpr:hover ~ .dashboard,
+.searchInputWpr:hover ~ .union,
+.searchInputWpr:hover ~ .boxPage,
+.searchInputWpr:hover ~ .userPage {
+  display: none !important;
+}
+.searchInputWpr:hover form {
+  width: 80%;
+  height: 160px;
+  -webkit-transform: translate3d(0, 3em, 0);
+  transform: translate3d(0, 3em, 0);
+}
+.searchInputWpr:hover .dashLibSearchInput {
+  font-size: 3.6vw;
+  padding: 0 10% 8px 0;
+}
+.searchInputWpr:hover .searchBtn {
+  pointer-events: auto;
+  width: 60px;
+  height: 60px;
+  -webkit-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
+  transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.searchInputWpr:hover .searchBtn .svg-search {
+  width: 60px;
+  height: 60px;
+}
+.searchInputWpr:hover .searchBtn .svg-search:hover {
+  fill: #3399ff;
+}
+.searchInputWpr:hover .closeSearch {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.searchInputWpr:hover .search-content {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+  /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
+  pointer-events: auto;
+  -webkit-transition: opacity 0.3s 0.5s;
+  transition: opacity 0.3s 0.5s;
+}
+.searchInputWpr:hover .column:first-child {
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+}
+.searchInputWpr:hover .column:nth-child(2) {
+  -webkit-transition-delay: 0.45s;
+  transition-delay: 0.45s;
+}
+.searchInputWpr:hover .column:nth-child(3) {
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.searchInputWpr:hover .column {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.searchInputWpr.hideInput .dashLibSearchInput {
+  color: transparent;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.searchInputWpr form {
+  width: 100%;
+  height: 40px;
+  margin: 0 auto;
+  position: relative;
+  -webkit-transition-property: width, height, -webkit-transform;
+  transition-property: width, height, transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+.searchInputWpr .dashLibSearchInput {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dashLibSearchInput {
+  width: 100%;
+  height: 100%;
+  padding: 0 10% 8px 16px;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  color: #3399ff;
+  -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  max-width: none;
+}
+/* hide placeholder when active in Chrome */
+.gn-search:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.searchBtn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  right: 0;
+  top: 43%;
+  border: none;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  -webkit-transform: translate3d(10px, -50%, 0) scale3d(0.5, 0.5, 1);
+  transform: translate3d(10px, -50%, 0) scale3d(0.5, 0.5, 1);
+}
+.searchBtn .svg-search {
+  width: 40px;
+  height: 40px;
+  fill: #c2c2c2;
+}
+.closeSearch {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transform: scale3d(0, 0, 1);
+  transform: scale3d(0, 0, 1);
+}
+.closeSearch .svg-close {
+  width: 20px;
+  height: 20px;
+}
+.closeSearch .svg-close:hover {
+  fill: #3399ff;
+}
+.search-content {
+  color: #333;
+  margin-top: 4.5em;
+  width: 80%;
+  height: 0;
+  overflow: hidden;
+  padding: 0 10%;
+  background: #f1f1f1;
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+.column {
+  width: 30%;
+  padding: 0 0 6em;
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100px, 0);
+  transform: translateY(100px);
+  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s;
+}
+.column:nth-child(2) {
+  margin: 0 5%;
+}
+.column h2 {
+  font-size: 1em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #3399ff;
+  padding: 0.5em 0;
+}
+.round {
+  border-radius: 50%;
+}
+.searchLink {
+  height: 74px;
+  padding: 0.75em 0.75em 0.75em 70px;
+  display: block;
+  margin: 0.3em 0;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(118, 117, 128, 0.1);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  /*&.noResults
+    {
+        text-align: center;
+        .searchList, h3, .showAll //.showAll prob not necessary
+        {
+            display: none !important;
+        }
+    }*/
+}
+.searchLink:hover,
+.searchLink:focus {
+  background: rgba(118, 117, 128, 0.2);
+}
+.searchLink:hover h3 {
+  color: #3399ff;
+}
+.searchLink img {
+  position: absolute;
+  left: 6px;
+}
+.searchLink h3 {
+  vertical-align: middle;
+  font-size: 1.2em;
+  display: inline-block;
+  font-weight: 700;
+  margin: 0;
+  color: rgba(145, 145, 145, 0.7);
+  max-width: 100%;
+}
+.searchLink mark {
+  background: none;
+}
+.searchLink .userImg {
+  border-radius: 50%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.searchLink .vCentered {
+  max-width: 98%;
+}
+@media screen and (max-width: 53.125em) {
+  .dashLibSearchInput {
+    padding: 0 25% 0 10px;
+  }
+  .searchInputWpr.open .dashLibSearchInput {
+    font-size: 2em;
+  }
+  .searchInputWpr.open .searchBtn {
+    -webkit-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+    transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+  }
+  .column {
+    float: none;
+    width: auto;
+    padding: 0 0 2em;
+  }
+  .column:nth-child(2) {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 60.625em) {
+  .searchInputWpr.open {
+    width: 80%;
+    top: 10%;
+    right: 10%;
+  }
+}
 /*#region search drop down */
 .searchDD {
   display: none;
@@ -28,7 +330,7 @@
   border-radius: 5px 5px 0 0;
 }
 .searchDD .boldPart {
-  background: #cde3f4;
+  font-weight: bold;
   display: inline-block;
   padding-bottom: 4px;
 }
@@ -45,18 +347,6 @@
 .searchDD .showAll:hover {
   background: #f5f5f5;
 }
-.searchDD.noResults {
-  text-align: center;
-  /*.emptySearch
-        {
-            display: inline-block;
-        }*/
-}
-.searchDD.noResults .searchList,
-.searchDD.noResults h3,
-.searchDD.noResults .showAll {
-  display: none !important;
-}
 .searchList {
   margin: 6px 0;
 }
@@ -65,6 +355,10 @@
   overflow: hidden;
   display: block;
   position: relative;
+  /*.userImg
+    {
+        margin-left: 3px; //rtl
+    }*/
 }
 .searchItem:hover {
   background: #0f9d58;
@@ -80,10 +374,6 @@
 }
 .searchItem > .searchTitle {
   margin-left: 56px;
-  /*rtl*/
-}
-.searchItem .userImg {
-  margin-left: 3px;
   /*rtl*/
 }
 .searchDetails {
