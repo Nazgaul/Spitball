@@ -329,14 +329,15 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  /*&:before
+    {
+        width: 13px;
+        height: 13px;
+        background-position: -72px -122px;
+    }*/
 }
 .quizAddQuestion:hover {
   background: #fff;
-}
-.quizAddQuestion:before {
-  width: 13px;
-  height: 13px;
-  background-position: -72px -122px;
 }
 .quizBottom {
   background: #fff;
@@ -470,6 +471,14 @@ body.quiz .modal-backdrop.in {
     .splitHRText:before, .splitHRText:after {
         border-color: @borderColor;
     }*/
+  /*.iconTxt {
+        color: @attentionBlue;
+        &:before {
+            width: 15px;
+            height: 15px;
+            background-position: -55px -121px;
+        }
+    }*/
 }
 .quizQList > li {
   position: relative;
@@ -480,14 +489,6 @@ body.quiz .modal-backdrop.in {
 .quizQList > li:last-child {
   border: none;
   margin-bottom: 20px;
-}
-.quizQList .iconTxt {
-  color: #0371c8;
-}
-.quizQList .iconTxt:before {
-  width: 15px;
-  height: 15px;
-  background-position: -55px -121px;
 }
 .quizQList ~ .btn1 {
   margin-top: -25px;

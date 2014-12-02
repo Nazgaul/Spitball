@@ -1,6 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
+<div class="searchInputWpr searchBox" ng-controller="SearchHeaderCtrl">
+    @{Html.RenderPartial("_BarSearch");}
+</div>
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
@@ -11,8 +13,8 @@
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
             </a>
-            @{Html.RenderPartial("_BarSearch");}
-            <button class="inviteButton" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+
+            <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
             <section class="shareBtn">

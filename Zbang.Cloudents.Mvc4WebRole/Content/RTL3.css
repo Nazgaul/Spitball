@@ -73,10 +73,6 @@
   margin: 20px 0 0 34px;
   /*rtl*/
 }
-.closeModal {
-  left: 20px;
-  right: auto;
-}
 .modal2 {
   right: 0;
   /*rtl*/
@@ -481,9 +477,6 @@
 .recommended .rcDetails {
   padding: 15px 69px 0 0;
 }
-.recommended .rcDetails.ghost {
-  text-align: right;
-}
 .recommended img {
   right: 8px;
   left: auto;
@@ -709,10 +702,11 @@
   /*rtl*/
   left: auto;
 }
-.boxItemsHeader .iconTxt {
-  margin: 0 0 0 15px;
-  /*rtl*/
-}
+/*.boxItemsHeader {
+    .iconTxt {
+        margin: 0 0 0 15px; //rtl
+    }
+}*/
 .listViewBtn {
   margin: 2px 10px 0 20px;
 }
@@ -1386,34 +1380,84 @@
 /*#endregion */
 /*#endregion */
 /*#region Search page and drop down */
-/*#region search drop down */
-.searchItem > .searchTitle {
-  margin: 0 56px 0 0;
-  /*rtl*/
+/*#region search overlay */
+.searchInputWpr {
+  right: 550px;
+  left: auto;
+  -webkit-transition-property: height, width, top, right, border-radius;
+  transition-property: height, width, top, right, border-radius;
 }
-.searchItem .userImg {
-  margin: 0 3px 0 0;
-  /*rtl*/
-}
-.searchDetails {
-  padding: 0 15px 0 0;
-  /*rtl*/
-}
-.otherUni {
-  right: 71px;
-  /*rtl*/
+.searchInputWpr:hover {
+  right: 0;
   left: auto;
 }
-.boxLoc:before {
-  margin: 0 0 0 4px;
-  /*rtl*/
+.searchInputWpr:hover .dashLibSearchInput {
+  padding: 0 0 8px 10%;
 }
-.dpt .searchDetails:before {
-  float: right;
-  /*rtl*/
-  margin: 0 0 0 16px;
-  /*rtl*/
+.searchInputWpr:hover .searchBtn {
+  -webkit-transform: translate3d(30px, -50%, 0) scale3d(1, 1, 1);
+  transform: translate3d(30px, -50%, 0) scale3d(1, 1, 1);
 }
+.dashLibSearchInput {
+  padding: 0 16px 8px 10%;
+}
+.searchBtn {
+  left: 0;
+  right: auto;
+  -webkit-transform: translate3d(-10px, -50%, 0) scale3d(0.5, 0.5, 1);
+  transform: translate3d(-10px, -50%, 0) scale3d(0.5, 0.5, 1);
+}
+.closeSearch {
+  left: 1em;
+  right: auto;
+}
+.searchLink {
+  padding: 0.75em 70px 0.75em 0.75em;
+}
+.searchLink img {
+  right: 6px;
+  left: auto;
+}
+@media screen and (max-width: 53.125em) {
+  .dashLibSearchInput {
+    padding: 0 10px 0 25%;
+  }
+}
+@media screen and (max-width: 60.625em) {
+  .searchInputWpr.open {
+    left: 10%;
+    right: auto;
+  }
+}
+/*.searchItem {
+    > .searchTitle {
+        margin: 0 56px 0 0; //rtl
+    }
+}
+
+.searchDetails {
+    padding: 0 15px 0 0; //rtl
+}
+
+.otherUni {
+    right: 71px; //rtl
+    left: auto;
+}
+
+.boxLoc {
+    &:before {
+        margin: 0 0 0 4px; //rtl
+    }
+}
+
+.dpt {
+    .searchDetails {
+        &:before {
+            float: right; //rtl
+            margin: 0 0 0 16px; //rtl
+        }
+    }
+}*/
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */
 .searchPage:after {

@@ -110,11 +110,13 @@
   padding-right: 10px;
 }
 @media (max-width: 1145px) {
+  .boxItemsHeader.boxItemsHeader {
+    /*.iconTxt {
+            margin-right: 3px;
+        }*/
+  }
   .boxItemsHeader.boxItemsHeader button {
     font-size: 12px;
-  }
-  .boxItemsHeader.boxItemsHeader .iconTxt {
-    margin-right: 3px;
   }
 }
 /*#endregion */

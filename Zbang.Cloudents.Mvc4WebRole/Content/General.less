@@ -424,6 +424,11 @@ input[type="radio"] {
     top: 15px;
     right: 12px; /*rtl*/
 }
+.closeModal {
+    position: absolute;
+    top: 12px;
+    right: 20px; //rtl
+}
 .popupWrppr, .modal {
     .cancel {
         margin-left: 10px; /*rtl*/
@@ -937,33 +942,39 @@ iframe .registerFirst.store {
     bottom: 0;
     margin: auto;
     display: inline-block;
-    width: 11px;
-    height: 22px;
-    background: @common-sprite -130px -1px no-repeat;
     left: 16px; /*rtl*/
     &:after {
         .pseudo;
-        opacity: .5;
         width: 1px;
-        background: #fff;
         height: 30px;
-        left: 24px; /*rtl*/
+        background: #fff;
         position: relative;
-        top: -3px;
+        left: 12px; //rtl
+        top: 6px;
+        opacity: .5; 
+    }
+}
+.fbImg {
+    .fbIcon {
+        width: 11px;
+        height: 22px;
+        fill: #fff;
+        position: relative;
+        top: 2px;
     }
 }
 .emailImg {
-    //width: 22px;
-    //height: 17px;
     background-position: -131px -24px;
-    width: 31px;
-	height: 26px;
-    background: url(/Images/Store/social.png?v=1) 0 -317px no-repeat;
-    left: 4px; /*rtl*/
+    left: 8px; //rtl
     &:after {
         background: #676767;
-        top: -2px;
-        left: 35px; /*rtl*/
+        top: 5px;
+        left: 6px; //rtl
+    }
+    .emailIcon {
+        width: 24px;
+        height: 20px;
+        fill: silver;
     }
 }
 .signIn, .register {
@@ -1392,12 +1403,12 @@ aside.sideBar {
     }
 }
 
-.moreArrow:after { // ^ and v
+/*.moreArrow:after { // ^ and v
     .pseudo;
     width: 9px;
     height: 7px;
     background: @common-sprite -98px -49px no-repeat;
-}
+}*/
 
 
 /*#endregion */
@@ -1767,7 +1778,7 @@ aside.sideBar {
     border-radius: 3px;
 }
 
-.tooltip-arrow, .arrowBottom:before {
+.tooltip-arrow, .boxTt:before {
     position: absolute;
     top: -4px;
     -moz-transform: rotate(45deg);
@@ -1802,7 +1813,7 @@ aside.sideBar {
         margin: auto;
     }
 }
-.arrowBottom {
+.boxTt {
     position: fixed;
     z-index: 5;
     background: #fff;
@@ -1819,6 +1830,15 @@ aside.sideBar {
         border-left: 1px solid @borderColor;
         border-top: 1px solid @borderColor;
         top: -6px;
+    }
+    &.top {
+        &:before {
+            top: auto;
+            bottom: -6px;
+            border: none;
+            border-right: 1px solid @borderColor;
+            border-bottom: 1px solid @borderColor;
+        }
     }
 }
 /*#endregion */
@@ -2095,23 +2115,32 @@ select.inputText {
 }
 
 .barActions {
-    //width: 170px;
     width: 100px;
     position: relative;
-    //top: 8px;
     margin-top:8px;
     height: 48px; //
-    /*&:before { // Temporarily commented out (store separator)
-        .pseudo;
-        position: absolute;
-        width: 1px;
-        height: 36px;
-        background: @color;
-        top: 8px;
-        left: 60px; //rtl
-    }*/
+    ~ button .svg-inviteUser {
+        margin-top: 20px;
+        //position: relative;
+        //top: 5px;
+        &:hover {
+            fill: @itemBlue;
+        }
+    }
+    
 }
-
+.inviteUsersBtn {
+    position: absolute;
+    left: 600px; //rtl
+    .boxPage & {
+        left: 700px; //rtl
+        top: 12px;
+    }
+    .userPage & {
+        right: 120px; //rtl
+        top: 5px;
+    }
+}
 .noResults {
     text-align: center !important; // need important because list itself is aligned left 
     background: #fff;// !important;
@@ -2174,7 +2203,6 @@ select.inputText {
 }
 
 .ghost {
-    text-align: center;
     &:before {
         .pseudo;
         height: 100%;
@@ -2186,12 +2214,12 @@ select.inputText {
     }
 }
 
-.iconTxt:before {
+/*.iconTxt:before {
     .pseudo;
     vertical-align: middle;
     background: @common-sprite no-repeat; // override for different sprites
-    margin-right: 6px; /*rtl*/
-}
+    margin-right: 6px; //rtl
+}*/
 
 .showAll {
     color: @attentionBlue;
