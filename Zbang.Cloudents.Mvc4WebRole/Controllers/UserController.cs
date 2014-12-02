@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class UserController : BaseController
     {
         //public const int AdminReputation = 1000000;
-       
+
         [NoCache]
         public async Task<ActionResult> Index(long userId, string userName)
         {
@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.Admin = false;
 
             var model = await GetUserProfile(id);
-          
+
             if (UrlBuilder.NameToQueryString(model.Name) != userName)
             {
                 return RedirectToAction("Index", "Error");
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> MinProfile(long userId)
         {
-            return Json(new JsonResponse(true, await GetUserProfile(userId)));
+            return JsonOk(await GetUserProfile(userId));
         }
 
         [HttpGet]
@@ -81,16 +81,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     friendFriends = taskFriendData.Result.Where(w => w.Id != User.GetUserId());
                 }
-                return Json(new JsonResponse(true, new
+                return JsonOk(new
                 {
                     my = taskUserData.Result,
                     user = friendFriends
-                }));
+                });
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("GetUserFriends user {0}", User.Identity.Name), ex);
-                return Json(new JsonResponse(false, "Problem with get user friends"));
+                return JsonError("Problem with get user friends");
             }
         }
 
@@ -103,12 +103,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
-                return Json(new JsonResponse(true, model));
+                return JsonOk(model);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -128,12 +128,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var universityId = userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
-                return Json(new JsonResponse(true, model));
+                return JsonOk(model);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
         [HttpGet]
@@ -150,7 +150,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var universityId = userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);
             var result = await ZboxReadService.GetUniversityUsers(query);
-            return Json(new JsonResponse(true, result));
+            return JsonOk(result);
         }
         #endregion
 
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("User/OwnedInvites user {0}", User.Identity.Name), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
             var model = await ZboxReadService.GetUserWithFriendActivity(query);
-            return Json(new JsonResponse(true, model));
+            return JsonOk(model);
         }
 
         [HttpPost]
@@ -186,7 +186,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
             try
             {
@@ -201,13 +201,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         await
                             httpClient.GetStringAsync(url);
                     //return Content(result, "text/json");
-                    return Json(new JsonResponse(true, result));
+                    return JsonOk(result);
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("on google contact token" + token, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
 
 
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             var query = new GetUserDetailsQuery(userid);
             var result = ZboxReadService.GetUserBoxesNotification(query);
-            return Json(new JsonResponse(true, result));
+            return JsonOk(result);
         }
 
 
@@ -231,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Updates()
         {
             var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetUserId()));
-            return Json(new JsonResponse(true, model));
+            return JsonOk(model);
         }
     }
 }

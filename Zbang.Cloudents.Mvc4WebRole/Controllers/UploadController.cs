@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             try
             {
@@ -227,18 +227,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                  {
                      DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result.Link.Box.Id, itemId = result.Link.Id })
                  };
-                return Json(new JsonResponse(true, item));
+                return JsonOk(item);
             }
             catch (DuplicateNameException)
             {
-                //TODO: remove that
-                BaseControllerResources.Culture = Thread.CurrentThread.CurrentCulture;
-                return Json(new JsonResponse(false, BoxControllerResources.LinkExists));
+                return JsonError(BoxControllerResources.LinkExists);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.FileUrl), ex);
-                return Json(new JsonResponse(false, BoxControllerResources.ProblemUrl));
+                return JsonError(BoxControllerResources.ProblemUrl);
             }
         }
 
@@ -267,7 +265,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
                     new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                name,
@@ -280,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result.File.Id })
             };
-            return Json(new JsonResponse(true, fileDto));
+            return JsonOk(fileDto);
 
 
         }

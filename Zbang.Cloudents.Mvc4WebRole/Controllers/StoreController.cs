@@ -82,14 +82,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Products(int? categoryId, int? universityId, int? producerId)
         {
             var products = await ZboxReadService.GetProducts(new GetStoreProductsByCategoryQuery(categoryId, universityId, producerId));
-            return Json(new JsonResponse(true, products));
+            return JsonOk(products);
         }
 
         [HttpGet]
         public async Task<ActionResult> ValidCodeCoupon(int code)
         {
             var retVal = await ZboxReadService.ValidateCoupon(code);
-            return Json(new JsonResponse(true, new { isValid = retVal }));
+            return JsonOk(new { isValid = retVal });
         }
 
         [HttpGet, StoreCategories]
@@ -113,11 +113,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(term))
             {
-                return Json(new JsonResponse(false, "Provide a term"));
+                return JsonError("Provide a term");
             }
             var query = new SearchProductQuery(term, universityId);
             var products = await ZboxReadService.SearchProducts(query);
-            return Json(new JsonResponse(true, products));
+            return JsonOk(products);
 
         }
 
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             await m_QueueProvider.Value.InsertMessageToStoreAsync(new Zbox.Infrastructure.Transport.StoreOrderData(
                 model.ProductId,
@@ -162,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Phone1, model.Phone2,
                 model.Features,
                 model.NumberOfPayments));
-            return Json(new JsonResponse(true, new { url = Url.RouteUrl("StoreThanksYou") }));
+            return JsonOk(new { url = Url.RouteUrl("StoreThanksYou") });
         }
 
         [HttpGet, StoreCategories]
@@ -186,12 +186,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             m_QueueProvider.Value.InsertMessageToStoreAsync(
                 new Zbox.Infrastructure.Transport.StoreContactData(model.Name, model.Phone, model.University,
                     model.Email, model.Text));
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
         //[HttpGet, StoreCategories]
