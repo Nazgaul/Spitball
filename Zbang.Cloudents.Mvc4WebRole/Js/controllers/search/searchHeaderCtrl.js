@@ -124,6 +124,13 @@ app.controller('SearchHeaderCtrl',
             };
         });
 
+        $scope.openSearch = function () {
+            $scope.params.isOpen = true;
+        };
+
+        $scope.cancel = function () {
+            $scope.params.isOpen = false;
+        };
         function parseData(data) {
             if (!lastResultCount) {
                 lastResultCount = $scope.resultCount();
@@ -138,9 +145,16 @@ app.controller('SearchHeaderCtrl',
             appendData();
 
             function appendData() {
+
+
                 var maxCategoryItems = 0,
                     maxOtherItems = 0,
                     emptyCategories = (data.items.length === 0) + (data.boxes.length === 0) + (data.users.length === 0);
+
+                if (emptyCategories === 0 && data.otherItems.length === 0) {
+                    $scope.searchResults.otherItems = $scope.searchResults.people = $scope.searchResults.items = $scope.searchResults.boxes = null;
+                    return;
+                }
 
                 switch (emptyCategories) {
                     case 0:

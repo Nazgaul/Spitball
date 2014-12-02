@@ -35,7 +35,7 @@
   right: 0;
   top: 72px;
 }
-.searchInputWpr:hover {
+.searchInputWpr.open {
   background: #f1f1f1;
   width: 100%;
   height: 100%;
@@ -44,24 +44,24 @@
   left: 0;
   border-radius: 0;
 }
-.searchInputWpr:hover ~ .siteHeader,
-.searchInputWpr:hover ~ .dashboard,
-.searchInputWpr:hover ~ .union,
-.searchInputWpr:hover ~ .boxPage,
-.searchInputWpr:hover ~ .userPage {
+.searchInputWpr.open ~ .siteHeader,
+.searchInputWpr.open ~ .dashboard,
+.searchInputWpr.open ~ .union,
+.searchInputWpr.open ~ .boxPage,
+.searchInputWpr.open ~ .userPage {
   display: none !important;
 }
-.searchInputWpr:hover form {
+.searchInputWpr.open form {
   width: 80%;
   height: 160px;
   -webkit-transform: translate3d(0, 3em, 0);
   transform: translate3d(0, 3em, 0);
 }
-.searchInputWpr:hover .dashLibSearchInput {
+.searchInputWpr.open .dashLibSearchInput {
   font-size: 3.6vw;
   padding: 0 10% 8px 0;
 }
-.searchInputWpr:hover .searchBtn {
+.searchInputWpr.open .searchBtn {
   pointer-events: auto;
   width: 60px;
   height: 60px;
@@ -72,14 +72,14 @@
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
-.searchInputWpr:hover .searchBtn .svg-search {
+.searchInputWpr.open .searchBtn .svg-search {
   width: 60px;
   height: 60px;
 }
-.searchInputWpr:hover .searchBtn .svg-search:hover {
+.searchInputWpr.open .searchBtn .svg-search:hover {
   fill: #3399ff;
 }
-.searchInputWpr:hover .closeSearch {
+.searchInputWpr.open .closeSearch {
   opacity: 1;
   pointer-events: auto;
   -webkit-transform: scale3d(1, 1, 1);
@@ -89,7 +89,7 @@
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
-.searchInputWpr:hover .search-content {
+.searchInputWpr.open .search-content {
   opacity: 1;
   height: auto;
   overflow: visible;
@@ -98,19 +98,19 @@
   -webkit-transition: opacity 0.3s 0.5s;
   transition: opacity 0.3s 0.5s;
 }
-.searchInputWpr:hover .column:first-child {
+.searchInputWpr.open .column:first-child {
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
 }
-.searchInputWpr:hover .column:nth-child(2) {
+.searchInputWpr.open .column:nth-child(2) {
   -webkit-transition-delay: 0.45s;
   transition-delay: 0.45s;
 }
-.searchInputWpr:hover .column:nth-child(3) {
+.searchInputWpr.open .column:nth-child(3) {
   -webkit-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
-.searchInputWpr:hover .column {
+.searchInputWpr.open .column {
   opacity: 1;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
@@ -685,4 +685,3 @@
   border: 1px solid #c2c2c2;
   color: #0371c8;
 }
-/*#endregion */

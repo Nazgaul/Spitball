@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div class="searchInputWpr searchBox" ng-controller="SearchHeaderCtrl">
+<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
     @{Html.RenderPartial("_BarSearch");}
 </div>
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
