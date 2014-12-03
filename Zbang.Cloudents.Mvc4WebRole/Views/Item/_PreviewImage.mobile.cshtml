@@ -1,9 +1,7 @@
-﻿@model IEnumerable<string>
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ItemPreview
 
 
-@foreach (var item in Model)
+@foreach (var item in Model.Src)
 {
-    
     <img src="@item" alt="" />
-
 }
