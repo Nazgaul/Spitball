@@ -59,7 +59,7 @@
                     
                     offset = $(window).height() - (pos.bottom + tooltipElement.outerHeight(true));
                     if (offset < 0) {
-                        positionY = pos.top;
+                        positionY = pos.top - tooltipElement.height() - 15;
                         tooltipElement.addClass('top');
                     } else {
                         positionY = pos.bottom - 15;
