@@ -19,7 +19,7 @@
 
     <many-to-one name="Owner" class="User" column="UserId" not-null="true" foreign-key="userIdQuiz"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdQuiz"/>
-
+    <many-to-one column="QuestionId" class="Comment" name="Comment" />
 
     <component name="DateTimeUser" class="UserTimeDetails">
       <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />

@@ -27,6 +27,7 @@ body {
 }
 .siteHeader.headerBox {
   background: #282828;
+  min-width: 715px;
 }
 .siteHeader.headerBox .backWpr {
   margin: 8px 0 0 25px;
@@ -394,4 +395,3 @@ body {
 .mCSB_draggerRail {
   display: none;
 }
-/*#endregion */

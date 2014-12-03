@@ -25,11 +25,25 @@
         top: 9px;
         z-index: 12;
         left: 320px; //rtl
+        max-width: 365px;
+        width: ~'-webkit-calc(100% - 675px)';
+        width: ~'calc(100% - 675px)';
+        min-width: 40px;
+        position: fixed;
+
     }
     &.searchUser {
-        margin: auto;
-        left:0;right:0;
+        //margin: auto;
+        //left:0;right:0;
+        left: auto;
+        right: ~'-webkit-calc(50% - 243px)'; //rtl
+        right: ~'calc(50% - 243px)'; //rtl
         top: 72px;
+        min-width: 40px;
+        max-width: 365px;
+        width: ~'-webkit-calc(100% - 539px)';
+        width: ~'calc(100% - 539px)';
+
     }
     &.open {
         background: #f1f1f1;
@@ -135,7 +149,7 @@
 .dashLibSearchInput {
 	width: 100%;
 	height: 100%;
-	padding: 0 10% 8px 16px; //rtl 
+	padding: 0 40px 8px 16px; //rtl 
     border-radius: 0; //override
 	border: none;
 	background: transparent;
@@ -164,6 +178,8 @@
 	//opacity: 0;
 	-webkit-transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
 	transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
+    background: #fff;
+    border-radius: 50%;
     .svg-search {
         width: 40px;
         height: 40px;
@@ -284,11 +300,12 @@
 
 @media screen and (max-width: 53.125em) {
 	.dashLibSearchInput {
-		padding: 0 25% 0 10px;
+		//padding: 0 25% 0 10px;
 	}
 	.searchInputWpr.open {
         .dashLibSearchInput {
 		    font-size: 2em;
+            padding: 0 25% 0 10px;
 	    }
         .searchBtn {
 		    -webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);

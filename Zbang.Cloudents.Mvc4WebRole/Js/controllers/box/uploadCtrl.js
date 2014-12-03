@@ -2,7 +2,8 @@
     ['$scope', '$rootScope', '$q', 'sModal', 'sFacebook', '$filter',
         'sDropbox', 'sGoogle', 'sUpload', '$timeout','$analytics','sNotify','sGmfcnHandler',
 
-    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout, $analytics,sNotify,sGmfnHandler) {
+    function ($scope, $rootScope, $q, sModal, sFacebook, $filter, sDropbox, sGoogle, sUpload, $timeout,
+        $analytics, sNotify, sGmfnHandler) {
         "use strict";
         $scope.sources = {
             dropboxLoaded: false,
@@ -68,7 +69,7 @@
                                 newQuestion: $scope.newQuestion
                             }
                             
-                            sGmfcnHandler.addPoints({ type: 'itemUpload', amount: 1 });
+                            sGmfnHandler.addPoints({ type: 'itemUpload', amount: 1 });
 
 
                             $rootScope.$broadcast('ItemUploaded', sentObj);
@@ -119,7 +120,7 @@
                             }
 
                             if (_.last(files) === fileData) {
-                                sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
+                                sGmfnHandler.addPoints({ type: 'itemUpload', amount: files.length });
                                 
                             }
 
@@ -178,7 +179,7 @@
 
 
                                 if (_.last(files) === fileData) {
-                                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: files.length });
+                                    sGmfnHandler.addPoints({ type: 'itemUpload', amount: files.length });
                                 }
 
                                 $rootScope.$broadcast('ItemUploaded', sentObj);

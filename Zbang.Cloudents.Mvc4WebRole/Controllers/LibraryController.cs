@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -15,7 +16,6 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -325,7 +325,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var guid = GuidEncoder.TryParseNullableGuid(model.DepartmentId);
             if (!guid.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Departmentid is required");
+                ModelState.AddModelError(string.Empty, "Department id is required");
                 return Json(new JsonResponse(false, GetModelStateErrors()));
             }
             try
@@ -459,15 +459,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> RussianDepartments()
         {
-
-            //var query = new GetUserMinProfileQuery(User.GetUserId());
-            //var result = await ZboxReadService.GetUserMinProfile(query);
-
-
-            //if (result.Score < UserController.AdminReputation)
-            //{
-            //    return Json(new JsonResponse(false));
-            //}
             var userDetail = FormsAuthenticationService.GetUserData();
             var universityId = userDetail.UniversityId.Value;
 

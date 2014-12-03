@@ -4,6 +4,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -18,17 +19,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
-        private readonly IRepository<Item> m_ItemRepository;
+        private readonly IItemRepository m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IBlobProvider m_BlobProvider;
+        private readonly IIdGenerator m_IdGenerator;
+        private readonly IRepository<Comment> m_CommentRepository;
 
 
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
-            IRepository<Item> itemRepository,
+            IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
             IRepository<Reputation> reputationRepository,
-            IBlobProvider blobProvider)
+            IBlobProvider blobProvider, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
@@ -37,6 +40,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemTabRepository = itemTabRepository;
             m_ReputationRepository = reputationRepository;
             m_BlobProvider = blobProvider;
+            m_IdGenerator = idGenerator;
+            m_CommentRepository = commentRepository;
         }
 
         public AddLinkToBoxCommandResult Execute(AddLinkToBoxCommand command)
@@ -68,6 +73,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository.Save(link, true);
             link.GenerateUrl();
             m_ItemRepository.Save(link);
+
+            if (!command.IsQuestion)
+            {
+                var comment = m_ItemRepository.GetPreviousCommentId(box) ??
+                             new Comment(user, null, box, m_IdGenerator.GetId(), null);
+                comment.AddItem(link);
+                m_CommentRepository.Save(comment);
+            }
 
             box.UserTime.UpdateUserTime(user.Name);
             m_BoxRepository.Save(box, true);

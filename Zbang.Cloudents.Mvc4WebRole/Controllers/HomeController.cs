@@ -40,6 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[ZboxAuthorize]
         [NoUniversity]
         [NoCache]
+        [PreserveQueryString]
         public ActionResult Index(long? universityId)
         {
             if (!User.Identity.IsAuthenticated && Request.UserAgent != null &&

@@ -32,6 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [NoCache]
         [BoxPermission("boxId")]
+        [PreserveQueryString]
         public async Task<ActionResult> IndexDesktop(long boxId)
         {
             var userId = User.GetUserId(false);
@@ -71,7 +72,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxDoesntExistException)
             {
-                //TraceLog.WriteError("Box Index desktop", ex);
                 return RedirectToAction("Index", "Error");
             }
             catch (Exception ex)
@@ -82,11 +82,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-            Location = OutputCacheLocation.ServerAndClient,
-            VaryByCustom = CustomCacheKeys.Lang
-            , Options = OutputCacheOptions.IgnoreQueryString,
-            VaryByParam = "none")]
+        [DonutOutputCache(CacheProfile = "PartialPage",
+            Options = OutputCacheOptions.IgnoreQueryString
+            )]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");

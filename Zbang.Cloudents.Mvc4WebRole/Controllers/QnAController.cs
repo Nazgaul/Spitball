@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public JsonResult AddQuestion(Question model)
         {
-            if (string.IsNullOrEmpty(model.Content) && (model.Files==null || model.Files.Length == 0))
+            if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
                 ModelState.AddModelError(string.Empty, "You need to write something or post files");
             }
@@ -69,7 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-       
+
 
         [ZboxAuthorize]
         [HttpPost]
@@ -120,10 +120,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal =
-                  await  ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
                         User.GetUserId(false)));
-              
-                return Json(new JsonResponse(true, retVal));
+
+                return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)
             {
