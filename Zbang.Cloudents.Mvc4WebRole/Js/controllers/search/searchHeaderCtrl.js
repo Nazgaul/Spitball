@@ -19,16 +19,16 @@ app.controller('SearchHeaderCtrl',
         $scope.formData = {};
 
 
-        $timeout(function () {
-            if ($location.search()['q']) {
-                var query = $location.search()['q'];
-                if (query) {
-                    $scope.formData.query = query;
-                    $scope.params.preventDropDown = true;
-                    $scope.search();
-                }
-            }
-        });
+        //$timeout(function () {
+        //    if ($location.search()['q']) {
+        //        var query = $location.search()['q'];
+        //        if (query) {
+        //            $scope.formData.query = query;
+        //            $scope.params.preventDropDown = true;
+        //            $scope.search();
+        //        }
+        //    }
+        //});
 
 
         var lastQuery, lastResultCount;
@@ -108,21 +108,21 @@ app.controller('SearchHeaderCtrl',
             $scope.params.textDirection = textDirectionService.isRTL(v) ? 'rtl' : 'ltr';
         });
 
-        $scope.$on('$routeChangeStart', function () {
-            $scope.params.showDropdown = false;
-            $scope.formData.query = null;
-        });
+        //$scope.$on('$routeChangeStart', function () {
+        //    $scope.params.showDropdown = false;
+        //    $scope.formData.query = null;
+        //});
 
-        $scope.$on('$routeUpdate', function () {
-            $scope.params.showDropdown = false;
-            $scope.params.preventDropDown = true;
-            $scope.searchResults = {
-                boxes: [],
-                items: [],
-                people: [],
-                otherItems: []
-            };
-        });
+        //$scope.$on('$routeUpdate', function () {
+        //    $scope.params.showDropdown = false;
+        //    $scope.params.preventDropDown = true;
+        //    $scope.searchResults = {
+        //        boxes: [],
+        //        items: [],
+        //        people: [],
+        //        otherItems: []
+        //    };
+        //});
 
         $scope.openSearch = function () {
             $scope.params.isOpen = true;
@@ -132,8 +132,8 @@ app.controller('SearchHeaderCtrl',
             $scope.params.isOpen = false;
         };
         function parseData(data) {
-            if (!lastResultCount) {
-                lastResultCount = $scope.resultCount();
+            if (!lastResultCount) {                
+                lastResultCount = $scope.resultCount();                
                 appendData();
                 return;
             }
@@ -151,10 +151,6 @@ app.controller('SearchHeaderCtrl',
                     maxOtherItems = 0,
                     emptyCategories = (data.items.length === 0) + (data.boxes.length === 0) + (data.users.length === 0);
 
-                if (emptyCategories === 0 && data.otherItems.length === 0) {
-                    $scope.searchResults.otherItems = $scope.searchResults.people = $scope.searchResults.items = $scope.searchResults.boxes = null;
-                    return;
-                }
 
                 switch (emptyCategories) {
                     case 0:

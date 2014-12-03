@@ -13,19 +13,19 @@
     <section class="column lFloat" ng-if="searchResults.boxes.length">
         <h2>@SharedResources.Courses / @SharedResources.GroupBoxes</h2>
         <ul>
-            <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+            <li ng-repeat="box in searchResults.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
         </ul>
     </section>
     <section class="column lFloat" ng-if="searchResults.items.length">
         <h2>@SharedResources.Materials</h2>
         <ul>
-            <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+            <li ng-repeat="item in searchResults.items track by item.id" ng-include="'itemHeaderSearch'"></li>
         </ul>
     </section>
     <section class="column lFloat" ng-if="searchResults.people.length">
         <h2>@SharedResources.People</h2>
         <ul>
-            <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+            <li ng-repeat="person in searchResults.people track by person.id" ng-include="'personHeaderSearch'"></li>
         </ul>
     </section>
     @*<div ng-if="searchResults.otherItems.length">
