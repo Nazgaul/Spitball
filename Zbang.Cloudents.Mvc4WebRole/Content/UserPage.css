@@ -59,7 +59,7 @@
   font-weight: 300;
 }
 .userPage .box {
-  width: 220px;
+  width: 207px;
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -403,6 +403,7 @@
 }
 .upDetails {
   display: inline-block;
+  max-width: 235px;
 }
 .upContent {
   width: 732px;
@@ -412,6 +413,9 @@
 }
 .upContent .boxImg.boxImg {
   height: 100%;
+}
+.upCourses {
+  margin-top: 75px;
 }
 .upCourses .coursesEmpty {
   height: 150px;
@@ -943,4 +947,3 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/*#endregion*/

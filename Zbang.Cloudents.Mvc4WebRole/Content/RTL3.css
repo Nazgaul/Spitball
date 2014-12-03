@@ -1399,7 +1399,7 @@
   transform: translate3d(30px, -50%, 0) scale3d(1, 1, 1);
 }
 .dashLibSearchInput {
-  padding: 0 16px 8px 10%;
+  padding: 0 16px 8px 40px;
 }
 .searchBtn {
   left: 0;
@@ -2055,5 +2055,3 @@ body.quiz .shareBtn {
 .quizPopupTxtWpr {
   text-align: right;
 }
-/*#endregion */
-/*#endregion */

@@ -2023,6 +2023,7 @@ select.inputText {
 }
 .userPage .inviteUsersBtn {
   right: 120px;
+  left: auto;
   top: 5px;
 }
 .noResults {
