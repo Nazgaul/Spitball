@@ -5,8 +5,9 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddLinkToBoxCommand : ICommand
     {
-        public AddLinkToBoxCommand(long userId, long boxId, string url, Guid? tabId,string urlTitle)
+        public AddLinkToBoxCommand(long userId, long boxId, string url, Guid? tabId,string urlTitle, bool isQuestion)
         {
+            IsQuestion = isQuestion;
             UserId = userId;
             BoxId = boxId;
             Url = url;
@@ -20,6 +21,8 @@ namespace Zbang.Zbox.Domain.Commands
         public Guid? TabId { get; private set; }
 
         public string UrlTitle { get; private set; }
+
+        public bool IsQuestion { get; private set; }
         
     }
 }

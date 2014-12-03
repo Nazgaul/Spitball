@@ -55,6 +55,8 @@ namespace Zbang.Zbox.Domain
         public virtual int Average { get; set; }
         public virtual double Stdevp { get; set; }
 
+        public virtual Comment Comment { get; set; }
+
         public virtual void GenerateUrl()
         {
             if (Id == 0)

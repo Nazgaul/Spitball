@@ -4,6 +4,7 @@ using System.Text;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -15,16 +16,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IBoxRepository m_BoxRepository;
+        private readonly IItemRepository m_ItemRepository;
+        private readonly IIdGenerator m_IdGenerator;
+        private readonly IRepository<Comment> m_CommentRepository;
 
         public SaveQuizCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
             IQueueProvider queueProvider,
-            IBoxRepository boxRepository
-            )
+            IBoxRepository boxRepository, IItemRepository itemRepository, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
             m_BoxRepository = boxRepository;
+            m_ItemRepository = itemRepository;
+            m_IdGenerator = idGenerator;
+            m_CommentRepository = commentRepository;
         }
         public SaveQuizCommandResult Execute(SaveQuizCommand message)
         {
@@ -34,8 +40,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("user is not owner of quiz");
             }
-            //var questions = m_QuestionRepository.GetQuerable().Where(w => w.Quiz == quiz);
-            //var answers = m_AnswerRepository.GetQuerable().Where(w => w.Quiz == quiz);
 
             if (string.IsNullOrEmpty(quiz.Name))
             {
@@ -57,22 +61,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 }
                 if (question.Answers.Any(w => w.Text == null))
                 {
-                    throw new ArgumentException("question answers dont have text");
+                    throw new ArgumentException("question answers don't have text");
                 }
 
             }
-            //var wrongQuestions = questions.Where(w => w.Text == null || w.RightAnswer == null).ToList();
-
-            //if (wrongQuestions.Count > 0)
-            //{
-            //    throw new ArgumentException("question is not right");
-            //}
-
-            //var wrongAnswers = answers.Where(w => w.Text == null).ToList();
-            //if (wrongAnswers.Count > 0)
-            //{
-            //    throw new ArgumentException("answers is not right");
-            //}
 
             quiz.Publish = true;
             var sb = new StringBuilder();
@@ -80,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 sb.AppendFormat("{0} ", question.Text);
             }
-            
+
             quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));
             m_QueueProvider.InsertMessageToTranaction(new UpdateData(quiz.Owner.Id, quiz.Box.Id, null, null, null, quiz.Id));
             quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Email);
@@ -88,6 +80,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             quiz.GenerateUrl();
             m_BoxRepository.Save(quiz.Box);
             m_QuizRepository.Save(quiz);
+
+            var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box) ??
+                         new Comment(quiz.Owner, null, quiz.Box, m_IdGenerator.GetId(), null);
+            comment.AddQuiz(quiz);
+            m_CommentRepository.Save(comment);
 
             return new SaveQuizCommandResult(quiz.Url);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -9,7 +8,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Queries;
@@ -21,15 +19,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
         private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
 
 
         public ShareController(
             Lazy<IShortCodesCache> shortToLongCache,
-            Lazy<IInviteLinkDecrypt> inviteLinkDecrypt, Lazy<IIdGenerator> idGenerator)
+            Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
         {
             m_InviteLinkDecrypt = inviteLinkDecrypt;
-            m_IdGenerator = idGenerator;
             m_ShortCodesCache = shortToLongCache;
         }
 
@@ -158,7 +154,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //TODO: partial
         [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
         public ActionResult MessagePartial()
@@ -194,24 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult DeclineInvatation(long boxUid)
-        //{
-        //    try
-        //    {
-        //        var userid = User.GetUserId();
-        //        var command = new DeleteUserFromBoxCommand(userid, userid, boxUid);
-        //        ZboxWriteService.DeleteUserFromBox(command);
-        //        //RemoveInvitesFromSession();
-        //        return Json(new JsonResponse(true));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("DeclineInvatation user: {0} BoxUid: {1}", User.GetUserId(), boxUid), ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
+        
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]

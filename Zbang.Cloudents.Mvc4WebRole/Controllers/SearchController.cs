@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-       
+
             if (Request.IsAjaxRequest())
             {
                 return PartialView();
@@ -39,16 +39,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (string.IsNullOrWhiteSpace(q))
                 {
-                    return Json(new JsonResponse(false, "need query"));
+                    return JsonError("need query");
                 }
                 var result = await PerformSearch(q, false, 0);
 
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On Seach/DropDown q: " + q + "userid: " + User.GetUserId(), ex);
-                return Json(new JsonResponse(false, "need query"));
+                return JsonError("need query");
             }
         }
 
@@ -59,16 +59,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (string.IsNullOrWhiteSpace(q))
                 {
-                    return Json(new JsonResponse(false, "need query"));
+                    return JsonError("need query");
                 }
                 var result = await PerformSearch(q, true, page);
 
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On Seach/Data q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
-                return Json(new JsonResponse(false, "need query"));
+                return JsonError("need query");
             }
         }
         [NonAction]
@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return null;
         }
-       
+
 
 
         [HttpGet]
@@ -93,21 +93,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (string.IsNullOrWhiteSpace(q))
                 {
-                    return Json(new JsonResponse(false, "need query"));
+                    return JsonError("need query");
                 }
                 var userDetail = FormsAuthenticationService.GetUserData();
-                if (userDetail.UniversityId != null)
-                {
-                    var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), true, page);
-                    var result = await ZboxReadService.OtherUniversities(query);
-                    return Json(new JsonResponse(true, result));
-                }
-                return Json(new JsonResponse(false, "need univeristy"));
+                if (userDetail.UniversityId == null) return JsonError("need university");
+                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), true, page);
+                var result = await ZboxReadService.OtherUniversities(query);
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On OtherUniversities q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
-                return Json(new JsonResponse(false, "need query"));
+                return JsonError("need query");
             }
         }
 

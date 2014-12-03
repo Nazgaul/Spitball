@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {

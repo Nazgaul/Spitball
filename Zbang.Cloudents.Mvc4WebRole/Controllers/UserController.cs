@@ -120,11 +120,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
 
-                //var usermodel = await GetUserProfile(User.GetUserId());
-                //if (usermodel.Score < AdminReputation)
-                //{
-                //    return Json(new JsonResponse(false));
-                //}
                 var universityId = userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
@@ -140,12 +135,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> AdminFriends()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
-
-            var userModel = await GetUserProfile(User.GetUserId());
-            //if (userModel.Score < AdminReputation)
-            //{
-            //    return Json(new JsonResponse(false));
-            //}
 
             var universityId = userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);

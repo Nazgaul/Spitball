@@ -26,7 +26,7 @@
         </form>
 
         <ul class="boxFeedList">
-            <li class="" ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
+            <li ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
                 <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{question.userId}}" />
 
                 <div class="feedWpr">
@@ -42,6 +42,10 @@
                                 <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeQuestionAttachment(file)"></button>
                                 <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
                             </div>
+                        </li>
+                        <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
+                            <a ng-href="{{file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
+                            
                         </li>
                     </ul>
                     <div>

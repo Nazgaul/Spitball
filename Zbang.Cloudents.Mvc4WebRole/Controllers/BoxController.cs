@@ -71,7 +71,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxDoesntExistException)
             {
-                //TraceLog.WriteError("Box Index desktop", ex);
                 return RedirectToAction("Index", "Error");
             }
             catch (Exception ex)

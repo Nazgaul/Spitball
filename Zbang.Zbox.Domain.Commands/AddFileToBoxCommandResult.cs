@@ -1,9 +1,7 @@
-﻿using System.Runtime.Serialization;
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    [DataContract]
     public class AddFileToBoxCommandResult : ICommandResult
     {
         public AddFileToBoxCommandResult(File file)

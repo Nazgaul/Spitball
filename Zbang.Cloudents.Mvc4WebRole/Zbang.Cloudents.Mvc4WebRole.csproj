@@ -2026,7 +2026,6 @@
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Store\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />

@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -24,17 +23,16 @@ namespace Zbang.Zbox.Domain.DataAccess
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
                 .Select(s => s.Question).List<Comment>();
-            return questions
+
+            var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                .Select(s => s.Comment).List<Comment>();
+
+            return questions.Union(questions2)
                 .Where(w => w != null)
                 .Where(w => w.Text == null)
                 .OrderByDescending(o => o.DateTimeUser.CreationTime)
                 .FirstOrDefault();
         }
-    }
-
-    public interface IItemRepository : IRepository<Item>
-    {
-        bool CheckFileNameExists(string fileName, Box box);
-        Comment GetPreviousCommentId(Box box);
     }
 }

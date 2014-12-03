@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -201,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userid = User.GetUserId();
 
                 var helper = new UrlTitleBringer();
-                var title = model.FileUrl;
+                var title = model.Name;
                 try
                 {
                     title = await helper.BringTitle(model.FileUrl);
@@ -213,10 +212,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
-                    title = model.FileUrl;
+                    title = model.Name;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title);
+                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
                 var result = ZboxWriteService.AddLinkToBox(command);
 
                 var item = new LinkDto(result.Link.Id, result.Link.Name,
