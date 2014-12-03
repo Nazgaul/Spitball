@@ -42,6 +42,9 @@ namespace Zbang.Zbox.Domain
         public virtual string Text { get; set; }
         public virtual Box Box { get; set; }
         protected virtual ICollection<Item> Items { get; private set; }
+
+        protected virtual ICollection<Quiz> Quizes { get; set; }
+
         protected virtual ICollection<CommentReplies> Answers { get; set; }
         protected virtual ICollection<Updates> Updates { get; set; }
 
@@ -53,6 +56,15 @@ namespace Zbang.Zbox.Domain
         public void AddItem(Item item)
         {
             Items.Add(item);
+        }
+
+        public virtual void AddQuiz(Quiz quiz)
+        {
+            if (Quizes == null)
+            {
+                Quizes = new List<Quiz>();
+            }
+            Quizes.Add(quiz);
         }
 
         public void RemoveItem(Item item)

@@ -22,27 +22,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        //public const int AdminReputation = 1000000;
-
         [NoCache]
-        public async Task<ActionResult> Index(long userId, string userName)
+        public ActionResult Index(long userId, string userName)
         {
-            //TODO: do that in partial like all the rest
-            var id = userId;
-            ViewBag.Admin = false;
+            return View("Empty");
+        }
 
-            var model = await GetUserProfile(id);
-
-            if (UrlBuilder.NameToQueryString(model.Name) != userName)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(model);
-            }
-            return View(model);
+        [DonutOutputCache(CacheProfile = "PartialPage",
+            Options = OutputCacheOptions.IgnoreQueryString
+            )]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index");
         }
 
         [NonAction]
@@ -120,11 +111,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userDetail = FormsAuthenticationService.GetUserData();
 
-                //var usermodel = await GetUserProfile(User.GetUserId());
-                //if (usermodel.Score < AdminReputation)
-                //{
-                //    return Json(new JsonResponse(false));
-                //}
                 var universityId = userDetail.UniversityId.Value;
                 var query = new GetUserWithFriendQuery(universityId, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
@@ -140,12 +126,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> AdminFriends()
         {
             var userDetail = FormsAuthenticationService.GetUserData();
-
-            var userModel = await GetUserProfile(User.GetUserId());
-            //if (userModel.Score < AdminReputation)
-            //{
-            //    return Json(new JsonResponse(false));
-            //}
 
             var universityId = userDetail.UniversityId.Value;
             var query = new GetAdminUsersQuery(universityId);

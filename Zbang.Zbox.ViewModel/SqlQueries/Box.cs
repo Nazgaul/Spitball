@@ -71,6 +71,18 @@ order by name;";
     and i.BoxId = @BoxId
     and (QuestionId is not null or AnswerId is not null);";
 
+
+        public const string GetBoxQnaQuiz = @"	select
+    i.Id as Id,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.QuestionId as QuestionId,
+    i.Url as Url
+    from zbox.Quiz i
+    where i.Publish = 1
+    and i.BoxId = @BoxId
+    and i.QuestionId is not null;";
+
         public const string RecommendedCourses = @"
 select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
 b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,count(*)  as x

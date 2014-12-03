@@ -107,7 +107,7 @@
                    type: 'box',
                    isPrivate: true
                },
-               templateUrl: '/box/IndexPartial/',
+               templateUrl: '/box/indexpartial/',
                reloadOnSearch: false
            }).
            when('/box/my/:boxId/:boxName/#:tab?', {
@@ -115,7 +115,7 @@
                    type: 'box',
                    isPrivate: true
                },
-               templateUrl: '/box/IndexPartial/',
+               templateUrl: '/box/indexpartial/',
                reloadOnSearch: false
            }).
            when('/course/:uniName/:boxId/:boxName/#:tab?', {
@@ -123,7 +123,7 @@
                    type: 'box',
                    isPrivate: false
                },
-               templateUrl: '/box/IndexPartial/',
+               templateUrl: '/box/indexpartial/',
                reloadOnSearch: false
            }).
            when('/course/:uniName/:boxId/:boxName/', {
@@ -131,14 +131,14 @@
                    type: 'box',
                    isPrivate: false
                },
-               templateUrl: '/box/IndexPartial/',
+               templateUrl: '/box/indexpartial/',
                reloadOnSearch: false
            }).
            when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
                params: {
                    type: 'item'
                },
-               templateUrl: '/item/IndexPartial/',
+               templateUrl: '/item/indexpartial/',
                reloadOnSearch: false
 
            }).
@@ -146,7 +146,7 @@
                params: {
                    type: 'item'
                },
-               templateUrl: '/item/IndexPartial/',
+               templateUrl: '/item/indexpartial/',
                reloadOnSearch: false
 
            }).
@@ -154,25 +154,25 @@
                params: {
                    type: 'quiz'
                },
-               templateUrl: '/quiz/IndexPartial/'
+               templateUrl: '/quiz/indexpartial/'
            }).
            when('/library/:libraryId/:libraryName/', {
                params: {
                    type: 'library'
                },
-               templateUrl: '/library/IndexPartial/'
+               templateUrl: '/library/indexpartial/'
            }).
            when('/library/choose/', {
                params: {
                    type: 'libraryChoose'
                },
-               templateUrl: '/library/ChoosePartial/'
+               templateUrl: '/library/choosepartial/'
            }).
            when('/library/', {
                params: {
                    type: 'library'
                },
-               templateUrl: '/library/IndexPartial/'
+               templateUrl: '/library/indexpartial/'
            }).
            when('/search/', {
                params: {
@@ -185,19 +185,19 @@
                params: {
                    type: 'user'
                },
-               templateUrl: function (params) { return '/user/' + params.userId + '/' + encodeURIComponent(params.userName) + '/'; }
+               templateUrl: '/user/indexpartial'
            }).
            when('/account/settings', {
                params: {
                    type: 'accountSettings'
                },
-               templateUrl: '/Account/Settings'
+               templateUrl: '/account/settings'
            }).
            //#endregion
            //#region store
                 when('/store/', {
                     templateUrl: function (params) {
-                        var url = '/Store/IndexPartial/';
+                        var url = '/store/indexpartial/';
                         return buildQueryString(url, params);
                     },
                     controller: 'CategoryCtrl',
@@ -208,7 +208,7 @@
                 }).
                when('/store/category/:categoryId/', {
                    templateUrl: function (params) {
-                       var url = '/Store/IndexPartial/';
+                       var url = '/store/indexpartial/';
                        return buildQueryString(url, params);
                    },
                    controller: 'CategoryCtrl',
@@ -218,7 +218,7 @@
                }).
                when('/store/product/:productId/:productName/', {
                    templateUrl: function (params) {
-                       var url = '/store/ProductPartial/';
+                       var url = '/store/productpartial/';
                        return buildQueryString(url, params);
                    },
                    controller: 'ProductCtrl',
@@ -228,7 +228,7 @@
                }).
                when('/store/about/', {
                    templateUrl: function (params) {
-                       var url = '/Store/AboutPartial/';
+                       var url = '/store/aboutpartial/';
                        return buildQueryString(url, params);
 
                    },
@@ -239,7 +239,7 @@
                }).
                when('/store/contact/', {
                    templateUrl: function (params) {
-                       var url = '/Store/ContactPartial/';
+                       var url = '/store/contactpartial/';
                        return buildQueryString(url, params);
 
                    },
@@ -250,7 +250,7 @@
                }).
                when('/store/checkout/:productId/', {
                    templateUrl: function (params) {
-                       var url = '/Store/CheckOutPartial/';
+                       var url = '/store/checkoutpartial/';
                        return buildQueryString(url, params);
                    },
 
@@ -261,7 +261,7 @@
                }).
                when('/store/terms/', {
                    templateUrl: function (params) {
-                       var url = '/store/TermsPartial/';
+                       var url = '/store/termspartial/';
                        return buildQueryString(url, params);
 
                    },
@@ -271,7 +271,7 @@
                    }
                }).
                when('/store/thankyou/', {
-                   templateUrl: '/store/ThankyouPartial/',
+                   templateUrl: '/store/thankyoupartial/',
                    controller: 'ViewCtrl',
                    params: {
                        type: 'thankyou'

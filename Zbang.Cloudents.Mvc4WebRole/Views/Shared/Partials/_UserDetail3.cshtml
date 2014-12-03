@@ -15,5 +15,5 @@
 <div class="userNav signUp" ng-if="!$root.user.isAuthenticated">
     <button type="button" class="btn addRegister" login-btn="register">@LogOnResources.SignUp</button>
     <button type="button" class="btn addConnect" login-btn>@SharedResources.SignIn</button>
-    @{Html.RenderPartial("_SettingsUnauth");}
+    @{Html.RenderPartial("_SettingsUnauth", false);}
 </div>

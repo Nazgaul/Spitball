@@ -568,6 +568,12 @@
 .svgContent {
   height: 100%;
 }
+.blur {
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
 .copyRightWarning {
   background: #fff;
   font: 15px Arial;

@@ -269,6 +269,7 @@
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
+    <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
@@ -349,6 +350,7 @@
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\InsertUser.cs" />
+    <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
@@ -2026,7 +2028,6 @@
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutShopping.cshtml" />
     <Content Include="Views\Store\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
@@ -2629,9 +2630,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\TermsOfService.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Item\_PreviewBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewFailed.cshtml" />

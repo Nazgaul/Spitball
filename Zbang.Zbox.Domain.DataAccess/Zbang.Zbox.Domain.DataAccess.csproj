@@ -76,6 +76,7 @@
     <Compile Include="IBoxRepository.cs" />
     <Compile Include="IInviteRepository.cs" />
     <Compile Include="IItemRateRepository.cs" />
+    <Compile Include="IItemRepository.cs" />
     <Compile Include="IItemTabRepository.cs" />
     <Compile Include="InviteRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />

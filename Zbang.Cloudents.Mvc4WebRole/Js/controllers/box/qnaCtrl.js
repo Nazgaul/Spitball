@@ -1,6 +1,8 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', '$analytics', 'resManager','sNotify','sLogin','sGmfcnHandler',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics, resManager, sNotify, sLogin, sGmfcnHandler) {
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
+    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler',
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics,
+                resManager, sNotify, sLogin, sGmfcnHandler) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -21,7 +23,26 @@
                         }
                         return answerObj;
                     });
-                    that.files = data.files.map(function (file) { return new File(file); });
+                    that.files = [];
+                    that.quizes = [];
+                    for (var i = 0; i < data.files.length; i++) {
+                        if (data.files[i].thumbnail) {
+                            that.files.push(new File(data.files[i]));
+                        } else {
+                            that.quizes.push(new File(data.files[i]));
+                        }
+                    }
+                    //that.files = data.files.map(function (file) {
+                    //    if (file.thumbnail) {
+                    //        return new File(file);
+                    //    }
+                    //});
+                    //that.question = data.files.map(function (file)
+                    //{
+                    //    if (!file.thumbnail) {
+                    //        return new File(file);
+                    //    }
+                    //});
                     that.aFormData = {};
                 }
 
@@ -49,7 +70,6 @@
                     that.id = data.id;
                     that.name = data.name;
                     that.thumbnail = data.thumbnail;
-
 
                     var userId = sUserDetails.getDetails().id;
                     that.isOwner = data.ownerId === userId;

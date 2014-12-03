@@ -584,7 +584,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetQuestions_Query_ReturnResult()
         {
-            var query = new GetBoxQuestionsQuery(60130, 1);
+            var query = new GetBoxQuestionsQuery(60193, 1);
             try
             {
                 var x = await m_ZboxReadService.GetQuestions(query);
