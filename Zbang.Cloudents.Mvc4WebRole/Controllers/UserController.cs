@@ -22,27 +22,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        //public const int AdminReputation = 1000000;
-
         [NoCache]
-        public async Task<ActionResult> Index(long userId, string userName)
+        public ActionResult Index(long userId, string userName)
         {
-            //TODO: do that in partial like all the rest
-            var id = userId;
-            ViewBag.Admin = false;
+            return View("Empty");
+        }
 
-            var model = await GetUserProfile(id);
-
-            if (UrlBuilder.NameToQueryString(model.Name) != userName)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(model);
-            }
-            return View(model);
+        [DonutOutputCache(CacheProfile = "PartialPage",
+            Options = OutputCacheOptions.IgnoreQueryString
+            )]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index");
         }
 
         [NonAction]

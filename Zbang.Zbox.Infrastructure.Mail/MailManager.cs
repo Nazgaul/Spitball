@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             };
 
             var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-            sendGridMail.EnableClickTracking();
+            
             mail.GenerateMail(sendGridMail, parameters);
 
             //sendGridMail.AddTo("yaari.ram@gmail.com");
@@ -66,8 +66,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
             sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
 
+            sendGridMail.EnableClickTracking();
             sendGridMail.EnableOpenTracking();
-            sendGridMail.DisableGoogleAnalytics();
             Send(sendGridMail);
 
         }

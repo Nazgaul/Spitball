@@ -58,6 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Duration = TimeConsts.Minute * 5,
             Location = OutputCacheLocation.Server
             )]
+        [PreserveQueryString]
         public ActionResult Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)

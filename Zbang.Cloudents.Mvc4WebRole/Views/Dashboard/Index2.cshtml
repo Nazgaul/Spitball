@@ -25,7 +25,7 @@
                 <div class="podium"></div>
                 <ol class="bestUserList">
                     <li ng-if="::leaderBoard.first" class="firstUser">
-                        <a ng-href="leaderBoard.first.url" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
+                        <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
                             <img class="top3Img" ng-src="{{::leaderBoard.first.image| defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
                         </a>
                         @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
