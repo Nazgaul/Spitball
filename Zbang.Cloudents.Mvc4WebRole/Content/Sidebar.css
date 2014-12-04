@@ -116,6 +116,10 @@
 .recommended .prof {
   font-size: 13px;
 }
+.recommended .courseId {
+  width: 200px;
+  display: inline-block;
+}
 .recommended .friends,
 .recommended .files {
   position: relative;
