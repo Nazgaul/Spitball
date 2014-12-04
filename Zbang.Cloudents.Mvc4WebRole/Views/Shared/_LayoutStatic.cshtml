@@ -1,8 +1,4 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
-@*@using Zbang.Zbox.Infrastructure.Culture*@
-
-@{
+﻿@{
     ViewBag.title = ViewBag.title ?? "Cloudents";
 }
 
@@ -88,7 +84,7 @@
     </script>
     @{
         Html.RenderPartial("_Footer");
-        if (!User.Identity.IsAuthenticated)
+        if (User != null && !User.Identity.IsAuthenticated)
         {
             Html.RenderPartial("_Welcome");
         }

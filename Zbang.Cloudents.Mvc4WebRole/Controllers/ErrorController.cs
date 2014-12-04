@@ -1,14 +1,18 @@
 ﻿using System.Diagnostics;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ErrorController : BaseController
     {
-
+         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang)]
         public ActionResult Index()
         {
             return View("error");

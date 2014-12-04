@@ -40,6 +40,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
 
             m_BlobClient = StorageProvider.ZboxCloudStorage.CreateCloudBlobClient();
+            var serviceProperties = m_BlobClient.GetServiceProperties();
+            serviceProperties.DefaultServiceVersion = "2014-02-14";
+            m_BlobClient.SetServiceProperties(serviceProperties);
             //System.Net.ServicePointManager.DefaultConnectionLimit = 20;
             //m_BlobClient.ParallelOperationThreadCount = 20;
             //CreateBlobStorages(m_BlobClient);

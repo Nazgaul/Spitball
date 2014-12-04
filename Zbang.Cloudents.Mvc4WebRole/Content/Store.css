@@ -1487,3 +1487,47 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+/*.social {
+    margin-top: 14px;
+
+    button {
+        width: 42px;
+        height: 42px;
+        background: url(/Images/Store/social.png) no-repeat;
+
+        &:nth-child(2) {
+            margin: 0 20px;
+        }
+    }
+
+    .fb {
+        background-position: 0 0;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -42px;
+            opacity: 1;
+        }
+    }
+
+    .twtr {
+        background-position: 0 -84px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -126px;
+            opacity: 1;
+        }
+    }
+
+    .ytube {
+        background-position: 0 -168px;
+        opacity: .5;
+
+        &:hover {
+            background-position: 0 -210px;
+            opacity: 1;
+        }
+    }
+}*/
+/*#endregion */
