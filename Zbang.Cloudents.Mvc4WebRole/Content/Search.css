@@ -5,13 +5,14 @@
 .searchInputWpr {
   width: 365px;
   height: 32px;
-  border: none;
   border-radius: 16px;
   position: absolute;
   z-index: 4;
   top: 67px;
   left: 500px;
   margin: 0;
+  line-height: normal;
+  background: #fff;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   -webkit-transition-property: height, width, top, left, border-radius;
@@ -71,6 +72,8 @@
   padding: 0 10% 8px 0;
 }
 .searchInputWpr.open .searchBtn {
+  background: none;
+  border-radius: 0;
   pointer-events: auto;
   width: 60px;
   height: 60px;
@@ -150,13 +153,32 @@
   width: 100%;
   height: 100%;
   padding: 0 40px 8px 16px;
-  border-radius: 0;
-  border: none;
+  font-size: 18px;
   background: transparent;
   color: #3399ff;
   -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
   transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  max-width: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:focus {
+  border: none;
+  outline: none;
 }
 /* hide placeholder when active in Chrome */
 .gn-search:focus::-webkit-input-placeholder {
@@ -266,6 +288,9 @@
 .searchLink img {
   position: absolute;
   left: 6px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .searchLink h3 {
   vertical-align: middle;
@@ -281,9 +306,6 @@
 }
 .searchLink .userImg {
   border-radius: 50%;
-  top: 0;
-  bottom: 0;
-  margin: auto;
 }
 .searchLink .vCentered {
   max-width: 98%;
