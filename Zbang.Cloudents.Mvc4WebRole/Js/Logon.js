@@ -6,7 +6,8 @@
 
     var eById = document.getElementById.bind(document),
         registerPopup = eById('register'), registerForm = eById('registerForm'),
-        cancelPopup = eById('cancelRegisterPopup'), regPopup = eById('regPopup'),
+        //cancelPopup = eById('cancelRegisterPopup'),
+        regPopup = eById('regPopup'),
         connectPopup = eById('connect'), connectForm = eById('login'),
         langSelect = eById('dLangSelect');
 
@@ -186,22 +187,22 @@
             data[inputs[i].name] = inputs[i].value;
         }
 
-        var submit = form.querySelector('input[type="submit"]')
-        submit.disabled = true;
+        var submit2 = form.querySelector('input[type="submit"]');
+        submit2.disabled = true;
 
 
-        ajax.post(form.action, data, function (data) {
-            submit.disabled = false;
+        ajax.post(form.action, data, function (data2) {
+            submit2.disabled = false;
 
-            if (!data.success) {
+            if (!data2.success) {
                 resetErrors(form);
-                displayErrors(form, data.payload);
+                displayErrors(form, data2.payload);
                 return;
             }
             window.sessionStorage.clear();
 
-            if (data.payload) {
-                window.location.href = data.payload;
+            if (data2.payload) {
+                window.location.href = data2.payload;
                 return;
             }
 
@@ -272,9 +273,9 @@
         FB.login(function (response) {
             if (response.authResponse) {
                 var accessToken = response.authResponse.accessToken;
-                FB.api('/me/permissions', function (response) {
+                FB.api('/me/permissions', function (response2) {
 
-                    var perms = response.data[0];
+                    var perms = response2.data[0];
                     if (perms.email) {
                         logInFacebook(accessToken);
                         // User has permission
@@ -310,7 +311,7 @@
             x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         }
-        x.send(data)
+        x.send(data);
     };
 
     ajax.get = function (url, data, callback, sync) {
@@ -318,7 +319,7 @@
         for (var key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
-        ajax.send(url + '?' + query.join('&'), callback, 'GET', null, sync)
+        ajax.send(url + '?' + query.join('&'), callback, 'GET', null, sync);
     };
 
     ajax.post = function (url, data, callback, sync) {
@@ -326,7 +327,7 @@
         for (var key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
-        ajax.send(url, callback, 'POST', query.join('&'), sync)
+        ajax.send(url, callback, 'POST', query.join('&'), sync);
     };
 
     function gup(name) {
@@ -345,7 +346,7 @@
     function addChangeEvent(form) {
         var inputs = form.querySelectorAll("input");
         for (var i = 0, l = inputs.length; i < l; i++) {
-            placeHolder(inputs[i]);
+            window.placeHolder(inputs[i]);
             inputs[i].oninput = function (e) {
                 var target = e.target;
                 validateInput(form, target);
@@ -410,39 +411,39 @@
 
         return true;
 
-        function valRegex(input, errorElement, error) {
-            var pattern = input.getAttribute('data-val-regex-pattern');
-            if (error.length && input.value && pattern.length) {
+        function valRegex(input2, errorElement2, error2) {
+            var pattern = input2.getAttribute('data-val-regex-pattern');
+            if (error2.length && input2.value && pattern.length) {
                 var patternExp = new RegExp(pattern);
-                if (!patternExp.test(input.value)) {
-                    resetError(errorElement);
-                    appendError(input.name, errorElement, error);
+                if (!patternExp.test(input2.value)) {
+                    resetError(errorElement2);
+                    appendError(input2.name, errorElement2, error2);
                     return false;
                 }
             }
             return true;
         }
 
-        function valRequired(input, errorElement, error) {
-            if (error.length) {
+        function valRequired(input2, errorElement2, error2) {
+            if (error2.length) {
 
-                resetError(errorElement);
+                resetError(errorElement2);
 
-                if (input.type === 'radio') {
-                    var radioBtns = document.querySelectorAll('input[name="' + input.name + '"]'),
+                if (input2.type === 'radio') {
+                    var radioBtns = document.querySelectorAll('input[name="' + input2.name + '"]'),
                         checked = false;
                     for (var i = 0, l = radioBtns.length; i < l && !checked; i++) {
                         checked = radioBtns[i].checked;
                     }
 
                     if (!checked) {
-                        appendError(input.name, errorElement, error);
+                        appendError(input2.name, errorElement2, error2);
                     }
 
                     return checked;
                 }
-                if (!input.value) {
-                    appendError(input.name, errorElement, error);
+                if (!input2.value) {
+                    appendError(input2.name, errorElement2, error2);
                     return false;
                 }
             }
@@ -450,12 +451,12 @@
             return true;
         }
 
-        function valLength(input, errorElement, error) {
-            var minLength = parseInt(input.getAttribute('data-val-length-min'), 10);
-            if (error.length && minLength) {
-                if (input.value && (input.value.length > 0 && input.value.length < minLength)) {
-                    resetError(errorElement);
-                    appendError(input.name, errorElement, error);
+        function valLength(input2, errorElement2, error2) {
+            var minLength = parseInt(input2.getAttribute('data-val-length-min'), 10);
+            if (error2.length && minLength) {
+                if (input2.value && (input2.value.length > 0 && input2.value.length < minLength)) {
+                    resetError(errorElement2);
+                    appendError(input2.name, errorElement2, error2);
                     return false;
                 }
             }
@@ -463,11 +464,11 @@
             return true;
         }
 
-        function equalTo(input, errorElement, error) {
-            var otherInput = form.querySelector('input[name="' + input.getAttribute('data-val-equalto-other').substring(2) + '"]');
-            if (error.length && input && otherInput && input.value !== otherInput.value) {
-                resetError(errorElement);
-                appendError(input.name, errorElement, error);
+        function equalTo(input2, errorElement2, error2) {
+            var otherInput = form.querySelector('input[name="' + input2.getAttribute('data-val-equalto-other').substring(2) + '"]');
+            if (error2.length && input2 && otherInput && input2.value !== otherInput.value) {
+                resetError(errorElement2);
+                appendError(input2.name, errorElement2, error2);
                 return false;
             }
             return true;
@@ -521,7 +522,7 @@
         }
 
         if (summary) {
-            form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>')
+            form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>');
         }
         
 

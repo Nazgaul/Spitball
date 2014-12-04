@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +70,24 @@ namespace TestingApp
                  Id = 322,
                  Name = "בית ברל טסט"
              });
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (FileStream originalFileStream = new FileStream(@"C:\Users\Ram\Desktop\homeScreenVideo.mp4", FileMode.Open))
+            {
+                using (FileStream compressedFileStream = File.Create(@"C:\Users\Ram\Desktop\homeScreenVideo2.mp4"))
+                {
+                    using (GZipStream compressionStream = new GZipStream(compressedFileStream,
+                       CompressionMode.Compress))
+                    {
+                        originalFileStream.CopyTo(compressionStream);
+
+                    }
+                }
+               
+
+            }
         }
 
     }
