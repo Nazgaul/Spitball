@@ -24,7 +24,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="/Content/General.css" />
-    <link rel="stylesheet" type="text/css" href="/Content/HeaderFooter.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/Header.css" />
     <link rel="stylesheet" type="text/css" href="/Content/Static.css" />
 
 
@@ -34,7 +34,7 @@
 
     <div class="wrap">
         <header class="siteHeader">
-            <a class="siteLogo lFloat" href="/dashboard/">
+            <a class="siteLogo lFloat" href="/">
                 @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
             </a>
         </header>
@@ -59,18 +59,6 @@
             </div>
         </div>
     </div>
-
-    <footer>
-        <ul class="footer">
-            <li>Zbang.it&rlm;&nbsp;&lrm;&copy;2014&nbsp;All rights reserved&nbsp;V 23.1.5</li>
-            <li><a href="/home/aboutus/">About us</a></li>
-            <li><a href="/home/help/">Help</a></li>
-            <li><a href="/home/contactus/">Contact us</a></li>
-            <li><a href="/home/privacy/">Privacy policy</a></li>
-            <li><a href="/home/termsofservice/">Terms of service</a></li>
-
-        </ul>
-    </footer>
-
+   @{Html.RenderPartial("_Footer");}
 </body>
 </html>

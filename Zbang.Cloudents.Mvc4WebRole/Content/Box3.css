@@ -1527,3 +1527,10 @@
   margin-right: 4px;
   /*rtl*/
 }
+/*#endregion */
+/*path.penBorder {
+    stroke: @color;
+}
+.draft path.penBorder {
+    stroke: silver;
+}*/
