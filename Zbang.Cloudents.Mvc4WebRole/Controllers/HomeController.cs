@@ -328,7 +328,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public JsonResult Version()
         {
-            return JsonOk(VersionHelper.CurrentVersion());
+            return JsonOk(VersionHelper.CurrentVersion(true));
         }
     }
 }

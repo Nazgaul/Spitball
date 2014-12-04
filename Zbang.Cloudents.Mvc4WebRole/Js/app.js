@@ -42,7 +42,7 @@
                        switch (response.status) {
 
                            case 400:
-                               alert('Version mismatch, page will refresh');
+                               alert('Cloudents has updated, refreshing page');
                                window.location.reload(true);
                                break;
                            case 401:
@@ -53,7 +53,7 @@
                                window.open('/error', '_self');
                                break;
                            case 412:
-                               alert('Version mismatch, page will refresh');
+                               alert('Cloudents has updated, refreshing page');
                                window.location.reload(true);
                                break;
                            case 500:

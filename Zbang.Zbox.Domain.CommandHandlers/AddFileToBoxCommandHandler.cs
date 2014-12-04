@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (!command.IsQuestion)
             {
-                var comment= m_ItemRepository.GetPreviousCommentId(box) ??
+                var comment = m_ItemRepository.GetPreviousCommentId(box, user) ??
                              new Comment(user, null, box, m_IdGenerator.GetId(), null);
                 comment.AddItem(item);
                 m_CommentRepository.Save(comment);

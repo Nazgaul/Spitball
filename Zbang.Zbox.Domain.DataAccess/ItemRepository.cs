@@ -18,14 +18,18 @@ namespace Zbang.Zbox.Domain.DataAccess
             return file != null;
         }
 
-        public Comment GetPreviousCommentId(Box box)
+        public Comment GetPreviousCommentId(Box box, User user)
         {
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                .And(w=>w.Box == box)
+                .And(w=>w.Uploader == user)
                 .Select(s => s.Question).List<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                .And(w => w.Box == box)
+                .And(w => w.Owner == user)
                 .Select(s => s.Comment).List<Comment>();
 
             return questions.Union(questions2)

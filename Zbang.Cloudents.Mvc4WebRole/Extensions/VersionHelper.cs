@@ -5,13 +5,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 {
     public static class VersionHelper
     {
-        public static string CurrentVersion()
+        public static string CurrentVersion(bool withRevision)
         {
             try
             {
                 var version = Assembly.GetExecutingAssembly().GetName().Version;
-                var retval = string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
-                return retval;
+                return version.ToString(withRevision ? 4 : 3);
             }
             catch (Exception)
             {

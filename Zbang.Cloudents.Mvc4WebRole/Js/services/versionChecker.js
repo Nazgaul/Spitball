@@ -32,7 +32,7 @@
                         });
 
 
-                        sNotify.alert('Version mismatch, page will refresh');
+                        sNotify.alert('Cloudents has updated, refreshing page');
                         $timeout(function () {
                             window.location.reload(true);
                         }, 150);
