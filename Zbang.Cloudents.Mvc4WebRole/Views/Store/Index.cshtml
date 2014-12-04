@@ -3,6 +3,10 @@
 @using Zbang.Zbox.ViewModel.Dto.Store
 @model IList<BannerDto>
 
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
+
 <div class="storeWpr page" ng-class="{noBanners : hideBanners()}">
     @{Html.RenderPartial("_Navigation");}
 
