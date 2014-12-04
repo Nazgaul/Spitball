@@ -719,6 +719,7 @@
         .cloudInput {
             display: block;
         }
+
     }
 
     &.js-fbState {
@@ -781,12 +782,18 @@
         height: 70px;
         fill: #282828;
     }
-
-    .fbBtn {
-        margin: 15px 60px 33px 60px;
+}
+.fbBtn {
+    margin: 15px 60px 33px 60px;
+    svg:hover {
+        fill: @fbColor;
     }
 }
-
+.gmailBtn {
+    svg:hover {
+        fill: @gmailColor;
+    }
+}
 .socialContentWpr {
     min-height: 250px;
     display: none;
