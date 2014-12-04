@@ -70,9 +70,11 @@
         .searchBtn {
             background: none; //override
             border-radius: 0; //override
+            top: 50%;
 	        pointer-events: auto;
-            width: 60px;
-            height: 60px;
+            width: 80px;height:80px; //fallback for old android
+            width: 6vw;
+            height: 6vw;
 	        -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        -webkit-transition: -webkit-transform 0.3s;
@@ -80,8 +82,9 @@
 	        -webkit-transition-delay: 0.5s;
 	        transition-delay: 0.5s;
             .svg-search {
-                width: 60px;
-                height: 60px;
+                width: 80px;height: 80px; //fallback for old android
+                width: 6vw;
+                height: 6vw;
                 &:hover {
                     fill: @itemBlue;
                 }
@@ -144,9 +147,6 @@
 	    transition-duration: 0.5s;
 	    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 	    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-    }
-    .dashLibSearchInput {
-         .boxSizing;
     }
 }
 .dashLibSearchInput {
@@ -309,19 +309,24 @@
 		//padding: 0 25% 0 10px;
 	}
 	.searchInputWpr.open {
+        overflow: auto;
         .dashLibSearchInput {
-		    font-size: 2em;
-            padding: 0 25% 0 10px;
+		    //font-size: 2em;
+            //padding: 0 25% 0 10px;
 	    }
-        .searchBtn {
-		    -webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
-		    transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+        .searchBtn.searchBtn { //extra specificity to override rtl
+		    //-webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+		    //transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
 	    }
+        .search-content {
+            margin-top: 1em;
+        }   
 	}
 	.column {
 		float: none;
 		width: auto;
 		padding: 0 0 2em;
+        width: 100%;
 	}
 	.column:nth-child(2) {
 		margin: 0;
@@ -331,9 +336,10 @@
 
 @media screen and (max-width: 60.625em) {
 	.searchInputWpr.open {
-		width: 80%;
-		top: 10%;
-		right: 10%; //rtl
+		width: 100%;
+		top: 0;
+        left:0;right:0;
+        margin: auto;
 	}
 }
 

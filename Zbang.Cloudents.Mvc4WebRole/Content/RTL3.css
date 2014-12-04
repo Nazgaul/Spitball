@@ -1430,17 +1430,6 @@
   right: 6px;
   left: auto;
 }
-@media screen and (max-width: 53.125em) {
-  .dashLibSearchInput {
-    padding: 0 10px 0 25%;
-  }
-}
-@media screen and (max-width: 60.625em) {
-  .searchInputWpr.open {
-    left: 10%;
-    right: auto;
-  }
-}
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */
 .searchPage:after {
