@@ -189,6 +189,11 @@ input[type="radio"].radio:checked + label:after {
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.svg-user,
+.svg-doc {
+  right: 4px;
+  left: auto;
+}
 /*#endregion*/
 /*#region side menu - SettingsBar partial */
 .sidebarCb:checked ~ .headerActions .sideBar {
