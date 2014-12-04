@@ -1525,11 +1525,23 @@
 
 /*#region search overlay */
 .searchInputWpr {
-	right: 550px; //rtl //to suit union page which has longer text (was 500)
+	right: 500px; //rtl //to suit union page which has longer text (was 500)
     left: auto;
 	-webkit-transition-property: height, width, top, right, border-radius; //rtl 
 	transition-property: height, width, top, right, border-radius; //rtl 
-    &:hover {
+    &.searchLib {
+        right: 550px; //rtl
+        left: auto;
+    }
+    &.searchBox {
+        right: 320px; //rtl
+        left: auto;
+    }
+    &.searchUser {
+        right: auto;
+        left: ~'-webkit-calc(50% - 243px)'; //rtl
+    }
+    &.open {
         right: 0; //rtl 
         left: auto;
         .dashLibSearchInput {
@@ -1567,48 +1579,12 @@
 }
 
 @media screen and (max-width: 53.125em) {
-	.dashLibSearchInput {
-		padding: 0 10px 0 25%; //rtl
-	}
+
 }
 
 @media screen and (max-width: 60.625em) {
-	.searchInputWpr.open {
-		left: 10%; //rtl
-        right: auto;
-	}
+
 }
-
-
-/*.searchItem {
-    > .searchTitle {
-        margin: 0 56px 0 0; //rtl
-    }
-}
-
-.searchDetails {
-    padding: 0 15px 0 0; //rtl
-}
-
-.otherUni {
-    right: 71px; //rtl
-    left: auto;
-}
-
-.boxLoc {
-    &:before {
-        margin: 0 0 0 4px; //rtl
-    }
-}
-
-.dpt {
-    .searchDetails {
-        &:before {
-            float: right; //rtl
-            margin: 0 0 0 16px; //rtl
-        }
-    }
-}*/
 /*#endregion */
 
 /*#region Search page - 's' prefix stands for 'search' */

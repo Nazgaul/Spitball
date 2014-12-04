@@ -2,9 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.boxPage {
-  min-width: 1260px;
-}
 .boxPage .leftPanel {
   border: none;
   height: 100%;

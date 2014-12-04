@@ -3,13 +3,14 @@
 .searchInputWpr {
 	width: 365px;
 	height: 32px;
-    border: none; //override
     border-radius: 16px;
 	position: absolute;
 	z-index: 4; //under aside which is 5
 	top: 67px;
 	left: 500px; //rtl
     margin:0;
+    line-height: normal;
+    background: #fff;
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
 	-webkit-transition-property: height, width, top, left, border-radius; //rtl 
@@ -67,9 +68,13 @@
             padding: 0 10% 8px 0; 
         }
         .searchBtn {
+            background: none; //override
+            border-radius: 0; //override
+            top: 50%;
 	        pointer-events: auto;
-            width: 60px;
-            height: 60px;
+            width: 80px;height:80px; //fallback for old android
+            width: 6vw;
+            height: 6vw;
 	        -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        -webkit-transition: -webkit-transform 0.3s;
@@ -77,8 +82,9 @@
 	        -webkit-transition-delay: 0.5s;
 	        transition-delay: 0.5s;
             .svg-search {
-                width: 60px;
-                height: 60px;
+                width: 80px;height: 80px; //fallback for old android
+                width: 6vw;
+                height: 6vw;
                 &:hover {
                     fill: @itemBlue;
                 }
@@ -142,23 +148,23 @@
 	    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 	    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     }
-    .dashLibSearchInput {
-         .boxSizing;
-    }
 }
 .dashLibSearchInput {
 	width: 100%;
 	height: 100%;
 	padding: 0 40px 8px 16px; //rtl 
-    border-radius: 0; //override
-	border: none;
+    font-size: 18px;
 	background: transparent;
 	color: @itemBlue;
 	-webkit-transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
 	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
-    max-width: none; //override;
+    .boxSizing;
+    .placeholderColor(@borderColor);
+    &:focus {
+        border: none; //remove red error borders and outlines
+        outline: none;
+    }
 }
-
 
 /* hide placeholder when active in Chrome */
 .gn-search:focus::-webkit-input-placeholder {
@@ -178,8 +184,8 @@
 	//opacity: 0;
 	-webkit-transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
 	transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
-    background: #fff;
-    border-radius: 50%;
+    background: #fff; //when searchWpr becomes small
+    border-radius: 50%; //when searchWpr becomes small
     .svg-search {
         width: 40px;
         height: 40px;
@@ -267,6 +273,8 @@
     img {
         position: absolute;
         left: 6px; //rtl
+        top:0;bottom:0;
+        margin: auto;
     }
     h3 {
         vertical-align: middle;
@@ -282,8 +290,6 @@
     }
     .userImg {
         border-radius: 50%;
-        top:0;bottom:0;
-        margin: auto;
     }
     .vCentered {
         max-width: 98%;
@@ -303,19 +309,24 @@
 		//padding: 0 25% 0 10px;
 	}
 	.searchInputWpr.open {
+        overflow: auto;
         .dashLibSearchInput {
-		    font-size: 2em;
-            padding: 0 25% 0 10px;
+		    //font-size: 2em;
+            //padding: 0 25% 0 10px;
 	    }
-        .searchBtn {
-		    -webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
-		    transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+        .searchBtn.searchBtn { //extra specificity to override rtl
+		    //-webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
+		    //transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
 	    }
+        .search-content {
+            margin-top: 1em;
+        }   
 	}
 	.column {
 		float: none;
 		width: auto;
 		padding: 0 0 2em;
+        width: 100%;
 	}
 	.column:nth-child(2) {
 		margin: 0;
@@ -325,9 +336,10 @@
 
 @media screen and (max-width: 60.625em) {
 	.searchInputWpr.open {
-		width: 80%;
-		top: 10%;
-		right: 10%; //rtl
+		width: 100%;
+		top: 0;
+        left:0;right:0;
+        margin: auto;
 	}
 }
 

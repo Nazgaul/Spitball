@@ -5,13 +5,14 @@
 .searchInputWpr {
   width: 365px;
   height: 32px;
-  border: none;
   border-radius: 16px;
   position: absolute;
   z-index: 4;
   top: 67px;
   left: 500px;
   margin: 0;
+  line-height: normal;
+  background: #fff;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   -webkit-transition-property: height, width, top, left, border-radius;
@@ -71,9 +72,14 @@
   padding: 0 10% 8px 0;
 }
 .searchInputWpr.open .searchBtn {
+  background: none;
+  border-radius: 0;
+  top: 50%;
   pointer-events: auto;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
+  width: 6vw;
+  height: 6vw;
   -webkit-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
   transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
   -webkit-transition: -webkit-transform 0.3s;
@@ -82,8 +88,10 @@
   transition-delay: 0.5s;
 }
 .searchInputWpr.open .searchBtn .svg-search {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
+  width: 6vw;
+  height: 6vw;
 }
 .searchInputWpr.open .searchBtn .svg-search:hover {
   fill: #3399ff;
@@ -141,22 +149,36 @@
   -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
-.searchInputWpr .dashLibSearchInput {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 .dashLibSearchInput {
   width: 100%;
   height: 100%;
   padding: 0 40px 8px 16px;
-  border-radius: 0;
-  border: none;
+  font-size: 18px;
   background: transparent;
   color: #3399ff;
   -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
   transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  max-width: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:focus {
+  border: none;
+  outline: none;
 }
 /* hide placeholder when active in Chrome */
 .gn-search:focus::-webkit-input-placeholder {
@@ -266,6 +288,9 @@
 .searchLink img {
   position: absolute;
   left: 6px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .searchLink h3 {
   vertical-align: middle;
@@ -281,26 +306,22 @@
 }
 .searchLink .userImg {
   border-radius: 50%;
-  top: 0;
-  bottom: 0;
-  margin: auto;
 }
 .searchLink .vCentered {
   max-width: 98%;
 }
 @media screen and (max-width: 53.125em) {
-  .searchInputWpr.open .dashLibSearchInput {
-    font-size: 2em;
-    padding: 0 25% 0 10px;
+  .searchInputWpr.open {
+    overflow: auto;
   }
-  .searchInputWpr.open .searchBtn {
-    -webkit-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
-    transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+  .searchInputWpr.open .search-content {
+    margin-top: 1em;
   }
   .column {
     float: none;
     width: auto;
     padding: 0 0 2em;
+    width: 100%;
   }
   .column:nth-child(2) {
     margin: 0;
@@ -308,9 +329,11 @@
 }
 @media screen and (max-width: 60.625em) {
   .searchInputWpr.open {
-    width: 80%;
-    top: 10%;
-    right: 10%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 }
 /*#region search drop down */
