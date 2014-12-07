@@ -8,12 +8,7 @@
     });
     return {
         restrict: 'A',
-        link: function (scope, element, attrs) {
-
-            if (scope.$parent.$parent.getView() === 'itemListView') {
-                return;
-            }
-
+        link: function (scope, element, attrs) {         
             var hoverIntentPromise,
                 leaveIntentPromise,
                 $body = angular.element(document.body),

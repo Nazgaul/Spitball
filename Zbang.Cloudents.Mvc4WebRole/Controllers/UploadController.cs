@@ -201,14 +201,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var helper = new UrlTitleBringer();
                 var title = model.Name;
-                try
+                if (string.IsNullOrEmpty(title))
                 {
-                    title = await helper.BringTitle(model.FileUrl);
-                }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
+                    try
+                    {
+                        title = await helper.BringTitle(model.FileUrl);
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
 
+                    }
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {

@@ -2,7 +2,7 @@
 
 <div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone, afraid: quiz.afraid}">
     <div class="quizTop">
-        <a ng-href="{{quiz.boxUrl + '#quizzes'}}" title="@SharedResources.Back" class="closePreview rFloat" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
+        <a ng-click="closeQuiz()" ng-href="{{quiz.boxUrl + '#quizzes'}}" title="@SharedResources.Back" class="closePreview rFloat" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </a>
         <div class="quizTitle elps">{{quiz.name}}</div>

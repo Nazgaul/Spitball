@@ -191,6 +191,10 @@ mQuiz.controller('QuizCtrl',
                 submitResult();
             });
 
+            $scope.closeQuiz = function () {
+                $timeout.cancel(challengeTimeout);
+            };
+
             function solveQuiz() {
                 var question;
                 for (var i = 0; i < $scope.quiz.questions.length; i++) {

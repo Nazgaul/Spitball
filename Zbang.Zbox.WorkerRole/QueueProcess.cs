@@ -21,9 +21,9 @@ namespace Zbang.Zbox.WorkerRole
         int m_Interval;
 
         public void RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
-            TimeSpan invisibleTimeinQueue, int dequeCount = 100)
+            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
-            var hasElementsToProcess = m_QueueProvider.RunQueue(queueName, func, invisibleTimeinQueue, dequeCount);
+            var hasElementsToProcess = m_QueueProvider.RunQueue(queueName, func, invisibleTimeinQueue, deQueueCount);
             if (hasElementsToProcess)
             {
                 m_Interval = m_MinInterval;

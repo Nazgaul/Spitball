@@ -119,11 +119,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 }
                 catch (StorageException ex)
                 {
-                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " Dequeue count: " + msg.DequeueCount, ex);
+                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " Dequeue count: " + msg.DequeueCount, ex);
+                    TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
                 }
             }
             if (!cloudQueueMessages.Any())

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -39,20 +40,30 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
                 {
-                    var storeData = msg.FromMessageProto<StoreData>();
-                    var order = storeData as StoreOrderData;
-                    if (order != null)
+                    try
                     {
-                        ProcessOrder(order);
+                        var storeData = msg.FromMessageProto<StoreData>();
+                        var order = storeData as StoreOrderData;
+                        if (order != null)
+                        {
+                            ProcessOrder(order);
+                            return true;
+                        }
+                        var contactUs = storeData as StoreContactData;
+                        if (contactUs != null)
+                        {
+                            ProcessContactUs(contactUs);
+                            return true;
+                        }
                         return true;
                     }
-                    var contactUs = storeData as StoreContactData;
-                    if (contactUs != null)
+                    catch (SqlException ex)
                     {
-                        ProcessContactUs(contactUs);
-                        return true;
+                        m_MailComponent.GenerateAndSendEmail(new[]
+                        { "ram@cloudents.com","eidan@cloudents.com" },
+                        "failed connect to remove db " + ex);
+                        return false;
                     }
-                    return true;
                 }, TimeSpan.FromMinutes(1), int.MaxValue);
             }
         }

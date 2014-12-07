@@ -81,7 +81,7 @@
 
 
 
-                $scope.info = {
+                $scope.data = {
                     //$scope.boxId = we get this from parent scope no info
                     userName: sUserDetails.getDetails().name,
                     userImage: sUserDetails.getDetails().image
@@ -92,7 +92,7 @@
 
                 sQnA.list({ boxId: $scope.boxId }).then(function (questions) {
 
-                    $scope.info.questions = questions.map(function (question) {
+                    $scope.data.questions = questions.map(function (question) {
                         return new Question(question);
                     });
 
@@ -125,7 +125,7 @@
 
 
                 $scope.postQuestion = function () {
-                    if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') {
+                    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
                         sNotify.tAlert('NeedToFollowBox');
                         return;
                     }
@@ -156,7 +156,7 @@
                             files: fileDisplay || []
                         }
 
-                        $scope.info.questions.unshift(new Question(obj));
+                        $scope.data.questions.unshift(new Question(obj));
                         $scope.$broadcast('update-scroll');
                         $scope.qFormData = {};
 
@@ -176,7 +176,7 @@
 
                 $scope.postAnswer = function (question) {
 
-                    if ($scope.$parent.info.userType === 'none' || $scope.$parent.info.userType === 'invite') { //parent is box controller
+                    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') { //parent is box controller
                         sNotify.tAlert('NeedToFollowBox');
                         return;
                     }
@@ -230,8 +230,8 @@
                 };
 
                 $scope.deleteQuestion = function (question) {
-                    var index = $scope.info.questions.indexOf(question);
-                    $scope.info.questions.splice(index, 1);
+                    var index = $scope.data.questions.indexOf(question);
+                    $scope.data.questions.splice(index, 1);
 
                     sQnA.delete.question({ questionId: question.id });
 
@@ -301,7 +301,7 @@
                     }
 
                     if (data.questionId) {
-                        var question = _.find($scope.info.questions, function (q) {
+                        var question = _.find($scope.data.questions, function (q) {
                             return data.questionId === q.id;
                         });
 
