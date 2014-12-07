@@ -8,15 +8,16 @@ namespace Zbang.Zbox.ReadServices
 {
     public interface IZboxReadServiceWorkerRole
     {
-        IEnumerable<UserDigestDto> GetUsersByNotificationSettings(GetUserByNotificationQuery query);
-        IEnumerable<BoxDigestDto> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query);
-        IEnumerable<ItemDigestDto> GetItemsLastUpdates(GetItemsLastUpdateQuery query);
-        IEnumerable<QnADigestDto> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
-        IEnumerable<QnADigestDto> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
-        //IEnumerable<MembersDigestDto> GetNewMembersLastUpdates(GetMembersLastUpdateQuery query);
-        IEnumerable<QuizDigestDto> GetQuizLastUpdates(GetItemsLastUpdateQuery query);
+        Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettings(GetUserByNotificationQuery query);
 
-        IEnumerable<QuizDiscussionDigestDto> GetQuizDiscussion(GetCommentsLastUpdateQuery query);
+        Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query);
+        //Task<IEnumerable<ItemDigestDto>> GetItemsLastUpdates(GetItemsLastUpdateQuery query);
+        //Task<IEnumerable<QnADigestDto>> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
+        //Task<IEnumerable<QnADigestDto>> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
+        //Task<IEnumerable<QuizDigestDto>> GetQuizLastUpdates(GetItemsLastUpdateQuery query);
+
+        //Task<IEnumerable<QuizDiscussionDigestDto>> GetQuizDiscussion(GetCommentsLastUpdateQuery query);
+        Task<BoxUpdatesDigestDto> GetBoxLastUpdates(GetBoxLastUpdateQuery query);
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 

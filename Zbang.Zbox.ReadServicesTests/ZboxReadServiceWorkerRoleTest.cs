@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -18,9 +19,8 @@ namespace Zbang.Zbox.ReadServicesTests
         public void Setup()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            var m_BlobProvider = MockRepository.GenerateStub<IBlobProvider>();
             IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
-            m_ZboxReadService = new ZboxReadServiceWorkerRole(m_BlobProvider);
+            m_ZboxReadService = new ZboxReadServiceWorkerRole();
         }
 
         [TestMethod]
@@ -68,12 +68,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetItemsLastUpdates_Query_ReturnResult()
+        public async Task GetItemsLastUpdates_Query_ReturnResult()
         {
-            var query = new GetItemsLastUpdateQuery(NotificationSettings.OnceADay, 1);
+            var query = new GetBoxLastUpdateQuery(NotificationSettings.OnceADay, 4511);
             try
             {
-                m_ZboxReadService.GetItemsLastUpdates(query);
+                await m_ZboxReadService.GetBoxLastUpdates(query);
             }
             catch (Exception ex)
             {

@@ -44,31 +44,27 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
-            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions).ToString(CultureInfo.InvariantCulture));
+            message.Html = message.Html.Replace("{NUM-UPDATES}", (updateParams.NoOfAnswers + updateParams.NoOfItems + updateParams.NoOfQuestions + updateParams.NoOfQuestions).ToString(CultureInfo.InvariantCulture));
             message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
-            //message.Html = message.Html.Replace("{X-NEW-USERS}", AggregateUsers(updateParams.NoOfUsers));
-        }
 
-        //private string AggregateUsers(int numOfUsers)
-        //{
-        //    return AggreateWithString(numOfUsers, EmailResource.user, EmailResource.users);
-        //}
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "updateEmail");
+        }
 
         private string AggregateAnswers(int numOfAnswers)
         {
-            return AggreateWithString(numOfAnswers, EmailResource.answer, EmailResource.answers);
+            return AggregateWithString(numOfAnswers, EmailResource.answer, EmailResource.answers);
         }
         private string AggregateQuestion(int numOfQuestion)
         {
-            return AggreateWithString(numOfQuestion, EmailResource.question, EmailResource.questions);
+            return AggregateWithString(numOfQuestion, EmailResource.question, EmailResource.questions);
         }
         private string AggregateItems(int numOfItems)
         {
-            return AggreateWithString(numOfItems, EmailResource.item, EmailResource.items);
+            return AggregateWithString(numOfItems, EmailResource.item, EmailResource.items);
         }
-        private string AggreateWithString(int number, string single, string many)
+        private string AggregateWithString(int number, string single, string many)
         {
             if (number == 1)
             {
@@ -84,6 +80,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private string GenerateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)
         {
             cube = cube.Replace("{BOX-NAME}", boxUpdate.BoxName);
+            cube = cube.Replace("{BOX-URL}", boxUpdate.Url);
 
             var sb = new StringBuilder();
             foreach (var update in boxUpdate.Updates)

@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-            await Task.WhenAny(tModel, tTransaction);
+            await Task.WhenAll(tModel, tTransaction);
             return Json(new JsonResponse(true, tModel.Result));
         }
 

@@ -81,6 +81,7 @@
     <Compile Include="Dto\Dashboard\DashboardDto.cs" />
     <Compile Include="Dto\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="Dto\Emails\BoxDigestDto.cs" />
+    <Compile Include="Dto\Emails\BoxUpdatesDigestDto.cs" />
     <Compile Include="Dto\Emails\PartnersDto.cs" />
     <Compile Include="Dto\Emails\QnADigestDto.cs" />
     <Compile Include="Dto\Emails\ItemDigestDto.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
     <Compile Include="Queries\Emails\BaseDigestLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxesLastUpdateQuery.cs" />
+    <Compile Include="Queries\Emails\GetBoxLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetCommentsLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBadItemFlagQuery.cs" />
     <Compile Include="Queries\Emails\GetItemsLastUpdateQuery.cs" />

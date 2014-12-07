@@ -8,6 +8,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
         void GenerateAndSendEmail(string recipient, MailParameters parameters);
         void GenerateAndSendEmail(IEnumerable<string> recipients, MailParameters parameters);
 
+        void GenerateAndSendEmail(IEnumerable<string> recipients, string mailContent);
+
         Task DeleteUnsubscribe(string email);
     }
 }

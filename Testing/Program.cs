@@ -569,10 +569,10 @@ namespace Testing
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
 
 
-            mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", 
-                "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
-                new CultureInfo("en-Us"),"yaari.ram@gmail.com"
-                ,"https://develop.cloudents.com/account/"));
+            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", 
+            //    "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
+            //    new CultureInfo("en-Us"),"yaari.ram@gmail.com"
+            //    ,"https://develop.cloudents.com/account/"));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL"), "yaari.ram@gmail.com", null));
 
             //mail.GenerateAndSendEmail("noatseitlin@facebook.com", new WelcomeMailParams("ram", new CultureInfo("ru-RU")));

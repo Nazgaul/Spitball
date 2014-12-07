@@ -12,15 +12,10 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
-        //private const string DepartmentUrl = "/department/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
-
         private const string LibraryUrl = "/library/{0}/{1}/";
-
-        //private const string StoreCategoryUrl = "/store/category/{0}/";
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
         private const string LogInUrl = "/account/?invId={0}";
-
 
 
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
@@ -29,6 +24,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public static string BuildInviteUrl(string boxUrl, string invId)
         {
             return CloudentsUrl + boxUrl + string.Format(BoxUrlInvite, invId);
+        }
+
+        public static string AppendCloudentsUrl(string relativeUrl)
+        {
+            return HttpUtility.UrlPathEncode(CloudentsUrl + relativeUrl);
         }
 
         public static string BuildInviteCloudentsUrl(string invId)
