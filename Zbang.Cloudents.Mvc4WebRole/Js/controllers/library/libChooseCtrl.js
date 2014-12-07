@@ -53,7 +53,7 @@
 
                     return
 
-                }, 200);
+                }, 300);
 
              $scope.selectSearch = debounce(function () {
 
@@ -71,7 +71,6 @@
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;
-                     console.log(data);
 
                      if (data.length) {
                          $analytics.eventTrack('search ' + $scope.formData.searchInput, {
@@ -88,7 +87,7 @@
                          label: $scope.formData.searchInput
                      });
                  });
-             });
+             },300);
 
              $scope.createSearch = function () {
                  var query = $scope.formData.createUniversity.name || '';
@@ -148,6 +147,11 @@
                  $scope.display.search = $scope.display.searchUniversity = $scope.display.facebook
                       = false;
 
+             };
+
+             $scope.backUniversity = function () {
+                 $scope.display.createUniversity = false;
+                 $scope.display.search = $scope.display.searchUniversity = true;
              };
 
              $scope.createUniversitySubmit = function (isValid) {
