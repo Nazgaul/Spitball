@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Cache;
+//using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private bool m_KeepRunning;
         private readonly TimeSpan m_TimeToSleepAfterExecuting;
 
-        private readonly string m_CacheRegionName;
+        //private readonly string m_CacheRegionName;
 
         //private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
 
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
             //m_Cache = cache;
-            m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
+            //m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
             m_TimeToSleepAfterExecuting = m_DigestEmailHourBack == NotificationSettings.OnEveryChange ? TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes) : TimeSpan.FromHours(1);
 
         }
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return;
             }
 
-            m_MailComponent.GenerateAndSendEmail("yaari.ram@gmail.com", new UpdateMailParams(updates,
+            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates,
                 new CultureInfo(culture), userName,
                 numOfQuestion,
                 numOfAnswers,
