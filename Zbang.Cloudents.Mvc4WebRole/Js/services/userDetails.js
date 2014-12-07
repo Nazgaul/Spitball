@@ -16,6 +16,13 @@
              $rootScope.user = {
                  isAuthenticated: true
              };
+
+             ga('create', 'UA-9850006-3', {
+                 'userId': data.id,
+                 'siteSpeedSampleRate': 70,
+                 'cookieDomain': 'cloudents.com',
+                 'alwaysSendReferrer': true
+             });
          }
 
 
