@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IMailComponent m_MailComponent;
 
-        private readonly ICache m_Cache;
+       // private readonly ICache m_Cache;
 
         private bool m_KeepRunning;
         private readonly TimeSpan m_TimeToSleepAfterExecuting;
@@ -30,21 +31,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         //private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
 
         public DigestEmail2(NotificationSettings hourForEmailDigest, IZboxReadServiceWorkerRole zboxService,
-            IMailComponent mailComponent, ICache cache)
+            IMailComponent mailComponent/*, ICache cache*/)
         {
             m_DigestEmailHourBack = hourForEmailDigest;
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
-            m_Cache = cache;
+            //m_Cache = cache;
             m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
-            if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
-            {
-                m_TimeToSleepAfterExecuting = TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes);
-            }
-            else
-            {
-                m_TimeToSleepAfterExecuting = TimeSpan.FromHours(1);
-            }
+            m_TimeToSleepAfterExecuting = m_DigestEmailHourBack == NotificationSettings.OnEveryChange ? TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes) : TimeSpan.FromHours(1);
 
         }
         public void Run()
@@ -54,7 +48,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    Execute();
+                    ExecuteAsync().Wait();
                 }
             }
             catch (Exception ex)
@@ -65,60 +59,63 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         }
 
-        private void Execute()
+        private async Task ExecuteAsync()
         {
             if (!ShouldRunReport())
             {
                 Thread.Sleep(TimeSpan.FromMinutes(5));
                 return;
             }
-            var users = m_ZboxReadService.GetUsersByNotificationSettings(new GetUserByNotificationQuery(m_DigestEmailHourBack));
+            var users = await m_ZboxReadService.GetUsersByNotificationSettings(new GetUserByNotificationQuery(m_DigestEmailHourBack));
             foreach (var user in users)
             {
 
                 try
                 {
-                    BuildUserReport(user.UserId, user.Email, user.Culture, user.UserName);
+                    await BuildUserReport(user.UserId, user.Email, user.Culture, user.UserName);
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
             }
-            m_Cache.RemoveFromCache(m_CacheRegionName);
+           // m_Cache.RemoveFromCache(m_CacheRegionName);
             // m_Cache.Clear();
             Thread.Sleep(m_TimeToSleepAfterExecuting);
         }
 
-        private void BuildUserReport(long userid, string email, string culture, string userName)
+        private async Task BuildUserReport(long userid, string email, string culture, string userName)
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
-            var boxes = m_ZboxReadService.GetBoxesLastUpdates(new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
-            int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0;//, numOfUsers = 0;
+            var boxes = await m_ZboxReadService.GetBoxesLastUpdates(new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
 
-            foreach (var box in boxes)
+            int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0;
+
+            foreach (var box in boxes.Select(s =>
             {
-                box.Url = BuildUrl(box);
-                var boxupdates = GetBoxData(box);
-                var userSpecificUpdates = boxupdates.Where(w => w.UserId != userid);
-                var boxUpdateDetailses = userSpecificUpdates as UpdateMailParams.BoxUpdateDetails[] ?? userSpecificUpdates.ToArray();
-                numOfQuestion += boxUpdateDetailses.OfType<UpdateMailParams.QuestionUpdate>().Count();
-                numOfAnswers += boxUpdateDetailses.OfType<UpdateMailParams.AnswerUpdate>().Count();
-                numOfItems += boxUpdateDetailses.OfType<UpdateMailParams.ItemUpdate>().Count();
-                // numOfUsers += boxUpdateDetailses.OfType<UpdateMailParams.UserJoin>().Count();
-                if (boxUpdateDetailses.Any())
-                {
-                    updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName, boxUpdateDetailses.Take(4), box.Url, boxUpdateDetailses.Count() - 4));
-                }
+                s.Url = UrlConsts.AppendCloudentsUrl(s.Url);
+                return s;
+            }))
+            {
+                var boxupdates = await GetBoxData(box);
+                var userSpecificUpdates = boxupdates.Where(w => w.UserId != userid).ToList();
+                if (!userSpecificUpdates.Any()) continue;
+                numOfQuestion += userSpecificUpdates.OfType<UpdateMailParams.QuestionUpdate>().Count();
+                numOfAnswers += userSpecificUpdates.OfType<UpdateMailParams.AnswerUpdate>().Count();
+                numOfItems += userSpecificUpdates.OfType<UpdateMailParams.ItemUpdate>().Count();
+
+                updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName,
+                    userSpecificUpdates.Take(4),
+                    box.Url,
+                    userSpecificUpdates.Count() - 4));
             }
 
             if (updates.Count == 0)
             {
-                //empty report
                 return;
             }
 
-            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates,
+            m_MailComponent.GenerateAndSendEmail("yaari.ram@gmail.com", new UpdateMailParams(updates,
                 new CultureInfo(culture), userName,
                 numOfQuestion,
                 numOfAnswers,
@@ -126,64 +123,56 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         }
 
-        private string BuildUrl(BoxDigestDto s)
+
+
+        private async Task<IEnumerable<UpdateMailParams.BoxUpdateDetails>> GetBoxData(BoxDigestDto box)
         {
-            return UrlConsts.BuildBoxUrl(s.BoxId, s.BoxName, s.UniversityName, true);
-        }
+            //var cacheItem =
+            //    m_Cache.GetFromCache<IEnumerable<UpdateMailParams.BoxUpdateDetails>>(
+            //        box.BoxId.ToString(CultureInfo.InvariantCulture), m_CacheRegionName);
 
-        private IEnumerable<UpdateMailParams.BoxUpdateDetails> GetBoxData(BoxDigestDto box)
-        {
-            var cacheItem =
-                m_Cache.GetFromCache<IEnumerable<UpdateMailParams.BoxUpdateDetails>>(
-                    box.BoxId.ToString(CultureInfo.InvariantCulture), m_CacheRegionName);
-                
-            if (cacheItem != null)
-            {
-                return cacheItem;
-            }
-            var items = m_ZboxReadService.GetItemsLastUpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+            //if (cacheItem != null)
+            //{
+            //    return cacheItem;
+            //}
+            var boxUpdates =
+                await m_ZboxReadService.GetBoxLastUpdates(new GetBoxLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 
 
-            var itemsUpdate = items.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
+            var itemsUpdate = boxUpdates.Items.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
-                UrlConsts.BuildItemUrl(box.BoxId, box.BoxName, s.Id, s.Name, box.UniversityName ?? "my", true)
+                UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
-            var quizes = m_ZboxReadService.GetQuizLastUpdates(new GetItemsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var quizUpdate = quizes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
+            var quizUpdate = boxUpdates.Quizzes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
-                UrlConsts.BuildQuizUrl(box.BoxId, box.BoxName, s.Id, s.Name, box.UniversityName ?? "my", true)
+                UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
 
-            var questions = m_ZboxReadService.GetQuestionsLastUpdates(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var questionUpdate = questions.Select(s => new UpdateMailParams.QuestionUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
+            var questionUpdate = boxUpdates.BoxComments.Select(s => new UpdateMailParams.QuestionUpdate(
+                s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
-            var answers = m_ZboxReadService.GetAnswersLastUpdates(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var answersUpdate = answers.Select(s => new UpdateMailParams.AnswerUpdate(s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
+            var answersUpdate = boxUpdates.BoxReplies.Select(s => new UpdateMailParams.AnswerUpdate(
+                s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
 
-            var discussion = m_ZboxReadService.GetQuizDiscussion(new GetCommentsLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            var discussionUpdate = discussion.Select(s => new UpdateMailParams.DiscussionUpdate(s.UserName, s.Text, box.BoxPicture,
-                 UrlConsts.BuildQuizUrl(box.BoxId, box.BoxName, s.QuizId, s.QuizName, box.UniversityName ?? "my", true),
+            var discussionUpdate = boxUpdates.QuizDiscussions.Select(s => new UpdateMailParams.DiscussionUpdate(
+                s.UserName, s.Text, box.BoxPicture,
+                  UrlConsts.AppendCloudentsUrl(s.Url),
                 s.UserId));
 
-            //var memebers = m_ZboxReadService.GetNewMembersLastUpdates(new GetMembersLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
-            //var membersUpdate = memebers.Select(s =>
-            //    new UpdateMailParams.UserJoin(s.Name, s.Picture, box.BoxName,
-            //        UrlConsts.BuildUserUrl(s.Id, s.Name, true), s.Id));
+
 
             var boxupdates = new List<UpdateMailParams.BoxUpdateDetails>();
             boxupdates.AddRange(itemsUpdate);
             boxupdates.AddRange(questionUpdate);
-            //boxupdates.AddRange(membersUpdate);
             boxupdates.AddRange(answersUpdate);
             boxupdates.AddRange(quizUpdate);
             boxupdates.AddRange(discussionUpdate);
-            // m_Cache.Add(box.BoxId, boxupdates);
-            m_Cache.AddToCache(box.BoxId.ToString(CultureInfo.InvariantCulture), boxupdates,
-                TimeSpan.FromHours(1), m_CacheRegionName);
+            //m_Cache.AddToCache(box.BoxId.ToString(CultureInfo.InvariantCulture), boxupdates,
+            //    TimeSpan.FromHours(1), m_CacheRegionName);
 
             return boxupdates;
 

@@ -8,6 +8,8 @@
 
         public string QuizName { get; set; }
         public long QuizId { get; set; }
+
+        public string Url { get; set; }
     }
 
 }
