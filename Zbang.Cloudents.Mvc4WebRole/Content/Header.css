@@ -229,7 +229,6 @@ body {
   min-width: 12px;
   line-height: 11px;
   text-align: center;
-  z-index: 1;
   padding: 4px;
 }
 .invitesCounterShow {
@@ -342,4 +341,3 @@ body {
 .mCSB_draggerRail {
   display: none;
 }
-/*#endregion */

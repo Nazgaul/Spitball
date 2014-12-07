@@ -90,6 +90,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         }
 
         $scope.info.itemsLength++;
+        $scope.info.feedLength++;
         $scope.items.unshift(data.itemDto);
         $scope.filteredItems.unshift(data.itemDto);
         $scope.items.sort(sortItems);
@@ -165,6 +166,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
                 $scope.filteredItems.splice(index, 1);
             }
             $scope.info.itemsLength--;
+            $scope.info.feedLength--;
             if (item.tabId) {
                 sTabCount.notifyRemove(item.tabId);
             }

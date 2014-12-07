@@ -329,15 +329,13 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*&:before
-    {
-        width: 13px;
-        height: 13px;
-        background-position: -72px -122px;
-    }*/
 }
 .quizAddQuestion:hover {
   background: #fff;
+}
+.quizAddQuestion .svg-plus {
+  position: relative;
+  top: 3px;
 }
 .quizBottom {
   background: #fff;
@@ -1095,15 +1093,9 @@ body.quiz .modal-backdrop.in {
 /*#region Quiz Dialog */
 .modal.quizPopup .modal-dialog {
   width: 700px;
-  height: 350px;
   background: #fff;
   padding: 0 20px 15px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   margin: auto;
   z-index: 1052;
   text-align: center;
@@ -1204,4 +1196,3 @@ body.quiz .modal-backdrop.in {
 .quizPopupBtnWpr .btn1:nth-child(2):hover {
   background: #4f5d67;
 }
-/*#endregion */

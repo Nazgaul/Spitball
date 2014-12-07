@@ -671,8 +671,14 @@
   height: 70px;
   fill: #282828;
 }
-.socialWpr .fbBtn {
+.fbBtn {
   margin: 15px 60px 33px 60px;
+}
+.fbBtn svg:hover {
+  fill: #3b5998;
+}
+.gmailBtn svg:hover {
+  fill: #dd4b39;
 }
 .socialContentWpr {
   min-height: 250px;
@@ -1332,4 +1338,3 @@
 .libraryList > .libraryItem + .box {
   height: 125px;
 }
-/*#endregion */

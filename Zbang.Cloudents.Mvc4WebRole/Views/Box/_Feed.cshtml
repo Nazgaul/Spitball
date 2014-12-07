@@ -7,7 +7,7 @@
         <form class="feedForm" name="qnaQform" focus-form="feedOpen"
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-            <img ng-src="{{info.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
+            <img ng-src="{{data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
             <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                       ng-focus="checkAuth()"></textarea>
             <ul class="attachedList">
@@ -26,7 +26,7 @@
         </form>
 
         <ul class="boxFeedList">
-            <li ng-repeat="question in info.questions track by question.id" ng-class="{hasAttached: question.files.length}">
+            <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
                 <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{question.userId}}" />
 
                 <div class="feedWpr">
@@ -83,7 +83,7 @@
                     </li>
                 </ul>
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    <img class="feedImg rFloat" ng-src="{{info.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
+                    <img class="feedImg rFloat" ng-src="{{data.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
                     <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
@@ -103,7 +103,7 @@
 
         </ul>
 
-        <div ng-show="info.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
+        <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
 
     </section>
     <div class="boxSideBar" ng-controller="SideBarCtrl">

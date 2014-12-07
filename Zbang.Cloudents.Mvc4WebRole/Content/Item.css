@@ -200,6 +200,7 @@
 .uploadInfo .itemOwner,
 .uploadInfo time {
   display: inline-block;
+  vertical-align: middle;
 }
 .firstRow {
   position: relative;
@@ -219,6 +220,9 @@
   top: -6px;
   border-left: 1px solid #3399ff;
   border-top: 1px solid #3399ff;
+}
+.firstRow h2 {
+  white-space: nowrap;
 }
 .secondRow {
   text-align: center;
@@ -690,4 +694,3 @@
   height: 100vh;
   margin-top: -50px;
 }
-/*#endregion */
