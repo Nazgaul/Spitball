@@ -298,4 +298,25 @@ In the meantime, you can go to your area, create private boxes and invite your f
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="Congrats" xml:space="preserve">
+    <value>Congratulations</value>
+  </data>
+  <data name="EarnPoints" xml:space="preserve">
+    <value>Earn points by inviting friends, uploading files and solving quizzes!</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Interested in finding more class notes and previous exams
+that can help you improve your studying?
+Join the rest of your classmates and sign up to </value>
+  </data>
+  <data name="ReachTop" xml:space="preserve">
+    <value>Want to reach to the top of the chart?</value>
+  </data>
+  <data name="ViewEntire" xml:space="preserve">
+    <value>Would you like to view
+the entire document? </value>
+  </data>
+  <data name="YouEarned" xml:space="preserve">
+    <value>you earned</value>
+  </data>
 </root>

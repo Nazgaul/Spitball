@@ -93,11 +93,78 @@
 .modal.boxInvitePopup .invForm h3 {
   color: #fff;
 }
-.modal.rename {
+.modal.rename,
+.modal.itemReg,
+.modal.congrats {
   padding-left: 290px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.modal.itemReg {
+  font-family: Arial;
+}
+.modal.itemReg .modal-dialog {
+  width: 500px;
+}
+.modal.itemReg .modal-header {
+  height: 80px;
+  background: #e1e1e1;
+  text-align: center;
+  border-radius: 6px 6px 0 0;
+}
+.modal.itemReg .modal-header svg {
+  width: 46px;
+  height: 50px;
+  fill: #0f9d58;
+  display: inline-block;
+  top: 48px;
+  left: 0;
+}
+.modal.itemReg .modal-header h3 {
+  width: auto;
+  font-size: 22px;
+  line-height: 24px;
+  color: #0f9d58;
+  display: inline-block;
+  vertical-align: top;
+  background: none;
+  font-weight: bold;
+  white-space: pre-line;
+  position: relative;
+  top: -30px;
+  padding: 0 0 0 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.modal.itemReg .modal-body {
+  text-align: center;
+}
+.modal.itemReg .itemRegTxt1 {
+  text-align: center;
+  white-space: pre-line;
+  font-size: 16px;
+  line-height: 20px;
+}
+.modal.itemReg .itemRegTxt2 {
+  text-align: center;
+  border-bottom: 1px solid #e1e1e1;
+  margin: 0 -20px;
+  padding-bottom: 15px;
+}
+.modal.itemReg .svg-logo {
+  width: 147px;
+  height: 26px;
+  fill: #0f9d58;
+  margin: 0 auto 20px;
+  display: block;
+}
+.modal.itemReg .btn1 {
+  margin-bottom: 5px;
+}
+.modal.itemReg .svg-close {
+  fill: #282828;
 }
 .modal.boxSettings {
   max-height: none;

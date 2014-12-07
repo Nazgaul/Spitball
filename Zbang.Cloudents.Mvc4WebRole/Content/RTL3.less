@@ -29,8 +29,18 @@
             margin: 0 0 0 30px; //rtl
         }
     }
-    &.rename {
+    &.rename, &.itemReg, &.congrats {
         padding: 0 @leftSideBarWidth 0 0; //rtl
+    }
+    &.itemReg {
+        .modal-header {
+            svg {
+                left:0; //rtl
+            }
+            h3 {
+                padding: 0 0 0 50px; //rtl //override
+            }
+        }
     }
     &.deptSettings {
         .changeName {

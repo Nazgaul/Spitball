@@ -286,4 +286,22 @@
   <data name="Done" xml:space="preserve">
     <value>סיום</value>
   </data>
+  <data name="Congrats" xml:space="preserve">
+    <value>מזל טוב</value>
+  </data>
+  <data name="EarnPoints" xml:space="preserve">
+    <value>הזמן חברים, העלה קבצים, פתור מבחנים ותמשיך לצבור נקודות!</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>מעונין למצוא עוד סיכומים ומבחנים שיעזרו לך ללמוד? הצטרף לשאר הכיתה שלך והרשם למאגר האקדמי החברתי של </value>
+  </data>
+  <data name="ReachTop" xml:space="preserve">
+    <value>רוצה להרוויח עוד נקודת ולהיות בראש הטבלה? </value>
+  </data>
+  <data name="ViewEntire" xml:space="preserve">
+    <value>רוצה לצפות במסמך כולו? </value>
+  </data>
+  <data name="YouEarned" xml:space="preserve">
+    <value>הרווחת</value>
+  </data>
 </root>

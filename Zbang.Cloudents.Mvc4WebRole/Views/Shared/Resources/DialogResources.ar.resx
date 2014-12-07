@@ -285,4 +285,19 @@
   <data name="Done" xml:space="preserve">
     <value>انهاء</value>
   </data>
+  <data name="Congrats" xml:space="preserve">
+    <value>تهنئة</value>
+  </data>
+  <data name="EarnPoints" xml:space="preserve">
+    <value>اربح النقاط من خلال دعوة الأصدقاء، وتحميل الملفات وحل المسابقات!</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>؟ هل أنت مهتم بالعثور على المزيد من ملاحظات الفصول والامتحانات السابقة التي يمكن أن تساعدك في تحسين دراستك؟ انضم إلى بقية زملائك في الصف وقم بالتسجيل في</value>
+  </data>
+  <data name="ViewEntire" xml:space="preserve">
+    <value>هل ترغب في عرض المستند بأكمله؟ </value>
+  </data>
+  <data name="YouEarned" xml:space="preserve">
+    <value>لقد ربحت</value>
+  </data>
 </root>

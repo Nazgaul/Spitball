@@ -38,6 +38,12 @@ app.factory('sModal',
                 itemRename: function (params) {
                     return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
+                itemRename1: function (params) {
+                    return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'itemRenameCtrl', 'none', true, params.data);
+                },
+                itemRename2: function (params) {
+                    return buildObj('congrats', { url: '/account/CongratsPartial' }, 'itemRenameCtrl', 'none', true, params.data);
+                },
                 uniRestriction: function (params) {
                     return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'none', true, params.data);
                 },

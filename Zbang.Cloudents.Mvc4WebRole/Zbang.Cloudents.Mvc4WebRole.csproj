@@ -806,6 +806,7 @@
     <Content Include="Images\nopreview_empty.png" />
     <Content Include="Images\no_results_icon.png" />
     <Content Include="Images\placeholder_user_img.png" />
+    <Content Include="Images\pointsBg.png" />
     <Content Include="Images\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
@@ -2062,6 +2063,8 @@
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
     <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
+    <Content Include="Views\Shared\Partials\_ItemRegister.cshtml" />
+    <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
