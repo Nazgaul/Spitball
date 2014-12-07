@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager','sLogin',
-        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify) {
             "use strict";
             var consts = {
                 view: {
@@ -54,7 +54,7 @@
                        ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().isAdmin);
             };
 
-
+            
             $scope.removeQuiz = function (quiz) {
                 sNotify(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
 
@@ -81,6 +81,7 @@
                         $rootScope.$broadcast('closeQuizCreate', quiz.id);
                     }
                     calcQuizCount();
+                    $scope.info.feedLength--;
                 }
             };
 
@@ -101,6 +102,9 @@
                         $rootScope.options.quizOpen = true;
                     });
                 }
+
+                item.isNew = false;
+                sNewUpdates.setOld($scope.boxId, 'quizzes', item.id);
             };
 
             //#region view
@@ -160,7 +164,7 @@
                 $scope.quizzes.unshift(quizItem); //add quiz
 
                 calcQuizCount();
-
+                $scope.info.feedLength++;
             });
 
             $scope.$on('QuizDeleted', function (e, data) {
