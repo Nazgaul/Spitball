@@ -344,11 +344,7 @@
 
 
 
-        //ga('require', 'displayfeatures');
-        //if (location.pathname.indexOf('account')) {
-        //    ga('send', 'pageview');
-        //}
- 
+        
         sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);
@@ -357,10 +353,7 @@
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
-            if (!previous) { //no previous firsttime load
-
-                ga('set', 'dimension3', sUserDetails.getDetails().id);
-
+            if (!previous) { //no previous firsttime load        
                 try {
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {
@@ -431,7 +424,7 @@
         $http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
         $http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
         $http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });
-        $http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
+        //$http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
 
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
