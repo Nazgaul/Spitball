@@ -6,7 +6,7 @@
 <div class="signIn">
    
     @using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl },
-    FormMethod.Post, new { id = "login" })
+    FormMethod.Post, new { id = "login" , name = "loginForm"})
    )
     {
         Html.RenderAction("AntiForgeryToken", "Home", true);
