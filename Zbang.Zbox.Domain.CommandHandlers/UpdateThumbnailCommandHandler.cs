@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var file = m_ItemRepository.Get(command.ItemId);
             if (file == null)
             {
-                throw new ArgumentException("file does not exisits");
+                throw new ArgumentException("file does not exist " + command.ItemId);
             }
             if (file.ItemContentUrl != command.OldBlobName)
             {
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             file.Content = command.FileContent;
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {
-                 m_ItemRepository.Save(file);
+                m_ItemRepository.Save(file);
                 return;
             }
             //if (file.ThumbnailBlobName == Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture)
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.Box.AddPicture(command.ThumbnailUrl, thumbnailUrl);
                 m_BoxRepository.Save(file.Box);
             }
-           
+
 
         }
     }

@@ -106,13 +106,16 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] PowerPoint2007Extenstions = { ".pptx", ".potx", ".ppxs", ".ppsx", ".ppt", ".pot", ".pps" };
+        public static readonly string[] PowerPoint2007Extensions =
+        {
+          ".ppt",".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"   
+        };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return PowerPoint2007Extenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return PowerPoint2007Extensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 

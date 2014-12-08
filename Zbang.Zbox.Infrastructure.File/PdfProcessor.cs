@@ -120,13 +120,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                using (var stream = BlobProvider.DownloadFile(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
                 {
                     using (var pdfDocument = new Document(stream))
                     {
@@ -135,13 +135,13 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             jpegDevice.Process(pdfDocument.Pages[1], ms);
                             var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, ms, "image/jpeg");
+                            await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg");
 
-                            return Task.FromResult(new PreProcessFileResult
+                            return new PreProcessFileResult
                             {
                                 ThumbnailName = thumbnailBlobAddressUri,
                                 FileTextContent = ExtractPdfText(pdfDocument)
-                            });
+                            };
                         }
                     }
                 }
@@ -149,7 +149,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile pdf", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
         }
 

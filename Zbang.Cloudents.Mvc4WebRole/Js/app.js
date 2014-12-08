@@ -427,10 +427,10 @@
         });
                 
         $http.get('/dashboard/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/dashboard/indexpartial/', res); } );
-        $http.get('/box/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/box/IndexPartial/', res); });
-        $http.get('/item/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/item/IndexPartial/', res); });
-        $http.get('/quiz/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/quiz/IndexPartial/', res); });
-        $http.get('/library/IndexPartial/', { cache: htmlCache }).then(function (res) { putInCache('/library/IndexPartial/', res); });
+        $http.get('/box/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/box/indexpartial/', res); });
+        $http.get('/item/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/item/indexpartial/', res); });
+        $http.get('/quiz/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/quiz/indexpartial/', res); });
+        $http.get('/library/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/library/indexpartial/', res); });
 
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';

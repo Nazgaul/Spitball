@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,7 +28,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 while (m_KeepRunning)
                 {
-                    Execute();
+                    ExecuteAsync().Wait();
                 }
             }
             catch (Exception ex)
@@ -37,39 +38,39 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private void Execute()
+        private async Task ExecuteAsync()
         {
-            m_QueueProcess.RunQueue(new MailQueueNameNew(), msg =>
-            {
-                var msgData = msg.FromMessageProto<BaseMailData>();
-                if (msgData == null)
-                {
-                    TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
-                    return true;
-                }
-                try
-                {
-                    var mail = IocFactory.Unity.Resolve<IMail2>(msgData.MailResover);
-                    return mail.Execute(msgData);
-                }
-                catch (NullReferenceException ex)
-                {
-                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
-                    return true;
-                }
-                catch (ArgumentException ex)
-                {
-                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
-                    return false;
-                }
+            await m_QueueProcess.RunQueue(new MailQueueNameNew(), msg =>
+             {
+                 var msgData = msg.FromMessageProto<BaseMailData>();
+                 if (msgData == null)
+                 {
+                     TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
+                     return Task.FromResult(true);
+                 }
+                 try
+                 {
+                     var mail = IocFactory.Unity.Resolve<IMail2>(msgData.MailResover);
+                     return Task.FromResult(mail.Execute(msgData));
+                 }
+                 catch (NullReferenceException ex)
+                 {
+                     TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                     return Task.FromResult(true);
+                 }
+                 catch (ArgumentException ex)
+                 {
+                     TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                     return Task.FromResult(true);
+                 }
+                 catch (Exception ex)
+                 {
+                     TraceLog.WriteError("New MailProcess run " + msg.Id, ex);
+                     return Task.FromResult(false);
+                 }
 
 
-            }, TimeSpan.FromMinutes(1));
+             }, TimeSpan.FromSeconds(5));
         }
 
         public void Stop()

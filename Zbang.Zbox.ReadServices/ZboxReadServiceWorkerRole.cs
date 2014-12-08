@@ -179,16 +179,16 @@ namespace Zbang.Zbox.ReadServices
                 //
                 //");
 
-                //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
-                //(
-                //'filev4.jpg',
-                //'imagev4.jpg',
-                //'pdfv4.jpg',
-                //'powerv4.jpg',
-                //'wordv4.jpg',
-                //'excelv4.jpg'
-                //)
-                //and  isdeleted = 0");
+                return await conn.QueryAsync<string>(@"select blobname from zbox.item where thumbnailblobname in 
+                (
+                'filev4.jpg',
+                'imagev4.jpg',
+                'pdfv4.jpg',
+                'powerv4.jpg',
+                'wordv4.jpg',
+                'excelv4.jpg'
+                )
+                and  isdeleted = 0 order by itemid desc");
 
                 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
                 //(blobname like '%.jpg'
@@ -206,7 +206,7 @@ namespace Zbang.Zbox.ReadServices
                 //        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
                 //		('3gp', '3g2', '3gp2', 'asf', 'mts', 'm2ts', 'mod', 'dv', 'ts', 'vob', 'xesc', 'mp4', 'mpeg', 'mpg', 'm2v', 'ismv', 'wmv')");
 
-                return await conn.QueryAsync<string>("select blobname from zbox.item where thumbnailUrl like '%v3.jpg' and name like '%.jpg' and isdeleted = 0");
+                //return await conn.QueryAsync<string>("select blobname from zbox.item where thumbnailUrl like '%v3.jpg' and name like '%.jpg' and isdeleted = 0");
 
             }
         }

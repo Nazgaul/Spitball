@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
-
+            UserType = Infrastructure.Enums.UserType.Regular;
         }
 
         public User(string email, string smallImage, string largeImage)
@@ -87,6 +87,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Email { get; set; }
         public virtual string Culture { get; private set; }
 
+        public UserType UserType { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; protected set; }
 

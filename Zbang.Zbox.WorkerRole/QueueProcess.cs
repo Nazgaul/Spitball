@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -20,10 +21,10 @@ namespace Zbang.Zbox.WorkerRole
         readonly int m_MinInterval;
         int m_Interval;
 
-        public void RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
+        public async Task RunQueue(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
             TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
-            var hasElementsToProcess = m_QueueProvider.RunQueue(queueName, func, invisibleTimeinQueue, deQueueCount);
+            var hasElementsToProcess = await m_QueueProvider.RunQueue(queueName, func, invisibleTimeinQueue, deQueueCount);
             if (hasElementsToProcess)
             {
                 m_Interval = m_MinInterval;

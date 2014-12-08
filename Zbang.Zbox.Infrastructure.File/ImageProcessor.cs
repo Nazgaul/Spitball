@@ -122,13 +122,18 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = BlobProvider.DownloadFile(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
                 {
+                    if (stream.Length == 0)
+                    {
+                        TraceLog.WriteError("image is empty" + blobName);
+                        return new PreProcessFileResult {ThumbnailName = GetDefaultThumbnailPicture()};
+                    }
                     //var settings = new ResizeSettings
                     //{
                     //    Scale = ScaleMode.UpscaleCanvas,
@@ -148,8 +153,8 @@ namespace Zbang.Zbox.Infrastructure.File
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
-                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
-                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                       await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
+                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
                     }
 
                 }
@@ -157,7 +162,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
 
         }

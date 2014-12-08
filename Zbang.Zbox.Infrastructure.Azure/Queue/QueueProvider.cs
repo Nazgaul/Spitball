@@ -86,19 +86,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue;
         }
 
-        public bool RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
+        public async Task<bool> RunQueue(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
             if (queueName == null) throw new ArgumentNullException("queueName");
             if (func == null) throw new ArgumentNullException("func");
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            var messages = queue.GetMessages(MaxQueuePopLimit, invisibleTimeinQueue);
+            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
             if (messages == null)
             {
                 //SleepAndIncreaseInterval();
                 return false;
             }
             var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
+            var listToWait = new List<Task>();
             foreach (var msg in cloudQueueMessages)
             {
                 try
@@ -107,14 +108,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
                     if (msg.DequeueCount < deQueueCount)
                     {
-                        if (func.Invoke(msg))
+                        if (await func.Invoke(msg))
                         {
-                            queue.DeleteMessage(msg);
+                            listToWait.Add(queue.DeleteMessageAsync(msg));
+                            
                         }
                     }
                     else
                     {
-                        queue.DeleteMessage(msg);
+                        listToWait.Add(queue.DeleteMessageAsync(msg));
                     }
                 }
                 catch (StorageException ex)
@@ -126,11 +128,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                     TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
                 }
             }
-            if (!cloudQueueMessages.Any())
-            {
-                return false;
-            }
-            return true;
+            await Task.WhenAll(listToWait);
+            return cloudQueueMessages.Any();
         }
 
 

@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
                 //var blobs = new List<string>
                 //{
-                //     "68e07153-29f3-46e4-af0d-a6ac667eb139.jpg",
+                //     "1b6b81f1-8afd-454c-989c-8ca40d47f7e4.xlsx",
                 //};
                 var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
                 foreach (var blobname in blobs)
@@ -82,30 +82,32 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
             var tokenSource = new CancellationTokenSource();
-            tokenSource.CancelAfter(TimeSpan.FromMinutes(240));
+            tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
             CancellationToken token = tokenSource.Token;
 
-          
 
-            using (var t = Task.Factory.StartNew(() => processor.PreProcessFile(blobUri), token))
+
+            var t = Task.Factory.StartNew(
+                async () => 
+                    await processor.PreProcessFile(blobUri), token);
+
+            t.Wait(token);
+            var retVal = t.Result.Result;
+            if (retVal == null)
             {
-                t.Wait(token);
-                var retVal = t.Result.Result;
-                if (retVal == null)
-                {
-                    return;
-                }
-                var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
-                if (itemid == 0)
-                {
-                    throw new ArgumentException("cannot be 0", "itemid");
-                }
-                var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName,
-                    retVal.FileTextContent);
-                m_ZboxService.UpdateThumbnailPicture(command);
+                return;
             }
+            var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
+            if (itemid == 0)
+            {
+                throw new ArgumentException("cannot be 0", "itemid");
+            }
+            var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName,
+                retVal.FileTextContent);
+            m_ZboxService.UpdateThumbnailPicture(command);
+
         }
-      
+
 
 
     }

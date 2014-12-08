@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,7 +10,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
@@ -164,27 +162,20 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var banners = m_ReadService.GetBanners();
 
 
-            var bannerCommand = new AddBannersCommand(banners.Select(s =>
+            var bannerCommand = new AddBannersCommand(banners.Select(s => new Banner(s.Id, s.Url, s.Order, s.UniversityId, () =>
             {
-                //var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
-                //var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
-                return new Banner(s.Id, s.Url, s.Order, s.UniversityId, () =>
-                {
-                    var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
-                    var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
-                    return image;
-                });
-            }));
+                var bytes = DownloadContent("http://hatavot.co.il/uploadimages/banners2/" + s.Image).Result;
+                var image = m_BlobProvider.UploadFromLink(bytes, s.Image).Result;
+                return image;
+            })));
             m_ZboxWriteService.AddBanners(bannerCommand);
         }
 
         private static int? TryParseNullableInt(string s)
         {
             int f;
-            if (int.TryParse(s, out f))
-            {
-                if (f >= 0) return f;
-            }
+            if (!int.TryParse(s, out f)) return null;
+            if (f >= 0) return f;
             return null;
         }
 

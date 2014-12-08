@@ -50,7 +50,7 @@ namespace Zbang.Zbox.WorkerRole
 
         private void RegisterTypes()
         {
-            Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
+            //Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
             Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
             Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
             Unity.RegisterType<IJob, UpdateDataBase>(Dbi);

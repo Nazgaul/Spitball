@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
-       
+
 
         private void ScalePageSetupToFitPage(Worksheet workSheet)
         {
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
 
-            var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
+            var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return string.Format("{0}{3}_{2}_{1}.jpg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, CacheVersion);
         }
-       
+
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
 
@@ -138,23 +138,26 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = BlobProvider.DownloadFile(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
                 {
                     SetLicense();
                     var excel = new Workbook(stream);
                     var wb = excel.Worksheets[0];
                     //ScalePageSetupToFitPage(wb);
 
-                    var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
+                    var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
                     var sr = new SheetRender(wb, imgOptions);
                     var img = sr.ToImage(0);
-
+                    if (img == null)
+                    {
+                        return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                    }
                     var settings = new ResizeSettings
                     {
                         Scale = ScaleMode.UpscaleCanvas,
@@ -173,8 +176,8 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         ImageBuilder.Current.Build(img, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg");
+                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
                     }
 
                 }
@@ -182,9 +185,9 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile excel", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
-            
+
         }
 
         public override string GetDefaultThumbnailPicture()
