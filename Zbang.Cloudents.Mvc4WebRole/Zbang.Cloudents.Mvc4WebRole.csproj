@@ -1937,6 +1937,7 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\validatinator.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />

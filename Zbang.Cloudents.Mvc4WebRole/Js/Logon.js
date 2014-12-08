@@ -36,7 +36,7 @@
         sessionStorage.removeItem('registerForm');
     })();
 
-    document.getElementById('maleRadio').checked = true;
+    //document.getElementById('maleRadio').checked = true;
     //#region Show and Hide popups
 
     registerPopup.addEventListener('click', function (e) {
@@ -73,6 +73,7 @@
     registerPopup.addEventListener('click', closePopup);
     connectPopup.addEventListener('click', closePopup);
 
+
     langSelect.addEventListener('change', function () {
 
         var x = [], obj;
@@ -87,8 +88,19 @@
         window.location.href = this.selectedOptions ? this.selectedOptions[0].getAttribute('data-href') : this.options[this.selectedIndex].getAttribute('data-href');
     });
 
-    addChangeEvent(connectForm);
-    addChangeEvent(registerForm);
+    //addChangeEvent(connectForm);
+    //addChangeEvent(registerForm);
+
+    var validatinator = new Validatinator({
+        "my-forms-name-attribute": {
+            "my-fields-name-attribute": "required|min:5|max:20",
+            "i-am-another-field-in-the-above-form": "required|between:20,30",
+        },
+        "i-am-another-form": {
+            "i-am-a-field-in-the-new-form": "required|alphaNum",
+        }
+    });
+
 
 
 
@@ -343,164 +355,164 @@
     }
     //#endregion
 
-    function addChangeEvent(form) {
-        var inputs = form.querySelectorAll("input");
-        for (var i = 0, l = inputs.length; i < l; i++) {
-            window.placeHolder(inputs[i]);
-            inputs[i].oninput = function (e) {
-                var target = e.target;
-                validateInput(form, target);
-            };
-        }
-    }
-    function validateForm(form) {
-        var inputs = form.querySelectorAll('input'),
-            valid = true;
-        for (var i = 0, l = inputs.length; i < l; ++i) {
-            valid = validateInput(form, inputs[i]);
-        }
+    //function addChangeEvent(form) {
+    //    var inputs = form.querySelectorAll("input");
+    //    for (var i = 0, l = inputs.length; i < l; i++) {
+    //        window.placeHolder(inputs[i]);
+    //        inputs[i].oninput = function (e) {
+    //            var target = e.target;
+    //            validateInput(form, target);
+    //        };
+    //    }
+    //}
+    //function validateForm(form) {
+    //    var inputs = form.querySelectorAll('input'),
+    //        valid = true;
+    //    for (var i = 0, l = inputs.length; i < l; ++i) {
+    //        valid = validateInput(form, inputs[i]);
+    //    }
 
-        return valid;
-
-
-
-    }
-    function validateInput(form, input) {
+    //    return valid;
 
 
-        if (input.type === 'hidden' || input.type === 'submit') {
-            return true;
-        }
 
-        var error,
-            errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
-        if (!errorElement) {
-            return true;
-        }
-
-        //equal to other direction
-        var equalInput = form.querySelector('input[data-val-equalto-other="*.' + input.name + '"]');
-        if (equalInput) {
-            validateInput(form, equalInput);
-        }
-
-        //equal to
-        error = input.getAttribute('data-val-equalto');
-        if (error && !equalTo(input, errorElement, error)) {
-            return false;
-        }                   
-
-        //regex
-        error = input.getAttribute('data-val-regex');
-        if (error && !valRegex(input, errorElement, error)) {
-            return false;
-        }
-
-        //length
-        error = input.getAttribute('data-val-length');        
-        if (error && !valLength(input, errorElement, error)) {
-            return false;
-        }
-
-        //required
-        error = input.getAttribute('data-val-required');
-        if (error && !valRequired(input, errorElement, error)) {
-            return false;
-        }
+    //}
+    //function validateInput(form, input) {
 
 
-        return true;
+    //    if (input.type === 'hidden' || input.type === 'submit') {
+    //        return true;
+    //    }
 
-        function valRegex(input2, errorElement2, error2) {
-            var pattern = input2.getAttribute('data-val-regex-pattern');
-            if (error2.length && input2.value && pattern.length) {
-                var patternExp = new RegExp(pattern);
-                if (!patternExp.test(input2.value)) {
-                    resetError(errorElement2);
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
-            return true;
-        }
+    //    var error,
+    //        errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
+    //    if (!errorElement) {
+    //        return true;
+    //    }
 
-        function valRequired(input2, errorElement2, error2) {
-            if (error2.length) {
+    //    //equal to other direction
+    //    var equalInput = form.querySelector('input[data-val-equalto-other="*.' + input.name + '"]');
+    //    if (equalInput) {
+    //        validateInput(form, equalInput);
+    //    }
 
-                resetError(errorElement2);
+    //    //equal to
+    //    error = input.getAttribute('data-val-equalto');
+    //    if (error && !equalTo(input, errorElement, error)) {
+    //        return false;
+    //    }                   
 
-                if (input2.type === 'radio') {
-                    var radioBtns = document.querySelectorAll('input[name="' + input2.name + '"]'),
-                        checked = false;
-                    for (var i = 0, l = radioBtns.length; i < l && !checked; i++) {
-                        checked = radioBtns[i].checked;
-                    }
+    //    //regex
+    //    error = input.getAttribute('data-val-regex');
+    //    if (error && !valRegex(input, errorElement, error)) {
+    //        return false;
+    //    }
 
-                    if (!checked) {
-                        appendError(input2.name, errorElement2, error2);
-                    }
+    //    //length
+    //    error = input.getAttribute('data-val-length');        
+    //    if (error && !valLength(input, errorElement, error)) {
+    //        return false;
+    //    }
 
-                    return checked;
-                }
-                if (!input2.value) {
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
+    //    //required
+    //    error = input.getAttribute('data-val-required');
+    //    if (error && !valRequired(input, errorElement, error)) {
+    //        return false;
+    //    }
 
-            return true;
-        }
 
-        function valLength(input2, errorElement2, error2) {
-            var minLength = parseInt(input2.getAttribute('data-val-length-min'), 10);
-            if (error2.length && minLength) {
-                if (input2.value && (input2.value.length > 0 && input2.value.length < minLength)) {
-                    resetError(errorElement2);
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
+    //    return true;
 
-            return true;
-        }
+    //    function valRegex(input2, errorElement2, error2) {
+    //        var pattern = input2.getAttribute('data-val-regex-pattern');
+    //        if (error2.length && input2.value && pattern.length) {
+    //            var patternExp = new RegExp(pattern);
+    //            if (!patternExp.test(input2.value)) {
+    //                resetError(errorElement2);
+    //                appendError(input2.name, errorElement2, error2);
+    //                return false;
+    //            }
+    //        }
+    //        return true;
+    //    }
 
-        function equalTo(input2, errorElement2, error2) {
-            var otherInput = form.querySelector('input[name="' + input2.getAttribute('data-val-equalto-other').substring(2) + '"]');
-            if (error2.length && input2 && otherInput && input2.value !== otherInput.value) {
-                resetError(errorElement2);
-                appendError(input2.name, errorElement2, error2);
-                return false;
-            }
-            return true;
-        }
-    }
+    //    function valRequired(input2, errorElement2, error2) {
+    //        if (error2.length) {
 
-    function appendError(inputName, errorElement, error) {
-        errorElement.removeClass('field-validation-valid').addClass('field-validation-error');
-        errorElement.insertAdjacentHTML('beforeend', '<span for=' + inputName + '>' + error + '</span>');
-    }
+    //            resetError(errorElement2);
 
-    function resetError(element) {
-        element.innerHTML = '';
-        element.removeClass('field-validation-error').addClass('field-validation-valid');
-    }
+    //            if (input2.type === 'radio') {
+    //                var radioBtns = document.querySelectorAll('input[name="' + input2.name + '"]'),
+    //                    checked = false;
+    //                for (var i = 0, l = radioBtns.length; i < l && !checked; i++) {
+    //                    checked = radioBtns[i].checked;
+    //                }
 
-    function resetErrors(form) {
-        var inputs = form.querySelectorAll('input'), input, errorElement;
-        for (var i = 0, l = inputs.length; i < l; ++i) {
-            input = inputs[i];
-            errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
-            if (!errorElement) {
-                continue;
-            }
-            resetError(errorElement);
-        }
+    //                if (!checked) {
+    //                    appendError(input2.name, errorElement2, error2);
+    //                }
 
-        var summary = form.querySelector('[data-error-msg="true"]');
-        if (summary) {
-            summary.parentElement.removeChild(summary);
-        }
-    }
+    //                return checked;
+    //            }
+    //            if (!input2.value) {
+    //                appendError(input2.name, errorElement2, error2);
+    //                return false;
+    //            }
+    //        }
+
+    //        return true;
+    //    }
+
+    //    function valLength(input2, errorElement2, error2) {
+    //        var minLength = parseInt(input2.getAttribute('data-val-length-min'), 10);
+    //        if (error2.length && minLength) {
+    //            if (input2.value && (input2.value.length > 0 && input2.value.length < minLength)) {
+    //                resetError(errorElement2);
+    //                appendError(input2.name, errorElement2, error2);
+    //                return false;
+    //            }
+    //        }
+
+    //        return true;
+    //    }
+
+    //    function equalTo(input2, errorElement2, error2) {
+    //        var otherInput = form.querySelector('input[name="' + input2.getAttribute('data-val-equalto-other').substring(2) + '"]');
+    //        if (error2.length && input2 && otherInput && input2.value !== otherInput.value) {
+    //            resetError(errorElement2);
+    //            appendError(input2.name, errorElement2, error2);
+    //            return false;
+    //        }
+    //        return true;
+    //    }
+    //}
+
+    //function appendError(inputName, errorElement, error) {
+    //    errorElement.removeClass('field-validation-valid').addClass('field-validation-error');
+    //    errorElement.insertAdjacentHTML('beforeend', '<span for=' + inputName + '>' + error + '</span>');
+    //}
+
+    //function resetError(element) {
+    //    element.innerHTML = '';
+    //    element.removeClass('field-validation-error').addClass('field-validation-valid');
+    //}
+
+    //function resetErrors(form) {
+    //    var inputs = form.querySelectorAll('input'), input, errorElement;
+    //    for (var i = 0, l = inputs.length; i < l; ++i) {
+    //        input = inputs[i];
+    //        errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
+    //        if (!errorElement) {
+    //            continue;
+    //        }
+    //        resetError(errorElement);
+    //    }
+
+    //    var summary = form.querySelector('[data-error-msg="true"]');
+    //    if (summary) {
+    //        summary.parentElement.removeChild(summary);
+    //    }
+    //}
 
     function displayErrors(form, payload) {
         var errorElement, error, summary;
