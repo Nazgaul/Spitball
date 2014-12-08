@@ -1,19 +1,10 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ItemPreview
-@{ var i = 0; }
 
 
 @foreach (var item in Model.Src)
 {
     <div class="divWrapper">
-        @if ((Model.Index > 0 || i > 0) && !Model.IsAuthenticated)
-        {
-            <img class="imageContent blur" src="@item" alt="" />
-        }
-        else
-        {
-            <img class="imageContent" src="@item" alt="" />
-        }
+        <img class="imageContent" src="@item" alt="" />
         <div class="copyRightWarning">@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight</div>
     </div>
-        i++;
 }

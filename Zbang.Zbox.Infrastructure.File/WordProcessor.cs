@@ -96,14 +96,10 @@ namespace Zbang.Zbox.Infrastructure.File
             return string.Format("{0}{3}_{2}_{1}.svg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
         }
 
-        public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".txt", ".odt" };
+        public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
-            {
-                return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-            }
-            return false;
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
@@ -120,7 +116,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 }
 
-                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) { JpegQuality = 100 };
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) { JpegQuality = 80 };
 
                 var settings = new ResizeSettings
                 {

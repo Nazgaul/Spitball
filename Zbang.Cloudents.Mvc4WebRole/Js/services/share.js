@@ -38,11 +38,7 @@
             },
             markNotificationAsRead: function (data) {
                 return ajaxService.post(buildPath('notificationasread'), data);
-            },
-            markNotificationsAsOld: function (data) {
-                return ajaxService.post(buildPath('notificationold'), data);
             }
-
         };
     }
     ]);

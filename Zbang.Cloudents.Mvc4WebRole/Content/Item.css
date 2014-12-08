@@ -212,7 +212,7 @@
 }
 .firstRow .tooltip {
   border: 1px solid #3399ff;
-  left: 0!important;
+  left: 0 !important;
   top: 30px !important;
   padding: 5px 4px;
 }
@@ -572,6 +572,14 @@
 .svgContent {
   height: 100%;
 }
+.txtContent {
+  border: none;
+  width: 100%;
+  margin: 10px 0;
+  background: #fff;
+  color: #fff;
+  height: 75vh;
+}
 .blur {
   -moz-filter: blur(5px);
   -ms-filter: blur(5px);
@@ -694,3 +702,4 @@
   height: 100vh;
   margin-top: -50px;
 }
+/*#endregion */

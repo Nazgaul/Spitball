@@ -74,9 +74,9 @@ namespace TestingApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            using (FileStream originalFileStream = new FileStream(@"C:\Users\Ram\Desktop\homeScreenVideo.mp4", FileMode.Open))
+            using (FileStream originalFileStream = new FileStream(@"C:\Users\Ram\Desktop\txt.svg", FileMode.Open))
             {
-                using (FileStream compressedFileStream = File.Create(@"C:\Users\Ram\Desktop\homeScreenVideo2.mp4"))
+                using (FileStream compressedFileStream = File.Create(@"C:\Users\Ram\Desktop\txt2.svg"))
                 {
                     using (GZipStream compressionStream = new GZipStream(compressedFileStream,
                        CompressionMode.Compress))

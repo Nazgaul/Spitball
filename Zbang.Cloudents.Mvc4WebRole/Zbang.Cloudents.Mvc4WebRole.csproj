@@ -2066,6 +2066,7 @@
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Shared\Partials\_ItemRegister.cshtml" />
     <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
+    <Content Include="Views\Item\_PreviewText.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

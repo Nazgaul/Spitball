@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
 
-            using (var stream = BlobProvider.DownloadFile(blobName))
+            using (var stream = await BlobProvider.DownloadFileAsync(blobName))
             {
                 if (stream.Length == 0)
                 {
@@ -89,9 +89,9 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        private string CreateCacheFileName(string blobName, Size dimenstions)
+        private string CreateCacheFileName(string blobName, Size dimensions)
         {
-            var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimenstions.Width, dimenstions.Height, Path.GetExtension(blobName));
+            var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimensions.Width, dimensions.Height, Path.GetExtension(blobName));
             return fileName;
         }
 
@@ -110,13 +110,13 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_PreviewDimension[key];
         }
 
-        public static readonly string[] ImageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
+        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return ImageExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
