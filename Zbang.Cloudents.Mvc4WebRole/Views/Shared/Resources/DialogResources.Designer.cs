@@ -187,6 +187,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Congratulations.
+        /// </summary>
+        public static string Congrats {
+            get {
+                return ResourceManager.GetString("Congrats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {
@@ -268,6 +277,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Earn points by inviting friends, uploading files and solving quizzes!.
+        /// </summary>
+        public static string EarnPoints {
+            get {
+                return ResourceManager.GetString("EarnPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to e.g Music.
         /// </summary>
         public static string EgMusic {
@@ -295,6 +313,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Here {
             get {
                 return ResourceManager.GetString("Here", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interested in finding more class notes and previous exams
+        ///that can help you improve your studying?
+        ///Join the rest of your classmates and sign up to .
+        /// </summary>
+        public static string InterestedIn {
+            get {
+                return ResourceManager.GetString("InterestedIn", resourceCulture);
             }
         }
         
@@ -367,6 +396,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string PrivacySettings {
             get {
                 return ResourceManager.GetString("PrivacySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Want to reach to the top of the chart?.
+        /// </summary>
+        public static string ReachTop {
+            get {
+                return ResourceManager.GetString("ReachTop", resourceCulture);
             }
         }
         
@@ -565,6 +603,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string ViaFacebook {
             get {
                 return ResourceManager.GetString("ViaFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to view
+        ///the entire document? .
+        /// </summary>
+        public static string ViewEntire {
+            get {
+                return ResourceManager.GetString("ViewEntire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you earned.
+        /// </summary>
+        public static string YouEarned {
+            get {
+                return ResourceManager.GetString("YouEarned", resourceCulture);
             }
         }
     }

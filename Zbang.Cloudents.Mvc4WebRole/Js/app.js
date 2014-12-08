@@ -344,11 +344,7 @@
 
 
 
-        //ga('require', 'displayfeatures');
-        //if (location.pathname.indexOf('account')) {
-        //    ga('send', 'pageview');
-        //}
- 
+        
         sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);
@@ -357,17 +353,7 @@
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
             //title 
-            if (!previous) { //no previous firsttime load
-
-                ga('create', 'UA-9850006-3', {
-                    'userId': sUserDetails.getDetails().id,
-                    'siteSpeedSampleRate': 70,
-                    'cookieDomain': 'cloudents.com',
-                    'alwaysSendReferrer': true
-                });
-
-                ga('set', 'dimension3', sUserDetails.getDetails().id);
-
+            if (!previous) { //no previous firsttime load        
                 try {
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {
@@ -425,12 +411,20 @@
             deleteOnExpire: 'aggressive',            
             storageMode: 'localStorage'
         });
-                
-        $http.get('/dashboard/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/dashboard/indexpartial/', res); } );
-        $http.get('/box/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/box/indexpartial/', res); });
-        $http.get('/item/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/item/indexpartial/', res); });
-        $http.get('/quiz/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/quiz/indexpartial/', res); });
-        $http.get('/library/indexpartial/', { cache: htmlCache }).then(function (res) { putInCache('/library/indexpartial/', res); });
+
+        var cachePages = {
+            dashboard:'/dashboard/indexpartial/',
+            box:'/box/indexpartial/',
+            item:'/item/indexpartial/',
+            quiz:'/quiz/indexpartial/',
+            library:'/library/indexpartial/'
+        };
+
+        $http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); } );
+        $http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
+        $http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
+        $http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });
+        //$http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
 
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';

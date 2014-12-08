@@ -2,19 +2,20 @@
 (function (document) {
     "use strict";
 
-
-
     var eById = document.getElementById.bind(document),
         registerPopup = eById('register'), registerForm = eById('registerForm'),
         //cancelPopup = eById('cancelRegisterPopup'),
         regPopup = eById('regPopup'),
         connectPopup = eById('connect'), connectForm = eById('login'),
-        langSelect = eById('dLangSelect');
+        langSelect = eById('dLangSelect'),
+        currentForm, validatinator;
 
 
     if (!connectPopup) {
         return;
     }
+
+    document.getElementById('maleRadio').checked = true;
 
     var connectPopupFb = connectPopup.getElementsByClassName('facebook')[0],
         registerPopupFb = registerPopup.getElementsByClassName('facebook')[0];
@@ -27,16 +28,16 @@
         }
         var arr = JSON.parse(data), input;
         for (var i = 0; i < arr.length ; i++) {
-            input = registerForm.querySelector('input[name="' + arr[i].name + '"]').value = arr[i].value;            
+            input = registerForm.querySelector('input[name="' + arr[i].name + '"]').value = arr[i].value;
         }
 
         register();
-        
-        
+
+
         sessionStorage.removeItem('registerForm');
     })();
 
-    document.getElementById('maleRadio').checked = true;
+    //document.getElementById('maleRadio').checked = true;
     //#region Show and Hide popups
 
     registerPopup.addEventListener('click', function (e) {
@@ -73,6 +74,7 @@
     registerPopup.addEventListener('click', closePopup);
     connectPopup.addEventListener('click', closePopup);
 
+
     langSelect.addEventListener('change', function () {
 
         var x = [], obj;
@@ -87,8 +89,86 @@
         window.location.href = this.selectedOptions ? this.selectedOptions[0].getAttribute('data-href') : this.options[this.selectedIndex].getAttribute('data-href');
     });
 
-    addChangeEvent(connectForm);
-    addChangeEvent(registerForm);
+    //addChangeEvent(connectForm);
+    //addChangeEvent(registerForm);
+
+    validatinator = new Validatinator(
+        {
+            loginForm: {
+                Email: 'required|email',
+                Password: 'required',
+            },
+            registerForm: {
+                FirstName: 'required',
+                LastName: 'required',
+                NewEmail: 'required|email',
+                ConfirmEmail: 'required|email|same:NewEmail',
+                Password: 'required|minLength:6'
+            }
+        },
+        {
+            minLength: '{$0} תווים או יותר'
+        }
+    );
+
+    document.addEventListener('blur', function (e) {
+        var target = e.target;
+
+        if (!currentForm) {
+            return;
+        }
+
+        if (target.nodeName !== 'INPUT') {
+            return;
+        }
+        if (target.type == 'submit') {
+            return;
+        }
+
+        var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
+        resetError(errorElement);
+
+        if (validatinator.passes(currentForm.name)) {
+            return;
+        }
+
+
+
+        var errorObj = validatinator.errors[currentForm.name][target.name];
+        if (!errorObj) {
+            return;
+
+        }
+
+        var errorText = errorObj[Object.keys(errorObj)[0]];
+        appendError(target.name, errorElement, errorText);
+
+    }, true);
+
+    document.addEventListener('input', function (e) {
+        var target = e.target;
+
+        if (!currentForm) {
+            return;
+        }
+
+        if (target.nodeName !== 'INPUT') {
+            return;
+        }
+
+        var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
+
+
+        if (validatinator.passes(currentForm.name)) {
+            resetError(errorElement);
+            return;
+        }
+
+        if (!validatinator.errors[currentForm.name][target.name]) {
+            resetError(errorElement);
+        }
+
+    }, true);
 
 
 
@@ -101,7 +181,7 @@
         var target = e.target,
          isClose = target.getAttribute('data-closelogin');
 
-        if (isClose) {         
+        if (isClose) {
             resetPopupView();
             resetErrors(connectForm);
             resetErrors(registerForm);
@@ -134,11 +214,13 @@
         resetPopupView();
         connectPopup.addClass('connect');
         focusOnElement(connectPopup);
+        currentForm = connectForm;
     }
 
     function register() {
         registerPopup.addClass('register');
         focusOnElement(registerPopup);
+        currentForm = registerForm;
     }
 
     function registerAction() {
@@ -150,7 +232,8 @@
     connectForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        if (!validateForm(connectForm)) {
+        if (validatinator.fails('loginForm')) {
+            displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;
         }
 
@@ -164,10 +247,11 @@
     registerForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-
-        if (!validateForm(registerForm)) {
+        if (validatinator.fails('registerForm')) {
+            displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;
         }
+
 
         var data = {
             universityId: gup('universityId'),
@@ -230,44 +314,44 @@
         };
 
         ajax.post('/Account/FacebookLogin/', {
-                token: accessToken,
-                universityId: gup('universityId'),
-                invId: gup('invId'),
-                returnUrl: gup('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
-            }, function (data) {
-                if (!data.success) {
-                    alert('there is a problem signing you in with facebook');
-                    return;
-                }
-                window.sessionStorage.clear();
-                var obj = data.payload;
-                if (obj.isnew) {
-                    FB.api('/me', function (response) {
-                        var locale = response.locale.substr(0, response.locale.indexOf('_')),
-                            text = facebookText[locale];
-                        if (!text) {
-                            text = facebookText.en;
+            token: accessToken,
+            universityId: gup('universityId'),
+            invId: gup('invId'),
+            returnUrl: gup('returnurl') || (window.location.pathname.indexOf('/account') > -1 ? null : window.location.pathname)
+        }, function (data) {
+            if (!data.success) {
+                alert('there is a problem signing you in with facebook');
+                return;
+            }
+            window.sessionStorage.clear();
+            var obj = data.payload;
+            if (obj.isnew) {
+                FB.api('/me', function (response) {
+                    var locale = response.locale.substr(0, response.locale.indexOf('_')),
+                        text = facebookText[locale];
+                    if (!text) {
+                        text = facebookText.en;
+                    }
+                    FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
+                        if (obj.url) {
+                            window.location.href = obj.url;
+                            return;
                         }
-                        FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
-                            if (obj.url) {
-                                window.location.href = obj.url;
-                                return;
-                            }
 
-                            if (window.location.href.indexOf('error') > -1) {
-                                window.location.href = '/dashboard/';
-                                return;
-                            }
+                        if (window.location.href.indexOf('error') > -1) {
+                            window.location.href = '/dashboard/';
+                            return;
+                        }
 
-                            window.location.reload();
-                        });
+                        window.location.reload();
                     });
+                });
 
-                }
-                else {
-                    window.location.reload();
-                }
-            });
+            }
+            else {
+                window.location.reload();
+            }
+        });
     }
     function connectFb() {
         FB.login(function (response) {
@@ -282,7 +366,7 @@
                         window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
                     } else {
                         alert('you need to give email permission');
-                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');                        
+                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');
                     }
                 });
             }
@@ -343,138 +427,6 @@
     }
     //#endregion
 
-    function addChangeEvent(form) {
-        var inputs = form.querySelectorAll("input");
-        for (var i = 0, l = inputs.length; i < l; i++) {
-            window.placeHolder(inputs[i]);
-            inputs[i].oninput = function (e) {
-                var target = e.target;
-                validateInput(form, target);
-            };
-        }
-    }
-    function validateForm(form) {
-        var inputs = form.querySelectorAll('input'),
-            valid = true;
-        for (var i = 0, l = inputs.length; i < l; ++i) {
-            valid = validateInput(form, inputs[i]);
-        }
-
-        return valid;
-
-
-
-    }
-    function validateInput(form, input) {
-
-
-        if (input.type === 'hidden' || input.type === 'submit') {
-            return true;
-        }
-
-        var error,
-            errorElement = form.querySelector('[data-valmsg-for="' + input.name + '"]');
-        if (!errorElement) {
-            return true;
-        }
-
-        //equal to other direction
-        var equalInput = form.querySelector('input[data-val-equalto-other="*.' + input.name + '"]');
-        if (equalInput) {
-            validateInput(form, equalInput);
-        }
-
-        //equal to
-        error = input.getAttribute('data-val-equalto');
-        if (error && !equalTo(input, errorElement, error)) {
-            return false;
-        }                   
-
-        //regex
-        error = input.getAttribute('data-val-regex');
-        if (error && !valRegex(input, errorElement, error)) {
-            return false;
-        }
-
-        //length
-        error = input.getAttribute('data-val-length');        
-        if (error && !valLength(input, errorElement, error)) {
-            return false;
-        }
-
-        //required
-        error = input.getAttribute('data-val-required');
-        if (error && !valRequired(input, errorElement, error)) {
-            return false;
-        }
-
-
-        return true;
-
-        function valRegex(input2, errorElement2, error2) {
-            var pattern = input2.getAttribute('data-val-regex-pattern');
-            if (error2.length && input2.value && pattern.length) {
-                var patternExp = new RegExp(pattern);
-                if (!patternExp.test(input2.value)) {
-                    resetError(errorElement2);
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        function valRequired(input2, errorElement2, error2) {
-            if (error2.length) {
-
-                resetError(errorElement2);
-
-                if (input2.type === 'radio') {
-                    var radioBtns = document.querySelectorAll('input[name="' + input2.name + '"]'),
-                        checked = false;
-                    for (var i = 0, l = radioBtns.length; i < l && !checked; i++) {
-                        checked = radioBtns[i].checked;
-                    }
-
-                    if (!checked) {
-                        appendError(input2.name, errorElement2, error2);
-                    }
-
-                    return checked;
-                }
-                if (!input2.value) {
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        function valLength(input2, errorElement2, error2) {
-            var minLength = parseInt(input2.getAttribute('data-val-length-min'), 10);
-            if (error2.length && minLength) {
-                if (input2.value && (input2.value.length > 0 && input2.value.length < minLength)) {
-                    resetError(errorElement2);
-                    appendError(input2.name, errorElement2, error2);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        function equalTo(input2, errorElement2, error2) {
-            var otherInput = form.querySelector('input[name="' + input2.getAttribute('data-val-equalto-other').substring(2) + '"]');
-            if (error2.length && input2 && otherInput && input2.value !== otherInput.value) {
-                resetError(errorElement2);
-                appendError(input2.name, errorElement2, error2);
-                return false;
-            }
-            return true;
-        }
-    }
-
     function appendError(inputName, errorElement, error) {
         errorElement.removeClass('field-validation-valid').addClass('field-validation-error');
         errorElement.insertAdjacentHTML('beforeend', '<span for=' + inputName + '>' + error + '</span>');
@@ -502,31 +454,33 @@
         }
     }
 
+    function displayLocalErrors(form, errors) {
+        var errorElement, errorText, errorObj;
+
+        for (var field in errors) {
+            errorObj = errors[field];
+            errorText = errorObj[Object.keys(errorObj)[0]];
+            errorElement = form.querySelector('[data-valmsg-for="' + field + '"]');
+            resetError(errorElement);
+            appendError(field, errorElement, errorText)
+        }
+    }
+
     function displayErrors(form, payload) {
-        var errorElement, error, summary;
         for (var i = 0, l = payload.length ; i < l; i++) {
 
-            if (!payload[i].key) {
-                summary = payload[i].value[0];
-                continue;
-            }
-
+            summary = payload[i].value[0];
             errorElement = form.querySelector('[data-valmsg-for="' + payload[i].key + '"]');
-            if (!errorElement) {                
+            if (!errorElement) {
                 continue;
             }
             resetError(errorElement);
             error = payload[i].value[0];
             appendError(payload[i].key, errorElement, error);
 
-        }
 
-        if (summary) {
             form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>');
+
         }
-        
-
-
     }
-
 })(window.document);

@@ -28,8 +28,16 @@
 .modal.boxInvitePopup .invSidebar {
   margin: 0 0 0 30px;
 }
-.modal.rename {
+.modal.rename,
+.modal.itemReg,
+.modal.congrats {
   padding: 0 290px 0 0;
+}
+.modal.itemReg .modal-header svg {
+  left: 0;
+}
+.modal.itemReg .modal-header h3 {
+  padding: 0 0 0 50px;
 }
 .modal.deptSettings .changeName .lFloat {
   padding: 0 35px 0 0;

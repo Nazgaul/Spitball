@@ -4,7 +4,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
-    new { @class = "register desktop", id = "registerForm" }
+    new { @class = "register desktop", id = "registerForm", name = "registerForm" }
    ))
 {
     @Html.ValidationSummary(true)
@@ -27,10 +27,10 @@
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder= LogOnResources.Password })
 
     @Html.ValidationMessageFor(m=>m.IsMale)
-    @Html.RadioButtonFor(model => model.IsMale, true, new { id = "maleRadio" })
+    @Html.RadioButtonFor(model => model.IsMale,"true", new { id = "maleRadio" })
     <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
 
-    @Html.RadioButtonFor(model => model.IsMale, false, new { id = "femaleRadio" })
+    @Html.RadioButtonFor(model => model.IsMale, "false", new { id = "femaleRadio" })
     <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
     

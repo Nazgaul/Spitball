@@ -285,4 +285,22 @@
   <data name="Done" xml:space="preserve">
     <value>Выполнено</value>
   </data>
+  <data name="Congrats" xml:space="preserve">
+    <value>Поздравляю</value>
+  </data>
+  <data name="EarnPoints" xml:space="preserve">
+    <value>Зарабатывайте очки приглашением друзей, загрузкой файлов и решением тестов!</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Заинтересованы найти больше конспектов и экзамены прошлых сессии которые могут улучшить вашу учебу? Присоединяйтесь к остальным вашим одноклассникам и регистрируйтесь в </value>
+  </data>
+  <data name="ReachTop" xml:space="preserve">
+    <value>Хотите добраться до верхней части графика?</value>
+  </data>
+  <data name="ViewEntire" xml:space="preserve">
+    <value>Вы хотели бы просмотреть весь документ? </value>
+  </data>
+  <data name="YouEarned" xml:space="preserve">
+    <value>вы заработали</value>
+  </data>
 </root>

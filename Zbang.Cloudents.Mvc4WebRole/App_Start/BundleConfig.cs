@@ -314,6 +314,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             RegisterJsRegular("home",
+                new JsFileWithCdn("~/Scripts/validatinator.min.js"),
                 new JsFileWithCdn("~/Js/staticShim.js"),
                 new JsFileWithCdn("~/Js/Logon.js"),
                 new JsFileWithCdn("~/Js/HomePage.js"));

@@ -773,6 +773,36 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
+        [HttpGet]
+        [OutputCache(CacheProfile = "PartialCache")]
+        public ActionResult ItemRegisterPartial()
+        {
+            try
+            {
+                return PartialView("_ItemRegister");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_ItemRegister", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
+        [HttpGet]
+        [OutputCache(CacheProfile = "PartialCache")]
+        public ActionResult CongratsPartial()
+        {
+            try
+            {
+                return PartialView("_Congrats");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_Congrats", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
     }
 
 
