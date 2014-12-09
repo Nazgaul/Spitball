@@ -2,14 +2,13 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
-@*sign up - register*@
-<div class="modal-body">
+@* register first*@
+<div class="modal-body registerFirst">
     <div class="signInUp">
         <div class="regFirstTxt">
             <div>@SharedResources.RegisterFirst</div>
             <div>@SharedResources.RegisterFree</div>
         </div>
-        <div class="enterTitle">@LogOnResources.CreateAccount</div>
     </div>
     <button type="button" class="closeModal" ng-click="cancel()">
         @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
@@ -27,12 +26,30 @@
                     @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
                 </span>@SharedResources.EmailSignUp
             </button>
-            <div class="registerContent">
-                <div class="enterForm" id="joinForm">
-                    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
-                </div>
-                <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+        </div>
+    </div>
+</div>
+
+
+@*sign up - register*@
+<div class="modal-body">
+    <div class="enterTitle">@LogOnResources.CreateAccount</div>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+    <div class="signupBtns">
+        <button type="button" class="facebook">
+            <span class="fbImg">
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+            </span>@SharedResources.FacebookSignUp
+        </button>
+        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+
+        <div class="registerContent">
+            <div class="enterForm" id="joinForm">
+                @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
             </div>
+            <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
         </div>
     </div>
 </div>
