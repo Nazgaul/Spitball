@@ -252,7 +252,7 @@
                 };
 
                 $scope.removeAttachment = function (obj, item) {
-                    sItem.delete({ itemId: item.id, $scope.boxId }).then(function () {
+                    sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
                         var index = obj.files.indexOf(item);
                         obj.files.splice(index, 1);
                     }, function (response) {
