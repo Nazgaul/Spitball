@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         void UploadFileThumbnail(string fileName, Stream ms, string mimeType);
         Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType);
+        Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token);
 
         bool CheckIfFileThumbnailExists(string blobName);
 
@@ -42,8 +44,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Stream DownloadFile(string fileName, long? aheadSize);
         Stream DownloadFile(string fileName);
-        Task<Stream> DownloadFileAsync(string fileName);
 
+        Task<Stream> DownloadFileAsync(string fileName);
+        Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
