@@ -42,13 +42,8 @@
         <span class="or">@StoreResources.Or</span>
     </div>
 
-    <div class="signInUp">
-        <div class="regFirstTxt">
-            <div>@SharedResources.RegisterFirst</div>
-            <div>@SharedResources.RegisterFree</div>
-        </div>
-        <div class="enterTitle">@LogOnResources.CreateAccount</div>
-    </div>
+    <div class="enterTitle">@LogOnResources.CreateAccount</div>
+
     <button type="button" class="closeModal" data-closelogin="close">
         <svg data-closelogin="close" class="svg-close" viewBox="-523.8 392.1 57.6 57.6">
             <path data-closelogin="close" d="M-468.2,403.5l-17.4,17.4l17.4,17.4c2.6,2.6,2.6,6.8,0,9.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9
@@ -66,25 +61,13 @@
             </span>@SharedResources.FacebookSignUp
         </button>
         <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
-        <div class="emailBtnWpr">
-            <button ng-click="$root.params.isStore = false" class="emailBtn" type="button">
-                <span class="emailImg">
-                    <svg class="svg-email" viewBox="-49 205 512 384">
-                        <path d="M463,525c0,11.2-3.2,21.6-8.2,30.8L293.1,374.9L453,235c6.2,9.9,10,21.5,10,34V525z M207,407.8l222.5-194.7
-	                    c-9.1-5-19.4-8.1-30.5-8.1H15c-11.1,0-21.4,3.1-30.5,8.1L207,407.8z M269,396l-51.5,45.1c-3,2.6-6.8,3.9-10.5,3.9s-7.5-1.3-10.5-3.9
-	                    L145,396L-18.8,579.2c9.8,6.2,21.3,9.8,33.8,9.8h384c12.4,0,23.9-3.7,33.8-9.8L269,396z M-39,235c-6.2,9.9-10,21.5-10,34v256
-	                    c0,11.2,3.1,21.6,8.2,30.8l161.6-180.9L-39,235z" />
-                    </svg>
-                </span>@SharedResources.EmailSignUp
-            </button>
-            <div class="registerContent">
-                <div class="enterForm" id="joinForm">
-                    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
-                </div>
-                <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
-            </div>
-        </div>
 
+        <div class="registerContent">
+            <div class="enterForm" id="joinForm">
+                @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+            </div>
+            <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+        </div>
     </div>
 </div>
 
