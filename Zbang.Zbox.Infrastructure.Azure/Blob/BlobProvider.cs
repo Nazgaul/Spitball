@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.Storage;
@@ -104,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
             await blob.SetPropertiesAsync();
 
-             var uriBuilder = new UriBuilder(blob.Uri);
+            var uriBuilder = new UriBuilder(blob.Uri);
             if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder.Uri.AbsoluteUri;
             var storeCdnUri = new Uri(storageCdnEndpoint);
             uriBuilder.Host = storeCdnUri.Host;
@@ -114,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //var blob = container.GetBlockBlobReference(fileName);
 
 
-           
+
 
 
             //if (blob.Exists())
@@ -584,15 +585,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType)
         {
+           return UploadFileThumbnailAsync(fileName, ms, mimeType, new CancellationToken());
+        }
+
+        public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token)
+        {
             if (ms == null) throw new ArgumentNullException("ms");
             ms.Seek(0, SeekOrigin.Begin);
             var thumbnailBlob = ThumbnailFile(fileName);
             thumbnailBlob.Properties.ContentType = mimeType;
             thumbnailBlob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
 
-            return thumbnailBlob.UploadFromStreamAsync(ms);//ToDo: due to problem of small images the memory stream can be closed there fore remove back to sync process
-            //thumbnailBlob.SetProperties();
+            return thumbnailBlob.UploadFromStreamAsync(ms, token);//ToDo: due to problem of small images the memory stream can be closed there fore remove back to sync process
         }
+
+
         public bool CheckIfFileThumbnailExists(string blobName)
         {
             var blob = ThumbnailFile(blobName);
@@ -654,11 +661,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return ms;
         }
 
-        public async Task<Stream> DownloadFileAsync(string fileName)
+        public Task<Stream> DownloadFileAsync(string fileName)
+        {
+            return DownloadFileAsync(fileName, new CancellationToken());
+        }
+
+        public async Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken)
         {
             CloudBlockBlob blob = GetFile(fileName);
             var ms = new MemoryStream();
-            await blob.DownloadToStreamAsync(ms);
+            await blob.DownloadToStreamAsync(ms, cancelToken);
             //await Task.Factory.FromAsync<MemoryStream>(blob.BeginDownloadToStream, blob.EndDownloadToStream, ms, null);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;

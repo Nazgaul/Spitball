@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -34,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public abstract Task<PreProcessFileResult> PreProcessFile(Uri blobUri);
+        public abstract Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
 
         public abstract string GetDefaultThumbnailPicture();

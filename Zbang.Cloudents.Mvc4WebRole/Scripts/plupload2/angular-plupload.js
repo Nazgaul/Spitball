@@ -128,6 +128,12 @@
 
 	                $angularCacheFactory.clearAll();
 
+
+	                $analytics.eventTrack('Plupload', {
+	                    category: 'Upload',
+	                    label: 'User uploaded local file'
+	                });
+
 	                if (uploader.total.uploaded > 0 && uploader.total.queued === 0) {
 	                    sGmfcnHandler.addPoints({ type: 'itemUpload', amount: uploader.total.uploaded });
 
@@ -275,6 +281,12 @@
                 });
 
                 uploader.bind('FileUploaded', function (up, file, res) {
+
+                    $analytics.eventTrack('Plupload', {
+                        category: 'Upload',
+                        label: 'User uploaded local file'
+                    });
+
                     var response = JSON.parse(res.response);
 
                     $angularCacheFactory.clearAll();

@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    Execute().Wait();
+                    ExecuteAsync().Wait();
                 }
             }
             catch (Exception ex)
@@ -43,58 +43,115 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private async Task Execute()
+        private async Task ExecuteAsync()
         {
             await m_QueueProcess.RunQueue(new CacheQueueName(), msg =>
-             {
-                 var msgData = msg.FromMessageProto<FileProcessData>();
-                 if (msgData == null)
-                 {
-                     TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " + msg.Id);
-                     return Task.FromResult(true);
+            {
+                var msgData = msg.FromMessageProto<FileProcessData>();
+                if (msgData == null)
+                {
+                    TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " + msg.Id);
+                    return Task.FromResult(true);
 
-                 }
-                 try
-                 {
-                     var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
-                     if (processor == null) return Task.FromResult(true);
+                }
+                try
+                {
+                    var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
+                    if (processor == null) return Task.FromResult(true);
+                    //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
+                    var wait = new ManualResetEvent(false);
 
-                     var tokenSource = new CancellationTokenSource();
-                     tokenSource.CancelAfter(TimeSpan.FromMinutes(20));
-                     var t = Task.Factory.StartNew(async () => await processor.PreProcessFile(msgData.BlobName),
-                         tokenSource.Token);
+                    var work = new Thread(async () =>
+                    {
+                        //some long running method requiring synchronization
+                        var retVal = await processor.PreProcessFile(msgData.BlobName);
 
-
-                     t.Wait(tokenSource.Token);
-                     var retVal = t.Result.Result;
-                     if (retVal == null)
-                     {
-                         return Task.FromResult(true);
-                     }
-                     var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
-                     var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
-                         oldBlobName, retVal.FileTextContent);
-                     m_ZboxWriteService.UpdateThumbnailPicture(command);
-                     return Task.FromResult(true);
-
-                 }
-                 catch (ItemNotFoundException ex)
-                 {
-                     TraceLog.WriteError("GenerateDocumentCache Cache storage exception run " + msg.Id, ex);
-                     if (msg.DequeueCount > 3)
-                     {
-                         return Task.FromResult(true);
-                     }
-                 }
-                 catch (Exception ex)
-                 {
-                     TraceLog.WriteError("GenerateDocumentCache run " + msg.Id, ex);
-                 }
-                 return Task.FromResult(false);
-
-
-             }, TimeSpan.FromHours(1), 10);
+                        if (retVal == null)
+                        {
+                            return;
+                        }
+                        var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
+                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
+                            oldBlobName, retVal.FileTextContent);
+                        m_ZboxWriteService.UpdateThumbnailPicture(command);
+                        wait.Set();
+                    });
+                    work.Start();
+                    Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(30));
+                    if (!signal)
+                    {
+                        work.Abort();
+                        TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
+                    }
+                    return Task.FromResult(true);
+                }
+                catch (ItemNotFoundException ex)
+                {
+                    TraceLog.WriteError("GenerateDocumentCache Cache storage exception run " + msg.Id, ex);
+                    if (msg.DequeueCount > 3)
+                    {
+                        return Task.FromResult(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("GenerateDocumentCache run " + msg.Id, ex);
+                }
+                return Task.FromResult(false);
+            }, TimeSpan.FromHours(1), 10);
         }
+        //private async Task Execute()
+        //{
+        //    await m_QueueProcess.RunQueue(new CacheQueueName(), msg =>
+        //     {
+        //         var msgData = msg.FromMessageProto<FileProcessData>();
+        //         if (msgData == null)
+        //         {
+        //             TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " + msg.Id);
+        //             return Task.FromResult(true);
+
+        //         }
+        //         try
+        //         {
+        //             var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
+        //             if (processor == null) return Task.FromResult(true);
+
+        //             var tokenSource = new CancellationTokenSource();
+        //             tokenSource.CancelAfter(TimeSpan.FromMinutes(20));
+        //             var t = Task.Factory.StartNew(async () => await processor.PreProcessFile(msgData.BlobName),
+        //                 tokenSource.Token);
+
+
+        //             t.Wait(tokenSource.Token);
+        //             var retVal = t.Result.Result;
+        //             if (retVal == null)
+        //             {
+        //                 return Task.FromResult(true);
+        //             }
+        //             var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
+        //             var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
+        //                 oldBlobName, retVal.FileTextContent);
+        //             m_ZboxWriteService.UpdateThumbnailPicture(command);
+        //             return Task.FromResult(true);
+
+        //         }
+        //         catch (ItemNotFoundException ex)
+        //         {
+        //             TraceLog.WriteError("GenerateDocumentCache Cache storage exception run " + msg.Id, ex);
+        //             if (msg.DequeueCount > 3)
+        //             {
+        //                 return Task.FromResult(true);
+        //             }
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             TraceLog.WriteError("GenerateDocumentCache run " + msg.Id, ex);
+        //         }
+        //         return Task.FromResult(false);
+
+
+        //     }, TimeSpan.FromHours(1), 10);
+        //}
 
         //private void GenerateCopyRights(string blobName, IFileProcessor processor)
         //{

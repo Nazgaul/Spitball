@@ -37,8 +37,8 @@
 
         $scope.saveLink = function () {
 
-            $analytics.eventTrack('Upload', {
-                category: 'Save Link'
+            $analytics.eventTrack( 'Save Link', {
+                category: 'Upload'
             });
 
             if ($scope.close) {//fix for step 3
@@ -89,8 +89,8 @@
         };
 
         $scope.saveDropbox = function () {
-            $analytics.eventTrack('Upload', {
-                category: 'Save Dropbox'
+            $analytics.eventTrack('Save Dropbox', {
+                category: 'Upload'
             });
 
             sDropbox.choose().then(function (files) {
@@ -151,8 +151,8 @@
                 return;
             }
             loadPicker();
-            $analytics.eventTrack('Upload', {
-                category: 'Save Drive'
+            $analytics.eventTrack('Save Drive', {
+                category: 'Upload'
             });
             function loadPicker() {
                 sGoogle.picker().then(function (files) { //isImmediate is true if it failes it will automatically try with false

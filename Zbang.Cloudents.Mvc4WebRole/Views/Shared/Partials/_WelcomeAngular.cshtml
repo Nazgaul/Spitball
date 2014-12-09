@@ -3,9 +3,8 @@
 
 
 @* register first*@
-
 <div ng-switch="params.currentState">
-    <div class="modal-body animate-switch" ng-switch-when="0">
+    <div class="modal-body login-switch" ng-switch-when="0">
         <div class="signInUp">
             <div class="regFirstTxt">
                 <div>@SharedResources.RegisterFirst</div>
@@ -34,7 +33,7 @@
 
 
     @*sign up - register*@
-    <div class="modal-body animate-switch" ng-switch-when="1">
+    <div class="modal-body login-switch" ng-switch-when="1">
         <div class="enterTitle">@LogOnResources.CreateAccount</div>
         <button type="button" class="closeModal" ng-click="cancel()">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
@@ -57,7 +56,7 @@
     </div>
 
     @*sign in - connect*@
-    <div class="modal-body animate-switch" ng-switch-when="2">
+    <div class="modal-body login-switch" ng-switch-when="2">
         <div class="enterTitle">@SharedResources.SignIn</div>
         <div id="fb_log" class="facebook">
             <span class="fbImg">

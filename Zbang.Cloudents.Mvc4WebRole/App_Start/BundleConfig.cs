@@ -132,8 +132,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                                     );
 
             RegisterJsRegular("angular-layout3",
-                new JsFileWithCdn("~/js/staticShim.js"),
-                new JsFileWithCdn("~/js/Logon.js"),
+                //new JsFileWithCdn("~/js/staticShim.js"),
+                //new JsFileWithCdn("~/js/Logon.js"),
                 new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                 new JsFileWithCdn("~/scripts/bindonce.js"),
                 new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.12.0.js"),

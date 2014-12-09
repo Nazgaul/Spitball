@@ -19,11 +19,17 @@ namespace Zbang.Zbox.Infrastructure.Trace
 
         public static void WriteInfo(string info)
         {
+#if DEBUG
+            t.Debug.WriteLine(info);
+#endif
             t.Trace.TraceInformation(info);
         }
 
         public static void WriteError(string info, Exception ex)
         {
+            #if DEBUG
+            t.Debug.WriteLine(string.Format(" {0} \n {1}", info, ex));
+#endif
             t.Trace.TraceError(string.Format(" {0} \n {1}", info, ex));
         }
 

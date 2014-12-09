@@ -96,14 +96,10 @@
 .modal.welcome {
   text-align: center;
 }
-.modal.welcome .modal-dialog {
+.modal.welcome .modal-dialog.modal-dialog {
   width: 450px;
 }
 .modal.welcome .modal-body {
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
   border-radius: 6px;
 }
 .modal.welcome .svg-close {

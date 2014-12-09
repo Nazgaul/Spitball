@@ -102,22 +102,24 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 Document word;
 
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     SetLicense();
                     word = new Document(sr);
 
                 }
 
-                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg) { JpegQuality = 80 };
-
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+                {
+                    JpegQuality = 80,
+                };
                 var settings = new ResizeSettings
                 {
                     Width = ThumbnailWidth,
@@ -125,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     Quality = 80,
                     Format = "jpg"
                 };
-
+                
                 using (var ms = new MemoryStream())
                 {
                     word.Save(ms, imgOptions);
@@ -134,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg");
+                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
                         return new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
@@ -170,5 +172,8 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return ThumbnailProvider.WordFileTypePicture;
         }
+
+       
+
     }
 }

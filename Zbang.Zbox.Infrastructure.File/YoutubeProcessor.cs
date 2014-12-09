@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return null;
         }
