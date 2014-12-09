@@ -35,16 +35,11 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public bool CanProcessFile(Uri blobName)
         {
-
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
-            {
-                return false;
-            }
-            return true;
+            return !blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl);
         }
 
 
-        public Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return null;
         }

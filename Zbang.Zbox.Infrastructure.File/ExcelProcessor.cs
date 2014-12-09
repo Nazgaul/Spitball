@@ -138,7 +138,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {

@@ -18,9 +18,9 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture()});
+            return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
         }
 
         public override string GetDefaultThumbnailPicture()
