@@ -30,7 +30,11 @@
             },
             submitCode: function(data) {
                 return ajaxService.post(buildPath('entercode'), data);
-            }
+            },
+            facebookLogin: function (data) {
+                return ajaxService.post(buildPath('FacebookLogin'), data);
+            },
+
         };
 
 

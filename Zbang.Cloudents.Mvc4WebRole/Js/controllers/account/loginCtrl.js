@@ -1,9 +1,9 @@
 ﻿mAccount.controller('LoginCtrl',
-    ['$scope','$modalInstance',
-        function ($scope, $modalInstance) {
+    ['$scope', 'sFacebook', '$modalInstance', 'data',
+        function ($scope, sFacebook, $modalInstance, data) {
             "use strict";
 
-            $scope.params.currentState = 0;
+            $scope.params.currentState = data.state;
 
             $scope.params.states = {
                 registerFirst: 0,
@@ -11,6 +11,10 @@
                 login: 2
             };
 
+            $scope.formData = {
+                login: {},
+                register: {}
+            };
 
             $scope.changeState = function (state) {
                 $scope.params.currentState = state;
@@ -19,5 +23,15 @@
             $scope.cancel = function () {
                 $modalInstance.dismiss();
             };
+
+            $scope.facebookLogin = function () {
+                sFacebook.registerFacebook();
+            };
+
+            $scope.login = function () {
+
+            };
+
+            $scope.register = function () { };
         }
     ]);

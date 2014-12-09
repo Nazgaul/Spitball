@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$rootScope','$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare','sGmfcnHandler','$filter',
-   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler, $filter) {
+   ['$rootScope', '$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare', 'sGmfcnHandler', '$filter', 'sAccount',
+   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler, $filter, sAccount) {
        "use strict";
        var isAuthenticated = false,
            accessToken,
@@ -14,8 +14,7 @@
                status: true,
                cookie: true,
                xfbml: true,
-               oauth: true,
-               version:'v2.2'
+               oauth: true
            });
            loginStatus();
        };
@@ -27,7 +26,7 @@
            js = d.createElement('script');
            js.id = id;
            js.async = true;
-           js.src = "//connect.facebook.net/en_US/sdk.js";
+           js.src = "//connect.facebook.net/en_US/all.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
 
@@ -93,7 +92,7 @@
                            });
                            //cd.pubsub.publish('addPoints', { type: 'shareFb' });
                            var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                           sShare.facebookReputation({ postId: postId });                           
+                           sShare.facebookReputation({ postId: postId });
                            sGmfcnHandler.addPoints({ type: 'shareFb' });
                        }
                    });
@@ -179,15 +178,15 @@
                    return;
                }
 
-               
+
                var isSent = cache.get('isSent');
-               
+
                if (isSent) {
                    setTimeout();
                    return;
                }
 
-               
+
 
                setTimeout();
 
@@ -250,9 +249,72 @@
                return dfd.promise;
 
            },
+           registerFacebook: function (data) {
+               data = data || {};
+               var facebookText = {
+                   en: "I have just signed up to Cloudents.\nCloudents is a free online and mobile social studying platform. With a large collection of study material, course notes, summaries and Q&As Cloudents makes my studying easier.",
+                   he: 'התחברתי ל-Cloudents, המאגר האקדמי של הסטודנטים.\nמחפשים חומרי לימוד?\nסיכומים, מבחנים,מאמרים.\nמעל ל - 50 אלף קבצים במאגר.\nפשוט לחצו כאן, והירשמו. \nהדרך אל התואר, לא הייתה קלה יותר.',
+                   ar: 'أنا أيضا قمت بالاتصال بشبكة Cloudents. حيث أن Cloudentsلديها أكبر مجموعة من مذكرات المقررات الدراسية، والامتحانات في مدرستك. أنضم إلى Cloudents، كلما زاد عدد الطلاب المنضمين، كلما أصبحت الدراسة أسهل.',
+                   ru: 'Я тоже подключился к Cloudents. В Cloudents есть крупнейшее собрание конспектов и экзаменов вашего учебного заведения. Присоединяйтесь к Cloudents; чем больше обучающихся присоединятся, тем легче будет учиться.',
+                   zh: '我也连接到 Cloudents 了。Cloudents 拥有最丰富的课程笔记以及贵校的考卷。加入 Cloudents 吧，越多人参加，学习就变得越容易。',
+                   nl: 'Check Cloudents! Een plek om samen te werken aan opdrachten, studiemateriaal te vinden, proeftentamens te doen of ideeën en teksten te bespreken.'
+               };
+
+               var dfd = $q.defer();
+
+               FB.login(function (response) {
+                   accessToken = response.authResponse.accessToken;
+                   FB.api('/me/permissions', function (response2) {
+                       var perms = response2.data[0];
+
+                       if (perms.email) {
+                           login();
+                           // User has permission
+                           $analytics.eventTrack('Facebook Signup', {
+                               category: 'Connect Popup',
+                               label: 'Successfull login using facebook'
+                           });
+                       } else {
+                           alert('you need to give email permission');
+                           $analytics.eventTrack('Facebook Signup', {
+                               category: 'Connect Popup',
+                               label: 'Failed login using facebook'
+                           });
+
+                           dfd.reject();
+                       }
+                   });
+
+
+               }, { scope: 'email,publish_stream,user_friends' });
+
+               return dfd.promise;
+
+               function login() {
+                   sAccount.facebookLogin({
+                       token: accessToken,
+                       boxId: data.boxId
+                   }).then(function (fbResponse) {                       
+                       if (fbResponse.isnew) {
+                           FB.api('/me', function (response) {
+                               var locale = response.locale.substr(0, response.locale.indexOf('_')),
+                                   text = facebookText[locale];
+                               if (!text) {
+                                   text = facebookText.en;
+                               }
+                               this.postFeed(text, 'https://www.cloudents.com');
+                           });
+                       }
+
+                       dfd.resolve();
+                   });
+               }
+           },
            isAuthenticated: function () {
                return isAuthenticated;
            }
+
+
        }
 
    }

@@ -1,8 +1,8 @@
 ﻿mBox.controller('QnACtrl',
 ['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
-    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler',
+    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler','sItem',
             function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics,
-                resManager, sNotify, sLogin, sGmfcnHandler) {
+                resManager, sNotify, sLogin, sGmfcnHandler,sItem) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -252,7 +252,7 @@
                 };
 
                 $scope.removeAttachment = function (obj, item) {
-                    sQnA.delete.attachment({ itemId: item.id }).then(function () {
+                    sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
                         var index = obj.files.indexOf(item);
                         obj.files.splice(index, 1);
                     }, function (response) {
