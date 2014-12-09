@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain
         protected Box()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
+            UserBoxRelationship = new HashSet<UserBoxRel>(); 
             Items = new List<Item>();
 
             //Comments = new List<Comment>();

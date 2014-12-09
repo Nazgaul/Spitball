@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             Guid itemTabId = Guid.NewGuid();
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US"); 
-            var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some name", someUser, BoxPrivacySettings.MembersOnly);
             var someItemTab = new ItemTab(itemTabId, "some name", someBox);
 
             var command = new AssignItemToTabCommand(new List<long>() { 1 }, itemTabId, 1, 1, true);

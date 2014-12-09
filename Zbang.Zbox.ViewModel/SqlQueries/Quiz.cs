@@ -17,8 +17,9 @@ select u.country as Country
         and q.publish = 1;";
 
         public const string QuizQuery =
-            @"select q.Id, q.Name, u.UserId as OwnerId, u.UserName as Owner, q.CreationTime as Date, q.NumberOfViews,
-b.BoxName, b.Url as BoxUrl, q.Publish , [Stdevp] , Average
+            @"select q.Id, q.Name, u.UserId as OwnerId, u.UserName as Owner, 
+q.CreationTime as Date, q.NumberOfViews,
+b.Url as BoxUrl, q.Publish , [Stdevp] , Average
 from zbox.quiz q 
 join zbox.Users u on q.UserId = u.UserId
 join zbox.Box b on q.BoxId = b.BoxId
