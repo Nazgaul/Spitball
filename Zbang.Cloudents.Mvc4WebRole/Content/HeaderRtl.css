@@ -24,6 +24,15 @@
   margin: 0 20px 0 0;
   /*rtl*/
 }
+/*#region search */
+.searchBtn {
+  left: 10px;
+  right: auto;
+}
+.dashLibSearchInput {
+  padding: 0 10px 0 40px;
+}
+/*#endregion */
 .dashHeader.setup .dashLibSearchInput ~ button {
   float: left;
 }

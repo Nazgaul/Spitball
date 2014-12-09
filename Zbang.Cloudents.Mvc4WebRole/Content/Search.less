@@ -1,6 +1,6 @@
 ﻿@import "varsAndMixins";
-
-.searchInputWpr {
+/*TEMP: UNDO NEW SEARCH*/
+/*.searchInputWpr {
 	width: 365px;
 	height: 32px;
     border-radius: 16px;
@@ -104,7 +104,7 @@
         .search-content {
 	        opacity: 1;
 	        height: auto;
-	        overflow: visible; /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
+	        overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
 	        pointer-events: auto;
 	        -webkit-transition: opacity 0.3s 0.5s;
 	        transition: opacity 0.3s 0.5s;
@@ -166,7 +166,7 @@
     }
 }
 
-/* hide placeholder when active in Chrome */
+// hide placeholder when active in Chrome //
 .gn-search:focus::-webkit-input-placeholder {
 	color: transparent;
 }
@@ -296,14 +296,14 @@
     .vCentered {
         max-width: 98%;
     }
-    /*&.noResults
-    {
-        text-align: center;
-        .searchList, h3, .showAll //.showAll prob not necessary
-        {
-            display: none !important;
-        }
-    }*/
+    //&.noResults
+    //{
+    //    text-align: center;
+    //    .searchList, h3, .showAll //.showAll prob not necessary
+    //    {
+    //        display: none !important;
+    //    }
+    }//
 }
 
 @media screen and (max-width: 53.125em) {
@@ -343,7 +343,7 @@
         left:0;right:0;
         margin: auto;
 	}
-}
+}*/
 
 
 
@@ -397,7 +397,15 @@
             background: #f5f5f5;
         }
     }
-    
+    /*TEMP: OLD SEARCH*/
+    &.noResults {
+        text-align: center;
+        .searchList, h3, .showAll //.showAll prob not necessary
+        {
+            display: none !important;
+        }
+    }
+    /*TILL HERE*/
 }
 
 .searchList 
@@ -426,10 +434,11 @@
     {
         margin-left: 56px; /*rtl*/
     }
-    /*.userImg
-    {
+    /*TEMP: OLD SEARCH*/
+    .userImg {
         margin-left: 3px; //rtl
-    }*/
+    }
+    /*TILL HERE*/
 }
 
 .searchDetails

@@ -1389,56 +1389,81 @@
 /*#endregion */
 /*#endregion */
 /*#region Search page and drop down */
+.searchItem {
+  /*TEMP: OLD SEARCH*/
+  /*TILL HERE*/
+}
+.searchItem > .searchTitle {
+  margin: 0 56px 0 0;
+  /*rtl*/
+}
+.searchItem .userImg {
+  margin: 0 3px 0 0;
+  /*rtl*/
+}
 /*#region search overlay */
-.searchInputWpr {
-  right: 500px;
-  left: auto;
-  -webkit-transition-property: height, width, top, right, border-radius;
-  transition-property: height, width, top, right, border-radius;
-}
-.searchInputWpr.searchLib {
-  right: 550px;
-  left: auto;
-}
-.searchInputWpr.searchBox {
-  right: 320px;
-  left: auto;
-}
-.searchInputWpr.searchUser {
-  right: auto;
-  left: -webkit-calc(50% - 243px);
-}
-.searchInputWpr.open {
-  right: 0;
-  left: auto;
-}
-.searchInputWpr.open .dashLibSearchInput {
-  padding: 0 0 8px 10%;
-}
-.searchInputWpr.open .searchBtn {
-  -webkit-transform: translate3d(30px, -50%, 0) scale3d(1, 1, 1);
-  transform: translate3d(30px, -50%, 0) scale3d(1, 1, 1);
+/*TEMP: UNDO NEW SEARCH*/
+/*.searchInputWpr {
+	right: 500px; //rtl //to suit union page which has longer text (was 500)
+    left: auto;
+	-webkit-transition-property: height, width, top, right, border-radius; //rtl 
+	transition-property: height, width, top, right, border-radius; //rtl 
+    &.searchLib {
+        right: 550px; //rtl
+        left: auto;
+    }
+    &.searchBox {
+        right: 320px; //rtl
+        left: auto;
+    }
+    &.searchUser {
+        right: auto;
+        left: ~'-webkit-calc(50% - 243px)'; //rtl
+    }
+    &.open {
+        right: 0; //rtl 
+        left: auto;
+        .dashLibSearchInput {
+            padding: 0 0 8px 10%; //rtl 
+        }
+        .searchBtn {
+	        -webkit-transform: translate3d(30px,-50%,0) scale3d(1,1,1); //rtl
+	        transform: translate3d(30px,-50%,0) scale3d(1,1,1); //rtl
+        }
+    }
+
 }
 .dashLibSearchInput {
-  padding: 0 16px 8px 40px;
+	padding: 0 16px 8px 40px; //rtl 
 }
+
 .searchBtn {
-  left: 0;
-  right: auto;
-  -webkit-transform: translate3d(-10px, -50%, 0) scale3d(0.5, 0.5, 1);
-  transform: translate3d(-10px, -50%, 0) scale3d(0.5, 0.5, 1);
+	left: 0; //rtl 
+    right: auto;
+	-webkit-transform: translate3d(-10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
+	transform: translate3d(-10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
 }
+
 .closeSearch {
-  left: 1em;
-  right: auto;
+	left: 1em; //rtl 
+    right: auto;
 }
+
 .searchLink {
-  padding: 0.75em 70px 0.75em 0.75em;
+	padding: 0.75em 70px 0.75em 0.75em; //rtl
+    img {
+        right: 6px; //rtl
+        left: auto;
+    }
 }
-.searchLink img {
-  right: 6px;
-  left: auto;
+
+@media screen and (max-width: 53.125em) {
+
 }
+
+@media screen and (max-width: 60.625em) {
+
+}*/
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */
 .searchPage:after {

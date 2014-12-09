@@ -36,9 +36,8 @@ body {
 .siteHeader.headerBox .shareBtn {
   display: inline-block;
   margin: 0 15px;
-  position: absolute;
-  top: 12px;
-  left: 730px;
+  position: relative;
+  top: 11px;
 }
 .siteHeader.headerBox .siteLogo {
   height: 50px;
@@ -146,6 +145,66 @@ body {
 .headerRightWpr .userSection {
   margin-left: 20px;
 }
+/*#region search */
+.searchInputWpr {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 460px;
+  width: -webkit-calc(100% - 320px);
+  width: calc(100% - 320px);
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  margin: 17px 20px 0 20px;
+  line-height: normal;
+  background: #fff;
+}
+.searchInputWpr svg {
+  fill: #a5a5a5;
+  top: 22px;
+}
+.searchInputWpr + button .svg-inviteUser {
+  position: relative;
+  top: 5px;
+}
+.searchInputWpr + button .svg-inviteUser:hover {
+  fill: #0f9d58;
+}
+.searchBtn {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+.dashLibSearchInput {
+  width: 100%;
+  max-width: 460px;
+  height: 32px;
+  border-radius: 15px;
+  font-size: 18px;
+  padding: 0 40px 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.dashLibSearchInput:focus {
+  border: none;
+  outline: none;
+}
+/*#endregion */
 /*#region dashboard */
 .dashHeader {
   height: 65px;

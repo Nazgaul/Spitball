@@ -155,42 +155,32 @@
 
     @*@Search*@
     <script type="text/ng-template" id="boxHeaderSearch">
-        <a ng-href="{{::box.url}}" class="searchLink ghost">
-            <img class="imgBorder" height="66" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
-            @*<div class="searchDetails">
+        <a ng-href="{{::box.url}}" class="searchItem">
+            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
+            <div class="searchDetails">
                 <div class="searchTitle semiFont elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
                 <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
                 <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
-            </div>*@
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
-                <div>
-                    <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
-                    <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
-                </div>
             </div>
         </a>
     </script>
     <script type="text/ng-template" id="itemHeaderSearch">
-        <a ng-href="{{::item.url}}" class="searchLink ghost">
+        <a ng-href="{{::item.url}}" class="searchItem">
             <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
-            <img class="imgBorder" height="66" ng-src="{{::item.image}}" alt="">
-            @*<div class="searchDetails">
+            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::item.image}}" alt="">
+            <div class="searchDetails">
                 <div class="searchTitle semiFont elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
-                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
-            </div>*@
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
                 <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
             </div>
         </a>
     </script>
     <script type="text/ng-template" id="personHeaderSearch">
-        <a ng-href="{{::person.url}}" class="searchLink ghost">
-            <img class="imgBorder userImg" ng-src="{{person.image | defaultImage:'user'}}" alt="" height="50" />
-            <h3 class="elps" ng-bind-html="::person.name | highlight:formData.query:false" dir="{{::params.txetDirection}}"></h3>
+        <a ng-href="{{::person.url}}" class="searchItem">
+            <img class="lFloat imgBorder userImg" ng-src="{{person.image | defaultImage:'user'}}" alt="" width="33" height="33" />
+            <div class="searchTitle semiFont elps" ng-bind-html="::person.name | highlight:formData.query:false" dir="{{::params.txetDirection}}"></div>
         </a>
     </script>
+
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
     @RenderSection("scripts", false)

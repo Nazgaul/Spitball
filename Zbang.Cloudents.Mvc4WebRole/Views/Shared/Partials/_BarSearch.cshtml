@@ -1,144 +1,41 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@*TEMP: OLD SEARCH (whole file.. new version on desktop)*@
 
-<form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
-    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-keyup="search()"
-            ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" ng-click="openSearch()"/>
-    <button class="searchBtn" type="submit" >@*ng-disabled="newSearch.query.$invalid"*@
-        @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
-    </button>
-</form>
-@*searchDD allResults*@
-@**@
-<div class="search-content" ng-mouseover="params.hover = true" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" ng-mouseout="params.hover = false">
-    <section class="column lFloat" ng-if="searchResults.boxes.length">
-        <h2>@SharedResources.Courses / @SharedResources.GroupBoxes</h2>
-        <ul>
-            <li ng-repeat="box in searchResults.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
-        </ul>
-    </section>
-    <section class="column lFloat" ng-if="searchResults.items.length">
-        <h2>@SharedResources.Materials</h2>
-        <ul>
-            <li ng-repeat="item in searchResults.items track by item.id" ng-include="'itemHeaderSearch'"></li>
-        </ul>
-    </section>
-    <section class="column lFloat" ng-if="searchResults.people.length">
-        <h2>@SharedResources.People</h2>
-        <ul>
-            <li ng-repeat="person in searchResults.people track by person.id" ng-include="'personHeaderSearch'"></li>
-        </ul>
-    </section>
-    @*<div ng-if="searchResults.otherItems.length">
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="searchInputWpr" ng-controller="SearchHeaderCtrl">
+    <form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
+        <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-keyup="search()"
+               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+        <button class="searchBtn" type="submit" ng-disabled="newSearch.query.$invalid">
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+        </button>
+    </form>
+    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+        <div ng-if="searchResults.boxes.length">
+            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+            <ul class="searchList boxes">
+                <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+            </ul>
+        </div>
+        <div ng-if="searchResults.items.length">
+            <h3>@SharedResources.Materials</h3>
+            <ul class="searchList items">
+                <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </div>
+        <div ng-if="searchResults.people.length">
+            <h3>@SharedResources.People</h3>
+            <ul class="searchList people">
+                <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+            </ul>
+        </div>
+        <div ng-if="searchResults.otherItems.length">
             <h3>@SharedResources.ResultsOther</h3>
             <ul class="searchList university">
                 <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
             </ul>
-        </div>*@
-
-
-    @*<a ng-href="{{::box.url}}" class="searchItem">
-            <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
-            <div class="searchDetails">
-                <div class="searchTitle semiFont elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
-                <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
-                <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
-            </div>
-        </a>*@
-    @*<section class="column lFloat">
-    <h2>@SharedResources.Courses / @SharedResources.GroupBoxes</h2>
-    <ul>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/08/05/page-preloading-effect/">
-                <img src="img/thumbs/PagePreloadingEffect.png" alt="PagePreloadingEffect">
-                <h3>Page Preloading Effect</h3>
-            </a>
-        </li>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/05/28/arrow-navigation-styles/">
-                <img src="img/thumbs/ArrowNavigationStyles.png" alt="ArrowNavigationStyles">
-                <h3>Arrow Navigation Styles</h3>
-            </a>
-        </li>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/06/19/ideas-for-subtle-hover-effects/">
-                <img src="img/thumbs/HoverEffectsIdeasNew.png" alt="HoverEffectsIdeasNew">
-                <h3>Ideas for Subtle Hover Effects</h3>
-            </a>
-        </li>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/07/14/freebie-halcyon-days-one-page-website-template/">
-                <img src="img/thumbs/FreebieHalcyonDays.png" alt="FreebieHalcyonDays">
-                <h3>Halcyon Days Template</h3>
-            </a>
-        </li>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/05/22/inspiration-for-article-intro-effects/">
-                <img src="img/thumbs/ArticleIntroEffects.png" alt="ArticleIntroEffects">
-                <h3>Inspiration for Article Intro Effects</h3>
-            </a>
-        </li>
-        <li>
-            <a class="searchLink" href="http://tympanus.net/codrops/2014/06/26/draggable-dual-view-slideshow/">
-                <img src="img/thumbs/DraggableDualViewSlideshow.png" alt="DraggableDualViewSlideshow">
-                <h3>Draggable Dual-View Slideshow</h3>
-            </a>
-        </li>
-    </ul>
-</section>
-<section class="column lFloat">
-    <h2>@SharedResources.Materials</h2>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/">
-        <img src="img/thumbs/TooltipStylesInspiration.png" alt="TooltipStylesInspiration">
-        <h3>Tooltip Styles Inspiration</h3>
-    </a>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/09/23/animated-background-headers/">
-        <img src="img/thumbs/AnimatedHeaderBackgrounds.png" alt="AnimatedHeaderBackgrounds">
-        <h3>Animated Background Headers</h3>
-    </a>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/09/16/off-canvas-menu-effects/">
-        <img src="img/thumbs/OffCanvas.png" alt="OffCanvas">
-        <h3>Off-Canvas Menu Effects</h3>
-    </a>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/09/02/tab-styles-inspiration/">
-        <img src="img/thumbs/TabStyles.png" alt="TabStyles">
-        <h3>Tab Styles Inspiration</h3>
-    </a>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/08/19/making-svgs-responsive-with-css/">
-        <img src="img/thumbs/ResponsiveSVGs.png" alt="ResponsiveSVGs">
-        <h3>Make SVGs Responsive with CSS</h3>
-    </a>
-    <a class="searchLink" href="http://tympanus.net/codrops/2014/07/23/notification-styles-inspiration/">
-        <img src="img/thumbs/NotificationStyles.png" alt="NotificationStyles">
-        <h3>Notification Styles Inspiration</h3>
-    </a>
-</section>
-<section class="column lFloat">
-    <h2>@SharedResources.People</h2>
-    <a class="searchLink" href="http://twitter.com/rachsmithtweets">
-        <img class="round" src="http://0.gravatar.com/avatar/48959f453dffdb6236f4b33eb8e9f4b7?s=50&amp;d=identicon&amp;r=G" alt="Rachel Smith">
-        <h3>Rachel Smith</h3>
-    </a>
-    <a class="searchLink" href="http://www.twitter.com/peterfinlan">
-        <img class="round" src="http://0.gravatar.com/avatar/06458359cb9e370d7c15bf6329e5facb?s=50&amp;d=identicon&amp;r=G" alt="Peter Finlan">
-        <h3>Peter Finlan</h3>
-    </a>
-    <a class="searchLink" href="http://www.twitter.com/pcridesagain">
-        <img class="round" src="http://1.gravatar.com/avatar/db7700c89ae12f7d98827642b30c879f?s=50&amp;d=identicon&amp;r=G" alt="Patrick Cox">
-        <h3>Patrick Cox</h3>
-    </a>
-    <a class="searchLink" href="https://twitter.com/twholman">
-        <img class="round" src="http://0.gravatar.com/avatar/cb947f0ebdde8d0f973741b366a51ed6?s=50&amp;d=identicon&amp;r=G" alt="Tim Holman">
-        <h3>Tim Holman</h3>
-    </a>
-    <a class="searchLink" href="https://twitter.com/shaund0na">
-        <img class="round" src="http://1.gravatar.com/avatar/9bc7250110c667cd35c0826059b81b75?s=50&amp;d=identicon&amp;r=G" alt="Shaun Dona">
-        <h3>Shaun Dona</h3>
-    </a>
-</section>*@
-
-    @*<a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>*@
-    <div class="emptySearch">@SharedResources.NoResults</div>
+        </div>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <div class="emptySearch">@SharedResources.NoResults</div>
+    </div>
 </div>
-<button type="button" class="closeSearch" ng-click="cancel()">
-    @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-</button>
