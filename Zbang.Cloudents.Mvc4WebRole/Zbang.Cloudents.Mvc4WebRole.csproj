@@ -806,6 +806,7 @@
     <Content Include="Images\nopreview_empty.png" />
     <Content Include="Images\no_results_icon.png" />
     <Content Include="Images\placeholder_user_img.png" />
+    <Content Include="Images\points-Bg.png" />
     <Content Include="Images\pointsBg.png" />
     <Content Include="Images\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
@@ -908,6 +909,7 @@
     <Content Include="Js\controllers\library\libChooseCtrl.js" />
     <Content Include="Js\controllers\library\libraryRenameCtrl.js" />
     <Content Include="Js\controllers\library\restrictionPopUpCtrl.js" />
+    <Content Include="Js\controllers\account\loginCtrl.js" />
     <Content Include="Js\controllers\quiz\challengeCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCloseCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCreateCtrl.js" />
@@ -2066,6 +2068,7 @@
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Shared\Partials\_ItemRegister.cshtml" />
     <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
+    <Content Include="Views\Shared\Partials\_WelcomeAngular.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

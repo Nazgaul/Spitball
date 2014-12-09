@@ -803,6 +803,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [HttpGet]
+        [OutputCache(CacheProfile = "PartialCache")]
+        public ActionResult WelcomeAngularPartial()
+        {
+            try
+            {
+                return PartialView("_WelcomeAngular");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_WelcomeAngular", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
     }
 
 

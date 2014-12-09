@@ -93,9 +93,45 @@
 .modal.boxInvitePopup .invForm h3 {
   color: #fff;
 }
+.modal.welcome {
+  text-align: center;
+}
+.modal.welcome .modal-dialog {
+  width: 450px;
+}
+.modal.welcome .modal-body {
+  -webkit-animation: fadein 0.5s 0 ease;
+  -moz-animation: fadein 0.5s 0 ease;
+  -o-animation: fadein 0.5s 0 ease;
+  animation: fadein 0.5s 0 ease;
+  border-radius: 6px;
+}
+.modal.welcome .svg-close {
+  fill: #282828;
+}
+.modal.welcome .emailBtn {
+  border: 1px solid #c2c2c2;
+}
+.modal.congrats {
+  font-family: Arial;
+  font-weight: bold;
+}
+.modal.congrats .modal-dialog {
+  width: 500px;
+  height: 300px;
+  background: url(/Images/points-Bg.png) no-repeat;
+}
+.modal.congrats .modal-body {
+  background: none;
+  text-align: center;
+}
+.modal.congrats .svg-close {
+  fill: #282828;
+}
 .modal.rename,
 .modal.itemReg,
-.modal.congrats {
+.modal.congrats,
+.modal.welcome {
   padding-left: 290px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -988,6 +1024,106 @@
   width: 16px;
   height: 20px;
   background-position: -164px -1px;
+}
+/*#endregion */
+/*#region points popup */
+.ribbon {
+  display: inline-block;
+  width: 384px;
+  height: 77px;
+}
+.svg-ribbon {
+  width: 384px;
+  height: 77px;
+}
+.coin {
+  position: absolute;
+  top: 85px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 136px;
+  height: 136px;
+  color: #906d34;
+  background-color: #fee05c;
+  border: 1px solid #383838;
+  border-radius: 50%;
+  box-shadow: inset -7px -3px 0 -1px #fec900;
+}
+.coin:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 9px;
+  left: 7px;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: #fee05c;
+  border: 7px solid #fec900;
+}
+.ptsAwarded {
+  position: absolute;
+  font-size: 50px;
+  top: 45px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80px;
+}
+.congratsTxt0 {
+  text-transform: uppercase;
+  padding-top: 20px;
+  display: inline-block;
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  letter-spacing: -1px;
+  top: 4px;
+}
+.congratsTxt1 {
+  position: relative;
+  font-size: 15px;
+  top: 35px;
+  margin: auto;
+}
+.congratsTxt2 {
+  position: relative;
+  top: 76px;
+  font-size: 15px;
+  margin: auto;
+}
+.congratsTxt3 {
+  font-size: 17px;
+  margin-top: 137px;
+}
+.congratsTxt4 {
+  font-size: 17px;
+  font-weight: normal;
+  line-height: 17px;
+  padding: 0 40px;
+}
+/*#endregion */
+/*#region welcome angular popup */
+.fbTxt {
+  font-size: 12px;
+  color: #a9a9a9;
+  text-align: center;
+  position: relative;
+  top: 5px;
+}
+.facebook {
+  width: 100%;
+}
+.registerFirst .facebook {
+  margin-top: 15px;
+}
+.registerFirst .regFirstTxt {
+  font-size: 22px;
+  text-align: center;
 }
 /*#endregion */
 /*#region Share by email AKA message */

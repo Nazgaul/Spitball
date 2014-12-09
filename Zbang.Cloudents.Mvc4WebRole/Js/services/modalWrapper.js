@@ -35,13 +35,16 @@ app.factory('sModal',
                 flagItem: function (params) {
                     return buildObj('flagItem', { url: '/item/flag/' }, 'itemFlagCtrl', 'none', true, params.data);
                 },
-                itemRename: function (params) {
+                itemRename0: function (params) {
                     return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
-                itemRename1: function (params) {
+                connectPopup: function (params) {
+                    return buildObj('welcome', { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
+                },
+                itemReg: function (params) {
                     return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
-                itemRename2: function (params) {
+                congrats: function (params) {
                     return buildObj('congrats', { url: '/account/CongratsPartial' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {

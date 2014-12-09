@@ -583,16 +583,6 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.register .emailBtn {
   border: 1px solid #c2c2c2;
 }
-.staticWpr .fbTxt {
-  font-size: 12px;
-  color: #a9a9a9;
-  text-align: center;
-  position: relative;
-  top: 5px;
-}
-.staticWpr .facebook {
-  width: 100%;
-}
 .staticWpr.connect,
 .staticWpr.register {
   display: block;
@@ -604,45 +594,6 @@ input[type="radio"][disabled] + label:before {
 .staticWpr.connect.popupWrppr,
 .staticWpr.register.popupWrppr {
   max-height: none;
-}
-.staticWpr.registerFirst .facebook {
-  margin-top: 15px;
-}
-.staticWpr.registerFirst .enterTitle {
-  display: none;
-}
-.staticWpr.registerFirst .regFirstTxt,
-.staticWpr.registerFirst .emailBtn {
-  display: block;
-}
-.staticWpr.registerFirst .emailBtnWpr {
-  -webkit-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  -moz-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  -o-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  overflow: hidden;
-  height: 57px;
-  position: relative;
-}
-.staticWpr.registerFirst .registerContent {
-  -moz-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  -o-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-.staticWpr.registerFirst.step2 .emailBtnWpr {
-  height: 440px;
-}
-.staticWpr.registerFirst.step2 .emailBtn {
-  display: none;
-}
-.staticWpr.registerFirst.step2 .registerContent {
-  pointer-events: all;
 }
 /*#region Welcome Store */
 iframe .registerFirst.store {
@@ -684,13 +635,6 @@ iframe .registerFirst.store {
   display: inline-block;
   vertical-align: top;
 }
-.registerFirst.store .closeDialog {
-  right: 144px;
-  top: 208px;
-  background: url(/Images/Store/social.png?v=1) 0 -292px no-repeat;
-  width: 25px;
-  height: 25px;
-}
 .registerFirst.store .registerContent {
   display: none;
 }
@@ -704,19 +648,6 @@ iframe .registerFirst.store {
   top: 3px;
 }
 .registerFirst.store .signupBtns p {
-  display: none;
-}
-.registerFirst.step2 {
-  /*height: 942px; // height needed in order to vertically center
-            max-height: 98%;
-            overflow-x: hidden;
-            overflow-y: auto;*/
-  background: #fff;
-}
-.registerFirst.step2 .registerContent {
-  display: block;
-}
-.registerFirst.step2:before {
   display: none;
 }
 .welcomeStore {
@@ -802,13 +733,7 @@ iframe .registerFirst.store {
   font-size: 18px;
 }
 /*#endregion */
-.regFirstTxt {
-  display: none;
-  font-size: 22px;
-  text-align: center;
-}
 .emailBtn {
-  display: none;
   color: #676767;
   background: #FFF;
   border: 1px solid #fff;
@@ -931,13 +856,6 @@ iframe .registerFirst.store {
   top: 6px;
   opacity: .5;
 }
-.fbImg .fbIcon {
-  width: 11px;
-  height: 22px;
-  fill: #fff;
-  position: relative;
-  top: 2px;
-}
 .emailImg {
   background-position: -131px -24px;
   left: 8px;
@@ -946,11 +864,6 @@ iframe .registerFirst.store {
   background: #676767;
   top: 5px;
   left: 6px;
-}
-.emailImg .emailIcon {
-  width: 24px;
-  height: 20px;
-  fill: silver;
 }
 .signIn,
 .register {
@@ -1083,6 +996,18 @@ iframe .registerFirst.store {
   width: 12px;
   height: 12px;
   fill: #ccc;
+}
+.svg-fb {
+  width: 11px;
+  height: 22px;
+  fill: #fff;
+  position: relative;
+  top: 2px;
+}
+.svg-email {
+  width: 24px;
+  height: 20px;
+  fill: silver;
 }
 /*#endregion */
 /*#region side menu - SettingsBar partial */
