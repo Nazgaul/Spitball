@@ -5,17 +5,15 @@
     m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
+ga('require', 'displayfeatures');
+
 ga('create', 'UA-9850006-3', {
     'siteSpeedSampleRate': 70,
     'cookieDomain': 'cloudents.com',
     'alwaysSendReferrer': true
 });
 
-ga('require', 'displayfeatures');
-if (location.pathname.indexOf('account')) {
-    ga('send', 'pageview');
-}
-
+var isHomePage = location.pathname === '/account' || location.pathname === '/account/';
 
 window.fbAsyncInit = function () {
     FB.init({
@@ -23,7 +21,7 @@ window.fbAsyncInit = function () {
         status: true,
         cookie: true,
         xfbml: true,
-        oauth: true
+        oauth: true        
     });
 };
 (function (d) {
@@ -47,12 +45,11 @@ window.fbAsyncInit = function () {
         sidebarCb = document.getElementById('sidebarCb'),
         facebookLogin = document.getElementById('facebookLogin');
 
-    var isHomePage = location.pathname.toLowerCase().indexOf('/account') > -1;
 
-
-    if (isHomePage) {
+    if (isHomePage) {        
         homeVideo.load();
         homePageEvents();
+        ga('send', 'pageview');
     }
 
     var menu = document.querySelector('aside ul');
