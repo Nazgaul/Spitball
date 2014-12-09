@@ -4,22 +4,21 @@
         "use strict";
         return {
             connect: function () {
-                openModal();
+                openModal(2);
             },
             register: function () {
-                api.register();
+                openModal(1);
             },
             registerAction: function () {
-                api.registerAction();
-            },
-            reset: function () {
-                api.reset();
+                openModal(0);
             }
         };
 
-        function openModal() {
+        function openModal(state) {
             sModal.open('connectPopup', {
-
+                data: {
+                    state: state
+                }
             });
         }
 

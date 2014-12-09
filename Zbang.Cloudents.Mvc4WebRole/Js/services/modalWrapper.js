@@ -71,19 +71,18 @@ app.factory('sModal',
                         modalInstance = $modal.open(modalParams);
 
                     modalInstance.result.then(function (response) {
-
-                        if (angular.isFunction(params.callback.close)) {
+                        if (_.isFunction(params.callback.close)) {
                             params.callback.close(response);
                         }
                     }, function (response) {
-                        if (angular.isFunction(params.callback.dismiss)) {
+                        if (_.isFunction(params.callback.dismiss)) {
                             params.callback.dismiss(response);
                         }
                     })['finally'](function (response) {
                         //var index = modalsOpened.indexOf(modalInstance);
                         //modalsOpened.splice(index,1);
                         modalInstance = undefined;
-                        if (angular.isFunction(params.callback.always)) {
+                        if (_.isFunction(params.callback.always)) {
                             params.callback.always(response);
                         }
 
