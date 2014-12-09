@@ -48,7 +48,7 @@
 
             <div class="registerContent">
                 <div class="enterForm" id="joinForm">
-                    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+                    @{Html.RenderPartial("_RegisterAngular");}
                 </div>
                 <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button" ng-click="changeState(params.states.login)">@SharedResources.SignIn</button></div>
             </div>
@@ -65,7 +65,7 @@
         </div>
         <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
         <div class="enterForm">
-            @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+            @{Html.RenderPartial("_LogonAngular");}
         </div>
         <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button" ng-click="changeState(params.states.register)">@LogOnResources.CreateNew</button></div>
         <button type="button" class="closeModal" ng-click="cancel()">

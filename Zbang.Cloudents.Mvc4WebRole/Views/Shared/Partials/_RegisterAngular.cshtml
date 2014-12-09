@@ -1,39 +1,29 @@
-﻿
-
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
-@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
-    new { @class = "register desktop", id = "registerForm", name = "registerForm" }
-   ))
-{
-    @Html.ValidationSummary(true)
-    Html.RenderAction("AntiForgeryToken", "Home", true);
+<form class="register desktop" id="registerForm">
+    blablabla
+    <span class="field-validation-error"></span>
+    <input type="text" class="inputText firstName lFloat" id="FirstName" name="FirstName" placeholder="@SharedResources.FirstName" />
 
-    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "firstError" })
-    @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName lFloat", tabindex = 10, @placeholder = @SharedResources.FirstName })
+    <span class="field-validation-error"></span>
+    <input type="text" class="inputText lastName rFloat" id="LastName" name="LastName" placeholder="@SharedResources.LastName" />
 
-    @Html.ValidationMessageFor(model => model.LastName, null)
-    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText lastName rFloat", tabindex = 11, @placeholder = @SharedResources.LastName })
+    <span class="field-validation-error"></span>
+    <input type="email" class="inputText" id="NewEmail" name="NewEmail" placeholder="@SharedResources.Email" />
 
-    @Html.ValidationMessageFor(model => model.NewEmail, null)
-    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 12, @placeholder = SharedResources.Email, type = "email" })
+    <span class="field-validation-error"></span>
+    <input type="email" class="inputText" id="ConfirmEmail" name="ConfirmEmail" placeholder="@RegisterResources.VerifyEmail" />
 
-    @Html.ValidationMessageFor(model => model.ConfirmEmail, null)
-    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 13, @placeholder = RegisterResources.VerifyEmail, type = "email" })
+    <span class="field-validation-error"></span>
+    <input class="inputText" id="Password" name="Password" placeholder="LogOnResources.Password" />
 
-
-    @Html.ValidationMessageFor(model => model.Password, null)
-    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder = LogOnResources.Password })
-
-    @Html.ValidationMessageFor(m => m.IsMale)
-    @Html.RadioButtonFor(model => model.IsMale, "true", new { id = "maleRadio" })
-    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
-
-    @Html.RadioButtonFor(model => model.IsMale, "false", new { id = "femaleRadio" })
-    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
+    <span class="field-validation-error"></span>
+    <input id="maleRadio" name="IsMale" type="radio" value="true" />
+    <label class="genderLabel first" for="maleRadio">זכר1</label>
+    <input id="femaleRadio" name="IsMale" type="radio" value="false">
+    <label class="genderLabel" for="femaleRadio">נקבה1</label>
 
     <select class="inputText rFloat" id="dLangSelect" name="Language.Language">
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
@@ -44,8 +34,9 @@
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
     </select>
 
-    @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox" })
-    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })
+
+    <input checked="checked" class="checkbox" data-val="true" data-val-required="The מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית field is required." id="MarketEmail" name="MarketEmail" type="checkbox" value="true" />
+    <label class="cbLabel" for="MarketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
 
     <div class="formBottom">
         <span class="acceptTerms">
@@ -59,5 +50,5 @@
         </span>
         <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp" />
     </div>
-}
+</form>
 

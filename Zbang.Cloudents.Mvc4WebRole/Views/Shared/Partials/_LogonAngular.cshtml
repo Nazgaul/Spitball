@@ -1,0 +1,58 @@
+﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="splitHR"><span class="splitHRText">@LogOnResources.ByEmail</span></div>
+
+<div class="signIn">
+    <form>
+        <span class="field-validation-error"></span>
+        <input type="email" class="inputText" tabindex="1" placeholder="@SharedResources.EmailAddress" />
+        <span class="field-validation-error"></span>
+        <input type="password" class="inputText" tabindex="2" placeholder="@LogOnResources.Password" />
+        <a class="forgot rFloat" href="/account/resetpassword/">@LogOnResources.ForgotYourPassword</a>
+        <input type="checkbox" value="true" checked class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" />
+        <label class="cbLabel lFloat" for="RememberMe">זכור אותי</label>
+        <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn">
+    </form>
+</div>
+
+@*<div class="signIn">
+
+        @using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl },
+        FormMethod.Post, new { id = "login", name = "loginForm" })
+       )
+        {
+            Html.RenderAction("AntiForgeryToken", "Home", true);
+
+            @Html.ValidationMessageFor(model => model.Email, null)
+            @Html.TextBoxFor(model => model.Email, new
+            {
+                @class = "inputText",
+                type = "email",
+                //autofocus = "autofocus",
+                tabindex = 1,
+                placeholder = @SharedResources.EmailAddress
+            })
+
+            @Html.ValidationMessageFor(model => model.Password, null)
+            @Html.PasswordFor(model => model.Password, new
+            {
+                @class = "inputText",
+                tabindex = 2,
+                placeholder = @LogOnResources.Password
+            })
+
+            @Html.ActionLink(@LogOnResources.ForgotYourPassword, "ResetPassword", "Account", null, new { @class = "forgot rFloat", target = "_self" })
+
+
+
+            @Html.CheckBoxFor(m => m.RememberMe, new { id = "RememberMe", @class = "checkbox", tabindex = "3" })
+
+            @Html.LabelFor(model => model.RememberMe, new { @class = "cbLabel lFloat" })
+
+            <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" />
+        }
+    </div>*@
+
+

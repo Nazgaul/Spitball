@@ -2070,6 +2070,8 @@
     <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
     <Content Include="Views\Shared\Partials\_WelcomeAngular.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
+    <Content Include="Views\Shared\Partials\_LogonAngular.cshtml" />
+    <Content Include="Views\Shared\Partials\_RegisterAngular.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
