@@ -87,6 +87,12 @@
                     });
 
                     uploader.bind('FileUploaded', function (up, file, res) {
+
+                        $analytics.eventTrack('Plupload dropzone', {
+                            category: 'Upload',
+                            label: 'User uploaded local file'
+                        });
+
                         var response = JSON.parse(res.response);
 
                         $angularCacheFactory.clearAll();

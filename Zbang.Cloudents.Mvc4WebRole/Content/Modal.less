@@ -109,8 +109,8 @@
     }
     &.welcome {
         text-align: center;
-        .modal-dialog {           
-            width: 450px;            
+        .modal-dialog.modal-dialog {           
+            width: 450px;                        
         }
         .modal-body {            
             border-radius: 6px;             
@@ -1275,30 +1275,12 @@
     }
 }
 
-.login-switch {
-    position:absolute;
-}
-
-.login-switch.ng-animate {      
-      .transition(top .5s);      
-}
-  
-.login-switch.ng-leave.ng-leave-active,
-.login-switch.ng-enter {
-       top:100%;
-}
-.login-switch.ng-leave,
-.login-switch.ng-enter.ng-enter-active {     
-    top:0;
-}
-
 /*#endregion */
+
 
 /*#region Share by email AKA message */
 .validateMsg {
     color: @errorColor;
     display: block;
 }
-
-
 /*#endregion */
