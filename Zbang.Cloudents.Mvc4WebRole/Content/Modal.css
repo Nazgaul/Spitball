@@ -123,7 +123,8 @@
 }
 .modal.rename,
 .modal.itemReg,
-.modal.congrats {
+.modal.congrats,
+.modal.welcome {
   padding-left: 290px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

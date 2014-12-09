@@ -35,10 +35,10 @@ app.factory('sModal',
                 flagItem: function (params) {
                     return buildObj('flagItem', { url: '/item/flag/' }, 'itemFlagCtrl', 'none', true, params.data);
                 },
-                itemRename: function (params) {
+                itemRename0: function (params) {
                     return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
-                itemRename0: function (params) {
+                itemRename: function (params) {
                     return buildObj('welcome', { url: '/account/WelcomeAngularPartial' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {

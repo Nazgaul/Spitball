@@ -1,7 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
-
 
 @*sign in - connect*@
 <div class="modal-body">
@@ -26,22 +24,7 @@
 
 
 @*sign up - register*@
-<div class="modal-body" ng-class="{store: $root.isStore()}">
-    <div class="welcomeStore">
-        <div class="storeTxt1">@StoreResources.Description</div>
-        <div class="storeTxt2">@StoreResources.PayLess</div>
-        <div class="storeTxt3">@StoreResources.ExclusiveBenefits</div>
-        <div class="storeTxt4">@StoreResources.HowToBuy</div>
-        <div class="couponWpr">
-            <span class="userHelp">?</span>
-            <div class="helpPopup">@StoreResources.ToGetACoupon</div>
-            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
-            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
-
-        </div>
-        <span class="or">@StoreResources.Or</span>
-    </div>
-
+<div class="modal-body">
     <div class="signInUp">
         <div class="regFirstTxt">
             <div>@SharedResources.RegisterFirst</div>
@@ -60,7 +43,7 @@
         </button>
         <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
         <div class="emailBtnWpr">
-            <button ng-click="$root.params.isStore = false" class="emailBtn" type="button">
+            <button class="emailBtn" type="button">
                 <span class="emailImg">
                     @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
                 </span>@SharedResources.EmailSignUp
