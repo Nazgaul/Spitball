@@ -54,11 +54,6 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Updates> Updates { get; set; }
 
-        //public virtual int RatingCount { get; internal set; }
-
-        //public void RemoveItem(Item item)
-        //{
-        //    Items.Remove(item);
-        //}  
+        
     }
 }

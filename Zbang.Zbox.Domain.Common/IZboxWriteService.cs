@@ -74,9 +74,8 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         #region QnA
-        void AddQuestion(AddCommentCommand command);
+        Task AddQuestion(AddCommentCommand command);
         Task AddAnswer(AddAnswerToQuestionCommand command);
-        void DeleteFileFromQnA(DeleteFileFromQnACommand command);
         void DeleteComment(DeleteCommentCommand command);
         void DeleteAnswer(DeleteReplyCommand command);
         #endregion

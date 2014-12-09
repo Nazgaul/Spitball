@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var blobName = GetBlobNameFromUri(blobUri);
 
-            using (var stream = new StreamReader( await BlobProvider.DownloadFileAsync(blobName)))
+            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
                 var content = await stream.ReadToEndAsync();
                 content =   content.Substring(0, Math.Min(400, content.Length));

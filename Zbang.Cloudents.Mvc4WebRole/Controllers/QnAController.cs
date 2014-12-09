@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public JsonResult AddQuestion(Question model)
+        public async Task<JsonResult> AddQuestion(Question model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var questionId = m_IdGenerator.Value.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
-            ZboxWriteService.AddQuestion(command);
+            await ZboxWriteService.AddQuestion(command);
             return Json(new JsonResponse(true, questionId));
         }
 
@@ -69,16 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-
-
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult RemoveFile(long itemId)
-        {
-            var command = new DeleteFileFromQnACommand(itemId, User.GetUserId());
-            ZboxWriteService.DeleteFileFromQnA(command);
-            return Json(new JsonResponse(true));
-        }
+       
 
         [ZboxAuthorize]
         [HttpPost]

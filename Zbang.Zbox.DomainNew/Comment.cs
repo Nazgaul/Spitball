@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -11,7 +10,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Comment(User user, string text, Box box, Guid id, IList<Item> items)
+        public Comment(User user, string text, Box box, Guid id, IList<Item> items, bool isSystemGenerated)
         {
             if (user == null)
             {
@@ -21,7 +20,9 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException("box");
             }
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
+
             Items = items ?? new List<Item>();
             User = user;
             Box = box;
@@ -36,12 +37,16 @@ namespace Zbang.Zbox.Domain
             Text = text;
             DateTimeUser = new UserTimeDetails(user.Email);
             Box.UserTime.UpdateUserTime(user.Email);
+            IsSystemGenerated = isSystemGenerated;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
         public virtual string Text { get; set; }
         public virtual Box Box { get; set; }
         protected virtual ICollection<Item> Items { get; private set; }
+
+
 
         protected virtual ICollection<Quiz> Quizes { get; set; }
 
@@ -50,12 +55,18 @@ namespace Zbang.Zbox.Domain
 
         public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
 
+        public virtual bool IsSystemGenerated { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
 
         public void AddItem(Item item)
         {
             Items.Add(item);
+        }
+
+        public virtual int ItemsCount()
+        {
+            return Items.Count;
         }
 
         public virtual void AddQuiz(Quiz quiz)
@@ -67,9 +78,10 @@ namespace Zbang.Zbox.Domain
             Quizes.Add(quiz);
         }
 
-        public void RemoveItem(Item item)
+        public bool RemoveItem(Item item)
         {
             Items.Remove(item);
+            return Items.Count == 0 && (string.IsNullOrEmpty(Text) || IsSystemGenerated);
         }
     }
 }

@@ -88,7 +88,6 @@
     <Compile Include="DeleteItemCommentReplyCommand.cs" />
     <Compile Include="DeleteNodeFromLibraryCommand.cs" />
     <Compile Include="DeleteReplyCommand.cs" />
-    <Compile Include="DeleteFileFromQnACommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
     <Compile Include="DeleteCommentCommand.cs" />
     <Compile Include="DeleteUpdatesCommand.cs" />

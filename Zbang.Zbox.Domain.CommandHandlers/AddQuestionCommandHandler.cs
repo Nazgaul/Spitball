@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -12,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddQuestionCommandHandler : ICommandHandler<AddCommentCommand>
+    public class AddQuestionCommandHandler : ICommandHandlerAsync<AddCommentCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
@@ -37,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
-        public void Handle(AddCommentCommand message)
+        public Task HandleAsync(AddCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -57,15 +58,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-
-            var comment = new Comment(user, text, box, message.Id, files);
+            var comment = box.AddComment(user, text, message.Id, files, false);
+            //var comment = new Comment(user, text, box, message.Id, files, false);
             m_CommentRepository.Save(comment);
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
-            box.UpdateCommentsCount(m_BoxRepository.QnACount(box.Id) + 1);
-            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, null, comment.Id));
             m_BoxRepository.Save(box);
+            return m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, comment.Id));
+
 
         }
     }

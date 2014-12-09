@@ -165,6 +165,7 @@
     <Compile Include="Query\IComposite.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="RegisterIoc.cs" />
+    <Compile Include="Repositories\ISoftDeletable.cs" />
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookFriendData.cs" />
     <Compile Include="Security\FacebookUserData.cs" />

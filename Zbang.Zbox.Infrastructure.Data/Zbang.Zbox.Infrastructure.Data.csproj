@@ -91,6 +91,7 @@
     <Compile Include="Transformers\AliasToDerivedClassesCtorTransformer.cs" />
     <Compile Include="Transformers\AliasToDerivedClassesTransformer.cs" />
     <Compile Include="Transformers\Transformers.cs" />
+    <Compile Include="ZboxDeleteEventListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">

@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-       
+
 
         public void ChangeNotificationSettings(ChangeNotificationSettingsCommand command)
         {
@@ -123,7 +123,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                AddFileToBoxCommandResult result =await m_CommandBus.DispatchAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
+                AddFileToBoxCommandResult result = await m_CommandBus.DispatchAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
 
                 return result;
@@ -374,11 +374,11 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
         #region QnA
-        public void AddQuestion(AddCommentCommand command)
+        public async Task AddQuestion(AddCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -391,24 +391,7 @@ namespace Zbang.Zbox.Domain.Services
 
             }
         }
-        
 
-        //public void RateAnswer(RateAnswerCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        public void DeleteFileFromQnA(DeleteFileFromQnACommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
         public void DeleteComment(DeleteCommentCommand command)
         {
             using (UnitOfWork.Start())
@@ -473,8 +456,8 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
-      
+
+
         //public void MarkMessagesAsOld(MarkMessagesAsOldCommand command)
         //{
         //    using (UnitOfWork.Start())

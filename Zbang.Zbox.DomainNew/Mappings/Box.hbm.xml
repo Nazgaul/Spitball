@@ -48,7 +48,7 @@
     </bag>
 
     
-    <bag name="Questions" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <bag name="Comments" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId" />
       <one-to-many class="Comment"/>
     </bag>

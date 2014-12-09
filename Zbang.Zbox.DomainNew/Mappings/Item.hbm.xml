@@ -27,7 +27,7 @@
     <many-to-one column="BoxId" class="Box" name="Box" index="iBoxIsDeleted"/>
 
 
-    <many-to-one column="QuestionId" class="Comment" name="Question" />
+    <many-to-one column="QuestionId" class="Comment" name="Comment" />
     <many-to-one column="AnswerId" class="CommentReplies" name="Answer"/>
 
     <property name="ItemContentUrl" column="BlobName"/>
@@ -42,6 +42,10 @@
     <bag name="ItemRates"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="ItemId"/>
       <one-to-many class="ItemRate"/>
+    </bag>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="ItemId" foreign-key="NewUpdatesItem"/>
+      <one-to-many class="Updates"/>
     </bag>
     
     <subclass name="Link" discriminator-value="Link">

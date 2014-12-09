@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Repositories;
+
 namespace Zbang.Zbox.Domain
 {
-    public abstract class Item
+    public abstract class Item : ISoftDeletable
     {
         public const int NameLength = 120;
         protected Item()
@@ -45,8 +47,12 @@ namespace Zbang.Zbox.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; set; }
 
-        public virtual Comment Question { get; set; }
+        public virtual Comment Comment { get; set; }
         public virtual CommentReplies Answer { get; set; }
+
+        protected virtual ICollection<Updates> Updates { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
         public virtual string ThumbnailBlobName { get; private set; }
@@ -92,18 +98,8 @@ namespace Zbang.Zbox.Domain
         public virtual void CalculateRate(int rate)
         {
             Rate = rate;
-            //Rate += (rate - Rate) / ++count;
         }
 
-        //public void RevertRate(int previousRate, int count)
-        //{
-        //    if (count == 1)
-        //    {
-        //        Rate = 0;
-        //        return;
-        //    }
-        //    Rate -= (previousRate - Rate) / --count;
-        //}
 
         public abstract string ChangeName(string newName);
 
