@@ -126,13 +126,16 @@
         }
 
         var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
+
+        if (!errorElement) {
+            return;
+        }
+
         resetError(errorElement);
 
         if (validatinator.passes(currentForm.name)) {
             return;
         }
-
-
 
         var errorObj = validatinator.errors[currentForm.name][target.name];
         if (!errorObj) {
@@ -158,6 +161,9 @@
 
         var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
 
+        if (!errorElement) {
+            return;
+        }
 
         if (validatinator.passes(currentForm.name)) {
             resetError(errorElement);
