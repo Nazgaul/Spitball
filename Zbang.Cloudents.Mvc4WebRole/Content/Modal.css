@@ -106,9 +106,6 @@
   animation: fadein 0.5s 0 ease;
   border-radius: 6px;
 }
-.modal.welcome .modal-body + .modal-body {
-  display: none;
-}
 .modal.welcome .svg-close {
   fill: #282828;
 }
