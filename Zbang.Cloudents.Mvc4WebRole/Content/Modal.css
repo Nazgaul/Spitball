@@ -105,6 +105,64 @@
 .modal.welcome .modal-body + .modal-body {
   display: none;
 }
+.modal.welcome .svg-close {
+  fill: #282828;
+}
+.modal.registerFirst .facebook {
+  margin-top: 15px;
+}
+.modal.registerFirst .enterTitle {
+  display: none;
+}
+.modal.registerFirst .regFirstTxt,
+.modal.registerFirst .emailBtn {
+  display: block;
+}
+.modal.registerFirst .emailBtnWpr {
+  -webkit-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  -moz-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  transition: height 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  overflow: hidden;
+  height: 57px;
+  position: relative;
+}
+.modal.registerFirst .emailBtn {
+  border: 1px solid #c2c2c2;
+}
+.modal.registerFirst .registerContent {
+  -moz-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.modal.registerFirst.step2 .emailBtnWpr {
+  height: 440px;
+}
+.modal.registerFirst.step2 .emailBtn {
+  display: none;
+}
+.modal.registerFirst.step2 .registerContent {
+  pointer-events: all;
+}
+.modal.step2 {
+  /*height: 942px; // height needed in order to vertically center
+        max-height: 98%;
+        overflow-x: hidden;
+        overflow-y: auto;*/
+  background: #fff;
+}
+.modal.step2 .registerContent {
+  display: block;
+}
+.modal.step2:before {
+  display: none;
+}
 .modal.congrats {
   font-family: Arial;
   font-weight: bold;
@@ -1098,6 +1156,18 @@
   font-weight: normal;
   line-height: 17px;
   padding: 0 40px;
+}
+/*#endregion */
+/*#region welcome angular popup */
+.fbTxt {
+  font-size: 12px;
+  color: #a9a9a9;
+  text-align: center;
+  position: relative;
+  top: 5px;
+}
+.facebook {
+  width: 100%;
 }
 /*#endregion */
 /*#region Share by email AKA message */

@@ -582,16 +582,6 @@ input[type="radio"] {
             border: 1px solid @borderColor;
         }
     }
-    .fbTxt {
-        font-size: 12px;
-        color: #a9a9a9;
-        text-align: center;
-        position: relative;
-        top: 5px;
-    }
-    .facebook {
-        width: 100%; 
-    }
     
     &.connect, &.register {
         display: block;
@@ -601,48 +591,6 @@ input[type="radio"] {
         }
         &.popupWrppr {
             max-height: none; //override rule from modal
-        }
-    }
-
-    &.registerFirst {
-        .facebook {
-            margin-top: 15px;
-        }
-        .enterTitle {
-            display: none;
-        }
-        .regFirstTxt, .emailBtn {
-            display: block;
-        }
-
-        .emailBtnWpr {
-            .transition(height 0.5s cubic-bezier(0.7,0,0.3,1));
-            overflow: hidden;
-            height: 57px;
-            position: relative;
-        }
-
-        .registerContent {
-            -moz-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-            -o-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-            -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-            transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-            pointer-events: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-        &.step2 {
-            .emailBtnWpr {
-                height: 440px; //temp
-            }
-            .emailBtn {
-                display:none;
-            }
-            .registerContent {
-                pointer-events: all;
-            }
         }
     }
 }
@@ -696,13 +644,6 @@ iframe .registerFirst.store {
             display: inline-block;
             vertical-align: top;
         }
-        .closeDialog {
-            right: 144px; //rtl
-            top: 208px;
-            background: url(/Images/Store/social.png?v=1) 0 -292px no-repeat;
-            width: 25px;
-	        height: 25px;
-        }
         .registerContent {
             display: none;
         }
@@ -719,19 +660,6 @@ iframe .registerFirst.store {
             }
         }
     }
-    &.step2 {
-            /*height: 942px; // height needed in order to vertically center
-            max-height: 98%;
-            overflow-x: hidden;
-            overflow-y: auto;*/
-            background: #fff;
-            .registerContent {
-                display: block;
-            }
-            &:before {
-                display: none;
-            }
-        }
 }
 .welcomeStore {
     display: none;
@@ -954,15 +882,7 @@ iframe .registerFirst.store {
         opacity: .5; 
     }
 }
-.fbImg {
-    .fbIcon {
-        width: 11px;
-        height: 22px;
-        fill: #fff;
-        position: relative;
-        top: 2px;
-    }
-}
+
 .emailImg {
     background-position: -131px -24px;
     left: 8px; //rtl
@@ -970,11 +890,6 @@ iframe .registerFirst.store {
         background: #676767;
         top: 5px;
         left: 6px; //rtl
-    }
-    .emailIcon {
-        width: 24px;
-        height: 20px;
-        fill: silver;
     }
 }
 .signIn, .register {
@@ -1129,6 +1044,18 @@ iframe .registerFirst.store {
     width: 12px;
     height: 12px;
     fill: #ccc;
+}
+.svg-fb {
+    width: 11px;
+    height: 22px;
+    fill: #fff;
+    position: relative;
+    top: 2px;
+}
+.svg-email {
+    width: 24px;
+    height: 20px;
+    fill: silver;
 }
 /*#endregion */
 

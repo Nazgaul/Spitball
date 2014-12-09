@@ -1,27 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@*sign in - connect*@
-<div class="modal-body">
-    <div class="enterTitle">@SharedResources.SignIn</div>
-    <div id="fb_log" class="facebook">
-        <span class="fbImg">
-            <svg class="fbIcon" viewBox="0 0 11.861 23.303">
-                @*width="11.861" height="23.303"*@
-                <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
-            </svg>
-        </span>@LogOnResources.Facebook
-    </div>
-    <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
-    <div class="enterForm">
-        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
-    </div>
-    <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
-    <button type="button" class="closeModal" ng-click="cancel()">
-        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-    </button>
-</div>
-
 
 @*sign up - register*@
 <div class="modal-body">
@@ -38,7 +17,7 @@
     <div class="signupBtns">
         <button type="button" class="facebook">
             <span class="fbImg">
-                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fbicon" })
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
             </span>@SharedResources.FacebookSignUp
         </button>
         <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
@@ -57,4 +36,25 @@
         </div>
     </div>
 </div>
+
+@*sign in - connect*@
+<div class="modal-body">
+    <div class="enterTitle">@SharedResources.SignIn</div>
+    <div id="fb_log" class="facebook">
+        <span class="fbImg">
+            @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+        </span>@LogOnResources.Facebook
+    </div>
+    <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+    <div class="enterForm">
+        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+    </div>
+    <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>
+
+
+
 
