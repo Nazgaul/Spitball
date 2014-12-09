@@ -69,10 +69,10 @@ order by Students desc  ";
       and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) >0;";
 
         public const string GetBoxPossibleUpdateByUser =
-            @" select distinct b.boxid as BoxId, b.boxname as BoxName, b.BoxPicture as BoxPicture,
+            @" select distinct b.boxid as BoxId, b.boxname as BoxName, b.PictureUrl as BoxPicture,
     (select universityname from zbox.university u where b.university = u.Id) as UniversityName, b.Url
     from zbox.userboxrel ub 
-    join zbox.box b on ub.boxid = b.boxid
+    join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0
     where
 	ub.userid = @UserId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,b.updateTime)) >0;";

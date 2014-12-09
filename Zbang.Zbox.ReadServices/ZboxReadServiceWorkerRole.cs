@@ -185,7 +185,7 @@ namespace Zbang.Zbox.ReadServices
                 'imagev4.jpg',
                 'pdfv4.jpg',
                 'powerv4.jpg',
-                'wordv4.jpg'
+                'wordv4.jpg',
                 'excelv4.jpg'
                 )
                 and  isdeleted = 0 order by itemid desc");

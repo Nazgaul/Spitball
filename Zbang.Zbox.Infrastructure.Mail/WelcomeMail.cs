@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Subject = Subject;
             message.AddSubstitution("{Name}", new List<string> { welcomeParams.Name });
 
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "welcomeEmail");
         }
     }
 }
