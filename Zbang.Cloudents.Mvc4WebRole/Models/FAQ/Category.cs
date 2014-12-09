@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.FAQ
 {
+    [Serializable]
     public class Category
     {
         public int Order { get; set; }

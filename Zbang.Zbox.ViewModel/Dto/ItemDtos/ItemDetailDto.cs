@@ -26,7 +26,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Blob { get; set; }
         public int Rate { get;  set; }
 
-        public string BoxName { get; set; }
 
         public string BoxUrl { get; set; }
 

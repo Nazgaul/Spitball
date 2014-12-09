@@ -7,7 +7,7 @@
     <id name="Id" column="UserId" type="long">
       <generator class="native"></generator>
     </id>
-    <!--<discriminator column="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />-->
+    <property column="UserType" name="UserType" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.UserType, Zbang.Zbox.Infrastructure" />
 
 
     <property name="Email" column="Email" not-null="true" unique="true"/>

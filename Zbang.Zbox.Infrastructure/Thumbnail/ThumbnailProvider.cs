@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         public const string PdfFileTypePicture = "pdfv4.jpg";
         public const string PowerPointFileTypePicture = "powerv4.jpg";
         public const string SoundFileTypePicture = "soundv4.jpg";
+        public const string TextFileTypePicture = "textv1.jpg";
         public const string VideoFileTypePicture = "videov4.jpg";
         public const string WordFileTypePicture = "wordv4.jpg";
         public const string LinkTypePicture = "linkv2.jpg";
@@ -39,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Thumbnail
         public ThumbnailProvider(IBlobProvider blobProvider/*, IFileConvertFactory fileConvertor*/)
         {
             m_BlobProvider = blobProvider;
-            InitializeBlob();
+            //InitializeBlob();
         }
 
         //private void InitializeThumbnailMapper()

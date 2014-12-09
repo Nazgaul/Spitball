@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, YoutubeProcessor>("youtube");
             ioc.RegisterType<IContentProcessor, LinkProcessor>("link");
             ioc.RegisterType<IContentProcessor, VideoProcessor>("video");
-            ioc.RegisterType<IContentProcessor, HtmlProcessor>("html");
+            ioc.RegisterType<IContentProcessor, TextProcessor>("txt");
             ioc.RegisterType<IContentProcessor, AudioProcessor>("audio");
         }
     }                                                     

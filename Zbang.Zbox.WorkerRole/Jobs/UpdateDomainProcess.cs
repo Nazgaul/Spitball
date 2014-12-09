@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,7 +28,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 try
                 {
-                    Execute();
+                    ExecuteAsync().Wait();
                 }
                 catch (Exception ex)
                 {
@@ -38,33 +39,33 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         }
 
-        private void Execute()
+        private async Task ExecuteAsync()
         {
 
-            m_QueueProcess.RunQueue(new UpdateDomainQueueName(), msg =>
-            {
-                try
-                {
-                    var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
-                    if (msgData == null)
-                    {
-                        TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgId:" + msg.Id);
-                        return true;
-                    }
-                    var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
-                    if (process == null)
-                    {
-                        TraceLog.WriteError("UpdateDomainProcess run - process is null msgId:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);
-                        return true;
-                    }
-                    return process.Execute(msgData);
-                }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("UpdateDomainProcess run " + msg.Id, ex);
-                }
-                return false;
-            }, TimeSpan.FromMinutes(1), 5);
+            await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), msg =>
+              {
+                  try
+                  {
+                      var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
+                      if (msgData == null)
+                      {
+                          TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgId:" + msg.Id);
+                          return Task.FromResult(true);
+                      }
+                      var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                      if (process == null)
+                      {
+                          TraceLog.WriteError("UpdateDomainProcess run - process is null msgId:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);
+                          return Task.FromResult(true);
+                      }
+                      return Task.FromResult(process.Execute(msgData));
+                  }
+                  catch (Exception ex)
+                  {
+                      TraceLog.WriteError("UpdateDomainProcess run " + msg.Id, ex);
+                  }
+                  return Task.FromResult(false);
+              }, TimeSpan.FromMinutes(1), 5);
         }
 
         public void Stop()

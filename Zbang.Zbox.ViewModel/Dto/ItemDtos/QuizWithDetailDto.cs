@@ -19,15 +19,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long OwnerId { get; set; }
 
         public string Owner { get; set; }
-        //public QuizWithDetailDto()
-        //{
-        //    Questions = new List<QuestionWithDetailDto>();
-            
-        //}
+       
         public long Id { get; set; }
-        //public string Name { get; set; }
-        //public long OwnerId { get; set; }
-        //public string Owner { get; set; }
         public DateTime Date
         {
             get { return m_Date; }
@@ -36,11 +29,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public int NumberOfViews { get; set; }
 
-        public string BoxName { get; set; }
         public string BoxUrl { get; set; }
-        //public float Rate { get; set; }
 
-        //public long BoxId { get; set; }
         public double Stdevp { get; set; }
 
         public int Average { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -33,7 +34,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 {
                     try
                     {
-                        Execute();
+                        Execute().Wait();
                     }
                     catch (Exception ex)
                     {
@@ -49,38 +50,38 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private void Execute()
+        private async Task Execute()
         {
-            m_QueueProcess.RunQueue(new DownloadQueueName(), msg =>
-            {
-                var msgData = msg.FromMessageProto<UrlToDownloadData>();
-                if (msgData == null)
-                {
-                    TraceLog.WriteInfo("AddFiles - message is not in the correct format " + msg.Id);
-                    return false;
-                }
-                try
-                {
-                    if (string.IsNullOrEmpty(msgData.BlobUrl))
-                    {
-                        return false;
-                    }
+            await m_QueueProcess.RunQueue(new DownloadQueueName(), msg =>
+             {
+                 var msgData = msg.FromMessageProto<UrlToDownloadData>();
+                 if (msgData == null)
+                 {
+                     TraceLog.WriteInfo("AddFiles - message is not in the correct format " + msg.Id);
+                     return Task.FromResult(false);
+                 }
+                 try
+                 {
+                     if (string.IsNullOrEmpty(msgData.BlobUrl))
+                     {
+                         return Task.FromResult(false);
+                     }
 
-                    var command = new AddFileToBoxCommand(msgData.UserId, msgData.BoxId, msgData.BlobUrl,
-                       msgData.FileName,
-                      msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId, false);
-                    m_ZboxWriteService.AddFileToBox(command);
-                    return true;
-                }
+                     var command = new AddFileToBoxCommand(msgData.UserId, msgData.BoxId, msgData.BlobUrl,
+                        msgData.FileName,
+                       msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId, false);
+                     m_ZboxWriteService.AddFileToBox(command);
+                     return Task.FromResult(true);
+                 }
 
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("AddFiles run " + msg.Id, ex);
-                }
-                return false;
+                 catch (Exception ex)
+                 {
+                     TraceLog.WriteError("AddFiles run " + msg.Id, ex);
+                 }
+                 return Task.FromResult(false);
 
 
-            }, TimeSpan.FromHours(1));
+             }, TimeSpan.FromHours(1));
         }
 
         public void Stop()

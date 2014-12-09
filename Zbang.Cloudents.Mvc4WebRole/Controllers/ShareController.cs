@@ -285,12 +285,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult NotificationOld()
+        //{
+        //    var command = new MarkMessagesAsOldCommand(User.GetUserId());
+        //    ZboxWriteService.MarkMessagesAsOld(command);
+        //    return Json(new JsonResponse(true));
+        //}
         [HttpPost, ZboxAuthorize]
-        public ActionResult NotificationOld()
+        public ActionResult NotificationDelete(Guid messageId)
         {
-            var command = new MarkMessagesAsOldCommand(User.GetUserId());
-            ZboxWriteService.MarkMessagesAsOld(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
     }
 }

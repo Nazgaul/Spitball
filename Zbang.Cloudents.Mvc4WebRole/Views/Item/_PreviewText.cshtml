@@ -4,8 +4,9 @@
 @foreach (var item in Model.Src)
 {
     <div class="divWrapper">
-        <img class="svgContent" src="@item" alt="" />
+        <iframe seamless sandbox="" class="txtContent" src="@item"></iframe>
         <div class="copyRightWarning">@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight</div>
     </div>
 }
+
 

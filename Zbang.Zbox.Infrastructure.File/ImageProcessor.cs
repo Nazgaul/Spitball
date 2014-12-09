@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
 
-            using (var stream = BlobProvider.DownloadFile(blobName))
+            using (var stream = await BlobProvider.DownloadFileAsync(blobName))
             {
                 if (stream.Length == 0)
                 {
@@ -89,9 +89,9 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        private string CreateCacheFileName(string blobName, Size dimenstions)
+        private string CreateCacheFileName(string blobName, Size dimensions)
         {
-            var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimenstions.Width, dimenstions.Height, Path.GetExtension(blobName));
+            var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimensions.Width, dimensions.Height, Path.GetExtension(blobName));
             return fileName;
         }
 
@@ -110,25 +110,30 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_PreviewDimension[key];
         }
 
-        public static readonly string[] ImageExtenstions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
+        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return ImageExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 
         }
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = BlobProvider.DownloadFile(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
                 {
+                    if (stream.Length == 0)
+                    {
+                        TraceLog.WriteError("image is empty" + blobName);
+                        return new PreProcessFileResult {ThumbnailName = GetDefaultThumbnailPicture()};
+                    }
                     //var settings = new ResizeSettings
                     //{
                     //    Scale = ScaleMode.UpscaleCanvas,
@@ -148,8 +153,8 @@ namespace Zbang.Zbox.Infrastructure.File
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
-                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
-                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                       await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
+                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
                     }
 
                 }
@@ -157,7 +162,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
 
         }

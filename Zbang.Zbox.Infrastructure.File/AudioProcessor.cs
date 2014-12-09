@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
-            return Task.FromResult<PreProcessFileResult>(null);
+            return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture()});
         }
 
         public override string GetDefaultThumbnailPicture()
@@ -38,11 +38,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
-            {
-                return AudioExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-            }
-            return false;
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && AudioExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -38,34 +39,38 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
-                {
-                    try
-                    {
-                        var storeData = msg.FromMessageProto<StoreData>();
-                        var order = storeData as StoreOrderData;
-                        if (order != null)
-                        {
-                            ProcessOrder(order);
-                            return true;
-                        }
-                        var contactUs = storeData as StoreContactData;
-                        if (contactUs != null)
-                        {
-                            ProcessContactUs(contactUs);
-                            return true;
-                        }
-                        return true;
-                    }
-                    catch (SqlException ex)
-                    {
-                        m_MailComponent.GenerateAndSendEmail(new[]
-                        { "ram@cloudents.com","eidan@cloudents.com" },
-                        "failed connect to remove db " + ex);
-                        return false;
-                    }
-                }, TimeSpan.FromMinutes(1), int.MaxValue);
+                ExecuteAsync().Wait();
             }
+        }
+
+        private async Task ExecuteAsync()
+        {
+            await m_QueueProcess.RunQueue(new OrderQueueName(), msg =>
+             {
+                 try
+                 {
+                     var storeData = msg.FromMessageProto<StoreData>();
+                     var order = storeData as StoreOrderData;
+                     if (order != null)
+                     {
+                         ProcessOrder(order);
+                         return Task.FromResult(true);
+                     }
+                     var contactUs = storeData as StoreContactData;
+                     if (contactUs != null)
+                     {
+                         ProcessContactUs(contactUs);
+                         return Task.FromResult(true);
+                     }
+                     return Task.FromResult(true);
+                 }
+                 catch (SqlException ex)
+                 {
+                     m_MailComponent.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+                     "failed connect to remove db " + ex);
+                     return Task.FromResult(false);
+                 }
+             }, TimeSpan.FromMinutes(1), int.MaxValue);
         }
 
         private void ProcessContactUs(StoreContactData contactUs)

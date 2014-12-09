@@ -105,13 +105,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] TiffExtesions = { ".tiff", ".tif" };
+        public static readonly string[] TiffExtensions = { ".tiff", ".tif" };
 
         public override bool CanProcessFile(Uri blobName)
         {
             if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
             {
-                return TiffExtesions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+                return TiffExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
             return false;
 

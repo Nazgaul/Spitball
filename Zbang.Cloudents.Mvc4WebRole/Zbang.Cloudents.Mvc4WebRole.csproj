@@ -1939,6 +1939,7 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\validatinator.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
@@ -2067,6 +2068,7 @@
     <Content Include="Views\Shared\Partials\_ItemRegister.cshtml" />
     <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
     <Content Include="Views\Shared\Partials\_WelcomeAngular.cshtml" />
+    <Content Include="Views\Item\_PreviewText.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

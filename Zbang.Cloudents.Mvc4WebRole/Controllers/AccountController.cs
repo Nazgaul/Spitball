@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Login
         [HttpPost]
         [RequireHttps]
-        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl)
+        public async Task<JsonResult> FacebookLogin(string token, long? universityId, string returnUrl, long? boxId)
         {
             try
             {
@@ -252,7 +252,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId,
-            string returnUrl)
+            string returnUrl, long? boxId)
         {
             if (!ModelState.IsValid)
             {

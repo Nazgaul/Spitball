@@ -15,11 +15,13 @@
     height: 100%;
     font-family: Arial;
 }
+
 .itemPage, .quizPage, .quizPreview {
     .closePreview {
         margin: 12px 25px 0 0; /*rtl*/
     }
 }
+
 .itemRight {
     width: 100%;
     height: 100%;
@@ -38,7 +40,7 @@
         background: #1e1e1e;
         width: 100%;
         height: 43px;
-        top:0;
+        top: 0;
     }
 
     .leftPart {
@@ -50,6 +52,7 @@
         padding: 0 15px;
         .boxSizing;
     }
+
     .shareDD {
         top: 40px;
         color: @itemBlue;
@@ -83,9 +86,11 @@
     padding-left: @leftSideBarWidth; //rtl
     text-align: center;
 }
+
 .middleActionList {
     display: inline-block;
     vertical-align: top;
+
     svg {
         fill: #fff;
     }
@@ -113,6 +118,7 @@
             fill: @itemBlue;
         }
     }
+
     .svg-print {
         top: 17px;
     }
@@ -124,6 +130,7 @@
 
 .leftPanel {
     .boxSizing;
+
     .rateTxt {
         font-size: 15px;
         color: #fff;
@@ -131,33 +138,36 @@
         display: inline-block;
         padding-top: 5px;
     }
+
     .rateWpr {
         position: relative;
         cursor: pointer;
         display: inline-block;
     }
+
     .svg-star {
         width: 32px;
         height: 23px;
         float: right; //rtl
-        &:hover
-        {
+        &:hover {
             fill: #ffc104;
-            ~ .svg-star
-            {
+
+            ~ .svg-star {
                 fill: #ffc104;
             }
         }
     }
-    
+
     .views {
         position: relative;
         top: 5px;
     }
+
     .svg-eye {
         position: relative;
         top: 3px;
     }
+
     .svg-download {
         position: relative;
         top: 5px;
@@ -170,79 +180,95 @@
         padding: 0; //override
     }
 }
-.itemFlag
-{   
+
+.itemFlag {
     font-size: 15px;
     padding-top: 12px;
-
     color: #fff;
+
     .svg-flag {
         fill: #fff;
     }
+
     &:hover {
         color: @itemBlue;
+
         .svg-flag {
             fill: @itemBlue;
         }
     }
+
     &:disabled {
         color: #6a6a6a;
+
         .svg-flag {
             fill: #6a6a6a;
         }
+
         &.flagged {
             color: @itemBlue;
+
             .svg-flag {
                 fill: @itemBlue;
             }
         }
     }
 }
+
 .uploadInfo {
     text-align: left; //rtl
     clear: both;
     color: #fff;
     font-size: 15px;
     margin-bottom: 20px;
+
     .itemOwner {
-        width:160px;
+        width: 160px;
     }
+
     .itemOwner, time {
         display: inline-block;
         vertical-align: middle;
     }
 }
+
 .firstRow {
     position: relative;
     margin-top: 6px;
+
     &:hover {
         .itemRenameBtn {
             display: inline-block;
             vertical-align: top;
         }
     }
+
     .tooltip {
         border: 1px solid @itemBlue;
-        left: 0!important; //rtl //override js positioning
+        left: 0 !important; //rtl //override js positioning
         top: 30px !important; //override js positioning
         padding: 5px 4px;
         white-space: normal;
     }
+
     .tooltip-arrow {
         top: -6px;
         border-left: 1px solid @itemBlue; //rtl
         border-top: 1px solid @itemBlue;
     }
+
     h2 {
         white-space: nowrap;
     }
 }
+
 .secondRow {
     text-align: center;
     color: #fff;
     padding: 10px 0 25px;
     border-top: 1px solid #5a5a5a;
 }
+
 .itemRenameBtn {
     display: none;
 }
@@ -265,15 +291,18 @@
     clear: both;
     margin-top: 20px;
     font-size: 12px;
+
     .mCSB_container, .mCustomScrollBox {
         overflow-x: visible;
         padding-top: 7px;
         margin-top: -7px;
         margin-bottom: 7px;
     }
+
     .mCustomScrollbar {
         width: 280px;
     }
+
     header {
         font-size: 20px;
         color: @itemBlue;
@@ -316,6 +345,7 @@
         top: -5px;
         right: -5px; //rtl
         display: none;
+
         &:before {
             .pseudo;
             width: 20px;
@@ -328,6 +358,7 @@
             z-index: -1;
         }
     }
+
     .trash {
         display: none;
         position: absolute;
@@ -338,12 +369,14 @@
         }
     }
 }
+
 .feedOpen {
     .commentsTextarea {
         min-height: 100px;
         color: #1e1e1e;
     }
 }
+
 .commentsTextarea {
     border: 1px solid @borderColor;
     border-radius: 3px;
@@ -356,6 +389,7 @@
     font-size: 15px;
     background: @borderColor;
 }
+
 .itemCommentsList {
     margin: 2px 0;
     padding-right: 10px; //rtl
@@ -376,8 +410,10 @@
                 display: block;
             }
         }
+
         li {
             position: relative;
+
             &:hover {
                 > .trash {
                     display: block;
@@ -401,6 +437,7 @@
         word-wrap: break-word;
     }
 }
+
 .commentTop {
     color: #7a7a7a;
 }
@@ -552,11 +589,12 @@
     width: 850px;
     margin: 0 auto;
     position: fixed;
-    left:290px; //rtl
-    right:0;
+    left: 290px; //rtl
+    right: 0;
     top: ~'-webkit-calc(50vh + 32px)';
     top: ~'calc(50vh + 32px)';
 }
+
 .itemPreview {
     text-align: center;
     overflow: auto; // We need this because want inner scroll and not page scroll
@@ -583,6 +621,7 @@
     min-height: ~'calc(100vh - 63px)';
     width: 800px;
     margin: 0 auto;
+
     .boldFont {
         font-size: 22px;
         white-space: pre-wrap;
@@ -612,9 +651,20 @@
     background: #fff;
     color: #fff;
 }
-.svgContent{
-    height:100%; //ie issue
+
+.svgContent {
+    height: 100%; //ie issue
 }
+
+.txtContent {
+    border: none;
+    width: 100%;
+    margin: 10px 0;
+    background: #fff;
+    color: #fff;
+    height:75vh;
+}
+
 .blur {
     -moz-filter: blur(5px);
     -ms-filter: blur(5px);
@@ -652,9 +702,9 @@
         transform: none; //override;
         padding: 0; //override;
         display: inline-block;
-        background:transparent;
+        background: transparent;
         top: auto;
-        width:auto;
+        width: auto;
     }
 }
 
@@ -664,7 +714,6 @@
     overflow-x: hidden;
     overflow-y: auto;
     //background:#fff;
-
     .copyRightWarning {
         display: none;
     }
@@ -682,7 +731,7 @@
     }
 
     .divWrapper {
-        width:90vw;
+        width: 90vw;
         border: none;
         background: transparent;
     }
@@ -700,10 +749,11 @@
             max-width: 900px;
         }
     }
+
     .svgContent {
-        height:auto;
-        width:90vw;
-        background:#fff;
+        height: auto;
+        width: 90vw;
+        background: #fff;
     }
 
     iframe {

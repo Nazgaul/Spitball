@@ -19,10 +19,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task InsertMessageToDownloadAsync(UrlToDownloadData message);
 
 
-        bool RunQueue(QueueName queueName, Func<CloudQueueMessage, bool> func,
-           TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
+        Task<bool> RunQueue(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
+            TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
 
-       
+
     }
 
 }
