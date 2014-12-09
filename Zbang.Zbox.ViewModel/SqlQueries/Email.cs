@@ -96,6 +96,7 @@ order by Students desc  ";
     join Zbox.Users u on q.UserId = u.userid
     where q.boxid = @BoxId
 	and q.text is not null
+    and q.IsSystemGenerated = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,q.creationTime)) >0;";
 
         public const string GetAnswerUpdateByBox = @" select u.userName as UserName, u.userid as UserId, a.Text as Text

@@ -3,39 +3,6 @@
     public static class Sql
     {
 
-//        public const string GetWallList = @"
-//select top(50) userName as UserName, userimage as UserImage,userid as UserId,boxid as BoxId,boxname as BoxName,action as Action,  Url as Url
-//                                    from (	 
-//	                                       select 
-//	                                        author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,i.CreationTime as date, 'item' as action,
-// b.Url as Url
-//
-//	                                        from  zbox.UserBoxRel ub 
-//                                           join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
-//                                           join zbox.Item i on b.boxid = i.BoxId and i.IsDeleted = 0
-//                                           join zbox.Users author on author.UserId = i.UserId
-//                                           where ub.UserId = @UserId and author.userid != @UserId 
-//	   
-//	                                       union all
-//	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'question' as action,
-// b.Url as Url
-//	                                        from  zbox.UserBoxRel ub 
-//                                           join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
-//	                                       join zbox.question q on q.boxid = b.boxid
-//	                                       join zbox.Users author on author.UserId = q.UserId
-//	                                       where ub.UserId =@UserId  and author.userid != @UserId 
-//	  
-//	                                        union all 
-//	                                       select   author.userName, author.UserImage, author.userid as userid, b.boxid as boxid, b.boxname,q.CreationTime as date,'answer' as action,
-// b.Url as Url
-//
-//	                                        from  zbox.UserBoxRel ub 
-//                                           join zbox.Box b on b.BoxId = ub.BoxId and b.IsDeleted = 0
-//	                                       join zbox.answer q on q.boxid = b.boxid
-//	                                       join zbox.Users author on author.UserId = q.UserId
-//	                                       where ub.UserId = @UserId  and author.userid != @UserId
-//	                                      ) t
-//	                                      order by t.date desc;";
         public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
                           coalesce (uWrap.OrgName, uWrap.UniversityName)  as Name, uWrap.LargeImage as Image,
                             uWrap.UniversityName as UniversityName,
@@ -135,7 +102,7 @@ where uWrap.Id = @UniversityId";
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
-
+                        and q.IsSystemGenerated = 0
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
                     order by q.QuestionId desc;";
