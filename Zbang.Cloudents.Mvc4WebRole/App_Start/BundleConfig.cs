@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new JsFileWithCdn("/js/controllers/account/notificationsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/account/notificationSettingsCtrl.js"),
                 new JsFileWithCdn("/js/controllers/account/userDetailsCtrl.js"),
-
+                new JsFileWithCdn("/js/controllers/account/loginCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),
                 new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
                 new JsFileWithCdn("/js/controllers/box/boxCtrl.js"),

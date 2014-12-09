@@ -3,75 +3,74 @@
 
 
 @* register first*@
-<div class="modal-body registerFirst">
-    <div class="signInUp">
-        <div class="regFirstTxt">
-            <div>@SharedResources.RegisterFirst</div>
-            <div>@SharedResources.RegisterFree</div>
-        </div>
-    </div>
-    <button type="button" class="closeModal" ng-click="cancel()">
-        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-    </button>
-    <div class="signupBtns">
-        <button type="button" class="facebook">
-            <span class="fbImg">
-                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
-            </span>@SharedResources.FacebookSignUp
-        </button>
-        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
-        <div class="emailBtnWpr">
-            <button class="emailBtn" type="button">
-                <span class="emailImg">
-                    @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
-                </span>@SharedResources.EmailSignUp
-            </button>
-        </div>
-    </div>
-</div>
 
-
-@*sign up - register*@
-<div class="modal-body">
-    <div class="enterTitle">@LogOnResources.CreateAccount</div>
-    <button type="button" class="closeModal" ng-click="cancel()">
-        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-    </button>
-    <div class="signupBtns">
-        <button type="button" class="facebook">
-            <span class="fbImg">
-                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
-            </span>@SharedResources.FacebookSignUp
-        </button>
-        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
-
-        <div class="registerContent">
-            <div class="enterForm" id="joinForm">
-                @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+<div ng-switch="params.currentState">
+    <div class="modal-body animate-switch" ng-switch-when="0">
+        <div class="signInUp">
+            <div class="regFirstTxt">
+                <div>@SharedResources.RegisterFirst</div>
+                <div>@SharedResources.RegisterFree</div>
             </div>
-            <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+        </div>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+        <div class="signupBtns">
+            <button type="button" class="facebook">
+                <span class="fbImg">
+                    @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+                </span>@SharedResources.FacebookSignUp
+            </button>
+            <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+            <div class="emailBtnWpr">
+                <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+                    <span class=" emailimg">
+                        @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
+                    </span>@SharedResources.EmailSignUp
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-@*sign in - connect*@
-<div class="modal-body">
-    <div class="enterTitle">@SharedResources.SignIn</div>
-    <div id="fb_log" class="facebook">
-        <span class="fbImg">
-            @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
-        </span>@LogOnResources.Facebook
+
+    @*sign up - register*@
+    <div class="modal-body animate-switch" ng-switch-when="1">
+        <div class="enterTitle">@LogOnResources.CreateAccount</div>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+        <div class="signupBtns">
+            <button type="button" class="facebook">
+                <span class="fbImg">
+                    @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+                </span>@SharedResources.FacebookSignUp
+            </button>
+            <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+
+            <div class="registerContent">
+                <div class="enterForm" id="joinForm">
+                    @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+                </div>
+                <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button" ng-click="changeState(params.states.login)">@SharedResources.SignIn</button></div>
+            </div>
+        </div>
     </div>
-    <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
-    <div class="enterForm">
-        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+
+    @*sign in - connect*@
+    <div class="modal-body animate-switch" ng-switch-when="2">
+        <div class="enterTitle">@SharedResources.SignIn</div>
+        <div id="fb_log" class="facebook">
+            <span class="fbImg">
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+            </span>@LogOnResources.Facebook
+        </div>
+        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+        <div class="enterForm">
+            @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+        </div>
+        <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button" ng-click="changeState(params.states.register)">@LogOnResources.CreateNew</button></div>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
     </div>
-    <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
-    <button type="button" class="closeModal" ng-click="cancel()">
-        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-    </button>
 </div>
-
-
-
-
