@@ -107,8 +107,34 @@
             }
         }
     }
+    &.welcome {
+        text-align: center;
+        .modal-dialog {
+            width: 450px;
+        }
+        .modal-body {
+            border-radius: 6px;
+            + .modal-body {
+                display:none;
+            }
+            
+        }
+    }
     &.congrats {
-
+        font-family: Arial;
+        font-weight: bold;
+        .modal-dialog {
+            width: 500px;
+            height: 300px;
+            background: url(/Images/points-Bg.png) no-repeat;
+        }
+        .modal-body {
+            background: none; //override
+            text-align: center;
+        }
+        .svg-close {
+            fill: #282828;
+        }
     }
     &.rename, &.itemReg, &.congrats {
         padding-left: @leftSideBarWidth; //rtl
@@ -636,6 +662,7 @@
     }*/
     
 }
+
 .quitQuizDialog {
     display: none;
     &.show {
@@ -1137,6 +1164,88 @@
         height: 20px;
         background-position: -164px -1px;
     }
+}
+
+/*#endregion */
+
+/*#region points popup */
+.ribbon {
+    display: inline-block;
+    width: 384px;
+    height: 77px;
+}
+.svg-ribbon {
+    width: 384px;
+    height: 77px;
+}
+.coin {
+    position: absolute;
+    top: 85px;
+    left:0;right:0;margin:auto;
+    width: 136px;
+    height: 136px;
+    color: #906d34;
+    background-color: #fee05c;
+    border: 1px solid #383838;
+    border-radius: 50%;
+    box-shadow: inset -7px -3px 0 -1px #fec900;
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: 9px;
+        left: 7px;
+        width: 105px;
+        height:105px;
+        border-radius: 50%;
+        background: #fee05c;
+        border: 7px solid #fec900;
+    }
+}
+.ptsAwarded {   
+    position: absolute;
+    font-size: 50px;
+    //color: #906d34;
+    top: 45px;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 80px; 
+}
+.congratsTxt0 {
+    text-transform: uppercase;
+    padding-top: 20px;
+    display: inline-block;
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    letter-spacing: -1px;
+    top: 4px;
+}
+.congratsTxt1 {
+    position: relative;
+    font-size: 15px;
+    top: 35px;
+    margin: auto;
+}
+
+.congratsTxt2 {
+    position: relative;
+    top: 76px;
+    font-size: 15px;
+    margin: auto;
+}
+.congratsTxt3 {
+    font-size: 17px;
+    margin-top: 137px;
+}
+.congratsTxt4 {
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 17px;
+    padding: 0 40px;
 }
 
 /*#endregion */

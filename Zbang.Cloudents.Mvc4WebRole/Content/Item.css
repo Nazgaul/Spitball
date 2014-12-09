@@ -215,6 +215,7 @@
   left: 0!important;
   top: 30px !important;
   padding: 5px 4px;
+  white-space: normal;
 }
 .firstRow .tooltip-arrow {
   top: -6px;
