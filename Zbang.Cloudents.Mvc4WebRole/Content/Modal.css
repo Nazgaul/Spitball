@@ -100,10 +100,6 @@
   width: 450px;
 }
 .modal.welcome .modal-body {
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
   border-radius: 6px;
 }
 .modal.welcome .svg-close {
@@ -1124,6 +1120,23 @@
 .registerFirst .regFirstTxt {
   font-size: 22px;
   text-align: center;
+}
+.login-switch {
+  position: absolute;
+}
+.login-switch.ng-animate {
+  -webkit-transition: top 0.5s;
+  -moz-transition: top 0.5s;
+  -o-transition: top 0.5s;
+  transition: top 0.5s;
+}
+.login-switch.ng-leave.ng-leave-active,
+.login-switch.ng-enter {
+  top: 100%;
+}
+.login-switch.ng-leave,
+.login-switch.ng-enter.ng-enter-active {
+  top: 0;
 }
 /*#endregion */
 /*#region Share by email AKA message */
