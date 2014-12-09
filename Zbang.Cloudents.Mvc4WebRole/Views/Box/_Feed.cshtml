@@ -7,12 +7,12 @@
         <form class="feedForm" name="qnaQform" focus-form="feedOpen"
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-            <img ng-src="{{data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
+            <img ng-src="{{::data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="40" height="40" />
             <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                       ng-focus="checkAuth()"></textarea>
             <ul class="attachedList">
                 <li class="attachedItem" ng-repeat="file in qFormData.files">
-                    <span class="attachName elps">{{file.name}}</span>
+                    <span class="attachName elps">{{::file.name}}</span>
                     <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
                 </li>
             </ul>
@@ -22,20 +22,20 @@
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
             </button>
-            <div class="dropTxt" pl-dropzone new-question="true" box-id="{{boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
+            <div class="dropTxt" pl-dropzone new-question="true" box-id="{{::boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
         </form>
 
         <ul class="boxFeedList">
             <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{question.userId}}" />
+                <img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{::{question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{::question.userId}}" />
 
                 <div class="feedWpr">
-                    <time class="createTime rFloat" display-time="{{question.createTime}}"></time>
-                    <div class="userName elps">{{question.userName}}</div>
+                    <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
+                    <div class="userName elps">{{::question.userName}}</div>
 
                     <div class="feedContent" ng-bind-html="question.content"></div>
                     <ul class="qaAttach">
-                        <li class="qaAttachItem" ng-repeat="file in question.files">
+                        <li class="qaAttachItem" ng-repeat="file in ::question.files">
                             <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
                             <div class="attachActions">
                                 <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
@@ -43,7 +43,7 @@
                                 <a class="attachDownload" target="_blank" ng-href="{{file.download}}"></a>
                             </div>
                         </li>
-                        <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
+                        <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in ::question.quizes">
                             <a ng-href="{{file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
                             
                         </li>
@@ -61,13 +61,13 @@
                 </div>
                 <ul class="feedReplies rFloat">
                     <li ng-repeat="answer in question.answers track by answer.id">
-                        <img class="feedImg rFloat" user-tooltip-popup="{{answer.userId}}" ng-src="{{answer.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
+                        <img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-src="{{::answer.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
                         <div class="feedWpr">
-                            <time class="createTime rFloat" display-time="{{answer.createTime}}"></time>
-                            <div class="userName elps">{{answer.userName}}</div>
+                            <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
+                            <div class="userName elps">{{::answer.userName}}</div>
                             <div class="feedContent" ng-bind-html="answer.content"></div>
                             <ul class="qaAttach">
-                                <li class="qaAttachItem" ng-repeat="file in answer.files">
+                                <li class="qaAttachItem" ng-repeat="file in ::answer.files">
                                     <a ng-href="{{file.itemUrl}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125" /></a>
                                     <div class="attachActions">
                                         <a class="attachFull" ng-href="{{file.itemUrl}}"></a>
@@ -83,11 +83,11 @@
                     </li>
                 </ul>
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    <img class="feedImg rFloat" ng-src="{{data.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
+                    <img class="feedImg rFloat" ng-src="{{::data.userImage | defaultImage:'user'}}" alt="" width="40" height="40" />
                     <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
-                            <span class="attachName elps">{{file.name}}</span>
+                            <span class="attachName elps">{{::file.name}}</span>
                             <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
                         </li>
                     </ul>
@@ -97,7 +97,7 @@
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                     </button>
-                    <div class="dropTxt" pl-dropzone question-id="{{question.id}}" box-id="{{boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
+                    <div class="dropTxt" pl-dropzone question-id="{{::question.id}}" box-id="{{::boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
                 </form>
             </li>
 
