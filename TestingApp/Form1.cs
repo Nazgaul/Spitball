@@ -74,9 +74,9 @@ namespace TestingApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            using (FileStream originalFileStream = new FileStream(@"C:\Users\Ram\Desktop\txt.svg", FileMode.Open))
+            using (FileStream originalFileStream = new FileStream(@"C:\Users\Ram\Desktop\46eb10c2-34a4-4ac8-a203-7a15c7d49fd9.thumbnailV3.jpg", FileMode.Open))
             {
-                using (FileStream compressedFileStream = File.Create(@"C:\Users\Ram\Desktop\txt2.svg"))
+                using (FileStream compressedFileStream = File.Create(@"C:\Users\Ram\Desktop\46eb10c2-34a4-4ac8-a203-7a15c7d49fd9.thumbnailV32.jpg"))
                 {
                     using (GZipStream compressionStream = new GZipStream(compressedFileStream,
                        CompressionMode.Compress))

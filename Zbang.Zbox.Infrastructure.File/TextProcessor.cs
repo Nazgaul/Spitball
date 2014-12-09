@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public override string GetDefaultThumbnailPicture()
         {
             // We don't use svg because we need the entire system to support this
-            return ThumbnailProvider.DefaultFileTypePicture;
+            return ThumbnailProvider.TextFileTypePicture;
         }
 
         public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))

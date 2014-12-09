@@ -319,6 +319,7 @@
     <EmbeddedResource Include="Thumbnail\Resources\wordv4.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Thumbnail\Resources\textv1.jpg" />
     <Content Include="Thumbnail\Resources\txtv1.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

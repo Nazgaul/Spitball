@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
             var tokenSource = new CancellationTokenSource();
-            tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
+            tokenSource.CancelAfter(TimeSpan.FromSeconds(30));
             CancellationToken token = tokenSource.Token;
 
 

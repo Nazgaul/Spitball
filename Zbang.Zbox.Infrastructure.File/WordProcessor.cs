@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     return new Document(sr);
                 }
             });
-         
+
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
 
             var blobsNamesInCache = new List<string>();
@@ -102,14 +102,14 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri)
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 Document word;
 
-                using (var sr = BlobProvider.DownloadFile(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName))
                 {
                     SetLicense();
                     word = new Document(sr);
@@ -134,19 +134,19 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult(new PreProcessFileResult
+                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg");
+                        return new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
                             FileTextContent = ExtractDocumentText(word)
-                        });
+                        };
                     }
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile word", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
         }
 
