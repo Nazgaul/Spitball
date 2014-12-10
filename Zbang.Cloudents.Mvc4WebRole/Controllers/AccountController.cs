@@ -251,8 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model, long? universityId,
-            string returnUrl, long? boxId)
+        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
             if (!ModelState.IsValid)
             {
@@ -276,7 +275,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }
 
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, universityId, model.FirstName, string.Empty, model.LastName,
+                        model.NewEmail, model.UniversityId, model.FirstName, string.Empty, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, model.Language.Language, invId);
                     var result = ZboxWriteService.CreateUser(command);
@@ -289,7 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     cookie.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk(
-                            Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }));
+                            Url.Action("Index", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
 
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));

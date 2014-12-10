@@ -47,6 +47,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         public UserLanguage Language { get; set; }
 
+        public long? UniversityId { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public long? BoxId { get; set; }
+
 
         public override string ToString()
         {
