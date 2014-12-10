@@ -4,7 +4,7 @@
 
 @* register first*@
 <div ng-switch="params.currentState">
-    <div class="modal-body login-switch" ng-switch-when="0">
+    <div class="modal-body login-switch registerFirst" ng-switch-when="0">
         <div class="signInUp">
             <div class="regFirstTxt">
                 <div>@SharedResources.RegisterFirst</div>
@@ -23,7 +23,7 @@
             <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
             <div class="emailBtnWpr">
                 <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
-                    <span class=" emailimg">
+                    <span class="emailImg">
                         @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
                     </span>@SharedResources.EmailSignUp
                 </button>
