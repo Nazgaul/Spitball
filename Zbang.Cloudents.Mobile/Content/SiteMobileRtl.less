@@ -1,0 +1,372 @@
+﻿@import "varsAndMixins";
+
+/*#region header(from _Layout3mobile) */
+.numberCircle
+{
+    left: -10px;
+    right:auto;
+    -webkit-box-shadow: -1px 1px 3px rgba(57,0,12,.5); /*rtl*/
+    box-shadow: -1px 1px 3px rgba(57,0,12,.5); /*rtl*/
+}
+
+/*#endregion */
+
+/*#region search */
+
+
+.searchBtnClose
+{
+    right:auto;
+    left: 6px;
+    /*&:after
+    {
+           margin: 20px 8px 0 0;
+    }*/
+}
+
+/*#endregion */
+
+/*#region settings panel / menu */
+.settingsOpenGray
+{
+    left:auto;
+    right:67%;
+}
+.settingsPanel {
+    left:auto;
+    right:0;
+}
+.panelTop
+{
+    img
+    {
+        margin-left:auto;
+        margin-right: 6px;
+    }   
+}
+.userDetails
+{
+    padding-left:0;
+    padding-right: 64px;
+    
+}
+.panelBtn
+{
+     padding: 0 6px 0 10px;
+     text-align: right; /*rtl*/
+    &:before
+    {
+        margin-right:auto;
+        margin-left: 10px;
+    }  
+}
+
+.union {
+    img{
+        margin-right: -14px;
+         margin-left: 4px;
+    }
+}
+.invitesBtn {
+    .numberCircle {
+        right:auto;
+        left: 10px;
+    }
+}
+
+/*#endregion */
+
+
+.content
+{
+    .transition(right, .3s ease .2s);
+}
+.inputText 
+{
+    padding: 10px 8px 10px 4px; /*rtl*/
+}
+/*#region popup */
+.popup
+{
+    &.selectUni
+    {
+        .inputText
+        {
+            padding: 10px 25px 10px 4px; /*rtl*/
+        }
+    }
+}
+.enterCode
+{
+    text-align: right; /*rtl*/
+}
+/*#region dashLib content */
+.topBtns
+{
+    left:auto;
+    right:0;
+    .transition(right, .3s ease .2s);
+}
+.browseBtn, .createBtn
+{
+    border: 1px solid #cdcdcd;
+    text-align: right;
+    &:before
+    {
+        margin: 0 5px 0 8px;
+    }
+    
+}
+.browseBtn
+{
+    border-radius: 0 5px 5px 0;
+    border-left: none;
+    img
+    {
+        margin: -4px -12px 0 8px;
+    }
+}
+.createBtn
+{
+    border-radius: 5px 0 0 5px;
+}
+
+.schoolImg
+{
+    position: absolute;
+    left:auto;
+    right: 2%;
+}
+.schoolName{
+    padding:0 50px 0 10px;
+}
+
+.courseItem:after, .deptItem:after, .invitesList li:after, .updatesList li:after
+{
+    right:auto;
+	left: 10px; /*rtl*/
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.deptList
+{
+	.deptItem > a
+	{
+        padding: 0 10px 0 30px;
+	}
+}
+.libNew{
+        &:before
+        {
+            margin: 0 8px 0 10px;
+        }
+    }
+.description, .commentsList li > .comment
+{
+	padding: 0 6px 0 30px;
+}
+/*#endregion */
+
+/*#region box/course */
+
+.friendsList
+{
+    text-align: right;
+    li:first-child
+    {
+        ~ .friendItem
+        {
+          //  margin-left:auto;
+//            margin-right: 37px;
+        }       
+    }
+    &.showBtn ////add with JS when height of friendsList > 42px
+    {
+        padding-right:0;
+        padding-left: 34px;
+    }
+}
+.inviteBtn
+{    
+    margin: 6px 6px 0 0;
+    + .friendItem {
+        margin:0 37px 0 0; /*rtl*/       
+    }
+}
+.addFriend{
+    left:auto;
+    right:0;
+    
+}
+.friendItem{
+    margin: 0 5px 0 3px; /*rtl*/ // margin bottom is so I don't see the next row of friends
+}
+        
+.boxSettingsBtn{
+    right: 0; /*rtl*/
+    left: auto;
+    &:before
+    {
+        left: 8px; /*rtl*/
+        right: auto;
+    }
+}
+
+.itemsBtn {
+    margin-left:auto;
+    margin-right: -2%;
+    left:auto;
+    right:0;
+}
+.commentsBtn {
+    margin-right:auto;
+    margin-left: -2%;
+    right:auto;
+    left:0;
+}
+.boxItems.boxElementvisible ~ .itemsBtn 
+{
+    border-right:none;
+    border-left: 1px solid #cdcdcd;
+}
+.boxComments.boxElementvisible ~ .commentsBtn
+{
+    border-left:none;
+    border-right:1px solid #cdcdcd;
+}
+.uploadBtn
+{
+    text-align: right;    
+}
+.selectWpr{
+    &:after
+    {
+        left: 0; /*rtl*/
+        right: auto;
+    }
+}
+.boxHeader{
+    &:after
+    {
+        margin: -2px 6px 0 0;
+    }
+}
+.boxItem
+{
+    padding: 12px 0 10px;
+
+    &:nth-child(odd)
+    {
+        float:right;
+        margin-right: auto;
+        margin-left: 4%;
+    }
+    &:nth-child(even)
+    {
+        float:left;
+    }   
+}
+
+.commentText {
+    padding: 12px 8px 0 4px; /*rtl*/
+}
+
+/*#endregion */
+
+
+
+/*#region 'Static' pages */
+
+.goBack .btn1
+{
+    margin-left: auto;
+     margin-right: 8px; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region Actions */
+
+/*#region popups pages */
+
+.updates//, .invites
+{
+    .description
+    {
+        margin: 0 6px 0 25px; //rtl
+    }
+}
+
+.profileImg
+{
+    + div
+    {
+        margin-right:auto;
+        margin-left: 100px; /*rtl*/
+    }
+}
+
+.inviteUser {
+    margin: 17px 12px 18px 0; /*rtl*/
+    padding: 2px 9px 5px 2px; /*rtl*/
+}
+
+.inviteInput {
+    padding: 4px 8px 4px 4px; /*rtl*/
+}
+
+.inviteList {
+    li{
+        margin: 3px 0 0 3px; /*rtl*/
+    }
+}
+
+
+.uniList {
+    &:before
+    {
+        margin-left: auto;
+        margin-right: 6px; /*rtl*/
+    }
+
+    li a {
+        padding: 13px 13px 13px 5px; /*rtl*/
+    }
+}
+.uniImg
+{
+    + span
+    {
+        padding: 2px 8px 0 5px; /*rtl*/
+    }   
+}
+.uniName
+{
+    + span
+    {
+        &:before
+        {
+            margin-right: auto;
+            margin-left: 4px; /*rtl*/
+        }
+    }
+}
+.newUni 
+{
+    .uniImg:before
+    {
+        margin-left: auto;
+        margin-right: -1px; /*rtl*/
+    }
+}
+
+/*#endregion */
+
+/*#endregion */
+
+/*#region buttons */
+
+
+/*#endregion */

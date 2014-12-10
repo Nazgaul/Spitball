@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.title = ViewBag.title ?? "Cloudents";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <meta property="fb:app_id" content="450314258355338">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
+    <link rel="image_src" href="~/Images/cloudents.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Images/cloudents1-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Images/cloudents1-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Images/cloudents1-114x114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Images/cloudents1-144x144.png" />
+    <title>@ViewBag.title</title>
+    @Html.Css2("siteMobile")
+    @Html.CssRtl("siteMobileRtl")
+    @Html.CssCulture("lang")
+    @Html.CssCulture("lang")
+</head>
+<body>
+
+    <div id="search" class="search">
+        <input id="seachInput" type="search" class="inputText boldFont" />
+    </div>
+    <button type="button" id="searchClose" data-modelnav class="sprite1a sprite1b searchBtnClose"></button>
+    @*@{Html.RenderAction("Invites", "Share");}*@
+    @*@{Html.RenderAction("GetUserDetail3", "Account", true);}*@
+    <div class="wpr">
+        <button type="button" data-modelnav class="settingsOpenGray"></button>
+        <header>
+            <button type="button" id="settingsPanelOpen" data-modelnav="settingsPanel" class="sprite1a settingsBtn lFloat"><span data-id="f_invites" class="numberCircle"></span></button>
+            <a data-version="@VersionHelper.CurrentVersion(true)" href="/" class="sprite1a logo"></a>
+            @*<button type="button" id="searchMenu" data-modelNav="search" class="sprite1a searchBtn rFloat"></button>*@
+        </header>
+
+        <div class="content" id="main">
+            <div id="mLoading" class="loadingGif"></div>
+
+            @RenderBody()
+        </div>
+    </div>
+    <script type="text/javascript" src="~/js/cdnfallback.min.js"></script>
+    <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
+    <div id="cssCheck"></div>
+    @Html.Script2("mobile")
+
+    @RenderSection("script", false)
+
+    <script type="text/javascript">
+
+    </script>
+
+</body>
+</html>
