@@ -121,6 +121,7 @@
             &.ng-animate {
                 display:none;
             }*/
+            overflow:hidden;
         }
         .svg-close {
             //fill: @borderColor;
@@ -1271,6 +1272,36 @@
     }
 }
 
+.ng-message-errors {
+    position:relative;
+    width:100%;        
+    color: @errorColor;
+}
+.ng-message-error {
+    position:absolute;
+    opacity:1;    
+    bottom:0;
+    left:0; /*RTL*/
+    .transition(all .4s linear);
+}
+.ng-message-error.ng-enter.ng-enter-active {
+    opacity:1;
+    left:0; /*RTL*/
+}
+.ng-message-error.ng-enter {
+    opacity:0;
+    left:-100%; /*RTL*/
+}
+
+.ng-message-error.ng-leave {
+    opacity:1;
+    left:0;
+}
+
+.ng-message-error.ng-leave.ng-leave-active {
+    opacity:0;
+    bottom:8px; 
+}
 /*#endregion */
 
 
@@ -1279,4 +1310,5 @@
     color: @errorColor;
     display: block;
 }
+
 /*#endregion */

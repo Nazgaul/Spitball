@@ -5,7 +5,7 @@
     <h3 class="modal-title"><span>{{params.title}}</span></h3>
 </div>
 <div class="modal-body">
-    <form name="createTabForm" ng-submit="create(createTabForm.$valid)" novalidate>
+    <form name="createTabForm" ng-submit="create(createTabForm.$valid)" novalidate ng-class="{submitted : submitted }">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "inputText required", autofocus = "autofocus", required = "required", ng_model = "formData.name", autocomplete = "off" })
         @*add ERROR label*@
