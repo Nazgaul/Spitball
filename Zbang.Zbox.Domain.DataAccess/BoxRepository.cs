@@ -20,8 +20,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public int QnACount(long id)
         {
             var questionNumber = UnitOfWork.CurrentSession.Query<Comment>().Count(w => w.Box.Id == id);
-            var answerNumber = UnitOfWork.CurrentSession.Query<CommentReplies>().Count(w => w.Box.Id == id);
-            return questionNumber + answerNumber;
+            return questionNumber;
         }
       
     }

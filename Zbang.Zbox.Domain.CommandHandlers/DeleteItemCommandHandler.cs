@@ -55,7 +55,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             User user = m_UserRepository.Load(command.UserId);
 
             
-            bool isAuthorize = userType == UserRelationshipType.Owner || Equals(item.Uploader, user) || user.Reputation > user.University.AdminScore;
+            bool isAuthorize = userType == UserRelationshipType.Owner 
+                || Equals(item.Uploader, user) 
+                || user.Reputation > user.University.AdminScore;
 
             if (!isAuthorize)
             {
@@ -65,8 +67,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             //item.DeleteAllComments(user.Email);
-
-            item.IsDeleted = true;
+            m_ItemRepository.Delete(item);
+            //item.IsDeleted = true;
             item.DateTimeUser.UpdateUserTime(user.Email);
             var file = item as File;
 
@@ -94,20 +96,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository.Save(reputation);
 
 
-            var updatesToThatQuiz = m_Updates.GetQuerable().Where(w => w.Item.Id == command.ItemId);
-
-            foreach (var quizUpdate in updatesToThatQuiz)
-            {
-                m_Updates.Delete(quizUpdate);
-            }
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
             {
                 m_CommentRepliesRepository.Delete(item.Answer);
             }
-            if (item.Question != null && string.IsNullOrEmpty(item.Question.Text))
+            if (item.Comment != null)
             {
-                m_CommentRepository.Delete(item.Question);
+                var shouldRemove = item.Comment.RemoveItem(item);
+                if (shouldRemove)
+                {
+                    m_ReputationRepository.Save(box.DeleteComment(item.Comment));
+                    m_BoxRepository.Save(box);
+                    //m_CommentRepository.Delete(item.Comment);
+                }
             }
 
 

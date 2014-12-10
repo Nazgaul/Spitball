@@ -79,5 +79,15 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             return Session.Query<T>();
         }
+
+
+        public void Save(System.Collections.Generic.IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                Session.Save(item);
+            }
+            
+        }
     }
 }

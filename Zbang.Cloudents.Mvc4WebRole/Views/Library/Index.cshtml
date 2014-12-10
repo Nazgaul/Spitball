@@ -3,9 +3,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
-<div class="searchInputWpr searchLib" ng-controller="SearchHeaderCtrl">
+@*TEMP: UNDO NEW SEARCH*@
+@*<div class="searchInputWpr searchLib" ng-controller="SearchHeaderCtrl">
     @{Html.RenderPartial("_BarSearch");}
-</div>
+</div>*@
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
@@ -89,6 +90,8 @@
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
                     </button>
+                    @*TEMP: OLD SEARCH (next line)*@
+                    @{Html.RenderPartial("_BarSearch");}
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">

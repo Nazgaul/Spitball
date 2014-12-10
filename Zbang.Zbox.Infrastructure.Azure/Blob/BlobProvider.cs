@@ -671,27 +671,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             CloudBlockBlob blob = GetFile(fileName);
             var ms = new MemoryStream();
             await blob.DownloadToStreamAsync(ms, cancelToken);
-            //await Task.Factory.FromAsync<MemoryStream>(blob.BeginDownloadToStream, blob.EndDownloadToStream, ms, null);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
         }
 
-        //public byte[] DownloadFileToBytes(string fileName)
-        //{
-
-        //    CloudBlockBlob blob = GetFile(fileName);
-        //    using (var ms = new MemoryStream())
-        //    {
-        //        blob.DownloadToStream(ms);
-        //        return ms.ToArray();
-        //    }
-        //    //return blob.DownloadByteArray();
-        //}
-        //public bool CheckIfFileExists(string blobName)
-        //{
-        //    var blob = GetFile(blobName);
-        //    return blob.Exists();
-        //}
 
         #endregion
 

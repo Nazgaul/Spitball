@@ -44,9 +44,13 @@ body {
         .shareBtn {
             display: inline-block;
             margin: 0 15px;
-            position: absolute;
-            top: 12px;
-            left: 730px; //rtl
+            //TEMP: OLDSEARCH (2 lines)
+            position: relative;
+            top: 11px;
+            //TEMP: UNDO NEW SEARCH (3 lines)
+            //position: absolute;
+            //top: 12px;
+            //left: 730px; //rtl
         }
         .siteLogo {
             height: @header-height;
@@ -156,7 +160,53 @@ body {
         margin-left: 20px; //rtl
     }
 }
+/*#region search */
+.searchInputWpr {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 460px;
+    width: ~'-webkit-calc(100% - 320px)';
+    width: ~'calc(100% - 320px)';
+    border: 1px solid @borderColor;
+    border-radius: 15px;
+    margin: 17px 20px 0 20px;
+    line-height: normal;
+    background: #fff;
+    svg {
+        fill: #a5a5a5;
+        top: 22px;
+    }
 
+    + button .svg-inviteUser {
+        position: relative;
+        top: 5px;
+
+        &:hover {
+            fill: @color;
+        }
+    }
+}
+.searchBtn {
+    position: absolute;
+    right: 10px; //rtl
+    top: 6px;
+}
+.dashLibSearchInput {
+    width: 100%;
+    max-width: 460px;
+    height: 32px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 0 40px 0 10px; //rtl
+    .boxSizing;
+    .placeholderColor(@borderColor);
+    &:focus {
+        border: none; //remove red error borders and outlines
+        outline: none;
+    }
+}
+/*#endregion */
 /*#region dashboard */
 .dashHeader {
     height: 65px;

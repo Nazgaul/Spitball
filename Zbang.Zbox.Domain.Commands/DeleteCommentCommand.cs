@@ -5,12 +5,12 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class DeleteCommentCommand : ICommand
     {
-        public DeleteCommentCommand(Guid questionId, long userId)
+        public DeleteCommentCommand(Guid commentId, long userId)
         {
-            QuestionId = questionId;
+            CommentId = commentId;
             UserId = userId;
         }
-        public Guid QuestionId { get; private set; }
+        public Guid CommentId { get; private set; }
 
         public long UserId { get; private set; }
     }

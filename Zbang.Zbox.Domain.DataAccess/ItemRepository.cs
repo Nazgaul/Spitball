@@ -22,19 +22,21 @@ namespace Zbang.Zbox.Domain.DataAccess
         {
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
-                .And(w=>w.Box == box)
-                .And(w=>w.Uploader == user)
-                .Select(s => s.Question).List<Comment>();
+                .And(w => w.Box == box)
+                .And(w => w.Uploader == user)
+                .Select(s => s.Comment).List<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
                 .And(w => w.Box == box)
                 .And(w => w.Owner == user)
+
                 .Select(s => s.Comment).List<Comment>();
 
             return questions.Union(questions2)
                 .Where(w => w != null)
                 .Where(w => w.Text == null)
+                .Where(w => w.IsSystemGenerated)
                 .OrderByDescending(o => o.DateTimeUser.CreationTime)
                 .FirstOrDefault();
         }

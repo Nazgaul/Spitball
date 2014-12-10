@@ -3,6 +3,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
@@ -26,7 +27,7 @@ namespace Zbang.Zbox.Domain
 
             Resources.QuestionResource.Culture = Languages.GetCultureBaseOnCountry(University.Country);
 
-            Questions.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null));
+            Comments.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null, true));
             CommentCount = 1;
 
             Department = department;

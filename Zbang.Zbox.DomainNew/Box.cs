@@ -5,20 +5,21 @@ using System.IO;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Box
+    public class Box : ISoftDeletable
     {
         public const int NameLength = 120;
         protected Box()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            UserBoxRelationship = new HashSet<UserBoxRel>(); 
+            UserBoxRelationship = new HashSet<UserBoxRel>();
             Items = new List<Item>();
 
             //Comments = new List<Comment>();
-            Questions = new List<Comment>();
+            Comments = new List<Comment>();
             PrivacySettings = new PrivacySettings();
         }
 
@@ -61,11 +62,11 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<Item> Items { get; private set; }
         protected virtual ICollection<Quiz> Quizzes { get; set; }
 
-       // public IQueryable<Item> Items2 { get; set; }
+        // public IQueryable<Item> Items2 { get; set; }
 
 
         //protected virtual ICollection<Comment> Comments { get; set; }
-        protected virtual ICollection<Comment> Questions { get; private set; }
+        protected virtual ICollection<Comment> Comments { get;  set; }
 
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
@@ -75,7 +76,7 @@ namespace Zbang.Zbox.Domain
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
         public virtual int QuizCount { get; private set; }
-             
+
         public virtual int CommentCount { get; protected set; }
 
 
@@ -110,48 +111,18 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
         }
 
-       
 
-        public File AddFile(string fileName, 
+
+        public File AddFile(string fileName,
             User user,
             long length,
-            string blobAddressName, 
+            string blobAddressName,
             string thumbnailBlobAddressName,
             string thumbnailUrl)
         {
-            //if (Items.OfType<File>().FirstOrDefault(f => f.ItemContentUrl == blobAddressName) != null)
-            //{
-            //    throw new ArgumentException("Only one file can be connected to one blob");
-            //}
             var file = new File(fileName, user, length, blobAddressName, thumbnailBlobAddressName, this, thumbnailUrl);
             return AddItem(file) as File;
         }
-
-        //public string GetUniqueFileName(string fileName)
-        //{
-        //    //Find exact macth
-        //    var foundMatch = (from file in Items
-        //                      where String.Equals(file.Name, fileName, StringComparison.CurrentCultureIgnoreCase) 
-        //                      && !file.IsDeleted
-        //                      select file).Count();
-        //    if (foundMatch > 0)
-        //    {
-        //        var index = 0;
-        //        //Find next available index
-        //        do
-        //        {
-        //            index++;
-        //            foundMatch = (from file in Items
-        //                          where
-        //                              String.Equals(file.Name, string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index,
-        //                                  Path.GetExtension(fileName)), StringComparison.CurrentCultureIgnoreCase)
-        //                select file).Count();
-        //        } while (foundMatch > 0);
-        //        fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(fileName), index, Path.GetExtension(fileName));
-        //    }
-
-        //    return fileName;
-        //}
 
         public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
         {
@@ -172,6 +143,23 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
+        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, bool isSystemGenerated)
+        {
+            var comment = new Comment(user, text, this, id, items, isSystemGenerated);
+            Comments.Add(comment);
+            UpdateCommentsCount();
+            return comment;
+        }
+
+        public virtual List<Reputation> DeleteComment(Comment comment)
+        {
+            var reputation = comment.AnswersReadOnly.Select(answer => answer.User.AddReputation(ReputationAction.DeleteAnswer)).ToList();
+            reputation.Add(comment.User.AddReputation
+                (ReputationAction.DeleteQuestion));
+            Comments.Remove(comment);
+            UpdateCommentsCount();
+            return reputation;
+        }
         #region dbiTemp
 
         //public void UpdateMembersDbi(int count)
@@ -208,9 +196,10 @@ namespace Zbang.Zbox.Domain
         }
         #endregion
         #region commentCount
-        public virtual void UpdateCommentsCount(int number)
+       
+        public virtual void UpdateCommentsCount()
         {
-            CommentCount = number;
+            CommentCount = Comments.Count;
         }
 
         #endregion
@@ -262,7 +251,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new UnauthorizedAccessException("only owner can change privacy settings");
             }
-            
+
             PrivacySettings.PrivacySetting = boxPrivacySettings;
 
         }

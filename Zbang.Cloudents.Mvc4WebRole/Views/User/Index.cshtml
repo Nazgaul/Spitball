@@ -14,9 +14,10 @@
         </div>
     </div>
 </script>
-<div class="searchInputWpr searchUser" ng-controller="SearchHeaderCtrl">
+@*TEMP: UNDO NEW SEARCH*@
+@*<div class="searchInputWpr searchUser" ng-controller="SearchHeaderCtrl">
     @{Html.RenderPartial("_BarSearch");}
-</div>
+</div>*@
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
@@ -36,7 +37,10 @@
                 <div class="upSchool elps">{{::profile.universityName}}</div>
             </div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
-            <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
+            @{Html.RenderPartial("_BarSearch");}
+             <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
+                @*TEMP: UNDO NEW SEARCH*@
+                @*<button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">*@
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
         </div>

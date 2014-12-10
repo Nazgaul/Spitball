@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Connection;
+using NHibernate.Event;
 using Zbang.Zbox.Infrastructure.Data.Dialect;
 using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -56,6 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.LogFormattedSql = true;
 #endif
                 });
+                m_Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
                 m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
                 m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
                 m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");
