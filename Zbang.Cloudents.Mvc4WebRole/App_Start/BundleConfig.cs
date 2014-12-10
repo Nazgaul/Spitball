@@ -51,10 +51,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             IDictionary<string, IEnumerable<JsFileWithCdn>> registeredJsBundles
             )
         {
-                "~/Content/HomeAndStatic.css",
-                "~/Content/HomeAndStatic.css",
-        new JsFileWithCdn("~/scripts/angular-messages.js",//, fix for IE9 as usual check next version for angular fix
-                "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-messages.min.js"),
 
             if (registeredCssBundles != null)
             {
