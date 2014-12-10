@@ -29,7 +29,7 @@
             margin: 0 0 0 30px; //rtl
         }
     }
-    &.rename, &.itemReg, &.congrats, &.welcome {
+    &.rename, &.itemReg, &.congrats, &.welcome.popupOffset {
         padding: 0 @leftSideBarWidth 0 0; //rtl
     }
     &.itemReg {
@@ -133,6 +133,27 @@
     &.first {
         font-size: 32px;
     }
+}
+
+.ng-message-error {
+    left:auto;
+    right:0; /*RTL*/    
+}
+.ng-message-error.ng-enter.ng-enter-active {
+    opacity:1;
+    right:0; /*RTL*/    
+    left:auto;
+}
+.ng-message-error.ng-enter {
+    opacity:0;
+    right:-100%; /*RTL*/    
+    left:auto;
+}
+
+.ng-message-error.ng-leave {
+    opacity:1;
+    right:0; /*RTL*/    
+    left:auto;
 }
 
 .private {
@@ -1437,15 +1458,6 @@
         left: 0; /*rtl*/
         right: auto;
     }
-    /*&:nth-child(even)
-    {
-        margin: 0 28px 29px 0; /*rtl // margin bottom defined on the item
-        &:before
-        {
-            right: -17px; /*rtl
-            left: auto;
-        }
-    }*/
 }
 
 /*.invitedToImg
@@ -1458,7 +1470,12 @@
         margin: 0 15px 0 0; /*rtl*/
     }
 }
-
+/*#region user items (used in search page and user page) */
+.userItem
+{
+    margin: 0 0 20px 31px; /*rtl*/
+}
+/*#endregion */ 
 
 /*#region union*/
 

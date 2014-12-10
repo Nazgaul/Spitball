@@ -34,6 +34,12 @@
             facebookLogin: function (data) {
                 return ajaxService.post(buildPath('FacebookLogin'), data);
             },
+            login: function (data) {
+                return ajaxService.post(buildPath('LogIn'), data);
+            },
+            register: function (data) {
+                return ajaxService.post(buildPath('Register'), data);
+            }
 
         };
 

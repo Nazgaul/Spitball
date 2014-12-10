@@ -1,6 +1,6 @@
 ﻿app.factory('sLogin',
-    ['sModal',
-    function (sModal) {
+    ['$route','sModal',
+    function ($route,sModal) {
         "use strict";
         return {
             connect: function () {
@@ -15,11 +15,18 @@
         };
 
         function openModal(state) {
-            sModal.open('connectPopup', {
+            var params = {
                 data: {
                     state: state
                 }
-            });
+            };
+
+            var routeName = $route.current.$$route.params.type;
+            if (routeName === 'item' || routeName === 'quiz') {
+                params.windowClass = 'popupOffset'
+            }
+
+            sModal.open('connectPopup', params);
         }
 
     }
