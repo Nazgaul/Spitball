@@ -101,6 +101,13 @@
 }
 .modal.welcome .modal-body {
   border-radius: 6px;
+  /*.animation(fadein);
+            + .modal-body {
+                display: none;
+            }
+            &.ng-animate {
+                display:none;
+            }*/
 }
 .modal.welcome .svg-close {
   fill: #282828;
@@ -127,7 +134,7 @@
 .modal.rename,
 .modal.itemReg,
 .modal.congrats,
-.modal.welcome {
+.modal.welcome.popupOffset {
   padding-left: 290px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

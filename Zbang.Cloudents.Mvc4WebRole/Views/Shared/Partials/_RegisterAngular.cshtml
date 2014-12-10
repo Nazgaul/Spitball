@@ -3,7 +3,6 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <form class="register desktop" id="registerForm">
-    blablabla
     <span class="field-validation-error"></span>
     <input type="text" class="inputText firstName lFloat" id="FirstName" name="FirstName" placeholder="@SharedResources.FirstName" />
 
@@ -20,10 +19,10 @@
     <input class="inputText" id="Password" name="Password" placeholder="LogOnResources.Password" />
 
     <span class="field-validation-error"></span>
-    <input id="maleRadio" name="IsMale" type="radio" value="true" />
-    <label class="genderLabel first" for="maleRadio">זכר1</label>
-    <input id="femaleRadio" name="IsMale" type="radio" value="false">
-    <label class="genderLabel" for="femaleRadio">נקבה1</label>
+    <input id="maleRadio" name="IsMale" type="radio" />
+    <label class="genderLabel first" for="maleRadio">זכר</label>
+    <input id="femaleRadio" name="IsMale" type="radio">
+    <label class="genderLabel" for="femaleRadio">נקבה</label>
 
     <select class="inputText rFloat" id="dLangSelect" name="Language.Language">
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>

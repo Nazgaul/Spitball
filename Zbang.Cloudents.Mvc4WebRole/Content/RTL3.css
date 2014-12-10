@@ -31,7 +31,7 @@
 .modal.rename,
 .modal.itemReg,
 .modal.congrats,
-.modal.welcome {
+.modal.welcome.popupOffset {
   padding: 0 290px 0 0;
 }
 .modal.itemReg .modal-header svg {

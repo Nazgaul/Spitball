@@ -89,12 +89,7 @@
             </li>
         </ul>
     </div>
-    @{
-        if (!User.Identity.IsAuthenticated)
-        {
-            Html.RenderPartial("_Welcome");
-        }
-    }
+
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>

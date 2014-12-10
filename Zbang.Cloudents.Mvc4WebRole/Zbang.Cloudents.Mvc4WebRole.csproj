@@ -2072,6 +2072,7 @@
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Shared\Partials\_LogonAngular.cshtml" />
     <Content Include="Views\Shared\Partials\_RegisterAngular.cshtml" />
+    <Content Include="Views\Shared\Partials\_CouponPopup.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

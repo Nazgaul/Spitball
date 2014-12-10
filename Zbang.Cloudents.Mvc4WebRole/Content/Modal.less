@@ -113,7 +113,14 @@
             width: 450px;                        
         }
         .modal-body {            
-            border-radius: 6px;             
+            border-radius: 6px;
+            /*.animation(fadein);
+            + .modal-body {
+                display: none;
+            }
+            &.ng-animate {
+                display:none;
+            }*/
         }
         .svg-close {
             //fill: @borderColor;
@@ -140,7 +147,7 @@
             fill: #282828;
         }
     }
-    &.rename, &.itemReg, &.congrats, &.welcome {
+    &.rename, &.itemReg, &.congrats, &.welcome.popupOffset {
         padding-left: @leftSideBarWidth; //rtl
         .boxSizing;
     }
@@ -1259,7 +1266,6 @@
         margin-top: 15px;
     }
     .regFirstTxt {
-        //display: none;
         font-size: 22px;
         text-align: center;
     }

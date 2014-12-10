@@ -10,7 +10,7 @@
         <input type="email" class="inputText" tabindex="1" placeholder="@SharedResources.EmailAddress" />
         <span class="field-validation-error"></span>
         <input type="password" class="inputText" tabindex="2" placeholder="@LogOnResources.Password" />
-        <a class="forgot rFloat" href="/account/resetpassword/">@LogOnResources.ForgotYourPassword</a>
+        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">@LogOnResources.ForgotYourPassword</a>
         <input type="checkbox" value="true" checked class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" />
         <label class="cbLabel lFloat" for="RememberMe">זכור אותי</label>
         <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn">
