@@ -25,7 +25,11 @@
             };
 
             $scope.facebookLogin = function () {
-                sFacebook.registerFacebook();
+                sFacebook.registerFacebook().then(function () {
+                    $window.location.reload();
+                }, function () {
+                    $modalInstance.dismiss();
+                });
             };
 
             $scope.login = function () {

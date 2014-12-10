@@ -39,7 +39,7 @@ app.factory('sModal',
                     return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
                 connectPopup: function (params) {
-                    return buildObj('welcome', { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
+                    return buildObj('welcome ' + params.windowClass, { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {
                     return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'itemRenameCtrl', 'none', true, params.data);
