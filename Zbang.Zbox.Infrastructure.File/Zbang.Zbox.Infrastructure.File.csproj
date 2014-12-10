@@ -43,8 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Imaging.2.6.0\lib\net4.0\Aspose.Imaging.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Pdf">
-      <HintPath>..\packages\Aspose.Pdf.9.8.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+    <Reference Include="Aspose.Pdf, Version=9.9.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Aspose.Pdf.9.9.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Slides">
       <HintPath>..\packages\Aspose.Slides.NET.14.10.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>

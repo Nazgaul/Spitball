@@ -1,0 +1,619 @@
+﻿@import "varsAndMixins";
+html {
+    direction: rtl;
+}
+q {
+    quotes: "\201D" "\201C"  "\2019" "\2018";
+}
+body
+{
+    font-family: Arial; //for V. 12.0.
+}
+/*#region radio input */
+input[type="radio"] {
+    + label, + .field-validation-error + label {
+        &:before {
+            margin: -2px 0 0 4px; /*rtl*/
+        }
+    }
+    &.radio { 
+        + label {
+            &:before {
+                margin: -2px 0 0 8px; /*rtl*/
+            }
+        }
+        &:checked {
+            + label {
+                &:after {
+                    top: 3px; //diff rtl
+                    right: 4px; //rtl
+                    left: auto;
+                }
+            }
+        }
+    }
+}
+/*#endregion */
+
+/*#region checkbox */
+.checkbox {
+    ~ .cbLabel {
+        &:before {
+            margin: 0 0 0 5px;
+        }
+    }
+    ~ .cbLabel2 {
+        svg {
+            top:0; //diff rtl
+            right: 4px; //rtl
+            left: auto;
+        }
+    }
+}
+/*#endregion */
+
+/*#region validation errors */
+.field-validation-error,.validation-summary-errors
+{
+    margin: 0 5px 0 0; /*rtl*/
+}
+/*#endregion */
+
+/*#region delete email 'x' */
+.removeItem, .closeItem {
+    left: 5px; /*rtl*/
+    right: auto;
+}
+.emailText {
+    margin: 0 0 0 6px; /*rtl*/
+}
+/*#endregion */
+
+
+
+/*#region popup */
+
+.popupForm
+{
+    .field-validation-error, .validation-summary-errors 
+    {
+        margin: 0 15px 0 0; /*rtl*/
+    }
+}
+.closeDialog
+{
+    left: 12px; /*rtl*/
+    right: auto;
+}
+.closeModal {
+    left: 20px;
+    right: auto;
+}
+.popupWrppr, .modal {
+    .cancel
+	{
+        margin: 18px 10px 0 0; /*rtl*/
+	}
+    .inputText {
+        padding: 0 8px 0 4px; /*rtl*/
+    }
+    .inviteMsg {
+        padding: 8px 11px 5px 8px; /*rtl*/
+    }
+}
+.popupWrppr
+{
+    &.addSchool
+    {
+        text-align: right; /*rtl*/
+        .country
+        {
+            margin: 0 0 0 13px; /*rtl*/
+        }
+    }
+}
+
+.requestSentDiv
+{
+    padding: 0 18px 0 0; /*rtl*/ // override poppwrrpr
+}
+
+/*#endregion */
+
+/*#region connect and register pages */
+.fbImg, .emailImg {
+    right: 16px; /*rtl*/
+    left: auto;
+    &:after {
+        right: 12px; //rtl
+        left: auto;
+    }
+}
+.emailImg {
+    right: 8px;
+    left: auto;
+    &:after {
+        right: 6px; /*rtl*/
+        left: auto;
+    }
+}
+
+/*#region Welcome Store*/
+.registerFirst {
+    &.store {
+        &:before {
+           margin: 0 auto 0 32px; //rtl (because image is not symmetrical)
+        }
+        .signupBtns {
+            right: -6px; //rtl
+            left: auto;
+        }
+    }
+}
+.welcomeStore {
+    right: -5px; //rtl
+    left: auto;
+}
+.couponWpr.couponWpr { //for more specificity
+    .helpPopup {
+        &:before {
+            right: 20px; //rtl
+            left: auto;
+        }
+    }
+
+}
+/*#endregion */
+
+.emailBtn {
+    padding: 7px 53px 8px 15px; /*rtl*/
+    text-align: right; /*rtl*/
+}
+.enterForm {
+    .firstError {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+}
+.facebook
+{
+    padding: 8px 55px 9px 15px; /*rtl*/
+    text-align: right; /*rtl*/
+}
+.signIn, .register
+{
+    text-align: right; /*rtl*/
+}
+.register {
+    .validation-summary-errors {
+        right: 0; /*rtl*/
+        left: auto;
+    }
+}
+.desktop {
+    .firstName {
+        + .field-validation-error {
+            margin: 2px 4% 0 0; /*rtl*/
+        }
+    }
+}
+.genderLabel
+{
+    &.first
+    {
+        margin: 20px 0 5px 25px; /*rtl*/
+    }
+}
+.acceptTerms {
+    text-align: right; /*rtl*/
+}
+
+/*#endregion */
+
+/*#region general svgs */
+.svg-notification {
+    .flipH; //from SVG.less
+}
+.svg-user, .svg-doc {
+    right: 4px;
+    left: auto
+}
+/*#endregion*/
+
+/*#region side menu - SettingsBar partial */
+.sidebarCb {
+    &:checked {
+        ~ .headerActions {
+            .sideBar {
+                left: 0; //rtl
+                right: auto;
+            }
+        }
+    }
+}
+aside.sideBar {
+    left: -200px; /*rtl*/
+    right:auto;
+    text-align: right; /*rtl*/
+    .closeMenuBtn {
+        left: 10px; //rtl
+        right: auto;
+    }
+    li {
+        float: right; /*rtl*/
+    }
+    
+
+}
+/*#endregion */
+
+/*#region  dropdown-menu  (previously: editFolderMenu) */
+.dropdown-menu {
+    button {
+        text-align: right; /*rtl*/
+    }
+    &.userMenu {
+        left: 0; /*rtl*/
+        right: auto;
+    }
+    .emailListWpr & {
+        right: 25px!important; /*rtl*/
+        left: auto !important;
+    }
+}
+/*#endregion */
+
+/*#region dropdown */
+.dropDown{
+    text-align: right; /*rtl*/
+    &:before
+    {
+        right:0; /*rtl*/
+        left: auto;
+    }
+}
+/*#endregion */
+
+/*#region tooltip1 - "first time" */
+// tooltip variables:
+@arrowLeft: 135px; //change vertical offset of arrow
+@arrowTop: 40px;  //change horizontal offset of arrow
+@arrowHeight: 8px; // change arrow size
+
+/*.quizGuideTemplate {
+    .tooltip {
+        right: 566px; 
+        left: auto;
+        + .tooltip {
+            right: 263px; 
+            left: auto;
+        }
+    }
+}*/
+
+.tooltip1 {
+    li {
+        margin: 0 15px 0 0; /*rtl*/
+    }
+    &.icon {
+        .stepTip {
+            padding: 0 90px 0 0; /*rtl*/
+            &:before {
+                right:15px; /*rtl*/
+                left: auto;
+            }
+        }
+    }
+    &.left {
+        &:before {
+            right: -@arrowHeight - 2; /*rtl*/
+            left: auto;
+            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
+        }
+        &:after {
+            right: -@arrowHeight; /*rtl*/
+            left: auto;
+            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
+        }
+    }
+    &.right {
+        &:before {
+            left: -@arrowHeight - 2; /*rtl*/
+            right: auto;
+            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
+        }
+        &:after {
+            left: -@arrowHeight; /*rtl*/
+            right: auto;
+            border-width:(@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
+        }
+    }
+}
+.ttBtns {
+    right:0; /*rtl*/
+    left: auto;
+}
+/*#endregion */
+
+/*#region User tooltip */
+.userTooltip
+{
+    padding: 10px 110px 6px 10px; /*rtl*/
+    //padding: 17px 110px 6px 10px; /*rtl*/
+}
+
+.ttImg
+{   
+    right:0; /*rtl*/
+    left: auto;
+}
+
+/*#endregion */
+
+/*#region Bootstrap classes */
+
+/*#region tooltip */
+.tooltip{
+    &.right {
+        margin: 0 3px 0 0; /*rtl*/
+    }
+    &.left {
+        margin: 0 -3px 0 0; /*rtl*/
+    }
+    &.left-bottom {
+        right: 0!important; /*rtl*/
+        left: auto!important; /*rtl*/
+        .tooltip-arrow {
+            right: 12px; /*rtl*/
+            left: auto;
+        }
+    }
+    &.right-bottom {
+        left: 0!important; /*rtl*/
+        right: auto!important; /*rtl*/
+        .tooltip-arrow {
+            left: 12px; /*rtl*/
+            right: auto;
+        }
+    }
+}
+/*#endregion */
+
+/*#region popover */
+.popover {
+    text-align: right; /*rtl*/
+    /*.userTooltip {
+        padding: 10px 110px 6px 10px;
+    }*/
+
+    &.top {
+        > .arrow {
+            right: 50%; /*rtl*/ 
+            left: auto;
+            margin: 0 -11px 0 0; /*rtl*/ 
+            
+            &:after {
+                margin: 0 -10px 0 0; /*rtl*/
+            }
+        }
+    }
+    &.bottom {
+        > .arrow {
+            right: 50%; /*rtl*/
+            left: auto;
+            margin: 0 -11px 0 0; /*rtl*/ 
+            &:after {
+                margin: 0 -10px 0 0; /*rtl*/ 
+            }
+        }
+    }
+    &.left {
+        margin: 0 0 0 10px;  //diff rtl
+        > .arrow {
+            left: -12px; 
+            right: auto;
+            border-width: 12px 12px 12px 0; 
+            border-right-color: @borderColor; 
+            border-left-color: transparent;
+            &:after {
+                left: 2px; 
+                right: auto;
+                border-width: 10px 10px 10px 0; 
+                border-right-color: #f5f5f5; 
+                border-left-color: transparent;
+            }
+        }
+    }
+    &.right {
+        margin: 0 0 0 -10px; // diff rtl
+        > .arrow {
+            right: -12px; 
+            left: auto;
+            border-width: 12px 0 12px 12px; 
+            border-left-color: @borderColor; 
+            border-right-color: transparent;
+            &:after {
+                right: 2px; 
+                left: auto;
+                border-width: 10px 0 10px 10px; 
+                border-left-color: #f5f5f5; 
+                border-right-color: transparent;
+            }
+        }
+    }
+}
+/*#endregion */
+             
+/*#endregion */
+
+/*#region general helper classes */
+.lFloat {
+    float: right; /*rtl*/
+}
+
+.rFloat {
+    float: left; /*rtl*/
+}
+.semiFont{
+    font-weight: normal;
+}
+.boldFont
+{
+    font-weight: bold; /*rtl (In english semi-bold font-weight is used)*/
+}
+.inputText {
+    padding: 0 8px 0 4px; /* rtl */
+}
+.topBar {
+    text-align: right; /*rtl*/
+    padding: 0 19px 0 45px; /*rtl*/
+}
+.scrolling
+{
+    .barShadow {
+        box-shadow: -2px 3px 7px rgba(0,0,0,.15); /*rtl*/
+    }
+    #dash_right:before
+    {
+        margin: -10px -24px 0 0; /*rtl*/
+    }
+}
+.backWpr {
+    text-align: right; /*rtl*/
+    //padding: 0 40px 0 0; /*rtl*/
+    //.flipH(1); //rtl
+    /*&:before {
+        .flipH;
+        right: 0; //rtl
+        left: auto;
+    }*/
+    &.noArrow {
+        padding-right:0;
+    }
+    .svg-back {
+        .flipH(1); //rtl
+    }
+}
+
+.sectionHeader
+{
+    font-weight: normal; /*diff rtl*/
+}
+.inviteUsersBtn {
+    right: 600px; //rtl
+    left: auto;
+    .boxPage & {
+        right: 700px; //rtl
+        left: auto;
+    }
+    .userPage & {
+        left: 120px; //rtl
+        right: auto;
+    }
+}
+/*.emptySearch
+{
+    &:before
+    {
+        margin: -1px 0 0 6px; //rtl/
+    }
+    &:after
+    {
+        right: 7px; //rtl
+        left: auto;
+    }
+}*/
+/*.iconTxt:before
+{
+    margin: 0 0 0 6px; //rtl
+}*/
+.ptsPopup
+{
+    right: ~'-webkit-calc(50% - 112px)'; /*rtl*/
+    right: ~'calc(50% - 112px)'; /*rtl*/
+    left: auto;
+    &:before
+    {
+        margin: 0 0 0 4px; /* diff rtl*/
+    }
+    &:after
+    {
+        margin: 0; /* diff rtl*/
+    }
+}
+
+/*#endregion */
+
+/*#region user items (used in search page and user page) */
+.userItem
+{
+    margin: 0 0 20px 31px; /*rtl*/
+}
+/*#endregion */ 
+/*#region Firefox only CSS */
+@-moz-document url-prefix() {
+    body input.radio[type="radio"]:checked + label:after {
+        top: 4px; //diff rtl
+    } 
+}
+/*#endregion */
+
+/*#region media queries */
+@media (max-width: 1024px) {
+    //Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
+    .quizTitle.quizTitle, .quizPrevWpr.quizPrevWpr {
+        //margin: 0 20px 0 0; //rtl
+    }
+}
+/*#region IPAD - SPECIFIC CODE */
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .headingTexts.headingTexts {
+        padding: 0 40px 0 0;
+        top: 40px;
+    }
+    .logo.logo, .videoWpr.videoWpr {
+        margin: 20px 40px 0 0; //rtl
+    }
+    .videoWpr.videoWpr {
+        margin: 0 40px 0 0; //rtl
+    }
+    .language.language {
+        margin-top: 209px; //diff rtl //arabic only
+    }
+    //Item page
+    .middleActions.middleActions
+    {
+        margin: 0 50px 0 0; //rtl/
+    }
+}*/
+
+
+/*#endregion */
+
+/*//home page media queries
+
+@media (max-width: 1024px) {
+    .logo {
+        margin: 20px 20px 0 0; //rtl
+    }
+    .headingTexts {
+        padding: 0 20px 0 0; //rtl
+    }
+    .videoWpr {
+        right: 20px; //rtl
+        left: auto;
+    }
+}
+
+//setupschool media queries
+@media (max-width: 1165px) {
+    .createSchool, .completeRegistration {
+        right: auto; //rtl
+    }
+}*/
+
+/*#endregion */
+
+
+
+

@@ -1,0 +1,37 @@
+﻿@sprite-item: url(/Images/m-item-sprite.png?v=1);
+@item-header-height: 40px;
+
+
+
+.lFloat{
+    float:right;
+}
+.rFloat{
+    float:left;
+}
+/*.prevBtn:before{
+    background-position: 0 -46px;
+}
+.nextBtn:before{
+    background-position: 0 -20px;
+}*/
+/* -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);*/
+
+header
+{
+    left:auto;
+    right:0;
+    button, a{
+        line-height: 40px;
+        &:before
+        {
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+    }
+}

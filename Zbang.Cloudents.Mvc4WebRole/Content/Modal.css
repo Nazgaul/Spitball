@@ -101,6 +101,7 @@
 }
 .modal.welcome .modal-body {
   border-radius: 6px;
+  overflow: hidden;
 }
 .modal.welcome .svg-close {
   fill: #282828;
@@ -1110,6 +1111,44 @@
 .registerFirst .regFirstTxt {
   font-size: 22px;
   text-align: center;
+}
+.ng-message-errors {
+  position: relative;
+  width: 100%;
+  color: #d1294d;
+}
+.register .ng-message-errors {
+  width: 48%;
+  display: inline-block;
+}
+.ng-message-error {
+  position: absolute;
+  opacity: 1;
+  bottom: 0;
+  left: 0;
+  /*RTL*/
+  -webkit-transition: all 0.4s linear;
+  -moz-transition: all 0.4s linear;
+  -o-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+.ng-message-error.ng-enter.ng-enter-active {
+  opacity: 1;
+  left: 0;
+  /*RTL*/
+}
+.ng-message-error.ng-enter {
+  opacity: 0;
+  left: -100%;
+  /*RTL*/
+}
+.ng-message-error.ng-leave {
+  opacity: 1;
+  left: 0;
+}
+.ng-message-error.ng-leave.ng-leave-active {
+  opacity: 0;
+  bottom: 8px;
 }
 /*#endregion */
 /*#region Share by email AKA message */

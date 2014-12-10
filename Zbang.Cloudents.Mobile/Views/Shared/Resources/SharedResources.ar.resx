@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddCourse" xml:space="preserve">
+    <value>إضافة مسار جديد</value>
+  </data>
+  <data name="AddDept" xml:space="preserve">
+    <value>إضافة قسم جديد</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>العودة  
+</value>
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value>صندوق </value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>استعراض المقررات</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>الغاء </value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>تعليقات</value>
+  </data>
+  <data name="ContinueReading" xml:space="preserve">
+    <value>مواصلة القراءة</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>نسخ </value>
+  </data>
+  <data name="CopyLink" xml:space="preserve">
+    <value>نسخ رابط</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>اعداد جديد</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاريخ</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد الكتروني </value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>فيس بوك</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ملف </value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>تابع</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>بيت</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>دعوة </value>
+  </data>
+  <data name="Invites" xml:space="preserve">
+    <value>دعوى </value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>خصصوصية</value>
+  </data>
+  <data name="JoinLater" xml:space="preserve">
+    <value>او اشترك في وقت اخر</value>
+  </data>
+  <data name="JoinNow" xml:space="preserve">
+    <value>اشترك الان</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>رابط</value>
+  </data>
+  <data name="MySpace" xml:space="preserve">
+    <value>منطقتي </value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>تنبيه</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>او </value>
+  </data>
+  <data name="OrGrabTheLink" xml:space="preserve">
+    <value>او نسخ الرابط </value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>مالك /مؤلف</value>
+  </data>
+  <data name="PlusUpload" xml:space="preserve">
+    <value>رفع</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>نتائج</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>البنك الاكاديمي</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث </value>
+  </data>
+  <data name="SearchBoxes" xml:space="preserve">
+    <value>ابحث في صندوقك</value>
+  </data>
+  <data name="SelectSchool" xml:space="preserve">
+    <value>اختيار المعهد الاكاديمي</value>
+  </data>
+  <data name="SendToFacebook" xml:space="preserve">
+    <value>ارسل الى الفيس بوك </value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>شارك</value>
+  </data>
+  <data name="ShareThisVia" xml:space="preserve">
+    <value>شارك عن طريق :</value>
+  </data>
+  <data name="SignUpAsMember" xml:space="preserve">
+    <value>اشترك كعضو لتتمتع بمزايا اخرى للبرنامج</value>
+  </data>
+  <data name="SignUpNow" xml:space="preserve">
+    <value>تسجيل الان </value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>تصنيف حسب</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>إرسال</value>
+  </data>
+  <data name="TellUsSchool" xml:space="preserve">
+    <value>اهلا{0}, لكي تبدأ , قل لنا اين تدرس</value>
+  </data>
+  <data name="TweetThis" xml:space="preserve">
+    <value>ارسل لتويتر</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>تويتر </value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>تحديثات</value>
+  </data>
+  <data name="ViaEmail" xml:space="preserve">
+    <value>عبر البريد الالكتروني</value>
+  </data>
+  <data name="ViaFacebook" xml:space="preserve">
+    <value>عبر الفيسبوك</value>
+  </data>
+  <data name="ViaInvite" xml:space="preserve">
+    <value>عبر دعوة</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>اكتب تعليق </value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>عنوان البريد الالكتروني</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>مساعدة</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>القائمة</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>الرسائل</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>عرض </value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف  </value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>الاتصال</value>
+  </data>
+  <data name="OnlyPeople" xml:space="preserve">
+    <value>الأشخاص التي تمنح إذن الدخول صراحةُ لها فقط حق الوصول. يلزم تسجيل الدخول.</value>
+  </data>
+  <data name="AnyoneWho" xml:space="preserve">
+    <value>يمكن لأي شخص لديه الرابط أن يكون له حق الوصول. لا يلزم تسجيل الدخول.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>عضو </value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>دعوة صديق</value>
+  </data>
+  <data name="InviteCloudents" xml:space="preserve">
+    <value>دعوة أصدقائك إلى cloudents</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>تم الإرسال</value>
+  </data>
+  <data name="ShareBy" xml:space="preserve">
+    <value>مشاركة من</value>
+  </data>
+  <data name="Thumbnail" xml:space="preserve">
+    <value>الصور المصغرة</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>عرض الكل</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>ملفات </value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>الإجابات</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>عضو</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>انضم</value>
+  </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>عضو نشط</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>اعضاء</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="Reinvite" xml:space="preserve">
+    <value>تم دعوته مرة أخرى</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>للاتصال </value>
+  </data>
+  <data name="CloudentsHelp" xml:space="preserve">
+    <value>مساعدة Cloudents</value>
+  </data>
+  <data name="OrCopyLink" xml:space="preserve">
+    <value>أو نسخ هذا الرابط ...</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>الأسئلة</value>
+  </data>
+  <data name="ShareItem" xml:space="preserve">
+    <value>مشاركة عنصر</value>
+  </data>
+  <data name="ShareUsing" xml:space="preserve">
+    <value>مشاركة هذا الملف باستخدام:</value>
+  </data>
+  <data name="ShowLess" xml:space="preserve">
+    <value>عرض الأقل</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>عرض المزيد</value>
+  </data>
+  <data name="StayUpdated" xml:space="preserve">
+    <value>أبق على تحديث دائم</value>
+  </data>
+  <data name="StillHave" xml:space="preserve">
+    <value>هل لا يزال لديك سؤال؟</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>نشاط</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>النقاط</value>
+  </data>
+  <data name="School" xml:space="preserve">
+    <value>معهد اكاديمي</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>كتابة رسالة ...</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="Dashboard1" xml:space="preserve">
+    <value>منطقتي </value>
+  </data>
+  <data name="Courses" xml:space="preserve">
+    <value>مساقات</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>النتائج المتعلقة</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>اعضاء </value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>القسم</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>الكل </value>
+  </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>عرض كل النتائج عن</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>في:</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>المواد</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>الأشخاص</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>نقاط</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>نتائج من جامعات أخرى</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>البحث عن</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>جميل، لقد كسبت للتو</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>الإدارات</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>لا توجد نتائج</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>تغيير الاسم</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>التنزيلات</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>جديد 
+</value>
+  </data>
+  <data name="SweetThanks" xml:space="preserve">
+    <value>الحلو، وشكرا 
+</value>
+  </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>يدعوك</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>تم التحميل على الموقع</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>أنثى </value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول 
+</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>ذكر </value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>الاسم الأوسط </value>
+  </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>صناديق المجموعة 
+</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>لا توجد الإخطارات</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>الإجابة</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>ردود</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>تعليق</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>مسودة</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>سؤال</value>
+  </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>الجواب لا</value>
+  </data>
+  <data name="Course" xml:space="preserve">
+    <value>مسار</value>
+  </data>
+  <data name="Backto" xml:space="preserve">
+    <value>العودة الى </value>
+  </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>التسجيل عبر الفيس بوك</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>تسجيل الدخول بالبريد الإلكتروني </value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>ألغاز Cloudents - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>قم بعمل ومشاركة ألغاز Cloudents للتحضير لامتحان واختبار معلومات أصدقائك</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value> ناقش الأسئلة والأجوبة مع أصدقائك</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value> إضافة سؤال محتمل في الامتحان</value>
+  </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value>Cloudents هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال </value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value> إضافة إجابات متعددة ووضع علامة على الإجابة الصحيحة</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>استعد للامتحانات من خلال حل ألغاز Cloudents </value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value> انشر اللغز وشاركه مع أصدقائك</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value>للوصول إلى كافة الميزات</value>
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value>اشترك مجانا!</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value> اعرف درجاتك والوقت الذي استغرقته للانتهاء من الامتحانات
+</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value> شارك اللغز مع أصدقائك
+</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>لماذا لا تُجرِّب؟ حظاً موفقاً!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Cloudents</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>اختار
+</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>خلق</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>ادخل بريدك الالكتروني</value>
+  </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>رسالة شخصية
+</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>اكتب تعليقاً...</value>
+  </data>
+  <data name="Feed" xml:space="preserve">
+    <value>التغذية</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>اختبارات
+</value>
+  </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>اختر قسم</value>
+  </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>الأفضل في المدرسة
+</value>
+  </data>
+</root>

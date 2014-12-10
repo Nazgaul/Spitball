@@ -114,6 +114,7 @@
         }
         .modal-body {            
             border-radius: 6px;
+            overflow:hidden;
         }
         .svg-close {
             //fill: @borderColor;
@@ -1264,7 +1265,45 @@
     }
 }
 
-/*#endregion */
+.ng-message-errors {
+    position:relative;
+    width:100%;        
+    color: @errorColor;
+}
+
+
+.register { 
+    .ng-message-errors {        
+        width:48%;
+        display:inline-block;
+    }
+}
+
+.ng-message-error {
+    position:absolute;
+    opacity:1;    
+    bottom:0;
+    left:0; /*RTL*/
+    .transition(all .4s linear);
+}
+.ng-message-error.ng-enter.ng-enter-active {
+    opacity:1;
+    left:0; /*RTL*/
+}
+.ng-message-error.ng-enter {
+    opacity:0;
+    left:-100%; /*RTL*/
+}
+
+.ng-message-error.ng-leave {
+    opacity:1;
+    left:0;
+}
+
+.ng-message-error.ng-leave.ng-leave-active {
+    opacity:0;
+    bottom:8px; 
+}/*#endregion */
 
 
 /*#region Share by email AKA message */
@@ -1272,4 +1311,5 @@
     color: @errorColor;
     display: block;
 }
+
 /*#endregion */
