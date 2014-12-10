@@ -1,0 +1,35 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.AccountSettings
+
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="accountSettings">
+    @Html.LabelFor(m => m.Email, new { @class = "inlineLabel lFloat" }) &nbsp;<button type="button" data-modelNav="emailNew" class="changeProp">@SharedResources.Change</button>
+    <input type="text" class="inputText" value="@Model.Email" disabled />
+    <div id="emailNew" class="emailNew">
+        <span id="emailerr" class="validation-summary-errors"></span>
+        @Html.TextBoxFor(m => m.NewEmail.Email, new { @class = "inputText", placeholder = AccountSettingsResources.EnterEmail, type = "email", id = "newEmail" })
+        <button class="btn1 rFloat" id="AddBtn">@SharedResources.Change</button>
+    </div>
+
+    
+    <label class = "inlineLabel lFloat">@AccountSettingsResources.Password</label> &nbsp;<button type="button" data-modelNav="changePwd" class="changeProp">@SharedResources.Change</button>
+    <div id="changePwd" class="changePwd">
+        <span id="passerr" class="validation-summary-errors"></span>
+        @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "inputText", placeholder = @AccountSettingsResources.OldPwd, id = "oldpsw" })
+        @Html.PasswordFor(m => m.Password.NewPassword, new { @class = "inputText", placeholder = @AccountSettingsResources.NewPwd, id = "newpsw" })
+        <button class="btn1 rFloat" id="ChangePwd">@AccountSettingsResources.ChangePwd</button>
+    </div>
+
+
+    <div class="changeLang">
+        @Html.LabelFor(m => m.Language)&nbsp;
+        @Html.DropDownListFor(m => m.Language.Language,
+    Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures.Select(s => new SelectListItem
+    {
+        Selected = s.Culture == Model.Language.Language,
+        Text = s.Name,
+        Value = s.Culture
+    }), new { id = "language" })
+    </div>
+</div>

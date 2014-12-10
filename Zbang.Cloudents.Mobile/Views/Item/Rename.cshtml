@@ -1,0 +1,15 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@SharedResources.Rename</span></h3>
+</div>
+<div class="modal-body">
+    <form class="itemRenameForm" ng-submit="renameItem()">
+        <input class="inputText" type="text" ng-model="formdata.newName" required autofocus />
+        <input type="submit" class="btn1 next" ng-disabled="disable" value="@SharedResources.Save">
+        <button ng-click="cancel()" type="reset" class="btn2 cancel">@SharedResources.Cancel</button>
+    </form>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

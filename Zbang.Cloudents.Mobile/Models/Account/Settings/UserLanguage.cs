@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
 
-namespace Zbang.Cloudents.Mobile.Models.Account.Settings
+namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {
     public class UserLanguage : IValidatableObject
     {

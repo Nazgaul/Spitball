@@ -1,0 +1,120 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="page itemPage quizPage" ng-controller="QuizCtrl" ng-class="{checkQuiz : quiz.userDone, afraid: quiz.afraid}">
+    <div class="quizTop">
+        <a ng-click="closeQuiz()" ng-href="{{quiz.boxUrl + '#quizzes'}}" title="@SharedResources.Back" class="closePreview rFloat" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </a>
+        <div class="quizTitle elps">{{quiz.name}}</div>
+    </div>
+    <div class="leftPanel lFloat">
+        @*<div class="itemTop">
+            <div tooltip="@SharedResources.Views" class="rFloat quizViews">
+                @Html.Svg("~/Images/Defs.svg", "eye")
+                {{quiz.numberOfViews}}
+            </div>
+            <div class="itemNameWpr">
+                @Html.Svg("~/Images/Defs.svg", "quiz1")
+                <div class="item-name semiFont elps">{{quiz.name}}</div>
+                <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.owner}}</div>
+                <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
+            </div>
+        </div>*@
+
+        <div class="timeWpr">
+            <div class="quizTime" id="quizTimer">
+                @Html.Svg("~/Images/Defs.svg", "stopper")
+                <timer interval="1000" autostart="false">{{mminutes}}:{{sseconds}}</timer>
+            </div>
+            <button type="button" ng-click="takeQuiz()" analytics-on="click" analytics-event="Take" analytics-category="Quiz">{{timer.state}}</button>
+        </div>
+
+        <div class="userResults">
+            <div class="timeRetakeWpr clearfix">
+                <div id="quizTimerResult" class="quizTimerResult lFloat">
+                    @Html.Svg("~/Images/Defs.svg", "time")
+                    {{quiz.timeTaken}}
+                </div>
+
+                <button type="button" class="btn1 rFloat elps" ng-click="retakeQuiz()" analytics-on="click" analytics-event="Retake" analytics-category="Quiz">@QuizResources.RetakeQuiz</button>
+            </div>
+
+            <div class="userScoreWpr">
+                <div id="quizUserScore" class="userScore" data-user-score="{{quiz.result}}">@QuizResources.YourScore:</div>
+            </div>
+
+            <div class="resultsWpr">
+                <div id="quizUserRight" class="results" data-results="{{quiz.correctAnswers}}">
+                    @Html.Svg("~/Images/Defs.svg", "correct", new { @class = "svg-correct" })
+                    @QuizResources.Correct
+                </div>
+                <div id="quizUserWrong" class="results wrong" data-results="{{quiz.wrongAnswers}}">
+                    @Html.Svg("~/Images/Defs.svg", "wrong", new { @class = "svg-wrong" })
+                    @QuizResources.Wrong
+                </div>
+            </div>
+
+            <div class="topUsersWpr">
+                <div class="topUsersTxt">@QuizResources.TopThree</div>
+                <ol>
+                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{user.name}}" tooltip-append-to-body="true">
+                        <img alt="" ng-src=" {{user.image | defaultImage:'user'}}" />
+                        @Html.Svg("~/Images/Defs.svg", "star")
+                    </li>
+                </ol>
+            </div>
+
+            <div class="distributionWpr">
+                <div class="distributionTxt">@QuizResources.ScoreDistribution</div>
+                <canvas width="260" height="130" quiz-graph user-done="{{quiz.userDone}}"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="itemRight">
+
+        @*<div class="quizActionsWpr">
+            <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
+                <div>@SharedResources.Backto</div>
+                <h2 class="semiFont elps">{{quiz.boxName}}</h2>
+                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+            </a>
+            
+        </div>*@
+
+
+        <div class="quizPrevWpr">
+            <ul class="quizQList">
+                <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
+                    <div class="quizQuestion" ng-bind-html="::question.text"></div>
+                    <ul class="quizAList">
+                        <li ng-repeat="answer in question.answers" ng-class="{correct: answer.correct, wrong : answer.wrong}">
+                            <input id="quizTestRadio{{$index + $parent.$index.toString()}}" ng-checked="answer.isChecked" type="radio" name="quizTestRadio{{$parent.$index}}" ng-click="markCorrect(question,answer)" ng-disabled="quiz.userDone || quiz.afraid" />
+                            <label for="quizTestRadio{{$index+ $parent.$index.toString()}}" ng-bind-html="::answer.text"></label>
+                        </li>
+                    </ul>
+
+                    <div class="commentWpr">
+                        <ul class="quizComments">
+                            <li ng-repeat="comment in question.comments">
+                                <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="comment.isDelete"></button>
+                                <img class="imgBorder" user-tooltip-popup="{{comment.userId}}" width=" 32" height="32" alt="" ng-src="{{::comment.userPicture | defaultImage:'user'}}" />
+                                <span class="semiFont">{{::comment.userName}}</span>
+                                <span class="createTime" display-time="{{::comment.date}}"></span>
+                                <div class="commentTxt" ng-bind-html="::comment.text"></div>
+                            </li>
+                        </ul>
+
+                        <div class="cTextAreaWpr">
+                            <img class="imgBorder lFloat" src="" alt="" width="32" height="32" ng-src="{{::profile.userImage | defaultImage:'user'}}" />
+                            <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
+                            <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)" analytics-on="click" analytics-event="Create Comment" analytics-category="Quiz">@SharedResources.Comment</button>
+                        </div>
+                    </div>
+
+            </ul>
+            <button type="button" class="btn1 rFloat" ng-disabled="!quiz.testInProgress" ng-click="checkAnswers()" analytics-on="click" analytics-event="Check Answers" analytics-category="Quiz">@QuizResources.CheckAnswers</button>
+        </div>
+    </div>
+</div>

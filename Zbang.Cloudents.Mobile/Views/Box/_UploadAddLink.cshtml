@@ -1,0 +1,19 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.AddLink
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+ <div class="modal-header">
+    <h3 class="modal-title"><span>@DialogResources.AddLink</span></h3>
+</div>
+<div class="modal-body">
+    <form name="addUrlForm" class="addUrlHolder" novalidate role="form" ng-submit="add($isValid)">
+        <input type="text" class="inputText addUrl" ng-placeholder="@DialogResources.AddUrl" ng-model="formData.url" />
+        @*TODO validation*@
+        
+        <button type="submit" class="btn1">@DialogResources.Add</button>
+        <button type="button" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+    </form>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>
+

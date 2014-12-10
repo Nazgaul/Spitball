@@ -1,0 +1,75 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-ball {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 0;
+}
+.Images-chair {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -106px;
+}
+.Images-computer {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -212px;
+}
+.Images-covers {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -318px;
+}
+.Images-dic {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -424px;
+}
+.Images-eco {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -530px;
+}
+.Images-house {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -636px;
+}
+.Images-smartphone {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -742px;
+}
+.Images-tv {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -848px;
+}
+.Images-printers {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -954px;
+}
+.Images-martini {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -1060px;
+}
+.Images-cal {
+/* You may have to set 'display: block' */
+	width: 108px;
+	height: 106px;
+	background: url('category.png') 0 -1166px;
+}

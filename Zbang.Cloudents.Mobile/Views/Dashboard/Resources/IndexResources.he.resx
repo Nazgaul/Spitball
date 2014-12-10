@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityFeed" xml:space="preserve">
+    <value>פעילות בקבוצות שלי</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="Boxes" xml:space="preserve">
+    <value>קופסאות</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>סייר</value>
+  </data>
+  <data name="ByUnion" xml:space="preserve">
+    <value>לפי מחלקות מוסד הלימודים</value>
+  </data>
+  <data name="FindCourses" xml:space="preserve">
+    <value>חפש ומצא את הקורסים שאתה לומד בעזרת קלאודנטס</value>
+  </data>
+  <data name="FindingCourses" xml:space="preserve">
+    <value>מצא את הקורסים שאתה לומד עם ה:</value>
+  </data>
+  <data name="FollowCourses" xml:space="preserve">
+    <value>לעקוב אחר קורסים</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>היי</value>
+  </data>
+  <data name="InlineSearch" xml:space="preserve">
+    <value>חפש שם קורס או מרצה</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>פריטים</value>
+  </data>
+  <data name="KeepUpdated" xml:space="preserve">
+    <value>שומר אותך מעודכן עם התכנים והשאלות ותשובות החדשים ביותר</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>תויות</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="MyGroup" xml:space="preserve">
+    <value>קבוצות הלימוד שלי</value>
+  </data>
+  <data name="MyPrivate" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="OwnedByMe" xml:space="preserve">
+    <value>בבעלותי</value>
+  </data>
+  <data name="PendingInvitations" xml:space="preserve">
+    <value>הזמנות ממתינות</value>
+  </data>
+  <data name="ResultFor" xml:space="preserve">
+    <value>תוצאת חיפוש עבור</value>
+  </data>
+  <data name="SearchBy" xml:space="preserve">
+    <value>לפי שם הקורס, מספרו או שם המרצה</value>
+  </data>
+  <data name="SearchMyBoxes" xml:space="preserve">
+    <value>בקופסאות שלי</value>
+  </data>
+  <data name="SearchThisPage" xml:space="preserve">
+    <value>בעמוד הזה</value>
+  </data>
+  <data name="SeeMore" xml:space="preserve">
+    <value>עוד</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>שלח הודעה</value>
+  </data>
+  <data name="SharedByMe" xml:space="preserve">
+    <value>ששיתפתי</value>
+  </data>
+  <data name="SharedByOthers" xml:space="preserve">
+    <value>ששותפו איתי</value>
+  </data>
+  <data name="Starred" xml:space="preserve">
+    <value>מסומנות בכוכב/מועדפות</value>
+  </data>
+  <data name="StartBy" xml:space="preserve">
+    <value>אתה יכול להתחיל באמצעות</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>העלה</value>
+  </data>
+  <data name="UploadContent" xml:space="preserve">
+    <value>שתף ותזמין חברים ללמוד ביחד </value>
+  </data>
+  <data name="WelcomeDash" xml:space="preserve">
+    <value>ברוך הבא למסך הבית החדש שלך</value>
+  </data>
+  <data name="WhereStudy" xml:space="preserve">
+    <value>המקום בו קבוצות לימוד נוצרות</value>
+  </data>
+  <data name="AskedQuestion" xml:space="preserve">
+    <value>שאל(ה) שאלה</value>
+  </data>
+  <data name="AddedItem" xml:space="preserve">
+    <value>הוסיף מסמך</value>
+  </data>
+  <data name="AnsweredQuestion" xml:space="preserve">
+    <value>ענה/ענתה על שאלה</value>
+  </data>
+  <data name="PostedComment" xml:space="preserve">
+    <value>הוסיף/ה תגובה</value>
+  </data>
+  <data name="AnyoneUrl" xml:space="preserve">
+    <value>כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת.</value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>עיון בקורסים</value>
+  </data>
+  <data name="ChangeDept" xml:space="preserve">
+    <value>שנה מחלקה</value>
+  </data>
+  <data name="CommaSeparate" xml:space="preserve">
+    <value>הוסף שמות מופרדים בפסיק</value>
+  </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>צור קורס</value>
+  </data>
+  <data name="CreateQuizzes" xml:space="preserve">
+    <value>יצירת מבחנים לשיפור הלמידה</value>
+  </data>
+  <data name="FindFb" xml:space="preserve">
+    <value>מצא חברים מחשבון הפייסבוק שלך</value>
+  </data>
+  <data name="FindGmail" xml:space="preserve">
+    <value>מצא חברים מחשבון ה-Gmail שלך</value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>הזמן חברים לקורס</value>
+  </data>
+  <data name="InviteOnly" xml:space="preserve">
+    <value>רק אנשים שקיבלו הזמנה מפורשת יכולים לקבל גישה.
+חובה להיכנס למערכת.</value>
+  </data>
+  <data name="InviteViaEmail" xml:space="preserve">
+    <value>הזמן חבר באימייל</value>
+  </data>
+  <data name="OpenCourse" xml:space="preserve">
+    <value>קורס פתוח</value>
+  </data>
+  <data name="PrivateCourse" xml:space="preserve">
+    <value>קורס פרטי</value>
+  </data>
+  <data name="SearchCloudents" xml:space="preserve">
+    <value>חפש חברים מקלאודנטס</value>
+  </data>
+  <data name="SearchFb" xml:space="preserve">
+    <value>חפש חברים מפייסבוק</value>
+  </data>
+  <data name="SearchGmail" xml:space="preserve">
+    <value>חפש חברים מ-Gmail</value>
+  </data>
+  <data name="ShareFiles" xml:space="preserve">
+    <value>שיתוף קבצים עם החברים באוניברסיטה</value>
+  </data>
+  <data name="SwapBooks" xml:space="preserve">
+    <value>החלפה ומסירה של ספרי לימוד</value>
+  </data>
+  <data name="WelcomeCloudents" xml:space="preserve">
+    <value>ברוכים הבאים לקלאודנטס</value>
+  </data>
+  <data name="RecommendedCourses" xml:space="preserve">
+    <value>קורסים מומלצים</value>
+  </data>
+  <data name="FreeOnline" xml:space="preserve">
+    <value>פלטפורמת הלימודים החברתית המובילה ברשת</value>
+  </data>
+  <data name="FindFriends" xml:space="preserve">
+    <value>מצא חברים</value>
+  </data>
+  <data name="FindClasses" xml:space="preserve">
+    <value>מצא קורסים, מסמכים וחברים</value>
+  </data>
+  <data name="GetPoints" xml:space="preserve">
+    <value>קבל את הנקודות שלך!
+</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>תעלו קבצים, תזמינו חברים, צרו בחנים, והובילו את טבלת הניקוד של המוסד האקדמי שלכם.</value>
+  </data>
+</root>

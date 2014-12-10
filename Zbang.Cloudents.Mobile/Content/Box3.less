@@ -1,0 +1,1601 @@
+﻿@import "varsAndMixins";
+
+.boxPage {
+    //min-width: 1260px; //this is specifically due to the feed tab
+    .leftPanel {
+        border: none;
+        height: 100%;
+        position: fixed;
+        z-index: 5;
+        background: #eee;
+        width: @boxSideBarWidth;
+        padding: 10px 25px 0 25px;
+        border-right: 1px solid @borderColor; /*rtl*/
+        .boxSizing;
+    }
+    .svg-settings {
+        width: 30px;
+        height: 23px;
+        fill: #383838;
+    }
+    .boxRename {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: -5px; //rtl
+        left: auto;
+        margin:0; //override
+        visibility: visible; //override
+    }
+}
+.inviteButton {
+    vertical-align: top;
+    margin-top: 6px;
+}
+.following, .followBtn {
+    display: block;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: @color;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid @color;
+    border-radius: 3px;
+    margin-top: 15px;
+    text-align: center;
+}
+.followBtn {
+    color: @itemBlue;
+    border-color: @itemBlue;
+}
+.boxRight {
+    width: 100%;
+    height: 100%;
+    padding-left: @boxSideBarWidth; //rtl
+    .boxSizing;
+}
+.boxTopBar {
+    white-space: nowrap;
+    &.topBar {
+        width: ~"-webkit-calc(100% - @{boxSideBarWidth})";
+        width: ~"calc(100% - @{boxSideBarWidth})";  // because the topBar is fixed this is necessary
+        background:#282828;
+        color:#fff;
+        height: 60px;
+        padding: 0 25px;
+        .boxSizing;
+    }
+    .inviteFriendsBtn {
+        margin-top: 16px;
+    }
+}
+.boxActions {
+    display: inline-block; 
+}
+.boxTabs {
+    display: inline-block;    
+}
+.boxTab {
+    font-size: 18px;
+    padding: 0 22px;
+    height: 60px;
+    line-height: 60px;
+    .boxSizing;
+    text-transform: capitalize;
+    cursor: pointer;
+    position: relative;
+    &.current {
+        border-bottom: 7px solid @color;
+    }
+    .notify {
+        right:0; //rtl
+        top:7px;
+    }
+}
+.inviteFriendsBtn {
+    margin-top: 12px;
+    display: inline-block;
+    cursor: pointer;
+    //line-height: 60px;
+    padding: 0 20px;
+    height: 28px;
+
+    &:hover svg {
+        fill: @itemBlue;
+    }
+}
+
+/*#region share btn */
+.shareBtn {
+    position: relative;
+    margin-top: 16px;
+    color: @attentionBlue;
+    cursor: pointer;
+    svg {
+        fill: #fff;
+        margin-top: 2px;
+    }
+    &:hover svg {
+        fill: @color;
+    }
+    label {
+        cursor: pointer;
+    }
+}
+
+.shareDD {
+    padding: 20px 18px;
+    right: -5px; /*rtl*/
+    top: 60px;
+    width: 322px;
+    
+    .private & {
+        h4:before {
+            content: attr(data-share-private);
+            display: block;
+        }
+
+        .shareTxt:before {
+            content: attr(data-invite-private);
+            display: block;
+        }
+    }
+
+    /*.academic & {
+        h4:before {
+            content: attr(data-share-academic);
+        }
+
+        .shareTxt:before {
+            content: attr(data-invite-academic);
+            display: block;
+        }
+    }*/
+
+    h4 {
+        padding-bottom: 7px;
+        margin: -2px 10px 0 0; /*rtl*/
+    }
+
+    &:before {
+        height: 55px;
+        //padding: 0 15px; //hide the flip side of the arrow
+        .boxSizing;
+    }
+
+    &:after {
+        .pseudo;
+        width: 320px;
+        height: 252px;
+        background: #fff;
+        border-radius: 3px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .closeItem {
+        display: block;
+        top: 23px;
+        right: 15px; /*rtl*/
+        cursor: pointer;
+    }
+
+    .shareTxt {
+        margin: 23px 0 10px;
+    }
+    .shareList {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .shareArrow {
+        position: relative;
+        top: -11px;
+        right: 8px; /*rtl*/
+        z-index: -1;
+
+        &:before {
+            width: 10px;
+            height: 10px;
+            right: -12px; /*rtl*/
+            bottom: 3px;
+            background: #fff;
+        }
+    }
+    .shareItem {
+        display: table-cell;
+        .boxSizing;
+        padding-left: 6px; /*rtl*/
+        vertical-align: top;
+
+        &:first-child {
+            padding: 0 6px 0 0; /*rtl*/
+        }
+    }
+
+    .fbShare, .emailShare {
+        border-radius: 3px;
+        color: #fff;
+        background: #39579b;
+        line-height: 36px;
+        height: 36px;
+        width: 100%;
+
+        &:before {
+            .pseudo;
+            width: 11px;
+            height: 22px;
+            background: @common-sprite -130px -1px no-repeat;
+            vertical-align: middle;
+            margin-right: 6px; /*rtl*/
+        }
+    }
+
+    .emailShare {
+        background: @attentionBlue;
+
+        &:before {
+            width: 22px;
+            height: 19px;
+            background-position: -192px -70px;
+        }
+    }
+
+    .linkShare {
+        height: 36px;
+        border: 1px solid @borderColor;
+        color: @attentionBlue;
+        border-radius: 3px;
+        padding: 0 10px;
+        .boxSizing;
+        width: 284px;
+        direction: ltr;
+    }
+}
+
+
+/*#endregion */
+
+/*#region box right header */
+
+.inviteBtn {
+    cursor: pointer;
+    vertical-align: top;
+    display: inline-block;
+    //margin: 8px 12px 0 12px;
+    margin-top: 6px;
+    border: 1px solid @borderColor;
+    border-radius: 5px;
+    background: #f4f4f4;
+    padding: 3px 10px;
+
+    &:after {
+        .pseudo;
+        background: @common-sprite -90px -1px no-repeat;
+        width: 22px;
+        height: 19px;
+        vertical-align: middle;
+        margin-left: 8px; /*rtl*/
+    }
+
+    &:hover:after {
+        background-position: -90px -21px;
+    }
+}
+
+/*#endregion */
+
+/*#region Box sidebar */
+
+.boxTop {
+    position: relative;
+    //border-bottom: 1px solid @borderColor;
+    padding-bottom: 20px;
+    &:hover {
+        .boxRename {
+            display: block;
+        }
+    }
+    .boxName {
+        font-size: 27px;
+        color: @textColor;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        overflow: hidden;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        //max-width: 189px;//needed for IE when name has no spaces
+        //display: inline-block;
+        max-height: 55px;
+        margin: 12px 0;
+        display: inline-block; //so that I can display the h1 as inline block for the tooltip
+        font-weight: normal;
+        line-height: 27px;
+    }
+    .imgBorder {
+        background: #fff;
+        display: block; //so that I can display the h1 as inline block for the tooltip
+    }
+}
+
+.boxDetail {
+    font-size: 14px;
+}
+.newActivity {
+    //margin-top: -10px;
+    
+    margin: -10px -25px 0 -25px;
+    .topSeparator;
+    .bottomSeparator;
+    li {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        cursor: pointer;
+        
+        padding: 0 25px;
+        &.current {
+            background: #ddd;
+        }
+    }
+    .notify{    
+        right: 16px;
+    }
+    .feedTab {
+        .notify {
+            top: 12px;
+        }
+    }
+    .itemTab {
+        .notify {
+            top: 52px;
+        }
+    }
+    .quizTab {
+        .notify {
+            top: 92px;
+        }
+    }    
+}
+.newPosts {
+    background: @itemBlue;
+    color: #fff;
+    display: inline-block;
+    padding-top: 2px;
+    .boxSizing;
+    width: 42px;
+    height: 20px;
+    font-size: 15px;
+    margin-top: 11px;
+    border-radius: 3px;
+    line-height: normal;
+    text-align: center;
+}
+.sectionLabel {
+    text-transform: capitalize;
+}
+//TODO: IS THIS OBSOLETE??
+.boxNotification, .boxPrivacy {
+    display: none;
+    margin-top: 10px;
+}
+
+/*#endregion */
+
+/*#region box folders */
+.boxMembers, .boxFolders {
+    .sectionHeader {
+        font-size: 13px; /*rtl*/
+        text-transform: uppercase;
+    }
+}
+
+.boxFolders {
+    height: 100%; //
+    margin: 0 -25px;
+    //display: table-row;
+    .mCSB_container, [ng-transclude] {
+        width:242px;
+      //  height: 100%;
+    }
+    
+}
+
+.boxFolderList {
+    width: 100%; //
+    height: 100%; //
+    padding-bottom:22px; //this enables the box folder popup on the last folder to open completely without being vertically truncated
+}
+
+.boxFolder, .createFolder {
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    background: #eee;
+
+    &.current {
+        font-weight: 600; /*rtl*/
+        border-right: none;
+        background: #fff;
+
+        .editFolder {
+            display: inline-block;
+        }
+
+        .boxFolderName.boxFolderName:hover {
+            color: #000;
+            cursor: default;
+        }
+
+        .tabBorder {
+            bottom: -1px;
+        }
+    }
+
+    .boxFolderName {
+        padding: 0 26px;
+        max-width: 220px;
+        display: inline-block;
+        cursor: pointer;
+        width: 100%;
+        font-size: 14px;
+        .boxSizing;
+        /*&:not(.editable):hover {
+            color: @color;
+        }
+
+        &.editable {
+            width: 290px;
+            height: 28px;
+            padding: 8px 4px 0 8px; //rtl
+            font-weight: normal;
+            line-height: normal;
+            max-width: 270px; //override 245px;
+            -ms-text-overflow: clip;
+            -o-text-overflow: clip;
+            text-overflow: clip;
+
+            &:hover {
+                background: transparent;
+            }
+
+            + .editFolder {
+                display: none;
+            }
+        }*/
+    }
+}
+
+.tabBorder {
+    width: @boxSideBarWidth - 14px; // (currently 276px)
+    height: 1px;
+    background: rgba(194,194,194,.35);
+    left: 7px;
+    position: absolute;
+    bottom: 0;
+    //margin: -1px 0 0 7px;
+}
+
+.boxFolder {
+    position: relative;
+
+    &.current {
+        border-top: 1px solid @borderColor;
+        border-bottom: 1px solid @borderColor;
+        margin-top: -1px;
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.createFolder {
+    font-size: 13px;
+    padding: 0 10px;
+    height: 100%; //
+}
+
+.createFolderText {
+    cursor: pointer;
+
+    &:before {
+        .pseudo;
+        width: 11px;
+        height: 11px;
+        background: @boxSprite -58px 0 no-repeat;
+        vertical-align: top;
+        margin: 14px 6px 0 0; /*rtl*/
+    }
+
+    &:hover {
+        color: @color;
+    }
+}
+
+.editFolder {
+    display: none;
+    position: relative;
+    margin: -2px 14px 0 0; /*rtl*/
+    cursor: pointer;
+    height: 100%;
+
+    &:before {
+        .pseudo;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 4px 0 4px;
+        border-color: #383838 transparent transparent transparent;
+    }
+
+    ~ .dropdown-menu {
+        right: 8px; /**/
+        top: 35px;
+    }
+}
+/*#endregion */
+
+.box-content {
+    padding: 21px 25px 15px 25px;
+    .boxSizing;
+    background: #fff;
+    //min-height: ~'-webkit-calc(100vh - @{header-height})';
+    //min-height: ~'calc(100vh - @{header-height})';
+    min-height: ~'-webkit-calc(100vh - 60px)';
+    min-height: ~'calc(100vh - 60px)'; //TODO: Where are the other 10px coming from?
+    position: relative;
+    //overflow: hidden; //TODO: CHECK THIS
+    .membersContent {
+        max-width: 706px;
+        .searchWpr {
+            width: auto; //override
+            display: block; //override
+            margin: 10px 130px 0 0; //rtl
+        }
+        .friendImg {
+            border-radius:100%;
+        }
+    }
+    .membersTop {
+        margin-bottom: 15px;
+    }
+    .inviteFriendsBtn.btn3 {
+        width: auto; //override
+        padding: 0 8px;
+        line-height: 30px;
+        margin-top: 2px;
+
+        &:before {
+            .pseudo;
+            background: @common-sprite -143px -3px no-repeat;
+            width: 22px;
+            height: 19px;
+            vertical-align: middle;
+            margin-right: 8px; /*rtl*/
+        }
+    }
+}
+
+/*#region boxItems */
+.thumbContent {
+    position: absolute;
+    top: 50px;
+    z-index: -1;
+    max-width: 140px;
+    max-height: 130px;
+    overflow: hidden;   
+}
+.boxEmpty {
+    overflow: hidden;
+    text-align: center;
+    color: #676767;
+
+    > h2 {
+        font-size: 22px;
+        color: #383838;
+        white-space: pre-line;
+        display: inline-block;
+        min-width: 290px;
+        max-width: 560px;
+        padding: 15px 0 20px;
+        font-weight: 600; /*rtl*/
+    }
+
+    .emptyBoxDrop {
+        width: 64%;
+        min-width: 290px;
+        max-width: 560px;
+        height: 164px;
+        display: inline-block;
+        border: 1px solid @borderColor;
+        border-radius: 5px;
+        background: #fff;
+        margin-top: 28px;
+    }
+    svg {
+        width: 60px;
+        height: 46px;
+        fill: @color;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .emptyBoxDropText {
+        display: inline-block;
+        font-size: 13px;
+        margin-top: 18px;
+    }
+
+    .uploadFilesBtn {
+        display: block;
+        margin: 20px auto 0;
+        padding: 2px 28px;
+    }
+
+    ~ .boxItemList {
+        display: none !important;
+    }
+}
+.quizEmptyWpr {
+    text-align: center;
+    p {
+        font-size: 22px;
+        text-align: center;
+        white-space: pre-line;
+        margin: 70px 0 15px;
+    }
+    ~ .quizBtn {
+        position: absolute;
+        left: 0;right: 0;
+        margin: auto;
+        width: 135px;
+        top: 295px;
+    }
+}
+
+.quizEmpty {
+    width: 560px;
+    height: 200px;
+    border: 1px solid @borderColor;
+    padding: 40px 0;
+    .boxSizing;
+    display: inline-block;
+    svg {
+        width: 70px;
+        height: 70px;
+    }
+}
+.boxItemList {
+    clear: both;
+    padding-top: 15px;
+    min-width: (@box-width * 2 + @min-margin);
+
+    &.sponsored {
+        .boxName {
+            font-size: 15px;
+            line-height: 30px;
+        }
+
+        .thumbItem, .listItem {
+            position: relative;
+            &:first-child {
+                &:hover {
+                    .actionBtns {
+                        display: none;
+                    }
+
+                    .boxLink:after {
+                        background-position: -75px -82px;
+                    }
+                }
+                .boxLink {
+                    //padding-top: 192px; //sponsored link img absolute
+                    //.boxSizing;
+                    &:after {
+                        .pseudo;
+                        position: absolute;
+                        width: 81px;
+                        height: 81px;
+                        background: @boxSprite -75px 0 no-repeat;
+                    }
+                }
+            }        
+        }
+
+        .thumbItem:first-child {
+            width: 323px;
+            .boxLink {
+                //padding-top: 192px; //sponsored link img absolute
+                //.boxSizing;
+
+                &:after {
+                    margin: auto;
+                    left: 0;
+                    right: 0;
+                    top: 50px;
+                }
+            }
+            .boxName {
+                padding-top: 191px; 
+            }
+            .sponsoredBg {
+                width: 100%;
+                position: absolute; //sponsored link img absolute
+                top: 0; //sponsored link img absolute
+                //height: 179px;
+                height: 188px;
+                border: none; //
+                border: 1px solid @borderColor;
+                box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+                .boxSizing;
+            }
+
+            .boxItemTt {
+                left: 0;
+                right: 0;
+                margin: 0 auto 8px;
+            }
+        }
+
+        .listItem:first-child {
+            background: #fff;
+            border-radius: 3px;
+            font-size: 15px;
+            padding: 20px 0 0 360px; /*rtl*/ //override
+            margin-bottom: 14px;
+
+            .imgBorder {
+                top: 17px;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                -webkit-background-size: cover;
+                background-size: cover;
+                border: 1px solid @borderColor;
+                border-radius: 3px;
+                width: 340px;
+                height: 143px;
+            }
+
+            .boxName {
+                font-size: 17px;
+                font-weight: normal;
+                padding-top: 8px;
+            }
+
+            .actionBtns {
+                display: none;
+            }
+
+            .itemContent {
+                max-height: 58px; /*rtl*/
+                margin: 0 15px 5px 0; /*rtl*/
+                line-height: 18px;
+            }
+
+            .views {
+                font-size: 13px;
+            }
+
+            .boxLink {
+                .boxSizing;
+                margin-left: -360px; //rtl
+                padding-left: 360px; //rtl
+
+                &:after {
+                    left: 132px; /*rtl*/
+                    top: 47px;
+                }
+            }
+        }
+    }
+}
+
+.boxItemsHeader {
+    height: 58px;
+    margin-top: -28px;
+    padding-top: 20px;
+    .boxSizing;
+    .svg-plus {
+        height: 16px;
+        fill: #fff;
+    }
+    .btn1 {
+        
+    }
+    .quizBtn {
+        padding: 6px 15px 7px 15px;
+        width: 130px;
+    }
+}
+
+.listViewBtn, .thumbViewBtn {
+    margin-top: 2px;
+    &.currentState {
+        svg {
+            fill: @color;
+        }
+    }
+    svg {
+        width: 31px;
+        height: 26px;
+        fill: @borderColor;
+    }
+}
+.listViewBtn {
+    margin: 2px 20px 0 10px; //rtl
+}
+.thumbViewBtn
+{
+    &:before
+    {
+        width: 13px;
+        background-position: -31px -123px;
+    }
+    svg {
+        width: 26px;
+    }
+}
+.tag {
+    position: relative;
+    color: #fff;
+    display: inline-block;
+    padding: 1px 12px 2px 6px; /*rtl*/
+    border-radius: 3px 0 3px 3px; /*rtl*/
+    margin-left: 11px; /*rtl*/
+    /*&:before {
+        .pseudo;
+        position: absolute;
+        top: 0;
+        right: 0; //rtl
+        border-width: 0 8px 7px 0; //rtl
+        border-style: solid;
+        border-color: #f1f1f1 #f1f1f1 #0e8249 #0e8249; //rtl
+        background: #0e8249;
+        display: block;
+        width: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
+    }*/
+    &:before
+    {
+        content: '';
+        position: absolute;
+        display: block;
+        background: @errorColor;
+        width: 38px;
+        left: 0; //rtl
+        z-index: -1;
+        height: 18px;
+        border-radius: 3px 0 0 3px; //rtl
+    }
+    &:after
+    {
+        .pseudo;
+        width: 9px;
+        height: 18px;
+        background: @boxSprite -8px -119px no-repeat;
+        position: absolute;
+        //right: 0; //rtl
+        right: 1px; /*rtl*/
+    }
+}
+.listItem{
+    padding: 15px 0 15px 138px; /*rtl*/
+    position: relative;
+    display: block;
+    height: 143px;
+    border-top: 1px solid #dbdbdb;
+    text-align: left; /*rtl*/
+    &.quizItem {
+        .imgBorder
+        {
+            width: 112px;
+            height: 143px;
+            background: #fff;
+            &:before
+            {
+                content: '';
+                display: block;
+                width: 39px;
+                height: 35px;
+                background: @boxSprite -4px -144px no-repeat; 
+                vertical-align: middle;
+                margin: 48px auto 0;
+            }
+        }
+        .itemContent {
+            //max-height: 58px; // max 3 lines instead of 4 - to compensate for the extra owner section
+            //max-height: 64px;
+            margin: 5px 0;
+        }
+        .quizOwner{
+            margin: 10px 0;
+        }
+    }
+    &.draft .tag {
+        color: @errorColor;
+        position: relative;
+        top: 0;
+        left: 15px; /*rtl*/
+        padding-left: 22px; /*rtl*/
+        &:before {
+            .pseudo;
+            width: 21px;
+            height: 16px;
+            background: @boxSprite -105px -165px no-repeat;
+            vertical-align: middle;
+            margin-top: 2px;
+        }
+        &:after {
+            display: none;
+        }
+    }
+    .boxLink {
+        height: 143px;
+        display: block;
+    }
+    .actionBtns{
+        top: 10px;
+        right: 0; /*rtl*/
+    }
+    .imgBorder{
+        position: absolute;
+        left:0; /*rtl*/
+        top: 15px;
+    }
+    .boxName
+    {
+        color: @color;
+        font-size: 15px;
+        display: inline-block;
+        max-width: ~'-webkit-calc(100vw - 880px)';
+        max-width: ~'calc(100vw - 880px)';
+    }
+    
+    .itemContent
+    {
+        max-height: 58px; /*diff rtl*/ // 3 lines
+        margin: 14px 0 17px;
+        overflow: hidden;
+        max-width: 720px;
+        &:empty
+        {
+            margin-bottom: 0;
+        }
+    }
+    .stars{
+        display: inline-block;
+        vertical-align: top;
+        margin: 2px 0 0 0; //override
+    }
+    .views {
+        color: #b1b1b1;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 0 20px; //override  /*rtl*/
+    }
+    .tag{
+        position: absolute;
+        top: 15px;
+        right: 10px; /*rtl*/
+    }
+}
+
+.thumbItem {
+    float: left; /* rtl */
+    background: #fff;
+    text-align: left; /* rtl */
+    //overflow: hidden;
+    //.transition(all, .2s); //WARNING: CAUSES iOS CRASH -  http://stackoverflow.com/questions/14055461/ios-safari-css-calc-css-transition-instant-crash
+    position: relative; /* for manage state*/
+    .boxLink {
+        height: 248px;
+        display: block;
+    }
+
+    img {
+        
+        width: 100%;
+        height: 188px;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;        
+        -moz-user-drag: none;    
+        box-shadow: 1px 1px 2px rgba(0,0,0,.15);
+        border: 1px solid @borderColor;   
+        border-radius: 3px; 
+        .boxSizing;
+        //NB Maybe increase dimensions of thumbnail in markup, then can use
+        //background-size: 100%;
+    }
+
+    .boxName {
+        margin: 5px 0 0 6px; /*rtl*/
+        overflow: hidden;
+        line-height: 15px;
+        color: @color;
+        height: 32px;
+    }
+
+    .views {
+        color: #b1b1b1;
+        position: absolute;
+        right: 4px; /*rtl*/
+        bottom: 3px;
+        margin: 0; // override .views class
+        // before img from .views class.
+        &:before {
+            .pseudo;
+            width: 16px;
+            height: 11px;
+            margin-right: 5px; //rtl
+            vertical-align: middle;
+            background: url(/Images/item13-sprite.png?v=1) -121px -21px no-repeat;
+        }
+    }
+
+    .tag {
+        position: absolute;
+        left: -6px; /*rtl*/
+        top: 165px;
+        color: #F0F8FF;
+        z-index: 1;
+    }
+
+    &.quizItem {
+        position: relative;
+        border: none;
+        background: none;
+        box-shadow: none;
+        z-index:1; //content to appear over quiz background-image
+        -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+        .actionBtns {
+            top: 8px;
+            right: 8px; //no rtl
+            left: auto; //no rtl
+        }
+        .svg-quizBg {
+            width: 148px;
+            height: 205px;
+            position: absolute;
+            z-index: -1;
+            stroke: @color;
+        }
+
+        .boxLink {
+            padding: 11px 0;
+            .boxSizing;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            text-align: center;
+        }
+
+        .boxName {
+            color: @textColor;
+            font-size: 14px;
+            line-height: 23px;
+            height: 44px;
+            overflow: hidden;
+            clear: both;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            margin: 105px 0 0 0; //override
+            
+        }
+
+        .quizOwner {
+            display: none;
+        }
+
+        .stars {
+            position: absolute;
+            left: 4px; /*rtl*/
+            bottom: 4px;
+        }
+
+        .moreFilesThumb {
+            width: 36px;
+            height: 31px;
+            background: @boxSprite -4px -146px no-repeat;
+            border-radius: 0;
+            border: none;
+        }
+
+        .detailsWpr {
+            width: 191px;
+        }
+    }
+
+    &.draft {
+        .svg-quizBg {
+            stroke: @borderColor;
+        }
+        .tag {
+            padding: 3px 20px;
+            border-radius: 10px;
+            color: #fff;
+            background: #e25c6a;
+            position: static; //override
+            font-size: 13px;
+            margin: 16px 0 0 0; //override
+
+            &:before, &:after {
+                display: none; //override
+            }
+        }
+        
+    }
+}
+.quizOwner{
+    &:before {
+        content: attr(data-quiz-owner) '\00a0';
+        display: inline-block;
+    }
+}
+/*#region box item tool tips */
+
+.moreFilesThumb{
+    background:#6a7a7a;
+    width:32px;
+    height:32px;
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+    color:#fff;
+    font-weight:bold;
+    text-transform:uppercase;
+    font-size:10px;
+    font-family:arial;
+    border-radius:3px;
+    border: 1px solid #C2C2C2;
+    letter-spacing: 1px;
+    &.quiz {
+        background-color: none; //override background color
+        border: none;
+        border-radius: 0;
+        background: @quiz-sprite  0 -650px no-repeat;
+        position: relative;
+        top: 2px;
+    }
+}
+
+.boxItemTt {
+    padding: 10px 0;
+    width: 276px;
+    .boxSizing;
+    z-index: 6; // over leftPanel and siteheader - (both with 5)
+    border-radius: 5px;
+    .itemName {
+        padding: 10px 20px 0 20px;
+        margin: -10px 0 18px;
+        background: #f5f5f5;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid @borderColor;
+        font-size: 15px;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+    &.noPreview
+    {
+        background: #f5f5f5;
+        .downArrow {
+            &:before {
+                background: #f5f5f5;
+            }
+        }
+        .ttPreview
+        {
+            display: none;
+        }
+    }
+    &.ttLink
+    {
+        .itemName {
+            display: none;
+        }
+        .downArrow {
+            bottom: 0;
+        }
+        .ttTop {
+            margin: 0 0 -10px 0; //override
+            padding: 18px 20px 0 20px; //override
+            border-radius: 5px;
+        }
+    }
+    .ttTop{
+        padding: 32px 20px 17px 20px;
+        background: #F5F5F5;
+        margin-top: -32px;
+
+        > .ttDetail
+        {
+            width: auto; //override
+            margin-top: -10px;
+            position: relative;
+            &:before
+            {
+                content: attr(data-numdownload);
+                display: inline-block;
+                margin: 0 4px 0 20px; /*rtl*/
+
+            }
+            &:last-child:before
+            {
+                content: attr(data-numcommment);
+                margin: 0 4px 0 24px; /*rtl*/
+            }
+            &:after
+            {
+                .pseudo;
+                position: absolute;
+                left:0; /*rtl*/
+                top:2px;
+                width: 14px;
+                height: 15px;
+                background: @item-sprite1 -19px -21px no-repeat;
+            }
+            &:last-child:after
+            {
+                width: 18px;
+                height: 17px;
+                background-position: -51px -21px;
+            } 
+        }
+    }
+    .moreFilesThumb {
+        display: inline-block;
+        float: left; /*rtl*/
+        margin-top: -12px;
+        padding-top: 8px;
+        .boxSizing;
+        overflow: hidden;
+    }
+
+    .detailsWpr {
+        display: inline-block;
+        position: relative;
+        top: -13px;
+        left: 8px; /*rtl*/
+        width: 196px;
+        margin-bottom: 6px;
+    }
+    
+    .ttDetail {
+        width: 75px; /*diff rtl*/
+        color: #9c9c9c;
+    }
+
+    .ttLink {
+        display: block;
+        &:hover {
+            color: @attentionBlue;
+        }
+    }
+    .ttPreview
+    {
+        border-top: 1px solid @borderColor;
+        padding: 10px 20px;
+        clear: both;
+        max-height: 46px; /*diff rtl*/
+        overflow: hidden;
+    }
+}
+/*#endregion */
+
+/*#region box layout - Removed due to bugs */
+//.box-layout(@list-selector,@item-selector, @item-width, @item-height, @min-cols, @max-cols, @min-margin, @layout-left-margin,@layout-right-margin)
+//.box-layout(boxItemList,thumbItem,148px,248px,4,12,20px,288px,40px);
+/*#endregion */
+
+/*#region box layout replacement */
+@min-cols: 4;
+@item-width: 148px;
+@item-height: 248px;
+@min-margin: 20px;
+@item-with-margin: (@item-width + @min-margin);
+@container-min-width: (@min-cols * @item-with-margin - @min-margin);
+
+.boxItems {
+    //margin: 20px 20px 0 20px;
+    margin-top: 7px;
+    .boxItemList {
+        display: block;
+        margin: 2px auto 0;
+        min-width: @container-min-width;
+    }
+
+    .thumbItem {
+        height: @item-height;
+        width: @item-width;
+        margin: 0 @min-margin 32px 0; /*rtl*/
+    }
+}
+
+
+/*#endregion */
+
+
+.stars {
+    width: 69px;
+    height: 14px;
+    position: relative;
+    background: @common-sprite -1px -41px no-repeat;
+    margin-left: 5px; /*rtl*/
+    cursor: pointer;
+
+    .full {
+        position: absolute;
+        top: 0;
+        left: 0; /*rtl*/
+        height: 13px;
+        background: @common-sprite -1px -55px no-repeat;
+    }
+}
+
+.addBtn.addItem {
+    display: inline-block;
+    width: 148px;
+    height: 246px;
+    .boxSizing;
+    font-size: 15px;
+    text-align: center;
+    padding: 0 10px;
+
+    &:before {
+        content: '';
+        display: block;
+        margin: -8px auto 33px;
+        width: 56px;
+        height: 55px;
+        background: @boxSprite 0 0 no-repeat;
+    }
+}
+
+.actionBtns {
+    display: none;
+    position: absolute;
+    top: 7px;
+    right: 8px; /*rtl*/
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    //overflow: hidden;
+    .thumbItem:hover &, .listItem:hover &
+    {
+        display: block;
+    }
+    .downloadBtn, .deleteBtn, .editBtn {
+        background: #fff;
+        width: 29px;
+        height: 29px;
+        &:only-child {
+            border-radius: 3px;
+        }
+    }
+
+    .downloadBtn, .editBtn {
+        border-radius: 3px 0 0 3px; /*rtl*/
+        &:before {
+            margin-top: 6px; // specific to this .downloadBtn class
+        }
+        
+    }
+
+    .deleteBtn {
+        border-radius: 0 3px 3px 0; /*rtl*/
+        border-left: 1px solid @borderColor; /*rtl*/ // specific to this .deleteBtn class
+        &:first-child {
+            border: none;
+        }
+    }
+}
+// general .downloadBtn class
+.downloadBtn {
+    &:before {
+        .pseudo;
+        width: 14px;
+        height: 16px;
+        background: @boxSprite -57px -12px no-repeat;
+    }
+
+    &:hover:before {
+        background-position: -57px -29px;
+    }
+}
+.editBtn{
+    &:before {
+        .pseudo;
+        width: 15px;
+        height: 15px;
+        background: @common-sprite -52px -1px no-repeat;
+    }
+
+    &:hover:before {
+        background-position: -52px -21px;
+    }
+}
+
+/*#endregion */
+
+/*#region manage */
+
+.cbManage {
+    display: none;
+}
+
+.cbLabel {
+    position: absolute;
+    top: 6px;
+    left: 6px; /*rtl*/
+    &:before {
+        content: '';
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        cursor: pointer;
+        vertical-align: middle;
+        border: 1px solid #676767;
+        background-color: #fff;
+    }
+}
+
+    
+
+.cbManage:checked ~ .cbLabel:after {
+    content: '';
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAM1BMVEVSuIbK6dptxJqU07RVuoip3MPq9/D////0+/d3x6Cg2L1gvpD5/Pu648/h8+qEzalowZZz+Y+oAAAAWUlEQVQYGcXBSRaEIBBEwWT8VeB0/9N2+9wg7jVCr0k1dD1EoOhhBZpmfYGla1aAVbNsQNRgL1FKQNBgB/O8Aa5BAawBm0aHcUm6ceNUs+7c+GuaeYWQ9aEfkJICo13ukZMAAAAASUVORK5CYII=') /*/Images/cb1.png*/ no-repeat;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 1px;
+    left: 1px; /*rtl*/
+}
+
+.cbManage:checked + div {
+    display: inline-block;
+    width: 148px;
+    height: 100%;
+    position: absolute;
+    top: -3px;
+    left: -3px; /*rtl*/
+    z-index: -1;
+    border: 2px solid #83B641;
+    border-top: 4px solid #83B641;
+    border-radius: 4px;
+}
+
+.no-checked .cbManage {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.no-checked .cbLabel {
+    display: none;
+}
+
+.boxManage {
+    padding: 2px 0 20px;
+    font-size: 15px;
+
+    .btn1 {
+        margin: 0 5px 0 10px; /*rtl*/
+    }
+
+    ~ .quizBtn {
+        display: none;
+    }
+}
+
+    .boxManage + div + .boxItemList {
+        /*override .boxItemList > li:first-child*/
+        margin: 2px auto 0;
+        > li {
+            outline: 1px solid #ebebeb;
+            box-shadow: 0 1px 3px rgba(0,0,0,.3);
+            font-size: 13px;
+            color: #111;
+        }
+    }
+/*#endregion */
+
+/*#region friend callout */
+.callout {
+    //.transition(all, .1s ease .2s);
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    text-align: left;
+    //top: 48px;
+    //margin-left: -5px; /*rtl*/
+    //width: 171px;
+    width: 195px; // add to width to take russian into account
+    height: 48px;
+    color: #fff;
+    background: rgba(60, 52, 57, .9);
+    border-radius: 4px;
+    box-shadow: 3px 3px 3px rgba(70, 70, 70, .5); /*rtl*/
+    z-index: @layer-over;
+    font-size: 13px; // this is necessary (override font-size:0 on parent)
+    &:after {
+        .pseudo();
+        position: absolute;
+        top: -7px;
+        left: 15px; /*rtl*/
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -2px no-repeat;
+        width: 15px;
+        height: 8px;
+    }
+
+    &:hover {
+        // makes sure that while user hovers over the callout the callout doesn't disappear
+        visibility: visible;
+        opacity: 1;
+    }
+
+    > img {
+
+        border: 1px solid #fff;
+        margin: 7px 0 0 6px; /*rtl*/
+    }
+
+    > .coName {
+        position: absolute;
+        left: 50px; /*rtl*/
+        top: 7px;
+        max-width: 120px;
+    }
+
+    > button {
+        position: absolute;
+        left: 50px; /*rtl*/
+        font-size: 11px;
+        color: #e3e2e3;
+        top: 27px;
+
+        &:before {
+            .pseudo();
+            width: 12px;
+            height: 8px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAcCAMAAACwLaQWAAAAbFBMVEUAAAD///88NDn///88NDn///88NDn///88NDn///88NDk8NDk8NDn///88NDk8NDk8NDk8NDk8NDn///88NDk8NDn///88NDn///////88NDn///88NDk8NDk8NDk8NDn///////88NDk8NDmW+sIEAAAAI3RSTlMAVLpe0Q3hZupS1E4QRS3JNthyMq0iJAccPqBOk/VEYhY9X52pPmAAAACgSURBVHhedcrpFoIgEEBhxIARBM19a533f8e0sdE6dn9+54r/XesfKFCnX+AQcdhDuOCc2yDVuAQ1Q4aUTQlaiZ9ku0Cgg7JOHOUNF5OohKEj6VVJ4FVPEsVNF89Dc4/MKsY8lB/fJ4uJlBrNXiiWMuG8+JMETpPkJ4YbSZUPBDJUJFYXTz0PhTvDKgBVkFk+AWwCNq8z2AvFMp04KQ57AVKuDgx3YWG0AAAAAElFTkSuQmCC') /*/Images/callout-sprite.png*/ -1px -10px no-repeat;
+            margin-right: 4px; /*rtl*/
+        }
+    }
+}
+
+/*#endregion */
+/*path.penBorder {
+    stroke: @color;
+}
+.draft path.penBorder {
+    stroke: silver;
+}*/

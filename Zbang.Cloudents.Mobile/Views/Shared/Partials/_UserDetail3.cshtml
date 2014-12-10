@@ -1,0 +1,19 @@
+﻿@*@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserDetailDto*@
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div ng-if="::$root.user.isAuthenticated" class="userNav" ng-controller="UserDetailsCtrl">
+    <a ng-href="{{::user.url}}" class="userAnchor">
+        <img id="userImg" ng-src="{{::user.image}}" class="lFloat userImg" alt="user image" width="36" height="36" />
+        @*data-id we need for old code*@
+        <div id="userName" class="userName elps" title="{{::user.name}}">{{::user.firstName}}</div>
+        <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts" user-points>{{::user.score}}</div>
+    </a>
+    @{Html.RenderPartial("_SettingsAuth");}
+</div>
+
+<div class="userNav signUp" ng-if="!$root.user.isAuthenticated">
+    <button type="button" class="btn addRegister" login-btn="register">@LogOnResources.SignUp</button>
+    <button type="button" class="btn addConnect" login-btn>@SharedResources.SignIn</button>
+    @{Html.RenderPartial("_SettingsUnauth", false);}
+</div>

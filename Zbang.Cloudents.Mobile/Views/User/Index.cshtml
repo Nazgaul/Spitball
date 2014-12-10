@@ -1,0 +1,300 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.User.Resources
+
+
+<script type="text/ng-template" id="memberDepartmentToolTip.html">
+    <div class="upMemberBoxesWpr">
+        <div class="upMemberBoxes">
+            <div class="upMemberBoxesTitle semiFont">@UserResources.CoursesList</div>
+            <ul class="upMemberBoxList">
+                <li class="elps" ng-repeat="department in ::departments">{{::department.name}}</li>
+                <li ng-if="!departments.length">@UserResources.NoSelected</li>
+            </ul>
+            <div class="arrow downArrow"></div>
+        </div>
+    </div>
+</script>
+@*TEMP: UNDO NEW SEARCH*@
+@*<div class="searchInputWpr searchUser" ng-controller="SearchHeaderCtrl">
+    @{Html.RenderPartial("_BarSearch");}
+</div>*@
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
+<div class="userPage page" id="user" ng-controller="UserCtrl" ng-class="{ myPage : profile.isSelf }" >
+    <div class="upContentWpr" >
+        <div class="upTop">
+            @{Html.RenderPartial("_BarActions");}
+            <img class="upImg" ng-src="{{::profile.image | defaultImage:'user'}}" width="100" height="100" alt="" />
+            <div class="upDetails">
+                <h1 class="semiFont elps" id="upUsername">
+                    <span>{{::profile.name}}</span>
+                    <a class="settingsLink" ng-if="::profile.isSelf"
+                       href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
+                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                    </a>
+                </h1>
+                <div class="upSchool elps">{{::profile.universityName}}</div>
+            </div>
+            <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
+            @{Html.RenderPartial("_BarSearch");}
+             <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
+                @*TEMP: UNDO NEW SEARCH*@
+                @*<button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">*@
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+            </button>
+        </div>
+
+        <section class="upMembers" ng-if="admin.visible()">
+            <h2>@UserResources.UniMembers</h2>
+            <div class="membersContent" ng-class="{noResults : admin.members.list && !admin.members.list.length}">
+                <div class="membersTop">
+                    <input id="upMemberSettings" ng-checked="admin.members.selectAll" ng-click="toggleSelectAll()" type="checkbox" class="checkbox" />
+                    <label for="upMemberSettings" class="cbLabel">@SharedResources.All</label>
+                    <button type="button" class="btn3 messageBtn" ng-click="sendMembersMessage()" ng-show="admin.members.selected > 0">@SharedResources.Message</button>
+                    <div class="searchWpr rFloat">
+                        <span class="membersCount lFloat">{{::admin.members.fullList.length}} @SharedResources.Members</span>
+                        <div class="inputWpr">
+                            <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mobile.Views.Box.Resources.IndexResources.SearchMember" ng-keyup="filterMembers()" ng-model="admin.members.search" />
+                        </div>
+                    </div>
+                </div>
+                <div class="memberTopRow">
+                    <span class="memberCol">@SharedResources.Name</span>
+                    <input type="checkbox" class="checkbox" id="cbDept" />
+
+                    <span class="dateCol">@UserResources.JoinDate</span>
+                    <span class="courseCol">@SharedResources.Courses</span>
+                    <label for="cbDept" class="deptCol" ng-click="sortByDeptartment()">@SharedResources.Department</label>
+                    <div id="deptPopup" class="deptPopup">
+                        <ul>
+                            <li ng-repeat="department in admin.departments">
+                                <input id="{{'dep_' + department.id}}" ng-class="{selected : department.isChecked}" type="checkbox" class="checkbox" ng-model="department.isChecked" />
+                                <label for="{{'dep_' + department.id}}" class="cbLabel">{{::department.name}} {{::department.year}}</label>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <ul class="upMembersList" infinite-scroll="addMembersLimit()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false" infinite-scroll-element="true" load-spinner="admin.members.loading">
+                    <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
+                        <input id="mbr_{{::member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
+                        <label for="mbr_{{::member.id}}" class="cbLabel memberCol">
+                            <img class="friendImg" alt="" ng-src="{{::member.image | defaultImage:'user'}}" width="34" height="34" />
+                            <span class="upMemberName elps">{{::member.name}}</span>
+                        </label>
+
+                        <span class="dateCol">{{::member.joinDate | date:'dd/MM/yyyy'}}</span>
+                        <span class="courseCol"><span class="courseList" department-tooltip-popup department-user-id="{{::member.id}}" department-append-to-body="true"></span></span>
+                        <span class="deptCol elps">{{::member.department}}</span>
+
+                    </li>
+                </ul>
+                <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
+            </div>
+        </section>
+
+        <aside class="upSidebar rFloat">
+            <section ng-if="!admin.visible()">
+                <h2>@SharedResources.Points</h2>
+                <div class="pointsWpr" id="pointsWpr">
+                    <ul class="pointsList" data-counter counter-target="{{::profile.score}}">
+                        <li class="point"></li>
+                        <li class="point"></li>
+                        <li class="point"></li>
+                        <li class="point"></li>
+                        <li class="point"></li>
+                        <li class="point"></li>
+                    </ul>
+
+                    <div class="emptyPoints">
+                        <div class="semiFont">@UserResources.EarnBy</div>
+                        <p>@UserResources.PointsTxt9</p>
+                        <p>@UserResources.PointsTxt2</p>
+                        <p>@UserResources.PointsTxt1</p>
+                        <p>@UserResources.PointsTxt7</p>
+                        <p>@UserResources.PointsTxt6</p>
+                        <p>@UserResources.PointsTxt3</p>
+                        <p>@UserResources.PointsTxt4</p>
+                        <p>@UserResources.PointsTxt5</p>
+                        <p>@UserResources.PointsTxt8</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upUploads" load-spinner="activity.loading">
+                <h2>@SharedResources.Activity</h2>
+                <div class="upTabs" ng-class="activity.currentTab">
+                    <button type="button" class="fileCount" ng-click="setActivityTab('upTab1')"><span>{{::activity.items.list.length}} @SharedResources.Files |</span></button>
+                    <button type="button" class="qCount" ng-click="setActivityTab('upTab2')"><span>{{::activity.questions.list.length}} @SharedResources.Questions |</span></button>
+                    <button type="button" class="aCount" ng-click="setActivityTab('upTab3')"><span>{{::activity.answers.list.length}} @SharedResources.Answers</span></button>
+                </div>
+
+                <div class="upTabContent filesTab" ng-class="{empty: !activity.items.list.length}">
+                    <ul>
+                        <li class="uploadsItem" ng-repeat="item in activity.items.list | limitTo: activity.items.limit">
+                            <a ng-href="{{::item.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to item" analytics-label="User clicked on an item in activity section">
+                                <img class="upImg" alt="" width="55" height="67" ng-src="{{::item.image}}" />
+                                <div class="boxName clamp2">{{::item.name}}</div>
+                                <div class="stars">
+                                    <div class="full" ng-style="::{width : itemRating(item.rating) }"></div>
+                                </div>
+                                <div tooltip="@SharedResources.Views" class="views">{{::item.views}}</div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <button class="qaMore" type="button" ng-if="activity.items.list.length - activity.items.limit > 0" ng-click="addMoreActivity('items')">@SharedResources.ShowMore</button>
+
+                    <div class="emptyUploads emptyTab" ng-show="!activity.loading">@UserResources.NoFiles</div>
+                </div>
+
+                <div class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
+                    <ul>
+                        <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
+                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />
+                            <span class="qaBoxname elps">{{::question.boxName}}</span>
+                            <div class="qaWpr">
+                                <div class="qaQuestion" ng-bind-html="::question.content"></div>
+                                <a class="qLink rFloat" href="" ng-href="{{::question.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{::qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <button class="qaMore" type="button" ng-if="activity.questions.list.length - activity.questions.limit > 0" ng-click="addMoreActivity('questions')">@SharedResources.ShowMore</button>
+                    <div class="emptyQuestions emptyTab" ng-show="!activity.loading">@UserResources.NoQuestions</div>
+                </div>
+
+                <div class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
+                    <ul>
+                        <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
+                            <img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />
+                            <span class="qaBoxname elps">{{::answer.boxName}}</span>
+                            <div class="qaWpr">
+                                <img class="lFloat imgBorder" alt="" width="33" height="33" ng-src="{{::answer.qUserImage | defaultImage:'user'}}" />
+                                <span class="qaUsername semiFont elps">{{::answer.qUserName}}</span>
+                                <div class="qaQuestion" ng-bind-html="::answer.qContent"></div>
+                                <div class="answeredBy elps">{{::profile.name}}</div>
+                                <div ng-bind-html="::answer.content"></div>
+                                <a class="qLink rFloat" ng-href="{{::answer.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on an answer in the activity section">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{::answer.answersCount}}">&nbsp;@SharedResources.Answers</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="qaMore" type="button" ng-if="activity.answers.list.length - activity.answers.limit > 0" ng-click="addMoreActivity('answers')">@SharedResources.ShowMore</button>
+                    <div class="emptyAnswers emptyTab" ng-show="!activity.loading">@UserResources.NoAnswers</div>
+                </div>
+
+
+            </section>
+        </aside>
+
+        <div class="upContent">
+            <section class="upCourses" ng-if="!profile.isSelf" ng-class="{noCourses : !(boxes.following.list.length || boxes.common.list.length) }">
+                <h2>@UserResources.CoursesGroups</h2>
+                <div class="upSectionWpr"
+                     ng-class="{truncated : !((boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf)}"
+                     load-spinner="boxes.loading">
+                    <span ng-if="boxes.common.list.length">
+                        <h4 class="semiFont">@UserResources.InCommon</h4>
+                        <ul class="inCommonList clearfix">
+                            <li class="box" ng-repeat="box in boxes.common.list | limitTo: boxes.common.limit">
+                                <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in commmon course section">
+                                    <img class="boxImg" alt="" width="74" height="98" src="" ng-src="{{::box.picture | defaultImage:'box'}}">
+                                    <div class="boxWpr clamp2">
+                                        <span class="boxName">{{::box.name}}</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </span>
+                    <span ng-if="boxes.following.list.length">
+                        <h4 class="semiFont">@SharedResources.Following</h4>
+                        <ul class="followingList">
+                            <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit">
+                                <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in friend's courses section">
+                                    <img class="boxImg" alt="" width="74" height="98" src="" ng-src="{{::box.picture | defaultImage:'box'}}">
+                                    <div class="boxWpr clamp2">
+                                        <span class="boxName">{{::box.name}}</span>
+                                    </div>
+                                </a>
+                                <button type="button" class="btn3" ng-click="boxes.followBox(box)">@SharedResources.Join</button>
+                            </li>
+                        </ul>
+                    </span>
+                    <div ng-show="!boxes.following.list.length" class="coursesEmpty">@UserResources.NotFollowing</div>
+                </div>
+            </section>
+            <span ng-if="(boxes.following.list.length > boxes.following.init || boxes.common.list.length > boxes.common.init) && !profile.isSelf">
+                <input type="checkbox" class="upCb" id="coursesShow" ng-click="boxes.toggleShowAll()" />
+                <label id="coursesShowLabel" for="coursesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
+            <section ng-if="(friends.all.list.length || friends.common.list.length) && !admin.visible()" class="upFriends">
+                <h2>@SharedResources.Friends</h2>
+                <div class="upSectionWpr" ng-class="{truncated : !((friends.all.list.length > friends.all.init || friends.common.list.length > friends.common.init) && !admin.visible())}" load-spinner="friends.loading">
+
+                    <span ng-if="friends.common.list.length">
+                        <span ng-if="!profile.isSelf">
+                            <h4 class="semiFont">
+                                @UserResources.InCommon
+                            </h4>
+                        </span>
+                        <ul class="inCommonList">
+                            <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{friend.id}}">
+                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in common friends section"><img class="userItemImg" ng-src="{{friend.image | defaultImage:'user'}}" src="" width="74" height="74" /></a>
+                                <div class="userItemName">{{::friend.name}}</div>
+                            </li>
+                        </ul>
+                    </span>
+                    <span ng-if="friends.all.list.length">
+                        <span ng-if="friends.common.list.length">
+                            <h4 class="semiFont">@UserResources.AllFriends</h4>
+                        </span>
+                        <ul class="inAllFriendList">
+                            <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{friend.id}}">
+                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section"><img class="userItemImg" ng-src="{{::friend.image | defaultImage:'user'}}" src="" width="74" height="74" /></a>
+                                <div class="userItemName">{{::friend.name}}</div>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </section>
+            <span ng-if="(friends.all.list.length > friends.all.init || friends.common.list.length > friends.common.init) && !admin.visible()">
+                <input type="checkbox" class="upCb" id="friendsShow" ng-click="friends.toggleShowAll()">
+                <label id="friendsShowLabel" for="friendsShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
+
+            <section class="upInvites" ng-if="profile.isSelf" ng-class="{empty: !invites.list.length}">
+                <button class="inviteFriendBtn btn3 rFloat" ng-click="inviteCloudents()">@SharedResources.InviteFriends</button>
+                <h2>@SharedResources.Invites</h2>
+                <div class="upSectionWpr" ng-class="{ truncated : !((invites.list.length > invites.init) && profile.isSelf)}" load-spinner="invites.loading">
+
+                    <ul class="upInviteList">
+                        <li class="upInviteItem" ng-repeat="invite in invites.list | limitTo: invites.limit" ng-class="{ upPending: !invite.status}">
+                            <img class="userItemImg" width="74" height="74" ng-src="{{::invite.userImage | defaultImage:'user'}}" />
+                            <div class="usrName semiFont elps">{{::invite.userName}}</div>
+                            <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
+                            <div class="invitedToWpr">
+                                <img class="upImg" alt="" width="30" height="30" ng-src="{{::invite.boxPicture || '/Images/cloudents1-57x57.png'}}" />
+                                <div class="invitedTo elps">{{::invite.boxName || 'Cloudents'}}</div>
+                            </div>
+                            <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{::invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
+                        </li>
+                    </ul>
+
+                    <div class="emptyInvites" ng-show="!invites.loading">
+                        <span>@UserResources.FindFriends</span>
+                        @*<a href="@Url.RouteUrl("InviteCloudents")" target="_self" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>*@
+                    </div>
+                </div>
+            </section>
+            <span ng-if="(invites.list.length > invites.init) && profile.isSelf">
+                <input type="checkbox" class="upCb" id="invitesShow" ng-click="invites.toggleShowAll()">
+                <label id="invitesShowLabel" for="invitesShow" data-up-showall="@SharedResources.ShowAll" data-up-showless="@SharedResources.ShowLess" class="upShowAll"></label>
+            </span>
+        </div>
+    </div>
+    <div fb-block ng-if="params.facebookInvite"></div>
+</div>

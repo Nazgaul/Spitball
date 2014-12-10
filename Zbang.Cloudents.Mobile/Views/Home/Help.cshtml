@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Zbang.Cloudents.Mvc4WebRole.Models.FAQ.Category>
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@{
+    ViewBag.Title = "Cloudents Help Center";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+
+<div class="staticPage faq">
+    <div class="faqContentWpr">
+        <h1 class="semiFont">@SharedResources.CloudentsHelp</h1>
+        <aside class="faqSidebar rFloat">
+            <div>@SharedResources.StillHave</div>
+            <button type="button" class="contactLink"> @SharedResources.ContactUs</button>
+        </aside>
+        <div class="faqContent">
+            @{int index = 1;
+              foreach (var category in Model)
+              {
+                <h2 class="semiLight">@category.Name</h2>
+                <ul>
+                    @foreach (var faq in category.QuestionNAnswers)
+                    {
+                        <li class="faqItem">
+                            <input type="checkbox" id="@string.Format("faq-{0}", index)">
+                            <label class="question" for="@string.Format("faq-{0}", index)">@faq.Question</label>
+                            <div class="answer">@Html.Raw(faq.Answer)</div>
+                            @{index++;
+                            }
+                        </li>
+                    }
+                </ul>
+                
+              }
+            }
+        </div>
+    </div>
+</div>
+@section scripts {
+    @Html.Script2("faq")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.question').click(function () {
+                $(this).next().slideToggle({ duration: 400 });
+            });
+        });
+
+    </script>
+}

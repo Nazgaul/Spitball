@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Zbang.Cloudents.Mobile.Models.Resources;
 
-namespace Zbang.Cloudents.Mobile.Filters
+namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public sealed class ValidatePasswordLengthAttribute : ValidationAttribute, IClientValidatable
     {

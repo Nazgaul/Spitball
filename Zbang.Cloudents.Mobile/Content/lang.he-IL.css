@@ -1,0 +1,39 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region home page */
+.homeContent h1 {
+  font-weight: normal;
+}
+.headingTexts .facebook,
+.headingTexts .email {
+  width: 185px;
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .language.language {
+    margin-top: 261px;
+  }
+}
+/*#endregion */
+.register .cbLabel {
+  display: block;
+  /*rtl*/
+}
+.quizAnswersList {
+  list-style-type: hebrew;
+}
+.chairman {
+  display: block;
+  /*rtl*/
+}
+.quizAList li {
+  list-style-type: hebrew;
+}
+/*#region IE 9+ ONLY CODE HERE */
+@media screen and (min-width: 0\0) {
+  .quizAnswersList,
+  .quizAList li {
+    list-style-type: decimal;
+  }
+}

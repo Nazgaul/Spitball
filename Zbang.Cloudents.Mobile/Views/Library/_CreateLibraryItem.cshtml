@@ -1,0 +1,15 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.CreateLibraryItem
+<div class="modal-header">
+    <h3 class="modal-title"><span>@DialogResources.CreateItem</span></h3>
+</div>
+<div class="modal-body">
+    <form name="createDepartmentForm" novalidate ng-submit="create(createDepartmentForm.$valid)">
+        <input name="name" type="text" required class="inputText required" ng-model="formData.name" autofocus autocomplete="off"/>
+        <button type="submit" class="btn1 next" ng-disabled="createDepartmentForm.name.$error.required">@DialogResources.Create</button>
+        <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+    </form>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

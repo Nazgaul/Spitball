@@ -1,0 +1,41 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+<div class="barActions rFloat">
+    <div dropdown ng-controller="NotificationsCtrl" on-toggle="updateState(open)">
+        <button type="button" class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
+                @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+            <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
+        </button>
+        <div class="notifyWpr dropdown-menu" role="menu" >
+            <div height="525" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addNotifications()">
+                <ul class="notifyList">
+                    <li class="notifyItem" ng-class="{new : !notification.isRead }" ng-repeat="notification in ::notifications | limitTo:params.notificationsListLength">
+                        <a ng-href="{{notification.url}}" ng-click="markAsRead(notification)">
+                            <img class="notifyImg" ng-src="{{notification.userPic | defaultImage:'user'}}" alt="" />
+                            <div class="notifyDetails">
+                                <span class="semiFont notifier elps">{{notification.userName}}</span>
+
+                                <span class="createTime" display-time="{{::notification.date}}"></span><br />
+                                <div class="inviteTxtWpr">
+                                    @SharedResources.InvitesYou&nbsp;<span class="semiFont">"{{notification.boxName}}"</span>
+                                </div>
+                            </div>
+                        </a>
+                        <button type="button" class="trash">
+                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="notifyEmpty dropdown-menu" ng-if="!notifications.length">
+                @Html.Svg("~/Images/Defs.svg", "notificationCloud", new { @class = "svg-notificationCloud" })
+                <div>@SharedResources.NoNotifications</div>
+            </div>
+        </div>
+    </div>
+    <a title="@SharedResources.Help" target="_self" class="helpLink rFloat" href="@Url.Action("Help", "Home")">
+        @Html.Svg("~/Images/Defs.svg", "help", new { @class = "svg-help" })
+    </a>
+    @*<a title="" class="lFloat storeLink" href="/store">
+            @Html.Svg("~/Images/Defs.svg", "bag", new { @class = "svg-bag" })
+        </a>*@
+</div>

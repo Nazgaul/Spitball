@@ -1,0 +1,883 @@
+﻿@import "varsAndMixins";
+
+.QA {
+    overflow: hidden;
+    width: 491px;
+    color: @textColor;
+    //text-align: left; /*rtl*/
+    //position: fixed;
+    //.transition(top 1s ease-in);
+    //top: 150px;
+    //top: 212px;
+    //right: 20px; /*rtl*/
+    //height: 100%;
+    //z-index: 1; // QA to appear above box items on narrow screen
+    //background: url(/Images/gray_jean80.png?v=1) repeat #fff; // On narrow screen - QA needs background. (TODO: maybe set this in a separate media query??)
+
+    //background: rgba(217, 217, 217, 0.65);
+    //border-radius: 5px 5px 0 0;
+
+    &.changeState {
+        .QWpr {
+            left: -344px; //rtl
+            z-index: 0;
+            opacity: 0;
+        }
+
+        .AWpr {
+            left: 0; //rtl
+            z-index: 2;
+        }
+
+        .QForm {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back {
+            opacity: 1;
+            visibility: visible;
+            padding-bottom: 10px;
+        }
+    }
+
+    &.flipTransition {
+        .QWpr, .AWpr {
+            //.transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900) 1s);
+        }
+
+        .QForm {
+            //.transition(all, .5s ease 0s);
+        }
+
+        .back {
+            //.transition(all, .5s ease 0s);
+            //-webkit-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   -moz-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   -o-transition: visibility .5s ease 0s,opacity .5s ease 0s;
+             //   transition: visibility .5s ease 0s,opacity .5s ease 0s;
+        }
+
+        .QItem {
+            .transition(all, .2s ease 1s);
+        }
+    }
+
+    .back {
+        height: 29px;
+        position: relative;
+        top: 5px;
+        left: 7px; //rtl
+        .QForm {
+            margin-top: 40px;
+        }
+    }
+    .userName
+    {
+        max-width: 205px;
+    }
+    .createTime {
+        margin-top: 9px;
+    }
+}
+
+.QForm {
+    margin: 10px 7px 0 7px;
+
+    .textareaWpr {
+        width: 350px;
+        min-height: 40px;
+    }
+
+    .QTextarea {
+        //width: 308px; - causes problems with zoom
+        width: ~'-webkit-calc(100% - 44px)';
+        width: ~'calc(100% - 44px)';
+        margin-top: 6px;
+    }
+
+    .QAImg {
+        margin: 3px 0 0 8px; //rtl
+    }
+    .attachBtn {
+        display: inline-block;
+    }
+}
+.QWpr, .AWpr {
+
+    &.ng-enter, 
+    &.ng-leave
+    { 
+        //.transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900));
+        //display: block;
+    }
+}
+.QWpr {
+    display: inline-block;
+    position: absolute; // I intentionally do not set top here
+    //left: 0; /*rtl*/
+    //margin-top: 32px;
+    margin-top: 8px;
+    //padding-top: 15px;
+    .transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900));
+    width: 365px; //place the vertical scroll inside by 1px
+    //height: ~'-webkit-calc(100vh - 277px)';
+    //height: ~'calc(100vh - 277px)';
+    //overflow-x: hidden;
+    //overflow-y: auto; 
+    //&:not(.ng-animate):not(.ng-enter-active) {
+        //left:0;
+    //}
+    //&:not(.ng-leave-active) {
+        //left:0;
+    //}
+    /*&.ng-leave,
+    &.ng-enter.ng-enter-active    {
+        
+        left: 0; //rtl
+        margin-top: 8px;
+        opacity:1;
+        display: inline-block;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        opacity: 0;
+        left: -344px; //rtl
+    }*/
+}
+
+.AWpr {
+    //width: 354px;
+    //margin: 6px 6px 0 6px;
+    margin: 8px 0 0 0;
+    width: 363px;
+    position: absolute; // I intentionally do not set top here
+    //left: 376px;
+    z-index: 10;
+    .transition(all, .8s cubic-bezier(0.460, 0.075, 0.725, 0.900));
+    .qaAttach {
+        width: 303px;
+    }
+    /*&.ng-leave, 
+    &.ng-enter.ng-enter-active  {
+        opacity: 1;
+        left: 0; //rtl
+    }
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        left: 376px; //rtl
+        opacity: 0;
+    }*/
+}
+
+
+textarea:invalid {
+    box-shadow: none;
+}
+
+.qaText1 {
+    font-size: 22px;
+    color: #383838;
+    text-align: center;
+    padding-top: 20px;
+    line-height: 24px;
+    font-weight: 300;
+}
+
+.qaText2 {
+    font-size: 14px;
+    color: rgba(103,103,103,.5);
+    text-align: center;
+    margin-top: 70px;
+}
+
+.QAImg {
+    width: 32px;
+    height: 32px;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+}
+
+.textareaWpr {
+    background: #fff;
+    //display: inline-block;
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.QTextarea {
+    padding: 6px 5px 3px 8px; /*rtl*/
+    .boxSizing;
+    border: none;
+    line-height: 16px;
+    width: 327px;
+    height: 29px;
+    max-height: 150px;
+    font-size: 15px; //FL
+}
+
+    .QTextarea::-webkit-input-placeholder {
+        color: #676767;
+    }
+
+    .QTextarea::-moz-placeholder {
+        color: #676767;
+        opacity: 1;
+    }
+
+    .QTextarea:-ms-input-placeholder {
+        color: #676767;
+    }
+
+.attachedList {
+    padding: 0 8px 3px 50px; /*rtl*/
+}
+
+.attachedItem {
+    background: #f0f0f0;
+    border-radius: 3px;
+    border: 1px solid #c2c2c2;
+    padding-left: 6px; /*rtl*/
+    display: inline-block;
+    margin: 3px 5px 3px 0; /*rtl*/
+}
+
+.attachName {
+    display: inline-block;
+    max-width: 100px;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.removeAttach {
+    width: 20px;
+    height: 22px;
+    position: relative;
+
+    &:before {
+        .pseudo;
+        background: @borderColor;
+        width: 1px;
+        height: 22px;
+        position: absolute;
+        left: 0; /*rtl*/
+        top: 0;
+        //margin-top: 6px;
+    }
+
+    &:after {
+        .pseudo;
+        background: @common-sprite -68px -15px no-repeat;
+        width: 10px;
+        height: 10px;
+        vertical-align: top;
+        margin-top: 5px;
+    }
+}
+
+.askBtn {
+    border-radius: 5px;
+    background: @attentionBlue;
+    color: #fff;
+    font-size: 15px;
+    min-width: 80px;
+    padding: 1px 13px;
+    margin-top: 3px;
+    /*display: none;*/
+    height:24px;
+
+    &:disabled {
+        background: #aaa;
+    }
+}
+
+.attachBtn {
+    width: 15px;
+    height: 13px;
+    margin: 8px 8px 0 8px;
+    background: @qa-sprite -85px -1px no-repeat;
+    display: none;
+    vertical-align: top;
+
+    &:hover {
+        background-position: -85px -16px;
+    }
+
+    &:disabled {
+        opacity: .5;
+    }
+}
+
+.commentFocused /* used in CommentsViewModel.js*/ {
+    min-height: 60px;
+}
+
+.QAContent {
+    overflow-y: auto;
+    overflow-x: hidden; //for animation
+    position: relative; //for animation
+    height: 100%;
+    width: 366px;
+    z-index: -1;
+}
+
+.QEmptyForm {
+    margin: 20px 6px 0 6px;
+    padding: 9px 9px 10px 6px; /*rtl*/
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    position: relative;
+
+    &:before {
+        content: '';
+        display: block;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAAAxCAMAAACGe2DGAAAAY1BMVEX////CwsLa2trc3Nz///////////////////8AAADr6+vY2Njs7Oz+/v7Z2dnMzMzo6OjCwsLCwsLq6ur+/v74+Pj7+/v7+/v29vbCwsLQ0ND39/fJycnCwsLFxcXCwsLt7e0XpgVLAAAAIXRSTlP1GkDU68WAoEAA9aBT9cGAxXQ17PHn69egDYiVwmBOpYBr6UH6AAABk0lEQVRo3u3Y23KDIBSFYSHH3TYq1BwgSvL+T9kxaQScFjSSjBfrv+bqmz0D7IxIlKuu42Fpq3YZ6rerHKHD3tKVBWVEDTCTYIobZg7MZzGPfUwDzCSYTYspfUwnYI7AzO+YmMwkmOaGWWMyR2Au/8OULSarV7Y9MGOTGcRUwEwxmTVrMQmYz2LuR2BWGQpjOnK1umFegJkCk/7AxNsoWBXB1CUwp2Ne7piFi4lXe7BdDFMAczpmqVtM7OASbeBaTHzOk2Dm5o5JIi8fLb7dPlA/z2fRueWafjGJi0e6zp0WqJ/LU186N0Mdpk3qtdNpg/xOZ4fnyqkLmBMxtQxjMmCGMddjMAtgJsNUwByOWTBgvg2TgDkCU0UwhXv6vEHAfFlnD5MimM0VmEMxBTDfiGk8TNxAAcxrE8OUGpgDMbWMYZIpbPoT+enC1lAUkxTrkuYLeUlmoximH+Nb5MZdwZGYCpjAfATMOccVMGeBScBMiCm3CJgvShIwgTnHgDkXTPwnvfgkTCU5skkVwYzEkI3C/QAQM1PL+w9FhAAAAABJRU5ErkJggg==') /*/Images/multi2.png*/ no-repeat;
+        width: 332px;
+        height: 49px;
+        position: absolute;
+        bottom: -50px;
+    }
+
+    .userName {
+        font-size: 13px;
+        line-height: 32px;
+        padding-left: 8px; /*rtl*/
+        display: inline-block;
+    }
+
+    .QTextarea {
+        min-height: 29px;
+        //width: 298px; - causes problems with zoom
+        width: ~'-webkit-calc(100% - 44px)';
+        width: ~'calc(100% - 44px)';
+        .placeholderColor(@attentionBlue);
+    }
+
+    .askBtn {
+        margin-bottom: 0;
+    }
+
+    .textareaWpr {
+        margin-left: 3px; /*rtl*/
+    }
+}
+
+.QList {
+    //width: 354px;
+    //margin: 0 6px;
+    padding: 0 15px;
+    width: 336px;
+    position: relative;
+    visibility: visible;
+    .transition(all .3s);
+}
+
+.QItem {
+    margin-bottom: 8px;
+    //background: #fff;
+    .transition(all, .2s ease);
+
+    .textareaWpr {
+        margin: 6px 0 0 0;
+        width: 274px;
+    }
+    .attachedList {
+        padding: 0 8px 3px 8px;
+    }
+    .askBtn {
+        margin: 2px 6px 7px 0; /*rtl*/
+    }
+
+    .attachBtn {
+        margin-top: 7px;
+        vertical-align: top;
+    }
+    .tag{
+        position: absolute;
+        right: 0; //rtl
+        top: 11px;
+        color: #F0F8FF;
+        z-index: 1;
+        padding: 1px 6px 2px 6px;
+        &:after
+        {
+            width: 4px;
+            height: 22px;
+            background-position: -25px -119px;
+        }
+    }
+    &.selected {
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        overflow: hidden; //hide round corner child overflow
+        .QTop {
+            background: #d9d9d9;
+        }
+
+        .QBottom {
+            background: #fafafa;
+        }
+    }
+    .userName {
+        display:inline-block;
+        margin:7px 0 0 10px; /*rtl*/
+        
+    }
+    .AUsername {
+        display:inline-block;
+        margin-top: 14px;
+        max-width: 210px;
+    }
+    .postAnswer{
+        background: #f5f5f5;
+        border-radius: 0 0 3px 3px;
+        padding-bottom: 3px;
+        overflow: hidden;
+        ~ .QBottom {
+            display: none;
+        }
+        .attachBtn {
+            display: inline-block;
+        }
+    }
+    .upArrow{
+        margin-bottom: -9px;
+        &:before {
+            bottom: -6px;
+        }
+    }
+}
+.QBottom {
+    background: #f5f5f5; //FL
+    border-radius: 0 0 3px 3px;
+    .seeMore {
+        color: #66a1cf;
+        clear: both;
+        margin-left: 55px; /*rtl*/
+        cursor: pointer;
+    }
+
+    .upArrow:before {
+        bottom: -6px;
+    }
+
+    .createTime {
+        margin-top: 15px;
+    }
+}
+
+
+.answerBottom {
+    border-bottom: 1px solid @borderColor;
+    padding: 4px 3px;
+    margin: -10px 15px 0 15px;
+    //padding: 4px 13px;
+    > button {
+        color: #66a1cf;
+        padding-right: 5px; /*rtl*/
+    }
+}
+
+.numAnswers {
+    position: relative;
+
+    &:after {
+        content: '|';
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        color: #676767;
+        margin: 0 2px 0 3px; /*rtl*/
+    }
+}
+
+.QTop {
+    border-bottom: 1px solid @borderColor;
+    padding: 6px 10px 2px 6px; /*rtl*/
+    position: relative;
+    //background: #fafafa;
+    background: #fff; //FL
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+
+    + div .QAImg, + form .QAImg {
+        margin: 6px 6px 6px 15px; /*rtl*/
+    }
+
+    &.hasAttached {
+        padding-bottom: 4px;
+
+        .attachBtn, .numAttached {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .attachBtn {
+            width: 16px;
+            height: 8px;
+            background-position: -85px -30px;
+        }
+
+        .numAttached {
+            //display: inline-block;
+            display: none; //TODO: check if the numAttached element should be removed from design
+        }
+    }
+}
+
+.QTopLeft {
+    width: 32px;
+    text-align: center;
+}
+
+.numAttached {
+    display: none;
+}
+
+.QContent {
+    padding: 0 0 10px 10px; /*rtl*/
+    color: @textColor;
+    display: block;
+    overflow: hidden; // create new bfc
+    font-size: 15px;
+    .break;
+    line-height: 17px;
+
+    > a {
+        -ms-word-break: break-all;
+        word-break: break-all; // bug 613
+        color: #676767;
+
+        &:hover {
+            color: @attentionBlueHover;
+        }
+    }
+}
+
+.AContentWpr {
+    max-height: 70px;
+    overflow: hidden;
+}
+
+.AContent {
+    font-size: 15px;
+    display: block;
+    overflow: hidden;
+    padding: 7px 10px 7px 0; /*rtl*/
+    line-height: 19px; /* diff rtl*/
+}
+
+.AMore {
+    color: #4f92c8;
+    margin: 4px 0 8px 44px; /*rtl*/
+    display: block;
+
+    &:hover {
+        color: #146eb5;
+    }
+}
+
+.attachLeft {
+    width: 44px;
+    text-align: center;
+    margin-top: 12px;
+
+    .attachBtn, .numAttached {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .attachBtn {
+        width: 16px;
+        height: 8px;
+        background-position: -85px -30px;
+    }
+
+    .numAttached {
+        display: none; //TODO: check if the numAttached element should be removed from design
+    }
+}
+
+.qaAttach {
+    //margin: 12px 0; // since margin was being shown even when there were no attachments
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin: 0 0 5px 44px; /*rtl*/
+}
+
+.qaAttachItem {
+    border: 1px solid @borderColor;
+    margin: 12px 7px 0 0; /*rtl*/
+    display: inline-block;
+    height: 125px;
+    position: relative;
+
+    &:hover .attachActions {
+        visibility: visible;
+        bottom: 0;
+    }
+}
+
+.attachActions {
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    background: rgba(0,0,0,.65);
+    position: absolute;
+    left: 0; /*rtl*/
+    bottom: -25px;
+    visibility: hidden;
+    .transition(all .1s);
+    text-align: center;
+}
+
+.attachFull {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: @qa-sprite -2px -2px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -2px -21px;
+    }
+}
+
+.attachDelete {
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    background: @qa-sprite -22px -2px no-repeat;
+    margin: -3px 3px 0 3px;
+    vertical-align: middle;
+
+    &:hover {
+        background-position: -22px -21px;
+    }
+}
+
+.attachDownload {
+    display: inline-block;
+    width: 14px;
+    height: 15px;
+    background: @qa-sprite -38px -3px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -38px -22px;
+    }
+}
+
+.questions, .answers {
+    position: relative;
+}
+
+.question {
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    background: #fff;
+    padding: 6px 6px 0 6px;
+    margin: 0 14px;
+    position: relative; //for the delete btn
+    .questionRhs {
+        overflow: hidden; // new bfc
+    }
+
+    .QContent {
+        font-size: 15px;
+        color: #383838;
+        padding: 0 0 10px 8px; //override other padding values  /*rtl*/
+        line-height: 17px;
+        margin-top: -5px;
+        /*&:hover {
+            text-decoration: none;
+        }*/
+    }
+
+    .views {
+        padding-top: 5px;
+        margin: 0; // override .views class
+    }
+
+    .deleteBtn {
+        top: 9px;
+        right: 5px; /*rtl*/
+    }
+}
+
+    .question .userName, .AItem .userName {
+        max-width: 210px;
+        display: inline-block;
+        margin-left: 8px; /*rtl*/
+        line-height: 32px;
+    }
+
+.AList {
+    margin: 0 21px;
+}
+
+.AItem {
+    padding: 8px 0;
+    border-top: 1px solid @borderColor;
+    position: relative; // used for bestanswer and mark as anser btn
+    margin-right: -25px; //rtl for the delete btn
+    &.best {
+        border-top: none;
+        padding-top: 0;
+
+        .bestAnswer {
+            display: block;
+        }
+
+        &:first-child {
+            margin-top: 3px;
+        }
+
+        .markAnswerBtn {
+            display: block; // don't need to hover li to see it
+            background-position: -57px -85px; //override bacground position
+            top: 55px; // to take into account the 'best answer' top header
+            &:hover, &:active {
+                background-color: transparent; // override hover,active effects
+            }
+        }
+    }
+
+    &:hover .markAnswerBtn {
+        display: block;
+    }
+
+    .AContent {
+        padding: 0 0 0 44px; //override other properties /*rtl*/
+        overflow: visible; // override hidden
+        max-height: none; // override the 3 line max
+    }
+
+    .deleteBtn {
+        margin: 6px 7px 0 0; /*rtl*/
+        top: 9px;
+        right: 0; //rtl
+
+    }
+}
+
+.question, .AItem {
+    &:hover .deleteBtn {
+        display: block;
+    }
+
+    .deleteBtn {
+        border: none; //override box deletebtn
+        opacity: 0.65;
+        display: none;
+        position: absolute;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+    .AItem:first-child {
+        border-top: none;
+    }
+
+/*#region QnA game - OBSOLETE */
+/*.bestAnswer {
+    color: @attentionColor;
+    display: none;
+    font-size: 13px;
+}
+
+.voteBtn {
+    line-height: 32px;
+
+    &:before {
+        .pseudo;
+        width: 11px;
+        height: 11px;
+        background: @qa-sprite -54px -1px no-repeat;
+        vertical-align: middle;
+    }
+
+    &:hover:before {
+        background-position: -54px -13px;
+    }
+
+    &:active:before {
+        background-position: -54px -25px;
+    }
+}
+
+.aScore {
+    margin-right: 5px; //rtl
+    line-height: 32px;
+}
+
+.markAnswerBtn {
+    display: none;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 9px; //rtl
+    top: 45px;
+    background: @boxSprite -57px -47px no-repeat;
+
+    &:hover {
+        background-position: -57px -66px;
+    }
+
+    &:active {
+        background-position: -57px -85px;
+    }
+}*/
+
+
+
+/*#endregion */
+
+.enterAnswer {
+    margin: 6px 14px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0,0,0,.25);
+
+    .QTextarea {
+        width: 280px;
+    }
+
+    .textareaWpr {
+        //width: 280px;
+        //margin: 0 0 0 3px; //overide other values
+        margin: 0 0 5px 40px; //rtl overide other values
+    }
+    .attachBtn {
+        display: inline-block;
+    }
+}
+
+.QAfloatButton {
+    position: fixed;
+    bottom: -6px; // there is a margin now eliminate it
+    right: 27px; /*rtl*/
+    width: 340px;
+}
+
+.createTime {
+    font-size:11px;
+    color:#676767;
+    display:inline-block;    
+    vertical-align:top;
+    margin-left: 5px; /*rtl*/
+    &.innerSection {
+        margin-top:9px;
+    }
+}

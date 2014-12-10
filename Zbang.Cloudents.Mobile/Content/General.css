@@ -381,236 +381,8 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region popup */
-.modal2 {
-  background: rgba(17, 17, 17, 0.5);
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-  position: fixed;
-  z-index: 12;
-}
-.popupForm .field-validation-error,
-.popupForm .validation-summary-errors {
-  margin-left: 15px;
-  /*rtl*/
-}
-.closeDialog {
-  background-color: transparent;
-  width: 11px;
-  height: 11px;
-  background: url(/Images/common17-sprite.png?v=4) -79px -26px no-repeat;
-  position: absolute;
-  top: 15px;
-  right: 12px;
-  /*rtl*/
-}
-.closeModal {
-  position: absolute;
-  top: 12px;
-  right: 20px;
-}
-.popupWrppr .cancel,
-.modal .cancel {
-  margin-left: 10px;
-  /*rtl*/
-}
-.popupWrppr .btn1,
-.modal .btn1,
-.popupWrppr .btn2,
-.modal .btn2 {
-  margin-top: 18px;
-}
-.popupWrppr .inputText,
-.modal .inputText {
-  height: 28px;
-  padding: 0 4px 0 8px;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-}
-.popupWrppr .inviteMsg,
-.modal .inviteMsg {
-  width: 100%;
-  max-height: 176px;
-  min-height: 117px;
-  padding: 8px 8px 5px 11px;
-  /*rtl*/
-  font-size: 15px;
-  outline-color: transparent;
-  resize: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #383838;
-  border-radius: 3px;
-}
-.popupWrppr .inviteMsg::-webkit-input-placeholder,
-.modal .inviteMsg::-webkit-input-placeholder {
-  color: #676767;
-}
-.popupWrppr .inviteMsg:-moz-placeholder,
-.modal .inviteMsg:-moz-placeholder {
-  color: #676767;
-  opacity: 1;
-}
-.popupWrppr .inviteMsg::-moz-placeholder,
-.modal .inviteMsg::-moz-placeholder {
-  color: #676767;
-  opacity: 1;
-}
-.popupWrppr .inviteMsg:-ms-input-placeholder,
-.modal .inviteMsg:-ms-input-placeholder {
-  color: #676767;
-}
-.popupWrppr {
-  position: fixed;
-  margin: 0 auto;
-  right: 0;
-  left: 0;
-  top: 20%;
-  width: 558px;
-  z-index: 13;
-  background-color: #fff;
-  padding: 0 20px 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #383838;
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
-}
-.popupWrppr.addSchool {
-  text-align: left;
-  /*rtl*/
-}
-.popupWrppr.addSchool label {
-  color: #383838;
-  margin-bottom: 4px;
-  font-size: 15px;
-  display: inline-block;
-}
-.popupWrppr.addSchool .inputText {
-  display: block;
-}
-.popupWrppr.addSchool .inputText.schoolName {
-  margin-bottom: 10px;
-}
-.popupWrppr.addSchool .country {
-  width: 261px;
-  margin-right: 13px;
-  /*rtl*/
-}
-.popupWrppr.addSchool .schoolType {
-  width: 230px;
-}
-.popupWrppr.addSchool select {
-  padding: 3px;
-  font-size: 13px;
-}
-.popupWrppr.requestSent {
-  display: none;
-  min-height: 0;
-  -webkit-animation: fadein 0.5s 0 ease;
-  -moz-animation: fadein 0.5s 0 ease;
-  -o-animation: fadein 0.5s 0 ease;
-  animation: fadein 0.5s 0 ease;
-}
-.popupWrppr.requestSent .closeDialog {
-  background-position: -68px -14px;
-}
-.modal .lecturerRadio:checked ~ label:not(.statusLabel),
-.modal .lecturerRadio:checked ~ select,
-.modal .lecturerRadio:checked ~ .dptDetail {
-  display: none;
-}
-.requestSentDiv {
-  font-size: 18px;
-  padding-left: 18px;
-  /*rtl*/
-  width: 374px;
-  white-space: pre-line;
-}
-.requestSentDiv.first {
-  color: #0f9d58;
-  font-size: 28px;
-  /*diff rtl*/
-  margin: 20px 0 15px;
-  width: auto;
-}
-/*#endregion */
-/*#region connect and register pages */
-.facebook {
-  width: 100%;
-}
-.fbTxt {
-  font-size: 12px;
-  color: #a9a9a9;
-  text-align: center;
-  position: relative;
-  top: 5px;
-}
-.enterTitle {
-  font-size: 24px;
-  color: #383838;
-  text-align: center;
-  margin-bottom: 23px;
-}
-.staticWpr {
-  margin: 20px auto;
-  text-align: center;
-  font-size: 15px;
-  border: 1px solid #dcdcdc;
-  background: #fff;
-  border-radius: 5px;
-  padding: 40px 0;
-}
-.staticWpr.popupWrppr {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 490px;
-  margin: 0 auto;
-  padding: 20px 50px;
-  background: #f5f5f5;
-  display: none;
-}
-.staticWpr.popupWrppr ~ .modal2 {
-  display: none;
-}
-.staticWpr.popupWrppr .closeDialog {
-  background-position: -68px -15px;
-}
-.staticWpr.register {
-  max-height: none;
-  top: 10%;
-}
-.staticWpr.register .emailBtn {
-  border: 1px solid #c2c2c2;
-}
-.staticWpr.connect,
-.staticWpr.register {
-  display: block;
-}
-.staticWpr.connect ~ .modal2,
-.staticWpr.register ~ .modal2 {
-  display: block;
-}
-.staticWpr.connect.popupWrppr,
-.staticWpr.register.popupWrppr {
-  max-height: none;
-}
-/*#region Welcome Store */
-iframe .registerFirst.store {
-  bottom: auto;
-  top: 310px;
-}
-.registerFirst.store {
+/*#region Coupon popup */
+.modal.couponPopup {
   width: 860px;
   height: 613px;
   top: 0;
@@ -618,13 +390,10 @@ iframe .registerFirst.store {
   background-color: transparent;
   border: none;
 }
-.registerFirst.store .welcomeStore {
-  display: block;
-}
-.registerFirst.store .signInUp {
+.modal.couponPopup .signInUp {
   display: none;
 }
-.registerFirst.store:before {
+.modal.couponPopup:before {
   content: '';
   display: inline-block;
   background: url(/Images/Store/store-popup.png) no-repeat;
@@ -634,34 +403,26 @@ iframe .registerFirst.store {
   top: 0;
   left: 0;
   right: 0;
-  margin: auto;
-  margin-right: 32px;
+  margin: auto 32px auto auto;
 }
-.registerFirst.store .facebook,
-.registerFirst.store .emailBtnWpr {
+.modal.couponPopup .facebook,
+.modal.couponPopup .emailBtnWpr {
   width: 210px;
   margin: 0 30px;
   min-width: 0;
   display: inline-block;
   vertical-align: top;
 }
-.registerFirst.store .registerContent {
-  display: none;
-}
-.registerFirst.store .emailBtn {
+.modal.couponPopup .emailBtn {
   margin: 0;
 }
-.registerFirst.store .signupBtns {
+.modal.couponPopup .signupBtns {
   text-align: center;
   position: relative;
   left: -6px;
   top: 3px;
 }
-.registerFirst.store .signupBtns p {
-  display: none;
-}
 .welcomeStore {
-  display: none;
   text-align: center;
   font-size: 20px;
   margin: 200px auto 0;
@@ -700,18 +461,18 @@ iframe .registerFirst.store {
   color: #39434a;
   margin-bottom: 20px;
 }
-.couponWpr.couponWpr {
+.couponWpr {
   text-align: center;
   position: relative;
 }
-.couponWpr.couponWpr .btn1 {
+.couponWpr .btn1 {
   display: inline-block;
   margin: 0;
   width: auto;
   height: 34px;
   font-size: 18px;
 }
-.couponWpr.couponWpr .userHelp {
+.couponWpr .userHelp {
   color: #39434a;
   margin: 7px 0 0 0;
   padding: 1px 0 0 0;
@@ -720,14 +481,14 @@ iframe .registerFirst.store {
   font-size: 14px;
   cursor: pointer;
 }
-.couponWpr.couponWpr .helpPopup {
+.couponWpr .helpPopup {
   margin: auto;
   top: -77px;
   width: 315px;
   left: 0;
   right: 0;
 }
-.couponWpr.couponWpr .helpPopup:before {
+.couponWpr .helpPopup:before {
   border-color: #0371c8 transparent transparent transparent;
   top: auto;
   bottom: -16px;
@@ -735,14 +496,81 @@ iframe .registerFirst.store {
   right: auto;
   border-width: 16px 9px 0 9px;
 }
-.couponWpr.couponWpr .inputText {
+.couponWpr .inputText {
   width: 185px;
   margin: 0;
   display: inline-block;
   vertical-align: top;
   font-size: 18px;
 }
+iframe .couponPopup {
+  bottom: auto;
+  top: 310px;
+}
 /*#endregion */
+.popupForm .field-validation-error,
+.popupForm .validation-summary-errors {
+  margin-left: 15px;
+  /*rtl*/
+}
+.closeDialog {
+  background-color: transparent;
+  width: 11px;
+  height: 11px;
+  background: url(/Images/common17-sprite.png?v=4) -79px -26px no-repeat;
+  position: absolute;
+  top: 15px;
+  right: 12px;
+  /*rtl*/
+}
+.closeModal {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+.modal .lecturerRadio:checked ~ label:not(.statusLabel),
+.modal .lecturerRadio:checked ~ select,
+.modal .lecturerRadio:checked ~ .dptDetail {
+  display: none;
+}
+.requestSentDiv {
+  font-size: 18px;
+  padding-left: 18px;
+  /*rtl*/
+  width: 374px;
+  white-space: pre-line;
+}
+.requestSentDiv.first {
+  color: #0f9d58;
+  font-size: 28px;
+  /*diff rtl*/
+  margin: 20px 0 15px;
+  width: auto;
+}
+/*#endregion */
+/*#region connect and register pages */
+.fbTxt {
+  font-size: 12px;
+  color: #a9a9a9;
+  text-align: center;
+  position: relative;
+  top: 5px;
+}
+.enterTitle {
+  font-size: 24px;
+  color: #383838;
+  text-align: center;
+  margin-bottom: 23px;
+}
+.staticWpr {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 5px;
+  padding: 40px 0;
+}
 .emailBtn {
   color: #676767;
   background: #FFF;
@@ -823,6 +651,7 @@ iframe .registerFirst.store {
   display: none;
 }
 .facebook {
+  width: 100%;
   cursor: pointer;
   padding: 8px 15px 9px 55px;
   /*rtl*/
@@ -925,17 +754,17 @@ iframe .registerFirst.store {
   position: relative;
   top: -2px;
 }
-.desktop .firstName,
-.desktop .lastName {
+.desktop.desktop .firstName,
+.desktop.desktop .lastName {
   width: 48%;
   display: inline-block;
   margin-bottom: 22px;
 }
-.desktop .firstName + .field-validation-error {
+.desktop.desktop .firstName + .field-validation-error {
   margin: 2px 0 0 4%;
   /*rtl*/
 }
-.desktop .lastName + .field-validation-error {
+.desktop.desktop .lastName + .field-validation-error {
   margin-top: 58px;
   display: block;
 }
@@ -1270,12 +1099,6 @@ aside.sideBar .last {
   bottom: 6px;
   background: #fff;
 }
-/*.moreArrow:after { // ^ and v
-    .pseudo;
-    width: 9px;
-    height: 7px;
-    background: @common-sprite -98px -49px no-repeat;
-}*/
 /*#endregion */
 /*#region tooltip1 - "first time" */
 /*.quizGuideTemplate {
@@ -1832,7 +1655,6 @@ aside.sideBar .last {
   clear: both;
   visibility: hidden;
 }
-/* When used on inline elements: need to add display:inline-block and width for it to work*/
 .elps {
   overflow: hidden;
   -ms-text-overflow: ellipsis;
@@ -2021,12 +1843,6 @@ select.inputText {
   display: inline-block;
   vertical-align: middle;
 }
-/*.iconTxt:before {
-    .pseudo;
-    vertical-align: middle;
-    background: @common-sprite no-repeat; // override for different sprites
-    margin-right: 6px; //rtl
-}*/
 .showAll {
   color: #0371c8;
   font-size: 11px;
@@ -2135,31 +1951,6 @@ select.inputText {
   -o-animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
   -webkit-animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
   animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
-}
-/*#endregion */
-/*#region user items (used in search page and user page) */
-.userItem {
-  display: inline-block;
-  height: 116px;
-  margin-right: 31px;
-  /*rtl*/
-  overflow: hidden;
-  text-align: center;
-  width: 76px;
-  vertical-align: top;
-  margin-bottom: 20px;
-}
-.userItemImg {
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  margin-bottom: 6px;
-}
-.userItemName {
-  line-height: 15px;
-  height: 36px;
-}
-.userItemName .sHighlight {
-  padding: 0;
 }
 /*#endregion */
 .mtouch .boxRename.boxRename,
@@ -2368,4 +2159,3 @@ select.inputText {
   position: absolute;
   left: -2000px;
 }
-/*#endregion*/

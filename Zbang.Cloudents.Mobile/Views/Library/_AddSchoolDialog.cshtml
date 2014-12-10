@@ -1,0 +1,50 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Library.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+
+<div class="createSchool" ng-style="{display: display.createUniversity ? 'block' : 'none'}">
+    <div class="top">
+        <button type="button" style="display:none">@MainViewResources.UploadLogo</button>
+    </div>
+    <form class="clearfix" novalidate name="createUniversityForm" ng-submit="createUniversitySubmit(createUniversityForm.$valid)">
+        @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
+        @*@Html.ValidationSummary(true)*@
+
+
+        @Html.LabelFor(m => m.Name)
+        @*@Html.ValidationMessageFor(m => m.Name)*@
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText schoolName", ng_model = "formData.createUniversity.name", required = "required", ng_keyup = "createSearch()" })
+        <ul class="uniList" ng-style="{display: createUniversities.length > 0 ? 'block' : 'none'}">
+            <li ng-repeat="university in createUniversities track by university.id" ng-click="selectUniversity(university)">
+                <span class="uniDetails">
+                    <span class="uniName elps boldFont">{{::university.name}}</span>
+                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@>{{::university.membersCount}}</span>
+                </span>
+            </li>
+            <li class="emptySearch">@SharedResources.NoResults</li>
+        </ul>
+
+        <div class="lFloat countryWpr">
+            @Html.LabelFor(m => m.Country)
+            @Html.EditorFor(m=>m.Country, new { ng_init = "formData.createUniversity.country="+ Model.Country})
+            @*<select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.country"  required>
+
+                </select>*@
+            @*@Html.ValidationMessageFor(m => m.Country)*@
+            @*@Html.TextBoxFor(m => m.Country, new { @class = "inputText country", ng_model = "formData.createUniversity.country", required = "required" })*@
+        </div>
+        <div class="rFloat schoolTypeWpr">
+            @Html.LabelFor(m => m.Type)
+            <select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.type" required>
+                <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
+                <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
+                <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
+                <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
+            </select>
+        </div>
+        <input type="submit" class="rFloat btn1 next" value="@DialogResources.Create" ng-disabled="createUniversityForm.$invalid" />
+        <button type="reset" class="rFloat btn2 cancel" ng-click="backUniversity()">@SharedResources.Back</button>
+    </form>
+</div>

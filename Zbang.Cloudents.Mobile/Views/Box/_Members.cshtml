@@ -1,0 +1,32 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="membersContent" ng-controller="BoxMembersCtrl">
+    <div class="membersTop">
+        <button type="button" class="rFloat btn3 inviteFriendsBtn" tooltip="@IndexResources.Invite" ng-click="inviteFriends()">@IndexResources.Invite</button>        
+        <div class="searchWpr">
+            <span class="membersCount lFloat">{{params.membersLength}} @SharedResources.Members</span>
+            <div class="inputWpr">
+                <input class="membersSearch" ng-model="params.search" type="search" placeholder="@IndexResources.SearchMember" ng-keyup="searchMembers()"/>
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li class="memberItem" ng-class="{reinvited: member.reinvited,uninvited: member.uninvited}" ng-repeat="member in members">
+            <a ng-href="{{member.url}}"><img class="friendImg" alt="" ng-src="{{member.image | defaultImage:'user'}}" width="34" height="34" /></a>
+            <span class="memberName elps" ng-bind="member.name"></span>
+            <span class="memberStatus" ng-class="{memberPending : member.userStatus === 'invite'}" ng-if="member.userStatus !== 'owner'">
+                {{userStatus(member.userStatus)}}
+                <span class="reinvite" ng-if="member.reinvitedItem">@IndexResources.Reinvited</span>
+                <span class="uninvite" ng-if="member.uninvitedItem">@IndexResources.Uninvited</span>
+            </span>
+            <span class="rFloat memberActions">
+                <button ng-if="member.id !== params.userId && member.id" type="button" title="@DialogResources.SendMessage" class="inviteUserBtn" ng-click="sendUserMessage(member)"></button>
+                <button ng-if="member.id !== params.userId && info.ownerId === params.userId" type="button" title="@SharedResources.Remove" class="removeUserBtn" ng-click="removeUser(member)" ng-disabled="member.action"></button>
+                <button ng-if="member.userStatus === 'invite'" type="button" class="reinviteUserBtn btn1" ng-click="reinviteUser(member)" ng-disabled="member.action">@IndexResources.Reinvite</button>
+            </span>
+        </li>
+    </ul>
+    <div fb-block ng-if="params.facebookInvite"></div>
+
+</div>

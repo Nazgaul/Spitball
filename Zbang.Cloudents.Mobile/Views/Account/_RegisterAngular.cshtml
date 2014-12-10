@@ -1,0 +1,68 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Zbox.Infrastructure.Culture
+
+<form name="registerForm" class="register desktop" ng-submit="register(registerForm.$valid)" novalidate>
+    <div class="ng-message-errors lFloat" ng-messages="registerForm.firstName.$touched && registerForm.firstName.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>        
+    </div>   
+    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName" ng-model="formData.register.firstName" required />
+
+    <div class="ng-message-errors rFloat" ng-messages="registerForm.lastName.$touched && registerForm.lastName.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+    </div>   
+    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName" ng-model="formData.register.lastName" required />
+
+    <div class="ng-message-errors" ng-messages="registerForm.newEmail.$touched && registerForm.newEmail.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="email">Email</span>
+    </div>   
+    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email" ng-model="formData.register.newEmail"  required />
+
+    <div class="ng-message-errors" ng-messages="registerForm.confirmEmail.$touched && registerForm.confirmEmail.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="email">Email</span>
+        <span class="ng-message-error" ng-message="match">Match</span>
+    </div>   
+    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail" ng-model="formData.register.confirmEmail"  required ng-match="newEmail" />
+
+    
+    <div class="ng-message-errors" ng-messages="registerForm.password.$touched && registerForm.password.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>        
+        <span class="ng-message-error" ng-message="minLength">Length</span>
+    </div>   
+    <input class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6" required />
+
+    
+    <input id="maleRadio" name="IsMale" type="radio" />
+    <label class="genderLabel first" for="maleRadio">זכר</label>
+    <input id="femaleRadio" name="IsMale" type="radio">
+    <label class="genderLabel" for="femaleRadio">נקבה</label>
+
+    <select class="inputText rFloat" name="Language.Language">
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.HebrewName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.RussianName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ArabicName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+    </select>
+
+
+    <input checked="checked" class="checkbox" data-val="true" data-val-required="The מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית field is required." id="MarketEmail" name="MarketEmail" type="checkbox" value="true" />
+    <label class="cbLabel" for="MarketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
+
+    <div class="formBottom">
+        <span class="acceptTerms">
+            @RegisterResources.IAgree
+            <!--
+            -->
+            <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices&nbsp;</a>@RegisterResources.And&nbsp;
+            <!--
+            -->
+            <a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
+        </span>
+        <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp" />
+    </div>
+</form>
+
