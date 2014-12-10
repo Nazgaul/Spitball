@@ -227,13 +227,15 @@
                     return;
                 }
 
-                $angularCacheFactory.get('htmlCache').removeAll();                
+                $angularCacheFactory.get('htmlCache').removeAll();
+
+                $analytics.eventTrack('Account settings', {
+                    category: 'Language Change',
+                    label: 'User changed language to ' + $scope.languageForm.selected
+                });
 
                 sAccount.changeLanguage({ language: $scope.languageForm.selected }).then(function () {
-                    $analytics.eventTrack('Account settings', {
-                        category: 'Language Change',
-                        label: 'User changed language to ' + $scope.languageForm.selected
-                    });
+
 
                     $window.location.reload();
                 });
