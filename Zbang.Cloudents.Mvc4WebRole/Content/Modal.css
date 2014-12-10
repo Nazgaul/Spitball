@@ -101,17 +101,7 @@
 }
 .modal.welcome .modal-body {
   border-radius: 6px;
-<<<<<<< HEAD
-  /*.animation(fadein);
-            + .modal-body {
-                display: none;
-            }
-            &.ng-animate {
-                display:none;
-            }*/
   overflow: hidden;
-=======
->>>>>>> 479f0d35760e32a0dd2eb9d24a6473ea2fb2cf63
 }
 .modal.welcome .svg-close {
   fill: #282828;
@@ -1126,6 +1116,10 @@
   position: relative;
   width: 100%;
   color: #d1294d;
+}
+.register .ng-message-errors {
+  width: 48%;
+  display: inline-block;
 }
 .ng-message-error {
   position: absolute;

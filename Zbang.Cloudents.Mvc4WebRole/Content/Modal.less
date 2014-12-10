@@ -1270,6 +1270,15 @@
     width:100%;        
     color: @errorColor;
 }
+
+
+.register { 
+    .ng-message-errors {        
+        width:48%;
+        display:inline-block;
+    }
+}
+
 .ng-message-error {
     position:absolute;
     opacity:1;    
@@ -1294,8 +1303,7 @@
 .ng-message-error.ng-leave.ng-leave-active {
     opacity:0;
     bottom:8px; 
-}
-/*#endregion */
+}/*#endregion */
 
 
 /*#region Share by email AKA message */
