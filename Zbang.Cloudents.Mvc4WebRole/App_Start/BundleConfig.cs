@@ -82,6 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterCss("static", "~/Content/Normalize.css",
                 "~/Content/General.css",
+                "~/Content/HomeAndStatic.css",
                 "~/Content/Header.css",
                 "~/Content/Animations.css",
                 "~/Content/Static.css");
@@ -89,6 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             RegisterCss("home", "~/Content/Normalize.css", 
                 "~/Content/General.css",
+                "~/Content/HomeAndStatic.css",
                 "~/Content/Home.css");
 
             RegisterCss("homeRtl", "~/Content/GeneralRtl.css",

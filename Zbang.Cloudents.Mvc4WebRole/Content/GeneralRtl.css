@@ -71,27 +71,9 @@ input[type="radio"].radio:checked + label:after {
   left: 20px;
   right: auto;
 }
-.popupWrppr .cancel,
-.modal .cancel {
-  margin: 18px 10px 0 0;
-  /*rtl*/
-}
 .popupWrppr .inputText,
 .modal .inputText {
   padding: 0 8px 0 4px;
-  /*rtl*/
-}
-.popupWrppr .inviteMsg,
-.modal .inviteMsg {
-  padding: 8px 11px 5px 8px;
-  /*rtl*/
-}
-.popupWrppr.addSchool {
-  text-align: right;
-  /*rtl*/
-}
-.popupWrppr.addSchool .country {
-  margin: 0 0 0 13px;
   /*rtl*/
 }
 .requestSentDiv {
@@ -506,12 +488,6 @@ aside.sideBar li {
 .ptsPopup:after {
   margin: 0;
   /* diff rtl*/
-}
-/*#endregion */
-/*#region user items (used in search page and user page) */
-.userItem {
-  margin: 0 0 20px 31px;
-  /*rtl*/
 }
 /*#endregion */
 /*#region Firefox only CSS */

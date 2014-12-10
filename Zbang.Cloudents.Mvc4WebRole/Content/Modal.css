@@ -101,6 +101,7 @@
 }
 .modal.welcome .modal-body {
   border-radius: 6px;
+<<<<<<< HEAD
   /*.animation(fadein);
             + .modal-body {
                 display: none;
@@ -109,6 +110,8 @@
                 display:none;
             }*/
   overflow: hidden;
+=======
+>>>>>>> 479f0d35760e32a0dd2eb9d24a6473ea2fb2cf63
 }
 .modal.welcome .svg-close {
   fill: #282828;

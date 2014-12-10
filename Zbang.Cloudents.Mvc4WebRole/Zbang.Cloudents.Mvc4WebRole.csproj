@@ -606,6 +606,9 @@
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
+    <Content Include="Content\HomeAndStatic.css">
+      <DependentUpon>HomeAndStatic.less</DependentUpon>
+    </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>
@@ -1115,6 +1118,7 @@
     <Content Include="Content\BoxFeedRtl.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
+    <Content Include="Content\HomeAndStatic.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

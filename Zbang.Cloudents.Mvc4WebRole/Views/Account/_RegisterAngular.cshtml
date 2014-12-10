@@ -3,37 +3,37 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <form name="registerForm" class="register desktop" ng-submit="register(registerForm.$valid)" novalidate>
-    <div class="ng-message-errors" ng-messages="registerForm.firstName.$touched && registerForm.firstName.$error">
+    <div class="ng-message-errors lFloat" ng-messages="registerForm.firstName.$touched && registerForm.firstName.$error">
         <span class="ng-message-error" ng-message="required">Required</span>        
     </div>   
-    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName" required />
+    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName" ng-model="formData.register.firstName" required />
 
-    <div class="ng-message-errors" ng-messages="registerForm.lastName.$touched && registerForm.lastName.$error">
+    <div class="ng-message-errors rFloat" ng-messages="registerForm.lastName.$touched && registerForm.lastName.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
     </div>   
-    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName" required />
+    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName" ng-model="formData.register.lastName" required />
 
     <div class="ng-message-errors" ng-messages="registerForm.newEmail.$touched && registerForm.newEmail.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
         <span class="ng-message-error" ng-message="email">Email</span>
     </div>   
-    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email" required />
+    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email" ng-model="formData.register.newEmail"  required />
 
     <div class="ng-message-errors" ng-messages="registerForm.confirmEmail.$touched && registerForm.confirmEmail.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
         <span class="ng-message-error" ng-message="email">Email</span>
         <span class="ng-message-error" ng-message="match">Match</span>
     </div>   
-    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail" required ng-match="newEmail" />
+    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail" ng-model="formData.register.confirmEmail"  required ng-match="newEmail" />
 
     
     <div class="ng-message-errors" ng-messages="registerForm.password.$touched && registerForm.password.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
-        
+        <span class="ng-message-error" ng-message="required">Required</span>        
+        <span class="ng-message-error" ng-message="minLength">Length</span>
     </div>   
     <input class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6" required />
 
-    <span class="field-validation-error"></span>
+    
     <input id="maleRadio" name="IsMale" type="radio" />
     <label class="genderLabel first" for="maleRadio">זכר</label>
     <input id="femaleRadio" name="IsMale" type="radio">
