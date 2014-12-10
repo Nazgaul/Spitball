@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = @MobileResources.Password;
+    Layout = "~/Views/Shared/_LayoutStatic.mobile.cshtml";
+}
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+
+@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Confirmation
+
+<div class="pwdSent">
+    <h1 class="boldFont">@PasswordSentResources.CheckEmail</h1>
+        
+    <p>@PasswordSentResources.WeEmailed</p>
+    <p>@PasswordSentResources.EnterBelow</p>
+        
+    @using (Html.BeginForm("Confirmation", "Account", FormMethod.Post))
+    {
+        Html.RenderAction("AntiForgeryToken", "Home", true);
+                
+        @Html.LabelFor(m => m.Code)
+        @Html.ValidationMessageFor(m=>m.Code)
+        @Html.TextBoxFor(m => m.Code, new { @class = "inputText", autofocus = "autofocus" })
+
+        @Html.HiddenFor(m => m.Key)
+                
+        <button type="submit" class="btn1">@PasswordSentResources.Continue</button>
+            
+    }
+
+
+</div>

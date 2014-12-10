@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zbang.Cloudents.Mobile.Models.Account
+namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
     public class Invite
     {

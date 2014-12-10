@@ -1,0 +1,18 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<section class="uploadFiles" ng-controller="UploadCtrl">
+    <header>@DialogResources.UploadFiles</header>
+
+    <div class="dragDropArea" id="wizFileZone" pl-upload box-id="{{box.id}}" destroy drop-area="wizFileZone" analytics-on="click" analytics-category="Create box wizard upload" analytics-event="Choose Files">@DialogResources.DragAndDrop</div>
+
+    <div class="uploadSrcWpr">
+        <button type="button" class="linkBtn" ng-click="saveLink()">@DialogResources.SiteLink</button>
+        <button type="button" class="dropBoxBtn" ng-click="saveDropbox()">Dropbox</button>
+        <button type="button" class="driveBtn" ng-click="saveGoogleDrive()">Google Drive</button>
+    </div>
+
+    <div class="btnWpr">        
+        <input type="button" class="btn1" ng-click="completeWizard()" value="@DialogResources.Continue" />
+    </div>
+</section>

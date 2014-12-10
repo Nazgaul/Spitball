@@ -1,0 +1,21 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.Profile
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using (Html.BeginForm("ChangeProfile", "Account", FormMethod.Post, new { @class = "profileForm", id = "Profile" }))
+{ 
+    <div class="topContent">
+        <div class="profileImg rFloat">
+            <img id="accountSettingsThumb" width="80" height="80" src="@Model.Image" alt="" />
+            <button type="button" id="uplImage">@SharedResources.Edit</button>
+        </div>
+        <div class="name">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "inputText", @placeholder = @SharedResources.FirstName, id = "Name" })@Html.ValidationMessageFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.MiddleName, new { @class = "inputText", @placeholder = @SharedResources.MiddleName })@Html.ValidationMessageFor(m => m.MiddleName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "inputText", @placeholder = @SharedResources.LastName })@Html.ValidationMessageFor(m => m.LastName)
+        </div>
+    </div>
+    @Html.LabelFor(m => m.University) <a class="changeUni changeProp" href="@Url.Action("Choose", "Library")">@SharedResources.Change</a>
+    @Html.TextBoxFor(m => m.University, new { @class = "inputText", disabled = "disabled" })
+
+    @*<button type="submit" class="btn1 rFloat profileSubmit">@AccountSettingsResources.SaveChanges</button>*@
+}

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCloudents" xml:space="preserve">
+    <value>حول Cloudents</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>متاح في كل مكان</value>
+  </data>
+  <data name="BecomePartner" xml:space="preserve">
+    <value>تعلم كيف تصبح شريكا</value>
+  </data>
+  <data name="DailyViews" xml:space="preserve">
+    <value>مشاهدات المستندات اليومية</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>ملفات كل أسبوع</value>
+  </data>
+  <data name="FilesAdded" xml:space="preserve">
+    <value>الملفات المضافة هذا الأسبوع</value>
+  </data>
+  <data name="GetAnwers" xml:space="preserve">
+    <value>إذا كان لديك سؤال حول الفصل بالأمس، وما الذي ينبغي أن تقرأه خلال الأسبوع القادم أو ما هو جوهر ذلك الفصل اياُ كان، فإن Cloudents موجودة هنا للمساعدة. اطرح سؤالاُ، واحصل على الإجابة من طالب زميل.</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>إبدأ، أنه مجاني وسريع</value>
+  </data>
+  <data name="Homepage" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
+  <data name="JoinUnions" xml:space="preserve">
+    <value>الانضمام إلى المنظمات الطلابية الرائدة</value>
+  </data>
+  <data name="LetsYouShare" xml:space="preserve">
+    <value>توجد روابط إلى المحاضرات عبر الإنترنت، ويمكنك مشاركة ومقارنة الملاحظات من فصل هذا الصباح، كذلك يمكنك تحميل مواد القراءة أو مناقشة مشروع مجموعتك، كل هذا في مكان واحد.</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>بدعم وتطوير من قبل الطلاب، تقوم Cloudents بمساعدة الطلاب على الدراسة بشكل أفضل من خلال العمل معا.</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>الأسئلة والإجابات</value>
+  </data>
+  <data name="QuestionsAdded" xml:space="preserve">
+    <value>الأسئلة المضافة هذا الشهر</value>
+  </data>
+  <data name="SocialStudy" xml:space="preserve">
+    <value>إنها أكثر من مجرد دراسة،
+إنها دراسة اجتماعية</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>الطلاب</value>
+  </data>
+  <data name="StudyPlatform" xml:space="preserve">
+    <value>تعتبر Cloudents منصة مجانية على الإنترنت والهاتف الجوال للدراسة الاجتماعية.</value>
+  </data>
+  <data name="WatchShare" xml:space="preserve">
+    <value>شاهد وشارك</value>
+  </data>
+  <data name="WhenItSuits" xml:space="preserve">
+    <value>الدراسة في أي وقت يناسبك، من أي جهاز كمبيوتر، جوال أو كمبيوتر لوحي لديك.
+من خلال 10 جيجا بايت مساحة تخزين شخصية يتم التأمين والنسخ الاحتياطي الدائم لمحتوياتك.</value>
+  </data>
+  <data name="SignUpNow" xml:space="preserve">
+    <value>اشترك الآن مع:</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Cloudents هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال. أنضم إلى الثورة الدراسة الاجتماعية من خلال Cloudents الآن.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Cloudents | مساعدة الطلاب للحصول على دراسة أفضل من خلال العمل سويا</value>
+  </data>
+  <data name="PlayVideo" xml:space="preserve">
+    <value>تشغيل الفيديو</value>
+  </data>
+</root>

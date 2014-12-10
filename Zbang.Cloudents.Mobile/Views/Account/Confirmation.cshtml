@@ -1,0 +1,34 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Confirmation
+@{
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+
+
+
+<div class="emailSent">
+    <div class="staticTitle">@PasswordSentResources.CheckEmail</div>
+    <div class="staticWpr">
+        <div class="innerContent">
+            <p class="firstP">@PasswordSentResources.WeEmailed</p>
+            <p class="lastP">@PasswordSentResources.EnterBelow</p>
+            @using (Html.BeginForm("Confirmation", "Account", FormMethod.Post))
+            {
+                Html.RenderAction("AntiForgeryToken", "Home", true);
+                @Html.ValidationSummary(true)
+
+                @Html.LabelFor(m => m.Code)
+                @Html.ValidationMessageFor(m=>m.Code)
+                @Html.TextBoxFor(m => m.Code, new { @class = "inputText", autofocus = "autofocus" })
+
+                @Html.HiddenFor(m => m.Key)
+                
+                <button type="submit" class="btn1">@PasswordSentResources.Continue</button>
+            
+            }
+            <div class="boldFont">@PasswordSentResources.DidNotReceive</div>
+            <div>@PasswordSentResources.CheckSpam&nbsp;<a href="@Url.Action("ResetPassword", "Account")" class="linkBtn" >@PasswordSentResources.SendAnother</a></div>
+        </div>
+    </div>
+</div>
+

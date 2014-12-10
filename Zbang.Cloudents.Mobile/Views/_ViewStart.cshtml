@@ -1,3 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout3.cshtml";
+    DisplayModeProvider.Instance.RequireConsistentDisplayMode = true;
+    
 }

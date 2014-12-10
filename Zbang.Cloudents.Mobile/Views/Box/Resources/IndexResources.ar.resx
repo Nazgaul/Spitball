@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>اضافة</value>
+  </data>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>أضف إجابتك</value>
+  </data>
+  <data name="AllQuestions" xml:space="preserve">
+    <value>كل الأسئلة</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>الإجابة</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>اسأل</value>
+  </data>
+  <data name="AskStudent" xml:space="preserve">
+    <value>اسأل طالب زميل ...</value>
+  </data>
+  <data name="BackToAllBoxes" xml:space="preserve">
+    <value>العودة لجميع الصناديق </value>
+  </data>
+  <data name="BestAnswer" xml:space="preserve">
+    <value>أفضل إجابة</value>
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value>صندوق</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>تعليقات</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف  </value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تنزيل</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>تنزيل المرفقات</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>المجلدات</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>اعضاء</value>
+  </data>
+  <data name="GoAhead" xml:space="preserve">
+    <value>اسأل طالب زميل</value>
+  </data>
+  <data name="HaveAnswer" xml:space="preserve">
+    <value>هل لديك الإجابة؟</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>دعوة صديق </value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>خصصوصية</value>
+  </data>
+  <data name="JoinGroup" xml:space="preserve">
+    <value>انضم إلى المجموعة</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>رابط</value>
+  </data>
+  <data name="MarkCorrect" xml:space="preserve">
+    <value>وضع علامة كإجابة صحيحة</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>اعضاء </value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>المزيد</value>
+  </data>
+  <data name="NeedHelp" xml:space="preserve">
+    <value>هل تريد مساعدة؟ هل لديك ما تقوله؟
+ امض قدما - أطرح سؤال </value>
+  </data>
+  <data name="NoQuestions" xml:space="preserve">
+    <value>لا توجد أسئلة هنا حتى الآن</value>
+  </data>
+  <data name="NotClear" xml:space="preserve">
+    <value>هل لديك سؤال ملح؟</value>
+  </data>
+  <data name="NoThanks" xml:space="preserve">
+    <value>لا شكراً</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>بقيمة</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>إزالة المرفقات</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>ارسل رسالة </value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>مشاركة</value>
+  </data>
+  <data name="ShowAttachment" xml:space="preserve">
+    <value>إظهار المرفقات</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>بطاقة </value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>رفع</value>
+  </data>
+  <data name="Useful" xml:space="preserve">
+    <value>هذا مفيد</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>عرض الكل </value>
+  </data>
+  <data name="BoxSettings" xml:space="preserve">
+    <value>إعدادات الصندوق</value>
+  </data>
+  <data name="LinksTo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Syllabus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>عضو نشط</value>
+  </data>
+  <data name="CourseNumber" xml:space="preserve">
+    <value>رقم المنهج</value>
+  </data>
+  <data name="Lecturer" xml:space="preserve">
+    <value>المحاضر</value>
+  </data>
+  <data name="LecturerName" xml:space="preserve">
+    <value>اسم المحاضر</value>
+  </data>
+  <data name="LinksTo1" xml:space="preserve">
+    <value>روابط لمواقع ذات صلة أو فيديوهات على TED، YouTube، محاضرات على الإنترنت، الخ</value>
+  </data>
+  <data name="NotifyMe" xml:space="preserve">
+    <value>أخبرني عن:</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>رقم</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="Reinvite" xml:space="preserve">
+    <value>تم دعوته مرة أخرى</value>
+  </data>
+  <data name="Reinvited" xml:space="preserve">
+    <value>تم دعوته مرة أخرى</value>
+  </data>
+  <data name="SearchMember" xml:space="preserve">
+    <value>البحث بالاسم</value>
+  </data>
+  <data name="Syllabus1" xml:space="preserve">
+    <value>مثل المنهج الدراشي أو القراء أو الامتحانات القديمةأو محاضراتك أو ملاحظاتك أو ملخصاتك</value>
+  </data>
+  <data name="Uninvited" xml:space="preserve">
+    <value>لم يتم دعوته</value>
+  </data>
+  <data name="InviteBox" xml:space="preserve">
+    <value>دعوة أشخاص إلى صندوق المجموعة هذا باستخدام:</value>
+  </data>
+  <data name="InviteCourse" xml:space="preserve">
+    <value>دعوة أشخاص إلى هذا المسار التعليمي باستخدام:</value>
+  </data>
+  <data name="ShareBox" xml:space="preserve">
+    <value>مشاركة هذا الإطار المجموعة</value>
+  </data>
+  <data name="ShareCourse" xml:space="preserve">
+    <value>مشاركة هذه الدورة</value>
+  </data>
+  <data name="MyFriends" xml:space="preserve">
+    <value>أصدقائي</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>اكتب تعليقاً...</value>
+  </data>
+  <data name="CreatedCourse" xml:space="preserve">
+    <value>خلقت هذه الدورة</value>
+  </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>ما الذي يدور في ذهنك؟</value>
+  </data>
+  <data name="BestInClass" xml:space="preserve">
+    <value>الأفضل في فئتها لدينا</value>
+  </data>
+</root>

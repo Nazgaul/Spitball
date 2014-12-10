@@ -1,0 +1,64 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Share.Resources
+
+<section class="socialInvite" ng-controller="SocialInviteCtrl" ng-class="params.stateClass">
+    <header>@IndexResources.InviteFriends</header>
+
+    <div class="socialWpr">
+        <button class="cloudentsBtn" ng-click="selectState('cl')" ng-disabled="inviteCloudents">
+            @Html.Svg("~/Images/Defs.svg", "cloudentsSocial")
+        </button>
+        <button class="fbBtn" ng-click="selectState('fb')">
+            @Html.Svg("~/Images/Defs.svg", "fbSocial")
+        </button>
+        <button class="gmailBtn" ng-click="selectState('go')">
+            @Html.Svg("~/Images/Defs.svg", "gmailSocial")
+        </button>
+    </div>
+
+    <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
+        <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
+        <div height="285" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
+            <ul class="socialList" ng-class="{noResults : users.length === 0}">
+                <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
+                    <img width="64" height="64" ng-src="{{::contact.image | defaultImage:'user'}}" alt="" />
+                    <div class="contactName">{{::contact.name}}</div>
+                    <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
+                </li>
+                <li class="emptySearch">@SharedResources.NoResults</li>
+            </ul>
+        </div>
+        <div class="socialConnect">
+            <div class="socialConnectTxt" data-find-fb="@IndexResources.FindFb" data-find-gm="@IndexResources.FindGmail"></div>
+            <button class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>
+        </div>
+    </div>
+    <div class="btnWpr">
+        @*<button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>*@
+        <button type="button" class="btn1" ng-click="nextStep()" data-continue="@DialogResources.Continue" data-done="@DialogResources.Done"></button>
+    </div>
+    <div fb-block ng-if="params.facebookInvite"></div>
+</section>
+<aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl">
+    <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()" input-resizer>
+        <h3>@IndexResources.InviteViaEmail</h3>
+
+        <div class="inputText emailUser" ng-click="focusInput()">
+            <div class="inviteEmailListWpr">
+                <ul class="emailList">
+                    <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
+                        <span class="emailText">{{email.address}}</span><button type="button" class="removeItem" ng-click="remove(email)"></button>
+                    </li>
+                </ul>
+                <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"
+                       ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
+            </div>
+        </div>
+        <div class="invSent">
+            <h4>@InviteResources.Success!</h4>
+            <div>@InviteResources.MailSent</div>
+        </div>
+        <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || (!(formData.emailInput.length) && params.validEmails === 0) || params.invalidEmails > 0">@DialogResources.Send</button>
+    </form>
+</aside>

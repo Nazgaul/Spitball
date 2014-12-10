@@ -47,8 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
 
         public static void RegisterBundle(
-            IDictionary<string, IEnumerable<string>> registeredCssBundles,
-            IDictionary<string, IEnumerable<JsFileWithCdn>> registeredJsBundles
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> registeredCssBundles,
+            IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> registeredJsBundles
             )
         {
 

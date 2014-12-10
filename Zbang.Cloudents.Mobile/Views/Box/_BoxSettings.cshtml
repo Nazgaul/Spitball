@@ -1,0 +1,81 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>{{info.name}}</span></h3>
+</div>
+<div class="modal-body">
+    <div class="popupTopBar">
+        <button data-id="Settings" type="button" class="tabBtn">@DialogResources.Settings</button>
+        <button type="button" class="rFloat btn3 inviteFriendsBtn" ng-click="inviteFriends()">@IndexResources.Invite</button>
+        <div class="arrow tabArrow"></div>
+    </div>
+    <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">
+        <div class="boxSettingsContent" ng-class="{{::info.boxType === 'box' ? 'private' : 'academic'}}">
+            <div class="boxSetting">
+                <label>@SharedResources.Thumbnail:</label>
+                <div class="thumbImg">
+                    <img alt="{{info.name}}" ng-src="{{::info.image | defaultImage:'box'}}" width="74" height="94" />
+                </div>
+            </div>
+            <div class="boxSetting">
+                <label for="boxSettingsName">@SharedResources.Name:</label>
+                <input type="text" class="inputText editBoxName" id="boxSettingsName" ng-model="formData.name" @*ng-readonly="info.boxType === 'box' && info.userType !== 'owner'"*@ autocomplete="off"  />
+            </div>
+
+            <div class="boxSetting academic">
+                <label for="boxSettingsCourse">@IndexResources.Number:</label>
+                <input type="text" class="inputText" id="boxSettingsCourse" ng-model="formData.courseCode" placeholder="@IndexResources.CourseNumber" autocomplete="off" />
+            </div>
+            <div class="boxSetting academic">
+                <label for="boxSettingsProfessor">@IndexResources.Lecturer:</label>
+                <input type="text" class="inputText editLecturer" id="boxSettingsProfessor" ng-model="formData.professor" placeholder="@IndexResources.LecturerName" />
+            </div>
+
+            <div class="boxSetting private">
+                <label>@SharedResources.Owner:</label>
+                <span>{{info.ownerName}}</span>
+            </div>
+            <div id="privacySettings" class="boxSetting private" ng-if="info.userType === 'owner'">
+                <label>@MainViewResources.Privacy:</label>
+                <div>
+                    <input type="radio"
+                           id="privacy_membersOnly"
+                           name="BoxPrivacy"
+                           ng-model="formData.boxPrivacy"
+                           value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()" />
+                    <label class="privacyLabel" for="privacy_membersOnly">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</label>
+                    <div class="labelExplain">@SharedResources.OnlyPeople</div>
+
+                    <input type="radio"
+                           id="privacy_anyoneWithUrl"
+                           name="BoxPrivacy"
+                           ng-model="formData.boxPrivacy"
+                           value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()" />
+
+                    <label class="privacyLabel" for="privacy_anyoneWithUrl">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</label>
+                    <div class="labelExplain">@SharedResources.AnyoneWho</div>
+                </div>
+            </div>
+
+            <div class="boxSetting">
+                <label>@IndexResources.NotifyMe</label>
+                <div class="radioBtns">
+                    <input id="noti_OnEveryChange" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnEveryChange" /><label for="noti_OnEveryChange">@NotificationSettings.OnEveryChange.GetEnumDescription()</label>
+                    <input id="noti_OnceADay" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnceADay" /><label for="noti_OnceADay">@NotificationSettings.OnceADay.GetEnumDescription()</label>
+                    <input id="noti_OnceAWeek" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.OnceAWeek" /><label for="noti_OnceAWeek">@NotificationSettings.OnceAWeek.GetEnumDescription()</label>
+                    <input id="noti_Off" type="radio" name="Notification" ng-model="formData.notification" value="@NotificationSettings.Off" /><label for="noti_Off">@NotificationSettings.Off.GetEnumDescription()</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn1 next" value="@SharedResources.Save" />
+        <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+        <button type="button" class="btn2 rFloat" ng-click="delete()" ng-bind="deleteOrUnfollow()">@SharedResources.Delete</button>
+    </form>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>
+

@@ -280,19 +280,19 @@
                 converters: options.converters || $.ajaxSettings.converters,
                 statusCode: {
 
-                    //401: function () {
-                    //    document.location.href = '/account?returnurl=' + encodeURIComponent(cd.location());
-                    //},
-                    //403: error,
-                    //404: error,
-                    //500: function () {
-                    //    if ($.isFunction(options.error)) {
-                    //        //error is alreay trigger. no need to transfer to 500
-                    //        return;
-                    //    }
+                    401: function () {
+                        document.location.href = '/account?returnurl=' + encodeURIComponent(cd.location());
+                    },
+                    403: error,
+                    404: error,
+                    500: function () {
+                        if ($.isFunction(options.error)) {
+                            //error is alreay trigger. no need to transfer to 500
+                            return;
+                        }
 
-                    //    location.href = '/error';
-                    //}
+                        location.href = '/error';
+                    }
 
                 },
                 beforeSend: function () {

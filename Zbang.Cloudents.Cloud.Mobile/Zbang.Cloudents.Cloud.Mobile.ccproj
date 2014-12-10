@@ -37,22 +37,22 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Cloudents.Mobile\Zbang.Cloudents.Mobile.csproj">
-      <Name>Zbang.Cloudents.Mobile</Name>
-      <Project>{1ed06d42-1f19-4dfc-a147-934adf3fb73f}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>Zbang.Cloudents.Mobile</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Zbang.Cloudents.MobileContent\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Zbang.Cloudents.MobileContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Cloudents.Mobile\Zbang.Cloudents.Mobile.csproj">
+      <Name>Zbang.Cloudents.Mobile</Name>
+      <Project>{eeee87be-07c2-479a-a9e6-a5d971a79031}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>Zbang.Cloudents.Mobile</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

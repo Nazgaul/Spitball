@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mobile.Views.Account.Resources
-{
+namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
     using System;
     
     

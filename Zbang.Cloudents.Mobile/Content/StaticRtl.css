@@ -1,0 +1,70 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Static.css */
+/*#region headeractions and menu */
+.sideBar {
+  left: -200px;
+  /*rtl*/
+  right: auto;
+  text-align: right;
+  /*rtl*/
+}
+.sideBar li {
+  float: right;
+  /*rtl*/
+}
+/*#endregion */
+/*#region forgot password; email sent; verify password */
+.inputText {
+  padding: 0 8px 0 4px;
+  /* rtl */
+}
+.innerContent {
+  text-align: right;
+  /*rtl*/
+}
+/*#endregion */
+/*#region unsupported page */
+.firefox {
+  padding: 0 30px 0 40px;
+  /*rtl*/
+}
+/*#endregion */
+/*#region faq */
+.faq aside {
+  margin: 55px 15px 0 0;
+  padding: 17px 69px 0 8px;
+  /*rtl*/
+}
+.faq aside:before {
+  right: 8px;
+  /*rtl*/
+  left: auto;
+}
+.faq.staticPage {
+  text-align: right;
+  /*rtl*/
+}
+.question {
+  padding: 0 16px 0 18px;
+  /*rtl*/
+}
+.question:after {
+  left: 18px;
+  /*rtl*/
+  right: auto;
+}
+.answer {
+  padding: 0 16px 0 18px;
+  /*rtl*/
+}
+/*#endregion */
+/*#region footer */
+.footer li:after {
+  padding: 0 6px 0 3px;
+}
+.footer li.addPipe:before {
+  padding: 0 3px 0 6px;
+}

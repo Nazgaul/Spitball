@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /error/
+disallow: /dashboard/
+disallow: /library/
+disallow: /user/
+disallow: /invite/
+disallow: /Account/ChangeLanguage/
+disallow: /Account/ForgotPassword/
+disallow: /account/resetpassword/
+disallow: /account/welcome/
+disallow: /store/
+disallow: */print/$
+disallow: */download/$
+
+Sitemap: https://www.cloudents.com/sitemap.xml

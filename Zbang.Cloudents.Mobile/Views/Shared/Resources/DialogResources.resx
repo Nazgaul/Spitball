@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Academic" xml:space="preserve">
+    <value>Academic</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddLink" xml:space="preserve">
+    <value>Add website link</value>
+  </data>
+  <data name="AddPrivateBox" xml:space="preserve">
+    <value>Add Group Box</value>
+    <comment>Add private box dialog</comment>
+  </data>
+  <data name="AddSchool" xml:space="preserve">
+    <value>Add a school</value>
+    <comment>Add a school dialog</comment>
+  </data>
+  <data name="AddUrl" xml:space="preserve">
+    <value>Add URL e.g. www.example.com</value>
+  </data>
+  <data name="ApplicationSent" xml:space="preserve">
+    <value>Great, your request was sent!</value>
+    <comment>Add a school dialog</comment>
+  </data>
+  <data name="BoxName" xml:space="preserve">
+    <value>Box name</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChangePrivacy" xml:space="preserve">
+    <value>Change privacy:</value>
+  </data>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Choose file</value>
+  </data>
+  <data name="ChooseFiles" xml:space="preserve">
+    <value>Choose files</value>
+  </data>
+  <data name="ChooseNotification" xml:space="preserve">
+    <value>Choose notification:</value>
+  </data>
+  <data name="CommentHere" xml:space="preserve">
+    <value>Write a message here...</value>
+    <comment>Invite pop up</comment>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateBox" xml:space="preserve">
+    <value>Create new box</value>
+  </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>Create new course</value>
+  </data>
+  <data name="CreateItem" xml:space="preserve">
+    <value>Create new department</value>
+  </data>
+  <data name="CreateTab" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="DragAndDrop" xml:space="preserve">
+    <value>Drag and drop your files here</value>
+  </data>
+  <data name="DropToUpload" xml:space="preserve">
+    <value>Drop files to upload</value>
+  </data>
+  <data name="EgMusic" xml:space="preserve">
+    <value>e.g Music</value>
+  </data>
+  <data name="GetBackToYou" xml:space="preserve">
+    <value>We will review it and get back to you within 24 hours.
+
+
+
+In the meantime, you can go to your area, create private boxes and invite your friends.</value>
+    <comment>Add a school dialog</comment>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>Here</value>
+    <comment>Add private box dialog</comment>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>Invite other students to join this box...</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Invite to</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="PrivacySettings" xml:space="preserve">
+    <value>Privacy settings</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Required field</value>
+  </data>
+  <data name="SelectFromList" xml:space="preserve">
+    <value>-- Select from list</value>
+    <comment>Add a school dialog</comment>
+  </data>
+  <data name="SelectPeople" xml:space="preserve">
+    <value>Select people from your address book:</value>
+  </data>
+  <data name="SelectType" xml:space="preserve">
+    <value>Select a box type:</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send a message</value>
+  </data>
+  <data name="SendRequest" xml:space="preserve">
+    <value>Send request</value>
+    <comment>Add a school dialog</comment>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SiteLink" xml:space="preserve">
+    <value>Website link</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="ToAddAcademic" xml:space="preserve">
+    <value>To add an academic box click</value>
+    <comment>Add private box dialog</comment>
+  </data>
+  <data name="TypeDepartment" xml:space="preserve">
+    <value>-- Type department</value>
+  </data>
+  <data name="TypeInstructor" xml:space="preserve">
+    <value>-- Type instructor</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
+  <data name="UploadTo" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="UsernameOr" xml:space="preserve">
+    <value>username or email</value>
+  </data>
+  <data name="ViaEmail" xml:space="preserve">
+    <value>Invite via email</value>
+  </data>
+  <data name="ViaFacebook" xml:space="preserve">
+    <value>Invite via Facebook</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>Uploaded files</value>
+  </data>
+  <data name="UploadingFiles" xml:space="preserve">
+    <value>Uploading files</value>
+  </data>
+  <data name="MessageRequired" xml:space="preserve">
+    <value>Message required</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Congrats" xml:space="preserve">
+    <value>Congratulations</value>
+  </data>
+  <data name="EarnPoints" xml:space="preserve">
+    <value>Earn points by inviting friends, uploading files and solving quizzes!</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Interested in finding more class notes and previous exams
+that can help you improve your studying?
+Join the rest of your classmates and sign up to </value>
+  </data>
+  <data name="ReachTop" xml:space="preserve">
+    <value>Want to reach to the top of the chart?</value>
+  </data>
+  <data name="ViewEntire" xml:space="preserve">
+    <value>Would you like to view
+the entire document? </value>
+  </data>
+  <data name="YouEarned" xml:space="preserve">
+    <value>you earned</value>
+  </data>
+</root>

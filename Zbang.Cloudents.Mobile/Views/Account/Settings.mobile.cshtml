@@ -1,0 +1,19 @@
+﻿@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserAccountDto
+@using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+
+@{
+    ViewBag.footerVisible = false;
+    ViewBag.headerTitle = @MobileResources.UserSettings;
+}
+<div id="account" class="profile page">
+    @{
+        Html.RenderPartial("_AccountProfile", new Profile { FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName, Image = Model.Image, University = Model.University });
+        Html.RenderPartial("_AccountSettings", new AccountSettings { Email = Model.Email, Language = new UserLanguage { Language = Model.Language } });
+     }
+   
+</div>
+@*@Html.Script2("AccountSettings")*@
+
+
+    

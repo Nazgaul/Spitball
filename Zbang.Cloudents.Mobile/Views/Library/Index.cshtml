@@ -1,0 +1,110 @@
+﻿@model Zbang.Zbox.ViewModel.Dto.Library.UniversityInfoDto
+@using Zbang.Cloudents.Mobile.Views.Library.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using System.Threading
+
+@*TEMP: UNDO NEW SEARCH*@
+@*<div class="searchInputWpr searchLib" ng-controller="SearchHeaderCtrl">
+    @{Html.RenderPartial("_BarSearch");}
+</div>*@
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
+<div id="library" class="page union" ng-controller="LibraryCtrl">
+    <div class="libraryContent">
+        <aside class="asideDash lFloat">
+            <div class="dashLibTop">
+                <span class="logoWpr lFloat">
+                    <img src="@Model.Image" class="uniLogo" alt="University logo" width="80" height="80" />
+                </span>
+                <span class="ghost"><span class="vCentered" ng-init="info.universityId = '@Model.Id'; info.universityName = '@Model.UniversityName'">@Model.Name</span></span>
+            </div>
+
+            <div class="unionStats">
+                <div class="files boldFont">@Model.ItemCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Items</span></div>
+                <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
+                <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
+            </div>
+            <div class="unionLinksWpr">
+                <div class="unionLinks">
+                    @if (!string.IsNullOrEmpty(Model.WebSiteUrl))
+                    {
+                        <a target="_blank" href="@Model.WebSiteUrl" class="outbound u-Website union-sprite" analytics-on="click" analytics-category="Library" analytics-event="Go to org website" analytics-label="number of clicks on the union website page icon"></a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.MailAddress))
+                    {
+                        <a href="mailto:@Model.MailAddress" class="outbound u-Email union-sprite"></a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                    {
+                        <a target="_blank" href="@Model.FacebookUrl" class="outbound u-Fb union-sprite" analytics-on="click" analytics-category="Library" analytics-event="Go to org Facebook page" analytics-label="number of clicks on the union facebook page icon"></a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.TwitterUrl))
+                    {
+                        <a target="_blank" href="@Model.TwitterUrl" class="outbound u-Twitter union-sprite"></a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.YouTubeUrl))
+                    {
+                        <a target="_blank" href="@Model.YouTubeUrl" class="outbound u-Youtube union-sprite"></a>
+                    }
+                </div>
+            </div>
+            <div class="libLists">
+                @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                {
+                    <iframe id="facebookLikeBox" data-href="@Model.FacebookUrl" facebook-feed
+                            data-link="//www.facebook.com/plugins/likebox.php?href=&amp;width=274&amp;height=&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false&amp;appId=450314258355338"
+                            scrolling="no" frameborder="0"
+                            style="border:none; overflow:hidden;"
+                            allowtransparency="true" width="274"></iframe>
+                }
+            </div>
+        </aside>
+        @{
+            var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
+        }
+
+        @*<div class="boxesHeader topBar barShadow">
+                <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
+                <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
+                    <h2>{{back.title}}</h2>
+                </a>
+                <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
+                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                </button>
+            </div>*@
+        <div class="contentWpr @cls">
+
+            @if (!string.IsNullOrEmpty(Model.LetterUrl))
+            {
+                <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
+            }
+            <div class="dashHeader">
+                @{Html.RenderPartial("_BarActions");}
+                <div class="dhContent" ng-switch="info.isRootLevel">
+                    <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
+                    <a ng-switch-when="false" id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" ng-href="{{::back.url}}">
+                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                        <h2>{{::back.title}}</h2>
+                    </a>
+                    <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
+                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                    </button>
+                    @*TEMP: OLD SEARCH (next line)*@
+                    @{Html.RenderPartial("_BarSearch");}
+                </div>
+            </div>
+            <ul id="libraryList" class="libraryList clearfix">
+                <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>
+                <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
+                    <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
+                </li>
+                <li class="libraryItem box addCourse" ng-if="createBoxVisible()">
+                    <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
+                </li>
+            </ul>
+            @*@{Html.RenderPartial("_CreateAcademicBoxEmptyState", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());}*@            
+        </div>
+    </div>
+</div>
+@{Html.RenderPartial("_Template");}

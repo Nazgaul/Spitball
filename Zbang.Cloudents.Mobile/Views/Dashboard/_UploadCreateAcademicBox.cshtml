@@ -1,0 +1,52 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+
+
+<form name="createAcademicBox" novalidate ng-submit="create(createAcademicBox.$valid)" ng-controller="createAcademicBoxCtrl" ng-class="{ chooseDept : !params.selectedDepartment }">
+    <div class="department" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
+        @Html.LabelFor(m => m.DepartmentId)
+        @*<span class="error">@DialogResources.RequiredField</span>*@
+        <input class="inputText" type="text" id="DepartmentId" name="DepartmentName" ng-model="params.selectedDepartment.name"
+               @*required ng-keyup="searchDepartment()"*@ disabled />
+        <button class="changeDeptBtn" type="button" ng-click="changeDepartment()" ng-if="!params.disableChangeDep">@IndexResources.ChangeDept</button>
+    </div>
+    <div class="courseName" ng-class="{error : submitted && createAcademicBox.CourseName.$error.required}">
+        @Html.LabelFor(m => m.CourseName)
+        <span class="error">@DialogResources.RequiredField</span>
+        <span class="customError" ng-if="params.customError">{{params.customError}}</span>
+        @Html.TextBoxFor(m => m.CourseName, new { @class = "inputText", ng_model = "formData.academicBox.courseName", required = "required", ng_change = "clearErrors()" })
+    </div>
+    <div class="lFloat courseId">
+        @Html.LabelFor(m => m.CourseId)
+        @Html.TextBoxFor(m => m.CourseId, new { @class = "inputText", ng_model = "formData.academicBox.courseId" })
+    </div>
+
+    <div class="professor rFloat">
+        @Html.LabelFor(m => m.Professor)
+        @Html.TextBoxFor(m => m.Professor, new { @class = "inputText", ng_model = "formData.academicBox.professor" })
+    </div>
+    @Html.HiddenFor(m => m.DepartmentId, new { ng_model = "formData.academicBox.departmentId", required = "required" })
+
+    <section class="deptChooseWpr">
+        <header>@SharedResources.ChooseDept</header>
+        <ul class="libraryList clearfix">
+            <li class="ng-scope libraryItem deptItem" ng-repeat="department in departments">
+                <button type="button" class="navigation deptLink union-sprite" ng-click="selectDepartment(department)">
+                    <div class="deptNameWpr clamp2">
+                        <div class="deptName">{{::department.name}}</div>
+                    </div>
+
+                </button>
+            </li>
+            <li class="libraryItem deptItem addDep ng-scope">
+                <button type="button" class="addBtn" ng-click="createDepartment()" ng-if="params.isAdmin">@SharedResources.AddDept</button>
+            </li>
+        </ul>
+    </section>
+
+    <input type="submit" class="btn1  rFloat" ng-disabled="createAcademicBox.$invalid" value="@DialogResources.Create" ng-click="submitted=true" />
+    <button type="reset" class="btn2 rFloat" ng-click="cancel()">@SharedResources.Back</button>
+
+    @*@_ChooseDeptAC.deptList()*@
+</form>

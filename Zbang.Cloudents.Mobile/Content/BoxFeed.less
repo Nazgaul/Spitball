@@ -1,0 +1,700 @@
+﻿@import "varsAndMixins";
+.feedfullWpr {
+    white-space: nowrap;
+}
+.bodyContent.upload {
+    .dropTxt {
+        display: block;
+    }
+}
+.boxFeed {
+    width: 598px;
+    color: @textColor;
+    display: inline-block;
+    > .feedForm {
+        .feedTA {
+            border-color: #282828;
+        }
+    }
+    ~ .boxSideBar {
+        display: inline-block;
+        .recommendedWpr {
+            position: relative;
+            left: 30px; //rtl
+            border: 1px solid #282828;
+            width: 336px;
+            display: inline-block; //override
+            border-radius: 5px;
+            padding: 8px 12px 0 12px;
+            .boxSizing;
+            header {
+                font-size: 20px; //override
+                //border-bottom: 1px solid @borderColor;
+                padding:0;
+                text-align: center;
+                //padding: 0 0 10px 0; //override
+                margin-bottom: 10px;
+        
+            }
+            .recommended {
+                .rFloat {
+                    width: 95px; //diff rtl
+                    text-align: right; //rtl
+                }
+            }
+        } 
+    }
+    
+}
+.boxSideBar {
+    .leaderBoard {
+        padding: 20px 32px 10px 32px;
+    }
+    .podium {
+        width: 90px;
+        top: 149px;
+        &:before, &:after {
+            width: 90px;
+            left: -91px; //rtl
+        }
+        &:after {
+            right: -91px; //rtl
+            left: auto;
+        }
+    }
+    .bestUserList {
+        .firstUser, .secondUser, .thirdUser {
+            width: 90px;
+            .rep {
+                margin-top: 10px;
+            }
+        }
+    } 
+    .friends {
+        padding-top: 2px;
+    }
+    .files {
+        margin-top: 8px;
+        padding-top: 2px;
+
+        &:before {
+            content: attr(data-files-count);
+        }
+    }  
+}
+.feedForm {
+    position: relative;
+    clear: both;
+    .btn1 {
+        margin: 8px 8px 0 0; //rtl
+    }
+    &.feedOpen, .bodyContent.upload & {
+        .feedTA {
+            min-height: 169px;
+            max-height: 250px;
+            overflow: auto;
+            padding: 9px 12px 2px 12px;
+            border-radius: 3px 3px 0 0;
+            border-bottom: none;
+            margin-bottom: 35px;
+            border-color: #282828;
+            direction: ltr !important; //rtl - override Guy's code to fix bug 2606 mozilla problem
+            ~ .bottomTA {
+                display: block;
+            }
+            ~ .attachBtn {
+                bottom: 2px;
+                left: 70px; //rtl
+                top: auto;
+                right: auto;
+            }
+        }
+        .svg-attachment {
+            fill: #282828;
+        }
+        .attachedList {
+            display: block;
+        }
+    }
+    .attachedList {
+        display: none;
+    }
+}
+.dropTxt {
+    position: absolute;
+    top:0;bottom:0;
+    left:55px;right:0;
+    margin: auto;
+    display:none;
+    border: 3px dashed @borderColor;
+    font-size: 20px;
+    background: #fff;
+    .boxSizing;
+    text-align:center;
+    padding-top: 90px;
+}
+.feedImg {
+    border-radius: 100%;
+    margin-right: 15px; //rtl
+    border: 1px solid @borderColor;
+    .boxSizing;
+    position: relative;
+    top: 2px;
+}
+
+.feedTA {
+    //width: 436px;
+    width: 543px;
+    border-radius: 3px;
+    border: 1px solid @borderColor;
+    margin-top: 2px;
+    padding: 9px 55px 2px 12px; //rtl
+    min-height: 38px;
+    height: 38px;
+    .boxSizing;
+    font-size: 15px;
+    .transition(min-height .3s ease-in);
+    resize:none;
+}
+.attachBtn {
+    position: absolute;
+    top: 9px;
+    right: 8px; //rtl
+}
+.svg-attachment {
+    width: 34px;
+    height: 25px;
+    fill: #282828;
+}
+.svg-trash {
+    width: 14px;
+    height: 20px;
+    fill: #aaa;
+}
+.bottomTA {
+    display: none;
+    height: 40px;
+    position: absolute;
+    bottom: 1px;
+    left: 55px; //rtl
+    width: 543px;
+    background: #eee;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid #282828;
+    border-top: none;
+    .boxSizing;
+}
+.feed-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.feed-enter.feed-enter-active {
+	opacity: 1;
+}
+.boxFeedList {
+    overflow: hidden;
+    > li {
+        clear: both;
+        margin-top: 15px;
+        position: relative;
+        .animation (fadeinGrow, 2s, 0, ease);
+        overflow: hidden;
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            left: 41px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 14px 7px 0; //rtl
+            border-color: transparent #eeeeee transparent transparent; //rtl
+        }
+    }
+    .svg-attachment {
+        fill: @borderColor;
+    }
+    .feedForm {
+        padding-top: 15px;
+        /*display: none;*/
+        .feedImg {
+            margin: 0 0 0 15px; //rtl override
+        }
+        &.show {
+            display: block;
+        }
+    }
+    .feedTA {
+        width: 487px;
+        height: 38px;
+        margin-left: 55px; //rtl
+    }
+    .bottomTA {
+        width: 487px;
+    }
+    .attachBtn {
+        top: 24px;
+        right: 70px; //rtl
+    }
+    /*&:empty {
+        ~ .emptyFeed {
+            display: block;
+        }
+    }*/
+}
+.feedWpr {
+    //width: 431px;
+    background: #eee;
+    padding: 8px 15px;
+    display: block;
+    vertical-align: top;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden; //fill remaining width
+    .boxSizing;
+    .userName {
+        color: @itemBlue;
+        max-width: 300px;
+        font-size: 16px;
+    }
+    .createTime {
+        color: #999;
+        font-size: 16px;
+    }
+    .feedContent {
+        margin-top: 15px;
+        font-size: 16px;
+        white-space:normal;
+    }
+    .commentBtn {
+        &:after {
+            content: '\00a0' '|' '\00a0';
+        }
+    }
+    .commentBtn, .shareBtn {
+        display: inline-block;
+        color: @itemBlue;
+        margin:0; //override
+        font-size: 12px;
+    }
+    .trash {
+        position: absolute;
+        bottom: 8px;
+        right: 15px; //rtl
+        display: none;
+    }
+    &:hover {
+        .trash {
+            display: block;
+        }
+    }
+}
+
+.feedReplies {
+    //width: 436px;
+    width: 543px;
+    > li {
+        margin-top: 15px;
+        position: relative;
+        .animation (fadeinGrow, 2s, 0, ease);
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            right: 41px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 0 7px 14px; //rtl
+            border-color: transparent transparent transparent @borderColor; //rtl
+        }
+        &:after {
+            .pseudo;
+            position: absolute;
+            top: 16px;
+            right: 44px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 12px; //rtl
+            border-color: transparent transparent transparent #fff; //rtl
+            z-index: 1;
+        }
+    }
+    .feedImg {
+        margin: 0 0 0 15px; //rtl override
+    }
+    .userName {
+        color: @color;
+    }
+    .feedWpr {
+        background: none;
+        border: 1px solid @borderColor;
+    }
+    ~ .feedForm {
+        .attachedList {
+            width: 487px;
+        }
+    }
+}
+
+/*#region attachments */
+.qaAttach {
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-top: 10px; /*rtl*/
+}
+
+.qaAttachItem {
+    border: 1px solid @borderColor;
+    margin: 12px 7px 0 0; //rtl
+    display: inline-block;
+    height: 125px;
+    position: relative;
+
+    &:hover .attachActions {
+        visibility: visible;
+        bottom: 0;
+    }
+}
+.qaAttchQuiz{
+    border:none;
+    .svg-quizBg{
+        width:100px;
+        height:125px;
+        stroke: #0f9d58;
+    }
+}
+
+.attachActions {
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    background: rgba(0,0,0,.65);
+    position: absolute;
+    left: 0; //rtl
+    bottom: -25px;
+    visibility: hidden;
+    .transition(all .1s);
+    text-align: center;
+}
+
+.attachFull {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: @qa-sprite -2px -2px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -2px -21px;
+    }
+}
+
+.attachDelete {
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    background: @qa-sprite -22px -2px no-repeat;
+    margin: -3px 3px 0 3px;
+    vertical-align: middle;
+
+    &:hover {
+        background-position: -22px -21px;
+    }
+}
+
+.attachDownload {
+    display: inline-block;
+    width: 14px;
+    height: 15px;
+    background: @qa-sprite -38px -3px no-repeat;
+    vertical-align: middle;
+    margin: -2px 3px 0 3px;
+
+    &:hover {
+        background-position: -38px -22px;
+    }
+}
+
+
+.attachedList {
+    margin-left: 55px; //rtl
+    padding: 0 8px 5px 12px; //rtl
+    position: relative;
+    top: -37px;
+    border-left: 1px solid #282828;
+    border-right: 1px solid #282828;
+    white-space: normal;
+}
+
+.attachedItem {
+    background: #f0f0f0;
+    border-radius: 3px;
+    border: 1px solid #c2c2c2;
+    padding-left: 6px; /*rtl*/
+    display: inline-block;
+    margin: 3px 5px 6px 0; /*rtl*/
+}
+
+.attachName {
+    display: inline-block;
+    max-width: 100px;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.removeAttach {
+    width: 20px;
+    height: 22px;
+    position: relative;
+    padding-bottom: 4px;
+
+    &:before {
+        .pseudo;
+        background: @borderColor;
+        width: 1px;
+        height: 22px;
+        position: absolute;
+        left: 0; /*rtl*/
+        top: 0;
+        //margin-top: 6px;
+    }
+
+    &:after {
+        .pseudo;
+        background: @common-sprite -68px -15px no-repeat;
+        width: 10px;
+        height: 10px;
+        vertical-align: top;
+        margin-top: 5px;
+    }
+}
+
+/*#endregion */
+
+/*#region empty feed */
+.emptyFeed {
+    //display: none;
+    width: 598px;
+    //height: 565px;
+    height: ~'-webkit-calc(100vh - 205px)';
+    height: ~'calc(100vh - 205px)';
+    color: @borderColor;
+    border: 3px dotted @borderColor;
+    border-radius: 8px;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+    white-space: pre-line;
+    //padding-top: 240px;
+    .boxSizing;
+}
+
+
+/*#endregion */
+
+/*#region leaderboard */
+
+.leaderBoard {
+    width: 336px;
+    .boxSizing;
+    padding: 20px 20px 0 20px;
+    position: relative;
+    left: 30px; //rtl
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #282828;
+    margin-bottom: 31px;
+    &.empty {
+        .bestUserList, .svg-podium {
+            display: none;
+        }
+        
+        .lbEmpty {
+            display: block;
+        }
+    }
+    header {
+        color: @color;
+        text-align: center;
+        font-size: 20px;
+        svg {
+            width: 36px;
+            height: 29px;
+            fill: @color;
+        }
+    }
+    .lbText {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+.lbEmpty {
+    display: none;
+    text-align: center;
+}
+.lbEmptyTxtWpr {
+    border: 1px solid @borderColor;
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: #f6f6f6;
+}
+.lbEmptyTxt1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid @borderColor;
+    margin-bottom: 6px;
+}
+.bestUserList {
+    text-align: center;  
+    counter-reset: leaderBoard;
+    min-height: 180px;
+    position: relative;
+    top: 8px;
+    .firstUser, .secondUser, .thirdUser {
+        width: 86px;
+        height: auto;
+        line-height: normal;
+        .rep {
+            display: block;
+            width: auto;
+            //margin-top: 13px;
+            margin-top: 6px; //for dashboard
+        }
+        &.empty {
+            .top3Img {
+                border-color: #8a8a8a;
+                background: #ccc;
+                overflow: hidden;
+                border-radius: 100%;
+            }
+            svg {
+                fill: #ccc;
+            }
+            .svg-user {
+                fill: #fff;
+            }
+        }
+    }
+    li {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        vertical-align: middle;
+        text-align:left; //rtl
+
+        &:nth-child(-n + 3) {
+            text-align: center; //override
+            margin-bottom: 15px; //override
+            display: inline-block; //override
+            width: 86px;
+            height: auto;
+            line-height: normal;
+            .boxSizing;
+            &:before {
+                position: absolute;
+                visibility: hidden;  //don't display counter on top 3 users
+            }
+        }
+        &:nth-child(n + 4) {
+            margin: 0 -32px;
+            padding: 0 15px;
+            clear: both;
+            width: 336px;
+            .rep { //In FF the floated rep was dropping down!
+                position: absolute;
+                right: 14px; //rtl
+                top: 2px;
+            }
+        }
+        &:before {
+            content: counter(leaderBoard) ".";
+            counter-increment: leaderBoard;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        &:nth-child(2n + 4) {
+            background: #eee;
+        }
+    }
+    .elps {
+        display: inline-block;
+        max-width: 160px;
+        vertical-align: middle;
+    }
+    img {
+        
+        border: 1px solid @borderColor;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px;
+        border-radius: 100%;
+    }
+    svg {
+        display: block;
+        margin: 0 auto;
+        fill: #ffc000;
+    }
+    .svg-user {
+        fill: #fff;
+        width: 54px;
+        height:54px;
+        position: relative;
+        left: -2px;
+        top: 3px;
+    }
+    .top3Img {
+        border: 1px solid @color;
+        display: block;
+        margin: 0 auto 8px;
+        width: 50px;
+        height: 50px;
+        //border-radius: 100%;
+    }
+
+}
+
+.secondUser {
+    .top3Img {
+        margin-top: 17px;
+    }
+}
+
+.thirdUser {
+    .top3Img {
+        margin-top: 35px;
+    }
+}
+.svg-crown {
+    width: 36px;
+    height: 23px;
+}
+.svg-trophy {
+    width: 26px;
+    height: 29px;
+}
+.svg-badge {
+    width: 18px;
+    height: 30px;
+}
+.rep {
+    font-weight: bold;
+    color: @textColor;
+    display: inline-block;
+    width: 64px; //width of the third best user
+    text-align: center;
+    &:after {
+        content:  '\00a0' attr(data-pts)
+    }
+}
+/*#endregion */

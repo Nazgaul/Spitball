@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+
+@model HandleErrorInfo
+
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="membersOnly">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h2>@ErrorResources.NeedPermission</h2>
+        <div>@ErrorResources.InvitationOnly</div>
+    }
+
+    else
+    {
+        <h2>@ErrorResources.MembersOnly</h2>
+        <div>@ErrorResources.ToAccessFile</div>
+        <a href="#" class="btn addConnect">@SharedResources.SignIn</a>
+    }
+</div>
+

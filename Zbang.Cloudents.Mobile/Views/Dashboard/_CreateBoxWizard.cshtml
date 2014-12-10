@@ -1,0 +1,67 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+
+<div class="formWpr">
+    <div wizard on-finish="completeWizard()" template="'wizard.html'">
+        <div wz-step template="'step.html'">
+            <div class="actionTxt">@IndexResources.CreateCourse</div>
+            <div class="courseType">
+                <input class="radio" type="radio" id="PrivateCourse" name="courseType" ng-checked="isPrivate" ng-model="boxType" value="private"/>
+                <label for="PrivateCourse">@IndexResources.PrivateCourse</label>
+                <div class="labelExplain">@IndexResources.InviteOnly</div>
+            </div>
+
+            <div class="courseType">
+                <input class="radio" type="radio" id="OpenCourse" name="courseType" ng-checked="isAcademic" ng-model="boxType"  value="academic"/>
+                <label for="OpenCourse">@IndexResources.OpenCourse</label>
+                <div class="labelExplain">@IndexResources.AnyoneUrl</div>
+            </div>
+            <div class="newAcademic clearfix" ng-show="boxType === 'academic'">
+                @{
+                    Html.RenderPartial("_UploadCreateAcademicBox", new Zbang.Cloudents.Mvc4WebRole.Models.CreateAcademicBox());
+                }
+            </div>
+            <div class="clearfix" ng-show="boxType === 'private'">
+                @{
+                    Html.RenderPartial("_PrivateBoxDialog2", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());
+                }
+            </div>
+            @*@{
+                Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }*@
+        </div>
+        <div wz-step template="'step.html'">
+            <div class="actionTxt">@IndexResources.CreateCourse</div>
+            @{
+                Html.RenderPartial("_SocialInvite");
+            }
+        </div>
+        <div wz-step template="'step.html'">
+            <div class="actionTxt">@IndexResources.Upload</div>
+            @{
+                Html.RenderPartial("_UploadFiles");
+            }
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="wizard.html">
+    <div>
+        <div class="steps" ng-transclude></div>
+        <ul class="steps-indicator steps-{{steps.length}}" ng-if="!hideIndicators">
+            <li ng-class="{default: !step.completed && !step.selected, current: step.selected && !step.completed, done: step.completed && !step.selected, editing: step.selected && step.completed}" ng-repeat="step in steps">
+                <a ng-click="goTo(step)">{{step.title || step.wzTitle}}</a>
+            </li>
+        </ul>
+    </div>
+</script>
+<script type="text/ng-template" id="step.html">
+    <section ng-show="selected" ng-class="{current: selected, done: completed}" class="step" ng-transclude></section>
+</script>
+
+@*Guy: When user clicks the 'private course' radio btn - add class 'js-private' here
+     When user clicks the 'open course' radio btn - add class 'js-academic' here
+    When user clicks the 'Create a new Department' btn - add class 'js-addDept' here
+*@
+
+@*js-academic | js-private | js-addDept*@
+
+

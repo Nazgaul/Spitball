@@ -1,0 +1,10 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ItemPreview
+
+
+@foreach (var item in Model.Src)
+{
+    <div class="divWrapper">
+        <img class="imageContent" src="@item" alt="" />
+        <div class="copyRightWarning">@Zbang.Cloudents.Mobile.Views.Item.Resources.ItemsResources.CopyRight</div>
+    </div>
+}

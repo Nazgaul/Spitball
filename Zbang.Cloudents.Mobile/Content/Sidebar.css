@@ -1,0 +1,368 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region library sidebar */
+.asideDash {
+  height: 100%;
+  background: #fff;
+  border-right: 1px solid #c2c2c2;
+  /*rtl*/
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #383838;
+  width: 290px;
+  position: fixed;
+  z-index: 5;
+}
+.asideDash .leaderBoard {
+  width: 100%;
+  left: 0;
+  background: #ebebeb;
+  border: none;
+  padding: 0 12px;
+  border-bottom: 1px solid #c2c2c2;
+  border-radius: 0;
+  margin: 1px 0 0;
+  min-height: 220px;
+}
+.asideDash .leaderBoard header {
+  padding: 16px 0 7px;
+}
+.asideDash .recommendedWpr header {
+  text-align: center;
+}
+.recommendedWpr {
+  background: #fff;
+  padding: 0 12px;
+}
+.recommendedWpr header {
+  font-size: 20px;
+  padding: 13px 0 8px;
+}
+.recommended {
+  height: 80px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 15px;
+  display: block;
+  margin-right: -12px;
+}
+.recommended + .recommended:after {
+  content: '';
+  display: inline-block;
+  width: calc(100% - 12px);
+  height: 1px;
+  background: #c2c2c2;
+  position: absolute;
+  top: 0;
+}
+.recommended .courseLink {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  white-space: noWrap;
+  font-size: 13px;
+}
+.recommended .courseLink:hover .rcDetails {
+  margin-left: -105px;
+}
+.recommended .rcDetails {
+  width: 100%;
+  height: 63px;
+  vertical-align: top;
+  padding: 15px 0 0 69px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #fff;
+  margin: 0;
+  -webkit-transition: margin 0.2s 0.5s;
+  -moz-transition: margin 0.2s 0.5s;
+  -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
+  position: relative;
+}
+.recommended .rcDetails.rcFull .prof:after {
+  content: '\00a0' '|' '\00a0';
+  color: #383838;
+}
+.recommended .rcStats {
+  width: 105px;
+  height: 60px;
+  display: inline-block;
+  background: #282828;
+  color: #fff;
+  margin-top: 9px;
+}
+.recommended img {
+  position: absolute;
+  left: 8px;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
+}
+.recommended .courseName {
+  color: #0f9d58;
+  font-size: 15px;
+  white-space: normal;
+  max-height: 34px;
+  overflow: hidden;
+  line-height: 16px;
+}
+.recommended .prof {
+  font-size: 13px;
+}
+.recommended .courseId {
+  width: 200px;
+  display: inline-block;
+}
+.recommended .friends,
+.recommended .files {
+  position: relative;
+  padding-left: 26px;
+}
+.recommended .friends:before,
+.recommended .files:before {
+  content: attr(data-friends-count);
+  display: inline-block;
+}
+.recommended .friends {
+  margin-top: 9px;
+}
+.recommended .files {
+  margin-top: 7px;
+}
+.recommended .files:before {
+  content: attr(data-files-count);
+}
+.podium {
+  width: 87px;
+  height: 68px;
+  border: 1px solid #aaa;
+  position: absolute;
+  top: 151px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 3px;
+  background: #fff;
+}
+.podium:before,
+.podium:after {
+  content: '';
+  width: 86px;
+  height: 45px;
+  position: absolute;
+  left: -87px;
+  bottom: -1px;
+  border: 1px solid #aaa;
+  border-right: none;
+  background: #fff;
+  border-radius: 3px 0 0 3px;
+}
+.podium:after {
+  height: 27px;
+  right: -87px;
+  left: auto;
+  border: 1px solid #aaa;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+}
+.empty .podium {
+  display: none;
+}
+.dashLibTop {
+  display: block;
+  height: 109px;
+  text-align: center;
+  border-bottom: 1px solid #c2c2c2;
+  padding: 0 8px 0 15px;
+  background: #ebebeb;
+  position: relative;
+}
+.dashLibTop:after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: #fff;
+  width: 100%;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+}
+.dashLibTop:hover {
+  background: #d7d7d7;
+}
+.dashLibTop .ghost {
+  height: 100%;
+  display: block;
+  font-size: 18px;
+  overflow: hidden;
+  padding: 0 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dashLibTop .vCentered {
+  line-height: 19px;
+  max-height: 60px;
+}
+.logoWpr {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border: 1px solid #c2c2c2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 100%;
+  margin-top: 15px;
+}
+.uniLogo {
+  display: inline-block;
+  border-radius: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px;
+}
+/*#region Lib Aside */
+.unionStats {
+  padding: 10px 0;
+  background: #ebebeb;
+}
+.unionStats .files,
+.unionStats .courses,
+.unionStats .students {
+  display: inline-block;
+  text-align: center;
+  font-size: 18px;
+  width: 32%;
+}
+.unionStats .stat {
+  display: block;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.courses {
+  position: relative;
+}
+.courses:before,
+.courses:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 34px;
+  top: 5px;
+  background: #c2c2c2;
+  left: -3px;
+  /*rtl*/
+}
+.courses:after {
+  right: -3px;
+  /*rtl*/
+  left: auto;
+}
+.libTopWpr {
+  display: table-row;
+}
+.libTop {
+  background: #f1f1f1;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 14px;
+}
+.libTop .changeUni {
+  color: #0f9d58;
+  display: none;
+  font-size: 13px;
+  padding: 0 15px;
+  background: #f1f1f1;
+  position: relative;
+  top: -9px;
+}
+.libTop .uniLogo {
+  margin-left: 8px;
+}
+/*.unionLinksWpr {
+    display: table-row;
+}*/
+.unionLinks {
+  border-top: 1px solid #c2c2c2;
+  border-bottom: 1px solid #c2c2c2;
+  font-size: 0;
+  /* remove display:inline-block children whitespace */
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  background: #ebebeb;
+}
+.outbound:last-child {
+  border: none;
+}
+.outbound {
+  height: 56px;
+  line-height: 56px;
+  text-align: center;
+  border-right: 1px solid #c2c2c2;
+  /*rtl*/
+  display: table-cell;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.outbound:hover {
+  background: #d7d7d7;
+}
+.outbound:before {
+  content: '';
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+}
+.outbound.u-Website:before {
+  width: 23px;
+  height: 20px;
+  background-position: -1px -1px;
+}
+.outbound.u-Email:before {
+  width: 25px;
+  height: 19px;
+  background-position: -25px -2px;
+}
+.outbound.u-Fb:before {
+  background-position: -52px -1px;
+}
+.outbound.u-Twitter:before {
+  background-position: -74px -1px;
+}
+.outbound.u-Youtube:before {
+  background-position: -96px -1px;
+}
+.libLists {
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.libLists .libFb,
+.libLists .libTwitter {
+  text-align: center;
+  margin: 5px;
+  border: 1px solid #c2c2c2;
+}
+.libLists .libFb {
+  height: 395px;
+}
+.libLists .libTwitter {
+  bottom: 0;
+}

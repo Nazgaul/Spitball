@@ -1,0 +1,425 @@
+﻿@import "varsAndMixins";
+
+/*#region main header classes */
+html, body {
+    //height: 100%; //TODO CHECK THIS. 
+    // NB: I changed this to min-height because on devices like ipad 
+    // modals only had height of viewport and stopped when scrolled down 
+    height: 100%;
+}
+//html{
+    //position: relative; //TODO: what is this for?
+    //min-height: 100%; //TODO: what is this for?
+//}
+
+body {
+    //min-width: 1024px;
+    overflow-y: scroll;
+}
+
+.bodyContent {
+    padding-top: @header-height;
+    .boxSizing;
+    height: 100%;
+}
+
+.siteHeader {
+    height: @header-height;
+    background-color: @color;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+    //z-index:5; //changed to accomodate for new ng popups. TODO: CHeck that this doesn't ruin anything.
+    position: fixed;
+    //min-width: 1024px;
+    &.headerBox {
+        background: #282828;
+        //min-width: 1260px; //same as boxPage class
+        // the above rule won't help because the siteHeader is fixed!
+        min-width: 715px;
+        .backWpr {
+            margin: 8px 0 0 25px; //rtl
+            padding:0;
+        }
+        .shareBtn {
+            display: inline-block;
+            margin: 0 15px;
+            //TEMP: OLDSEARCH (2 lines)
+            position: relative;
+            top: 11px;
+            //TEMP: UNDO NEW SEARCH (3 lines)
+            //position: absolute;
+            //top: 12px;
+            //left: 730px; //rtl
+        }
+        .siteLogo {
+            height: @header-height;
+            width: @boxSideBarWidth;
+            background: @color;
+        }
+        .searchInputWpr  {
+            margin-top: 8px; //override
+            min-width: 190px; //in order that the drop down still displays corectly
+        }   
+        .barActions {
+            margin-top:0;
+        }
+    }     
+}
+
+.siteLogo {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding-left: 30px; //rtl
+    .boxSizing;
+}
+.headerActions {
+    height: @header-height;
+}
+.headerSettings {
+    height: @header-height; //override
+}
+.userNav {
+    height: @header-height;
+    display: inline-block;
+    position: relative;
+    font-size: 13px; // return the font-size to items
+    .userName {
+        font-size: 15px;
+        max-width: 127px;
+        min-width: 40px; // prevents pts from 'falling' on short user names
+        display: inline-block;
+        text-align: left; /*rtl*/
+        color: #fff;
+        margin: 6px 0 0 40px; /*rtl*/
+        line-height: normal;
+        vertical-align: top;
+    }
+
+    .userImg {
+        vertical-align: top;
+        margin-top: 6px;
+        border-radius: 50%;
+        position: absolute;
+    }
+}
+.signUp {
+    .btn {
+        display: inline-block;
+        margin: 0 4px;
+        font-size: 14px;
+        min-width: 78px;
+        height: 25px;
+        line-height: 25px;
+        background: #178b55;
+        color: #fff;
+        border-radius: 5px;
+        padding: 0 20px;
+        .boxSizing;
+
+        &:first-child {
+            background: #fff;
+            color: @color;
+        }
+        &:hover {
+            background: #168350;
+            &:first-child {
+                background: #e1fff0;
+            }
+        }
+    }
+}
+.userAnchor {
+    display: block;
+    height: @header-height;
+}
+.userPts {
+    font-size: 11px;
+    color: #fff;
+    line-height: normal;
+    margin-left: 40px; /*rtl*/
+    position: relative;
+    top: -24px;
+    &:after {
+        display: inline-block;
+        content: attr(data-points);
+    }
+}
+/*#endregion */
+
+/*#region box page header */
+.userSection {
+    line-height: @header-height;
+    height: @header-height;
+}
+.headerRightWpr {
+    height: @header-height; //for box page
+    
+    .userSection {
+        margin-left: 20px; //rtl
+    }
+}
+/*#region search */
+.searchInputWpr {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 460px;
+    width: ~'-webkit-calc(100% - 320px)';
+    width: ~'calc(100% - 320px)';
+    border: 1px solid @borderColor;
+    border-radius: 15px;
+    margin: 17px 20px 0 20px;
+    line-height: normal;
+    background: #fff;
+    svg {
+        fill: #a5a5a5;
+        top: 22px;
+    }
+
+    + button .svg-inviteUser {
+        position: relative;
+        top: 5px;
+
+        &:hover {
+            fill: @color;
+        }
+    }
+}
+.searchBtn {
+    position: absolute;
+    right: 10px; //rtl
+    top: 6px;
+}
+.dashLibSearchInput {
+    width: 100%;
+    max-width: 460px;
+    height: 32px;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 0 40px 0 10px; //rtl
+    .boxSizing;
+    .placeholderColor(@borderColor);
+    &:focus {
+        border: none; //remove red error borders and outlines
+        outline: none;
+    }
+}
+/*#endregion */
+/*#region dashboard */
+.dashHeader {
+    height: 65px;
+    line-height: 65px;
+    vertical-align: middle;
+    background: #282828;
+    margin: 0 -30px;
+    padding: 0 30px;
+    .boxSizing;
+    white-space: nowrap; // so that the invite friends button doesn't disappear
+    .open .svg-notification {
+        fill: #d1294d;
+    }
+
+    &:hover {
+        .boxRename {
+            visibility: visible;
+        }
+    }
+
+    .svg-settings {
+        fill: #c2c2c2;
+    }
+
+    &.setup {
+        height: 47px; //override
+        line-height: 47px; //override
+        .dhText, .svg-inviteUser {
+            display: none;
+        }
+
+        .searchInputWpr {
+            position: absolute;
+            top: 145px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 420px;
+            z-index: 1;
+        }
+
+        .dashLibSearchInput {
+            margin: 0;
+
+            ~ button {
+                float: right; //rtl
+            }
+        }
+
+        .svg-search {
+            right: 13px; //rtl
+            top: 6px;
+        }
+
+        .barActions {
+            position: absolute;
+            right: 28px; //rtl
+            z-index: 1;
+        }
+    }
+}
+
+
+.helpLink {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 26px;
+    line-height: normal;
+    position: relative;
+    top: 14px;
+}
+
+.storeLink {
+    position: relative;
+    top: 4px;
+}
+
+.dhText {
+    font-size: 28px;
+    color: #fff;
+}
+/*#endregion */
+
+/*#region notifications */
+.invitesCounter {
+    display: none;
+    background: @errorColor;
+    border-radius: 10px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    height: 12px;
+    min-width: 12px;
+    line-height: 11px;
+    text-align: center;
+    padding: 4px;
+}
+
+.invitesCounterShow {
+    display: inline;
+}
+.notificationBtn {
+    margin-top: 13px;
+    &:hover {
+        svg {
+            fill: #d1294d;
+        }
+    }
+}
+
+.notifyWpr {
+    width: 400px;
+    position: absolute;
+    right: 40px; //rtl
+    top: 22px;
+    &.dropdown-menu {
+        border: none; //override
+        box-shadow: none; //override
+        background:none;
+    }
+}
+
+.notifyEmpty {
+    display: none;
+    background: #d1294d;
+    text-align: center;
+    width: 400px;
+    height: 136px;
+    color: #fff;
+    border-radius: 10px;
+    line-height: normal;
+    border: none; //override
+}
+.notifyList {
+    color: #fff;
+    overflow-x: hidden;
+    margin-right: -15px; //rtl (this is in order to move the scrollbar away from the item)
+}
+.notifyItem {
+    position: relative;
+    font-size: 14px;
+    width: 400px;
+    height: 100px;
+    background: #acacac;
+    border-radius: 10px;
+    line-height: normal;
+    overflow: hidden;
+    
+    &:hover {
+        background: #bbb;
+        .trash {
+            display: block;
+        }
+    }
+    &.new {
+        background: #d1294d;
+        &:hover {
+            background: #e25c6a;
+        }
+    }
+    + .notifyItem {
+        margin-top: 5px;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 15px 15px 0 100px; //rtl
+        .boxSizing;
+    }
+    .notifyDetails {
+        margin-top: 12px;
+    }
+    .notifier {
+        max-width: 185px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .trash {
+        position: absolute;
+        bottom: 12px;
+        right: 12px; //rtl
+        display: none;
+    }
+    .svg-trash {
+        fill: #fff;
+    }
+}
+.notifyImg
+{
+    position: absolute;
+    left: 20px; //rtl
+    top: 15px;
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    .boxSizing;
+    border: 3px solid #fff;
+}
+/*#endregion */
+
+/*#endregion */
+
+/*#region jQuery custom content scroller  */
+.mCSB_dragger_bar {
+    background: rgba(103,103,103,.5) !important;
+    width: 7px !important;
+    border-radius: 3px;
+}
+
+.mCSB_draggerRail {
+    display: none;
+}
+/*#endregion */
+

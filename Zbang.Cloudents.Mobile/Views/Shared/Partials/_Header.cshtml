@@ -1,0 +1,16 @@
+﻿
+<a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
+    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
+</a> @*target="{{$root.isStore() ? '_self': '' }}"*@
+
+
+<nav class="userSection rFloat">
+    @*@{ Html.RenderPartial("_UserDetail3"); }*@
+    <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+    <div class="headerActions rFloat">
+        <label for="sidebarCb" class="headerSettings rFloat">
+            @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+        </label>
+        @{Html.RenderPartial("_UserDetail3");}
+    </div>
+</nav>

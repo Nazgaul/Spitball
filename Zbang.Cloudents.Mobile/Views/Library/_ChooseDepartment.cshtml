@@ -1,0 +1,14 @@
+﻿@model Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="chooseDept" ng-style="{display: display.choose ? 'block' : 'none'}">
+    <form ng-submit="chooseDepartment()">
+        @Html.LabelFor(m => m.Name)
+
+        @Html.ValidationMessageFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "inputText", ng_model = "params.departmentSearch", ng_keyup = "searchDepartment()", autocomplete = "off" })
+        <button type="submit" class="btn1 rFloat" ng-disabled="!selectedDepartment">@SharedResources.Choose</button>
+        <button type="button" class="btn2 rFloat" ng-click="backDepartment()">@SharedResources.Back</button>
+    </form>
+    @_ChooseDeptAC.deptList()
+</div>
