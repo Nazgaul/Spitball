@@ -26,7 +26,7 @@
 
             $scope.facebookLogin = function () {
                 sFacebook.registerFacebook().then(function () {
-                    $modalInstance.close();
+                    $window.location.reload();
                 }, function () {
                     $modalInstance.dismiss();
                 });

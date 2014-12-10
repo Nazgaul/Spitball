@@ -34,6 +34,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     });
 
+    if (!sUserDetails.isAuthenticated()) {
+        sLogin.connect();
+    }
+
     function getPreview() {
         if (index > 0) {
             $scope.load.contentLoadMore = true;
