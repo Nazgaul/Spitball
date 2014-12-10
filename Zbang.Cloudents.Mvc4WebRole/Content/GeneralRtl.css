@@ -57,6 +57,26 @@ input[type="radio"].radio:checked + label:after {
 }
 /*#endregion */
 /*#region popup */
+/*#region Coupon popup */
+.modal .cancel {
+  margin: 18px 10px 0 0;
+}
+.modal.couponPopup:before {
+  margin: auto 32px auto auto;
+}
+.modal.couponPopup .signupBtns {
+  right: -6px;
+  left: auto;
+}
+.welcomeStore {
+  right: -5px;
+  left: auto;
+}
+.couponWpr .helpPopup:before {
+  right: 20px;
+  left: auto;
+}
+/*#endregion */
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
   margin: 0 15px 0 0;
@@ -70,11 +90,6 @@ input[type="radio"].radio:checked + label:after {
 .closeModal {
   left: 20px;
   right: auto;
-}
-.popupWrppr .inputText,
-.modal .inputText {
-  padding: 0 8px 0 4px;
-  /*rtl*/
 }
 .requestSentDiv {
   padding: 0 18px 0 0;
@@ -102,23 +117,6 @@ input[type="radio"].radio:checked + label:after {
   /*rtl*/
   left: auto;
 }
-/*#region Welcome Store*/
-.registerFirst.store:before {
-  margin: 0 auto 0 32px;
-}
-.registerFirst.store .signupBtns {
-  right: -6px;
-  left: auto;
-}
-.welcomeStore {
-  right: -5px;
-  left: auto;
-}
-.couponWpr.couponWpr .helpPopup:before {
-  right: 20px;
-  left: auto;
-}
-/*#endregion */
 .emailBtn {
   padding: 7px 53px 8px 15px;
   /*rtl*/

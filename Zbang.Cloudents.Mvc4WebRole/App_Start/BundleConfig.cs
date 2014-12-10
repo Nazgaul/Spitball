@@ -51,6 +51,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             IDictionary<string, IEnumerable<JsFileWithCdn>> registeredJsBundles
             )
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 452e8294fe856b1d04b89ff99f2d4742f0abf019
             if (registeredCssBundles != null)
             {
                 foreach (var registeredCssBundle in registeredCssBundles)

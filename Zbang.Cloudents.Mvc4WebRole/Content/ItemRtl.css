@@ -68,10 +68,6 @@
   right: 0!important;
   left: auto;
 }
-.firstRow .tooltip-arrow {
-  border-left: none;
-  border-right: 1px solid #3399ff;
-}
 .item-name {
   text-align: right;
   padding: 0 0 0 24px;

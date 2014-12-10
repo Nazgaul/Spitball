@@ -5,22 +5,22 @@
 <div class="splitHR"><span class="splitHRText">@LogOnResources.ByEmail</span></div>
 
 <div class="signIn">
-    <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
+    <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate >
 
-        <div class="ng-message-errors" ng-messages="loginForm.email.$touched && loginForm.email.$error">
+        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">Required</span>
             <span class="ng-message-error" ng-message="email">Email</span>
         </div>
-        <input type="email" class="inputText" ng-class="{error: loginForm.email.$touched && loginForm.email.$error}" name="email" tabindex="1" placeholder="@SharedResources.EmailAddress" required ng-model="formData.login.email" />
+        <input type="email" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}" name="email" tabindex="1" placeholder="@SharedResources.EmailAddress" required ng-model="formData.login.email" />
 
-        <div class="ng-message-errors" ng-messages="loginForm.password.$touched && loginForm.password.$error">
+        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.password.$touched) && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">Required</span>
         </div>        
-        <input name="password" type="password" ng-class="{error: loginForm.password.$touched && loginForm.password.$error}" class="inputText" tabindex="2" placeholder="@LogOnResources.Password" required ng-model="formData.login.password" />
+        <input name="password" type="password" ng-class="{error: (loginSubmitted || loginForm.password.$touched) && loginForm.password.$error}" class="inputText" tabindex="2" placeholder="@LogOnResources.Password" required ng-model="formData.login.password" />
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">@LogOnResources.ForgotYourPassword</a>
         <input type="checkbox" checked class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" ng-model="formData.login.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">זכור אותי</label>
-        <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn">
+        <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" ng-click="loginSubmitted = true">
     </form>
 </div>
 
