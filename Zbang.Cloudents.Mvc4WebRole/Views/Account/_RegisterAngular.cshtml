@@ -39,7 +39,7 @@
         <span class="ng-message-error" ng-message="minlength">Length</span>
     </div>
 
-    <input class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6"
+    <input type="password" class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6"
            ng-class="{error: (registerSubmitted || registerForm.password.$touched) && loginForm.password.$error}"
            ng-model="formData.register.password" required />
 
@@ -51,13 +51,13 @@
     <input id="femaleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="false" required>
     <label class="genderLabel" for="femaleRadio">נקבה</label>
 
-    <select class="inputText rFloat">
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.HebrewName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.RussianName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ArabicName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+    <select class="inputText rFloat" ng-change="changeLanguage()" ng-model="params.language" ng-init="params.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
+        <option value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+        <option value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
     </select>
 
 
