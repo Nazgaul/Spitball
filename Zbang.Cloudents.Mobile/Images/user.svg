@@ -1,0 +1,20 @@
+﻿<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-323.6 180.4 481.1 481" enable-background="new -323.6 180.4 481.1 481" xml:space="preserve">
+<g>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#EEEEEE" stroke="#C2C2C2" stroke-width="5" stroke-miterlimit="10" d="
+		M-83,182.9c131.5,0,238.1,106.6,238.1,238c0,131.4-106.6,238-238.1,238c-131.5,0-238.1-106.6-238.1-238
+		C-321.1,289.4-214.5,182.9-83,182.9z"/>
+	<g>
+		<defs>
+			<path id="SVGID_1_" d="M-83,185.5c130,0,235.4,105.4,235.4,235.3c0,130-105.4,235.3-235.4,235.3c-130,0-235.4-105.4-235.4-235.3
+				C-318.4,290.9-213,185.5-83,185.5z"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
+		</clipPath>
+		<path id="user-icon_1_" clip-path="url(#SVGID_2_)" fill="#9DC4E4" d="M64.7,566.6C6.3,553.2-48,541.4-21.7,491.7
+			C58.4,340.7-0.5,260-85.1,260c-86.3,0-143.7,83.9-63.4,231.8c27.1,49.9-29.3,61.7-86.4,74.9c-58.4,13.5-53.9,44.2-53.9,100
+			l407.2,0C118.5,610.8,123,580.1,64.7,566.6z"/>
+	</g>
+</g>
+</svg>

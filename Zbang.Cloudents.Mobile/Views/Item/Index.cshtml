@@ -1,0 +1,155 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Item.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+@{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
+<div class="page itemPage" ng-controller="ItemCtrl">
+    <div class="topBar">
+        @*<div class="leftPart">
+            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
+                <div>@SharedResources.Backto</div>
+                <h2 class="semiFont elps">{{item.boxName}}</h2>
+                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+            </a>
+        </div>*@
+        <a title="@SharedResources.Close" class="closePreview rFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </a>
+        <div class="mainPart">
+            <ul class="middleActionList">
+                <li class="middleActionItem">
+                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item">
+                        @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
+                    </a>
+                </li>
+
+                <li class="middleActionItem">
+                    <a class="actionLink" title="@ItemsResources.Print<" href="{{item.printUrl}}" target="_blank" analytics-on="click" analytics-event="Print" analytics-category="Item">
+                        @Html.Svg("~/Images/Defs.svg", "print", new { @class = "svg-print" })
+                    </a>
+                </li>
+
+                <li class="middleActionItem">
+                    <button title="@ItemsResources.FullScreen" type="button" ng-click="fullScreenWindow()">
+                        @Html.Svg("~/Images/Defs.svg", "fullscreen", new { @class = "svg-fullscreen" })
+                    </button>
+                </li>
+
+                <li class="middleActionItem">
+                    <input class="checkbox" type="checkbox" id="itemShare" ng-model="popup.share" />
+                    <label title="@SharedResources.Share" for="itemShare" analytics-on="click" analytics-event="Share" analytics-category="Item">
+                        @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
+                    </label>
+                    <div class="dropDown shareDD">
+                        <label class="closeItem rFloat" for="itemShare"></label>
+                        <div class="arrow shareArrow"></div>
+                        <h4 class="semiFont">@SharedResources.ShareItem</h4>
+                        <div class="shareTxt">@SharedResources.ShareUsing</div>
+                        <ul class="shareList">
+                            <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="shareItem"><button type="button" ng-click="shareEmail()" class="emailShare">@SharedResources.Email</button></li>
+                            }
+                        </ul>
+                        <div class="shareTxt">@SharedResources.OrCopyLink</div>
+                        <input type="text" class="linkShare" readonly="readonly" ng-model="item.url" select-on-click />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="leftPanel lFloat">
+        <div class="firstRow">
+            <h2 class="lFloat">
+                <span class="item-name elps" tooltip="{{item.name}}">{{item.name}}</span>
+                <button class="itemRenameBtn" title="@SharedResources.Rename" type="button" ng-click="renameWindow()">
+                    @Html.Svg("~/Images/Defs.svg", "pencil", new { @class = "svg-pencil" })
+                </button>
+            </h2>
+            <div class="uploadInfo">
+                <span class="itemOwner elps" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <time>{{item.updateTime | date:'d MMM yyyy'}}</time>
+            </div>
+        </div>
+        <div class="secondRow">
+            <span class="lFloat views" tooltip="@SharedResources.Views">
+                @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })&nbsp;<span>{{item.numberOfViews}}</span>
+            </span>
+            <span ng-show="item.numberOfDownloads !== null" class="downloads" tooltip="@SharedResources.Downloads">
+                @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })&nbsp;<span>{{item.numberOfDownloads}}</span>
+            </span>
+            <button type="button" class="itemFlag rFloat" ng-disabled="!canFlag()" ng-class="{flagged: flagged}" ng-click=" flagItemWindow()">
+                @Html.Svg("~/Images/Defs.svg", "flag", new { @class = "svg-flag" })&nbsp;<span>{{flagText}}</span>
+            </button>
+        </div>
+        <span class="rateTxt">@ItemsResources.Rate</span>
+        <div class="rateWpr rFloat" rate-star="{{item.rate}}" rate-item-callback="rate(t)">
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+            @Html.Svg("~/Images/Defs.svg", "star", new { @class = "svg-star" })
+        </div>
+
+        <section class="itemComments">
+            <header>@SharedResources.AddComment</header>
+            <form ng-init="showBtn=false" name="addAnnotation" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
+                <div class="textareaWpr">
+                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction class="commentsTextarea" required></textarea>
+                    <div class="rFloat">
+                        <button ng-show="showBtn" ng-disabled="commentp || addAnnotation.$invalid" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
+                        <button ng-show="showBtn" type="reset" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
+                    </div>
+                </div>
+            </form>
+            <div m-custom-scrollbar>
+                <ul class="itemCommentsList">
+                    <li class="itemComment" ng-repeat="comment in item.comments">
+                        <div class="commentTop">
+                            <time class="rFloat" display-time="{{comment.creationDate}}"></time>
+                            <span class="lFloat">@ItemsResources.PostedBy</span>
+                            <span user-tooltip-popup="{{comment.userId}}" class="user-name elps">{{comment.userName}}</span>
+                        </div>
+                        <p>{{comment.comment}}</p>
+                        <ul>
+                            <li ng-repeat="reply in comment.replies">
+                                <div class="commentTop">
+                                    <time class="rFloat" display-time="{{reply.creationDate}}"></time>
+                                    <span class="lFloat">@ItemsResources.PostedBy</span>
+                                    <span user-tooltip-popup="{{reply.userId}}" class="user-name elps">{{reply.userName}}</span>
+                                </div>
+                                <p>{{reply.comment}}</p>
+                                <button type="button" class="trash" ng-click="deleteReply(reply,comment)" ng-if="canDelete(reply.userId)">
+                                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                                </button>
+                            </li>
+                        </ul>
+                        <button class="addComBtn" type="button" ng-init="comment.showReplyF=false" ng-hide="comment.showReplyF" ng-click="comment.showReplyF=true">@SharedResources.AddComment</button>
+                        <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
+                        <form name="addReplyF" novalidate ng-submit="addReply(comment,addReplyF.$valid)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
+                            <div class="textareaWpr">
+                                <textarea text-direction ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
+                                <div class="rFloat">
+                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp || addReplyF.$invalid">@SharedResources.Post</button>
+                                    <button type="reset" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init" load-spinner-time="1000">
+        <div class="arrowsWpr">
+            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="rFloat navBtn" analytics-on="click" analytics-event="Navigate Previous Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
+            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="lFloat navBtn" analytics-on="click" analytics-event="Navigate Next Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
+        </div>
+        <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
+            <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
+            <div load-spinner="load.contentLoadMore" load-spinner-type="page"></div>
+        </div>
+    </div>
+</div>

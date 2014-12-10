@@ -1,0 +1,68 @@
+﻿@using System.Globalization
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+
+<!DOCTYPE html>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture">
+<head>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+    <title>@HomeResources.Title</title>
+    <link rel="SHORTCUT ICON" href="~/favicon.ico" />
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
+    <meta name="title" content="@HomeResources.Title" />
+    <meta name="description" content="@HomeResources.Description" />
+    <link rel="image_src" href="~/Images/cloudents.png?v=1" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
+    <meta property="fb:app_id" content="450314258355338">
+    <meta property="og:site_name" content="Cloudents">
+    <meta property="og:image" name="og:image" content="@Url.CdnContent("/Images/cloudents-share-FB-1.png")" >
+    <meta property="og:description" name="og:description" content="@FooterResources.ogDescription" >
+    <meta property="og:title" name="og:title" content="@FooterResources.ogTitle" >
+
+    @Html.Css2("home")
+    @Html.CssRtl("homeRtl")
+    @Html.CssCulture("lang")
+    <!--[if lt IE 9]>
+        <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+        document.createElement('hgroup');
+        </script>
+    <![endif]-->
+    <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
+
+</head>
+<body>
+
+    <div class="homeContent">
+        @RenderBody()
+    </div>
+    <footer id="footer">
+        <ul class="footer">
+            <li>@FooterResources.ZbangIt&rlm;&nbsp;&lrm;&copy;@DateTime.UtcNow.Year.ToString(CultureInfo.InvariantCulture)&nbsp;@FooterResources.RightsReserved&nbsp;V @VersionHelper.CurrentVersion(false)</li>
+            <li><a href="@Url.Action("AboutUs", "Home")">@FooterResources.AboutUs</a></li>
+            <li><a href="@Url.Action("Help", "Home")">@SharedResources.Help</a></li>
+            <li><a href="@Url.Action("ContactUs", "Home")">@FooterResources.ContactUs</a></li>
+            <li><a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a></li>
+            <li class="last"><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
+        </ul>
+    </footer>
+    @{Html.RenderPartial("_Welcome");}
+    <div id="cssCheck"></div>
+    <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
+    @*<script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>*@
+    @*@Html.Script2("General")*@
+    @Html.Script2("home")
+
+</body>
+</html>
+

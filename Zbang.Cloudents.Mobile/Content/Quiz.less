@@ -1,0 +1,1192 @@
+﻿@import "varsAndMixins";
+
+body {
+    &.quiz {
+        //with jsDark on body this is not necessary//
+        background: #282828;//
+        .siteHeader {
+            background: #0f0f0f;//
+        }
+        .dashLibSearchInput {
+            display: none;//
+        }
+        .topBar {
+            background: #1e1e1e;
+            border: none; //override
+        }
+
+        .backWpr {
+            color: #fff;
+            position: absolute;
+            left: 0; //rtl
+            margin-top: 16px;
+            height: 40px;
+            padding-left: 45px;
+            &:before {
+                top: -4px;
+            }
+        }
+        .shareBtn {
+            position: absolute;
+            right: 0; //rtl
+            margin-top: 5px;
+        }
+        .modal-backdrop.in {
+            opacity: .7;
+        }
+    }
+}
+
+/*#region Create Quiz */
+.bodyContent{
+    &.noQuiz
+    {
+        .quizSideBar {
+            right: -390px; /*rtl*/
+        }
+        
+        .toggleQuiz{
+            right: -22px; /*rtl*/
+        }
+    }
+    &.previewQuiz
+    {
+        position: fixed; //remove the scroll from existing content of bodyContent
+        width: 100%;
+        &.topBarFix {
+            .quizPreview
+            {
+                h2,.closePreview {
+                    display: block;
+                }
+            }
+        }
+        .quizPreview
+        {
+            margin-top: 0; 
+        }
+        .quizTitle {
+            margin: 20px auto;
+            width: 800px;
+            display: block;
+            max-width: none; //override
+        }
+    }
+}
+.quizAnswer {
+    .removeAnswer {
+        display: none;
+    }
+    &:hover {
+        .removeAnswer {
+            display: inline-block;
+        }
+    }
+}
+.quizSideBar {
+    position: fixed;
+    top: 50px;
+    right: 0; /*rtl*/
+    width: 386px;
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})';
+    background: #e4e4e4;
+    //z-index: 5;
+     z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
+    .boxSizing;
+    padding: 0 14px;
+    border-left: 1px solid @borderColor; /*rtl*/
+    box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
+    .transition(right .4s); /*rtl*/
+    .emptyQuiz {
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder:first-child {
+            &[class*='Req'] {
+                border: 1px solid #d1294d;
+            } 
+            &.answerReq {
+                .addAnswer {
+                    display: inline-block;
+                }
+            }
+            &.questionReq{
+                .addQuestion{
+                    display: inline-block;
+                    position: absolute;
+                    right: 21px; /*rtl*/
+                    top: 15px;
+                }
+            }
+            &.correctReq {
+                .correct {
+                    color: @errorColor;
+                }
+            }       
+
+            .quizAnswer:nth-child(-n+2) {                
+                .questionAnswer {
+                    border: 1px solid @errorColor;
+                    &.ng-dirty:not(.ng-invalid) {
+                    border: 1px solid @borderColor;
+                    }
+                }                                
+            }
+        }
+    }
+    .validated {
+        .quizName:not(.ng-valid) {
+            border: 1px solid @errorColor;
+        }
+        .questionHolder.ng-invalid{
+            &[class*='Req'] {
+                border: 1px solid #d1294d;
+            } 
+            &.answerReq {
+                .addAnswer {
+                    display: inline-block;
+                }
+
+                .questionAnswer {
+                    border: 1px solid #d1294d;
+                }
+            }
+            &.questionReq{
+                .addQuestion{
+                    display: inline-block;
+                    position: absolute;
+                    right: 21px; /*rtl*/
+                    top: 15px;
+                }
+            }
+            &.correctReq {
+                .correct {
+                    color: @errorColor;
+                }
+            }       
+            .questionAnswer.ng-invalid{
+                border: 1px solid @errorColor;
+            }
+        }
+
+
+    }
+    &.error {
+        .quizBottom .error {
+            display: inline-block;
+        }
+    }
+
+    header {
+        height: 40px;
+        background: #517e9e;
+        color: #fff;
+        font-size: 17px;
+        margin: 0 -14px 0 -15px; /*rtl*/ //left padding + 1px border
+        padding: 8px 0 0 14px; /*rtl*/
+        .boxSizing;
+        .closeDialog {
+            right: 20px; /*rtl*/
+        }
+    }
+
+    .inputText {
+        width: 270px;
+        .boxSizing;
+        border-color: rgba(194,194,194,.5);
+        &:focus {
+            border-color: @borderColor;
+        }
+        &.quizName {
+            width: 100%;
+            margin: 10px 0 17px;
+            height: 32px;
+            font-size: 17px;
+        }
+
+        &.questionText {
+            min-height: 32px;
+            padding: 3px 6px;
+            width: 100%;
+            resize: none;
+            font-size: 17px;
+            line-height:19px;
+        }
+    }
+
+    section {
+        min-height: 100%;
+        //height: ~'calc(100% - 150px)';
+        //height: 300px;
+    }
+
+    //issue with css priority
+    .questionHolder {
+        .error {
+            display: none;
+            color: @errorColor;
+        }
+    }
+     .error {
+            display: none;
+            color: @errorColor;
+        }
+}
+
+.toggleQuiz
+{
+    width: 22px;
+    height: 22px;
+    background: @common-sprite -294px -2px;
+    position: fixed;
+    right: 374px; /*rtl*/
+    top: 78px;
+    z-index: 6;
+    .transition(all .4s);
+    cursor: pointer;
+}
+
+.checkbox:checked
+{
+    ~ .toggleQuiz
+    {
+        .flipH;
+        right: 3px; /*rtl*/
+    }
+    ~ .quizSideBar, ~ .quizSideBar .quizBottom
+    {
+        right: -372px;  /*rtl*/
+    }
+}
+.quizWpr
+{
+    overflow:hidden;
+    width: 370px !important; //override jQuery custom scrollbar
+
+    textarea {
+        overflow:hidden;
+    }
+}
+.quizLoc
+{
+    padding-top: 10px;
+    .boxSizing;
+    &:before
+    {
+        content: attr(data-quizin) "\00a0";
+        display: inline-block;
+    }
+}
+.questionHolder
+{
+    background: #fff;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 12px;
+    .boxSizing;
+   
+    &:hover {
+        .closeDialog{
+            display: block;
+        }
+    }
+    .closeDialog{
+        background-position: -87px -121px;
+        display: none;
+        width: 20px;
+        height: 19px;
+        right: -1px; /*rtl*/
+        top: -10px;
+        .scale(.85);
+    }
+    .lFloat{
+        margin: 3px 5px 0 0; /*rtl*/
+    }
+    .answers{
+        color: #9d9d9d;
+    }
+    .correct{
+        width: 40px;
+        font-size: 11px;
+        margin-bottom: 9px;
+        color: #9d9d9d;
+        line-height: 12px;
+        height: 27px;
+        text-align: center;
+    }
+    .inputText{
+        resize: none;
+        margin: -5px 0 9px;
+        padding-top: 3px;
+        .boxSizing;
+        &[readonly], &[readonly] ~ label
+        {
+            opacity: .5;
+        }
+        &:focus ~ label:before {
+            opacity:1;
+        }
+    }
+    input[type="radio"]:checked + label:before{
+        opacity:1;
+    }
+    label{
+        position: absolute;
+        right: 19px; /*rtl*/
+        &:before {
+            opacity: .5;
+        }
+    }
+}
+
+.quizAnswersList{
+    list-style-type: lower-alpha;
+    clear: both;
+    padding-left: 16px; /*rtl*/
+}
+
+.quizAddQuestion
+{
+    width: 100%;
+    height: 40px;
+    background: rgba(255,255,255,.5);
+    text-align: left; /*rtl*/
+    color: @attentionBlue;
+    margin-bottom: 60px;
+    padding: 0 12px;
+    border-radius: 3px;
+    .boxSizing;
+    &:hover {
+        background: #fff;
+    }
+    .svg-plus {
+        position: relative;
+        top: 3px;
+    }
+}
+.quizBottom
+{
+    background: #fff;
+    border-top: 1px solid @borderColor;
+    height: 42px;
+    padding: 0 14px;
+    position: fixed;
+    bottom: 0;
+    right: 0; /*rtl*/
+    width: 385px;
+    .transition(right .4s); /*rtl*/
+    .boxSizing;
+    .error{
+        margin: 10px;
+    }
+}
+.saveQuiz{
+    margin-top: 6px;
+    padding: 3px 20px 4px 20px;
+}
+.quizPreviewBtn
+{
+    color: @attentionBlue;
+    margin-top: 12px;
+}
+/*#endregion */
+
+/*#region Quiz Preview  */
+.quizPreviewTop, .quizTop {
+    height: 43px;
+    color: @itemBlue;
+    background: #0f0f0f;
+    text-align: center;
+    margin: 0 auto;
+    .svg-back {
+        .flipH; //rtl
+    }
+}
+.quizPreviewScroll {
+    height: 100%; 
+    overflow: auto;
+    background: #282828;
+    color: #fff;
+}
+.quizPreview
+{
+    margin-top: 100%;
+    position: fixed;
+    z-index: 14;
+    left: 0; /*rtl*/
+    top: 0;
+    width: 100%;
+    height: 100%;
+    .transition(margin .7s ease-in);
+
+    h2{
+        display: none;
+        font-size: 20px;
+        font-weight: normal;
+        padding: 7px 30px 0 30px;
+        .boxSizing;
+    }
+    .closePreview {
+        //z-index: 1;
+        display:none;
+    }
+
+    .correct {
+        background: rgba(3, 113, 200, 0.2);
+        + li {
+            margin-top: 10px;
+        }
+    }
+    .quizAList li{
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        .ng-binding {
+            top: -17px;
+            position: relative;
+        }
+    }
+}
+
+.quizPrevWpr
+{
+    width: 800px;
+    margin: 20px auto 60px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 0 20px 15px 20px;
+    .boxSizing;
+    letter-spacing: 0;
+    color: @textColor;
+    //border: 2px solid @color;
+    //box-shadow: inset 0 0 3px @color;
+}
+.quizTitle{
+    font-size: 18px;
+    padding-top: 11px;
+    max-width: 430px;
+    display: inline-block;
+    &:before
+    {
+        content: attr(data-questioncount) "\00a0";
+        display: inline-block;
+    }
+}
+.quizQList
+{
+    list-style-type: decimal;
+    font-size: 15px;
+    padding: 0 25px;
+    > li{
+        position:relative; //for item view
+        clear: both;
+        border-bottom: 1px dashed @borderColor;
+        padding: 20px 0 10px;
+        &:last-child {
+            border: none;
+            margin-bottom: 20px;
+        }
+    }
+    /*.splitHR {
+
+        text-align: left; //rtl
+        padding: 10px 0 0 42px; //rtl
+        font-size: 13px;
+        margin: 0 -34px -4px -34px;
+    }
+    .splitHRText:before, .splitHRText:after {
+        border-color: @borderColor;
+    }*/
+
+    /*.iconTxt {
+        color: @attentionBlue;
+        &:before {
+            width: 15px;
+            height: 15px;
+            background-position: -55px -121px;
+        }
+    }*/
+    ~ .btn1 {
+        //margin-top: 30px;
+        margin-top: -25px;
+        position: relative;
+    }
+}
+/*.quizQuestion {
+    padding-right: 80px;
+}*/
+.askBtn {
+    border-radius: 5px;
+    background: @attentionBlue;
+    color: #fff;
+    font-size: 15px;
+    min-width: 80px;
+    padding: 1px 13px;
+    margin-top: 3px;
+    height:24px;
+
+    &:disabled {
+        background: #aaa;
+    }
+}
+
+.commentWpr {
+    //margin: 10px 40px 0 34px; /*rtl*/
+    margin: 10px -34px 0 -34px;
+    position: relative;
+    display: none;
+    background: #f1f1f1;
+    padding-left: 10px; /*rtl*/
+    .closeDialog {
+        background-position: -68px -26px;
+        right: 20px; /*rtl*/
+        top: 3px;
+        display: none;
+    }
+    .imgBorder {
+        position: absolute;
+        left:0; /*rtl*/
+        /*display: none;*/
+    }
+    .askBtn {
+        //padding: 5px 15px 6px; //diff rtl
+        padding: 6px 15px 7px; //diff rtl
+        height: auto;
+        margin: 0 12px 10px 0; /*rtl*/ 
+        display: block;
+        width: 100px;
+    }
+    li:hover .closeDialog {
+            display: block;
+            top: 15px;
+    }
+    /*&.show {
+        .quizComments, .imgBorder, .cTextAreaWpr {
+            display: block;
+        }
+        
+    }*/
+}
+.quizComments {
+    font-size: 13px;
+    /*display: none;*/ //ram request
+    li{
+        position: relative;
+        padding: 10px 0 0 42px; //rtl
+    }
+    
+    .createTime {
+        vertical-align: baseline; //override
+    }
+    &:empty {
+        ~ .closeDialog {
+            display: none;
+        }
+    }
+}
+.commentTxt {
+    font-size: 15px;
+    margin: 10px 0;
+    padding-right: 22px; /*rtl*/
+}
+.cTextAreaWpr {
+    //display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    overflow: hidden; //for comment button to take up space
+    .imgBorder {
+        left: 10px; /*rtl*/
+    }
+}
+.cTextArea {
+    width: 595px;
+    margin-left: 42px; /*rtl*/
+    border-radius: 3px;
+    font-size: 15px;
+    resize: none;
+    height: 22px;
+    //padding: 4px;
+    padding: 7px 5px 1px 5px;
+    border: 1px solid #a9a9a9;
+}
+.qPreview, .quizQuestion {
+    white-space: pre-line;
+    line-height: 21px;
+    //font-size: 15px;
+}
+.quizAList {
+    list-style-type: lower-latin;
+    font-size: 15px;
+    padding: 18px 20px;
+
+    li {
+        //margin: 0 0 -27px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        //margin: 0 13px -26px 0; /*diff rtl for bottom*/
+        margin: 0 0 -26px 13px; /*rtl*/ // compensate for list-style-position: inside + text-indent
+        list-style-position: inside; //force left-align on the list style type
+        position: relative; //TODO:not sure if this is necessary anymore
+        white-space: pre-line;
+        text-indent: -34px;
+        line-height: 18px;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+
+        &:before {
+            content: '';
+            display: inline-block;
+            padding-left: 18px; /*rtl*/ // compensate for list-style-position: inside
+        }
+
+        &:last-child {
+            margin-bottom: -40px;
+        }
+
+        label {
+            position: relative;
+            top: -36px;
+            left: 5px; /*rtl*/
+            line-height: 20px;
+
+            &:before {
+                position: absolute;
+                left: -19px; /*rtl*/
+                //top: 7px;
+                top: 5px; /* diff rtl - need this! */
+            }
+        }
+    }
+}
+/*#endregion */
+
+/*#region Quiz item page */
+.quizPage {
+    font-family: Arial;
+    letter-spacing: 0.05em;
+    &:not(.checkQuiz) {
+        .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
+            .transition(none);
+        }
+    }
+
+    .sectionHeader {
+        color: transparent;
+    }
+
+    .leftPanel.leftPanel {
+        left: 0; /*rtl*/
+        top: @header-height;
+        height: 100%;
+        background: none;
+        border: none;
+        width: @leftSideBarWidth;
+        margin: 0; //override
+    }
+    .quizTop {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        padding-left: @leftSideBarWidth; //rtl
+        .boxSizing;
+    }
+    .backWpr {
+        &:before {
+            //background: @site-sprite 0 0 no-repeat;
+            width: 43px;
+	        height: 42px;
+	        background: @site-sprite 0 -1602px no-repeat;
+            .flipH; //rtl
+        }
+        &:hover:before {
+            background-position: 0 -1602px;
+        }
+        h2 {
+            max-width: 120px; 
+        }
+    }
+    .shareBtnTxt {
+        color: #fff;
+        padding: 22px 0 0 0; //override
+        &:before {
+            width: 22px;
+	        height: 18px;
+	        background: @site-sprite 0 -1090px;
+            margin:0; //override
+        }
+        &:hover:before {
+            background-position:  0 -1090px;//0 -1124px;
+        }
+    }
+    .itemPrint.iconTop {
+        margin-top: 11px;
+    }
+
+    .itemRight {
+        text-align: left; /*rtl*/
+        padding-left: @leftSideBarWidth; //rtl
+    }
+
+    .itemTop {
+        color: #fff;
+        font-size: 15px;
+        margin: 0;
+        //height: 75px; //diff rtl
+        height: 73px;
+        border-bottom: 1px solid #797979;
+    }
+    .firstRow {
+        position: relative;
+        padding: 16px 15px 8px 56px; //rtl
+        .boxSizing;
+        height: auto; //override
+        display: block; //override
+        svg {
+            width: 45px;
+            height: 45px;
+            position: absolute;
+            left:8px; //rtl
+            top: 11px;
+        }
+    }
+    .quizViews {
+        text-align: center;
+        line-height: 11px;
+        width: 53px;
+        height: 45px;
+        position: relative;
+        border-left: 1px solid #797979; //rtl
+        color: @borderColor;
+        margin: 10px -5px 0 5px;
+        font-size:12px;
+        svg {
+            display: block;
+            width: 38px;
+	        height: 23px;
+            fill: #fff;
+            margin: 2px auto 6px;
+        }
+    }  
+
+    .item-name {
+        color: #fff;
+        font-size: 16px;
+        display: block; // for ellipsis
+        padding: 0;
+        margin: 2px 0 3px;
+    }
+    .itemOwner {
+        font-size: 12px;
+        max-width: 75px;
+        margin-top: 0;
+        color: @borderColor;
+        + .rFloat {
+            font-size: 12px;
+            margin-right:7px;
+            color: @borderColor;
+        }
+    }
+    ~ .modal-backdrop.in {
+        opacity: 0.8;
+    }
+}
+.checkQuiz, .afraid {
+    .userCorrect, .userWrong {
+        .quizQuestion, .quizAList {
+            padding-right: 80px; ////
+            &:before {
+                display: inline-block;
+            }
+        }
+    }
+    .commentWpr {
+        display: block;
+    }
+    //duplicated class name for extra specificity
+    .correct.correct label, .wrong.wrong label {
+        &:before {
+            .pseudo;
+            width: 17px;
+            height: 16px;
+            background-color: none;
+            background: @common-sprite -18px -121px no-repeat;
+            opacity: 1 !important; //override disabled radio half opacity on label. TODO: See if there is another way!
+            margin: -5px 0 0 -3px; /*rtl*/
+        }
+    }
+
+    .wrong.wrong label:before {
+        background-position: -36px -121px;
+    }
+
+    .quizPrevWpr .btn1 {
+        display: none;
+    }
+
+    .quizQList .noAnswer:after {
+        content: attr(data-no-answer);
+        display: inline-block;
+        position: absolute;
+        top: 21px;
+        right: -30px; /*rtl*/
+        color: @errorColor;
+        background: #f5f5f5;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-size: 13px;
+    }
+}
+.checkQuiz {
+    .resultsWpr, .userScoreWpr,  .timeRetakeWpr, .topUsersWpr, .distributionWpr {
+        opacity: 1;
+        top: 0;
+        visibility: visible;
+    }
+    .timeWpr {
+        display: none;
+    }
+    .quizQList > li {
+        border: none;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.userCorrect, .userWrong {
+   .quizQuestion, .quizAList {
+        position: relative;
+        &:before {
+            content: '';
+            display: none;
+            position: absolute;
+            left: -45px; /*rtl*/
+            top:0;
+            width: 7px;
+            height: 100%;
+            background: @color;
+        }
+   }   
+}
+.userWrong {
+   .quizQuestion, .quizAList {
+        &:before {
+            background: @errorColor;
+        }
+   }   
+}
+
+.quizTime {
+    color: #fff;
+    font-size: 55px;
+    margin-top: 126px;
+    text-align: center;
+    svg {
+        width: 233px;
+	    height: 264px;
+        position: absolute;
+        left:0;right:0;
+        top: 27px;
+        margin: 0 auto;
+    }
+    ~ button {
+        margin: 5px auto 0;
+        display: block;
+        font-size: 20px;
+        color: @color;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        padding: 2px 25px;
+        position: relative;
+    }
+    + .pause {
+        color: @errorColor;
+    }
+}
+.userResults {
+    text-align: center;
+    color: #fff;
+    overflow: hidden; //for animation
+    background: #282828;
+}
+
+.resultsWpr {
+    background: #282828;
+    padding: 20px 8px;
+    position: relative; //for animation
+    .transition(all .5s ease-in 1.6s);
+    opacity:0;
+    visibility: hidden;
+    top: -113px;
+    z-index: 5;
+    border-bottom: 1px solid #5a5a5a;
+}
+
+.results {
+    width: 48%;
+    display: inline-block;
+    font-size: 15px;
+    position: relative;
+    height: 66px; // diff rtl
+    padding-left: 38px; //rtl
+    .boxSizing;
+    &.wrong {
+        padding: 0 35px 0 0; //rtl
+        border-left: 1px solid #797979;//rtl
+    }
+
+    &:before {
+        content: attr(data-results);
+        display: block;
+        font-size: 56px;
+        color: #fff;
+        margin: -8px 0; // diff rtl
+        font-weight: 600;
+    }
+}
+.svg-correct {
+    position: absolute;
+    width: 38px;
+	height: 38px;
+    left: 0; //rtl
+    top: 12px;
+}
+.svg-wrong {
+    position: absolute;
+    width: 40px;
+	height: 34px;
+    right: 0; //rtl
+    top: 16px;
+}
+.userScoreWpr {
+    margin: 20px 5px 0;
+    font-size: 20px;
+    background: #282828;
+    position: relative;
+    z-index: 4;
+    top: -153px; //for animation
+    .transition(all .5s ease-in .8s);
+    opacity:0;
+    visibility: hidden;
+}
+.userScore {
+    background: #797979;
+    border-radius: 12px;
+    padding-top: 7px;
+    .boxSizing;
+    color:#fff;
+    height: 94px;
+    &:after {
+        content: attr(data-user-score);
+        display: block;
+        font-size: 60px;
+        margin-top: -12px;
+        font-weight: 600;
+        position: relative;
+        top: 10px;
+    }
+}
+
+.timeRetakeWpr {
+    padding: 10px 10px 0;
+    .boxSizing;
+    background: #282828;
+    height: 55px;
+    position: relative;
+    top: -58px;
+    z-index: 3;
+    .transition(all .5s ease-in);
+    opacity:0;
+    visibility: hidden;
+    .btn1 {
+        margin-top: 10px;
+        max-width: 140px;
+    }
+}
+.quizTimerResult {
+    color: #9AC6E9;
+    font-size: 20px;
+    padding-top: 12px;
+    display: inline-block;
+    vertical-align: top;
+    svg {
+        width: 39px;
+	    height: 43px;
+        position: relative;
+        top: -12px;
+        vertical-align: top; //to make FireFox happy
+    }
+}
+.topUsersWpr {
+    position: relative;
+    z-index: 2;
+    top: -137px;
+    .transition(all .5s ease-in 2.4s);
+    background: #282828;
+    border-bottom: 1px solid #797979;
+    opacity:0;
+    visibility: hidden;
+    ol {
+        margin-bottom: 20px;
+    }
+}
+.topUsersTxt, .distributionTxt {
+    font-size: 18px;
+    margin: 13px 0;
+}
+.topUser {
+    width: 37px;
+	height: 37px;
+    border-radius: 50%;
+	background: @quiz-sprite 0 -613px no-repeat;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    &:nth-child(2) {
+        margin: 0 40px;
+    }
+    &:nth-child(4) {
+        display: none; //there should only be three. TODO: Ask Ram if this neds to be fixed with js
+    }
+    svg {
+        display: none;
+    }
+    &.star {
+        svg {
+            display: block;
+            position: absolute;
+            width: 20px;
+	        height: 18px;
+            fill: #ffc104;
+            top: -7px;
+            right: -10px; //rtl
+        }
+    }
+    img {
+        border-radius: 50%;
+        height: 37px;
+        width: 37px;
+    }
+}
+.distributionWpr {
+    position: relative;
+    z-index:1;
+    top: -230px;
+    .transition(all .5s ease-in 3.2s);
+    opacity:0;
+    visibility: hidden;
+    background: #282828;
+}
+/*#endregion */
+/*#region Quiz Dialog */
+
+.modal {
+    &.quizPopup .modal-dialog {
+        width: 700px;
+        background: #fff;
+        padding: 0 20px 15px;
+        border-radius: 6px;
+        margin: auto;
+        z-index: 1052; //TODO: CHECK THIS
+        text-align: center;
+        border: none;
+    }
+}
+
+.quizPopupHeader {
+    color: @color;
+    font-size: 36px;
+    border-top: 2px solid @txtColor;
+    border-bottom: 2px solid @txtColor;
+    position: relative;
+    padding: 0 20px 3px 30px; //rtl
+    margin: 50px 0 0 80px; //rtl
+    display: inline-block;
+    font-weight: bold;
+    &:before {
+        .pseudo;
+        position: absolute;
+        left: -100px; //rtl
+        top: -30px;
+        width: 111px;
+	    height: 111px;
+        background: @quiz-sprite 0 -502px no-repeat;
+    }
+    &:after { //needed to trigger new block
+        content: '';
+        display: block;
+    }
+
+}
+.classmatesWpr {
+    margin-top: 40px;
+}
+.friendsPics {
+    width: 108px;
+    margin-right: 12px; //rtl
+    position: relative;
+    display: inline-block;
+
+    &.plus:after {
+        content: '+' attr(data-plus-count);
+        display: inline-block;
+        font-weight: bold;
+        position: absolute;
+        left: 56px; //rtl
+        top: 0;
+        width: 51px;
+        height: 51px;
+        border: 1px solid @txtColor;
+        font-size: 27px;
+        .boxSizing;
+        padding-top: 5px;
+        background: #fff;
+        color: @color;
+    }
+    img {
+        display: inline-block;
+        margin-bottom: 1px;
+        &:nth-child(odd) {
+            margin-right: 5px; //rtl
+        }
+    }
+}
+.quizPopupTxtWpr {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left; //rtl
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+}
+.quizPopupTxt1 {
+    color: @color;
+    font-weight: bold;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+.quizPopupTxt2 {
+    white-space: pre-wrap;
+    color: @txtColor;
+}
+.quizPopupBtnWpr {
+    margin-top: 30px;
+    .btn1 {
+        width: 220px;
+        height: 40px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 0 15px;
+        &:nth-child(2) {
+            background: @txtColor;
+            &:hover {
+                background: lighten(@txtColor, 10%);
+            }
+        }
+    }
+}
+/*#endregion */

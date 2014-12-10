@@ -1,0 +1,63 @@
+﻿
+
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Zbox.Infrastructure.Culture
+@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Register
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+    new { @class = "register desktop", id = "registerForm", name = "registerForm" }
+   ))
+{
+    @Html.ValidationSummary(true)
+    Html.RenderAction("AntiForgeryToken", "Home", true);
+
+    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "firstError" })
+    @Html.TextBoxFor(model => model.FirstName, new { @class = "inputText firstName lFloat", tabindex = 10, @placeholder = @SharedResources.FirstName })
+
+    @Html.ValidationMessageFor(model => model.LastName, null)
+    @Html.TextBoxFor(model => model.LastName, new { @class = "inputText lastName rFloat", tabindex = 11, @placeholder = @SharedResources.LastName })
+
+    @Html.ValidationMessageFor(model => model.NewEmail, null)
+    @Html.TextBoxFor(model => model.NewEmail, new { @class = "inputText", tabindex = 12, @placeholder = SharedResources.Email, type = "email" })
+
+    @Html.ValidationMessageFor(model => model.ConfirmEmail, null)
+    @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "inputText", tabindex = 13, @placeholder = RegisterResources.VerifyEmail, type = "email" })
+
+
+    @Html.ValidationMessageFor(model => model.Password, null)
+    @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder = LogOnResources.Password })
+
+    @Html.ValidationMessageFor(m => m.IsMale)
+    @Html.RadioButtonFor(model => model.IsMale, "true", new { id = "maleRadio" })
+    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
+
+    @Html.RadioButtonFor(model => model.IsMale, "false", new { id = "femaleRadio" })
+    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
+
+    <select class="inputText rFloat" id="dLangSelect" name="Language.Language">
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.HebrewName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.RussianName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ArabicName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+    </select>
+
+    @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox" })
+    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })
+
+    <div class="formBottom">
+        <span class="acceptTerms">
+            @RegisterResources.IAgree
+            <!--
+            -->
+            <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices&nbsp;</a>@RegisterResources.And&nbsp;
+            <!--
+            -->
+            <a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
+        </span>
+        <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp" />
+    </div>
+}
+

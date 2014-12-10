@@ -1,0 +1,146 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region layout */
+.itemRight {
+  padding: 0 290px 0 0;
+}
+.itemPage .closePreview,
+.quizPage .closePreview,
+.quizPreview .closePreview {
+  margin: 12px 0 0 25px;
+  /*rtl*/
+}
+.itemPage .leftPart {
+  right: 0;
+  left: auto;
+}
+.itemPage .shareDD {
+  left: -8px;
+  right: auto;
+}
+/*#endregion */
+/*#region svg icons */
+.svg-next {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.svg-prev {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+.svg-flag {
+  margin: 0 0 0 5px;
+}
+/*#endregion */
+/*#region item topBars */
+/*#region topBar - main*/
+.mainPart {
+  padding: 0 290px 0 0;
+}
+/*#endregion */
+/*#region second bar - left */
+/*.secondBar {
+    .svg-eye, .svg-download{
+        margin: 0 0 0 5px; //rtl
+    }
+    .mainPart {
+        margin: 0 @leftSideBarWidth 0 0; //rtl
+    }
+}*/
+/*#endregion */
+/*#endregion */
+/*#region left panel */
+.leftPanel .svg-star {
+  float: left;
+}
+.uploadInfo {
+  text-align: right;
+}
+.firstRow .tooltip {
+  right: 0!important;
+  left: auto;
+}
+.firstRow .tooltip-arrow {
+  border-left: none;
+  border-right: 1px solid #3399ff;
+}
+.item-name {
+  text-align: right;
+  padding: 0 0 0 24px;
+  margin: 0 0 10px -24px;
+}
+.itemComments .addComBtn {
+  text-align: right;
+}
+.itemComments .closeDialog {
+  left: -5px;
+  right: auto;
+}
+.itemComments .closeDialog:before {
+  left: -4px;
+  right: auto;
+}
+.itemComments .trash {
+  left: -4px;
+  right: auto;
+}
+.itemCommentsList {
+  padding: 0 0 0 10px;
+}
+.itemCommentsList .itemComment li:hover > .closeDialog {
+  left: 0;
+  right: auto;
+}
+.itemCommentsList .user-name {
+  padding: 0 5px 0 0;
+}
+.itemCommentsList p {
+  padding: 14px 0 14px 7px;
+}
+/*#endregion */
+/*#region item content */
+.itemDisplay {
+  box-shadow: -5px 5px 5px rgba(116, 100, 110, 0.3);
+}
+.arrowsWpr {
+  right: 290px;
+  left: 0;
+}
+.mediaLoader .spinner {
+  border-top: 10px solid rgba(56, 56, 56, 0.75);
+  border-left: 10px solid rgba(56, 56, 56, 0.75);
+}
+.smallLoader .spinner {
+  border-left: 10px solid rgba(56, 56, 56, 0.75);
+}
+/*.previewWrapper {
+    right: 0; //rtl 
+    left: auto; 
+}*/
+/*#endregion */
+/*#region fullscreen */
+.itemFulscrn .mediaLoader .spinner,
+.itemFulscrn .smallLoader .spinner {
+  border-left-color: #fff;
+}
+.exitFulscrn {
+  left: 20px;
+  right: auto;
+}
+.itemPrev,
+.itemNext {
+  right: 10px;
+  left: auto;
+}
+.itemNext {
+  left: 20px;
+  right: auto;
+}

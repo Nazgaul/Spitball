@@ -1,0 +1,84 @@
+﻿@import "varsAndMixins";
+
+.siteHeader {
+    &.headerBox {
+        .backWpr {
+            margin: 8px 25px 0 0; //rtl
+        }
+        .shareBtn {
+            right: 730px; //rtl
+            left: auto;
+        }
+    }   
+}
+
+.siteLogo {
+    padding: 0 30px 0 0; //rtl
+}
+
+.userNav {
+    .userName {
+        text-align: right; //rtl
+        margin: 6px 40px 0 0; //rtl
+    }
+}
+
+.userPts{
+    margin: 0 40px 0 0; /*rtl*/
+}
+
+.headerRightWpr {
+    .userSection {
+        margin: 0 20px 0 0; /*rtl*/
+    }
+}
+/*#region search */
+.searchBtn {
+    left: 10px; //rtl
+    right: auto;
+}
+.dashLibSearchInput {
+    padding: 0 10px 0 40px; //rtl
+}
+/*#endregion */
+.dashHeader {
+    &.setup {
+        .dashLibSearchInput  {
+            ~ button {
+                float: left; //rtl
+            }
+        }
+        .svg-search {
+            left: 13px; //rtl
+            right: auto;
+        }
+        .barActions {
+            left: 28px; //rtl
+            right: auto;
+        }
+    }
+}
+/*#region notifications */
+.notifyWpr {
+    left: 40px; //rtl
+    right: auto;
+}
+.notifyList {
+    margin: 0 0 0 -15px; //rtl (this is in order to move the scrollbar away from the item)
+}
+.notifyItem {
+    a {
+        padding: 15px 100px 0 15px; /*rtl*/
+    }
+    .trash {
+        left: 12px; //rtl
+        right: auto;
+    }
+}
+
+.notifyImg
+{
+    right: 20px; /*rtl*/
+    left: auto;
+}
+/*#endregion */

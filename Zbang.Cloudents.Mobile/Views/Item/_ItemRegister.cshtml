@@ -1,0 +1,18 @@
+﻿
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+<div class="modal-header">
+    <h3 class="modal-title">
+        @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+        @DialogResources.ViewEntire
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="itemRegTxt1">@DialogResources.InterestedIn</div>
+    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
+    <div class="itemRegTxt2">@IndexResources.FreeOnline</div>
+    <button type="button" class="btn1">@SharedResources.RegisterFree</button>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

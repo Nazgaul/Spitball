@@ -1,0 +1,32 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Library.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+<script type="text/ng-template" id="library-department">
+    <a class="navigation deptLink union-sprite" ng-href="{{::item.url}}">
+        <div class="deptNameWpr clamp2">
+            <div class="deptName">{{::item.name}}</div>
+        </div>
+        <span class="courseCount" data-dept-numcourses="{{::item.noBoxes}}">&nbsp;@SharedResources.Courses</span>
+    </a>
+</script>
+<script type="text/ng-template" id="library-box">    
+    <a ng-href="{{::item.url}}">
+        <div>
+            <img class="boxImg" ng-src="{{::item.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
+            <ul class="boxHoverList">
+                <li class="hoverItem itemImg">{{::item.itemCount}}</li>
+                <li class="hoverItem memberImg">{{::item.membersCount}}</li>
+                <li class="hoverItem commentImg">{{::item.commentCount}}</li>
+            </ul>
+        </div>
+        <div class="boxWpr clamp2">
+            <span class="boxName">{{::item.name}}</span>
+        </div>
+        <div class="courseCode elps">{{::item.courseCode}}</div>
+        <span class="courseCode propName elps">{{::item.professor}}</span>
+    </a>
+    <span class="subscriber union-sprite" ng-if="item.userType === 'owner' || item.userType === 'subscribe'">@MainViewResources.Following</span>
+    <button class="follow" ng-click="subscribe(item)" ng-if="item.userType === 'invite' || item.userType === 'none'">@MainViewResources.Follow</button>
+    <button type="button" class="removeItem" ng-click="unsubscribe(item)" ng-if="item.userType === 'owner' || item.userType === 'subscribe'"></button>
+    
+</script>
+

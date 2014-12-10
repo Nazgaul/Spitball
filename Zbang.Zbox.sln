@@ -108,7 +108,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5766BD
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Mobile", "Zbang.Cloudents.Cloud.Mobile\Zbang.Cloudents.Cloud.Mobile.ccproj", "{88DF6FD6-C427-4320-8542-8B86A452E8C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Mobile", "Zbang.Cloudents.Mobile\Zbang.Cloudents.Mobile.csproj", "{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Mobile", "Zbang.Cloudents.Mobile\Zbang.Cloudents.Mobile.csproj", "{EEEE87BE-07C2-479A-A9E6-A5D971A79031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1030,31 +1030,31 @@ Global
 		{88DF6FD6-C427-4320-8542-8B86A452E8C0}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{88DF6FD6-C427-4320-8542-8B86A452E8C0}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{88DF6FD6-C427-4320-8542-8B86A452E8C0}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.Release|x86.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.Release|x86.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1101,7 +1101,7 @@ Global
 		{5170A9BB-52E8-4001-8FCC-407CAEC11D81} = {EFA82140-5B66-491F-9C3A-B5F9C3A1BADA}
 		{C4FB3423-CE73-4B44-A7FB-AFCD71F947D2} = {EFA82140-5B66-491F-9C3A-B5F9C3A1BADA}
 		{88DF6FD6-C427-4320-8542-8B86A452E8C0} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
-		{1ED06D42-1F19-4DFC-A147-934ADF3FB73F} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
+		{EEEE87BE-07C2-479A-A9E6-A5D971A79031} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4

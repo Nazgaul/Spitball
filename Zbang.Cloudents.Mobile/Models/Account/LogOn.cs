@@ -2,7 +2,7 @@
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
 using Zbang.Zbox.Domain.Common;
 
-namespace Zbang.Cloudents.Mobile.Models.Account
+namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
     public class LogOn
     {

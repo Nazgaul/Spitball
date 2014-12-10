@@ -1,0 +1,92 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Library.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@{
+    ViewBag.data = ViewBag.data ?? null;
+}
+<header class="siteHeader">
+    @{Html.RenderPartial("_Header");}
+</header>
+@if (ViewBag.country == "IL")
+{
+    <aside class="chairman">
+        <h2>דבר יו"ר ההתאחדות</h2>
+        <p>סטודנטים וסטודנטיות יקרים/ות, שותפים/ות  לדרך,</p>
+        <p>אני גאה בפלטפורמה שיתופית זו שתאפשר לכולנו, ציבור הסטודנטים והסטודנטיות, לחלוק ידע זו עם זה. יכולתינו לנצל את כלל המשאבים והכישורים העומדים לרשותינו באופן יעיל ונוח היא מה שמאפשרת לנו להוביל שינויים והישגים בכל התחומים. אני סמוך ובטוח שתעשו שימוש נכון בפלטפורמה זו לא רק לצרכים אקדמיים אלא גם כדי לקדם מטרות חשובות נוספות.</p>
+        <p> לנו, דור הצעירים, יכולת להתחבר מהר לתהליכים חברתיים כלכליים ופוליטיים שקורים ולהשפיע עליהם בזמן אמת. היכולת שלכם כסטודנטים לגייס ידע וטכנולוגיה היא זו שמובילה את השינויים החברתיים בגדולים בזמננו ומעבירה אותם לשטח ולמציאות הקונקרטית. </p>
+        <p> התאחדות הסטודנטים מתחייבת לפעול למענכם הסטודנטים והסטודנטיות בישראל, ולמען הגשמת שאיפותיכם וחלומותיכם כאן ועכשיו. אתם דור העתיד של המדינה, מתוככם תצמח המנהיגות הפוליטית, הכלכלית, האקדמית והתרבותית של ישראל. נמשיך לעשות כל שידרש כדי לקדם שיתופי ידע ושיתופי הפעולה שמקדמים את ציבור הסטודנטים ומאפשרים לו לתת ביטוי אמיתי לחלומות, לרצונות ולצרכים שלו.</p>
+        <p> יש לזכור שמוטלת עלינו הסטודנטים החובה לא רק לזעוק ולצעוק על עוולות חברתיות אלא יותר מכל עלינו לשנס מותניים ליזום ולהוביל מיזמים חברתיים לקידום הפריפריה החברתית ולהגברת הערבות החברתית בישראל. אותה ערבות צריכה להסתמך על למידה מעמיקה ושיח עמיתים בין כולנו, שאתר Cloudents מאפשר. </p>
+        <p> של ההתאחדות. ההון האנושי האיכותי ממנו מורכב עולם הסטודנטים יחד עם ההטרוגניות שלו ופריסתו הארצית מאפשרת ותאפשר לנו להמשיך וליזום פרויקטים מסוג אלו. <a target="_blank" href="http://www.nuis.co.il/wp-content/uploads/2012/02/%D7%9E%D7%A6%D7%A2%D7%99%D7%A8-%D7%9C%D7%90%D7%96%D7%A8%D7%97-%D7%9E%D7%A9%D7%9B%D7%99%D7%9C-%D7%99%D7%A6%D7%A8%D7%A0%D7%99-%D7%95%D7%9E%D7%A9%D7%A4%D7%99%D7%A2-%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%A6%D7%A2%D7%99%D7%A8%D7%99%D7%9D-%D7%91%D7%99%D7%A9%D7%A8%D7%90%D7%9C.pdf">בחוברת החזון החברתי</a> בשנים האחרונות מפעילה התאחדות הסטודנטים מספר לא מועט של מיזמים חברתיים ברוח זאת, המוצגים </p>
+        <p> בברכת עשייה והגשמה</p>
+        <p>
+            אורי רשטיק
+            <br />
+            יו”ר התאחדות הסטודנטים בישראל
+        </p>
+    </aside>
+}
+<div class="library page" ng-controller="LibChooseCtrl">  @*id="library"*@
+   
+    <div class="libEmpty libraryChoose" id="libraryChoose">
+        <h1 class="libEmptyTitle">@MainViewResources.WelcomeTo</h1>
+        <h2>@MainViewResources.ChooseSchool</h2>
+
+        <div class="uniWpr" ng-style="{display: display.searchUniversity ? 'block' : 'none'}">
+            <input type="text" class="inputText" ng-placeholder="@MainViewResources.SearchFor" autocomplete="off"
+                   ng-model="formData.searchInput" ng-keyup="selectSearch()" />
+        </div>
+        <ul class="fbUniList" ng-style="{display: display.facebook ? 'block' : 'none'}">
+            <li ng-repeat="university in FBUniversities">
+                <div class="schoolItem" ng-click="selectUniversity(university,true)">
+                    <img ng-src="{{::university.image | defaultImage:'uni'}}" class="lFloat uniImg" width="66" height="66" alt="{{::university.name}}" />
+                    <div class="uniDetails">
+                        <button type="button" class="btn3 rFloat">@SharedResources.Choose</button>
+                        <div class="uniName elps boldFont">{{::university.name}}</div>
+                        @*<div class="friendsCount" bo-attr bo-attr-data-friendscount="university.friendsCount">@MainViewResources.FriendsRegistered</div> *@
+                    </div>
+                </div>
+                <ul class="fbFriendsList">
+                    <li ng-repeat="friend in ::university.friends">
+                        <img ng-src="{{::friend.image | defaultImage:'user'}}" class="lFloat imgBorder" width="32" height="32" tooltip="{{::friend.name}}" alt="{{::friend.name}}" />
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="uniList" ng-class="{noResults : universities.length === 0 }" ng-style="{display: display.search ? 'block' : 'none'}">
+            <li class="schoolItem" ng-repeat="university in universities track by university.id" ng-click="selectUniversity(university)">
+                <img ng-src="{{::university.image | defaultImage:'uni'}}" class="lFloat uniImg" width="66" height="66" alt="{{::university.name}}" />
+                <span class="uniDetails">
+                    <span class="uniName elps boldFont">{{::university.name}}</span>
+                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@>{{::university.membersCount}}</span>
+                </span>
+            </li>
+            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="newUni">
+                <span>@MainViewResources.CantFind</span>
+                <button type="button" class="createUni" ng-click="createUniversity()" analytics-on analytics-category="Select university" analytics-label="Create new university">@SharedResources.CreateNew</button>
+            </li>
+        </ul>
+
+        @{
+            Html.RenderPartial("_AddSchoolDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateUniversity { Country = ViewBag.country });
+        }
+
+        @*<div class="completeRegistration" ng-style="{display: display.complete ? 'block' : 'none'}">
+            <div class="top">
+                <img class="uniImg" ng-src="{{selectedUni.image}}" alt="" width="66" height="66" />
+                <div class="uniRegTxt1" data-school="{{selectedUni.name}}">@MainViewResources.YouStudyAt</div>
+                @*<div class="uniRegTxt2" data-regfriends-count="23">@MainViewResources.OfYourFriends</div>
+            </div>
+            @{
+                Html.RenderPartial("_ChooseDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.ChooseDepartment());
+                Html.RenderPartial("_CreateDepartment", new Zbang.Cloudents.Mvc4WebRole.Models.CreateDepartment());
+            }
+        </div>*@
+    </div>
+</div>
+@*<script type="text/ng-template" id="universityItemTemplate">
+    </script>
+    <script type="text/ng-template" id="universityItemFbTemplate">
+    </script>
+    <script type="text/ng-template" id="fBFriendTemplate">
+    </script>*@

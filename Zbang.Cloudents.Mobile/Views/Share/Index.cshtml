@@ -1,0 +1,81 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Share.Resources
+<div id="invite" class="page" ng-controller="InviteCtrl">
+
+    <div class="inviteWpr">
+        <aside class="invSidebar rFloat" ng-class="{invSuccess: params.invFormSent }" ng-controller="InviteEmailCtrl" input-resizer>
+            <form name="inviteByEmailForm" class="invForm" novalidate ng-submit="submit()">
+                <h3>@InviteResources.InviteByEmail</h3>
+
+                <div class="inputText emailUser" ng-click="focusInput()">
+                    <div class="inviteEmailListWpr">
+                        <ul class="emailList">
+                            <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
+                                <span class="emailText">{{email.address}}</span><button type="button" class="removeItem" ng-click="remove(email)"></button>
+                            </li>
+                        </ul>
+                        <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@InviteResources.AddEmails" focus-on="emailInput"
+                               ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
+                    </div>
+                </div>
+                <div class="invSent">
+                    <h4>@InviteResources.Success!</h4>
+                    <div>@InviteResources.MailSent</div>
+                </div>
+                <button type="submit" class="rFloat btn1" ng-disabled="params.invFormSent || (!(formData.emailInput.length) && params.validEmails === 0) || params.invalidEmails > 0">@DialogResources.Send</button>
+            </form>
+
+            <h2 id="inviteConnectMore">@InviteResources.ConnectMore</h2>
+            <button type="button" class="connectMore fb"></button>
+            <button type="button" class="connectMore gmail"></button>
+        </aside>
+        <div class="invMain elps">
+            <div class="inviteSources rFloat">
+                <button type="button" class="invTab cloudents" ng-class="{current: params.currentState === 0}" ng-click="selectState(0)"></button>
+                <button type="button" class="invTab fb" ng-class="{current: params.currentState === 1}" ng-click="selectState(1)"></button>
+                @*<button type="button" class="invTab gPlus"></button>*@
+                <button type="button" class="invTab gmail" ng-class="{current: params.currentState === 2}" ng-click="selectState(2)"></button>
+            </div>
+
+            <a class="invHeaderText">
+                {{params.inviteText}}               
+            </a>
+
+            <div class="invContentWpr" ng-class="[params.className, params.notConnected]">
+                <div class="invContentTop">
+                    <h4>{{params.text}}</h4>
+                    <input type="search" class="inputText" placeholder="@InviteResources.SearchByName" ng-model="params.contactSearch" ng-keyup="filterContacts()" />
+                </div>
+
+                <div class="invContent" load-spinner="params.loader" load-spinner-type="init" infinite-scroll="addContacts()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+                    <ul class="invList clearfix">
+                        <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts | limitTo : params.contactLimit">
+                            <a ng-href="{{::contact.url}}">
+                                <img alt="" class="friendImg" ng-src="{{::contact.image | defaultImage:'user'}}" width="34" height="34">
+                            </a>
+                            <span class="invName elps">{{::contact.name}}</span>
+                            <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">
+                                @SharedResources.Invite
+                            </button>
+
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connectAccount" ng-if="!params.loader">
+                    <span class="connectFrom fromCloudents"></span>
+                    <span class="connector"></span>
+                    <span class="connectTo"></span>
+                    <div class="connectTxt" data-inv-fbaccount="@InviteResources.FbAccount" data-inv-gmailaccount="@InviteResources.GmailAccount">{{params.connecText}} @InviteResources.FindFriends&nbsp;</div>
+                    <button id="inviteConnectAccount" type="button" class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>
+                </div>
+                <div class="invNoResults">
+                    <h2>@InviteResources.NoResults</h2>
+                    <div>@InviteResources.CheckFor</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fb-block ng-if="params.facebookInvite"></div>
+</div>

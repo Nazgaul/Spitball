@@ -1,0 +1,379 @@
+﻿@import "varsAndMixins";
+/*#region library sidebar */
+
+.asideDash {
+    height: 100%;
+    background: #fff;
+    border-right: 1px solid @borderColor; /*rtl*/
+    .boxSizing;
+    color: @textColor;
+    width: 290px;
+    position: fixed;
+    z-index: 5;
+
+    .leaderBoard {
+        width: 100%;
+        left: 0; //rtl
+        background: #ebebeb;
+        border: none;
+        padding: 0 12px;
+        border-bottom: 1px solid @borderColor;
+        border-radius: 0; //override
+        margin: 1px 0 0; //override
+        min-height: 220px;
+        header {
+            padding: 16px 0 7px;
+        }
+    }
+    .recommendedWpr {
+        header {
+            text-align: center;
+        }
+    }
+    
+}
+
+.recommendedWpr {
+    background: #fff;
+    padding: 0 12px;
+    header {
+        font-size: 20px;
+        padding: 13px 0 8px; 
+    }
+}
+
+.recommended {
+    height: 80px;
+    .boxSizing;
+    position: relative;
+    font-size: 15px;
+    display: block;
+    margin-right: -12px; //rtl
+    + .recommended {
+        &:after {
+            .pseudo;
+            width: ~'calc(100% - 12px)';
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            top:0;
+        }
+    }
+    .courseLink {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        white-space: noWrap; 
+        font-size: 13px;
+        &:hover .rcDetails {
+            margin-left: -105px; //rtl
+        }
+    }
+    .rcDetails {
+        width: 100%;
+        height: 63px;
+        vertical-align: top;
+        padding: 15px 0 0 69px; //rtl
+        .boxSizing;
+        display: inline-block;
+        background: #fff;
+        margin:0;
+        .transition(margin .2s .5s);
+        position: relative; //img to move on hover
+        &.rcFull {
+            .prof:after {
+                content:  '\00a0' '|' '\00a0';
+                color: @textColor;
+            }
+        }
+    }
+    .rcStats {
+        width: 105px;
+        height: 60px;
+        display: inline-block;
+        background: #282828;
+        color: #fff;
+        margin-top: 9px;
+        //position: relative;
+        //top: 6px;
+    }
+    img {
+        position: absolute;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid #c2c2c2;
+    }
+
+    .courseName {
+        color: #0f9d58;
+        font-size: 15px;
+        white-space: normal;
+        max-height: 34px;
+        overflow: hidden;
+        line-height: 16px;
+    }
+
+    .prof {
+        font-size: 13px;
+    }
+    .courseId {
+        width: 200px;
+        display: inline-block;
+    }
+    .friends, .files {
+        position: relative;
+        padding-left: 26px; //rtl
+        &:before {
+            content: attr(data-friends-count);
+            display: inline-block;
+        }
+    }
+    .friends {
+        margin-top: 9px;
+    }
+    .files {
+        margin-top: 7px;
+
+        &:before {
+            content: attr(data-files-count);
+        }
+    }
+}
+
+
+.podium {
+    width: 87px; //ie bug 2887
+    height: 68px;
+    border: 1px solid #aaa;
+    position: absolute;
+    top: 151px;
+    left:0;right:0;
+    margin: auto;
+    border-radius: 3px;
+    background: #fff;
+    &:before, &:after {
+        content: '';
+        width: 86px;
+        height: 45px;
+        position: absolute;
+        left: -87px; //rtl
+        bottom: -1px;
+        border: 1px solid #aaa;
+        border-right: none; //rtl
+        background: #fff;
+        border-radius: 3px 0 0 3px; //rtl
+    }
+    &:after {
+        height: 27px;
+        right: -87px; //rtl
+        left: auto;
+        border: 1px solid #aaa;
+        border-left: none; //rtl
+        border-radius: 0 3px 3px 0; //rtl
+    }
+}
+.empty {
+    .podium {
+        display:none;
+    }
+}
+
+.dashLibTop {
+    display: block;
+    height: 109px;
+    text-align: center;
+    border-bottom: 1px solid @borderColor;
+    padding: 0 8px 0 15px; //rtl
+    background: #ebebeb;
+    position: relative;
+    &:after {
+        content: '';
+        display: block;
+        height: 1px;
+        background: #fff;
+        width: 100%;
+        position: absolute;
+        bottom: -2px;
+        left: 0; //rtl
+    }
+    &:hover {
+        background: #d7d7d7;
+    }
+    .ghost {
+        height: 100%;
+        display: block;
+        font-size: 18px;
+        overflow: hidden;
+        padding: 0 8px;
+        .boxSizing;
+    } 
+    .vCentered {
+        line-height: 19px;
+        max-height: 60px;
+    } 
+}
+.logoWpr {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid @borderColor;
+    .boxSizing;
+    display: inline-block;
+    border-radius: 100%;
+    margin-top: 15px;
+}
+.uniLogo {
+    display: inline-block;
+    border-radius: 100%;
+    
+    .boxSizing;
+    //margin-top: 15px;
+    padding: 5px;
+    //box-shadow: inset 0 0 0 4px #fff;
+}
+/*#region Lib Aside */
+
+.unionStats {
+    padding: 10px 0;
+    background:#ebebeb;
+
+    .files, .courses, .students {
+        display: inline-block;
+        text-align: center;
+        font-size: 18px;
+        width: 32%;
+    }
+
+    .stat {
+        display: block;
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+}
+
+.courses {
+    position: relative;
+
+    &:before, &:after {
+        .pseudo;
+        position: absolute;
+        width: 1px;
+        height: 34px;
+        top: 5px;
+        background: @borderColor;
+        left: -3px; /*rtl*/
+    }
+
+    &:after {
+        right: -3px; /*rtl*/
+        left: auto;
+    }
+}
+
+.libTopWpr {
+    display: table-row;
+}
+
+.libTop {
+    background: #f1f1f1;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 14px;
+
+    .changeUni {
+        color: @color;
+        display: none;
+        font-size: 13px;
+        padding: 0 15px;
+        background: #f1f1f1;
+        position: relative;
+        top: -9px;
+    }
+    .uniLogo {
+        margin-left: 8px; //rtl
+    }
+}
+
+/*.unionLinksWpr {
+    display: table-row;
+}*/
+
+.unionLinks {
+    border-top: 1px solid @borderColor;
+    border-bottom: 1px solid @borderColor;
+    font-size: 0; /* remove display:inline-block children whitespace */
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    background:#ebebeb;
+}
+
+.outbound:last-child {
+    border: none;
+}
+
+.outbound {
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    border-right: 1px solid @borderColor; /*rtl*/
+    display: table-cell;
+    .boxSizing;
+
+    &:hover {
+        background: #d7d7d7;
+    }
+
+    &:before {
+        .pseudo;
+        width: 21px;
+        height: 21px;
+        vertical-align: middle;
+    }
+
+    &.u-Website:before {
+        width: 23px;
+        height: 20px;
+        background-position: -1px -1px;
+    }
+
+    &.u-Email:before {
+        width: 25px;
+        height: 19px;
+        background-position: -25px -2px;
+    }
+
+    &.u-Fb:before {
+        background-position: -52px -1px;
+    }
+
+    &.u-Twitter:before {
+        background-position: -74px -1px;
+    }
+
+    &.u-Youtube:before {
+        background-position: -96px -1px;
+    }
+}
+
+.libLists {
+    width: 100%;
+    height: 100%;
+    .boxSizing;
+    //display: table-row;
+    .libFb, .libTwitter {
+        text-align: center;
+        margin: 5px;
+        border: 1px solid @borderColor;
+    }
+
+    .libFb {
+        height: 395px;
+    }
+
+    .libTwitter {
+        bottom: 0;
+    }
+}
+/*#endregion */

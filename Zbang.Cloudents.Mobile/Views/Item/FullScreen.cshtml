@@ -1,0 +1,7 @@
+﻿<div class="itemFulscrn" infinite-scroll="$parent.loadMore()" infinite-scroll-element="true" 
+     infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+    <div ng-bind-html="preview2"></div>
+    <button type="button" class="exitFulscrn" ng-click="closeFullScreen()"></button>
+    <a ng-show="$parent.item.navigation.next" ng-href="{{$parent.item.navigation.next + '#fullscreen'}}" class="itemPrev">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
+    <a ng-show="$parent.item.navigation.previous" ng-href="{{$parent.item.navigation.previous + '#fullscreen'}}" class="itemNext" id="itemNext">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
+</div>

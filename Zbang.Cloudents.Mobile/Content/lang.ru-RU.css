@@ -1,0 +1,176 @@
+﻿q {
+  quotes: '\00AB' '\00BB' '\201E' '\201C';
+  font-weight: normal;
+}
+.membersOnly {
+  width: 810px;
+}
+.userInfo .userName {
+  width: 90px;
+}
+.inviteVia .facebook,
+.inviteVia .email {
+  width: 342px;
+}
+.enterForm .small {
+  display: block;
+  margin-bottom: 4px;
+  line-height: 10px;
+}
+.connect,
+.create {
+  font-size: 12px;
+}
+.popupWrppr.registerNow {
+  width: 485px;
+}
+.homeContent h1 {
+  font-size: 38px;
+  width: 700px;
+}
+.homeContent h3 {
+  letter-spacing: normal;
+}
+.headingTexts .facebook,
+.headingTexts .email {
+  width: 302px;
+}
+/*#region dashLib page */
+.courseType .labelExplain {
+  width: 200px;
+}
+.socialList button {
+  font-size: 11px;
+}
+/*#endregion */
+/*#region item page */
+.previewWrapper h2 {
+  line-height: 12px;
+  margin-bottom: 20px;
+}
+.middleActionItem {
+  padding: 0;
+}
+/*#endregion */
+/*#region box page */
+.boxFeed ~ .boxSideBar .recommendedWpr .recommended .rFloat {
+  width: 105px;
+}
+.box-content .membersContent .searchWpr {
+  margin: 10px 175px 0 0;
+}
+/*#region box item tool tips */
+.boxItemTt.boxItemTt .itemName {
+  padding: 10px 12px 0 12px;
+}
+.boxItemTt.boxItemTt.ttLink .ttTop {
+  padding: 18px 12px 0 12px;
+}
+.boxItemTt.boxItemTt .ttTop {
+  padding: 32px 12px 17px 12px;
+}
+.boxItemTt.boxItemTt .ttTop > .ttDetail {
+  font-size: 12px;
+}
+.boxItemTt.boxItemTt .ttPreview {
+  padding: 10px 12px;
+}
+/*#endregion */
+.inviteFriendBtn.btn3 {
+  width: 150px;
+  padding: 7px 13px;
+}
+/*if < 4 items: float friendBtn right.*/
+.friendItem:last-child:nth-child(-n + 4) {
+  float: right;
+}
+.tag:before {
+  width: 52px;
+}
+.friendItem:last-child:nth-child(5) {
+  float: none;
+}
+/*if > 11 items hide all further items*/
+.friendItem:nth-child(n+11) {
+  display: none;
+}
+.friendItem:last-child {
+  display: inline-block;
+}
+.academic .boxSetting .editBoxName {
+  width: 540px;
+}
+.private .boxSetting .editBoxName {
+  width: 504px;
+}
+#box_settings .memberName {
+  width: 245px;
+}
+.boxSetting label {
+  padding-right: 10px;
+}
+@media (max-width: 1145px) {
+  .boxItemsHeader.boxItemsHeader {
+    /*.iconTxt {
+            margin-right: 3px;
+        }*/
+  }
+  .boxItemsHeader.boxItemsHeader button {
+    font-size: 12px;
+  }
+}
+/*#endregion */
+/*#region quiz*/
+.questionHolder .correct {
+  width: 60px;
+}
+.popupWrppr.quitQuiz {
+  width: 620px;
+}
+.cTextArea {
+  width: 565px;
+}
+.commentWpr .askBtn {
+  width: 127px;
+}
+.quizTimerResult {
+  font-size: 18px;
+}
+.timeRetakeWpr .btn1 {
+  max-width: 120px;
+  font-size: 13px;
+}
+/*#endregion*/
+/*#region invite page*/
+.invItem .invName {
+  max-width: 138px;
+}
+.invBtn .invited {
+  min-width: 100px;
+}
+.invForm h3 {
+  font-size: 14px;
+}
+/*#endregion*/
+/*#region User page */
+.dateCol {
+  width: 165px;
+}
+/*#endregion */
+/*#region modal.less */
+.tabArrow:before {
+  left: 50px;
+}
+.tabMembers .tabArrow:before {
+  left: 163px;
+}
+.modal.quitQuiz {
+  width: 622px;
+}
+/*#endregion */
+.emailUser .inputLabel {
+  width: 41px;
+}
+.gConnect {
+  width: 118px;
+}

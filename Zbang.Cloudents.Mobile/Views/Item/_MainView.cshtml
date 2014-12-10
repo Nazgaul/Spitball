@@ -1,0 +1,64 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+
+<div class="itemBack">
+    <a data-bind="click: back" class="back">
+        @ItemsResources.Backto<span data-bind="text: boxName"></span>
+    </a>
+</div>
+<div class="leftPanel lFloat">
+    <div class="viewsAction bar">
+        <div class="lFloat views"><span data-bind="text: numberOfViews"></span>&nbsp;@ItemsResources.Views</div>
+        <button class="rFloat likeBtn" data-bind="click: likeItem, css: { liked: userLike() }">
+            <span class="rFloat" data-bind="text: likeCount"></span>
+            <span class="likes" data-bind="text:likeText">@ItemsResources.Like</span>
+        </button>
+    </div>
+
+    <div class="title elps" id="item_Name" data-bind="text: itemName, click: renameItem, attr: { title: itemName, 'data-name' : itemName }"></div>
+
+    <div class="property">
+        @ItemsResources.Uploader&nbsp;<span class="elps" data-bind="text: ownerName"></span>
+    </div>
+    <div class="property bar">
+        @ItemsResources.Updated&nbsp;<span data-bind="text: update"></span>
+    </div>
+
+    <div id="itemActions" class="actions">
+        <button class="itemDownload bar" id="item_DL" data-link="@Url.Action("Download", "Item")">@ItemsResources.Download</button>
+        <button class="fbAction" id="item_FS">@ItemsResources.ShareFacebook</button>
+        <button class="itemPrint bar" id="item_P" data-link="@Url.Action("Print", "Item")">@ItemsResources.Print</button>
+        <button class="emailAction" id="item_msg">@ItemsResources.ShareEmail</button>
+        <!--ko if:!deleteAllow()-->
+        <button class="itemFlag bar" data-bind="click: flagItem">@ItemsResources.Flag</button>
+        <!--/ko-->
+        <!--ko if:deleteAllow()-->
+        <button class="bar itemDelete" data-bind="click: deleteItem">@ItemsResources.Delete</button>
+        <!--/ko-->
+        <button class="linkAction copylk">@ItemsResources.CopyLink</button>
+    </div>
+    <div class="moreFiles">
+        <div class="mfTitle">@ItemsResources.Additional&nbsp;<span data-bind="text: boxName"></span></div>
+        <ul id="item_moreFiles" class="moreFilesList" data-bind="foreach: items">
+            <li data-bind="css: { select: select }">
+                <a data-navigation="item" data-bind="attr: { href: itemUrl }">
+                    <div class="elps" data-bind="text: name"></div>
+                    <div class="elps" data-bind="text: uploader"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+  
+</div>
+<div class="itemRight">
+    <div id="item_content" class="itemContent">
+        <button class="fullscreen" data-bind="click: fullscreen, visible: fullscreenVisible">@ItemsResources.FullScreen</button>
+        @*<button class="fullscreen" data-bind="click: fullscreen">@ItemsResources.FullScreen</button>*@
+        <div id="itemOverlay" class="itemOverlay">
+            <div id="theContent" class="theContent" data-bind="html: preview"></div>
+            @*<button class="btnPrev" id="btnPrev" data-bind="click: prev" disabled></button>
+            <button class="btnNext" id="btnNext" data-bind="click: next" disabled></button>*@
+
+            @*<button class="overlayClose" id="overlayClose">x close</button>*@
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-quiz-correct() {
+/* You may have to set 'display: block' */
+	width: 38px;
+	height: 38px;
+	background: url('quizSprite.png') 0 0;
+}
+@mixin sprite-Images-quiz-eye() {
+/* You may have to set 'display: block' */
+	width: 38px;
+	height: 23px;
+	background: url('quizSprite.png') 0 -38px;
+}
+@mixin sprite-Images-quiz-icon() {
+/* You may have to set 'display: block' */
+	width: 45px;
+	height: 45px;
+	background: url('quizSprite.png') 0 -61px;
+}
+@mixin sprite-Images-quiz-star() {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 18px;
+	background: url('quizSprite.png') 0 -106px;
+}
+@mixin sprite-Images-quiz-stopwatch() {
+/* You may have to set 'display: block' */
+	width: 233px;
+	height: 264px;
+	background: url('quizSprite.png') 0 -124px;
+}
+@mixin sprite-Images-quiz-time() {
+/* You may have to set 'display: block' */
+	width: 39px;
+	height: 43px;
+	background: url('quizSprite.png') 0 -388px;
+}
+@mixin sprite-Images-quiz-user() {
+/* You may have to set 'display: block' */
+	width: 36px;
+	height: 37px;
+	background: url('quizSprite.png') 0 -431px;
+}
+@mixin sprite-Images-quiz-wrong() {
+/* You may have to set 'display: block' */
+	width: 40px;
+	height: 34px;
+	background: url('quizSprite.png') 0 -468px;
+}
+@mixin sprite-Images-big-quiz() {
+/* You may have to set 'display: block' */
+	width: 111px;
+	height: 111px;
+	background: url('quizSprite.png') 0 -502px;
+}
+@mixin sprite-Images-user-icon() {
+/* You may have to set 'display: block' */
+	width: 37px;
+	height: 37px;
+	background: url('quizSprite.png') 0 -613px;
+}
+@mixin sprite-Images-quiz-icon-tt() {
+/* You may have to set 'display: block' */
+	width: 32px;
+	height: 32px;
+	background: url('quizSprite.png') 0 -650px;
+}

@@ -1,0 +1,31 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Library.Resources
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@MainViewResources.DeptSettings</span></h3>
+</div>
+<div class="modal-body">
+    <section class="changeName clearfix">
+        <header>@MainViewResources.ChangeName</header>
+        <form ng-submit="renameDepartment()">
+            <input class="inputText" type="text" select-on-click ng-model="formdata.newName" autofocus required />
+            <div class="lFloat">@MainViewResources.CanConfuse</div>
+            <input type="submit" class="btn1 next rFloat" ng-disabled="disable()" value="@SharedResources.Save">
+        </form>
+    </section>
+    <section class="deleteDept clearfix" ng-if="canDelete">
+        <header>@MainViewResources.DeleteDept</header>
+        <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="disableDelete" ng-model="disableDelete" />
+        <label class="cbLabel2" for="delDeptCb">
+            <span>@MainViewResources.MarkToDelete</span>
+            @Html.Svg("~/Images/Defs.svg", "checkmark")
+        </label>
+        <button type="button" ng-if="canDelete" ng-click="deleteDepartment()" ng-disabled="!disableDelete"
+                class="btn1 rFloat delDeptBtn">
+            @SharedResources.Delete
+            </button>
+</section>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

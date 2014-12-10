@@ -1,0 +1,59 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<div class="staticWpr popupWrppr" id="connect">
+    <div class="enterTitle">@SharedResources.SignIn</div>
+    <div id="fb_log" class="facebook">
+        <span class="fbImg">
+            <svg class="svg-fb" viewBox="0 0 11.861 23.303">
+                @*width="11.861" height="23.303"*@
+                <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
+            </svg>
+        </span>@LogOnResources.Facebook
+    </div>
+    <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+    <div class="enterForm">
+        @{Html.RenderPartial("LogOn", new Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOn());}
+    </div>
+    <div class="create">@LogOnResources.NoAccount&nbsp;<button class="addRegister" type="button">@LogOnResources.CreateNew</button></div>
+    <button type="button" class="closeModal" data-closelogin="close">
+        <svg data-closelogin="close" class="svg-close" viewBox="-523.8 392.1 57.6 57.6">
+            <path data-closelogin="close" d="M-468.2,403.5l-17.4,17.4l17.4,17.4c2.6,2.6,2.6,6.8,0,9.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9
+	l-17.4-17.4l-17.4,17.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9c-2.6-2.6-2.6-6.8,0-9.4l17.4-17.4l-17.4-17.4
+	c-2.6-2.6-2.6-6.8,0-9.4c2.6-2.6,6.8-2.6,9.4,0l17.4,17.4l17.4-17.4c2.6-2.6,6.8-2.6,9.4,0C-465.6,396.7-465.6,400.9-468.2,403.5z" />
+        </svg>
+    </button>
+</div>
+
+<div class="staticWpr popupWrppr" id="register">
+    <div class="enterTitle">@LogOnResources.CreateAccount</div>
+    <button type="button" class="closeModal" data-closelogin="close">
+        <svg data-closelogin="close" class="svg-close" viewBox="-523.8 392.1 57.6 57.6">
+            <path data-closelogin="close" d="M-468.2,403.5l-17.4,17.4l17.4,17.4c2.6,2.6,2.6,6.8,0,9.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9
+	l-17.4-17.4l-17.4,17.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9c-2.6-2.6-2.6-6.8,0-9.4l17.4-17.4l-17.4-17.4
+	c-2.6-2.6-2.6-6.8,0-9.4c2.6-2.6,6.8-2.6,9.4,0l17.4,17.4l17.4-17.4c2.6-2.6,6.8-2.6,9.4,0C-465.6,396.7-465.6,400.9-468.2,403.5z" />
+        </svg>
+    </button>
+    <div class="signupBtns">
+        <button type="button" class="facebook">
+            <span class="fbImg">
+                <svg class="svg-fb" viewBox="0 0 11.861 23.303">
+                    @*width="11.861" height="23.303"*@
+                    <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
+                </svg>
+            </span>@SharedResources.FacebookSignUp
+        </button>
+        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
+
+        <div class="registerContent">
+            <div class="enterForm" id="joinForm">
+                @{Html.RenderPartial("Register", new Zbang.Cloudents.Mvc4WebRole.Models.Account.Register { MarketEmail = true });}
+            </div>
+            <div class="connect">@LogOnResources.AlreadyHave&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal2"></div>

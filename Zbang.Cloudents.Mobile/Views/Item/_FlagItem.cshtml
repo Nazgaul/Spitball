@@ -1,0 +1,54 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@using Zbang.Cloudents.Mobile.Views.Item.Resources
+@using Zbang.Zbox.Infrastructure.Enums
+@model Zbang.Cloudents.Mvc4WebRole.Models.FlagBadItem
+
+
+<div class="modal-header">
+    <h3 class="modal-title"><span>@FlagItemResources.ReportItem</span></h3>
+</div>
+<div class="modal-body">
+    <div class="flagRequest" ng-hide="secondStep">
+        <form class="flagDialog" ng-submit="flagItem()">
+
+            <div>@FlagItemResources.WhyReport</div>
+            <ul class="flagList">
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.RightViolation, new { id = "flag_radioRight", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioRight">@BadItem.RightViolation.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Spam, new { id = "flag_radioSpan", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioSpan">@BadItem.Spam.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Porn, new { id = "flag_radioPorn", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioPorn">@BadItem.Porn.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Attack, new { id = "flag_radioAttack", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioAttack">@BadItem.Attack.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Hate, new { id = "flag_radioHate", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioHate">@BadItem.Hate.GetEnumDescription()</label>
+                </li>
+                <li>
+                    @Html.RadioButtonFor(x => x.BadItem, BadItem.Other, new { id = "flag_radioOther", ng_model = "formdata.BadItem" })
+                    <label for="flag_radioOther">@BadItem.Other.GetEnumDescription()</label>
+                    @Html.TextBoxFor(x => x.Other, new { @class = "inputText", ng_model = "formdata.Other", autocomplete = "off" })
+                </li>
+            </ul>
+            <input type="submit" class="btn1 next" ng-disabled="disable || !formdata.BadItem || (formdata.BadItem === 'Other' && !formdata.Other.length)" value="@FlagItemResources.SendReport" />
+            <button type="reset" class="btn2 cancel" ng-click="cancel()">@DialogResources.Cancel</button>
+        </form>
+
+    </div>
+    <div class="requestSent" ng-if="secondStep">
+        <div class="requestSentDiv first">@FlagItemResources.ReportSent</div>
+        <div class="requestSentDiv">@FlagItemResources.ContactYou</div>
+    </div>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

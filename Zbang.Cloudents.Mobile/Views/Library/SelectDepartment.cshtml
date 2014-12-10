@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Zbang.Zbox.ViewModel.Dto.Library.RussianDepartmentDto>
+
+<div class="departmentChoose" ng-class="{step2 : russainStep2}">
+    <header class="popupHeader">Воронежский институт высоких технологий</header>
+    <button type="button" class="closeDialog" ng-click="cancel()"></button>
+    <form class="step1Wpr" name="selectDepartmentForm1" ng-submit="russianStep1(selectDepartmentForm1.$valid)">
+        <h3>Добро пожаловать в учебную систему Cloudents!</h3>
+        <div class="ruTxt">
+            Система предназначена только  студентам и преподавателям Воронежского института высоких технологий.
+            Подтверждения  с помощью кода.
+        </div>
+        <span class="ruTxt2">Введите код здесь:</span>
+        <input type="text" class="inputText" ng-model="formData1.russianCode" required />
+        <span class="error" ng-show="submitted">неправильный код</span>
+        <div class="ruTxt">Если вы не имеете  код тогда пошлите запрос на эл.почту : <a class="ruMail" href="mailto:oimk@vivt.ru">oimk@vivt.ru</a></div>
+        <input ng-disabled="selectDepartmentForm1.$invalid" type="submit" class="btn1" value="Отправить" />
+    </form>
+    <form class="step2Wpr" novalidate name="selectDepartmentForm" ng-submit="create(selectDepartmentForm.$valid)">
+        <div class="chooseDptTxt">Пожалуйста заполните подробности ниже:</div>
+
+        <input type="radio" id="studentRadio" name="userStatus" checked ng-click="params.isStudent = true" />
+        <label class="statusLabel first" for="studentRadio">Я студент</label>
+        <input class="lecturerRadio" id="lecturerRadio" name="userStatus" type="radio" ng-click="params.isStudent = false" />
+        <label class="statusLabel" for="lecturerRadio">Я преподаватель</label>
+
+        <span ng-if="params.isStudent">
+            <label for="department">Ваш раздел</label>
+
+            <select id="department" ng-model="params.departmentName">
+                <option class="placeholder" selected="selected" value="">выберите раздел</option>
+                @foreach (var item in Model.Select(s => s.Name).Distinct())
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <label for="year">
+                период обучения
+            </label>
+            <select id="year" ng-init="formData.departmentId=-1" ng-model="formData.departmentId" ng-disabled="!params.departmentName" required>
+                <option class="placeholder" value="" selected="selected">выберите период обучения</option>
+                @foreach (var item in Model)
+                {
+                    <option ng-if="params.departmentName === '@item.Name'" value="@item.Id">@item.Year</option>
+                }
+            </select>
+            <div class="dptDetail first">
+                <label for="group">Номер группы</label>
+                <input id="group" type="text" class="inputText" ng-model="formData.groupNumber" required />
+            </div>
+            <div class="dptDetail">
+                <label for="registration">Номер зачетной книжки</label>
+                <input id="registration" type="text" class="inputText" ng-model="formData.registerNumber" required />
+            </div>
+        </span>
+        <input id="depSubmit" type="submit" class="btn1" value="Продолжить" ng-disabled="selectDepartmentForm.$invalid" />
+
+    </form>
+</div>

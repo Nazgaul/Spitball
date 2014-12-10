@@ -1,0 +1,1315 @@
+﻿@import "varsAndMixins";
+
+.picker-dialog {
+    z-index:1060 !important;
+}
+/*#region BOOTSTRAP CLASSES*/
+.modal {
+    //display: none;
+    //width: 600px; //TODO: Check that other popups have a specific width - otherwise they will be 100vw
+    //overflow: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    .svg-close {
+        fill: #fff;
+    }
+
+    .modal-dialog {
+        width: 600px;
+    }
+    &.libChoosePopUp {
+        //width: 600px;
+        margin: 0 auto;
+        .modal-dialog {
+            padding:0;
+        }
+        .modal-content {
+            width: 600px;
+        }
+    }
+    &.newDpt {
+        //width: 600px;
+        .modal-dialog {
+            //background: #fff;
+        }
+    }
+    &.createWizard {
+        .modal-dialog {
+            width: 650px;
+        }
+    }
+    &.boxInvitePopup {
+        //width: 980px;
+        //height: 584px;
+        .modal-dialog {
+            padding: 0;
+            width: 980px;
+        }
+        .modal-body {
+            padding: 12px;
+            background: #282828;
+        }
+        .socialInvite {
+            float: left; //rtl
+            background: #fff;
+            width: 630px;
+            height: 560px;
+            header {
+                padding-top: 20px;
+            }
+        }
+        .socialWpr .fbBtn {
+            margin: 15px 48px 33px 48px; //for the arrows
+        }
+        .socialContentWpr {
+            margin: 0 0 -21px 0;
+            height: 364px;
+        }
+        .socialConnect {
+            //padding: 20px 0 125px;
+            .boxSizing;
+            min-height: 305px;
+            padding-top: 30px;
+        }
+        .btnWpr {
+            width: 100%;
+            margin: 0; //override
+            position: relative;
+            bottom:-21px; //bug 2888
+            .btn1:before {
+                content: attr(data-done);
+                display: block;
+            }
+        }
+        .closeDialog {
+            right: 8px; //rtl
+            top: 10px;
+        }
+        .invSidebar {
+            margin-right: 30px; //rtl
+        }
+        .invForm {
+            .btn1 {
+                margin-top: 0;
+            }
+
+            h3 {
+                color: #fff;
+            }
+        }
+    }
+    &.welcome {
+        text-align: center;
+        .modal-dialog.modal-dialog {           
+            width: 450px;                        
+        }
+        .modal-body {            
+            border-radius: 6px;
+            overflow:hidden;
+        }
+        .svg-close {
+            //fill: @borderColor;
+            fill: #282828;
+        }
+        .emailBtn {
+            border: 1px solid @borderColor;
+        }
+    }
+    
+    &.congrats {
+        font-family: Arial;
+        font-weight: bold;
+        .modal-dialog {
+            width: 500px;
+            height: 300px;
+            background: url(/Images/points-Bg.png) no-repeat;
+        }
+        .modal-body {
+            background: none; //override
+            text-align: center;
+        }
+        .svg-close {
+            fill: #282828;
+        }
+    }
+    &.rename, &.itemReg, &.congrats, &.welcome.popupOffset {
+        padding-left: @leftSideBarWidth; //rtl
+        .boxSizing;
+    }
+    &.itemReg {
+        font-family: Arial;
+        .modal-dialog {
+            width: 500px;
+        }
+        .modal-header {
+            height: 80px;
+            background: #e1e1e1;
+            text-align: center;
+            border-radius: 6px 6px 0 0;
+            svg {
+                width: 46px;
+                height: 50px;
+                fill: @color;
+                display: inline-block;
+                top:48px;
+                left:0; //rtl
+            }
+            h3 {
+                width: auto; //override
+                font-size: 22px;
+                line-height: 24px;
+                color: @color;
+                display: inline-block;
+                vertical-align: top;
+                background: none;//override
+                font-weight: bold;
+                white-space: pre-line;
+                position: relative;
+                top: -30px; //TODO: why is this needed
+                padding: 0 0 0 50px; //rtl //override
+                .boxSizing;
+            }
+        }
+        .modal-body {
+            text-align: center;
+        }
+        .itemRegTxt1 {
+            text-align: center;
+            white-space: pre-line;
+            font-size: 16px;
+            line-height: 20px;
+        }
+        .itemRegTxt2 {
+            text-align: center;
+            border-bottom: 1px solid #e1e1e1;
+            margin: 0 -20px;
+            padding-bottom: 15px;
+        }
+        .svg-logo {
+            width: 147px;
+            height: 26px;
+            fill: @color;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .btn1 {
+            margin-bottom: 5px;
+        }
+        .svg-close {
+            fill: #282828;
+        }
+    }
+    &.boxSettings
+    {
+        max-height:none;
+        padding-bottom:0;
+        //width: 700px; 
+        .modal-dialog {
+            width: 700px;
+        }     
+        .memberName{
+            width: 212px;
+        }
+    }
+    &.dashMembers {
+        .memberItem{
+            width: 49%;
+            display: inline-block;
+        }
+    }
+    &.uploadLink {
+        .modal-dialog {
+            //background: #fff;
+        }
+    }
+    &.createTab {
+        .btn1 {
+            text-transform: capitalize;
+        }
+    }
+    &.deptSettings {
+        //width: 600px;
+        header {
+            color: @color;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .changeName {
+            .lFloat {
+                margin-top: 15px;
+                position: relative;
+                padding-left: 35px; //rtl
+                //width: 310px;
+                white-space:pre-line;
+                line-height: 14px;
+                &:before {
+                    content: '!';
+                    display: inline-block;
+                    color: #fff;
+                    font-size: 15px;
+                    width: 23px;
+                    height: 23px;
+                    text-align: center;
+                    padding-top: 4px; //diff rtl
+                    .boxSizing;
+                    background: @color;
+                    border-radius: 100%;
+                    vertical-align: top;
+                    position: absolute;
+                    top: 3px;
+                    left: 0; //rtl
+                }
+            }
+        }
+        .deleteDept {
+            border-top: 1px solid @color;
+            margin-top: 20px;
+            header {
+                margin-top: 12px;
+            }
+            
+        }
+        .delDeptBtn {
+            background: #9E0039;
+            border: none;
+            margin-top: 50px;
+            &:disabled {
+                background: #a5a5a5;
+            }
+        }
+        .inputText {
+            height: 45px;
+            font-size: 18px;
+            margin-top: 10px;
+            &::-moz-selection
+            {
+                background: #ABDDC5;
+            }
+            &::selection {
+                background: #ABDDC5;
+            }
+        }
+        .cbLabel2 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    }
+    &.flagItem {
+        //width: 570px;
+       
+        top: 0;
+        li {
+            margin-top: 15px;
+        }
+        .modal-dialog {
+            width: 570px;
+             right: auto; //rtl
+        left: 220px;
+        }
+    }
+    &.quitQuiz {
+        //width: 560px;
+        .btn1 {
+            margin-top: 20px;
+            padding: 4px 15px;
+            + .btn1 {
+                margin: 15px 15px 5px 15px;
+            }
+        }
+        .quitQuizTxt {
+            font-size: 15px;
+            margin: 15px 0;
+        }
+        .modal-dialog {
+            width: 560px;
+        }
+    }
+    .enterCode {
+        font-size: 13px;
+        background: #faf9fa;
+        direction: rtl; // <-- <-- remove this when English is available
+        padding: 0; //override other properties
+        text-align: right;
+
+        .popupHeader, .modal-title {
+            .boxSizing;
+            margin: 0 0 15px; //override other properties
+            padding: 0 20px 0 0;
+        }
+
+        .closeDialog {
+            left: 20px; // <-- <-- remove this when English is available
+            right: auto;
+        }
+
+        .lFloat {
+            float: left; // <-- <-- remove this when English is available
+        }
+
+        .inputText {
+            width: 268px;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 0 0; //overide left margin
+        }
+
+        form, .noCode {
+            //padding: 0 19px 25px 9px; /*rtl*/// <-- use this when English is available
+            padding: 0 9px 25px 19px;
+            border-bottom: 1px solid #c7c7c7;
+        }
+
+        .noCode {
+            clear: both;
+            padding: 0 9px 25px 0;
+            background: #e8e8e8;
+            //padding: 0 0 25px 9px; /*rtl*//<-- use this when English is available
+            .boldFont {
+                font-size: 20px;
+                padding: 15px 0;
+            }
+
+            span.boldFont {
+                font-size: 16px;
+                padding: 0; //override above padding
+            }
+        }
+
+        .btn1 {
+            width: 110px;
+            //margin-left: 8px; /*rtl*/<-- use this when English is available
+            margin: 0 8px 0 0; /*rtl*/
+        }
+
+        .mailTo {
+            color: @color;
+            text-decoration: underline;
+        }
+    }
+    /*#region departmentChoose*/
+    .departmentChoose {
+        //width: 700px;
+        //z-index:12;
+        font-size: 15px;
+        .popupHeader {
+            margin: 0 0 15px; //overide
+            box-sizing: border-box;
+        }
+        .closeDialog {
+            right:20px; //rtl
+        }
+        .error {
+            color: @errorColor;
+        }
+        .step1Wpr, .step2Wpr {
+            padding: 0 20px 20px;
+        }
+        .step1Wpr {
+            h3 {
+                font-weight: normal;
+                font-size: 18px;
+            }
+            .inputText {
+                margin: 4px 0 0 8px;
+                display: inline-block;
+                width: 250px;
+            }
+            .ruTxt {
+                margin: 10px 0;
+                line-height: 24px;
+            }
+            .ruMail {
+                color: #676767;
+            }
+        }
+        .step2Wpr {
+            display: none;
+        }
+        &.step2 {
+            .step1Wpr {
+                display: none;
+            }
+            .step2Wpr {
+                display: block;
+            }
+        }
+        label {
+            display: block;
+            font-size: 15px;
+            color: #383838;
+            margin-bottom: 8px;
+        }
+        .chooseDptTxt
+        {
+            margin: 22px 0 12px;
+        }
+        select {
+            display: block;
+            font-size: 13px;
+            color: #383838;
+            width: 310px;
+            padding: 3px 3px 5px 2px;
+            .boxSizing;
+        }
+        .statusLabel
+        {
+            display: inline-block;
+            &.first
+            {
+                margin-right: 20px; /*rtl*/
+            }
+        }
+        .dptDetail{
+            width: 260px;
+            display: inline-block;
+            &.first
+            {
+                margin: 20px 34px 0 0; /*rtl*/
+            }
+        }
+        .inputText
+        {
+            display: block;
+        }
+        #department {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .btn1 {
+            font-size: 13px;
+            display: block;
+        }
+
+        .modal2 {
+            z-index: 11;
+        }
+
+        &.codeError {
+            .error {
+                display:block;
+            }
+        }
+    }
+    /*#endregion*/
+}
+
+.fade {
+    opacity: 0;
+    .transition(opacity .15s linear);
+    &.in {
+         opacity: 1;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background: #111;
+    &.fade {
+        opacity: 0;
+    }
+    &.in {
+        opacity: .7;
+    }
+}
+.modal-dialog {
+    //position: relative;
+    width: auto;
+    max-height: 95vh;
+    max-width: 95vw;
+    //background: #FFF;
+    //padding: 0 20px 15px;
+    //border: 1px solid rgba(0, 0, 0, 0.2);
+    //border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    outline: 0;
+    .boxSizing;
+    //width: 980px;
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 0;
+    //top:50%;
+    //opacity:0;
+    position: relative;
+    margin: 0 auto;
+    .transition(top .3s ease-out);
+    .modal.in & {
+        //.translate(0,0);
+        top: 50%;
+        //opacity:1;
+    }
+
+    .modal.fade & {
+        //.translate(0,20%);
+        //.translate(0,20vh);
+        //.transition(all .3s ease-out);
+    }
+}
+
+.modal-content {
+    position: relative;
+}
+.modal-header {
+    //border-radius: 6px 6px 0 0;
+}
+
+.popupHeader, .modal-title {
+    padding: 0 20px;
+    .boxSizing;
+    color: #fff;
+    font-size: 18px;
+    background: #444;
+    border-radius: 6px 6px 0 0;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    font-weight: normal;
+}
+.modal-body {
+    padding: 15px 20px;
+    .boxSizing;
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+}
+/*#endregion*/
+
+.modal2
+{
+    background: rgba(17,17,17,.5);
+    height: 100%;
+    left: 0; /* rtl */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index:12;
+}
+
+.popupForm
+{
+    .field-validation-error, .validation-summary-errors 
+    {
+        margin-left: 15px; /*rtl*/
+    }
+}
+
+.popupWrppr
+{  
+    max-height: 396px; //TODO: Why is this necessary? It can potentially cause problems cutting height of popup without defined height. Consider removing this.
+    .closeDialog
+    {
+        background-position: -79px -25px;
+    }
+    .cancel
+	{
+        margin-left: 10px; /*rtl*/
+	}
+    .btn1, .btn2
+    {
+        margin-top: 15px;
+    }
+    &.upload, &.uploadUrl {
+        width: 610px;
+        max-height: none; // reset max-height
+    }
+
+    &.registerNow
+    {
+        width:448px;
+        min-height: 125px;
+    }
+
+    &.requestSent
+    {
+        display: none;
+        .animation(fadein);
+        position:absolute;
+        //min-height: 0; // override poppwrrpr
+        .closeDialog
+        {
+            background-position: -79px -15px;
+        }
+    }
+
+    /*&.itemRename {
+        color:@textColor;
+        .inputText {
+            padding: 0 8px;
+            width: 100%;
+            margin: 15px 0;
+            font-size:16px;
+            .boxSizing;
+        }
+    }*/
+    
+}
+
+.quitQuizDialog {
+    display: none;
+    &.show {
+        display: block;
+    }
+}
+.requestSentDiv
+{
+    font-size: 18px;
+    padding-left:18px; /*rtl*/ // override poppwrrpr
+    width: 374px;
+    white-space: pre-line;
+    &.first
+    {
+        color: @color;
+        font-size: 28px; /*diff rtl*/
+        margin: 20px 0 15px;
+        width: auto;
+    }
+}
+
+.private {
+    .labelExplain {
+        color: rgba(56,56,56,.75);
+        margin-left: 17px; //rtl
+    }
+}
+
+.join.next
+{
+    right: 120px; /*rtl*/
+}
+
+.inputText.academicDescription
+{
+    height: 50px;
+    max-height: 80px;
+    overflow: auto;
+}
+
+/*#region flag Item */
+
+.flagDialog
+{
+    .btn1.next, .btn2.cancel
+    {
+        margin-top:0; //override default next/cancel btn style
+    }
+    
+    > div
+    {
+        //margin-left: 10px; /*rtl*/
+        color: @color;
+        font-size: 15px;
+    }
+    input[type="text"] 
+    {
+        margin: 8px 0 10px;
+        opacity:0;
+        //width: ~'calc(100% - 18px)';
+    }
+    input[type="text"]::-ms-clear
+    {
+        display:none;
+    }
+    
+}
+
+/*#endregion */
+
+/*#region box settings and members */
+
+.boxSettings
+{
+    .inviteBtn{
+        border: none; //override
+        margin-top: 12px;
+        background: #0371C8;
+        padding: 0 8px;
+        line-height: 30px;
+        &:after
+        {
+            display: none; //override
+        }
+        &:before
+        {
+            .pseudo;
+            vertical-align: middle;
+            margin-right: 5px; /*rtl*/
+            width: 20px;
+            height: 18px;
+            background: @boxSprite -53px -85px no-repeat;
+        }
+    }
+    .btn1, .btn2
+    {
+        font-size: 13px;
+        margin-top: 18px;
+        &:focus
+        {
+            //TODO: Ask how this should look
+            outline: none;
+            border: 1px dotted #383838;
+            border-radius: 5px;
+        }
+    }
+}
+.popupTopBar{
+    height: 53px;
+    line-height: 53px;
+    background: #F5F5F5;
+    margin: -15px -20px 0;
+    padding: 0 20px;
+
+    position:relative;
+    overflow: hidden; 
+}
+.tabSettings
+{
+    ~ .membersContent
+    {
+        display: none;
+    }
+    ~ .boxSettingsForm{
+        padding-bottom:20px;
+    }
+}
+.tabMembers
+{
+    ~ .boxSettingsForm
+    {
+        display: none;
+        
+    }    
+}
+
+.tabBtn {
+    font-size: 15px;
+    color: #676767;
+    text-transform: capitalize;
+
+    &:first-child {
+        margin-right: 29px; /*rtl*/
+        .tabSettings & 
+        {
+            color: #39434a;
+        }
+    }
+    &:nth-child(2) {
+        .tabMembers & 
+        {
+            color: #39434a;
+        }
+    }   
+}
+
+.tabArrow
+{
+    margin: -53px -20px 1px -20px;
+    border-bottom: 1px solid @borderColor;
+    height: 52px;
+    &:before
+    {
+        .tabMembers & {
+            left: 132px; /*rtl*/ //TODO: Need to find a solution for other languages
+        }
+    }   
+}
+.tabArrow:before{
+    width: 13px;
+    height: 13px;
+    bottom:-9px;
+    left: 38px; /*rtl*/
+    background: #fff;
+    .transition(left, .3s); /*rtl*/
+} 
+.boxSettingsContent
+{
+    display: table;
+    margin-top: 15px;
+    &.private .private, &.academic .academic
+    {
+        display: table-row;
+    }
+}
+.boxSetting
+{
+    display: table-row;
+    .changeImg
+    {
+        width: 74px;
+        height: 24px;
+        color: #fff;
+        position: absolute;
+        left:0; /*rtl*/
+        bottom: 0;
+        background: rgba(57,67,64,.7);
+    }
+    &.private, &.academic
+    {
+        display: none;
+    }
+    &:first-child label
+    {
+        vertical-align: top;
+    }
+    &:last-child
+    {
+        height: 50px;
+        line-height: 50px;
+        white-space: nowrap; //make sure child elements don't wrap to new line (see bug 1141)
+        label
+        {
+            padding-top: 12px;
+        }
+    }
+    label{
+        display: table-cell;
+        padding: 10px 20px 0 0; /*rtl*/
+        text-align: right; /*rtl*/
+    }
+    .inputText{
+        margin-top: 10px;
+        width: 135px;
+    }
+    
+    .thumbImg{
+        position: relative;
+        width: 74px;
+        height: 94px;
+        overflow: hidden;
+        border: 1px solid #c2c2c2;
+    }
+    .radioBtns
+    {
+        &:before, &:after
+        {
+            .pseudo;
+            width: 660px;
+            height: 1px;
+            left:0; right:0;
+            margin: auto;
+            background: @borderColor;
+            position: absolute;
+        }
+        &:before
+        {
+            margin-top: 12px;
+        }
+    }
+    .editBoxName
+    {
+        width: 560px;
+        font-size: 16px;
+    }
+    .editLecturer{
+        width: 195px;
+    }
+}
+.privacyLabel
+{
+    font-size: 15px;
+}
+
+.membersContent{
+    min-height: 330px;
+    .cbLabel{
+        position: static; // override general
+        margin: 0; // override general
+        height: 36px;
+
+        &:before
+        {
+            border:none;  // override general
+            padding:0;
+            vertical-align: top;
+        }
+    }
+
+    .memberName{
+        display: inline-block;
+        //width: 276px;
+        width: 271px;
+        padding: 11px 0 0 4px; /*rtl*/
+        vertical-align: top; // to keep the mac happy
+    }
+}
+.membersTop
+{
+    height: 52px;
+    line-height: 52px;
+    border-bottom: 1px solid @borderColor;
+    margin-bottom: 5px;
+    .searchWpr
+    {
+        display: inline-block;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid @borderColor;
+        border-radius: 3px;
+        margin-top: 10px;
+        overflow: hidden; // clip content to rounded corners
+    }
+    .cbLabel
+    {
+        line-height: 15px;
+        &:before
+        {
+            margin-top: 0; //override
+        }
+    }
+}
+.membersCount
+{
+    background: #f5f5f5;
+    border-right: 1px solid @borderColor; /*rtl*/
+    display: inline-block;
+    padding: 0 8px;
+    &:before
+    {
+        content: attr(data-count);
+        display: inline-block;
+    }
+}
+.inputWpr
+{
+    overflow: hidden;
+    .membersSearch
+    {
+        width: 100%;
+    }
+}
+.membersSearch
+{
+    padding: 0 5px;
+}
+.memberItem {
+    width: 100%;
+    height: 36px;
+    //line-height: 36px; //caused unnecessary scroll on FF and IE (TODO:why?)
+    clear: both;
+    padding: 5px 0 5px 5px; /*rtl*/
+    margin: 0 0 3px -5px; /*rtl*/
+    opacity: 1; //for uninvited transition
+    visibility: visible; //for uninvited transition
+    
+
+    &.memberItem .cbLabel:before
+    {
+        margin-top: 11px; //override (added another .memberItem for specificity)
+    }
+
+    &:hover {
+        background: #f9f9f9;
+    }
+
+    .btn1 {
+        margin: 0 0 0 10px; /*rtl*/ // override other props
+        display: none;
+    }
+
+    &.uninvited, &.reinvited {
+        .memberStatus {
+            //opacity: 0; //for uninvited transition
+            //visibility: hidden; //for uninvited transition
+            color: #fff;
+        }
+    }
+    &.reinvited {
+        .reinvite {
+            top:10px;
+            //display: inline-block;
+        }
+    }
+
+    &.uninvited {
+        .transition(all 1s 2s);
+        position: relative;
+        z-index: -1;
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+
+        .friendImg, .memberName, .reinviteUserBtn {
+            opacity: .5;
+        }
+
+        .uninvite {
+            top: 10px;
+        }
+    }
+}
+.reinviteUserBtn
+{
+    padding: 6px 10px;
+    font-weight: normal;
+}
+
+.reinvite, .uninvite
+{
+    //color: rgba(0,0,0,0);
+    position: absolute;
+    top:35px;
+    left:0; //rtl
+    background: #fff;
+    .transition(top .5s);
+    display: inline-block;
+    color: @textColor;
+    &:before
+    {
+        .pseudo;
+        width: 18px;
+        height: 19px;
+        background: @common-sprite -171px -64px no-repeat;
+        vertical-align: middle;
+        margin-right: 5px;
+        //left:0;
+        //position: absolute;
+        //top: 0;
+        //opacity:1;
+    }
+}
+.reinvite:before
+{
+    background-position: -136px -42px;
+}
+
+.memberStatus{
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;  
+    min-width: 97px; 
+    height: 35px;
+    color: @textColor;
+    display: inline-block;
+
+    .transition(color .5s);
+    opacity:1; //for uninvited transition
+    visibility: visible; //for uninvited transition
+    .boxSizing;
+    padding-top: 11px;
+}
+
+
+.memberPending ~ .memberActions .btn1{
+    display: inline-block;
+}
+.memberActions{
+    clear: both;
+    padding-top: 3px;
+}
+.messageBtn
+{    
+    margin-left: 26px; /*rtl*/
+    &:before
+    {
+        .pseudo;
+        vertical-align: middle;
+        width: 22px;
+        height: 19px;
+        background: @common-sprite -155px -42px no-repeat;
+        margin-right: 8px; /*rtl*/
+    }
+}
+
+
+.inviteUserBtn, .removeUserBtn
+{
+    width: 36px;
+    height: 31px;
+    border-radius: 3px;
+    display: none;
+    &:hover
+    {
+        border: 1px solid @borderColor;
+    }
+    &:before
+    {
+        .pseudo;
+        width: 24px;
+        height: 17px;
+        background: @common-sprite -154px -24px no-repeat;
+        vertical-align: middle;
+    }
+    .memberItem:hover &
+    {
+        display: inline-block;
+    }
+}
+.removeUserBtn
+{
+    margin-left: 10px; /*rtl*/
+    &:before
+    {
+        width: 16px;
+        height: 20px;
+        background-position: -164px -1px;
+    }
+}
+
+/*#endregion */
+
+/*#region points popup */
+.ribbon {
+    display: inline-block;
+    width: 384px;
+    height: 77px;
+}
+.svg-ribbon {
+    width: 384px;
+    height: 77px;
+}
+.coin {
+    position: absolute;
+    top: 85px;
+    left:0;right:0;margin:auto;
+    width: 136px;
+    height: 136px;
+    color: #906d34;
+    background-color: #fee05c;
+    border: 1px solid #383838;
+    border-radius: 50%;
+    box-shadow: inset -7px -3px 0 -1px #fec900;
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: 9px;
+        left: 7px;
+        width: 105px;
+        height:105px;
+        border-radius: 50%;
+        background: #fee05c;
+        border: 7px solid #fec900;
+    }
+}
+.ptsAwarded {   
+    position: absolute;
+    font-size: 50px;
+    //color: #906d34;
+    top: 45px;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 80px; 
+}
+.congratsTxt0 {
+    text-transform: uppercase;
+    padding-top: 20px;
+    display: inline-block;
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    letter-spacing: -1px;
+    top: 4px;
+}
+.congratsTxt1 {
+    position: relative;
+    font-size: 15px;
+    top: 35px;
+    margin: auto;
+}
+
+.congratsTxt2 {
+    position: relative;
+    top: 76px;
+    font-size: 15px;
+    margin: auto;
+}
+.congratsTxt3 {
+    font-size: 17px;
+    margin-top: 137px;
+}
+.congratsTxt4 {
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 17px;
+    padding: 0 40px;
+}
+
+/*#endregion */
+
+/*#region welcome angular popup */
+
+.registerFirst {
+    .facebook {
+        margin-top: 15px;
+    }
+    .regFirstTxt {
+        font-size: 22px;
+        text-align: center;
+    }
+}
+
+.ng-message-errors {
+    position:relative;
+    width:100%;        
+    color: @errorColor;
+}
+
+
+.register { 
+    .ng-message-errors {        
+        width:48%;
+        display:inline-block;
+    }
+}
+
+.ng-message-error {
+    position:absolute;
+    opacity:1;    
+    bottom:0;
+    left:0; /*RTL*/
+    .transition(all .4s linear);
+}
+.ng-message-error.ng-enter.ng-enter-active {
+    opacity:1;
+    left:0; /*RTL*/
+}
+.ng-message-error.ng-enter {
+    opacity:0;
+    left:-100%; /*RTL*/
+}
+
+.ng-message-error.ng-leave {
+    opacity:1;
+    left:0;
+}
+
+.ng-message-error.ng-leave.ng-leave-active {
+    opacity:0;
+    bottom:8px; 
+}/*#endregion */
+
+
+/*#region Share by email AKA message */
+.validateMsg {
+    color: @errorColor;
+    display: block;
+}
+
+/*#endregion */
