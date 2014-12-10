@@ -253,7 +253,7 @@
 
     .tooltip-arrow {
         top: -6px;
-        border-left: 1px solid @itemBlue; //rtl
+        border-left: 1px solid @itemBlue; //no rtl
         border-top: 1px solid @itemBlue;
     }
 
@@ -271,6 +271,7 @@
 
 .itemRenameBtn {
     display: none;
+    position: relative; //so that it appears on top (in rtl?) (check this)
 }
 
 .item-name {

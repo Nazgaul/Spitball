@@ -233,6 +233,7 @@
 }
 .itemRenameBtn {
   display: none;
+  position: relative;
 }
 .item-name {
   text-align: left;

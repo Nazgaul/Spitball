@@ -382,6 +382,19 @@ input[type="radio"][disabled] + label:before {
 /*#endregion */
 /*#region popup */
 /*#region Coupon popup */
+.modal .inputText {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.modal .btn1,
+.modal .btn2 {
+  margin-top: 18px;
+}
+.modal .cancel {
+  margin-left: 10px;
+}
 .modal.couponPopup {
   width: 860px;
   height: 613px;
