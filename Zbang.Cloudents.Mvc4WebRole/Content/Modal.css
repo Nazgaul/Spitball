@@ -104,6 +104,9 @@
   /*.animation(fadein);
             + .modal-body {
                 display: none;
+            }
+            &.ng-animate {
+                display:none;
             }*/
 }
 .modal.welcome .svg-close {
