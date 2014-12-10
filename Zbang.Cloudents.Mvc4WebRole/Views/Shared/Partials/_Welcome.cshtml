@@ -1,6 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
 
 <div class="staticWpr popupWrppr" id="connect">
     <div class="enterTitle">@SharedResources.SignIn</div>
@@ -26,24 +25,8 @@
     </button>
 </div>
 
-<div class="staticWpr popupWrppr" id="register" ng-class="{store: $root.isStore()}">
-    <div class="welcomeStore">
-        <div class="storeTxt1">@StoreResources.Description</div>
-        <div class="storeTxt2">@StoreResources.PayLess</div>
-        <div class="storeTxt3">@StoreResources.ExclusiveBenefits</div>
-        <div class="storeTxt4">@StoreResources.HowToBuy</div>
-        <div class="couponWpr">
-            <span class="userHelp">?</span>
-            <div class="helpPopup">@StoreResources.ToGetACoupon</div>
-            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
-            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
-
-        </div>
-        <span class="or">@StoreResources.Or</span>
-    </div>
-
+<div class="staticWpr popupWrppr" id="register">
     <div class="enterTitle">@LogOnResources.CreateAccount</div>
-
     <button type="button" class="closeModal" data-closelogin="close">
         <svg data-closelogin="close" class="svg-close" viewBox="-523.8 392.1 57.6 57.6">
             <path data-closelogin="close" d="M-468.2,403.5l-17.4,17.4l17.4,17.4c2.6,2.6,2.6,6.8,0,9.4c-1.3,1.3-3,1.9-4.7,1.9c-1.7,0-3.4-0.6-4.7-1.9

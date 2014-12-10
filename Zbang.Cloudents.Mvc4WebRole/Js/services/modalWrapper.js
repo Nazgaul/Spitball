@@ -35,7 +35,7 @@ app.factory('sModal',
                 flagItem: function (params) {
                     return buildObj('flagItem', { url: '/item/flag/' }, 'itemFlagCtrl', 'none', true, params.data);
                 },
-                itemRename0: function (params) {
+                itemRename: function (params) {
                     return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
                 },
                 connectPopup: function (params) {

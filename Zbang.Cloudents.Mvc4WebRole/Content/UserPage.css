@@ -226,13 +226,6 @@
   line-height: 14px;
   color: #676767;
 }
-/*.uploadsImg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: 3px;
-    border: 1px solid @borderColor;
-}*/
 .emptyTab {
   text-align: center;
   color: #676767;
@@ -623,19 +616,6 @@
   /*rtl*/
   height: 78px;
   z-index: 1;
-  /*&:nth-child(even) {
-        margin-left: 28px; /*rtl
-        &:before {
-            content: '';
-            width: 1px;
-            height: 100%;
-            background: @borderColor;
-            position: absolute;
-            left: -17px; /*rtl
-            top: -29px;
-            padding-top: 29px;
-        }
-    }*/
 }
 .upInviteItem:hover:after {
   content: '';
@@ -696,14 +676,6 @@
   border: none;
   border-radius: 3px;
 }
-/*.invitedToImg
-{
-    position: absolute;
-    top:0;
-    left:0; 
-    border: 1px solid @borderColor;
-    border-radius: 3px;
-}*/
 .emptyInvites {
   display: none;
   height: 112px;
@@ -716,6 +688,31 @@
   margin-left: 15px;
   /*rtl*/
 }
+/*#region user items (used in search page and user page) */
+.userItem {
+  display: inline-block;
+  height: 116px;
+  margin-right: 31px;
+  /*rtl*/
+  overflow: hidden;
+  text-align: center;
+  width: 76px;
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+.userItemImg {
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+.userItemName {
+  line-height: 15px;
+  height: 36px;
+}
+.userItemName .sHighlight {
+  padding: 0;
+}
+/*#endregion */
 /*#endregion */
 /*#region union*/
 .upMembers {
