@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddCourse" xml:space="preserve">
+    <value>הוסף קורס חדש</value>
+  </data>
+  <data name="AddDept" xml:space="preserve">
+    <value>הוסף מחלקה חדשה</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>חזרה</value>
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value>קופסה</value>
+  </data>
+  <data name="BrowseCourses" xml:space="preserve">
+    <value>עיון בקורסים</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="ContinueReading" xml:space="preserve">
+    <value>קרא עוד</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="CopyLink" xml:space="preserve">
+    <value>העתק קישור</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>צור חדש</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>דואר אלקטרוני</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>פייסבוק</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>עקוב</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>בית</value>
+  </data>
+  <data name="Invite" xml:space="preserve">
+    <value>הזמן</value>
+  </data>
+  <data name="Invites" xml:space="preserve">
+    <value>הזמנות</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>פריטים</value>
+  </data>
+  <data name="JoinLater" xml:space="preserve">
+    <value>הרשם מאוחר יותר</value>
+  </data>
+  <data name="JoinNow" xml:space="preserve">
+    <value>הצטרף עכשיו</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>קישור</value>
+  </data>
+  <data name="MySpace" xml:space="preserve">
+    <value>האזור שלי</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>התראות</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="OrGrabTheLink" xml:space="preserve">
+    <value>או העתק קישור</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>בעלות</value>
+  </data>
+  <data name="PlusUpload" xml:space="preserve">
+    <value>העלה</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>השב</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>תוצאות</value>
+  </data>
+  <data name="SchoolLibrary" xml:space="preserve">
+    <value>הבנק האקדמי</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="SearchBoxes" xml:space="preserve">
+    <value>חפש בקופסאות שלך</value>
+  </data>
+  <data name="SelectSchool" xml:space="preserve">
+    <value>בחר מוסד אקדמי</value>
+  </data>
+  <data name="SendToFacebook" xml:space="preserve">
+    <value>שלח לפייסבוק</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>שתף</value>
+  </data>
+  <data name="ShareThisVia" xml:space="preserve">
+    <value>שתף דרך:</value>
+  </data>
+  <data name="SignUpAsMember" xml:space="preserve">
+    <value>הירשם כחבר ליהנות מתכונה זו ועוד רבות בחינם</value>
+  </data>
+  <data name="SignUpNow" xml:space="preserve">
+    <value>הירשם כעת</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>מיין לפי:</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>שלח</value>
+  </data>
+  <data name="TellUsSchool" xml:space="preserve">
+    <value>הי {0} ,
+כדי לעזור לך להתחיל, ספר לנו איפה אתה לומד</value>
+  </data>
+  <data name="TweetThis" xml:space="preserve">
+    <value>צייץ את זה</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>טוויטר</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>עדכונים</value>
+  </data>
+  <data name="ViaEmail" xml:space="preserve">
+    <value>באמצעות הדואר האלקטרוני</value>
+  </data>
+  <data name="ViaFacebook" xml:space="preserve">
+    <value>באמצעות פייסבוק</value>
+  </data>
+  <data name="ViaInvite" xml:space="preserve">
+    <value>באמצעות הזמנה</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>כתוב תגובה ...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>כתובת דוא"ל</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>תפריט</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>צפיות</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="OnlyPeople" xml:space="preserve">
+    <value>רק אנשים שקיבלו הזמנה מפורשת יכולים לקבל גישה. חובה להיכנס למערכת.</value>
+  </data>
+  <data name="AnyoneWho" xml:space="preserve">
+    <value>כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>שנה</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>הסר</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>חבר</value>
+  </data>
+  <data name="InviteFriends" xml:space="preserve">
+    <value>הזמן חברים</value>
+  </data>
+  <data name="InviteCloudents" xml:space="preserve">
+    <value>הזמן את חבריך לקלאודנטס</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>הודעה</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>נשלח</value>
+  </data>
+  <data name="ShareBy" xml:space="preserve">
+    <value>שתף בשם או אימייל</value>
+  </data>
+  <data name="Thumbnail" xml:space="preserve">
+    <value>התמונה ממוזערת</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>הצג הכל</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>קבצים</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>תשובות</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>הצטרפתי</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>הצטרף</value>
+  </data>
+  <data name="ActiveMember" xml:space="preserve">
+    <value>חבר</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>ממתין</value>
+  </data>
+  <data name="Reinvite" xml:space="preserve">
+    <value>הזמן שוב</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="CloudentsHelp" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="OrCopyLink" xml:space="preserve">
+    <value>או העתק קישור...</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>שאלות</value>
+  </data>
+  <data name="ShareItem" xml:space="preserve">
+    <value>שתף</value>
+  </data>
+  <data name="ShareUsing" xml:space="preserve">
+    <value>שתף קובץ זה באמצעות</value>
+  </data>
+  <data name="ShowLess" xml:space="preserve">
+    <value>הצג פחות</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>הצג עוד</value>
+  </data>
+  <data name="StayUpdated" xml:space="preserve">
+    <value>השאר מעודכן</value>
+  </data>
+  <data name="StillHave" xml:space="preserve">
+    <value>עדיין יש לך שאלה?</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>פעילות</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>נקודות</value>
+  </data>
+  <data name="School" xml:space="preserve">
+    <value>מוסד אקדמי</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>האזור שלי</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>כתוב הודעה ...</value>
+  </data>
+  <data name="Courses" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
+  <data name="ResultsFor" xml:space="preserve">
+    <value>תוצאות חיפוש ל-</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>מחלקה</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>מחלקות</value>
+  </data>
+  <data name="AllResults" xml:space="preserve">
+    <value>הראה את כל תוצאות החיפוש עבור</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>ב:</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>אנשים</value>
+  </data>
+  <data name="Pts" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="ResultsOther" xml:space="preserve">
+    <value>תוצאות ממוסדות אחרים</value>
+  </data>
+  <data name="SearchingFor" xml:space="preserve">
+    <value>מחפש</value>
+  </data>
+  <data name="SweetPoints" xml:space="preserve">
+    <value>מגניב, קיבלת </value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>הורדות</value>
+  </data>
+  <data name="SweetThanks" xml:space="preserve">
+    <value>מעולה, תודה</value>
+  </data>
+  <data name="InvitesYou" xml:space="preserve">
+    <value>מזמין אותך לעקוב</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>הועלה</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>נקבה</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>שם פרטי</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>שם משפחה</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>זכר</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>שם אמצעי</value>
+  </data>
+  <data name="GroupBoxes" xml:space="preserve">
+    <value>קופסאות קבוצתיות</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>לא נמצאו התראות</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>הגב</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>שאלה</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>טיוטא</value>
+  </data>
+  <data name="Course" xml:space="preserve">
+    <value>קורס</value>
+  </data>
+  <data name="Backto" xml:space="preserve">
+    <value>חזרה ל</value>
+  </data>
+  <data name="FacebookSignUp" xml:space="preserve">
+    <value>הרשם דרך פייסבוק</value>
+  </data>
+  <data name="EmailSignUp" xml:space="preserve">
+    <value>הרשם דרך אימייל</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="FreePlatform" xml:space="preserve">
+    <value>הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת</value>
+  </data>
+  <data name="RegisterFirst" xml:space="preserve">
+    <value>על מנת להמשיך וליהנות מקלאודנטס </value>
+  </data>
+  <data name="RegisterFree" xml:space="preserve">
+    <value>הירשמו בחינם!</value>
+  </data>
+  <data name="CloudentsQuizzes" xml:space="preserve">
+    <value>הקווזים של קלאודנטס - צרו, שתפו, תרגלו והצליחו במבחן!</value>
+  </data>
+  <data name="CreateShare" xml:space="preserve">
+    <value>חדש בקלאודנטס יצירת מבחנים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
+  </data>
+  <data name="DiscussQuiz" xml:space="preserve">
+    <value>דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="ExamQuestion" xml:space="preserve">
+    <value>סימון תשובות נכונות</value>
+  </data>
+  <data name="MultipleAnswers" xml:space="preserve">
+    <value>שמירה אוטומטית של התוכן בענן</value>
+  </data>
+  <data name="PrepareExam" xml:space="preserve">
+    <value>קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>קודם</value>
+  </data>
+  <data name="PublishQuiz" xml:space="preserve">
+    <value>שיתוף של המבחן עם החברים</value>
+  </data>
+  <data name="SeeScore" xml:space="preserve">
+    <value>קבלת ציון וזמן של הבחינה</value>
+  </data>
+  <data name="ShareQuiz" xml:space="preserve">
+    <value>שיתוף של הבחינה עם חברים כדי שתוכלו ללמוד ביחד</value>
+  </data>
+  <data name="TryIt" xml:space="preserve">
+    <value>למה אתה מחכים, שיהיה בהצלחה!</value>
+  </data>
+  <data name="UseMaterial" xml:space="preserve">
+    <value>יצירת המבחן על גבי מסמכים קיימים בקלאודנטס</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>הכנס כתובת דוא"ל</value>
+  </data>
+  <data name="PersonalMsg" xml:space="preserve">
+    <value>הודעה אישית</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>כתוב תגובה</value>
+  </data>
+  <data name="Feed" xml:space="preserve">
+    <value>עידכונים</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>מבחנים</value>
+  </data>
+  <data name="ChooseDept" xml:space="preserve">
+    <value>בחר מחלקה</value>
+  </data>
+  <data name="BestInSchool" xml:space="preserve">
+    <value>הסטודנט המצטיין</value>
+  </data>
+</root>

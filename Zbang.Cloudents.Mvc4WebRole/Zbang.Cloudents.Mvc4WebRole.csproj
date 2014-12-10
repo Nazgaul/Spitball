@@ -214,8 +214,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleRegistration.cs" />
     <Compile Include="App_Start\DisplayConfig.cs" />
-    <Compile Include="App_Start\JavaScriptBundleImp.cs" />
     <Compile Include="App_Start\SquishItRenderer.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
@@ -1996,7 +1996,6 @@
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
-    <Content Include="Views\Account\Index2.mobile.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
     <Content Include="Views\Account\LogOn.mobile.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
@@ -2036,7 +2035,6 @@
     <Content Include="Views\Account\_UserDetail4.mobile.cshtml" />
     <Content Include="Views\Item\_PreviewImage.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
-    <Content Include="Views\Shared\_LayoutStatic.mobile.cshtml" />
     <Content Include="Views\Library\InsertCode.mobile.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Box\_QnA.cshtml" />

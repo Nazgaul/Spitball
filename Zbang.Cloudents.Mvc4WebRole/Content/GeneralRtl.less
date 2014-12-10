@@ -72,6 +72,35 @@ input[type="radio"] {
 
 
 /*#region popup */
+/*#region Coupon popup */
+.modal {
+    .cancel {
+        margin: 18px 10px 0 0; //rtl
+    }
+    &.couponPopup {
+        &:before {
+            margin: auto 32px auto auto; //rtl (because image is not symmetrical)
+        }
+        .signupBtns {
+            right: -6px; //rtl
+            left: auto;
+        }
+    }
+}
+.welcomeStore {
+    right: -5px; //rtl
+    left: auto;
+}
+
+.couponWpr { 
+    .helpPopup {
+        &:before {
+            right: 20px; //rtl
+            left: auto;
+        }
+    }
+}
+/*#endregion */
 
 .popupForm
 {
@@ -88,11 +117,6 @@ input[type="radio"] {
 .closeModal {
     left: 20px;
     right: auto;
-}
-.popupWrppr, .modal {
-    .inputText {
-        padding: 0 8px 0 4px; /*rtl*/
-    }
 }
 
 .requestSentDiv
@@ -119,33 +143,6 @@ input[type="radio"] {
         left: auto;
     }
 }
-
-/*#region Welcome Store*/
-.registerFirst {
-    &.store {
-        &:before {
-           margin: 0 auto 0 32px; //rtl (because image is not symmetrical)
-        }
-        .signupBtns {
-            right: -6px; //rtl
-            left: auto;
-        }
-    }
-}
-.welcomeStore {
-    right: -5px; //rtl
-    left: auto;
-}
-.couponWpr.couponWpr { //for more specificity
-    .helpPopup {
-        &:before {
-            right: 20px; //rtl
-            left: auto;
-        }
-    }
-
-}
-/*#endregion */
 
 .emailBtn {
     padding: 7px 53px 8px 15px; /*rtl*/

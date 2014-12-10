@@ -13,10 +13,6 @@
   right: auto;
 }
 /*#endregion*/
-.inputText {
-  padding: 0 8px 0 4px;
-  /*rtl*/
-}
 /*#region Modal.css */
 .modal.boxInvitePopup .socialInvite {
   float: right;
