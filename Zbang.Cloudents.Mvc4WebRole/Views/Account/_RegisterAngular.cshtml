@@ -3,43 +3,55 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <form name="registerForm" class="register desktop" ng-submit="register(registerForm.$valid)" novalidate>
-    <div class="ng-message-errors lFloat" ng-messages="registerForm.firstName.$touched && registerForm.firstName.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>        
-    </div>   
-    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName" ng-model="formData.register.firstName" required />
-
-    <div class="ng-message-errors rFloat" ng-messages="registerForm.lastName.$touched && registerForm.lastName.$error">
+    <div class="ng-message-errors lFloat" ng-messages="(registerForm.firstName.$touched || registerSubmitted) && registerForm.firstName.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
-    </div>   
-    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName" ng-model="formData.register.lastName" required />
+    </div>
+    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName"
+           ng-class="{error: (registerSubmitted || registerForm.firstName.$touched) && loginForm.firstName.$error}"
+           ng-model="formData.register.firstName" required />
 
-    <div class="ng-message-errors" ng-messages="registerForm.newEmail.$touched && registerForm.newEmail.$error">
+    <div class="ng-message-errors rFloat" ng-messages="(registerForm.lastName.$touched || registerSubmitted) && registerForm.lastName.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+    </div>
+    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName"
+           ng-class="{error: (registerSubmitted || registerForm.lastName.$touched) && loginForm.lastName.$error}"
+           ng-model="formData.register.lastName" required />
+
+    <div class="ng-message-errors" ng-messages="(registerForm.newEmail.$touched || registerSubmitted) && registerForm.newEmail.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
         <span class="ng-message-error" ng-message="email">Email</span>
-    </div>   
-    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email" ng-model="formData.register.newEmail"  required />
+    </div>
+    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email"
+           ng-class="{error: (registerSubmitted || registerForm.newEmail.$touched) && loginForm.newEmail.$error}"
+           ng-model="formData.register.newEmail" required />
 
-    <div class="ng-message-errors" ng-messages="registerForm.confirmEmail.$touched && registerForm.confirmEmail.$error">
+    <div class="ng-message-errors" ng-messages="(registerForm.confirmEmail.$touched || registerSubmitted) && registerForm.confirmEmail.$error">
         <span class="ng-message-error" ng-message="required">Required</span>
         <span class="ng-message-error" ng-message="email">Email</span>
         <span class="ng-message-error" ng-message="match">Match</span>
-    </div>   
-    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail" ng-model="formData.register.confirmEmail"  required ng-match="newEmail" />
+    </div>
+    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
+           ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
+           ng-model="formData.register.confirmEmail" required ng-match="newEmail" />
 
-    
-    <div class="ng-message-errors" ng-messages="registerForm.password.$touched && registerForm.password.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>        
-        <span class="ng-message-error" ng-message="minLength">Length</span>
-    </div>   
-    <input class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6" required />
+    <div class="ng-message-errors" ng-messages="(registerForm.password.$touched || registerSubmitted) && registerForm.password.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="minlength">Length</span>
+    </div>
 
-    
-    <input id="maleRadio" name="IsMale" type="radio" />
+    <input class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6"
+           ng-class="{error: (registerSubmitted || registerForm.password.$touched) && loginForm.password.$error}"
+           ng-model="formData.register.password" required />
+
+    <div class="ng-message-errors" ng-messages="(registerForm.isMale.$touched || registerSubmitted) && registerForm.isMale.$error">
+        <span class="ng-message-error" ng-message="required">Required</span>
+    </div>
+    <input id="maleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="true" required />
     <label class="genderLabel first" for="maleRadio">זכר</label>
-    <input id="femaleRadio" name="IsMale" type="radio">
+    <input id="femaleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="false" required>
     <label class="genderLabel" for="femaleRadio">נקבה</label>
 
-    <select class="inputText rFloat" name="Language.Language">
+    <select class="inputText rFloat">
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.HebrewName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
@@ -49,8 +61,8 @@
     </select>
 
 
-    <input checked="checked" class="checkbox" data-val="true" data-val-required="The מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית field is required." id="MarketEmail" name="MarketEmail" type="checkbox" value="true" />
-    <label class="cbLabel" for="MarketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
+    <input checked="checked" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="formData.register.marketEmail" />
+    <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
 
     <div class="formBottom">
         <span class="acceptTerms">
@@ -62,7 +74,7 @@
             -->
             <a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
         </span>
-        <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp" />
+        <input class="btn1 lFloat" type="submit" tabindex=15 value="@LogOnResources.SignUp" ng-click="registerSubmitted = true" />
     </div>
 </form>
 
