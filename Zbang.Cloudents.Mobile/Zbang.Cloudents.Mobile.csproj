@@ -2022,7 +2022,7 @@
     <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Library\InsertCode.cshtml" />
-    <Content Include="Views\Account\_UserDetail4.mobile.cshtml" />
+    <Content Include="Views\Account\_UserDetail4.cshtml" />
     <Content Include="Views\Item\_PreviewImage.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
     <Content Include="Views\Library\InsertCode.mobile.cshtml" />
