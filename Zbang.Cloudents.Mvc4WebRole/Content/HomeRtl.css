@@ -40,13 +40,13 @@
   text-align: right;
   /*rtl*/
 }
-.homeContent h1 {
+.homepage h1 {
   -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
   text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
 }
-.homeContent h3 {
+.homepage h3 {
   font-size: 17px;
   /*rtl*/
   -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -54,15 +54,15 @@
   text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
 }
-.homeContent h2 {
+.homepage h2 {
   text-align: right;
   /*rtl*/
 }
-.homeContent .sectionText {
+.homepage .sectionText {
   text-align: right;
   /*rtl*/
 }
-.homeContent .sectionWpr:before {
+.homepage .sectionWpr:before {
   float: left;
   /*rtl*/
 }
@@ -121,14 +121,14 @@
   margin: 35px 0 0 150px;
   /*rtl*/
 }
-.union {
+.unions li {
   float: right;
   /*rtl*/
   border-left: 1px solid #fff;
   /*rtl*/
   border-right: none;
 }
-.union.last {
+.unions li.last {
   border-left: none;
   /*rtl*/
 }
