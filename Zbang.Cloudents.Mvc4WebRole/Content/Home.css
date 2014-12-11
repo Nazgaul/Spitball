@@ -132,6 +132,7 @@
   color: #383838;
   min-width: 1024px;
   text-align: center;
+  margin-top: -50px;
 }
 .homepage h1 {
   font-size: 45px;
@@ -385,6 +386,9 @@
   width: 100%;
   height: 580px;
   text-align: center;
+}
+section.unions {
+  height: 580px;
 }
 .unions h2 {
   font-size: 24px;
