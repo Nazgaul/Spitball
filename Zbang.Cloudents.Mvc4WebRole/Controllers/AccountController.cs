@@ -502,7 +502,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        #endregion
         #region passwordReset
         private const string SessionResetPassword = "SResetPassword";
         private const string ResetPasswordCrypticPropose = "reset password";
