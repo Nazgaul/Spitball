@@ -28,6 +28,9 @@
             changeLanguage: function (data) {
                 return ajaxService.post(buildPath('changelanguage'), data);
             },
+            changeLocale: function (data) {
+                return ajaxService.post(buildPath('changelocale'), data);
+            },
             submitCode: function(data) {
                 return ajaxService.post(buildPath('entercode'), data);
             },
