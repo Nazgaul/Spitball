@@ -37,24 +37,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CacheProvider = cacheProvider;
         }
 
-        //[ZboxAuthorize]
-        [NoUniversity]
-        [NoCache]
-        [PreserveQueryString]
-        public ActionResult Index(long? universityId)
+        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang)]
+        //this is for dashboard, library,user,search,library choose,account settings home page
+        public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated && Request.UserAgent != null &&
-                !Request.UserAgent.ToUpper().Contains("MSIE 9.0"))
-            {
-                return RedirectToAction("Index", "Account", new { universityId });
-                //return RedirectToActionPermanent("Index", "Dashboard");
-            }
-            //this is the only place we need
-            if (DisplayConfig.CheckIfMobileView(HttpContext))
-            {
-                return RedirectToActionPermanent("Index", "Dashboard");
-            }
-
             return View("Empty");
         }
 

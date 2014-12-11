@@ -223,7 +223,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -285,7 +284,6 @@
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
-    <Compile Include="Helpers\DesktopConstraint.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
@@ -605,9 +603,6 @@
     </Content>
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomeAndStatic.css">
-      <DependentUpon>HomeAndStatic.less</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
@@ -1093,7 +1088,6 @@
     <Content Include="Content\BoxFeedRtl.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
-    <Content Include="Content\HomeAndStatic.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1971,8 +1965,6 @@
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
-    <Content Include="Views\Account\Register.mobile.cshtml" />
-    <Content Include="Views\Account\LogOn.mobile.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
@@ -1985,32 +1977,9 @@
     <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout3.mobile.cshtml" />
-    <Content Include="Views\Dashboard\Index2.mobile.cshtml" />
-    <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
-    <Content Include="Views\Library\Index.mobile.cshtml" />
-    <Content Include="Views\Box\Index.mobile.cshtml" />
-    <Content Include="Views\Account\ResetPassword.mobile.cshtml" />
-    <Content Include="Views\Account\Confirmation.mobile.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog.mobile.cshtml" />
-    <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
-    <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />
-    <Content Include="Views\Box\_Items2.mobile.cshtml" />
-    <Content Include="Views\Item\Index.mobile.cshtml" />
-    <Content Include="Views\Box\_Settings.mobile.cshtml" />
-    <Content Include="Views\Account\Settings.mobile.cshtml" />
-    <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
-    <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
-    <Content Include="Views\Box\Settings.mobile.cshtml" />
-    <Content Include="Views\Box\_Invite.mobile.cshtml" />
-    <Content Include="Views\Account\Welcome.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Library\InsertCode.cshtml" />
-    <Content Include="Views\Account\_UserDetail4.mobile.cshtml" />
-    <Content Include="Views\Item\_PreviewImage.mobile.cshtml" />
-    <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
-    <Content Include="Views\Library\InsertCode.mobile.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Box\_QnA.cshtml" />
     <Content Include="Views\Library\_CreateAcademicBoxEmptyState.cshtml" />
@@ -2056,7 +2025,6 @@
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
-    <Content Include="Views\Item\_PreviewSvg.mobile.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />

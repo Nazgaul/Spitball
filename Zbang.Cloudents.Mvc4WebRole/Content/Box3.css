@@ -779,8 +779,10 @@
   box-sizing: border-box;
 }
 .boxItemsHeader .svg-plus {
-  height: 16px;
   fill: #fff;
+  position: relative;
+  top: 1px;
+  left: 1px;
 }
 .boxItemsHeader .quizBtn {
   padding: 6px 15px 7px 15px;

@@ -2,7 +2,7 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-body {
+.home {
   color: #383838;
   min-width: 1024px;
 }
