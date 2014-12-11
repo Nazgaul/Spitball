@@ -83,6 +83,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index2");
         }
 
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index2");
+        }
 
         //issue with ie
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"

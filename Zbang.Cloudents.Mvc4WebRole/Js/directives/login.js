@@ -7,7 +7,8 @@
                 link: function (scope, elem, attrs) {
                     elem.click(function () {
                         switch (attrs.loginBtn) {
-                            case 'connect':                                
+                            case 'connect':
+                                sLogin.connect();
                                 break;
                             case 'register':
                                 sLogin.register();

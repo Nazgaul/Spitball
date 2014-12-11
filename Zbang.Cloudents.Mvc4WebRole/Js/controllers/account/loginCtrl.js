@@ -1,6 +1,6 @@
 ﻿mAccount.controller('LoginCtrl',
-    ['$scope', '$window', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
-        function ($scope, $window, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
+    ['$scope', '$window', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
+        function ($scope, $window, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
             "use strict";
 
             $scope.params.currentState = data.state;
@@ -43,14 +43,25 @@
             };
 
             $scope.register = function () {                
+                if ($routeParams.boxId) {
+                    $scope.formData.register.boxId = $routeParams.boxId;
+                }
+
                 sAccount.register($scope.formData.register).then(function () {
                     var cache = $angularCacheFactory('points', {
-                        maxAge: 60000
+                        maxAge: 600000
                     });
 
                     cache.put('newUser', true);
 
-                    $window.location.reload();
+                    if ($routeParams.boxId) {
+                        $window.location.reload();
+                        return;
+                    }
+
+                    $location.path('/library/choose/');
+                    
+
                 });
             };
 
@@ -58,8 +69,8 @@
 
                 $angularCacheFactory.get('htmlCache').removeAll();
 
-                $analytics.eventTrack('Account settings', {
-                    category: 'Language Change',
+                $analytics.eventTrack('Language Change', {
+                    category: 'Register Popup',
                     label: 'User changed language to ' + $scope.params.language
                 });
 

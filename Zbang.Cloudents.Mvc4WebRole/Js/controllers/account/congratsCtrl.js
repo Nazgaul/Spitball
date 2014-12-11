@@ -1,4 +1,4 @@
-﻿mItem.controller('CongratsCtrl',
+﻿app.controller('CongratsCtrl',
 ['$scope', '$modalInstance', 'data', 
 function ($scope, $modalInstance,data) {
     "use strict";
@@ -9,13 +9,8 @@ function ($scope, $modalInstance,data) {
 
     $scope.cancel = function () {
         $modalInstance.close();
-    };
-
+    };        
         
-
-        
-    }
-
+  
 }
-
 ]);
