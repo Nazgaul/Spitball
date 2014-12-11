@@ -355,6 +355,13 @@
         sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $window.scrollTo(0, 0);
+
+            var routeName = next.$$route.params.type;
+
+            if (routeName === 'dashboard') {
+
+            }
+            
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {

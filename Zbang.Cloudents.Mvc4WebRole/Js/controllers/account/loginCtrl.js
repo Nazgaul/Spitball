@@ -80,18 +80,16 @@
                     label: 'User changed language to ' + $scope.params.language
                 });
 
-                sAccount.changeLanguage({ language: $scope.params.language }).then(function () {
+                sAccount.changeLocale({ language: $scope.params.language }).then(function () {
 
-                    var cache = $angularCacheFactory('changeLanguage', {
-                        maxAge: 60000
-                    });
-
+                    var cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
+                   
                     cache.put('formData', JSON.stringify({
                         formData: {
                             login: $scope.formData.login,
                             register: $scope.formData.register,
                         },
-                        currentStae: $scope.parmas.currentState
+                        currentState: $scope.params.currentState
                     }));
                     $window.location.reload();
                 });
