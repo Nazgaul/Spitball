@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-   //     [ValidateAntiForgeryToken]
+   //     [ValidateAntiForgeryToken] 
         public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         { 
             if (!ModelState.IsValid)
