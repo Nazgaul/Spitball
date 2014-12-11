@@ -1,118 +1,118 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout3.cshtml";
-}
-@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
-<div class="topImg">
-    <div class="headerWpr">
-        <div class="logo lFloat"></div>
-        <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
-        <div class="headerActions rFloat">
-            <label for="sidebarCb" class="headerSettings rFloat">
-                @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
-            </label>
-            <button type="button" class="btn addConnect" login-btn="connect">@SharedResources.SignIn</button>
-            @{Html.RenderPartial("_SettingsUnauth",true);}
-        </div>
-    </div>
+<div id="homepage" class="page homepage">
 
-    <div class="headingTexts">
-        <h1>@HomeResources.SocialStudy</h1>
-        <h3>@HomeResources.StudyPlatform</h3>
-        <div id="facebookLogin" class="facebook" login-btn="facebook">
-            <span class="fbImg">
-                <svg class="svg-fb" viewBox="0 0 11.861 23.303"> @*width="11.861" height="23.303"*@
-                    <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
-                </svg>
-            </span>@SharedResources.FacebookSignUp
+    <div class="topImg">
+        <div class="headerWpr">
+            <div class="logo lFloat"></div>
+            <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+            <div class="headerActions rFloat">
+                <label for="sidebarCb" class="headerSettings rFloat">
+                    @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+                </label>
+                <button type="button" class="btn addConnect" login-btn="connect">@SharedResources.SignIn</button>
+                @{Html.RenderPartial("_SettingsUnauth", true);}
+            </div>
         </div>
-        <button type="button" class="email addRegister" login-btn="register">
-            <span class="emailImg">
-                <svg class="svg-email" viewBox="-49 205 512 384">
-                    <path d="M463,525c0,11.2-3.2,21.6-8.2,30.8L293.1,374.9L453,235c6.2,9.9,10,21.5,10,34V525z M207,407.8l222.5-194.7
+
+        <div class="headingTexts">
+            <h1>@HomeResources.SocialStudy</h1>
+            <h3>@HomeResources.StudyPlatform</h3>
+            <div id="facebookLogin" class="facebook" login-btn="facebook">
+                <span class="fbImg">
+                    <svg class="svg-fb" viewBox="0 0 11.861 23.303">
+                        @*width="11.861" height="23.303"*@
+                        <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
+                    </svg>
+                </span>@SharedResources.FacebookSignUp
+            </div>
+            <button type="button" class="email addRegister" login-btn="register">
+                <span class="emailImg">
+                    <svg class="svg-email" viewBox="-49 205 512 384">
+                        <path d="M463,525c0,11.2-3.2,21.6-8.2,30.8L293.1,374.9L453,235c6.2,9.9,10,21.5,10,34V525z M207,407.8l222.5-194.7
 	                    c-9.1-5-19.4-8.1-30.5-8.1H15c-11.1,0-21.4,3.1-30.5,8.1L207,407.8z M269,396l-51.5,45.1c-3,2.6-6.8,3.9-10.5,3.9s-7.5-1.3-10.5-3.9
 	                    L145,396L-18.8,579.2c9.8,6.2,21.3,9.8,33.8,9.8h384c12.4,0,23.9-3.7,33.8-9.8L269,396z M-39,235c-6.2,9.9-10,21.5-10,34v256
 	                    c0,11.2,3.1,21.6,8.2,30.8l161.6-180.9L-39,235z" />
-                </svg>
-            </span>@SharedResources.EmailSignUp
-        </button>
+                    </svg>
+                </span>@SharedResources.EmailSignUp
+            </button>
+        </div>
+
+        <div id="VideoWpr" data-playtext="@HomeResources.PlayVideo" class="videoWpr"></div>
+        <div class="videoWrapper" id="mVideo">
+            <video preload="none" id="homeVideo" class="video" controls>
+                <source src="https://zboxstorage.blob.core.windows.net/videos/homeScreenVideo.mp4" type="video/mp4">
+                Your browser does not support video element
+            </video>
+        </div>
+        <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a>
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a>
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian Site">@Languages.RussianName</a>
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew Site">@Languages.HebrewName</a>
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
+            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
+        </div>
     </div>
 
-    <div id="VideoWpr" data-playtext="@HomeResources.PlayVideo" class="videoWpr"></div>
-    <div class="videoWrapper" id="mVideo">
-        <video preload="none" id="homeVideo" class="video" controls>
-            <source src="https://zboxstorage.blob.core.windows.net/videos/homeScreenVideo.mp4" type="video/mp4">
-            Your browser does not support video element
-        </video>
-    </div>
-    <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a>
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a>
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian Site">@Languages.RussianName</a>
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew Site">@Languages.HebrewName</a>
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
-        <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
+    <section class="available">
+        <div class="sectionWpr">
+            <h2>@HomeResources.Available</h2>
+            <div class="sectionText">@HomeResources.WhenItSuits</div>
+        </div>
+    </section>
+
+    <section class="qna">
+        <div class="sectionWpr">
+            <h2>@HomeResources.QA</h2>
+            <div class="sectionText">@HomeResources.GetAnwers</div>
+        </div>
+    </section>
+
+    <section class="watch">
+        <div class="sectionWpr">
+            <h2>@HomeResources.WatchShare</h2>
+            <div class="sectionText">@HomeResources.LetsYouShare</div>
+        </div>
+    </section>
+    <section class="unions">
+        <h2>@HomeResources.JoinUnions</h2>
+        <ul>
+            <li class="gsb row1">
+            </li>
+            <li class="idius row1">
+            </li>
+            <li class="srvu row1">
+            </li>
+            <li class="asva row1">
+            </li>
+            <li class="asc row1 last">
+            </li>
+            <li class="peres">
+            </li>
+            <li class="berl">
+            </li>
+            <li class="globe">
+            </li>
+            <li class="achva">
+            </li>
+            <li class="open last">
+                @*<div class="uName">Open university student union</div>
+                    <div class="uStats"><span>5132</span>&nbsp;@HomeResources.Students</div>*@
+            </li>
+        </ul>
+        <a href="@Url.Action("ContactUs", "Home")" target="_self" class="btn">@HomeResources.BecomePartner</a>
+    </section>
+    <div class="statsWpr">
+        <div class="stats">
+            <span class="cell"><span class="boldFont">16,601</span> | @HomeResources.DailyViews</span>
+            <span class="cell"><span class="boldFont">568</span> | @HomeResources.QuestionsAdded</span>
+            <span class="cell last"><span class="boldFont">1,024</span> | @HomeResources.FilesAdded</span>
+        </div>
     </div>
 </div>
-
-<section class="available">
-    <div class="sectionWpr">
-        <h2>@HomeResources.Available</h2>
-        <div class="sectionText">@HomeResources.WhenItSuits</div>
-    </div>
-</section>
-
-<section class="qna">
-    <div class="sectionWpr">
-        <h2>@HomeResources.QA</h2>
-        <div class="sectionText">@HomeResources.GetAnwers</div>
-    </div>
-</section>
-
-<section class="watch">
-    <div class="sectionWpr">
-        <h2>@HomeResources.WatchShare</h2>
-        <div class="sectionText">@HomeResources.LetsYouShare</div>
-    </div>
-</section>
-<section class="unions">
-    <h2>@HomeResources.JoinUnions</h2>
-    <ul>
-        <li class="gsb row1">
-        </li>
-        <li class="idius row1">
-        </li>
-        <li class="srvu row1">
-        </li>
-        <li class="asva row1">
-        </li>
-        <li class="asc row1 last">
-        </li>
-        <li class="peres">
-        </li>
-        <li class="berl">
-        </li>
-        <li class="globe">
-        </li>
-        <li class="achva">
-        </li>
-        <li class="open last">
-            @*<div class="uName">Open university student union</div>
-                <div class="uStats"><span>5132</span>&nbsp;@HomeResources.Students</div>*@
-        </li>
-    </ul>
-    <a href="@Url.Action("ContactUs", "Home")" target="_self" class="btn">@HomeResources.BecomePartner</a>
-</section>
-<div class="statsWpr">
-    <div class="stats">
-        <span class="cell"><span class="boldFont">16,601</span> | @HomeResources.DailyViews</span>
-        <span class="cell"><span class="boldFont">568</span> | @HomeResources.QuestionsAdded</span>
-        <span class="cell last"><span class="boldFont">1,024</span> | @HomeResources.FilesAdded</span>
-    </div>
-</div>
-
 @Html.Script2("angular-general")
 @Html.Script2("angular-layout3")
 @Html.Script2("angular-store")
