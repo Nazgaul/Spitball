@@ -23,12 +23,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         }
 
 
-        public string BuildDownloadUrl(long boxId, long itemId)
-        {
-            return m_UrlHelper.RouteUrl("ItemDownload", new
-            {
-                BoxUid = boxId, itemId
-            });
-        }
+        //public string BuildDownloadUrl(long boxId, long itemId)
+        //{
+        //    return m_UrlHelper.RouteUrl("ItemDownload", new
+        //    {
+        //        BoxUid = boxId, itemId
+        //    });
+        //}
     }
 }

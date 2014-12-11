@@ -53,12 +53,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang,
-            Duration = TimeConsts.Minute * 5,
-            Location = OutputCacheLocation.Server
-            )]
-        [PreserveQueryString]
+        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang,
+            Duration = TimeConsts.Hour * 1,
+            Location = OutputCacheLocation.Server, Order = 2)]
+        [RedirectToMobile(Order=1)]
+        //[PreserveQueryString]
         public ActionResult Index(string lang, string invId)
         {
             //if (User.Identity.IsAuthenticated)
@@ -80,19 +79,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index");
             }
             return View("Empty");
-            //return View("Index2");
         }
 
+        [HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage",
+           Options = OutputCacheOptions.IgnoreQueryString
+           )]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
         }
-       
-
-
-        
-
-
 
 
         #region Login
@@ -304,25 +300,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        #region AccountSettings
+        
         [ZboxAuthorize, NoUniversity]
-        [NoCache]
         public ActionResult Settings()
-        {
-            var userId = User.GetUserId();
-            var query = new GetUserDetailsQuery(userId);
-
-            var user = ZboxReadService.GetUserAccountDetails(query);
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(user);
-            }
-            return View(user);
-        }
-
-        [ZboxAuthorize, NoUniversity]
-        [NoCache]
-        public ActionResult SettingsDesktop()
         {
             return View("Empty");
         }
