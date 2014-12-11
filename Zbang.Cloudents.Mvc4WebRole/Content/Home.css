@@ -445,7 +445,7 @@ section.unions .btn {
 section.unions .btn:hover {
   background: #ecf6f1;
 }
-.union {
+.unions li {
   width: 174px;
   height: 166px;
   line-height: 166px;
@@ -454,29 +454,15 @@ section.unions .btn:hover {
   border-right: 1px solid #fff;
   /*rtl*/
   color: #fff;
-  /*&:hover
-    {
-        background: #216745; // IE8 fallback;
-        background: rgba(56,56,56,.45);
-        
-        line-height: normal;
-        .uName, .uStats{
-            display: block;
-        }
-        &:before
-        {
-            display: none;
-        }
-    }*/
 }
-.union.row1 {
+.unions li.row1 {
   border-bottom: 1px solid #fff;
 }
-.union.last {
+.unions li.last {
   border-right: none;
   /*rtl*/
 }
-.union:before {
+.unions li:before {
   content: '';
   display: inline-block;
   background: url(/Images/hp18-sprite.png?v=3) no-repeat;
@@ -490,31 +476,16 @@ section.unions .btn:hover {
   text-transform: uppercase;
   margin: 45px 0 30px;
 }
-/*.ono:before {
-    width: 136px;
-    height: 78px;
-    background-position: -2px -244px;
-}*/
 .gsb:before {
   width: 100px;
   height: 92px;
   background-position: -717px -330px;
 }
-/*.betzalel:before {
-    width: 142px;
-    height: 59px;
-    background-position: -142px -245px;
-}*/
 .idius:before {
   width: 134px;
   height: 67px;
   background-position: -4px -168px;
 }
-/*.law:before {
-    width: 151px;
-    height: 80px;
-    background-position: -287px -243px;
-}*/
 .srvu:before {
   width: 94px;
   height: 113px;
@@ -530,21 +501,11 @@ section.unions .btn:hover {
   height: 87px;
   background-position: -584px -244px;
 }
-/*.ashkelon:before {
-    width: 145px;
-    height: 86px;
-    background-position: -730px -242px;
-}*/
 .asva:before {
   width: 146px;
   height: 57px;
   background-position: -2px -244px;
 }
-/*.netanya:before {
-    width: 110px;
-    height: 88px;
-    background-position: -2px -326px;
-}*/
 .asc:before {
   width: 123px;
   height: 83px;
