@@ -103,7 +103,7 @@
                 <div class="uStats"><span>5132</span>&nbsp;@HomeResources.Students</div>*@
         </li>
     </ul>
-    <a href="@Url.Action("ContactUs", "Home")" class="btn">@HomeResources.BecomePartner</a>
+    <a href="@Url.Action("ContactUs", "Home")" target="_self" class="btn">@HomeResources.BecomePartner</a>
 </section>
 <div class="statsWpr">
     <div class="stats">
@@ -113,3 +113,6 @@
     </div>
 </div>
 
+@Html.Script2("angular-general")
+@Html.Script2("angular-layout3")
+@Html.Script2("angular-store")

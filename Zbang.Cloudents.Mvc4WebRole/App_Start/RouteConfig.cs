@@ -17,7 +17,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.AppendTrailingSlash = true;
 
             var constraintsResolver = new DefaultInlineConstraintResolver();
-            constraintsResolver.ConstraintMap.Add("desktop", typeof(DesktopConstraint));
             routes.MapMvcAttributeRoutes(constraintsResolver);
 
 
@@ -27,28 +26,28 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
 
-            routes.MapRoute("DashboardDesktop",
-                "dashboard",
-                new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint() }
-            );
+            //routes.MapRoute("DashboardDesktop",
+            //    "dashboard",
+            //    new { controller = "Home", action = "Index" },
+            //    new { isDesktop = new DesktopConstraint() }
+            //);
 
-            routes.MapRoute("AccountSettingsDesktop",
-                "account/settings",
-                new {controller = "Account", action = "SettingsDesktop"},
-                new { isDesktop = new DesktopConstraint() });
+            //routes.MapRoute("AccountSettingsDesktop",
+            //    "account/settings",
+            //    new {controller = "Account", action = "SettingsDesktop"},
+            //    new { isDesktop = new DesktopConstraint() });
 
             #region Box
-            routes.MapRoute("PrivateBoxDesktop",
-                  "box/my/{boxId}/{boxName}",
-                  new { controller = "Box", action = "IndexDesktop" },
-                  new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
-              );
-            routes.MapRoute("CourseBoxDesktop",
-              "course/{universityName}/{boxId}/{boxName}",
-              new { controller = "Box", action = "IndexDesktop" },
-              new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
-          );
+          //  routes.MapRoute("PrivateBoxDesktop",
+          //        "box/my/{boxId}/{boxName}",
+          //        new { controller = "Box", action = "IndexDesktop" },
+          //        new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
+          //    );
+          //  routes.MapRoute("CourseBoxDesktop",
+          //    "course/{universityName}/{boxId}/{boxName}",
+          //    new { controller = "Box", action = "IndexDesktop" },
+          //    new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint() }
+          //);
 
             routes.MapRoute("PrivateBox",
             "box/my/{boxId}/{boxName}",
@@ -75,24 +74,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
               );
 
             #region library
-            routes.MapRoute("LibraryDesktop",
-                "library",
-                new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint() }
-            );
+            //routes.MapRoute("LibraryDesktop",
+            //    "library",
+            //    new { controller = "Home", action = "Index" },
+            //    new { isDesktop = new DesktopConstraint() }
+            //);
             // routes.MapRoute("LibraryMobile",
             //    "department",
             //    new { controller = "Library", action = "DepartmentRedirect" },
             //    new { isDesktop = new MobileConstraint() }
             //);
-            routes.MapRoute("LibraryDesktop2",
-                "library/{LibId}/{LibName}",
-                new { controller = "Home", action = "Index" },
-                new
-                {
-                    isDesktop = new DesktopConstraint(),
-                }
-            );
+            //routes.MapRoute("LibraryDesktop2",
+            //    "library/{LibId}/{LibName}",
+            //    new { controller = "Home", action = "Index" },
+            //    new
+            //    {
+            //        isDesktop = new DesktopConstraint(),
+            //    }
+            //);
             // routes.MapRoute("LibraryAjax",
             //    "library",
             //    new { controller = "Library", action = "Index" },
@@ -103,11 +102,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //[Route("user/{userId:long:min(0)?}/{userName?}", Name = "User")]
             #region user
-            routes.MapRoute("UserDesktop",
-                "user/{userId}/{userName}",
-                new { controller = "Home", action = "Index" },
-                new { isDesktop = new DesktopConstraint(), userId = new LongRouteConstraint() }
-            );
+            //routes.MapRoute("UserDesktop",
+            //    "user/{userId}/{userName}",
+            //    new { controller = "Home", action = "Index" },
+            //    new { isDesktop = new DesktopConstraint(), userId = new LongRouteConstraint() }
+            //);
 
             routes.MapRoute("User",
                 "user/{userId}/{userName}",
@@ -118,11 +117,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
 
             #region item
-            routes.MapRoute("ItemDesktop",
-                "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
-                new { controller = "Item", action = "IndexDesktop" },
-                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), itemid = new LongRouteConstraint() }
-            );
+            //routes.MapRoute("ItemDesktop",
+            //    "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
+            //    new { controller = "Item", action = "IndexDesktop" },
+            //    new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), itemid = new LongRouteConstraint() }
+            //);
 
             routes.MapRoute("Item",
                 "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
@@ -137,11 +136,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             #region quiz
             //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
-            routes.MapRoute("QuizDesktop",
-                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
-                new { controller = "Quiz", action = "IndexDesktop" },
-                new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
-            );
+            //routes.MapRoute("QuizDesktop",
+            //    "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+            //    new { controller = "Quiz", action = "IndexDesktop" },
+            //    new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
+            //);
 
             routes.MapRoute("Quiz",
                 "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",

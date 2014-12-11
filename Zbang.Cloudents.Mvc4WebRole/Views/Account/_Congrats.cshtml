@@ -7,7 +7,7 @@
         @Html.Svg("~/Images/Defs.svg", "ribbon", new { @class = "svg-ribbon" })
     </div>
     <div class="coin">
-        <div class="ptsAwarded">{{{:params.points}}}</div>
+        <div class="ptsAwarded">{{::params.points}}</div>
         <div class="congratsTxt1">@DialogResources.YouEarned</div>
         <div class="congratsTxt2">@SharedResources.Points</div>
     </div>

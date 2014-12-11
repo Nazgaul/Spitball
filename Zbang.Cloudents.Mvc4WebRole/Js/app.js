@@ -96,6 +96,12 @@
            //#region routes
            $routeProvider.
            //#region cloudents
+            when('/account/', {
+                params: {
+                    type: 'account'
+                },
+                templateUrl: '/account/indexpartial/'
+            }).
            when('/dashboard/', {
                params: {
                    type: 'dashboard'

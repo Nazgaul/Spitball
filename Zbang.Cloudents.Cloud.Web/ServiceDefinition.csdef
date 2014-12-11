@@ -27,6 +27,7 @@
       <Setting name="IsMobileDisabled" />
       <Setting name="AzureSearchApiKey" />
       <Setting name="AzureSeachApiUrl" />
+      <Setting name="MobileWebSite" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />

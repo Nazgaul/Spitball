@@ -53,19 +53,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang + ";"
-            + CustomCacheKeys.Mobile,
+        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang,
             Duration = TimeConsts.Minute * 5,
             Location = OutputCacheLocation.Server
             )]
         [PreserveQueryString]
         public ActionResult Index(string lang, string invId)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -80,24 +79,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index");
             }
-            return View("Index2");
+            return View("Empty");
+            //return View("Index2");
         }
 
-
-        //issue with ie
-        //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
-        //    + CustomCacheKeys.Lang + ";"
-        //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour)]
-        //[CacheFilter(Duration = 0)]
-        //[CompressFilter]
-        public ActionResult Welcome(string universityId)
+        public ActionResult IndexPartial()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return View(new LogOnRegister { LogOn = new LogOn(), Register = new Register() });
+            return PartialView("Index2");
         }
+       
+
+
+        
 
 
 
