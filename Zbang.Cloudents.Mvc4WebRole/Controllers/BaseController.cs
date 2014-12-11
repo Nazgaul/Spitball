@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 HttpNotFound().ExecuteResult(ControllerContext);
                 return;
             }
-            View("Error").ExecuteResult(ControllerContext);
+           // View("Error").ExecuteResult(ControllerContext);
             //base.HandleUnknownAction(actionName);
         }
 

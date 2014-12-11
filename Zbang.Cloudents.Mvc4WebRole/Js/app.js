@@ -47,20 +47,20 @@
                                break;
                            case 401:
                            case 403:
-                               window.open('/account', '_self');
+                               window.open('/account/', '_self');
                                break;
                            case 404:
-                               window.open('/error', '_self');
+                               window.open('/error/', '_self');
                                break;
                            case 412:
                                alert('Cloudents has updated, refreshing page');
                                window.location.reload(true);
                                break;
                            case 500:
-                               window.open('/error', '_self');
+                               window.open('/error/', '_self');
                                break;
                            default:
-                               window.open('/error', '_self');
+                               window.open('/error/', '_self');
                                break;
 
                        }

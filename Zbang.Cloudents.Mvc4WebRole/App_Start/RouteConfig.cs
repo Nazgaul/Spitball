@@ -74,11 +74,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
               );
 
             #region library
-            //routes.MapRoute("LibraryDesktop",
-            //    "library",
-            //    new { controller = "Home", action = "Index" },
-            //    new { isDesktop = new DesktopConstraint() }
-            //);
+            routes.MapRoute("LibraryDesktop",
+                "library",
+                new { controller = "Home", action = "Index" }
+            );
             // routes.MapRoute("LibraryMobile",
             //    "department",
             //    new { controller = "Library", action = "DepartmentRedirect" },
@@ -158,11 +157,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
 
-            routes.MapRoute(
-              "BoxSetting",
-              "Box/Settings/{BoxUid}",
-              new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
-              );
+            //routes.MapRoute(
+            //  "BoxSetting",
+            //  "Box/Settings/{BoxUid}",
+            //  new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
+            //  );
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

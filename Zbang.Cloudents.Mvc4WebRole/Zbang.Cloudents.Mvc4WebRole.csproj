@@ -2033,7 +2033,6 @@
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsAuth.cshtml" />
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
-    <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Item\_ItemRegister.cshtml" />
     <Content Include="Views\Account\_Congrats.cshtml" />

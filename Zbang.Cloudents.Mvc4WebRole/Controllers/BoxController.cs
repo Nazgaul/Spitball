@@ -281,30 +281,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        /// <summary>
-        /// Used in mobile - box settings page
-        /// </summary>
-        /// <param name="boxUid"></param>
-        /// <returns></returns>
-        [ZboxAuthorize]
-        public ActionResult Settings(long boxUid)
-        {
-
-            var userId = User.GetUserId();
-
-            var query = new GetBoxQuery(boxUid, userId);
-            var result = ZboxReadService.GetBoxSetting(query);
-
-            var model = new BoxSetting
-              {
-                  Name = result.Name,
-                  Notification = result.NotificationSetting,
-                  Privacy = result.PrivacySetting,
-                  UserType = result.UserType
-              };
-            return View(model);
-        }
-
 
 
         [HttpPost]
