@@ -382,12 +382,13 @@
   margin: 35px 25px 0 0;
   /*rtl*/
 }
-section.unions {
+.unions {
   position: relative;
   width: 100%;
   height: 580px;
+  text-align: center;
 }
-section.unions h2 {
+.unions h2 {
   font-size: 24px;
   font-weight: normal;
   color: #fff;
@@ -395,7 +396,7 @@ section.unions h2 {
   margin-top: 40px;
   display: inline-block;
 }
-section.unions h2:after {
+.unions h2:after {
   content: '';
   display: block;
   width: 174px;
@@ -403,7 +404,7 @@ section.unions h2:after {
   margin: 30px auto 20px;
   background: #fff;
 }
-section.unions:before {
+.unions:before {
   content: '';
   display: inline-block;
   margin: 0 auto;
@@ -416,7 +417,7 @@ section.unions:before {
   z-index: -1;
   height: 100%;
 }
-section.unions ul {
+.unions ul {
   border: 1px solid #fff;
   border-radius: 5px;
   overflow: hidden;
@@ -425,7 +426,7 @@ section.unions ul {
   display: block;
   font-size: 16px;
 }
-section.unions .btn {
+.unions .btn {
   background: #fff;
   color: #0f9d58;
   border-radius: 5px;
@@ -442,7 +443,7 @@ section.unions .btn {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-section.unions .btn:hover {
+.unions .btn:hover {
   background: #ecf6f1;
 }
 .unions li {
@@ -468,6 +469,56 @@ section.unions .btn:hover {
   background: url(/Images/hp18-sprite.png?v=3) no-repeat;
   vertical-align: middle;
 }
+.unions li.gsb:before {
+  width: 100px;
+  height: 92px;
+  background-position: -717px -330px;
+}
+.unions li.idius:before {
+  width: 134px;
+  height: 67px;
+  background-position: -4px -168px;
+}
+.unions li.srvu:before {
+  width: 94px;
+  height: 113px;
+  background-position: -5px -314px;
+}
+.unions li.peres:before {
+  width: 139px;
+  height: 45px;
+  background-position: -442px -244px;
+}
+.unions li.berl:before {
+  width: 140px;
+  height: 87px;
+  background-position: -584px -244px;
+}
+.unions li.asva:before {
+  width: 146px;
+  height: 57px;
+  background-position: -2px -244px;
+}
+.unions li.asc:before {
+  width: 123px;
+  height: 83px;
+  background-position: -818px -334px;
+}
+.unions li.globe:before {
+  width: 137px;
+  height: 83px;
+  background-position: -116px -326px;
+}
+.unions li.achva:before {
+  width: 141px;
+  height: 87px;
+  background-position: -259px -325px;
+}
+.unions li.open:before {
+  width: 120px;
+  height: 94px;
+  background-position: -404px -325px;
+}
 .uName,
 .uStats {
   display: none;
@@ -475,56 +526,6 @@ section.unions .btn:hover {
 .uName {
   text-transform: uppercase;
   margin: 45px 0 30px;
-}
-.gsb:before {
-  width: 100px;
-  height: 92px;
-  background-position: -717px -330px;
-}
-.idius:before {
-  width: 134px;
-  height: 67px;
-  background-position: -4px -168px;
-}
-.srvu:before {
-  width: 94px;
-  height: 113px;
-  background-position: -5px -314px;
-}
-.peres:before {
-  width: 139px;
-  height: 45px;
-  background-position: -442px -244px;
-}
-.berl:before {
-  width: 140px;
-  height: 87px;
-  background-position: -584px -244px;
-}
-.asva:before {
-  width: 146px;
-  height: 57px;
-  background-position: -2px -244px;
-}
-.asc:before {
-  width: 123px;
-  height: 83px;
-  background-position: -818px -334px;
-}
-.globe:before {
-  width: 137px;
-  height: 83px;
-  background-position: -116px -326px;
-}
-.achva:before {
-  width: 141px;
-  height: 87px;
-  background-position: -259px -325px;
-}
-.open:before {
-  width: 120px;
-  height: 94px;
-  background-position: -404px -325px;
 }
 .statsWpr {
   height: 75px;

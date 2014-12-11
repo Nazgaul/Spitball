@@ -52,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Settings.css",
                         "~/Content/DashLib.css",
                         "~/Content/Store.css",
-                        "~/Content/HomeAndStatic.css",
                         "~/Content/Home.css",
                         "~/Content/jquery.mCustomScrollbar.css"
                     }
@@ -138,6 +137,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),                        
                         new JsFileWithCdn("/js/controllers/general/uploadListCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/settingsCtrl.js"),
+                        new JsFileWithCdn("/js/controllers/account/accountCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/notificationsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/congratsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/notificationSettingsCtrl.js"),

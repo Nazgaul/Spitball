@@ -269,7 +269,6 @@
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
-    <Compile Include="Filters\RedirectToMobileAttribute.cs" />
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
@@ -881,6 +880,7 @@
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\app.js" />
     <Content Include="Js\controllers\account\congratsCtrl.js" />
+    <Content Include="Js\controllers\account\accountCtrl.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />

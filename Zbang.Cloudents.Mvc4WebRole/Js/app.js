@@ -100,7 +100,8 @@
                 params: {
                     type: 'account'
                 },
-                templateUrl: '/account/indexpartial/'
+                templateUrl: '/account/indexpartial/',
+                controller: 'AccoutCtrl'
             }).
            when('/dashboard/', {
                params: {
