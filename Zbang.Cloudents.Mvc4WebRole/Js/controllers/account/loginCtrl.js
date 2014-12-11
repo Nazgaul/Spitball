@@ -1,6 +1,6 @@
 ﻿mAccount.controller('LoginCtrl',
-    ['$scope', '$window', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
-        function ($scope, $window, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
+    ['$scope', '$window', '$route', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
+        function ($scope, $window, $route, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
             "use strict";
 
             $scope.params.currentState = data.state;
@@ -38,11 +38,17 @@
 
             $scope.login = function () {
                 sAccount.login($scope.formData.login).then(function () {
+                    var routeName = $route.current.$$route.params.type;
+
+                    if (routeName === 'account') {
+                        $location.path('/dashboard/');
+                    }
+
                     $window.location.reload();
                 });
             };
 
-            $scope.register = function () {                
+            $scope.register = function () {
                 if ($routeParams.boxId) {
                     $scope.formData.register.boxId = $routeParams.boxId;
                 }
@@ -60,7 +66,7 @@
                     }
 
                     $location.path('/library/choose/');
-                    
+
 
                 });
             };
