@@ -20,27 +20,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
-        //this is for mobile only
-        [NoCache]
-        public async Task<ActionResult> Index()
+        [AllowAnonymous]
+        [RedirectToMobile]
+        public ActionResult Index()
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityId.Value;
-
-            var query = new GetDashboardQuery(universityWrapper);
-            var model = await ZboxReadService.GetMyData(query);
-            if (model == null) return RedirectToAction("Choose", "Library");
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("Index2", model);
-            }
-            return View("Index2", model);
+            return View("Empty");
         }
 
         [HttpGet]
-        //[AllowAnonymous]
         [DonutOutputCache(CacheProfile = "PartialPage",
            Options = OutputCacheOptions.IgnoreQueryString
            )]
