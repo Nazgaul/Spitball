@@ -14,5 +14,22 @@
             <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
         </div>
         <span class="or">@StoreResources.Or</span>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+    </div>
+    <div class="signupBtns">
+        <button type="button" class="facebook" ng-click="facebookLogin()">
+            <span class="fbImg">
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+            </span>@SharedResources.FacebookSignUp
+        </button>
+        <div class="emailBtnWpr">
+            <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+                <span class="emailImg">
+                    @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
+                </span>@SharedResources.EmailSignUp
+            </button>
+        </div>
     </div>
 </div>

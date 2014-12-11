@@ -62,7 +62,7 @@ input[type="radio"].radio:checked + label:after {
   margin: 18px 10px 0 0;
 }
 .modal.couponPopup:before {
-  margin: auto 32px auto auto;
+  margin: auto auto auto 32px;
 }
 .modal.couponPopup .signupBtns {
   right: -6px;
