@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoCache]
         [BoxPermission("boxId")]
         [PreserveQueryString]
-        public async Task<ActionResult> IndexDesktop(long boxId)
+        public async Task<ActionResult> Index(long boxId)
         {
             var userId = User.GetUserId(false);
             try
@@ -88,75 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-        [Obsolete]
-        [NoCache]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ActionResult Index(string universityName, long boxId, string boxName)
-        {
-            var userId = User.GetUserId(false);
-            try
-            {
-                var query = new GetBoxQuery(boxId, userId);
-                var box = ZboxReadService.GetBox(query);
-
-                var culture = Languages.GetCultureBaseOnCountry(box.UniCountry);
-                BaseControllerResources.Culture = culture;
-                if (box.BoxType == BoxType.Academic && !string.IsNullOrEmpty(box.UniCountry))
-                {
-
-                    ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, box.Name, box.OwnerName, BaseControllerResources.Cloudents);
-                    ViewBag.metaDescription = Regex.Replace(string.Format(
-                        BaseControllerResources.MetaDescription, box.Name,
-                        string.IsNullOrWhiteSpace(box.CourseId) ? string.Empty : string.Format(", #{0}", box.CourseId),
-                        string.IsNullOrWhiteSpace(box.ProfessorName) ? string.Empty : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, box.ProfessorName)), @"\s+", " ");
-                }
-                else
-                {
-                    ViewBag.title = string.Format("{0} | {1}", box.Name, BaseControllerResources.Cloudents);
-                }
-
-                if (boxName != UrlBuilder.NameToQueryString(box.Name))
-                {
-                    throw new BoxDoesntExistException();
-                }
-
-                var serialize = new JsonNetSerializer();
-                ViewBag.data = serialize.Serialize(box);
-
-                ViewBag.boxid = boxId;
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView();
-                }
-                return View();
-            }
-            catch (BoxAccessDeniedException)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-                }
-                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
-                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
-            }
-            catch (BoxDoesntExistException)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return HttpNotFound();
-                }
-                return RedirectToAction("Index", "Error");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
-                if (Request.IsAjaxRequest())
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.InternalServerError);
-                }
-                return RedirectToAction("Index", "Error");
-            }
-        }
+       
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

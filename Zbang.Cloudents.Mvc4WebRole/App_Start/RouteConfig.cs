@@ -157,11 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             #endregion
 
 
-            //routes.MapRoute(
-            //  "BoxSetting",
-            //  "Box/Settings/{BoxUid}",
-            //  new { controller = "Box", action = "Settings", BoxUid = UrlParameter.Optional }
-            //  );
+          
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[UserNavNWelcome]
         [NoCache]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> IndexDesktop(long boxId, long quizId, string quizName, string universityName,
+        public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
             try
