@@ -101,7 +101,7 @@
                     type: 'account'
                 },
                 templateUrl: '/account/indexpartial/',
-                controller: 'AccoutCtrl'
+                controller: 'AccountCtrl'
             }).
            when('/dashboard/', {
                params: {
