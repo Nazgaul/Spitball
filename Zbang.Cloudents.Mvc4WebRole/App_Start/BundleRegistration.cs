@@ -52,7 +52,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Settings.css",
                         "~/Content/DashLib.css",
                         "~/Content/Store.css",
-                        "~/Content/HomeAndStatic.css",
                         "~/Content/Home.css",
                         "~/Content/jquery.mCustomScrollbar.css"
                     }
