@@ -19,7 +19,7 @@
                         <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to box">
                             <img class="lFloat boxImg" alt="" width="77" height="98" ng-src="{{::box.image | defaultImage:'box'}}">
                             <div class="sTitle elps" ng-bind-html="::box.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
-                            <span class="sDetail" ng-class="::{allDetails: box..proffessor && box.courseCode}" ng-bind-html="{{::box.proffessor | highlight:params.query:false}}" dir="{{::params.textDirection}}"></span>
+                            <span class="sDetail" ng-class="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:params.query:false" dir="{{::params.textDirection}}"></span>
                             <span class="sDetail" ng-bind-html="::box.courseCode | highlight:params.query:false" dir="{{::params.textDirection}}"></span>
                         </a>
                     </li>
