@@ -22,12 +22,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        [NoCache]
-        public ActionResult Index(long userId, string userName)
-        {
-            return View("Empty");
-        }
-
         [DonutOutputCache(CacheProfile = "PartialPage",
             Options = OutputCacheOptions.IgnoreQueryString
             )]

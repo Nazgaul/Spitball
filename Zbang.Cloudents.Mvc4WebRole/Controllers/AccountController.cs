@@ -301,11 +301,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
         
-        [ZboxAuthorize, NoUniversity]
-        public ActionResult Settings()
-        {
-            return View("Empty");
-        }
+        //[ZboxAuthorize, NoUniversity]
+        //public ActionResult Settings()
+        //{
+        //    return View("Empty");
+        //}
 
         [ZboxAuthorize, NoUniversity]
         public JsonResult SettingsData()

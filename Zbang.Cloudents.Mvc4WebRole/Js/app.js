@@ -185,7 +185,7 @@
                params: {
                    type: 'search'
                },
-               templateUrl: function (params) { return '/search/?q=' + params.q; },
+               templateUrl: '/search/indexpartial/',
                reloadOnSearch: false
            }).
            when('/user/:userId/:userName/', {

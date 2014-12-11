@@ -62,8 +62,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-        [NoCache]
-        [BoxPermission("boxId")]
+        [BoxPermission("boxId", Order = 2)]
+        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+          Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
+          Location = OutputCacheLocation.Server, Order = 4)]
+        [RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
@@ -110,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return RedirectToAction("Index", "Error");
             }
         }
-       
+
 
         /// <summary>
         /// Ajax Request - item data
