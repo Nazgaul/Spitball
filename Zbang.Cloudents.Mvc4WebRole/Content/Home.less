@@ -97,6 +97,23 @@
         min-width: 0;
         display: block; //override       
     }
+    h1 {
+        font-size: 45px;
+        line-height: 48px;
+        width: 620px;
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        white-space: pre-wrap;
+        margin-bottom: 15px;
+        font-weight: normal;
+    }
+    h3 {
+        font-size: 15px;
+        font-weight: normal;
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        letter-spacing: .4px;
+    }
 }
 
 .email
@@ -117,6 +134,7 @@
         background: #ececec;
     }
 }
+
 .homeContent {
     text-align: center;
     h1 {
@@ -338,9 +356,11 @@
         color:#a7a7a7
     }
 }
+
 .available {
     margin-top: 45px;
 }
+
 .qna {
    background:#e1e1e1;
 
@@ -427,7 +447,7 @@ section.unions {
     }
 }
 
-.union {
+.unions li {
     width: 174px;
     height: 166px;
     line-height: 166px;
@@ -435,30 +455,13 @@ section.unions {
     border-right: 1px solid #fff; /*rtl*/
     color: #fff;
 
-    &.row1 //&:nth-child(-n + 5) 
-    {
+    &.row1 {
         border-bottom: 1px solid #fff;
     }
 
-    &.last //&:nth-child(5n).
-    {
+    &.last {
         border-right: none; /*rtl*/
     }
-    // Temporaraly disabled DO NOT DELETE!!
-    /*&:hover
-    {
-        background: #216745; // IE8 fallback;
-        background: rgba(56,56,56,.45);
-        
-        line-height: normal;
-        .uName, .uStats{
-            display: block;
-        }
-        &:before
-        {
-            display: none;
-        }
-    }*/
     &:before {
         .pseudo;
         background: @homepage-sprite no-repeat;
@@ -475,22 +478,11 @@ section.unions {
     margin: 45px 0 30px;
 }
 
-/*.ono:before {
-    width: 136px;
-    height: 78px;
-    background-position: -2px -244px;
-}*/
 .gsb:before {
     width: 100px;
     height: 92px;
     background-position: -717px -330px;
 }
-
-/*.betzalel:before {
-    width: 142px;
-    height: 59px;
-    background-position: -142px -245px;
-}*/
 
 .idius:before {
     width: 134px;
@@ -498,11 +490,6 @@ section.unions {
     background-position: -4px -168px;
 }
 
-/*.law:before {
-    width: 151px;
-    height: 80px;
-    background-position: -287px -243px;
-}*/
 .srvu:before {
     width: 94px;
     height: 113px;
@@ -520,22 +507,11 @@ section.unions {
     background-position: -584px -244px;
 }
 
-/*.ashkelon:before {
-    width: 145px;
-    height: 86px;
-    background-position: -730px -242px;
-}*/
 .asva:before {
     width: 146px;
     height: 57px;
     background-position: -2px -244px;
 }
-
-/*.netanya:before {
-    width: 110px;
-    height: 88px;
-    background-position: -2px -326px;
-}*/
 
 .asc:before {
     width: 123px;
