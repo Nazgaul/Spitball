@@ -403,8 +403,12 @@ input[type="radio"][disabled] + label:before {
   background-color: transparent;
   border: none;
 }
-.modal.couponPopup .signInUp {
-  display: none;
+.modal.couponPopup .modal-body {
+  background: none;
+}
+.modal.couponPopup .modal-dialog {
+  box-shadow: none;
+  width: auto;
 }
 .modal.couponPopup:before {
   content: '';
@@ -413,7 +417,7 @@ input[type="radio"][disabled] + label:before {
   width: 860px;
   height: 613px;
   position: absolute;
-  top: 0;
+  top: 14px;
   left: 0;
   right: 0;
   margin: auto 32px auto auto;
@@ -434,6 +438,16 @@ input[type="radio"][disabled] + label:before {
   position: relative;
   left: -6px;
   top: 3px;
+}
+.modal.couponPopup .closeModal {
+  top: -17px;
+  left: 120px;
+  right: auto;
+}
+.modal.couponPopup .svg-close {
+  fill: #0f9d58;
+  width: 22px;
+  height: 22px;
 }
 .welcomeStore {
   text-align: center;

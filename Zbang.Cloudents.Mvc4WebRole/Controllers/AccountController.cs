@@ -15,6 +15,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Profile;
@@ -273,11 +274,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-
+                    var lang = cookie.ReadCookie<Language>(Helpers.UserLanguage.cookieName).Lang;
+                    if (!Languages.CheckIfLanguageIsSupported(lang))
+                    {
+                        lang = Thread.CurrentThread.CurrentCulture.Name;
+                    }
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, model.UniversityId, model.FirstName, string.Empty, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, model.Language.Language, invId);
+                        model.MarketEmail, lang, invId);
                     var result = ZboxWriteService.CreateUser(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,

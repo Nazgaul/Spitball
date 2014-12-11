@@ -3,7 +3,26 @@
   <Role name="Zbang.Cloudents.Mobile">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEB3VcKbwEResTjjA1LlxY9gwDQYJKoZIhvcNAQEBBQAEggEAk6joaff0X6pkV3QIQ8VdUYEojkbDuTPzc73qDqaR63nGfbxFEnV3JzD/q5OVe+uy2hKU5QyWS+BFWeUttWEOzdsR/38B5q01m+pQKZBkLLwwdsOydvnHW5Fc/p3ae2YAJyNpR4JnVG0+kkF7ZtpKB02+5lrg3apfQUJ/n9lz74OVmgxm7sfMRZGafSMqYVlXmM718ccZSmgGZ2uNIdUkl19QQQQJIgnZpwMJ17r/ZFzJA7Q0lb3Id6jK0FVC+tLEDz5t6isaqBeYCBL8aFoKmORk2atExVSmCFCkgnq4S3Nus5ozr6wS0MvHQlHbplwBCJBL/Hb9rxo0uiqGNFALbjArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECLRN0BvzbhIkgAh5axse9PB0Yw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-02-26T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+      <Setting name="CdnEndpoint" value="https://az697884.vo.msecnd.net" />
+      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;" />
+      <Setting name="CacheUse" value="true" />
+      <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
+      <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
+      <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
+      <Setting name="DesktopWebSite" value="https://dev.cloudents.com" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="7445B098ADE3A229DBC6208A87094754C06C4A60" thumbprintAlgorithm="sha1" />
+      <Certificate name="CloudDents" thumbprint="96A712B131425F45B52CBDA6999E92012386C9EF" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyIntermediateCertCloudDents" thumbprint="C039A3269EE4B8E82D00C53FA797B5A19E836F47" thumbprintAlgorithm="sha1" />
+      <Certificate name="MyRootCertCloudDents" thumbprint="DE28F4A4FFE5B92FA3C503D1A349A7F9962A8212" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

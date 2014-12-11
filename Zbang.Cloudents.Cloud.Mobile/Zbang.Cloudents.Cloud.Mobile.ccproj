@@ -12,6 +12,7 @@
     <AssemblyName>Zbang.Cloudents.Cloud.Mobile</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>Zbang.Cloudents.Cloud.Mobile</Name>
+    <UseWebProjectPorts>False</UseWebProjectPorts>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +38,7 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Profiles" />
     <Folder Include="Zbang.Cloudents.MobileContent\" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +55,9 @@
       <RoleName>Zbang.Cloudents.Mobile</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\zboxmobiletestProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

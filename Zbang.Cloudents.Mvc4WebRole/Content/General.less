@@ -415,17 +415,16 @@ input[type="radio"] {
     &.couponPopup {
         width: 860px;
         height: 613px; // height needed in order to vertically center
-        //padding: 20px 40px; // override
-        //box-shadow: 0 0 8px rgba(0,0,0,.8);
-
         top:0;
-        //bottom:0;
         margin: auto;
         background-color: transparent; //override
         border: none; //override
-
-        .signInUp {
-            display: none;
+        .modal-body {
+            background: none; //override
+        }
+        .modal-dialog {
+            box-shadow: none; //override
+            width: auto;
         }
         &:before {
             .pseudo;
@@ -433,7 +432,7 @@ input[type="radio"] {
             width: 860px;
             height: 613px;
             position: absolute;
-            top:0;
+            top:14px;
             left:0;right:0;
             margin: auto 32px auto auto; //rtl (because image is not symmetrical)
         }
@@ -452,6 +451,17 @@ input[type="radio"] {
             position: relative;
             left: -6px; //rtl
             top: 3px;
+        }
+        .closeModal {
+            top: -17px;//198px;
+            left: 120px; //no rtl
+            right: auto;
+
+        }
+        .svg-close {
+            fill: @color;
+            width: 22px;
+            height: 22px;
         }
     }
 }
