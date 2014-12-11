@@ -11,7 +11,8 @@
             <span class="ng-message-error" ng-message="required">Required</span>
             <span class="ng-message-error" ng-message="email">Email</span>
         </div>
-        <input type="email" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}" name="email" tabindex="1" placeholder="@SharedResources.EmailAddress" required ng-model="formData.login.email" />
+        <input type="email" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}" 
+               name="email" tabindex="1" placeholder="@SharedResources.EmailAddress" required ng-model="formData.login.email" />
 
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.password.$touched) && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">Required</span>
@@ -21,7 +22,7 @@
         <input type="checkbox" checked class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" ng-model="formData.login.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">זכור אותי</label>
         <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" ng-click="loginSubmitted = true">
-    </form>
+    </form> 
 </div>
 
 @*<div class="signIn">

@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             get
             {
                 return CdnLocation;
-            }
+            } 
         }
 
         public static void RegisterBundle(

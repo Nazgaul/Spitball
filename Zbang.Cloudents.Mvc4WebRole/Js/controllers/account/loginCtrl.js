@@ -1,6 +1,6 @@
 ﻿mAccount.controller('LoginCtrl',
-    ['$scope', 'sFacebook', '$modalInstance', 'data',
-        function ($scope, sFacebook, $modalInstance, data) {
+    ['$scope', '$window', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
+        function ($scope, $window, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
             "use strict";
 
             $scope.params.currentState = data.state;
@@ -11,10 +11,14 @@
                 login: 2
             };
 
+            data.formData = data.formData || {};
+
             $scope.formData = {
-                login: {},
-                register: {}
+                login: data.formData.login || {},
+                register: data.formData.register || {}
             };
+
+            $scope.params.language = $scope.params.currentLanague;
 
             $scope.changeState = function (state) {
                 $scope.params.currentState = state;
@@ -33,9 +37,47 @@
             };
 
             $scope.login = function () {
-
+                sAccount.login($scope.formData.login).then(function () {
+                    $window.location.reload();
+                });
             };
 
-            $scope.register = function () { };
+            $scope.register = function () {
+                var cache = $angularCacheFactory('newUser', {
+                    maxAge: 60000
+                });
+
+                cache.put('awardPoints', true);
+
+                sAccount.register($scope.formData.register).then(function () {
+                    $window.location.reload();
+                });
+            };
+
+            $scope.changeLanguage = function () {
+
+                $angularCacheFactory.get('htmlCache').removeAll();
+
+                $analytics.eventTrack('Account settings', {
+                    category: 'Language Change',
+                    label: 'User changed language to ' + $scope.params.language
+                });
+
+                sAccount.changeLanguage({ language: $scope.params.language }).then(function () {
+
+                    var cache = $angularCacheFactory('changeLanguage', {
+                        maxAge: 60000
+                    });
+
+                    cache.put('formData', JSON.stringify({
+                        formData: {
+                            login: $scope.formData.login,
+                            register: $scope.formData.register,
+                        },
+                        currentStae: $scope.parmas.currentState
+                    }));
+                    $window.location.reload();
+                });
+            };
         }
     ]);
