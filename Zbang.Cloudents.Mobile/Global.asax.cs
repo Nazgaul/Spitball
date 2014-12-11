@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.Mvc4WebRole;
+using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
+
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

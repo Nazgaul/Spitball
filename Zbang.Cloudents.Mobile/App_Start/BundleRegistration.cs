@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Zbang.Cloudents.Mvc4WebRole;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     public static class BundleRegistration
     {
@@ -333,7 +334,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             jsDictionary.Add("mobile", new[] {
-                  new JsFileWithCdn("~/Scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
+                  new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
                 new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
                 new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),

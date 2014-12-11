@@ -2,10 +2,9 @@
 using System.Text;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Filters
+namespace Zbang.Cloudents.Mobile.Filters
 {
     internal class ZboxHandleErrorAttribute : HandleErrorAttribute
     {

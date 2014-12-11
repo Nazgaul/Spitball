@@ -1,203 +1,63 @@
-﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+﻿@{
+    ViewBag.headerTitle = @SharedResources.MySpace;
+}
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
-
-@*TEMP: UNDO NEW SEARCH*@
-@*<div class="searchInputWpr searchDash" ng-controller="SearchHeaderCtrl">
-    @{Html.RenderPartial("_BarSearch");}
-</div>*@
-<header class="siteHeader">
-    @{Html.RenderPartial("_Header");}
-</header>
-<div id="dashboard" class="page dashboard" ng-controller="DashboardCtrl">
-    <div class="dashContent">
-        <aside class="asideDash lFloat">
-            <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)">
-                <span class="logoWpr lFloat">
-                    <img class="uniLogo" alt="University logo" width="80" height="80" ng-src="{{params.image}}" />
-                </span>
-                <span class="ghost"><span class="vCentered">{{params.name}}</span></span>
-            </a>
-
-            <section class="leaderBoard" ng-class="{empty: !leaderBoard.length }">
-                <header>
-                    @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
-                    <span class="lbText">@SharedResources.BestInSchool</span>
-                </header>
-                <div class="podium"></div>
-                <ol class="bestUserList">
-                    <li ng-if="::leaderBoard.first" class="firstUser">
-                        <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
-                            <img class="top3Img" ng-src="{{::leaderBoard.first.image| defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
-                        </a>
-                        @Html.Svg("~/Images/Defs.svg", "crown", new { @class = "svg-crown" })
-                        <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
-                    </li>
-                    <li ng-switch="::leaderBoard.secondExist" class="lFloat">
-                        <div ng-switch-when="true" class="secondUser">
-                            <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked second place">
-                                <img class="top3Img" ng-src="{{::leaderBoard.second.image | defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
-                            </a>
-                            @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                            <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
-                        </div>
-                        <div ng-switch-when="false" class="secondUser empty lFloat">
-                            <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
-                            @Html.Svg("~/Images/Defs.svg", "trophy", new { @class = "svg-trophy" })
-                        </div>
-                    </li>
-
-                    <li ng-switch="::leaderBoard.thirdExist" class="rFloat">
-                        <div ng-switch-when="true" class="thirdUser">
-                            <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked third place">
-                                <img class="top3Img" ng-src="{{::leaderBoard.third.image | defaultImage:'user'}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
-                            </a>
-                            @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                            <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
-                        </div>
-                        <div ng-switch-when="false" class="thirdUser empty rFloat">
-                            <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
-                            @Html.Svg("~/Images/Defs.svg", "badge", new { @class = "svg-badge" })
-                        </div>
-                    </li>
-                </ol>
-                <div class="lbEmpty">
-                    <div class="lbEmptyTxtWpr">
-                        <div class="lbEmptyTxt1">@IndexResources.GetPoints</div>
-                        <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
-                    </div>
-                    @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
-                </div>
-            </section>
-
-            <section class="recommendedWpr" ng-if="recommendedCourses.length">
-                <header>@IndexResources.RecommendedCourses</header>
-                <ul>
-                    <li class="recommended" ng-repeat="course in ::recommendedCourses">
-
-                        <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
-                            <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
-                                <div class="vCentered">
-                                    <div class="courseName">{{course.name}}</div>
-                                    <span class="prof elps">{{course.professor}}</span>
-                                    <span class="courseId elps">{{course.courseCode}}</span>
-                                </div>
-                                <img alt="" width="48" height="48" ng-src="{{course.picture | defaultImage:'box'}}" />
-                            </div>
-                            <div class="rcStats">
-                                <div class="friends" data-friends-count="{{course.membersCount}}">
-                                    @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
-                                    <span>@SharedResources.Friends</span>
-                                </div>
-                                <div class="files" data-files-count="{{course.itemCount}}">
-                                    @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-                                    <span>@SharedResources.Files</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-        </aside>
-
-        <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
-            <div class="dashHeader" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
-                @*TEMP: OLD SEARCH (next line)*@
-                @{Html.RenderPartial("_BarActions");}
-                <div class="dhContent">
-                    <span class="dhText">@SharedResources.Dashboard</span>
-                    @*TEMP: OLD SEARCH (2 lines)*@
-                    @{Html.RenderPartial("_BarSearch");}
-                     <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
-                        @*TEMP: UNDO NEW SEARCH*@
-                        @*@{Html.RenderPartial("_BarActions");}
-                        <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">*@
-                        @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-                    </button>
-                </div>
-            </div>
-            @*NEW COURSE SECTION*@
-            <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">
-                <div class="topWpr">
-                    <header class="setupCourseTxt1">@IndexResources.WelcomeCloudents</header>
-                    <div class="setupCourseTxt2">@IndexResources.FreeOnline</div>
-                    <span class="featureTxt1">
-                        @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-                        <span>@IndexResources.ShareFiles</span>
-                    </span>
-                    <span class="featureTxt2">
-                        @Html.Svg("~/Images/Defs.svg", "quizInner", new { @class = "svg-quizInner" })
-                        <span>@IndexResources.CreateQuizzes</span>
-                    </span>
-                    <span class="featureTxt3">
-                        @Html.Svg("~/Images/Defs.svg", "books", new { @class = "svg-books" })
-                        <span>@IndexResources.SwapBooks</span>
-                    </span>
-                </div>
-
-                <div class="chooseActionWpr">
-
-                    <a href="@Url.RouteUrl("LibraryDesktop",null)" class="browseCourses">
-                        <div class="actionTxt">@IndexResources.BrowseCourses</div>
-                    </a>
-                    <div class="createCourse">
-                        <button type="button" ng-click="openCreateBoxWizard()"><div class="actionTxt">@IndexResources.CreateCourse</div></button>
-                    </div>
-                </div>
-            </section>
-
-            <div pl-dropzone-uploader="dashboard" drop-element="dropzone-element">
-                <div id="dropzoneBtn" style="display:none;"></div>
-                <section class="unionCourses" ng-if="academicBoxes.length || groupBoxes.length">
-                    <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
-                    @*do not delete for drop zones*@
-                    <ol class="myAreaList clearfix">
-                        <li class="box browseBtn">
-                            <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
-                        </li>
-                        <li ng-repeat="box in academicBoxes" class="box" dropzone-element ng-include="'dashBoxTemplate'" pl-dropzone></li>
-                    </ol>
-                </section>
-
-                <section class="groupBoxes" ng-if="academicBoxes.length || groupBoxes.length">
-                    <header class="boxesHeader">@IndexResources.MyGroup</header>
-                    <div ng-hide="groupBoxes.length > 0" class="emptyDash">
-                        <div class="groupEmpty">
-                            <h2 class="boldFont">@IndexResources.WhereStudy</h2>
-                            <div>@IndexResources.UploadContent</div>
-                        </div>
-                    </div>
-                    <ol class="myAreaList clearfix">
-                        <li ng-click="openCreateBoxWizard()" class="box createWizard">
-                            <button class="addBtn">@SharedResources.CreateNew</button>
-                        </li>
-                        <li ng-repeat="box in groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashBoxTemplate'">
-                        </li>
-                    </ol>
-                </section>
-
-            </div>
-
-        </div>
-        <script type="text/ng-template" id="dashBoxTemplate">
-            <a ng-href="{{::box.url}}">
-                <div ng-if="box.numOfUpdates > 0" class="notify">{{::box.numOfUpdates}}</div>
-                <div>
-                    <img class="boxImg" ng-src="{{::box.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
-                    <ul class="boxHoverList">
-                        <li class="hoverItem itemImg">{{::box.itemCount}}</li>
-                        <li class="hoverItem memberImg">{{::box.membersCount}}</li>
-                        <li class="hoverItem commentImg">{{::box.commentCount}}</li>
-                    </ul>
-                </div>
-                <div class="boxWpr clamp2">
-                    <span class="boxName">{{::box.name}}</span>
-                </div>
-                <span class="courseCode elps">{{::box.courseCode}}</span>
-                <span class="courseCode propName elps">{{::box.professor}}</span>
-            </a>
-            <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}"></button>
-        </script>
+<div id="dashboard" data-header="My area" class="page dashboard">
+    @{Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());}
+    
+    <div class="topBtns">
+        <a class="browseBtn lFloat" href="@Url.GenerateUrl("Index","Library")" data-navigation="Library">
+            <img id="dashLibImg" src="" width="30" height="30" alt="lib img" />@SharedResources.BrowseCourses</a>
+        <button type="button" data-modelNav="addBox" class="sprite1b createBtn lFloat">@SharedResources.CreateNew</button>
     </div>
+    <div data-bind="visible: isSearch" class="sectionHeader"><q data-bind="text: searchTerm"></q> - <span data-bind="text: boxes().length"></span>&nbsp;@SharedResources.Results</div>
+    <ul class="courseList" data-bind="foreach: boxes">
+        <li class="courseItem sprite1a">
+            <a data-navigation="Box" data-bind="attr: { href: boxUrl }">
+                <img class="lFloat" data-bind="attr: { src: boxPicture }" width="57" height="70" />
+                <div class="description">
+                    <div class="courseName boldFont elps" data-bind="text: name"></div>
+                    <span data-bind="text: itemCount"></span>&nbsp;@SharedResources.Items
+                    <!--ko if:commentCount>0-->
+                    |&nbsp;<span data-bind="text: commentCount"></span>&nbsp;@SharedResources.Comments
+                    <!--/ko-->
+                </div>
+            </a>
+        </li>
+    </ul>
+    <div data-bind="visible: emptyStateSearch" class="searchEmptyState">
+        @Zbang.Cloudents.Mobile.Views.Library.Resources.MainViewResources.MobileNoResult
+    </div>
+    
+    @* FRIEND PAGE *@
+    @*<div class="friendPage">
+    <div class="sectionHeader">142 Friends</div>
+    <ul class="friendspageList">
+        <li>
+            <a>
+            <img class="lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_29V1.png" width="32" height="32" />
+            <div class="elps">Friend name appears here</div>
+            </a>
+        </li>
+        <li>
+            <a>
+                <img class="lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_29V1.png" width="32" height="32" />
+                <div class="elps">Professor Alexander Andrew Jeremy Julian William Jonathan Junior</div>
+            </a>
+        </li>
+        <li>
+            <a>
+                <img class="lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_29V1.png" width="32" height="32" />
+                <div class="elps">Friend name appears here</div>
+            </a>
+        </li>
+        <li>
+            <a>
+                <img class="lFloat" src="http://127.0.0.1:10000/devstoreaccount1/zboxthumbnail/AcademicBox_29V1.png" width="32" height="32" />
+                <div class="elps">Friend name appears here</div>
+            </a>
+        </li>
+    </ul>
+</div>*@
+
 </div>
-
-
