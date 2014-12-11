@@ -198,7 +198,7 @@
                params: {
                    type: 'accountSettings'
                },
-               templateUrl: '/account/settings'
+               templateUrl: '/account/SettingPartial'
            }).
            //#endregion
            //#region store
