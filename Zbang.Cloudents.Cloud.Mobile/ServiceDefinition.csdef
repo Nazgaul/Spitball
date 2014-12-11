@@ -5,14 +5,40 @@
       <Site name="Web">
         <Bindings>
           <Binding name="Endpoint1" endpointName="Endpoint1" />
+          <Binding name="Endpoint2" endpointName="Endpoint2" />
         </Bindings>
       </Site>
     </Sites>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="Endpoint2" protocol="https" port="443" certificate="CloudDents" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
     </Imports>
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
+      <Setting name="CdnEndpoint" />
+      <Setting name="ZBox" />
+      <Setting name="CacheUse" />
+      <Setting name="StorageCdnEndpoint" />
+      <Setting name="AzureSearchApiKey" />
+      <Setting name="AzureSeachApiUrl" />
+      <Setting name="DesktopWebSite"/>
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
+      <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
+    </Certificates>
+    <LocalResources>
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="true" sizeInMB="100" />
+      <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
+    </LocalResources>
+    <Startup>
+      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple"/>
+    </Startup>
   </WebRole>
 </ServiceDefinition>

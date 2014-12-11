@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Reflection;
-using System.Web;
-using Microsoft.Web.Redis;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class CloudentsOutsputCacheProvider : System.Web.Caching.OutputCacheProvider
     {

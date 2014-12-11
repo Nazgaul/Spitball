@@ -419,8 +419,8 @@
             quiz:'/quiz/indexpartial/',
             library:'/library/indexpartial/'
         };
-
-        $http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); } );
+        //TODO: only on login bring dashboard
+        //$http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); } );
         $http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
         $http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
         $http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });

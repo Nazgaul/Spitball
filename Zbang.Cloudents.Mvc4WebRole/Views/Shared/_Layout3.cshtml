@@ -5,11 +5,7 @@
     ViewBag.title = ViewBag.title ?? "Cloudents";
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
     ViewBag.viewport = ViewBag.viewport ?? true;
-    //ViewBag.fLib = ViewBag.fLib ?? false;
-    //ViewBag.fDash = ViewBag.fDash ?? false;
     ViewBag.fBox = ViewBag.fBox ?? false;
-    //ViewBag.fItem = ViewBag.fItem ?? false;
-    //ViewBag.firstTime = "{\"dashboard\":true,\"box\":false,\"library\":false,\"item\":false}";
 }
 <!DOCTYPE html>
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
@@ -183,6 +179,5 @@
         {
             <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
         }*@
-    <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings[" pushurl"]"></iframe>
 </body>
 </html>

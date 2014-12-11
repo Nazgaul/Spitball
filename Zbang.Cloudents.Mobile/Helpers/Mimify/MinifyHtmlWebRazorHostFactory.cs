@@ -2,7 +2,7 @@
 using System.Web.Razor.Generator;
 using System.Web.WebPages.Razor;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
+namespace Zbang.Cloudents.Mobile.Helpers.Mimify
 {
 // ReSharper disable once UnusedMember.Global
     public sealed class MinifyHtmlWebRazorHostFactory : WebRazorHostFactory
