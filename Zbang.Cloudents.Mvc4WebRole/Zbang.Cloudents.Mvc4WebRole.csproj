@@ -880,7 +880,7 @@
     <Content Include="Images\web_upload.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\app.js" />
-    <Content Include="Js\controllers\account\cogratsCtrl.js" />
+    <Content Include="Js\controllers\account\congratsCtrl.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />

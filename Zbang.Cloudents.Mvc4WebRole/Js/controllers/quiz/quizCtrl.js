@@ -65,32 +65,41 @@ mQuiz.controller('QuizCtrl',
                     $scope.$emit('viewContentLoaded');
                 });
 
-                challengeTimeout = $timeout(function () {
-                    if ($scope.quiz.testInProgress) {
-                        return;
-                    }
-                    if ($scope.quiz.userDone) {
-                        return;
-                    }
+                if (!sUserDetails.iAuthenticated()) {
+                    sLogin.connect();
+                } else {
+                    challengeTimeout = $timeout(function () {
 
-                    sModal.open('quizChallenge', {
-                        data: {
-                            users: $scope.quiz.topUsers, // data
-                            quizId: $scope.quiz.id
-                        },
-                        callback: {
-                            close: function () {
-                                solveQuiz();
-                                getDiscussion();
-                                $scope.quiz.afraid = true;
-                            },
-                            dismiss: function () {
-                                startTimer();
-                            }
+
+
+                        if ($scope.quiz.testInProgress) {
+                            return;
+                        }
+                        if ($scope.quiz.userDone) {
+                            return;
                         }
 
-                    });
-                }, 1000);
+                        sModal.open('quizChallenge', {
+                            data: {
+                                users: $scope.quiz.topUsers, // data
+                                quizId: $scope.quiz.id
+                            },
+                            callback: {
+                                close: function () {
+                                    solveQuiz();
+                                    getDiscussion();
+                                    $scope.quiz.afraid = true;
+                                },
+                                dismiss: function () {
+                                    startTimer();
+                                }
+                            }
+
+                        });
+                    }, 1000);
+
+                }
+
             });
 
             $scope.timer = {

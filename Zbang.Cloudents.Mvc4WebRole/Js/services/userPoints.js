@@ -1,6 +1,6 @@
 ﻿app.factory('sGmfcnHandler',
     ['$rootScope', 'sModal', '$angularCacheFactory',
-    function ($rootScope, sModal) {
+    function ($rootScope, sModal, $angularCacheFactory) {
         "use strict";
 
         var pointsTable = {
@@ -16,8 +16,9 @@
             counterCallbacks = [];
 
 
-        $rootScope.$on('viewContentloaded', function () {
-            var pointsCache = $angularCacheFactory.get('points');
+        $rootScope.$on('viewContentLoaded', function () {
+
+            var pointsCache = $angularCacheFactory.get('points') || $angularCacheFactory('points');
 
             if (!pointsCache) {
                 return;
@@ -27,13 +28,13 @@
                 keys = pointsCache.keys();
 
             _.forEach(keys, function (key) {
-                var points = pointsCache[key];
+                var points = pointsTable[key];
                 if (!_.isUndefined(points)) {
                     totalPoints += points;
                 }
             });
 
-            cache.destroy();
+            pointsCache.destroy();
 
             if (!totalPoints) {
                 return;
