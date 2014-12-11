@@ -1,0 +1,19 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+
+<div class="modal-body">
+    <div class="ribbon">
+        <span class="congratsTxt0">@DialogResources.Congrats</span>
+        @Html.Svg("~/Images/Defs.svg", "ribbon", new { @class = "svg-ribbon" })
+    </div>
+    <div class="coin">
+        <div class="ptsAwarded">{{{:params.points}}}</div>
+        <div class="congratsTxt1">@DialogResources.YouEarned</div>
+        <div class="congratsTxt2">@SharedResources.Points</div>
+    </div>
+    <div class="congratsTxt3">@DialogResources.ReachTop</div>
+    <div class="congratsTxt4">@DialogResources.EarnPoints</div>
+    <button type="button" class="closeModal" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
+</div>

@@ -56,12 +56,15 @@
             <li class="last"><a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a></li>
         </ul>
     </footer>
-    @{Html.RenderPartial("_Welcome");}
     <div id="cssCheck"></div>
+    <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
+
+    @RenderSection("scripts", false)
+    @Html.Script2("angular-general")
+    @Html.Script2("angular-layout3")
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
     @*<script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>*@
     @*@Html.Script2("General")*@
-    @Html.Script2("home")
 
 </body>
 </html>

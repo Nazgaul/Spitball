@@ -884,8 +884,7 @@
     <Content Include="Images\web_upload.png" />
     <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\app.js" />
-    <Content Include="Js\Bindings.js" />
-    <Content Include="Js\Cache2.js" />
+    <Content Include="Js\controllers\account\cogratsCtrl.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />
@@ -934,7 +933,6 @@
     <Content Include="Js\controllers\store\productCtrl.js" />
     <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
-    <Content Include="Js\DataContext2.js" />
     <Content Include="Js\directives\boxItemTooltip.js" />
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
@@ -974,14 +972,10 @@
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\filters\trustedHtml.js" />
-    <Content Include="Js\Mobile\Logon.js" />
-    <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\wizard.js" />
-    <Content Include="Js\Navigation2.js" />
-    <Content Include="Js\pubsub2.js" />
     <Content Include="Js\services\ajaxService.js" />
     <Content Include="Js\services\box.js" />
     <Content Include="Js\services\dashboard.js" />
@@ -1007,34 +1001,15 @@
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\services\userDetails.js" />
-    <Content Include="Js\Cache.js" />
     <Content Include="Js\CDNFallback.js" />
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\DataContext.js" />
-    <Content Include="Js\externalScriptsInitializer.js" />
-    <Content Include="Js\Mobile\MAccountSettings.js" />
-    <Content Include="Js\Mobile\MBaseViewModel.js" />
-    <Content Include="Js\Mobile\MBoxesViewModel.js" />
-    <Content Include="Js\Mobile\MBoxItemsViewModel.js" />
-    <Content Include="Js\Mobile\MBoxViewModel.js" />
-    <Content Include="Js\Mobile\MInvite.js" />
-    <Content Include="Js\Mobile\MInviteViewModel.js" />
-    <Content Include="Js\Mobile\MItemViewModel.js" />
-    <Content Include="Js\Mobile\MLibrary.js" />
-    <Content Include="Js\Mobile\MLibraryChoose.js" />
-    <Content Include="Js\Mobile\MUpload.js" />
-    <Content Include="Js\Mobile\MWallViewModel.js" />
-    <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
     <Content Include="Js\services\userPoints.js" />
     <Content Include="Js\services\versionChecker.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
-    <Content Include="Js\Utils2.js" />
-    <Content Include="Js\Utils.js" />
-    <Content Include="Js\Welcome.js" />
     <Content Include="Js\Logon.js" />
     <Content Include="Content\General.less" />
     <Content Include="Content\Box3.less" />
@@ -2091,7 +2066,7 @@
     <Content Include="Views\Shared\Partials\_UserDetail4.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Item\_ItemRegister.cshtml" />
-    <Content Include="Views\Shared\Partials\_Congrats.cshtml" />
+    <Content Include="Views\Account\_Congrats.cshtml" />
     <Content Include="Views\Account\_WelcomeAngular.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Account\_LogonAngular.cshtml" />
