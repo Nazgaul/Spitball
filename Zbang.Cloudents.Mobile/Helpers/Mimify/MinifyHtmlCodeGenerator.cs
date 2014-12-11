@@ -5,7 +5,7 @@ using System.Web.Razor;
 using System.Web.Razor.Generator;
 using System.Web.Razor.Parser.SyntaxTree;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers.Mimify
+namespace Zbang.Cloudents.Mobile.Helpers.Mimify
 {
     public sealed class MinifyHtmlCodeGenerator : CSharpRazorCodeGenerator
     {

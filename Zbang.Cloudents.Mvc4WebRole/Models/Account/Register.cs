@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Display(Name="מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית")]
         public bool MarketEmail { get; set; }
 
-        public UserLanguage Language { get; set; }
+        //public UserLanguage Language { get; set; }
 
         public long? UniversityId { get; set; }
 
@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
             sb.AppendLine("NewEmail " + NewEmail);
             sb.AppendLine("IsMale " + IsMale);
             sb.AppendLine("MarketEmail " + MarketEmail);
-            sb.AppendLine("Language " + Language.Language);
+            //sb.AppendLine("Language " + Language.Language);
             return sb.ToString();
         }
     }

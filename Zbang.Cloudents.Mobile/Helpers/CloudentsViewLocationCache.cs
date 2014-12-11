@@ -3,7 +3,7 @@ using System.Web.Caching;
 using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class CloudentsViewLocationCache : IViewLocationCache
     {

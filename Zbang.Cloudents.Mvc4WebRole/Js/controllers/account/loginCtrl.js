@@ -42,14 +42,14 @@
                 });
             };
 
-            $scope.register = function () {
-                var cache = $angularCacheFactory('newUser', {
-                    maxAge: 60000
-                });
-
-                cache.put('awardPoints', true);
-
+            $scope.register = function () {                
                 sAccount.register($scope.formData.register).then(function () {
+                    var cache = $angularCacheFactory('points', {
+                        maxAge: 60000
+                    });
+
+                    cache.put('newUser', true);
+
                     $window.location.reload();
                 });
             };

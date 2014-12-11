@@ -7,7 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterBundles()
         {
             BundleConfig.RegisterBundle(RegisterCss(), RegisterJs());
-           
+
         }
 
         private static IDictionary<string, IEnumerable<string>> RegisterCss()
@@ -25,7 +25,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/SetupSchoolRtl.css",
                         "~/Content/HeaderRtl.css",
                         "~/Content/BoxFeedRtl.css",
-                        "~/Content/ItemRtl.css"
+                        "~/Content/ItemRtl.css",                       
+                        "~/Content/HomeRtl.css"
                     }
                 },
                 {
@@ -51,6 +52,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Settings.css",
                         "~/Content/DashLib.css",
                         "~/Content/Store.css",
+                        "~/Content/HomeAndStatic.css",
+                        "~/Content/Home.css",
                         "~/Content/jquery.mCustomScrollbar.css"
                     }
                 },
@@ -70,21 +73,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Header.css",
                         "~/Content/Animations.css",
                         "~/Content/Static.css"
-                    }
-                },
-                {
-                    "home", new[]
-                    {
-                        "~/Content/Normalize.css",
-                        "~/Content/General.css",
-                        "~/Content/Home.css"
-                    }
-                },
-                {
-                    "homeRtl", new[]
-                    {
-                        "~/Content/GeneralRtl.css",
-                        "~/Content/HomeRtl.css"
                     }
                 }
             };
@@ -331,9 +319,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //                        new JsFileWithCdn("~/Js/Cache2.js"),
             //                        new JsFileWithCdn("~/Js/DataContext2.js"),
             //                        new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
-           
+
             return jsDictionary;
         }
-        
+
     }
 }

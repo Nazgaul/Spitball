@@ -1,6 +1,6 @@
 ﻿app.factory('sGmfcnHandler',
-    [
-    function () {
+    ['$rootScope', 'sModal', '$angularCacheFactory',
+    function ($rootScope, sModal) {
         "use strict";
 
         var pointsTable = {
@@ -8,11 +8,42 @@
             question: 5,
             itemUpload: 10,
             shareFb: 5,
-            quiz: 30
+            quiz: 30,
+            newUser: 500
         };
 
         var popupCallback,
             counterCallbacks = [];
+
+
+        $rootScope.$on('viewContentloaded', function () {
+            var pointsCache = $angularCacheFactory.get('points');
+
+            if (!pointsCache) {
+                return;
+            }
+
+            var totalPoints = 0,
+                keys = pointsCache.keys();
+
+            _.forEach(keys, function (key) {
+                var points = pointsCache[key];
+                if (!_.isUndefined(points)) {
+                    totalPoints += points;
+                }
+            });
+
+            cache.destroy();
+
+            if (!totalPoints) {
+                return;
+            }
+
+            sModal.open('congrats', {
+                data: totalPoints
+            });
+
+        });
 
         return {
             addPoints: function (data) {
@@ -35,7 +66,7 @@
             registerPopup: function (callback) {
                 popupCallback = callback;
             },
-            registerCounter: function (callback) {          
+            registerCounter: function (callback) {
                 counterCallbacks.push(callback);
             }
         };

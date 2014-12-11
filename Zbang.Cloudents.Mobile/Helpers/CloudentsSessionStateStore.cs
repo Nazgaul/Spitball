@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.SessionState;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class CloudentsSessionStateStore : SessionStateStoreProviderBase
     {
