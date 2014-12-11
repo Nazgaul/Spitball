@@ -1,126 +1,27 @@
-﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
-@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Box.Resources
 
-<div class="boxItems clearfix" ng-controller="BoxItemsCtrl">
-    <button type="button" style="display:none;" pl-upload drop-area="pl_Dropzone" box-id="{{boxId}}" tab-id="{{options.currentTab.id}}"></button>
-    <div class="dropZoneOpacity" id="pl_Dropzone" drop-zone>
-        <div class="dropZone">
-            <div class="dropMsg boldFont">@DialogResources.DropToUpload</div>
-        </div>
-    </div>
-    <div class="boxItemsHeader">
+<button type="button" id="AddFiles" class="boxSprite uploadBtn">@MobileBoxResources.UploadNew</button>
 
-        <div class="lFloat boxManage" ng-if="iOptions.manageTab">
-            <span class="manageTxt">@MainViewResources.ChooseFiles</span>
-            <button class="btn1" type="button" ng-click="manageSave()">@MainViewResources.Save</button>
-            <button class="btn2" type="button" ng-click="manageCancel()">@MainViewResources.Cancel</button>
-        </div>
 
-        <button type="button" ng-click="openUploadPopup()" class="btn1 lFloat" ng-show="filteredItems.length > 0 && !iOptions.manageTab">
-            @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@DialogResources.UploadFiles
-        </button>
-
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="filteredItems.length > 0">
-            @Html.Svg("~/Images/Defs.svg", "listView")
-        </button>
-        <button type="button" ng-class="{ currentState : iOptions.currentView === 'thumb'}" class="thumbViewBtn rFloat" ng-click="changeView('thumb')" ng-show="filteredItems.length > 0">
-            @Html.Svg("~/Images/Defs.svg", "thumbView")
-        </button>
+<div class="uploadItemsBox">
+    <select id="boxTabs" class="boxHeader">
+        <option selected>@MobileResources.AllItems</option>
+    </select>
     </div>
 
-    <div class="boxEmpty" ng-if="!filteredItems.length && !options.loader">
-        <h2>@MainViewResources.BoxEmpty</h2>
-        <br />
-        <div>@IndexResources.Syllabus</div>
-        <div>@IndexResources.LinksTo</div>
-
-        <div class="emptyBoxDrop">
-            @Html.Svg("~/Images/Defs.svg", "upload")
-            <div class="emptyBoxDropText">@DialogResources.DragAndDrop</div>
-            <button ng-click="openUploadPopup()" type="button" class="uploadFilesBtn btn1">@DialogResources.ChooseFiles</button>
-        </div>
-    </div>
-
-
-    <ol class="boxItemList clearfix" infinite-scroll="addItems()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false" ng-class="{ sponsored: iOptions.sponsored }">
-        <li ng-repeat="item in filteredItems | limitTo : iOptions.itemsLimit" class="{{iOptions.currentView + 'Item'}}"
-            ng-include="getView(item)" ui-draggable="true" drag="item" drag-channel="boxItem"
-            box-item-tooltip template="boxItemTooltip">
-        </li>
-    </ol> @*add drag option*@
+<!--ko if:emptyState-->
+<div class="boxEmpty boldFont">
+    @MobileBoxResources.ItSeems
+    <button id="AddFilesEmptyState" class="boxSprite uploadBtn regFont">@MobileBoxResources.UploadItem</button>
 </div>
-
-<script type="text/ng-template" id="itemThumbView">
-    <p class="thumbContent">{{item.description}}</p>
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-        <span class="sponsoredBg" ng-if="item.sponsored" ng-style="{'background-image': 'url(' + item.thumbnail + ')'}"></span>
-        <img ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" width="148" height="188" />
-        <span ng-if="item.isNew" class="tag">@SharedResources.New</span>
-        <div class="boxName clamp2">{{item.name}}</div>
-        <div class="stars">
-            <div class="full" ng-style="{width: iOptions.starsWidth / iOptions.starsLength * item.rate + 'px'}"></div>
-        </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
-    </a>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)" >
-                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-            </button>
-            
-        </div>
-    }
-
-    <span ng-if="iOptions.manageTab">
-        <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
-        <div></div>
-        @*empty div used for green outline*@
-        <label for="{{'item_' + item.id}}" class="cbLabel"></label>
-    </span>
-</script>
-
-<script type="text/ng-template" id="itemListView">
-    <a class="boxLink" ng-click="selectItem($event,item)" ng-href="{{item.url}}">
-        <span class="imgBorder" ng-if="item.sponsored" style="background-image: url('{{item.thumbnail}}' )"></span>
-        <img class="imgBorder" ng-if="!item.sponsored" ng-src="{{item.thumbnail}}" alt="{{item.name}} | {{boxName}} | {{uniName}}" alt="" width="112" height="143" />
-        <div class="boxName semiFont elps">{{item.name}}</div>
-        <p class="itemContent">{{item.description}}</p>
-        <div class="stars">
-            <div class="full" ng-style="{width: iOptions.starsWidth / iOptions.starsLength * item.rate + 'px'}"></div>
-        </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
-        <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
-    </a>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(item)" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
-                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-            </button>
-        </div>
-    }
-</script>
-
-<script type="text/ng-template" id="boxItemTooltip">
-    <div class="boxTt">
-        <div ng-class="::{noPreview : !item.description}" class="boxItemTt" ng-init="extension = item.name.slice(item.name.lastIndexOf('.') + 1) ">
-            <div class="itemName">{{::item.name}}</div>
-            <div class="ttTop">
-                <div class="moreFilesThumb {{::item | extToClass}}">{{::extension}}</div>
-                <div class="detailsWpr">
-                    <div class="lFloat ttDetail">@SharedResources.Owner</div>
-                    <a ng-href="{{::item.userUrl}}" class="ttLink elps">{{::item.owner}}</a>
-
-                    <div class="lFloat ttDetail">@SharedResources.Uploaded</div>
-                    <div>{{::item.date | displayTimeFilter}}</div>
-                </div>
-                <div class="lFloat ttDetail" data-numdownload="{{::item.numOfDownloads}}">@SharedResources.Downloads</div>
-                <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
-            </div>
-            <div class="ttPreview">{{::item.description}}</div>
-        </div>
-    </div>
-</script>
+<!--/ko-->
+<ul class="boxList" data-bind="foreach: {data: items}">
+    <li class="boxItem">
+        <a data-bind="attr: { href: itemUrl }">
+            <div class="thumbWpr"><img data-bind="attr: { src: thumbnailUrl }" class="boxThumb" /></div>
+        </a>
+        <div class="itemName boldFont" data-bind="text: name"></div>
+        <div class="elps" data-bind="text: uploader"></div>
+    </li>
+</ul>

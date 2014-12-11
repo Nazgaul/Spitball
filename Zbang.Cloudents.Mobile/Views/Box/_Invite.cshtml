@@ -1,8 +1,23 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+@model Zbang.Cloudents.Mvc4WebRole.Models.Share.Invite
 
-<div class="modal-body clearfix">
-    @{Html.RenderPartial("_SocialInvite");}
-    <button class="closeModal" ng-click="cancel()">
-        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-    </button>
+<div id="boxInvite" class="boxInvite popup">
+    <div class="popupWpr">
+        <div class="subTitle topContent">@DialogResources.InviteTo&nbsp;<q data-bind="text:name"></q></div>
+
+        <form id="fInvite" class="fInvite">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false)
+
+            @Html.LabelFor(m => m.Recepients)
+            <div class="inputText inviteUser">
+                <ul class="inviteList">
+                </ul>
+                <input type="text" class="inviteInput" placeholder="@DialogResources.UsernameOr" />
+            </div>
+            
+            <input type="submit" class="btn1 rFloat"  value="@DialogResources.Send"/>
+                
+        </form>
+    </div>
 </div>

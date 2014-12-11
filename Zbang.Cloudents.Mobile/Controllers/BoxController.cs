@@ -29,68 +29,67 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [NoCache]
-        [BoxPermission("boxId")]
-        [PreserveQueryString]
-        public async Task<ActionResult> IndexDesktop(long boxId)
-        {
-            var userId = User.GetUserId(false);
-            try
-            {
-                var query = new GetBoxSeoQuery(boxId, userId);
-                var model = await ZboxReadService.GetBoxSeo(query);
-                if (model == null)
-                {
-                    throw new BoxDoesntExistException("model is null");
-                }
-                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-                {
-                    throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
-                }
-                if (model.BoxType == BoxType.Box)
-                {
-                    ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
-                    return View("Empty");
-                }
-                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, model.Name,
-                    model.UniversityName, BaseControllerResources.Cloudents);
-                ViewBag.metaDescription = Regex.Replace(string.Format(
-                    BaseControllerResources.MetaDescription, model.Name,
-                    string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
-                    string.IsNullOrWhiteSpace(model.Professor)
-                        ? string.Empty
-                        : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
-                    @"\s+", " ");
-                return View("Empty");
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
-                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
-            }
-            catch (BoxDoesntExistException)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
-                return RedirectToAction("Index", "Error");
-            }
-        }
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[NoCache]
+        //[BoxPermission("boxId")]
+        //[PreserveQueryString]
+        //public async Task<ActionResult> IndexDesktop(long boxId)
+        //{
+        //    var userId = User.GetUserId(false);
+        //    try
+        //    {
+        //        var query = new GetBoxSeoQuery(boxId, userId);
+        //        var model = await ZboxReadService.GetBoxSeo(query);
+        //        if (model == null)
+        //        {
+        //            throw new BoxDoesntExistException("model is null");
+        //        }
+        //        if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+        //        {
+        //            throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
+        //        }
+        //        if (model.BoxType == BoxType.Box)
+        //        {
+        //            ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
+        //            return View("Empty");
+        //        }
+        //        BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+        //        ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, model.Name,
+        //            model.UniversityName, BaseControllerResources.Cloudents);
+        //        ViewBag.metaDescription = Regex.Replace(string.Format(
+        //            BaseControllerResources.MetaDescription, model.Name,
+        //            string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
+        //            string.IsNullOrWhiteSpace(model.Professor)
+        //                ? string.Empty
+        //                : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
+        //            @"\s+", " ");
+        //        return View("Empty");
+        //    }
+        //    catch (BoxAccessDeniedException)
+        //    {
+        //        return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
+        //            : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+        //    }
+        //    catch (BoxDoesntExistException)
+        //    {
+        //        return RedirectToAction("Index", "Error");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
+        //        return RedirectToAction("Index", "Error");
+        //    }
+        //}
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-            Options = OutputCacheOptions.IgnoreQueryString
-            )]
-        public PartialViewResult IndexPartial()
-        {
-            return PartialView("Index");
-        }
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[DonutOutputCache(CacheProfile = "PartialPage",
+        //    Options = OutputCacheOptions.IgnoreQueryString
+        //    )]
+        //public PartialViewResult IndexPartial()
+        //{
+        //    return PartialView("Index");
+        //}
 
-        [Obsolete]
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         public ActionResult Index(string universityName, long boxId, string boxName)

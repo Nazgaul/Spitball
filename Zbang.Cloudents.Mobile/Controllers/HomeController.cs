@@ -46,19 +46,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [PreserveQueryString]
         public ActionResult Index(long? universityId)
         {
-            if (!User.Identity.IsAuthenticated && Request.UserAgent != null &&
-                !Request.UserAgent.ToUpper().Contains("MSIE 9.0"))
-            {
-                return RedirectToAction("Index", "Account", new { universityId });
-                //return RedirectToActionPermanent("Index", "Dashboard");
-            }
-            //this is the only place we need
-            if (DisplayConfig.CheckIfMobileView(HttpContext))
-            {
-                return RedirectToActionPermanent("Index", "Dashboard");
-            }
 
-            return View("Empty");
+            return RedirectToActionPermanent("Index", "Dashboard");
+
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"

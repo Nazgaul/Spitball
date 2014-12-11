@@ -186,7 +186,7 @@ namespace Zbang.Cloudents.Mobile
                 //invite
                 new JsFileWithCdn("~/Js/Mobile/MInviteViewModel.js"),
                 //wall
-                new JsFileWithCdn("~/Js/Mobile/MWallViewModel.js"),
+                //new JsFileWithCdn("~/Js/Mobile/MWallViewModel.js"),
                 //library
                 new JsFileWithCdn("~/Js/Mobile/MLibrary.js"),
                 //new JsFileWithCdn("/Js/Mobile/MLibraryChoose.js"),
@@ -213,13 +213,14 @@ namespace Zbang.Cloudents.Mobile
             //    });
 
 
-            //jsDictionary.Add("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-            //    //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
-            //                        new JsFileWithCdn("~/Js/Utils2.js"),
-            //                        new JsFileWithCdn("~/Js/pubsub2.js"),
-            //                        new JsFileWithCdn("~/Js/Cache2.js"),
-            //                        new JsFileWithCdn("~/Js/DataContext2.js"),
-            //                        new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
+            jsDictionary.Add("mobileItem", new[] { new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
+                //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
+                                    new JsFileWithCdn("~/Js/Utils2.js"),
+                                    new JsFileWithCdn("~/Js/pubsub2.js"),
+                                    new JsFileWithCdn("~/Js/Cache2.js"),
+                                    new JsFileWithCdn("~/Js/DataContext2.js"),
+                                    new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js")
+            });
            
             return jsDictionary;
         }

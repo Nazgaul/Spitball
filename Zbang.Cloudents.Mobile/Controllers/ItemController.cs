@@ -53,63 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-           Options = OutputCacheOptions.IgnoreQueryString
-           )]
-        public PartialViewResult IndexPartial()
-        {
-            return PartialView("Index");
-        }
-
-        [NoCache]
-        [BoxPermission("boxId")]
-        public async Task<ActionResult> IndexDesktop(long boxId, long itemid, string itemName, string universityName, string boxName)
-        {
-
-            try
-            {
-
-                var query = new GetFileSeoQuery(itemid);
-                var model = await ZboxReadService.GetItemSeo(query);
-                if (model == null)
-                {
-                    throw new ItemNotFoundException();
-                }
-                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-                {
-                    throw new ItemNotFoundException();
-                }
-                if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
-                if (string.IsNullOrEmpty(model.Country)) return View("Empty");
-
-                var culture = Languages.GetCultureBaseOnCountry(model.Country);
-                BaseControllerResources.Culture = culture;
-                var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
-
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
-                    model.BoxName, seoItemName, BaseControllerResources.Cloudents);
-
-                ViewBag.Description = model.Description;
-                if (!string.IsNullOrEmpty(model.Description))
-                {
-                    var metaDescription = model.Description.RemoveEndOfString(197);
-                    ViewBag.metaDescription = metaDescription.Length == 197
-                        ? metaDescription + "..."
-                        : metaDescription;
-                }
-                return View("Empty");
-            }
-            catch (ItemNotFoundException)
-            {
-                return RedirectToAction("Index", "Error");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemid, ex);
-                return RedirectToAction("Index", "Error");
-            }
-        }
+        
 
 
         [NoCache]
