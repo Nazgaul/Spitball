@@ -40,32 +40,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoute("Default", new { controller = "Library", Action = "Index" });
         }
 
-        //[UserNavNWelcome]
-        [HttpGet]
-        [NoUniversity]
-        [NoCache]
-        public async Task<ActionResult> Index()
-        {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail == null || !userDetail.UniversityId.HasValue)
-            {
-                return RedirectToAction("Choose");
-            }
-            var query = new GetUniversityDetailQuery(userDetail.UniversityId.Value
-                );
-
-            var result = await ZboxReadService.GetUniversityDetail(query);
-            if (result.Id == 0)
-            {
-                return RedirectToAction("Choose");
-            }
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(result);
-            }
-            return View(result);
-
-        }
 
         [HttpGet, NoUniversity]
         public async Task<ActionResult> IndexPartial()

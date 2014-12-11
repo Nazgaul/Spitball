@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -15,21 +16,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
-        //[UserNavNWelcome]
         [HttpGet]
-        public /*async Task<ActionResult>*/ ActionResult Index(string q)
+        [DonutOutputCache(CacheProfile = "PartialPage",
+           Options = OutputCacheOptions.IgnoreQueryString
+           )]
+        public ActionResult IndexPartial()
         {
-            if (string.IsNullOrWhiteSpace(q))
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView();
-            }
-
-            return View("Empty");
+            return PartialView("Index");
         }
 
         [HttpGet]

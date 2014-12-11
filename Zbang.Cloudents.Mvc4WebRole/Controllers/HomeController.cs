@@ -37,9 +37,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CacheProvider = cacheProvider;
         }
 
+        //don't put in here route attribute
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
-        //this is for library,user,search,library choose,account settings home page
+        //this is for search,library choose,account settings home page
         public ActionResult Index()
         {
             return View("Empty");// RedirectToActionPermanent("Index", "Dashboard");

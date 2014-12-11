@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -11,6 +12,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -28,9 +30,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [NoCache]
-        [BoxPermission("boxId")]
-        [PreserveQueryString]
+        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+           Duration = TimeConsts.Hour * 1, VaryByParam = "boxId",
+           Location = OutputCacheLocation.Server, Order = 4)]
+        [BoxPermission("boxId", Order = 3)]
+        [PreserveQueryString(Order = 2)]
+        [RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId)
         {
             var userId = User.GetUserId(false);
@@ -88,13 +93,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-       
+
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
         public async Task<ActionResult> Data(long id)
-        {          
+        {
             var userId = User.GetUserId(false);
             try
             {

@@ -185,7 +185,7 @@
                params: {
                    type: 'search'
                },
-               templateUrl: function (params) { return '/search/?q=' + params.q; },
+               templateUrl: '/search/indexpartial/',
                reloadOnSearch: false
            }).
            when('/user/:userId/:userName/', {
@@ -198,7 +198,7 @@
                params: {
                    type: 'accountSettings'
                },
-               templateUrl: '/account/settings'
+               templateUrl: '/account/SettingPartial'
            }).
            //#endregion
            //#region store

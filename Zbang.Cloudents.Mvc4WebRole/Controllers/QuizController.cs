@@ -37,7 +37,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[UserNavNWelcome]
         [NoCache]
-        [BoxPermission("boxId")]
+        [BoxPermission("boxId",Order = 1)]
+        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+         Duration = TimeConsts.Hour * 1, VaryByParam = "quizId",
+         Location = OutputCacheLocation.Server, Order = 4)]
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
