@@ -66,7 +66,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "static", new[]
                     {
                         "~/Content/Normalize.css",
-                        "~/Content/HomeAndStatic.css",
                         "~/Content/General.css",
                         "~/Content/Header.css",
                         "~/Content/Animations.css",
@@ -77,7 +76,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "home", new[]
                     {
                         "~/Content/Normalize.css",
-                        "~/Content/HomeAndStatic.css",
                         "~/Content/General.css",
                         "~/Content/Home.css"
                     }

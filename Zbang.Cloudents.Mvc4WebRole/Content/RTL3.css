@@ -730,11 +730,10 @@
   /*rtl*/
   left: auto;
 }
-/*.boxItemsHeader {
-    .iconTxt {
-        margin: 0 0 0 15px; //rtl
-    }
-}*/
+.boxItemsHeader .svg-plus {
+  right: 1px;
+  left: auto;
+}
 .listViewBtn {
   margin: 2px 10px 0 20px;
 }
