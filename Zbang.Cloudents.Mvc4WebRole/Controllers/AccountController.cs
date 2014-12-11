@@ -515,11 +515,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        public ActionResult ChangeLocale(string lang)
+        [HttpPost]
+        public JsonResult ChangeLocale(string lang)
         {
             var cookie = new CookieHelper(HttpContext);
             cookie.InjectCookie(Helpers.UserLanguage.cookieName, new Language { Lang = lang });
-            return RedirectToAction("Index");
+            return JsonOk();
         }
 
 
