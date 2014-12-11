@@ -2,10 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.home {
-  color: #383838;
-  min-width: 1024px;
-}
 .topImg {
   width: 100%;
   height: 725px;
@@ -132,10 +128,12 @@
 .email:hover {
   background: #ececec;
 }
-.homeContent {
+.homepage {
+  color: #383838;
+  min-width: 1024px;
   text-align: center;
 }
-.homeContent h1 {
+.homepage h1 {
   font-size: 45px;
   line-height: 48px;
   width: 620px;
@@ -147,7 +145,7 @@
   white-space: pre-wrap;
   margin-bottom: 15px;
 }
-.homeContent h3 {
+.homepage h3 {
   font-size: 15px;
   /*rtl*/
   font-weight: normal;
@@ -157,10 +155,10 @@
   /*rtl*/
   letter-spacing: 0.4px;
 }
-.homeContent section {
+.homepage section {
   height: 310px;
 }
-.homeContent h2 {
+.homepage h2 {
   font-weight: bold;
   font-size: 26px;
   text-transform: uppercase;
@@ -169,18 +167,18 @@
   text-align: left;
   /*rtl*/
 }
-.homeContent .sectionText {
+.homepage .sectionText {
   display: block;
   text-align: left;
   /*rtl*/
   white-space: pre-wrap;
 }
-.homeContent .sectionWpr {
+.homepage .sectionWpr {
   font-size: 16px;
   display: inline-block;
   width: 1000px;
 }
-.homeContent .sectionWpr:before {
+.homepage .sectionWpr:before {
   content: '';
   display: inline-block;
   width: 289px;
