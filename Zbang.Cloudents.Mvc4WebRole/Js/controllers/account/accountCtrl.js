@@ -1,6 +1,6 @@
 ﻿mAccount.controller('AccountCtrl',
-['$scope',
-function ($scope) {
+['$scope','$timeout',
+function ($scope,$timeout) {
     "use strict";
 
     $timeout(function () {
