@@ -17,7 +17,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.AppendTrailingSlash = true;
 
             var constraintsResolver = new DefaultInlineConstraintResolver();
-            constraintsResolver.ConstraintMap.Add("desktop", typeof(DesktopConstraint));
             routes.MapMvcAttributeRoutes(constraintsResolver);
 
 
