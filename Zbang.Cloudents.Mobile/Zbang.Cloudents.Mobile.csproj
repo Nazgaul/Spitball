@@ -253,6 +253,7 @@
     </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
+    <Compile Include="Filters\RedirectToDekstopSiteAttribute.cs" />
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
@@ -284,7 +286,6 @@
     <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
-    <Compile Include="Helpers\DesktopConstraint.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
@@ -2000,13 +2001,13 @@
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Shared\_Layout3.cshtml" />
-    <Content Include="Views\Dashboard\Index2.mobile.cshtml" />
+    <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
     <Content Include="Views\Library\Index.mobile.cshtml" />
     <Content Include="Views\Box\Index.mobile.cshtml" />
     <Content Include="Views\Account\ResetPassword.mobile.cshtml" />
     <Content Include="Views\Account\Confirmation.mobile.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog.mobile.cshtml" />
+    <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
     <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />
     <Content Include="Views\Box\_Items2.mobile.cshtml" />
@@ -2021,7 +2022,7 @@
     <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Library\InsertCode.cshtml" />
-    <Content Include="Views\Account\_UserDetail4.mobile.cshtml" />
+    <Content Include="Views\Account\_UserDetail4.cshtml" />
     <Content Include="Views\Item\_PreviewImage.mobile.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
     <Content Include="Views\Library\InsertCode.mobile.cshtml" />
@@ -2042,7 +2043,6 @@
     <Content Include="Views\Quiz\Index.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
-    <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />

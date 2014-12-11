@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -19,7 +21,7 @@ using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxHandleError(ExceptionType = typeof(UnauthorizedAccessException), View = "Error")]
