@@ -502,6 +502,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+       
         #region passwordReset
         private const string SessionResetPassword = "SResetPassword";
         private const string ResetPasswordCrypticPropose = "reset password";
@@ -697,35 +698,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
-
-        [ChildActionOnly]
-        public ActionResult GetUserDetail3()
-        {
-            const string userDetailView = "_UserDetail4";
-            if (User == null || !(User.Identity.IsAuthenticated))
-            {
-                return PartialView(userDetailView);
-            }
-            try
-            {
-                var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-                //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-                var serializer = new JsonNetSerializer();
-                var jsonRetVal = serializer.Serialize(retVal);
-                ViewBag.userDetail = jsonRetVal;
-                return PartialView(userDetailView, retVal);
-            }
-            catch (UserNotFoundException)
-            {
-                return new EmptyResult();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("GetUserDetail user" + User.Identity.Name, ex);
-                return new EmptyResult();
-            }
-        }
 
         [HttpGet]
         public ActionResult Details()
