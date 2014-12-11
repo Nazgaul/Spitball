@@ -1,6 +1,6 @@
 ﻿app.directive('loginBtn',
-    ['sLogin',
-        function (sLogin) {
+    ['sLogin','sFacebook',
+        function (sLogin,sFacebook) {
             "use strict";
             return {
                 restrict: "A",                
@@ -14,6 +14,9 @@
                                 break;
                             case 'action':
                                 sLogin.registerAction();
+                                break;
+                            case 'facebook':
+                                sFacebook.registerFacebook();
                                 break;
                             default:
                                 sLogin.connect();

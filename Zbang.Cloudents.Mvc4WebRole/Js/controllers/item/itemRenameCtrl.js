@@ -1,4 +1,4 @@
-﻿mItem.controller('itemRenameCtrl',
+﻿mItem.controller('ItemRenameCtrl',
 [
     '$scope', '$modalInstance', '$analytics','data', 'sItem','sNotify',
 function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {

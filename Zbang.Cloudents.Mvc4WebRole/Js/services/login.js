@@ -41,12 +41,6 @@
                 params.data.formData = formData;
             }
 
-            var routeName = $route.current.$$route.params.type;
-
-            if (routeName === 'item' || routeName === 'quiz') {
-                params.windowClass = 'popupOffset'
-            }            
-
             sModal.open('connectPopup', params);
         }
 

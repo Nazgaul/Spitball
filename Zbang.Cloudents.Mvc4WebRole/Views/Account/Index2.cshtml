@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
@@ -13,7 +13,7 @@
             <label for="sidebarCb" class="headerSettings rFloat">
                 @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
             </label>
-            <button type="button" id="homeLogin" class="btn addConnect">@SharedResources.SignIn</button>
+            <button type="button" class="btn addConnect" login-btn="connect">@SharedResources.SignIn</button>
             @{Html.RenderPartial("_SettingsUnauth",true);}
         </div>
     </div>
@@ -21,14 +21,14 @@
     <div class="headingTexts">
         <h1>@HomeResources.SocialStudy</h1>
         <h3>@HomeResources.StudyPlatform</h3>
-        <div id="facebookLogin" class="facebook">
+        <div id="facebookLogin" class="facebook" login-btn="facebook">
             <span class="fbImg">
                 <svg class="svg-fb" viewBox="0 0 11.861 23.303"> @*width="11.861" height="23.303"*@
                     <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
                 </svg>
             </span>@SharedResources.FacebookSignUp
         </div>
-        <button type="button" id="homeRegister" class="email addRegister">
+        <button type="button" class="email addRegister" login-btn="register">
             <span class="emailImg">
                 <svg class="svg-email" viewBox="-49 205 512 384">
                     <path d="M463,525c0,11.2-3.2,21.6-8.2,30.8L293.1,374.9L453,235c6.2,9.9,10,21.5,10,34V525z M207,407.8l222.5-194.7

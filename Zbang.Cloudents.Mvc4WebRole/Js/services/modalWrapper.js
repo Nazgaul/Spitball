@@ -1,6 +1,6 @@
 app.factory('sModal',
-    ['$rootScope', '$modal', '$modalStack',
-        function ($rootScope, $modal, $modalStack) {
+    ['$rootScope', '$modal', '$modalStack','$route',
+        function ($rootScope, $modal, $modalStack,$route) {
             var modalList = {
                 shareEmail: function (params) {
                     return buildObj('invite', { url: '/share/messagepartial/' }, 'ShareCtrl', 'none', true, params.data);
@@ -42,10 +42,10 @@ app.factory('sModal',
                     return buildObj('welcome ' + params.windowClass, { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {
-                    return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'itemRenameCtrl', 'none', true, params.data);
+                    return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'ItemRenameCtrl', 'none', true, params.data);
                 },
                 congrats: function (params) {
-                    return buildObj('congrats', { url: '/account/CongratsPartial' }, 'itemRenameCtrl', 'none', true, params.data);
+                    return buildObj('congrats', { url: '/account/CongratsPartial' }, 'CongratsCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {
                     return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'none', true, params.data);
@@ -112,6 +112,13 @@ app.factory('sModal',
                         }
                     }
                 };
+
+                var routeName = $route.current.$$route.params.type;
+
+
+                if (routeName === 'item' || routeName === 'quiz') {
+                    params.windowClass += ' popupOffset'
+                }
 
                 if (!_.isEmpty(scope)) {
                     params.scope = scope;
