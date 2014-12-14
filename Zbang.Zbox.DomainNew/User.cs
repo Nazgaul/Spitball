@@ -55,6 +55,7 @@ namespace Zbang.Zbox.Domain
             Sex = sex;
             MarketEmail = marketEmail;
             UpdateLanguage(culture);
+            AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()

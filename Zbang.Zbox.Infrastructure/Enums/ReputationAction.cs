@@ -13,15 +13,15 @@ namespace Zbang.Zbox.Infrastructure.Enums
         DeleteAnswer = 102,
         DeleteQuiz = 106,
         ShareFacebook = 7,
-        Invite =8,
+        Invite = 8,
         InviteToBox = 9,
         Rate3Stars = 10,
         Rate4Stars = 11,
         Rate5Stars = 12,
         UnRate3Stars = 103,
         UnRate4Stars = 104,
-        UnRate5Stars = 105
-        
+        UnRate5Stars = 105,
+        Register = 13
 
 
     }

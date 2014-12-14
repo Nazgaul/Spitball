@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int ShareFabookScore = 5;
         public const int InviteToCloudentsScore = 20;
         public const int InviteToBoxScore = 5;
+        public const int Register = 500;
 
         public const int Rate3StareScore = 5;
         public const int Rate4StareScore = 10;

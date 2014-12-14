@@ -302,6 +302,7 @@
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\Confirmation.cs" />
+    <Compile Include="Models\Account\FacebookLogIn.cs" />
     <Compile Include="Models\Account\ForgotPassword.cs" />
     <Compile Include="Models\Account\ForgotPasswordLinkData.cs" />
     <Compile Include="Models\Account\Invite.cs" />
@@ -887,6 +888,7 @@
     <Content Include="Js\controllers\account\accountCtrl.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
+    <Content Include="Js\controllers\item\itemRegCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />
     <Content Include="Js\controllers\account\userDetailsCtrl.js" />
     <Content Include="Js\controllers\box\boxInviteCtrl.js" />
@@ -937,6 +939,7 @@
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
+    <Content Include="Js\directives\homeVideo.js" />
     <Content Include="Js\directives\login.js" />
     <Content Include="Js\directives\moxieDropzone.js" />
     <Content Include="Js\directives\quizGraph.js" />

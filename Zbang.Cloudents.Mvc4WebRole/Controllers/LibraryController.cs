@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult DepartmentRedirect()
         {
-            return RedirectToRoute("Default", new { controller = "Library", Action = "Index" });
+            return RedirectToRoute("LibraryDesktop");
         }
 
 

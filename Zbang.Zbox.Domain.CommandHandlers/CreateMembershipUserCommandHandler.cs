@@ -2,24 +2,21 @@
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateMembershipUserCommandHandler : CreateUserCommandHandler
     {
-        //private readonly IProfilePictureProvider m_ProfileProvider;
 
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
-            // IProfilePictureProvider profileProvider,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository)
-            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository)
+            IRepository<Reputation> reputationRepository,
+            IRepository<AcademicBox> academicBoxRepository)
+            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository, academicBoxRepository)
         {
-            // m_ProfileProvider = profileProvider;
         }
         public override CreateUserCommandResult Execute(CreateUserCommand command)
         {
@@ -50,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     null, null,
                     //defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
-                    command.MiddleName,
+                    null,
                     command.LastName, command.Sex, command.MarketEmail, command.Culture);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
@@ -77,6 +74,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.MembershipId = membershipCommand.MembershipUserId;
 
             var retVal = new CreateMembershipUserCommandResult(user);
+            UpdateUniversityByBox(membershipCommand.BoxId, retVal, user);
             if (membershipCommand.UniversityId.HasValue)
             {
                 UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);

@@ -18,18 +18,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IRepository<InviteToSystem> m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository, IRepository<AcademicBox> academicBoxRepository)
         {
             UserRepository = userRepository;
             m_QueueRepository = queueRepository;
             m_UniversityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
             m_ReputationRepository = reputationRepository;
+            m_AcademicBoxRepository = academicBoxRepository;
         }
 
         public abstract CreateUserCommandResult Execute(CreateUserCommand command);
@@ -88,7 +90,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.IsRegisterUser = true;
 
             user.FirstName = command.FirstName;
-            user.MiddleName = command.MiddleName;
             user.LastName = command.LastName;
             user.CreateName();
             user.Sex = command.Sex;
@@ -113,21 +114,32 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return;
             }
+            UpdateUniversity(university, result, user);
+        }
+
+        private void UpdateUniversity(University university, CreateUserCommandResult result, User user)
+        {
             result.UniversityId = university.Id;
             result.UniversityData = university.UniversityData.Id;
             user.UpdateUniversity(university, null, null, null, null);
         }
 
-        //protected User CreateUser()
-        //{
-        //    var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
-        //    user = new User(command.Email, defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
-        //        command.FirstName,
-        //        command.MiddleName,
-        //        command.LastName, command.Sex, command.MarketEmail, command.Culture);
-        //    UserRepository.Save(user, true);
-        //    user.GenerateUrl();
-        //}
+        protected void UpdateUniversityByBox(long? boxId, CreateUserCommandResult result, User user)
+        {
+            if (!boxId.HasValue)
+            {
+                return;
+            }
+            var box = m_AcademicBoxRepository.Get(boxId.Value);
+            if (box == null)
+            {
+                return;
+            }
+
+            UpdateUniversity(box.University, result, user);
+        }
+
+
 
     }
 }
