@@ -35,7 +35,14 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     });
 
     if (!sUserDetails.isAuthenticated()) {
-        sLogin.connect();
+        $scope.unreg = true;
+        sModal.open('itemReg', {
+            callback: {
+                close: function () {
+                    sLogin.register();
+                }
+            }
+        });
     }
 
     function getPreview() {

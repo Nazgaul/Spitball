@@ -559,10 +559,10 @@
   width: 800px;
   margin: 0 auto 10px;
   z-index: 0;
-  /*~ .divWrapper img {
-        -webkit-filter: blur(2px); //blur images starting from the 2nd page
-        filter: blur(2px);
-    }*/
+}
+.blur .divWrapper ~ .divWrapper img {
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
 }
 .imageContent {
   max-width: 800px;
@@ -581,12 +581,6 @@
   background: #fff;
   color: #fff;
   height: 75vh;
-}
-.blur {
-  -moz-filter: blur(5px);
-  -ms-filter: blur(5px);
-  -webkit-filter: blur(5px);
-  filter: blur(5px);
 }
 .copyRightWarning {
   background: #fff;

@@ -49,8 +49,9 @@
   text-align: center;
 }
 .followBtn {
-  color: #3399ff;
-  border-color: #3399ff;
+  color: #fff;
+  background: #3399ff;
+  border: none;
 }
 .boxRight {
   width: 100%;
@@ -779,7 +780,6 @@
   box-sizing: border-box;
 }
 .boxItemsHeader .svg-plus {
-  fill: #fff;
   position: relative;
   top: 1px;
   left: 1px;

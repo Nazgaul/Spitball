@@ -336,6 +336,7 @@ body.quiz .modal-backdrop.in {
 .quizAddQuestion .svg-plus {
   position: relative;
   top: 3px;
+  fill: #3399ff;
 }
 .quizBottom {
   background: #fff;

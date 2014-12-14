@@ -29,7 +29,7 @@
             };
 
             $scope.facebookLogin = function () {
-                sFacebook.registerFacebook().then(function () {
+                sFacebook.registerFacebook({ boxId: $routeParams.boxId }).then(function () {
                     $window.location.reload();
                 }, function () {
                     $modalInstance.dismiss();
@@ -83,7 +83,7 @@
                 sAccount.changeLocale({ language: $scope.params.language }).then(function () {
 
                     var cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
-                   
+
                     cache.put('formData', JSON.stringify({
                         formData: {
                             login: $scope.formData.login,
