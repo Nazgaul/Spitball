@@ -1,5 +1,5 @@
 ﻿mDashboard.directive('plDropzoneUploader',
-    ['$analytics',function ($analytics) {
+    ['$analytics', function ($analytics) {
         "use strict";
         return {
             restrict: 'A',
@@ -82,7 +82,16 @@
                             question: file.newQuestion
                         };
 
-                        $rootScope.$broadcast('BeforeUpload');
+
+                        var data = {};
+                        if (file.newQuestion) {
+                            data.newQuestion = true;
+                        }
+                        if (file.questionId) {
+                            data.questionId = file.questionId;
+                        }
+
+                        $rootScope.$broadcast('BeforeUpload', data);
 
                     });
 
@@ -165,22 +174,22 @@
                 function toggle() {
                     $(this).toggleClass('upload');
                     if ($(this).hasClass('upload')) {
-                        $analytics.eventTrack('Drag Enter', {
-                            category: attrs.plDropzoneUploader
+                        $analytics.eventTrack(attrs.plDropzoneUploader, {
+                            category: 'Drag Enter'
                         });
+                        return;
 
                     }
-                    return;
 
-                    $analytics.eventTrack('Drag Leave', {
-                        category: attrs.plDropzoneUploader
+                    $analytics.eventTrack(attrs.plDropzoneUploader, {
+                        category: 'Drag Leave'
                     });
                 }
                 function toggleOff() {
                     $(this).removeClass('upload');
 
-                    $analytics.eventTrack('Drag Drop', {
-                        category: attrs.plDropzoneUploader
+                    $analytics.eventTrack(attrs.plDropzoneUploader, {
+                        category: 'Drag Drop'
                     });
                 }
 
