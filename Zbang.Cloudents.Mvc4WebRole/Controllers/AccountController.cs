@@ -270,7 +270,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         lang = Thread.CurrentThread.CurrentCulture.Name;
                     }
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
+                        model.NewEmail, model.UniversityId,
+                        model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, lang, invId, model.BoxId);
                     var result = ZboxWriteService.CreateUser(command);
