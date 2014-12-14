@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Routing;
 using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -13,7 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.LowercaseUrls = true;
+            //routes.LowercaseUrls = true;
             routes.AppendTrailingSlash = true;
 
             var constraintsResolver = new DefaultInlineConstraintResolver();
@@ -79,15 +78,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     itemid = new LongRouteConstraint()
                 }
                 );
+            routes.MapRoute("shortItem",
+               "i/{box62Id}",
+               new { controller = "Item", action = "ShortUrl" });
             #endregion
 
             #region quiz
-            //[Route("Quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long:min(0)}/{quizName}", Name = "Quiz")]
-            //routes.MapRoute("QuizDesktop",
-            //    "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
-            //    new { controller = "Quiz", action = "IndexDesktop" },
-            //    new { isDesktop = new DesktopConstraint(), boxId = new LongRouteConstraint(), quizId = new LongRouteConstraint() }
-            //);
 
             routes.MapRoute("Quiz",
                 "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
