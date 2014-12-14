@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Zbang.Zbox.Infrastructure.Url
 {
@@ -7,17 +8,17 @@ namespace Zbang.Zbox.Infrastructure.Url
     /// </summary>
     public struct Base62
     {
-        private int _value;
-        private string _stringValue;
+        private readonly int m_Value;
+        private string m_StringValue;
 
         public Base62(string value)
         {
-            _value = 0;
+            m_Value = 0;
             int count = 0;
 
             for (int i = value.Length - 1; i >= 0; i--)
             {
-                int pos = (int)System.Math.Pow(62, count++);
+                int pos = (int)Math.Pow(62, count++);
                 int part = 0;
                 char c = value[i];
 
@@ -38,16 +39,16 @@ namespace Zbang.Zbox.Infrastructure.Url
                     throw new Exception(string.Format("The character '{0}' is not legal; only the characters 1-9, a-z and A-Z are legal.", c));
                 }
 
-                _value += part * pos;
+                m_Value += part * pos;
             }
 
-            _stringValue = value;
+            m_StringValue = value;
         }
 
         public Base62(int value)
         {
-            _value = value;
-            _stringValue = null;
+            m_Value = value;
+            m_StringValue = null;
         }
 
         private string ConvertToString(int value)
@@ -74,27 +75,19 @@ namespace Zbang.Zbox.Infrastructure.Url
 
             if (value < 62)
             {
-                return val.ToString();
+                return val.ToString(CultureInfo.InvariantCulture);
             }
-            else
-            {
-                return ConvertToString(value / 62) + val;
-            }
+            return ConvertToString(value / 62) + val;
         }
 
         public int Value
         {
-            get { return _value; }
+            get { return m_Value; }
         }
 
         public override string ToString()
         {
-            if (_stringValue == null)
-            {
-                _stringValue = ConvertToString(_value);
-            }
-
-            return _stringValue;
+            return m_StringValue ?? (m_StringValue = ConvertToString(m_Value));
         }
 
         public override bool Equals(object obj)
@@ -103,15 +96,12 @@ namespace Zbang.Zbox.Infrastructure.Url
             {
                 return false;
             }
-            else
-            {
-                return ((Base62)obj).Value == Value;
-            }
+            return ((Base62)obj).Value == Value;
         }
 
         public override int GetHashCode()
         {
-            return _value;
+            return m_Value;
         }
 
         #region Base 62 Math
