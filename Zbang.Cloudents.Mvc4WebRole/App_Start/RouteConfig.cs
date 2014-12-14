@@ -45,6 +45,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Box", action = "Index" },
               new { boxId = new LongRouteConstraint() }
           );
+            routes.MapRoute("shortBox",
+                "box/{box62Id}",
+                new {controller = "Box", action = "ShortUrl"});
+
             #endregion
 
             routes.MapRoute(

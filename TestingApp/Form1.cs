@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace TestingApp
 {
@@ -88,6 +89,13 @@ namespace TestingApp
                
 
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var i = int.Parse(textBox3.Text);
+            Base62 v = new Base62(i);
+            textBox2.Text = v.ToString();
         }
 
     }

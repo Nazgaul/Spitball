@@ -1,4 +1,6 @@
-﻿namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
+﻿using Zbang.Cloudents.Mobile.Models.Account;
+
+namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
     public class LogOnRegister
     {
