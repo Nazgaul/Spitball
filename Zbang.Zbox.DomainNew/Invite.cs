@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Domain
 
         public override ReputationAction GiveAction()
         {
-            return Infrastructure.Enums.ReputationAction.Invite;
+            return ReputationAction.Invite;
         }
 
         public override string UrlToRedirect()
