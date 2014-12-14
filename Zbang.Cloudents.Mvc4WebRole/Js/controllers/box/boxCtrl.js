@@ -51,7 +51,7 @@
                     tabs: info.tabs,
                     userType: info.userType,
                     image: info.image,
-                    url: decodeURI($location.absUrl()),
+                    url: decodeURI(location.origin + info.shortUrl),
                     inviteUrl: $location.path() + 'invite/'
                 };
 

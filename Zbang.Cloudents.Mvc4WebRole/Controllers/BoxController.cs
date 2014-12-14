@@ -117,6 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(id, userId);
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
+                result.ShortUrl = Url.RouteUrl("shortBox", new { box62Id = new Base62(id).ToString() });
                 return Json(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)

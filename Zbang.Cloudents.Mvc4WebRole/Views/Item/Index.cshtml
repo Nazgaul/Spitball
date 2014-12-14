@@ -5,12 +5,12 @@
 <div class="page itemPage" ng-controller="ItemCtrl" ng-class="::{blur : unreg }">
     <div class="topBar">
         @*<div class="leftPart">
-            <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">{{item.boxName}}</h2>
-                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-            </a>
-        </div>*@
+                <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
+                    <div>@SharedResources.Backto</div>
+                    <h2 class="semiFont elps">{{item.boxName}}</h2>
+                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                </a>
+            </div>*@
         <a title="@SharedResources.Close" class="closePreview rFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </a>
@@ -46,11 +46,7 @@
                         <div class="shareTxt">@SharedResources.ShareUsing</div>
                         <ul class="shareList">
                             <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
-
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="shareItem"><button type="button" ng-click="shareEmail()" class="emailShare">@SharedResources.Email</button></li>
-                            }
+                            <li ng-if="::!unreg" class="shareItem"><button type="button" ng-click="shareEmail()" class="emailShare">@SharedResources.Email</button></li>
                         </ul>
                         <div class="shareTxt">@SharedResources.OrCopyLink</div>
                         <input type="text" class="linkShare" readonly="readonly" ng-model="item.url" select-on-click />

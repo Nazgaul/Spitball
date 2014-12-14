@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Url
     /// </summary>
     public struct Base62
     {
-        private readonly int m_Value;
+        private readonly long m_Value;
         private string m_StringValue;
 
         public Base62(string value)
@@ -45,15 +45,17 @@ namespace Zbang.Zbox.Infrastructure.Url
             m_StringValue = value;
         }
 
-        public Base62(int value)
+        public Base62(long value)
         {
             m_Value = value;
             m_StringValue = null;
         }
 
-        private string ConvertToString(int value)
+
+
+        private string ConvertToString(long value)
         {
-            int mod = value % 62;
+            long mod = value % 62;
             char val;
 
             if (mod >= 0 && mod <= 9)
@@ -80,7 +82,7 @@ namespace Zbang.Zbox.Infrastructure.Url
             return ConvertToString(value / 62) + val;
         }
 
-        public int Value
+        public long Value
         {
             get { return m_Value; }
         }
@@ -101,7 +103,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public override int GetHashCode()
         {
-            return m_Value;
+            return m_Value.GetHashCode();
         }
 
         #region Base 62 Math
@@ -173,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Url
             return a.ToString();
         }
 
-        public static implicit operator int(Base62 a)
+        public static implicit operator long(Base62 a)
         {
             return a.Value;
         }
