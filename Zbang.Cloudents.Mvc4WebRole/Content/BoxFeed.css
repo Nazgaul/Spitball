@@ -349,15 +349,14 @@
   border: 1px solid #c2c2c2;
 }
 .feedReplies ~ .feedForm .attachedList {
-  width: 487px;
+  width: 465px;
 }
 /*#region attachments */
 .qaAttach {
   white-space: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
-  margin-top: 10px;
-  /*rtl*/
+  margin: 10px 0 20px;
 }
 .qaAttachItem {
   border: 1px solid #c2c2c2;
@@ -434,6 +433,7 @@
   border-left: 1px solid #282828;
   border-right: 1px solid #282828;
   white-space: normal;
+  width: 521px;
 }
 .attachedItem {
   background: #f0f0f0;
