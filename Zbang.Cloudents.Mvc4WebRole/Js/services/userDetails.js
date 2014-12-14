@@ -23,7 +23,8 @@
                  'cookieDomain': 'cloudents.com',
                  'alwaysSendReferrer': true
              });
-
+             ga('set', 'dimension1', data.university.name);
+             ga('set', 'dimension2', data.university.country);
              ga('set', 'dimension3', data.id);
          }
 
@@ -35,23 +36,20 @@
              score: data.score,
              url: data.url,
              isAdmin: data.isAdmin,
-             university: {
-                 // id: data.universityId,
-                 name: data.libName,
-                 image: data.libImage
-             }
-             //department: {
-             //    id: data.departmentId,
-             //    name: data.departmentName
 
-             //}
+             university: {
+                 country: 'IL',// for google analytics
+                 name: 'Open x', // for google analytics
+                 id: 5 // just for the fun
+             //    name: data.libName,
+             //    image: data.libImage
+             }
          };
 
          if (userData.name) {
              userData.firstName = data.name.split(' ')[0];
              userData.lastName = data.name.split(' ')[1];
          }
-
 
      }
      return {
@@ -63,13 +61,13 @@
              return isAuthenticated;
          },
 
-         getUniversity: function () {
-             if (_.isEmpty(userData.university)) {
-                 return false;
-             }
-             return userData.university;
+         //getUniversity: function () {
+         //    if (_.isEmpty(userData.university)) {
+         //        return false;
+         //    }
+         //    return userData.university;
 
-         },
+         //},
          initDetails: function () {
              if (this.isAuthenticated()) {
                  var defer = $q.defer();
@@ -87,23 +85,6 @@
 
              return promise;
          }
-         //setUniversity: function (uniName) {
-         //    if (uniName) {
-         //        userData.university = uniName;
-         //    }
-         //},
-         //getDepartment: function () {
-         //    if (!userData.department.id) {
-         //        return false;
-         //    }
-         //    //if (_.isEmpty(userData.department)) {
-         //    //    return false;
-         //    //}
-         //    return userData.department;
-         //},
-         //setDepartment: function (department) {
-         //    userData.department = department;
-         //}
      };
  }
  ]);

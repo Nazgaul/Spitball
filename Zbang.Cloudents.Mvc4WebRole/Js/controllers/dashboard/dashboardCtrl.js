@@ -60,7 +60,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         };
         
         $scope.recommendedCourses = sideBar.recommended;
-        $analytics.setVariable('dimension1', sideBar.info.uniName);
+        //$analytics.setVariable('dimension1', sideBar.info.uniName);
 
     });
         
