@@ -1,10 +1,12 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="splitHR"><span class="splitHRText">@LogOnResources.ByEmail</span></div>
 
 <div class="signIn">
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate >
+
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">Required</span>
             <span class="ng-message-error" ng-message="email">Email</span>
@@ -16,7 +18,7 @@
             <span class="ng-message-error" ng-message="required">Required</span>
         </div>        
         <input name="password" type="password" ng-class="{error: (loginSubmitted || loginForm.password.$touched) && loginForm.password.$error}" class="inputText" tabindex="2" placeholder="@LogOnResources.Password" required ng-model="formData.login.password" />
-        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">@LogOnResources.ForgotYourPassword</a>
+        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")" target="_self">@LogOnResources.ForgotYourPassword</a>
         <input type="checkbox" checked class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" ng-model="formData.login.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">זכור אותי</label>
         <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" ng-click="loginSubmitted = true">

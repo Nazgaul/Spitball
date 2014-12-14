@@ -81,7 +81,10 @@
                         $rootScope.$broadcast('closeQuizCreate', quiz.id);
                     }
                     calcQuizCount();
-                    $scope.info.feedLength--;
+             
+                    if ($scope.info.feedLength) {
+                        $scope.info.feedLength--;
+                    }
                 }
             };
 

@@ -165,8 +165,13 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             if (index > -1) {
                 $scope.filteredItems.splice(index, 1);
             }
-            $scope.info.itemsLength--;
-            $scope.info.feedLength--;
+            if ($scope.info.itemsLength) {
+                $scope.info.itemsLength--;
+            }
+            if ($scope.info.feedLength) {
+                $scope.info.feedLength--;
+            }
+
             if (item.tabId) {
                 sTabCount.notifyRemove(item.tabId);
             }

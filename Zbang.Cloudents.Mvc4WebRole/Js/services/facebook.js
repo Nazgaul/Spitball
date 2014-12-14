@@ -1,6 +1,6 @@
 ﻿app.factory('sFacebook',
-   ['$rootScope', '$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare', 'sGmfcnHandler', '$filter', 'sAccount',
-   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler, $filter, sAccount) {
+   ['$rootScope', '$q', '$analytics', '$timeout', '$angularCacheFactory', 'sShare', 'sGmfcnHandler', '$filter', 'sAccount', '$route', '$window',
+   function ($rootScope, $q, $analytics, $timeout, $angularCacheFactory, sShare, sGmfcnHandler, $filter, sAccount, $route, $window) {
        "use strict";
        var isAuthenticated = false,
            accessToken,
@@ -294,7 +294,9 @@
                    sAccount.facebookLogin({
                        token: accessToken,
                        boxId: data.boxId
-                   }).then(function (fbResponse) {                       
+                   }).then(function (fbResponse) {
+                       var routeName = $route.current.$$route.params.type;
+
                        if (fbResponse.isnew) {
                            FB.api('/me', function (response) {
                                var locale = response.locale.substr(0, response.locale.indexOf('_')),
@@ -304,7 +306,28 @@
                                }
                                this.postFeed(text, 'https://www.cloudents.com');
                            });
+
+
+                           if (data.boxId) {
+                               $window.location.reload();
+                               return;
+                           }
+
+                           if (routeName === 'account') {
+                               window.location.href = '/library/choose/';
+                               return;
+                           }
+
+                           return;
                        }
+
+                       if (routeName === 'account') {
+                           window.location.href = '/dashboard/';
+                           return;
+                       }
+
+                       $window.location.reload();
+
 
                        dfd.resolve();
                    });

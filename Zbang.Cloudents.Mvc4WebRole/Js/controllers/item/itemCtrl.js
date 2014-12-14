@@ -242,7 +242,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         $scope.popup.share = false;
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
-          $routeParams.uniName ? $scope.item.boxName + ' - ' + $routeParams.uniName : $scope.item.boxName, //caption          
+          $routeParams.uniName ? $routeParams.boxName + ' - ' + $routeParams.uniName : $routeParams.boxName, //caption          
           resManager.get('IShared') + ' ' + $scope.item.name + ' ' + resManager.get('OnCloudents') + '<center>&#160;</center><center></center>' + resManager.get('CloudentsJoin'),
             null //picture
        );
