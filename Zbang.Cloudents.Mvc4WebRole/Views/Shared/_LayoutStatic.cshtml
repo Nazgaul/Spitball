@@ -64,7 +64,7 @@
                 @{Html.RenderAction("GetUserDetail3", "Account", true);}
             </div>
             <a class="siteLogo" data-version="@VersionHelper.CurrentVersion(true)" href="@Url.Action("Index", "Dashboard")">
-                <svg class="svg-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Images/Defs.svg?23.2.0#logo"></use></svg>
+                @Html.Svg("Defs.svg", "logo",new {@class="svg-logo"})
             </a>
         </header>
         <div class="staticContent">
