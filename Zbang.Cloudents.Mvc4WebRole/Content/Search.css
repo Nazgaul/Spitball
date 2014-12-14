@@ -369,8 +369,10 @@
   font-weight: normal;
   padding: 0 16px;
   font-size: 13px;
+  height: 32px;
+  line-height: 32px;
 }
-.searchDD h3:first-of-type {
+.searchDD section:first-child h3 {
   border-top: none;
   border-radius: 5px 5px 0 0;
 }
