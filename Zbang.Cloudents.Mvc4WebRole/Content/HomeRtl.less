@@ -59,6 +59,12 @@
             float:left; /*rtl*/
         }
     }
+    .headerActions {
+        left: 0; /*rtl*/ // calc fallback
+        left: ~'-webkit-calc(50% - 512px)'; /*rtl*/
+        left: ~'calc(50% - 512px)'; /*rtl*/
+        right: auto;
+    }
 }
 
 .watch .sectionWpr:before{
@@ -68,12 +74,7 @@
     background-position: -963px -215px; /*rtl*/
 }
 
-.headerActions {
-    left: 0; /*rtl*/ // calc fallback
-    left: ~'-webkit-calc(50% - 512px)'; /*rtl*/
-    left: ~'calc(50% - 512px)'; /*rtl*/
-    right: auto;
-}
+
 
 .videoWpr {
     right: ~'-webkit-calc(50% - 512px)'; /*rtl*/
