@@ -17,9 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
 
-
-        //// for Mobile
-        public string Email { get; set; }
         public string LibName { get; set; }
         public string LibImage { get; set; }
 
