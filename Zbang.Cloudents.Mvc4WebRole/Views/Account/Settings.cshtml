@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
-@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserAccountDto
+@*@model Zbang.Zbox.ViewModel.Dto.UserDtos.UserAccountDto*@
 
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
@@ -17,10 +17,10 @@
     <div class="settingsContent">       
         <div ng-switch="params.currentTab">
             <div ng-switch-when="profile">
-                @{Html.RenderPartial("_AccountProfile", new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName });}
+                @{Html.RenderPartial("_AccountProfile"@*, new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName }*@);}
             </div>
             <div ng-switch-when="settings">
-                @{Html.RenderPartial("_AccountSettings", new AccountSettings { Language = new UserLanguage { Language = Model.Language } });}
+                @{Html.RenderPartial("_AccountSettings"@*, new Accountettings { Language = new UserLanguage { Language = Model.Language } }*@);}
             </div>
             <div ng-switch-when="storage">
                 @{Html.RenderPartial("_AccountStorage");}

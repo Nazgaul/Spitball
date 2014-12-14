@@ -13,8 +13,6 @@ ga('create', 'UA-9850006-3', {
     'alwaysSendReferrer': true
 });
 
-var isHomePage = location.pathname === '/account' || location.pathname === '/account/';
-
 window.fbAsyncInit = function () {
     FB.init({
         appId: '450314258355338',
@@ -46,12 +44,6 @@ window.fbAsyncInit = function () {
         facebookLogin = document.getElementById('facebookLogin');
 
 
-    if (isHomePage) {        
-        homeVideo.load();
-        homePageEvents();
-        ga('send', 'pageview');
-    }
-
     var menu = document.querySelector('aside ul');
     if (menu) {
         highlightPage(menu);
@@ -63,11 +55,7 @@ window.fbAsyncInit = function () {
         var pages = menu.children,
             url = location.href,
             pageAnchor;
-
-        if (isHomePage) {
-            pages[0].addClass('currentItem');
-            return;
-        }
+        
         for (var i = 1, l = pages.length; i < l; i++) {
             var pageAnchor = pages[i].querySelector('a');
             if (pageAnchor && pageAnchor.href && pageAnchor.href.toLowerCase() === url) {
@@ -130,13 +118,6 @@ window.fbAsyncInit = function () {
 
         });
 
-        //#endregion
-
-        //#region login
-
-        facebookLogin.addEventListener('click', function (e) {
-            connectApi.connectFb();
-        });
         //#endregion
     }
 
