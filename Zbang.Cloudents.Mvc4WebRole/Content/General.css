@@ -1786,7 +1786,7 @@ select.inputText {
   clear: both;
 }
 .barActions {
-  width: 170px;
+  width: 100px;
   position: relative;
   margin-top: 8px;
   height: 48px;
@@ -2009,6 +2009,12 @@ select.inputText {
 }
 /*#endregion */
 /*#region media queries */
+@media (max-width: 1255px) {
+  .siteHeader.headerBox,
+  .boxPage .leftPanel.leftPanel {
+    position: absolute;
+  }
+}
 /*@media (max-width: 1024px) {
 
     .mno-touch {

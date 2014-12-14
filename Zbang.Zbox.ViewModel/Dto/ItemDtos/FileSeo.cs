@@ -10,5 +10,7 @@
         public string Url { get; set; }
 
         public string Discriminator { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }
