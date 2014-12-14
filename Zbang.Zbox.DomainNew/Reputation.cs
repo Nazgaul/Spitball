@@ -72,6 +72,8 @@ namespace Zbang.Zbox.Domain
                     return ReputationConsts.AddQuizScore;
                 case ReputationAction.DeleteQuiz:
                     return ReputationConsts.DeleteQuizScore;
+                case ReputationAction.Register:
+                    return ReputationConsts.Register;
                 default:
                     return 0;
             }

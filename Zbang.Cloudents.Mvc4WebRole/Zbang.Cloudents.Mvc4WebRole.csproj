@@ -302,6 +302,7 @@
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\Confirmation.cs" />
+    <Compile Include="Models\Account\FacebookLogIn.cs" />
     <Compile Include="Models\Account\ForgotPassword.cs" />
     <Compile Include="Models\Account\ForgotPasswordLinkData.cs" />
     <Compile Include="Models\Account\Invite.cs" />
