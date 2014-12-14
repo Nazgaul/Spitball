@@ -353,14 +353,15 @@
 
         
         sVerChecker.checkVersion();
-        $rootScope.$on('$routeChangeStart', function (event, next) {
+        $rootScope.$on('$routeChangeStart', function (event, next,prev) {
             $window.scrollTo(0, 0);
 
             try {
+            
                 var routeName = next.$$route.params.type;
 
                 if (routeName === 'dashboard') {
-                    if (!sUserDetails.getDetails().university.id) {
+                    if (!sUserDetails.getDetails().universityId) {
                         event.preventDefault();
                     }
                 }

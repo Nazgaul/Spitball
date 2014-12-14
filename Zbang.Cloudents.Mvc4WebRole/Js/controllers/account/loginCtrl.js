@@ -47,6 +47,9 @@
                     var routeName = $route.current.$$route.params.type;
 
                     if (routeName === 'account') {
+                        window.location.href = '/dashboard/';
+                        
+                    } else {
                         $location.path('/dashboard/');
                     }
 
@@ -78,7 +81,13 @@
                         return;
                     }
 
-                    $location.path('/library/choose/');
+                    if (routeName === 'account') {
+                        windw.location.href = '/library/choose/';
+                    } else {
+                        $location.path('/library/choose/');
+                        
+                    }
+                    
 
 
                 }).finally(function () {
