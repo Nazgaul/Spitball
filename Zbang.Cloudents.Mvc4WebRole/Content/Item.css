@@ -560,7 +560,7 @@
   margin: 0 auto 10px;
   z-index: 0;
 }
-.divWrapper ~ .divWrapper img {
+.blur .divWrapper ~ .divWrapper img {
   -webkit-filter: blur(2px);
   filter: blur(2px);
 }
@@ -581,12 +581,6 @@
   background: #fff;
   color: #fff;
   height: 75vh;
-}
-.blur {
-  -moz-filter: blur(5px);
-  -ms-filter: blur(5px);
-  -webkit-filter: blur(5px);
-  filter: blur(5px);
 }
 .copyRightWarning {
   background: #fff;
