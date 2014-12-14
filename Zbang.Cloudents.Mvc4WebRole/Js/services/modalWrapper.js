@@ -42,10 +42,10 @@ app.factory('sModal',
                     return buildObj('welcome ' + params.windowClass, { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {
-                    return buildObj('itemReg', { url: '/account/ItemRegisterPartial' }, 'ItemRenameCtrl', 'none', true, params.data);
+                    return buildObj('itemReg', { url: '/item/itemregisterpartial' }, 'ItemRegCtrl', 'none', true, params.data);
                 },
                 congrats: function (params) {
-                    return buildObj('congrats', { url: '/account/CongratsPartial' }, 'CongratsCtrl', 'none', true, params.data);
+                    return buildObj('congrats', { url: '/account/congratspartial' }, 'CongratsCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {
                     return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'none', true, params.data);

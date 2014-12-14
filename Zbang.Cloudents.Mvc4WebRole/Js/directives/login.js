@@ -1,9 +1,9 @@
 ﻿app.directive('loginBtn',
-    ['sLogin','sFacebook',
-        function (sLogin,sFacebook) {
+    ['sLogin', 'sFacebook', '$routeParams',
+        function (sLogin, sFacebook, $routeParams) {
             "use strict";
             return {
-                restrict: "A",                
+                restrict: "A",
                 link: function (scope, elem, attrs) {
                     elem.click(function () {
                         switch (attrs.loginBtn) {
@@ -17,7 +17,7 @@
                                 sLogin.registerAction();
                                 break;
                             case 'facebook':
-                                sFacebook.registerFacebook();
+                                sFacebook.registerFacebook({ boxId: $routeParams.boxId });
                                 break;
                             default:
                                 sLogin.connect();

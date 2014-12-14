@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div class="page itemPage" ng-controller="ItemCtrl">
+<div class="page itemPage" ng-controller="ItemCtrl" ng-class="::{blur : unreg }">
     <div class="topBar">
         @*<div class="leftPart">
             <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
