@@ -257,7 +257,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
     };
 
     //#region analytics        
-    $analytics.setVariable('dimension1', $scope.info.universityName);
+    //$analytics.setVariable('dimension1', $scope.info.universityName);
 
     //#endregion
 

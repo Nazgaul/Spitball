@@ -73,12 +73,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
-            {
-                RouteData.Values.Remove("lang");
-                return RedirectToAction("Index");
-            }
-            return View("Empty");
+            if (lang == null || lang == Thread.CurrentThread.CurrentUICulture.Name) return View("Empty");
+            RouteData.Values.Remove("lang");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

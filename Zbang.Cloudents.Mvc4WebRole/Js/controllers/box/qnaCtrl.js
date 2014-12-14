@@ -1,8 +1,8 @@
 ﻿mBox.controller('QnACtrl',
 ['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
-    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler','sItem',
+    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sItem',
             function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics,
-                resManager, sNotify, sLogin, sGmfcnHandler,sItem) {
+                resManager, sNotify, sLogin, sGmfcnHandler, sItem) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -251,16 +251,38 @@
                     });
                 };
 
-                $scope.removeAttachment = function (obj, item) {
+                $scope.removeAttachmentQ = function (question, item) {
                     sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
-                        var index = obj.files.indexOf(item);
-                        obj.files.splice(index, 1);
+                        var index = question.files.indexOf(item);
+                        question.files.splice(index, 1);
+                        if (question.files.length === 0 && question.content.length === 0) {
+                            index = $scope.data.questions.indexOf(question);
+                            $scope.data.questions.splice(index, 1);
+                        }
                     }, function (response) {
                         sNotify.alert(response);
                     });
 
                     $analytics.eventTrack('Box Feed', {
-                        category: 'Remove attachment'
+                        category: 'Remove question attachment'
+                    });
+                };
+
+                $scope.removeAttachmentA = function (question, answer, item) {
+                    sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
+                        var index = answer.files.indexOf(item);
+                        answer.files.splice(index, 1);
+                        if (answer.files.length === 0 && answer.content.length === 0) {
+                            index = question.answers.indexOf(answer);
+                            question.answers.splice(index, 1);
+
+                        }
+                    }, function (response) {
+                        sNotify.alert(response);
+                    });
+
+                    $analytics.eventTrack('Box Feed', {
+                        category: 'Remove answer attachment'
                     });
                 };
 

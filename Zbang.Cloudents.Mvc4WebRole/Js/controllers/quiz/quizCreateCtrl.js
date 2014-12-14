@@ -571,7 +571,7 @@
             });
 
             sQuiz.save({
-                quizId: $scope.quiz.id, boxId: $scope.quiz.courseId, universityName: sUserDetails.getDetails().universityName, boxName: $scope.quiz.courseName, quizName: $scope.quiz.name
+                quizId: $scope.quiz.id
             }
             ).then(function (data) {
                 sGmfcnHandler.addPoints({ type: 'quiz' });
