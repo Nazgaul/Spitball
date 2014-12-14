@@ -39,7 +39,7 @@
                             <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             <div class="attachActions">
                                 <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachment(question,file)"></button>
+                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachmentQ(question,file)"></button>
                                 <a class="attachDownload" target="_blank" ng-href="{{::file.download}}"></a>
                             </div>
                         </li>
@@ -71,7 +71,7 @@
                                     <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                                     <div class="attachActions">
                                         <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                        <button class="attachDelete" type="button" ng-if="::file.isVisible" ng-click="removeAttachment(answer,file)"></button>
+                                        <button class="attachDelete" type="button" ng-if="::file.isVisible" ng-click="removeAttachmentA(question,answer,file)"></button>
                                         <a class="attachDownload" target="_blank" ng-href="{{::file.download}}"></a>
                                     </div>
                                 </li>
