@@ -117,3 +117,7 @@
   left: 14px;
   right: auto;
 }
+.bestUserList .svg-user {
+  right: -2px;
+  left: auto;
+}

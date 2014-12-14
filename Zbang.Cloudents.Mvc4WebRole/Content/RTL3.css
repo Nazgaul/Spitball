@@ -1404,6 +1404,7 @@
 /*#endregion */
 /*#endregion */
 /*#region Search page and drop down */
+/*#region search drop down */
 .searchItem {
   /*TEMP: OLD SEARCH*/
   /*TILL HERE*/
@@ -1416,6 +1417,26 @@
   margin: 0 3px 0 0;
   /*rtl*/
 }
+.searchDetails {
+  padding: 0 15px 0 0;
+  /*rtl*/
+}
+.boxLoc:before {
+  margin: 0 0 0 4px;
+  /*rtl*/
+}
+.dpt .searchDetails:before {
+  float: right;
+  /*rtl*/
+  margin: 0 0 0 16px;
+  /*rtl*/
+}
+.otherUni {
+  right: 71px;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */
 /*#region search overlay */
 /*TEMP: UNDO NEW SEARCH*/
 /*.searchInputWpr {
