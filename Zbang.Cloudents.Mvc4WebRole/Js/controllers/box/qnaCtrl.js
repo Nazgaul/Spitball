@@ -1,7 +1,7 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', 'sFocus',
     '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sItem',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics,
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, sFocus, $analytics,
                 resManager, sNotify, sLogin, sGmfcnHandler, sItem) {
                 "use strict";
                 function Question(data) {
@@ -298,7 +298,27 @@
                     });
                 };
 
-                //var qAttach, aAttach, questionAttach;
+                
+
+                $scope.$on('BeforeUpload', function (e, data) {
+                    if (data.newQuestion) {
+                        sFocus('newQuestion');
+                        return;
+                    }
+
+                    if (data.questionId) {
+                        var question = _.find($scope.data.questions, function (q) {
+                            return data.questionId === q.id;
+                        });
+
+                        if (!question) {
+                            return;
+                        }
+
+                        sFocus('answer' + $scope.data.questions.indexOf(question));
+                    }
+
+                });
                 $scope.$on('ItemUploaded', function (e, data) {
                     if (data.boxId !== $scope.boxId) {
                         return;
@@ -307,6 +327,7 @@
                     data.itemDto.uid = data.itemDto.id;
 
                     if (data.newQuestion) {
+
                         if ($scope.qFormData.files && $scope.qFormData.files.length) {
                             $scope.qFormData.files.push(data.itemDto);
                             return;
@@ -318,6 +339,7 @@
                         $analytics.eventTrack('Box Feed', {
                             category: 'Added Question Attachment'
                         });
+
 
                         return;
                     }
@@ -331,12 +353,16 @@
                             return;
                         }
 
+                    
+
                         if (question.aFormData.files && question.aFormData.files.length) {
                             question.aFormData.files.push(data.itemDto);
                             return;
                         }
 
                         question.aFormData.files = [data.itemDto];
+
+
 
                         $analytics.eventTrack('Box Feed', {
                             category: 'Added Answser Attachment'

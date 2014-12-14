@@ -356,16 +356,19 @@
         $rootScope.$on('$routeChangeStart', function (event, next, prev) {
             $window.scrollTo(0, 0);
 
-            try {
-                var routeName = next.$$route.params.type;
-                //if (routeName === 'dashboard') {
+            //if (!prev) {
+            //    return;
+            //}
+            //try {
+            //    var routeName = next.$$route.params.type;
+            //    if (routeName === 'account' && sUserDetails.getDetails) {
                 
 
-                //}
+            //    }
                
-            }
-            catch (ex) {
-            }
+            //}
+            //catch (ex) {
+            //}
 
         });
 
