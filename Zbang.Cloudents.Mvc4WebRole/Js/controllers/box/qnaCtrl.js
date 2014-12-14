@@ -230,24 +230,33 @@
                 };
 
                 $scope.deleteQuestion = function (question) {
-                    var index = $scope.data.questions.indexOf(question);
-                    $scope.data.questions.splice(index, 1);
+                    sNotify.confirm('Are you sure you want to delete?').then(function () {
+                        var index = $scope.data.questions.indexOf(question);
+                        $scope.data.questions.splice(index, 1);
 
-                    sQnA.delete.question({ questionId: question.id });
+                        sQnA.delete.question({ questionId: question.id });
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove Question'
+                        $analytics.eventTrack('Box Feed', {
+                            category: 'Remove Question'
+                        });
+
+                        if ($scope.info.feedLength) {
+                            $scope.info.feedLength--;
+                        }
+
                     });
-                    $scope.info.feedLength--;
                 };
 
                 $scope.deleteAnswer = function (question, answer) {
-                    var index = question.answers.indexOf(answer);
-                    question.answers.splice(index, 1);
-                    sQnA.delete.answer({ answerId: answer.id });
+                    sNotify.confirm('Are you sure you want to delete?').then(function () {
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove Answer'
+                        var index = question.answers.indexOf(answer);
+                        question.answers.splice(index, 1);
+                        sQnA.delete.answer({ answerId: answer.id });
+
+                        $analytics.eventTrack('Box Feed', {
+                            category: 'Remove Answer'
+                        });
                     });
                 };
 
@@ -301,6 +310,8 @@
                 
 
                 $scope.$on('BeforeUpload', function (e, data) {
+                    data = data || {};
+
                     if (data.newQuestion) {
                         sFocus('newQuestion');
                         return;

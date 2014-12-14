@@ -165,7 +165,7 @@
            }).
            when('/library/:libraryId/:libraryName/', {
                params: {
-                   type: 'library'
+                   type: 'department'
                },
                templateUrl: '/library/indexpartial/'
            }).
@@ -413,7 +413,7 @@
                             $rootScope.back.title = previous.pathParams.userName;
                             $rootScope.back.url = previous.loadedTemplateUrl;
                             break;
-                        case 'library':
+                        case 'department':
                             $rootScope.back.title = previous.params.libraryName;
                             $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
                             break;
@@ -427,9 +427,10 @@
                     }
                 }
 
-                if (current.$$route.params.type === 'library') {
-                    $rootScope.back.title = previous.pathParams.libraryName;
-                    $rootScope.back.url = previous.loadedTemplateUrl;
+                if (current.$$route.params.type === 'department' && previous.$$route.params.type === 'department') {
+                    $rootScope.back.title = previous.params.libraryName;
+                    $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+
                 }
             }
             catch (ex) {
