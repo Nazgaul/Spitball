@@ -20,7 +20,7 @@
                 @{Html.RenderPartial("_AccountProfile"@*, new Profile { Image = Model.Image, University = Model.University, UniversityImage = Model.UniversityPic, FirstName = Model.FirstName, MiddleName = Model.MiddleName, LastName = Model.LastName }*@);}
             </div>
             <div ng-switch-when="settings">
-                @{Html.RenderPartial("_AccountSettings"@*, new Accountettings { Language = new UserLanguage { Language = Model.Language } }*@);}
+                @{Html.RenderPartial("_AccountSettings", new AccountSettings());}
             </div>
             <div ng-switch-when="storage">
                 @{Html.RenderPartial("_AccountStorage");}
