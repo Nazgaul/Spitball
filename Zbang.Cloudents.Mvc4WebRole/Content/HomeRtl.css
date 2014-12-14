@@ -66,15 +66,7 @@
   float: left;
   /*rtl*/
 }
-.watch .sectionWpr:before {
-  margin: 35px 0 0 25px;
-  /*rtl*/
-}
-.logo {
-  background-position: -963px -215px;
-  /*rtl*/
-}
-.headerActions {
+.homepage .headerActions {
   left: 0;
   /*rtl*/
   left: -webkit-calc(50% - 512px);
@@ -82,6 +74,14 @@
   left: calc(50% - 512px);
   /*rtl*/
   right: auto;
+}
+.watch .sectionWpr:before {
+  margin: 35px 0 0 25px;
+  /*rtl*/
+}
+.logo {
+  background-position: -963px -215px;
+  /*rtl*/
 }
 .videoWpr {
   right: -webkit-calc(50% - 512px);
