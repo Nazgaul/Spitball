@@ -422,7 +422,6 @@
   color: #fff;
 }
 .searchItem:hover .boldPart {
-  background: none;
   color: #fff;
 }
 .searchItem > .searchTitle {
@@ -517,9 +516,6 @@
   -o-transition: left 0.5s;
   transition: left 0.5s;
   /*rtl*/
-}
-.searchPage .boldPart {
-  background: #cde3f4;
 }
 .searchPage .stars,
 .searchPage .views {
