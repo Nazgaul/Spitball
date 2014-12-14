@@ -17,8 +17,10 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
 
-        public string LibName { get; set; }
-        public string LibImage { get; set; }
+        public string UniversityCountry { get; set; }
+        public string UniversityName { get; set; }
+        public long UniversityId { get; set; }
+
 
         public bool IsAdmin { get; set; }
     }

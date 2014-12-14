@@ -23,8 +23,8 @@
                  'cookieDomain': 'cloudents.com',
                  'alwaysSendReferrer': true
              });
-             ga('set', 'dimension1', data.university.name);
-             ga('set', 'dimension2', data.university.country);
+             ga('set', 'dimension1', data.universityName);
+             ga('set', 'dimension2', data.universityCountry);
              ga('set', 'dimension3', data.id);
          }
 
@@ -38,9 +38,9 @@
              isAdmin: data.isAdmin,
 
              university: {
-                 country: 'IL',// for google analytics
-                 name: 'Open x', // for google analytics
-                 id: 5 // just for the fun
+                 country: data.universityCountry,// for google analytics
+                 name: data.universityName, // for google analytics
+                 id: data.universityId // just for the fun
              //    name: data.libName,
              //    image: data.libImage
              }

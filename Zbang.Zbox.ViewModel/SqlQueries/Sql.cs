@@ -190,8 +190,9 @@ and userreputation > 0
      u.Url as Url,
      u.Email as Email,
      u.UserReputation as Score,
-     uu.OrgName as LibName,
-     uu.LargeImage as LibImage,
+     uu.UniversityName as UniversityName,
+     uu.Country as UniversityCountry,
+	 uu.id as UniversityId,
      case when u.UserReputation >= uu.AdminScore then 1 else 0 end as isAdmin
      from zbox.Users u 
 	 left join zbox.University uu on u.UniversityId = uu.Id
