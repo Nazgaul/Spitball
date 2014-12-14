@@ -1889,7 +1889,7 @@ select.inputText {
 
 .barActions {
     //TEMP: OLDSEARCH (1 line)
-    width: 170px;
+    width: 100px;
     
     //TEMP: UNDO NEW SEARCH (1 line)
     //width: 100px;
@@ -2161,6 +2161,15 @@ select.inputText {
 /*#endregion */
 
 /*#region media queries */
+//setupschool media queries
+@media (max-width: 1255px) {
+    .siteHeader.headerBox, .boxPage .leftPanel.leftPanel {
+        position: absolute;
+    }
+}
+
+
+
 ////Note: Repeated occurrances of the same simple selector are allowed and do increase specificity.(http://www.w3.org/TR/css3-selectors/#specificity)
 
 //When viewport width becomes < 1024px we convert all of the fixed elments to absolute.
