@@ -8,7 +8,10 @@
         setInterval(checkVersion, timeInterval);
 
         return {
-            checkVersion: checkVersion
+            checkVersion: checkVersion,
+            currentVersion: function () {
+                return clientVersion;
+            }
         };
 
         function checkVersion() {
