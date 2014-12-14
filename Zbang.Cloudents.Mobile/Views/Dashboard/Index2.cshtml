@@ -3,13 +3,13 @@
 }
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <div id="dashboard" data-header="My area" class="page dashboard">
-    @{Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());}
+    @*@{Html.RenderPartial("_PrivateBoxDialog", new Zbang.Cloudents.Mvc4WebRole.Models.CreateBox());}
     
     <div class="topBtns">
         <a class="browseBtn lFloat" href="@Url.GenerateUrl("Index","Library")" data-navigation="Library">
             <img id="dashLibImg" src="" width="30" height="30" alt="lib img" />@SharedResources.BrowseCourses</a>
         <button type="button" data-modelNav="addBox" class="sprite1b createBtn lFloat">@SharedResources.CreateNew</button>
-    </div>
+    </div>*@
     <div data-bind="visible: isSearch" class="sectionHeader"><q data-bind="text: searchTerm"></q> - <span data-bind="text: boxes().length"></span>&nbsp;@SharedResources.Results</div>
     <ul class="courseList" data-bind="foreach: boxes">
         <li class="courseItem sprite1a">

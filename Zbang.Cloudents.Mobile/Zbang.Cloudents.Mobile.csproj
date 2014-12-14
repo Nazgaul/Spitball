@@ -520,9 +520,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Library\Resources\MainViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>MainViewResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Views\Shared\Resources\CountryResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1845,9 +1845,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\Defs.svg" />
     <Content Include="Views\Dashboard\_Invite.cshtml" />
-    <Content Include="Views\Library\_AddSchoolDialog.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1861,11 +1858,9 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Library\_CreateLibraryItem.cshtml" />
     <Content Include="startup\disableTimeout.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Library\_SelectUni.cshtml" />
     <Content Include="Views\Box\_CreateTab.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
@@ -1878,17 +1873,13 @@
     </Content>
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Views\Shared\_Layout3.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
-    <Content Include="Views\Library\Index.mobile.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Account\ResetPassword.mobile.cshtml" />
     <Content Include="Views\Account\Confirmation.mobile.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
-    <Content Include="Views\Library\_CreateLibraryItem.mobile.cshtml" />
-    <Content Include="Views\Library\_UploadCreateAcademicBox.mobile.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
@@ -1896,18 +1887,14 @@
     <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
     <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
-    <Content Include="Views\Box\Settings.mobile.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
-    <Content Include="Views\Library\InsertCode.cshtml" />
     <Content Include="Views\Account\_UserDetail4.cshtml" />
     <Content Include="Views\Item\_PreviewImage.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
-    <Content Include="Views\Library\InsertCode.mobile.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Box\_QnA.cshtml" />
-    <Content Include="Views\Library\_CreateAcademicBoxEmptyState.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
@@ -1916,18 +1903,12 @@
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Library\SelectDepartment.cshtml" />
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
-    <Content Include="Views\Quiz\Index.cshtml" />
-    <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
-    <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Shared\_CreateDepartment.cshtml" />
-    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
-    <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Dashboard\_UploadFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
@@ -1937,7 +1918,6 @@
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
-    <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsAuth.cshtml" />
@@ -2385,9 +2365,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
@@ -2522,9 +2502,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\Print.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Library\_Template.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />

@@ -22,15 +22,7 @@
         </div>
     }
     <ul class="settingsList">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <li>
-                <a data-modelNav href="@Url.GenerateUrl("Index", "Library")" data-navigation="Library" class="sprite1b panelBtn union elps">
-                    <img src="@Model.LibImage" width="20" height="20" alt="" id="menu_libImg" />@Model.LibName
-                </a>
-            </li>
-        }
-        <li>
+       <li>
             <a data-modelNav href="@Url.Action("Index", "Dashboard")" data-navigation="Dashboard"
                data-log="@User.Identity.IsAuthenticated.ToString().ToLower()" class="sprite1b panelBtn mySpace elps">@SharedResources.Dashboard</a>
         </li>

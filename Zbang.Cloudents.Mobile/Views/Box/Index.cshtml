@@ -1,5 +1,4 @@
 ﻿@{
-    //ViewBag.headerTitle = @IndexResources.Box;
     ViewBag.data = ViewBag.data ?? null;
 }
 @using Zbang.Cloudents.Mobile.Views.Box.Resources
@@ -20,16 +19,16 @@
             <!--/ko-->
 
         </div>
-        <div class="friends">
+        @*<div class="friends">
             <ul class="friendsList">
                 <li><button class="boxSprite addFriend" data-bind="click: invite" data-modelNav="boxInvite"></button></li>
                 <li class="inviteBtn"><button type="button" data-modelNav="boxInvite" class="boldFont" data-bind="click: invite">@MobileBoxResources.InviteFriends</button></li>
                 <!-- ko foreach:members-->
                 <li class="lFloat friendItem"><img data-bind="attr: { src: image }" alt="" width="32" height="32"></li>
                 <!-- /ko -->
-                @*<li><a class="moreFriends" href="#friendsPage" data-bind="text: '+' + subMemerbs()"></a></li>*@
+                @*<li><a class="moreFriends" href="#friendsPage" data-bind="text: '+' + subMemerbs()"></a></li>
             </ul>
-        </div>
+        </div>*@
     </div>
     
     <!--ko if:follow-->
