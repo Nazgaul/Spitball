@@ -64,6 +64,7 @@ and i.publish = 1 ) t";
 ,u.Country
 ,b.BoxName
 ,i.Discriminator
+,i.ThumbnailUrl as ImageUrl
 from zbox.item i 
 join zbox.box b on i.BoxId = b.BoxId
 left join zbox.University u on b.University = u.Id

@@ -86,6 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [PreserveQueryString]
         public async Task<RedirectResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);

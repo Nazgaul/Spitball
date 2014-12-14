@@ -94,6 +94,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.BoxName, seoItemName, BaseControllerResources.Cloudents);
 
                 ViewBag.Description = model.Description;
+                ViewBag.fbImage = model.ImageUrl;
                 if (!string.IsNullOrEmpty(model.Description))
                 {
                     var metaDescription = model.Description.RemoveEndOfString(197);
