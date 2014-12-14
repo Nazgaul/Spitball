@@ -2045,6 +2045,7 @@
     <Content Include="Views\Account\_LogonAngular.cshtml" />
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Shared\Partials\_CouponPopup.cshtml" />
+    <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
