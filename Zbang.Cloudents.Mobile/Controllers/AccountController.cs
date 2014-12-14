@@ -9,6 +9,7 @@ using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
 using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.Mobile.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -137,7 +138,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale, invId);
+                        false, facebookUserData.locale, invId, boxId);
                     var commandResult = ZboxWriteService.CreateUser(command);
                     user = new LogInUserDto
                     {
@@ -276,9 +277,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     }
 
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
-                        model.NewEmail, model.UniversityId, model.FirstName, string.Empty, model.LastName,
+                        model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, model.Language.Language, invId);
+                        model.MarketEmail, model.Language.Language, invId, model.BoxId);
                     var result = ZboxWriteService.CreateUser(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,
@@ -772,21 +773,21 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
             return JsonOk();
         }
-        
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult CongratsPartial()
-        {
-            try
-            {
-                return PartialView("_Congrats");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Congrats", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult CongratsPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Congrats");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Congrats", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]

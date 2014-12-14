@@ -4,8 +4,8 @@
 
 @*TEMP: UNDO NEW SEARCH*@
 @*<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
-    @{Html.RenderPartial("_BarSearch");}
-</div>*@
+        @{Html.RenderPartial("_BarSearch");}
+    </div>*@
 <div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
@@ -36,10 +36,7 @@
                     <div class="shareTxt">{{strings.invite}}</div>
                     <ul class="shareList">
                         <li class="shareItem"><button type="button" class="fbShare" ng-click="shareFacebook()">@SharedResources.Facebook</button></li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
-                        }
+                        <li ng-if="::isUserLoggedIn()" class="shareItem"><button type="button" class="emailShare" ng-click="shareEmail()">@SharedResources.Email</button></li>
                     </ul>
                     <div class="shareTxt">@SharedResources.OrCopyLink</div>
                     <input type="text" class="linkShare" ng-model="info.url" readonly="readonly" select-on-click />
@@ -174,7 +171,7 @@
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
                 </div>
-            </div>*@ 
+            </div>*@
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
             <div ng-switch-when="feed">
                 @{Html.RenderPartial("_Feed");}

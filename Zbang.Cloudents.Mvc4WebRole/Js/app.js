@@ -351,32 +351,40 @@
 
 
 
-        
+
         sVerChecker.checkVersion();
-        $rootScope.$on('$routeChangeStart', function (event, next) {
+        $rootScope.$on('$routeChangeStart', function (event, next, prev) {
             $window.scrollTo(0, 0);
 
             try {
                 var routeName = next.$$route.params.type;
+                //if (routeName === 'dashboard') {
+                
 
-                if (routeName === 'dashboard') {
-                    if (!sUserDetails.getDetails().university.id) {
-                        event.preventDefault();
-                    }
-                }
-
+                //}
+               
             }
             catch (ex) {
-
             }
-                        
+
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-
+            if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
+                event.preventDefault();
+                $location.path('/library/choose/');
+                return;
+            }
+            if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
+                $location.path('/dashboard/');
+                return;
+            }
             //title 
             if (!previous) { //no previous firsttime load        
                 try {
+                   
+                    
+                    
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {
                             sNewUpdates.removeUpdates(current.params.boxId);
@@ -430,17 +438,17 @@
 
         var htmlCache = $angularCacheFactory('htmlCache', {
             maxAge: 2592000000,
-            deleteOnExpire: 'aggressive',            
+            deleteOnExpire: 'aggressive',
             storageMode: 'localStorage'
         });
 
         var cachePages = {
-            dashboard:'/dashboard/indexpartial/',
-            box:'/box/indexpartial/',
-            item:'/item/indexpartial/',
-            quiz:'/quiz/indexpartial/',
-            library:'/library/indexpartial/'
-        };        
+            dashboard: '/dashboard/indexpartial/',
+            box: '/box/indexpartial/',
+            item: '/item/indexpartial/',
+            quiz: '/quiz/indexpartial/',
+            library: '/library/indexpartial/'
+        };
 
 
 
@@ -464,7 +472,7 @@
             $rootScope.back.title = 'Dashboard';
         }
 
-        function putInCache(key,res) {
+        function putInCache(key, res) {
             $templateCache.put(key, res.data);
         }
     }]);

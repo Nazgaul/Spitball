@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Cloudents.Mobile.Models.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Common;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
+namespace Zbang.Cloudents.Mobile.Models.Account
 {
     public class Register
     {

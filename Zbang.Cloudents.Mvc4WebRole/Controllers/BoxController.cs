@@ -17,6 +17,7 @@ using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
@@ -84,6 +85,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+        public async Task<RedirectResult> ShortUrl(string box62Id)
+        {
+            var base62 = new Base62(box62Id);
+            var userId = User.GetUserId(false);
+            var query = new GetBoxSeoQuery(base62.Value, userId);
+            var model = await ZboxReadService.GetBoxSeo(query);
+            return RedirectPermanent(model.Url);
+
+        }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage",
             Options = OutputCacheOptions.IgnoreQueryString
@@ -106,6 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(id, userId);
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
+                result.ShortUrl = Url.RouteUrl("shortBox", new { box62Id = new Base62(id).ToString() });
                 return Json(new JsonResponse(true, result));
             }
             catch (BoxAccessDeniedException)

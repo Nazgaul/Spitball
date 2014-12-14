@@ -47,7 +47,8 @@
                     var routeName = $route.current.$$route.params.type;
 
                     if (routeName === 'account') {
-                        $location.path('/dashboard/');
+                        window.location.href = '/dashboard/';
+                        return;
                     }
 
                     $window.location.reload();
@@ -67,6 +68,7 @@
                 }
 
                 sAccount.register($scope.formData.register).then(function () {
+                    var routeName = $route.current.$$route.params.type;
                     var cache = $angularCacheFactory('points', {
                         maxAge: 600000
                     });
@@ -78,7 +80,15 @@
                         return;
                     }
 
-                    $location.path('/library/choose/');
+                    if (routeName === 'account') {
+                        window.location.href = '/library/choose/';
+                    }
+                        //for now we do postback all the time
+                    //else {
+                    //    $location.path('/library/choose/');
+                        
+                    //}
+                    
 
 
                 }).finally(function () {
