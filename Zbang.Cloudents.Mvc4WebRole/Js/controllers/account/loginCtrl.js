@@ -2,6 +2,7 @@
     ['$scope', '$window', '$route', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
         function ($scope, $window, $route, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
             "use strict";
+            var loginDisable, registerDisable;
 
             $scope.params.currentState = data.state;
 
@@ -37,6 +38,11 @@
             };
 
             $scope.login = function () {
+                if (loginDisable) {
+                    return;
+                }
+                loginDisable = true;
+
                 sAccount.login($scope.formData.login).then(function () {
                     var routeName = $route.current.$$route.params.type;
 
@@ -45,10 +51,17 @@
                     }
 
                     $window.location.reload();
+                }).finally(function () {
+                    loginDisable = false;
                 });
             };
 
             $scope.register = function () {
+                if (registerDisable) {
+                    return;
+                }
+                registerDisable = true;
+
                 if ($routeParams.boxId) {
                     $scope.formData.register.boxId = $routeParams.boxId;
                 }
@@ -68,6 +81,8 @@
                     $location.path('/library/choose/');
 
 
+                }).finally(function () {
+                    registerDisable = false;
                 });
             };
 

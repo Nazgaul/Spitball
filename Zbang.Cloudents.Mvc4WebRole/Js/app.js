@@ -360,7 +360,9 @@
                 var routeName = next.$$route.params.type;
 
                 if (routeName === 'dashboard') {
-
+                    if (!sUserDetails.getDetails().university.id) {
+                        event.preventDefault();
+                    }
                 }
 
             }
