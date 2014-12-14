@@ -23,7 +23,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
 
     sItem.load({ itemId: itemId, boxId: boxId }).then(function (data) {
         $scope.item = data;
-        $scope.item.url = $location.absUrl();
+        $scope.item.url = decodeURI(location.origin + data.shortUrl);
         $scope.item.downloadUrl = $location.url() + 'download/';
         $scope.item.printUrl = $location.url() + 'print/';
         getPreview();

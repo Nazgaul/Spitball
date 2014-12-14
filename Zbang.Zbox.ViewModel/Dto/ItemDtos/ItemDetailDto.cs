@@ -40,5 +40,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public UserRelationshipType UserType { get; set; }
 
         public IEnumerable<ActivityDtos.AnnotationDto> Comments { get; set; }
+
+        public string ShortUrl { get; set; }
     }
 }
