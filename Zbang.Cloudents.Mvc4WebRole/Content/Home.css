@@ -189,14 +189,7 @@
   /*rtl*/
   margin-top: 35px;
 }
-.logo {
-  width: 190px;
-  height: 52px;
-  background: url(/Images/hp18-sprite.png?v=3) -881px -271px no-repeat;
-  /*rtl*/
-  margin-top: 20px;
-}
-.headerActions {
+.homepage .headerActions {
   margin-top: 2px;
   position: absolute;
   top: 20px;
@@ -211,7 +204,7 @@
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
 }
-.headerActions .btn {
+.homepage .headerActions .btn {
   background: #fff;
   color: #0f9d58;
   display: inline-block;
@@ -224,8 +217,15 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.headerActions .btn:hover {
+.homepage .headerActions .btn:hover {
   background: #ececec;
+}
+.logo {
+  width: 190px;
+  height: 52px;
+  background: url(/Images/hp18-sprite.png?v=3) -881px -271px no-repeat;
+  /*rtl*/
+  margin-top: 20px;
 }
 .signupText {
   padding: 166px 0 15px;

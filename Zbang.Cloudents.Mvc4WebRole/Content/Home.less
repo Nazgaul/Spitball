@@ -186,6 +186,32 @@
             margin-top: 35px;
         }
     }
+    .headerActions {
+        margin-top: 2px;
+        position: absolute;
+        top: 20px;
+        right: 0; /*rtl*/ // calc fallback
+        right: ~'-webkit-calc(50% - 512px)'; /*rtl*/
+        right: ~'calc(50% - 512px)'; /*rtl*/
+        .transition(all, .5s);
+
+        .btn {
+            background: #fff;
+            color: @color;
+
+            display: inline-block;
+            margin: 0 4px;
+            font-size: 13px;
+            min-width: 78px;
+            border-radius: 5px;
+            padding: 3px 20px 4px;
+            .boxSizing;
+
+            &:hover {
+                background: #ececec;
+            }
+        }
+    }
 }
 
 .logo {
@@ -196,32 +222,7 @@
 }
 
 
-.headerActions {
-    margin-top: 2px;
-    position: absolute;
-    top: 20px;
-    right: 0; /*rtl*/ // calc fallback
-    right: ~'-webkit-calc(50% - 512px)'; /*rtl*/
-    right: ~'calc(50% - 512px)'; /*rtl*/
-    .transition(all, .5s);
 
-    .btn {
-        background: #fff;
-        color: @color;
-
-        display: inline-block;
-        margin: 0 4px;
-        font-size: 13px;
-        min-width: 78px;
-        border-radius: 5px;
-        padding: 3px 20px 4px;
-        .boxSizing;
-
-        &:hover {
-            background: #ececec;
-        }
-    }
-}
 
 .signupText{
     padding: 166px 0 15px;
