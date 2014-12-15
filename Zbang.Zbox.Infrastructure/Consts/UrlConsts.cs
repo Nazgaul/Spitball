@@ -81,7 +81,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
 
 
-            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl,
+                NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
             if (fullUrl)
             {
                 return CloudentsUrl + relativeUrl;
@@ -137,8 +138,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
             char previousChar = '\0';
             var sb = new StringBuilder();
             name = name.Replace(Convert.ToChar(160), ' ');
+
             foreach (var character in name)
             {
+                if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
+                    continue;
                 switch (character)
                 {
 
@@ -167,6 +171,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                     case '"':
                     case '#':
                     case '\'':
+
                         continue;
                     case ' ':
                     case '_':
