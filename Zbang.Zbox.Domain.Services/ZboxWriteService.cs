@@ -110,7 +110,7 @@ namespace Zbang.Zbox.Domain.Services
         //        UnitOfWork.Current.TransactionalFlush();
         //    }
         //}
-        public void UnfollowBox(UnfollowBoxCommand command)
+        public void UnFollowBox(UnfollowBoxCommand command)
         {
             using (UnitOfWork.Start())
             {

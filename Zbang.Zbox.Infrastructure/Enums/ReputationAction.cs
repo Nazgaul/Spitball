@@ -21,7 +21,13 @@ namespace Zbang.Zbox.Infrastructure.Enums
         UnRate3Stars = 103,
         UnRate4Stars = 104,
         UnRate5Stars = 105,
-        Register = 13
+        Register = 13,
+        AddItemComment = 14,
+        AddItemReply = 15,
+        DeleteItemComment = 107,
+        DeleteItemReply = 108
+
+
 
 
     }

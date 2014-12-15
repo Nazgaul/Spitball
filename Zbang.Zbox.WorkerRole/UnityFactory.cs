@@ -11,7 +11,7 @@ namespace Zbang.Zbox.WorkerRole
     internal class UnityFactory
     {
         // UnityContainer unityFactory;
-        public const string DeleteCahceBlobContainer = "deleteCacheBlobContainer";
+        public const string DeleteCacheBlobContainer = "deleteCacheBlobContainer";
         public const string PreProcessFiles = "generateDocumentCache";
         public const string MailProcess2 = "mailProcess2";
         public const string DigestEmail2 = "digestEmail2";
@@ -74,8 +74,8 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IDomainProcess, FlagBadItem>(Infrastructure.Transport.DomainProcess.BadItemResolver);
             Unity.RegisterType<IDomainProcess, UpdatesProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
             Unity.RegisterType<IDomainProcess, UpdateUniversitySearch>(Infrastructure.Transport.DomainProcess.UniversityResolver);
-            
-
+            Unity.RegisterType<IDomainProcess, UpdateReputation>(
+                Infrastructure.Transport.DomainProcess.ReputationResolver);
             //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }

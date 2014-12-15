@@ -4,13 +4,13 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class SubscribeToSharedBoxCommand : ICommand
     {
-        public SubscribeToSharedBoxCommand(long id, long boxId)
+        public SubscribeToSharedBoxCommand(long userId, long boxId)
         {
-            Id = id;
+            UserId = userId;
             BoxId = boxId;
         }
 
-        public long Id { get; private set; }
+        public long UserId { get; private set; }
 
         public long BoxId { get; private set; }
 

@@ -142,8 +142,8 @@ namespace Zbang.Zbox.Domain
         { }
 
         public File(string itemName, User uploaderUser, long sized, string blobName,
-            string thumbnailBlobName, Box box, string thumbnalUrl)
-            : base(itemName, uploaderUser, sized, box, blobName, thumbnailBlobName, thumbnalUrl)
+            string thumbnailBlobName, Box box, string thumbnailUrl)
+            : base(itemName, uploaderUser, sized, box, blobName, thumbnailBlobName, thumbnailUrl)
         { }
 
         public void IncreaseNumberOfDownloads()

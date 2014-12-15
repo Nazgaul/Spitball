@@ -74,6 +74,14 @@ namespace Zbang.Zbox.Domain
                     return ReputationConsts.DeleteQuizScore;
                 case ReputationAction.Register:
                     return ReputationConsts.Register;
+                case ReputationAction.AddItemComment:
+                    return ReputationConsts.AddItemCommentScore;
+                case ReputationAction.AddItemReply:
+                    return ReputationConsts.AddItemReplyScore;
+                case ReputationAction.DeleteItemComment:
+                    return ReputationConsts.DeleteItemCommentScore;
+                case ReputationAction.DeleteItemReply:
+                    return ReputationConsts.DeleteItemReplyScore;
                 default:
                     return 0;
             }
