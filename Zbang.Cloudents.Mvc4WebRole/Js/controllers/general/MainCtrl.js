@@ -45,20 +45,7 @@
                 try {
                     $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
                     $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
-                    $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;
-
-
-                    $rootScope.params.store.currentTab = current.$$route.params.type;
-
-                    if (current.$$route.params.type === 'products' && current.params.categoryId === '646') {
-                        $rootScope.params.store.currentTab = 'sales';
-                    }
-
-                    if (current.$$route.originalPath.toLowerCase().indexOf('store') > -1 && !sUserDetails.isAuthenticated() &&
-                         !$scope.params.store.showRegisterPopup) {
-                        $scope.params.store.showRegisterPopup = true;
-                        sLogin.registerAction();
-                    }
+                    $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;                    
                 }
                 catch (ex) {
                 }
@@ -118,36 +105,7 @@
                 }
 
                 return $rootScope.params.isQuiz;
-            }
-
-            $rootScope.validateCoupon = function () {
-                var invalidCouponMessage = 'קופון שגוי';
-                if (!$rootScope.params.store.coupon.code) {
-                    return;
-                }
-
-                var isNumber = /^\d+$/.test($rootScope.params.store.coupon.code);
-
-                if (!isNumber) {
-                    sNotify.alert(invalidCouponMessage);
-                    return;
-                }
-
-                $rootScope.params.store.coupon.buttonDisabled = true;
-
-                sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
-                    $rootScope.params.store.coupon.buttonDisabled = false;
-                    if (response.isValid) {
-                        $rootScope.params.store.coupon.valid = true;
-                        $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
-                        sLogin.reset();
-                        return;
-                    }
-                    sNotify.alert(invalidCouponMessage);
-                }).finally(function () {
-                    $rootScope.params.store.coupon.buttonDisabled = false;
-                });
-            };
+            }           
 
             $rootScope.logout = function (e) {
                 e.preventDefault();

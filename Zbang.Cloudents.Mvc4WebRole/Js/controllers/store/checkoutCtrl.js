@@ -1,7 +1,12 @@
 ﻿app.controller('CheckoutCtrl',
-    ['$scope', '$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus', '$analytics', 'sNotify',
-    function ($scope, $rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus, $analytics, sNotify) {
+    ['$scope', '$rootScope', '$filter', '$timeout', '$window', '$routeParams', '$location', 'Store', 'sUserDetails', 'sFocus', '$analytics', 'sNotify','$controller',
+    function ($scope, $rootScope, $filter, $timeout, $window, $routeParams, $location, Store, sUserDetails, sFocus, $analytics, sNotify, $controller) {
         "use strict";
+
+        angular.extend(this, $controller('StoreCtrl', { $scope: $scope }));
+
+
+        $scope.setCurrentTab();
         //ATTENTION: scope.products comes from ViewBag using bag-data directive
         $scope.product = $scope.viewBag;
 

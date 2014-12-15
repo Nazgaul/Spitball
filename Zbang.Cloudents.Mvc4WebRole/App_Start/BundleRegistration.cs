@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "angular-store", new[]
                     {
-                        //new JsFileWithCdn("/js/controllers/store/homeCtrl.js"),
+                        new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/contactCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),

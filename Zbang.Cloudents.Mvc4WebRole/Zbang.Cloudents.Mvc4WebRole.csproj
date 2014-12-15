@@ -928,6 +928,8 @@
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
+    <Content Include="Js\controllers\store\couponCtrl.js" />
+    <Content Include="Js\controllers\store\storeCtrl.js" />
     <Content Include="Js\controllers\store\carouselCtrl.js" />
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />

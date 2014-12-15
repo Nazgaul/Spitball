@@ -1,8 +1,12 @@
-﻿
-app.controller('CategoryCtrl',
-    ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store','$analytics',
-    function ($scope, $routeParams, $timeout, $location, $window, sStore, $analytics) {
+﻿app.controller('CategoryCtrl',
+    ['$scope', '$routeParams', '$timeout', '$location', '$window', 'Store','$analytics','$controller',
+    function ($scope, $routeParams, $timeout, $location, $window, sStore, $analytics, $controller) {
         "use strict";
+
+        angular.extend(this, $controller('StoreCtrl', { $scope: $scope}));
+
+        $scope.setCurrentTab();
+
         var consts = {
             defaultMaxProducts: 9,
             productsIncrement: 9
