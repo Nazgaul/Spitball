@@ -57,6 +57,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual Comment Comment { get; set; }
 
+        public virtual ICollection<Updates> Updates { get; set; }
+
         public virtual void GenerateUrl()
         {
             if (Id == 0)

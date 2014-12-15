@@ -26,11 +26,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
-            ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnfollowBoxCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnFollowBoxCommandHandler));
             
 
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>), typeof(AddFileToBoxCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<AddLinkToBoxCommand, AddLinkToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddLinkToBoxCommand, AddLinkToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>), typeof(ChangeFileNameCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateThumbnailCommand>), typeof(UpdateThumbnailCommandHandler));
 
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsOldCommand>), typeof(MarkMessagesAsOldCommandHandler));
 
 
-            ioc.RegisterType(typeof(ICommandHandler<AddReputationCommand>), typeof(AddReputationCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddReputationCommand>), typeof(AddReputationCommandHandler));
 
             //updates
             ioc.RegisterType(typeof(ICommandHandler<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
@@ -102,7 +102,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<CreateQuestionCommand>), typeof(CreateQuestionCommandHandler))
             .RegisterType(typeof(ICommandHandler<DeleteAnswerCommand>), typeof(DeleteAnswerCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateAnswerCommand>), typeof(UpdateAnswerCommandHandler))
-            .RegisterType(typeof(ICommandHandler<SaveQuizCommand, SaveQuizCommandResult>), typeof(SaveQuizCommandHandler))
+            .RegisterType(typeof(ICommandHandlerAsync<SaveQuizCommand, SaveQuizCommandResult>), typeof(SaveQuizCommandHandler))
             .RegisterType(typeof(ICommandHandler<SaveUserQuizCommand>), typeof(SaveUserQuizCommandHandler))
             .RegisterType(typeof(ICommandHandler<CreateDiscussionCommand>), typeof(CreateDiscussionCommandHandler))
             .RegisterType(typeof(ICommandHandler<DeleteDiscussionCommand>), typeof(DeleteDiscussionCommandHandler))

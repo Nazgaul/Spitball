@@ -25,7 +25,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             if (parameters == null) return true;
             try
             {
-                m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserId));
+                m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds));
             }
             catch (Exception ex)
             {

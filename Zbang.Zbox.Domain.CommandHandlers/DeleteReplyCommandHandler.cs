@@ -3,21 +3,22 @@ using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteReplyCommandHandler : ICommandHandler<DeleteReplyCommand>
     {
         private readonly IRepository<CommentReplies> m_AnswerRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
         public DeleteReplyCommandHandler(
             IRepository<CommentReplies> answerRepository,
-            IRepository<Reputation> reputationRepository
-            )
+            IQueueProvider queueProvider)
         {
             m_AnswerRepository = answerRepository;
-            m_ReputationRepository = reputationRepository;
+            m_QueueProvider = queueProvider;
         }
         public void Handle(DeleteReplyCommand message)
         {
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User didn't ask the answer");
             }
 
-            m_ReputationRepository.Save(answer.User.AddReputation(Infrastructure.Enums.ReputationAction.DeleteAnswer));
+            m_QueueProvider.InsertMessageToTranaction(new ReputationData(answer.User.Id));
             m_AnswerRepository.Delete(answer);
 
         }

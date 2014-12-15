@@ -5,6 +5,8 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -15,17 +17,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
+        private readonly IQueueProvider m_QueueRepository;
+
 
         public AddReplyToAnnotationCommandHandler(IUserRepository userRepository,
             IRepository<Item> itemRepository,
             IRepository<ItemComment> itemCommentRepository,
-            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<Box> boxRepository)
+            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<Box> boxRepository, IQueueProvider queueRepository)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
             m_BoxRepository = boxRepository;
+            m_QueueRepository = queueRepository;
         }
         public void Handle(AddReplyToAnnotationCommand message)
         {
@@ -46,6 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = new ItemCommentReply(user, item, message.Comment, itemComment);
             m_ItemCommentReplyRepository.Save(comment);
 
+            m_QueueRepository.InsertMessageToTranaction(new ReputationData(user.Id));
             message.ReplyId = comment.Id;
             
         }

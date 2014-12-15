@@ -22,7 +22,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IBlobProvider m_BlobProvider;
@@ -36,7 +35,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
             IFileProcessorFactory fileProcessorFactory,
-            IRepository<Reputation> reputationRepository,
             IBlobProvider blobProvider, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
@@ -45,7 +43,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
             m_FileProcessorFactory = fileProcessorFactory;
-            m_ReputationRepository = reputationRepository;
             m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
@@ -99,15 +96,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box, true);
 
             user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
-            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
-            m_UserRepository.Save(user);
-
             AddItemToTab(command.TabId, item);
 
             var t1 = TriggerCacheDocument(command.BlobAddressName, item.Id);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, item.Id));
-            var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t1, t2);
 
             var result = new AddFileToBoxCommandResult(item);
 

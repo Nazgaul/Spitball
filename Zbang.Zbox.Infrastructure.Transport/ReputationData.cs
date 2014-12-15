@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System.Collections.Generic;
+using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -12,11 +13,16 @@ namespace Zbang.Zbox.Infrastructure.Transport
         
         public ReputationData(long userId)
         {
-            UserId = userId;
+            UserIds = new[] { userId};
+        }
+
+        public ReputationData(IEnumerable<long> userIds)
+        {
+            UserIds = userIds;
         }
 
         [ProtoMember(1)]
-        public long UserId { get; private set; }
+        public IEnumerable<long> UserIds { get; private set; }
         public override string ProcessResolver
         {
             get { return ReputationResolver; }

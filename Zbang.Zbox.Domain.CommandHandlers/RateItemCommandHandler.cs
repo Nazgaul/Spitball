@@ -4,33 +4,33 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class RateItemCommandHandler : ICommandHandler<RateItemCommand>
     {
-        private readonly IItemRateRepository m_ItemRateRepositoy;
+        private readonly IItemRateRepository m_ItemRateRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
 
         public RateItemCommandHandler(
             IItemRateRepository itemRateRepository,
             IRepository<Item> itemRepository,
-            IUserRepository userRepository,
-            IRepository<Reputation> reputationRepository
-            )
+            IUserRepository userRepository, IQueueProvider queueProvider)
         {
-            m_ItemRateRepositoy = itemRateRepository;
+            m_ItemRateRepository = itemRateRepository;
             m_ItemRepository = itemRepository;
             m_UserRepository = userRepository;
-            m_ReputationRepository = reputationRepository;
+            m_QueueProvider = queueProvider;
         }
         public void Handle(RateItemCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var userRate = m_ItemRateRepositoy.GetRateOfUser(message.UserId, message.ItemId);
+            var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
 
             var item = m_ItemRepository.Load(message.ItemId);
             var user = m_UserRepository.Load(message.UserId);
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (userRate != null)
             {
                 userRate.Rate = message.Rate;
-                m_ItemRateRepositoy.Save(userRate, true);
+                m_ItemRateRepository.Save(userRate, true);
 
                 var avg = CalculateAverage(message.ItemId);
 
@@ -50,12 +50,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             }
             userRate = new ItemRate(user, item, message.Id, message.Rate);
-            m_ItemRateRepositoy.Save(userRate, true);
+            m_ItemRateRepository.Save(userRate, true);
 
             var average = CalculateAverage(message.ItemId);
 
             item.CalculateRate((int)average);
-            m_ReputationRepository.Save(item.Uploader.AddReputation(GetReputaionByPoistion(message.Rate)));
+
+            m_QueueProvider.InsertMessageToTranaction(new ReputationData(item.Uploader.Id));
 
             m_ItemRepository.Save(item);
             m_UserRepository.Save(item.Uploader);
@@ -63,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private double CalculateAverage(long itemId)
         {
-            return m_ItemRateRepositoy.CalculateItemAverage(itemId);
+            return m_ItemRateRepository.CalculateItemAverage(itemId);
         }
 
         private ReputationAction GetReputaionByPoistion(int rate)

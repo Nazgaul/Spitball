@@ -23,6 +23,7 @@
 
             $scope.changeState = function (state) {
                 $scope.params.currentState = state;
+                $scope.params.loginServerError = $scope.params.registerServerError = null;                
             };
 
             $scope.cancel = function () {
@@ -37,11 +38,16 @@
                 });
             };
 
-            $scope.login = function () {
+            $scope.login = function (isValid) {
+                if (!isValid) {
+                    return;
+                }
                 if (loginDisable) {
                     return;
                 }
                 loginDisable = true;
+
+                $scope.params.loginServerError = null;
 
                 sAccount.login($scope.formData.login).then(function () {
                     var routeName = $route.current.$$route.params.type;
@@ -52,16 +58,25 @@
                     }
 
                     $window.location.reload();
+
+
+                }, function (response) {
+                    $scope.params.loginServerError = response[0].value[0];
                 }).finally(function () {
                     loginDisable = false;
                 });
             };
 
-            $scope.register = function () {
+            $scope.register = function (isValid) {
+                if (!isValid) {
+                    return;
+                }
                 if (registerDisable) {
                     return;
                 }
                 registerDisable = true;
+
+                $scope.params.registerServerError = null;
 
                 if ($routeParams.boxId) {
                     $scope.formData.register.boxId = $routeParams.boxId;
@@ -83,14 +98,16 @@
                     if (routeName === 'account') {
                         window.location.href = '/library/choose/';
                     }
-                        //for now we do postback all the time
+                    //for now we do postback all the time
                     //else {
                     //    $location.path('/library/choose/');
-                        
+
                     //}
-                    
 
 
+
+                }, function (response) {
+                    $scope.params.registerServerError = response[0].value[0];
                 }).finally(function () {
                     registerDisable = false;
                 });
