@@ -15,10 +15,16 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         }
 
         public Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command)
-            where TCommand : Commands.ICommand
+            where TCommand : Commands.ICommandAsync
             where TCommandResult : Commands.ICommandResult
         {
             return m_Container.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>().ExecuteAsync(command);
+        }
+        public Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, string name)
+            where TCommand : Commands.ICommandAsync
+            where TCommandResult : Commands.ICommandResult
+        {
+            return m_Container.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>(name).ExecuteAsync(command);
         }
 
 
@@ -35,9 +41,12 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             m_Container.Resolve<ICommandHandler<TCommand>>().Handle(command);
         }
 
-        public Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommand
+        public Task SendAsync<TCommand>(TCommand command) where TCommand : Commands.ICommandAsync
         {
             return m_Container.Resolve<ICommandHandlerAsync<TCommand>>().HandleAsync(command);
         }
+
+
+       
     }
 }

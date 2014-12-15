@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string UniversityCountry { get; set; }
         public string UniversityName { get; set; }
-        public long UniversityId { get; set; }
+        public long? UniversityId { get; set; }
 
 
         public bool IsAdmin { get; set; }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
@@ -12,5 +10,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public long ItemId { get; set; }
         [Required]
         public int Rate { get; set; }
+
+        [Required]
+        public long BoxId { get; set; }
     }
 }

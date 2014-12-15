@@ -15,7 +15,7 @@ using Zbang.Zbox.Infrastructure.File;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddFileToBoxCommandHandler : ICommandHandlerAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>
+    public class AddFileToBoxCommandHandler : ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>
     {
 
         private readonly IBoxRepository m_BoxRepository;
@@ -48,9 +48,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_CommentRepository = commentRepository;
         }
 
-        public async Task<AddFileToBoxCommandResult> ExecuteAsync(AddFileToBoxCommand command)
+        public async Task<AddItemToBoxCommandResult> ExecuteAsync(AddItemToBoxCommand itemCommand)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (itemCommand == null) throw new ArgumentNullException("itemCommand");
+
+            var command = itemCommand as AddFileToBoxCommand;
+            if (command == null) throw new NullReferenceException("command");
+
 
             var box = m_BoxRepository.Load(command.BoxId);
             var user = m_UserRepository.Load(command.UserId);
@@ -59,10 +63,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new FileQuotaExceedException();
             }
-
-            AddUserToBox(command, box, user);
-
-
 
             var processor = m_FileProcessorFactory.GetProcessor(new Uri(m_BlobProvider.GetBlobUrl(command.BlobAddressName)));
             string thumbnailImgLink = ThumbnailProvider.DefaultFileTypePicture;
@@ -127,16 +127,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return fileName;
         }
 
-        private void AddUserToBox(AddFileToBoxCommand command, Box box, User user)
-        {
-            var type = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
-            if (type == UserRelationshipType.Invite || type == UserRelationshipType.None)
-            {
-                user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                box.CalculateMembers();
-                m_UserRepository.Save(user);
-            }
-        }
+        
 
         private void AddItemToTab(Guid? tabid, Item item)
         {

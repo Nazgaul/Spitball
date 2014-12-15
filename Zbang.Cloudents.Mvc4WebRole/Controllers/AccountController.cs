@@ -107,12 +107,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
-                try
-                {
-                    var query = new GetUserByFacebookQuery(facebookUserData.id);
-                    user = await ZboxReadService.GetUserDetailsByFacebookId(query);
-                }
-                catch (UserNotFoundException)
+                var query = new GetUserByFacebookQuery(facebookUserData.id);
+                user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                if (user == null)
                 {
 
                     var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
@@ -128,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
                         false, facebookUserData.locale, invId, model.BoxId);
-                    var commandResult = ZboxWriteService.CreateUser(command);
+                    var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
                         Id = commandResult.User.Id,
@@ -242,7 +239,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         //     [ValidateAntiForgeryToken] 
-        public JsonResult Register([ModelBinder(typeof(TrimModelBinder))] Register model)
+        public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
 
             if (!ModelState.IsValid)
@@ -275,7 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, lang, invId, model.BoxId);
-                    var result = ZboxWriteService.CreateUser(command);
+                    var result = await ZboxWriteService.CreateUserAsync(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(

@@ -27,6 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
+        [RemoveBoxCookie]
         public async Task<JsonResult> AddQuestion(Question model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
@@ -35,17 +36,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorsFromModelState());
             }
 
             var questionId = m_IdGenerator.Value.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
-            await ZboxWriteService.AddQuestion(command);
-            return Json(new JsonResponse(true, questionId));
+            await ZboxWriteService.AddQuestionAsync(command);
+            return JsonOk(questionId);
         }
 
         [ZboxAuthorize]
         [HttpPost]
+        [RemoveBoxCookie]
         public async Task<JsonResult> AddAnswer(Answer model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
@@ -54,22 +56,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorsFromModelState());
             }
             try
             {
                 var answerId = m_IdGenerator.Value.GetId();
                 var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
-                await ZboxWriteService.AddAnswer(command);
-                return Json(new JsonResponse(true, answerId));
+                await ZboxWriteService.AddAnswerAsync(command);
+                return JsonOk(answerId);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Add answer model: " + model, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
-       
+
 
         [ZboxAuthorize]
         [HttpPost]

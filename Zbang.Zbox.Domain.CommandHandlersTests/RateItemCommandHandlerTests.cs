@@ -35,8 +35,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         [TestMethod]
         public void Handle_RateItem3_SaveWithReputation5()
         {
-            long itemid = 1, userid = 2;
-            var command = new RateItemCommand(itemid, userid, 3, Guid.NewGuid());
+            long itemid = 1, userid = 2, boxid = 3;
+            var command = new RateItemCommand(itemid, userid, 3, Guid.NewGuid(), boxid);
 
 
             m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(null);
@@ -61,8 +61,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         [TestMethod]
         public void Handle_ReRateItem5_SaveWithReputation20()
         {
-            long itemid = 1, userid = 2;
-            var command = new RateItemCommand(itemid, userid, 5, Guid.NewGuid());
+            long itemid = 1, userid = 2, boxid = 3;
+            var command = new RateItemCommand(itemid, userid, 5, Guid.NewGuid(), boxid);
 
 
 

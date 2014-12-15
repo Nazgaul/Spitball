@@ -27,15 +27,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnFollowBoxCommandHandler));
-            
 
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>), typeof(AddFileToBoxCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddLinkToBoxCommand, AddLinkToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler));
+
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddFileToBoxCommandHandler), AddItemToBoxCommand.FileResolver);
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler), AddItemToBoxCommand.LinkResolver);
             ioc.RegisterType(typeof(ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>), typeof(ChangeFileNameCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateThumbnailCommand>), typeof(UpdateThumbnailCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommand>), typeof(DeleteItemCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<SubscribeToSharedBoxCommand>), typeof(SubscribeToSharedBoxCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<SubscribeToSharedBoxCommand>), typeof(SubscribeToSharedBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUserFromBoxCommand>), typeof(DeleteUserFromBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserLanguageCommand>), typeof(UpdateUserLanguageCommandHandler));
 

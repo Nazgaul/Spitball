@@ -12,6 +12,9 @@ namespace Zbang.Zbox.Infrastructure.Commands
         List<string> CacheTags { get; set; }
     }
 
+    public interface ICommandAsync : ICommand 
+    { }
+
 
    
 }

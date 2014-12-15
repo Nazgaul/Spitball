@@ -48,11 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //Decode the comment to html friendly
             var text = TextManipulation.EncodeComment(message.Text);
 
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, box.Id); //user.GetUserType(box.Id);
-            if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
-            {
-                throw new UnauthorizedAccessException("User is not connected to box");
-            }
+            
             var files = new List<Item>();
             if (message.FilesIds != null)
             {

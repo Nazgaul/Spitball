@@ -15,6 +15,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
         public long QuizId { get; set; }
         public IEnumerable<UserAnswer> Answers { get; set; }
 
+        [Required]
+        public long BoxId { get; set; }
+
         public override string ToString()
         {
             var sb = new StringBuilder();

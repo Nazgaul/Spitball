@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddLinkToBoxCommandResult : ICommandResult
+    public class AddLinkToBoxCommandResult : AddItemToBoxCommandResult
     {
         public AddLinkToBoxCommandResult(Item link)
         {
