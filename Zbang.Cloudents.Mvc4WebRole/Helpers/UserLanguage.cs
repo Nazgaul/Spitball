@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public static class UserLanguage
     {
-        public const string cookieName = "lang";
+        public const string CookieName = "lang";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
 
@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return;
             }
             var cookie = new CookieHelper(context);
-            var lang = cookie.ReadCookie<Language>(cookieName);
+            var lang = cookie.ReadCookie<Language>(CookieName);
             if (lang == null)
             {
                 var country = GetCountryByIp(context);
@@ -41,40 +41,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(cookieName, new Language {Lang = culture.Name});
+                cookie.InjectCookie(CookieName, new Language {Lang = culture.Name});
                 ChangeThreadCulture(culture);
                 return;
             }
-            //if (context.Request.Cookies["lang"] != null)
-            //{
-            //    var value = server.HtmlEncode(context.Request.Cookies["lang"].Value);
             ChangeThreadLanguage(lang.Lang);
-            //    return;
-            //}
-            //var country = GetCountryByIp(context);
-            //if (country.ToLower() == "nl")
-            //{
-            //    country = "gb";
-            //}
-            //var culture = Languages.GetCultureBaseOnCountry(country);
-            //ChangeThreadCulture(culture);
-
-            //if (context.Request.UserLanguages == null) return;
-            //foreach (var languageWithRating in context.Request.UserLanguages)
-            //{
-            //    if (string.IsNullOrEmpty(languageWithRating))
-            //    {
-            //        continue;
-            //    }
-            //    var userLanguage = languageWithRating.Split(';')[0];
-            //    if (userLanguage.StartsWith("nl"))
-            //    {
-            //        userLanguage = "en-GB";
-            //    }
-            //    if (!Languages.CheckIfLanguageIsSupported(userLanguage)) continue;
-            //    ChangeThreadLanguage(userLanguage);
-            //    break;
-            //}
         }
         private static void ChangeThreadLanguage(string language)
         {
@@ -119,13 +90,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         private static long Ip2Long(string ip)
         {
             double num = 0;
-            if (!string.IsNullOrEmpty(ip))
+            if (string.IsNullOrEmpty(ip)) return (long) num;
+            string[] ipBytes = ip.Split('.');
+            for (int i = ipBytes.Length - 1; i >= 0; i--)
             {
-                string[] ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-                }
+                num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
             }
             return (long)num;
         }

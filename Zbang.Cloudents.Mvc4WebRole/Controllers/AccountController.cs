@@ -262,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    var lang = cookie.ReadCookie<Language>(Helpers.UserLanguage.cookieName).Lang;
+                    var lang = cookie.ReadCookie<Language>(Helpers.UserLanguage.CookieName).Lang;
                     if (!Languages.CheckIfLanguageIsSupported(lang))
                     {
                         lang = Thread.CurrentThread.CurrentCulture.Name;
@@ -497,7 +497,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult ChangeLocale(string language)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.cookieName, new Language { Lang = language });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = language });
             return JsonOk();
         }
 
