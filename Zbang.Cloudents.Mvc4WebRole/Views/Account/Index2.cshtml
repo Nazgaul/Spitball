@@ -48,12 +48,12 @@
             </video>
         </div>
         <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a>
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a>
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian Site">@Languages.RussianName</a>
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew Site">@Languages.HebrewName</a>
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
-            <a href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.RussianName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian Site">@Languages.RussianName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew Site">@Languages.HebrewName</a>
+            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
         </div>
     </div>
 
