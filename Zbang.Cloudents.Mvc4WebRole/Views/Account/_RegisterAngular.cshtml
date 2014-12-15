@@ -45,7 +45,7 @@
            ng-model="formData.register.password" required />
 
     <div class="ng-message-errors" ng-messages="(registerForm.isMale.$touched || registerSubmitted) && registerForm.isMale.$error">
-        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.GenderRequired</span>
     </div>
     <input id="maleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="true" required />
     <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>

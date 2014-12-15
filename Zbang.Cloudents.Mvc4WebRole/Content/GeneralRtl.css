@@ -139,18 +139,21 @@ input[type="radio"].radio:checked + label:after {
   text-align: right;
   /*rtl*/
 }
-.register .validation-summary-errors {
-  right: 0;
-  /*rtl*/
-  left: auto;
+/*.register {
+    .validation-summary-errors {
+        right: 0; //rtl
+        left: auto;
+    }
 }
-.desktop .firstName + .field-validation-error {
-  margin: 2px 4% 0 0;
-  /*rtl*/
-}
+.desktop {
+    .firstName {
+        + .field-validation-error {
+            margin: 2px 4% 0 0; //rtl
+        }
+    }
+}*/
 .genderLabel.first {
-  margin: 20px 0 5px 25px;
-  /*rtl*/
+  margin: 6px 0 6px 25px;
 }
 .acceptTerms {
   text-align: right;

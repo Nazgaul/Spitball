@@ -108,27 +108,26 @@
 .requestSentDiv.first {
   font-size: 32px;
 }
+.ng-message-errors {
+  clear: left;
+}
 .ng-message-error {
   left: auto;
   right: 0;
-  /*RTL*/
 }
 .ng-message-error.ng-enter.ng-enter-active {
   opacity: 1;
   right: 0;
-  /*RTL*/
   left: auto;
 }
 .ng-message-error.ng-enter {
   opacity: 0;
   right: -100%;
-  /*RTL*/
   left: auto;
 }
 .ng-message-error.ng-leave {
   opacity: 1;
   right: 0;
-  /*RTL*/
   left: auto;
 }
 .private .labelExplain {
