@@ -117,103 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcademicCloud" xml:space="preserve">
-    <value>Это больше, чем просто обучение, это социальное обучение</value>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>это неправильный адрес эл. почты</value>
   </data>
-  <data name="AlreadyHave" xml:space="preserve">
-    <value>У вас уже есть учетная запись? </value>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>Это поле обязательно для заполнения</value>
   </data>
-  <data name="ByEmail" xml:space="preserve">
-    <value>Или по электронной почте</value>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
   </data>
-  <data name="ClickHere" xml:space="preserve">
-    <value>Нажать здесь</value>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>это неправильный адрес эл. почты</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Подключиться</value>
-  </data>
-  <data name="ConnectAccount" xml:space="preserve">
-    <value>Войти </value>
-  </data>
-  <data name="ConnectCloudents" xml:space="preserve">
-    <value>Подключиться к Cloudents</value>
-  </data>
-  <data name="ConnectHere" xml:space="preserve">
-    <value>Подключиться</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="CreateCloudents" xml:space="preserve">
-    <value>Создать бесплатную учетную запись Cloudents</value>
-  </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>Присоединиться к Cloudents</value>
-  </data>
-  <data name="DontHaveAnAccount" xml:space="preserve">
-    <value>Нет учетной записи?</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Электронная почта</value>
-  </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>через Facebook</value>
-  </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>через Facebook</value>
-  </data>
-  <data name="ForgotYourPassword" xml:space="preserve">
-    <value>Забыли пароль?</value>
-  </data>
-  <data name="Google" xml:space="preserve">
-    <value>Зарегистрироваться через Google</value>
-  </data>
-  <data name="IncorrectCredentials" xml:space="preserve">
-    <value>Введен неверный пароль или имя пользователя. Повторите попытку -</value>
-  </data>
-  <data name="JoinNow" xml:space="preserve">
-    <value>Присоединиться сейчас</value>
-  </data>
-  <data name="JoinNow2" xml:space="preserve">
-    <value>Присоединиться сейчас</value>
-  </data>
-  <data name="KeepMeSignedIn" xml:space="preserve">
-    <value>Оставаться в системе</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Язык:</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Войти </value>
-  </data>
-  <data name="NewTo" xml:space="preserve">
-    <value>Новичок в Cloudents?</value>
-  </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>Нет учетной записи?</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>или</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Пароль</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Или бесплатно зарегистрируйтесь через</value>
-  </data>
-  <data name="Retrieve" xml:space="preserve">
-    <value>Восстановить</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>зарегистрироваться</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>Зарегистрироваться</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Создать учетную запись</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Запомнить меня</value>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>должен иметь не менее 6 символов</value>
   </data>
 </root>

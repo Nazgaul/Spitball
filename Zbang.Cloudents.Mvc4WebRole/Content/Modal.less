@@ -1268,15 +1268,14 @@
 
 .ng-message-errors {
     position:relative;
+    top: -2px;
     width:100%;        
     color: @errorColor;
-}
-
-
-.register { 
-    .ng-message-errors {        
+    clear: right;  //rtl
+    &.rFloat, &.lFloat {
         width:48%;
         display:inline-block;
+        top: 28px;
     }
 }
 
@@ -1284,16 +1283,16 @@
     position:absolute;
     opacity:1;    
     bottom:0;
-    left:0; /*RTL*/
+    left:0; //rtl
     .transition(all .4s linear);
 }
 .ng-message-error.ng-enter.ng-enter-active {
     opacity:1;
-    left:0; /*RTL*/
+    left:0; //rtl
 }
 .ng-message-error.ng-enter {
     opacity:0;
-    left:-100%; /*RTL*/
+    left:-100%; //rtl
 }
 
 .ng-message-error.ng-leave {
@@ -1304,7 +1303,8 @@
 .ng-message-error.ng-leave.ng-leave-active {
     opacity:0;
     bottom:8px; 
-}/*#endregion */
+}
+/*#endregion */
 
 
 /*#region Share by email AKA message */
