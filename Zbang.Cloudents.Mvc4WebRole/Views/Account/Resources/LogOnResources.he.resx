@@ -213,4 +213,7 @@
   <data name="CreateAccount" xml:space="preserve">
     <value>צור חשבון</value>
   </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>זכור אותי</value>
+  </data>
 </root>
