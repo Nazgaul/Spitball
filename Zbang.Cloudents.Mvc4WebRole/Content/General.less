@@ -764,9 +764,14 @@ iframe .couponPopup {
     .inputText {
         display: block;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         .boxSizing;
         height: 34px;
+        &.firstName, &.lastName {
+            width: 48%;
+            display: inline-block;
+            margin-top: 30px;
+        }
     }
 
     .btn1 {
@@ -778,13 +783,12 @@ iframe .couponPopup {
 
 .register {
     .inputText {
-        margin: 22px 0 0 0; //override 
+        //margin: 15px 0 0 0; //override 
     }
-    .firstName
-    {
-        width: 100%;
+    .firstName {
+        //width: 100%;
     }
-    .field-validation-valid {
+    /*.field-validation-valid {
         //visibility: hidden;
     }
     .field-validation-error, .validation-summary-errors {
@@ -793,8 +797,8 @@ iframe .couponPopup {
         margin: 2px 0 0 0; //override
     }
     .validation-summary-errors {
-        left: 0; /*rtl*/
-    }
+        left: 0; //rtl
+    }*/
     .cbLabel {
         display: none; /*rtl - (HEBREW ONLY)*/
         margin: 12px 0 16px;
@@ -806,16 +810,17 @@ iframe .couponPopup {
         top: -2px;
     }
 }
-.desktop.desktop { //for more specificity
+/*.desktop.desktop { //for more specificity
     .firstName, .lastName
     {
         width: 48%;
         display: inline-block;
-        margin-bottom: 22px;
+        //margin-bottom: 22px;
+        margin-top: 30px;
     }
     .firstName {
         + .field-validation-error {
-            margin: 2px 0 0 4%; /*rtl*/
+            margin: 2px 0 0 4%; //rtl
         }
     }
     .lastName {
@@ -825,30 +830,28 @@ iframe .couponPopup {
         }
     }
 
-}
-.registerMobile {
+}*/
+
+/*.registerMobile {
      .field-validation-error, .validation-summary-errors {
          position:static;
     }
      .inputText {
          padding: 5px 4px 5px 8px; //override mobile.css inputText 
      }
-}
+}*/
 
-.genderLabel
-{
+.genderLabel {
     font-size: 15px;
-    margin: 28px 0 15px;
     display: inline-block;
-    &.first
-    {
-        margin: 20px 25px 5px 0; /*rtl*/
+    &.first {
+        margin: 6px 25px 6px 0; //rtl*/
     }
 }
-.field-validation-error + .genderLabel
+/*.field-validation-error + .genderLabel
 {
     margin-top: 20px;
-}
+}*/
 .accntLabel {
     font-size: 15px;
     margin-bottom: 2px;

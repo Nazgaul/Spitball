@@ -5,39 +5,39 @@
 <form name="registerForm" class="register desktop" ng-submit="register(registerForm.$valid)" novalidate>
     <div>{{params.registerServerError}}</div>
     <div class="ng-message-errors lFloat" ng-messages="(registerForm.firstName.$touched || registerSubmitted) && registerForm.firstName.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
     </div>
     <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName"
            ng-class="{error: (registerSubmitted || registerForm.firstName.$touched) && loginForm.firstName.$error}"
            ng-model="formData.register.firstName" required />
 
     <div class="ng-message-errors rFloat" ng-messages="(registerForm.lastName.$touched || registerSubmitted) && registerForm.lastName.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
     </div>
     <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName"
            ng-class="{error: (registerSubmitted || registerForm.lastName.$touched) && loginForm.lastName.$error}"
            ng-model="formData.register.lastName" required />
 
     <div class="ng-message-errors" ng-messages="(registerForm.newEmail.$touched || registerSubmitted) && registerForm.newEmail.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
-        <span class="ng-message-error" ng-message="email">Email</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
+        <span class="ng-message-error" ng-message="email">@ValidationResources.InvalidEmail</span>
     </div>
     <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email"
            ng-class="{error: (registerSubmitted || registerForm.newEmail.$touched) && loginForm.newEmail.$error}"
            ng-model="formData.register.newEmail" required />
 
     <div class="ng-message-errors" ng-messages="(registerForm.confirmEmail.$touched || registerSubmitted) && registerForm.confirmEmail.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
-        <span class="ng-message-error" ng-message="email">Email</span>
-        <span class="ng-message-error" ng-message="match">Match</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
+        <span class="ng-message-error" ng-message="email">@ValidationResources.InvalidEmail</span>
+        <span class="ng-message-error" ng-message="match">@ValidationResources.ConfirmEmailCompare</span>
     </div>
     <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
            ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
            ng-model="formData.register.confirmEmail" required ng-match="newEmail" />
 
     <div class="ng-message-errors" ng-messages="(registerForm.password.$touched || registerSubmitted) && registerForm.password.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
-        <span class="ng-message-error" ng-message="minlength">Length</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
+        <span class="ng-message-error" ng-message="minlength">@ValidationResources.PwdAtLeast6Chars</span>
     </div>
 
     <input type="password" class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6"
@@ -45,12 +45,12 @@
            ng-model="formData.register.password" required />
 
     <div class="ng-message-errors" ng-messages="(registerForm.isMale.$touched || registerSubmitted) && registerForm.isMale.$error">
-        <span class="ng-message-error" ng-message="required">Required</span>
+        <span class="ng-message-error" ng-message="required">@ValidationResources.GenderRequired</span>
     </div>
     <input id="maleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="true" required />
-    <label class="genderLabel first" for="maleRadio">זכר</label>
+    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
     <input id="femaleRadio" name="isMale" type="radio" ng-model="formData.register.isMale" value="false" required>
-    <label class="genderLabel" for="femaleRadio">נקבה</label>
+    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
     <select class="inputText rFloat" ng-change="changeLanguage()" ng-model="params.language" ng-init="params.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
         <option value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>

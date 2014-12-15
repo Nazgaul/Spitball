@@ -213,4 +213,7 @@
   <data name="CreateAccount" xml:space="preserve">
     <value>Создать учетную запись</value>
   </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
 </root>

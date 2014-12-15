@@ -1,8 +1,13 @@
 ﻿app.controller('ContactCtrl',
-    ['$scope', '$timeout', 'Store', '$analytics', 'sNotify',
+    ['$scope', '$timeout', 'Store', '$analytics', 'sNotify', '$controller',
 
-    function ($scope, $timeout, Store, $analytics, sNotify) {
+    function ($scope, $timeout, Store, $analytics, sNotify, $controller) {
         "use strict";
+
+        angular.extend(this, $controller('StoreCtrl', { $scope: $scope }));
+
+        $scope.setCurrentTab();
+
         $timeout(function () {
             $scope.$emit('viewContentLoaded');
         });

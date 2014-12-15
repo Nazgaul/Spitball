@@ -559,6 +559,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Shared\Resources\ValidationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Share\Resources\InviteResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -928,6 +933,8 @@
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
+    <Content Include="Js\controllers\store\couponCtrl.js" />
+    <Content Include="Js\controllers\store\storeCtrl.js" />
     <Content Include="Js\controllers\store\carouselCtrl.js" />
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />
@@ -2047,7 +2054,7 @@
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Account\_LogonAngular.cshtml" />
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
-    <Content Include="Views\Shared\Partials\_CouponPopup.cshtml" />
+    <Content Include="Views\Store\_CouponPopup.cshtml" />
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2548,6 +2555,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ar.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ar.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.he.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.resx">

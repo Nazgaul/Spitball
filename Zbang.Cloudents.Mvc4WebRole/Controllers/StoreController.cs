@@ -6,8 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -208,6 +210,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [HttpGet]
+        [OutputCache(CacheProfile = "PartialCache")]
+        public ActionResult CouponPartial()
+        {
+            try
+            {
+                return PartialView("_CouponPopup");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_CouponPopup", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
 
 
 

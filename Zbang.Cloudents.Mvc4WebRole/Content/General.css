@@ -743,11 +743,19 @@ iframe .couponPopup {
 .register .inputText {
   display: block;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 34px;
+}
+.signIn .inputText.firstName,
+.register .inputText.firstName,
+.signIn .inputText.lastName,
+.register .inputText.lastName {
+  width: 48%;
+  display: inline-block;
+  margin-top: 30px;
 }
 .signIn .btn1,
 .register .btn1 {
@@ -755,20 +763,18 @@ iframe .couponPopup {
   width: 100%;
   height: 40px;
 }
-.register .inputText {
-  margin: 22px 0 0 0;
-}
-.register .firstName {
-  width: 100%;
-}
-.register .field-validation-error,
-.register .validation-summary-errors {
-  position: absolute;
-  margin: 2px 0 0 0;
-}
-.register .validation-summary-errors {
-  left: 0;
-  /*rtl*/
+.register {
+  /*.field-validation-valid {
+        //visibility: hidden;
+    }
+    .field-validation-error, .validation-summary-errors {
+        position: absolute;
+        //visibility: visible;
+        margin: 2px 0 0 0; //override
+    }
+    .validation-summary-errors {
+        left: 0; //rtl
+    }*/
 }
 .register .cbLabel {
   display: none;
@@ -781,39 +787,46 @@ iframe .couponPopup {
   position: relative;
   top: -2px;
 }
-.desktop.desktop .firstName,
-.desktop.desktop .lastName {
-  width: 48%;
-  display: inline-block;
-  margin-bottom: 22px;
-}
-.desktop.desktop .firstName + .field-validation-error {
-  margin: 2px 0 0 4%;
-  /*rtl*/
-}
-.desktop.desktop .lastName + .field-validation-error {
-  margin-top: 58px;
-  display: block;
-}
-.registerMobile .field-validation-error,
-.registerMobile .validation-summary-errors {
-  position: static;
-}
-.registerMobile .inputText {
-  padding: 5px 4px 5px 8px;
-}
+/*.desktop.desktop { //for more specificity
+    .firstName, .lastName
+    {
+        width: 48%;
+        display: inline-block;
+        //margin-bottom: 22px;
+        margin-top: 30px;
+    }
+    .firstName {
+        + .field-validation-error {
+            margin: 2px 0 0 4%; //rtl
+        }
+    }
+    .lastName {
+        + .field-validation-error {
+            margin-top: 58px;
+            display: block;
+        }
+    }
+
+}*/
+/*.registerMobile {
+     .field-validation-error, .validation-summary-errors {
+         position:static;
+    }
+     .inputText {
+         padding: 5px 4px 5px 8px; //override mobile.css inputText 
+     }
+}*/
 .genderLabel {
   font-size: 15px;
-  margin: 28px 0 15px;
   display: inline-block;
 }
 .genderLabel.first {
-  margin: 20px 25px 5px 0;
-  /*rtl*/
+  margin: 6px 25px 6px 0;
 }
-.field-validation-error + .genderLabel {
-  margin-top: 20px;
-}
+/*.field-validation-error + .genderLabel
+{
+    margin-top: 20px;
+}*/
 .accntLabel {
   font-size: 15px;
   margin-bottom: 2px;
