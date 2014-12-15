@@ -1,7 +1,7 @@
 ﻿mBox.controller('QnACtrl',
-['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope',
+['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', 'sFocus',
     '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sItem',
-            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, $analytics,
+            function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, sFocus, $analytics,
                 resManager, sNotify, sLogin, sGmfcnHandler, sItem) {
                 "use strict";
                 function Question(data) {
@@ -230,24 +230,33 @@
                 };
 
                 $scope.deleteQuestion = function (question) {
-                    var index = $scope.data.questions.indexOf(question);
-                    $scope.data.questions.splice(index, 1);
+                    sNotify.confirm('Are you sure you want to delete?').then(function () {
+                        var index = $scope.data.questions.indexOf(question);
+                        $scope.data.questions.splice(index, 1);
 
-                    sQnA.delete.question({ questionId: question.id });
+                        sQnA.delete.question({ questionId: question.id });
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove Question'
+                        $analytics.eventTrack('Box Feed', {
+                            category: 'Remove Question'
+                        });
+
+                        if ($scope.info.feedLength) {
+                            $scope.info.feedLength--;
+                        }
+
                     });
-                    $scope.info.feedLength--;
                 };
 
                 $scope.deleteAnswer = function (question, answer) {
-                    var index = question.answers.indexOf(answer);
-                    question.answers.splice(index, 1);
-                    sQnA.delete.answer({ answerId: answer.id });
+                    sNotify.confirm('Are you sure you want to delete?').then(function () {
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove Answer'
+                        var index = question.answers.indexOf(answer);
+                        question.answers.splice(index, 1);
+                        sQnA.delete.answer({ answerId: answer.id });
+
+                        $analytics.eventTrack('Box Feed', {
+                            category: 'Remove Answer'
+                        });
                     });
                 };
 
@@ -298,7 +307,29 @@
                     });
                 };
 
-                //var qAttach, aAttach, questionAttach;
+                
+
+                $scope.$on('BeforeUpload', function (e, data) {
+                    data = data || {};
+
+                    if (data.newQuestion) {
+                        sFocus('newQuestion');
+                        return;
+                    }
+
+                    if (data.questionId) {
+                        var question = _.find($scope.data.questions, function (q) {
+                            return data.questionId === q.id;
+                        });
+
+                        if (!question) {
+                            return;
+                        }
+
+                        sFocus('answer' + $scope.data.questions.indexOf(question));
+                    }
+
+                });
                 $scope.$on('ItemUploaded', function (e, data) {
                     if (data.boxId !== $scope.boxId) {
                         return;
@@ -307,6 +338,7 @@
                     data.itemDto.uid = data.itemDto.id;
 
                     if (data.newQuestion) {
+
                         if ($scope.qFormData.files && $scope.qFormData.files.length) {
                             $scope.qFormData.files.push(data.itemDto);
                             return;
@@ -318,6 +350,7 @@
                         $analytics.eventTrack('Box Feed', {
                             category: 'Added Question Attachment'
                         });
+
 
                         return;
                     }
@@ -331,12 +364,16 @@
                             return;
                         }
 
+                    
+
                         if (question.aFormData.files && question.aFormData.files.length) {
                             question.aFormData.files.push(data.itemDto);
                             return;
                         }
 
                         question.aFormData.files = [data.itemDto];
+
+
 
                         $analytics.eventTrack('Box Feed', {
                             category: 'Added Answser Attachment'

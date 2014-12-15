@@ -86,6 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [PreserveQueryString]
         public async Task<RedirectResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);
@@ -315,11 +316,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
+        [RemoveBoxCookie]
         public JsonResult Delete2(long id)
         {
             var userId = User.GetUserId();
             var command = new UnfollowBoxCommand(id, userId);
-            ZboxWriteService.UnfollowBox(command);
+            ZboxWriteService.UnFollowBox(command);
             return Json(new JsonResponse(true));
         }
 

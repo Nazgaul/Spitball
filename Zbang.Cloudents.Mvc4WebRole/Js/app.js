@@ -165,7 +165,7 @@
            }).
            when('/library/:libraryId/:libraryName/', {
                params: {
-                   type: 'library'
+                   type: 'department'
                },
                templateUrl: '/library/indexpartial/'
            }).
@@ -356,16 +356,19 @@
         $rootScope.$on('$routeChangeStart', function (event, next, prev) {
             $window.scrollTo(0, 0);
 
-            try {
-                var routeName = next.$$route.params.type;
-                //if (routeName === 'dashboard') {
+            //if (!prev) {
+            //    return;
+            //}
+            //try {
+            //    var routeName = next.$$route.params.type;
+            //    if (routeName === 'account' && sUserDetails.getDetails) {
                 
 
-                //}
+            //    }
                
-            }
-            catch (ex) {
-            }
+            //}
+            //catch (ex) {
+            //}
 
         });
 
@@ -410,7 +413,7 @@
                             $rootScope.back.title = previous.pathParams.userName;
                             $rootScope.back.url = previous.loadedTemplateUrl;
                             break;
-                        case 'library':
+                        case 'department':
                             $rootScope.back.title = previous.params.libraryName;
                             $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
                             break;
@@ -424,9 +427,10 @@
                     }
                 }
 
-                if (current.$$route.params.type === 'library') {
-                    $rootScope.back.title = previous.pathParams.libraryName;
-                    $rootScope.back.url = previous.loadedTemplateUrl;
+                if (current.$$route.params.type === 'department' && previous.$$route.params.type === 'department') {
+                    $rootScope.back.title = previous.params.libraryName;
+                    $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+
                 }
             }
             catch (ex) {

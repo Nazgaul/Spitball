@@ -3,12 +3,13 @@
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
+    ViewBag.fbImage = ViewBag.fbImage ?? @Url.CdnContent("/images/cloudents-share-fb-1.png");
     ViewBag.viewport = ViewBag.viewport ?? true;
     ViewBag.fBox = ViewBag.fBox ?? false;
 }
 <!DOCTYPE html>
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
-<head>
+<head prefix="og: http://ogp.me/ns#">
     <title>@ViewBag.title</title>
     <link rel="SHORTCUT ICON" href="~/favicon.ico" />
 
@@ -28,15 +29,19 @@
 
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
-    <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png")" />
+    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png")" />
 
-    <meta property="fb:app_id" content="450314258355338">
-    @*<base href="/dashboard/" />*@
+    <meta property="fb:app_id" content="450314258355338" />
+    <meta property="og:site_name" content="Cloudents" />
+    <meta property="og:image" name="og:image" content="@ViewBag.fbImage" />
+    <meta property="og:description" name="og:description" content="@ViewBag.metaDescription" />
+    <meta property="og:title" name="og:title" content="@ViewBag.title" />
+    <meta property="og:url" content="@Request.Url" />
     <base href="/">
-
     @Html.Css2("newcore3")
     @Html.CssRtl("newrtl3")
     @Html.CssCulture("lang")
+    <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 </head>
 <body ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),'jsDark jsCreateDashboard' : $root.params.createBoxWizard}">
 

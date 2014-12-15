@@ -24,6 +24,7 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -94,6 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.BoxName, seoItemName, BaseControllerResources.Cloudents);
 
                 ViewBag.Description = model.Description;
+                ViewBag.fbImage = model.ImageUrl;
                 if (!string.IsNullOrEmpty(model.Description))
                 {
                     var metaDescription = model.Description.RemoveEndOfString(197);
@@ -115,6 +117,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        public async Task<ActionResult> ShortUrl(string box62Id)
+        {
+            var base62 = new Base62(box62Id);
+            var query = new GetFileSeoQuery(base62.Value);
+            var model = await ZboxReadService.GetItemSeo(query);
+            return RedirectPermanent(model.Url);
+        }
         /// <summary>
         /// Ajax Request - item data
         /// </summary>
@@ -146,6 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
                 retVal.UserType = ViewBag.UserType;
+                retVal.ShortUrl = Url.RouteUrl("shortItem", new { box62Id = new Base62(itemId).ToString() });
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)

@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.Common
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
-        void UnfollowBox(UnfollowBoxCommand command);
+        void UnFollowBox(UnfollowBoxCommand command);
 
         Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
         AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command);
@@ -65,6 +65,7 @@ namespace Zbang.Zbox.Domain.Common
         bool Dbi(int index);
         void OneTimeDbi();
         void Statistics(UpdateStatisticsCommand command);
+        void UpdateReputation(UpdateReputationCommand command);
 
         #region annotation
         void AddAnnotation(AddAnnotationCommand command);

@@ -92,6 +92,7 @@
     <Compile Include="ItemRateRepository.cs" />
     <Compile Include="QuizRepository.cs" />
     <Compile Include="RegisterIoc.cs" />
+    <Compile Include="ReputationRepository.cs" />
     <Compile Include="UniversityRepository.cs" />
     <Compile Include="UpdatesRepository.cs" />
     <Compile Include="UserBoxRelRepository.cs" />

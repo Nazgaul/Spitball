@@ -106,8 +106,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var t1 = TriggerCacheDocument(command.BlobAddressName, item.Id);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, item.Id));
-
-            await Task.WhenAll(t1, t2);
+            var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+            await Task.WhenAll(t1, t2, t3);
 
             var result = new AddFileToBoxCommandResult(item);
 

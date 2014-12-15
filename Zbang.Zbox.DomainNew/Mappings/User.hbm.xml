@@ -101,7 +101,8 @@
     <property name="AdvertisementUrl" />
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
     <property name="NoOfBoxes" />
-
+    <property name="FacebookUniId" />
+    
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />
     <many-to-one column="UniversityData" class="University" name="UniversityData" foreign-key="UniversityUniversityData"/>

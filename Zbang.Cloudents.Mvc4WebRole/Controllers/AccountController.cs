@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
 
-        // private const string InvId = "invId";
         public AccountController(
             Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
@@ -73,9 +72,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            if (lang == null || lang == Thread.CurrentThread.CurrentUICulture.Name) return View("Empty");
-            RouteData.Values.Remove("lang");
-            return RedirectToAction("Index");
+            if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
+            {
+                RouteData.Values.Remove("lang");
+                return RedirectToAction("Index");
+            }
+            ViewBag.title = Views.Account.Resources.HomeResources.Title;
+            ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
+            return View("Empty");
         }
 
         [HttpGet]
@@ -493,10 +497,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        public JsonResult ChangeLocale(string lang)
+        public JsonResult ChangeLocale(string language)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.cookieName, new Language { Lang = lang });
+            cookie.InjectCookie(Helpers.UserLanguage.cookieName, new Language { Lang = language });
             return JsonOk();
         }
 

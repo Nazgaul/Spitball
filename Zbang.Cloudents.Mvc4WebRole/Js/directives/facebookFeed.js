@@ -1,5 +1,4 @@
-﻿
-mLibrary.directive('facebookFeed',
+﻿mLibrary.directive('facebookFeed',
    ['$window',
 
    function ($window) {

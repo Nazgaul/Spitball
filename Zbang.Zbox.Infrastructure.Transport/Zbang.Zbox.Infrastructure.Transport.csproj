@@ -59,6 +59,7 @@
     <Compile Include="InviteToCloudentsData.cs" />
     <Compile Include="MessageMailData.cs" />
     <Compile Include="ProtobufSerializer.cs" />
+    <Compile Include="ReputationData.cs" />
     <Compile Include="StatisticsData.cs" />
     <Compile Include="StoreContactData.cs" />
     <Compile Include="StoreData.cs" />

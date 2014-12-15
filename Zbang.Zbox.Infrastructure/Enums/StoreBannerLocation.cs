@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Zbang.Zbox.Infrastructure.Enums
 {
+// ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper
     public enum StoreBannerLocation : int
     {
         TopRight,

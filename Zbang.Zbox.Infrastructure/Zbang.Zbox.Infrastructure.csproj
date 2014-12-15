@@ -125,9 +125,7 @@
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Culture\Languages.cs" />
     <Compile Include="Enums\BadItem.cs" />
-    <Compile Include="Enums\BoxesOrderBy.cs" />
     <Compile Include="Enums\BoxType.cs" />
-    <Compile Include="Enums\EmailAction.cs" />
     <Compile Include="Enums\FirstTime.cs" />
     <Compile Include="Enums\ImageSize.cs" />
     <Compile Include="Enums\LogInStatus.cs" />
@@ -200,7 +198,6 @@
     <Compile Include="CommandHandlers\CommandBus.cs" />
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Enums\BoxPrivacySettings.cs" />
-    <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Enums\NotificationSettings.cs" />
     <Compile Include="Enums\UserRelationshipType.cs" />
     <Compile Include="Query\IQueryCache.cs" />

@@ -52,6 +52,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual University UniversityData { get; set; }
 
+        public virtual long FacebookUniId { get; set; }
+
 
 
         public virtual void UpdateNumberOfBoxes(int boxesCount)

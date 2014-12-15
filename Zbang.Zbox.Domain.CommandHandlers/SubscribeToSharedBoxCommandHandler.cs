@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException("command");
             var isSubscribed = false;
-            var user = m_UserRepository.Load(command.Id);
+            var user = m_UserRepository.Load(command.UserId);
             var box = m_BoxRepository.Load(command.BoxId);
 
             var userBoxRel = m_UserRepository.GetUserBoxRelationship(user.Id, box.Id);

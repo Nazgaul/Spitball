@@ -1,17 +1,6 @@
-﻿var scriptLoaded = {
-    scripts: [],
-    isLoaded: function (script) {
-        if (this.scripts.indexOf(script) > -1) {
-            return true;
-        }
-
-        this.scripts.push(script);
-    }
-};
-
-(function () {
+﻿(function () {
     var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'vo.msecnd.net/',
+    cdnCdPath = 'az414807.vo.msecnd.net',
     cdnGooglePath = 'ajax.googleapis.com';
 
     window.onload = function () {
@@ -31,19 +20,24 @@
     }
 
     function javascriptFailCallback() {
-        //because of old script we remove angular
-        if (window.jQuery /*&& window.angular*/) {
-            return;
+        var scripts;
+
+        if (!window.jQuery) {
+            scripts = getCdnScripts(cdnGooglePath);            
+            load(scriptsPath);
         }
 
-      var  files = getCdnScripts();
-
-        for (var i = 0, l = files.google.length; i < l; i++) {
-            loadScript(scriptsPath + getFilename(files.google[i]));
+        if (!window.app) {
+            scripts = getCdnScripts(cdnCdPath);
+            load(cdnPath);
         }
 
-        for (var i = 0, l = files.cloudents.length; i < l; i++) {
-            loadScript(cdnPath + getFilename(files.cloudents[i]));
+        window.angular.bootstrap(document, ['app']);
+
+        function load(path) {
+            for (var i = 0, l = scripts.length; i < l; i++) {
+                loadScript(path + getFilename(scripts[i]));
+            }
         }
      
     }
@@ -59,20 +53,17 @@
         return files;
     }
 
-    function getCdnScripts() {
-        var link, cloudents = [], google= [];
+    function getCdnScripts(path) {
+        var link, scripts = [];
         for (var i = 0, l = document.scripts.length ; i < l; i++) {
             link = document.scripts[i].getAttribute('src');
             if (link) {
-                if (link.indexOf(cdnCdPath) > -1) {
-                    cloudents.push(link);
-                } else if (link.indexOf(cdnGooglePath) > -1) {
-                    google.push(link);
+                if (link.indexOf(path) > -1) {
+                    scripts.push(link);
                 }
             }
         }
-
-        return { cloudents: cloudents, google: google };
+        return scripts;
     }
 
     function loadStylesheet(url) {

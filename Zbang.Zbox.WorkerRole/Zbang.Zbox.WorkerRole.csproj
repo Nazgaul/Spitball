@@ -103,6 +103,7 @@
     <Compile Include="DomainProcess\FlagBadItem.cs" />
     <Compile Include="DomainProcess\IDomainProcess.cs" />
     <Compile Include="DomainProcess\Statistics.cs" />
+    <Compile Include="DomainProcess\UpdateReputation.cs" />
     <Compile Include="DomainProcess\UpdatesProcess.cs" />
     <Compile Include="DomainProcess\UpdateUniversitySearch.cs" />
     <Compile Include="Jobs\AddFiles.cs" />

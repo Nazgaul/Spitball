@@ -26,7 +26,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
-            //ioc.RegisterType(typeof(ICommandHandler<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UnfollowBoxCommand>), typeof(UnfollowBoxCommandHandler));
             
 
@@ -40,7 +39,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<DeleteUserFromBoxCommand>), typeof(DeleteUserFromBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserLanguageCommand>), typeof(UpdateUserLanguageCommandHandler));
 
-            //ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>), typeof(AddNodeToLibraryCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<RenameNodeCommand>), typeof(RenameNodeCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteNodeFromLibraryCommand>), typeof(DeleteNodeFromLibraryCommandHandler));
 
@@ -68,6 +66,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
             //statistics
             ioc.RegisterType(typeof(ICommandHandler<UpdateStatisticsCommand>), typeof(UpdateStatisticsCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<UpdateReputationCommand>), typeof(UpdateReputationCommandHandler));
 
             //create university app
             ioc.RegisterType(typeof(ICommandHandler<CreateUniversityCommand>), typeof(CreateUniversityCommandHandler));
@@ -123,8 +122,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //library
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),
                 typeof(AddNodeToLibraryCommandHandler));
-            //ioc.RegisterType(typeof(ICommandHandler<SelectDepartmentCommand>),
-            //   typeof(SelectDepartmentCommandHandler));
+           
 
         }
     }

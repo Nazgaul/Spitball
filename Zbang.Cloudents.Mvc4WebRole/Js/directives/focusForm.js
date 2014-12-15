@@ -10,6 +10,8 @@ app.directive('focusForm',
                 elem.click(function (e) {
                     e.stopPropagation();
                     elem.addClass(attrs.focusForm);
+                }).on('focus','textarea', function () {                    
+                    elem.addClass(attrs.focusForm);
                 }).submit(function () {
                     elem.removeClass(attrs.focusForm);
                     x = null;
@@ -21,10 +23,10 @@ app.directive('focusForm',
 
                 $('body').on('click', ':not(' + classes + ')', function (e) {
                     //.click(function () {
-                        if (elem.hasClass(attrs.focusForm)) {
-                            x = elem.removeClass(attrs.focusForm);
-                        }
-                    })
+                    if (elem.hasClass(attrs.focusForm)) {
+                        x = elem.removeClass(attrs.focusForm);
+                    }
+                })
                 .on('click', classes, function (e) {
                     e.stopPropagation();
                     if (x) {
