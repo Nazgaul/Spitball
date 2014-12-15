@@ -147,8 +147,6 @@
                 }).finally(function () {
                     $rootScope.params.store.coupon.buttonDisabled = false;
                 });
-
-
             };
 
             $rootScope.logout = function (e) {

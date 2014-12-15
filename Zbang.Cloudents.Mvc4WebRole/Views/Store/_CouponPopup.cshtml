@@ -1,0 +1,35 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Store.Resources
+
+<div class="modal-body">
+    <div class="welcomeStore">
+        <div class="storeTxt1">@StoreResources.Description</div>
+        <div class="storeTxt2">@StoreResources.PayLess</div>
+        <div class="storeTxt3">@StoreResources.ExclusiveBenefits</div>
+        <div class="storeTxt4">@StoreResources.HowToBuy</div>
+        <div class="couponWpr">
+            <span class="userHelp">?</span>
+            <div class="helpPopup">@StoreResources.ToGetACoupon</div>
+            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
+            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
+        </div>
+        <span class="or">@StoreResources.Or</span>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+    </div>
+    <div class="signupBtns">
+        <button type="button" class="facebook" ng-click="facebookLogin()">
+            <span class="fbImg">
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+            </span>@SharedResources.FacebookSignUp
+        </button>
+        <div class="emailBtnWpr">
+            <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+                <span class="emailImg">
+                    @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
+                </span>@SharedResources.EmailSignUp
+            </button>
+        </div>
+    </div>
+</div>

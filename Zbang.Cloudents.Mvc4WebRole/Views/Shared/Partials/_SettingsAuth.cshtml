@@ -9,21 +9,21 @@
         @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
     </label>
     <ul>
-        <li><a href="@Url.Action("Settings", "Account")">@UserDetailResources.AccountSettings</a></li>
-        <li><a target="_self" href="@Url.Action("Help","Home")">@UserDetailResources.Feedback</a></li>
+        <li><a href="@Url.Action("settings", "account")">@UserDetailResources.AccountSettings</a></li>
+        <li><a target="_self" href="@Url.Action("help","home")">@UserDetailResources.Feedback</a></li>
         <li>
-            @Html.ActionLink(FooterResources.AboutUs, "AboutUs", "Home", null, new { target = "_self" })
+            @Html.ActionLink(FooterResources.AboutUs, "aboutUs", "home", null, new { target = "_self" })
         </li>
         <li>
-            @Html.ActionLink(FooterResources.ContactUs, "ContactUs", "Home", null, new { target = "_self" })
+            @Html.ActionLink(FooterResources.ContactUs, "contactus", "home", null, new { target = "_self" })
         </li>
         <li>
-            @Html.ActionLink(FooterResources.PrivacyPolicy, "Privacy", "Home", null, new { target = "_self" })
+            @Html.ActionLink(FooterResources.PrivacyPolicy, "privacy", "home", null, new { target = "_self" })
         </li>
         <li>
-            @Html.ActionLink(FooterResources.TermsOfService, "TermsOfService", "Home", null, new { target = "_self" })
+            @Html.ActionLink(FooterResources.TermsOfService, "termsofservice", "home", null, new { target = "_self" })
         </li>
-        <li class="last"><a href="@Url.Action("LogOff", "Account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
+        <li class="last"><a href="@Url.Action("logoff", "account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
     </ul>
 </aside>
 
