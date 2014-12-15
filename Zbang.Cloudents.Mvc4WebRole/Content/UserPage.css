@@ -891,7 +891,7 @@
 }
 .upMemberBoxesWpr {
   padding: 0 5px 5px 5px;
-  position: absolute;
+  position: fixed;
 }
 .upMemberBoxes {
   width: 240px;
@@ -918,6 +918,7 @@
   overflow: auto;
   max-height: 215px;
   background: #fff;
+  margin-bottom: -11px;
 }
 .upMemberBoxList li {
   height: 30px;
