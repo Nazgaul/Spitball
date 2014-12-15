@@ -316,6 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
+        [RemoveBoxCookie]
         public JsonResult Delete2(long id)
         {
             var userId = User.GetUserId();
