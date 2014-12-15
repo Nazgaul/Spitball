@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.Common
         void UnFollowBox(UnfollowBoxCommand command);
 
         Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
-        AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command);
+        Task<AddLinkToBoxCommandResult> AddLinkToBox(AddLinkToBoxCommand command);
         //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
         //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteAnswer(DeleteReplyCommand command);
         #endregion
 
-        void AddReputation(AddReputationCommand command);
+        Task AddReputation(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
         void MarkMessageAsRead(MarkMessagesAsReadCommand command);
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Domain.Common
         void CreateAnswer(CreateAnswerCommand command);
         void DeleteAnswer(DeleteAnswerCommand command);
         void UpdateAnswer(UpdateAnswerCommand command);
-        SaveQuizCommandResult SaveQuiz(SaveQuizCommand command);
+        Task<SaveQuizCommandResult> SaveQuiz(SaveQuizCommand command);
         void SaveUserAnswers(SaveUserQuizCommand command);
         void CreateItemInDiscussion(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);

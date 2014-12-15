@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 using Rhino.Mocks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlersTests
 {
@@ -15,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IRepository<Reputation> m_StubReputationRepository;
         private IBoxRepository m_StubBoxRepository;
         private IUserRepository m_UserRepository;
+        private IQueueProvider m_QueueProvider;
 
         [TestInitialize]
         public void Setup()
@@ -23,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
             m_StubBoxRepository = MockRepository.GenerateStub<IBoxRepository>();
             m_UserRepository = MockRepository.GenerateStub<IUserRepository>();
-
+            m_QueueProvider = MockRepository.GenerateStub<IQueueProvider>();
 
         }
 
@@ -45,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var commandHandler = new DeleteCommentCommandHandler(m_StubQuestionRepository,
                 m_StubBoxRepository,
                 m_StubReputationRepository,
-                m_UserRepository);
+                m_UserRepository, m_QueueProvider);
 
             commandHandler.Handle(command);
         }

@@ -219,7 +219,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
-                var result = ZboxWriteService.AddLinkToBox(command);
+                var result = await ZboxWriteService.AddLinkToBox(command);
 
                 var item = new LinkDto(result.Link.Id, result.Link.Name,
                     result.Link.Uploader.Id,

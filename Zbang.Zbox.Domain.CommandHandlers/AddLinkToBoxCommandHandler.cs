@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -12,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddLinkToBoxCommandHandler : ICommandHandler<AddLinkToBoxCommand, AddLinkToBoxCommandResult>
+    public class AddLinkToBoxCommandHandler : ICommandHandlerAsync<AddLinkToBoxCommand, AddLinkToBoxCommandResult>
     {
         private const int LinkStorageSize = 1;
 
@@ -44,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_CommentRepository = commentRepository;
         }
 
-        public AddLinkToBoxCommandResult Execute(AddLinkToBoxCommand command)
+        public async Task<AddLinkToBoxCommandResult> ExecuteAsync(AddLinkToBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
             Uri u = CheckUrl(command);
@@ -87,7 +88,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
-            m_QueueProvider.InsertMessageToTranaction(new UpdateData(user.Id, box.Id, link.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, link.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+            await Task.WhenAll(t1, t2);
             return new AddLinkToBoxCommandResult(link);
 
 

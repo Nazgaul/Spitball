@@ -23,12 +23,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(UpdateReputationCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var user = m_UserRepository.Load(message.UserId);
-            var reputation = m_ReputationRepository.GetUserReputation(user.Id);
+            if (message.UserIds == null) return;
+            foreach (var userId in message.UserIds)
+            {
+                var user = m_UserRepository.Load(userId);
+                var reputation = m_ReputationRepository.GetUserReputation(user.Id);
 
-            user.Reputation = reputation;
+                user.Reputation = reputation;
 
-            m_UserRepository.Save(user);
+                m_UserRepository.Save(user);
+            }
         }
     }
 }
