@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
@@ -7,6 +8,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -16,29 +18,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IRepository<Updates> m_Updates;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IRepository<CommentReplies> m_CommentRepliesRepository;
-        private readonly IRepository<Comment> m_CommentRepository;
+        private readonly IQueueProvider m_QueueProvider;
 
         public DeleteItemCommandHandler(
 
             IRepository<Box> boxRepository, IBlobProvider blobProvider,
             IUserRepository userRepository,
-            IRepository<Updates> updates,
             IRepository<Item> itemRepository,
-            IRepository<Reputation> reputationRepository, IRepository<CommentReplies> commentRepliesRepository, IRepository<Comment> commentRepository)
+            IRepository<CommentReplies> commentRepliesRepository, IQueueProvider queueProvider)
         {
 
             m_BoxRepository = boxRepository;
             m_BlobProvider = blobProvider;
             m_UserRepository = userRepository;
-            m_Updates = updates;
             m_ItemRepository = itemRepository;
-            m_ReputationRepository = reputationRepository;
             m_CommentRepliesRepository = commentRepliesRepository;
-            m_CommentRepository = commentRepository;
+            m_QueueProvider = queueProvider;
         }
 
         public void Handle(DeleteItemCommand command)
@@ -54,9 +51,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             Item item = m_ItemRepository.Get(command.ItemId);
             User user = m_UserRepository.Load(command.UserId);
 
-            
-            bool isAuthorize = userType == UserRelationshipType.Owner 
-                || Equals(item.Uploader, user) 
+
+            bool isAuthorize = userType == UserRelationshipType.Owner
+                || Equals(item.Uploader, user)
                 || user.Reputation > user.University.AdminScore;
 
             if (!isAuthorize)
@@ -64,11 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is unauthorized to delete file");
             }
 
-
-
-            //item.DeleteAllComments(user.Email);
             m_ItemRepository.Delete(item);
-            //item.IsDeleted = true;
             item.DateTimeUser.UpdateUserTime(user.Email);
             var file = item as File;
 
@@ -90,11 +83,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     ChangeBoxPicture(box, item.Id);
                 }
             }
+
             var uploaderFile = item.Uploader;
             uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id);
-            var reputation = uploaderFile.AddReputation(ReputationAction.DeleteItem);
-            m_ReputationRepository.Save(reputation);
 
+            var usersAffectReputation = new List<long> {uploaderFile.Id};
+            usersAffectReputation.AddRange(item.GetItemCommentsUserIds());
 
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
@@ -106,12 +100,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var shouldRemove = item.Comment.RemoveItem(item);
                 if (shouldRemove)
                 {
-                    m_ReputationRepository.Save(box.DeleteComment(item.Comment));
+                    usersAffectReputation.AddRange( box.DeleteComment(item.Comment));
                     m_BoxRepository.Save(box);
-                    //m_CommentRepository.Delete(item.Comment);
                 }
             }
-
+            m_QueueProvider.InsertMessageToTranaction(new ReputationData(usersAffectReputation));
 
             m_BoxRepository.Save(box);
             m_UserRepository.Save(uploaderFile);

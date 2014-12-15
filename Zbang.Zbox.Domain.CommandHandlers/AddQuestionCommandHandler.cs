@@ -65,7 +65,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
-            return m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, comment.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, comment.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+
+            return Task.WhenAll(t1, t2);
 
 
         }

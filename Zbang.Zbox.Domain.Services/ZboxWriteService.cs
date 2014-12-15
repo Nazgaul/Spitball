@@ -123,18 +123,23 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                AddFileToBoxCommandResult result = await m_CommandBus.DispatchAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
+                var reputationCommand = new AddReputationCommand(command.UserId,
+                    Infrastructure.Enums.ReputationAction.AddItem);
+
+                var t1 = m_CommandBus.SendAsync(reputationCommand);
+                var t2 = m_CommandBus.DispatchAsync<AddFileToBoxCommand, AddFileToBoxCommandResult>(command);
+                await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
 
-                return result;
+                return t2.Result;
             }
         }
 
-        public AddLinkToBoxCommandResult AddLinkToBox(AddLinkToBoxCommand command)
+        public async Task<AddLinkToBoxCommandResult> AddLinkToBox(AddLinkToBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
-                AddLinkToBoxCommandResult result = m_CommandBus.Dispatch<AddLinkToBoxCommand, AddLinkToBoxCommandResult>(command);
+                AddLinkToBoxCommandResult result = await m_CommandBus.DispatchAsync<AddLinkToBoxCommand, AddLinkToBoxCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
@@ -429,11 +434,11 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
 
-        public void AddReputation(AddReputationCommand command)
+        public async Task AddReputation(AddReputationCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -548,11 +553,11 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public SaveQuizCommandResult SaveQuiz(SaveQuizCommand command)
+        public async Task<SaveQuizCommandResult> SaveQuiz(SaveQuizCommand command)
         {
             using (UnitOfWork.Start())
             {
-                var result = m_CommandBus.Dispatch<SaveQuizCommand, SaveQuizCommandResult>(command);
+                var result = await m_CommandBus.DispatchAsync<SaveQuizCommand, SaveQuizCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }

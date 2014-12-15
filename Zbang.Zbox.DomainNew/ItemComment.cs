@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
@@ -51,7 +52,12 @@ namespace Zbang.Zbox.Domain
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        public virtual ICollection<ItemCommentReply> Replies { get; set; }
+        protected virtual ICollection<ItemCommentReply> Replies { get; set; }
+
+        public virtual IEnumerable<long> GetUserIdReplies()
+        {
+            return Replies.Select(s => s.Author.Id);
+        }
 
 
     }

@@ -24,6 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
         private IRepository<CommentReplies> m_CommentRepliesRepository;
         private IRepository<Comment> m_CommentRepository;
+        private IQueueProvider m_QueueProvider;
 
 
         [TestInitialize]
@@ -38,6 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubUpdatesRepository = MockRepository.GenerateStub<IRepository<Updates>>();
             m_CommentRepliesRepository = MockRepository.GenerateStub<IRepository<CommentReplies>>();
             m_CommentRepository = MockRepository.GenerateStub<IRepository<Comment>>();
+            m_QueueProvider = MockRepository.GenerateStub<IQueueProvider>();
         }
 
         [TestMethod]
@@ -64,8 +66,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var command = new DeleteItemCommand(someItemId, someUserId, someBoxId);
             var commandHandler = new DeleteItemCommandHandler(m_StubBoxRepository,
-                m_StubBlobProvider, m_StubUserRepository, m_StubUpdatesRepository, m_StubItemRepository,
-                m_StubReputationRepository, m_CommentRepliesRepository, m_CommentRepository);
+                m_StubBlobProvider, m_StubUserRepository,  m_StubItemRepository,
+                 m_CommentRepliesRepository, m_QueueProvider);
 
             m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
             m_StubUserRepository.Stub(x => x.Load(someUserId)).Return(someUser);

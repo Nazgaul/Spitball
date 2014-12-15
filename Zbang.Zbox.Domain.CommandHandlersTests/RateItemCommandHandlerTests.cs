@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 using Rhino.Mocks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlersTests
 {
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         private IRepository<Item> m_StubItemRepository;
         private IUserRepository m_StubUserRepository;
         private IRepository<Reputation> m_StubReputationRepository;
-
+        private IQueueProvider m_QueueProvider;
 
         [TestInitialize]
         public void Setup()
@@ -25,6 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<Item>>();
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
             m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
+            m_QueueProvider = MockRepository.GenerateStub<IQueueProvider>();
 
 
         }
@@ -46,7 +48,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);
 
-            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy, m_StubItemRepository, m_StubUserRepository, m_StubReputationRepository);
+            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy,
+                m_StubItemRepository, m_StubUserRepository, m_QueueProvider);
 
 
 
@@ -72,7 +75,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);
             m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(new ItemRate(user, item, Guid.NewGuid(), 3));
-            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy, m_StubItemRepository, m_StubUserRepository, m_StubReputationRepository);
+            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy, m_StubItemRepository,
+                m_StubUserRepository, m_QueueProvider);
 
 
 

@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return Json(new JsonResponse(false, GetModelStateErrors()));
                 }
                 var userId = User.GetUserId();
-                
+
                 var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, string.Format("{0} {1}", model.FirstName, model.LastName));
 
                 ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
@@ -128,7 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
             var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, string.Format("{0} {1}", model.FirstName, model.LastName));
             ZboxWriteService.ShareBoxFacebook(command);
-            return JsonOk(new {url = command.Url});
+            return JsonOk(new { url = command.Url });
         }
 
         [HttpPost]
@@ -189,7 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        
+
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
         //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
@@ -266,15 +266,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult Facebook(string postId)
+        public async Task<JsonResult> Facebook(string postId)
         {
             if (string.IsNullOrWhiteSpace(postId))
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
-            var command = new AddReputationCommand(User.GetUserId());
-            ZboxWriteService.AddReputation(command);
-            return Json(new JsonResponse(true));
+            var command = new AddReputationCommand(User.GetUserId(), Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
+            await ZboxWriteService.AddReputation(command);
+            return JsonOk();
         }
 
         [HttpPost, ZboxAuthorize]

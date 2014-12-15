@@ -10,14 +10,14 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class UnfollowBoxCommandHandler : ICommandHandler<UnfollowBoxCommand>
+    public class UnFollowBoxCommandHandler : ICommandHandler<UnfollowBoxCommand>
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
 
-        public UnfollowBoxCommandHandler(IRepository<Box> boxRepository,
+        public UnFollowBoxCommandHandler(IRepository<Box> boxRepository,
             IUserRepository userRepository,
             IRepository<Library> departmentRepository, 
             IUniversityRepository universityRepository)

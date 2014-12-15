@@ -66,7 +66,7 @@ namespace Zbang.Zbox.Domain
 
 
         //protected virtual ICollection<Comment> Comments { get; set; }
-        protected virtual ICollection<Comment> Comments { get;  set; }
+        protected virtual ICollection<Comment> Comments { get; set; }
 
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
@@ -151,14 +151,20 @@ namespace Zbang.Zbox.Domain
             return comment;
         }
 
-        public virtual List<Reputation> DeleteComment(Comment comment)
+        /// <summary>
+        /// Deletes a comment
+        /// </summary>
+        /// <param name="comment">The comment to delete</param>
+        /// <returns>Users list who their post are deleted</returns>
+        public virtual IEnumerable<long> DeleteComment(Comment comment)
         {
-            var reputation = comment.AnswersReadOnly.Select(answer => answer.User.AddReputation(ReputationAction.DeleteAnswer)).ToList();
-            reputation.Add(comment.User.AddReputation
-                (ReputationAction.DeleteQuestion));
+            var usersAffectedByDeleteComment = comment.AnswersReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
+            //var reputation = comment.AnswersReadOnly.Select(answer => answer.User.AddReputation(ReputationAction.DeleteAnswer)).ToList();
+            //reputation.Add(comment.User.AddReputation
+            //    (ReputationAction.DeleteQuestion));
             Comments.Remove(comment);
             UpdateCommentsCount();
-            return reputation;
+            return usersAffectedByDeleteComment;
         }
         #region dbiTemp
 
@@ -196,7 +202,7 @@ namespace Zbang.Zbox.Domain
         }
         #endregion
         #region commentCount
-       
+
         public virtual void UpdateCommentsCount()
         {
             CommentCount = Comments.Count;

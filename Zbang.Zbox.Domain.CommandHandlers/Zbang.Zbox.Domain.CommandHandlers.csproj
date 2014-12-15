@@ -121,7 +121,7 @@
     <Compile Include="CreateUserCommandHandler.cs" />
     <Compile Include="CreateBoxCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnfollowBoxCommandHandler.cs" />
+    <Compile Include="UnFollowBoxCommandHandler.cs" />
     <Compile Include="UpdateReputationCommandHandler.cs" />
     <Compile Include="UpdateStatisticsCommandHandler.cs" />
     <Compile Include="UpdateThumbnailCommandHandler.cs" />

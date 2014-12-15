@@ -13,17 +13,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
 
         public CreateQuizCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
-            IRepository<Domain.Quiz> quizRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Domain.Quiz> quizRepository
+            )
         {
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QuizRepository = quizRepository;
-            m_ReputationRepository = reputationRepository;
         }
         public void Handle(CreateQuizCommand message)
         {
@@ -40,8 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 m_UserRepository.Save(user);
             }
             var quiz = new Domain.Quiz(TextManipulation.EncodeText(message.Text), message.QuizId, box, user);
-            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddQuiz));
-            m_UserRepository.Save(user);
+            
             m_QuizRepository.Save(quiz);
         }
     }

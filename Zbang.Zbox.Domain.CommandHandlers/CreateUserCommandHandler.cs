@@ -60,8 +60,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputation = invite.Sender.AddReputation(invite.GiveAction());
             m_ReputationRepository.Save(reputation);
             invite.UsedInvite();
+            
             UserRepository.Save(invite.Sender);
             m_InviteToCloudentsRepository.Save(invite);
+            m_QueueRepository.InsertMessageToTranaction(new ReputationData(invite.Sender.Id));
         }
 
 

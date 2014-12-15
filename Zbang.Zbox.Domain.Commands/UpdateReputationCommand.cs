@@ -1,15 +1,16 @@
 ﻿
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateReputationCommand : ICommand
     {
-        public UpdateReputationCommand(long userId)
+        public UpdateReputationCommand(IEnumerable<long> userIds)
         {
-            UserId = userId;
+            UserIds = userIds;
         }
 
-        public long UserId { get;private set; }
+        public IEnumerable<long> UserIds { get; private set; }
     }
 }

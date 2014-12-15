@@ -4,6 +4,8 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -13,18 +15,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IInviteRepository m_InviteRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
+        private readonly IQueueProvider m_QueueRepository;
 
 
         public SubscribeToSharedBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository,
             IInviteRepository inviteRepository,
-            IRepository<Reputation> reputationRepository)
+            IRepository<Reputation> reputationRepository, IQueueProvider queueRepository)
         {
 
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_InviteRepository = inviteRepository;
             m_ReputationRepository = reputationRepository;
-
+            m_QueueRepository = queueRepository;
         }
 
         public void Handle(SubscribeToSharedBoxCommand command)
@@ -74,6 +77,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
             invite.UsedInvite();
             m_UserRepository.Save(invite.Sender);
+            m_QueueRepository.InsertMessageToTranaction(new ReputationData(invite.Sender.Id));
         }
     }
 }

@@ -222,8 +222,8 @@ namespace Testing
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
-            IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
-            writeService.UpdateReputation(new UpdateReputationCommand(1));
+            //IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
+            //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{

@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
-        public async Task HandleAsync(AddAnswerToQuestionCommand message)
+        public Task HandleAsync(AddAnswerToQuestionCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -63,10 +63,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, null, answer.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, null, answer.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+            
             m_ReputationRepository.Save(reputation);
             m_AnswerRepository.Save(answer);
             m_UserRepository.Save(user);
+            return Task.WhenAll(t1, t2);
         }
     }
 }
