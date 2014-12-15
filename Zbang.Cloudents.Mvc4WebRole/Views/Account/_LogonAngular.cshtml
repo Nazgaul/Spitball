@@ -1,12 +1,11 @@
-﻿
-@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="splitHR"><span class="splitHRText">@LogOnResources.ByEmail</span></div>
 
 <div class="signIn">
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate >
-
+        <div>{{params.loginServerError}}</div>
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">Required</span>
             <span class="ng-message-error" ng-message="email">Email</span>
