@@ -24,19 +24,19 @@
 
         if (!window.jQuery) {
             scripts = getCdnScripts(cdnGooglePath);            
-            load(scripts);            
+            load(scriptsPath);
         }
 
         if (!window.app) {
             scripts = getCdnScripts(cdnCdPath);
-            load(scripts);            
+            load(cdnPath);
         }
 
         window.angular.bootstrap(document, ['app']);
 
-        function load(scripts) {
+        function load(path) {
             for (var i = 0, l = scripts.length; i < l; i++) {
-                loadScript(scriptsPath + getFilename(scripts[i]));
+                loadScript(path + getFilename(scripts[i]));
             }
         }
      
