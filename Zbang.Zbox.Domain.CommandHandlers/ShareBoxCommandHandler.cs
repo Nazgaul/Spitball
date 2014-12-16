@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -16,7 +18,7 @@ using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class ShareBoxCommandHandler : ICommandHandler<ShareBoxCommand>
+    public class ShareBoxCommandHandler : ICommandHandlerAsync<ShareBoxCommand>
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
@@ -39,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserBoxRelRepository = userBoxRelRepository;
         }
 
-        public void Handle(ShareBoxCommand command)
+        public Task HandleAsync(ShareBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
 
@@ -52,6 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var sender = m_UserRepository.Load(command.InviteeId);
             var box = m_BoxRepository.Load(command.BoxId);
 
+            var tasks = new List<Task>();
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
                 var recipientUser = GetUser(recipientEmail);
@@ -85,17 +88,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 m_UserBoxRelRepository.Save(newInvite);
                 m_InviteRepository.Save(inviteToBoxExistingUser);
-                SendInvite(sender.Name, box.Name,
-                        id,
-                        recipientEmail, sender.Image, sender.Email, recipientUser.Culture, box.Url);
+                tasks.Add(SendInvite(sender.Name, box.Name,
+                    id,
+                    recipientEmail, sender.Image, sender.Email, recipientUser.Culture, box.Url));
             }
+            return Task.WhenAll(tasks);
         }
 
-        private void SendInvite(string senderName, string boxName, Guid id, string recipientEmail, string senderImage, string senderEmail, string culture, string boxUrl)
+        private Task SendInvite(string senderName, string boxName, Guid id, string recipientEmail, string senderImage, string senderEmail, string culture, string boxUrl)
         {
             var invId = GuidEncoder.Encode(id);
             var url = UrlConsts.BuildInviteUrl(boxUrl, invId);
-            m_QueueProvider.InsertMessageToMailNew(new InviteMailData(senderName, boxName,
+           return m_QueueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
                   url,
                   recipientEmail, culture, senderImage, senderEmail));
         }

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -10,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public abstract class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, CreateUserCommandResult>
+    public abstract class CreateUserCommandHandler : ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>
     {
 
         protected readonly IUserRepository UserRepository;
@@ -34,12 +35,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AcademicBoxRepository = academicBoxRepository;
         }
 
-        public abstract CreateUserCommandResult Execute(CreateUserCommand command);
+        public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
 
-        private void TriggerWelcomeMail(User user)
+        private Task TriggerWelcomeMail(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
-            m_QueueRepository.InsertMessageToMailNew(new WelcomeMailData(user.Email, user.Name, user.Culture));
+            return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
         protected void GiveReputation(Guid? invId)
@@ -60,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputation = invite.Sender.AddReputation(invite.GiveAction());
             m_ReputationRepository.Save(reputation);
             invite.UsedInvite();
-            
+
             UserRepository.Save(invite.Sender);
             m_InviteToCloudentsRepository.Save(invite);
             m_QueueRepository.InsertMessageToTranaction(new ReputationData(invite.Sender.Id));
@@ -87,7 +88,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return user.IsRegisterUser;
         }
 
-        protected void UpdateUser(User user, CreateUserCommand command)
+        protected Task UpdateUser(User user, CreateUserCommand command)
         {
             user.IsRegisterUser = true;
 
@@ -96,8 +97,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.CreateName();
             user.Sex = command.Sex;
             user.MarketEmail = marketEmail(command.MarketEmail);
-            TriggerWelcomeMail(user);
+
             user.Quota.AllocateStorage();
+            return TriggerWelcomeMail(user);
         }
 
         private bool marketEmail(bool marketEmail)

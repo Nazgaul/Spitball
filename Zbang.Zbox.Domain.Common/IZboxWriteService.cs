@@ -31,12 +31,12 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteUserFromBox(DeleteUserFromBoxCommand command);
         void ChangeNotificationSettings(ChangeNotificationSettingsCommand command);
 
-        void ShareBox(ShareBoxCommand command);
-        void InviteSystem(InviteToSystemCommand command);
+        Task ShareBoxAsync(ShareBoxCommand command);
+        Task InviteSystemAsync(InviteToSystemCommand command);
         void ShareBoxFacebook(ShareBoxFacebookCommand command);
         void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
-        void SendMessage(SendMessageCommand command);
+        Task SendMessageAsync(SendMessageCommand command);
         Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
         //void DeleteComment(DeleteCommentCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);

@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class ShareBoxCommand : ICommand
+    public class ShareBoxCommand : ICommandAsync
     {
         public ShareBoxCommand(long boxId, long inviteeId, IList<string> recipients)
         {

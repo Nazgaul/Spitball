@@ -361,7 +361,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult ChangeEmail(ChangeMail model)
+        public async Task<JsonResult> ChangeEmail(ChangeMail model)
         {
             if (!ModelState.IsValid)
             {
@@ -374,8 +374,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 Session[SessionKey] = model;
 
-                m_QueueProvider.Value.InsertMessageToMailNew(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
-                    model.Email, Thread.CurrentThread.CurrentCulture.Name));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
+                     model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });
             }
             catch (ArgumentException ex)
@@ -549,7 +549,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var linkData = CrypticElement(data);
                 Session[SessionResetPassword] = data;
-                m_QueueProvider.Value.InsertMessageToMailNew(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
                 TempData["key"] = System.Web.Helpers.Crypto.HashPassword(code);
 

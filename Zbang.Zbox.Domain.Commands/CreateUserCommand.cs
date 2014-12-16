@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public abstract class CreateUserCommand : ICommand
+    public abstract class CreateUserCommand : ICommandAsync
     {
         protected CreateUserCommand(string emailId, long? universityId, string firstName,  string lastName, bool sex,
             bool marketEmail, string culture, Guid? inviteId, long? boxId)

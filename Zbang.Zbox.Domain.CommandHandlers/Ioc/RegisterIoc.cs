@@ -15,8 +15,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
         {
             var ioc = IocFactory.Unity;
 
-            ioc.RegisterType(typeof(ICommandHandler<CreateUserCommand, CreateUserCommandResult>), typeof(CreateMembershipUserCommandHandler), "Membership");
-            ioc.RegisterType(typeof(ICommandHandler<CreateUserCommand, CreateUserCommandResult>), typeof(CreateFacebookUserCommandHandler), "Facebook");
+            ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateMembershipUserCommandHandler), "Membership");
+            ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateFacebookUserCommandHandler), "Facebook");
 
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>), typeof(UpdateUserPasswordCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler))
@@ -78,10 +78,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));
 
             //message
-            ioc.RegisterType(typeof(ICommandHandler<SendMessageCommand>), typeof(SendMessageCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<ShareBoxCommand>), typeof(ShareBoxCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<SendMessageCommand>), typeof(SendMessageCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<ShareBoxCommand>), typeof(ShareBoxCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<ShareBoxFacebookCommand>), typeof(ShareBoxFacebookCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<InviteToSystemCommand>), typeof(InviteToSystemCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<InviteToSystemCommand>), typeof(InviteToSystemCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<InviteToSystemFacebookCommand>), typeof(InviteToSystemFacebookCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsReadCommand>), typeof(MarkMessagesAsReadCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsOldCommand>), typeof(MarkMessagesAsOldCommandHandler));

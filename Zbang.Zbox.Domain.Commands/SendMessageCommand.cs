@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class SendMessageCommand : ICommand
+    public class SendMessageCommand : ICommandAsync
     {
         public SendMessageCommand(long sender, IList<string> inviteEmailList,
             string personalNote//, string url

@@ -31,25 +31,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost, ZboxAuthorize]
-        public ActionResult Invite(InviteSystem model)
+        public async Task<JsonResult> Invite(InviteSystem model)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return Json(new JsonResponse(false, GetModelStateErrors()));
+                    return JsonError(GetModelStateErrors());
                 }
                 var userId = User.GetUserId();
 
                 var inviteCommand = new InviteToSystemCommand(userId, model.Recepients);
-                ZboxWriteService.InviteSystem(inviteCommand);
+                await ZboxWriteService.InviteSystemAsync(inviteCommand);
 
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", User.GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unspecified error. try again later"));
+                return JsonError("Unspecified error. try again later");
             }
         }
         [HttpPost, ZboxAuthorize]
@@ -83,38 +83,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult InviteBox(Invite model)
+        public async Task<JsonResult> InviteBox(Invite model)
         {
             try
             {
 
                 if (!ModelState.IsValid)
                 {
-                    return Json(new JsonResponse(false, GetModelStateErrors()));
+                    return JsonError(GetModelStateErrors());
                 }
 
                 var userId = User.GetUserId();
                 var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
-                ZboxWriteService.ShareBox(shareCommand);
-                return Json(new JsonResponse(true));
+                await ZboxWriteService.ShareBoxAsync(shareCommand);
+                return JsonOk();
             }
             catch (UnauthorizedAccessException ex)
             {
                 ModelState.AddModelError(string.Empty, @"You do not have permission to share a box");
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             catch (Exception ex)
             {
 
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, @"Unspecified error. try again later");
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
         }
 
@@ -133,24 +133,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult Message(Message model)
+        public async Task<JsonResult> Message(Message model)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return Json(new JsonResponse(false, GetModelStateErrors()));
+                    return JsonError(GetModelStateErrors());
                 }
                 var userId = User.GetUserId();
                 var command = new SendMessageCommand(userId, model.Recepients,
                         model.Note);
-                ZboxWriteService.SendMessage(command);
-                return Json(new JsonResponse(true));
+                await ZboxWriteService.SendMessageAsync(command);
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", User.GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unspecified error. try again later"));
+                return JsonError("Unspecified error. try again later");
             }
         }
 

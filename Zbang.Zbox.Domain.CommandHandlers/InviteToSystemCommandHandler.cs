@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -13,7 +15,7 @@ using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class InviteToSystemCommandHandler : ICommandHandler<InviteToSystemCommand>
+    public class InviteToSystemCommandHandler : ICommandHandlerAsync<InviteToSystemCommand>
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
@@ -31,11 +33,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_IdGenerator = idGenerator;
         }
 
-        public void Handle(InviteToSystemCommand command)
+        public Task HandleAsync(InviteToSystemCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
             User sender = m_UserRepository.Load(command.SenderId);
 
+            var tasks = new List<Task>();
 
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
@@ -56,8 +59,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var invId = GuidEncoder.Encode(id);
                 var url = UrlConsts.BuildInviteCloudentsUrl(invId);
 
-                m_QueueProvider.InsertMessageToMailNew(new InviteToCloudentsData(sender.Name, sender.Image, recipientEmail, sender.Culture, sender.Email, url));
+                tasks.Add(
+                    m_QueueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.Image,
+                        recipientEmail, sender.Culture, sender.Email, url)));
             }
+            return Task.WhenAll(tasks);
         }
     }
 }

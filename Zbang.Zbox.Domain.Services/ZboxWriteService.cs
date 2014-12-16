@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.Services
             {
                 using (UnitOfWork.Current.BeginTransaction())
                 {
-                    var result = m_CommandBus.Dispatch<CreateUserCommand, CreateUserCommandResult>(command, command.CommandResolveName);
+                    var result = await m_CommandBus.DispatchAsync<CreateUserCommand, CreateUserCommandResult>(command, command.CommandResolveName);
                     if (command.BoxId.HasValue)
                     {
                         var autoFollowCommand = new SubscribeToSharedBoxCommand(result.User.Id, command.BoxId.Value);
@@ -135,7 +135,7 @@ namespace Zbang.Zbox.Domain.Services
                 var t3 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t2 = m_CommandBus.DispatchAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>(command, command.ResolverName);
                 var t1 = m_CommandBus.SendAsync(reputationCommand);
-                
+
                 await Task.WhenAll(t1, t2, t3);
                 UnitOfWork.Current.TransactionalFlush();
 
@@ -183,28 +183,28 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void SendMessage(SendMessageCommand command)
+        public async Task SendMessageAsync(SendMessageCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
 
-        public void ShareBox(ShareBoxCommand command)
+        public async Task ShareBoxAsync(ShareBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void InviteSystem(InviteToSystemCommand command)
+        public async Task InviteSystemAsync(InviteToSystemCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -396,7 +396,7 @@ namespace Zbang.Zbox.Domain.Services
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t1 = m_CommandBus.SendAsync(command);
-                
+
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
 
@@ -579,7 +579,7 @@ namespace Zbang.Zbox.Domain.Services
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
                 await m_CommandBus.SendAsync(autoFollowCommand);
                 m_CommandBus.Send(command);
-               
+
 
                 UnitOfWork.Current.TransactionalFlush();
             }

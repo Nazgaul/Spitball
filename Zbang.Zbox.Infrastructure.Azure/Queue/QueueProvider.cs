@@ -45,11 +45,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
         }
 
-        public void InsertMessageToCache(FileProcessData message)
-        {
-            var queue = GetCacheQueue();
-            queue.InsertToQueueProto(message);
-        }
+        //public void InsertMessageToCache(FileProcessData message)
+        //{
+        //    var queue = GetCacheQueue();
+        //    queue.InsertToQueueProto(message);
+        //}
 
         public Task InsertMessageToCacheAsync(FileProcessData message)
         {
@@ -57,9 +57,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue.InsertToQueueProtoAsync(message);
         }
 
-        public void InsertMessageToMailNew(BaseMailData message)
+        //public void InsertMessageToMailNew(BaseMailData message)
+        //{
+        //    GetMailQueueNew().InsertToQueueProto(message);
+        //}
+        public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
-            GetMailQueueNew().InsertToQueueProto(message);
+            return GetMailQueueNew().InsertToQueueProtoAsync(message);
         }
 
 

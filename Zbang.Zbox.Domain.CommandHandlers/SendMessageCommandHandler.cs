@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class SendMessageCommandHandler : ICommandHandler<SendMessageCommand>
+    public class SendMessageCommandHandler : ICommandHandlerAsync<SendMessageCommand>
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Message> m_MessageRepository;
 
         public SendMessageCommandHandler(IQueueProvider queueProvider,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IIdGenerator idGenerator,
         IRepository<Message> messageRepository
            )
@@ -31,54 +32,50 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_MessageRepository = messageRepository;
         }
 
-        public void Handle(SendMessageCommand command)
+        public Task HandleAsync(SendMessageCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
             var sender = m_UserRepository.Load(command.Sender);
 
-            foreach (var recepient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
+            var tasks = new List<Task>();
+            foreach (var recipient in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
-                var recepientUser = GetUser(recepient);
-                if (recepientUser == null)
+                var recipientUser = GetUser(recipient);
+                if (recipientUser == null)
                 {
-                    if (!Validation.IsEmailValid2(recepient))
+                    if (!Validation.IsEmailValid2(recipient))
                     {
                         continue;
                     }
-                    recepientUser = new User(recepient, null,null);
-                    m_UserRepository.Save(recepientUser);
+                    recipientUser = new User(recipient, null, null);
+                    m_UserRepository.Save(recipientUser);
 
 
                     // TriggerSendMail(command.PersonalNote, recipient, sender.Name, Zbang.Zbox.Infrastructure.Culture.Languages.GetDefaultSystemCulture().Culture);
                     //continue;
                 }
-                var message = new Message(m_IdGenerator.GetId(), sender, recepientUser, command.PersonalNote);
+                var message = new Message(m_IdGenerator.GetId(), sender, recipientUser, command.PersonalNote);
                 m_MessageRepository.Save(message);
-                TriggerSendMail(command.PersonalNote, recepientUser.Email, sender.Name, recepientUser.Culture, sender.Image, sender.Email);
+                tasks.Add(TriggerSendMailAsync(command.PersonalNote, recipientUser.Email, sender.Name, recipientUser.Culture, sender.Image, sender.Email));
             }
+            return Task.WhenAll(tasks);
         }
 
-        private void TriggerSendMail(string personalNote, string email, string senderUserName, string culture, string senderImage, string senderEmail)
+        private Task TriggerSendMailAsync(string personalNote, string email, string senderUserName, string culture, string senderImage, string senderEmail)
         {
-            m_QueueProvider.InsertMessageToMailNew(new MessageMailData2(personalNote, email, senderUserName, senderImage, senderEmail, culture));
+            return m_QueueProvider.InsertMessageToMailNewAsync(new MessageMailData2(personalNote, email, senderUserName, senderImage, senderEmail, culture));
         }
 
 
-        private User GetUser(string recepient)
+        private User GetUser(string recipient)
         {
             long userid;
-            if (long.TryParse(recepient, out userid))
+            if (long.TryParse(recipient, out userid))
             {
                 return m_UserRepository.Get(userid);
             }
-            //var recepientUserId = m_ShortCodesCache.ShortCodeToLong(recipient, ShortCodesType.User);
-            // var recepientUser = m_UserRepository.Get(recepientUserId);
-
-            //if (recepientUser != null)
-            //{
-            //    return recepientUser;
-            //}
-            var user = m_UserRepository.GetUserByEmail(recepient);
+            
+            var user = m_UserRepository.GetUserByEmail(recipient);
             if (user != null)
             {
                 return user;

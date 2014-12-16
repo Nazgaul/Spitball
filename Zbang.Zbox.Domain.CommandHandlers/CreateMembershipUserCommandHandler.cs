@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.Commands;
@@ -18,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository, academicBoxRepository)
         {
         }
-        public override CreateUserCommandResult Execute(CreateUserCommand command)
+        public override async Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command)
         {
             var membershipCommand = command as CreateMembershipUserCommand;
             if (membershipCommand == null)
@@ -41,36 +42,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //var newUser = false;
             if (user == null)//email was invited to a box new user
             {
-                // newUser = true;
-                //var defaultImages = m_ProfileProvider.GetDefaultProfileImage();
                 user = CreateUser(command.Email,
                     null, null,
-                    //defaultImages.Image.AbsoluteUri, defaultImages.LargeImage.AbsoluteUri,
                     command.FirstName,
                     null,
                     command.LastName, command.Sex, command.MarketEmail, command.Culture);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
             }
-            UpdateUser(user, command);
-            //if (!user.IsRegisterUser)
-            //{
+            await UpdateUser(user, command);
 
-            //    user.IsRegisterUser = true;
-
-            //    user.FirstName = command.FirstName;
-            //    user.MiddleName = command.MiddleName;
-            //    user.LastName = command.LastName;
-            //    user.CreateName();
-            //    user.Sex = command.Sex;
-            //    user.MarketEmail = command.MarketEmail;
-
-            //    user.Quota.AllocateStorage();
-            //    if (!newUser)
-            //    {
-            //        AddReputation(user);
-            //    }
-            //}
             user.MembershipId = membershipCommand.MembershipUserId;
 
             var retVal = new CreateMembershipUserCommandResult(user);

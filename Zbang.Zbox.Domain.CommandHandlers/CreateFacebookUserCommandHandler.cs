@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -18,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
 
         }
-        public override CreateUserCommandResult Execute(CreateUserCommand command)
+        public override async Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command)
         {
             var facebookCommand = command as CreateFacebookUserCommand;
             if (facebookCommand == null)
@@ -54,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.GenerateUrl();
                 }
             }
-            UpdateUser(user, command);
+            await UpdateUser(user, command);
 
             user.FacebookId = facebookCommand.FacebookUserId;
 
