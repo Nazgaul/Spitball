@@ -3,10 +3,10 @@
         function ($scope, sNotification, $analytics, $window, $location, $route) {
             "use strict";
 
-            $scope.params = {
-                notificationsListLength: 7,
-                notificationsListPage: 7,
-            };            
+            //$scope.params = {
+            //    notificationsListLength: 7,
+            //    notificationsListPage: 7,
+            //};            
          
             getDetails();
 
@@ -55,9 +55,9 @@
 
             $scope.$on('newNotifications', getDetails);
 
-            $scope.addNotifications = function () {
-                $scope.params.notificationsListLength += $scope.params.notificationsListPage;
-            };
+            //$scope.addNotifications = function () {
+            //    $scope.params.notificationsListLength += $scope.params.notificationsListPage;
+            //};
 
             $scope.updateState = function (isOpen) {
                 if (!isOpen) {
