@@ -230,7 +230,7 @@
                 };
 
                 $scope.deleteQuestion = function (question) {
-                    sNotify.confirm('Are you sure you want to delete?').then(function () {
+                    sNotify.confirm(JsResources.SureYouWantToDelete + '?').then(function () {
                         var index = $scope.data.questions.indexOf(question);
                         $scope.data.questions.splice(index, 1);
 
@@ -248,7 +248,7 @@
                 };
 
                 $scope.deleteAnswer = function (question, answer) {
-                    sNotify.confirm('Are you sure you want to delete?').then(function () {
+                    sNotify.confirm(JsResources.SureYouWantToDelete + '?').then(function () {
 
                         var index = question.answers.indexOf(answer);
                         question.answers.splice(index, 1);

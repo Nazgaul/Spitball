@@ -110,7 +110,7 @@
 
 
                     if (!code) {
-                        $scope.params.changeEmailError = jsResources.FieldRequired;
+                        $scope.params.changeEmailError = JsResources.FieldRequired;
                         return;
                     }
 
@@ -118,18 +118,18 @@
 
                     if (_.isNaN(code)) {
                         if (!code) {
-                            $scope.params.changeEmailError = jsResources.CodeIncorrect;
+                            $scope.params.changeEmailError = JsResources.CodeIncorrect;
                             return;
                         }
                     }
 
                     if (!_.isNumber(code)) {
-                        $scope.params.changeEmailError = jsResources.CodeNumeric;
+                        $scope.params.changeEmailError = JsResources.CodeNumeric;
                         return;
                     }
 
                     sAccount.submitCode({ code: code }).then(function () {
-                        $scope.params.changeEmailBtnText = jsResources.ChangeEmail;
+                        $scope.params.changeEmailBtnText = JsResources.ChangeEmail;
                         $scope.params.changingEmail = $scope.params.verifyCode = false;
                         $scope.data.email = $scope.emailForm.email;
 
@@ -150,7 +150,7 @@
 
                 if (!$scope.params.changingEmail) {
                     $scope.params.changingEmail = true;
-                    $scope.params.changeEmailBtnText = jsResources.Change;
+                    $scope.params.changeEmailBtnText = JsResources.Change;
                     return;
                 }
 
@@ -158,18 +158,18 @@
 
 
                 if (!email) {
-                    $scope.params.changeEmailError = jsResources.FieldRequired;
+                    $scope.params.changeEmailError = JsResources.FieldRequired;
                     return;
                 }
 
                 if (!emailRegExp.test(email)) {
-                    $scope.params.changeEmailError = jsResources.InvalidEmail;
+                    $scope.params.changeEmailError = JsResources.InvalidEmail;
                     return;
                 }
 
                 sAccount.changeEmail({ email: email }).then(function () {
                     $scope.params.verifyCode = true;
-                    $scope.params.changeEmailBtnText = jsResources.Save;
+                    $scope.params.changeEmailBtnText = JsResources.Save;
                     $analytics.eventTrack('Account settings', {
                         category: 'Email Change',
                         label: 'User started changing email proccess'
@@ -191,20 +191,20 @@
                     newPassword = $scope.passwordForm.newPassword;
 
                 if (!oldPassword) {
-                    $scope.params.passwordError = jsResources.FieldRequired;
+                    $scope.params.passwordError = JsResources.FieldRequired;
                     return;
                 }
                 if (oldPassword.length < 6) {
-                    $scope.params.passwordError = jsResources.PwdAtLeast6Chars;
+                    $scope.params.passwordError = JsResources.PwdAtLeast6Chars;
                     return;
                 }
 
                 if (!newPassword) {
-                    $scope.params.passwordError = jsResources.FieldRequired;
+                    $scope.params.passwordError = JsResources.FieldRequired;
                     return;
                 }
                 if (newPassword.length < 6) {
-                    $scope.params.passwordError = jsResources.PwdAtLeast6Chars;
+                    $scope.params.passwordError = JsResources.PwdAtLeast6Chars;
                     return;
                 }
 
