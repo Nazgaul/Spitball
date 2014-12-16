@@ -347,6 +347,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
+                
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
