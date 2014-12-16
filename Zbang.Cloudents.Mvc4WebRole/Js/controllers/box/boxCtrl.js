@@ -68,7 +68,7 @@
                 });
 
 
-                if ($scope.userType === 'invite') {
+                if ($scope.info.userType === 'invite') {
                     $scope.followBox();
                 }
 
