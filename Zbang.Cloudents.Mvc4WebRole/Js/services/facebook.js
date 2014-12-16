@@ -86,13 +86,15 @@
                        display: 'iframe'
                    }, function (response) {
                        if (response && response.post_id) {
-                           $analytics.trackSocial('Facebook', {
+                           var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
+                           sShare.facebookReputation({ postId: postId });
+
+                           $analytics.socialTrack('Facebook', {
                                category: 'Share',
                                label: url
                            });
                            //cd.pubsub.publish('addPoints', { type: 'shareFb' });
-                           var postId = response.post_id.split('_')[1]; //takes the post id from *user_id*_*post_id*
-                           sShare.facebookReputation({ postId: postId });
+
                            sGmfcnHandler.addPoints({ type: 'shareFb' });
                        }
                    });
