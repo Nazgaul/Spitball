@@ -395,7 +395,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             var userId = User.GetUserId();
             var command = new UnfollowBoxCommand(id, userId);
-            ZboxWriteService.UnfollowBox(command);
+            ZboxWriteService.UnFollowBox(command);
             return Json(new JsonResponse(true));
         }
 

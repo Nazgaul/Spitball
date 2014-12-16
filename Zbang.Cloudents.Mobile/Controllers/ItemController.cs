@@ -330,28 +330,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult Rate(RateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            try
-            {
-                var id = m_IdGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
-                ZboxWriteService.RateItem(command);
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult Rate(RateModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
+        //    try
+        //    {
+        //        var id = m_IdGenerator.Value.GetId();
+        //        var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
+        //        ZboxWriteService.RateItem(command);
 
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
 
