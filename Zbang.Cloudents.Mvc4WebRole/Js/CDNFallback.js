@@ -20,16 +20,22 @@
     }
 
     function javascriptFailCallback() {
-        var scripts;
+        var scripts, isBootstrap;
 
         if (!window.jQuery) {
             scripts = getCdnScripts(cdnGooglePath);            
             load(scriptsPath);
+            isBootstrap = true;
         }
 
         if (!window.app) {
             scripts = getCdnScripts(cdnCdPath);
             load(cdnPath);
+            isBootstrap = true;
+        }
+
+        if (!isBootstrap) {
+            return;
         }
 
         window.angular.bootstrap(document, ['app']);

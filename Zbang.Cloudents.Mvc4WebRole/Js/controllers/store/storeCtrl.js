@@ -1,4 +1,4 @@
-﻿sStore.controller('StoreCtrl',
+﻿app.controller('StoreCtrl',
     ['$scope', '$route', 'sModal', 'sUserDetails',
     function ($scope, $route, sModal, sUserDetails) {
         "use strict";

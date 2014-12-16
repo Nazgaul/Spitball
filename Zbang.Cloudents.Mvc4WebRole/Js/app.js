@@ -373,15 +373,23 @@
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
-                event.preventDefault();
-                $location.path('/library/choose/');
-                return;
+            try {
+
+            
+                if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
+                    event.preventDefault();
+                    $location.path('/library/choose/');
+                    return;
+                }
+                if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
+                    $location.path('/dashboard/');
+                    return;
+                }
             }
-            if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
-                $location.path('/dashboard/');
-                return;
+            catch (ex) {
+
             }
+
             //title 
             if (!previous) { //no previous firsttime load        
                 try {

@@ -261,7 +261,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     };
     $scope.rate = function (t) {
-        sItem.rate({ ItemId: itemId, rate: t });
+        sItem.rate({ ItemId: itemId, rate: t , boxId : boxId});
 
         $analytics.eventTrack('Item', {
             category: 'Rate Item'

@@ -270,7 +270,9 @@ mQuiz.controller('QuizCtrl',
                 $scope.formData.answers = _.map($scope.formData.answerSheet, function (answer) {
                     return { questionId: answer.question.id, answerId: answer.answer.id }
                 });
-                sQuiz.saveAnswers($scope.formData).then(function () { });
+
+                $scope.formData.boxId = $routeParams.boxId;
+                sQuiz.saveAnswers($scope.formData);
             }
 
             function resetQuiz() {
