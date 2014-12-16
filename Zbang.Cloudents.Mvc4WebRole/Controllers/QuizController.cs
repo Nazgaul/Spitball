@@ -259,18 +259,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult Save(SaveQuiz model)
+        public async Task<JsonResult> Save(SaveQuiz model)
         {
             try
             {
                 var command = new SaveQuizCommand(User.GetUserId(), model.QuizId);
-                var result = ZboxWriteService.SaveQuizAsync(command);
-                return Json(new JsonResponse(true, result));
+                var result = await ZboxWriteService.SaveQuizAsync(command);
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Quiz/Save model: " + model, ex);
-                return Json(new JsonResponse(false, ex.Message));
+                return JsonError(ex.Message);
             }
         }
         #endregion
