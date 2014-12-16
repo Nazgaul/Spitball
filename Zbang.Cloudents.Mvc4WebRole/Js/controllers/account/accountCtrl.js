@@ -16,14 +16,8 @@ function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics)
         });
 
         sAccount.changeLocale({ language: lang }).then(function () {
-
-
             $window.location.reload();
         });
     };
-
-
-
-
 }
 ]);

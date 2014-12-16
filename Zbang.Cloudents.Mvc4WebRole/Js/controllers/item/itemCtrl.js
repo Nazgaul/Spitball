@@ -1,7 +1,7 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
-            '$sce', '$analytics', 'sNotify', 'sLogin', 
+            '$sce', '$analytics', 'sNotify', 'sLogin',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
     $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin) {
     "use strict";
@@ -261,7 +261,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     };
     $scope.rate = function (t) {
-        sItem.rate({ ItemId: itemId, rate: t });
+        sItem.rate({
+            ItemId: itemId, rate: t, BoxId: boxId
+        });
 
         $analytics.eventTrack('Item', {
             category: 'Rate Item'

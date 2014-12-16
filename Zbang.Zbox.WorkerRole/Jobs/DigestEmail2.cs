@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-//using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -21,23 +20,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IMailComponent m_MailComponent;
 
-       // private readonly ICache m_Cache;
 
         private bool m_KeepRunning;
         private readonly TimeSpan m_TimeToSleepAfterExecuting;
 
-        //private readonly string m_CacheRegionName;
 
-        //private Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>> m_Cache = new Dictionary<long, IEnumerable<UpdateMailParams.BoxUpdateDetails>>();
 
         public DigestEmail2(NotificationSettings hourForEmailDigest, IZboxReadServiceWorkerRole zboxService,
-            IMailComponent mailComponent/*, ICache cache*/)
+            IMailComponent mailComponent)
         {
             m_DigestEmailHourBack = hourForEmailDigest;
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
-            //m_Cache = cache;
-            //m_CacheRegionName = "DigestEmails" + m_DigestEmailHourBack;
             m_TimeToSleepAfterExecuting = m_DigestEmailHourBack == NotificationSettings.OnEveryChange ? TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes) : TimeSpan.FromHours(1);
 
         }
@@ -127,14 +121,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task<IEnumerable<UpdateMailParams.BoxUpdateDetails>> GetBoxData(BoxDigestDto box)
         {
-            //var cacheItem =
-            //    m_Cache.GetFromCache<IEnumerable<UpdateMailParams.BoxUpdateDetails>>(
-            //        box.BoxId.ToString(CultureInfo.InvariantCulture), m_CacheRegionName);
-
-            //if (cacheItem != null)
-            //{
-            //    return cacheItem;
-            //}
             var boxUpdates =
                 await m_ZboxReadService.GetBoxLastUpdates(new GetBoxLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 

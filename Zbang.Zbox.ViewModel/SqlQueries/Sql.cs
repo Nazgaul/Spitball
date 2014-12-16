@@ -81,7 +81,13 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         /// Used in user page to get files common with current user
         /// </summary>
-        public const string UserWithFriendFiles = @" select i.ItemId as id, i.ThumbnailUrl as image, i.Rate as rate,i.NumberOfViews as numOfViews,i.Name as name,b.boxid as boxid, b.boxname as boxname,
+        public const string UserWithFriendFiles = @" select i.ItemId as id,
+i.ThumbnailUrl as image, 
+i.Rate as rate,
+i.NumberOfViews as numOfViews,
+i.Name as name,
+b.boxid as boxid, 
+b.boxname as boxname,
                         i.url as Url
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0

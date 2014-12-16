@@ -19,7 +19,8 @@ namespace Zbang.Zbox.WorkerRole.Mail
             var t = m_MailComponent.DeleteUnsubscribe(parameters2.EmailAddress);
             t.Wait();
             m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
-                new ForgotPasswordMailParams2(parameters2.Code, string.Format(UrlConsts.PasswordUpdate, parameters2.Link), parameters2.Name,
+                new ForgotPasswordMailParams2(parameters2.Code,
+                    string.Format(UrlConsts.PasswordUpdate, parameters2.Link), parameters2.Name,
                     new CultureInfo(parameters2.Culture)));
             return true;
         }
