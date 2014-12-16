@@ -214,6 +214,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change email.
+        /// </summary>
+        public static string ChangeEmail {
+            get {
+                return ResourceManager.GetString("ChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must choose an existing box or create a new box.
         /// </summary>
         public static string ChooseBox {
@@ -237,6 +246,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string CloudentsJoin {
             get {
                 return ResourceManager.GetString("CloudentsJoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The code you entered is incorrect.
+        /// </summary>
+        public static string CodeIncorrect {
+            get {
+                return ResourceManager.GetString("CodeIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code should be numeric.
+        /// </summary>
+        public static string CodeNumeric {
+            get {
+                return ResourceManager.GetString("CodeNumeric", resourceCulture);
             }
         }
         
@@ -1204,6 +1231,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string ProfessorName {
             get {
                 return ResourceManager.GetString("ProfessorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least 6 characters.
+        /// </summary>
+        public static string PwdAtLeast6Chars {
+            get {
+                return ResourceManager.GetString("PwdAtLeast6Chars", resourceCulture);
             }
         }
         

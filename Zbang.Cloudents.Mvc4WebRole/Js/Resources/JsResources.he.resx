@@ -662,4 +662,13 @@
   <data name="Flagged" xml:space="preserve">
     <value>דווח</value>
   </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>סיסמא צריכה להכיל לפחות 6 תווים</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>שנה כתובת דוא"ל</value>
+  </data>
+  <data name="CodeIncorrect" xml:space="preserve">
+    <value>הקוד שהזנת שגוי</value>
+  </data>
 </root>
