@@ -64,14 +64,23 @@ app.factory('sModal',
                 }
             };
 
+            var opened = {};
+
 
             var service = {
                 open: function (modalId, params) {
+
+                    if (opened[modalId]) {
+                        return;
+                    }
+
                     params = params || {};
                     params.callback = params.callback || {};
 
                     var modalParams = modalList[modalId](params),
                         modalInstance = $modal.open(modalParams);
+
+                    opened[modalId] = true;
 
                     modalInstance.result.then(function (response) {
                         if (_.isFunction(params.callback.close)) {
@@ -85,6 +94,7 @@ app.factory('sModal',
                         //var index = modalsOpened.indexOf(modalInstance);
                         //modalsOpened.splice(index,1);
                         modalInstance = undefined;
+                        opened[modalId] = false;
                         if (_.isFunction(params.callback.always)) {
                             params.callback.always(response);
                         }

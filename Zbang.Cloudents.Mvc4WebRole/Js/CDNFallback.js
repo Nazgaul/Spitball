@@ -22,7 +22,7 @@
     function javascriptFailCallback() {
         var scripts, isBootstrap;
 
-        if (!window.jQuery) {
+        if (!window.jQuery || window.angular) {
             scripts = getCdnScripts(cdnGooglePath);            
             load(scriptsPath);
             isBootstrap = true;
