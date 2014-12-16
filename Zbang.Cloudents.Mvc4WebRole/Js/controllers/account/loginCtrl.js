@@ -4,6 +4,10 @@
             "use strict";
             var loginDisable, registerDisable;
 
+            $scope.params = {
+                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+            };
+
             $scope.params.currentState = data.state;
 
             $scope.params.states = {
@@ -88,7 +92,7 @@
                         maxAge: 600000
                     });
 
-                    cache.put('newUser', true);
+                    cache.put('register', true);
 
                     if ($routeParams.boxId) {
                         $window.location.reload();

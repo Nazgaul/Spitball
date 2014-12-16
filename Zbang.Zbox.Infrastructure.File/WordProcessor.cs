@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net;
 using System.Threading;
 using Aspose.Words;
 using Aspose.Words.Saving;
@@ -127,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     Quality = 80,
                     Format = "jpg"
                 };
-                
+
                 using (var ms = new MemoryStream())
                 {
                     word.Save(ms, imgOptions);
@@ -157,8 +158,10 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var str = doc.ToString(SaveFormat.Text);
+
                 str = str.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
                 str = Regex.Replace(str, @"\s+", " ");
+                str = WebUtility.HtmlEncode(str);
                 return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)
@@ -173,7 +176,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return ThumbnailProvider.WordFileTypePicture;
         }
 
-       
+
 
     }
 }

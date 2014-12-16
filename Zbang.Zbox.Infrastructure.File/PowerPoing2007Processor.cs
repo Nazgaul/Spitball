@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net;
 using System.Threading;
 using Aspose.Slides;
 using Aspose.Slides.Util;
@@ -189,16 +190,11 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             //Display text in the current portion
                             sb.Append(port.Text);
-
-                            //Display font height of the text
-                            //Console.WriteLine(port.PortionFormat.FontHeight);
-
-                            //Display font name of the text
-                            //Console.WriteLine(port.PortionFormat.LatinFont.FontName);
                         }
 
                 var str = sb.ToString().Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
                 str = Regex.Replace(str, @"\s+", " ");
+                str = WebUtility.HtmlEncode(str);
                 return str.Substring(0, Math.Min(400, str.Length));
             }
             catch (Exception ex)

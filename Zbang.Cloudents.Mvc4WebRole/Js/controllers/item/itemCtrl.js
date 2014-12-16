@@ -1,9 +1,9 @@
-﻿var mItem = angular.module('mItem', []);
-mItem.controller('ItemCtrl',
+﻿var mItem = angular.module('mItem', []).
+    controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
-            '$sce', '$analytics', 'sNotify', 'sLogin',
+            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
-    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin) {
+    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -159,6 +159,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             });
             $scope.formData = {};
             $scope.showBtn = false;
+            sGmfcnHandler.addPoints({ type: 'itemComment' });
             $scope.$broadcast('update-scroll');
 
         }, function (respoonse) {
@@ -224,8 +225,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             });
             $scope.fromReply = {};
             comment.showReplyF = false;
-
             $scope.$broadcast('update-scroll');
+            sGmfcnHandler.addPoints({ type: 'itemReply' });
         }, function (response) {
             sNotify.alert(response.error[0].value[0]);
         }).finally(function () {
