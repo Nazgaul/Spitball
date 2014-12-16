@@ -23,6 +23,13 @@
                 url = url.toLowerCase();
                 $http.get(url, getObj).success(function (response) {
                     trackTime(startTime, url, data);
+
+                    if (!response) {
+                        logError(url, data);
+                        dfd.reject();
+                        return;
+                    }
+
                     if (response.success) {
                         dfd.resolve(response.payload);
                         return;
@@ -51,6 +58,7 @@
                     if (!response) {
                         logError(url, data);
                         dfd.reject();
+                        return;
                     }
                     if (response.success) {
                         dfd.resolve(response.payload);
