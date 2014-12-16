@@ -160,32 +160,31 @@
     <value>В настоящее время не следуют какие-либо курсы</value>
   </data>
   <data name="PointsTxt1" xml:space="preserve">
-    <value>15 очков - за загрузку файла</value>
+    <value>100 очков - за загрузку файла</value>
   </data>
   <data name="PointsTxt2" xml:space="preserve">
-    <value>25 очков - за ответ на приглашения друга</value>
+    <value>150 очков - за ответ на приглашения друга</value>
   </data>
   <data name="PointsTxt3" xml:space="preserve">
-    <value>15 очков для получения 5-звездообразного рейтинга 
-</value>
+    <value>150 очков для получения 5-звездообразного рейтинга </value>
   </data>
   <data name="PointsTxt4" xml:space="preserve">
-    <value>10 очков для получения 4-звездообразного рейтинга </value>
+    <value>100 очков для получения 4-звездообразного рейтинга </value>
   </data>
   <data name="PointsTxt5" xml:space="preserve">
-    <value>5 очков для получения 3-звездообразного рейтинга </value>
+    <value>50 очков для получения 3-звездообразного рейтинга </value>
   </data>
   <data name="PointsTxt6" xml:space="preserve">
-    <value>5 очков -  за заданый вопрос</value>
+    <value>50 очков -  за заданый вопрос</value>
   </data>
   <data name="PointsTxt7" xml:space="preserve">
-    <value>5 очков - за предоставление ответа</value>
+    <value>100 очков - за предоставление ответа</value>
   </data>
   <data name="PointsTxt8" xml:space="preserve">
-    <value>5 очков за предоставление доступа через Facebook</value>
+    <value>50 очков за предоставление доступа через Facebook</value>
   </data>
   <data name="PointsTxt9" xml:space="preserve">
-    <value>30 очков за создание теста</value>
+    <value>300 очков за создание теста</value>
   </data>
   <data name="UniMembers" xml:space="preserve">
     <value>Участники университета</value>
