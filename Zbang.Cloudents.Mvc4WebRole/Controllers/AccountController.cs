@@ -727,13 +727,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details()
+        public async Task<JsonResult> Details()
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return JsonOk();
             }
-            var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
+            var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
             return JsonOk(retVal);
 
         }

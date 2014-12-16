@@ -383,5 +383,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBar, query);
         }
+
+
+        public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
+        {
+            return m_ReadService.GetUserDataAsync(query);
+        }
     }
 }

@@ -56,6 +56,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query);
 
         UserDetailDto GetUserData(GetUserDetailsQuery query);
+        Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query);
+
         UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query);
         IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
         NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query);

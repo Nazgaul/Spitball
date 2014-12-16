@@ -194,7 +194,7 @@ and userreputation > 0
      u.FirstTimeItem as FirstTimeItem,
      u.FirstTimeBox as FirstTimeBox, 
      u.Url as Url,
-     u.Email as Email,
+     u.Culture as Culture,
      u.UserReputation as Score,
      uu.UniversityName as UniversityName,
      uu.Country as UniversityCountry,
