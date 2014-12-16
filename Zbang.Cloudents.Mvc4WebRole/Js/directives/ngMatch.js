@@ -1,15 +1,23 @@
 ﻿app.directive('ngMatch',
-    ['$parse', function ($parse) {
+    [function () {
         return {
             require: 'ngModel',
             scope: {
-                ngMatch : '='
+                ngMatch: '='
             },
-            link: function ($scope, element, attrs, ngModel) {
+            link: function (scope, element, attrs, ngModel) {
                 ngModel.$validators.match = function (value) {
-                    var toMatch = $parse(attrs.ngMatch);
-                    return false;
+                    if (_.isUndefined(scope.ngMatch)) {
+                        return true;
+                    }
+                    return scope.ngMatch.toLowerCase() === value.toLowerCase();
                 };
+                
+                scope.$watch('ngMatch', function (newVal, oldVal) {
+                    if (newVal !== oldVal) {
+                        ngModel.$validate();
+                    }
+                });
             }
         }
     }]);
