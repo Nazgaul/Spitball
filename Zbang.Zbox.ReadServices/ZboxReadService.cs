@@ -594,12 +594,27 @@ namespace Zbang.Zbox.ReadServices
 
                         conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
                             new { query.UserId });
-                var userDetailDtos = retVal as User.UserDetailDto[] ?? retVal.ToArray();
-                if (retVal == null || !userDetailDtos.Any())
+                var user = retVal.FirstOrDefault();
+                if (user == null )
                 {
                     throw new UserNotFoundException("user is null");
                 }
-                return userDetailDtos.FirstOrDefault();
+                return user;
+            }
+        }
+        public async Task<User.UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal =
+                       await conn.QueryAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
+                            new { query.UserId });
+                var user = retVal.FirstOrDefault();
+                if (user == null)
+                {
+                    throw new UserNotFoundException("user is null");
+                }
+                return user;
             }
         }
 
