@@ -1,5 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify', 'sGmfcnHandler',
-    function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$q', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify', 'sGmfcnHandler',
+    function ($scope, $rootScope, $timeout, $q, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
         "use strict";
         function Question(data) {
             data = data || {};
@@ -212,7 +212,9 @@
             }
 
             if (!question.id) {
-                createQuestion(question);
+                createQuestion(question).then(function () {
+                    sQuiz.question.update({ id: question.id, text: question.text });
+                });
                 return;
             }
 
@@ -346,9 +348,9 @@
 
             if (!$scope.quiz.id) {
                 createQuiz().then(function () {
-                    createQuestion(question);
-                }).then(function () {
-                    createAnswer(question, answer);
+                    createQuestion(question).then(function () {
+                        createAnswer(question, answer);
+                    });
                 });
                 return;
             }
@@ -361,9 +363,12 @@
             }
 
             if (!answer.id) {
-                createAnswer(question, answer);
+                createAnswer(question, answer).then(function () {
+                    sQuiz.answer.update({ id: answer.id, text: answer.text });
+                });
                 return;
             }
+
             sQuiz.answer.update({ id: answer.id, text: answer.text });
         };
 
@@ -391,29 +396,29 @@
         };
 
         //#region helpers
-        var creatingQuiz, creatingQuestion,
-            createQuiz = function () {
-                if (creatingQuiz) {
-                    return creatingQuiz;
-                }
-                creatingQuiz = sQuiz.create({
-                    boxId: $scope.quiz.courseId,
-                    name: $scope.quiz.name
-                }).then(function (data) {
-                    $scope.quiz.id = data;
-                    addItemToBox(false);
-                    return data;
-                }).finally(function () {
-                    creatingQuiz = null;
-                });
-
+        var creatingQuiz, creatingQuestion, creatingAnswer,
+        createQuiz = function () {
+            if (creatingQuiz) {
                 return creatingQuiz;
-            };
-        var createQuestion = function (question) {
+            }
+            creatingQuiz = sQuiz.create({
+                boxId: $scope.quiz.courseId,
+                name: $scope.quiz.name
+            }).then(function (data) {
+                $scope.quiz.id = data;
+                addItemToBox(false);
+                return data;
+            }).finally(function () {
+                creatingQuiz = null;
+            });
 
+            return creatingQuiz;
+        },
+        createQuestion = function (question) {
             if (creatingQuestion) {
                 return creatingQuestion;
             }
+
             creatingQuestion = sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
                 question.id = data;
                 return data;
@@ -422,13 +427,14 @@
             });
 
             return creatingQuestion;
-        };
-        var createAnswer = function (question, answer) {
-            return sQuiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
-                answer.id = data;
-                return data;
-            });
-        };
+
+        },
+          createAnswer = function (question, answer) {
+              return sQuiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {
+                  answer.id = data;
+                  return data;
+              });
+          };
         //#endregion
 
         //#region validation 
