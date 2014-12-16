@@ -316,7 +316,7 @@
 
                        $.ajax({
                            type: 'POST',
-                           url: '/Error/JsLog',
+                           url: '/error/jslog/',
                            contentType: 'application/json',
                            data: angular.toJson({
                                errorUrl: window.location.href,

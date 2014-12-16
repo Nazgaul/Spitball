@@ -48,7 +48,10 @@
                             ttl.removeAll();
                         });
                     }
-
+                    if (!response) {
+                        logError(url, data);
+                        dfd.reject();
+                    }
                     if (response.success) {
                         dfd.resolve(response.payload);
                         return;
