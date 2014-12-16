@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -23,9 +24,14 @@ namespace Zbang.Zbox.Infrastructure.File
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
                 var content = await stream.ReadToEndAsync();
+                content = WebUtility.HtmlEncode(content);
                 content =   content.Substring(0, Math.Min(400, content.Length));
                 await UploadFileToCache(stream.BaseStream, CreateCacheFileName(blobName));
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture(), FileTextContent = content };
+                return new PreProcessFileResult
+                {
+                    ThumbnailName = GetDefaultThumbnailPicture(),
+                    FileTextContent = content
+                };
             }
             
         }
