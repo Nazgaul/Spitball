@@ -649,4 +649,16 @@ Sign up for FREE</value>
   <data name="Flagged" xml:space="preserve">
     <value>Flagged</value>
   </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Change email</value>
+  </data>
+  <data name="CodeIncorrect" xml:space="preserve">
+    <value>The code you entered is incorrect</value>
+  </data>
+  <data name="CodeNumeric" xml:space="preserve">
+    <value>Code should be numeric</value>
+  </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>Password must contain at least 6 characters</value>
+  </data>
 </root>

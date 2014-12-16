@@ -655,4 +655,13 @@
   <data name="Flagged" xml:space="preserve">
     <value>تمت الإشارة</value>
   </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>يجب ان يكون 6 احرف على الاقل </value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>تغيير عنوان البريد الالكتروني </value>
+  </data>
+  <data name="CodeIncorrect" xml:space="preserve">
+    <value>الرمز الذي أدخلته غير صحيح</value>
+  </data>
 </root>

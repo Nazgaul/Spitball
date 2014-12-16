@@ -665,4 +665,13 @@
   <data name="Flagged" xml:space="preserve">
     <value>Помечено флагжком</value>
   </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>должен иметь не менее 6 символов</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Изменить адрес электронной почты</value>
+  </data>
+  <data name="CodeIncorrect" xml:space="preserve">
+    <value>Введен неверный код</value>
+  </data>
 </root>
