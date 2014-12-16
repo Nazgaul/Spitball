@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('SocialInviteCtrl',
-    ['$scope', '$filter', '$location','$analytics', 'sUser', 'sGoogle', 'sFacebook', 'sShare',
-         function ($scope, $filter, $location, $analytics, sUser, sGoogle, sFacebook, sShare) {
+    ['$scope', '$filter', '$location','$analytics', 'sUser', 'sGoogle', 'sFacebook',
+         function ($scope, $filter, $location, $analytics, sUser, sGoogle, sFacebook) {
              "use strict";
              var states = {
                  google: 'go',

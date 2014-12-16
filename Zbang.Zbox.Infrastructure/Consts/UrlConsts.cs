@@ -17,6 +17,18 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
         private const string LogInUrl = "/account/?invId={0}";
 
+        public const string ShortBox = "b/{box62Id}";
+        public const string ShortItem = "i/{item62Id}";
+
+        public static string BuildShortBoxUrl(string box62Id)
+        {
+            return "/" + ShortBox.Replace("{box62Id}", box62Id);
+        }
+
+        public static string BuildShortItemUrl(string item62Id)
+        {
+            return "/" + ShortBox.Replace("{item62Id}", item62Id);
+        }
 
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
         private const string BoxUrlInvite = "?invId={0}";
@@ -30,6 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             return HttpUtility.UrlPathEncode(CloudentsUrl + relativeUrl);
         }
+
 
         public static string BuildInviteCloudentsUrl(string invId)
         {
@@ -81,7 +94,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
 
 
-            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(ItemUrl,
+                NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
             if (fullUrl)
             {
                 return CloudentsUrl + relativeUrl;
@@ -137,8 +151,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
             char previousChar = '\0';
             var sb = new StringBuilder();
             name = name.Replace(Convert.ToChar(160), ' ');
+
             foreach (var character in name)
             {
+                if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
+                    continue;
                 switch (character)
                 {
 
@@ -167,6 +184,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                     case '"':
                     case '#':
                     case '\'':
+
                         continue;
                     case ' ':
                     case '_':

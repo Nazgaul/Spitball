@@ -45,7 +45,7 @@
                             category: 'Created Tab'
                         });
                     }, function (response) {
-                        sNotify.alert(response)
+                        sNotify.alert(response);
                     });
                 };
 

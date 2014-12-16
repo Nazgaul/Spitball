@@ -70,7 +70,7 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
     };
 
     $scope.setCurrentTab = function (tab) {
-        var length, tabName;
+        var length, tabName ='';
         $scope.params.currentTab = tab;
         switch (tab) {
             case constants.tabs.boxes:
@@ -234,15 +234,15 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
             return;
         }
 
-        if ($scope.data.boxes.length === 0) {
-            if ($scope.data.items.length) {
-                tab = constants.tabs.items;
-            }
+        //if ($scope.data.boxes.length === 0) {
+        //    if ($scope.data.items.length) {
+        //        tab = constants.tabs.items;
+        //    }
 
-            if ($scope.data.users.length === 0) {
-                tab = constants.tabs.users;
-            }
-        }
+        //    if ($scope.data.users.length === 0) {
+        //        tab = constants.tabs.users;
+        //    }
+        //}
 
         tab = constants.tabs.boxes;
 

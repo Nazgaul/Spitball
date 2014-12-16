@@ -66,8 +66,8 @@
             }
 
             var users = _.flatten($scope.formData.emailList);
-            var ids = users.map(function (item) {
-                return item.id;
+            var ids = users.map(function (item2) {
+                return item2.id;
             });
 
             $scope.formData.recepients = ids;

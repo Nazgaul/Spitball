@@ -22,12 +22,12 @@ namespace Zbang.Zbox.WorkerRole.Mail
                    new CultureInfo(parameters.Culture)));
             }
             var parameters2 = data as MessageMailData2;
-            if (parameters2 != null)
-            {
-                m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
-                    new MessageMailParams(parameters2.Message, parameters2.SenderUserName,
-                   new CultureInfo(parameters2.Culture), parameters2.SenderUserEmail, parameters2.SenderUserImage));
-            }
+
+            if (parameters2 == null) return true;
+            var userImage = parameters2.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
+            m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
+                new MessageMailParams(parameters2.Message, parameters2.SenderUserName,
+                    new CultureInfo(parameters2.Culture), parameters2.SenderUserEmail, userImage));
 
             return true;
 

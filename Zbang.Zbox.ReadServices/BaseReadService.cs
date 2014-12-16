@@ -24,10 +24,6 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByFacebookId,
                      new { FacebookUserId = query.FacebookId });
                 var t = retVal.FirstOrDefault();
-                if (t == null)
-                {
-                    throw new UserNotFoundException();
-                }
                 return t;
             }
         }

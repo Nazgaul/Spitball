@@ -6,8 +6,9 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
 {
     public class SaveUserQuizCommand : ICommand
     {
-        public SaveUserQuizCommand(IEnumerable<UserAnswers> answers, long userId, long quizId, TimeSpan timeTaken)
+        public SaveUserQuizCommand(IEnumerable<UserAnswers> answers, long userId, long quizId, TimeSpan timeTaken, long boxId)
         {
+            BoxId = boxId;
             Answers = answers;
             UserId = userId;
             QuizId = quizId;
@@ -16,6 +17,7 @@ namespace Zbang.Zbox.Domain.Commands.Quiz
         public long UserId { get; private set; }
         public long QuizId { get; private set; }
         public TimeSpan TimeTaken { get; private set; }
+        public long BoxId { get; private set; }
 
         public IEnumerable<UserAnswers> Answers { get; private set; }
     }

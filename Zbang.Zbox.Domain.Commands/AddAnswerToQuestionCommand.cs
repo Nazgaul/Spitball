@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddAnswerToQuestionCommand:ICommand
+    public class AddAnswerToQuestionCommand : ICommandAsync
     {
         public AddAnswerToQuestionCommand(long userId, long boxId, string text, Guid answerId, Guid questionId, IEnumerable<long> filesIds)
         {

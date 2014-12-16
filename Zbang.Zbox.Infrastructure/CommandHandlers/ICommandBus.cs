@@ -15,10 +15,14 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
 
         void Send<TCommand>(TCommand command) where TCommand : ICommand;
 
-        Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand;
+        Task SendAsync<TCommand>(TCommand command) where TCommand : ICommandAsync;
 
         Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command)
-            where TCommand : ICommand
+            where TCommand : ICommandAsync
+            where TCommandResult : ICommandResult;
+
+        Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, string name)
+            where TCommand : ICommandAsync
             where TCommandResult : ICommandResult;
     }
 }

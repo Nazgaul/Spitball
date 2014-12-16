@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 throw new NullReferenceException("inviteParams");
             }
             message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "InvitationToBox");
             message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor);
             message.Html = message.Html.Replace("{BOXNAME}", inviteParams.BoxName);
             message.Html = message.Html.Replace("{BoxUrl}", inviteParams.BoxUrl);

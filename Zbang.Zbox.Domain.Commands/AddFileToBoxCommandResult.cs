@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddFileToBoxCommandResult : ICommandResult
+    public class AddFileToBoxCommandResult : AddItemToBoxCommandResult
     {
         public AddFileToBoxCommandResult(File file)
         {
@@ -10,10 +10,5 @@ namespace Zbang.Zbox.Domain.Commands
         }
 
         public File File { get; private set; }
-
-        //public string[] GetCacheKeys()
-        //{
-        //    return new[] { ConstCacheKeys.Items + File.Box.Id };
-        //}
     }
 }

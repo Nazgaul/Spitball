@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
             message.Subject = Subject;
-
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "InvitationCloudents");
             message.Html = message.Html.Replace("{USERNAME}", inviteToCloudentsParams.SenderName);
             message.Html = message.Html.Replace("{Image}", inviteToCloudentsParams.SenderImage);
             message.Html = message.Html.Replace("{{Url}}", inviteToCloudentsParams.Url);

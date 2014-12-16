@@ -67,21 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_ItemRateRepository.CalculateItemAverage(itemId);
         }
 
-        private ReputationAction GetReputaionByPoistion(int rate)
-        {
-            switch (rate)
-            {
-                case 3:
-                    return ReputationAction.Rate3Stars;
-                case 4:
-                    return ReputationAction.Rate4Stars;
-                case 5:
-                    return ReputationAction.Rate5Stars;
-                default:
-                    return ReputationAction.None;
-            }
-
-        }
+       
       
     }
 }

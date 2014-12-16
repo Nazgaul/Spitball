@@ -4,18 +4,17 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddFileToBoxCommand : ICommand
+    public class AddFileToBoxCommand : AddItemToBoxCommand
     {
         public AddFileToBoxCommand(long userId, 
             long boxId, 
             string blobAddressName,
             string fileName, 
-            long length, 
+            long length,
             Guid? tabId, bool isQuestion)
+            : base(userId, boxId)
         {
             IsQuestion = isQuestion;
-            UserId = userId;
-            BoxId = boxId;
             BlobAddressName = blobAddressName;
             FileName = fileName;
             Length = length;
@@ -23,9 +22,8 @@ namespace Zbang.Zbox.Domain.Commands
 
         }
 
-        public long UserId { get; private set; }
+       
 
-        public long BoxId { get; private set; }
 
         public string BlobAddressName { get; private set; }
 
@@ -39,5 +37,11 @@ namespace Zbang.Zbox.Domain.Commands
 
 
         public Guid? TabId { get; private set; }
+
+
+        public override string ResolverName
+        {
+            get { return FileResolver; }
+        }
     }
 }

@@ -78,20 +78,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         value += Thread.CurrentThread.CurrentUICulture.Name;
                     }
-                    //if (key == CustomCacheKeys.IsAjax)
-                    //{
-                    //    value += context.Request.Headers["X-Requested-With"];
-                    //}
-                    //if (key == CustomCacheKeys.Mobile)
-                    //{
-                    //    var iPad = DisplayConfig.CheckIfIpadView(new HttpContextWrapper(HttpContext.Current)) ? "iPad": string.Empty;
-                    //    var mobile = DisplayConfig.CheckIfMobileView(new HttpContextWrapper(HttpContext.Current))
-                    //        ? "mobile"
-                    //        : string.Empty;
-
-
-                    //    value += iPad + mobile; //context.Request.Browser.IsMobileDevice ? "mobile" : string.Empty;
-                    //}
                 }
                 if (string.IsNullOrWhiteSpace(value))
                 {

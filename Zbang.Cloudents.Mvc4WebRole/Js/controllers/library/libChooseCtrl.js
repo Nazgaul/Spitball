@@ -43,17 +43,17 @@
              //#endregion
 
              //#region search
-             var lastQuery,
-                search = debounce(function (query) {
-                    if (query === lastQuery) {
-                        return;
-                    }
+             var lastQuery;
+                //search = debounce(function (query) {
+                //    if (query === lastQuery) {
+                //        return;
+                //    }
 
-                    lastQuery = query;
+                //    lastQuery = query;
 
-                    return
+                //    return
 
-                }, 300);
+                //}, 300);
 
              $scope.selectSearch = debounce(function () {
 

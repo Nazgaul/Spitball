@@ -117,9 +117,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        public async Task<ActionResult> ShortUrl(string box62Id)
+        public async Task<ActionResult> ShortUrl(string item62Id)
         {
-            var base62 = new Base62(box62Id);
+            var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
             var model = await ZboxReadService.GetItemSeo(query);
             return RedirectPermanent(model.Url);
@@ -155,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
                 retVal.UserType = ViewBag.UserType;
-                retVal.ShortUrl = Url.RouteUrl("shortItem", new { box62Id = new Base62(itemId).ToString() });
+                retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)
@@ -188,19 +188,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
-            var userId = User.GetUserId(false);
+            var userId = User.GetUserId();
 
             var query = new GetItemQuery(userId, itemId, boxId);
 
             var item = ZboxReadService.GetItem(query);
-
+            var command = new SubscribeToSharedBoxCommand(userId, boxId);
+            var t1 = ZboxWriteService.SubscribeToSharedBoxAsync(command);
 
             var filedto = item as FileWithDetailDto;
             if (filedto == null) // link
             {
                 return Redirect(item.Blob);
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(new List<StatisticsData4.StatisticItemData>
                     {
                         new StatisticsData4.StatisticItemData
@@ -212,6 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var blob = m_BlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
+            await Task.WhenAll(t1, t2);
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
             {
                 contentType = blob.Properties.ContentType;
@@ -341,24 +343,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public JsonResult Rate(RateModel model)
+        [RemoveBoxCookie]
+        public async Task<JsonResult> Rate(RateModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+                return JsonError(new { error = GetModelStateErrors() });
             }
             try
             {
                 var id = m_IdGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
-                ZboxWriteService.RateItem(command);
+                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id, model.BoxId);
+                await ZboxWriteService.RateItemAsync(command);
 
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 

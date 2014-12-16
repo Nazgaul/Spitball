@@ -2,7 +2,7 @@ using System;
 using Zbang.Zbox.Infrastructure.Commands;
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class SubscribeToSharedBoxCommand : ICommand
+    public class SubscribeToSharedBoxCommand : ICommandAsync
     {
         public SubscribeToSharedBoxCommand(long userId, long boxId)
         {

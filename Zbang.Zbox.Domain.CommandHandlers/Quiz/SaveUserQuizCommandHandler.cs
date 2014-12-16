@@ -42,13 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var user = m_UserRepository.Load(message.UserId);
             var quiz = m_QuizRepository.Load(message.QuizId);
 
-            var userRelationShipType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, quiz.Box.Id);
-            if (userRelationShipType == UserRelationshipType.Invite || userRelationShipType == UserRelationshipType.None)
-            {
-                user.ChangeUserRelationShipToBoxType(quiz.Box, UserRelationshipType.Subscribe);
-                quiz.Box.CalculateMembers();
-                m_UserRepository.Save(user);
-            }
+            
             var answerSheet = m_SolvedQuizRepository.GetQuerable().FirstOrDefault(w =>
                 // ReSharper disable once PossibleUnintendedReferenceComparison nHibernate doesn't support equals
                 w.User == user && w.Quiz == quiz);

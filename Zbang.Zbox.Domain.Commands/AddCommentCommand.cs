@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddCommentCommand : ICommand
+    public class AddCommentCommand : ICommandAsync
     {
         public AddCommentCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds)
         {
