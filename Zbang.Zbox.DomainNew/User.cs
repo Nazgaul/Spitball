@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual long Id { get; protected set; }
 
-        public virtual string Email { get; set; }
+        public virtual string Email { get; protected set; }
         public virtual string Culture { get; private set; }
 
         public UserType UserType { get; set; }
@@ -213,6 +213,11 @@ namespace Zbang.Zbox.Domain
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
            // Department = null;
+        }
+
+        public virtual void UpdateEmail(string email)
+        {
+            Email = email;
         }
 
         #region firstTime

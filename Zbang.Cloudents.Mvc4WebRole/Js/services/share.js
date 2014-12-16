@@ -30,8 +30,8 @@
                     return ajaxService.post(buildPath('invitefacebook'), data);
                 }
             },
-            facebookReputation: function () {
-                return ajaxService.post(buildPath('facebook'), null, true);
+            facebookReputation: function (data) {
+                return ajaxService.post(buildPath('facebook'), data, true);
             },
             getNotifications: function () {
                 return ajaxService.get(buildPath('notifications'));

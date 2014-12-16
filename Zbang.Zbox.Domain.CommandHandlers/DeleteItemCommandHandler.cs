@@ -41,11 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteItemCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);//user.GetUserType(command.BoxId);
-            if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
-            {
-                throw new UnauthorizedAccessException("User is not connected to box");
-            }
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
 
 
             Item item = m_ItemRepository.Get(command.ItemId);

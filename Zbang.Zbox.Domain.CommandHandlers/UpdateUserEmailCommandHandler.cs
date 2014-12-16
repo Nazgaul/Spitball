@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (IsChangeEmailNeeded(command.Email, user.Email))
             {
-                ChangeUserEmail(command.Email, user,command.TempFromFacebookLogin);
+                ChangeUserEmail(command.Email, user, command.TempFromFacebookLogin);
             }
 
         }
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
             }
-            user.Email = email;
+            user.UpdateEmail(email);
             if (tempFromFacebookLogin) return;
             if (user.MembershipId.HasValue)
             {
