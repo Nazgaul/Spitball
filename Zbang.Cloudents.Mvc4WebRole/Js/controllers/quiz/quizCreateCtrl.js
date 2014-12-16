@@ -1,4 +1,4 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify','sGmfcnHandler',
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify', 'sGmfcnHandler',
     function ($scope, $rootScope, $timeout, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
         "use strict";
         function Question(data) {
@@ -380,11 +380,7 @@
                 category: 'Mark Correct'
             });
 
-            sQuiz.answer.markCorrect({ answerId: answer.id }).then(function (data) {
-                if (!data) {
-                    console.log('error mark answer as true');
-                }
-            });
+            sQuiz.answer.markCorrect({ answerId: answer.id });
         };
 
         $scope.previewQuiz = function () {
@@ -395,14 +391,12 @@
         };
 
         //#region helpers
-        var creatingQuiz = false, creatingQuestion = false,
+        var creatingQuiz, creatingQuestion,
             createQuiz = function () {
                 if (creatingQuiz) {
-                    return;
+                    return creatingQuiz;
                 }
-                creatingQuiz = true;
-
-                return sQuiz.create({
+                creatingQuiz = sQuiz.create({
                     boxId: $scope.quiz.courseId,
                     name: $scope.quiz.name
                 }).then(function (data) {
@@ -410,22 +404,24 @@
                     addItemToBox(false);
                     return data;
                 }).finally(function () {
-                    creatingQuiz = false;
+                    creatingQuiz = null;
                 });
+
+                return creatingQuiz;
             };
         var createQuestion = function (question) {
 
             if (creatingQuestion) {
-                return;
+                return creatingQuestion;
             }
-            creatingQuestion = true;
-
-            return sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
+            creatingQuestion = sQuiz.question.create({ quizId: $scope.quiz.id, text: question.text }).then(function (data) {
                 question.id = data;
                 return data;
             }).finally(function () {
-                creatingQuestion = false;
+                creatingQuestion = null;
             });
+
+            return creatingQuestion;
         };
         var createAnswer = function (question, answer) {
             return sQuiz.answer.create({ questionId: question.id, text: answer.text }).then(function (data) {

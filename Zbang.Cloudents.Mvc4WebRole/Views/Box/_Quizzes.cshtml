@@ -28,7 +28,7 @@
         <li ng-repeat="item in quizzes track by item.id" class="quizItem {{qOptions.currentView + 'Item'}}"
             ng-class="{draft:!item.publish}"
             ng-include="getView(item)"
-            box-item-tooltip template="boxItemTooltip">
+            box-item-tooltip template="boxQuizTooltip">
         </li>
     </ol>
 </div>
@@ -37,7 +37,7 @@
 
 <script type="text/ng-template" id="quizThumbView">
     @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-    <a class="boxLink" ng-click="selectQuiz(item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="boxName" ng-bind-html="item.name | trustedHtml"></div>
         <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
@@ -59,7 +59,7 @@
 </script>
 
 <script type="text/ng-template" id="quizListView">
-    <a class="boxLink" ng-click="selectQuiz(item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
         <div class="imgBorder"></div>
         <div class="boxName semiFont elps" ng-bind-html="item.name | trustedHtml"></div>
 

@@ -35,11 +35,6 @@
                     return;
                 }
 
-                if ($scope.info.userType === 'invite' || $scope.info.userType === 'none') {
-                    sNotify.tAlert('NeedToFollowBox');
-                    return;
-                }
-
                 $analytics.eventTrack('Box Quizzes', {
                     category: 'Add Quiz'
                 });
@@ -56,7 +51,7 @@
 
             
             $scope.removeQuiz = function (quiz) {
-                sNotify(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
+                sNotify.confirm(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
 
                     var data = {
                         id: quiz.id,
@@ -162,6 +157,7 @@
                     }
 
                     $scope.quizzes.splice(index, 1);
+                    $scope.followBox(true);
                 }
 
                 $scope.quizzes.unshift(quizItem); //add quiz

@@ -68,6 +68,10 @@
                 });
 
 
+                if ($scope.userType === 'invite') {
+                    $scope.followBox();
+                }
+
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
