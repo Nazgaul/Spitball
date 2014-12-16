@@ -117,9 +117,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        public async Task<ActionResult> ShortUrl(string box62Id)
+        public async Task<ActionResult> ShortUrl(string item62Id)
         {
-            var base62 = new Base62(box62Id);
+            var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
             var model = await ZboxReadService.GetItemSeo(query);
             return RedirectPermanent(model.Url);
@@ -155,7 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
                 retVal.UserType = ViewBag.UserType;
-                retVal.ShortUrl = Url.RouteUrl("shortItem", new { box62Id = new Base62(itemId).ToString() });
+                retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return Json(new JsonResponse(true, retVal));
             }
             catch (BoxAccessDeniedException)
@@ -194,14 +194,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var item = ZboxReadService.GetItem(query);
             var command = new SubscribeToSharedBoxCommand(userId, boxId);
-            var t1 =  ZboxWriteService.SubscribeToSharedBoxAsync(command);
+            var t1 = ZboxWriteService.SubscribeToSharedBoxAsync(command);
 
             var filedto = item as FileWithDetailDto;
             if (filedto == null) // link
             {
                 return Redirect(item.Blob);
             }
-            var t2 =  m_QueueProvider.InsertMessageToTranactionAsync(
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(new List<StatisticsData4.StatisticItemData>
                     {
                         new StatisticsData4.StatisticItemData
