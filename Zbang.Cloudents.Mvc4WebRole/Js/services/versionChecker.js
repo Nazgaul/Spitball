@@ -3,7 +3,7 @@
         "use strict";
         var clientVersion = $('[data-version]').attr('data-version'),
             currentVersion,
-            timeInterval = 600000;
+            timeInterval = 60000;//one minute
 
         setInterval(checkVersion, timeInterval);
 
