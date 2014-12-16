@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
-@model IEnumerable<string>
+@model Zbang.Cloudents.Mvc4WebRole.Models.ItemPreview
 
 <div class="previewDenied">
     <h2>@ItemsResources.SecurityReasons</h2>
-    <a class="previewDeniedBtn" href="@Model.FirstOrDefault()" target="_blank">@ItemsResources.OpenLink</a>
+    <a class="previewDeniedBtn" href="@Model.Src.FirstOrDefault()" target="_blank">@ItemsResources.OpenLink</a>
 </div>
