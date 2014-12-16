@@ -160,31 +160,34 @@
     <value>Currently not following any courses</value>
   </data>
   <data name="PointsTxt1" xml:space="preserve">
-    <value>10 pts Upload an item to a Course</value>
+    <value>100 pts Upload an item to a course</value>
+  </data>
+  <data name="PointsTxt10" xml:space="preserve">
+    <value>50 pts Each accepted invite to join a course</value>
   </data>
   <data name="PointsTxt2" xml:space="preserve">
-    <value>20 pts Each accepted invite to join</value>
+    <value>150 pts Each accepted invite to join</value>
   </data>
   <data name="PointsTxt3" xml:space="preserve">
-    <value>15 pts Receiving a 5 star rating</value>
+    <value>150 pts Receiving a 5 star rating</value>
   </data>
   <data name="PointsTxt4" xml:space="preserve">
-    <value>10 pts Receiving a 4 star rating</value>
+    <value>100 pts Receiving a 4 star rating</value>
   </data>
   <data name="PointsTxt5" xml:space="preserve">
-    <value>5 pts Receiving a 3 star rating</value>
+    <value>50 pts Receiving a 3 star rating</value>
   </data>
   <data name="PointsTxt6" xml:space="preserve">
-    <value>5 pts Asking a question</value>
+    <value> 50 pts Asking a question</value>
   </data>
   <data name="PointsTxt7" xml:space="preserve">
-    <value>10 pts Answering a question</value>
+    <value>100 pts Answering a question</value>
   </data>
   <data name="PointsTxt8" xml:space="preserve">
-    <value>5 pts Sharing on FB</value>
+    <value>50 pts Sharing on FB</value>
   </data>
   <data name="PointsTxt9" xml:space="preserve">
-    <value>30 pts Creating a quiz</value>
+    <value>300 pts Creating a quiz</value>
   </data>
   <data name="UniMembers" xml:space="preserve">
     <value>University members</value>

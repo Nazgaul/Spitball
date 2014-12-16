@@ -127,6 +127,9 @@
     <value>Currently not following any modules</value>
   </data>
   <data name="PointsTxt1" xml:space="preserve">
-    <value>10 pts Upload an item to a Module</value>
+    <value>100 pts Upload an item to a module</value>
+  </data>
+  <data name="PointsTxt10" xml:space="preserve">
+    <value>50 pts Each accepted invite to join a module</value>
   </data>
 </root>

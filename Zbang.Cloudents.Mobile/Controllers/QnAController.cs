@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var questionId = m_IdGenerator.Value.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
-            await ZboxWriteService.AddQuestion(command);
+            await ZboxWriteService.AddQuestionAsync(command);
             return Json(new JsonResponse(true, questionId));
         }
 
@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var answerId = m_IdGenerator.Value.GetId();
                 var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
-                await ZboxWriteService.AddAnswer(command);
+                await ZboxWriteService.AddAnswerAsync(command);
                 return Json(new JsonResponse(true, answerId));
             }
             catch (Exception ex)

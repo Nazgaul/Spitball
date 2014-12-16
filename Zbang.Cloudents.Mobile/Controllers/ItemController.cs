@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using System.Web.UI;
-using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -27,7 +25,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(SessionStateBehavior.Disabled)]
     [NoUniversity]
@@ -36,20 +34,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IBlobProvider m_BlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
 
 
         public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider,
-            Lazy<IIdGenerator> idGenerator
+            IQueueProvider queueProvider
             )
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
-            m_IdGenerator = idGenerator;
         }
 
 
@@ -330,28 +325,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult Rate(RateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            try
-            {
-                var id = m_IdGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
-                ZboxWriteService.RateItem(command);
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult Rate(RateModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
+        //    try
+        //    {
+        //        var id = m_IdGenerator.Value.GetId();
+        //        var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
+        //        ZboxWriteService.RateItem(command);
 
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
 

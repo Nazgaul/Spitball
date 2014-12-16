@@ -33,7 +33,7 @@
 .userPage .searchInputWpr + button .svg-inviteUser,
 .searchPage .searchInputWpr + button .svg-inviteUser {
   position: relative;
-  top: -14px;
+  top: -7px;
 }
 .userPage h1 {
   font-size: 22px;
@@ -692,7 +692,7 @@
 .userItem {
   display: inline-block;
   height: 116px;
-  margin-right: 31px;
+  margin-right: 28px;
   /*rtl*/
   overflow: hidden;
   text-align: center;

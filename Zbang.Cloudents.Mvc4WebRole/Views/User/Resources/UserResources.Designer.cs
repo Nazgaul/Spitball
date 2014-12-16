@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 10 pts Upload an item to a Course.
+        ///   Looks up a localized string similar to 100 pts Upload an item to a course.
         /// </summary>
         public static string PointsTxt1 {
             get {
@@ -196,7 +196,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 20 pts Each accepted invite to join.
+        ///   Looks up a localized string similar to 50 pts Each accepted invite to join a course.
+        /// </summary>
+        public static string PointsTxt10 {
+            get {
+                return ResourceManager.GetString("PointsTxt10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 150 pts Each accepted invite to join.
         /// </summary>
         public static string PointsTxt2 {
             get {
@@ -205,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 15 pts Receiving a 5 star rating.
+        ///   Looks up a localized string similar to 150 pts Receiving a 5 star rating.
         /// </summary>
         public static string PointsTxt3 {
             get {
@@ -214,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 10 pts Receiving a 4 star rating.
+        ///   Looks up a localized string similar to 100 pts Receiving a 4 star rating.
         /// </summary>
         public static string PointsTxt4 {
             get {
@@ -223,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 pts Receiving a 3 star rating.
+        ///   Looks up a localized string similar to 50 pts Receiving a 3 star rating.
         /// </summary>
         public static string PointsTxt5 {
             get {
@@ -232,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 pts Asking a question.
+        ///   Looks up a localized string similar to  50 pts Asking a question.
         /// </summary>
         public static string PointsTxt6 {
             get {
@@ -241,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 10 pts Answering a question.
+        ///   Looks up a localized string similar to 100 pts Answering a question.
         /// </summary>
         public static string PointsTxt7 {
             get {
@@ -250,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 pts Sharing on FB.
+        ///   Looks up a localized string similar to 50 pts Sharing on FB.
         /// </summary>
         public static string PointsTxt8 {
             get {
@@ -259,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 30 pts Creating a quiz.
+        ///   Looks up a localized string similar to 300 pts Creating a quiz.
         /// </summary>
         public static string PointsTxt9 {
             get {
