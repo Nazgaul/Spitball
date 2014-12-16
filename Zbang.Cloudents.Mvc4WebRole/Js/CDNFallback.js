@@ -20,10 +20,10 @@
     }
 
     function javascriptFailCallback() {
-        var scripts, isBootstrap;
+        var scripts, isBootstrap, count, interval;
 
         if (!window.jQuery || window.angular) {
-            scripts = getCdnScripts(cdnGooglePath);            
+            scripts = getCdnScripts(cdnGooglePath);
             load(scriptsPath);
             isBootstrap = true;
         }
@@ -38,14 +38,28 @@
             return;
         }
 
-        window.angular.bootstrap(document, ['app']);
+        count = 0;
+        interval = setInterval(function () {
+            count++;
+            if (!window.angular) {
+                if (count == 500) {
+                    clearInterval(interval);
+                    return;
+                }
+                return;
+            }
+
+            clearInterval(interval);
+            window.angular.bootstrap(document, ['app']);
+
+        }, 20);
 
         function load(path) {
             for (var i = 0, l = scripts.length; i < l; i++) {
                 loadScript(path + getFilename(scripts[i]));
             }
         }
-     
+
     }
 
     function getCdnStylesheets() {

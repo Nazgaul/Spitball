@@ -3,13 +3,15 @@
     function ($rootScope, sModal, $angularCacheFactory) {
         "use strict";
 
-        var pointsTable = {
-            answer: 10,
-            question: 5,
-            itemUpload: 10,
-            shareFb: 5,
-            quiz: 30,
-            newUser: 500
+        var pointsTable = {            
+            answer: 100,
+            question: 50,
+            itemUpload: 100,
+            shareFb: 50,
+            quiz: 300,
+            register: 500,
+            itemComment: 30,
+            itemReply: 15
         };
 
         var popupCallback,
@@ -39,11 +41,7 @@
             if (!totalPoints) {
                 return;
             }
-
-            sModal.open('congrats', {
-                data: totalPoints
-            });
-
+            addPointsPopup(totalPoints);
         });
 
         return {
@@ -64,6 +62,10 @@
                     });
                 });
             },
+            addPointsPopup: function (type) {
+                var points = pointsTable[type];
+                addPointsPopup(points);
+            },
             registerPopup: function (callback) {
                 popupCallback = callback;
             },
@@ -71,5 +73,11 @@
                 counterCallbacks.push(callback);
             }
         };
+
+        function addPointsPopup(points) {
+            sModal.open('congrats', {
+                data: points
+            });            
+        }
     }
     ]);

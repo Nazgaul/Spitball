@@ -92,7 +92,7 @@
                         maxAge: 600000
                     });
 
-                    cache.put('newUser', true);
+                    cache.put('register', true);
 
                     if ($routeParams.boxId) {
                         $window.location.reload();
