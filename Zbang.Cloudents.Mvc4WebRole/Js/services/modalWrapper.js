@@ -58,6 +58,9 @@ app.factory('sModal',
                 },
                 quizChallenge: function (params) {
                     return buildObj('quizPopup', { url: '/quiz/challengepartial/?quizid=' + params.data.quizId }, 'ChallengeCtrl', 'static', true, params.data);
+                },
+                coupon: function (params) {
+                    return buildObj('coupon', { url: '/store/couponpartial' }, 'CouponCtrl', 'static', true, params.data);
                 }
             };
 

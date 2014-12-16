@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands.Quiz
 {
-    public class SaveQuizCommand : ICommand
+    public class SaveQuizCommand : ICommandAsync
     {
         public SaveQuizCommand(long userId, long quizId)
         {

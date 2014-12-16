@@ -13,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddLinkToBoxCommandHandler : ICommandHandlerAsync<AddLinkToBoxCommand, AddLinkToBoxCommandResult>
+    public class AddLinkToBoxCommandHandler : ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>
     {
         private const int LinkStorageSize = 1;
 
@@ -45,9 +45,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_CommentRepository = commentRepository;
         }
 
-        public async Task<AddLinkToBoxCommandResult> ExecuteAsync(AddLinkToBoxCommand command)
+        public async Task<AddItemToBoxCommandResult> ExecuteAsync(AddItemToBoxCommand itemCommand)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (itemCommand == null) throw new ArgumentNullException("itemCommand");
+
+            var command = itemCommand as AddLinkToBoxCommand;
+            if (command == null) throw new NullReferenceException("command");
+
             Uri u = CheckUrl(command);
             //Get Box
             var box = m_BoxRepository.Get(command.BoxId);
@@ -56,21 +60,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("user");
             }
-            if (user.Quota.FreeSpace < LinkStorageSize)
-            {
-                throw new Exception("File Size Exceeds Quota");
-            }
-            UserRelationshipType type = m_UserRepository.GetUserToBoxRelationShipType(user.Id, box.Id);
-            if (type == UserRelationshipType.Invite || type == UserRelationshipType.None)
-            {
-                user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                m_UserRepository.Save(user);
-            }
+           
             //Add link to Box 
             var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture,
                m_BlobProvider.GetThumbnailLinkUrl());
 
-            m_ReputationRepository.Save(user.AddReputation(ReputationAction.AddItem));
             m_ItemRepository.Save(link, true);
             link.GenerateUrl();
             m_ItemRepository.Save(link);
@@ -88,9 +82,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, link.Id));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
-            await Task.WhenAll(t1, t2);
+            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, link.Id));
             return new AddLinkToBoxCommandResult(link);
 
 

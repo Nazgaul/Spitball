@@ -33,7 +33,7 @@
     </div>
     <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
            ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
-           ng-model="formData.register.confirmEmail" required ng-match="newEmail" />
+           ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail" />
 
     <div class="ng-message-errors" ng-messages="(registerForm.password.$touched || registerSubmitted) && registerForm.password.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>

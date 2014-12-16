@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Routing;
 using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
+using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -12,7 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //routes.LowercaseUrls = true;
+            routes.LowercaseUrls = true;
             routes.AppendTrailingSlash = true;
 
             var constraintsResolver = new DefaultInlineConstraintResolver();
@@ -45,8 +46,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { boxId = new LongRouteConstraint() }
           );
             routes.MapRoute("shortBox",
-                "b/{box62Id}",
-                new {controller = "Box", action = "ShortUrl"});
+                UrlConsts.ShortBox,
+                new { controller = "Box", action = "ShortUrl" });
 
             #endregion
 
@@ -79,7 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
                 );
             routes.MapRoute("shortItem",
-               "i/{box62Id}",
+               UrlConsts.ShortItem,
                new { controller = "Item", action = "ShortUrl" });
             #endregion
 

@@ -172,19 +172,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public ActionResult SubscribeToBox(long boxId)
+        public async Task<JsonResult> SubscribeToBox(long boxId)
         {
             var userid = User.GetUserId();
             try
             {
                 var command = new SubscribeToSharedBoxCommand(userid, boxId);
-                ZboxWriteService.SubscribeToSharedBox(command);
-                return Json(new JsonResponse(true));
+                await ZboxWriteService.SubscribeToSharedBoxAsync(command);
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
 
         }
@@ -273,7 +273,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
             var command = new AddReputationCommand(User.GetUserId(), Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
-            await ZboxWriteService.AddReputation(command);
+            await ZboxWriteService.AddReputationAsync(command);
             return JsonOk();
         }
 

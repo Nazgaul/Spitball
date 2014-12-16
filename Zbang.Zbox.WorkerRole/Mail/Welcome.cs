@@ -21,7 +21,9 @@ namespace Zbang.Zbox.WorkerRole.Mail
             }
 
             
-            m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,new WelcomeMailParams(parameters.UserName,new  CultureInfo(parameters.Culture)));
+            m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
+                new WelcomeMailParams(parameters.UserName,
+                    new  CultureInfo(parameters.Culture)));
 
             return true;
 

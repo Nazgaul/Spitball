@@ -79,16 +79,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      fileUploadedDetails.TotalUploadBytes, model.TabId, model.Question);
-                var result = await ZboxWriteService.AddFileToBox(command);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
-                var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
-                    result.File.Uploader.Url,
-                    result.File.ThumbnailUrl,
-                    string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0,
-                    DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
-                    result.File.Url)
+                var result2 = result as AddFileToBoxCommandResult;
+                if (result2 == null)
                 {
-                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result.File.Id })
+                    throw new NullReferenceException("result2");
+                }
+
+                var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
+                    result2.File.Uploader.Url,
+                    result2.File.ThumbnailUrl,
+                    string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0,
+                    DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
+                    result2.File.Url)
+                {
+                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
                 };
                 cookie.RemoveCookie("upload");
                 return JsonOk(new { fileDto, boxId = model.BoxId });
@@ -219,15 +225,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
-                var result = await ZboxWriteService.AddLinkToBox(command);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result2 = result as AddLinkToBoxCommandResult;
+                if (result2 == null)
+                {
+                    throw new NullReferenceException("result2");
+                }
 
-                var item = new LinkDto(result.Link.Id, result.Link.Name,
-                    result.Link.Uploader.Id,
-                    result.Link.Uploader.Url,
+                var item = new LinkDto(result2.Link.Id, result2.Link.Name,
+                    result2.Link.Uploader.Id,
+                    result2.Link.Uploader.Url,
                     m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
-                    0, 0, false, result.Link.Uploader.Name, result.Link.ItemContentUrl, DateTime.UtcNow, result.Link.Url)
+                    0, 0, false, result2.Link.Uploader.Name, result2.Link.ItemContentUrl, DateTime.UtcNow, result2.Link.Url)
                  {
-                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result.Link.Box.Id, itemId = result.Link.Id })
+                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
                  };
                 return JsonOk(item);
             }
@@ -272,13 +283,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                name,
                 size, tabId, false);
-            var result = await ZboxWriteService.AddFileToBox(command);
-            var fileDto = new FileDto(result.File.Id, result.File.Name, result.File.Uploader.Id,
-                result.File.Uploader.Url,
-                result.File.ThumbnailUrl,
-                string.Empty, 0, 0, false, result.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result.File.Url)
+            var result = await ZboxWriteService.AddItemToBoxAsync(command);
+            var result2 = result as AddFileToBoxCommandResult;
+            if (result2 == null)
             {
-                DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result.File.Id })
+                throw new NullReferenceException("result2");
+            }
+
+            var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
+                result2.File.Uploader.Url,
+                result2.File.ThumbnailUrl,
+                string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result2.File.Url)
+            {
+                DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result2.File.Id })
             };
             return JsonOk(fileDto);
 

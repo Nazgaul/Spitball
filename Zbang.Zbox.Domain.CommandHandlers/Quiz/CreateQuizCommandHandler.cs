@@ -28,15 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);
-
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
-
-            if (userType == UserRelationshipType.None)
-            {
-                user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                box.CalculateMembers();
-                m_UserRepository.Save(user);
-            }
+           
             var quiz = new Domain.Quiz(TextManipulation.EncodeText(message.Text), message.QuizId, box, user);
             
             m_QuizRepository.Save(quiz);

@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Domain.Common
 {
     public interface IZboxWriteService
     {
-        CreateUserCommandResult CreateUser(CreateUserCommand command);
+        Task<CreateUserCommandResult> CreateUserAsync(CreateUserCommand command);
         UpdateUserCommandResult UpdateUserPassword(UpdateUserPasswordCommand command);
         void UpdateUserEmail(UpdateUserEmailCommand command);
         void UpdateUserProfile(UpdateUserProfileCommand command);
@@ -18,13 +18,14 @@ namespace Zbang.Zbox.Domain.Common
         //void DeleteBox(DeleteBoxCommand command);
         void UnFollowBox(UnfollowBoxCommand command);
 
-        Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
-        Task<AddLinkToBoxCommandResult> AddLinkToBox(AddLinkToBoxCommand command);
+        Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
+       // Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
+        //Task<AddLinkToBoxCommandResult> AddLinkToBox(AddLinkToBoxCommand command);
         //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
         //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
         void DeleteItem(DeleteItemCommand command);
-        void RateItem(RateItemCommand command);
+        Task RateItemAsync(RateItemCommand command);
 
 
         void DeleteUserFromBox(DeleteUserFromBoxCommand command);
@@ -36,7 +37,7 @@ namespace Zbang.Zbox.Domain.Common
         void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
         void SendMessage(SendMessageCommand command);
-        void SubscribeToSharedBox(SubscribeToSharedBoxCommand command);
+        Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
         //void DeleteComment(DeleteCommentCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
@@ -75,20 +76,20 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         #region QnA
-        Task AddQuestion(AddCommentCommand command);
-        Task AddAnswer(AddAnswerToQuestionCommand command);
+        Task AddQuestionAsync(AddCommentCommand command);
+        Task AddAnswerAsync(AddAnswerToQuestionCommand command);
         void DeleteComment(DeleteCommentCommand command);
         void DeleteAnswer(DeleteReplyCommand command);
         #endregion
 
-        Task AddReputation(AddReputationCommand command);
+        Task AddReputationAsync(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
         void MarkMessageAsRead(MarkMessagesAsReadCommand command);
         void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
 
         #region Quiz
-        void CreateQuiz(CreateQuizCommand command);
+        Task CreateQuizAsync(CreateQuizCommand command);
         void UpdateQuiz(UpdateQuizCommand command);
         void DeleteQuiz(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);
@@ -97,8 +98,8 @@ namespace Zbang.Zbox.Domain.Common
         void CreateAnswer(CreateAnswerCommand command);
         void DeleteAnswer(DeleteAnswerCommand command);
         void UpdateAnswer(UpdateAnswerCommand command);
-        Task<SaveQuizCommandResult> SaveQuiz(SaveQuizCommand command);
-        void SaveUserAnswers(SaveUserQuizCommand command);
+        Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
+        Task SaveUserAnswersAsync(SaveUserQuizCommand command);
         void CreateItemInDiscussion(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 

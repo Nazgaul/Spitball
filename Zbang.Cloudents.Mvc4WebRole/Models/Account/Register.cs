@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
 using Zbang.Zbox.Domain.Common;
 
@@ -25,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
         //the new version doesn't get the resource
-        [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
+        [Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
 

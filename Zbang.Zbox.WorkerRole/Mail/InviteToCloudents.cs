@@ -21,11 +21,11 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 throw new NullReferenceException("parameters");
             }
-
+            var userImage = parameters.SenderImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
            
             var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.cloudents.com" : parameters.Url;
             m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-             new InvitationToCloudentsMailParams(parameters.SenderName, parameters.SenderImage,
+             new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
             new CultureInfo(parameters.Culture), parameters.SenderEmail, url));
 
             return true;

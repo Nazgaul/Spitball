@@ -12,7 +12,7 @@ function ($scope, $modalInstance, data, $timeout, $analytics, sItem, sNotify) {
 
     $scope.flagItem = function () {
         $scope.disable = true;
-        sItem.flag($scope.formdata).then(function (response) {
+        sItem.flag($scope.formdata).then(function () {
             $scope.secondStep = true;
 
             $timeout(function () {

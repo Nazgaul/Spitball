@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 throw new NullReferenceException("parameters");
             }
-            var userImage = parameters.InviterImage ?? "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/userpic9.jpg";
+            var userImage = parameters.InviterImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
 
             if (string.IsNullOrEmpty(parameters.InviterEmail))
             {

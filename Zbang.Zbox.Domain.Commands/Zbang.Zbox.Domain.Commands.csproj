@@ -64,6 +64,8 @@
     <Compile Include="AddAnswerToQuestionCommand.cs" />
     <Compile Include="AddFileToBoxCommand.cs" />
     <Compile Include="AddFileToBoxCommandResult.cs" />
+    <Compile Include="AddItemToBoxCommand.cs" />
+    <Compile Include="AddItemToBoxCommandResult.cs" />
     <Compile Include="AddLinkToBoxCommand.cs" />
     <Compile Include="AddLinkToBoxCommandResult.cs" />
     <Compile Include="AddNewUpdatesCommand.cs" />

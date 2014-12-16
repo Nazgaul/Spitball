@@ -233,7 +233,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                         $analytics.eventTrack('Library', {
                             category: 'Delete Department'
                         });
-                        sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function (response) {
+                        sLibrary.deleteDepartment({ id: $scope.info.libraryId }).then(function () {
                             $location.path($scope.back.url).replace();
                         });
                         return;
@@ -246,7 +246,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                         category: 'Rename Department'
                     });
 
-                    sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function (response) {
+                    sLibrary.renameNode({ id: $scope.info.libraryId, newName: d.newName }).then(function () {
                         $location.path('/library/' + $scope.info.libraryId + '/' + d.newName).replace(); //TODO maybe return new url
                     }, function (response) {
                         sNotify.alert(response);

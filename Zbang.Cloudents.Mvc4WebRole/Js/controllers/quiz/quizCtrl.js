@@ -4,7 +4,7 @@ mQuiz.controller('QuizCtrl',
         function ($scope, $window, $timeout, $fliter, $routeParams, sModal, sQuiz, sUserDetails, $analytics, resManager, sLogin) {
             "use strict";
             var questions,
-                challengeTimeout, modalInstance;
+                challengeTimeout;
 
             $scope.profile = {
                 userImage: sUserDetails.getDetails().image
@@ -270,7 +270,9 @@ mQuiz.controller('QuizCtrl',
                 $scope.formData.answers = _.map($scope.formData.answerSheet, function (answer) {
                     return { questionId: answer.question.id, answerId: answer.answer.id }
                 });
-                sQuiz.saveAnswers($scope.formData).then(function () { });
+
+                $scope.formData.boxId = $routeParams.boxId;
+                sQuiz.saveAnswers($scope.formData);
             }
 
             function resetQuiz() {
@@ -387,8 +389,8 @@ mQuiz.controller('QuizCtrl',
             function getDiscussion() {
                 sQuiz.discussion.getDiscussion({ quizId: $scope.quiz.id }).then(function (data) {
                     _.forEach(data, function (comment) {
-                        var question = _.find($scope.quiz.questions, function (question) {
-                            return comment.questionId === question.id;
+                        var question = _.find($scope.quiz.questions, function (question2) {
+                            return comment.questionId === question2.id;
                         });
 
 

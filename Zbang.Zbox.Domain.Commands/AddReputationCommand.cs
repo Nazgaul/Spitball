@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddReputationCommand : ICommand
+    public class AddReputationCommand : ICommandAsync
     {
         public AddReputationCommand(long userId, ReputationAction reputationAction)
         {

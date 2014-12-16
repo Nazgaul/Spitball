@@ -373,15 +373,23 @@
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
-                event.preventDefault();
-                $location.path('/library/choose/');
-                return;
+            try {
+
+            
+                if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
+                    event.preventDefault();
+                    $location.path('/library/choose/');
+                    return;
+                }
+                if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
+                    $location.path('/dashboard/');
+                    return;
+                }
             }
-            if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
-                $location.path('/dashboard/');
-                return;
+            catch (ex) {
+
             }
+
             //title 
             if (!previous) { //no previous firsttime load        
                 try {
@@ -456,20 +464,20 @@
 
 
 
-        if (htmlCache.get('version') !== sVerChecker.currentVersion()) {
-            htmlCache.removeAll();
-        }
+        //if (htmlCache.get('version') !== sVerChecker.currentVersion()) {
+        //    htmlCache.removeAll();
+        //}
 
-        if (sUserDetails.isAuthenticated()) {
-            $http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); });
-        }
+        //if (sUserDetails.isAuthenticated()) {
+        //    $http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); });
+        //}
 
-        $http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
-        $http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
-        $http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });
-        //$http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
+        //$http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
+        //$http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
+        //$http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });
+        ////$http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
 
-        htmlCache.put('version', sVerChecker.currentVersion());
+        //htmlCache.put('version', sVerChecker.currentVersion());
 
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';

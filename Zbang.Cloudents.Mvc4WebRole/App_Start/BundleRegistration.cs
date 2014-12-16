@@ -204,8 +204,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/services/dashboard.js"),
                         new JsFileWithCdn("/js/services/user.js"),
                         new JsFileWithCdn("/js/services/facebook.js"),
-                        new JsFileWithCdn("/js/services/userDetails.js"),
+                        new JsFileWithCdn("/js/services/userDetails.js"),   
                         new JsFileWithCdn("/js/services/stacktrace.js"),
+                        new JsFileWithCdn("/js/directives/ngMatch.js"),
                         new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
                         new JsFileWithCdn("/js/directives/storageSpace.js"),
                         new JsFileWithCdn("/js/directives/dropZone.js"),
@@ -250,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "angular-store", new[]
                     {
-                        //new JsFileWithCdn("/js/controllers/store/homeCtrl.js"),
+                        new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/contactCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),

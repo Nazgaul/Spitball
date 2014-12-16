@@ -933,6 +933,8 @@
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchCtrl.js" />
     <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
+    <Content Include="Js\controllers\store\couponCtrl.js" />
+    <Content Include="Js\controllers\store\storeCtrl.js" />
     <Content Include="Js\controllers\store\carouselCtrl.js" />
     <Content Include="Js\controllers\store\categoryCtrl.js" />
     <Content Include="Js\controllers\store\checkoutCtrl.js" />
@@ -947,6 +949,7 @@
     <Content Include="Js\directives\homeVideo.js" />
     <Content Include="Js\directives\login.js" />
     <Content Include="Js\directives\moxieDropzone.js" />
+    <Content Include="Js\directives\ngMatch.js" />
     <Content Include="Js\directives\quizGraph.js" />
     <Content Include="Js\directives\rateStar.js" />
     <Content Include="Js\directives\storageSpace.js" />
