@@ -391,9 +391,17 @@ body {
     }
     .trash {
         position: absolute;
-        bottom: 12px;
-        right: 12px; //rtl
+        bottom: 0;
+        right: 20px; //rtl
         display: none;
+        width: auto; //override
+        padding: 0;//override
+        &:hover {
+            background: none; //override
+            svg {
+                fill: #282828;
+            }
+        }
     }
     .svg-trash {
         fill: #fff;
