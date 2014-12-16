@@ -124,12 +124,7 @@
                 };
 
 
-                $scope.postQuestion = function () {
-                    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') {
-                        sNotify.tAlert('NeedToFollowBox');
-                        return;
-                    }
-
+                $scope.postQuestion = function () {                   
                     $scope.qFormData.boxId = $scope.boxId;
 
                     var fileDisplay = $scope.qFormData.files;
@@ -160,6 +155,7 @@
                         $scope.$broadcast('update-scroll');
                         $scope.qFormData = {};
 
+                        $scope.followBox(true);
 
                         sGmfcnHandler.addPoints({ type: 'question' });
 
@@ -174,12 +170,7 @@
                     question.displayComment = !question.displayComment;
                 };
 
-                $scope.postAnswer = function (question) {
-
-                    if ($scope.info.userType === 'none' || $scope.info.userType === 'invite') { //parent is box controller
-                        sNotify.tAlert('NeedToFollowBox');
-                        return;
-                    }
+                $scope.postAnswer = function (question) {                  
 
                     $analytics.eventTrack('Feed', {
                         category: 'Add an answer',
@@ -218,7 +209,7 @@
 
                         question.answers.push(new Answer(obj));
                         $scope.$broadcast('update-scroll');
-
+                        $scope.followBox(true);
 
                         //updatetime
                         //notify
@@ -334,6 +325,8 @@
                     if (data.boxId !== $scope.boxId) {
                         return;
                     }
+
+                    $scope.followBox(true);
 
                     data.itemDto.uid = data.itemDto.id;
 
