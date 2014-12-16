@@ -20,20 +20,22 @@
 
     <div class="ng-message-errors" ng-messages="(registerForm.newEmail.$touched || registerSubmitted) && registerForm.newEmail.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
-        <span class="ng-message-error" ng-message="email">@ValidationResources.InvalidEmail</span>
+        <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
     </div>
-    <input type="email" class="inputText" name="newEmail" placeholder="@SharedResources.Email"
+    <input type="text" class="inputText" name="newEmail" placeholder="@SharedResources.Email"
            ng-class="{error: (registerSubmitted || registerForm.newEmail.$touched) && loginForm.newEmail.$error}"
-           ng-model="formData.register.newEmail" required />
+           ng-model="formData.register.newEmail" required
+           ng-pattern="params.pattern" />    
 
     <div class="ng-message-errors" ng-messages="(registerForm.confirmEmail.$touched || registerSubmitted) && registerForm.confirmEmail.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
-        <span class="ng-message-error" ng-message="email">@ValidationResources.InvalidEmail</span>
+        <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
         <span class="ng-message-error" ng-message="match">@ValidationResources.ConfirmEmailCompare</span>
     </div>
-    <input type="email" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
+    <input type="text" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
            ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
-           ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail" />
+           ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail"
+           ng-pattern="params.pattern" />
 
     <div class="ng-message-errors" ng-messages="(registerForm.password.$touched || registerSubmitted) && registerForm.password.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>

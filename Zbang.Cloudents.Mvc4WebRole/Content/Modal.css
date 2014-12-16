@@ -98,6 +98,10 @@
 }
 .modal.welcome .modal-dialog.modal-dialog {
   width: 450px;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 .modal.welcome .modal-body {
   border-radius: 6px;

@@ -160,31 +160,31 @@
     <value>حاليا لا تتبع أي من المقررات الدراسية</value>
   </data>
   <data name="PointsTxt1" xml:space="preserve">
-    <value>10 نقاط لتحميل ملف</value>
+    <value>100 نقاط لتحميل عنصر إلى الوحدة</value>
   </data>
   <data name="PointsTxt2" xml:space="preserve">
-    <value>20 نقطة لقبول إحالة صديق </value>
+    <value>150 نقطة لقبول إحالة صديق </value>
   </data>
   <data name="PointsTxt3" xml:space="preserve">
-    <value>15 نقطة للحصول على تقييم 5 نجوم</value>
+    <value>150 نقطة للحصول على تقييم 5 نجوم</value>
   </data>
   <data name="PointsTxt4" xml:space="preserve">
-    <value>10 نقاط للحصول على تقييم 4 نجوم</value>
+    <value>100 نقاط للحصول على تقييم 4 نجوم</value>
   </data>
   <data name="PointsTxt5" xml:space="preserve">
-    <value>5 نقاط للحصول على تقييم 3 نجوم</value>
+    <value>50 نقاط للحصول على تقييم 3 نجوم</value>
   </data>
   <data name="PointsTxt6" xml:space="preserve">
-    <value>5 نقاط لطرح سؤال</value>
+    <value>50 نقاط لطرح سؤال</value>
   </data>
   <data name="PointsTxt7" xml:space="preserve">
-    <value>10 نقاط لتقديم إجابة</value>
+    <value>100 نقاط لتقديم إجابة</value>
   </data>
   <data name="PointsTxt8" xml:space="preserve">
-    <value>5 نقاط للمشاركة على الفيس بوك</value>
+    <value>50 نقاط للمشاركة على الفيس بوك</value>
   </data>
   <data name="PointsTxt9" xml:space="preserve">
-    <value>30 قرشا إنشاء مسابقة
+    <value>300 قرشا إنشاء مسابقة
 </value>
   </data>
   <data name="UniMembers" xml:space="preserve">
