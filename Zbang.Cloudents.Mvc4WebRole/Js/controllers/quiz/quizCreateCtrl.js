@@ -132,7 +132,7 @@
                 return;
             }
 
-            sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function (response) {
+            sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function () {
                 addItemToBox(false);
             });
         };
@@ -641,7 +641,7 @@
     directive('quizFocus', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch(function () {
                     return element.attr('data-focus');
                 }, function (newValue) {
@@ -656,11 +656,11 @@
     directive('requiredTwo', function () {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 var watchFn = function () {
                     return element[0].querySelectorAll('.quizAnswer:not(.disabled)').length;
                 }
-                scope.$watch(watchFn, function (newValue, oldValue) {
+                scope.$watch(watchFn, function (newValue) {
                     scope.questionForm.$setValidity('required', newValue > 1);
                 });
 

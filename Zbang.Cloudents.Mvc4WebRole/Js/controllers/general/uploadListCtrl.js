@@ -215,7 +215,7 @@ app.controller('UploadListCtrl',
 
 
         $scope.toggleCollapse = function () {
-            var scrollUpdated = true;
+           // var scrollUpdated = true;
 
             if (!$scope.uploader.fileList.length) {
                 $scope.uploader.collapsed = false;
@@ -261,8 +261,8 @@ app.controller('UploadListCtrl',
         }
 
         function getFile(fileId) {
-            var file = _.find($scope.uploader.fileList, function (file) {
-                return file.id === fileId;
+            var file = _.find($scope.uploader.fileList, function (file2) {
+                return file2.id === fileId;
             });
 
             return file;

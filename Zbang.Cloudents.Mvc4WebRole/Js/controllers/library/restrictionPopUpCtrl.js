@@ -20,7 +20,7 @@
             if (!isValid) {
                 return;
             }
-            sLibrary.updateUniversity($scope.formData).then(function (response) {
+            sLibrary.updateUniversity($scope.formData).then(function () {
                 $modalInstance.close();
             }, function (response) {
                 sNotify.alert(response[0].value[0]);

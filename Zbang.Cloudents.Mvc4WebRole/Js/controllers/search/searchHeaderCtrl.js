@@ -1,7 +1,7 @@
 ﻿
 app.controller('SearchHeaderCtrl',
     ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin',
-    function ($scope, $timeout, $location, debounce, Search, sUserDetails, textDirectionService, $analytics, sLogin) {
+    function ($scope, $timeout, $location, debounce, sSearch, sUserDetails, textDirectionService, $analytics, sLogin) {
         "use strict";
         $scope.params = {
             maxItems: 6,
@@ -51,7 +51,7 @@ app.controller('SearchHeaderCtrl',
                 category: 'Search',
                 label: 'User searched for ' + query
             });
-            Search.dropdown({ q: query }).then(function (data) {
+            sSearch.dropdown({ q: query }).then(function (data) {
                 parseData(data);
                 if ($scope.params.preventDropDown) {
                     $scope.params.preventDropDown = false;

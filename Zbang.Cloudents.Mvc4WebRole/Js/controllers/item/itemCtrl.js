@@ -1,9 +1,9 @@
 ﻿var mItem = angular.module('mItem', []);
 mItem.controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
-            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler',
+            '$sce', '$analytics', 'sNotify', 'sLogin', 
 function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
-    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler) {
+    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
