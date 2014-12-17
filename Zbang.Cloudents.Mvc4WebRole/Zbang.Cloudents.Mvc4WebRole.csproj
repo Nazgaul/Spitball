@@ -992,6 +992,7 @@
     <Content Include="Js\services\dashboard.js" />
     <Content Include="Js\services\dropbox.js" />
     <Content Include="Js\services\account.js" />
+    <Content Include="Js\services\htmlCache.js" />
     <Content Include="Js\services\modalWrapper.js" />
     <Content Include="Js\services\notificationHandler.js" />
     <Content Include="Js\services\notificationManager.js" />

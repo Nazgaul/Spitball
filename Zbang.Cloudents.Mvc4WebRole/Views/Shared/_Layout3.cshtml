@@ -53,8 +53,7 @@
     </script>
     <![endif]-->
 
-    <div class="bodyContent" data-version="@VersionHelper.CurrentVersion(true)" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl"
-         bag-data="@{@ViewBag.firstTime}" bag-data-property="firstTime">
+    <div class="bodyContent" data-version="@VersionHelper.CurrentVersion(true)" id="main" ng-class="{noQuiz: !$root.options.quizOpen}" ng-controller="MainCtrl">
 
         @RenderBody()
         <div id="fb-root"></div>

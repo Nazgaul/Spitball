@@ -1,9 +1,9 @@
 ﻿var mBox = angular.module('mBox', ['ngDragDrop', 'angular-plupload']).
     controller('BoxCtrl',
-        ['$scope', '$rootScope', '$routeParams',
+        ['$scope', '$rootScope', '$routeParams', 'sAccount',
          'sModal', '$location', 'resManager', '$timeout', '$analytics',
-         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook', 'sNotify','sLogin',
-        function ($scope, $rootScope, $routeParams, sModal, $location, resManager,
+         'sBox', 'sNewUpdates', 'sUserDetails', 'sFacebook', 'sNotify', 'sLogin',
+        function ($scope, $rootScope, $routeParams, sAccount, sModal, $location, resManager,
                   $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sFacebook, sNotify, sLogin) {
             "use strict";
             $scope.boxId = parseInt($routeParams.boxId, 10);
@@ -32,6 +32,10 @@
             $scope.info = {
                 userType: 'none'
             };
+
+            if (sUserDetails.getDetails().firstTimeBox) {
+                sAccount.disableFirstTime({ firstTime: 'Box' });
+            }
 
             sBox.info({ id: $scope.boxId }).then(function (info) {
 

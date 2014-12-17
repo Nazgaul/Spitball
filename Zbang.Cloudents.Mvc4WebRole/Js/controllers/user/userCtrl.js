@@ -198,18 +198,15 @@ mUser.controller('UserCtrl',
             loading: true,
             currentTab: userConstants.activity.tabs.items,
             items: {
-                limit: userConstants.activity.items.init,
-                list: []
+                limit: userConstants.activity.items.init,                
 
             },
             questions: {
-                limit: userConstants.activity.questions.init,
-                list: []
+                limit: userConstants.activity.questions.init,                
 
             },
             answers: {
-                limit: userConstants.activity.answers.init,
-                list: []
+                limit: userConstants.activity.answers.init,                
             }
         }
 

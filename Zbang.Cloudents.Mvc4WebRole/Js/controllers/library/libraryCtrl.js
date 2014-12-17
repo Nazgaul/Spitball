@@ -1,7 +1,7 @@
 ﻿var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics', 'sNotify',
-function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics, sNotify) {
+    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics', 'sNotify', 'sAccount',
+function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics, sNotify, sAccount) {
     "use strict";
     var types = {
         box: 'box',
@@ -16,6 +16,10 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
         isRootLevel: !$routeParams.libraryId,
         items: []
     };
+
+    if (sUserDetails.getDetails().firstTimeLibrary) {
+        sAccount.disableFirstTime({ firstTime: 'Library' });
+    }
 
     addItems();
 
@@ -171,7 +175,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                 var index = $scope.info.items.indexOf(box);
                 if (index > -1) {
                     $scope.info.items.splice(index, 1);
-                }                
+                }
             }
         });
 

@@ -124,13 +124,15 @@ app.controller('SearchHeaderCtrl',
         //    };
         //});
 
-        $scope.openSearch = function () {
-            $scope.params.isOpen = true;
-        };
+        //$scope.openSearch = function () {
+        //    $scope.params.isOpen = true;
+        //};
 
-        $scope.cancel = function () {
-            $scope.params.isOpen = false;
-        };
+        //$scope.cancel = function () {
+        //    $scope.params.isOpen = false;
+        //};
+
+
         function parseData(data) {
             if (!lastResultCount) {                
                 lastResultCount = $scope.resultCount();                
@@ -138,7 +140,7 @@ app.controller('SearchHeaderCtrl',
                 return;
             }
 
-            if (!lastResultCount === 0 && $scope.resultCount() === 0 && $scope.params.showDropdown) {
+            if (lastResultCount === 0 && $scope.resultCount() === 0 && $scope.params.showDropdown) {
                 return;
             }
 

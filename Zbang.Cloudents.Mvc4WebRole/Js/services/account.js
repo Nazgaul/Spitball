@@ -42,6 +42,9 @@
             },
             register: function (data) {
                 return ajaxService.post(buildPath('Register'), data);
+            },
+            disableFirstTime: function () {
+                return ajaxService.post('/account/firsttime/');
             }
 
         };

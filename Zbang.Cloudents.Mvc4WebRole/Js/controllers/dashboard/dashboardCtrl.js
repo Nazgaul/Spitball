@@ -1,23 +1,27 @@
 ﻿var mDashboard = angular.module('mDashboard', ['wizard', 'InviteEmail', 'angular-plupload']);
 mDashboard.controller('DashboardCtrl',
-     ['$scope', '$rootScope', '$timeout',
-       'sModal','sDashboard', 'sBox','resManager','sNotify',
+     ['$scope', '$rootScope', '$timeout', 'sAccount', 'sUserDetails',
+       'sModal', 'sDashboard', 'sBox', 'resManager', 'sNotify',
       'sUser', 'sNewUpdates', '$location', '$analytics',
 
-function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sNotify, sUser, sNewUpdates, $location, $analytics) {
+function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboard, sBox, resManager, sNotify, sUser, sNewUpdates, $location, $analytics) {
     "use strict";
     $scope.title = 'Dashboard';
     $scope.academicBoxes = [];
-    $scope.groupBoxes = [];   
+    $scope.groupBoxes = [];
 
+
+    if (sUserDetails.getDetails().firstTimeDashboard) {
+        sAccount.disableFirstTime({ firstTime: 'Dashboard' });
+    }
 
     $scope.myCourses = resManager.get('CoursesFollow');
     $scope.openCreateBoxWizard = function () {
         $rootScope.params.createBoxWizard = true;
 
         sModal.open('createBoxWizard', {
-            data: { 
-                isPrivate: true 
+            data: {
+                isPrivate: true
             },
             callback: {
                 close: function (response) {
@@ -34,40 +38,34 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
                     }
                 },
                 always: function () {
-                    
+
                     $rootScope.params.createBoxWizard = false; //user cancelled
                 }
             }
-        });              
+        });
     };
-    function firstTimeDashboard() {        
-        sDashboard.disableFirstTime();
-    }
 
-    sDashboard.sideBar().then(function(sideBar){
+    sDashboard.sideBar().then(function (sideBar) {
         $scope.params = {
-            name:sideBar.info.name,
-            image:sideBar.info.img
+            name: sideBar.info.name,
+            image: sideBar.info.img
         };
 
         $scope.leaderBoard = {
-            first: sideBar.leaderBoard[0],            
+            first: sideBar.leaderBoard[0],
             second: sideBar.leaderBoard[1],
             secondExist: !_.isUndefined(sideBar.leaderBoard[1]),
             third: sideBar.leaderBoard[2],
             thirdExist: !_.isUndefined(sideBar.leaderBoard[2]),
             length: sideBar.leaderBoard.length
         };
-        
+
         $scope.recommendedCourses = sideBar.recommended;
         //$analytics.setVariable('dimension1', sideBar.info.uniName);
 
     });
-        
+
     sDashboard.boxList().then(function (boxList) {
-        if (!boxList.length) {
-            firstTimeDashboard();
-        }
         mapBoxes(boxList);
 
         $scope.contentLoaded = true;
@@ -76,11 +74,11 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         });
 
     });
-       
-    
-        
 
-      
+
+
+
+
 
     $scope.removeBox = function (box) {
         sNotify.confirm($scope.removeConfirm(box)).then(function () {
@@ -92,9 +90,6 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
                 } else {
                     index = $scope.groupBoxes.indexOf(box);
                     $scope.groupBoxes.splice(index, 1);
-                }
-                if ($scope.academicBoxes.length === 0 && $scope.groupBoxes.length === 0) {
-                    firstTimeDashboard();
                 }
             });
             $analytics.eventTrack('Dashboard', {
@@ -111,7 +106,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         });
     };
 
-  
+
     $scope.removeConfirm = function (box) {
         if (box.userType === 'none') {
             return;
@@ -170,7 +165,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
         $scope.academicBoxes = academic;
         $scope.groupBoxes = group;
 
-    }   
+    }
 
     $scope.productStore = function () {
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
@@ -178,7 +173,7 @@ function ($scope, $rootScope, $timeout, sModal, sDashboard, sBox, resManager, sN
 
         var w = 935, h = 600,
          left = (screen.width / 2) - (w / 2) + dualScreenLeft,
-         top = (screen.height / 2) - (h / 2) + dualScreenTop;        
+         top = (screen.height / 2) - (h / 2) + dualScreenTop;
         $analytics.eventTrack('Dashboard', {
             category: 'AdvertismentClick'
         });
