@@ -1313,6 +1313,9 @@
   /*rtl*/
   left: auto;
 }
+.upInviteItem:nth-child(odd) {
+  margin: 0 0 0 30px;
+}
 .upInviteItem .semiFont {
   margin: 0 0 4px;
   /*diff rtl*/
@@ -1321,6 +1324,9 @@
   left: 0;
   /*rtl*/
   right: auto;
+}
+.invitedToWpr .invitedTo {
+  padding: 8px 35px 0 0;
 }
 /*.invitedToImg
 {
