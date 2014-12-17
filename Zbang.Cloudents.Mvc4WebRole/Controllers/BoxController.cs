@@ -304,20 +304,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         #region DeleteBox
-        [HttpPost]
-        [ZboxAuthorize]
-        [Obsolete]
-        public JsonResult Delete(long boxUid)
-        {
-            return Delete2(boxUid);
 
-
-        }
 
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public JsonResult Delete2(long id)
+        public JsonResult Delete2(long id, bool delete = false)
         {
             var userId = User.GetUserId();
             var command = new UnfollowBoxCommand(id, userId);

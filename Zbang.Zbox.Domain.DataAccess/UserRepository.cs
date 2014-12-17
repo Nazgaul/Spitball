@@ -73,8 +73,9 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public long GetItemsByUser(long userId)
         {
-            var x = UnitOfWork.CurrentSession.QueryOver<Item>().
-                         Where(w => w.Uploader.Id == userId).Where(w => w.IsDeleted == false)
+            var x = UnitOfWork.CurrentSession.QueryOver<Item>()
+                        .Where(w => w.Uploader.Id == userId)
+                        .Where(w => w.IsDeleted == false)
                         .List<Item>();
 
            var y =  x.Where(w => w.Box.IsDeleted == false).Sum(s => s.Size);

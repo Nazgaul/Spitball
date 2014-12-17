@@ -155,8 +155,9 @@
   height: 50px;
   fill: #0f9d58;
   display: inline-block;
-  top: 48px;
+  top: 15px;
   left: 0;
+  position: absolute;
 }
 .modal.itemReg .modal-header h3 {
   width: auto;
@@ -169,7 +170,7 @@
   font-weight: bold;
   white-space: pre-line;
   position: relative;
-  top: -30px;
+  top: 0;
   padding: 0 0 0 50px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
