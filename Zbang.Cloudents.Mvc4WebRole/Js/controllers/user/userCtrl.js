@@ -66,7 +66,7 @@ mUser.controller('UserCtrl',
                 $rootScope.$broadcast('viewContentLoaded');
             });
         });
-
+            
         //sendUserMessage - is on main.js as well
         $scope.sendUserMessage2 = function () {
 

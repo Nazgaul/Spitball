@@ -1,5 +1,4 @@
-﻿
-mItem.controller('itemFlagCtrl',
+﻿mItem.controller('ItemFlagCtrl',
 [
     '$scope', '$modalInstance', 'data', '$timeout', '$analytics', 'sItem', 'sNotify',
 function ($scope, $modalInstance, data, $timeout, $analytics, sItem, sNotify) {

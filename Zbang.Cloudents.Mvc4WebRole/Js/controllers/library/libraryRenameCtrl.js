@@ -1,5 +1,4 @@
-﻿
-mLibrary.controller('libraryRenameCtrl',
+﻿mLibrary.controller('LibraryRenameCtrl',
 ['$scope', '$modalInstance', 'data','sUserDetails',
 function ($scope, $modalInstance, data, sUserDetails) {
     "use strict";

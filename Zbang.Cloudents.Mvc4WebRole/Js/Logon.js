@@ -268,7 +268,15 @@
         submit(registerForm, data);
     });
 
+    var submitting = false;
     function submit(form, data) {
+
+        if (submitting) {
+            return;
+        }
+
+        submitting = true;
+
         var inputs = form.querySelectorAll('input');
         for (var i = 0, l = inputs.length; i < l; ++i) {
             if (inputs[i].type === 'submit') {
@@ -287,6 +295,7 @@
             if (!data2.success) {
                 resetErrors(form);
                 displayErrors(form, data2.payload);
+                submitting = false;
                 return;
             }
             window.sessionStorage.clear();
