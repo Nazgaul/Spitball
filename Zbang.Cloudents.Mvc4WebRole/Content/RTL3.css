@@ -78,6 +78,9 @@
   margin: 20px 0 0 34px;
   /*rtl*/
 }
+.modal .inviteMsg {
+  padding: 8px 11px 5px 8px;
+}
 .modal2 {
   right: 0;
   /*rtl*/
