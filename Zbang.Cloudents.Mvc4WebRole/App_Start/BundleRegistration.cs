@@ -207,12 +207,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/services/user.js"),
                         new JsFileWithCdn("/js/services/facebook.js"),
                         new JsFileWithCdn("/js/services/userDetails.js"),   
+                        new JsFileWithCdn("/js/services/storeHandler.js"),   
                         new JsFileWithCdn("/js/services/stacktrace.js"),
                         new JsFileWithCdn("/js/directives/ngMatch.js"),
                         new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
                         new JsFileWithCdn("/js/directives/storageSpace.js"),
                         new JsFileWithCdn("/js/directives/dropZone.js"),
                         new JsFileWithCdn("/js/directives/fbBlock.js"),
+                        
                         new JsFileWithCdn("/js/directives/loadSpinner.js"),
 
                         new JsFileWithCdn("/js/directives/scrollToTop.js"),
@@ -256,6 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/contactCtrl.js"),
+                        new JsFileWithCdn("/js/controllers/store/couponCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/checkoutCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),

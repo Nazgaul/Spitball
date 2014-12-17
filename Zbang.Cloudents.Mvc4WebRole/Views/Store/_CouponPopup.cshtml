@@ -10,8 +10,8 @@
         <div class="couponWpr">
             <span class="userHelp">?</span>
             <div class="helpPopup">@StoreResources.ToGetACoupon</div>
-            <input ng-model="$root.params.store.coupon.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
-            <button type="button" ng-disabled="!$root.params.store.coupon.code.length" class="btn1" ng-click="$root.validateCoupon()">@StoreResources.Enter</button>
+            <input ng-model="formData.code" type="text" class="inputText" ng-placeholder="הכנס קוד קופון" />
+            <button type="button" ng-disabled="!formData.code.length" class="btn1" ng-click="validateCoupon()">@StoreResources.Enter</button>
         </div>
         <span class="or">@StoreResources.Or</span>
         <button type="button" class="closeModal" ng-click="cancel()">
@@ -25,7 +25,7 @@
             </span>@SharedResources.FacebookSignUp
         </button>
         <div class="emailBtnWpr">
-            <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+            <button class="emailBtn" type="button" ng-click="signup()">
                 <span class="emailImg">
                     @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
                 </span>@SharedResources.EmailSignUp

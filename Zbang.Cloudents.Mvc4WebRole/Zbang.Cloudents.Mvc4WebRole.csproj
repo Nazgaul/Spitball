@@ -1011,6 +1011,7 @@
     <Content Include="Js\services\share.js" />
     <Content Include="Js\services\login.js" />
     <Content Include="Js\services\store.js" />
+    <Content Include="Js\services\storeHandler.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\services\userDetails.js" />
