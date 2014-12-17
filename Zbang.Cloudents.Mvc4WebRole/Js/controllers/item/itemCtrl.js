@@ -148,6 +148,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }
         $scope.commentp = true;
         $scope.formData.itemId = itemId;
+        $scope.formData.boxId = boxId;
         sItem.addComment($scope.formData).then(function (response) {
             $scope.item.comments.unshift({
                 comment: $scope.formData.Comment,
@@ -213,7 +214,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         comment.replyp = true;
         $scope.fromReply.itemId = itemId;
         $scope.fromReply.commentId = comment.id;
-
+        $scope.formData.boxId = boxId;
         sItem.replyComment($scope.fromReply).then(function (response) {
             comment.replies.unshift({
                 comment: $scope.fromReply.Comment,

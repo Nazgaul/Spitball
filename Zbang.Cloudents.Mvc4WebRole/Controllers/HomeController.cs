@@ -17,8 +17,10 @@ using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -27,14 +29,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CacheProvider;
+        private readonly Lazy<IQueueProvider> m_QueueProvider;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider
-            )
+            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider)
         {
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
+            m_QueueProvider = queueProvider;
         }
 
         //don't put in here route attribute
@@ -314,8 +317,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public JsonResult Version()
+        public async Task<JsonResult> Version()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                await m_QueueProvider.Value.InsertMessageToTranactionAsync(
+                      new StatisticsData4(null, User.GetUserId(), DateTime.UtcNow));
+            }
             return JsonOk(VersionHelper.CurrentVersion(true));
         }
     }

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -10,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddReplyToAnnotationCommandHandler : ICommandHandler<AddReplyToAnnotationCommand>
+    public class AddReplyToAnnotationCommandHandler : ICommandHandlerAsync<AddReplyToAnnotationCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
@@ -32,28 +33,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository = boxRepository;
             m_QueueRepository = queueRepository;
         }
-        public void Handle(AddReplyToAnnotationCommand message)
+        public Task HandleAsync(AddReplyToAnnotationCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
             var user = m_UserRepository.Load(message.UserId);
             var item = m_ItemRepository.Load(message.ItemId);
 
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, item.Box.Id); //user.GetUserType(box.Id);
-            if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
+            if (message.BoxId != item.Box.Id)
             {
-                user.ChangeUserRelationShipToBoxType(item.Box, UserRelationshipType.Subscribe);
-                item.Box.CalculateMembers();
-                m_UserRepository.Save(user);
-                m_BoxRepository.Save(item.Box);
+                throw new UnauthorizedAccessException("boxid is not equal to item in box id");
             }
+
 
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
             var comment = new ItemCommentReply(user, item, message.Comment, itemComment);
             m_ItemCommentReplyRepository.Save(comment);
-
-            m_QueueRepository.InsertMessageToTranaction(new ReputationData(user.Id));
             message.ReplyId = comment.Id;
-            
+            return m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+
+
         }
     }
 }

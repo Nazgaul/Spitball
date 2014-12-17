@@ -69,8 +69,8 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateReputation(UpdateReputationCommand command);
 
         #region annotation
-        void AddAnnotation(AddAnnotationCommand command);
-        void AddReplyAnnotation(AddReplyToAnnotationCommand command);
+        Task AddAnnotationAsync(AddAnnotationCommand command);
+        Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command);
         void DeleteAnnotation(DeleteItemCommentCommand command);
         void DeleteItemCommentReply(DeleteItemCommentReplyCommand command);
         #endregion

@@ -184,7 +184,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         [NoEtag]
-        [BoxPermission("boxId")]
+        [BoxPermission("boxId", Order = 1)]
+        [RemoveBoxCookie(Order = 2)]
         public async Task<ActionResult> Download(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
@@ -476,7 +477,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize,]
-        public JsonResult AddComment(NewAnnotation model)
+        public async Task<JsonResult> AddComment(NewAnnotation model)
         {
             if (!ModelState.IsValid)
             {
@@ -484,13 +485,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId());
-                ZboxWriteService.AddAnnotation(command);
-                return Json(new JsonResponse(true, command.AnnotationId));
+                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
+                await ZboxWriteService.AddAnnotationAsync(command);
+                return JsonOk(command.AnnotationId);
             }
             catch (UnauthorizedAccessException)
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
         [HttpPost]
@@ -507,16 +508,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult ReplyComment(ReplyItemComment model)
+        public async Task<JsonResult> ReplyComment(ReplyItemComment model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+                return JsonError(new { error = GetModelStateErrors() });
 
             }
-            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId);
-            ZboxWriteService.AddReplyAnnotation(command);
-            return Json(new JsonResponse(true, command.ReplyId));
+            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
+            await ZboxWriteService.AddReplyAnnotationAsync(command);
+            return JsonOk(command.ReplyId);
         }
 
         [HttpPost, ZboxAuthorize]
