@@ -893,6 +893,7 @@
     <Content Include="Js\controllers\account\accountCtrl.js" />
     <Content Include="Js\controllers\account\notificationsCtrl.js" />
     <Content Include="Js\controllers\account\notificationSettingsCtrl.js" />
+    <Content Include="Js\controllers\box\leavePromptCtrl.js" />
     <Content Include="Js\controllers\item\itemRegCtrl.js" />
     <Content Include="Js\controllers\account\settingsCtrl.js" />
     <Content Include="Js\controllers\account\userDetailsCtrl.js" />
@@ -2061,6 +2062,7 @@
     <Content Include="Views\Store\_CouponPopup.cshtml" />
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
+    <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

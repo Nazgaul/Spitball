@@ -303,6 +303,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [HttpGet]
+        [OutputCache(CacheProfile = "PartialCache")]
+        public ActionResult LeavePromptPartial()
+        {
+            try
+            {
+                return PartialView("_LeavePrompt");
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("_LeavePrompt", ex);
+                return Json(new JsonResponse(false));
+            }
+        }
+
         #region DeleteBox
 
 
