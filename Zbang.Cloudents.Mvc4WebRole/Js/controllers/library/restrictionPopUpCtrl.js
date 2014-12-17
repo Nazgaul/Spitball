@@ -1,4 +1,4 @@
-﻿mLibrary.controller('restrictionPopUpCtrl',
+﻿mLibrary.controller('RestrictionPopUpCtrl',
 [
     '$scope',
     '$modalInstance',

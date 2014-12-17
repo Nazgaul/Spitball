@@ -30,13 +30,13 @@ app.factory('sModal',
                     return buildObj('createWizard', { url: '/dashboard/createbox/' }, 'CreateBoxWizardCtrl', false, false, params.data);
                 },
                 itemFullscreen: function (params) {
-                    return buildObj('fullscreen', { url: '/item/fullscreen/' }, 'itemFullScreenCtrl', 'static', true, null, params.scope);
+                    return buildObj('fullscreen', { url: '/item/fullscreen/' }, 'ItemFullScreenCtrl', 'static', true, null, params.scope);
                 },
                 flagItem: function (params) {
-                    return buildObj('flagItem', { url: '/item/flag/' }, 'itemFlagCtrl', 'none', true, params.data);
+                    return buildObj('flagItem', { url: '/item/flag/' }, 'ItemFlagCtrl', 'none', true, params.data);
                 },
                 itemRename: function (params) {
-                    return buildObj('rename', { url: '/item/rename/' }, 'itemRenameCtrl', 'none', true, params.data);
+                    return buildObj('rename', { url: '/item/rename/' }, 'ItemRenameCtrl', 'none', true, params.data);
                 },
                 connectPopup: function (params) {
                     return buildObj('welcome ' + params.windowClass, { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
@@ -48,10 +48,10 @@ app.factory('sModal',
                     return buildObj('congrats', { url: '/account/congratspartial' }, 'CongratsCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {
-                    return buildObj('libChoosePopUp', { html: params.html }, 'restrictionPopUpCtrl', 'none', true, params.data);
+                    return buildObj('libChoosePopUp', { html: params.html }, 'RestrictionPopUpCtrl', 'none', true, params.data);
                 },
                 depSettings: function (params) {
-                    return buildObj('deptSettings', { url: '/library/rename/' }, 'libraryRenameCtrl', 'none', true, params.data);
+                    return buildObj('deptSettings', { url: '/library/rename/' }, 'LibraryRenameCtrl', 'none', true, params.data);
                 },
                 quitQuiz: function () {
                     return buildObj('quitQuiz', { url: 'quizMenuTemplate' }, 'QuizCloseCtrl', 'none', true);

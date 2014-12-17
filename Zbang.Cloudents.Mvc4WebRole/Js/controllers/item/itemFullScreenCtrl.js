@@ -1,5 +1,5 @@
 ﻿
-mItem.controller('itemFullScreenCtrl',
+mItem.controller('ItemFullScreenCtrl',
 [
     '$scope', '$modalInstance','$sce','$analytics',
     function ($scope, $modalInstance, $sce, $analytics) {

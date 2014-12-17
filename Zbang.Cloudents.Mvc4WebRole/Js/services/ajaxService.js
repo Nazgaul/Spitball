@@ -35,7 +35,6 @@
                         return;
                     }
                     dfd.reject(response.payload);
-                    logError(url, data, response.payload);
 
                 }).error(function (response) {
                     dfd.reject(response);
