@@ -31,10 +31,11 @@
   padding: 0 290px 0 0;
 }
 .modal.itemReg .modal-header svg {
-  left: 0;
+  right: 0;
+  left: auto;
 }
 .modal.itemReg .modal-header h3 {
-  padding: 0 0 0 50px;
+  padding: 0 50px 0 0;
 }
 .modal.deptSettings .changeName .lFloat {
   padding: 0 35px 0 0;
