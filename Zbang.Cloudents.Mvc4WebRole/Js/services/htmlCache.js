@@ -47,7 +47,6 @@
         }
 
         function checkState() {
-            console.log(sUserDetails.getDetails().culture);
 
             if (!htmlCache.keys().length) {
                 service.cachePages();

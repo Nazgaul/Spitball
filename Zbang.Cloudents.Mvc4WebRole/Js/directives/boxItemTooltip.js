@@ -1,5 +1,5 @@
-﻿app.directive('boxItemTooltip', ['$timeout', '$templateCache', '$compile',
-    function ($timeout, $templateCache, $compile) {
+﻿app.directive('boxItemTooltip', ['$timeout', '$templateCache', '$compile','$analytics',
+    function ($timeout, $templateCache, $compile, $analytics) {
     "use strict";
 
     var tooltipTemplate, showTooltip = 'showTooltip';
@@ -35,7 +35,9 @@
                 hoverIntentPromise = $timeout(function () {
                     setPosition();
                     tooltipElement.addClass(showTooltip);
-
+                    $analytics.eventTrack('Show tooltip', {
+                        category: 'Box'
+                    });
                     tooltipElement.on({
                         mouseenter: function () {
                             $timeout.cancel(leaveIntentPromise);

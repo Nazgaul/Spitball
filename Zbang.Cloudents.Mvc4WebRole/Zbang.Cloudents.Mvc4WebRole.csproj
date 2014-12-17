@@ -946,6 +946,7 @@
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
     <Content Include="Js\directives\focusForm.js" />
+    <Content Include="Js\directives\homePageScroll.js" />
     <Content Include="Js\directives\homeVideo.js" />
     <Content Include="Js\directives\login.js" />
     <Content Include="Js\directives\moxieDropzone.js" />
@@ -961,7 +962,6 @@
     <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\modules\angular-timer.js" />
-    <Content Include="Js\directives\backButton.js" />
     <Content Include="Js\directives\contentEditable.js" />
     <Content Include="Js\directives\countTo.js" />
     <Content Include="Js\directives\dataBag.js" />
@@ -985,6 +985,7 @@
     <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
+    <Content Include="Js\modules\lazySrc.js" />
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\wizard.js" />
     <Content Include="Js\services\ajaxService.js" />

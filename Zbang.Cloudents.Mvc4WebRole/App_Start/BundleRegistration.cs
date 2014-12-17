@@ -128,6 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/modules/displayTime.js"),
 
                         new JsFileWithCdn("/js/modules/angular-timer.js"),
+                        //new JsFileWithCdn("/js/modules/lazySrc.js"),                        
                         new JsFileWithCdn("/js/modules/wizard.js"),
                         new JsFileWithCdn("~/js/modules/textDirection.js"),
 
@@ -218,10 +219,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/directives/focusForm.js"),
 
 
-
+                        new JsFileWithCdn("/js/directives/homePageScroll.js"),
                         new JsFileWithCdn("/js/directives/mLoader.js"),
                         new JsFileWithCdn("/js/directives/login.js"),
-                        new JsFileWithCdn("/js/directives/backButton.js"),
                         new JsFileWithCdn("/js/directives/quizGraph.js"),
                         new JsFileWithCdn("/js/directives/focusOn.js"),
                         new JsFileWithCdn("~/js/directives/countTo.js"),

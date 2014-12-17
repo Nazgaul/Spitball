@@ -1,5 +1,4 @@
-﻿
-app.directive('backButton',
+﻿app.directive('backButton',
    ['$rootScope','$location',
 
    function ($rootScope, $location) {
