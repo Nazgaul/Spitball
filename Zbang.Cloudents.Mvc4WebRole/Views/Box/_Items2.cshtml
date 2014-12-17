@@ -120,7 +120,7 @@
                 <div class="lFloat ttDetail" data-numdownload="{{::item.numOfDownloads}}">@SharedResources.Downloads</div>
                 <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
             </div>
-            <div class="ttPreview">{{::item.description}}</div>
+            <div class="ttPreview" ng-bind-html="::item.description"></div>
         </div>
     </div>
 </script>
