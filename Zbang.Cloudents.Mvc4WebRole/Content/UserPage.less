@@ -681,7 +681,7 @@
 
 .upInviteItem {
     display: inline-block;
-    width: 359px;
+    width: 336px;
     .boxSizing;
     padding-left: 91px; /*rtl*/
     position: relative;
@@ -698,11 +698,13 @@
             left: -10px;
             z-index: -1;
             background: #f9f9f9;
-            width: 379px;
+            width: 359px;
             height: 96px;
         }
     }
-
+    &:nth-child(odd) {
+        margin-right: 30px; //rtl
+    }
     .semiFont {
         margin: -4px 0 4px; /*diff rtl*/
     }
@@ -744,18 +746,19 @@
 }
 
 .invitedToWpr {
-    width: 190px;
-    height: 36px;
+    //width: 190px;
+    //height: 36px;
     .boxSizing;
     position: relative;
     margin-top: 2px;
 
     .invitedTo {
         line-height: 15px;
+        padding: 8px 0 0 35px; //rtl
     }
 
     .upImg {
-        margin-top:2px;
+        top:0; //override
         border:none;
         border-radius:3px;        
     }
