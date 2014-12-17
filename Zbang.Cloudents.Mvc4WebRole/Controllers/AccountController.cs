@@ -100,7 +100,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var cookie = new CookieHelper(HttpContext);
-                LogInUserDto user;
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
                 if (facebookUserData == null)
@@ -108,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
                 var query = new GetUserByFacebookQuery(facebookUserData.id);
-                user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                LogInUserDto user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 if (user == null)
                 {
 
@@ -144,8 +143,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     user.UniversityId,
                     user.UniversityData
                     ));
-                //TODO: bring it back
-                // TempData[UserProfile.UserDetail] = new UserDetailDto(user);
                 cookie.RemoveCookie(Invite.CookieName);
                 return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
             }
@@ -191,7 +188,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 result.Culture,
                                 result.UniversityId,
                                 result.UniversityData));
-                        // TempData[UserProfile.UserDetail] = new UserDetailDto(result);
                         var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                         return JsonOk(url);
                     }

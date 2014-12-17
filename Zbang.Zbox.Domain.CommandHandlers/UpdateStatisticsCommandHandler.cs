@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
 
-
+            if (message.ItemId == null) return;
             foreach (var itemId in message.ItemId)
             {
                 if (itemId.ItemId == 0)
@@ -82,7 +82,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_ItemRepository.Save(item);
 
             }
-
         }
     }
 }

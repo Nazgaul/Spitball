@@ -343,20 +343,25 @@ namespace Zbang.Zbox.Domain.Services
         }
 
         #region annotation
-        public void AddAnnotation(AddAnnotationCommand command)
+        public async Task AddAnnotationAsync(AddAnnotationCommand command)
         {
             using (UnitOfWork.Start())
             {
-                
-                m_CommandBus.Send(command);
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                var t2 = m_CommandBus.SendAsync(command);
+                await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void AddReplyAnnotation(AddReplyToAnnotationCommand command)
+        public async Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                var t1 = m_CommandBus.SendAsync(command);
+                var t2 = m_CommandBus.SendAsync(autoFollowCommand);
+                await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

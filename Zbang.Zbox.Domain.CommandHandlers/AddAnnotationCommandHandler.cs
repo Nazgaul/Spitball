@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
@@ -11,45 +11,41 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddAnnotationCommandHandler : ICommandHandler<AddAnnotationCommand>
+    public class AddAnnotationCommandHandler : ICommandHandlerAsync<AddAnnotationCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
         private readonly IQueueProvider m_QueueRepository;
 
         public AddAnnotationCommandHandler(IUserRepository userRepository, IRepository<Item> itemRepository,
-            IRepository<ItemComment> itemCommentRepository, IRepository<Box> boxRepository, IQueueProvider queueRepository)
+            IRepository<ItemComment> itemCommentRepository, IQueueProvider queueRepository)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
-            m_BoxRepository = boxRepository;
             m_QueueRepository = queueRepository;
         }
-        public void Handle(AddAnnotationCommand message)
+        public Task HandleAsync(AddAnnotationCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
             var user = m_UserRepository.Load(message.UserId);
             var item = m_ItemRepository.Load(message.ItemId);
 
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, item.Box.Id); //user.GetUserType(box.Id);
-            if (userType == UserRelationshipType.None || userType == UserRelationshipType.Invite)
+            if (message.BoxId != item.Box.Id)
             {
-                user.ChangeUserRelationShipToBoxType(item.Box, UserRelationshipType.Subscribe);
-                item.Box.CalculateMembers();
-                m_UserRepository.Save(user);
-                m_BoxRepository.Save(item.Box);
+                throw new UnauthorizedAccessException("boxid is not equal to item in box id");
             }
+           
             var text = TextManipulation.EncodeText(message.Comment);
             var comment = new ItemComment(user, item, text);
             item.IncreaseNumberOfComments();
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);
-            m_QueueRepository.InsertMessageToTranaction(new ReputationData(user.Id));
             message.AnnotationId = comment.Id;
+            return m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(user.Id));
+            
         }
     }
 }

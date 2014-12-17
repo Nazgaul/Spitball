@@ -325,30 +325,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        //[ZboxAuthorize]
-        //[HttpPost]
-        //public JsonResult Rate(RateModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-        //    }
-        //    try
-        //    {
-        //        var id = m_IdGenerator.Value.GetId();
-        //        var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id);
-        //        ZboxWriteService.RateItem(command);
-
-        //        return Json(new JsonResponse(true));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
-
-
 
 
         #region Preview
@@ -420,99 +396,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
         #endregion
 
 
-        #region flagItem
-        [HttpGet]
-        [ZboxAuthorize]
-        public PartialViewResult Flag()
-        {
-            return PartialView("_FlagItem", new FlagBadItem());
-        }
+        
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public JsonResult FlagRequest(FlagBadItem model)
-        {
 
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-
-            m_QueueProvider.InsertMessageToTranaction(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
-            return Json(new JsonResponse(true));
-        }
-
-        #endregion
-
-        [HttpGet]
-        public ActionResult FullScreen()
-        {
-            try
-            {
-                return PartialView();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("FullScreen ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-
-        [HttpPost, ZboxAuthorize,]
-        public JsonResult AddComment(NewAnnotation model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            try
-            {
-                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId());
-                ZboxWriteService.AddAnnotation(command);
-                return Json(new JsonResponse(true, command.AnnotationId));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Json(new JsonResponse(false));
-            }
-        }
-        [HttpPost]
-        [ZboxAuthorize]
-        public JsonResult DeleteComment(DeleteItemComment model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
-            ZboxWriteService.DeleteAnnotation(command);
-            return Json(new JsonResponse(true));
-        }
-        [HttpPost]
-        [ZboxAuthorize]
-        public JsonResult ReplyComment(ReplyItemComment model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-
-            }
-            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId);
-            ZboxWriteService.AddReplyAnnotation(command);
-            return Json(new JsonResponse(true, command.ReplyId));
-        }
-
-        [HttpPost, ZboxAuthorize]
-        public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
-            ZboxWriteService.DeleteItemCommentReply(command);
-            return Json(new JsonResponse(true));
-        }
+       
+        
 
         [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]
