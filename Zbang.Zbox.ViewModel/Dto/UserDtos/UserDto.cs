@@ -5,7 +5,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
     [Serializable]
     public class UserDto
     {
-        public string Image { get; set; }
         public string LargeImage { get; set; }
         public string Name {get;set;}
         public long Id { get; set; }

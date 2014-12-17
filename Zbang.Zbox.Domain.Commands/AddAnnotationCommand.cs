@@ -2,10 +2,11 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddAnnotationCommand : ICommand
+    public class AddAnnotationCommand : ICommandAsync
     {
-        public AddAnnotationCommand(string comment,  long itemId,  long userId)
+        public AddAnnotationCommand(string comment,  long itemId,  long userId, long boxId)
         {
+            BoxId = boxId;
             Comment = comment;
             ItemId = itemId;
             UserId = userId;
@@ -19,5 +20,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         //out parameter
         public long AnnotationId { get; set; }
+
+        public long BoxId { get; private set; }
     }
 }

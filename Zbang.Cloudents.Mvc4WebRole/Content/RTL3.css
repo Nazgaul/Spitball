@@ -1536,6 +1536,9 @@
 .searchPage .userItem {
   margin: 0 0 0 30px;
 }
+.searchContent .searchInputWpr {
+  float: left;
+}
 .sTabs.sTab2 ~ .upArrow:before {
   right: 75px;
   /* diff rtl*/

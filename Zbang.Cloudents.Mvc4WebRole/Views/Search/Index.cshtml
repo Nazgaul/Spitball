@@ -5,6 +5,7 @@
 </header>
 <div class="searchPage page" ng-controller="SearchCtrl">
     <div class="searchContent">
+        @{Html.RenderPartial("_BarSearch");}
         <div id="sTabsMenu" class="sTabs" ng-class="params.currentTab">
             <button type="button" ng-click="setCurrentTab('sTab1')">@SharedResources.Courses</button>
             <button type="button" ng-click="setCurrentTab('sTab2')">@SharedResources.Materials</button>

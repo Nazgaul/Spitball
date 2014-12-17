@@ -36,12 +36,12 @@ window.fbAsyncInit = function () {
 
 (function (document) {
     "use strict";
-    var videoWrapper = document.getElementById('VideoWpr'),
-        homeVideo = document.getElementById('homeVideo'),
-        mVideo = document.getElementById('mVideo'),
+    var //videoWrapper = document.getElementById('VideoWpr'),
+        //homeVideo = document.getElementById('homeVideo'),
+        //mVideo = document.getElementById('mVideo'),
         userDetails = document.getElementById('userDetails'),
-        sidebarCb = document.getElementById('sidebarCb'),
-        facebookLogin = document.getElementById('facebookLogin');
+        sidebarCb = document.getElementById('sidebarCb');
+        //facebookLogin = document.getElementById('facebookLogin');
 
 
     var menu = document.querySelector('aside ul');
@@ -51,13 +51,13 @@ window.fbAsyncInit = function () {
         userDetails.addEventListener('click', toggleUserDropdown);
     }
     //#region highlightmenu
-    function highlightPage(menu) {
-        var pages = menu.children,
+    function highlightPage(menu2) {
+        var pages = menu2.children,
             url = location.href,
             pageAnchor;
         
         for (var i = 1, l = pages.length; i < l; i++) {
-            var pageAnchor = pages[i].querySelector('a');
+            pageAnchor = pages[i].querySelector('a');
             if (pageAnchor && pageAnchor.href && pageAnchor.href.toLowerCase() === url) {
                 pages[i].addClass('currentItem');
                 return;
@@ -71,7 +71,7 @@ window.fbAsyncInit = function () {
 
     //#region toggle menu
 
-    function toggleUserDropdown(e) {
+    function toggleUserDropdown() {
         var dropdown = this.querySelector('.userMenu');
 
         if (dropdown.style.display === 'block') {
@@ -79,47 +79,47 @@ window.fbAsyncInit = function () {
             return;
         }
 
-        dropdown.style.display = 'block'
+        dropdown.style.display = 'block';
 
     }
     //#endregion
 
-    function homePageEvents() {
-        //#region togglevideo
+    //function homePageEvents() {
+    //    //#region togglevideo
 
-        videoWrapper.addEventListener('click', function () {
-            window.ga('send', 'event', 'Homepage', 'Show Video', 'Clicking on play the video');
-            mVideo.style.display = 'block';
-            setTimeout(function () {
-                videoWrapper.addClass('open');
-            }, 0);
+    //    videoWrapper.addEventListener('click', function () {
+    //        window.ga('send', 'event', 'Homepage', 'Show Video', 'Clicking on play the video');
+    //        mVideo.style.display = 'block';
+    //        setTimeout(function () {
+    //            videoWrapper.addClass('open');
+    //        }, 0);
 
-            if (homeVideo.readyState) {
-                homeVideo.currentTime = 0;
-            }
-            setTimeout(function () {
-                homeVideo.play();
-            }, 600);
+    //        if (homeVideo.readyState) {
+    //            homeVideo.currentTime = 0;
+    //        }
+    //        setTimeout(function () {
+    //            homeVideo.play();
+    //        }, 600);
 
-        });
+    //    });
 
-        mVideo.addEventListener('click', function (e) {
-            if (e.target.id === 'homeVideo') {
-                return;
-            }
-            mVideo.style.display = 'none';
-            setTimeout(function () {
-                videoWrapper.removeClass('open');
-            }, 0);
-            //if (homeVideo.readyState) {
-            //    homeVideo.currentTime = 0;
-            //}
-            homeVideo.load();
+    //    mVideo.addEventListener('click', function (e) {
+    //        if (e.target.id === 'homeVideo') {
+    //            return;
+    //        }
+    //        mVideo.style.display = 'none';
+    //        setTimeout(function () {
+    //            videoWrapper.removeClass('open');
+    //        }, 0);
+    //        //if (homeVideo.readyState) {
+    //        //    homeVideo.currentTime = 0;
+    //        //}
+    //        homeVideo.load();
 
-        });
+    //    });
 
-        //#endregion
-    }
+    //    //#endregion
+    //}
 
 
     //#region menu login

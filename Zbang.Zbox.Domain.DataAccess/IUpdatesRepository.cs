@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public interface IUpdatesRepository: IRepository<Updates>
     {
-        IEnumerable<Updates> GetUserBoxUpdates(long userId, long boxId);
+        //IEnumerable<Updates> GetUserBoxUpdates(long userId, long boxId);
+        void DeleteUserUpdate(long userId, long boxId);
     }
 }

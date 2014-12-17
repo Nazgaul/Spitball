@@ -2,12 +2,15 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.siteHeader.headerBox {
+  /*TEMP: UNDO NEW SEARCH*/
+  /*.shareBtn {
+            right: 730px; //rtl
+            left: auto;
+        }*/
+}
 .siteHeader.headerBox .backWpr {
   margin: 8px 25px 0 0;
-}
-.siteHeader.headerBox .shareBtn {
-  right: 730px;
-  left: auto;
 }
 .siteLogo {
   padding: 0 30px 0 0;

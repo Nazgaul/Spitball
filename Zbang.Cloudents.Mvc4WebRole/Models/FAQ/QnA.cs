@@ -1,5 +1,8 @@
-﻿namespace Zbang.Cloudents.Mvc4WebRole.Models.FAQ
+﻿using System;
+
+namespace Zbang.Cloudents.Mvc4WebRole.Models.FAQ
 {
+    [Serializable]
     public class QnA
     {
         public string Question { get; set; }

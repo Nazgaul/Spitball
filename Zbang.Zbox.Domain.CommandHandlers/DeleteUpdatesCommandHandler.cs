@@ -15,12 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(DeleteUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var updates = m_UpdatesRepository.GetUserBoxUpdates(message.UserId, message.BoxId);
-
-            foreach (var update in updates)
-            {
-                m_UpdatesRepository.Delete(update);
-            }
+            m_UpdatesRepository.DeleteUserUpdate(message.UserId, message.BoxId);
         }
     }
 }
