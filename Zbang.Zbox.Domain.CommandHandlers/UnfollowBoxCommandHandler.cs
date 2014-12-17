@@ -91,10 +91,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new InvalidOperationException("User does not have an active invite");
             }
-
             box.UserBoxRelationship.Remove(userBoxRel);
-
-            // var box = m_BoxRepository.Get(command.BoxId);
             box.CalculateMembers();
             m_BoxRepository.Save(box);
         }
