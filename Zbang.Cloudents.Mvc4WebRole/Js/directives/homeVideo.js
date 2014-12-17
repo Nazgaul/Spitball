@@ -1,25 +1,40 @@
 ﻿app.directive('homeVideo',
-    ['$analytics','$animate',
-        function ($analytics,$animate) {
+    ['$analytics', '$animate',
+        function ($analytics, $animate) {
             "use strict";
-
             return {
-                restrict: "A",     
+                restrict: "A",
                 link: function (scope, elem, attrs) {
-                    elem.click(function () {
+                    var $playButton = elem,
+                        $videoWrapper = angular.element('#videoWpr'),
+                        $homeVideo = angular.element('#homeVideo');
 
-                        mVideo.style.display = 'block';
+                    $playButton.click(function () {
+
+                        $videoWrapper.show();
+
                         setTimeout(function () {
-                            videoWrapper.addClass('open');
+                            $playButton.addClass('open');
                         }, 0);
-
-                        if (homeVideo.readyState) {
-                            homeVideo.currentTime = 0;
-                        }
+                        
                         setTimeout(function () {
                             homeVideo.play();
                         }, 600);
 
+                    });
+
+                    $videoWrapper.on('click', function (e) {
+                        if (e.target.id === 'homeVideo') {
+                            return;
+                        }
+                        $videoWrapper.hide();
+
+                        $homeVideo[0].pause();
+                        $homeVideo[0].currentTime = 0;
+
+                        setTimeout(function () {
+                            $playButton.removeClass('open');
+                        }, 0);
                     });
                 }
             };
