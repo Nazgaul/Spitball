@@ -1,6 +1,6 @@
 ﻿app.controller('StoreCtrl',
-    ['$scope', '$route', 'sModal', 'sUserDetails',
-    function ($scope, $route, sModal, sUserDetails) {
+    ['$scope','$route','storeHandler',
+    function ($scope, $route, storeHandler) {
         "use strict";
 
         $scope.tab = {};
@@ -36,11 +36,12 @@
             }
 
             $scope.tab.current = currentTab;
-        };
 
-        if (!sUserDetails.isAuthenticated()) {
-            sModal.open('coupon');
-        }
-
+            storeHandler.couponPrompt().then(function (code) {
+                $scope.data = {
+                    code: code
+                }
+            });
+        };   
     }]
 );

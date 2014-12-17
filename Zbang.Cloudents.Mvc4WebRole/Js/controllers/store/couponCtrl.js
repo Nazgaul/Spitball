@@ -1,38 +1,50 @@
-﻿sStore.controller('CouponCtrl',
-    ['$scope','sStore','$modalInstance',
+﻿app.controller('CouponCtrl',
+    ['$scope', 'Store', '$modalInstance', 'sFacebook', 'sNotify',
 
-    function ($scope, sStore,$modalInstance) {
+    function ($scope, sStore, $modalInstance, sFacebook, sNotify) {
         "use strict";
 
         $scope.formData = {};
 
+        var buttonDisabled;
+
         $scope.validateCoupon = function () {
             var invalidCouponMessage = 'קופון שגוי';
-            if (!$rootScope.params.store.coupon.code) {
+            if (!$scope.formData.code) {
                 return;
             }
 
-            var isNumber = /^\d+$/.test($rootScope.params.store.coupon.code);
-
-            if (!isNumber) {
+            if (isNaN($scope.formData.code)) {
                 sNotify.alert(invalidCouponMessage);
                 return;
             }
 
-            $rootScope.params.store.coupon.buttonDisabled = true;
+            if (buttonDisabled) {
+                return;
+            }
 
-            sStore.validateCoupon({ code: parseInt($rootScope.params.store.coupon.code, 10) }).then(function (response) {
-                $rootScope.params.store.coupon.buttonDisabled = false;
+            buttonDisabled = true;
+            sStore.validateCoupon({ code: $scope.formData.code}).then(function (response) {
                 if (response.isValid) {
-                    $rootScope.params.store.coupon.valid = true;
-                    $rootScope.params.store.coupon.code = $rootScope.params.store.coupon.code;
-                    sLogin.reset();
+                    $modalInstance.close({ code: $scope.formData.code });
                     return;
                 }
                 sNotify.alert(invalidCouponMessage);
             }).finally(function () {
-                $rootScope.params.store.coupon.buttonDisabled = false;
+                buttonDisabled = false;
             });
+        };
+
+        $scope.signup = function () {
+            $modalInstance.close({ signup: true });
+        };
+
+        $scope.facebookLogin = function () {
+            sFacebook.registerFacebook();
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }]
 );

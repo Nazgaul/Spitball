@@ -19,8 +19,8 @@
                 $scope.coupon.buttonDisabled = true;
             }
 
-            if ($rootScope.params.store.coupon && $rootScope.params.store.coupon.valid) {
-                $scope.coupon.code = $rootScope.params.store.coupon.code;
+            if ($scope.data.code) {
+                $scope.coupon.code = $scope.data.code;
                 $scope.coupon.valid = true;
                 $scope.coupon.buttonDisabled = true;
             }
