@@ -542,6 +542,10 @@
   box-sizing: border-box;
   padding: 0 20px;
 }
+.searchContent .searchInputWpr {
+  float: right;
+  margin: -9px 0 0 0;
+}
 .sTabs {
   margin: 30px 0 32px;
   /*button:after {
