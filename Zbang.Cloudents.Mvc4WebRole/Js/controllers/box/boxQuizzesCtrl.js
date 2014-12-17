@@ -56,8 +56,9 @@
                     var data = {
                         id: quiz.id,
                     }
+                    remove();
 
-                    sQuiz.delete(data).then(remove, function () {
+                    sQuiz.delete(data).then(null, function () {
                         sNotify.alert('error deleting ' + quiz.name); //translate
                     });
                     $analytics.eventTrack('Box Quizzes', {

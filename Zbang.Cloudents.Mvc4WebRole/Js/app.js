@@ -338,7 +338,7 @@
        }
    ]);
 
-    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', '$angularCacheFactory', '$http', '$templateCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, $angularCacheFactory, $http, $templateCache) {
+    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker','htmlCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, htmlCache) {
 
 
         //analytics
@@ -355,17 +355,16 @@
         sVerChecker.checkVersion();
         $rootScope.$on('$routeChangeStart', function (event, next, prev) {
             $window.scrollTo(0, 0);
-
             //if (!prev) {
             //    return;
             //}
             //try {
             //    var routeName = next.$$route.params.type;
             //    if (routeName === 'account' && sUserDetails.getDetails) {
-                
+
 
             //    }
-               
+
             //}
             //catch (ex) {
             //}
@@ -373,9 +372,9 @@
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            try {
+            htmlCache.checkState();
 
-            
+            try {
                 if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
                     event.preventDefault();
                     $location.path('/library/choose/');
@@ -393,9 +392,9 @@
             //title 
             if (!previous) { //no previous firsttime load        
                 try {
-                   
-                    
-                    
+
+
+
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {
                             sNewUpdates.removeUpdates(current.params.boxId);
@@ -446,46 +445,10 @@
             }
         });
 
-
-
-        var htmlCache = $angularCacheFactory('htmlCache', {
-            maxAge: 2592000000,
-            deleteOnExpire: 'aggressive',
-            storageMode: 'localStorage'
-        });
-
-        var cachePages = {
-            dashboard: '/dashboard/indexpartial/',
-            box: '/box/indexpartial/',
-            item: '/item/indexpartial/',
-            quiz: '/quiz/indexpartial/',
-            library: '/library/indexpartial/'
-        };
-
-
-
-        //if (htmlCache.get('version') !== sVerChecker.currentVersion()) {
-        //    htmlCache.removeAll();
-        //}
-
-        //if (sUserDetails.isAuthenticated()) {
-        //    $http.get(cachePages.dashboard, { cache: htmlCache }).then(function (res) { putInCache(cachePages.dashboard, res); });
-        //}
-
-        //$http.get(cachePages.box, { cache: htmlCache }).then(function (res) { putInCache(cachePages.box, res); });
-        //$http.get(cachePages.item, { cache: htmlCache }).then(function (res) { putInCache(cachePages.item, res); });
-        //$http.get(cachePages.quiz, { cache: htmlCache }).then(function (res) { putInCache(cachePages.quiz, res); });
-        ////$http.get(cachePages.library, { cache: htmlCache }).then(function (res) { putInCache(cachePages.library, res); });
-
-        //htmlCache.put('version', sVerChecker.currentVersion());
-
         function setBackDashboard() {
             $rootScope.back.url = '/dashboard/';
             $rootScope.back.title = 'Dashboard';
         }
 
-        function putInCache(key, res) {
-            $templateCache.put(key, res.data);
-        }
     }]);
 }(window.angular));

@@ -13,10 +13,7 @@ mDashboard.factory('sDashboard',
              },             
              sideBar: function () {
                  return ajaxService.get(buildPath('sidebar'));
-             },
-             disableFirstTime: function () {
-                 return ajaxService.post('/account/firsttime/',{ firstTime: 'Dashboard' });                 
-             }
+             }             
          }
      }
     ]);

@@ -4,7 +4,7 @@
 
 <div id="homepage" class="page homepage">
 
-    <div class="topImg">
+    <div class="topImg" home-scroll>
         <div class="headerWpr">
             <div class="logo lFloat"></div>
             <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
@@ -40,20 +40,20 @@
             </button>
         </div>
 
-        <div id="VideoWpr" data-playtext="@HomeResources.PlayVideo" class="videoWpr"></div>
-        <div class="videoWrapper" id="mVideo">
+        <div id="playButton" data-playtext="@HomeResources.PlayVideo" class="videoWpr" home-video></div>
+        <div class="videoWrapper" id="videoWpr">
             <video preload="none" id="homeVideo" class="video" controls>
                 <source src="https://zboxstorage.blob.core.windows.net/videos/homeScreenVideo.mp4" type="video/mp4">
                 Your browser does not support video element
             </video>
         </div>
         <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" title="English (US)">@Languages.EnglishUsName</a>
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" title="English (UK)">@Languages.EnglishGbName</a>
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" title="Chinese Site">@Languages.ChineseName</a>
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.RussianName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" title="Russian Site">@Languages.RussianName</a>
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" title="Hebrew Site">@Languages.HebrewName</a>
-            <a ng-click="changeLocale('Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })')" href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" title="Arabic Site">@Languages.ArabicName</a>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })"*@ title="English (US)">@Languages.EnglishUsName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })"*@ title="English (UK)">@Languages.EnglishGbName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })"*@ title="Russian Site">@Languages.RussianName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button>
         </div>
     </div>
 
@@ -77,7 +77,7 @@
             <div class="sectionText">@HomeResources.LetsYouShare</div>
         </div>
     </section>
-    <section class="unions">
+    <section id="unions">
         <h2>@HomeResources.JoinUnions</h2>
         <ul>
             <li class="gsb row1">

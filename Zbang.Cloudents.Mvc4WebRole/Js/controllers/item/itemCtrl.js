@@ -1,9 +1,9 @@
 ﻿var mItem = angular.module('mItem', []).
     controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
-            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler',
+            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler','sAccount',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
-    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler) {
+    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler, sAccount) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -20,6 +20,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     $scope.flagText = resManager.get('Flag');
 
     var itemId = $routeParams.itemId, boxId = $routeParams.boxId;
+
+    if (sUserDetails.getDetails().firstTimeItem) {
+        sAccount.disableFirstTime({ firstTime: 'Item' });
+    }
 
     sItem.load({ itemId: itemId, boxId: boxId }).then(function (data) {
         $scope.item = data;

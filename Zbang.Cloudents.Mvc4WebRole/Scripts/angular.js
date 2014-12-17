@@ -15296,7 +15296,7 @@ function $SceDelegateProvider() {
  *  - **RegExp** (*see caveat below*)
  *    - *Caveat*:  While regular expressions are powerful and offer great flexibility,  their syntax
  *      (and all the inevitable escaping) makes them *harder to maintain*.  It's easy to
- *      accidentally introduce a bug when one updates a complex expression (imho, all regexes should
+ *      accidentally introduce a bug when one updates a complex expression (o, all regexes should
  *      have good test coverage.).  For instance, the use of `.` in the regex is correct only in a
  *      small number of cases.  A `.` character in the regex used when matching the scheme or a
  *      subdomain could be matched against a `:` or literal `.` that was likely not intended.   It

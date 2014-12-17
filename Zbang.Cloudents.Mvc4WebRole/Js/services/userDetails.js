@@ -36,13 +36,17 @@
              score: data.score,
              url: data.url,
              isAdmin: data.isAdmin,
-
+             culture: data.culture,
+             firstTimeDashboard : data.firstTimeDashboard,
+             firstTimeBox : data.firstTimeBox,
+             firstTimeLibrary : data.firstTimeLibrary,
+             firstTimeItem: data.firstTimeItem,
              university: {
                  country: data.universityCountry,// for google analytics
                  name: data.universityName, // for google analytics
                  id: data.universityId // just for the fun
-             //    name: data.libName,
-             //    image: data.libImage
+                 //    name: data.libName,
+                 //    image: data.libImage
              }
          };
 

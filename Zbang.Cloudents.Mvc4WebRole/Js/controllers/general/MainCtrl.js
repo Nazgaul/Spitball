@@ -3,8 +3,6 @@
         function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout,sNotify,sLogin) {
             "use strict";
 
-            $scope.firstTime = $scope.viewBag;
-
             $rootScope.options = {
                 quizOpen: false         
             };
