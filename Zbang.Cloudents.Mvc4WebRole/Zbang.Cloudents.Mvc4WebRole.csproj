@@ -2059,6 +2059,7 @@
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Store\_CouponPopup.cshtml" />
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
+    <Content Include="Views\Home\IFrame.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
