@@ -335,16 +335,16 @@
   right: 0;
   top: 681px;
 }
-.language a {
+.language button {
   font-size: 12px;
   position: relative;
   display: inline-block;
   padding: 0 5px;
 }
-.language a:hover {
+.language button:hover {
   color: #a7a7a7;
 }
-.language a:not(.lastLang):before {
+.language button:not(.lastLang):before {
   content: '';
   display: inline-block;
   position: absolute;
