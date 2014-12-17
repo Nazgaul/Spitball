@@ -256,6 +256,9 @@
 }
 /*#endregion */
 /*#region new dashboard */
+.jsCreateDashboard .siteHeader {
+  display: none;
+}
 .jsCreateDashboard .dashboard {
   display: none !important;
 }
