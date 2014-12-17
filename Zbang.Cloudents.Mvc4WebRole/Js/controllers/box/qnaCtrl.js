@@ -299,6 +299,8 @@
                         return;
                     }
 
+                    $scope.followBox();
+
                     $analytics.eventTrack('Box Feed', {
                         category: 'Download Item'
                     });

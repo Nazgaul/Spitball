@@ -65,7 +65,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="actionBtns">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
+            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="followBox()" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
             <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)" >
                 @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
             </button>

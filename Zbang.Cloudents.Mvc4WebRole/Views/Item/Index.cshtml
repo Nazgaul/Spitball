@@ -17,7 +17,7 @@
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
-                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item">
+                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item" ng-click="followBox()">
                         @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
                     </a>
                 </li>

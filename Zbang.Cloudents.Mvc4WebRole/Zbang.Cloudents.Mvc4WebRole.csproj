@@ -983,7 +983,6 @@
     <Content Include="Js\filters\orderBy.js" />
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\filters\stringFormat.js" />
-    <Content Include="Js\filters\trustedHtml.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\modules\lazySrc.js" />
