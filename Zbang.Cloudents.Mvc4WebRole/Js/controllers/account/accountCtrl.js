@@ -4,11 +4,17 @@ function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics,
     "use strict";
 
     $scope.params = {};
-
-    if ($location.hash().indexOf('register') > -1 || $location.hash().indexOf('login') > -1 || $location.hash().indexOf('facebook') > -1) {
-        $scope.params.showLogin = true;
-    }
-
+    $scope.data = {};
+    switch ($location.hash()) {
+        case 'login':
+            $scope.data.state = 2;
+            $scope.params.showLogin = true;
+            break;
+        case 'register':
+            $scope.data.state = 1;
+            $scope.params.showLogin = true;
+            break;        
+    }    
     $timeout(function () {
         $scope.$emit('viewContentLoaded');
     });
@@ -25,5 +31,23 @@ function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics,
             $window.location.reload();
         });
     };
+
+    $scope.close = function () {
+        $scope.params.showLogin = false;
+    };
+
+    $scope.login = function () {
+        $scope.data = {
+            state :2 //login
+        };
+        $scope.params.showLogin = true;
+    };
+
+    $scope.register= function () {
+        $scope.data = {
+            state: 1 //register
+        };
+        $scope.params.showLogin = true;
+    };    
 }
 ]);
