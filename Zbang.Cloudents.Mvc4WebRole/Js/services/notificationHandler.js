@@ -13,13 +13,11 @@
             getAll: function () {
                 return notifications;
             },
-            remove: function (id) {
-                //for future
-                //var notification = getById(id);
-                //var index = notifications.indexOf(notification);
-                //notification.splice(index,1);
-                //ajax
-
+            remove: function (id) {                
+                var notification = getById(id);
+                var index = notifications.indexOf(notification);
+                notification.splice(index,1);
+                sShare.notificationDelete({ messageId: id });
             },
             setRead: function (id) {
                 var notification = getById(id);

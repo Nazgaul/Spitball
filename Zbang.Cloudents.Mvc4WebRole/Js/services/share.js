@@ -38,6 +38,9 @@
             },
             markNotificationAsRead: function (data) {
                 return ajaxService.post(buildPath('notificationasread'), data);
+            },
+            notificationDelete: function (data) {
+                return ajaxService.post(buildPath('notificationdelete'), data);
             }
         };
     }

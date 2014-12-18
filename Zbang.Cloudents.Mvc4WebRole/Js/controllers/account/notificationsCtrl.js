@@ -67,9 +67,15 @@
                 $scope.$broadcast('update-scroll');
             }
 
+            $scope.delete = function (notification) {
+                sNotification.remove(notification.id);
+            };
+
             function getDetails() {
                 $scope.notifications = sNotification.getAll();
                 $scope.params.newNotifications = sNotification.getUnreadLength();              
             }
+            
+
 
         }]);
