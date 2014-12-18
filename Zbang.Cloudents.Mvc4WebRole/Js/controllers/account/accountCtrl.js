@@ -1,7 +1,13 @@
 ﻿mAccount.controller('AccountCtrl',
-['$scope', '$timeout', 'sAccount', '$angularCacheFactory', '$window', '$analytics',
-function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics) {
+['$scope', '$timeout', 'sAccount', '$angularCacheFactory', '$window', '$analytics', '$location',
+function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics, $location) {
     "use strict";
+
+    $scope.params = {};
+
+    if ($location.hash().indexOf('register') > -1 || $location.hash().indexOf('login') > -1 || $location.hash().indexOf('facebook') > -1) {
+        $scope.params.showLogin = true;
+    }
 
     $timeout(function () {
         $scope.$emit('viewContentLoaded');

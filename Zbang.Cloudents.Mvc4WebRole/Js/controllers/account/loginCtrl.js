@@ -2,20 +2,42 @@
     ['$scope', '$window', '$route', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
         function ($scope, $window, $route, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
             "use strict";
+
+          
+
             var loginDisable, registerDisable;
 
             $scope.params = {
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
             };
-
-            $scope.params.currentState = data.state;
-
+           
             $scope.params.states = {
                 registerFirst: 0,
                 register: 1,
                 login: 2
             };
 
+            switch ($location.hash()) {
+                case 'login':
+                    $scope.params.currentState = $scope.params.states.login;
+                    break;
+                case 'register':
+                    $scope.params.currentState = register.state;
+                    break;
+                case 'facebook':
+                    $scope.facebookLogin();
+                    break;
+                default:
+                    $scope.params.currentState = data.state;
+                    break;
+
+            }
+            if ($location.hash().indexOf('register') > -1 || $location.hash().indexOf('login') > -1 || $location.hash().indexOf('facebook') > -1) {
+                $scope.params.showLogin = true;
+            }
+
+            $scope.params.currentState = data.state;
+            
             data.formData = data.formData || {};
 
             $scope.formData = {
