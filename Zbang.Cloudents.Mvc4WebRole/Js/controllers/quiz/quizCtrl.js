@@ -65,7 +65,7 @@ mQuiz.controller('QuizCtrl',
                     $scope.$emit('viewContentLoaded');
                 });
 
-                if (!sUserDetails.iAuthenticated()) {
+                if (!sUserDetails.isAuthenticated()) {
                     sLogin.connect();
                 } else {
                     challengeTimeout = $timeout(function () {

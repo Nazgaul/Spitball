@@ -17,7 +17,7 @@
                 </li>
             </ul>
             <div class="bottomTA" tabindex="0">
-                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files || qFormData.content)">@SharedResources.Post</button>
+                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@SharedResources.Post</button>
             </div>
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
@@ -92,7 +92,7 @@
                         </li>
                     </ul>
                     <div class="bottomTA">
-                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@SharedResources.Post</button>
+                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@SharedResources.Post</button>
                     </div>
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })

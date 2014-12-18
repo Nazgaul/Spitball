@@ -247,13 +247,10 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
     $scope.$on('tabItemAdded', function (e, data) {
         var item = _.find($scope.items, function (i) {
-            return i.id === data.item.id;
+            return i.id === data.itemId;
         });
 
-        item.tabId = data.tabId;
-
-        saveItemsToTab([item.id], data.tabId);
-
+        item.tabId = data.tabId;    
     });
 
     $scope.$on('manageTab', function () {
@@ -280,12 +277,14 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         for (var i = 0, l = $scope.filteredItems.length; i < l; i++) {
             item = $scope.filteredItems[i];
+
             if (item.isCheck) {
-                savedItems.push(item.id);
                 item.tabId = $scope.iOptions.currentTab.id;
+                savedItems.push(item.id);
                 continue;
             }
             item.tabId = null;
+
         }
 
         saveItemsToTab(savedItems);
@@ -306,19 +305,19 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         });
     };
 
-    function saveItemsToTab(items, tabId) {
+    function saveItemsToTab(items) {
         var data = {
             boxId: $scope.boxId,
-            tabId: tabId || $scope.iOptions.currentTab.id, //tabId from draganddrop
+            tabId: $scope.iOptions.currentTab.id, //tabId from draganddrop
             itemId: items,
-            nDelete: !tabId //delete is false if only one item added from draganddrop
+            nDelete: true //delete is false if only one item added from draganddrop
         };
 
         sBox.addItemsToTab(data).then(function () { }, function () {
             sNotify.tAlert('FolderItemError');
 
         });
-
+        sTabCount.notifySet(data.tabId, items.length);
     }
 
     function filterManageItems(item) {
