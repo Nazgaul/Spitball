@@ -72,6 +72,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 {
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
+                break;
             }
            // m_Cache.RemoveFromCache(m_CacheRegionName);
             // m_Cache.Clear();
@@ -168,6 +169,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
             {
+                return true;
                 if (DateTime.UtcNow.Hour == 0)
                 {
                     return true;
