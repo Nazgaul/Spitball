@@ -781,6 +781,7 @@
     <Content Include="Images\hp18-sprite.png" />
     <Content Include="Images\icon_doc.png" />
     <Content Include="Images\icon_man.png" />
+    <Content Include="Images\iframeBg.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
     <Content Include="Images\jeanBkg.png" />
