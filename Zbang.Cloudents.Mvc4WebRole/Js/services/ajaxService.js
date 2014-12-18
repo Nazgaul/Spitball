@@ -22,7 +22,7 @@
                 }
                 url = url.toLowerCase();
                 $http.get(url, getObj).success(function (response) {
-                    trackTime(startTime, url, data);
+                    trackTime(startTime, url, data, 'get');
 
                     if (!response) {
                         logError(url, data);
@@ -35,6 +35,7 @@
                         return;
                     }
                     dfd.reject(response.payload);
+                    logError(url, data, response);
 
                 }).error(function (response) {
                     dfd.reject(response);
@@ -48,9 +49,9 @@
                 startTime = new Date().getTime();
                 url = url.toLowerCase();
                 $http.post(url, data).success(function (response) {
-                    trackTime(startTime, url, data);
+                    trackTime(startTime, url, data, 'post');
                     if (!disableClearCache) {
-                        _.forEach(ttls, function (ttl) {                            
+                        _.forEach(ttls, function (ttl) {
                             ttl.removeAll();
                         });
                     }
@@ -78,7 +79,7 @@
         return service;
 
         function logError(url, data, payload) {
-            var log = {                
+            var log = {
                 data: data,
                 payload: payload
             };
@@ -89,17 +90,17 @@
                 contentType: 'application/json',
                 data: angular.toJson({
                     errorUrl: url,
-                    errorMessage: log,
+                    errorMessage: JSON.stringify(log),
                     cause: 'ajaxRequest',
-                    stackTrace:''
+                    stackTrace: ''
                 })
             });
         }
-        function trackTime(startTime, url, data) {
+        function trackTime(startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
 
             var properties = {
-                category: url.toLowerCase() !== '/item/preview/' ? 'ajax' : 'ajaxPreview',
+                category: url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type : 'ajaxPreview',
                 timeSpent: timeSpent,
                 variable: url,
                 label: JSON.stringify(data)
