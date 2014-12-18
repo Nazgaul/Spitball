@@ -295,6 +295,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize]
         public ActionResult NotificationDelete(Guid messageId)
         {
+            var command = new DeleteNotificationCommand(messageId);
+            ZboxWriteService.DeleteNotification(command);
             return JsonOk();
         }
     }

@@ -1,16 +1,18 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public abstract class Invite
+    public abstract class Invite : ISoftDeletable
     {
         protected Invite()
         {
-
+            IsDeleted = false;
         }
         protected Invite(Guid id, User sender, string image, string userName, string email)
+            :this()
         {
             Id = id;
             Sender = sender;
@@ -42,6 +44,12 @@ namespace Zbang.Zbox.Domain
         public abstract ReputationAction GiveAction();
         public abstract string UrlToRedirect();
 
+
+        public bool IsDeleted { get; set; }
+
+        public void DeleteAssociation()
+        {
+        }
     }
 
 
@@ -76,7 +84,7 @@ namespace Zbang.Zbox.Domain
             return Box.Url;
         }
 
-        public void UpdateMessageAsRead()
+        public virtual void UpdateMessageAsRead()
         {
             Read = true;
         }

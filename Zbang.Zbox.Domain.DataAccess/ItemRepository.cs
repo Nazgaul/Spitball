@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .Where(w => w.Box == box)
                 .And(w => w.Name == fileName)
+                .And(w => w.IsDeleted == false)
                 .SingleOrDefault();
             return file != null;
         }

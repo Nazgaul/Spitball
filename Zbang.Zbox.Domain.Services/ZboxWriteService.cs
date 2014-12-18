@@ -643,7 +643,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void MarkMessagesAsOld(MarkMessagesAsOldCommand command)
+        public void DeleteNotification(DeleteNotificationCommand command)
         {
             using (UnitOfWork.Start())
             {
