@@ -1,59 +1,37 @@
 ﻿mAccount.controller('LoginCtrl',
-    ['$scope', '$window', '$route', '$location', '$routeParams', 'sFacebook', 'sAccount', '$modalInstance', '$analytics', '$angularCacheFactory', 'data',
-        function ($scope, $window, $route, $location, $routeParams, sFacebook, sAccount, $modalInstance, $analytics, $angularCacheFactory, data) {
+    ['$scope', '$window', '$route', '$routeParams', 'sFacebook', 'sAccount', '$analytics', '$angularCacheFactory',
+        function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics, $angularCacheFactory) {
             "use strict";
-
-          
-
             var loginDisable, registerDisable;
 
             $scope.params = {
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
             };
-           
+
             $scope.params.states = {
                 registerFirst: 0,
                 register: 1,
                 login: 2
             };
 
-            switch ($location.hash()) {
-                case 'login':
-                    $scope.params.currentState = $scope.params.states.login;
-                    break;
-                case 'register':
-                    $scope.params.currentState = register.state;
-                    break;
-                case 'facebook':
-                    $scope.facebookLogin();
-                    break;
-                default:
-                    $scope.params.currentState = data.state;
-                    break;
+            $scope.params.currentState = $scope.data.state;
 
-            }
-            if ($location.hash().indexOf('register') > -1 || $location.hash().indexOf('login') > -1 || $location.hash().indexOf('facebook') > -1) {
-                $scope.params.showLogin = true;
-            }
-
-            $scope.params.currentState = data.state;
-            
-            data.formData = data.formData || {};
+            $scope.data.formData = $scope.data.formData || {};
 
             $scope.formData = {
-                login: data.formData.login || {},
-                register: data.formData.register || {}
+                login: $scope.data.formData.login || {},
+                register: $scope.data.formData.register || {}
             };
 
             $scope.params.language = $scope.params.currentLanague;
 
             $scope.changeState = function (state) {
                 $scope.params.currentState = state;
-                $scope.params.loginServerError = $scope.params.registerServerError = null;                
+                $scope.params.loginServerError = $scope.params.registerServerError = null;
             };
 
             $scope.cancel = function () {
-                $modalInstance.dismiss();
+                $scope.close();
             };
 
             $scope.facebookLogin = function () {
@@ -71,11 +49,11 @@
                 if (loginDisable) {
                     return;
                 }
-                
+
                 loginDisable = true;
                 $scope.params.loginServerError = null;
 
-                sAccount.login($scope.formData.login).then(function() {
+                sAccount.login($scope.formData.login).then(function () {
                     var routeName = $route.current.$$route.params.type;
 
                     if (routeName === 'account') {
@@ -86,7 +64,7 @@
                     $window.location.reload();
 
 
-                }, function(response) {
+                }, function (response) {
                     $scope.params.loginServerError = response[0].value[0];
                     loginDisable = false;
                 });
@@ -107,7 +85,7 @@
                     $scope.formData.register.boxId = $routeParams.boxId;
                 }
 
-                sAccount.register($scope.formData.register).then(function() {
+                sAccount.register($scope.formData.register).then(function () {
                     var routeName = $route.current.$$route.params.type;
                     var cache = $angularCacheFactory('points', {
                         maxAge: 600000
@@ -130,7 +108,7 @@
                     //}
 
 
-                }, function(response) {
+                }, function (response) {
                     $scope.params.registerServerError = response[0].value[0];
                     registerDisable = false;
                 });
