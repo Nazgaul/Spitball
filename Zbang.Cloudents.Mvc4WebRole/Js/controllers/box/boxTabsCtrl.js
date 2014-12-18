@@ -1,20 +1,21 @@
 ﻿mBox.controller('BoxTabsCtrl',
 [
     '$scope', '$rootScope', '$filter', '$analytics', 'sModal', 'sBox', 'sUserDetails', 'sNotify', 'sLogin', 'sTabCount', '$location',
-    function($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin, sTabCount, $location) {
+    function ($scope, $rootScope, $filter, $analytics, sModal, sBox, sUserDetails, sNotify, sLogin, sTabCount, $location) {
         "use strict";
         $scope.params = {};
 
         sTabCount.countAll(showTabCount);
         sTabCount.add(addCount);
         sTabCount.remove(removeCount);
+        sTabCount.set(setCount);
 
-        sBox.tabs({ id: $scope.boxId }).then(function(tabs) {
+        sBox.tabs({ id: $scope.boxId }).then(function (tabs) {
             $scope.params.tabs = tabs;
 
             var tabId = $location.search().tabId;
             if (tabId) {
-                var tab = _.find($scope.params.tabs, function(tab2) {
+                var tab = _.find($scope.params.tabs, function (tab2) {
                     return tab2.id === tabId;
                 });
                 $scope.params.currentTab = tab;
@@ -23,12 +24,12 @@
             $rootScope.$broadcast('update-scroll');
         });
 
-        $scope.deleteTab = function(tab) {
+        $scope.deleteTab = function (tab) {
             var data = {
                 boxId: $scope.boxId,
                 TabId: tab.id
             }
-            sBox.deleteTab(data).then(function() {}, function() {
+            sBox.deleteTab(data).then(function () { }, function () {
                 sNotify.tAlert('DeleteError');
             });
 
@@ -44,7 +45,7 @@
             $rootScope.$broadcast('update_scroll');
         };
 
-        $scope.renameTab = function(tab) {
+        $scope.renameTab = function (tab) {
             sModal.open('tab', {
                 data: {
                     boxId: $scope.boxId,
@@ -52,7 +53,7 @@
                     tabId: tab.id
                 },
                 callback: {
-                    close: function(name) {
+                    close: function (name) {
                         tab.name = name;
                     }
                 }
@@ -63,7 +64,7 @@
             });
         };
 
-        $scope.createTab = function() {
+        $scope.createTab = function () {
             if (!sUserDetails.isAuthenticated()) {
                 sLogin.registerAction();
                 return;
@@ -79,7 +80,7 @@
                     boxId: $scope.boxId
                 },
                 callback: {
-                    close: function(tab) {
+                    close: function (tab) {
                         if (!$scope.params.tabs) {
                             $scope.params.tabs = [];
                         }
@@ -95,14 +96,14 @@
             });
         };
 
-        $scope.manageTab = function() {
+        $scope.manageTab = function () {
             $rootScope.$broadcast('manageTab');
             $analytics.eventTrack('Box Tabs', {
                 category: 'Manage Tab'
             });
         };
 
-        $scope.selectTab = function(tab) {
+        $scope.selectTab = function (tab) {
             if (!tab) {
                 $location.search({ tabId: null });
                 $scope.params.currentTab = null;
@@ -112,23 +113,31 @@
             $location.search({ tabId: tab.id });
         };
 
-        $scope.addDraggedItem = function(item, tabId) {
-            var data = {
-                item: item,
-                tabId: tabId
-            }
-
+        $scope.addDraggedItem = function (item, tab) {
             $analytics.eventTrack('Box Tabs', {
                 category: 'Dragged Item',
                 label: 'User dragged an item to a tab'
             });
 
-            $rootScope.$broadcast('tabItemAdded', data);
+            var data = {
+                boxId: $scope.boxId,
+                tabId: tab.id, //tabId from draganddrop
+                itemId: item.id,
+                nDelete: !tab.id //delete is false if only one item added from draganddrop
+            };
+
+            $rootScope.$broadcast('tabItemAdded', { tabId: tab.id, itemId: item.id });
+
+            sBox.addItemsToTab(data).then(function () { }, function () {
+                sNotify.tAlert('FolderItemError');
+            });
+
+            tab.itemCount++;
         };
 
-        $scope.$on('$routeUpdate', function() {
+        $scope.$on('$routeUpdate', function () {
             var tabId = $location.search().tabId,
-                tab = _.find($scope.params.tabs, function(tab2) {
+                tab = _.find($scope.params.tabs, function (tab2) {
                     return tab2.id === tabId;
                 });
             $scope.params.currentTab = tab;
@@ -136,7 +145,7 @@
         });
 
         function showTabCount(count) {
-            _.forEach($scope.params.tabs, function(tab) {
+            _.forEach($scope.params.tabs, function (tab) {
                 tab.itemCount = count[tab.id] || 0;
             });
         }
@@ -157,11 +166,19 @@
             }
 
             tab.itemCount--;
+        }
 
+        function setCount(tabId, count) {
+            var tab = getTab(tabId);
+            if (!tab) {
+                return;
+            }
+
+            tab.itemCount = count;
         }
 
         function getTab(tabId) {
-            return _.find($scope.params.tabs, function(tab) {
+            return _.find($scope.params.tabs, function (tab) {
                 return tab.id === tabId;
             });
         }
@@ -170,7 +187,7 @@
 mBox.factory('sTabCount',
 [function () {
     "use strict";
-    var countAll, add, remove;
+    var countAll, add, remove, set;
     return {
         notifyAll: function (count) {
             countAll(count);
@@ -181,6 +198,9 @@ mBox.factory('sTabCount',
         notifyAdd: function (tabId) {
             add(tabId);
         },
+        notifySet: function (tabId, count) {
+            set(tabId, count);
+        },
         countAll: function (cb) {
             countAll = cb;
         },
@@ -189,6 +209,9 @@ mBox.factory('sTabCount',
         },
         remove: function (cb) {
             remove = cb;
+        },
+        set: function (cb) {
+            set = cb;
         }
 
     };
