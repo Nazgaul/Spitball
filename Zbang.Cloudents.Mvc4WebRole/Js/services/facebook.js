@@ -183,8 +183,7 @@
 
                var isSent = cache.get('isSent');
 
-               if (isSent) {
-                   setTimeout();
+               if (isSent) {                  
                    return;
                }
 

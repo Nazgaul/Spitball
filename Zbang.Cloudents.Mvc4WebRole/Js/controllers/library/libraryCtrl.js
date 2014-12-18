@@ -142,7 +142,7 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
     //};
 
     $scope.subscribe = function (box) {
-        sFacebook.postFeed(resManager.getParsed('IJoined', [box.name]), box.url);
+        //sFacebook.postFeed(resManager.getParsed('IJoined', [box.name]), box.url);
 
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
