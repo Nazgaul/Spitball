@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Models
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
@@ -13,14 +14,14 @@
                     @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
                 </label>
                 <button type="button" class="btn addConnect" login-btn="connect">@SharedResources.SignIn</button>
-                @{Html.RenderPartial("_SettingsUnauth", true);}
+                @{Html.RenderPartial("_SettingsUnauth", new SettingsUnauth { ShowLanguage = true });}
             </div>
         </div>
 
         <div class="headingTexts">
             <h1>@HomeResources.SocialStudy</h1>
             <h3>@HomeResources.StudyPlatform</h3>
-            
+
             <div id="facebookLogin" class="facebook" login-btn="facebook">
                 <span class="fbImg">
                     <svg class="svg-fb" viewBox="0 0 11.861 23.303">

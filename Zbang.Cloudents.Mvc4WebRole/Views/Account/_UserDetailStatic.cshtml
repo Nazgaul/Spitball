@@ -20,7 +20,5 @@ else
         <button type="button" class="btn addRegister">@LogOnResources.SignUp</button>
         <button type="button" class="btn addConnect">@SharedResources.SignIn</button>
     </div>
-    Html.RenderPartial("_SettingsUnauth", false);
+    Html.RenderPartial("_SettingsUnauth", new Zbang.Cloudents.Mvc4WebRole.Models.SettingsUnauth { ShowLogIn = true });
 }
-
-
