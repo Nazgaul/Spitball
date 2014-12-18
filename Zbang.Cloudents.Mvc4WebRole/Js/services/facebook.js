@@ -31,7 +31,7 @@
        }(document));
 
        var cache = $angularCacheFactory('facebookPost', {
-           maxAge: 300000
+           recycleFreq: 10000
        });
 
        function loginStatus() {
@@ -188,18 +188,12 @@
                    return;
                }
 
-
-
-               setTimeout();
+               cache.put('isSent',true);
 
                FB.api('/me/feed', 'post', { message: text, link: encodeURI(link) }, function () {
                });
 
-               function setTimeout() {
-                   $timeout(function () {
-                       cache.put('isSent', true);
-                   }, 1000);
-               }
+               
            },
            getToken: function () {
                var defer = $q.defer();
