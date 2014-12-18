@@ -327,9 +327,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult Delete2(long id, bool delete = false)
         {
             var userId = User.GetUserId();
-            var command = new UnFollowBoxCommand(id, userId);
+            var command = new UnFollowBoxCommand(id, userId, delete);
             ZboxWriteService.UnFollowBox(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
 

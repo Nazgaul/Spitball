@@ -1883,7 +1883,7 @@
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
-    <Content Include="Views\Account\Settings.mobile.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
     <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
@@ -1932,6 +1932,7 @@
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
+    <Content Include="Views\Box\Settings.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2475,9 +2476,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_Members.cshtml" />

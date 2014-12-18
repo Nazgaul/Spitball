@@ -36,12 +36,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Get(message.BoxId);
-            if (box == null || box.IsDeleted)
+            var user = m_UserRepository.Load(message.UserId);
+
+            if (user.Reputation > user.University.AdminScore && message.ShouldDelete)
             {
-                throw new BoxDoesntExistException();
+                DeleteBox(box);
+                return;
             }
 
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, box.Id);
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
                 DeleteBox(box);
