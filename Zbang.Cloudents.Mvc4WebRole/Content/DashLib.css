@@ -673,10 +673,10 @@
   height: 70px;
   fill: #282828;
 }
-.fbBtn {
+.fbBtn.fbBtn {
   margin: 15px 60px 33px 60px;
 }
-.fbBtn svg:hover {
+.fbBtn.fbBtn svg:hover {
   fill: #3b5998;
 }
 .gmailBtn svg:hover {
