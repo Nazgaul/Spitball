@@ -4,13 +4,16 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UnFollowBoxCommand: ICommand
     {
-        public UnFollowBoxCommand(long boxId, long userId)
+        public UnFollowBoxCommand(long boxId, long userId, bool shouldDelete)
         {
+            ShouldDelete = shouldDelete;
             BoxId = boxId;
             UserId = userId;
         }
         public long BoxId { get;private set; }
 
         public long UserId { get;private set; }
+
+        public bool ShouldDelete { get; private set; }
     }
 }

@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         static StorageProvider()
         {
-            
+
             ConfigureStorageAccount();
             ConfigureLocalStorage();
         }
@@ -43,14 +43,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
             try
             {
-                _cloudStorageAccount = CloudStorageAccount.Parse(ConfigFetcher.Fetch("StorageConnectionString"));
+                var connectionString = ConfigFetcher.Fetch("StorageConnectionString");
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                    return;
+                }
+                _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             }
             catch (ArgumentNullException ex)
             {
                 TraceLog.WriteError("on ConfigureStorageAccount", ex);
-                _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+
             }
-            
+
             // not need every time
             //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
             //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());

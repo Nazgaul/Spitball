@@ -164,7 +164,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
         public async Task<ActionResult> Data(long id)
-        {          
+        {
             var userId = User.GetUserId(false);
             try
             {
@@ -395,7 +395,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public JsonResult Delete2(long id)
         {
             var userId = User.GetUserId();
-            var command = new UnFollowBoxCommand(id, userId);
+            var command = new UnFollowBoxCommand(id, userId, false);
             ZboxWriteService.UnFollowBox(command);
             return Json(new JsonResponse(true));
         }
