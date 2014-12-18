@@ -112,6 +112,8 @@
   max-height: 34px;
   overflow: hidden;
   line-height: 16px;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .recommended .prof {
   font-size: 13px;
