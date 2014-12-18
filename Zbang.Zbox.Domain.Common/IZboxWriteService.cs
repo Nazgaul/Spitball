@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteUpdates(DeleteUpdatesCommand command);
 
         void MarkMessageAsRead(MarkMessagesAsReadCommand command);
-        void MarkMessagesAsOld(MarkMessagesAsOldCommand command);
+        void DeleteNotification(DeleteNotificationCommand command);
 
         #region Quiz
         Task CreateQuizAsync(CreateQuizCommand command);

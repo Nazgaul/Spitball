@@ -160,7 +160,7 @@ select id as MsgId, u.UserImage as userpic,
  b.BoxName,
 b.Url ,  isRead as [IsRead]
 from zbox.UserBoxRel ub
-join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0
+join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
 join zbox.Users u on i.SenderId = u.UserId
 join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
 where ub.UserType = 1

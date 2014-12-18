@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<InviteToSystemCommand>), typeof(InviteToSystemCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<InviteToSystemFacebookCommand>), typeof(InviteToSystemFacebookCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsReadCommand>), typeof(MarkMessagesAsReadCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<MarkMessagesAsOldCommand>), typeof(MarkMessagesAsOldCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<DeleteNotificationCommand>), typeof(DeleteNotificationCommandHandler));
 
 
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddReputationCommand>), typeof(AddReputationCommandHandler));

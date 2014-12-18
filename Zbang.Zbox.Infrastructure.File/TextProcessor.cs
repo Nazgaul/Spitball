@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -42,7 +43,8 @@ namespace Zbang.Zbox.Infrastructure.File
             return ThumbnailProvider.TextFileTypePicture;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height,
+            int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             var blobsNamesInCache = new List<string>();
@@ -61,10 +63,14 @@ namespace Zbang.Zbox.Infrastructure.File
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
             }
 
-            using (var stream = await BlobProvider.DownloadFileAsync(blobName))
+            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
-
-                blobsNamesInCache.Add(await UploadFileToCache(stream, cacheFileName));
+                var content = await stream.ReadToEndAsync();
+                content = WebUtility.HtmlEncode(content);
+                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
+                {
+                    blobsNamesInCache.Add(await UploadFileToCache(ms, cacheFileName));
+                }
             }
             return new PreviewResult { Content = blobsNamesInCache, ViewName = "Text" };
         }
@@ -90,7 +96,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private string CreateCacheFileName(string blobName)
         {
-            return string.Format("{0}V1_{1}.html", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName));
+            return string.Format("{0}V2_{1}.html", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName));
         }
 
 

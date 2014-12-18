@@ -218,7 +218,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         comment.replyp = true;
         $scope.fromReply.itemId = itemId;
         $scope.fromReply.commentId = comment.id;
-        $scope.formData.boxId = boxId;
+        $scope.fromReply.boxId = boxId;
         sItem.replyComment($scope.fromReply).then(function (response) {
             comment.replies.unshift({
                 comment: $scope.fromReply.Comment,
@@ -233,7 +233,9 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.$broadcast('update-scroll');
             sGmfcnHandler.addPoints({ type: 'itemReply' });
         }, function (response) {
-            sNotify.alert(response.error[0].value[0]);
+            if (response) {
+                sNotify.alert(response.error[0].value[0]);
+            }
         }).finally(function () {
             comment.replyp = false;
         });;

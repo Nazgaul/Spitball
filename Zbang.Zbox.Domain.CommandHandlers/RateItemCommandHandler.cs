@@ -2,7 +2,6 @@
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -33,9 +32,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
 
             var item = m_ItemRepository.Load(message.ItemId);
-            var user = m_UserRepository.Load(message.UserId);
+            
 
-
+            m_QueueProvider.InsertMessageToTranaction(new ReputationData(item.Uploader.Id));
             if (userRate != null)
             {
                 userRate.Rate = message.Rate;
@@ -49,17 +48,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
               
 
             }
+            var user = m_UserRepository.Load(message.UserId);
             userRate = new ItemRate(user, item, message.Id, message.Rate);
             m_ItemRateRepository.Save(userRate, true);
-
             var average = CalculateAverage(message.ItemId);
-
             item.CalculateRate((int)average);
-
-            m_QueueProvider.InsertMessageToTranaction(new ReputationData(item.Uploader.Id));
-
             m_ItemRepository.Save(item);
-            m_UserRepository.Save(item.Uploader);
         }
 
         private double CalculateAverage(long itemId)

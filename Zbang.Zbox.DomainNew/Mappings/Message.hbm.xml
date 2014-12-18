@@ -6,29 +6,13 @@
     <id name="Id" column="MessageId">
       <generator class="assigned"/>
     </id>
-    <!--<discriminator column="TypeOfMsg" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.MessageType, Zbang.Zbox.Infrastructure" />-->
-
     <many-to-one name="Sender" class="User" column="SenderId" not-null="true" foreign-key="MessageUserSender"/>
     <many-to-one name="Recipient" class="User" column="RecepientId" not-null="true" foreign-key="MessageRecepientSender"/>
-
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
     <property name="NotRead" not-null="false" />
     <property name="New" not-null="false" />
     <property name="Text" length="8000"></property>
-
     <property name="OpenTime" not-null="false" type="DateTime2" />
-    
-    <!--<subclass name="Invite" discriminator-value="Invite" >
-      <many-to-one column="BoxId" class="Box" name="Box" foreign-key="MessageBoxBoxId"/>
-      <property name="IsActive" not-null="false" />
-      <property name="SendTime" not-null="false" type="DateTime2" />
-      <property name="OpenTime" not-null="false" type="DateTime2" />
-    </subclass>-->
-    <!--<subclass name="Message" discriminator-value="Message" >
-     
-    </subclass>-->
-    <!--<subclass name="InviteToCloudents" discriminator-value="InviteToCloudents" >
-    </subclass>-->
   </class>
 
   <class name="Invite" table="Invite" abstract="true" discriminator-value="null">
@@ -39,7 +23,7 @@
     <many-to-one name="Sender" class="User" column="SenderId" not-null="true" foreign-key="InviteUserSender"/>
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
     <property name="IsUsed" not-null="true" />
-    
+    <property name="IsDeleted" />
     <property name="Image" not-null="false" />
     <property name="UserName" not-null="false" />
     <property name="Email" not-null="false"/>
