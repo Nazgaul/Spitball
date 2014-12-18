@@ -50,6 +50,9 @@
         .facebook, .email {
             width: 228px;
             margin: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
         }
         .facebook {
             font-size: 15px;
@@ -60,9 +63,6 @@
             position: relative;
             line-height: 25px;
             background: #3b5998;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
             color: #fff;
         }
         .fbImg, .emailImg {
@@ -127,15 +127,18 @@
             border: none;
             font-weight: bold;
         }
-        button {
+        a {
+            background-color: transparent;
+            outline: none;
+            text-decoration: none;
             color: inherit;
-            font: inherit;
-            margin: 0;
+            cursor: pointer;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
-    <a class="siteLogo lFloat" href="~/" target="_top">
+    <a class="siteLogo lFloat" href="~/" target="_blank">
         <svg class="logo" viewBox="0 0 630.649 106.962">
             <path d="M108.004,67.818c0-10.338-7.026-18.789-15.875-19.434c-1.758-4.694-4.975-8.495-8.997-10.656
 		c-2.955-8.717-10.331-14.898-18.959-14.898c-4.61,0-8.857,1.761-12.266,4.725c-3.124-1.859-6.669-2.915-10.43-2.915
@@ -187,16 +190,16 @@
 
     <h1>@HomeResources.SocialStudy</h1>
     <div class="actions">
-        <div id="facebookLogin" class="facebook" login-btn="facebook">
+        <a href="~/account/#facebook" id="facebookLogin" class="facebook" login-btn="facebook">
             <span class="fbImg">
                 <svg class="svg-fb" viewBox="0 0 11.861 23.303">
                     @*width="11.861" height="23.303"*@
                     <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
                 </svg>
             </span>@SharedResources.FacebookSignUp
-        </div>
+        </a>
 
-        <button type="button" class="email addRegister" login-btn="register">
+        <a href="~/account/#register" class="email addRegister" login-btn="register">
             <span class="emailImg">
                 <svg class="svg-email" viewBox="-49 205 512 384">
                     <path d="M463,525c0,11.2-3.2,21.6-8.2,30.8L293.1,374.9L453,235c6.2,9.9,10,21.5,10,34V525z M207,407.8l222.5-194.7
@@ -205,10 +208,10 @@
 	                    c0,11.2,3.1,21.6,8.2,30.8l161.6-180.9L-39,235z" />
                 </svg>
             </span>@SharedResources.EmailSignUp
-        </button>
+        </a>
 
         <div class="connect">
-            <span>@LogOnResources.AlreadyHave</span>&nbsp;<button class="addConnect" type="button">@SharedResources.SignIn</button>
+            <span>@LogOnResources.AlreadyHave</span>&nbsp;<a href="~/account/#login" class="addConnect">@SharedResources.SignIn</a>
         </div>
     </div>
 </body>
