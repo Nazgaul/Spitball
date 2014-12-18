@@ -225,6 +225,8 @@ body {
   visibility: visible;
 }
 .dashHeader .svg-settings {
+  width: 25px;
+  height: 23px;
   fill: #c2c2c2;
 }
 .dashHeader.setup {
