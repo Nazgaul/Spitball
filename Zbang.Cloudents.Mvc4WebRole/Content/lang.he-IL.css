@@ -23,10 +23,6 @@
 .quizAnswersList {
   list-style-type: hebrew;
 }
-.chairman {
-  display: block;
-  /*rtl*/
-}
 .quizAList li {
   list-style-type: hebrew;
 }
