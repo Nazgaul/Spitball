@@ -39,7 +39,7 @@ app.factory('sModal',
                     return buildObj('rename', { url: '/item/rename/' }, 'ItemRenameCtrl', 'none', true, params.data);
                 },
                 connectPopup: function (params) {
-                    return buildObj('welcome ' + params.windowClass, { url: '/account/welcomeangularpartial/' }, 'LoginCtrl', 'none', true, params.data);
+                    return buildObj('welcome ' + params.windowClass, { url: '/account/welcomeangularpartial/' }, 'LoginWrapperCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {
                     return buildObj('itemReg', { url: '/item/itemregisterpartial/' }, 'ItemRegCtrl', 'none', true, params.data);
