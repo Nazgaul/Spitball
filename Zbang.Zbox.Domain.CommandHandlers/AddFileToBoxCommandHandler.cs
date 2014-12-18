@@ -93,14 +93,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             box.UserTime.UpdateUserTime(user.Name);
 
-            m_BoxRepository.Save(box, true);
+            m_BoxRepository.Save(box);
 
-            user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
+            //user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
             AddItemToTab(command.TabId, item);
 
             var t1 = TriggerCacheDocument(command.BlobAddressName, item.Id);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, item.Id));
-            await Task.WhenAll(t1, t2);
+            var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(user.Id));
+            await Task.WhenAll(t1, t2, t3);
 
             var result = new AddFileToBoxCommandResult(item);
 
@@ -127,7 +128,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return fileName;
         }
 
-        
+
 
         private void AddItemToTab(Guid? tabid, Item item)
         {

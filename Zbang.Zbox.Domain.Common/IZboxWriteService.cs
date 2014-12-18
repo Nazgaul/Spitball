@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.Common
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
-        void UnFollowBox(UnfollowBoxCommand command);
+        void UnFollowBox(UnFollowBoxCommand command);
 
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
        // Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.Common
         //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
         //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
-        void DeleteItem(DeleteItemCommand command);
+        Task DeleteItemAsync(DeleteItemCommand command);
         Task RateItemAsync(RateItemCommand command);
 
 
@@ -120,5 +120,7 @@ namespace Zbang.Zbox.Domain.Common
         void CreateUniversity(CreateUniversityCommand command);
 
 
+
+        void UpdateQuota(UpdateQuotaCommand updateQuotaCommand);
     }
 }

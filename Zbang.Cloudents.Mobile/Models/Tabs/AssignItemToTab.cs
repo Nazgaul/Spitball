@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Tabs
+namespace Zbang.Cloudents.Mobile.Models.Tabs
 {
     public class AssignItemToTab
     {

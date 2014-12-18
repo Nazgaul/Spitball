@@ -22,7 +22,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IBlobProvider m_BlobProvider;
         private readonly IIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
@@ -31,7 +30,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
-            IRepository<Reputation> reputationRepository,
             IBlobProvider blobProvider, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
@@ -39,7 +37,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
-            m_ReputationRepository = reputationRepository;
             m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
@@ -54,12 +51,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             Uri u = CheckUrl(command);
             //Get Box
-            var box = m_BoxRepository.Get(command.BoxId);
-            var user = m_UserRepository.Get(command.UserId);
-            if (user == null)
-            {
-                throw new NullReferenceException("user");
-            }
+            var box = m_BoxRepository.Load(command.BoxId);
+            var user = m_UserRepository.Load(command.UserId);
            
             //Add link to Box 
             var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture,

@@ -112,6 +112,15 @@ namespace Zbang.Zbox.Domain
         public abstract string ChangeName(string newName);
 
         public ICollection<ItemRate> ItemRates { get; set; }
+
+
+        public void DeleteAssociation()
+        {
+            ItemRates.Clear();
+            Updates.Clear();
+            ItemComments.Clear();
+            ItemReplies.Clear();
+        }
     }
 
     public class Link : Item
