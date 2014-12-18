@@ -86,6 +86,8 @@
 .headingTexts .email {
   width: 228px;
   /* diff rtl*/
+  /*display: inline-block;
+        .boxSizing;*/
 }
 .headingTexts .facebook {
   font-size: 15px;
@@ -133,6 +135,12 @@
   min-width: 1024px;
   text-align: center;
   margin-top: -50px;
+  /*.modal-body {
+        display: none;
+        &:target {
+            display: block;
+        }
+    }*/
 }
 .homepage h1 {
   font-size: 45px;
