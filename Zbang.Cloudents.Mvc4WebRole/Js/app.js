@@ -14,9 +14,10 @@
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
            $angularCacheFactoryProvider.setCacheDefaults({
-               maxAge: 1500000, //25 minutes
+               maxAge: 30000, //25 minutes
                deleteOnExpire: 'aggressive',
                recycleFreq: 30000,
+               cacheFlushInterval:30000,
                storageMode: 'sessionStorage'
            });
 
@@ -340,6 +341,14 @@
 
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker','htmlCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, htmlCache) {
 
+        //check for iframe
+        try {
+            if (window.self !== window.top) {
+                window.location.href = '/home/iframe/';
+            }
+        } catch (ex) {
+            window.location.href = '/home/iframe/';
+        }
 
         //analytics
         (function (i, s, o, g, r, a, m) {

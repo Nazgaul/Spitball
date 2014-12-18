@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         }
 
         [TestMethod]
-        public void Handle_LastFileDeletedFromBox_BoxPictureRemoved()
+        public async Task Handle_LastFileDeletedFromBox_BoxPictureRemoved()
         {
             // var stubBox = MockRepository.GenerateStub<Box>();
             ICollection<Item> itemsInBox = new List<Item>();
@@ -66,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var command = new DeleteItemCommand(someItemId, someUserId, someBoxId);
             var commandHandler = new DeleteItemCommandHandler(m_StubBoxRepository,
-                m_StubBlobProvider, m_StubUserRepository,  m_StubItemRepository,
+                m_StubBlobProvider, m_StubUserRepository, m_StubItemRepository,
                  m_CommentRepliesRepository, m_QueueProvider);
 
             m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
@@ -77,7 +78,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
 
 
-            commandHandler.Handle(command);
+            await commandHandler.HandleAsync(command);
 
             Assert.AreEqual(someBox.Picture, null);
 

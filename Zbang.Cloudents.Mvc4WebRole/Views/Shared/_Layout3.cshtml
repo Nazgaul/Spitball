@@ -175,6 +175,19 @@
         </a>
     </script>
 
+    <script>
+    //check for iframe
+    try {
+        if (window.self !== window.top) {
+            window.iframe = true;
+            window.location.href = '/home/iframe/';
+        }
+    } catch (ex) {
+        window.location.href = '/home/iframe/';
+        window.iframe = true;
+    }
+
+    </script>
     @*@Search*@
     <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
     @RenderSection("scripts", false)

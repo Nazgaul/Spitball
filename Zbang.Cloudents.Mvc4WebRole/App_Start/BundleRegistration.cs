@@ -148,6 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/controllers/search/searchHeaderCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/boxCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/sideBarCtrl.js"),
+                        new JsFileWithCdn("/js/controllers/box/leavePromptCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/boxTabsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/boxItemsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/boxInviteCtrl.js"),
@@ -245,8 +246,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/filters/kNumber.js"),
                         new JsFileWithCdn("/js/filters/defaultImage.js"),
                         new JsFileWithCdn("/js/filters/fileSize.js"),
-                        new JsFileWithCdn("/js/filters/extToClass.js"),
-                        new JsFileWithCdn("/js/filters/trustedHtml.js"),
+                        new JsFileWithCdn("/js/filters/extToClass.js"),                        
                         new JsFileWithCdn("/js/filters/actionText.js"),
                         new JsFileWithCdn("/js/filters/orderBy.js"),
                         new JsFileWithCdn("/js/filters/stringFormat.js")

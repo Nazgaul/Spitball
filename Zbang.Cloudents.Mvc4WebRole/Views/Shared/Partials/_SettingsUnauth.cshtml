@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
-@model bool
+@model Zbang.Cloudents.Mvc4WebRole.Models.SettingsUnauth
 
 @helper ShowLanguageBar(bool displayLanguage = false)
 {
@@ -16,13 +16,6 @@
         <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })"*@ title="Russian Site">@Languages.RussianName</button></li>
         <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button></li>
         <li class="last"><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button></li>
-
-        @*<li><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture})" title="English (US)">@Languages.EnglishUsName</a></li>
-        <li><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture})" title="English (UK)">@Languages.EnglishGbName</a></li>
-        <li><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture})" title="Russian site">@Languages.RussianName</a></li>
-        <li><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture})" title="Hebrew site">@Languages.HebrewName</a></li>
-        <li><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture})" title="Arabic site">@Languages.ArabicName</a></li>
-        <li class="last"><a href="@Url.Action("ChangeLocale", "Account", new {Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture})" title="Chinese site">@Languages.ChineseName</a></li>*@
     </ul>
 }
 
@@ -37,8 +30,11 @@
         <li><a href="@Url.Action("Privacy", "Home")" target="_self">@FooterResources.PrivacyPolicy</a></li>
         <li><a href="@Url.Action("TermsOfService", "Home")" target="_self">@FooterResources.TermsOfService</a></li>
         <li class="last"><a href="@Url.Action("ContactUs", "Home")" target="_self">@FooterResources.ContactUs</a></li>
-        <li class="sideBarSignupBtn addRegister" login-btn="register">@LogOnResources.SignUp</li>
-        <li class="last addConnect" login-btn="connect">@SharedResources.SignIn</li>
+        @if (Model.ShowLogIn)
+        {
+            <li class="addRegister" login-btn="register">@LogOnResources.SignUp</li>
+            <li class="last addConnect" login-btn="connect">@SharedResources.SignIn</li>
+        }
     </ul>
-    @ShowLanguageBar(Model)
+    @ShowLanguageBar(Model.ShowLanguage)
 </aside>

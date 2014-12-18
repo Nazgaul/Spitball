@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -73,14 +74,10 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public long GetItemsByUser(long userId)
         {
-            var x = UnitOfWork.CurrentSession.QueryOver<Item>()
-                        .Where(w => w.Uploader.Id == userId)
-                        .Where(w => w.IsDeleted == false)
-                        .List<Item>();
-
-           var y =  x.Where(w => w.Box.IsDeleted == false).Sum(s => s.Size);
-
-            return y;
+            return UnitOfWork.CurrentSession.Query<Item>()
+                  .Where(w => w.Uploader.Id == userId)
+                  .Where(w => w.IsDeleted == false)
+                  .Sum(s => s.Size);
 
         }
 

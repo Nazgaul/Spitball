@@ -99,15 +99,22 @@ namespace Zbang.Zbox.Domain
             return Boxes.Count(b => !b.IsDeleted) != 0;
         }
 
-        public void UpdateNumberOfBoxes()
-         {
+        /// <summary>
+        /// Update courses count in box
+        /// </summary>
+        /// <returns>the library item to save</returns>
+        public IEnumerable<Library> UpdateNumberOfBoxes()
+        {
+            var listOfDepartments = new List<Library>();
+            
             var x = this;
             while (x != null)
             {
                 x.NoOfBoxes = x.Boxes.Count(b => !b.IsDeleted) + x.Children.Sum(s => s.NoOfBoxes);
-
+                listOfDepartments.Add(x);
                 x = x.Parent;
             }
+            return listOfDepartments;
         }
 
 

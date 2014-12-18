@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -12,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteItemCommandHandler : ICommandHandler<DeleteItemCommand>
+    public class DeleteItemCommandHandler : ICommandHandlerAsync<DeleteItemCommand>
     {
 
         private readonly IRepository<Box> m_BoxRepository;
@@ -38,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
         }
 
-        public void Handle(DeleteItemCommand command)
+        public Task HandleAsync(DeleteItemCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
             var userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
@@ -57,33 +58,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is unauthorized to delete file");
             }
 
-            m_ItemRepository.Delete(item);
             item.DateTimeUser.UpdateUserTime(user.Email);
+
+
             var file = item as File;
 
-            Box box = m_BoxRepository.Get(command.BoxId);
-            if (box == null)
-            {
-                throw new NullReferenceException("box");
-            }
-            box.UpdateItemCount();
+            Box box = m_BoxRepository.Load(command.BoxId);
+            
             if (file != null)
             {
-                //if (!string.IsNullOrEmpty(file.BlobName))
-                //{
-                //    m_BlobProvider.DeleteFile(file.BlobName);
-                //}
-
                 if (file.ThumbnailBlobName == box.Picture)
                 {
                     ChangeBoxPicture(box, item.Id);
                 }
             }
 
-            var uploaderFile = item.Uploader;
-            uploaderFile.Quota.UsedSpace = m_UserRepository.GetItemsByUser(uploaderFile.Id);
+            var uploaderFileId = item.Uploader.Id;
 
-            var usersAffectReputation = new List<long> {uploaderFile.Id};
+            var usersAffectReputation = new List<long> { uploaderFileId };
             usersAffectReputation.AddRange(item.GetItemCommentsUserIds());
 
 
@@ -96,14 +88,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var shouldRemove = item.Comment.RemoveItem(item);
                 if (shouldRemove)
                 {
-                    usersAffectReputation.AddRange( box.DeleteComment(item.Comment));
-                    m_BoxRepository.Save(box);
+                    usersAffectReputation.AddRange(box.DeleteComment(item.Comment));
                 }
             }
-            m_QueueProvider.InsertMessageToTranaction(new ReputationData(usersAffectReputation));
-
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(usersAffectReputation));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(uploaderFileId));
+            m_ItemRepository.Delete(item);
+            box.UpdateItemCount();
             m_BoxRepository.Save(box);
-            m_UserRepository.Save(uploaderFile);
+
+            return Task.WhenAll(t1, t2);
         }
 
         private void ChangeBoxPicture(Box box, long itemId)

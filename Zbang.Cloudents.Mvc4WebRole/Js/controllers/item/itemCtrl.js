@@ -1,9 +1,9 @@
 ﻿var mItem = angular.module('mItem', []).
     controller('ItemCtrl',
         ['$scope', '$routeParams', 'sItem', '$timeout', '$rootScope', 'sModal', 'sUserDetails', '$location', 'resManager', 'sFacebook',
-            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler','sAccount',
+            '$sce', '$analytics', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sAccount', 'sBox',
 function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetails,
-    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler, sAccount) {
+    $location, resManager, sFacebook, $sce, $analytics, sNotify, sLogin, sGmfcnHandler, sAccount, sBox) {
     "use strict";
     var index = 0, loadMore = false;
     $scope.navigation = {};
@@ -274,6 +274,10 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         $analytics.eventTrack('Item', {
             category: 'Rate Item'
         });
+    };
+
+    $scope.followBox = function () {
+        sBox.follow({ BoxId: boxId });
     };
 }
         ]);

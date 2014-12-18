@@ -39,13 +39,13 @@ app.factory('sModal',
                     return buildObj('rename', { url: '/item/rename/' }, 'ItemRenameCtrl', 'none', true, params.data);
                 },
                 connectPopup: function (params) {
-                    return buildObj('welcome ' + params.windowClass, { url: '/account/WelcomeAngularPartial' }, 'LoginCtrl', 'none', true, params.data);
+                    return buildObj('welcome ' + params.windowClass, { url: '/account/welcomeangularpartial/' }, 'LoginCtrl', 'none', true, params.data);
                 },
                 itemReg: function (params) {
-                    return buildObj('itemReg', { url: '/item/itemregisterpartial' }, 'ItemRegCtrl', 'none', true, params.data);
+                    return buildObj('itemReg', { url: '/item/itemregisterpartial/' }, 'ItemRegCtrl', 'none', true, params.data);
                 },
                 congrats: function (params) {
-                    return buildObj('congrats', { url: '/account/congratspartial' }, 'CongratsCtrl', 'none', true, params.data);
+                    return buildObj('congrats', { url: '/account/congratspartial/' }, 'CongratsCtrl', 'none', true, params.data);
                 },
                 uniRestriction: function (params) {
                     return buildObj('libChoosePopUp', { html: params.html }, 'RestrictionPopUpCtrl', 'none', true, params.data);
@@ -60,7 +60,10 @@ app.factory('sModal',
                     return buildObj('quizPopup', { url: '/quiz/challengepartial/?quizid=' + params.data.quizId }, 'ChallengeCtrl', 'static', true, params.data);
                 },
                 coupon: function (params) {
-                    return buildObj('couponPopup', { url: '/store/couponpartial' }, 'CouponCtrl', 'static', true, params.data);
+                    return buildObj('couponPopup', { url: '/store/couponpartial/' }, 'CouponCtrl', 'none', true, params.data);
+                },
+                leavePrompt: function (params) {
+                    return buildObj('leavePrompt', { url: '/box/leavepromptpartial/' }, 'LeavePromptCtrl', 'static', true, params.data);
                 }
             };
 
