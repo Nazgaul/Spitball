@@ -91,11 +91,6 @@
   left: -4px;
   top: 24px;
 }
-.boxRename .svg-settings {
-  width: 25px;
-  height: 23px;
-  fill: #383838;
-}
 .libBoxActions {
   display: none;
 }
@@ -678,10 +673,10 @@
   height: 70px;
   fill: #282828;
 }
-.fbBtn {
+.fbBtn.fbBtn {
   margin: 15px 60px 33px 60px;
 }
-.fbBtn svg:hover {
+.fbBtn.fbBtn svg:hover {
   fill: #3b5998;
 }
 .gmailBtn svg:hover {
