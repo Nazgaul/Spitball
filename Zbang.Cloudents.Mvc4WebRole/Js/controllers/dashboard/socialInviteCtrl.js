@@ -113,7 +113,10 @@
                              isConnected: true
                          };
 
-                         sUser.friends().then(function (data) {                             
+                         sUser.friends().then(function (data) {
+                             _.forEach(data.my, function (f) {
+                                 f.image = f.largeImage;
+                             });
                              currentUsers = angular.copy(data.my);
                              $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                              $scope.$broadcast('update-scroll');
