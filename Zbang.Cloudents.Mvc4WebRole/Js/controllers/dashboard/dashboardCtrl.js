@@ -81,8 +81,36 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
 
 
     $scope.removeBox = function (box) {
+        if (sUserDetails.getDetails().isAdmin) {
+            sModal.open('leavePrompt', {
+                callback: {
+                    close: function (response) {
+                        if (response.delete) {
+                            remove(true);
+                            return;
+                        }
+
+                        remove();
+
+                    }
+                }
+            });
+            return;
+        }
+
+
         sNotify.confirm($scope.removeConfirm(box)).then(function () {
-            sBox.remove({ id: box.id }).then(function () {
+        
+            $analytics.eventTrack('Dashboard', {
+                category: 'Remove Box'
+            });
+
+            remove();
+
+        });
+
+        function remove(isDelete) {
+            sBox.remove({ id: box.id, 'delete' : isDelete }).then(function () {
                 var index;
                 if (box.boxType === 'academic') {
                     index = $scope.academicBoxes.indexOf(box);
@@ -92,10 +120,7 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
                     $scope.groupBoxes.splice(index, 1);
                 }
             });
-            $analytics.eventTrack('Dashboard', {
-                category: 'Remove Box'
-            });
-        });
+        }
     };
 
 
@@ -116,10 +141,6 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
             return resManager.get('SureYouWantTo') + ' ' + resManager.get('ToDeleteBox');
         }
 
-        if (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount) {
-            return 'You have created an empty course, if you unfollow this course it will be deleted. Do you want to delete the course?';
-        }
-
         return resManager.get('SureYouWantTo') + ' ' + resManager.get('ToLeaveGroup');
     };
 
@@ -128,7 +149,7 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
             return '';
         }
 
-        if ((box.userType === 'owner') || (box.membersCount <= 2 && box.commentCount < 2 && !box.itemCount)) {
+        if (box.userType === 'owner') {
             return resManager.get('Delete');
         }
 

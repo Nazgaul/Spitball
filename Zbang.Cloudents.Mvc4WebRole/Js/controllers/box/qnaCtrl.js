@@ -252,16 +252,19 @@
                 };
 
                 $scope.removeAttachmentQ = function (question, item) {
-                    sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
-                        var index = question.files.indexOf(item);
-                        question.files.splice(index, 1);
-                        if (question.files.length === 0 && question.content.length === 0) {
-                            index = $scope.data.questions.indexOf(question);
-                            $scope.data.questions.splice(index, 1);
-                        }
-                    }, function (response) {
-                        sNotify.alert(response);
+                    sNotify.tConfirm(JsResources.SureYouWantToDelete + ' ' + (item.name ? item.name : '')  + '?').then(function () {
+                        sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
+                            var index = question.files.indexOf(item);
+                            question.files.splice(index, 1);
+                            if (question.files.length === 0 && question.content.length === 0) {
+                                index = $scope.data.questions.indexOf(question);
+                                $scope.data.questions.splice(index, 1);
+                            }
+                        }, function (response) {
+                            sNotify.alert(response);
+                        });
                     });
+                    
 
                     $analytics.eventTrack('Box Feed', {
                         category: 'Remove question attachment'
@@ -269,18 +272,21 @@
                 };
 
                 $scope.removeAttachmentA = function (question, answer, item) {
-                    sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
-                        var index = answer.files.indexOf(item);
-                        answer.files.splice(index, 1);
-                        if (answer.files.length === 0 && answer.content.length === 0) {
-                            index = question.answers.indexOf(answer);
-                            question.answers.splice(index, 1);
+                    sNotify.tConfirm(JsResources.SureYouWantToDelete + ' ' + (item.name ? item.name : '') + '?').then(function () {
+                        sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
+                            var index = answer.files.indexOf(item);
+                            answer.files.splice(index, 1);
+                            if (answer.files.length === 0 && answer.content.length === 0) {
+                                index = question.answers.indexOf(answer);
+                                question.answers.splice(index, 1);
 
-                        }
-                    }, function (response) {
-                        sNotify.alert(response);
+                            }
+                        }, function (response) {
+                            sNotify.alert(response);
+                        });
+
                     });
-
+                    
                     $analytics.eventTrack('Box Feed', {
                         category: 'Remove answer attachment'
                     });
@@ -292,6 +298,8 @@
                         sLogin.registerAction();
                         return;
                     }
+
+                    $scope.followBox();
 
                     $analytics.eventTrack('Box Feed', {
                         category: 'Download Item'

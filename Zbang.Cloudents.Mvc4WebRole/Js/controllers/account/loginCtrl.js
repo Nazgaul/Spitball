@@ -49,11 +49,11 @@
                 if (loginDisable) {
                     return;
                 }
+                
                 loginDisable = true;
-
                 $scope.params.loginServerError = null;
 
-                sAccount.login($scope.formData.login).then(function () {
+                sAccount.login($scope.formData.login).then(function() {
                     var routeName = $route.current.$$route.params.type;
 
                     if (routeName === 'account') {
@@ -64,9 +64,8 @@
                     $window.location.reload();
 
 
-                }, function (response) {
+                }, function(response) {
                     $scope.params.loginServerError = response[0].value[0];
-                }).finally(function () {
                     loginDisable = false;
                 });
             };
@@ -86,7 +85,7 @@
                     $scope.formData.register.boxId = $routeParams.boxId;
                 }
 
-                sAccount.register($scope.formData.register).then(function () {
+                sAccount.register($scope.formData.register).then(function() {
                     var routeName = $route.current.$$route.params.type;
                     var cache = $angularCacheFactory('points', {
                         maxAge: 600000
@@ -109,10 +108,8 @@
                     //}
 
 
-
-                }, function (response) {
+                }, function(response) {
                     $scope.params.registerServerError = response[0].value[0];
-                }).finally(function () {
                     registerDisable = false;
                 });
             };

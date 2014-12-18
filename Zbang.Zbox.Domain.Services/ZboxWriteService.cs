@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Domain.Services
         //        UnitOfWork.Current.TransactionalFlush();
         //    }
         //}
-        public void UnFollowBox(UnfollowBoxCommand command)
+        public void UnFollowBox(UnFollowBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -143,11 +143,11 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void DeleteItem(DeleteItemCommand command)
+        public async Task DeleteItemAsync(DeleteItemCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -644,6 +644,16 @@ namespace Zbang.Zbox.Domain.Services
         }
 
         public void MarkMessagesAsOld(MarkMessagesAsOldCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+
+        public void UpdateQuota(UpdateQuotaCommand command)
         {
             using (UnitOfWork.Start())
             {

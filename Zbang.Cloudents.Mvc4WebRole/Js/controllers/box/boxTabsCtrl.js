@@ -137,7 +137,7 @@
 
         function showTabCount(count) {
             _.forEach($scope.params.tabs, function(tab) {
-                tab.itemCount = count[tab.id];
+                tab.itemCount = count[tab.id] || 0;
             });
         }
 

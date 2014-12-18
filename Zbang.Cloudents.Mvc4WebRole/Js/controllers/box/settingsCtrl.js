@@ -1,7 +1,7 @@
 ﻿mBox.controller('SettingsCtrl',
-    ['$scope', '$modalInstance', '$location', '$analytics', 'sUserDetails', 'sBox', 'data', 'resManager', 'sNotify',
+    ['$scope', '$modalInstance', '$location', '$analytics', 'sUserDetails', 'sBox', 'data', 'resManager', 'sNotify', 'sModal',
 
-function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, data, resManager, sNotify) {
+function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, data, resManager, sNotify, sModal) {
     "use strict";
     //Settings
 
@@ -49,28 +49,54 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
     };
 
     $scope.delete = function () {
+
         $modalInstance.dismiss();
-        sBox.remove({ id: $scope.info.boxId }).then(function () {
-            $location.path('/dashboard/');
-        });
+
+        if (sUserDetails.getDetails().isAdmin) {
+            sModal.open('leavePrompt', {
+                callback: {
+                    close: function (response) {
+                        if (response.delete) {
+                            remove(true);
+                            return;
+                        }
+
+                        remove();
+
+                    }
+                }
+            });
+            return;
+        }
+
+        
+        remove();
+        
 
         $analytics.eventTrack('Box Settings', {
             category: 'Delete/Unfollow',
             label: 'User deleted or unfollowed a box'
         });
+
+        function remove(isDelete) {
+            sBox.remove({ id: $scope.info.boxId, 'delete': isDelete }).then(function () {
+                $location.path('/dashboard/');
+            });
+        }
     };
     $scope.deleteOrUnfollow = function () {
+
+        if (sUserDetails.getDetails().isAdmin) {
+            return 'some admin message';
+        }
 
         if ($scope.info.userType === 'none') {
             return '';
         }
+
         if ($scope.info.userType === 'owner') {
             return resManager.get('Delete');
-        }
-
-        if ($scope.info.membersLength <= 2 && $scope.info.comments < 2 && !$scope.info.itemsLength) {
-            return resManager.get('Delete');
-        }
+        }    
 
         return resManager.get('LeaveGroup');
     };

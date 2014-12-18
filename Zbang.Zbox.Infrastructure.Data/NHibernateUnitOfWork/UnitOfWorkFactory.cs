@@ -9,6 +9,7 @@ using NHibernate.Connection;
 using NHibernate.Event;
 using Zbang.Zbox.Infrastructure.Data.Dialect;
 using Zbang.Zbox.Infrastructure.Data.Driver;
+using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;

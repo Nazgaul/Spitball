@@ -2,9 +2,9 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class UnfollowBoxCommand: ICommand
+    public class UnFollowBoxCommand: ICommand
     {
-        public UnfollowBoxCommand(long boxId, long userId)
+        public UnFollowBoxCommand(long boxId, long userId)
         {
             BoxId = boxId;
             UserId = userId;

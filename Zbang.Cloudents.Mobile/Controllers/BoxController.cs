@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
 using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Cloudents.Mobile.Models.Tabs;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -394,7 +395,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public JsonResult Delete2(long id)
         {
             var userId = User.GetUserId();
-            var command = new UnfollowBoxCommand(id, userId);
+            var command = new UnFollowBoxCommand(id, userId);
             ZboxWriteService.UnFollowBox(command);
             return Json(new JsonResponse(true));
         }

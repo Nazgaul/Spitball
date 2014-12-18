@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NHibernate.Event.Default;
 using Zbang.Zbox.Infrastructure.Repositories;
 
-namespace Zbang.Zbox.Infrastructure.Data
+namespace Zbang.Zbox.Infrastructure.Data.Events
 {
     [Serializable]
     class ZboxDeleteEventListener : DefaultDeleteEventListener
@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Data
             if (deletable != null)
             {
                 var e = deletable;
+                e.DeleteAssociation();
                 e.IsDeleted = true;
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);

@@ -7,28 +7,32 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class UnFollowBoxCommandHandler : ICommandHandler<UnfollowBoxCommand>
+    public class UnFollowBoxCommandHandler : ICommandHandler<UnFollowBoxCommand>
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Library> m_DepartmentRepository;
+        private readonly IQueueProvider m_QueueProvider;
         private readonly IUniversityRepository m_UniversityRepository;
 
         public UnFollowBoxCommandHandler(IRepository<Box> boxRepository,
             IUserRepository userRepository,
-            IRepository<Library> departmentRepository, 
-            IUniversityRepository universityRepository)
+            IRepository<Library> departmentRepository,
+            IUniversityRepository universityRepository, IQueueProvider queueProvider)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
+            m_QueueProvider = queueProvider;
         }
 
-        public void Handle(UnfollowBoxCommand message)
+        public void Handle(UnFollowBoxCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Get(message.BoxId);
@@ -36,12 +40,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new BoxDoesntExistException();
             }
-            if (box.CommentCount <= 1 && box.MembersCount <= 2 && box.ItemCount == 0)
-            {
-                DeleteBox(box);
-                return;
-            }
-            UserRelationshipType userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, box.Id);
+
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, box.Id);
             if (userType == UserRelationshipType.Owner)
             {
                 DeleteBox(box);
@@ -57,8 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void DeleteBox(Box box)
         {
-            box.UserBoxRelationship.Clear();
-            box.IsDeleted = true;
+            //box.IsDeleted = true;
             box.UserTime.UpdateUserTime(box.Owner.Email);
             var academicBox = box as AcademicBox;
             if (academicBox != null)
@@ -66,23 +65,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var university = academicBox.University;
                 var department = academicBox.Department;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
-                department.UpdateNumberOfBoxes();
+                m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
                 university.UpdateNumberOfBoxes(--noOfBoxes);
-                while (department != null)
-                {
-                    m_DepartmentRepository.Save(department);
-                    department = department.Parent;
-                }
                 m_UniversityRepository.Save(university);
             }
-            var users = box.UserBoxRelationship.Select(s => s.User);
-            foreach (var userInBox in users)
-            {
-                userInBox.Quota.UsedSpace = m_UserRepository.GetItemsByUser(userInBox.Id);
-                m_UserRepository.Save(userInBox);
-            }
-           
-            m_BoxRepository.Save(box);
+            var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
+            m_QueueProvider.InsertMessageToTranaction(new QuotaData(users));
+            m_QueueProvider.InsertMessageToTranaction(new ReputationData(users));
+            
+            m_BoxRepository.Delete(box);
+            //m_BoxRepository.Save(box);
         }
         private void UnFollowBox(Box box, long userId)
         {

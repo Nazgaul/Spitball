@@ -28,4 +28,30 @@ namespace Zbang.Zbox.Infrastructure.Transport
             get { return ReputationResolver; }
         }
     }
+
+    [ProtoContract]
+    public class QuotaData : DomainProcess
+    {
+        protected QuotaData()
+        {
+        }
+
+
+        public QuotaData(long userId)
+        {
+            UserIds = new[] { userId };
+        }
+
+        public QuotaData(IEnumerable<long> userIds)
+        {
+            UserIds = userIds;
+        }
+
+        [ProtoMember(1)]
+        public IEnumerable<long> UserIds { get; private set; }
+        public override string ProcessResolver
+        {
+            get { return ReputationResolver; }
+        }
+    }
 }

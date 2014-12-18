@@ -153,8 +153,27 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
     };
 
     $scope.unsubscribe = function (box) {
+
+        if (sUserDetails.getDetails().isAdmin) {
+            sModal.open('leavePrompt', {
+                callback: {
+                    close: function (response) {
+                        if (response.delete) {
+                            remove(true);
+                            return;
+                        }
+
+                        remove();
+
+                    }
+                }
+            });
+            return;
+        }
+
+
         var defer,
-            isDelete = box.userType === 'owner' || (box.membersCount <= 2 && box.commentCount < 2 && box.itemCount === 0);
+            isOwner = box.userType === 'owner';
 
         if (isDelete) {
             defer = sNotify.tConfirm('DeleteCourse');
@@ -164,10 +183,17 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
         }
 
         defer.then(function () {
-            sBox.remove({ id: box.id });
-            $analytics.eventTrack('Library', {
+            remove(isOwner);
+        });
+
+        function remove(isDelete) {
+            var analytics = {
                 category: 'Leave Box'
-            });
+            };
+            sBox.remove({ id: box.id, 'delete': isDelete });
+            
+            
+            $analytics.eventTrack('Library', analytics);
 
             box.userType = 'none';
 
@@ -176,8 +202,13 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                 if (index > -1) {
                     $scope.info.items.splice(index, 1);
                 }
+                analytics = {
+                    category: 'Delete Box'
+                };
             }
-        });
+
+            $analytics.eventTrack('Library', analytics);
+        }
 
 
     };

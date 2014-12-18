@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
         //the new version doesn't get the resource
-        [System.Web.Mvc.Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
+        [Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
         public string ConfirmEmail { get; set; }
 
 

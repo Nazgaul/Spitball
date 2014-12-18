@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Data;
-using System.IO;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
@@ -60,18 +59,27 @@ namespace Zbang.Zbox.Domain
 
         public virtual ICollection<UserBoxRel> UserBoxRelationship { get; protected set; }
         public virtual ICollection<Item> Items { get; private set; }
-        protected virtual ICollection<Quiz> Quizzes { get; set; }
+        public virtual ICollection<Quiz> Quizzes { get; protected set; }
 
         // public IQueryable<Item> Items2 { get; set; }
-
+       
 
         //protected virtual ICollection<Comment> Comments { get; set; }
-        protected virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<InviteToBox> Invites { get; set; }
+        //public virtual void RemoveBox()
+        //{
+        //    UserBoxRelationship.Clear();
+        //    Comments.Clear();
+        //    ItemTabs.Clear();
+        //    Invites.Clear();
+        //    Updates.Clear();
+        //    Quizzes.Clear();
+        //}
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
@@ -113,7 +121,7 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public File AddFile(string fileName,
+        public virtual File AddFile(string fileName,
             User user,
             long length,
             string blobAddressName,
@@ -124,7 +132,7 @@ namespace Zbang.Zbox.Domain
             return AddItem(file) as File;
         }
 
-        public Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
+        public virtual Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
         {
             var linkExist = Items.Any(s => s.ItemContentUrl == url && !s.IsDeleted);
             if (linkExist)
@@ -135,7 +143,7 @@ namespace Zbang.Zbox.Domain
             return AddItem(link);
         }
 
-        private Item AddItem(Item item)
+        protected virtual Item AddItem(Item item)
         {
             //Need to put in here unique item name check per box
             Items.Add(item);
@@ -260,6 +268,17 @@ namespace Zbang.Zbox.Domain
 
             PrivacySettings.PrivacySetting = boxPrivacySettings;
 
+        }
+
+
+        public void DeleteAssociation()
+        {
+            UserBoxRelationship.Clear();
+            Comments.Clear();
+            ItemTabs.Clear();
+            Invites.Clear();
+            Updates.Clear();
+            Quizzes.Clear();
         }
     }
 }

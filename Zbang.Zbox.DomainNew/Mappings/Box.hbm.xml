@@ -29,7 +29,7 @@
     <property name="IsDeleted"/>
     <many-to-one name="Owner" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdBoxes"/>
 
-    <set name="UserBoxRelationship"  cascade="all-delete-orphan" inverse="true" batch-size="20">
+    <set name="UserBoxRelationship"  cascade="all-delete-orphan" lazy="true" inverse="true" batch-size="20">
       <key column="BoxId"/>
       <one-to-many class="UserBoxRel"/>
     </set>

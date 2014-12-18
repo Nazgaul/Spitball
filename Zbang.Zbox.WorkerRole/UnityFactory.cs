@@ -76,6 +76,8 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IDomainProcess, UpdateUniversitySearch>(Infrastructure.Transport.DomainProcess.UniversityResolver);
             Unity.RegisterType<IDomainProcess, UpdateReputation>(
                 Infrastructure.Transport.DomainProcess.ReputationResolver);
+            Unity.RegisterType<IDomainProcess, UpdateQuota>(
+                Infrastructure.Transport.DomainProcess.QuotaResolver);
             //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }
