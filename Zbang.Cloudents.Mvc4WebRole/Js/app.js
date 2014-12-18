@@ -14,9 +14,10 @@
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
            $angularCacheFactoryProvider.setCacheDefaults({
-               maxAge: 1500000, //25 minutes
+               maxAge: 30000, //25 minutes
                deleteOnExpire: 'aggressive',
                recycleFreq: 30000,
+               cacheFlushInterval:30000,
                storageMode: 'sessionStorage'
            });
 
