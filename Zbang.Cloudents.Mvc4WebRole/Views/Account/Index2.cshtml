@@ -57,8 +57,9 @@
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button>
         </div>
     </div>
-    <div ng-if="params.showLogin">
+    <div class="popupWrppr welcome" ng-if="params.showLogin">
         @{Html.RenderPartial("_WelcomeAngular");}
+        <div class="modal2"></div>
     </div>
 
     <section class="available">
