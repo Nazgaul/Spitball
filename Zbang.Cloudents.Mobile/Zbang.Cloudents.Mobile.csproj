@@ -1882,7 +1882,7 @@
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
-    <Content Include="Views\Account\Settings.mobile.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
     <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
@@ -2474,9 +2474,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_Members.cshtml" />
