@@ -68,7 +68,8 @@
             }
 
             $scope.delete = function (notification) {
-                sNotification.remove(notification.id);
+                sNotification.remove(notification.msgId);
+                getDetails();
             };
 
             function getDetails() {

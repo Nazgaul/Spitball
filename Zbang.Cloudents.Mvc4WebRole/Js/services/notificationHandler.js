@@ -16,7 +16,7 @@
             remove: function (id) {                
                 var notification = getById(id);
                 var index = notifications.indexOf(notification);
-                notification.splice(index,1);
+                notifications.splice(index,1);
                 sShare.notificationDelete({ messageId: id });
             },
             setRead: function (id) {
