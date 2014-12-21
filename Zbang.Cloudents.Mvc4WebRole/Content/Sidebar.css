@@ -87,7 +87,12 @@
   transition: margin 0.2s 0.5s;
   position: relative;
 }
-.recommended .rcDetails.rcFull .prof:after {
+.recommended .rcDetails.rcFull .prof {
+  max-width: 130px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.recommended .rcDetails.rcFull .courseId:before {
   content: '\00a0' '|' '\00a0';
   color: #383838;
 }
@@ -118,9 +123,8 @@
 .recommended .prof {
   font-size: 13px;
 }
-.recommended .courseId {
-  width: 200px;
-  display: inline-block;
+.recommended .vCentered {
+  max-width: 200px;
 }
 .recommended .friends,
 .recommended .files {
