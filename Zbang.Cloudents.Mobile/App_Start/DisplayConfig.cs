@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.WebPages;
 using Zbang.Zbox.Infrastructure.Extensions;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     public static class DisplayConfig
     {

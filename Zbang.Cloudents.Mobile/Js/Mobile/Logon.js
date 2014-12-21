@@ -1,10 +1,11 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (cd, $) {
+    "use strict";
     if (window.scriptLoaded.isLoaded('logon')) {
         return;
     }
 
-    "use strict";
+    
     function registerEvents() {
         cd.putPlaceHolder();
         //drop downs
@@ -81,9 +82,9 @@
             cd.setCookie('lang', $(this).data('language'), 10);
         });
         //mobile view
-        $('#langSelect').val(cd.getCookie('lang') || $('option[value^="'+$('body').attr('data-lang')+'"]').val()).change(function () {
+        $('#langSelect').val($('option[value^="'+$('body').attr('data-lang')+'"]').val()).change(function () {
             cd.setCookie('lang', $(this).val(), 10);
-            location.reload();
+            window.location.href = this.selectedOptions ? this.selectedOptions[0].getAttribute('data-href') : this.options[this.selectedIndex].getAttribute('data-href');
         });
         cd.orientationDetection();
 
