@@ -143,7 +143,7 @@
                         data: d,
                         type: 'POST',
                         success: function (data) {
-                            if (data.Success) {
+                            if (data.success) {
                                 window.location.href = data.Payload || "/";
                                 return;
                             }
@@ -183,7 +183,7 @@
                 universityId: cd.getParameterByName('universityId')
             },
             success: function (data) {
-                if (!data.Success) {
+                if (!data.success) {
                     //location.href = '/';
                     alert('there is a problem signing you in with facebook');
                     return;

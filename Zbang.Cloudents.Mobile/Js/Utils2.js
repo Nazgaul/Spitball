@@ -451,22 +451,22 @@
         while (last = node.lastChild) node.removeChild(last);
     }
 
-    //function userLogout(e) {
-    //    e.preventDefault();
-    //    var redirect = e.target.href;
-    //    FB.getLoginStatus(function (response) {
-    //        if (response.status === 'connected') {
-    //            FB.logout(function (respone) {
-    //                window.location = redirect;
-    //            });
-    //        } else {
-    //            window.location = redirect;
-    //        }
-    //    });
+    function userLogout(e) {
+        e.preventDefault();
+        var redirect = e.target.href;
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                FB.logout(function (respone) {
+                    window.location = redirect;
+                });
+            } else {
+                window.location = redirect;
+            }
+        });
 
 
 
-    //}
+    }
 
     function appendData(element, template, data, position, clearData) {
         var func = function () { };
@@ -1187,7 +1187,7 @@
     cd.ConvertToDate = ConvertToDate;
     //var eById = document.getElementById.bind(document);
     //cd.eById = eById;
-    //cd.userLogout = userLogout;
+    cd.userLogout = userLogout;
     cd.userDetail = userDetail;
     cd.loadModel = loadModel;
     cd.innerScroll = innerScroll;

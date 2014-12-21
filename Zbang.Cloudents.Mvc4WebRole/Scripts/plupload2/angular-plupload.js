@@ -116,7 +116,8 @@
 	                    fileSize: file.size,
 	                    boxId: iAttrs.boxId,
 	                    tabId: iAttrs.tabId || null,
-                        question: iAttrs.newQuestion === 'true'
+	                    question: iAttrs.newQuestion === 'true',
+	                    isComment: iAttrs.questionId && iAttrs.questionId.length
 	                };
 
 	                $rootScope.$broadcast('BeforeUpload');

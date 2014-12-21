@@ -79,7 +79,9 @@
                             fileName: file.name,
                             fileSize: file.size,
                             boxId: $scope.currentBoxId,
-                            question: file.newQuestion
+                            question: file.newQuestion,
+                            isComment: file.questionId && file.questionId.length
+
                         };
 
 
