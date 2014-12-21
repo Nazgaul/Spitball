@@ -85,6 +85,7 @@
     }, false);
 
     function getItem() {
+        index1 = 0;
         dataContext.getItem({
             data: { BoxId: boxid, itemId: itemid, uniName: location.pathname.split('/')[2] },
             success: function (data) {
