@@ -1,8 +1,15 @@
-﻿
-app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin',
-    function ($scope, $timeout, $location, debounce, sSearch, sUserDetails, textDirectionService, $analytics, sLogin) {
+﻿app.controller('SearchHeaderCtrl',
+    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin', '$route',
+    function ($scope, $timeout, $location, debounce, sSearch, sUserDetails, textDirectionService, $analytics, sLogin, $route) {
         "use strict";
+
+        var routeName = $route.current.$$route.params.type,
+            isSearchPage;
+
+        if (routeName === 'search') {
+            isSearchPage = true;
+        }
+
         $scope.params = {
             maxItems: 6,
             minItems: 3,
@@ -19,20 +26,22 @@ app.controller('SearchHeaderCtrl',
         $scope.formData = {};
 
 
-        //$timeout(function () {
-        //    if ($location.search()['q']) {
-        //        var query = $location.search()['q'];
-        //        if (query) {
-        //            $scope.formData.query = query;
-        //            $scope.params.preventDropDown = true;
-        //            $scope.search();
-        //        }
-        //    }
-        //});
+        $timeout(function () {
+            if ($location.search()['q']) {
+                var query = $location.search()['q'];
+                if (query) {
+                    $scope.formData.query = query;
+                    //$scope.search();
+                }
+            }
+        });
 
 
         var lastQuery, lastResultCount;
         $scope.search = debounce(function () {
+            if (isSearchPage) {
+                return;
+            }
             var query = $scope.formData.query;
 
             if (!query) {
@@ -86,14 +95,20 @@ app.controller('SearchHeaderCtrl',
             if (!sUserDetails.isAuthenticated()) {
                 sLogin.registerAction();
                 return;
+            }            
+            if (isSearchPage) {
+                return;
             }
-
             if ($scope.formData.query && $scope.formData.query.length) {
                 $scope.params.showDropdown = true;
             }
         };
 
         $scope.searchFocusout = function () {
+            if (isSearchPage) {
+                return;
+            }
+
             if ($scope.params.hover) {
                 return;
             }
@@ -108,21 +123,21 @@ app.controller('SearchHeaderCtrl',
             $scope.params.textDirection = textDirectionService.isRTL(v) ? 'rtl' : 'ltr';
         });
 
-        //$scope.$on('$routeChangeStart', function () {
-        //    $scope.params.showDropdown = false;
-        //    $scope.formData.query = null;
-        //});
+        $scope.$on('$routeChangeStart', function () {
+            $scope.params.preventDropDown = $scope.params.showDropdown = false;
+            $scope.formData.query = null;
+        });
 
-        //$scope.$on('$routeUpdate', function () {
-        //    $scope.params.showDropdown = false;
-        //    $scope.params.preventDropDown = true;
-        //    $scope.searchResults = {
-        //        boxes: [],
-        //        items: [],
-        //        people: [],
-        //        otherItems: []
-        //    };
-        //});
+        $scope.$on('$routeUpdate', function () {
+            $scope.params.showDropdown = false;
+            $scope.params.preventDropDown = true;
+            $scope.searchResults = {
+                boxes: [],
+                items: [],
+                people: [],
+                otherItems: []
+            };
+        });
 
         //$scope.openSearch = function () {
         //    $scope.params.isOpen = true;
@@ -134,8 +149,8 @@ app.controller('SearchHeaderCtrl',
 
 
         function parseData(data) {
-            if (!lastResultCount) {                
-                lastResultCount = $scope.resultCount();                
+            if (!lastResultCount) {
+                lastResultCount = $scope.resultCount();
                 appendData();
                 return;
             }
