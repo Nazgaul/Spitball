@@ -727,7 +727,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return JsonOk();
+                return JsonOk(new { Culture = CultureInfo.CurrentCulture.Name });
             }
             var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
             return JsonOk(retVal);
