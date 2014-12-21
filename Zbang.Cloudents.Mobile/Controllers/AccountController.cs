@@ -111,7 +111,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
             try
             {
                 var cookie = new CookieHelper(HttpContext);
-                LogInUserDto user;
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(token);
                 if (facebookUserData == null)
@@ -119,7 +118,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
                 var query = new GetUserByFacebookQuery(facebookUserData.id);
-                user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                LogInUserDto user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 if (user == null)
                 {
 

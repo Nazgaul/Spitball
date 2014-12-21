@@ -4,7 +4,6 @@
     }
 
     var $welcomeDialog = $('#welcomeDialog'),
-        popup = $welcomeDialog.find('.popupWrppr'),
         $btnPrev = $welcomeDialog.find('.btnPrev'),
         $btnShow = $welcomeDialog.find('.btnNext'),
         position = 1,
