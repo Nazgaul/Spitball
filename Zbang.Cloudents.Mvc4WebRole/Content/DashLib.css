@@ -605,8 +605,7 @@
   display: block;
 }
 .socialInvite .btnWpr {
-  width: 650px;
-  margin: 25px 0 -25px -25px;
+  width: 630px;
   background: #eee;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -616,6 +615,10 @@
 .socialInvite .btnWpr .btn1:before {
   content: attr(data-continue);
   display: block;
+}
+.step .socialInvite .btnWpr {
+  width: 650px;
+  margin: 25px 0 -25px -25px;
 }
 .socialInvite .btn1,
 .socialInvite .btn2 {

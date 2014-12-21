@@ -319,4 +319,7 @@ the entire document? </value>
   <data name="YouEarned" xml:space="preserve">
     <value>you earned</value>
   </data>
+  <data name="WillRemove" xml:space="preserve">
+    <value>Deleting will remove all content and members</value>
+  </data>
 </root>

@@ -316,7 +316,8 @@
   left: auto;
 }
 /*#region social invite */
-.socialInvite .btnWpr {
+.step .socialInvite .btnWpr {
+  width: 650px;
   margin: 25px -25px -25px 0;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {

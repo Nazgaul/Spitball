@@ -617,6 +617,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting will remove all content and members.
+        /// </summary>
+        public static string WillRemove {
+            get {
+                return ResourceManager.GetString("WillRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to you earned.
         /// </summary>
         public static string YouEarned {
