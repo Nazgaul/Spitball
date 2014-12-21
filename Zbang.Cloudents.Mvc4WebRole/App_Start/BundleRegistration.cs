@@ -306,6 +306,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "faq", new[]
                     {
+                        new JsFileWithCdn("~/scripts/jquery.min.js",
+                            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                         new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 }
