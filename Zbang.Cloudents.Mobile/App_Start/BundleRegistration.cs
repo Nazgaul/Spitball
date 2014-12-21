@@ -125,9 +125,9 @@ namespace Zbang.Cloudents.Mobile
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
                             "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-                        //new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                        //new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
-                        //new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
+                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
+                        new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
 
                         //new JsFileWithCdn("~/Scripts/MutationObserver.js"),

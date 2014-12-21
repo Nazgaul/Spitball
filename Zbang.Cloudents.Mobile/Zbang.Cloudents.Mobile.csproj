@@ -1862,7 +1862,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Box\_CreateTab.cshtml" />
-    <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Account\Register.mobile.cshtml" />
     <Content Include="Views\Account\LogOn.mobile.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
@@ -1932,7 +1931,6 @@
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
-    <Content Include="Views\Box\Settings.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
