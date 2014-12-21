@@ -47,6 +47,9 @@
 .modal .inviteMsg {
   padding: 8px 11px 5px 8px;
 }
+.modal .slash:before {
+  content: '\';
+}
 .boxInvitePopup .socialInvite {
   float: right;
 }

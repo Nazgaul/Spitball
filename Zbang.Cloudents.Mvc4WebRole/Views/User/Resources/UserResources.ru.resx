@@ -162,6 +162,10 @@
   <data name="PointsTxt1" xml:space="preserve">
     <value>100 очков - за загрузку файла</value>
   </data>
+  <data name="PointsTxt10" xml:space="preserve">
+    <value>50 очков каждого принятого приглашения присоединиться к курсу 
+</value>
+  </data>
   <data name="PointsTxt2" xml:space="preserve">
     <value>150 очков - за ответ на приглашения друга</value>
   </data>

@@ -210,6 +210,12 @@
         color:@textColor;
         border-radius: 3px;
     }
+    .slash {
+        &:before {
+            content: '/'; //rtl - reverse the slash
+            display: inline-block;
+        }
+    }
 }
 .libChoosePopUp {
     //width: 600px;

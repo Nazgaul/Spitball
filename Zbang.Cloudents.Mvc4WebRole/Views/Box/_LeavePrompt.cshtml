@@ -3,7 +3,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
 <div class="modal-header">
-    <h3 class="modal-title"><span>@SharedResources.Unfollow @SharedResources.Or @SharedResources.Delete</span></h3>
+    <h3 class="modal-title"><span>@SharedResources.Unfollow<span class="slash"></span>@SharedResources.Delete</span></h3>
 </div>
 <div class="modal-body">
     <section class="changeName clearfix">
@@ -14,7 +14,7 @@
         <header>@SharedResources.Delete {Box name here}</header>
         <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="disableDelete" ng-model="disableDelete" />
         <label class="cbLabel2" for="delDeptCb">
-            <span>Mark to delete this box</span>
+            <span>@DialogResources.MarkToDelete</span>
             @Html.Svg("~/Images/Defs.svg", "checkmark")
         </label>
         <button type="button" ng-click="delete()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>

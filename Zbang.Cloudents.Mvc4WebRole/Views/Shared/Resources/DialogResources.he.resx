@@ -304,4 +304,7 @@
   <data name="YouEarned" xml:space="preserve">
     <value>הרווחת</value>
   </data>
+  <data name="WillRemove" xml:space="preserve">
+    <value>מחיקה תסיר את כל התוכן והחברים</value>
+  </data>
 </root>

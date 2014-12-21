@@ -671,4 +671,7 @@
   <data name="CodeIncorrect" xml:space="preserve">
     <value>הקוד שהזנת שגוי</value>
   </data>
+  <data name="CodeNumeric" xml:space="preserve">
+    <value>קוד צריך להיות מספרי</value>
+  </data>
 </root>

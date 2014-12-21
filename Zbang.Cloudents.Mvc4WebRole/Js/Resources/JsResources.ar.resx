@@ -664,4 +664,7 @@
   <data name="CodeIncorrect" xml:space="preserve">
     <value>الرمز الذي أدخلته غير صحيح</value>
   </data>
+  <data name="CodeNumeric" xml:space="preserve">
+    <value>وينبغي أن يكون رمز رقمي</value>
+  </data>
 </root>

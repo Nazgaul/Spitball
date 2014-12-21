@@ -322,4 +322,7 @@ the entire document? </value>
   <data name="WillRemove" xml:space="preserve">
     <value>Deleting will remove all content and members</value>
   </data>
+  <data name="MarkToDelete" xml:space="preserve">
+    <value>Mark to delete this box</value>
+  </data>
 </root>

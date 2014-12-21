@@ -190,6 +190,10 @@
   color: #383838;
   border-radius: 3px;
 }
+.modal .slash:before {
+  content: '/';
+  display: inline-block;
+}
 .libChoosePopUp {
   margin: 0 auto;
 }
