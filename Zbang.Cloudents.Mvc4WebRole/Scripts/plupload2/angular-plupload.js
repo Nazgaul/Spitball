@@ -117,7 +117,7 @@
 	                    boxId: iAttrs.boxId,
 	                    tabId: iAttrs.tabId || null,
 	                    question: iAttrs.newQuestion === 'true',
-	                    isComment: iAttrs.questionId && iAttrs.questionId.length
+	                    isComment: iAttrs.questionId && iAttrs.questionId.length > 0
 	                };
 
 	                $rootScope.$broadcast('BeforeUpload');
