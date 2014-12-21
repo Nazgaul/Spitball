@@ -1,8 +1,8 @@
 ﻿mBox.controller('LeavePromptCtrl',
-    ['$scope', '$modalInstance', '$location', 'sBox',
-function ($scope, $modalInstance, $location, sBox) {
+    ['$scope', '$modalInstance',  'data',
+function ($scope, $modalInstance, data) {
     "use strict";
-
+    $scope.name = data.name;
     $scope.delete = function () {
         $modalInstance.close({ 'delete': true });
     };

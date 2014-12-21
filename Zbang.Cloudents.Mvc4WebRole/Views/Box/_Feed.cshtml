@@ -40,7 +40,7 @@
                             <div class="attachActions">
                                 <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
                                 <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachmentQ(question,file)"></button>
-                                <a class="attachDownload" target="_blank" ng-href="{{::file.download}}"></a>
+                                <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
                             </div>
                         </li>
                         <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
@@ -72,7 +72,7 @@
                                     <div class="attachActions">
                                         <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
                                         <button class="attachDelete" type="button" ng-if="::file.isVisible" ng-click="removeAttachmentA(question,answer,file)"></button>
-                                        <a class="attachDownload" target="_blank" ng-href="{{::file.download}}"></a>
+                                        <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
                                     </div>
                                 </li>
                             </ul>

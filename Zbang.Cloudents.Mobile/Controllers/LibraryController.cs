@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         //[UserNavNWelcome]
         [HttpGet]
-        [RedirectToDekstopSite]
+        [RedirectToDesktopSite]
         public ActionResult Index()
         {
             return new EmptyResult();
@@ -28,7 +28,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         
         //TODO: put output cache
         [HttpGet]
-        [RedirectToDekstopSite]
+        [RedirectToDesktopSite]
         public ActionResult Choose()
         {
             return new EmptyResult();

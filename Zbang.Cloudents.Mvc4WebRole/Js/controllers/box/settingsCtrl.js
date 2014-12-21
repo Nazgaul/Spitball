@@ -60,18 +60,19 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
                             remove(true);
                             return;
                         }
-
                         remove();
-
                     }
+                },
+                data: {
+                    name: $scope.info.name
                 }
             });
             return;
         }
 
-        
+
         remove();
-        
+
 
         $analytics.eventTrack('Box Settings', {
             category: 'Delete/Unfollow',
@@ -96,7 +97,7 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
 
         if ($scope.info.userType === 'owner') {
             return resManager.get('Delete');
-        }    
+        }
 
         return resManager.get('LeaveGroup');
     };
