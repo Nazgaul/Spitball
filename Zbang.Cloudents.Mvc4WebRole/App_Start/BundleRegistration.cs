@@ -278,6 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "static", new[]
                     {
                         new JsFileWithCdn("~/Scripts/validatinator.min.js"),
+                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/Js/staticShim.js"),
                         new JsFileWithCdn("~/Js/Logon.js"),
                         new JsFileWithCdn("~/Js/HomePage.js")
