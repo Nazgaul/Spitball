@@ -1,17 +1,16 @@
 ﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
 <div class="modal-header">
     <h3 class="modal-title"><span>@SharedResources.Unfollow<span class="slash"></span>@SharedResources.Delete</span></h3>
 </div>
 <div class="modal-body">
     <section class="changeName clearfix">
-        <header>{Box name here}</header>
+        <header>{{::name}}</header>
         <button type="button" ng-click="leave()" class="rFloat btn1">@SharedResources.Unfollow</button>
     </section>
     <section class="deleteDept clearfix">
-        <header>@SharedResources.Delete {Box name here}</header>
+        <header>@SharedResources.Delete {{::name}}</header>
         <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="disableDelete" ng-model="disableDelete" />
         <label class="cbLabel2" for="delDeptCb">
             <span>@DialogResources.MarkToDelete</span>

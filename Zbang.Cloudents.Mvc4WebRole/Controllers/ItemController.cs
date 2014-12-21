@@ -194,8 +194,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetItemQuery(userId, itemId, boxId);
 
             var item = ZboxReadService.GetItem(query);
-            var command = new SubscribeToSharedBoxCommand(userId, boxId);
-            var t1 = ZboxWriteService.SubscribeToSharedBoxAsync(command);
 
             var filedto = item as FileWithDetailDto;
             if (filedto == null) // link
@@ -214,7 +212,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var blob = m_BlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t2);
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
             {
                 contentType = blob.Properties.ContentType;

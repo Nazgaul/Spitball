@@ -477,24 +477,25 @@
             errorText = errorObj[Object.keys(errorObj)[0]];
             errorElement = form.querySelector('[data-valmsg-for="' + field + '"]');
             resetError(errorElement);
-            appendError(field, errorElement, errorText)
+            appendError(field, errorElement, errorText);
         }
     }
 
     function displayErrors(form, payload) {
         for (var i = 0, l = payload.length ; i < l; i++) {
 
-            summary = payload[i].value[0];
-            errorElement = form.querySelector('[data-valmsg-for="' + payload[i].key + '"]');
+            var summary = payload[i].value[0],
+              errorElement = form.querySelector('[data-valmsg-for="' + payload[i].key + '"]');
             if (!errorElement) {
+                form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>');
                 continue;
             }
             resetError(errorElement);
-            error = payload[i].value[0];
+            var error = payload[i].value[0];
             appendError(payload[i].key, errorElement, error);
 
 
-            form.insertAdjacentHTML('afterbegin', '<div data-error-msg="true" class="validation-summary-errors">' + summary + '</div>');
+            
 
         }
     }
