@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -16,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class UploadController : BaseController
