@@ -1861,36 +1861,34 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Box\_CreateTab.cshtml" />
-    <Content Include="Views\Account\Register.mobile.cshtml" />
-    <Content Include="Views\Account\LogOn.mobile.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
-    <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Shared\_Layout3.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
-    <Content Include="Views\Account\ResetPassword.mobile.cshtml" />
-    <Content Include="Views\Account\Confirmation.mobile.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Dashboard\_PrivateBoxDialog.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Account\Settings.cshtml" />
-    <Content Include="Views\Account\_AccountProfile.mobile.cshtml" />
-    <Content Include="Views\Account\_AccountSettings.mobile.cshtml" />
+    <Content Include="Views\Account\_AccountProfile.cshtml" />
+    <Content Include="Views\Account\_AccountSettings.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Account\Welcome.cshtml" />
-    <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Account\_UserDetail4.cshtml" />
     <Content Include="Views\Item\_PreviewImage.cshtml" />
-    <Content Include="Views\Account\PasswordUpdate.mobile.cshtml" />
+    <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Box\_QnA.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -2454,19 +2452,10 @@
     <Content Include="Views\Account\_AccountNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\_AccountProfile.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\_AccountSettings.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\_AccountStorage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\_UserDetail3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\LogOn.cshtml" />
