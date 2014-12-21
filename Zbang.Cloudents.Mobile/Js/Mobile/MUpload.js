@@ -24,9 +24,9 @@
                 uploadObj();
             }
             else {
-                $('#AddFiles').click(function () {
+                $('#AddFiles').click(function() {
                     cd.notification('your browser doesnt support upload');
-                })
+                });
             }
         }
     });
@@ -68,13 +68,10 @@
 
         uploader.bind('BeforeUpload', function (up, file) {
             try {
-                up.settings.multipart_params.BoxUid = boxToUpload.id;
-                up.settings.multipart_params.fileId = file.id;
+                up.settings.multipart_params.BoxId = boxToUpload.id;
                 up.settings.multipart_params.fileName = file.name;
                 up.settings.multipart_params.fileSize = file.size;
                 up.settings.multipart_params.tabId = boxToUpload.tabid;
-                up.settings.multipart_params.UniName = cd.getParameterFromUrl(1);
-                up.settings.multipart_params.BoxName = cd.getParameterFromUrl(3);
             }
             catch (err) {
             }
