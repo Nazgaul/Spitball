@@ -84,9 +84,16 @@
         .transition(margin .2s .5s);
         position: relative; //img to move on hover
         &.rcFull {
-            .prof:after {
-                content: '\00a0' '|' '\00a0';
-                color: @textColor;
+            .prof{
+                max-width: 130px; 
+                display: inline-block;
+                vertical-align: bottom;
+            }
+            .courseId {
+                &:before {
+                    content: '\00a0' '|' '\00a0';
+                    color: @textColor;
+                }
             }
         }
     }
@@ -118,15 +125,18 @@
         line-height: 16px;
         -ms-word-break: break-word;
         word-break: break-word;
+        
     }
 
     .prof {
         font-size: 13px;
     }
-
+    .vCentered {
+        max-width: 200px;
+    }
     .courseId {
-        width: 200px;
-        display: inline-block;
+        //width: 200px;
+        //display: inline-block;
     }
 
     .friends, .files {

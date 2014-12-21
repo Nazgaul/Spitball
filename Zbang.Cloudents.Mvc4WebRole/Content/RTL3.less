@@ -14,51 +14,6 @@
 
 /*#region Modal.css */
 .modal {
-    &.boxInvitePopup {
-        .socialInvite {
-            float: right; //rtl
-        }
-        .closeDialog {
-            left: 8px; //rtl
-            right: auto;
-        }
-        .invSidebar {
-            margin: 0 0 0 30px; //rtl
-        }
-    }
-    &.rename, &.itemReg, &.congrats, &.welcome.popupOffset {
-        padding: 0 @leftSideBarWidth 0 0; //rtl
-    }
-    &.itemReg {
-        .modal-header {
-            svg {
-                right:0; //rtl
-                left: auto;
-            }
-            h3 {
-                padding: 0 50px 0 0; //rtl
-            }
-        }
-    }
-    &.deptSettings {
-        .changeName {
-            .lFloat {
-                padding: 0 35px 0 0; //rtl
-                &:before {
-                    right: 0; //rtl
-                    left: auto;
-                    padding-top: 5px; //diff rtl
-                }
-            }
-        }
-    }
-    &.flagItem {
-        .modal-dialog {
-            right: 220px; //rtl
-        left: auto; //rtl
-            }
-        
-    }
     .closeDialog {
         left: 0; /*rtl*/
         right: auto;
@@ -97,6 +52,54 @@
     .inviteMsg {
         padding: 8px 11px 5px 8px; //rtl
     }
+    .slash {
+        &:before {
+            content: ~"'\'"; //rtl - reverse the slash
+        }
+    }
+}
+
+.boxInvitePopup {
+        .socialInvite {
+            float: right; //rtl
+        }
+        .closeDialog {
+            left: 8px; //rtl
+            right: auto;
+        }
+        .invSidebar {
+            margin: 0 0 0 30px; //rtl
+        }
+    }
+.rename, .itemReg, .congrats, .welcome.popupOffset {
+    padding: 0 @leftSideBarWidth 0 0; //rtl
+}
+.itemReg {
+    .modal-header {
+        svg {
+            right:0; //rtl
+            left: auto;
+        }
+        h3 {
+            padding: 0 50px 0 0; //rtl
+        }
+    }
+}
+.deptSettings, .leavePrompt {
+    .alert {
+        padding: 0 35px 0 0; //rtl
+        &:before {
+            right: 0; //rtl
+            left: auto;
+            padding-top: 5px; //diff rtl
+        }
+    }
+}
+.flagItem {
+    .modal-dialog {
+        right: 220px; //rtl
+        left: auto; //rtl
+    }       
 }
 
 .modal2 {
@@ -364,7 +367,10 @@
 /*#region social invite */
 .socialInvite {
     .btnWpr {
-        margin: 25px -25px -25px 0; //rtl
+        .step & {
+            width: 650px;
+            margin: 25px -25px -25px 0; //rtl
+        }
     }
     &.js-cloudState {
         .socialContentWpr:before {

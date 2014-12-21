@@ -162,6 +162,9 @@
   <data name="PointsTxt1" xml:space="preserve">
     <value>100 نقاط لتحميل عنصر إلى الوحدة</value>
   </data>
+  <data name="PointsTxt10" xml:space="preserve">
+    <value>50 قرشا قبلت كل دعوة للانضمام إلى وحدة نمطية</value>
+  </data>
   <data name="PointsTxt2" xml:space="preserve">
     <value>150 نقطة لقبول إحالة صديق </value>
   </data>

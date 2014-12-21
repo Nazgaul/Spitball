@@ -13,7 +13,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
-    [RedirectToDekstopSite]
+    [RedirectToDesktopSite]
     [AllowAnonymous]
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class StoreController : BaseController

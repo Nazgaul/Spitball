@@ -303,4 +303,8 @@
   <data name="YouEarned" xml:space="preserve">
     <value>вы заработали</value>
   </data>
+  <data name="WillRemove" xml:space="preserve">
+    <value>Удаление приведет к удалению всего содержимого и участников
+</value>
+  </data>
 </root>

@@ -346,6 +346,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark to delete this box.
+        /// </summary>
+        public static string MarkToDelete {
+            get {
+                return ResourceManager.GetString("MarkToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message required.
         /// </summary>
         public static string MessageRequired {
@@ -613,6 +622,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string ViewEntire {
             get {
                 return ResourceManager.GetString("ViewEntire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting will remove all content and members.
+        /// </summary>
+        public static string WillRemove {
+            get {
+                return ResourceManager.GetString("WillRemove", resourceCulture);
             }
         }
         

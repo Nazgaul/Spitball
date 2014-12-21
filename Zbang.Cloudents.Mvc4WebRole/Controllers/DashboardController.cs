@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -30,6 +32,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
+            var x = new Microsoft.ApplicationInsights.TelemetryClient();
+            x.TrackEvent("Dashboard");
             return View("Empty");
         }
 
@@ -48,8 +52,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             try
             {
+                var x = new Microsoft.ApplicationInsights.TelemetryClient();
+                var sw = new Stopwatch();
+                sw.Start();
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetUserBoxes(query);
+                sw.Stop();
+                x.TrackEvent("BoxList", null, new Dictionary<string, double> { { "value", sw.ElapsedMilliseconds } });
 
                 return JsonOk(data);
             }

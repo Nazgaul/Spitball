@@ -601,4 +601,7 @@
     <value>Лучшее в школе
 </value>
   </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Отменить следование</value>
+  </data>
 </root>

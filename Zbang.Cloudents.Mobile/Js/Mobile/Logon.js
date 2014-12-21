@@ -1,10 +1,7 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (cd, $) {
-    if (window.scriptLoaded.isLoaded('logon')) {
-        return;
-    }
-
     "use strict";
+   
     function registerEvents() {
         cd.putPlaceHolder();
         //drop downs
@@ -81,9 +78,9 @@
             cd.setCookie('lang', $(this).data('language'), 10);
         });
         //mobile view
-        $('#langSelect').val(cd.getCookie('lang') || $('option[value^="'+$('body').attr('data-lang')+'"]').val()).change(function () {
+        $('#langSelect').val($('option[value^="'+$('body').attr('data-lang')+'"]').val()).change(function () {
             cd.setCookie('lang', $(this).val(), 10);
-            location.reload();
+            window.location.href = this.selectedOptions ? this.selectedOptions[0].getAttribute('data-href') : this.options[this.selectedIndex].getAttribute('data-href');
         });
         cd.orientationDetection();
 
@@ -144,11 +141,11 @@
                         type: 'POST',
                         success: function (data) {
                             if (data.success) {
-                                window.location.href = data.Payload || "/";
+                                window.location.href = data.payload || "/";
                                 return;
                             }
                             cd.resetErrors($form);
-                            cd.displayErrors($form, data.Payload);
+                            cd.displayErrors($form, data.payload);
                             $submit.removeAttr('disabled');
                         },
                         error: function () {
@@ -188,7 +185,7 @@
                     alert('there is a problem signing you in with facebook');
                     return;
                 }
-                var obj = data.Payload;
+                var obj = data.payload;
                 if (obj.isnew) {
                     FB.api('/me', function (response) {
                         var locale = response.locale.substr(0, response.locale.indexOf('_')),

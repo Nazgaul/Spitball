@@ -9,7 +9,7 @@
         <header>@MainViewResources.ChangeName</header>
         <form ng-submit="renameDepartment()">
             <input class="inputText" type="text" select-on-click ng-model="formdata.newName" autofocus required />
-            <div class="lFloat">@MainViewResources.CanConfuse</div>
+            <div class="lFloat alert">@MainViewResources.CanConfuse</div>
             <input type="submit" class="btn1 next rFloat" ng-disabled="disable()" value="@SharedResources.Save">
         </form>
     </section>

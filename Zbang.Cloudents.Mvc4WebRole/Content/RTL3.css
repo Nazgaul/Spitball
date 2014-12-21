@@ -14,41 +14,6 @@
 }
 /*#endregion*/
 /*#region Modal.css */
-.modal.boxInvitePopup .socialInvite {
-  float: right;
-}
-.modal.boxInvitePopup .closeDialog {
-  left: 8px;
-  right: auto;
-}
-.modal.boxInvitePopup .invSidebar {
-  margin: 0 0 0 30px;
-}
-.modal.rename,
-.modal.itemReg,
-.modal.congrats,
-.modal.welcome.popupOffset {
-  padding: 0 290px 0 0;
-}
-.modal.itemReg .modal-header svg {
-  right: 0;
-  left: auto;
-}
-.modal.itemReg .modal-header h3 {
-  padding: 0 50px 0 0;
-}
-.modal.deptSettings .changeName .lFloat {
-  padding: 0 35px 0 0;
-}
-.modal.deptSettings .changeName .lFloat:before {
-  right: 0;
-  left: auto;
-  padding-top: 5px;
-}
-.modal.flagItem .modal-dialog {
-  right: 220px;
-  left: auto;
-}
 .modal .closeDialog {
   left: 0;
   /*rtl*/
@@ -81,6 +46,46 @@
 }
 .modal .inviteMsg {
   padding: 8px 11px 5px 8px;
+}
+.modal .slash:before {
+  content: '\';
+}
+.boxInvitePopup .socialInvite {
+  float: right;
+}
+.boxInvitePopup .closeDialog {
+  left: 8px;
+  right: auto;
+}
+.boxInvitePopup .invSidebar {
+  margin: 0 0 0 30px;
+}
+.rename,
+.itemReg,
+.congrats,
+.welcome.popupOffset {
+  padding: 0 290px 0 0;
+}
+.itemReg .modal-header svg {
+  right: 0;
+  left: auto;
+}
+.itemReg .modal-header h3 {
+  padding: 0 50px 0 0;
+}
+.deptSettings .alert,
+.leavePrompt .alert {
+  padding: 0 35px 0 0;
+}
+.deptSettings .alert:before,
+.leavePrompt .alert:before {
+  right: 0;
+  left: auto;
+  padding-top: 5px;
+}
+.flagItem .modal-dialog {
+  right: 220px;
+  left: auto;
 }
 .modal2 {
   right: 0;
@@ -314,7 +319,8 @@
   left: auto;
 }
 /*#region social invite */
-.socialInvite .btnWpr {
+.step .socialInvite .btnWpr {
+  width: 650px;
   margin: 25px -25px -25px 0;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {

@@ -10,7 +10,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
-        private static IDictionary<string, IEnumerable<string>> RegisterCss()
+        private static IEnumerable<KeyValuePair<string, IEnumerable<string>>> RegisterCss()
         {
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             return cssDictionary;
         }
 
-        private static IDictionary<string, IEnumerable<JsFileWithCdn>> RegisterJs()
+        private static IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> RegisterJs()
         {
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
@@ -102,6 +102,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
+                        new JsFileWithCdn("~/scripts/angular-appinsights.js"),
                         new JsFileWithCdn("/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/scripts/stacktrace.js"),
                     }
@@ -278,6 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "static", new[]
                     {
                         new JsFileWithCdn("~/Scripts/validatinator.min.js"),
+                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/Js/staticShim.js"),
                         new JsFileWithCdn("~/Js/Logon.js"),
                         new JsFileWithCdn("~/Js/HomePage.js")
@@ -306,6 +308,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "faq", new[]
                     {
+                        new JsFileWithCdn("~/scripts/jquery.min.js",
+                            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                         new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 }

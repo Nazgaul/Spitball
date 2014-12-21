@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxInviteCtrl',
-        ['$scope', '$q', '$modalInstance','$analytics', 'sShare', 'sFacebook', 'data','sNotify',
-        function ($scope, $q, $modalInstance, $analytics, sShare, sFacebook, data,sNotify) {
+        ['$scope', '$q', '$modalInstance', '$analytics', 'sShare', 'sFacebook', 'data', 'sNotify',
+        function ($scope, $q, $modalInstance, $analytics, sShare, sFacebook, data, sNotify) {
             "use strict";
             $scope.box = data;
 
@@ -9,7 +9,7 @@
             };
 
             $scope.cancel = function () {
-                $modalInstance.dismiss();                
+                $modalInstance.dismiss();
             };
 
             $scope.invite = function (contact) {
@@ -18,14 +18,14 @@
                     label: 'User invited a friend to box from google or cloudents'
                 });
 
-                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {                    
+                sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {
                 }, function () {
                     sNotify.alert('Error');
                 });
             };
 
             $scope.inviteFacebook = function (contact) {
-                
+
 
                 var dfd = $q.defer();
 

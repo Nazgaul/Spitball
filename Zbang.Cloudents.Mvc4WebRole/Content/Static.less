@@ -384,6 +384,8 @@ body {
         display: block;
         position: absolute;
         top: @header-height;
+        left:0;right:0;
+        margin: auto;
     }
 
     h1 {
@@ -424,12 +426,12 @@ body {
     &.staticPage {
         text-align: left; /*rtl*/
         color: @textColor;
-        background: url(/Images/gray_jean80.png?v=1) repeat;
-
-        min-height: 100vh;
+        background: #eee;
         .boxSizing;
         padding-top: @header-height;
         margin: -115px 0 -@header-height;
+        min-height: 100vh;
+        width: 100%;
     }
 
     .contactLink {
@@ -651,5 +653,23 @@ footer {
     a:hover {
         text-decoration: underline;
     }
+}
+/* #endregion */
+
+/*#region  static popup */
+
+.desktop .lastName+.field-validation-error {
+    margin-top: 72px;
+    display: block;
+}
+.register .field-validation-error, .register .validation-summary-errors {
+    position: absolute;
+    margin-top: -17px;
+}
+.firstError.field-validation-error {
+    margin-top: -3px;
+}
+.desktop .firstName+.field-validation-error {
+    margin: 13px 0 0 4%; //rtl
 }
 /*#endregion */

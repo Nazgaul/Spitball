@@ -300,4 +300,10 @@
   <data name="YouEarned" xml:space="preserve">
     <value>لقد ربحت</value>
   </data>
+  <data name="ReachTop" xml:space="preserve">
+    <value>تريد أن تصل إلى أعلى الرسم البياني؟</value>
+  </data>
+  <data name="WillRemove" xml:space="preserve">
+    <value>سوف حذف إزالة كافة المحتويات وأعضاء</value>
+  </data>
 </root>

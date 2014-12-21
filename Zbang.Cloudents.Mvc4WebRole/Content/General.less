@@ -622,6 +622,14 @@ iframe .couponPopup {
     background: #fff;
     border-radius: 5px;
     padding: 40px 0;
+    .firstName {
+        //margin-top: 17px;
+    }
+    .inputText {
+        &.lastName.lastName {
+            //margin-top: 0; //override
+        }
+    }
 }
 
 .emailBtn {
@@ -651,6 +659,8 @@ iframe .couponPopup {
     position: relative; //FF needs this in order to place the error msgs correctly
     .firstError {
         left:0; /*rtl*/
+        position: relative;
+        top: 17px;
     }
     .field-validation-error, .validation-summary-errors {
         font-size: 13px;
@@ -787,6 +797,7 @@ iframe .couponPopup {
     }
     .firstName {
         //width: 100%;
+
     }
     /*.field-validation-valid {
         //visibility: hidden;
