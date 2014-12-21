@@ -1,8 +1,11 @@
 ﻿var app;
 (function (angular) {
     "use strict";
-    app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar', 'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
-       'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard', 'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics', 'angulartics.google.analytics']).
+    app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar',
+        'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
+       'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard',
+       'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics',
+       'angulartics.google.analytics', 'angular-appinsights']).
    config([
        '$routeProvider',
        '$locationProvider',
@@ -10,7 +13,9 @@
        '$tooltipProvider',
        '$provide',
        '$angularCacheFactoryProvider',
-       function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide, $angularCacheFactoryProvider) {
+       'insightsProvider',
+       function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide,
+           $angularCacheFactoryProvider, insightsProvider) {
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
            $angularCacheFactoryProvider.setCacheDefaults({
@@ -304,6 +309,7 @@
            }
 
            //#endregion
+           insightsProvider.start('f877396f-f06b-4b06-890d-242282700508');
 
 
            //#region log js errors 

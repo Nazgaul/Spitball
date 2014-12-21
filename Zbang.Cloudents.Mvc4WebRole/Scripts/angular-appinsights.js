@@ -16,9 +16,9 @@
                 _appId = appId;
                 _appName = appName || '(Application Root)';
 
-                if (appInsights && appId) {
-                    appInsights.start(appId);
-                }
+                //if (appInsights && appId) {
+                //  //  appInsights.start(appId);
+                //}
 
             };
 
@@ -27,7 +27,7 @@
                 var _logEvent = function (event, properties, property) {
 
                     if (appInsights && _appId) {
-                        appInsights.logEvent(event, properties, property);
+                        appInsights.trackEvent(event, properties, property);
                     }
 
                 },
@@ -35,7 +35,7 @@
                 _logPageView = function (page) {
 
                     if (appInsights && _appId) {
-                        appInsights.logPageView(page);
+                        appInsights.trackPageView(page);
                     }
 
                 };

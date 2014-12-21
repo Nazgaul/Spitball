@@ -1956,7 +1956,6 @@
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
@@ -1974,10 +1973,6 @@
     </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-delegatedEvents.js" />
-    <Content Include="Scripts\knockout-delegatedEvents.min.js">
-      <DependentUpon>knockout-delegatedEvents.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\plupload\plupload.browserplus.js" />
     <Content Include="Scripts\plupload\plupload.flash.js" />
@@ -2022,7 +2017,6 @@
     <Content Include="Views\Library\_SelectUni.cshtml" />
     <Content Include="Views\Box\_CreateTab.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
-    <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />

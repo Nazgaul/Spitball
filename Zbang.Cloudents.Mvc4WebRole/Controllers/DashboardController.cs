@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -57,8 +58,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetUserBoxes(query);
                 sw.Stop();
-                x.TrackMetric("BoxList", sw.ElapsedMilliseconds);
-                
+                x.TrackEvent("BoxList", null, new Dictionary<string, double> { { "value", sw.ElapsedMilliseconds } });
+
                 return JsonOk(data);
             }
             catch (Exception ex)
