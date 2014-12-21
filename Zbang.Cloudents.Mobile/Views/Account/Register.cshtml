@@ -3,7 +3,7 @@
 @model Zbang.Cloudents.Mobile.Models.Account.Register
 
 
-@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+@using (Html.BeginForm("Register", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post,
     new { @class = "register registerMobile", id = "registerForm" }
    ))
 {
