@@ -144,12 +144,12 @@
                         data: d,
                         type: 'POST',
                         success: function (data) {
-                            if (data.Success) {
-                                window.location.href = data.Payload || "/";
+                            if (data.success) {
+                                window.location.href = data.payload || "/";
                                 return;
                             }
                             cd.resetErrors($form);
-                            cd.displayErrors($form, data.Payload);
+                            cd.displayErrors($form, data.payload);
                             $submit.removeAttr('disabled');
                         },
                         error: function () {
@@ -184,12 +184,12 @@
                 universityId: cd.getParameterByName('universityId')
             },
             success: function (data) {
-                if (!data.Success) {
+                if (!data.success) {
                     //location.href = '/';
                     alert('there is a problem signing you in with facebook');
                     return;
                 }
-                var obj = data.Payload;
+                var obj = data.payload;
                 if (obj.isnew) {
                     FB.api('/me', function (response) {
                         var locale = response.locale.substr(0, response.locale.indexOf('_')),
