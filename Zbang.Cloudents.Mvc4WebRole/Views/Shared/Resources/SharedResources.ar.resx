@@ -617,4 +617,7 @@
     <value>الأفضل في المدرسة
 </value>
   </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>ازالة المتابعة </value>
+  </data>
 </root>

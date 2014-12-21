@@ -27,317 +27,7 @@
     .modal-dialog {
         width: 600px;
     }
-    &.libChoosePopUp {
-        //width: 600px;
-        margin: 0 auto;
-        .modal-dialog {
-            padding:0;
-        }
-        .modal-content {
-            width: 600px;
-        }
-    }
-    &.newDpt {
-        //width: 600px;
-        .modal-dialog {
-            //background: #fff;
-        }
-    }
-    &.createWizard {
-        .modal-dialog {
-            width: 650px;
-        }
-    }
-    &.boxInvitePopup {
-        //width: 980px;
-        //height: 584px;
-        .modal-dialog {
-            padding: 0;
-            width: 980px;
-        }
-        .modal-body {
-            padding: 12px;
-            background: #282828;
-        }
-        .socialInvite {
-            float: left; //rtl
-            background: #fff;
-            width: 630px;
-            height: 560px;
-            header {
-                padding-top: 20px;
-            }
-        }
-        .socialWpr .fbBtn {
-            margin: 15px 48px 33px 48px; //for the arrows
-        }
-        .socialContentWpr {
-            margin: 0 0 -21px 0;
-            height: 364px;
-        }
-        .socialConnect {
-            //padding: 20px 0 125px;
-            .boxSizing;
-            min-height: 305px;
-            padding-top: 30px;
-        }
-        .btnWpr {
-            width: 100%;
-            margin: 0; //override
-            position: relative;
-            bottom:-21px; //bug 2888
-            .btn1:before {
-                content: attr(data-done);
-                display: block;
-            }
-        }
-        .closeDialog {
-            right: 8px; //rtl
-            top: 10px;
-        }
-        .invSidebar {
-            margin-right: 30px; //rtl
-        }
-        .invForm {
-            .btn1 {
-                margin-top: 0;
-            }
-
-            h3 {
-                color: #fff;
-            }
-        }
-    }
-    &.welcome {
-        text-align: center;
-        .modal-dialog.modal-dialog {           
-            width: 450px;  
-            .transition(none);                   
-        }
-        .modal-body {            
-            border-radius: 6px;
-            overflow:hidden;
-        }
-        .svg-close {
-            //fill: @borderColor;
-            fill: #282828;
-        }
-        .emailBtn {
-            border: 1px solid @borderColor;
-        }
-    }
     
-    &.congrats {
-        font-family: Arial;
-        font-weight: bold;
-        .modal-dialog {
-            width: 500px;
-            height: 300px;
-            background: url(/Images/points-Bg.png) no-repeat;
-        }
-        .modal-body {
-            background: none; //override
-            text-align: center;
-        }
-        .svg-close {
-            fill: #282828;
-        }
-    }
-    &.rename, &.itemReg, &.congrats, &.welcome.popupOffset {
-        padding-left: @leftSideBarWidth; //rtl
-        .boxSizing;
-    }
-    &.itemReg {
-        font-family: Arial;
-        .modal-dialog {
-            width: 500px;
-        }
-        .modal-header {
-            height: 80px;
-            background: #e1e1e1;
-            text-align: center;
-            border-radius: 6px 6px 0 0;
-            svg {
-                width: 46px;
-                height: 50px;
-                fill: @color;
-                display: inline-block;
-                //top: 15px;
-                top: 50px;
-                left:0; //rtl
-                position: absolute;
-            }
-            h3 {
-                width: auto; //override
-                font-size: 22px;
-                line-height: 24px;
-                color: @color;
-                display: inline-block;
-                vertical-align: top;
-                background: none;//override
-                font-weight: bold;
-                white-space: pre-line;
-                position: relative;
-                //top: 0;
-                top: -36px;
-                padding: 0 0 0 50px; //rtl //override
-                .boxSizing;
-            }
-        }
-        .modal-body {
-            text-align: center;
-        }
-        .itemRegTxt1 {
-            text-align: center;
-            white-space: pre-line;
-            font-size: 16px;
-            line-height: 20px;
-        }
-        .itemRegTxt2 {
-            text-align: center;
-            border-bottom: 1px solid #e1e1e1;
-            margin: 0 -20px;
-            padding-bottom: 15px;
-        }
-        .svg-logo {
-            width: 147px;
-            height: 26px;
-            fill: @color;
-            margin: 0 auto 20px;
-            display: block;
-        }
-        .btn1 {
-            margin-bottom: 5px;
-        }
-        .svg-close {
-            fill: #282828;
-        }
-    }
-    &.boxSettings
-    {
-        max-height:none;
-        padding-bottom:0;
-        //width: 700px; 
-        .modal-dialog {
-            width: 700px;
-        }     
-        .memberName{
-            width: 212px;
-        }
-    }
-    &.dashMembers {
-        .memberItem{
-            width: 49%;
-            display: inline-block;
-        }
-    }
-    &.uploadLink {
-        .modal-dialog {
-            //background: #fff;
-        }
-    }
-    &.createTab {
-        .btn1 {
-            text-transform: capitalize;
-        }
-    }
-    &.deptSettings {
-        //width: 600px;
-        header {
-            color: @color;
-            font-size: 18px;
-            margin: 5px 0;
-        }
-        .changeName {
-            .lFloat {
-                margin-top: 15px;
-                position: relative;
-                padding-left: 35px; //rtl
-                //width: 310px;
-                white-space:pre-line;
-                line-height: 14px;
-                &:before {
-                    content: '!';
-                    display: inline-block;
-                    color: #fff;
-                    font-size: 15px;
-                    width: 23px;
-                    height: 23px;
-                    text-align: center;
-                    padding-top: 4px; //diff rtl
-                    .boxSizing;
-                    background: @color;
-                    border-radius: 100%;
-                    vertical-align: top;
-                    position: absolute;
-                    top: 3px;
-                    left: 0; //rtl
-                }
-            }
-        }
-        .deleteDept {
-            border-top: 1px solid @color;
-            margin-top: 20px;
-            header {
-                margin-top: 12px;
-            }
-            
-        }
-        .delDeptBtn {
-            background: #9E0039;
-            border: none;
-            margin-top: 50px;
-            &:disabled {
-                background: #a5a5a5;
-            }
-        }
-        .inputText {
-            height: 45px;
-            font-size: 18px;
-            margin-top: 10px;
-            &::-moz-selection
-            {
-                background: #ABDDC5;
-            }
-            &::selection {
-                background: #ABDDC5;
-            }
-        }
-        .cbLabel2 {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-    }
-    &.flagItem {
-        //width: 570px;
-       
-        top: 0;
-        li {
-            margin-top: 15px;
-        }
-        .modal-dialog {
-            width: 570px;
-             right: auto; //rtl
-        left: 220px;
-        }
-    }
-    &.quitQuiz {
-        //width: 560px;
-        .btn1 {
-            margin-top: 20px;
-            padding: 4px 15px;
-            + .btn1 {
-                margin: 15px 15px 5px 15px;
-            }
-        }
-        .quitQuizTxt {
-            font-size: 15px;
-            margin: 15px 0;
-        }
-        .modal-dialog {
-            width: 560px;
-        }
-    }
     .enterCode {
         font-size: 13px;
         background: #faf9fa;
@@ -521,6 +211,313 @@
         border-radius: 3px;
     }
 }
+.libChoosePopUp {
+    //width: 600px;
+    margin: 0 auto;
+    .modal-dialog {
+        padding:0;
+    }
+    .modal-content {
+        width: 600px;
+    }
+}
+.newDpt {
+    //width: 600px;
+    .modal-dialog {
+        //background: #fff;
+    }
+}
+.createWizard {
+    .modal-dialog {
+        width: 650px;
+    }
+}
+.boxInvitePopup {
+    //width: 980px;
+    //height: 584px;
+    .modal-dialog {
+        padding: 0;
+        width: 980px;
+    }
+    .modal-body {
+        padding: 12px;
+        background: #282828;
+    }
+    .socialInvite {
+        float: left; //rtl
+        background: #fff;
+        width: 630px;
+        height: 560px;
+        header {
+            padding-top: 20px;
+        }
+    }
+    .socialWpr .fbBtn {
+        margin: 15px 48px 33px 48px; //for the arrows
+    }
+    .socialContentWpr {
+        margin: 0 0 -21px 0;
+        height: 364px;
+    }
+    .socialConnect {
+        //padding: 20px 0 125px;
+        .boxSizing;
+        min-height: 305px;
+        padding-top: 30px;
+    }
+    .btnWpr {
+        width: 100%;
+        margin: 0; //override
+        position: relative;
+        bottom:-21px; //bug 2888
+        .btn1:before {
+            content: attr(data-done);
+            display: block;
+        }
+    }
+    .closeDialog {
+        right: 8px; //rtl
+        top: 10px;
+    }
+    .invSidebar {
+        margin-right: 30px; //rtl
+    }
+    .invForm {
+        .btn1 {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #fff;
+        }
+    }
+}
+.welcome {
+    text-align: center;
+    .modal-dialog.modal-dialog {           
+        width: 450px;  
+        .transition(none);                   
+    }
+    .modal-body {            
+        border-radius: 6px;
+        overflow:hidden;
+    }
+    .svg-close {
+        //fill: @borderColor;
+        fill: #282828;
+    }
+    .emailBtn {
+        border: 1px solid @borderColor;
+    }
+}  
+.congrats {
+    font-family: Arial;
+    font-weight: bold;
+    .modal-dialog {
+        width: 500px;
+        height: 300px;
+        background: url(/Images/points-Bg.png) no-repeat;
+    }
+    .modal-body {
+        background: none; //override
+        text-align: center;
+    }
+    .svg-close {
+        fill: #282828;
+    }
+}
+.rename, .itemReg, .congrats, .welcome.popupOffset {
+    padding-left: @leftSideBarWidth; //rtl
+    .boxSizing;
+}
+.itemReg {
+    font-family: Arial;
+    .modal-dialog {
+        width: 500px;
+    }
+    .modal-header {
+        height: 80px;
+        background: #e1e1e1;
+        text-align: center;
+        border-radius: 6px 6px 0 0;
+        svg {
+            width: 46px;
+            height: 50px;
+            fill: @color;
+            display: inline-block;
+            //top: 15px;
+            top: 50px;
+            left:0; //rtl
+            position: absolute;
+        }
+        h3 {
+            width: auto; //override
+            font-size: 22px;
+            line-height: 24px;
+            color: @color;
+            display: inline-block;
+            vertical-align: top;
+            background: none;//override
+            font-weight: bold;
+            white-space: pre-line;
+            position: relative;
+            //top: 0;
+            top: -36px;
+            padding: 0 0 0 50px; //rtl //override
+            .boxSizing;
+        }
+    }
+    .modal-body {
+        text-align: center;
+    }
+    .itemRegTxt1 {
+        text-align: center;
+        white-space: pre-line;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .itemRegTxt2 {
+        text-align: center;
+        border-bottom: 1px solid #e1e1e1;
+        margin: 0 -20px;
+        padding-bottom: 15px;
+    }
+    .svg-logo {
+        width: 147px;
+        height: 26px;
+        fill: @color;
+        margin: 0 auto 20px;
+        display: block;
+    }
+    .btn1 {
+        margin-bottom: 5px;
+    }
+    .svg-close {
+        fill: #282828;
+    }
+}
+.boxSettings
+{
+    max-height:none;
+    padding-bottom:0;
+    //width: 700px; 
+    .modal-dialog {
+        width: 700px;
+    }     
+    .memberName{
+        width: 212px;
+    }
+}
+.uploadLink {
+    .modal-dialog {
+        //background: #fff;
+    }
+}
+.createTab {
+    .btn1 {
+        text-transform: capitalize;
+    }
+}
+.deptSettings, .leavePrompt {
+    //width: 600px;
+    header {
+        color: @color;
+        font-size: 18px;
+        margin: 5px 0;
+    }
+    .alert {
+        margin-top: 15px;
+        position: relative;
+        padding-left: 35px; //rtl
+        //width: 310px;
+        white-space:pre-line;
+        line-height: 14px;
+        &:before {
+            content: '!';
+            display: inline-block;
+            color: #fff;
+            font-size: 15px;
+            width: 23px;
+            height: 23px;
+            text-align: center;
+            padding-top: 4px; //diff rtl
+            .boxSizing;
+            background: @color;
+            border-radius: 100%;
+            vertical-align: top;
+            position: absolute;
+            top: 3px;
+            left: 0; //rtl
+        } 
+    }
+    .deleteDept {
+        border-top: 1px solid @color;
+        margin-top: 20px;
+        header {
+            margin-top: 12px;
+        }
+            
+    }
+    .delDeptBtn {
+        background: #9E0039;
+        border: none;
+        margin-top: 50px;
+        &:disabled {
+            background: #a5a5a5;
+        }
+    }
+    .inputText {
+        height: 45px;
+        font-size: 18px;
+        margin-top: 10px;
+        &::-moz-selection
+        {
+            background: #ABDDC5;
+        }
+        &::selection {
+            background: #ABDDC5;
+        }
+    }
+    .cbLabel2 {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+}
+.leavePrompt {
+    .alert:before {
+        top: -5px;
+    }
+}
+.flagItem {
+    //width: 570px;
+       
+    top: 0;
+    li {
+        margin-top: 15px;
+    }
+    .modal-dialog {
+        width: 570px;
+            right: auto; //rtl
+    left: 220px;
+    }
+}
+.quitQuiz {
+    //width: 560px;
+    .btn1 {
+        margin-top: 20px;
+        padding: 4px 15px;
+        + .btn1 {
+            margin: 15px 15px 5px 15px;
+        }
+    }
+    .quitQuizTxt {
+        font-size: 15px;
+        margin: 15px 0;
+    }
+    .modal-dialog {
+        width: 560px;
+    }
+}
 
 .fade {
     opacity: 0;
@@ -529,7 +526,6 @@
          opacity: 1;
     }
 }
-
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -1321,7 +1317,6 @@
     bottom:8px; 
 }
 /*#endregion */
-
 
 /*#region Share by email AKA message */
 .validateMsg {

@@ -27,286 +27,6 @@
 .modal .modal-dialog {
   width: 600px;
 }
-.modal.libChoosePopUp {
-  margin: 0 auto;
-}
-.modal.libChoosePopUp .modal-dialog {
-  padding: 0;
-}
-.modal.libChoosePopUp .modal-content {
-  width: 600px;
-}
-.modal.createWizard .modal-dialog {
-  width: 650px;
-}
-.modal.boxInvitePopup .modal-dialog {
-  padding: 0;
-  width: 980px;
-}
-.modal.boxInvitePopup .modal-body {
-  padding: 12px;
-  background: #282828;
-}
-.modal.boxInvitePopup .socialInvite {
-  float: left;
-  background: #fff;
-  width: 630px;
-  height: 560px;
-}
-.modal.boxInvitePopup .socialInvite header {
-  padding-top: 20px;
-}
-.modal.boxInvitePopup .socialWpr .fbBtn {
-  margin: 15px 48px 33px 48px;
-}
-.modal.boxInvitePopup .socialContentWpr {
-  margin: 0 0 -21px 0;
-  height: 364px;
-}
-.modal.boxInvitePopup .socialConnect {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  min-height: 305px;
-  padding-top: 30px;
-}
-.modal.boxInvitePopup .btnWpr {
-  width: 100%;
-  margin: 0;
-  position: relative;
-  bottom: -21px;
-}
-.modal.boxInvitePopup .btnWpr .btn1:before {
-  content: attr(data-done);
-  display: block;
-}
-.modal.boxInvitePopup .closeDialog {
-  right: 8px;
-  top: 10px;
-}
-.modal.boxInvitePopup .invSidebar {
-  margin-right: 30px;
-}
-.modal.boxInvitePopup .invForm .btn1 {
-  margin-top: 0;
-}
-.modal.boxInvitePopup .invForm h3 {
-  color: #fff;
-}
-.modal.welcome {
-  text-align: center;
-}
-.modal.welcome .modal-dialog.modal-dialog {
-  width: 450px;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-.modal.welcome .modal-body {
-  border-radius: 6px;
-  overflow: hidden;
-}
-.modal.welcome .svg-close {
-  fill: #282828;
-}
-.modal.welcome .emailBtn {
-  border: 1px solid #c2c2c2;
-}
-.modal.congrats {
-  font-family: Arial;
-  font-weight: bold;
-}
-.modal.congrats .modal-dialog {
-  width: 500px;
-  height: 300px;
-  background: url(/Images/points-Bg.png) no-repeat;
-}
-.modal.congrats .modal-body {
-  background: none;
-  text-align: center;
-}
-.modal.congrats .svg-close {
-  fill: #282828;
-}
-.modal.rename,
-.modal.itemReg,
-.modal.congrats,
-.modal.welcome.popupOffset {
-  padding-left: 290px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.modal.itemReg {
-  font-family: Arial;
-}
-.modal.itemReg .modal-dialog {
-  width: 500px;
-}
-.modal.itemReg .modal-header {
-  height: 80px;
-  background: #e1e1e1;
-  text-align: center;
-  border-radius: 6px 6px 0 0;
-}
-.modal.itemReg .modal-header svg {
-  width: 46px;
-  height: 50px;
-  fill: #0f9d58;
-  display: inline-block;
-  top: 50px;
-  left: 0;
-  position: absolute;
-}
-.modal.itemReg .modal-header h3 {
-  width: auto;
-  font-size: 22px;
-  line-height: 24px;
-  color: #0f9d58;
-  display: inline-block;
-  vertical-align: top;
-  background: none;
-  font-weight: bold;
-  white-space: pre-line;
-  position: relative;
-  top: -36px;
-  padding: 0 0 0 50px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.modal.itemReg .modal-body {
-  text-align: center;
-}
-.modal.itemReg .itemRegTxt1 {
-  text-align: center;
-  white-space: pre-line;
-  font-size: 16px;
-  line-height: 20px;
-}
-.modal.itemReg .itemRegTxt2 {
-  text-align: center;
-  border-bottom: 1px solid #e1e1e1;
-  margin: 0 -20px;
-  padding-bottom: 15px;
-}
-.modal.itemReg .svg-logo {
-  width: 147px;
-  height: 26px;
-  fill: #0f9d58;
-  margin: 0 auto 20px;
-  display: block;
-}
-.modal.itemReg .btn1 {
-  margin-bottom: 5px;
-}
-.modal.itemReg .svg-close {
-  fill: #282828;
-}
-.modal.boxSettings {
-  max-height: none;
-  padding-bottom: 0;
-}
-.modal.boxSettings .modal-dialog {
-  width: 700px;
-}
-.modal.boxSettings .memberName {
-  width: 212px;
-}
-.modal.dashMembers .memberItem {
-  width: 49%;
-  display: inline-block;
-}
-.modal.createTab .btn1 {
-  text-transform: capitalize;
-}
-.modal.deptSettings header {
-  color: #0f9d58;
-  font-size: 18px;
-  margin: 5px 0;
-}
-.modal.deptSettings .changeName .lFloat {
-  margin-top: 15px;
-  position: relative;
-  padding-left: 35px;
-  white-space: pre-line;
-  line-height: 14px;
-}
-.modal.deptSettings .changeName .lFloat:before {
-  content: '!';
-  display: inline-block;
-  color: #fff;
-  font-size: 15px;
-  width: 23px;
-  height: 23px;
-  text-align: center;
-  padding-top: 4px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  background: #0f9d58;
-  border-radius: 100%;
-  vertical-align: top;
-  position: absolute;
-  top: 3px;
-  left: 0;
-}
-.modal.deptSettings .deleteDept {
-  border-top: 1px solid #0f9d58;
-  margin-top: 20px;
-}
-.modal.deptSettings .deleteDept header {
-  margin-top: 12px;
-}
-.modal.deptSettings .delDeptBtn {
-  background: #9E0039;
-  border: none;
-  margin-top: 50px;
-}
-.modal.deptSettings .delDeptBtn:disabled {
-  background: #a5a5a5;
-}
-.modal.deptSettings .inputText {
-  height: 45px;
-  font-size: 18px;
-  margin-top: 10px;
-}
-.modal.deptSettings .inputText::-moz-selection {
-  background: #ABDDC5;
-}
-.modal.deptSettings .inputText::selection {
-  background: #ABDDC5;
-}
-.modal.deptSettings .cbLabel2 {
-  margin: 10px 0;
-  font-size: 18px;
-}
-.modal.flagItem {
-  top: 0;
-}
-.modal.flagItem li {
-  margin-top: 15px;
-}
-.modal.flagItem .modal-dialog {
-  width: 570px;
-  right: auto;
-  left: 220px;
-}
-.modal.quitQuiz .btn1 {
-  margin-top: 20px;
-  padding: 4px 15px;
-}
-.modal.quitQuiz .btn1 + .btn1 {
-  margin: 15px 15px 5px 15px;
-}
-.modal.quitQuiz .quitQuizTxt {
-  font-size: 15px;
-  margin: 15px 0;
-}
-.modal.quitQuiz .modal-dialog {
-  width: 560px;
-}
 .modal .enterCode {
   font-size: 13px;
   background: #faf9fa;
@@ -469,6 +189,296 @@
   box-sizing: border-box;
   color: #383838;
   border-radius: 3px;
+}
+.libChoosePopUp {
+  margin: 0 auto;
+}
+.libChoosePopUp .modal-dialog {
+  padding: 0;
+}
+.libChoosePopUp .modal-content {
+  width: 600px;
+}
+.createWizard .modal-dialog {
+  width: 650px;
+}
+.boxInvitePopup .modal-dialog {
+  padding: 0;
+  width: 980px;
+}
+.boxInvitePopup .modal-body {
+  padding: 12px;
+  background: #282828;
+}
+.boxInvitePopup .socialInvite {
+  float: left;
+  background: #fff;
+  width: 630px;
+  height: 560px;
+}
+.boxInvitePopup .socialInvite header {
+  padding-top: 20px;
+}
+.boxInvitePopup .socialWpr .fbBtn {
+  margin: 15px 48px 33px 48px;
+}
+.boxInvitePopup .socialContentWpr {
+  margin: 0 0 -21px 0;
+  height: 364px;
+}
+.boxInvitePopup .socialConnect {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 305px;
+  padding-top: 30px;
+}
+.boxInvitePopup .btnWpr {
+  width: 100%;
+  margin: 0;
+  position: relative;
+  bottom: -21px;
+}
+.boxInvitePopup .btnWpr .btn1:before {
+  content: attr(data-done);
+  display: block;
+}
+.boxInvitePopup .closeDialog {
+  right: 8px;
+  top: 10px;
+}
+.boxInvitePopup .invSidebar {
+  margin-right: 30px;
+}
+.boxInvitePopup .invForm .btn1 {
+  margin-top: 0;
+}
+.boxInvitePopup .invForm h3 {
+  color: #fff;
+}
+.welcome {
+  text-align: center;
+}
+.welcome .modal-dialog.modal-dialog {
+  width: 450px;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+.welcome .modal-body {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.welcome .svg-close {
+  fill: #282828;
+}
+.welcome .emailBtn {
+  border: 1px solid #c2c2c2;
+}
+.congrats {
+  font-family: Arial;
+  font-weight: bold;
+}
+.congrats .modal-dialog {
+  width: 500px;
+  height: 300px;
+  background: url(/Images/points-Bg.png) no-repeat;
+}
+.congrats .modal-body {
+  background: none;
+  text-align: center;
+}
+.congrats .svg-close {
+  fill: #282828;
+}
+.rename,
+.itemReg,
+.congrats,
+.welcome.popupOffset {
+  padding-left: 290px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.itemReg {
+  font-family: Arial;
+}
+.itemReg .modal-dialog {
+  width: 500px;
+}
+.itemReg .modal-header {
+  height: 80px;
+  background: #e1e1e1;
+  text-align: center;
+  border-radius: 6px 6px 0 0;
+}
+.itemReg .modal-header svg {
+  width: 46px;
+  height: 50px;
+  fill: #0f9d58;
+  display: inline-block;
+  top: 50px;
+  left: 0;
+  position: absolute;
+}
+.itemReg .modal-header h3 {
+  width: auto;
+  font-size: 22px;
+  line-height: 24px;
+  color: #0f9d58;
+  display: inline-block;
+  vertical-align: top;
+  background: none;
+  font-weight: bold;
+  white-space: pre-line;
+  position: relative;
+  top: -36px;
+  padding: 0 0 0 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.itemReg .modal-body {
+  text-align: center;
+}
+.itemReg .itemRegTxt1 {
+  text-align: center;
+  white-space: pre-line;
+  font-size: 16px;
+  line-height: 20px;
+}
+.itemReg .itemRegTxt2 {
+  text-align: center;
+  border-bottom: 1px solid #e1e1e1;
+  margin: 0 -20px;
+  padding-bottom: 15px;
+}
+.itemReg .svg-logo {
+  width: 147px;
+  height: 26px;
+  fill: #0f9d58;
+  margin: 0 auto 20px;
+  display: block;
+}
+.itemReg .btn1 {
+  margin-bottom: 5px;
+}
+.itemReg .svg-close {
+  fill: #282828;
+}
+.boxSettings {
+  max-height: none;
+  padding-bottom: 0;
+}
+.boxSettings .modal-dialog {
+  width: 700px;
+}
+.boxSettings .memberName {
+  width: 212px;
+}
+.createTab .btn1 {
+  text-transform: capitalize;
+}
+.deptSettings header,
+.leavePrompt header {
+  color: #0f9d58;
+  font-size: 18px;
+  margin: 5px 0;
+}
+.deptSettings .alert,
+.leavePrompt .alert {
+  margin-top: 15px;
+  position: relative;
+  padding-left: 35px;
+  white-space: pre-line;
+  line-height: 14px;
+}
+.deptSettings .alert:before,
+.leavePrompt .alert:before {
+  content: '!';
+  display: inline-block;
+  color: #fff;
+  font-size: 15px;
+  width: 23px;
+  height: 23px;
+  text-align: center;
+  padding-top: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #0f9d58;
+  border-radius: 100%;
+  vertical-align: top;
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+.deptSettings .deleteDept,
+.leavePrompt .deleteDept {
+  border-top: 1px solid #0f9d58;
+  margin-top: 20px;
+}
+.deptSettings .deleteDept header,
+.leavePrompt .deleteDept header {
+  margin-top: 12px;
+}
+.deptSettings .delDeptBtn,
+.leavePrompt .delDeptBtn {
+  background: #9E0039;
+  border: none;
+  margin-top: 50px;
+}
+.deptSettings .delDeptBtn:disabled,
+.leavePrompt .delDeptBtn:disabled {
+  background: #a5a5a5;
+}
+.deptSettings .inputText,
+.leavePrompt .inputText {
+  height: 45px;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.deptSettings .inputText::-moz-selection,
+.leavePrompt .inputText::-moz-selection {
+  background: #ABDDC5;
+}
+.deptSettings .inputText::selection,
+.leavePrompt .inputText::selection {
+  background: #ABDDC5;
+}
+.deptSettings .cbLabel2,
+.leavePrompt .cbLabel2 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+.leavePrompt .alert:before {
+  top: -5px;
+}
+.flagItem {
+  top: 0;
+}
+.flagItem li {
+  margin-top: 15px;
+}
+.flagItem .modal-dialog {
+  width: 570px;
+  right: auto;
+  left: 220px;
+}
+.quitQuiz .btn1 {
+  margin-top: 20px;
+  padding: 4px 15px;
+}
+.quitQuiz .btn1 + .btn1 {
+  margin: 15px 15px 5px 15px;
+}
+.quitQuiz .quitQuizTxt {
+  font-size: 15px;
+  margin: 15px 0;
+}
+.quitQuiz .modal-dialog {
+  width: 560px;
 }
 .fade {
   opacity: 0;

@@ -601,4 +601,7 @@
   <data name="BestInSchool" xml:space="preserve">
     <value>הסטודנט המצטיין</value>
   </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>בטל מעקב</value>
+  </data>
 </root>
