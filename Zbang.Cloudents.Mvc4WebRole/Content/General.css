@@ -627,6 +627,8 @@ iframe .couponPopup {
 .enterForm .firstError {
   left: 0;
   /*rtl*/
+  position: relative;
+  top: 17px;
 }
 .enterForm .field-validation-error,
 .enterForm .validation-summary-errors {

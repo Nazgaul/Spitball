@@ -625,15 +625,18 @@ footer {
 }
 /* #endregion */
 /*#region  static popup */
-.desktop .firstName + .field-validation-error {
-  margin: 2px 0 0 4%;
-}
 .desktop .lastName + .field-validation-error {
-  margin-top: 58px;
+  margin-top: 72px;
   display: block;
 }
 .register .field-validation-error,
 .register .validation-summary-errors {
   position: absolute;
-  margin: 2px 0 0 0;
+  margin-top: -17px;
+}
+.firstError.field-validation-error {
+  margin-top: -3px;
+}
+.desktop .firstName + .field-validation-error {
+  margin: 13px 0 0 4%;
 }
