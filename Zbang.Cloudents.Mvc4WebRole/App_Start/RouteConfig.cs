@@ -123,7 +123,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
              "account/settings",
              new { controller = "Home", action = "Index" }
          );
-
+            routes.MapRoute("EmptyRedirectToDashboard",
+                "",
+                new { controller = "Home", action = "Redirect" });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

@@ -22,7 +22,7 @@
         <li>
             @Html.ActionLink(FooterResources.TermsOfService, "termsofservice", "home", null, new { target = "_self" })
         </li>
-        <li class="last"><a href="@Url.Action("logoff", "account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
+        <li class="last"><a id="logoff" href="@Url.Action("logoff", "account")" ng-click="$root.logout($event)">@UserDetailResources.LogOut</a></li>
     </ul>
 </aside>
 

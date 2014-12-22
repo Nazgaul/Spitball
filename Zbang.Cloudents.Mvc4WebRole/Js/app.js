@@ -14,8 +14,10 @@
        '$provide',
        '$angularCacheFactoryProvider',
        'insightsProvider',
+       '$compileProvider',
        function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide,
-           $angularCacheFactoryProvider, insightsProvider) {
+           $angularCacheFactoryProvider, insightsProvider, $compileProvider) {
+           $compileProvider.debugInfoEnabled(false);
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
            $angularCacheFactoryProvider.setCacheDefaults({
@@ -66,7 +68,8 @@
                                window.open('/error/', '_self');
                                break;
                            default:
-                               window.open('/error/', '_self');
+                               // somehow firefox in incognito crash and transfer to error page
+                            //   window.open('/error/', '_self');
                                break;
 
                        }
@@ -345,7 +348,8 @@
        }
    ]);
 
-    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker','htmlCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, htmlCache) {
+    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', /*'htmlCache',*/
+        function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker/*, htmlCache*/) {
 
         //check for iframe
         try {
@@ -368,26 +372,12 @@
 
 
         sVerChecker.checkVersion();
-        $rootScope.$on('$routeChangeStart', function (event, next, prev) {
+        $rootScope.$on('$routeChangeStart', function () {
             $window.scrollTo(0, 0);
-            //if (!prev) {
-            //    return;
-            //}
-            //try {
-            //    var routeName = next.$$route.params.type;
-            //    if (routeName === 'account' && sUserDetails.getDetails) {
-
-
-            //    }
-
-            //}
-            //catch (ex) {
-            //}
-
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            htmlCache.checkState();
+            //htmlCache.checkState();
 
             try {
                 if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
