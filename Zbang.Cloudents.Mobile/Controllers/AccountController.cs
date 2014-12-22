@@ -275,7 +275,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, model.Language.Language, invId, model.BoxId);
+                        model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, model.BoxId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
 
                     FormsAuthenticationService.SignIn(result.User.Id, false,
