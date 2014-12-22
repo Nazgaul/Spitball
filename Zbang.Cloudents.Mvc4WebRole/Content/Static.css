@@ -612,14 +612,6 @@ footer {
 .footer li:first-child:hover {
   opacity: 0.5;
 }
-.footer li:after {
-  content: '|';
-  font-size: 10px;
-  padding: 0 3px 0 6px;
-}
-.footer li:last-child:after {
-  display: none;
-}
 .footer a:hover {
   text-decoration: underline;
 }

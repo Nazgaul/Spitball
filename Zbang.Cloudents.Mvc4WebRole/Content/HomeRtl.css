@@ -143,7 +143,3 @@ footer {
   /*rtl*/
   left: auto;
 }
-.footer li:after {
-  padding: 0 6px 0 3px;
-  /*rtl*/
-}
