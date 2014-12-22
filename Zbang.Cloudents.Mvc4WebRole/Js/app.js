@@ -5,7 +5,7 @@
         'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
        'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard',
        'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics',
-       'angulartics.google.analytics', 'angular-appinsights']).
+       'angulartics.google.analytics']).
    config([
        '$routeProvider',
        '$locationProvider',
@@ -13,10 +13,9 @@
        '$tooltipProvider',
        '$provide',
        '$angularCacheFactoryProvider',
-       'insightsProvider',
        '$compileProvider',
        function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide,
-           $angularCacheFactoryProvider, insightsProvider, $compileProvider) {
+           $angularCacheFactoryProvider, $compileProvider) {
            $compileProvider.debugInfoEnabled(false);
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
@@ -312,7 +311,6 @@
            }
 
            //#endregion
-           insightsProvider.start('f877396f-f06b-4b06-890d-242282700508');
 
 
            //#region log js errors 
