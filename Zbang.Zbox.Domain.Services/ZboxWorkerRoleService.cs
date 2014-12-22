@@ -60,6 +60,7 @@ namespace Zbang.Zbox.Domain.Services
         }
         private Comment GetPreviousCommentId(Box box, User user, DateTime time)
         {
+            time = time.AddHours(-1);
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > time)
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue

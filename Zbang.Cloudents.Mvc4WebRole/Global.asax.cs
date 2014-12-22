@@ -72,18 +72,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     if (key == CustomCacheKeys.Auth)
                     {
-                        value += User.Identity.IsAuthenticated.ToString(CultureInfo.InvariantCulture);
+                        if (User != null && User.Identity != null)
+                        {
+                            value += User.Identity.IsAuthenticated.ToString(CultureInfo.InvariantCulture);
+                        }
                     }
                     if (key == CustomCacheKeys.Lang)
                     {
                         value += Thread.CurrentThread.CurrentUICulture.Name;
                     }
                 }
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    return base.GetVaryByCustomString(context, custom);
-                }
-                return value;
+                return string.IsNullOrWhiteSpace(value) ? base.GetVaryByCustomString(context, custom) : value;
             }
             catch (Exception ex)
             {
