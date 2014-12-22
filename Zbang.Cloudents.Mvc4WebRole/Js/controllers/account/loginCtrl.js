@@ -117,7 +117,7 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
 
             $scope.changeLanguage = function () {
 
-                $angularCacheFactory.get('htmlCache').removeAll();
+                //$angularCacheFactory.get('htmlCache').removeAll();
 
                 $analytics.eventTrack('Language Change', {
                     category: 'Register Popup',
