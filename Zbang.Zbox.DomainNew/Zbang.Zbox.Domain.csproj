@@ -99,11 +99,6 @@
     <Compile Include="Quiz.cs" />
     <Compile Include="Quota.cs" />
     <Compile Include="Reputation.cs" />
-    <Compile Include="Resources\QuestionResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuestionResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
     <Compile Include="StoreProductFeatures.cs" />
@@ -132,15 +127,6 @@
       <LastGenOutput>DomainResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DomainResources.ru.resx" />
-    <EmbeddedResource Include="Resources\QuestionResource.ar.resx" />
-    <EmbeddedResource Include="Resources\QuestionResource.en-gb.resx" />
-    <EmbeddedResource Include="Resources\QuestionResource.he.resx" />
-    <EmbeddedResource Include="Resources\QuestionResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\QuestionResource.ru.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Item.hbm.xml">

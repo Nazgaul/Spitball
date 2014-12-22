@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -9,25 +10,25 @@ public static class EnumExtension
 {
     public static string GetStringValue(this string value)
     {
-        var seperation = Regex.Matches(value, "[A-Z][a-z]*");
-        if (seperation.Count == 0)
+        var separation = Regex.Matches(value, "[A-Z][a-z]*");
+        if (separation.Count == 0)
         {
             return value;
         }
 
-        if (seperation.Count == 1)
+        if (separation.Count == 1)
         {
-            return seperation[0].ToString();
+            return separation[0].ToString();
         }
 
-        string seperateWord = string.Empty;
+        string separateWord = string.Empty;
 
-        foreach (var word in seperation)
+        foreach (var word in separation)
         {
-            seperateWord += word + " ";
+            separateWord += word + " ";
         }
 
-        return seperateWord;
+        return separateWord;
     }
     public static string GetStringValue(this Enum value)
     {
@@ -42,23 +43,23 @@ public static class EnumExtension
         return value.ToString("G").Substring(0, 1).ToLower() + value.ToString("G").Substring(1);
     }
 
-
     public static string GetEnumDescription(this Enum value)
     {
+        return GetEnumDescription(value, CultureInfo.CurrentCulture);
+    }
+    public static string GetEnumDescription(this Enum value, CultureInfo culture)
+    {
         if (value == null) throw new ArgumentNullException("value");
-        FieldInfo fi = value.GetType().GetField(value.ToString());
+        var fi = value.GetType().GetField(value.ToString());
 
         var attributes = (EnumDescription[])fi.GetCustomAttributes(typeof(EnumDescription), false);
 
 
         if ((attributes.Length <= 0)) return value.GetStringValue();
         var att = attributes[0];
-        if (att.ResorceType != null)
-        {
-            var x = new System.Resources.ResourceManager(att.ResorceType);
-            return x.GetString(att.ResourceName);
-        }
-        return att.Description;
+        if (att.ResourceType == null) return att.Description;
+        var x = new System.Resources.ResourceManager(att.ResourceType);
+        return x.GetString(att.ResourceName, culture);
     }
 
 

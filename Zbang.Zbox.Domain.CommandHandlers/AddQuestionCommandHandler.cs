@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-            var comment = box.AddComment(user, text, message.Id, files, false);
+            var comment = box.AddComment(user, text, message.Id, files, null);
             //var comment = new Comment(user, text, box, message.Id, files, false);
             m_CommentRepository.Save(comment);
 

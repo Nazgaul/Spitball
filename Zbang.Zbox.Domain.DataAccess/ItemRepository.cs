@@ -23,21 +23,24 @@ namespace Zbang.Zbox.Domain.DataAccess
         {
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Box == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Uploader == user)
-                .Select(s => s.Comment).List<Comment>();
+                .Select(s => s.Comment).Future<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Box == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Owner == user)
-
-                .Select(s => s.Comment).List<Comment>();
+                .Select(s => s.Comment).Future<Comment>();
 
             return questions.Union(questions2)
                 .Where(w => w != null)
-                .Where(w => w.Text == null)
-                .Where(w => w.IsSystemGenerated)
+                //.Where(w => w.Text == null)
+                .Where(w => w.FeedType == Infrastructure.Enums.FeedType.AddedItems)
                 .OrderByDescending(o => o.DateTimeUser.CreationTime)
                 .FirstOrDefault();
         }

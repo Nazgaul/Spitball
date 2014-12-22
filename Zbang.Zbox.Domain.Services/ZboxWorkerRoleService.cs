@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Dapper;
 using NHibernate;
 using Zbang.Zbox.Domain.Commands;
@@ -28,11 +29,59 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            InternalDbi();
+            AddItemsToFeedDbi();
+        }
 
+        private void AddItemsToFeedDbi()
+        {
+            var commentRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<Comment>>();
+            using (UnitOfWork.Start())
+            {
+                var items = UnitOfWork.CurrentSession.QueryOver<Item>()
+                     .Where(w => w.IsDeleted == false)
+                     .And(w => w.Comment == null)
+                     .And(w => w.Answer == null)
+                     .And(w => w.Box.Id == 5062L)
+                     .OrderBy(w => w.DateTimeUser.CreationTime).Asc
+                     .List();
+                foreach (var item in items)
+                {
+                    using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    {
+                        var comment = GetPreviousCommentId(item.Box, item.Uploader, item.DateTimeUser.CreationTime) ??
+                            item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime), null, FeedType.AddedItems);
+                        comment.AddItem(item);
+                        commentRepository.Save(comment);
+                        tx.Commit();
+                    }
+                }
 
+            }
+        }
+        private Comment GetPreviousCommentId(Box box, User user, DateTime time)
+        {
+            var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
+                .Where(w => w.DateTimeUser.CreationTime > time)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Box == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Uploader == user)
+                .Select(s => s.Comment).Future<Comment>();
 
+            var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                .Where(w => w.DateTimeUser.CreationTime > time)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Box == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Owner == user)
+                .Select(s => s.Comment).Future<Comment>();
 
+            return questions.Union(questions2)
+                .Where(w => w != null)
+                //.Where(w => w.Text == null)
+                .Where(w => w.FeedType == FeedType.AddedItems)
+                .OrderByDescending(o => o.DateTimeUser.CreationTime)
+                .FirstOrDefault();
         }
 
         private void InternalDbi()
@@ -44,7 +93,7 @@ namespace Zbang.Zbox.Domain.Services
                 {
 
                     var files = UnitOfWork.CurrentSession.QueryOver<File>().Where(w => w.Url == null)
-                        .And(w=>w.IsDeleted == false)
+                        .And(w => w.IsDeleted == false)
                         .List();
                     foreach (var file in files)
                     {

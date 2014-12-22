@@ -151,9 +151,9 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
-        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, bool isSystemGenerated)
+        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType? feedType)
         {
-            var comment = new Comment(user, text, this, id, items, isSystemGenerated);
+            var comment = new Comment(user, text, this, id, items, feedType);
             Comments.Add(comment);
             UpdateCommentsCount();
             return comment;
