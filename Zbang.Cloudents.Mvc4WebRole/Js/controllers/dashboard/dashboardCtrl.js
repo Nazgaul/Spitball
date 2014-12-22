@@ -93,6 +93,9 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
                         remove();
 
                     }
+                },
+                data: {
+                    name: box.name
                 }
             });
             return;
