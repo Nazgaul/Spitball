@@ -100,10 +100,14 @@
     <script>
         sessionStorage.clear();
         localStorage.clear();
-        document.getElementById('logoff').addEventListener('click', function() {
-            sessionStorage.clear();
-            localStorage.clear();
-        });
+        var elem = document.getElementById('logoff');
+        if (elem) {
+            elem.addEventListener('click', function () {
+                sessionStorage.clear();
+                localStorage.clear();
+
+            });
+        }
     </script>
 
 </body>
