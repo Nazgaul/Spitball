@@ -402,6 +402,7 @@
   padding-left: 35px;
   white-space: pre-line;
   line-height: 14px;
+  display: inline-block;
 }
 .deptSettings .alert:before,
 .leavePrompt .alert:before {
@@ -1195,3 +1196,4 @@
   color: #d1294d;
   display: block;
 }
+/*#endregion */
