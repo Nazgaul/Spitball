@@ -11,5 +11,8 @@ disallow: /account/welcome/
 disallow: /store/
 disallow: */print/$
 disallow: */download/$
+disallow: /b/
+disallow: /i/
+disallow: /d/
 
 Sitemap: https://www.cloudents.com/sitemap.xml

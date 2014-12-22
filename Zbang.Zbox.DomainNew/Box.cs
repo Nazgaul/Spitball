@@ -273,10 +273,15 @@ namespace Zbang.Zbox.Domain
 
         public void DeleteAssociation()
         {
+            //We need this because nhibernate try to delete userboxrel without remove it from invites tables
+            foreach (var inviteToBox in Invites)
+            {
+                inviteToBox.RemoveAssociationWithUserBoxRel();
+            }
+            Invites.Clear();
             UserBoxRelationship.Clear();
             Comments.Clear();
             ItemTabs.Clear();
-            Invites.Clear();
             Updates.Clear();
             Quizzes.Clear();
         }

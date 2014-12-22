@@ -59,7 +59,7 @@
     </bag>
 
     <bag name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key column="BoxId" />
+      <key column="BoxId" foreign-key="InviteBoxBoxId" />
       <one-to-many class="InviteToBox"/>
     </bag>
     
