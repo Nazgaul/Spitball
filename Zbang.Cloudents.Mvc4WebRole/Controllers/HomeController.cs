@@ -17,7 +17,6 @@ using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -47,6 +46,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Index()
         {
             return View("Empty");// RedirectToActionPermanent("Index", "Dashboard");
+        }
+
+        public ActionResult Redirect()
+        {
+            return RedirectToAction("Index", User.Identity.IsAuthenticated ? "Dashboard" : "Account");
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
