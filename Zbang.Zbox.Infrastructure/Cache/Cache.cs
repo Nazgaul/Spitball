@@ -115,14 +115,22 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return default(T);
             }
-            if (!IsAppFabricCache())
-                return m_Cache[region + "_" + key] as T;
+            try
+            {
+                if (!IsAppFabricCache())
+                    return m_Cache[region + "_" + key] as T;
 
 
-            IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
-            var cacheKey = BuildCacheKey(key, region);
+                IDatabase cache = Connection.GetDatabase( /*region.GetHashCode()*/);
+                var cacheKey = BuildCacheKey(key, region);
 
-            return await cache.GetAsync<T>(cacheKey);
+                return await cache.GetAsync<T>(cacheKey);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceLog.WriteError(string.Format("GetFromCacheAsync key {0} region {1}", key, region), ex);
+                return default(T);
+            }
 
         }
 
@@ -148,7 +156,9 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
-            return RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
+            var x = RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
+            Trace.TraceLog.WriteInfo("IsAppFabricCache: " + x);
+            return x;
         }
 
 
