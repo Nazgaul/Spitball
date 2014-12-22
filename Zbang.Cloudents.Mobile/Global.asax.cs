@@ -4,6 +4,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.WebPages;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mvc4WebRole;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
@@ -28,6 +29,9 @@ namespace Zbang.Cloudents.Mobile
 
             //IocConfig.RegisterIoc();
             //DisplayConfig.RegisterDisplays();
+            DisplayModeProvider.Instance.Modes.Clear();
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode(string.Empty));
+
             ViewConfig.RegisterEngineAndViews();
             BundleRegistration.RegisterBundles();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
