@@ -280,6 +280,14 @@
 .welcome .emailBtn {
   border: 1px solid #c2c2c2;
 }
+.welcome .loginError {
+  color: #d1294d;
+}
+.welcome .regError {
+  color: #d1294d;
+  position: relative;
+  top: 25px;
+}
 .congrats {
   font-family: Arial;
   font-weight: bold;

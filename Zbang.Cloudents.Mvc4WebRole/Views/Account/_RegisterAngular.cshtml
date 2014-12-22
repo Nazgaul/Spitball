@@ -3,7 +3,7 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <form name="registerForm" class="register desktop" ng-submit="register(registerForm.$valid)" novalidate>
-    <div>{{params.registerServerError}}</div>
+    <div class="regError">{{params.registerServerError}}</div>
     <div class="ng-message-errors lFloat" ng-messages="(registerForm.firstName.$touched || registerSubmitted) && registerForm.firstName.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
     </div>
