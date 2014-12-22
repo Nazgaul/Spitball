@@ -915,7 +915,6 @@
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
     <Content Include="Js\DataContext.js" />
-    <Content Include="Js\externalScriptsInitializer.js" />
     <Content Include="Js\Mobile\MAccountSettings.js" />
     <Content Include="Js\Mobile\MBaseViewModel.js" />
     <Content Include="Js\Mobile\MBoxesViewModel.js" />

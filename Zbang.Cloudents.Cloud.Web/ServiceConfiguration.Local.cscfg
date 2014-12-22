@@ -14,7 +14,6 @@
       <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
-      <Setting name="IsMobileDisabled" value="true" />
       <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
       <Setting name="MobileWebSite" value="https://mobile.cloudents.com/" />

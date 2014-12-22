@@ -302,7 +302,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Js/pubsub2.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js")
-                        //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 },
                 {
@@ -310,7 +309,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
                             "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-                        new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 }
             };

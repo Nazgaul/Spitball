@@ -130,20 +130,12 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
 
-                        //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
                         new JsFileWithCdn("~/Js/Utils2.js"),
                         new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
                         new JsFileWithCdn("~/Js/pubsub2.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js")
-                        //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
-                    }
-                },
-                {
-                    "faq", new[]
-                    {
-                        new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 }
             };
