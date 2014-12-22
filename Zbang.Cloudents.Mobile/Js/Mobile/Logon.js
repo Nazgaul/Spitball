@@ -1,11 +1,7 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (cd, $) {
     "use strict";
-    if (window.scriptLoaded.isLoaded('logon')) {
-        return;
-    }
-
-    
+   
     function registerEvents() {
         cd.putPlaceHolder();
         //drop downs
