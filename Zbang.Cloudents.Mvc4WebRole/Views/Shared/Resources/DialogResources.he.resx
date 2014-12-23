@@ -292,19 +292,22 @@
   <data name="EarnPoints" xml:space="preserve">
     <value>הזמן חברים, העלה קבצים, פתור מבחנים ותמשיך לצבור נקודות!</value>
   </data>
-  <data name="InterestedIn" xml:space="preserve">
-    <value>מעונין למצוא עוד סיכומים ומבחנים שיעזרו לך ללמוד? הצטרף לשאר הכיתה שלך והרשם למאגר האקדמי החברתי של </value>
-  </data>
   <data name="ReachTop" xml:space="preserve">
     <value>רוצה להרוויח עוד נקודת ולהיות בראש הטבלה? </value>
-  </data>
-  <data name="ViewEntire" xml:space="preserve">
-    <value>רוצה לצפות במסמך כולו? </value>
   </data>
   <data name="YouEarned" xml:space="preserve">
     <value>הרווחת</value>
   </data>
   <data name="WillRemove" xml:space="preserve">
     <value>מחיקה תסיר את כל התוכן והחברים</value>
+  </data>
+  <data name="CrystalClear" xml:space="preserve">
+    <value>הרשמו לקלאודנטס ואז הכל יהיה ברור</value>
+  </data>
+  <data name="IsItBlurry" xml:space="preserve">
+    <value>רואים מטושטש?</value>
+  </data>
+  <data name="MarkToDelete" xml:space="preserve">
+    <value>סמן כדי למחוק את הקופסא</value>
   </data>
 </root>

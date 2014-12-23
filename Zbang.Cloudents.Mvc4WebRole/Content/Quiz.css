@@ -958,7 +958,7 @@ body.quiz .modal-backdrop.in {
   top: 16px;
 }
 .userScoreWpr {
-  margin: 20px 5px 0;
+  margin: 10px 5px 0;
   font-size: 20px;
   background: #282828;
   position: relative;
@@ -970,6 +970,8 @@ body.quiz .modal-backdrop.in {
   transition: all 0.5s ease-in 0.8s;
   opacity: 0;
   visibility: hidden;
+  width: 250px;
+  display: inline-block;
 }
 .userScore {
   background: #797979;
@@ -1010,6 +1012,7 @@ body.quiz .modal-backdrop.in {
 .timeRetakeWpr .btn1 {
   margin-top: 10px;
   max-width: 140px;
+  padding: 3px 5px 3px 5px;
 }
 .quizTimerResult {
   color: #9AC6E9;

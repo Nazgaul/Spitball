@@ -307,4 +307,7 @@
     <value>Удаление приведет к удалению всего содержимого и участников
 </value>
   </data>
+  <data name="MarkToDelete" xml:space="preserve">
+    <value>Отметить удалить этот ящик</value>
+  </data>
 </root>
