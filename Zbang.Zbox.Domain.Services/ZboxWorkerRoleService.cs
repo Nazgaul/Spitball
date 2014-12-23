@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using NHibernate;
@@ -30,39 +31,82 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            AddItemsToFeedDbi();
+            using (UnitOfWork.Start())
+            {
+                UpdateIdOfQuestion();
+                AddItemsToFeedDbi();
+            }
+        }
+
+        public void UpdateIdOfQuestion()
+        {
+            var questions = UnitOfWork.CurrentSession.QueryOver<Comment>()
+                .Where(w => w.FeedType == FeedType.CreatedCourse)
+                .And(w => w.Box.Id == 5339L)
+                .List();
+            foreach (var question in questions)
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    var id = IdGenerator.GetGuid(question.DateTimeUser.CreationTime);
+                    if (question.Id == id)
+                    {
+                        continue;
+
+                    }
+                    var items = new List<Item>();
+                    items.AddRange(question.ItemsReadOnly);
+                    var question2 = new Comment(question.User, null, question.Box, id, items,
+                        FeedType.CreatedCourse);
+                    question2.DateTimeUser.CreationTime = question.DateTimeUser.CreationTime;
+                    UnitOfWork.CurrentSession.Save(question2);
+                    foreach (var answer in question.AnswersReadOnly)
+                    {
+                        answer.Question = question2;
+                        UnitOfWork.CurrentSession.Save(answer);
+                    }
+                    UnitOfWork.CurrentSession.Save(question2);
+                    //UnitOfWork.CurrentSession.Delete(question);
+                    tx.Commit();
+                }
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    UnitOfWork.CurrentSession.Delete(question);
+                    tx.Commit();
+                }
+
+
+            }
         }
 
         private void AddItemsToFeedDbi()
         {
             var commentRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<Comment>>();
-            using (UnitOfWork.Start())
+            var items = UnitOfWork.CurrentSession.QueryOver<Item>()
+                 .Where(w => w.IsDeleted == false)
+                 .And(w => w.Comment == null)
+                 .And(w => w.Answer == null)
+                 .And(w => w.Box.Id == 5062L)
+                 .OrderBy(w => w.DateTimeUser.CreationTime).Asc
+                 .List();
+            foreach (var item in items)
             {
-                var items = UnitOfWork.CurrentSession.QueryOver<Item>()
-                     .Where(w => w.IsDeleted == false)
-                     .And(w => w.Comment == null)
-                     .And(w => w.Answer == null)
-                     .And(w => w.Box.Id == 5062L)
-                     .OrderBy(w => w.DateTimeUser.CreationTime).Asc
-                     .List();
-                foreach (var item in items)
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-                    using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    var comment = GetPreviousCommentId(item.BoxId, item.UploaderId, item.DateTimeUser.CreationTime);
+                    if (comment == null)
                     {
-                        var comment = GetPreviousCommentId(item.BoxId, item.UploaderId, item.DateTimeUser.CreationTime);
-                        if (comment == null)
-                        {
 
-                            comment = item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime),
-                                   null, FeedType.AddedItems);
-                        }
-                        comment.AddItem(item);
-                        commentRepository.Save(comment);
-                        tx.Commit();
+                        comment = item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime),
+                               null, FeedType.AddedItems);
+                        comment.DateTimeUser.CreationTime = item.DateTimeUser.CreationTime;
                     }
+                    comment.AddItem(item);
+                    commentRepository.Save(comment);
+                    tx.Commit();
                 }
-
             }
+
         }
         private Comment GetPreviousCommentId(long box, long user, DateTime time)
         {
@@ -70,17 +114,13 @@ namespace Zbang.Zbox.Domain.Services
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > time)
                 .And(w => w.IsDeleted == false)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Box.Id == box)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Uploader.Id == user)
                 .Select(s => s.Comment).Future<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > time)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Box.Id == box)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
                 .And(w => w.Owner.Id == user)
                 .Select(s => s.Comment).Future<Comment>();
 
