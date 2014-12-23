@@ -81,11 +81,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         }
 
-        //public User GetOwnerByBoxId(long boxId)
-        //{
-        //    return UnitOfWork.CurrentSession.QueryOver<UserBoxRel>().
-        //        Where(w => w.Box.Id == boxId).Where(w => w.UserRelationshipType == UserRelationshipType.Owner).SingleOrDefault().User;
-        //}
+        
 
         public bool IsNotUsedCode(string code, long userId)
         {
@@ -93,6 +89,15 @@ namespace Zbang.Zbox.Domain.DataAccess
                 Where(w => w.Id != userId)
                .Where(w => w.Code == code).SingleOrDefault();
             return user == null;
+        }
+
+        public void UpdateUserReputation(int reputation, long userid)
+        {
+            const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
+            int updatedEntities = UnitOfWork.CurrentSession.CreateQuery(hqlUpdate)
+                .SetInt64("reputation", reputation)
+                .SetInt64("userid", userid)
+                .ExecuteUpdate();
         }
     }
 }

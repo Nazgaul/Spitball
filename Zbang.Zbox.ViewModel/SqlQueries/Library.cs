@@ -28,7 +28,7 @@
     order by name;";
 
        public const string GetLibraryNodeDetails = @"select l.name as Name
-	 ,coalesce( p.Url ,'/library')  as ParentUrl
+	 ,coalesce( p.Url ,'/library/')  as ParentUrl
 	 from zbox.Library l 
 	 left  join zbox.Library p on l.ParentId = p.LibraryId
 	 where l.LibraryId = @LibraryId";

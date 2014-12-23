@@ -19,5 +19,6 @@ namespace Zbang.Zbox.Domain.DataAccess
         //User GetOwnerByBoxId(long boxId);
 
         bool IsNotUsedCode(string code, long userId);
+        void UpdateUserReputation(int reputation, long userid);
     }
 }

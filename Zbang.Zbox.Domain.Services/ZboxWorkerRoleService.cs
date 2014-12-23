@@ -33,8 +33,10 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                UpdateIdOfQuestion();
-                AddItemsToFeedDbi();
+                //UpdateIdOfQuestion(); // this can only be one time
+                //AddItemsToFeedDbi(); // this can work
+                //UpdateReputation(); // this can work
+                UpdateAllUrlsInSystem();
             }
         }
 
@@ -42,7 +44,6 @@ namespace Zbang.Zbox.Domain.Services
         {
             var questions = UnitOfWork.CurrentSession.QueryOver<Comment>()
                 .Where(w => w.FeedType == FeedType.CreatedCourse)
-                .And(w => w.Box.Id == 5339L)
                 .List();
             foreach (var question in questions)
             {
@@ -132,82 +133,111 @@ namespace Zbang.Zbox.Domain.Services
                 .FirstOrDefault();
         }
 
-        private void InternalDbi()
-        {
 
-            using (UnitOfWork.Start())
+        private void UpdateReputation()
+        {
+            int i = 0;
+            var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o=>o.Id).Asc.Select(s => s.Id)
+                .Skip(i * 100).Take(100).List<long>();
+            do
+            {
+                var command = new UpdateReputationCommand(users);
+                m_CommandBus.Send(command);
+                i++;
+                users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc.Select(s => s.Id).Skip(i * 100).Take(100).List<long>();
+            } while (users.Count > 0);
+        }
+
+        private void UpdateAllUrlsInSystem()
+        {
+            int i = 0;
+            var items = UnitOfWork.CurrentSession.QueryOver<Item>().OrderBy(o => o.Id).Asc
+                .Skip(i * 100).Take(100).List();
+            do
             {
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
-
-                    var files = UnitOfWork.CurrentSession.QueryOver<File>().Where(w => w.Url == null)
-                        .And(w => w.IsDeleted == false)
-                        .List();
-                    foreach (var file in files)
+                    foreach (var item in items)
                     {
-                        file.GenerateUrl();
-                        UnitOfWork.CurrentSession.Save(file);
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
                     }
                     tx.Commit();
+                    i++;
                 }
+                items = UnitOfWork.CurrentSession.QueryOver<Item>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+            } while (items.Count > 0);
 
-            }
-            //        bool retVal = true;
-            //        var dic = new Dictionary<University, Department>();
-            //        while (retVal)
-            //        {
-            //            var users = UnitOfWork.CurrentSession.QueryOver<User>()
-            //                .Where(w => w.University2 != null)
-            //                .And(w => w.Department == null)
-            //                .Take(2000)
-            //                .List();
-            //            retVal = false;
-            //            using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-            //            {
-            //                foreach (var user in users)
-            //                {
-            //                    Department department;
-            //                    if (!dic.TryGetValue(user.University2, out department))
-            //                    {
+            i = 0;
+            var boxes = UnitOfWork.CurrentSession.QueryOver<Box>().OrderBy(o => o.Id).Asc
+                .Skip(i * 100).Take(100).List();
+            do
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var item in boxes)
+                    {
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    tx.Commit();
+                    i++;
+                }
+                boxes = UnitOfWork.CurrentSession.QueryOver<Box>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+            } while (boxes.Count > 0);
 
-            //                        department =
-            //                            UnitOfWork.CurrentSession.QueryOver<Department>()
-            //                                .Where(w => w.University == user.University2)
-            //                                .Take(1).SingleOrDefault();
-            //                        dic.Add(user.University2, department);
-            //                    }
-            //                    if (department == null)
-            //                    {
-            //                        continue;
-            //                    }
-            //                    retVal = true;
-            //                    user.Department = department;
-            //                    UnitOfWork.CurrentSession.Save(user);
+            i = 0;
+            var quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc
+                .Skip(i * 100).Take(100).List();
+            do
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var item in quizzes)
+                    {
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    tx.Commit();
+                    i++;
+                }
+                quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+            } while (quizzes.Count > 0);
 
-            //                }
-            //                tx.Commit();
-            //            }
-            //        }
+            i = 0;
+            var library = UnitOfWork.CurrentSession.QueryOver<Library>().OrderBy(o => o.Id).Asc
+                .Skip(i * 100).Take(100).List();
+            do
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var item in library)
+                    {
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    tx.Commit();
+                    i++;
+                }
+                library = UnitOfWork.CurrentSession.QueryOver<Library>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+            } while (library.Count > 0);
 
-            //    }
-
-
-            //    using (UnitOfWork.Start())
-            //    {
-            //        var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
-            //        using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-            //        {
-            //            foreach (var university in universities)
-            //            {
-            //                var count = UnitOfWork.CurrentSession.QueryOver<Department>()
-            //                    .Where(w => w.University == university)
-            //                    .Select(Projections.Sum<Department>(s => s.NoOfBoxes)).SingleOrDefault<int>();
-            //                university.UpdateNumberOfBoxes(count);
-            //                UnitOfWork.CurrentSession.Save(university);
-            //            }
-            //            tx.Commit();
-            //        }
-            //    }
+            var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc
+               .Skip(i * 100).Take(100).List();
+            do
+            {
+                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                {
+                    foreach (var item in users)
+                    {
+                        item.GenerateUrl();
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    tx.Commit();
+                    i++;
+                }
+                users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+            } while (users.Count > 0);
         }
 
         public bool Dbi(int index)
