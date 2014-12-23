@@ -37,9 +37,11 @@
         self.markRead = function (invite) {
             dataContext.notificationRead({
                 data: {
-                    messsageId: invite.id
+                    messageId: invite.id
                 }
             });
+
+            return true;
         };
 
         function getInvite() {
