@@ -441,6 +441,7 @@
 .searchTitle {
   font-size: 15px;
   line-height: 16px;
+  text-align: left;
 }
 .boxLoc:before {
   content: attr(data-search-in);
