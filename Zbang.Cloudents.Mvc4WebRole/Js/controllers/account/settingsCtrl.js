@@ -1,8 +1,8 @@
 ﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount', '$analytics','sNotify','$angularCacheFactory',
+    ['$scope', '$window', '$timeout', 'sAccount', '$analytics', 'sNotify', '$angularCacheFactory', 'resManager',
 
-        function ($scope, $window, $timeout, sAccount, $analytics, sNotify, $angularCacheFactory) {
+        function ($scope, $window, $timeout, sAccount, $analytics, sNotify, $angularCacheFactory, resManager) {
             "use strict";
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
@@ -96,7 +96,7 @@
                 sNotify.alert(error.message);
             };
 
-            $scope.onFilesAdded = function () {                
+            $scope.onFilesAdded = function () {
                 $scope.params.uploading = true;
             };
 
@@ -110,7 +110,7 @@
 
 
                     if (!code) {
-                        $scope.params.changeEmailError = JsResources.FieldRequired;
+                        $scope.params.changeEmailError = resManager.get('FieldRequired');
                         return;
                     }
 
@@ -118,18 +118,18 @@
 
                     if (_.isNaN(code)) {
                         if (!code) {
-                            $scope.params.changeEmailError = JsResources.CodeIncorrect;
+                            $scope.params.changeEmailError = resManager.get('CodeIncorrect');
                             return;
                         }
                     }
 
                     if (!_.isNumber(code)) {
-                        $scope.params.changeEmailError = JsResources.CodeNumeric;
+                        $scope.params.changeEmailError = resManager.get('CodeNumeric');
                         return;
                     }
 
                     sAccount.submitCode({ code: code }).then(function () {
-                        $scope.params.changeEmailBtnText = JsResources.ChangeEmail;
+                        $scope.params.changeEmailBtnText = resManager.get('ChangeEmail');
                         $scope.params.changingEmail = $scope.params.verifyCode = false;
                         $scope.data.email = $scope.emailForm.email;
 
@@ -150,7 +150,7 @@
 
                 if (!$scope.params.changingEmail) {
                     $scope.params.changingEmail = true;
-                    $scope.params.changeEmailBtnText = JsResources.Change;
+                    $scope.params.changeEmailBtnText = resManager.get('Change');
                     return;
                 }
 
@@ -158,18 +158,18 @@
 
 
                 if (!email) {
-                    $scope.params.changeEmailError = JsResources.FieldRequired;
+                    $scope.params.changeEmailError = resManager.get('FieldRequired');
                     return;
                 }
 
                 if (!emailRegExp.test(email)) {
-                    $scope.params.changeEmailError = JsResources.InvalidEmail;
+                    $scope.params.changeEmailError = resManager.get('InvalidEmail');
                     return;
                 }
 
                 sAccount.changeEmail({ email: email }).then(function () {
                     $scope.params.verifyCode = true;
-                    $scope.params.changeEmailBtnText = JsResources.Save;
+                    $scope.params.changeEmailBtnText = resManager.get('Save');
                     $analytics.eventTrack('Account settings', {
                         category: 'Email Change',
                         label: 'User started changing email proccess'
@@ -191,20 +191,20 @@
                     newPassword = $scope.passwordForm.newPassword;
 
                 if (!oldPassword) {
-                    $scope.params.passwordError = JsResources.FieldRequired;
+                    $scope.params.passwordError = resManager.get('FieldRequired');
                     return;
                 }
                 if (oldPassword.length < 6) {
-                    $scope.params.passwordError = JsResources.PwdAtLeast6Chars;
+                    $scope.params.passwordError = resManager.get('PwdAtLeast6Chars');
                     return;
                 }
 
                 if (!newPassword) {
-                    $scope.params.passwordError = JsResources.FieldRequired;
+                    $scope.params.passwordError = resManager.get('FieldRequired');
                     return;
                 }
                 if (newPassword.length < 6) {
-                    $scope.params.passwordError = JsResources.PwdAtLeast6Chars;
+                    $scope.params.passwordError = resManager.get('PwdAtLeast6Chars');
                     return;
                 }
 

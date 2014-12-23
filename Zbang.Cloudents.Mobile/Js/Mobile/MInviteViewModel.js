@@ -7,10 +7,10 @@
     function InviteViewModel() {
         function Invite(data) {
             var that = this;
-            that.id = data.boxid;
+            that.id = data.msgId;
             that.name = data.boxName;
             that.owner = data.userName;
-            that.picture = data.image || '/images/EmptyState/my_default3.png';
+            that.picture = '/images/EmptyState/my_default3.png';
             that.url = data.url;
         }
         var self = this;
@@ -33,6 +33,14 @@
 
 
         });
+
+        self.markRead = function (invite) {
+            dataContext.notificationRead({
+                data: {
+                    messsageId: invite.id
+                }
+            });
+        };
 
         function getInvite() {
             dataContext.getNotifications({
