@@ -12,11 +12,11 @@
         <div class="arrow tabArrow"></div>
     </div>
     <form class="boxSettingsForm" name="boxSettingsForm" novalidate ng-submit="save(boxSettingsForm.$valid)">
-        <div class="boxSettingsContent" ng-class="{{::info.boxType === 'box' ? 'private' : 'academic'}}">
+        <div class="boxSettingsContent" ng-class="::info.boxType === 'box' ? 'private' : 'academic'">
             <div class="boxSetting">
                 <label>@SharedResources.Thumbnail:</label>
                 <div class="thumbImg">
-                    <img alt="{{info.name}}" ng-src="{{::info.image | defaultImage:'box'}}" width="74" height="94" />
+                    <img alt="{{info.name}}" ng-src="{{::info.image | defaultImage:'box'}}" width="74" height="94" />                    
                 </div>
             </div>
             <div class="boxSetting">
