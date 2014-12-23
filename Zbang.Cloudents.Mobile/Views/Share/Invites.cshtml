@@ -3,7 +3,7 @@
 <div id="invites" class="invites popup">
     <div class="popupWpr">
         <ul class="invitesList" data-bind="foreach: invites">
-            <li class="invitesItem sprite1a">
+            <li class="invitesItem sprite1a" data-bind="click:$root.markRead">
                 <a data-bind="attr: { href: url}">
                     <img class="lFloat" data-bind="attr: { src: picture }" width="57" height="70" alt="" />
                     <div class="description">

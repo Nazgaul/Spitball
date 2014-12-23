@@ -221,7 +221,7 @@
                 };
 
                 $scope.deleteQuestion = function (question) {
-                    sNotify.tConfirm(JsResources.SureYouWantToDelete + '?').then(function () {
+                    sNotify.confirm(resManager.get('SureYouWantToDelete') + '?').then(function () {
                         var index = $scope.data.questions.indexOf(question);
                         $scope.data.questions.splice(index, 1);
 
@@ -239,7 +239,7 @@
                 };
 
                 $scope.deleteAnswer = function (question, answer) {
-                    sNotify.tConfirm(JsResources.SureYouWantToDelete + '?').then(function () {
+                    sNotify.confirm(resManager.get('SureYouWantToDelete') + '?').then(function () {
 
                         var index = question.answers.indexOf(answer);
                         question.answers.splice(index, 1);
@@ -252,7 +252,7 @@
                 };
 
                 $scope.removeAttachmentQ = function (question, item) {
-                    sNotify.tConfirm(JsResources.SureYouWantToDelete + ' ' + (item.name ? item.name : '')  + '?').then(function () {
+                    sNotify.confirm(resManager.get('SureYouWantToDelete') + ' ' + (item.name ? item.name : '') + '?').then(function () {
                         sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
                             var index = question.files.indexOf(item);
                             question.files.splice(index, 1);
@@ -272,7 +272,7 @@
                 };
 
                 $scope.removeAttachmentA = function (question, answer, item) {
-                    sNotify.tConfirm(JsResources.SureYouWantToDelete + ' ' + (item.name ? item.name : '') + '?').then(function () {
+                    sNotify.confirm(resManager.get('SureYouWantToDelete') + ' ' + (item.name ? item.name : '') + '?').then(function () {
                         sItem.delete({ itemId: item.id, boxId: $scope.boxId }).then(function () {
                             var index = answer.files.indexOf(item);
                             answer.files.splice(index, 1);

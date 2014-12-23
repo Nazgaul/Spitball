@@ -107,7 +107,10 @@
             }
         },
         {
-            minLength: '{$0} תווים או יותר'
+            required: JsResources.FieldRequired,
+            minLength: JsResources.PwdAtLeast6Chars,
+            email: JsResources.InvalidEmail,
+            same: JsResources.ConfirmEmailCompare
         }
     );
 

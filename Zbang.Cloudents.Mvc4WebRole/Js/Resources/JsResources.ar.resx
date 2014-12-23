@@ -667,4 +667,19 @@
   <data name="CodeNumeric" xml:space="preserve">
     <value>وينبغي أن يكون رمز رقمي</value>
   </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>كلمة المرور غير ملائمة</value>
+  </data>
+  <data name="FieldRequired1" xml:space="preserve">
+    <value>هذا الحقل مطلوب</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>الرجاء اختيار نوع الجنس</value>
+  </data>
+  <data name="InvalidEmail1" xml:space="preserve">
+    <value>بريد الكتروني غير صالح</value>
+  </data>
+  <data name="PwdAtLeast6Chars1" xml:space="preserve">
+    <value>يجب ان يكون 6 احرف على الاقل </value>
+  </data>
 </root>

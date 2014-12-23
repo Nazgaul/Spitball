@@ -224,6 +224,21 @@
   /*rtl*/
 }
 /*#endregion */
+/*#region points popup */
+.ptsAwarded {
+  top: 42px;
+}
+.congratsTxt0 {
+  letter-spacing: 0;
+  top: 0;
+}
+.congratsTxt1 {
+  top: 32px;
+}
+.congratsTxt2 {
+  top: 71px;
+}
+/*#endregion */
 /*#endregion */
 /*#region DashLib.css */
 .hebFlip {
@@ -811,8 +826,12 @@
   margin: 0 20px 0 0;
 }
 .listItem .tag {
-  left: 10px;
-  /*rtl*/
+  right: 140px;
+  left: auto;
+  padding: 1px 6px 2px 3px;
+}
+.listItem .tag:after {
+  left: -7px;
   right: auto;
 }
 .thumbItem {
