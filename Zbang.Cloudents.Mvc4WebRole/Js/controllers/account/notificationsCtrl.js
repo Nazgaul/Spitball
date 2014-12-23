@@ -7,7 +7,7 @@
             //    notificationsListLength: 7,
             //    notificationsListPage: 7,
             //};            
-         
+
             getDetails();
 
             $scope.openNotifications = function () {
@@ -74,9 +74,9 @@
 
             function getDetails() {
                 $scope.notifications = sNotification.getAll();
-                $scope.params.newNotifications = sNotification.getUnreadLength();              
+                $scope.params.newNotifications = sNotification.getUnreadLength();
             }
-            
+
 
 
         }]);

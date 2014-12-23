@@ -59,6 +59,7 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
 
         public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
+        public ICollection<Item> ItemsReadOnly { get { return Items.ToList().AsReadOnly(); } }
 
         public virtual FeedType? FeedType { get; set; }
 

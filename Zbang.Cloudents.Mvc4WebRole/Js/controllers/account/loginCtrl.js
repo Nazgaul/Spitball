@@ -38,7 +38,7 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
                 sFacebook.registerFacebook({ boxId: $routeParams.boxId }).then(function () {
                     $window.location.reload();
                 }, function () {
-                   // $modalInstance.dismiss();
+                    $scope.close();
                 });
             };
 
