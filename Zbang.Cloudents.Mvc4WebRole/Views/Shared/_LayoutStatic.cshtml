@@ -98,10 +98,12 @@
     @Html.Script2("static")
 
     <script>
+        @*solve bug 3008*@
         sessionStorage.clear();
         localStorage.clear();
         var elem = document.getElementById('logoff');
         if (elem) {
+            @*solve bug in log out*@
             elem.addEventListener('click', function () {
                 sessionStorage.clear();
                 localStorage.clear();

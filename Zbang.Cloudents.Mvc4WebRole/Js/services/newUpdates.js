@@ -132,7 +132,8 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
         }
 
         var update;
-        $http.get('/User/Updates/').success(function (response2) {
+        $http.get('/user/updates/').success(function (response2) {
+            response2 = response2 || {};
             var data = response2.payload;
             if (!data) {
                 defer.resolve();

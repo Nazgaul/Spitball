@@ -2,6 +2,7 @@
 using System.Linq;
 using Dapper;
 using NHibernate;
+using NHibernate.Proxy;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.DataAccess;
@@ -48,8 +49,13 @@ namespace Zbang.Zbox.Domain.Services
                 {
                     using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                     {
-                        var comment = GetPreviousCommentId(item.Box, item.Uploader, item.DateTimeUser.CreationTime) ??
-                            item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime), null, FeedType.AddedItems);
+                        var comment = GetPreviousCommentId(item.BoxId, item.UploaderId, item.DateTimeUser.CreationTime);
+                        if (comment == null)
+                        {
+
+                            comment = item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime),
+                                   null, FeedType.AddedItems);
+                        }
                         comment.AddItem(item);
                         commentRepository.Save(comment);
                         tx.Commit();
@@ -58,23 +64,24 @@ namespace Zbang.Zbox.Domain.Services
 
             }
         }
-        private Comment GetPreviousCommentId(Box box, User user, DateTime time)
+        private Comment GetPreviousCommentId(long box, long user, DateTime time)
         {
             time = time.AddHours(-1);
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > time)
+                .And(w => w.IsDeleted == false)
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Box == box)
+                .And(w => w.Box.Id == box)
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Uploader == user)
+                .And(w => w.Uploader.Id == user)
                 .Select(s => s.Comment).Future<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > time)
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Box == box)
+                .And(w => w.Box.Id == box)
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Owner == user)
+                .And(w => w.Owner.Id == user)
                 .Select(s => s.Comment).Future<Comment>();
 
             return questions.Union(questions2)
