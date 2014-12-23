@@ -17,7 +17,7 @@
         <div class="mainPart">
             <ul class="middleActionList">
                 <li class="middleActionItem">
-                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item" ng-click="followBox()">
+                    <a class="actionLink" title="@ItemsResources.Download" ng-href="{{item.downloadUrl}}" target="_blank" analytics-on="click" analytics-event="Download" analytics-category="Item" ng-click="downloadItem($event)">
                         @Html.Svg("~/Images/Defs.svg", "download", new { @class = "svg-download" })
                     </a>
                 </li>
@@ -93,7 +93,7 @@
             <header>@SharedResources.AddComment</header>
             <form ng-init="showBtn=false" name="addAnnotation" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
-                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="showBtn=true" text-direction class="commentsTextarea" required></textarea>
+                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="focusComments($event,true)" text-direction class="commentsTextarea" required></textarea>
                     <div class="rFloat">
                         <button ng-show="showBtn" ng-disabled="commentp || addAnnotation.$invalid" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
                         <button ng-show="showBtn" type="reset" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>
@@ -126,10 +126,10 @@
                         <button type="button" class="closeDialog" ng-click="deleteComment(comment)" ng-if="canDelete(comment.userId)"></button>
                         <form name="addReplyF" novalidate ng-submit="addReply(comment,addReplyF.$valid)" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-show="comment.showReplyF">
                             <div class="textareaWpr">
-                                <textarea text-direction ng-model="fromReply.Comment" class="commentsTextarea" required></textarea>
+                                <textarea name="replyComment" text-direction ng-model="fromReply.Comment" class="commentsTextarea" required ng-focus="focusComments($event)"></textarea>
                                 <div class="rFloat">
-                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="comment.replyp || addReplyF.$invalid">@SharedResources.Post</button>
-                                    <button type="reset" class="cancel rFloat" ng-click="comment.showReplyF=false">@DialogResources.Cancel</button>
+                                    <button type="submit" ng-init="comment.replyp=false" class="post rFloat" ng-disabled="addReplyF.$invalid">@SharedResources.Post</button>
+                                    <button type="reset" class="cancel rFloat" ng-click="comment.showReplyF=false;fromReply.Comment=''">@DialogResources.Cancel</button>
                                 </div>
                             </div>
                         </form>

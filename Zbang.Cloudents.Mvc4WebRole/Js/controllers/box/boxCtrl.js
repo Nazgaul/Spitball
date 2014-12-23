@@ -236,11 +236,17 @@
 
             //#region user
             $scope.followBox = function (nonAjax) {
+
                 if ($scope.info.userType === 'owner' || $scope.info.userType === 'subscribe') {
                     return;
                 }
 
                 if ($scope.action.userFollow) {
+                    return;
+                }
+
+                if (!sUserDetails.isAuthenticated()) {
+                    sLogin.registerAction();
                     return;
                 }
 
