@@ -461,6 +461,7 @@
 .leavePrompt .cbLabel2 {
   margin: 10px 0;
   font-size: 18px;
+  display: block;
 }
 .leavePrompt .alert:before {
   top: -5px;
@@ -1069,6 +1070,7 @@
   height: 77px;
 }
 .svg-ribbon {
+  fill: #144429;
   width: 384px;
   height: 77px;
 }
