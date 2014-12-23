@@ -35,7 +35,9 @@
                 <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
             </ul>
         </section>
-        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}"
+           analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Show All"
+           >@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
         <div class="emptySearch">@SharedResources.NoResults</div>
     </div>
 </div>
