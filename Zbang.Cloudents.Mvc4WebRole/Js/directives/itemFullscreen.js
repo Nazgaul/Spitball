@@ -4,7 +4,7 @@
           restrict: 'A',
           link: {
               pre: function (scope, element, attrs) {
-                  element.bind('click', function (e) {
+                  element[0].addEventListener('click', function (e) {
                       var video = angular.element('video')[0];
                       if (!video) {
                           return;
@@ -23,7 +23,7 @@
                           video.webkitRequestFullscreen();
                       }
 
-                  });
+                  },false);
               }
           }
       }
