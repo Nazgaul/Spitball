@@ -356,7 +356,7 @@
   content: '';
   display: inline-block;
   position: absolute;
-  right: -7px;
+  left: -7px;
   /*rtl*/
   top: 3px;
   width: 1px;
