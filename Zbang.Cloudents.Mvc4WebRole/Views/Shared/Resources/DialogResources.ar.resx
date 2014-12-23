@@ -306,4 +306,8 @@
   <data name="WillRemove" xml:space="preserve">
     <value>سوف حذف إزالة كافة المحتويات وأعضاء</value>
   </data>
+  <data name="MarkToDelete" xml:space="preserve">
+    <value>علامة من حذف هذه مربع
+</value>
+  </data>
 </root>

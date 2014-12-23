@@ -3,11 +3,11 @@
 <div class="modal-header ghost">
     <h3 class="modal-title vCentered">
         @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-        @DialogResources.ViewEntire
+        @DialogResources.IsItBlurry
     </h3>
 </div>
 <div class="modal-body">
-    <div class="itemRegTxt1">@DialogResources.InterestedIn</div>
+    <div class="itemRegTxt1">@DialogResources.CrystalClear</div>
     @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
     <div class="itemRegTxt2">@IndexResources.FreeOnline</div>
     <button type="button" class="btn1" ng-click="register()">@SharedResources.RegisterFree</button>

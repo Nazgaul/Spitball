@@ -250,6 +250,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign up to Cloudents and then everything will be crystal clear.
+        /// </summary>
+        public static string CrystalClear {
+            get {
+                return ResourceManager.GetString("CrystalClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string Done {
@@ -317,17 +326,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interested in finding more class notes and previous exams
-        ///that can help you improve your studying?
-        ///Join the rest of your classmates and sign up to .
-        /// </summary>
-        public static string InterestedIn {
-            get {
-                return ResourceManager.GetString("InterestedIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invite other students to join this box....
         /// </summary>
         public static string InviteFriends {
@@ -342,6 +340,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string InviteTo {
             get {
                 return ResourceManager.GetString("InviteTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is it blurry?.
+        /// </summary>
+        public static string IsItBlurry {
+            get {
+                return ResourceManager.GetString("IsItBlurry", resourceCulture);
             }
         }
         
@@ -612,16 +619,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string ViaFacebook {
             get {
                 return ResourceManager.GetString("ViaFacebook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Would you like to view
-        ///the entire document? .
-        /// </summary>
-        public static string ViewEntire {
-            get {
-                return ResourceManager.GetString("ViewEntire", resourceCulture);
             }
         }
         
