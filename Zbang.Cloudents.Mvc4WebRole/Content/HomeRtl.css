@@ -110,10 +110,10 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-.language a:not(.lastLang):before {
-  left: -7px;
+.language button ~ button:before {
+  right: -7px;
   /*rtl*/
-  right: auto;
+  left: auto;
 }
 .qna .sectionWpr:before {
   float: right;

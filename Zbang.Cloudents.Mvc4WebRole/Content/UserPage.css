@@ -27,13 +27,13 @@
 }
 .userPage .searchInputWpr,
 .searchPage .searchInputWpr {
-  margin-top: 21px;
+  margin: 21px 13px 0 13px;
   width: 460px;
 }
 .userPage .searchInputWpr + button .svg-inviteUser,
 .searchPage .searchInputWpr + button .svg-inviteUser {
   position: relative;
-  top: -7px;
+  top: -9px;
 }
 .userPage h1 {
   font-size: 22px;
