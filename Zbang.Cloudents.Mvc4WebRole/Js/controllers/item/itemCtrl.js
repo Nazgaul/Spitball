@@ -39,14 +39,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     });
 
     if (!sUserDetails.isAuthenticated()) {
-        $scope.unreg = true;
-        sModal.open('itemReg', {
-            callback: {
-                close: function () {
-                    sLogin.register();
-                }
-            }
-        });
+        $scope.unreg = true;     
     }
 
     function getPreview() {
@@ -55,10 +48,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         } else {
             $scope.load.contentLoading = true;
         }
-        if (!sUserDetails.isAuthenticated() && index > 0) {
-            sLogin.registerAction();
-            return;
-        }
+     
         //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
         sItem.preview({
             blobName: $scope.item.blob,
