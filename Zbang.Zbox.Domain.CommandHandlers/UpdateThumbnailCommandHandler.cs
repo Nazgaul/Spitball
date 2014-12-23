@@ -46,17 +46,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_ItemRepository.Save(file);
                 return;
             }
-            //if (file.ThumbnailBlobName == Zbang.Zbox.Infrastructure.Thumbnail.ThumbnailProvider.DefaultFileTypePicture)
-            //{
-            //    UpdateThumbail(command, file);
-            //    m_ItemRepository.Save(file);
-            //    return;
-            //}
-            //if (file.ThumbnailBlobName.ToUpper().Contains("THUMBNAIL"))
-            //{
-            //    m_ItemRepository.Save(file);
-            //    return;
-            //}
             UpdateThumbail(command, file);
             m_ItemRepository.Save(file);
 
@@ -66,8 +55,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl);
             file.UpdateThumbnail(command.ThumbnailUrl, thumbnailUrl);
-            //file.ThumbnailBlobName = command.ThumbnailUrl;
-
 
             if (string.IsNullOrEmpty(file.Box.Picture))
             {

@@ -191,7 +191,7 @@ namespace Zbang.Zbox.ReadServices
                 --'excelv4.jpg'
                 --)
                 --and 
-                isdeleted = 0");
+                isdeleted = 0 order by itemid");
 
                 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
                 //(blobname like '%.jpg'

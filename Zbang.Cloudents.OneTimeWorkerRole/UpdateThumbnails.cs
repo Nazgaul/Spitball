@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     try
                     {
 
-                        TraceLog.WriteInfo("processing now " + blob.Uri);
+                        TraceLog.WriteInfo("processing now " + blob.Uri + " id: " + blobname.itemid);
                         UpdateFile2(blob.Uri, blobname.itemid);
                     }
                     catch (StorageException)
