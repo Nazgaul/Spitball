@@ -5,7 +5,7 @@
         'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
        'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard',
        'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics',
-       'angulartics.google.analytics', 'angular-appinsights']).
+       'angulartics.google.analytics']).
    config([
        '$routeProvider',
        '$locationProvider',
@@ -13,16 +13,17 @@
        '$tooltipProvider',
        '$provide',
        '$angularCacheFactoryProvider',
-       'insightsProvider',
+       '$compileProvider',
        function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $provide,
-           $angularCacheFactoryProvider, insightsProvider) {
+           $angularCacheFactoryProvider, $compileProvider) {
+           $compileProvider.debugInfoEnabled(false);
            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
            $angularCacheFactoryProvider.setCacheDefaults({
-               maxAge: 30000, //25 minutes
+               maxAge: 45000, //45 seconds
                deleteOnExpire: 'aggressive',
-               recycleFreq: 30000,
-               cacheFlushInterval:30000,
+               recycleFreq: 45000,
+               cacheFlushInterval:45000,
                storageMode: 'sessionStorage'
            });
 
@@ -66,7 +67,8 @@
                                window.open('/error/', '_self');
                                break;
                            default:
-                               window.open('/error/', '_self');
+                               // somehow firefox in incognito crash and transfer to error page
+                            //   window.open('/error/', '_self');
                                break;
 
                        }
@@ -309,7 +311,6 @@
            }
 
            //#endregion
-           insightsProvider.start('f877396f-f06b-4b06-890d-242282700508');
 
 
            //#region log js errors 
@@ -345,7 +346,8 @@
        }
    ]);
 
-    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker','htmlCache', function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker, htmlCache) {
+    app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', /*'htmlCache',*/
+        function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker/*, htmlCache*/) {
 
         //check for iframe
         try {
@@ -368,26 +370,12 @@
 
 
         sVerChecker.checkVersion();
-        $rootScope.$on('$routeChangeStart', function (event, next, prev) {
+        $rootScope.$on('$routeChangeStart', function () {
             $window.scrollTo(0, 0);
-            //if (!prev) {
-            //    return;
-            //}
-            //try {
-            //    var routeName = next.$$route.params.type;
-            //    if (routeName === 'account' && sUserDetails.getDetails) {
-
-
-            //    }
-
-            //}
-            //catch (ex) {
-            //}
-
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            htmlCache.checkState();
+            //htmlCache.checkState();
 
             try {
                 if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {

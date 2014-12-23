@@ -71,6 +71,11 @@ namespace Zbang.Zbox.Domain
         public virtual Box Box { get; protected set; }
         public virtual UserBoxRel UserBoxRel { get; protected set; }
 
+        internal virtual void RemoveAssociationWithUserBoxRel()
+        {
+            UserBoxRel = null;
+        }
+
         public virtual bool Read { get; protected set; }
         public virtual bool New { get; protected set; }
 

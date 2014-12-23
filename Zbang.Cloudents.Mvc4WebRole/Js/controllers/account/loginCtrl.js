@@ -1,12 +1,12 @@
 ﻿mAccount.controller('LoginCtrl',
     ['$scope', '$window', '$route', '$routeParams', 'sFacebook', 'sAccount', '$analytics', '$angularCacheFactory',
-        function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics, $angularCacheFactory) {
+function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics, $angularCacheFactory) {
             "use strict";
-            var loginDisable, registerDisable;
 
             $scope.params = {
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
             };
+            $scope.disabled = false;
 
             $scope.params.states = {
                 registerFirst: 0,
@@ -38,20 +38,22 @@
                 sFacebook.registerFacebook({ boxId: $routeParams.boxId }).then(function () {
                     $window.location.reload();
                 }, function () {
-                    $modalInstance.dismiss();
+                    $scope.close();
                 });
             };
 
             $scope.login = function (isValid) {
+                
                 if (!isValid) {
                     return;
                 }
-                if (loginDisable) {
-                    return;
-                }
+                $scope.disabled = true;
+                //if (loginDisable) {
+                //    return;
+                //}
 
-                loginDisable = true;
-                $scope.params.loginServerError = null;
+                //loginDisable = true;
+                //$scope.params.loginServerError = null;
 
                 sAccount.login($scope.formData.login).then(function () {
                     var routeName = $route.current.$$route.params.type;
@@ -66,7 +68,7 @@
 
                 }, function (response) {
                     $scope.params.loginServerError = response[0].value[0];
-                    loginDisable = false;
+                    $scope.disabled = false;
                 });
             };
 
@@ -74,10 +76,8 @@
                 if (!isValid) {
                     return;
                 }
-                if (registerDisable) {
-                    return;
-                }
-                registerDisable = true;
+                $scope.disabled = true;
+               
 
                 $scope.params.registerServerError = null;
 
@@ -109,14 +109,15 @@
 
 
                 }, function (response) {
+                    
                     $scope.params.registerServerError = response[0].value[0];
-                    registerDisable = false;
+                    $scope.disabled = false;
                 });
             };
 
             $scope.changeLanguage = function () {
 
-                $angularCacheFactory.get('htmlCache').removeAll();
+                //$angularCacheFactory.get('htmlCache').removeAll();
 
                 $analytics.eventTrack('Language Change', {
                     category: 'Register Popup',

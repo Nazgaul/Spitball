@@ -179,6 +179,14 @@ input[type="radio"][disabled] + label:before {
   outline-color: #dc3500;
 }
 /*#endregion */
+/*#region footer code */
+.footer li ~ li:before {
+  content: '|';
+  font-size: 10px;
+  padding: 0 3px 0 6px;
+  /*rtl*/
+}
+/*#endregion */
 /*#region Site buttons */
 .btn1,
 .btn2 {

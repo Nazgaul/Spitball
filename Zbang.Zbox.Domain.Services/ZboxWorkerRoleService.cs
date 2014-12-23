@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Dapper;
 using NHibernate;
+using NHibernate.Proxy;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.DataAccess;
@@ -28,11 +30,66 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            InternalDbi();
+            AddItemsToFeedDbi();
+        }
 
+        private void AddItemsToFeedDbi()
+        {
+            var commentRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<Comment>>();
+            using (UnitOfWork.Start())
+            {
+                var items = UnitOfWork.CurrentSession.QueryOver<Item>()
+                     .Where(w => w.IsDeleted == false)
+                     .And(w => w.Comment == null)
+                     .And(w => w.Answer == null)
+                     .And(w => w.Box.Id == 5062L)
+                     .OrderBy(w => w.DateTimeUser.CreationTime).Asc
+                     .List();
+                foreach (var item in items)
+                {
+                    using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                    {
+                        var comment = GetPreviousCommentId(item.BoxId, item.UploaderId, item.DateTimeUser.CreationTime);
+                        if (comment == null)
+                        {
 
+                            comment = item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime),
+                                   null, FeedType.AddedItems);
+                        }
+                        comment.AddItem(item);
+                        commentRepository.Save(comment);
+                        tx.Commit();
+                    }
+                }
 
+            }
+        }
+        private Comment GetPreviousCommentId(long box, long user, DateTime time)
+        {
+            time = time.AddHours(-1);
+            var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
+                .Where(w => w.DateTimeUser.CreationTime > time)
+                .And(w => w.IsDeleted == false)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Box.Id == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Uploader.Id == user)
+                .Select(s => s.Comment).Future<Comment>();
 
+            var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                .Where(w => w.DateTimeUser.CreationTime > time)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Box.Id == box)
+                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
+                .And(w => w.Owner.Id == user)
+                .Select(s => s.Comment).Future<Comment>();
+
+            return questions.Union(questions2)
+                .Where(w => w != null)
+                //.Where(w => w.Text == null)
+                .Where(w => w.FeedType == FeedType.AddedItems)
+                .OrderByDescending(o => o.DateTimeUser.CreationTime)
+                .FirstOrDefault();
         }
 
         private void InternalDbi()
@@ -44,7 +101,7 @@ namespace Zbang.Zbox.Domain.Services
                 {
 
                     var files = UnitOfWork.CurrentSession.QueryOver<File>().Where(w => w.Url == null)
-                        .And(w=>w.IsDeleted == false)
+                        .And(w => w.IsDeleted == false)
                         .List();
                     foreach (var file in files)
                     {

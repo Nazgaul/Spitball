@@ -41,8 +41,10 @@ namespace Zbang.Zbox.Domain
         public virtual bool IsDeleted { get; set; }
 
         public virtual User Uploader { get; set; }
+        public virtual long UploaderId { get; set; }
         public virtual long Size { get; set; }
         public virtual Box Box { get; set; }
+        public virtual long BoxId { get; set; }
         public virtual int NumberOfViews { get; private set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]

@@ -5,7 +5,7 @@
 
 <div class="signIn">
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
-        <div>{{params.loginServerError}}</div>
+        <div class="loginError">{{params.loginServerError}}</div>
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
             <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
@@ -22,46 +22,6 @@
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")" target="_self">@LogOnResources.ForgotYourPassword</a>
         <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" ng-model="formData.login.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">@LogOnResources.RememberMe</label>
-        <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" ng-click="loginSubmitted = true">
+        <input ng-disabled="disabled" class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" ng-click="loginSubmitted = true">
     </form> 
 </div>
-
-@*<div class="signIn">
-
-        @using (Html.BeginForm("LogIn", "Account", new { returnUrl = ViewBag.returnUrl },
-        FormMethod.Post, new { id = "login", name = "loginForm" })
-       )
-        {
-            Html.RenderAction("AntiForgeryToken", "Home", true);
-
-            @Html.ValidationMessageFor(model => model.Email, null)
-            @Html.TextBoxFor(model => model.Email, new
-            {
-                @class = "inputText",
-                type = "email",
-                //autofocus = "autofocus",
-                tabindex = 1,
-                placeholder = @SharedResources.EmailAddress
-            })
-
-            @Html.ValidationMessageFor(model => model.Password, null)
-            @Html.PasswordFor(model => model.Password, new
-            {
-                @class = "inputText",
-                tabindex = 2,
-                placeholder = @LogOnResources.Password
-            })
-
-            @Html.ActionLink(@LogOnResources.ForgotYourPassword, "ResetPassword", "Account", null, new { @class = "forgot rFloat", target = "_self" })
-
-
-
-            @Html.CheckBoxFor(m => m.RememberMe, new { id = "RememberMe", @class = "checkbox", tabindex = "3" })
-
-            @Html.LabelFor(model => model.RememberMe, new { @class = "cbLabel lFloat" })
-
-            <input class="lFloat btn1" tabindex="4" type="submit" value="@SharedResources.SignIn" />
-        }
-    </div>*@
-
-

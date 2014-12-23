@@ -10,7 +10,10 @@
                     if (_.isUndefined(scope.ngMatch)) {
                         return true;
                     }
-                    return scope.ngMatch.toLowerCase() === value.toLowerCase();
+                    if (value) {
+                        return scope.ngMatch.toLowerCase() === value.toLowerCase();
+                    }
+                    return false;
                 };
                 
                 scope.$watch('ngMatch', function (newVal, oldVal) {

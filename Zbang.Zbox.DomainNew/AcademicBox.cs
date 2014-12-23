@@ -3,7 +3,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
@@ -25,9 +24,9 @@ namespace Zbang.Zbox.Domain
             UserTime.CreatedUser = creator.Email;
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
 
-            Resources.QuestionResource.Culture = Languages.GetCultureBaseOnCountry(University.Country);
 
-            Comments.Add(new Comment(creator, Resources.QuestionResource.NewCourse, this, idGenerator.GetId(), null, true));
+            Comments.Add(new Comment(creator, null,
+                this, idGenerator.GetId(), null, FeedType.CreatedCourse));
             CommentCount = 1;
 
             Department = department;

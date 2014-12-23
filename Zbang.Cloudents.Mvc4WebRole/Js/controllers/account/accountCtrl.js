@@ -1,6 +1,10 @@
 ﻿mAccount.controller('AccountCtrl',
-['$scope', '$timeout', 'sAccount', '$angularCacheFactory', '$window', '$analytics', '$location',
-function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics, $location) {
+['$scope', '$timeout', 'sAccount',
+    //'$angularCacheFactory',
+    '$window', '$analytics', '$location',
+function ($scope, $timeout, sAccount,
+    //$angularCacheFactory,
+    $window, $analytics, $location) {
     "use strict";
 
     $scope.params = {};
@@ -20,7 +24,7 @@ function ($scope, $timeout, sAccount, $angularCacheFactory, $window, $analytics,
     });
 
     $scope.changeLocale = function (lang) {
-        $angularCacheFactory.get('htmlCache').removeAll();
+        //$angularCacheFactory.get('htmlCache').removeAll();
 
         $analytics.eventTrack('Language Change', {
             category: 'Register Popup',

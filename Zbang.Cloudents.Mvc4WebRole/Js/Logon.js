@@ -237,7 +237,8 @@
 
     connectForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
+        var submit2 = connectForm.querySelector('input[type="submit"]');
+        submit2.disabled = true;
         if (validatinator.fails('loginForm')) {
             displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;
@@ -252,7 +253,8 @@
 
     registerForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
+        var submit2 = connectForm.querySelector('input[type="submit"]');
+        submit2.disabled = true;
         if (validatinator.fails('registerForm')) {
             displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;
@@ -268,14 +270,8 @@
         submit(registerForm, data);
     });
 
-    var submitting = false;
     function submit(form, data) {
 
-        if (submitting) {
-            return;
-        }
-
-        submitting = true;
 
         var inputs = form.querySelectorAll('input');
         for (var i = 0, l = inputs.length; i < l; ++i) {
@@ -290,12 +286,12 @@
 
 
         ajax.post(form.action, data, function (data2) {
-            submit2.disabled = false;
+            
 
             if (!data2.success) {
                 resetErrors(form);
                 displayErrors(form, data2.payload);
-                submitting = false;
+                submit2.disabled = false;
                 return;
             }
             window.sessionStorage.clear();

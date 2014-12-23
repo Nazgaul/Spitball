@@ -352,11 +352,11 @@
 .language button:hover {
   color: #a7a7a7;
 }
-.language button:not(.lastLang):before {
+.language button ~ button:before {
   content: '';
   display: inline-block;
   position: absolute;
-  right: -7px;
+  left: -7px;
   /*rtl*/
   top: 3px;
   width: 1px;
@@ -583,15 +583,6 @@ footer {
 }
 .footer li:first-child:hover {
   opacity: 0.5;
-}
-.footer li:after {
-  content: '|';
-  font-size: 10px;
-  padding: 0 3px 0 6px;
-  /*rtl*/
-}
-.footer .last:after {
-  content: '';
 }
 .footer a {
   text-decoration: none;

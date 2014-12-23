@@ -52,7 +52,8 @@
                 service.cachePages();
                 return;
             }
-            if ((htmlCache.get('version') !== sVerChecker.currentVersion()) || (htmlCache.get('culture') !== sUserDetails.getDetails().culture)) {
+            if ((htmlCache.get('version') !== sVerChecker.currentVersion())
+                || (htmlCache.get('culture') !== sUserDetails.getDetails().culture)) {
                 htmlCache.removeAll();
                 service.cachePages();
             }

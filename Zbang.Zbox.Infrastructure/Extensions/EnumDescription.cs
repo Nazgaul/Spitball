@@ -9,14 +9,14 @@ namespace Zbang.Zbox.Infrastructure.Extensions
         {
             Description = description;
         }
-        public EnumDescription(Type resorceType, string resourceName)
+        public EnumDescription(Type resourceType, string resourceName)
         {
-            ResorceType = resorceType;
+            ResourceType = resourceType;
             ResourceName = resourceName;
         }
         public string Description { get; set; }
 
-        public Type ResorceType { get; set; }
+        public Type ResourceType { get; set; }
         public string ResourceName { get; set; }
     }
 }

@@ -166,6 +166,9 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                         remove();
 
                     }
+                },
+                data: {
+                    name: box.name
                 }
             });
             return;
@@ -191,8 +194,8 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                 category: 'Leave Box'
             };
             sBox.remove({ id: box.id, 'delete': isDelete });
-            
-            
+
+
             $analytics.eventTrack('Library', analytics);
 
             box.userType = 'none';

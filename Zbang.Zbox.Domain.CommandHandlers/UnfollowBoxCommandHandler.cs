@@ -63,6 +63,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //box.IsDeleted = true;
             box.UserTime.UpdateUserTime(box.Owner.Email);
             var academicBox = box as AcademicBox;
+            m_BoxRepository.Delete(box);
+
             if (academicBox != null)
             {
                 var university = academicBox.University;
@@ -76,7 +78,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider.InsertMessageToTranaction(new QuotaData(users));
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(users));
             
-            m_BoxRepository.Delete(box);
             //m_BoxRepository.Save(box);
         }
         private void UnFollowBox(Box box, long userId)

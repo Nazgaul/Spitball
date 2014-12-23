@@ -227,7 +227,7 @@
                     return;
                 }
 
-                $angularCacheFactory.get('htmlCache').removeAll();
+                //$angularCacheFactory.get('htmlCache').removeAll();
 
                 $analytics.eventTrack('Account settings', {
                     category: 'Language Change',

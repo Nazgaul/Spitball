@@ -20,13 +20,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                 sb.AppendLine(string.Format("key: {0} value: {1}", formKey,
                     filterContext.HttpContext.Request.Form[formKey]));
             }
+            var sb2 = new StringBuilder();
+            foreach (var formKey in filterContext.HttpContext.Request.QueryString.AllKeys)
+            {
+                sb2.AppendLine(string.Format("key: {0} value: {1}", formKey,
+                    filterContext.HttpContext.Request.Form[formKey]));
+            }
 
-            var info = string.Format("url {0} user {1}  RequestType {2} formData {3}", filterContext.HttpContext.Request.RawUrl,
+            var info = string.Format("url {0} user {1}  RequestType {2} formData {3} querystring {4}", filterContext.HttpContext.Request.RawUrl,
                 filterContext.HttpContext.User.Identity.Name,
                 filterContext.HttpContext.Request.RequestType,
-                sb
+                sb,
+                sb2
                 );
-            TraceLog.WriteError(info, filterContext.Exception, filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n"));
+            TraceLog.WriteError(info, filterContext.Exception);
 
             //if (filterContext.Exception.GetType() == typeof(BoxAccessDeniedException))
             //{

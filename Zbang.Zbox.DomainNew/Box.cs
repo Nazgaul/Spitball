@@ -151,9 +151,9 @@ namespace Zbang.Zbox.Domain
             return item;
         }
 
-        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, bool isSystemGenerated)
+        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType? feedType)
         {
-            var comment = new Comment(user, text, this, id, items, isSystemGenerated);
+            var comment = new Comment(user, text, this, id, items, feedType);
             Comments.Add(comment);
             UpdateCommentsCount();
             return comment;
@@ -273,10 +273,15 @@ namespace Zbang.Zbox.Domain
 
         public void DeleteAssociation()
         {
+            //We need this because nhibernate try to delete userboxrel without remove it from invites tables
+            foreach (var inviteToBox in Invites)
+            {
+                inviteToBox.RemoveAssociationWithUserBoxRel();
+            }
+            Invites.Clear();
             UserBoxRelationship.Clear();
             Comments.Clear();
             ItemTabs.Clear();
-            Invites.Clear();
             Updates.Clear();
             Quizzes.Clear();
         }

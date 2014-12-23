@@ -10,7 +10,7 @@
     <discriminator column="Discriminator" not-null="true" type="System.String" />
     <property name="Name" length="4000"/>
     <property name="IsDeleted" index="iBoxIsDeleted"/>
-    <many-to-one name="Uploader" class="User" column="UserId" not-null="true"/>
+    
     <property name="Size"/>
     <property name="NumberOfViews"/>
     <property name="NumberOfComments"/>
@@ -25,7 +25,10 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
     <many-to-one column="BoxId" class="Box" name="Box" index="iBoxIsDeleted"/>
+    <property  name="BoxId" column="BoxId" insert="false" update="false" />
 
+    <many-to-one name="Uploader" class="User" column="UserId" not-null="true"/>
+    <property  name="UploaderId" column="UserId" insert="false" update="false" />
 
     <many-to-one column="QuestionId" class="Comment" name="Comment" />
     <many-to-one column="AnswerId" class="CommentReplies" name="Answer"/>

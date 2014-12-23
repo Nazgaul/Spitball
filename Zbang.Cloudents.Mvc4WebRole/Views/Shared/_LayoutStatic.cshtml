@@ -37,7 +37,7 @@
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
-            window.location = "/Error/Unsupported";
+            window.location = "/error/unsupported/";
         }
     </script>
     <![endif]-->
@@ -94,9 +94,23 @@
 
     <script type="text/javascript" src="~/Js/CDNFallback.min.js"></script>
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
-    @*@Html.Script2("General")*@
     @RenderSection("scripts", false)
     @Html.Script2("static")
+
+    <script>
+        @*solve bug 3008*@
+        sessionStorage.clear();
+        localStorage.clear();
+        var elem = document.getElementById('logoff');
+        if (elem) {
+            @*solve bug in log out*@
+            elem.addEventListener('click', function () {
+                sessionStorage.clear();
+                localStorage.clear();
+
+            });
+        }
+    </script>
 
 </body>
 

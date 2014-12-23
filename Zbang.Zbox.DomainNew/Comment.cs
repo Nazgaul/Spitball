@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {
@@ -10,7 +12,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Comment(User user, string text, Box box, Guid id, IList<Item> items, bool isSystemGenerated)
+        public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType? feedType = null)
         {
             if (user == null)
             {
@@ -26,19 +28,22 @@ namespace Zbang.Zbox.Domain
             Items = items ?? new List<Item>();
             User = user;
             Box = box;
-            if (text != null)
-            {
-                text = text.Trim();
-            }
-            if (text == string.Empty)
-            {
-                text = null;
-            }
-            Text = text;
+            Text = ExtractCommentText(feedType, text, user);
             DateTimeUser = new UserTimeDetails(user.Email);
             Box.UserTime.UpdateUserTime(user.Email);
-            IsSystemGenerated = isSystemGenerated;
+            FeedType = feedType;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
+        }
+
+        private string ExtractCommentText(FeedType? feedType, string text, User user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            if (feedType.HasValue && !string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException("feedtype cant be not null and text not null");
+            }
+            if (!feedType.HasValue) return string.IsNullOrEmpty(text) ? null : text.Trim();
+            return feedType.GetEnumDescription(Languages.GetCultureBaseOnCountry(user.University.Country));
         }
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
@@ -55,7 +60,7 @@ namespace Zbang.Zbox.Domain
 
         public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
 
-        public virtual bool IsSystemGenerated { get; set; }
+        public virtual FeedType? FeedType { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
 
@@ -81,7 +86,7 @@ namespace Zbang.Zbox.Domain
         public bool RemoveItem(Item item)
         {
             Items.Remove(item);
-            return Items.Count == 0 && (string.IsNullOrEmpty(Text) || IsSystemGenerated);
+            return Items.Count == 0 && (string.IsNullOrEmpty(Text) || FeedType == Infrastructure.Enums.FeedType.AddedItems);
         }
     }
 }

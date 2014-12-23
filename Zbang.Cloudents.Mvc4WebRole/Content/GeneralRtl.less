@@ -59,6 +59,17 @@ input[type="radio"] {
 }
 /*#endregion */
 
+/*#region footer code */
+.footer {
+    li {
+        ~ li:before {
+            padding: 0 6px 0 3px; /*rtl*/
+        }
+    }
+}
+
+/*#endregion */
+
 /*#region delete email 'x' */
 .removeItem, .closeItem {
     left: 5px; /*rtl*/

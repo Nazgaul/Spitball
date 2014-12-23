@@ -24,7 +24,6 @@
       <Setting name="ZBox" />
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
-      <Setting name="IsMobileDisabled" />
       <Setting name="AzureSearchApiKey" />
       <Setting name="AzureSeachApiUrl" />
       <Setting name="MobileWebSite" />
@@ -39,7 +38,7 @@
       <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
     </LocalResources>
     <Startup>
-      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple"/>
+      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple" />
     </Startup>
   </WebRole>
 </ServiceDefinition>

@@ -315,6 +315,14 @@
     .emailBtn {
         border: 1px solid @borderColor;
     }
+    .loginError {
+        color: @errorColor;
+    }
+    .regError {
+        color: @errorColor;
+        position: relative;
+        top: 25px;
+    }
 }  
 .congrats {
     font-family: Arial;
@@ -352,23 +360,23 @@
             fill: @color;
             display: inline-block;
             //top: 15px;
-            top: 50px;
+            //top: 50px;
             left:0; //rtl
             position: absolute;
         }
         h3 {
             width: auto; //override
             font-size: 22px;
-            line-height: 24px;
+            line-height: 24px; //rtl
             color: @color;
-            display: inline-block;
-            vertical-align: top;
+            //display: inline-block;
+            //vertical-align: top;
             background: none;//override
             font-weight: bold;
-            white-space: pre-line;
+            //white-space: pre-line;
             position: relative;
-            //top: 0;
-            top: -36px;
+            max-width: 358px;
+            text-align: left; //rtl
             padding: 0 0 0 50px; //rtl //override
             .boxSizing;
         }
@@ -438,6 +446,7 @@
         //width: 310px;
         white-space:pre-line;
         line-height: 14px;
+        display:inline-block;
         &:before {
             content: '!';
             display: inline-block;

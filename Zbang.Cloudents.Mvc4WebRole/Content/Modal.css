@@ -280,6 +280,14 @@
 .welcome .emailBtn {
   border: 1px solid #c2c2c2;
 }
+.welcome .loginError {
+  color: #d1294d;
+}
+.welcome .regError {
+  color: #d1294d;
+  position: relative;
+  top: 25px;
+}
 .congrats {
   font-family: Arial;
   font-weight: bold;
@@ -322,7 +330,6 @@
   height: 50px;
   fill: #0f9d58;
   display: inline-block;
-  top: 50px;
   left: 0;
   position: absolute;
 }
@@ -331,13 +338,11 @@
   font-size: 22px;
   line-height: 24px;
   color: #0f9d58;
-  display: inline-block;
-  vertical-align: top;
   background: none;
   font-weight: bold;
-  white-space: pre-line;
   position: relative;
-  top: -36px;
+  max-width: 358px;
+  text-align: left;
   padding: 0 0 0 50px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -397,6 +402,7 @@
   padding-left: 35px;
   white-space: pre-line;
   line-height: 14px;
+  display: inline-block;
 }
 .deptSettings .alert:before,
 .leavePrompt .alert:before {

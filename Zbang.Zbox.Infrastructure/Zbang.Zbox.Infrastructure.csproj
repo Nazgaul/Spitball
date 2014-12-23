@@ -136,6 +136,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Enums\Resources\QuestionResource.Designer.cs">
+      <DependentUpon>QuestionResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Enums\SchoolType.cs" />
     <Compile Include="Enums\StatisticsAction.cs" />
     <Compile Include="Enums\StoreBannerLocation.cs" />
@@ -273,6 +278,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.ar.resx" />
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.en-gb.resx" />
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.he.resx" />
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.ru.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.ar.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.resx">

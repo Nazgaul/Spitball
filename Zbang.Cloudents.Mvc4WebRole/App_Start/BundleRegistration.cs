@@ -102,7 +102,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
-                        new JsFileWithCdn("~/scripts/angular-appinsights.js"),
+                        //new JsFileWithCdn("~/scripts/angular-appinsights.js"),
                         new JsFileWithCdn("/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/scripts/stacktrace.js"),
                     }
@@ -201,7 +201,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/services/userPoints.js"),
                         new JsFileWithCdn("/js/services/account.js"),
                         new JsFileWithCdn("/js/services/share.js"),
-                        new JsFileWithCdn("/js/services/htmlCache.js"),                        
+                        //new JsFileWithCdn("/js/services/htmlCache.js"),                        
                         new JsFileWithCdn("/js/services/resourceManager.js"),
                         new JsFileWithCdn("/js/services/notificationHandler.js"),
                         new JsFileWithCdn("/js/services/library.js"),
@@ -293,16 +293,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                         //new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
                         //new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
-                        new JsFileWithCdn("~/scripts/Modernizr.js"),
+                        //new JsFileWithCdn("~/scripts/Modernizr.js"),
 
-                        //new JsFileWithCdn("~/Scripts/MutationObserver.js"),
+                        ////new JsFileWithCdn("~/Scripts/MutationObserver.js"),
 
-                        new JsFileWithCdn("~/Js/Utils2.js"),
-                        new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
+                        //new JsFileWithCdn("~/Js/Utils2.js"),
+                        //new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
 
-                        new JsFileWithCdn("~/Js/pubsub2.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js")
-                        //new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
+                        //new JsFileWithCdn("~/Js/pubsub2.js"),
+                        //new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
                 {
@@ -310,7 +309,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
                             "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-                        new JsFileWithCdn("~/Js/externalScriptsInitializer.js")
                     }
                 }
             };
