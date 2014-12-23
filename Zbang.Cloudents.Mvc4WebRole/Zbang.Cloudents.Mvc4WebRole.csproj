@@ -954,6 +954,7 @@
     <Content Include="Js\directives\focusForm.js" />
     <Content Include="Js\directives\homePageScroll.js" />
     <Content Include="Js\directives\homeVideo.js" />
+    <Content Include="Js\directives\itemFullscreen.js" />
     <Content Include="Js\directives\login.js" />
     <Content Include="Js\directives\moxieDropzone.js" />
     <Content Include="Js\directives\ngMatch.js" />
