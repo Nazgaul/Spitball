@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 thumbnailImgLink = processor.GetDefaultThumbnailPicture();
             }
-            var fileName = GetUniqueFileNameToBox(command.FileName, box);
+            var fileName = GetUniqueFileNameToBox(command.FileName, box.Id);
 
             var item = box.AddFile(fileName,
                 user,
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (!command.IsQuestion)
             {
-                var comment = m_ItemRepository.GetPreviousCommentId(box, user) ??
+                var comment = m_ItemRepository.GetPreviousCommentId(box.Id, user.Id) ??
                             box.AddComment(user, null, m_IdGenerator.GetId(), null, FeedType.AddedItems);
                 comment.AddItem(item);
                 m_CommentRepository.Save(comment);
@@ -108,10 +108,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return result;
         }
 
-        private string GetUniqueFileNameToBox(string fileName, Box box)
+        private string GetUniqueFileNameToBox(string fileName, long boxId)
         {
             var origFileName = fileName.RemoveEndOfString(Item.NameLength);
-            var fileExists = m_ItemRepository.CheckFileNameExists(origFileName, box);
+            var fileExists = m_ItemRepository.CheckFileNameExists(origFileName, boxId);
 
             if (fileExists)
             {
@@ -122,7 +122,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     index++;
                     fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(origFileName), index,
                         Path.GetExtension(fileName));
-                    fileExists = m_ItemRepository.CheckFileNameExists(fileName, box);
+                    fileExists = m_ItemRepository.CheckFileNameExists(fileName, boxId);
                 } while (fileExists);
             }
             return fileName;

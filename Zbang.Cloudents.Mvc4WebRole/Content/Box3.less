@@ -978,8 +978,17 @@
     }
     .tag{
         position: absolute;
-        top: 15px;
-        right: 10px; /*rtl*/
+        top: 129px;
+        left: 140px; //rtl
+        padding: 1px 3px 2px 6px; //rtl
+        background: #d1294d;
+        &:before {
+            display: none;
+        }
+        &:after {
+            right: -7px; //rtl
+            top: 0;
+        }
     }
 }
 

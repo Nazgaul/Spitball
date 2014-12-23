@@ -92,7 +92,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_BoxRepository.Save(quiz.Box);
             m_QuizRepository.Save(quiz);
 
-            var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box, quiz.Owner) ??
+            var comment = m_ItemRepository.GetPreviousCommentId(quiz.Box.Id, quiz.Owner.Id) ??
                          new Comment(quiz.Owner, null, quiz.Box, m_IdGenerator.GetId(), null, FeedType.AddedItems);
             comment.AddQuiz(quiz);
             m_CommentRepository.Save(comment);

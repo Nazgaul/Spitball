@@ -913,8 +913,13 @@
     }
 
     .tag {
-        left: 10px; /*rtl*/
-        right: auto;
+        right: 140px; //rtl
+        left: auto;
+        padding: 1px 6px 2px 3px; //rtl
+        &:after {
+            left: -7px; //rtl
+            right: auto;
+        }
     }
 }
 

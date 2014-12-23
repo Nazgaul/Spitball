@@ -8,33 +8,30 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class ItemRepository : NHibernateRepository<Item>, IItemRepository
     {
-        public bool CheckFileNameExists(string fileName, Box box)
+        public bool CheckFileNameExists(string fileName, long boxId)
         {
             var file = UnitOfWork.CurrentSession.QueryOver<File>()
                 // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .Where(w => w.Box == box)
+                .Where(w => w.Box.Id == boxId)
                 .And(w => w.Name == fileName)
                 .And(w => w.IsDeleted == false)
                 .SingleOrDefault();
             return file != null;
         }
 
-        public Comment GetPreviousCommentId(Box box, User user)
+        public Comment GetPreviousCommentId(long boxId, long userId)
         {
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Box == box)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Uploader == user)
+                .And(w => w.Box.Id == boxId)
+                .And(w => w.Uploader.Id == userId)
+                .And(w => w.IsDeleted == false)
                 .Select(s => s.Comment).Future<Comment>();
 
             var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Box == box)
-                // ReSharper disable once PossibleUnintendedReferenceComparison nhibernate issue
-                .And(w => w.Owner == user)
+                .And(w => w.Box.Id == boxId)
+                .And(w => w.Owner.Id == userId)
                 .Select(s => s.Comment).Future<Comment>();
 
             return questions.Union(questions2)

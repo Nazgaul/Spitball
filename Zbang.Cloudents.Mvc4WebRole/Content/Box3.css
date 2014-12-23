@@ -953,9 +953,17 @@
 }
 .listItem .tag {
   position: absolute;
-  top: 15px;
-  right: 10px;
-  /*rtl*/
+  top: 129px;
+  left: 140px;
+  padding: 1px 3px 2px 6px;
+  background: #d1294d;
+}
+.listItem .tag:before {
+  display: none;
+}
+.listItem .tag:after {
+  right: -7px;
+  top: 0;
 }
 .thumbItem {
   float: left;
