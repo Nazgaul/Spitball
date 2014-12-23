@@ -107,7 +107,10 @@
             }
         },
         {
-            minLength: '{$0} תווים או יותר'
+            required: '',
+            minLength: '{$0} תווים או יותר',
+            email:'',
+            same:''
         }
     );
 
