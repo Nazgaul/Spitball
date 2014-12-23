@@ -112,6 +112,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     }
 
     $scope.flagItemWindow = function () {
+        if (!sUserDetails.isAuthenticated()) {
+            sLogin.registerAction();
+            return;
+        }
+
         sModal.open('flagItem', {
             data: {
                 id: itemId
@@ -129,6 +134,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     };
 
     $scope.renameWindow = function () {
+        if (!sUserDetails.isAuthenticated()) {
+            sLogin.registerAction();
+            return;
+        }
+
         sModal.open('itemRename', {
             data: {
                 name: $scope.item.name,
@@ -147,9 +157,15 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     };
     $scope.create = function (isValid) {
+        if (!sUserDetails.isAuthenticated()) {
+            sLogin.registerAction();
+            return;
+        }
+
         if (!isValid) {
             return;
         }
+
         $scope.commentp = true;
         $scope.formData.itemId = itemId;
         $scope.formData.boxId = boxId;
@@ -212,6 +228,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         return $scope.item && sUserDetails.getDetails().id !== $scope.item.ownerId;
     };
     $scope.addReply = function (comment, valid) {
+        if (!sUserDetails.isAuthenticated()) {
+            sLogin.registerAction();
+            return;
+        }
+
         if (!valid) {
             return;
         }
@@ -269,6 +290,11 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     };
     $scope.rate = function (t) {
+        if (!sUserDetails.isAuthenticated()) {
+            sLogin.registerAction();
+            return;
+        }
+
         sItem.rate({
             ItemId: itemId, rate: t, BoxId: boxId
         });
@@ -278,8 +304,26 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         });
     };
 
-    $scope.followBox = function () {
+    $scope.downloadItem = function (event) {
+        if (!sUserDetails.isAuthenticated()) {
+            event.preventDefault();
+            sLogin.registerAction();
+            return;
+        }
         sBox.follow({ BoxId: boxId });
+    };
+
+    $scope.focusComments = function (event, isCreate) {
+        if (!sUserDetails.isAuthenticated()) {
+            event.preventDefault();
+            sLogin.registerAction();
+            return;
+        }
+
+        if (isCreate) {
+            $scope.showBtn = true;
+        }
+
     };
 }
         ]);
