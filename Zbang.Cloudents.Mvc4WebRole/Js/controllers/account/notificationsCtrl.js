@@ -38,20 +38,7 @@
                     category: 'Notifications',
                     label: 'User clicked a notification'
                 });
-            };
-
-            $scope.$on('followedBox', function (e, boxId) {
-                var notification = _.find($scope.notifications, function (notification2) {
-                    return notification2.boxId === boxId;
-                });
-
-                if (!notification) {
-                    return;
-                }
-
-                var index = $scope.notifications.indexOf(notification);
-                $scope.notifications.splice(index, 1);
-            });
+            };           
 
             $scope.$on('newNotifications', getDetails);
 

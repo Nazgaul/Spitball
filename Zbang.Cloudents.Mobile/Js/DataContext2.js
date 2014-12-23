@@ -40,6 +40,7 @@
 
 
         definition.getNotifications = new definitionobj({ url: share + "Notifications", type: get });
+        definition.notificationRead = new definitionobj({ url: share + "NotificationAsRead" });
         //test
         definition.fbBoxInvite = new definitionobj({ url: share + 'InviteBoxFacebook', isJson: true });
         definition.fbInvite = new definitionobj({ url: share + 'InviteFacebook', isJson: true });

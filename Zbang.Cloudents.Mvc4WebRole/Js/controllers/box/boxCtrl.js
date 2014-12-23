@@ -257,10 +257,6 @@
                 };
                 $scope.info.userType = 'subscribe';
 
-
-                $rootScope.$broadcast('followedBox', $scope.boxId);
-
-
                 if (nonAjax) { //if user uploaded a file he automatically join the box
                     return;
                 }
