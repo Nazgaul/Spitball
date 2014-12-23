@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
-        protected virtual ICollection<InviteToBox> Invites { get; set; }
+        public virtual ICollection<InviteToBox> Invites { get; set; }
         //public virtual void RemoveBox()
         //{
         //    UserBoxRelationship.Clear();
@@ -284,6 +284,23 @@ namespace Zbang.Zbox.Domain
             ItemTabs.Clear();
             Updates.Clear();
             Quizzes.Clear();
+        }
+
+        public virtual void UnFollowBox(long userId)
+        {
+            var userBoxRel = UserBoxRelationship.FirstOrDefault(w => w.User.Id == userId);
+            if (userBoxRel == null) //TODO: this happen when user decline invite of a box that is public
+            {
+                throw new InvalidOperationException("User does not have an active invite");
+            }
+            UserBoxRelationship.Remove(userBoxRel);
+            var invite = Invites.FirstOrDefault(w => w.UserBoxRel.Id == userBoxRel.Id);
+            if (invite != null)
+            {
+                invite.RemoveAssociationWithUserBoxRel();
+                Invites.Remove(invite);
+            }
+            CalculateMembers();
         }
     }
 }
