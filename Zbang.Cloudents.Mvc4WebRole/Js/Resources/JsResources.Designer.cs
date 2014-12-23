@@ -295,6 +295,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emails don&apos;t match.
+        /// </summary>
+        public static string ConfirmEmailCompare {
+            get {
+                return ResourceManager.GetString("ConfirmEmailCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy link.
         /// </summary>
         public static string CopyLink {
@@ -604,6 +613,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field is required.
+        /// </summary>
+        public static string FieldRequired1 {
+            get {
+                return ResourceManager.GetString("FieldRequired1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to file.
         /// </summary>
         public static string File {
@@ -694,6 +712,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select gender.
+        /// </summary>
+        public static string GenderRequired {
+            get {
+                return ResourceManager.GetString("GenderRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} hours ago.
         /// </summary>
         public static string HoursAgo {
@@ -726,6 +753,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email address.
+        /// </summary>
+        public static string InvalidEmail1 {
+            get {
+                return ResourceManager.GetString("InvalidEmail1", resourceCulture);
             }
         }
         
@@ -1240,6 +1276,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string PwdAtLeast6Chars {
             get {
                 return ResourceManager.GetString("PwdAtLeast6Chars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least 6 characters.
+        /// </summary>
+        public static string PwdAtLeast6Chars1 {
+            get {
+                return ResourceManager.GetString("PwdAtLeast6Chars1", resourceCulture);
             }
         }
         

@@ -661,4 +661,19 @@ Sign up for FREE</value>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>Password must contain at least 6 characters</value>
   </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>Emails don't match</value>
+  </data>
+  <data name="FieldRequired1" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>Please select gender</value>
+  </data>
+  <data name="InvalidEmail1" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="PwdAtLeast6Chars1" xml:space="preserve">
+    <value>Password must contain at least 6 characters</value>
+  </data>
 </root>

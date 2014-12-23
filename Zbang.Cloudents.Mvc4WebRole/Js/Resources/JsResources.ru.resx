@@ -678,4 +678,19 @@
     <value>Коде должен быть числовым
 </value>
   </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>это неправильный адрес эл. почты</value>
+  </data>
+  <data name="FieldRequired1" xml:space="preserve">
+    <value>Это поле обязательно для заполнения</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
+  </data>
+  <data name="InvalidEmail1" xml:space="preserve">
+    <value>это неправильный адрес эл. почты</value>
+  </data>
+  <data name="PwdAtLeast6Chars1" xml:space="preserve">
+    <value>должен иметь не менее 6 символов</value>
+  </data>
 </root>
