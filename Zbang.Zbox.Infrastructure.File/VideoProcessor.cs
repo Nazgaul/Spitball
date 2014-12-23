@@ -55,16 +55,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public readonly string[] VideoExtenstions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
+        public readonly string[] VideoExtensions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
 
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
-            {
-                return VideoExtenstions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-            }
-            return false;
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         public override string GetDefaultThumbnailPicture()

@@ -69,5 +69,10 @@ namespace Zbang.Zbox.Domain
             }
             Url = UrlConsts.BuildBoxUrl(Id, Name, University.UniversityName);
         }
+        public override void DeleteAssociation()
+        {
+            this.Department = null;
+            base.DeleteAssociation();
+        }
     }
 }
