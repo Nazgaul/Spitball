@@ -7,6 +7,8 @@ namespace Zbang.Zbox.Infrastructure.Repositories
     {
         TEntity Get(object id);
         TEntity Load(object id);
+
+        void Load(object id, TEntity entity);
         void Save(TEntity item, bool flush = false);
         void Save(IEnumerable<TEntity> items);
 

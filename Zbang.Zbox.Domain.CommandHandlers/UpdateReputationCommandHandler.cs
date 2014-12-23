@@ -26,12 +26,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message.UserIds == null) return;
             foreach (var userId in message.UserIds)
             {
-                var user = m_UserRepository.Load(userId);
-                var reputation = m_ReputationRepository.GetUserReputation(user.Id);
-
-                user.Reputation = reputation;
-
-                m_UserRepository.Save(user);
+                var reputation = m_ReputationRepository.GetUserReputation(userId);
+                m_UserRepository.UpdateUserReputation(reputation, userId);
             }
         }
     }

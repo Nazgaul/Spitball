@@ -20,8 +20,9 @@ namespace Zbang.Zbox.Domain
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             FirstTime = new UserFirstTime();
-            UserType = Infrastructure.Enums.UserType.Regular;
+            UserType = UserType.Regular;
         }
+        
 
         public User(string email, string smallImage, string largeImage)
             : this()

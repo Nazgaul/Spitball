@@ -21,7 +21,7 @@ namespace Zbang.Zbox.ReadServices
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
-        Task<IEnumerable<string>> GetMissingThumbnailBlobs();
+        Task<IEnumerable<dynamic>> GetMissingThumbnailBlobs();
 
 
         Task<PartnersDto> GetPartnersEmail(long userid);

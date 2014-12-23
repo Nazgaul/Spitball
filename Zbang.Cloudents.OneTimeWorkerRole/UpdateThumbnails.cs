@@ -44,20 +44,20 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
-                var blobs = new List<string>
-                {
-                     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
-                };
-                //var blobs = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
-                foreach (var blobname in blobs)
+                //var blobs = new List<string>
+                //{
+                //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
+                //};
+                var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
+                foreach (var blobname in items)
                 {
 
-                    var blob = fileContainer.GetBlockBlobReference(blobname);
+                    var blob = fileContainer.GetBlockBlobReference(blobname.blobname);
                     try
                     {
 
                         TraceLog.WriteInfo("processing now " + blob.Uri);
-                        UpdateFile2(blob.Uri);
+                        UpdateFile2(blob.Uri, blobname.itemid);
                     }
                     catch (StorageException)
                     {
@@ -76,7 +76,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             TraceLog.WriteInfo("End process of changing Pic");
         }
 
-        private void UpdateFile2(Uri blobUri)
+        private void UpdateFile2(Uri blobUri, long itemId)
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
@@ -95,12 +95,8 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 {
                     return;
                 }
-                var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
-                if (itemid == 0)
-                {
-                    throw new ArgumentException("cannot be 0", "itemid");
-                }
-                var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName,
+
+                var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
                     retVal.FileTextContent);
                 m_ZboxService.UpdateThumbnailPicture(command);
                 wait.Set();
