@@ -224,6 +224,21 @@
   /*rtl*/
 }
 /*#endregion */
+/*#region points popup */
+.ptsAwarded {
+  top: 42px;
+}
+.congratsTxt0 {
+  letter-spacing: 0;
+  top: 0;
+}
+.congratsTxt1 {
+  top: 32px;
+}
+.congratsTxt2 {
+  top: 71px;
+}
+/*#endregion */
 /*#endregion */
 /*#region DashLib.css */
 .hebFlip {
