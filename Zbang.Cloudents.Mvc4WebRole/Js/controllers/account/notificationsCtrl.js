@@ -7,14 +7,19 @@
             //    notificationsListLength: 7,
             //    notificationsListPage: 7,
             //};            
-         
+            $scope.params = {};
+
             getDetails();
 
-            $scope.openNotifications = function () {
+            $scope.toggleNotifications = function () {
+
+                $scope.$broadcast('update-scroll');
+
+                $scope.params.isOpen = !$scope.params.isOpen;
 
                 $analytics.eventTrack('Notifications', {
                     category: 'Notifications',
-                    label: 'User ' + ($scope.params.wasOpened ? 'closed' : 'opened') + ' notifications'
+                    label: 'User ' + ($scope.params.isOpen ? 'opened' : 'closed') + ' notifications'
                 });
 
             };
@@ -58,16 +63,10 @@
             //$scope.addNotifications = function () {
             //    $scope.params.notificationsListLength += $scope.params.notificationsListPage;
             //};
+            
 
-            $scope.updateState = function (isOpen) {
-                if (!isOpen) {
-                    return;
-                }
-
-                $scope.$broadcast('update-scroll');
-            }
-
-            $scope.delete = function (notification) {
+            $scope.delete = function (event, notification) {
+                event.preventDefault();
                 sNotification.remove(notification.msgId);
                 getDetails();
             };
