@@ -64,18 +64,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //box.IsDeleted = true;
             box.UserTime.UpdateUserTime(box.Owner.Email);
             var academicBox = box as AcademicBox;
-            m_BoxRepository.Delete(box);
+            var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
+           
 
             if (academicBox != null)
             {
                 var university = academicBox.University;
                 var department = academicBox.Department;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
+                m_BoxRepository.Delete(box);
                 m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
                 university.UpdateNumberOfBoxes(--noOfBoxes);
                 m_UniversityRepository.Save(university);
             }
-            var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
+            
+            
+            m_BoxRepository.Delete(box);
             m_QueueProvider.InsertMessageToTranaction(new QuotaData(users));
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(users));
 
