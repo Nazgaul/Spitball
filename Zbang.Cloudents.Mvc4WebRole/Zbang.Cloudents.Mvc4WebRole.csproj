@@ -972,7 +972,7 @@
     <Content Include="Js\modules\angular-timer.js" />
     <Content Include="Js\directives\contentEditable.js" />
     <Content Include="Js\directives\countTo.js" />
-    <Content Include="Js\directives\dataBag.js" />
+    <Content Include="Js\directives\misc.js" />
     <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
     <Content Include="Js\directives\store\categoryLink.js" />
