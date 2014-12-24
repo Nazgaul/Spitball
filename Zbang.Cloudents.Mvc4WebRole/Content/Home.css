@@ -235,16 +235,19 @@
   /*rtl*/
   margin-top: 20px;
 }
-.signupText {
-  padding: 166px 0 15px;
-  font-size: 16px;
+/*.signupText{
+    padding: 166px 0 15px;
+    font-size: 16px;
 }
-.signinText {
-  color: #676767;
-}
-.loginLink {
-  color: #0f9d58;
-}
+
+.signinText
+{
+    color: #676767;
+}*/
+/*.loginLink
+{
+    color: @color;
+}*/
 .videoWpr {
   width: 180px;
   height: 69px;

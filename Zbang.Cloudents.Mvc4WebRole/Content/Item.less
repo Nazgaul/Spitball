@@ -1,14 +1,7 @@
 ﻿@import "varsAndMixins";
 
 /*#region layout */
-/*body.item {
-    .siteHeader {
-        background: #0f0f0f;
-    }
-    .modal-backdrop.in {
-        opacity: .7;
-    }
-}*/
+
 
 .itemPage, .boxPage, .quizPage {
     width: 100%;
@@ -43,16 +36,7 @@
         top: 0;
     }
 
-    .leftPart {
-        position: absolute;
-        left: 0; //rtl
-        top: 0;
-        width: @leftSideBarWidth;
-        height: 80px;
-        padding: 0 15px;
-        .boxSizing;
-    }
-
+  
     .shareDD {
         top: 40px;
         color: @itemBlue;
@@ -68,11 +52,7 @@
         top: 63px; // item topBarHeight = 43 + 20px margin top
     }
 
-    > h1 {
-        margin-top: -50px;
-        height: 50px;
-        overflow: hidden;
-    }
+
 }
 /*#endregion */
 
@@ -466,19 +446,7 @@
     }
 }
 
-.itemDisplay {
-    border: 1px solid #d2cbcf;
-    box-shadow: 5px 5px 5px rgba(116, 100, 110, 0.3); //rtl
-    .placement(absolute);
-    max-height: 100%;
-    max-width: 100%;
-    margin: auto;
 
-    &.frameContent {
-        height: 100%;
-        width: 100%;
-    }
-}
 
 .previewFailed, .previewDenied h2, .mediaLoading, .mediaLoading h2 {
     color: #fff;

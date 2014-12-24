@@ -18,9 +18,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
             if (filterContext.IsChildAction) return;
 
-            bool skipEtag = filterContext.ActionDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true)
+            bool skipETag = filterContext.ActionDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true)
                                     || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(NoEtagAttribute), inherit: true);
-            if (skipEtag) return;
+            if (skipETag) return;
 
 
             var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
@@ -28,17 +28,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             {
                 return;
             }
-
-            //var request = filterContext.HttpContext.Request;
-            //var acceptEncoding = request.Headers["Accept-Encoding"];
-            //if (string.IsNullOrEmpty(acceptEncoding)) return;
-            //acceptEncoding = acceptEncoding.ToUpperInvariant();
             var response = filterContext.HttpContext.Response;
 
             if (response.Filter == null) return;
-           // if (!acceptEncoding.ToUpper().Contains("GZIP")) return;
-            //response.AppendHeader("Content-encoding", "gzip");
-            // ResponseFilterStream
+            //this is debug in vs
+            if (!filterContext.RequestContext.HttpContext.Request.IsSecureConnection
+                && filterContext.HttpContext.Request.IsLocal)
+            {
+                return;
+            }
             response.Filter = new ETagFilter2(
                 response,
                 filterContext.RequestContext.HttpContext.Request,
@@ -160,12 +158,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            var str = Encoding.UTF8.GetString(buffer);
-            var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            str = x.Replace(str, string.Empty);
-            var buffer2 = Encoding.UTF8.GetBytes(str);
-            m_Md5.TransformBlock(buffer2, 0, buffer2.Length, null, 0);
-            m_Filter.Write(buffer2, 0, buffer2.Length);
+            //var str = Encoding.UTF8.GetString(buffer);
+            //var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            //str = x.Replace(str, string.Empty);
+            //var buffer2 = Encoding.UTF8.GetBytes(str);
+            m_Md5.TransformBlock(buffer, 0, buffer.Length, null, 0);
+            m_Filter.Write(buffer, 0, buffer.Length);
             //base.Write(buffer2, 0, buffer2.Length);
         }
 
