@@ -88,7 +88,7 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
     $scope.deleteOrUnfollow = function () {
 
         if (sUserDetails.getDetails().isAdmin) {
-            return 'some admin message';
+            return JsResources.Delete + ' / ' + JsResources.Unfollow;
         }
 
         if ($scope.info.userType === 'none') {
