@@ -7,9 +7,7 @@
 @section scripts
 {
     <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
-    @Html.Script2("angular-general")
-    @Html.Script2("angular-layout3")
-    @Html.Script2("angular-store")
+    @Html.Script2("angular")
     @Html.AngularLocale()
     @if (!string.IsNullOrEmpty(Request.QueryString["new"]))
     {

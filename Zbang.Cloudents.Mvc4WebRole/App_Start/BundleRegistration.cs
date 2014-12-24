@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
                 {
-                    "angular-general", new[]
+                    "angular", new[]
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
                             "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
@@ -104,12 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         //new JsFileWithCdn("~/scripts/angular-appinsights.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
-                        new JsFileWithCdn("~/scripts/stacktrace.js"),
-                    }
-                },
-                {
-                    "angular-layout3", new[]
-                    {
+                        new JsFileWithCdn("~/scripts/stacktrace.js"),              
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                         new JsFileWithCdn("~/scripts/bindonce.js"),
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.12.0.js"),
@@ -254,12 +249,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/filters/extToClass.js"),                        
                         new JsFileWithCdn("/js/filters/actionText.js"),
                         new JsFileWithCdn("/js/filters/orderBy.js"),
-                        new JsFileWithCdn("/js/filters/stringFormat.js")
-                    }
-                },
-                {
-                    "angular-store", new[]
-                    {
+                        new JsFileWithCdn("/js/filters/stringFormat.js"),
                         new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
                         new JsFileWithCdn("/js/controllers/store/contactCtrl.js"),
