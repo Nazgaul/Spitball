@@ -19,10 +19,6 @@ body {
     }
 }
 
-/*#region placeholder text */
-//.placeholderFade();
-/*#endregion */
-
 /*#region Webkit scoll bar */
 ::-webkit-scrollbar {
     width: 10px;
@@ -265,14 +261,14 @@ input[type="radio"] {
         background: @attentionBlueHover;
     }
 }
-.btn4 {
+/*.btn4 {
     color: @attentionBlue;
     border: 1px solid @attentionBlue;
     padding: 5px 8px;
     min-width: 64px;
     font-size: 13px;
     border-radius: 5px;
-}
+}*/
 /*#endregion */
 
 /*#region delete email 'x' */
@@ -305,11 +301,11 @@ input[type="radio"] {
 /*#endregion */
 
 /*#region loading */
-.loadingGif {
+/*.loadingGif {
     .absoluteCenter(128px,128px);
     background: url(/Images/loader3.gif);
     z-index: 10;
-}
+}*/
 
 .loading {
     //display:none;  /*TEMPORARILY DISABLED!!!!!!!!!!*/
@@ -333,7 +329,7 @@ input[type="radio"] {
     animation: spin 1.5s infinite linear;
 }
 
-.progressLoader {
+/*.progressLoader {
     position: relative;
     display: inline-block;
     width: 5em;
@@ -348,9 +344,9 @@ input[type="radio"] {
     animation: spin 1s infinite steps(8);
     font-size: 3px; //small loader
     top: 1px; // specific to invite page
-}
+}*/
 
-.small.progressLoader {
+/*.small.progressLoader {
     font-size: 3px;
 }
 
@@ -365,17 +361,17 @@ input[type="radio"] {
     content: '';
     position: absolute;
     top: 0;
-    left: 2.25em; /* (container width - part width)/2  */
+    left: 2.25em; /* (container width - part width)/2  
     width: .5em;
     height: 1.5em;
     border-radius: .2em;
     background: #eee;
-    box-shadow: 0 3.5em #eee; /* container height - part height */
-    -webkit-transform-origin: 50% 2.5em; /* container height / 2 */
+    box-shadow: 0 3.5em #eee;
+    -webkit-transform-origin: 50% 2.5em; 
     -moz-transform-origin: 50% 2.5em;
     -ms-transform-origin: 50% 2.5em;
     -o-transform-origin: 50% 2.5em;
-    transform-origin: 50% 2.5em; /* container height / 2 */
+    transform-origin: 50% 2.5em; 
 }
 
 .progressLoader:before {
@@ -407,7 +403,7 @@ input[type="radio"] {
     -ms-transform: rotate(-135deg);
     transform: rotate(-135deg);
     background: #bbb;
-}
+}*/
 
 /*#endregion */
 
@@ -561,17 +557,17 @@ input[type="radio"] {
         font-size: 18px;
     }
 }
-iframe .couponPopup {
+/*iframe .couponPopup {
     bottom: auto;
     top: 310px;
-}
+}*/
 /*#endregion */
 
-.popupForm {
+/*.popupForm {
     .field-validation-error, .validation-summary-errors {
-        margin-left: 15px; /*rtl*/
+        margin-left: 15px; /*rtl
     }
-}
+}*/
 .closeDialog {
     background-color: transparent;
     width: 11px;
@@ -713,22 +709,22 @@ iframe .couponPopup {
     }
 }
 
-.hr {
+/*.hr {
     margin: 0 auto;
-}
+}*/
 
-.formHeader {
+/*.formHeader {
     font-size: 15px;
     padding: 8px;
     background: #fff;
     display: inline-block;
     position: relative;
     top: -19px;
-}
+}*/
 
-.enterConnect, .enterRegister {
+/*.enterConnect, .enterRegister {
     display: none;
-}
+}*/
 
 .facebook {
     width: 100%;
@@ -805,24 +801,6 @@ iframe .couponPopup {
 }
 
 .register {
-    .inputText {
-        //margin: 15px 0 0 0; //override 
-    }
-    .firstName {
-        //width: 100%;
-
-    }
-    /*.field-validation-valid {
-        //visibility: hidden;
-    }
-    .field-validation-error, .validation-summary-errors {
-        position: absolute;
-        //visibility: visible;
-        margin: 2px 0 0 0; //override
-    }
-    .validation-summary-errors {
-        left: 0; //rtl
-    }*/
     .cbLabel {
         display: none; /*rtl - (HEBREW ONLY)*/
         margin: 12px 0 16px;
@@ -834,36 +812,6 @@ iframe .couponPopup {
         top: -2px;
     }
 }
-/*.desktop.desktop { //for more specificity
-    .firstName, .lastName
-    {
-        width: 48%;
-        display: inline-block;
-        //margin-bottom: 22px;
-        margin-top: 30px;
-    }
-    .firstName {
-        + .field-validation-error {
-            margin: 2px 0 0 4%; //rtl
-        }
-    }
-    .lastName {
-        + .field-validation-error {
-            margin-top: 58px;
-            display: block;
-        }
-    }
-
-}*/
-
-/*.registerMobile {
-     .field-validation-error, .validation-summary-errors {
-         position:static;
-    }
-     .inputText {
-         padding: 5px 4px 5px 8px; //override mobile.css inputText 
-     }
-}*/
 
 .genderLabel {
     font-size: 15px;
@@ -872,16 +820,13 @@ iframe .couponPopup {
         margin: 6px 25px 6px 0; //rtl*/
     }
 }
-/*.field-validation-error + .genderLabel
-{
-    margin-top: 20px;
-}*/
-.accntLabel {
+
+/*.accntLabel {
     font-size: 15px;
     margin-bottom: 2px;
     display: inline-block;
     line-height: 13px;
-}
+}*/
 
 .forgot {
     font-size: 15px;
@@ -1227,11 +1172,7 @@ aside.sideBar {
     }
 }
 
-.showOtakim, .checkbox:checked ~ .dropDown {
-    visibility: visible;
-    opacity: 1;
-    //height: 252px; //Maybe remove this
-}
+
 
 .arrow {
     &:before {
@@ -1287,17 +1228,7 @@ aside.sideBar {
 @arrowHeight: 8px; // change arrow size
 
 
-//.steps
-/*.quizGuideTemplate {
-    .tooltip {
-        top: 119px;
-        left: 622px; 
-        + .tooltip {
-            top: 460px;
-            left: 263px;
-        }
-    }
-}*/
+
 
 .tooltip1 {
     display: none;

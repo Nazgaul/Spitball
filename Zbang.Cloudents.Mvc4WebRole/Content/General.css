@@ -26,8 +26,6 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
 body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   /*margin: 0; //override default jQuery mCustom Scrollbar code*/
 }
-/*#region placeholder text */
-/*#endregion */
 /*#region Webkit scoll bar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -239,14 +237,14 @@ input[type="radio"][disabled] + label:before {
 .btn3:hover {
   background: #0e68af;
 }
-.btn4 {
-  color: #0371c8;
-  border: 1px solid #0371c8;
-  padding: 5px 8px;
-  min-width: 64px;
-  font-size: 13px;
-  border-radius: 5px;
-}
+/*.btn4 {
+    color: @attentionBlue;
+    border: 1px solid @attentionBlue;
+    padding: 5px 8px;
+    min-width: 64px;
+    font-size: 13px;
+    border-radius: 5px;
+}*/
 /*#endregion */
 /*#region delete email 'x' */
 .removeItem,
@@ -279,18 +277,11 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region loading */
-.loadingGif {
-  width: 128px;
-  height: 128px;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: url(/Images/loader3.gif);
-  z-index: 10;
-}
+/*.loadingGif {
+    .absoluteCenter(128px,128px);
+    background: url(/Images/loader3.gif);
+    z-index: 10;
+}*/
 .loading {
   width: 120px;
   height: 120px;
@@ -316,77 +307,80 @@ input[type="radio"][disabled] + label:before {
   -webkit-animation: spin 1.5s infinite linear;
   animation: spin 1.5s infinite linear;
 }
-.progressLoader {
-  position: relative;
-  display: inline-block;
-  width: 5em;
-  height: 5em;
-  margin: 0 .5em;
-  text-indent: 999em;
-  overflow: hidden;
-  -webkit-animation: spin 1s infinite steps(8);
-  -moz-animation: spin 1s infinite steps(8);
-  -o-animation: spin 1s infinite steps(8);
-  animation: spin 1s infinite steps(8);
-  font-size: 3px;
-  top: 1px;
+/*.progressLoader {
+    position: relative;
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    margin: 0 .5em;
+    //font-size: 12px;
+    text-indent: 999em;
+    overflow: hidden;
+    -webkit-animation: spin 1s infinite steps(8);
+    -moz-animation: spin 1s infinite steps(8);
+    -o-animation: spin 1s infinite steps(8);
+    animation: spin 1s infinite steps(8);
+    font-size: 3px; //small loader
+    top: 1px; // specific to invite page
+}*/
+/*.small.progressLoader {
+    font-size: 3px;
 }
-.small.progressLoader {
-  font-size: 3px;
-}
+
 .large.progressLoader {
-  font-size: 24px;
+    font-size: 24px;
 }
+
 .progressLoader:before,
 .progressLoader:after,
 .progressLoader > .progressInner:before,
 .progressLoader > .progressInner:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 2.25em;
-  /* (container width - part width)/2  */
-  width: .5em;
-  height: 1.5em;
-  border-radius: .2em;
-  background: #eee;
-  box-shadow: 0 3.5em #eee;
-  /* container height - part height */
-  -webkit-transform-origin: 50% 2.5em;
-  /* container height / 2 */
-  -moz-transform-origin: 50% 2.5em;
-  -ms-transform-origin: 50% 2.5em;
-  -o-transform-origin: 50% 2.5em;
-  transform-origin: 50% 2.5em;
-  /* container height / 2 */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.25em; /* (container width - part width)/2  
+    width: .5em;
+    height: 1.5em;
+    border-radius: .2em;
+    background: #eee;
+    box-shadow: 0 3.5em #eee;
+    -webkit-transform-origin: 50% 2.5em; 
+    -moz-transform-origin: 50% 2.5em;
+    -ms-transform-origin: 50% 2.5em;
+    -o-transform-origin: 50% 2.5em;
+    transform-origin: 50% 2.5em; 
 }
+
 .progressLoader:before {
-  background: #555;
+    background: #555;
 }
+
 .progressLoader:after {
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  background: #777;
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background: #777;
 }
+
 .progressLoader > .progressInner:before {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-905deg);
-  -o-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  background: #999;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-905deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    background: #999;
 }
+
 .progressLoader > .progressInner:after {
-  -webkit-transform: rotate(-135deg);
-  -moz-transform: rotate(-135deg);
-  -o-transform: rotate(-135deg);
-  -ms-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-  background: #bbb;
-}
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    background: #bbb;
+}*/
 /*#endregion */
 /*#region popup */
 /*#region Coupon popup */
@@ -538,16 +532,16 @@ input[type="radio"][disabled] + label:before {
   vertical-align: top;
   font-size: 18px;
 }
-iframe .couponPopup {
-  bottom: auto;
-  top: 310px;
-}
+/*iframe .couponPopup {
+    bottom: auto;
+    top: 310px;
+}*/
 /*#endregion */
-.popupForm .field-validation-error,
-.popupForm .validation-summary-errors {
-  margin-left: 15px;
-  /*rtl*/
-}
+/*.popupForm {
+    .field-validation-error, .validation-summary-errors {
+        margin-left: 15px; /*rtl
+    }
+}*/
 .closeDialog {
   background-color: transparent;
   width: 11px;
@@ -672,21 +666,20 @@ iframe .couponPopup {
 .create button {
   color: #0f9d58;
 }
-.hr {
-  margin: 0 auto;
-}
-.formHeader {
-  font-size: 15px;
-  padding: 8px;
-  background: #fff;
-  display: inline-block;
-  position: relative;
-  top: -19px;
-}
-.enterConnect,
-.enterRegister {
-  display: none;
-}
+/*.hr {
+    margin: 0 auto;
+}*/
+/*.formHeader {
+    font-size: 15px;
+    padding: 8px;
+    background: #fff;
+    display: inline-block;
+    position: relative;
+    top: -19px;
+}*/
+/*.enterConnect, .enterRegister {
+    display: none;
+}*/
 .facebook {
   width: 100%;
   cursor: pointer;
@@ -773,19 +766,6 @@ iframe .couponPopup {
   width: 100%;
   height: 40px;
 }
-.register {
-  /*.field-validation-valid {
-        //visibility: hidden;
-    }
-    .field-validation-error, .validation-summary-errors {
-        position: absolute;
-        //visibility: visible;
-        margin: 2px 0 0 0; //override
-    }
-    .validation-summary-errors {
-        left: 0; //rtl
-    }*/
-}
 .register .cbLabel {
   display: none;
   /*rtl - (HEBREW ONLY)*/
@@ -797,35 +777,6 @@ iframe .couponPopup {
   position: relative;
   top: -2px;
 }
-/*.desktop.desktop { //for more specificity
-    .firstName, .lastName
-    {
-        width: 48%;
-        display: inline-block;
-        //margin-bottom: 22px;
-        margin-top: 30px;
-    }
-    .firstName {
-        + .field-validation-error {
-            margin: 2px 0 0 4%; //rtl
-        }
-    }
-    .lastName {
-        + .field-validation-error {
-            margin-top: 58px;
-            display: block;
-        }
-    }
-
-}*/
-/*.registerMobile {
-     .field-validation-error, .validation-summary-errors {
-         position:static;
-    }
-     .inputText {
-         padding: 5px 4px 5px 8px; //override mobile.css inputText 
-     }
-}*/
 .genderLabel {
   font-size: 15px;
   display: inline-block;
@@ -833,16 +784,12 @@ iframe .couponPopup {
 .genderLabel.first {
   margin: 6px 25px 6px 0;
 }
-/*.field-validation-error + .genderLabel
-{
-    margin-top: 20px;
+/*.accntLabel {
+    font-size: 15px;
+    margin-bottom: 2px;
+    display: inline-block;
+    line-height: 13px;
 }*/
-.accntLabel {
-  font-size: 15px;
-  margin-bottom: 2px;
-  display: inline-block;
-  line-height: 13px;
-}
 .forgot {
   font-size: 15px;
   color: #0f9d58;
@@ -1175,11 +1122,6 @@ aside.sideBar .last {
 .dropDown h4 {
   font-size: 15px;
 }
-.showOtakim,
-.checkbox:checked ~ .dropDown {
-  visibility: visible;
-  opacity: 1;
-}
 .arrow:before {
   content: '';
   display: inline-block;
@@ -1223,16 +1165,6 @@ aside.sideBar .last {
 }
 /*#endregion */
 /*#region tooltip1 - "first time" */
-/*.quizGuideTemplate {
-    .tooltip {
-        top: 119px;
-        left: 622px; 
-        + .tooltip {
-            top: 460px;
-            left: 263px;
-        }
-    }
-}*/
 .tooltip1 {
   display: none;
   z-index: 2;
@@ -2287,3 +2219,4 @@ select.inputText {
   position: absolute;
   left: -2000px;
 }
+/*#endregion*/
