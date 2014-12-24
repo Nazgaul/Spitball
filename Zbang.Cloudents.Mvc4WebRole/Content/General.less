@@ -126,11 +126,21 @@ input[type="radio"] {
             padding-top: 2px;
         }
     }
-
-    &:checked ~ .cbLabel:before {
-        //content: '';
-        background-position: -19px -1px;
+    &:checked {
+        ~ .cbLabel:before {
+            background-position: -19px -1px;
+        }
+        ~ .dropDown {
+            visibility: visible;
+            opacity: 1;
+        }
+        ~ .cbLabel2 {
+            svg {
+                display: block;
+            }
+        }
     }
+    
     ~ .cbLabel2 {
         display: inline-block;
         position: relative;
@@ -152,11 +162,6 @@ input[type="radio"] {
             position: absolute;
             top: 4px; //diff rtl
             left: 4px; //rtl
-        }
-    }
-    &:checked ~ .cbLabel2 {
-        svg {
-            display: block;
         }
     }
 }

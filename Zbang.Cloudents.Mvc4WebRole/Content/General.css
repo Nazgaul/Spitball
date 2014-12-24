@@ -125,6 +125,13 @@ input[type="radio"][disabled] + label:before {
 .checkbox:checked ~ .cbLabel:before {
   background-position: -19px -1px;
 }
+.checkbox:checked ~ .dropDown {
+  visibility: visible;
+  opacity: 1;
+}
+.checkbox:checked ~ .cbLabel2 svg {
+  display: block;
+}
 .checkbox ~ .cbLabel2 {
   display: inline-block;
   position: relative;
@@ -147,9 +154,6 @@ input[type="radio"][disabled] + label:before {
   position: absolute;
   top: 4px;
   left: 4px;
-}
-.checkbox:checked ~ .cbLabel2 svg {
-  display: block;
 }
 /*#endregion */
 /*#region validation errors */
