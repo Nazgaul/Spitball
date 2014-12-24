@@ -271,7 +271,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/services/store.js"),
 
                         new JsFileWithCdn("/js/directives/store/productsMenu.js"),
-                        new JsFileWithCdn("/js/directives/dataBag.js"),
+                        new JsFileWithCdn("/js/directives/misc.js"),
                         new JsFileWithCdn("/js/directives/store/categoryLink.js"),
 
                         new JsFileWithCdn("/js/filters/store/percentage.js")
