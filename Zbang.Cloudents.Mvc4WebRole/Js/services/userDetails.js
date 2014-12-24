@@ -64,6 +64,14 @@
          isAuthenticated: function () {
              return isAuthenticated;
          },
+         setImage: function(image) {
+             if (!image) {
+                 return;
+             }
+             userData.image = image;
+
+             $rootScope.$broadcast('userDetailsChange');
+         },
 
          //getUniversity: function () {
          //    if (_.isEmpty(userData.university)) {

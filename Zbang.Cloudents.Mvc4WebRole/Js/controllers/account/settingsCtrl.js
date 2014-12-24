@@ -1,8 +1,8 @@
 ﻿var mAccount = angular.module('mAccount', ['angular-plupload']).
     controller('AccountSettingsCtrl',
-    ['$scope', '$window', '$timeout', 'sAccount', '$analytics', 'sNotify', '$angularCacheFactory', 'resManager',
+    ['$scope', '$window', '$timeout', 'sAccount', '$analytics', 'sNotify', '$angularCacheFactory', 'resManager','sUserDetails',
 
-        function ($scope, $window, $timeout, sAccount, $analytics, sNotify, $angularCacheFactory, resManager) {
+        function ($scope, $window, $timeout, sAccount, $analytics, sNotify, $angularCacheFactory, resManager, sUserDetails) {
             "use strict";
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
@@ -55,6 +55,7 @@
                 sAccount.changeProfile($scope.formData).then(function () {
                     $scope.submitted = false;
                     sNotify.alert('Your settings are saved');
+                    sUserDetails.setImage($scope.formData.image);
 
                     $analytics.eventTrack('User Information', {
                         category: 'Save Settings',
@@ -70,7 +71,7 @@
                 $scope.formData.image = response.urlSmall;
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
-
+                
                 $analytics.eventTrack('User Information', {
                     category: 'Upload Image',
                     label: 'User uploaded an image'
