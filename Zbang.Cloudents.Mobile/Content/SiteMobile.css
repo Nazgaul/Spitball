@@ -750,8 +750,8 @@ header {
   height: 90px;
   background: #fff;
   text-align: center;
-  display: inline-block;
-  margin-top: 25px;
+  display: block;
+  margin: 25px auto 0;
 }
 .boxEmpty .uploadBtn:before,
 .dashLibEmpty .uploadBtn:before {
@@ -1008,7 +1008,7 @@ header {
 }
 .uploadItemsBox {
   display: block;
-  width: 92px;
+  width: 84px;
   overflow: hidden;
   position: relative;
 }
@@ -1022,7 +1022,7 @@ header {
   border-color: #000 transparent transparent transparent;
   pointer-events: none;
   position: absolute;
-  top: 12px;
+  top: 10px;
   right: 0;
 }
 .boxHeader {
