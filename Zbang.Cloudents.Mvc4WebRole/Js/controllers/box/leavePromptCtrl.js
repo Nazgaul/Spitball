@@ -2,7 +2,11 @@
     ['$scope', '$modalInstance',  'data',
 function ($scope, $modalInstance, data) {
     "use strict";
+
+    $scope.formData = {};
+
     $scope.name = data.name;
+
     $scope.delete = function () {
         $modalInstance.close({ 'delete': true });
     };
