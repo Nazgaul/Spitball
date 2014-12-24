@@ -4,13 +4,6 @@
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
 <div class="page itemPage" ng-controller="ItemCtrl" ng-class="::{blur : unreg }" item-scroll>
     <div class="topBar">
-        @*<div class="leftPart">
-                <a class="backWpr elps lFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
-                    <div>@SharedResources.Backto</div>
-                    <h2 class="semiFont elps">{{item.boxName}}</h2>
-                    @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-                </a>
-            </div>*@
         <a title="@SharedResources.Close" class="closePreview rFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </a>
