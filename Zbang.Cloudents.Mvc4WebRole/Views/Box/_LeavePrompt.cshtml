@@ -11,12 +11,12 @@
     </section>
     <section class="deleteDept clearfix">
         <header>@SharedResources.Delete {{::name}}</header>
-        <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="disableDelete" ng-model="disableDelete" />
+        <input type="checkbox" class="checkbox" id="delDeptCb" ng-checked="false" ng-model="formData.isDelete" />
         <label class="cbLabel2" for="delDeptCb">
             <span>@DialogResources.MarkToDelete</span>
             @Html.Svg("~/Images/Defs.svg", "checkmark")
         </label>
-        <button type="button" ng-click="delete()" class="btn1 rFloat delDeptBtn">@SharedResources.Delete</button>
+        <button type="button" ng-click="delete()" class="btn1 rFloat delDeptBtn" ng-disabled="!formData.isDelete">@SharedResources.Delete</button>
         <div class="alert">@DialogResources.WillRemove</div>
     </section>
     <button type="button" class="closeModal" ng-click="cancel()">
