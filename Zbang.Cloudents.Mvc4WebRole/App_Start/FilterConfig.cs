@@ -8,10 +8,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new ZboxHandleErrorAttribute());
-            
-            filters.Add(new RequireHttpsAttribute());
+            filters.Add(new RequireHttpsWrapperAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
             filters.Add(new ETagAttribute());
+        }
+    }
+
+
+    public class RequireHttpsWrapperAttribute : RequireHttpsAttribute
+    {
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (filterContext.HttpContext.Request.IsLocal)
+                return;
+            base.OnAuthorization(filterContext);
         }
     }
 }

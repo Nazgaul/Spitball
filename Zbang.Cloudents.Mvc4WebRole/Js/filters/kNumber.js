@@ -12,44 +12,45 @@
 
 
             function abbreviate() {
+                
                 var abbr;
                 if (number >= 1e12) {
-                    abbr = 'T'
+                    abbr = 'T';
                 }
                 else if (number >= 1e9) {
-                    abbr = 'B'
+                    abbr = 'B';
                 }
                 else if (number >= 1e6) {
-                    abbr = 'M'
+                    abbr = 'M';
                 }
-                else if (number >= 1e5) {
-                    abbr = 'K'
+                else if (number >= 1e3) {
+                    abbr = 'K';
                 }
                 else {
-                    abbr = ''
+                    abbr = '';
                 }
 
                 return annotate(abbr);
             }
 
             function annotate(abbr) {
-                var rounded = 0
+                var rounded = 0;
                 switch (abbr) {
                     case 'T':
-                        rounded = number / 1e12
-                        break
+                        rounded = number / 1e12;
+                        break;
                     case 'B':
-                        rounded = number / 1e9
-                        break
+                        rounded = number / 1e9;
+                        break;
                     case 'M':
-                        rounded = number / 1e6
-                        break
+                        rounded = number / 1e6;
+                        break;
                     case 'K':
-                        rounded = number / 1e5
-                        break
+                        rounded = number / 1e3;
+                        break;
                     case '':
-                        rounded = number
-                        break
+                        rounded = number;
+                        break;
                 }
 
 

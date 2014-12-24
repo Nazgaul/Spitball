@@ -349,15 +349,6 @@
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', /*'htmlCache',*/
         function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker/*, htmlCache*/) {
 
-        //check for iframe
-        try {
-            if (window.self !== window.top) {
-                window.location.href = '/home/iframe/';
-            }
-        } catch (ex) {
-            window.location.href = '/home/iframe/';
-        }
-
         //analytics
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
