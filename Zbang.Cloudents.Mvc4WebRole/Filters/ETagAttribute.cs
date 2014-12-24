@@ -1,4 +1,6 @@
-﻿using System.IO.Compression;
+﻿using System;
+using System.IO;
+using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,23 +24,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
 
             var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
-            if (headerSend != null && (bool) headerSend)
+            if (headerSend != null && (bool)headerSend)
             {
                 return;
             }
 
-            var request = filterContext.HttpContext.Request;
-            var acceptEncoding = request.Headers["Accept-Encoding"];
-            if (string.IsNullOrEmpty(acceptEncoding)) return;
-            acceptEncoding = acceptEncoding.ToUpperInvariant();
+            //var request = filterContext.HttpContext.Request;
+            //var acceptEncoding = request.Headers["Accept-Encoding"];
+            //if (string.IsNullOrEmpty(acceptEncoding)) return;
+            //acceptEncoding = acceptEncoding.ToUpperInvariant();
             var response = filterContext.HttpContext.Response;
 
             if (response.Filter == null) return;
-            if (!acceptEncoding.ToUpper().Contains("GZIP")) return;
-            response.AppendHeader("Content-encoding", "gzip");
-            response.Filter = new ETagFilter(
+           // if (!acceptEncoding.ToUpper().Contains("GZIP")) return;
+            //response.AppendHeader("Content-encoding", "gzip");
+            // ResponseFilterStream
+            response.Filter = new ETagFilter2(
                 response,
-                filterContext.RequestContext.HttpContext.Request
+                filterContext.RequestContext.HttpContext.Request,
+                response.Filter
                 );
         }
 
@@ -55,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
 
         public ETagFilter(HttpResponseBase response, HttpRequestBase request)
-            : base(response.Filter, CompressionMode.Compress)
+            : base(response.Filter, CompressionLevel.NoCompression)
         {
             m_Response = response;
             m_Request = request;
@@ -117,4 +121,82 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         }
     }
 
+
+    public class ETagFilter2 : MemoryStream
+    {
+        private readonly HttpResponseBase m_Response;
+        private readonly HttpRequestBase m_Request;
+        private readonly Stream m_Filter;
+        private readonly MD5 m_Md5;
+        private bool m_FinalBlock;
+
+
+
+        public ETagFilter2(HttpResponseBase response, HttpRequestBase request, Stream filter)
+        {
+            m_Response = response;
+            m_Request = request;
+            m_Filter = filter;
+            m_Md5 = MD5.Create();
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            m_Md5.Dispose();
+            m_Filter.Dispose();
+            base.Dispose(disposing);
+        }
+
+        private string ByteArrayToString(byte[] arrInput)
+        {
+            var output = new StringBuilder(arrInput.Length);
+            foreach (byte t in arrInput)
+            {
+                output.Append(t.ToString("X2"));
+            }
+            return output.ToString();
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            var str = Encoding.UTF8.GetString(buffer);
+            var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            str = x.Replace(str, string.Empty);
+            var buffer2 = Encoding.UTF8.GetBytes(str);
+            m_Md5.TransformBlock(buffer2, 0, buffer2.Length, null, 0);
+            m_Filter.Write(buffer2, 0, buffer2.Length);
+            //base.Write(buffer2, 0, buffer2.Length);
+        }
+
+        public override void Flush()
+        {
+            if (m_FinalBlock)
+            {
+                base.Flush();
+                return;
+            }
+            m_FinalBlock = true;
+            m_Md5.TransformFinalBlock(new byte[0], 0, 0);
+            var token = ByteArrayToString(m_Md5.Hash);
+            string clientToken = m_Request.Headers["If-None-Match"];
+
+            if (token != clientToken)
+            {
+                m_Response.Headers["ETag"] = token;
+            }
+            else
+            {
+                m_Response.SuppressContent = true;
+                m_Response.StatusCode = 304;
+                m_Response.StatusDescription = "Not Modified";
+                m_Response.Headers["Content-Length"] = "0";
+
+            }
+            m_Filter.Flush();
+            //base.Flush();
+        }
+    }
+
+   
 }

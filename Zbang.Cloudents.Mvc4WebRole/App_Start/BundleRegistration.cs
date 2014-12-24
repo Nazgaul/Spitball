@@ -103,7 +103,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         //new JsFileWithCdn("~/scripts/angular-appinsights.js"),
-                        new JsFileWithCdn("/scripts/angular-cache-2.4.1.js"),
+                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/scripts/stacktrace.js"),
                     }
                 },
@@ -122,16 +122,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                         new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
-                        new JsFileWithCdn("/scripts/CountUp.js"),
+                        new JsFileWithCdn("~/scripts/CountUp.js"),
                         new JsFileWithCdn("~/scripts/elastic.js"),
                         new JsFileWithCdn("~/scripts/angular-mcustomscrollbar.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
 
-                        new JsFileWithCdn("/js/modules/displayTime.js"),
+                        new JsFileWithCdn("~/js/modules/displayTime.js"),
 
-                        new JsFileWithCdn("/js/modules/angular-timer.js"),
+                        new JsFileWithCdn("~/js/modules/angular-timer.js"),
                         //new JsFileWithCdn("/js/modules/lazySrc.js"),                        
-                        new JsFileWithCdn("/js/modules/wizard.js"),
+                        new JsFileWithCdn("~/js/modules/wizard.js"),
                         new JsFileWithCdn("~/js/modules/textDirection.js"),
 
                         new JsFileWithCdn("~/js/app.js"),

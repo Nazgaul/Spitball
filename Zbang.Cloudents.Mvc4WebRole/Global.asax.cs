@@ -33,6 +33,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             System.Web.Helpers.AntiForgeryConfig.RequireSsl = true;
+#if DEBUG
+            System.Web.Helpers.AntiForgeryConfig.RequireSsl = false;
+#endif
             System.Web.Helpers.AntiForgeryConfig.CookieName = "cdVrfctn";
             System.Web.Helpers.AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
 
