@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Get(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
 
-            if (user.Reputation > user.University.AdminScore && message.ShouldDelete)
+            if (user.Reputation >= user.University.AdminScore && message.ShouldDelete)
             {
                 DeleteBox(box);
                 return;
