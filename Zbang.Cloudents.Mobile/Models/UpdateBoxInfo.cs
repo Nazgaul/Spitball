@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-//using Zbang.Cloudents.Mobile.Views.Box.Resources;
 using Zbang.Cloudents.Mobile.Views.Shared.Resources;
 using Zbang.Zbox.Domain;
 
@@ -16,10 +15,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Display(ResourceType = typeof(SharedResources), Name = "Name")]
         public string Name { get; set; }
 
-        //[Display(ResourceType = typeof(IndexResources), Name = "Number")]
         public string CourseCode { get; set; }
 
-        //[Display(ResourceType = typeof(IndexResources), Name = "Lecturer")]
         public string Professor { get; set; }
 
         public Zbox.Infrastructure.Enums.BoxPrivacySettings? BoxPrivacy { get; set; }
