@@ -39,7 +39,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.ItemContentUrl = command.BlobName;
                 file.Name = Path.GetFileNameWithoutExtension(file.Name) + Path.GetExtension(command.BlobName);
             }
-
+            if (string.IsNullOrWhiteSpace(command.FileContent))
+            {
+                command.FileContent = null;
+            }
             file.Content = command.FileContent;
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {

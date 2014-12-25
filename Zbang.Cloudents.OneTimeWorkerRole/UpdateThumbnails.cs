@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -48,23 +49,34 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs().Result;
-                foreach (var blobname in items)
+                int index = 8;
+                bool cont = true;
+                while (cont)
                 {
-
-                    var blob = fileContainer.GetBlockBlobReference(blobname.blobname);
-                    try
+                    TraceLog.WriteInfo("processing now index" + index);
+                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index).Result;
+                    if (!items.Any())
                     {
-
-                        TraceLog.WriteInfo("processing now " + blob.Uri + " id: " + blobname.itemid);
-                        UpdateFile2(blob.Uri, blobname.itemid);
+                        cont = false;
                     }
-                    catch (StorageException)
+                    index++;
+                    foreach (var blobname in items)
                     {
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
+
+                        var blob = fileContainer.GetBlockBlobReference(blobname.blobname);
+                        try
+                        {
+
+                            TraceLog.WriteInfo("processing now " + blob.Uri + " id: " + blobname.itemid);
+                            UpdateFile2(blob.Uri, blobname.itemid);
+                        }
+                        catch (StorageException)
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+                            TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
+                        }
                     }
                 }
             }

@@ -17,77 +17,7 @@ namespace Zbang.Cloudents.Mobile
             {
                 {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
-                {
-                    "newrtl3", new[]
-                    {
-                        "~/Content/GeneralRtl.css",
-                        "~/Content/rtl3.css",
-                        "~/Content/StoreRtl.css",
-                        "~/Content/SetupSchoolRtl.css",
-                        "~/Content/HeaderRtl.css",
-                        "~/Content/BoxFeedRtl.css",
-                        "~/Content/ItemRtl.css"
-                    }
-                },
-                {
-                    "newcore3", new[]
-                    {
-                        "~/Content/Normalize.css",
-                        "~/Content/General.css",
-                        "~/Content/Header.css",
-                        "~/Content/Site3.css",
-                        "~/Content/SVG.css",
-                        "~/Content/Animations.css",
-                        "~/Content/UserPage.css",
-                        "~/Content/Search.css",
-                        "~/Content/Sidebar.css",
-                        "~/Content/SetupSchool.css",
-                        "~/Content/Modal.css",
-                        "~/Content/BoxFeed.css",
-                        "~/Content/Quiz.css",
-                        "~/Content/Invite.css",
-                        "~/Content/Upload.css",
-                        "~/Content/Box3.css",
-                        "~/Content/Item.css",
-                        "~/Content/Settings.css",
-                        "~/Content/DashLib.css",
-                        "~/Content/Store.css",
-                        "~/Content/jquery.mCustomScrollbar.css"
-                    }
-                },
-                {
-                    "staticRtl", new[]
-                    {
-                        "~/Content/GeneralRtl.css",
-                        "~/Content/StaticRtl.css",
-                        "~/Content/HeaderRtl.css"
-                    }
-                },
-                {
-                    "static", new[]
-                    {
-                        "~/Content/Normalize.css",
-                        "~/Content/General.css",
-                        "~/Content/Header.css",
-                        "~/Content/Animations.css",
-                        "~/Content/Static.css"
-                    }
-                },
-                {
-                    "home", new[]
-                    {
-                        "~/Content/Normalize.css",
-                        "~/Content/General.css",
-                        "~/Content/Home.css"
-                    }
-                },
-                {
-                    "homeRtl", new[]
-                    {
-                        "~/Content/GeneralRtl.css",
-                        "~/Content/HomeRtl.css"
-                    }
-                }
+
             };
             cssDictionary.Add("siteMobile", new[] {
                 "~/Content/Normalize.css", 
