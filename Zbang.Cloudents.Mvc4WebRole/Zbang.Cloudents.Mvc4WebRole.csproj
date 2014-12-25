@@ -626,12 +626,6 @@
     <Content Include="Content\Item.css">
       <DependentUpon>Item.less</DependentUpon>
     </Content>
-    <Content Include="Content\ItemMobile.css">
-      <DependentUpon>ItemMobile.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ItemMobileRtl.css">
-      <DependentUpon>ItemMobileRtl.less</DependentUpon>
-    </Content>
     <Content Include="Content\ItemRtl.css">
       <DependentUpon>ItemRtl.less</DependentUpon>
     </Content>
@@ -641,12 +635,6 @@
     </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Mobile.css">
-      <DependentUpon>Mobile.less</DependentUpon>
-    </Content>
-    <Content Include="Content\MobileRtl.css">
-      <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
@@ -683,12 +671,6 @@
     </Content>
     <Content Include="Content\Site3.css">
       <DependentUpon>Site3.less</DependentUpon>
-    </Content>
-    <Content Include="Content\SiteMobile.css">
-      <DependentUpon>SiteMobile.less</DependentUpon>
-    </Content>
-    <Content Include="Content\SiteMobileRtl.css">
-      <DependentUpon>SiteMobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
@@ -1039,8 +1021,6 @@
     <Content Include="Content\Home.less" />
     <Content Include="Content\HomeRtl.less" />
     <Content Include="Content\Item.less" />
-    <Content Include="Content\Mobile.less" />
-    <Content Include="Content\MobileRtl.less" />
     <Content Include="Content\Modal.less" />
     <Content Include="Content\RTL3.less" />
     <Content Include="Content\Sidebar.less" />
@@ -1048,8 +1028,6 @@
     <Content Include="Content\Upload.less" />
     <Content Include="Content\Welcome.less" />
     <Content Include="Content\WelcomeRtl.less" />
-    <Content Include="Content\SiteMobile.less" />
-    <Content Include="Content\SiteMobileRtl.less" />
     <Content Include="Content\StaticRtl.less" />
     <Content Include="Content\Header.less" />
     <Content Include="Content\HeaderRtl.less" />
@@ -1058,8 +1036,6 @@
     <Content Include="Content\Animations.less" />
     <Content Include="Content\Settings.less" />
     <Content Include="Content\lang.ru-RU.less" />
-    <Content Include="Content\ItemMobile.less" />
-    <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
@@ -2034,7 +2010,6 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
-    <Content Include="Views\Shared\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
