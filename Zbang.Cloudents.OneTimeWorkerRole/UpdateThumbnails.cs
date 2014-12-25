@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 8;
+                int index = 0;
                 bool cont = true;
                 while (cont)
                 {
