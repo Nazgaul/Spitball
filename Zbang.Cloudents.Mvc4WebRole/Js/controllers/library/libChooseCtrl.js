@@ -9,13 +9,17 @@
          'sFacebook',
          'sUserDetails',
          '$analytics',
-         function ($scope, $timeout, $filter, sModal, $location, debounce, sLibrary, sFacebook, sUserDetails, $analytics) {
+         function ($scope, $timeout, $filter, sModal, $location, debounce,
+             sLibrary, sFacebook, sUserDetails, $analytics) {
              "use strict";
              $scope.formData = {};
              $scope.display = {
                  searchUniversity: true
              };
-
+             if ($location.search()['new']) {
+                 console.log('h');
+                 $analytics.eventTrack('CompletedSignUpChooseLib', { category: 'Registration' });
+             }
              sFacebook.getToken().then(function (token) {
                  if (!token) {
                      return;
