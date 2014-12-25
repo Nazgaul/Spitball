@@ -1929,7 +1929,6 @@
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
-    <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
