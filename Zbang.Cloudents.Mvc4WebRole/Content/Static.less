@@ -663,3 +663,29 @@ footer {
     margin: 13px 0 0 4%; //rtl
 }
 /*#endregion */
+/*#region  static popup */
+
+.desktop {
+    .lastName+.field-validation-error {
+        margin-top: 72px;
+        display: block;
+    }
+    .firstName+.field-validation-error {
+        margin: 13px 0 0 4%; //rtl
+    }
+}
+
+.register {
+    .field-validation-error {
+        position: absolute;
+        margin-top: -17px;
+        &.firstError {
+            margin-top: -3px;
+        }
+    }
+    .validation-summary-errors {
+        position: absolute;
+        margin-top: 5px;
+    }
+}
+/*#endregion */
