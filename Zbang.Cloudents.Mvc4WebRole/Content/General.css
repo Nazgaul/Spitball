@@ -588,6 +588,7 @@ input[type="radio"][disabled] + label:before {
   text-align: center;
   position: relative;
   top: 5px;
+  margin-bottom: 5px;
 }
 .enterTitle {
   font-size: 24px;

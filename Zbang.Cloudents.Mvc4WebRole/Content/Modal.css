@@ -1175,6 +1175,7 @@
   -moz-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
   transition: all 0.4s linear;
+  line-height: 12px;
 }
 .ng-message-error.ng-enter.ng-enter-active {
   opacity: 1;
