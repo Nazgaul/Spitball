@@ -22,7 +22,7 @@
         <div height="285" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
             <ul class="socialList" ng-class="{noResults : users.length === 0}">
                 <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
-                    <img width="64" height="64" ng-src="{{::contact.image | defaultImage:'user'}}" alt="" />
+                    <img width="64" height="64" ng-src="{{::contact.image || contact.largeImage | defaultImage:'user'}}" alt="" />
                     <div class="contactName">{{::contact.name}}</div>
                     <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
                 </li>
