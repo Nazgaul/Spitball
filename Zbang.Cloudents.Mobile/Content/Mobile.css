@@ -432,7 +432,6 @@ and (orientation : landscape) and (min-width : 321px)  {
   margin: 10px 0;
 }
 .ng-message-errors {
-  display: none;
   position: relative;
   top: -2px;
   width: 100%;
@@ -443,10 +442,9 @@ and (orientation : landscape) and (min-width : 321px)  {
 .ng-message-errors.lFloat {
   width: 48%;
   display: inline-block;
-  top: 28px;
 }
 .ng-message-error {
-  display: none;
+  font-size: 13px;
   position: absolute;
   opacity: 1;
   bottom: 0;
