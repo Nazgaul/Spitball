@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Zbang.Cloudents.Mobile.Views.Box.Resources;
+using Zbang.Cloudents.Mobile.Views.Dashboard.Resources;
 using Zbang.Cloudents.Mobile.Views.Shared.Resources;
 using Zbang.Zbox.Domain;
 

@@ -8,7 +8,7 @@ namespace Zbang.Cloudents.Mobile
         public static void RegisterBundles()
         {
             BundleConfig.RegisterBundle(RegisterCss(), RegisterJs());
-           
+
         }
 
         private static IDictionary<string, IEnumerable<string>> RegisterCss()
@@ -41,88 +41,117 @@ namespace Zbang.Cloudents.Mobile
         {
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
-                {
-                    "home", new[]
-                    {
-                        new JsFileWithCdn("~/Scripts/validatinator.min.js"),
-                        new JsFileWithCdn("~/Js/staticShim.js"),
-                        new JsFileWithCdn("~/Js/Logon.js"),
-                        new JsFileWithCdn("~/Js/HomePage.js")
-                    }
-                },
-                {
-                    "General", new[]
+             {
+                    "angular", new[]
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
-                            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                        new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
-                        new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
-                        new JsFileWithCdn("~/scripts/Modernizr.js"),
+                        "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),                        
+                        new JsFileWithCdn("~/scripts/angular.min.js",
+                        "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular-messages.js"),
+                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angular-animate.js",
+                        "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
+                        new JsFileWithCdn("~/scripts/angulartics.js"),
+                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),                        
+                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
+                        new JsFileWithCdn("~/scripts/stacktrace.js"),                                                                                                                                                
+                        new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
+                        new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
+                        new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
 
+                        new JsFileWithCdn("~/js/app.module.js"),
+                        new JsFileWithCdn("~/js/app.route.js"),
 
-                        new JsFileWithCdn("~/Js/Utils2.js"),
-                        new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
-
-                        new JsFileWithCdn("~/Js/pubsub2.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js")
+                        new JsFileWithCdn("~/js/libs/stacktrace.js")
+                        //new J
                     }
-                }
-            };
-            jsDictionary.Add("homeMobile", new[] {
-              new JsFileWithCdn("~/Js/Mobile/Logon.js"),
-              new JsFileWithCdn("~/Js/Mobile/Welcome.js")
-            });
+                    }
+             };
+
+            //{
+            //    "home", new[]
+            //    {
+            //        new JsFileWithCdn("~/Scripts/validatinator.min.js"),
+            //        new JsFileWithCdn("~/Js/staticShim.js"),
+            //        new JsFileWithCdn("~/Js/Logon.js"),
+            //        new JsFileWithCdn("~/Js/HomePage.js")
+            //    }
+            //},
+            //{
+            //    "General", new[]
+            //    {
+            //        new JsFileWithCdn("~/scripts/jquery.min.js",
+            //            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
+            //        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+            //        new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
+            //        new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
+            //        new JsFileWithCdn("~/scripts/Modernizr.js"),
+
+
+            //        new JsFileWithCdn("~/Js/Utils2.js"),
+            //        new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
+
+            //        new JsFileWithCdn("~/Js/pubsub2.js"),
+            //        new JsFileWithCdn("~/scripts/svg4everybody.js")
+            //    }
+            //}
+            //};
+            //jsDictionary.Add("homeMobile", new[] {
+            //  new JsFileWithCdn("~/Js/Mobile/Logon.js"),
+            //  new JsFileWithCdn("~/Js/Mobile/Welcome.js")
+            //});
 
 
 
-            jsDictionary.Add("mobile", new[] {
-                  new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-                new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
-                new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
-                new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
+            //jsDictionary.Add("mobile", new[] {
+            //      new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
+            //    new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
+            //    new JsFileWithCdn("~/Scripts/jquery.validate.unobtrusive.js"),
+            //    new JsFileWithCdn("~/Scripts/jquery.unobtrusive-ajax.js"),
 
 
-                new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
-                new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
-                new JsFileWithCdn("~/Scripts/Modernizr.js"),
+            //    new JsFileWithCdn("~/Scripts/knockout-3.0.0.js"),
+            //    new JsFileWithCdn("~/Js/Bindings.js"), //knockout new bindings
+            //    new JsFileWithCdn("~/Scripts/Modernizr.js"),
 
-                 new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
-                new JsFileWithCdn("~/Scripts/plupload/plupload.silverlight.js"),
-                new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
-                new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
+            //     new JsFileWithCdn("~/Scripts/plupload/plupload.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html4.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.html5.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.flash.js"),
+            //    new JsFileWithCdn("~/Scripts/plupload/plupload.silverlight.js"),
+            //    new JsFileWithCdn("~/Scripts/jquery-ui-1.10.4.min.js"),
+            //    new JsFileWithCdn("~/Scripts/elasticTextBox.js"),
 
-                new JsFileWithCdn("~/Js/Utils2.js"),
-                new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
-                 new JsFileWithCdn("~/Js/pubsub2.js"),
-                new JsFileWithCdn("~/Js/Cache2.js"),
-                new JsFileWithCdn("~/Js/DataContext2.js"),
+            //    new JsFileWithCdn("~/Js/Utils2.js"),
+            //    new JsFileWithCdn("~/Scripts/externalScriptLoader.js"),
+            //     new JsFileWithCdn("~/Js/pubsub2.js"),
+            //    new JsFileWithCdn("~/Js/Cache2.js"),
+            //    new JsFileWithCdn("~/Js/DataContext2.js"),
 
-                new JsFileWithCdn("~/Js/Navigation2.js"),
-                new JsFileWithCdn("~/Js/Mobile/MBaseViewModel.js"),
-                new JsFileWithCdn("~/Js/Mobile/MInvite.js"),
-                new JsFileWithCdn("~/Js/Mobile/MUpload.js"),
-                //invite
-                new JsFileWithCdn("~/Js/Mobile/MInviteViewModel.js"),
-                //wall
-                //new JsFileWithCdn("~/Js/Mobile/MWallViewModel.js"),
-                //library
-                new JsFileWithCdn("~/Js/Mobile/MLibrary.js"),
-                //new JsFileWithCdn("/Js/Mobile/MLibraryChoose.js"),
-                //dashboard
-                new JsFileWithCdn("~/Js/Mobile/MBoxesViewModel.js"),
+            //    new JsFileWithCdn("~/Js/Navigation2.js"),
+            //    new JsFileWithCdn("~/Js/Mobile/MBaseViewModel.js"),
+            //    new JsFileWithCdn("~/Js/Mobile/MInvite.js"),
+            //    new JsFileWithCdn("~/Js/Mobile/MUpload.js"),
+            //    //invite
+            //    new JsFileWithCdn("~/Js/Mobile/MInviteViewModel.js"),
+            //    //wall
+            //    //new JsFileWithCdn("~/Js/Mobile/MWallViewModel.js"),
+            //    //library
+            //    new JsFileWithCdn("~/Js/Mobile/MLibrary.js"),
+            //    //new JsFileWithCdn("/Js/Mobile/MLibraryChoose.js"),
+            //    //dashboard
+            //    new JsFileWithCdn("~/Js/Mobile/MBoxesViewModel.js"),
 
-                //box
-                new JsFileWithCdn("~/Js/Mobile/MBoxViewModel.js"),
-                new JsFileWithCdn("~/Js/Mobile/MBoxItemsViewModel.js"),
-                // new JsFileWithCdn("~/Js/Mobile/MCommentsViewModel.js"),
+            //    //box
+            //    new JsFileWithCdn("~/Js/Mobile/MBoxViewModel.js"),
+            //    new JsFileWithCdn("~/Js/Mobile/MBoxItemsViewModel.js"),
+            //    // new JsFileWithCdn("~/Js/Mobile/MCommentsViewModel.js"),
 
-                //Account settings
-                 new JsFileWithCdn("~/Js/Mobile/MAccountSettings.js")
-                });
+            //    //Account settings
+            //     new JsFileWithCdn("~/Js/Mobile/MAccountSettings.js")
+            //    });
 
 
             //jsDictionary.Add("homeMobile",new[] {
@@ -143,9 +172,9 @@ namespace Zbang.Cloudents.Mobile
                                     new JsFileWithCdn("~/Js/DataContext2.js"),
                                     new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js")
             });
-           
+
             return jsDictionary;
         }
-        
+
     }
 }

@@ -63,6 +63,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [PreserveQueryString]
         public ActionResult Index(string lang, string invId)
         {
+            return View("Empty");
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
