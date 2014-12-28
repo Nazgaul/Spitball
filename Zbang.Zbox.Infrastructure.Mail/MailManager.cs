@@ -75,6 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public async Task DeleteUnsubscribe(string email)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
             using (var client = new HttpClient())
             {
 
