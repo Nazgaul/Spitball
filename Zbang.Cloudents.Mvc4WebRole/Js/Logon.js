@@ -287,8 +287,14 @@
         var submit2 = form.querySelector('input[type="submit"]');
         submit2.disabled = true;
 
+        var obj = {};
+        for (var x in data) {
+            if (data[x] != null) {
+                obj[x]  = data[x];
+            }
+        }
 
-        ajax.post(form.action, data, function (data2) {
+        ajax.post(form.action, obj, function (data2) {
             
 
             if (!data2.success) {
