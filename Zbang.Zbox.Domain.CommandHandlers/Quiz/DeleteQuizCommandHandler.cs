@@ -33,9 +33,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             var quiz = m_QuizRepository.Load(message.QuizId); // need that because we save box
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, quiz.Box.Id);
-            if (!(quiz.Owner.Id == message.UserId || userType == UserRelationshipType.Owner))
+
+            bool isAuthorize = userType == UserRelationshipType.Owner
+               || Equals(quiz.Owner.Id, message.UserId)
+               || quiz.Owner.Reputation >= quiz.Owner.University.AdminScore;
+
+            if (!isAuthorize)
             {
-                throw new UnauthorizedAccessException("user is not owner of quiz");
+                throw new UnauthorizedAccessException("User is unauthorized to delete file");
             }
 
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(quiz.Owner.Id));

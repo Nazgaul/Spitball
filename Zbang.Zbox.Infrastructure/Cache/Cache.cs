@@ -140,14 +140,22 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return default(T);
             }
-            if (!IsAppFabricCache())
-                return m_Cache[region + "_" + key] as T;
+            try
+            {
+                if (!IsAppFabricCache())
+                    return m_Cache[region + "_" + key] as T;
 
 
-            IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
-            var cacheKey = BuildCacheKey(key, region);
+                IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
+                var cacheKey = BuildCacheKey(key, region);
 
-            return cache.Get<T>(cacheKey);
+                return cache.Get<T>(cacheKey);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceLog.WriteError(string.Format("GetFromCacheAsync key {0} region {1}", key, region), ex);
+                return default(T);
+            }
 
         }
 
