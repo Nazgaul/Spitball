@@ -63,6 +63,11 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/app.module.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
+                        new JsFileWithCdn("~/js/components/register/registerController.js"),
+                        new JsFileWithCdn("~/js/components/register/registerService.js"),
+                        
+                        new JsFileWithCdn("~/js/shared/ajax/ajaxService.js"),
+
 
                         new JsFileWithCdn("~/js/libs/stacktrace.js")
                         //new J

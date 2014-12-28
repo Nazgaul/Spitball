@@ -103,6 +103,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
+        public ActionResult Register()
+        {
+            return View("_Register");
+        }
 
 
         #region Login
