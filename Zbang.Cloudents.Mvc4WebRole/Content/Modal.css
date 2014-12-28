@@ -306,7 +306,7 @@
 }
 .rename,
 .itemReg,
-.congrats,
+.congrats.popupOffset,
 .welcome.popupOffset {
   padding-left: 290px;
   -webkit-box-sizing: border-box;
