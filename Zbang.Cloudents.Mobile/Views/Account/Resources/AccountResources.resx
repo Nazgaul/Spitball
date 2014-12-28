@@ -120,16 +120,46 @@
   <data name="AlreadyHave" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>Emails don't match</value>
+  </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Sign up with email</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Sign up with Facebook</value>
   </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>Please select gender</value>
+  </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>By joining, I agree to Cloudents</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in now</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>Password must contain at least 6 characters</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>It's more than just studying, it's social studying</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>Terms of Services</value>
   </data>
 </root>

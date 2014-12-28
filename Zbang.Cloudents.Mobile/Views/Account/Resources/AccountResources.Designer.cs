@@ -70,6 +70,24 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emails don&apos;t match.
+        /// </summary>
+        public static string ConfirmEmailCompare {
+            get {
+                return ResourceManager.GetString("ConfirmEmailCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up with email.
         /// </summary>
         public static string EmailSignUp {
@@ -88,6 +106,42 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field is required.
+        /// </summary>
+        public static string FieldRequired {
+            get {
+                return ResourceManager.GetString("FieldRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select gender.
+        /// </summary>
+        public static string GenderRequired {
+            get {
+                return ResourceManager.GetString("GenderRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By joining, I agree to Cloudents.
+        /// </summary>
+        public static string IAgree {
+            get {
+                return ResourceManager.GetString("IAgree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email address.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in now.
         /// </summary>
         public static string LogIn {
@@ -97,11 +151,47 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        public static string PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least 6 characters.
+        /// </summary>
+        public static string PwdAtLeast6Chars {
+            get {
+                return ResourceManager.GetString("PwdAtLeast6Chars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up.
+        /// </summary>
+        public static string SignUp {
+            get {
+                return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It&apos;s more than just studying, it&apos;s social studying.
         /// </summary>
         public static string SocialStudy {
             get {
                 return ResourceManager.GetString("SocialStudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms of Services.
+        /// </summary>
+        public static string TermsOfServices {
+            get {
+                return ResourceManager.GetString("TermsOfServices", resourceCulture);
             }
         }
     }

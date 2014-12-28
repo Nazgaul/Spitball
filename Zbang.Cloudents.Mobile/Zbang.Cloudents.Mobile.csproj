@@ -1773,7 +1773,7 @@
     <Content Include="Views\Shared\Partials\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Register.cshtml" />
+    <Content Include="Views\Shared\Partials\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\ContactUs.cshtml" />
