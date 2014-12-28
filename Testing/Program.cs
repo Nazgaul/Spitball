@@ -222,9 +222,14 @@ namespace Testing
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
-            IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
+            var x = iocFactory.Resolve<IMailComponent>();
+            x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+                     "failed connect to remove db " );
+            var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
+            t.Wait();
+            //IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
-            writeService.OneTimeDbi();
+            // writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{
 
@@ -562,7 +567,7 @@ namespace Testing
         {
 
 
-            
+
             var mail = new MailManager2();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com",
             //    new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda"));
