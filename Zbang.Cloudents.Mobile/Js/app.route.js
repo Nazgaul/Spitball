@@ -7,7 +7,7 @@
             .state('account', {
                 url: '/account/',
                 template: '/account/index',
-                controller: 'AccountCtrl as account'
+                //controller: 'AccountCtrl as account'
             }).
             state('login', {
                 url: '/login/',
@@ -15,9 +15,9 @@
                 controller: 'LoginCtrl as login'
             }).
             state('register', {
-                url: '/register/',
-                template: '/account/index',
-                controller: 'RegisterCtrl  as register'
+                url: '/account/register/',
+                templateUrl: '/account/register',
+                controller: 'RegisterController as register'
             }).
             state('libChoose', {
                 url: '/register/',

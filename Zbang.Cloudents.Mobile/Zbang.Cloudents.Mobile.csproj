@@ -1722,7 +1722,7 @@
     <Content Include="Views\Shared\Partials\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_Register.cshtml" />
+    <Content Include="Views\Account\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\ContactUs.cshtml" />
