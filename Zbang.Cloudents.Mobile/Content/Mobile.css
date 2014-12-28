@@ -365,9 +365,8 @@ and (orientation : landscape) and (min-width : 321px)  {
 .inputText {
   background: #fff;
   padding: 0 4px 0 8px;
-  /*rtl*/
   height: 30px;
-  color: #464646;
+  color: #383838;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   -webkit-box-sizing: border-box;

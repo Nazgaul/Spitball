@@ -37,3 +37,37 @@
   left: 0;
   right: auto;
 }
+/*#region helper classes */
+.lFloat {
+  float: right;
+}
+.rFloat {
+  float: left;
+}
+.inputText {
+  padding: 0 8px 0 4px;
+}
+/*#endregion */
+/*#region Welcome */
+.register .bottom {
+  text-align: right;
+}
+.ng-message-errors {
+  clear: left;
+}
+.ng-message-error {
+  right: 0;
+  left: auto;
+}
+.ng-message-error.ng-enter.ng-enter-active {
+  right: 0;
+  left: auto;
+}
+.ng-message-error.ng-enter {
+  right: -100%;
+  left: auto;
+}
+.ng-message-error.ng-leave {
+  right: 0;
+  left: auto;
+}

@@ -388,16 +388,16 @@ and (orientation : landscape) and (min-width : 321px)  {
 /*#region helper classes */
 
 .lFloat {
-    float:left;
+    float:left; //rtl
 }
 .rFloat {
-    float: right;
+    float: right; //rtl
 }
 .inputText {
     background: #fff;
-    padding: 0 4px 0 8px; /*rtl*/
+    padding: 0 4px 0 8px; //rtl
     height: 30px;
-    color: #464646;
+    color: @textColor;
     border: 1px solid @borderColor;
     border-radius: 3px;
     .boxSizing;
@@ -409,9 +409,6 @@ and (orientation : landscape) and (min-width : 321px)  {
     }
     &.firstName, &.rFloat, &.radioWpr {
         width: 48%;
-    }
-    &.lastName {
-        //margin-bottom: 20px;
     }
 }
 .btn1 {
@@ -501,6 +498,4 @@ and (orientation : landscape) and (min-width : 321px)  {
     opacity:0;
     bottom:8px; 
 }
-
-
 /*#endregion */
