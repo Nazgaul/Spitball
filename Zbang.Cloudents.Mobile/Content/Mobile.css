@@ -385,6 +385,19 @@ and (orientation : landscape) and (min-width : 321px)  {
 .inputText.radioWpr {
   width: 48%;
 }
+.btn1 {
+  background: #0f9d58;
+  color: #fff;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 5px;
+}
+.btn1:disabled {
+  background: #a5a5a5;
+}
 /*#endregion */
 /*#region Welcome */
 .register {
@@ -400,9 +413,23 @@ and (orientation : landscape) and (min-width : 321px)  {
 .register .bottom {
   width: 92%;
   text-align: left;
+  bottom: 0;
+}
+.register .homeTxt1 {
+  color: #383838;
 }
 .radioWpr {
   margin-top: 6px;
+}
+.acceptTerms {
+  font-size: 11px;
+  line-height: 15px;
+  display: inline-block;
+}
+.welcomeTxt1 {
+  font-size: 13px;
+  text-align: center;
+  margin: 10px 0;
 }
 .ng-message-errors {
   display: none;

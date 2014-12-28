@@ -28,14 +28,14 @@
            ng-model="formData.register.newEmail" required
            ng-pattern="params.pattern" />
     @*<div class="ng-message-errors" ng-messages="(registerForm.confirmEmail.$touched || registerSubmitted) && registerForm.confirmEmail.$error">
-        <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-        <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
-        <span class="ng-message-error" ng-message="match">@AccountResources.ConfirmEmailCompare</span>
-    </div>
-    <input type="text" class="inputText" name="confirmEmail" placeholder="VerifyEmail"
-           ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
-           ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail"
-           ng-pattern="params.pattern" />*@
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
+            <span class="ng-message-error" ng-message="match">@AccountResources.ConfirmEmailCompare</span>
+        </div>
+        <input type="text" class="inputText" name="confirmEmail" placeholder="VerifyEmail"
+               ng-class="{error: (registerSubmitted || registerForm.confirmEmail.$touched) && loginForm.confirmEmail.$error}"
+               ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail"
+               ng-pattern="params.pattern" />*@
     <div class="ng-message-errors" ng-messages="(registerForm.password.$touched || registerSubmitted) && registerForm.password.$error">
         <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
@@ -69,15 +69,21 @@
 
 
     @*<input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="formData.register.marketEmail" />
-    <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>*@
+        <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>*@
     <div class="bottom">
         <span class="acceptTerms">
-            @AccountResources.IAgree<!--
-            --><a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;TermsOfServices&nbsp;</a>@AccountResources.And&nbsp;<!--
-            --><a target="_blank" href="@Url.Action("Privacy", "Home")">@AccountResources.PrivacyPolicy</a>
+            @AccountResources.IAgree
+            <!--
+            -->
+            <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@AccountResources.TermsOfServices&nbsp;</a>@AccountResources.And&nbsp;
+            <!--
+            -->
+            <a target="_blank" href="@Url.Action("Privacy", "Home")">@AccountResources.PrivacyPolicy</a>
         </span>
         <input ng-disabled="disabled" class="btn1" type="submit" tabindex=15 value="@AccountResources.SignUp" ng-click="registerSubmitted = true" />
-        <span class="homeTxt1">@AccountResources.AlreadyHave</span>
-        <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
+        <div class="welcomeTxt1">
+            <span class="homeTxt1">@AccountResources.AlreadyHave</span>
+            <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
+        </div>
     </div>
 </form>
