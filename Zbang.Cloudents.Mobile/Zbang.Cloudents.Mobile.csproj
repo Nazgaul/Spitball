@@ -424,6 +424,11 @@
     <Compile Include="Models\UpdateBoxInfo.cs" />
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Account\Resources\AccountResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -511,6 +516,10 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bg%402x.jpg" />
+    <Content Include="Images\bg%403x.jpg" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\Defs.svg" />
     <Content Include="Images\EmptyState\my_default.png" />
     <Content Include="Images\EmptyState\my_default2.png" />
     <Content Include="Images\EmptyState\my_default3.png" />
@@ -1433,25 +1442,19 @@
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Error\MembersOnly.mobile.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
-    <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
-    <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Views\Account\_WelcomeAngular.cshtml" />
-    <Content Include="Views\Account\_LogonAngular.cshtml" />
-    <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
+    <Content Include="Views\Shared\Partials\_Home.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1460,7 +1463,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Account\Resources\" />
     <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Library\" />
@@ -1684,6 +1686,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.zh.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResources.he.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\AccountResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
       <SubType>Designer</SubType>
@@ -1776,13 +1785,7 @@
     <Content Include="Views\Home\TermsOfService.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Error\MembersOnly.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Share\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />

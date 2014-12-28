@@ -2,12 +2,16 @@
 
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
+    @Html.Css2("mobile")
+    @Html.CssRtl("mobileRtl")
+    @Html.CssCulture("lang")
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
+    @{Html.RenderPartial("_Home");}
 </body>
 </html>

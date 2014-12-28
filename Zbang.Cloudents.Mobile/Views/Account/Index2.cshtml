@@ -1,29 +1,64 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
+
 @using Zbang.Cloudents.Mobile.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
-@model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
+@*    @model Zbang.Cloudents.Mvc4WebRole.Models.Account.LogOnRegister
 
 
-<div class="imgBg"></div>
-<div class="sprite logo"></div>
-<div class="text">@LogOnResources.AcademicCloud</div>
-<a href="@Url.ActionHash("Welcome",new {ViewBag.universityId }, "register")" class="btn create boldFont">@LogOnResources.CreateNew</a>
-<a href="@Url.ActionHash("Welcome",new {ViewBag.universityId }, "connect")" class="btn connect boldFont">@LogOnResources.SignIn</a>
-<div class="lang">
-    <select class="langSelect" id="langSelect">
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
-        <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
-    </select>
+    <div class="imgBg"></div>
+    <div class="sprite logo"></div>
+    <div class="text">@LogOnResources.AcademicCloud</div>
+    <a href="@Url.ActionHash("Welcome",new {ViewBag.universityId }, "register")" class="btn create boldFont">@LogOnResources.CreateNew</a>
+    <a href="@Url.ActionHash("Welcome",new {ViewBag.universityId }, "connect")" class="btn connect boldFont">@LogOnResources.SignIn</a>
+    <div class="lang">
+        <select class="langSelect" id="langSelect">
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+            <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+        </select>
+    </div>
+
+    @section scripts {
+        @Html.Script2("General")
+        @Html.Script2("homeMobile")
+    }*@
+<div class="homepage">
+    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
+    <h1>@AccountResources.SocialStudy</h1>
+    <div class="bottom">
+        <button type="button" class="facebook" ng-click="facebookLogin()">
+            <span class="fbImg">
+                @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+            </span>@AccountResources.FacebookSignUp
+        </button>
+
+        <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+            <span class="emailImg">
+                @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
+            </span>@AccountResources.EmailSignUp
+        </button>
+
+        <span class="homeTxt1">@AccountResources.AlreadyHave</span>
+        <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
+
+        <div class="lang">
+            <select class="langSelect" id="langSelect">
+                <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+                <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+                <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+                <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+                <option data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+            </select>
+        </div>
+    </div>
 </div>
 
-@section scripts {
-    @Html.Script2("General")
-    @Html.Script2("homeMobile")
-}
+
+
+
 
