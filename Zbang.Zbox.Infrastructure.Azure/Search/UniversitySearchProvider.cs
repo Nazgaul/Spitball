@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class UniversitySearchProvider : IUniversityReadSearchProvider, IDisposable, IUniversityWriteSearchProvider2
     {
-        private const string IndexName = "universities";
+        private const string IndexName = "universities2";
         private readonly ApiConnection m_Connection;
         private readonly IndexQueryClient m_ReadClient;
         public UniversitySearchProvider()
@@ -23,12 +23,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 ConfigFetcher.Fetch("AzureSeachServiceName"),
                 ConfigFetcher.Fetch("AzureSearchKey")
                 );
-            //WriteSearchUniversityProvider.CloudentssearchSearchWindowsNet,
-            //WriteSearchUniversityProvider.ApiKey);
 
             m_ReadClient = new IndexQueryClient(m_Connection);
 
         }
+
+        private async Task BuildIndex()
+        {
+            using (var client = new IndexManagementClient(m_Connection))
+            {
+                var response = await client.GetIndexAsync(IndexName);
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    await client.CreateIndexAsync(GetUniversityIndex());
+                }
+            }
+        }
+
 
         public void Dispose()
         {
@@ -51,10 +62,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchTask = m_ReadClient.SearchAsync(IndexName,
                   new SearchQuery(term + "*")
                   {
-                      Select = "id,name,imageField",
-                      Mode = SearchMode.Any
+                      Select = "id,name,imageField"
                   });
-            Task<IApiResponse<SuggestionResult>> suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
+            var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
             if (term.Length >= 3)
             {
                 suggestTask = m_ReadClient.SuggestAsync(IndexName,
@@ -65,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     });
             }
             await Task.WhenAll(searchTask, suggestTask);
-            if (searchTask.Result.Body.Count > 0)
+            if (searchTask.Result.Body.Records.Any())
             {
                 return searchTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
                  s.Properties["name"].ToString(),
@@ -88,18 +98,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
-
+            await BuildIndex();
 
             var listOfCommands = new List<IndexOperation>();
             if (universityToUpload != null)
             {
                 listOfCommands.AddRange(universityToUpload.Select(s =>
                 {
-                    var x = new IndexOperation(IndexOperationType.MergeOrUpload, "id",
+                    var x = new IndexOperation(IndexOperationType.Upload, "id",
                         s.Id.ToString(CultureInfo.InvariantCulture))
                         .WithProperty("name", s.Name)
                         .WithProperty("extra1", s.Extra)
-                        .WithProperty("extra4", String.Join(
+                        .WithProperty("extra2", String.Join(
                             " ",
                             s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                                 .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
@@ -114,10 +124,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     new IndexOperation(IndexOperationType.Delete, "id", s.ToString(CultureInfo.InvariantCulture))
                     ));
             }
-            var client = new IndexManagementClient(m_Connection);
-            await client.DeleteIndexAsync(IndexName);
-            var v = await client.CreateIndexAsync(GetUniversityIndex());
-            var result = await client.PopulateAsync(IndexName, listOfCommands.ToArray());
+            var commands = listOfCommands.ToArray();
+            if (commands.Length > 0)
+            {
+                using (var client = new IndexManagementClient(m_Connection))
+                {
+                    await client.PopulateAsync(IndexName, listOfCommands.ToArray());
+                }
+            }
         }
 
         private Index GetUniversityIndex()
@@ -136,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                        .IsSearchable()
                        .IsFilterable(false)
                        )
-                   .WithStringField("extra4", f => f
+                   .WithStringField("extra2", f => f
                        .IsFilterable(false)
                        .IsSearchable()
                        )

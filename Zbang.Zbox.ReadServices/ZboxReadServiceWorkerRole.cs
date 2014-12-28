@@ -188,17 +188,27 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDirtyUpdates()
+        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql =
-                    @"select id as Id,UniversityName as Name,LargeImage as Image,extra as Extra 
-from zbox.University
-where isdirty = 1
-";
-                var retVal = await conn.QueryAsync<UniversitySearchDto>(sql);
-                return retVal;
+                    @"select id as Id,UniversityName as Name,LargeImage as Image,extra as Extra from zbox.University
+                        where isdirty = 1 and ( isdeleted = 0 or isdeleted is null);";
+                const string sqlToDelete =
+                    @"select id from zbox.University
+                    where isdirty = 1 and isdeleted = 1";
+                using (var grid = await conn.QueryMultipleAsync(sql + sqlToDelete))
+                {
+                    var retVal = new UniversityToUpdateSearchDto
+                    {
+                        UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>(),
+                        UniversitiesToDelete = await grid.ReadAsync<long>()
+                    };
+                    return retVal;
+
+                }
+               
             }
         }
 

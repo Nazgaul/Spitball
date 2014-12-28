@@ -19,10 +19,6 @@ namespace Zbang.Zbox.Domain.Common
         void UnFollowBox(UnFollowBoxCommand command);
 
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
-       // Task<AddFileToBoxCommandResult> AddFileToBox(AddFileToBoxCommand command);
-        //Task<AddLinkToBoxCommandResult> AddLinkToBox(AddLinkToBoxCommand command);
-        //AddBoxCommentCommandResult AddBoxComment(AddBoxCommentCommand command);
-        //AddReplyToCommentCommandResult AddReplyToComment(AddReplyToCommentCommand command);
 
         Task DeleteItemAsync(DeleteItemCommand command);
         Task RateItemAsync(RateItemCommand command);
@@ -50,6 +46,7 @@ namespace Zbang.Zbox.Domain.Common
         #region ZboxWorkerRoleService
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
         void AddNewUpdate(AddNewUpdatesCommand command);
+        Task UpdateSearchDirtyToRegularAsync();
         #endregion
 
 
