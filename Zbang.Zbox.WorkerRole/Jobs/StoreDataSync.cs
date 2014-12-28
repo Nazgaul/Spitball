@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Store.Services;
@@ -20,39 +22,57 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly int m_TimeToSyncInSeconds = 60;
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
+        private readonly IMailComponent m_MailComponent;
         private readonly IZboxWriteService m_ZboxWriteService;
 
         private DateTime m_DateDiff = DateTime.UtcNow.AddYears(-1);
 
 
         public StoreDataSync(IReadService readService, IBlobProductProvider blobProvider,
-            IZboxWriteService zboxWriteService)
+            IZboxWriteService zboxWriteService, IMailComponent mailComponent)
         {
             m_ReadService = readService;
             m_BlobProvider = blobProvider;
             m_ZboxWriteService = zboxWriteService;
             var configurationValueOfHatavot = RoleEnvironment.GetConfigurationSettingValue("SyncHatavotTimeInSeconds");
             int.TryParse(configurationValueOfHatavot, out m_TimeToSyncInSeconds);
+            m_MailComponent = mailComponent;
 
         }
 
         public void Run()
         {
+            var timeToSync = m_TimeToSyncInSeconds;
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                BringData();
+                
+                try
+                {
+                    BringData();
+                    timeToSync = m_TimeToSyncInSeconds;
+                }
+                catch (SqlException ex)
+                {
+                    m_MailComponent.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+                    "failed connect to remove db " + ex);
+                    timeToSync = timeToSync * 2;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(timeToSync));
             }
         }
 
         private void BringData()
         {
+
             var categoriesDto = m_ReadService.GetCategories().ToList();
 
             var categories = new List<Category>();
             var storeDto = m_ReadService.ReadData(categoriesDto.Select(s => s.Id), m_DateDiff);
             //var storeDto = new List<ProductDto>();
-            categories.AddRange(categoriesDto.Select(category => new Category(category.Id, category.ParentId, category.Name, category.Order)));
+            categories.AddRange(
+                categoriesDto.Select(
+                    category => new Category(category.Id, category.ParentId, category.Name, category.Order)));
 
             try
             {
@@ -129,7 +149,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             ProcessBanners();
             m_DateDiff = DateTime.UtcNow.AddMinutes(-30);
 
-            Thread.Sleep(TimeSpan.FromSeconds(m_TimeToSyncInSeconds));
+            
         }
 
         private async Task<string> ProcessImage(string wideImage, string image)

@@ -223,6 +223,8 @@ namespace Testing
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
             var x = iocFactory.Resolve<IMailComponent>();
+            x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+                     "failed connect to remove db " );
             var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             t.Wait();
             //IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
