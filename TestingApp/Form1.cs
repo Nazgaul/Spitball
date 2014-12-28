@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.ViewModel.Dto.Library;
 
 namespace TestingApp
 {
@@ -63,14 +64,17 @@ namespace TestingApp
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            var x = new UniversitySearchProvider();
+            await x.UpdateData(new[]
+            {
+                new UniversitySearchDto
+                {
+                    Id = 920,
+                    Name = "Ram Open University",
+                    Image = "https://az32006.vo.msecnd.net/universities/920.jpg"
+                }
+            }, null);
 
-            await lucenewire.UpdateData(new Zbang.Zbox.ViewModel.Dto.Library.UniversitySearchDto()
-             {
-                 Id = 322,
-                 Name = "בית ברל טסט"
-             });
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -86,7 +90,7 @@ namespace TestingApp
 
                     }
                 }
-               
+
 
             }
         }

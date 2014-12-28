@@ -7,6 +7,7 @@ using NHibernate.Proxy;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -137,7 +138,7 @@ namespace Zbang.Zbox.Domain.Services
         private void UpdateReputation()
         {
             int i = 0;
-            var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o=>o.Id).Asc.Select(s => s.Id)
+            var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc.Select(s => s.Id)
                 .Skip(i * 100).Take(100).List<long>();
             do
             {
@@ -242,47 +243,31 @@ namespace Zbang.Zbox.Domain.Services
 
         public bool Dbi(int index)
         {
-            bool retVal = false;
+            UpdateAdminReputation();
+            return false;
+        }
 
-            using (UnitOfWork.Start())
+        private void UpdateAdminReputation()
+        {
+            using (var conn = DapperConnection.OpenConnection())
             {
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
+                var universitiesIds = conn.Query("SELECT id FROM zbox.university");
+                foreach (var universitiesId in universitiesIds)
                 {
-                    var universities = UnitOfWork.CurrentSession.QueryOver<University>().List();
-                    var universityRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IUniversityRepository>();
-                    foreach (var university in universities)
-                    {
-                        university.UpdateNumberOfBoxes(universityRepository.GetNumberOfBoxes(university));
-                        UnitOfWork.CurrentSession.Save(university);
-                    }
-                    tx.Commit();
+                    const string sql = @"with topreputation as (
+                        select userreputation , ROW_NUMBER() OVER(ORDER BY userreputation DESC) AS Row
+                         from zbox.users u
+                        where universityid = @id
+                        )
+                        update zbox.University set AdminScore = (
+                        select  top 1 UserReputation  from topreputation 
+                        where Row <= (select AdminNoOfPeople from zbox.University where id = @id)
+                        order by Row desc)
+                        where id = @id;";
+
+                    conn.Execute(sql, new { universitiesId.id });
                 }
-                //        TraceLog.WriteInfo("Processing departments");
-                var departments = UnitOfWork.CurrentSession.QueryOver<Library>().List();
-
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    foreach (var department in departments)
-                    {
-
-                        var x = UnitOfWork.CurrentSession.Get<Library>(department.Id);
-                        x.UpdateNumberOfBoxes();
-                        while (x != null)
-                        {
-                            UnitOfWork.CurrentSession.Save(x);
-                            x = x.Parent;
-                        }
-
-                    }
-                    tx.Commit();
-                }
-                UnitOfWork.CurrentSession.Connection.Execute("ReputationAdmin",
-                    commandType: System.Data.CommandType.StoredProcedure);
-
-
-
             }
-            return retVal;
         }
 
 

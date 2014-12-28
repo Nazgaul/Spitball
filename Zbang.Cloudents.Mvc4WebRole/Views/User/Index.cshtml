@@ -255,7 +255,7 @@
                         </span>
                         <ul class="inAllFriendList">
                             <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{::friend.id}}">
-                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section"><img class="userItemImg" ng-src="{{::friend.largeImage | defaultImage:'use src="" width="74" height="74" /></a>
+                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section"><img class="userItemImg" ng-src="{{::friend.largeImage | defaultImage:'user'}}" src="" width="74" height="74" /></a>
                                 <div class="userItemName">{{::friend.name}}</div>
                             </li>
                         </ul>

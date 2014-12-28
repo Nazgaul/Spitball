@@ -2,7 +2,12 @@
 
 <html ng-app="app">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
+    @Html.Css2("mobile")
+    @Html.CssRtl("mobileRtl")
+    @Html.CssCulture("lang")
     <title>@ViewBag.Title</title>
 
     <base href="/">
@@ -60,9 +65,8 @@
     </style>
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
+    @{Html.RenderPartial("_Register");}
 
     @RenderSection("scripts", false)
 </body>

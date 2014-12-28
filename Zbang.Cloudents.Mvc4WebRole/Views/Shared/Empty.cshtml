@@ -4,7 +4,7 @@
         <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
     </div>
 </div>
-@section scripts
+@section scripts 
 {
     <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
     @Html.Script2("angular")
@@ -24,7 +24,6 @@
                 var ref = document.getElementsByTagName('script')[0];
                 ref.parentNode.insertBefore(fpw, ref);
             })();
-            ga('send', 'event', 'Registration', 'CompletedSignUp');
         </script>
         <noscript><img height="1" width="1" alt="" style="display: none" src="https://www.facebook.com/offsite_event.php?id=6013174718407&value=0&currency=USD" /></noscript>
     }
