@@ -25,7 +25,7 @@ namespace Zbang.Zbox.ReadServices
                           NotificationTime = query.MinutesPerNotificationSettings
                       });
             }
-           
+
         }
 
         public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query)
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.ReadServices
                           query.UserId
                       });
             }
-            
+
         }
 
         public async Task<BoxUpdatesDigestDto> GetBoxLastUpdates(GetBoxLastUpdateQuery query)
@@ -71,73 +71,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        //public async Task<IEnumerable<ItemDigestDto>> GetItemsLastUpdates(GetItemsLastUpdateQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<ItemDigestDto>(Email.GetItemUpdateByBox,
-        //              new
-        //              {
-        //                  Notification = query.MinutesPerNotificationSettings,
-        //                  query.BoxId
-        //              });
-        //    }
-            
-
-        //}
-        //public async Task<IEnumerable<QuizDigestDto>> GetQuizLastUpdates(GetItemsLastUpdateQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<QuizDigestDto>(Email.GetQuizUpdateByBox,
-        //              new
-        //              {
-        //                  Notification = query.MinutesPerNotificationSettings,
-        //                  query.BoxId
-        //              });
-        //    }
-            
-        //}
-
-        //public async Task<IEnumerable<QuizDiscussionDigestDto>> GetQuizDiscussion(GetCommentsLastUpdateQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<QuizDiscussionDigestDto>(Email.GetQuizDiscussionUpdateByBox,
-        //              new
-        //              {
-        //                  Notification = query.MinutesPerNotificationSettings,
-        //                  query.BoxId
-        //              });
-        //    }
-            
-        //}
-
-        //public async Task<IEnumerable<QnADigestDto>> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<QnADigestDto>(Email.GetQuestionUpdateByBox,
-        //              new
-        //              {
-        //                  Notification = query.MinutesPerNotificationSettings,
-        //                  query.BoxId
-        //              });
-        //    }
-           
-        //}
-        //public async Task<IEnumerable<QnADigestDto>> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<QnADigestDto>(Email.GetAnswerUpdateByBox,
-        //              new
-        //              {
-        //                  Notification = query.MinutesPerNotificationSettings,
-        //                  query.BoxId
-        //              });
-        //    }
-        //}
 
 
 
@@ -252,6 +185,21 @@ namespace Zbang.Zbox.ReadServices
             }
             return retVal;
 
+        }
+
+
+        public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDirtyUpdates()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql =
+                    @"select id as Id,UniversityName as Name,LargeImage as Image,extra as Extra 
+from zbox.University
+where isdirty = 1
+";
+                var retVal = await conn.QueryAsync<UniversitySearchDto>(sql);
+                return retVal;
+            }
         }
 
     }

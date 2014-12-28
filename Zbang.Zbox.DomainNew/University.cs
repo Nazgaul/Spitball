@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Domain.Resources;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class University
+    public class University : IDirty
     {
         protected University()
         {
@@ -74,6 +75,16 @@ namespace Zbang.Zbox.Domain
             var library = new Library(id, nodeName, null, UniversityData);
             Libraries.Add(library);
             return library;
+        }
+
+        public bool IsDirty { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public string Extra { get; set; }
+
+        public void DeleteAssociation()
+        {
         }
     }
 }

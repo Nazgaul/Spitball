@@ -11,12 +11,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettings(GetUserByNotificationQuery query);
 
         Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query);
-        //Task<IEnumerable<ItemDigestDto>> GetItemsLastUpdates(GetItemsLastUpdateQuery query);
-        //Task<IEnumerable<QnADigestDto>> GetQuestionsLastUpdates(GetCommentsLastUpdateQuery query);
-        //Task<IEnumerable<QnADigestDto>> GetAnswersLastUpdates(GetCommentsLastUpdateQuery query);
-        //Task<IEnumerable<QuizDigestDto>> GetQuizLastUpdates(GetItemsLastUpdateQuery query);
-
-        //Task<IEnumerable<QuizDiscussionDigestDto>> GetQuizDiscussion(GetCommentsLastUpdateQuery query);
         Task<BoxUpdatesDigestDto> GetBoxLastUpdates(GetBoxLastUpdateQuery query);
 
         BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
@@ -26,5 +20,7 @@ namespace Zbang.Zbox.ReadServices
         Task<PartnersDto> GetPartnersEmail(long userid);
 
         Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail();
+
+        Task<IEnumerable<UniversitySearchDto>> GetUniversityDirtyUpdates();
     }
 }

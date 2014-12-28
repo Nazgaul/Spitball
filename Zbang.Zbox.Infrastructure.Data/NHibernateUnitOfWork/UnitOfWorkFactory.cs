@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
-                    dbi.SchemaAction = SchemaAutoAction.Update;
+                    dbi.SchemaAction = SchemaAutoAction.Validate;
                     
 #if DEBUG
                     dbi.LogSqlInConsole = true;
@@ -59,6 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 #endif
                 });
                 m_Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
+                m_Configuration.SetListener(ListenerType.Save, new ZboxUpdateEventListener());
                 m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
                 m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
                 m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");

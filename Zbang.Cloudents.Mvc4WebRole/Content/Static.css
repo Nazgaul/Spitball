@@ -641,6 +641,8 @@ footer {
   margin-top: 72px;
   display: block;
 }
+.desktop .firstName + .field-validation-error {
+  margin: 13px 0 0 4%;
 }
 .register .field-validation-error {
   position: absolute;

@@ -102,6 +102,11 @@
     <property name="NoOfBoxes" />
     <property name="FacebookUniId" />
     
+    <property name="IsDeleted" />
+    <property name="IsDirty" />
+    <property name="Extra" />
+
+    
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />
     <many-to-one column="UniversityData" class="University" name="UniversityData" foreign-key="UniversityUniversityData"/>

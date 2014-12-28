@@ -525,16 +525,30 @@
     <Content Include="Images\EmptyState\my_default3.png" />
     <Content Include="Images\EmptyState\S50X50userpic2.jpg" />
     <Content Include="Images\EmptyState\user-pic.png" />
-    <Content Include="Js\app.js" />
+    <Content Include="Js\app.module.js" />
+    <Content Include="Js\app.route.js" />
     <Content Include="Js\Bindings.js" />
+    <Content Include="Js\Cache.js" />
     <Content Include="Js\Cache2.js" />
+    <Content Include="Js\components\box\boxController.js" />
+    <Content Include="Js\components\box\boxService.js" />
+    <Content Include="Js\components\dashboard\dashboardController.js" />
+    <Content Include="Js\components\dashboard\dashboardService.js" />
+    <Content Include="Js\components\account\accountController.js" />
+    <Content Include="Js\components\libChoose\libChooseController.js" />
+    <Content Include="Js\components\libChoose\libChooseService.js" />
+    <Content Include="Js\components\login\loginController.js" />
+    <Content Include="Js\components\login\loginService.js" />
+    <Content Include="Js\components\register\registerController.js" />
+    <Content Include="Js\components\register\registerService.js" />
+    <Content Include="Js\components\search\searchController.js" />
+    <Content Include="Js\components\search\searchService.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\Navigation2.js" />
     <Content Include="Js\pubsub2.js" />
-    <Content Include="Js\Cache.js" />
     <Content Include="Js\CDNFallback.js" />
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
@@ -554,6 +568,8 @@
     <Content Include="Js\Mobile\MWallViewModel.js" />
     <Content Include="Js\pubsub.js" />
     <Content Include="Js\RT.js" />
+    <Content Include="Js\libs\stacktrace.js" />
+    <Content Include="Js\shared\ajax\ajaxService.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />
@@ -571,7 +587,6 @@
     <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="App_Code\_ChooseDeptAC.cshtml" />
     <Content Include="Content\ItemRtl.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
@@ -585,41 +600,20 @@
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
-    <Content Include="Scripts\angular-appinsights.js" />
     <Content Include="Scripts\angular-cache-2.4.1.js" />
-    <Content Include="Scripts\angular-cookies.js" />
-    <Content Include="Scripts\angular-cookies.min.js" />
-    <Content Include="Scripts\angular-file-upload.js" />
-    <Content Include="Scripts\angular-mcustomscrollbar.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
-    <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular-sanitize.js" />
-    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angulartics-ga.js" />
     <Content Include="Scripts\angulartics-ga.min.js" />
     <Content Include="Scripts\angulartics.js" />
     <Content Include="Scripts\angulartics.min.js" />
-    <Content Include="Scripts\bindonce.js" />
-    <Content Include="Scripts\bindonce.min.js" />
-    <Content Include="Scripts\CountUp.js" />
-    <Content Include="Scripts\angular-debounce.js" />
-    <Content Include="Scripts\angular-draganddrop.js" />
-    <Content Include="Scripts\elastic.js" />
-    <Content Include="Scripts\elasticTextBox.js" />
-    <Content Include="Scripts\externalScriptLoader.js" />
     <None Include="Content\lang.he-IL.less" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-cookies.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1365,22 +1359,8 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.12.0.js" />
-    <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4..js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
-    <Content Include="Scripts\jquery.mCustomScrollbar.js" />
-    <Content Include="Scripts\jquery.mousewheel.min.js" />
-    <Content Include="Scripts\jquery.slimscroll.js" />
-    <Content Include="Scripts\jquery.slimscroll.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <None Include="Scripts\jquery.slimscroll.min.js.map">
-      <DependentUpon>jquery.slimscroll.js</DependentUpon>
-    </None>
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
@@ -1390,35 +1370,8 @@
     <Content Include="Scripts\plupload2\plupload.dev.js" />
     <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\stacktrace.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js">
-      <DependentUpon>jquery.validate.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-delegatedEvents.js" />
-    <Content Include="Scripts\knockout-delegatedEvents.min.js">
-      <DependentUpon>knockout-delegatedEvents.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\Modernizr.js" />
-    <Content Include="Scripts\plupload\plupload.browserplus.js" />
-    <Content Include="Scripts\plupload\plupload.flash.js" />
-    <Content Include="Scripts\plupload\plupload.flash.swf" />
-    <Content Include="Scripts\plupload\plupload.full.js" />
-    <Content Include="Scripts\plupload\plupload.gears.js" />
-    <Content Include="Scripts\plupload\plupload.html4.js" />
-    <Content Include="Scripts\plupload\plupload.html5.js" />
-    <Content Include="Scripts\plupload\plupload.js" />
-    <Content Include="Scripts\plupload\plupload.silverlight.js" />
-    <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Scripts\svg4everybody.js" />
-    <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
-    <Content Include="Scripts\underscore-min.js" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\validatinator.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1438,9 +1391,6 @@
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
-      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
-    </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
@@ -1451,7 +1401,6 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
-    <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Shared\Partials\_Home.cshtml" />
@@ -1463,9 +1412,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
-    <Folder Include="Views\Library\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1773,7 +1722,7 @@
     <Content Include="Views\Shared\Partials\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Register.cshtml" />
+    <Content Include="Views\Shared\Partials\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\ContactUs.cshtml" />

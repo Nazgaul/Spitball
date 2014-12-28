@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Dto.Library;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class UniversitySearchProvider : IUniversityReadSearchProvider, IDisposable
+    public class UniversitySearchProvider : IUniversityReadSearchProvider, IDisposable, IUniversityWriteSearchProvider2
     {
         private const string IndexName = "universities";
         private readonly ApiConnection m_Connection;
@@ -19,8 +20,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         public UniversitySearchProvider()
         {
             m_Connection = ApiConnection.Create(
-                WriteSearchUniversityProvider.CloudentssearchSearchWindowsNet,
-                WriteSearchUniversityProvider.ApiKey);
+                ConfigFetcher.Fetch("AzureSeachServiceName"),
+                ConfigFetcher.Fetch("AzureSearchKey")
+                );
+            //WriteSearchUniversityProvider.CloudentssearchSearchWindowsNet,
+            //WriteSearchUniversityProvider.ApiKey);
 
             m_ReadClient = new IndexQueryClient(m_Connection);
 
@@ -69,17 +73,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                  Convert.ToInt64(s.Properties["id"])
                  ));
             }
-            return suggestTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
-                s.Properties["name"].ToString(),
-                s.Properties["imageField"].ToString(),
-                Convert.ToInt64(s.Properties["id"])
-                ));
+            if (suggestTask.Result != null)
+            {
+                return suggestTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
+                    s.Properties["name"].ToString(),
+                    s.Properties["imageField"].ToString(),
+                    Convert.ToInt64(s.Properties["id"])
+                    ));
+            }
+            return null;
 
         }
 
 
         public async Task UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
+
+
             var listOfCommands = new List<IndexOperation>();
             if (universityToUpload != null)
             {
@@ -88,6 +98,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     var x = new IndexOperation(IndexOperationType.MergeOrUpload, "id",
                         s.Id.ToString(CultureInfo.InvariantCulture))
                         .WithProperty("name", s.Name)
+                        .WithProperty("extra1", s.Extra)
                         .WithProperty("extra4", String.Join(
                             " ",
                             s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
@@ -104,7 +115,34 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ));
             }
             var client = new IndexManagementClient(m_Connection);
+            await client.DeleteIndexAsync(IndexName);
+            var v = await client.CreateIndexAsync(GetUniversityIndex());
             var result = await client.PopulateAsync(IndexName, listOfCommands.ToArray());
+        }
+
+        private Index GetUniversityIndex()
+        {
+            return new Index(IndexName)
+                   .WithStringField("id", f => f
+                       .IsKey()
+                       .IsRetrievable()
+                       )
+                   .WithStringField("name", f => f
+                       .IsRetrievable()
+                       .IsSearchable()
+                       .IsFilterable(false)
+                       .SupportSuggestions())
+                   .WithStringField("extra1", f => f
+                       .IsSearchable()
+                       .IsFilterable(false)
+                       )
+                   .WithStringField("extra4", f => f
+                       .IsFilterable(false)
+                       .IsSearchable()
+                       )
+                   .WithStringField("imageField", f => f
+                       .IsRetrievable()
+                       );
         }
     }
 }

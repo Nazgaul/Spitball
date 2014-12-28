@@ -1,14 +1,7 @@
-﻿<div ng-view></div>
-<div id="quizCreate" ng-controller="QuizCreateCtrl">
-    <div ng-if="params.loadCreateQuiz">
-        <div ng-show="params.showCreateQuiz" ng-include="'/Quiz/CreateQuiz'" onload="showQuiz()"></div>
-    </div>
-</div>
+﻿<div ui-view></div>
 @section scripts
 {
-    @Html.Script2("angular-general")
-    @Html.Script2("angular-layout3")
-    @Html.Script2("angular-store")
+    @Html.Script2("angular")
     @Html.AngularLocale()
     @if (!string.IsNullOrEmpty(Request.QueryString["new"]))
     {

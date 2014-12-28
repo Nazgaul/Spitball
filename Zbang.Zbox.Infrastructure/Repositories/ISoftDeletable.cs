@@ -6,4 +6,9 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         bool IsDeleted { get; set; }
         void DeleteAssociation();
     }
+
+    public interface IDirty : ISoftDeletable
+    {
+        bool IsDirty { get; set; }
+    }
 }
