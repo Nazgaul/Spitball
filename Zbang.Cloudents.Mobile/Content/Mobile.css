@@ -19,37 +19,17 @@
   height: 25px;
   fill: #fff;
   position: relative;
-  top: 6px;
+  top: 0;
 }
 .svg-email {
   width: 28px;
   height: 22px;
   fill: silver;
+  position: relative;
+  top: -1px;
 }
 /*#endregion */
 /*#region mixins */
-/*#endregion */
-/*#region homepage image */
-@media only screen and (max-width: 719px) {
-  .homepage {
-    background: url(/Images/bg.jpg) center top / cover no-repeat;
-  }
-}
-@media only screen and (max-device-width: 719px) and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-  .homepage {
-    background: url(/Images/bg@2x.jpg) center top / cover no-repeat;
-  }
-}
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
-  .homepage {
-    background: url(/Images/bg@3x.jpg) center top / 119% no-repeat;
-  }
-}
-@media only screen and (min-device-width: 540px) and (max-device-width: 960px) and (orientation: portrait) {
-  .homepage {
-    background: url(/Images/bg@3x.jpg) center top / 110% no-repeat;
-  }
-}
 /*#endregion */
 html,
 body {
@@ -108,44 +88,30 @@ h1 {
   right: 0;
   margin: 0 auto;
 }
-.facebook {
+.facebook,
+.emailBtn {
   width: 100%;
-  cursor: pointer;
-  padding: 8px 15px 9px 55px;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 15px 0 55px;
   /*rtl*/
-  font-size: 20px;
+  font-size: 19px;
   border-radius: 5px;
   position: relative;
   display: inline-block;
-  line-height: 31px;
-  background: #3b5998;
+  z-index: 1;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  z-index: 1;
-  color: #fff;
 }
-.facebook:hover {
-  background: #334d83;
+.facebook {
+  background: #3b5998;
+  color: #fff;
 }
 .emailBtn {
   color: #676767;
   background: #FFF;
-  border: 1px solid #fff;
-  padding: 8px 15px 9px 55px;
-  /*rtl*/
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 5px;
-  position: relative;
-  line-height: 27px;
-  width: 100%;
-  z-index: 1;
   margin: 10px 0 15px;
-  height: 42px;
-}
-.emailBtn:hover {
-  background: #ececec;
 }
 .fbImg,
 .emailImg {
@@ -162,11 +128,11 @@ h1 {
   content: '';
   display: inline-block;
   width: 1px;
-  height: 35px;
+  height: 34px;
   background: #fff;
   position: relative;
   left: 12px;
-  top: 6px;
+  top: 5px;
   opacity: .5;
 }
 .emailImg {
@@ -223,29 +189,26 @@ option {
   font-size: 14px;
   font-weight: bold;
 }
-.imgBg {
-  height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: -1;
+/*.imgBg
+{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    
+    &:before
+    {
+        content: '';
+        display: block;
+        width: 100%;
+        height:100%;   
+    }    
 }
-.imgBg:before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  /*background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 54%, rgba(0,0,0,1) 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(54%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,1)));
-        background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%);
-        background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%);
-        background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%); 
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 54%,rgba(0,0,0,1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );*/
-}
-/*@media only screen 
-and (orientation : landscape) and (min-width : 321px)  { 
-  .btn
+
+
+.landscape {
+     .btn
   {
       position: static;
       margin-top: 20px;
@@ -264,22 +227,70 @@ and (orientation : landscape) and (min-width : 321px)  {
       height: 140%;
   }
 }*/
-.landscape .btn {
-  position: static;
-  margin-top: 20px;
+/*#region 'Static' pages */
+/*.error, .forgot, .pwdSent, .newPwd
+{
+    padding: 0 5%;
+    display: block;
+    font-size: 15px;
+    color: #111;
+    > h1
+    {
+        //color: #17a099;
+        color: @color;
+        text-align: center;
+        font-size: 24px;
+        margin: 23px 0;
+    }
+    > div
+    {
+        margin-bottom: 23px;
+    }
+    p{
+        margin-bottom: 10px;
+    }
 }
-.landscape .lang {
-  position: relative;
-  margin-top: 40px;
+
+.forgot, .pwdSent, .newPwd
+{
+    .inputText
+    {
+        margin: 2px 0 15px;
+    }   
+    //.btn1{
+        //width: 100%;
+        //padding: 4px 6px;
+        //margin-bottom:10px // for iphone
+    //}
 }
-.landscape .btn,
-.landscape .text,
-.landscape .content {
-  width: 70%;
+.forgot{
+    padding-bottom:20px;
+    
+}*/
+/*#endregion */
+/*#region media queries */
+/*#region homepage image */
+@media only screen and (max-width: 719px) {
+  .homepage {
+    background: url(/Images/bg.jpg) center top / cover no-repeat;
+  }
 }
-.landscape .imgBg {
-  height: 140%;
+@media only screen and (max-device-width: 719px) and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
+  .homepage {
+    background: url(/Images/bg@2x.jpg) center top / cover no-repeat;
+  }
 }
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
+  .homepage {
+    background: url(/Images/bg@3x.jpg) center top / 119% no-repeat;
+  }
+}
+@media only screen and (min-device-width: 540px) and (max-device-width: 960px) and (orientation: portrait) {
+  .homepage {
+    background: url(/Images/bg@3x.jpg) center top / 110% no-repeat;
+  }
+}
+/*#endregion */
 @media only screen and (min-device-width: 720px) and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 144dpi) and (orientation: landscape) {
   .imgBg {
     height: 110%;
