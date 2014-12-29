@@ -61,7 +61,7 @@
             }]);
             UserVoice.push(['identify', {
                 name: $('#userName').text(), // User’s real name
-                id: $('#userName').data('id'), // Optional: Unique id of the user (if set, this should not change)
+                id: $('#userName').data('id') || '', // Optional: Unique id of the user (if set, this should not change)
 
             }]);
             UserVoice.push(['show', { mode: 'contact' }]);
