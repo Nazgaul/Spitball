@@ -7,31 +7,38 @@
             .state('account', {
                 url: '/account/',
                 template: '/account/index',
-                //controller: 'AccountCtrl as account'
+                controller: 'AccountCtrl as account'
             }).
             state('login', {
-                url: '/login/',
-                templateUrl: '/account/login/',
+                url: '/account/login/',
+                templateUrl: '/account/loginpartial/',
                 controller: 'LoginController as login'
             }).
             state('register', {
                 url: '/account/register/',
-                templateUrl: '/account/register',
+                templateUrl: '/account/registerpartial',
                 controller: 'RegisterController as register'
             }).
             state('libChoose', {
-                url: '/register/',
-                template: '/account/index',
+                url: '/library/choose',
+                template: '/library/choosepartial',
                 controller: 'LibChooseController as libChoose'
             }).
             state('dashboard', {
                 url: '/dashboard/',
-                template: '/dashboard/index',
+                template: '/dashboard/indexpartial',
                 controller: 'DashboardController as dashboard'
             }).
+
+
             state('box', {
-                url: '/box/',
-                template: '/box/index',
+                url: '/box/my/:boxId/:boxName/',
+                template: '/box/indexpartial',
+                controller: 'BoxController as box'
+            }).
+            state('course', {
+                url: '/course/:uniName/:boxId/:boxName/',
+                template: '/box/indexpartial',
                 controller: 'BoxController as box'
             }).
              state('search', {

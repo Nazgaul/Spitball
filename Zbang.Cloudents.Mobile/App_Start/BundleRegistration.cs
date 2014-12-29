@@ -63,11 +63,32 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/app.module.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
+
+                        new JsFileWithCdn("~/js/components/account/accountController.js"),
+                        new JsFileWithCdn("~/js/components/account/accountService.js"),
+
                         new JsFileWithCdn("~/js/components/register/registerController.js"),
                         new JsFileWithCdn("~/js/components/register/registerService.js"),
+                        
                         new JsFileWithCdn("~/js/components/login/loginController.js"),
                         new JsFileWithCdn("~/js/components/login/loginService.js"),
+
+                        new JsFileWithCdn("~/js/components/box/boxController.js"),
+                        new JsFileWithCdn("~/js/components/box/boxService.js"),
+
+                        new JsFileWithCdn("~/js/components/dashboard/dashboardController.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/dashboardService.js"),
+
+                        new JsFileWithCdn("~/js/components/libChoose/libChooseController.js"),
+                        new JsFileWithCdn("~/js/components/libChoose/libChooseService.js"),
+
+                        new JsFileWithCdn("~/js/components/search/searchController.js"),
+                        new JsFileWithCdn("~/js/components/search/searchService.js"),
+
+                        
                         new JsFileWithCdn("~/js/shared/ajax/ajaxService.js"),
+                        new JsFileWithCdn("~/js/shared/ajax/account.js"),
+
 
 
                         new JsFileWithCdn("~/js/libs/stacktrace.js")

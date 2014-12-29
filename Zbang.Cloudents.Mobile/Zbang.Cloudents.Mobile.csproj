@@ -530,6 +530,7 @@
     <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache.js" />
     <Content Include="Js\Cache2.js" />
+    <Content Include="Js\components\account\accountService.js" />
     <Content Include="Js\components\box\boxController.js" />
     <Content Include="Js\components\box\boxService.js" />
     <Content Include="Js\components\dashboard\dashboardController.js" />
@@ -591,6 +592,7 @@
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="Js\shared\ajax\account.js" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
