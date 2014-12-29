@@ -4,7 +4,7 @@
 
 <section class="register">
     <h1>Create an acccount</h1>
-    <form name="registerForm" class="register" ng-submit="" novalidate>
+    <form name="registerForm" ng-submit="" novalidate>
         <div class="regError" clear-on-input>{{params.registerServerError}}</div>
         <div class="ng-message-errors lFloat" ng-messages="(registerForm.firstName.$touched || registerSubmitted) && registerForm.firstName.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
