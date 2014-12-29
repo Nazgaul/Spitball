@@ -47,8 +47,23 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public ActionResult Index(long? universityId)
         {
 
-            return RedirectToActionPermanent("Index", "Dashboard");
+            return RedirectToActionPermanent("IndexEmpty");
 
+        }
+
+        //TODO: output cache
+        [Route("account")]
+        [Route("account/login")]
+        [Route("account/register")]
+        [Route("library/choose")]
+        [Route("dashboard")]
+        [Route("dashboard")]
+        [Route("box/my/{boxId:long}/{boxName}")] // todo:add more validation
+        [Route("course/{uniName}/{boxId:long}/{boxName}")] // todo:add more validation
+        [Route("search")]
+        public ActionResult IndexEmpty()
+        {
+            return View("Empty");
         }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"

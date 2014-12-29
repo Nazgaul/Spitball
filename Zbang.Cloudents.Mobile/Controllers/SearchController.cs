@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [ZboxAuthorize]
     [NoUniversity]
@@ -16,20 +16,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class SearchController : BaseController
     {
         //[UserNavNWelcome]
-        [HttpGet]
-        public /*async Task<ActionResult>*/ ActionResult Index(string q)
+        //[HttpGet]
+        //public /*async Task<ActionResult>*/ ActionResult Index(string q)
+        //{
+        //    if (string.IsNullOrWhiteSpace(q))
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        return PartialView();
+        //    }
+
+        //    return View("Empty");
+        //}
+
+        public ActionResult IndexPartial()
         {
-            if (string.IsNullOrWhiteSpace(q))
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView();
-            }
-
-            return View("Empty");
+            return PartialView("Index");
         }
 
         [HttpGet]

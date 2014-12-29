@@ -100,8 +100,7 @@
             var timeSpent = new Date().getTime() - startTime;
 
             var properties = {
-                category: url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
-                    : 'ajaxPreview',
+                category: 'ajax ' + type,                    
                 timeSpent: timeSpent,
                 variable: url,
                 label: JSON.stringify(data)

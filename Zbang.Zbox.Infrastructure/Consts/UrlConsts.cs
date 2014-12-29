@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         public static string BuildShortItemUrl(string item62Id)
         {
-            return "/" + ShortBox.Replace("{item62Id}", item62Id);
+            return "/" + ShortItem.Replace("{item62Id}", item62Id);
         }
 
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";

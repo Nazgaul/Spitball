@@ -22,33 +22,34 @@ namespace Zbang.Cloudents.Mobile.Controllers
     public class DashboardController : BaseController
     {
         //this is for mobile only
-        [NoCache]
-        public async Task<ActionResult> Index()
-        {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityId.Value;
-
-            var query = new GetDashboardQuery(universityWrapper);
-            var model = await ZboxReadService.GetMyData(query);
-            if (model == null) return RedirectToAction("Choose", "Library");
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("Index2", model);
-            }
-            return View("Index2", model);
-        }
-
-        //[HttpGet]
-        //[AllowAnonymous]
-        //[DonutOutputCache(CacheProfile = "PartialPage",
-        //   Options = OutputCacheOptions.IgnoreQueryString
-        //   )]
-        //public ActionResult IndexPartial()
+        //[NoCache]
+        //public async Task<ActionResult> Index()
         //{
-        //    return PartialView("Index2");
+        //    var userDetail = FormsAuthenticationService.GetUserData();
+        //    // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+        //    var universityWrapper = userDetail.UniversityId.Value;
+
+        //    var query = new GetDashboardQuery(universityWrapper);
+        //    var model = await ZboxReadService.GetMyData(query);
+        //    if (model == null) return RedirectToAction("Choose", "Library");
+
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        return PartialView("Index2", model);
+        //    }
+        //    return View("Index2", model);
         //}
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        [DonutOutputCache(CacheProfile = "PartialPage",
+           Options = OutputCacheOptions.IgnoreQueryString
+           )]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index2");
+        }
 
         [HttpGet]
         public async Task<JsonResult> BoxList()

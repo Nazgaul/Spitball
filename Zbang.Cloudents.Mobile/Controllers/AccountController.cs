@@ -53,38 +53,55 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
+        //TODO:output cache
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index2");
+        }
+
+        public ActionResult LoginPartial()
+        {
+            return PartialView("_Login");
+        }
+
+        public ActionResult RegisterPartial()
+        {
+            return PartialView("_Register");
+        }
+
+
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang,
-            Duration = TimeConsts.Minute * 5,
-            Location = OutputCacheLocation.Server
-            )]
-        [PreserveQueryString]
-        public ActionResult Index(string lang, string invId)
-        {
-            return View("Empty");
+        //[DonutOutputCache(VaryByParam = "lang", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang,
+        //    Duration = TimeConsts.Minute * 5,
+        //    Location = OutputCacheLocation.Server
+        //    )]
+        //[PreserveQueryString]
+        //public ActionResult Index(string lang, string invId)
+        //{
+        //    return View("Empty");
 
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (!string.IsNullOrEmpty(invId))
-            {
-                var guid = GuidEncoder.TryParseNullableGuid(invId);
-                if (guid.HasValue)
-                {
-                    var h = new CookieHelper(HttpContext);
-                    h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-                }
-            }
-            if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
-            {
-                RouteData.Values.Remove("lang");
-                return RedirectToAction("Index");
-            }
-            return View("Index2");
-        }
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    if (!string.IsNullOrEmpty(invId))
+        //    {
+        //        var guid = GuidEncoder.TryParseNullableGuid(invId);
+        //        if (guid.HasValue)
+        //        {
+        //            var h = new CookieHelper(HttpContext);
+        //            h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+        //        }
+        //    }
+        //    if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
+        //    {
+        //        RouteData.Values.Remove("lang");
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View("Index2");
+        //}
 
 
         //issue with ie
@@ -93,24 +110,24 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //    + CustomCacheKeys.Mobile, Duration = TimeConsts.Hour)]
         //[CacheFilter(Duration = 0)]
         //[CompressFilter]
-        public ActionResult Welcome(string universityId)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return View(new LogOnRegister { LogOn = new LogOn(), Register = new Register() });
-        }
+        //public ActionResult Welcome(string universityId)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    return View(new LogOnRegister { LogOn = new LogOn(), Register = new Register() });
+        //}
 
 
-        public ActionResult Register()
-        {
-            return View("_Register");
-        }
-        public ActionResult Login()
-        {
-            return View("_Login");
-        }
+        //public ActionResult Register()
+        //{
+        //    return View("_Register");
+        //}
+        //public ActionResult Login()
+        //{
+        //    return View("_Login");
+        //}
 
         #region Login
         [HttpPost]

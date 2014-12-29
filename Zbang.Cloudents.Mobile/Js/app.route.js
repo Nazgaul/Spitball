@@ -6,37 +6,44 @@
         $stateProvider
             .state('account', {
                 url: '/account/',
-                template: '/account/index',
-                //controller: 'AccountCtrl as account'
+                templateUrl: '/account/indexpartial/',
+                controller: 'AccountController as account'
             }).
             state('login', {
-                url: '/login/',
-                templateUrl: '/account/login/',
+                url: '/account/login/',
+                templateUrl: '/account/loginpartial/',
                 controller: 'LoginController as login'
             }).
             state('register', {
                 url: '/account/register/',
-                templateUrl: '/account/register',
+                templateUrl: '/account/registerpartial/',
                 controller: 'RegisterController as register'
             }).
             state('libChoose', {
-                url: '/register/',
-                template: '/account/index',
+                url: '/library/choose/',
+                templateUrl: '/library/choosepartial/',
                 controller: 'LibChooseController as libChoose'
             }).
             state('dashboard', {
                 url: '/dashboard/',
-                template: '/dashboard/index',
+                templateUrl: '/dashboard/indexpartial/',
                 controller: 'DashboardController as dashboard'
             }).
+
+
             state('box', {
-                url: '/box/',
-                template: '/box/index',
+                url: '/box/my/:boxId/:boxName/',
+                templateUrl: '/box/indexpartial/',
+                controller: 'BoxController as box'
+            }).
+            state('course', {
+                url: '/course/:uniName/:boxId/:boxName/',
+                templateUrl: '/box/indexpartial/',
                 controller: 'BoxController as box'
             }).
              state('search', {
                  url: '/search/',
-                 template: '/search/index',
+                 templateUrl: '/search/indexpartail/',
                  controller: 'SearchController as search'
              });
 
