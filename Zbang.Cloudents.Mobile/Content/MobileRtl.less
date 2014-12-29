@@ -1,12 +1,32 @@
 ﻿@import "varsAndMixins";
 
+
+/*#region helper classes */
+
+.lFloat {
+    float:right; //rtl
+}
+.rFloat {
+    float: left; //rtl
+}
+.inputText {
+    padding: 0 8px 0 4px; //rtl
+}
+/*#endregion */
+
+/*#region SVG */
+svg.ltr {
+    .flipH;
+}
+/*#endregion */
+
+/*#region home */
 .homepage {
     &:after {
         right:0; //rtl
         left: auto;
     }
 }
-
 .facebook, .emailBtn {
     padding: 0 55px 0 15px; /*rtl*/
 }
@@ -35,18 +55,6 @@
     }
 }
 
-
-/*#region helper classes */
-
-.lFloat {
-    float:right; //rtl
-}
-.rFloat {
-    float: left; //rtl
-}
-.inputText {
-    padding: 0 8px 0 4px; //rtl
-}
 /*#endregion */
 
 /*#region Welcome */

@@ -1406,6 +1406,7 @@
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
+    <Content Include="Views\Account\_FbRegister.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -20,6 +20,13 @@ body {
 .rFloat {
   float: right;
 }
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
 .inputText {
   background: #fff;
   padding: 0 4px 0 8px;
@@ -99,6 +106,10 @@ body {
   fill: silver;
   position: relative;
   top: -1px;
+}
+.svg-search {
+  width: 19px;
+  height: 20px;
 }
 /*#endregion */
 /*#region home */
@@ -302,11 +313,12 @@ option {
   visibility: hidden;
   margin-top: -220px;
 }
-.search .bottom {
+.search .bottom,
+.search .checkbox,
+.search .cbLabel {
   display: none;
 }
 .topReg {
-  overflow: hidden;
   -webkit-transition: margin 0.3s;
   -moz-transition: margin 0.3s;
   -o-transition: margin 0.3s;
