@@ -1,6 +1,6 @@
 ﻿"use strict";
 angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics',
-    'register','login',
+    'account','register','login',
     'angulartics.google.analytics', 'ngAnimate', 'stackTrace']).
 config([
    '$httpProvider',

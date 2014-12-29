@@ -7,7 +7,7 @@
             .state('account', {
                 url: '/account/',
                 template: '/account/index',
-                controller: 'AccountCtrl as account'
+                controller: 'AccountController as account'
             }).
             state('login', {
                 url: '/account/login/',

@@ -1,7 +1,7 @@
-﻿angular.module('account', []).
-    controller('BoxController',
-    [function () {
-        var account = this;
+﻿angular.module('account')
+    .service('accountService',
+    ['ajaxService', function (ajaxService) {
+        var service = this;
 
     }]
 );

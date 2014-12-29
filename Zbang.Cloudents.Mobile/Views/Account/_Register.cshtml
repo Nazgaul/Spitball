@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
-<section class="register">
+<section class="register" ng-class="{ search: register.searching }">
     <form name="registerForm" ng-submit="register.submit(registerForm.$valid)" novalidate>
         <h1>Create an acccount</h1>
         <div class="topReg">
