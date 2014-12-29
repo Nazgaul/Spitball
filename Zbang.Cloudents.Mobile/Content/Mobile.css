@@ -100,6 +100,10 @@ body {
   position: relative;
   top: -1px;
 }
+.svg-search {
+  width: 19px;
+  height: 20px;
+}
 /*#endregion */
 /*#region home */
 .homepage {
@@ -302,7 +306,9 @@ option {
   visibility: hidden;
   margin-top: -220px;
 }
-.search .bottom {
+.search .bottom,
+.search .checkbox,
+.search .cbLabel {
   display: none;
 }
 .topReg {

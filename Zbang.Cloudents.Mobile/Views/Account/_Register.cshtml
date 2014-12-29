@@ -55,11 +55,11 @@
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
         <input type="text" class="inputText" placeholder="Search for your school" required />
-
+        <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
+        <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
         
         <div class="bottom">
-            <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
-            <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
+            
             <span class="acceptTerms">
                 @AccountResources.IAgree
                 <!--

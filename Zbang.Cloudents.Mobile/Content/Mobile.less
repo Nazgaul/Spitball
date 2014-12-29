@@ -19,7 +19,6 @@ body {
 /*#endregion */
 
 /*#region helper classes */
-
 .lFloat {
     float:left; //rtl
 }
@@ -102,7 +101,10 @@ body {
     position: relative;
     top: -1px;
 }
-
+.svg-search {
+    width: 19px;
+    height: 20px;
+}
 /*#endregion */
 
 /*#region home */
@@ -116,7 +118,7 @@ body {
         .pseudo;
         width: 100%;
         position: absolute;
-        left:0;
+        left:0; //rtl
         bottom: 0;
         height: 214px;
         background: -moz-linear-gradient(top, rgba(0,0,0,0) 0, rgba(40,40,40,0.85) 100%); /* FF3.6+ */
@@ -327,7 +329,7 @@ and (orientation : landscape)
         visibility: hidden;
         margin-top: -220px;
     }
-    .bottom {
+    .bottom, .checkbox, .cbLabel {
         display: none;
     }
 }
