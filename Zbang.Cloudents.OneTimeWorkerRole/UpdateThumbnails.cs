@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 8;
+                int index = 422;
                 bool cont = true;
                 while (cont)
                 {
@@ -99,19 +99,26 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
             var work = new Thread(async () =>
             {
-                var tokenSource = new CancellationTokenSource();
-                tokenSource.CancelAfter(TimeSpan.FromMinutes(3));
-                //some long running method requiring synchronization
-                var retVal = await processor.PreProcessFile(blobUri,tokenSource.Token);
-                if (retVal == null)
+                try
                 {
-                    return;
-                }
+                    var tokenSource = new CancellationTokenSource();
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(3));
+                    //some long running method requiring synchronization
+                    var retVal = await processor.PreProcessFile(blobUri, tokenSource.Token);
+                    if (retVal == null)
+                    {
+                        return;
+                    }
 
-                var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
-                    retVal.FileTextContent);
-                m_ZboxService.UpdateThumbnailPicture(command);
-                wait.Set();
+                    var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
+                        retVal.FileTextContent);
+                    m_ZboxService.UpdateThumbnailPicture(command);
+                    wait.Set();
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError(ex);
+                }
             });
             work.Start();
             Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(3));
