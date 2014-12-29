@@ -2,6 +2,60 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+html,
+body {
+  height: 100%;
+}
+body {
+  text-align: center;
+  color: #383838;
+  font-family: Arial;
+}
+/*#region mixins */
+/*#endregion */
+/*#region helper classes */
+.lFloat {
+  float: left;
+}
+.rFloat {
+  float: right;
+}
+.inputText {
+  background: #fff;
+  padding: 0 4px 0 8px;
+  height: 30px;
+  color: #383838;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.inputText:focus {
+  border: 1px solid #383838;
+}
+.inputText.firstName,
+.inputText.rFloat,
+.inputText.radioWpr {
+  width: 48%;
+}
+.btn1 {
+  background: #0f9d58;
+  color: #fff;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 5px;
+}
+.btn1:disabled {
+  background: #a5a5a5;
+}
+/*#endregion */
 /*#region SVG */
 .svg-logo {
   width: 183px;
@@ -29,17 +83,7 @@
   top: -1px;
 }
 /*#endregion */
-/*#region mixins */
-/*#endregion */
-html,
-body {
-  height: 100%;
-}
-body {
-  text-align: center;
-  color: #383838;
-  font-family: Arial;
-}
+/*#region home */
 .homepage {
   display: none;
   width: 100%;
@@ -188,214 +232,30 @@ option {
   font-size: 14px;
   font-weight: bold;
 }
-/*.imgBg
-{
-    height: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    
-    &:before
-    {
-        content: '';
-        display: block;
-        width: 100%;
-        height:100%;   
-    }    
-}
-
-
-.landscape {
-     .btn
-  {
-      position: static;
-      margin-top: 20px;
-  }
-  .lang
-  {
-      position: relative;
-      margin-top: 40px;
-  }
-  .btn, .text, .content
-  {
-      width: 70%;
-  }
-  .imgBg
-  {
-      height: 140%;
-  }
-}*/
-/*#region 'Static' pages */
-/*.error, .forgot, .pwdSent, .newPwd
-{
-    padding: 0 5%;
-    display: block;
-    font-size: 15px;
-    color: #111;
-    > h1
-    {
-        //color: #17a099;
-        color: @color;
-        text-align: center;
-        font-size: 24px;
-        margin: 23px 0;
-    }
-    > div
-    {
-        margin-bottom: 23px;
-    }
-    p{
-        margin-bottom: 10px;
-    }
-}
-
-.forgot, .pwdSent, .newPwd
-{
-    .inputText
-    {
-        margin: 2px 0 15px;
-    }   
-    //.btn1{
-        //width: 100%;
-        //padding: 4px 6px;
-        //margin-bottom:10px // for iphone
-    //}
-}
-.forgot{
-    padding-bottom:20px;
-    
-}*/
 /*#endregion */
-/*#region media queries */
-/*#region homepage image */
-/*// Non Retina + small screens here (TODO need to add ++ NOT RETINA)
-@media only screen  
-and (max-width : 719px)
-{     
-    .homepage {
-        background: url(/Images/bg.jpg) center top / cover no-repeat;
-    }
-}*/
+/*#region home media queries */
 /* 1 dpr */
-@media (-webkit-min-device-pixel-ratio: 1), (min-resolution: 96dpi) {
+@media (-webkit-min-device-pixel-ratio: 1), (min-resolution: 1dppx), (min-resolution: 96dpi) {
   /* Retina-specific stuff here */
   .homepage {
     background: url(/Images/bg.jpg) center top / cover no-repeat;
   }
 }
 /* 1.5 dpr */
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
   /* Retina-specific stuff here */
 }
 /*2.0 dpr */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
   .homepage {
     background: url(/Images/bg@2x.jpg) center top / cover no-repeat;
   }
 }
 /*3.0 dpr */
-@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx), (min-resolution: 288dpi) {
   .homepage {
     background: url(/Images/bg@3x.jpg) center top / 119% no-repeat;
   }
-}
-/*// Retina + small screens here
-@media only screen  
-and (max-device-width : 719px)
-and (-webkit-min-device-pixel-ratio: 1.5), 
-    (min-resolution: 1.5dppx),
-    (min-resolution: 144dpi)
-{     
-     
-}
-//iPhone 5 in portrait
-
-
-//iPhone 6 in portrait
-// Retina + small screens here
-@media only screen 
-and (min-device-width : 375px) 
-and (max-device-width : 667px) 
-and (orientation : portrait) {    
-    .homepage {
-        background: url(/Images/bg@3x.jpg) center top / 119% no-repeat; 
-    } 
-}
-//iPhone 6 plus in portrait
-
-@media only screen 
-and (min-device-width : 540px) 
-and (max-device-width : 960px) 
-and (orientation : portrait) {
-    .homepage {
-        background: url(/Images/bg@3x.jpg) center top / 110% no-repeat; 
-    } 
-}*/
-/*#endregion */
-/*@media only screen 
-and (orientation : landscape) and (min-width : 321px)  { 
-  .btn
-  {
-      position: static;
-      margin-top: 20px;
-  }
-  .lang
-  {
-      position: relative;
-      margin-top: 40px;
-  }
-  .btn, .text, .content
-  {
-      width: 70%;
-  }
-  .imgBg
-  {
-      height: 140%;
-  }
-}*/
-/*#endregion */
-/*#region helper classes */
-.lFloat {
-  float: left;
-}
-.rFloat {
-  float: right;
-}
-.inputText {
-  background: #fff;
-  padding: 0 4px 0 8px;
-  height: 30px;
-  color: #383838;
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  margin-bottom: 20px;
-}
-.inputText:focus {
-  border: 1px solid #383838;
-}
-.inputText.firstName,
-.inputText.rFloat,
-.inputText.radioWpr {
-  width: 48%;
-}
-.btn1 {
-  background: #0f9d58;
-  color: #fff;
-  width: 100%;
-  display: block;
-  margin: 0 auto;
-  height: 46px;
-  line-height: 46px;
-  border-radius: 5px;
-}
-.btn1:disabled {
-  background: #a5a5a5;
 }
 /*#endregion */
 /*#region Welcome */
@@ -418,6 +278,24 @@ and (orientation : landscape) and (min-width : 321px)  {
 }
 .register .homeTxt1 {
   color: #383838;
+}
+.search .topReg {
+  opacity: 0;
+  visibility: hidden;
+  margin-top: -220px;
+}
+.search .bottom {
+  display: none;
+}
+.topReg {
+  overflow: hidden;
+  -webkit-transition: margin 0.3s;
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  transition: margin 0.3s;
+  visibility: visible;
+  opacity: 1;
+  top: 0;
 }
 .radioWpr {
   margin-top: 6px;
