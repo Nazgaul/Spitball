@@ -37,7 +37,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task ExecuteAsync()
         {
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
-            if (updates.UniversitiesToDelete.Any() && updates.UniversitiesToUpdate.Any())
+            if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
                 await m_ZboxWriteSearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
                 await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync();

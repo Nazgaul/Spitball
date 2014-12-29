@@ -6,8 +6,8 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
     class UpdateUniversitySearch : IDomainProcess
     {
-        private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
-        public UpdateUniversitySearch(IUniversityWriteSearchProvider2 universitySearchProvider)
+        private readonly IUniversityWriteSearchProvider m_UniversitySearchProvider;
+        public UpdateUniversitySearch(IUniversityWriteSearchProvider universitySearchProvider)
         {
             m_UniversitySearchProvider = universitySearchProvider;
         }
@@ -19,12 +19,12 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             {
                 throw new NullReferenceException("parameters");
             }
-            m_UniversitySearchProvider.UpdateData(new[] {new ViewModel.Dto.Library.UniversitySearchDto
+            m_UniversitySearchProvider.UpdateData(new ViewModel.Dto.Library.UniversitySearchDto
             {
                 Id = parameters.Id,
                 Image = parameters.Image,
                 Name = parameters.Name
-            }}, null
+            }
             );
             return true;
         }

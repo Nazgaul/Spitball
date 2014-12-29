@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using RedDog.Search;
 using RedDog.Search.Http;
@@ -16,7 +15,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
         private const string IndexName = "universities2";
         private readonly ApiConnection m_Connection;
-        private readonly IndexQueryClient m_ReadClient;
+        private IndexQueryClient m_ReadClient;
+        private IndexManagementClient m_IndexClient;
         public UniversitySearchProvider()
         {
             m_Connection = ApiConnection.Create(
@@ -24,40 +24,58 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 ConfigFetcher.Fetch("AzureSearchKey")
                 );
 
-            m_ReadClient = new IndexQueryClient(m_Connection);
+            //m_ReadClient = new IndexQueryClient(m_Connection);
 
         }
 
         private async Task BuildIndex()
         {
-            using (var client = new IndexManagementClient(m_Connection))
+            if (m_IndexClient == null)
             {
-                var response = await client.GetIndexAsync(IndexName);
-                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    await client.CreateIndexAsync(GetUniversityIndex());
-                }
+                m_IndexClient = new IndexManagementClient(m_Connection);
             }
+            var response = await m_IndexClient.GetIndexAsync(IndexName);
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                await m_IndexClient.CreateIndexAsync(GetUniversityIndex());
+            }
+
         }
 
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+
+        }
+
+        private void Dispose(bool p)
+        {
             if (m_ReadClient != null)
             {
-                m_ReadClient.Dispose();
+                m_ReadClient.Dispose(p);
+            }
+            if (m_IndexClient != null)
+            {
+                m_IndexClient.Dispose(p);
             }
             if (m_Connection != null)
             {
-                m_Connection.Dispose();
+                m_Connection.Dispose(p);
             }
         }
 
         public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(string term)
         {
+
             if (string.IsNullOrEmpty(term))
             {
                 return null;
+            }
+            if (m_ReadClient == null)
+            {
+                m_ReadClient = new IndexQueryClient(m_Connection);
             }
             var searchTask = m_ReadClient.SearchAsync(IndexName,
                   new SearchQuery(term + "*")
@@ -127,10 +145,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var commands = listOfCommands.ToArray();
             if (commands.Length > 0)
             {
-                using (var client = new IndexManagementClient(m_Connection))
+                if (m_IndexClient == null)
                 {
-                    await client.PopulateAsync(IndexName, listOfCommands.ToArray());
+                    m_IndexClient = new IndexManagementClient(m_Connection);
                 }
+                await m_IndexClient.PopulateAsync(IndexName, listOfCommands.ToArray());
             }
         }
 
