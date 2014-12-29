@@ -37,6 +37,7 @@
 </div>
 @section scripts {
     @Html.Script2("faq")
+    <script src="//widget.uservoice.com/G2In5CQZfezX7sC95Dx2w.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.question').click(function () {
@@ -44,14 +45,14 @@
             });
         });
         $('.contactLink').click(function () {
-            if (window.UserVoice === undefined) {
-                var uv = document.createElement('script');
-                uv.type = 'text/javascript';
-                uv.async = true;
-                uv.src = '//widget.uservoice.com/G2In5CQZfezX7sC95Dx2w.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(uv, s);
-            }
+            //if (window.UserVoice === undefined) {
+            //    var uv = document.createElement('script');
+            //    uv.type = 'text/javascript';
+            //    uv.async = true;
+            //    uv.src = '//widget.uservoice.com/G2In5CQZfezX7sC95Dx2w.js';
+            //    var s = document.getElementsByTagName('script')[0];
+            //    s.parentNode.insertBefore(uv, s);
+            //}
             var UserVoice = window.UserVoice || [];
             var isLtr = $('html').css('direction') === 'ltr' ? 'right' : 'left';
             UserVoice.push(['set', {
@@ -60,7 +61,7 @@
             }]);
             UserVoice.push(['identify', {
                 name: $('#userName').text(), // User’s real name
-                id: $('#userName').data('id'), // Optional: Unique id of the user (if set, this should not change)
+                id: $('#userName').data('id') || '', // Optional: Unique id of the user (if set, this should not change)
 
             }]);
             UserVoice.push(['show', { mode: 'contact' }]);

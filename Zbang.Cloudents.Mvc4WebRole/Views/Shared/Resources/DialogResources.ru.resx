@@ -310,4 +310,10 @@
   <data name="MarkToDelete" xml:space="preserve">
     <value>Отметить удалить этот ящик</value>
   </data>
+  <data name="CrystalClear" xml:space="preserve">
+    <value>Зарегистрироваться в Cloudents и тогда все будет кристально ясно</value>
+  </data>
+  <data name="IsItBlurry" xml:space="preserve">
+    <value>Видите размыто?</value>
+  </data>
 </root>
