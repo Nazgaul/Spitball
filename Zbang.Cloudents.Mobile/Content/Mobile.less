@@ -57,6 +57,33 @@ body {
         background: #a5a5a5;
     }
 }
+.splitHR {
+    text-align: center;
+    overflow: hidden;
+}
+
+.splitHRText {
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+
+    &:before, &:after {
+        content: '';
+        display: block;
+        width: 1000px;
+        position: absolute;
+        top: 0.73em;
+        border-top: 1px solid @borderColor;
+    }
+
+    &:before {
+        right: 100%;
+    }
+
+    &:after {
+        left: 100%;
+    }
+}
 /*#endregion */
 
 /*#region SVG */
