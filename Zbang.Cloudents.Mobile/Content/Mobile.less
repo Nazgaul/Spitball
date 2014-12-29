@@ -25,6 +25,13 @@ body {
 .rFloat {
     float: right; //rtl
 }
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 .inputText {
     background: #fff;
     padding: 0 4px 0 8px; //rtl
@@ -334,7 +341,7 @@ and (orientation : landscape)
     }
 }
 .topReg {
-    overflow: hidden; //to clear floats
+    //overflow: hidden; //to clear floats
     .transition(margin .3s);
     visibility: visible;
     opacity:1;
