@@ -1,0 +1,27 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
+
+<section class="signIn">
+    <h1>Log in</h1>
+    <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
+        <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
+        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
+        </div>
+        <input type="text" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}"
+               name="email" placeholder="EmailAddress" required ng-model="formData.login.email"
+               ng-pattern="params.pattern" />
+        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.password.$touched) && loginForm.password.$error">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+        </div>
+        <input name="password" type="password" ng-class="{error: (loginSubmitted || loginForm.password.$touched) && loginForm.password.$error}"
+               class="inputText" tabindex="2" placeholder="Password" required ng-model="formData.login.password" />
+        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">ForgotYourPassword</a>
+        <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe"  ng-model="formData.login.rememberMe" />
+        <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
+        <input ng-disabled="disabled" class="btn1" tabindex="4" type="submit" value="SignIn" ng-click="loginSubmitted = true">
+    </form>
+</section>
+
+    
+

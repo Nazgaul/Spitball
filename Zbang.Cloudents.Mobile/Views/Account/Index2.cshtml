@@ -12,11 +12,11 @@
             </span>@AccountResources.FacebookSignUp
         </button>
 
-        <button class="emailBtn" type="button" ng-click="changeState(params.states.register)">
+        <a href="#" class="emailBtn">
             <span class="emailImg">
                 @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
             </span>@AccountResources.EmailSignUp
-        </button>
+        </a>
 
         <span class="homeTxt1">@AccountResources.AlreadyHave</span>
         <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
