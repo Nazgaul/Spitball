@@ -11,8 +11,8 @@
             }).
             state('login', {
                 url: '/login/',
-                template: '/account/login',
-                controller: 'LoginCtrl as login'
+                templateUrl: '/account/login/',
+                controller: 'LoginController as login'
             }).
             state('register', {
                 url: '/account/register/',
@@ -22,22 +22,22 @@
             state('libChoose', {
                 url: '/register/',
                 template: '/account/index',
-                controller: 'LibChooseCtrl as libChoose'
+                controller: 'LibChooseController as libChoose'
             }).
             state('dashboard', {
                 url: '/dashboard/',
                 template: '/dashboard/index',
-                controller: 'DashboardCtrl as dashboard'
+                controller: 'DashboardController as dashboard'
             }).
             state('box', {
                 url: '/box/',
                 template: '/box/index',
-                controller: 'BoxCtrl as box'
+                controller: 'BoxController as box'
             }).
              state('search', {
                  url: '/search/',
                  template: '/search/index',
-                 controller: 'SearchCtrl as search'
+                 controller: 'SearchController as search'
              });
 
         $urlRouterProvider.otherwise('/list/');

@@ -72,6 +72,7 @@
                  }
 
                  sLibrary.searchUniversities({ term: query }).then(function (data) {
+                     data = data || [];
                      $scope.display.search = true;
                      $scope.display.facebook = false;
                      $scope.universities = data;

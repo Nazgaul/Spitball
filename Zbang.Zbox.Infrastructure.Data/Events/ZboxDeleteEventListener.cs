@@ -14,12 +14,16 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             NHibernate.Persister.Entity.IEntityPersister persister,
             ISet<object> transientEntities)
         {
+            var dirty = entity as IDirty;
+            if (dirty != null)
+            {
+                dirty.IsDirty = true;
+            }
             var deletable = entity as ISoftDeletable;
             if (deletable != null)
             {
-                var e = deletable;
-                e.DeleteAssociation();
-                e.IsDeleted = true;
+                deletable.DeleteAssociation();
+                deletable.IsDeleted = true;
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
                 CascadeAfterDelete(session, persister, deletable, transientEntities);
@@ -30,5 +34,20 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
                                   persister, transientEntities);
             }
         }
+        
+    }
+
+    [Serializable]
+    class ZboxUpdateEventListener : DefaultSaveEventListener
+    {
+        protected override object PerformSaveOrUpdate(NHibernate.Event.SaveOrUpdateEvent @event)
+        {
+            var dirty = @event.Entity as IDirty;
+            if (dirty != null)
+            {
+                dirty.IsDirty = true;
+            } 
+            return base.PerformSaveOrUpdate(@event);
+        }  
     }
 }

@@ -1403,7 +1403,7 @@
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\Shared\Partials\_Home.cshtml" />
+    <Content Include="Views\Account\_Login.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1415,6 +1415,7 @@
     <Folder Include="App_Code\" />
     <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
+    <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1717,9 +1718,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Partials\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\_Register.cshtml" />

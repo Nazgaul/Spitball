@@ -107,7 +107,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             return View("_Register");
         }
-
+        public ActionResult Login()
+        {
+            return View("_Login");
+        }
 
         #region Login
         [HttpPost]

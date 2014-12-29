@@ -54,10 +54,13 @@ namespace TestingApp
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
-            foreach (var item in retVal)
+            if (retVal != null)
             {
-                textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
-                textBox2.Text += "\r\n";
+                foreach (var item in retVal)
+                {
+                    textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
+                    textBox2.Text += "\r\n";
+                }
             }
             //textBox2.Text  = string .Format("",)
         }

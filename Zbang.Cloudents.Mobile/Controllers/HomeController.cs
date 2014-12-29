@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public async Task<ActionResult> Help()
         {
             const string faqQuestionCacheName = "faqQuestionCacheName";
-            var model = m_CacheProvider.Value.GetFromCache<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
+            var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
             if (model != null)
             {
@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                                 }).OrderBy(s => s.Order).ToList()
                         };
                 model = model.ToList();
-                m_CacheProvider.Value.AddToCache(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
+                await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
             return View(model.Where(w => String.Equals(w.Language,
                 System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));

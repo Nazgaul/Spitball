@@ -19,21 +19,21 @@ namespace Zbang.Cloudents.Mobile
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
 
             };
-            cssDictionary.Add("siteMobile", new[] {
-                "~/Content/Normalize.css", 
-                "~/Content/General.css",
-                "~/Content/SiteMobile.css"});
-            cssDictionary.Add("siteMobileRtl", new[] {
-                "~/Content/GeneralRtl.css",
-                "~/Content/SiteMobileRtl.css"
-                });
+            //cssDictionary.Add("siteMobile", new[] {
+            //    "~/Content/Normalize.css", 
+            //    "~/Content/General.css",
+            //    "~/Content/SiteMobile.css"});
+            //cssDictionary.Add("siteMobileRtl", new[] {
+            //    "~/Content/GeneralRtl.css",
+            //    "~/Content/SiteMobileRtl.css"
+            //    });
 
-            cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
-            cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
+            //cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
+            //cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
 
             cssDictionary.Add("mobile", new[] {
-                "~/Content/Normalize.css", "~/Content/General.css", "~/Content/Mobile.css"});
-            cssDictionary.Add("mobileRtl", new[] { "~/Content/GeneralRtl.css", "~/Content/MobileRtl.css" });
+                "~/Content/Normalize.css", "~/Content/Mobile.css"});
+            cssDictionary.Add("mobileRtl", new[] { "~/Content/MobileRtl.css" });
             return cssDictionary;
         }
 
@@ -63,10 +63,10 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/app.module.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
-
                         new JsFileWithCdn("~/js/components/register/registerController.js"),
                         new JsFileWithCdn("~/js/components/register/registerService.js"),
-                        
+                        new JsFileWithCdn("~/js/components/login/loginController.js"),
+                        new JsFileWithCdn("~/js/components/login/loginService.js"),
                         new JsFileWithCdn("~/js/shared/ajax/ajaxService.js"),
 
 

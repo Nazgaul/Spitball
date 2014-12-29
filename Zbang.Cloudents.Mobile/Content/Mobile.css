@@ -399,11 +399,13 @@ and (orientation : landscape) and (min-width : 321px)  {
 }
 /*#endregion */
 /*#region Welcome */
-.register {
+.register,
+.signIn {
   display: inline-block;
   width: 92%;
 }
-.register h1 {
+.register h1,
+.signIn h1 {
   color: #383838;
   max-width: none;
   letter-spacing: normal;

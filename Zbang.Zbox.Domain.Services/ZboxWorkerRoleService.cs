@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
 using NHibernate;
 using NHibernate.Proxy;
@@ -304,6 +306,15 @@ namespace Zbang.Zbox.Domain.Services
             {
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public async Task UpdateSearchDirtyToRegularAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "update zbox.University set isdirty = 0 where isdirty = 1";
+                await conn.ExecuteAsync(sql, commandType: CommandType.Text);
             }
         }
 

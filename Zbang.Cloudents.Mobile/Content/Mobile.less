@@ -427,7 +427,7 @@ and (orientation : landscape) and (min-width : 321px)  {
 /*#endregion */
 
 /*#region Welcome */
-.register {
+.register, .signIn {
     display: inline-block;
     width: 92%;
     h1 {
@@ -435,12 +435,13 @@ and (orientation : landscape) and (min-width : 321px)  {
         max-width: none; //override
         letter-spacing: normal; //override
         margin: 25px 0;
-    }
+    } 
+}
+.register {
     .bottom {
         width: 92%; //override
         text-align: left; //rtl //override
         bottom: 0; //override
-
     }
     .homeTxt1 {
         color: @textColor; //override
