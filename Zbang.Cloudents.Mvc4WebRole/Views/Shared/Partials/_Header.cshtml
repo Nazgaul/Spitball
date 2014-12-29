@@ -1,7 +1,8 @@
 ﻿
-<a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
+@*Do not remove the tartget attribute its for the store*@
+<a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")" target="{{$root.isStore() ? '_self': '' }}">
     @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
-</a> @*target="{{$root.isStore() ? '_self': '' }}"*@
+</a>
 
 
 <nav class="userSection rFloat">

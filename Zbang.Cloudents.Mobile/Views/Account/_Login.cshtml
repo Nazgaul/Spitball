@@ -2,6 +2,13 @@
 
 <section class="signIn">
     <h1>Log in</h1>
+    <button type="button" class="facebook" ng-click="facebookLogin()">
+        <span class="fbImg">
+            @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
+        </span>Log in with Facebook
+    </button>
+    <div class="splitHR">or by email</div>
+    @*<div class="splitHR"><span class="splitHRText">or by email</span></div>*@
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
@@ -19,7 +26,7 @@
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">ForgotYourPassword</a>
         <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe"  ng-model="formData.login.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
-        <input ng-disabled="disabled" class="btn1" tabindex="4" type="submit" value="SignIn" ng-click="loginSubmitted = true">
+        <input ng-disabled="disabled" class="btn1" type="submit" value="SignIn" ng-click="loginSubmitted = true">
     </form>
 </section>
 
