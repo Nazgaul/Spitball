@@ -58,30 +58,20 @@ body {
     }
 }
 .splitHR {
-    text-align: center;
-    overflow: hidden;
-}
-
-.splitHRText {
     display: inline-block;
-    position: relative;
+    background: #fff;
     padding: 0 10px;
-
-    &:before, &:after {
+    margin: 10px 0;
+    &:before {
         content: '';
         display: block;
-        width: 1000px;
+        width: 92%;
+        height: 20px;
         position: absolute;
-        top: 0.73em;
-        border-top: 1px solid @borderColor;
-    }
-
-    &:before {
-        right: 100%;
-    }
-
-    &:after {
-        left: 100%;
+        left: 0;right:0;
+        margin: -9px auto 0;
+        border-bottom: 1px solid #c2c2c2;
+        z-index: -1;
     }
 }
 /*#endregion */

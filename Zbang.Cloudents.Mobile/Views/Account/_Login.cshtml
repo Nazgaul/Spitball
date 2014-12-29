@@ -7,7 +7,8 @@
             @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
         </span>Log in with Facebook
     </button>
-    <div class="splitHR"><span class="splitHRText">or by email</span></div>
+    <div class="splitHR">or by email</div>
+    @*<div class="splitHR"><span class="splitHRText">or by email</span></div>*@
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
