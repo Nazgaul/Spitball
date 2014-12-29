@@ -25,13 +25,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         }
 
-        
-        //TODO: put output cache
-        [HttpGet]
-        [RedirectToDesktopSite]
-        public ActionResult Choose()
+
+        public ActionResult ChoosePartial()
         {
-            return new EmptyResult();
+            return PartialView("ss");
         }
     }
 }

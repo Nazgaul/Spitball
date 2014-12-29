@@ -6,7 +6,7 @@
         $stateProvider
             .state('account', {
                 url: '/account/',
-                template: '/account/index',
+                templateUrl: '/account/indexpartial/',
                 controller: 'AccountController as account'
             }).
             state('login', {
@@ -16,34 +16,34 @@
             }).
             state('register', {
                 url: '/account/register/',
-                templateUrl: '/account/registerpartial',
+                templateUrl: '/account/registerpartial/',
                 controller: 'RegisterController as register'
             }).
             state('libChoose', {
-                url: '/library/choose',
-                template: '/library/choosepartial',
+                url: '/library/choose/',
+                templateUrl: '/library/choosepartial/',
                 controller: 'LibChooseController as libChoose'
             }).
             state('dashboard', {
                 url: '/dashboard/',
-                template: '/dashboard/indexpartial',
+                templateUrl: '/dashboard/indexpartial/',
                 controller: 'DashboardController as dashboard'
             }).
 
 
             state('box', {
                 url: '/box/my/:boxId/:boxName/',
-                template: '/box/indexpartial',
+                templateUrl: '/box/indexpartial/',
                 controller: 'BoxController as box'
             }).
             state('course', {
                 url: '/course/:uniName/:boxId/:boxName/',
-                template: '/box/indexpartial',
+                templateUrl: '/box/indexpartial/',
                 controller: 'BoxController as box'
             }).
              state('search', {
                  url: '/search/',
-                 template: '/search/index',
+                 templateUrl: '/search/indexpartail/',
                  controller: 'SearchController as search'
              });
 
