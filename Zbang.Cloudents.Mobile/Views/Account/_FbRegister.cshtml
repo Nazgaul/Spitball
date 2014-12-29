@@ -2,26 +2,63 @@
     <h1>Welcome to Cloudents</h1>
     <div>Please complete registration by filling in the following information</div>
 
-    <input type="search" class="searchInput" ng-keyup="search()" ng-blur="searchFocusOut()" ng-focus="searchFocus()" name="query" required ng-model="formData.query" />
-    <button class="searchBtn" type="submit" ng-disabled="newSearch.query.$invalid">
-        @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
-    </button>
-
     <form class="" ng-submit="fullSearch(newSearch.$valid)" novalidate>
         <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
                ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
-        <button class="searchBtn" type="submit" ng-disabled="newSearch.query.$invalid">
+        <button class="searchBtn rFloat" type="submit" ng-disabled="newSearch.query.$invalid">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </button>
     </form>
 
     <ul class="recommended">
         <li>
-            <img src="" width="53" height="53" />
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <span class="uniName">{name here}</span>
+            <div class="userPics" data-numusers="18">
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+            </div>
+            <button class="btn1" type="button">Choose</button>
+        </li>
+        <li>
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <span class="uniName">{name here}</span>
+            <div class="userPics" data-numusers="18">
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+            </div>
+            <button class="btn1" type="button">Choose</button>
+        </li>
+        <li>
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <span class="uniName">{name here}</span>
+            <div class="userPics" data-numusers="18">
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+                <img src="http://placehold.it/15x15" />
+            </div>
+            <button class="btn1" type="button">Choose</button>
         </li>
     </ul>
 
     <ul class="searchResults">
-
+        <li>
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <div class="uniName">{university name here}</div>
+        </li>
+        <li>
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <div class="uniName">{university name here}</div>
+        </li>
+        <li>
+            <img class="uniImg" src="http://placehold.it/53x53" />
+            <div class="uniName">{university name here}</div>
+        </li>
     </ul>
+    <div class="">No results were found</div>
 </section>
