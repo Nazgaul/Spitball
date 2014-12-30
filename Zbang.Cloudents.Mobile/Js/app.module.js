@@ -1,5 +1,5 @@
 ﻿"use strict";
-angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics',
+angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics','angular-gestures',
     'account','register','login','box','dashboard','libChoose','search',
     'angulartics.google.analytics', 'ngAnimate', 'stackTrace']).
 config([
