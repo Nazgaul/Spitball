@@ -294,7 +294,7 @@ namespace Zbang.Zbox.Domain
                 throw new InvalidOperationException("User does not have an active invite");
             }
             UserBoxRelationship.Remove(userBoxRel);
-            var invite = Invites.FirstOrDefault(w => w.UserBoxRel.Id == userBoxRel.Id);
+            var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null &&  w.UserBoxRel.Id == userBoxRel.Id);
             if (invite != null)
             {
                 invite.RemoveAssociationWithUserBoxRel();
