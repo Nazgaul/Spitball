@@ -763,6 +763,38 @@ option {
   content: attr(data-files-count);
 }
 /*#endregion */
+/*#region Dashboard followed courses */
 .followedClasses {
-  display: none;
+  text-align: left;
+}
+.followedClasses li {
+  height: 60px;
+  position: relative;
+}
+.followedClasses li ~ li {
+  border-top: 1px solid #c2c2c2;
+}
+.followedClasses .svg-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 14px;
+  margin: auto;
+}
+.followedClasses img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 8px;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
+}
+.followedClasses .details {
+  padding-left: 56px;
+  font-size: 13px;
+}
+.followedClasses .courseName {
+  font-size: 14px;
+  font-weight: bold;
 }

@@ -691,8 +691,6 @@ and (orientation : landscape)
 .recommendedList {
     overflow: hidden;
     text-align: left;
-    //position: relative;
-    //left: -100px;
 }
 .recommendedItem {
     height: 80px;
@@ -756,8 +754,6 @@ and (orientation : landscape)
         background: #282828;
         color: #fff;
         margin-top: 9px;
-        //position: relative;
-        //top: 6px;
         svg {
             position: absolute;
             left: 4px; //rtl
@@ -769,7 +765,7 @@ and (orientation : landscape)
         position: absolute;
         left: 8px; //rtl
         border-radius: 5px;
-        border: 1px solid #c2c2c2;
+        border: 1px solid @borderColor;
     }
 
     .courseName {
@@ -815,8 +811,42 @@ and (orientation : landscape)
 
 /*#endregion */
 
-
+/*#region Dashboard followed courses */
 .followedClasses {
-    display: none;
+    text-align: left; //rtl
+    li {
+        height: 60px;
+        position: relative;
+        ~ li {
+            border-top: 1px solid @borderColor;
+        }
+    }
+    .svg-right {
+        position: absolute;
+        top:0;bottom:0;
+        right: 14px;
+        margin: auto;
+    }
+    img {
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid @borderColor;
+    }
+    .details {
+        padding-left: 56px;
+        font-size: 13px;
+    }
+    .courseName {
+        font-size: 14px;
+        font-weight: bold;
+    }
 }
+
+
+/*#endregion */
+
+
 /*#endregion */

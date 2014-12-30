@@ -34,13 +34,35 @@
 
     <ul class="followedClasses">
         <li>
-            <a href="#">
-                <img class="lFloat" width="40" height="40" src="http://placehold.it/40x40" />
-                <div class="details">
+            <a href="#" class="ghost">
+                <div class="details vCentered">
                     <div class="courseName elps">test3</div>
-                    <span>7</span>&nbsp;Items
-                    |&nbsp;<span>2</span>&nbsp;Comments
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
                 </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+                @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="courseName elps">test3</div>
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
+                </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+                @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="courseName elps">test3</div>
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
+                </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
                 @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
             </a>
         </li>
@@ -49,7 +71,7 @@
     <section class="recommendedClasses">
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
-            <li class="recommendedItem" ng-repeat="course in ::recommendedCourses">
+            <li class="recommendedItem">
                 <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
                     <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
                         <div class="vCentered elps">
