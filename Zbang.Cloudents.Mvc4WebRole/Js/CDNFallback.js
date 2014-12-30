@@ -25,18 +25,13 @@
         if (!window.jQuery || window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
             load(scriptsPath);
-            isBootstrap = true;
         }
 
         if (!window.app) {
             scripts = getCdnScripts(cdnCdPath);
             load(cdnPath);
-            isBootstrap = true;
         }
 
-        if (!isBootstrap) {
-            return;
-        }
 
         count = 0;
         interval = setInterval(function () {
@@ -44,14 +39,20 @@
             if (!window.angular) {
                 if (count == 500) {
                     clearInterval(interval);
+                    window.location.reload();
                     return;
                 }
                 return;
             }
 
             clearInterval(interval);
-            window.angular.bootstrap(document, ['app']);
 
+
+            if (angular.element('app').injector()) {
+                return;
+            }
+
+            window.angular.bootstrap(document, ['app']);
         }, 20);
 
         function load(path) {
