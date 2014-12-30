@@ -83,6 +83,11 @@ img {
         z-index: -1;
     }
 }
+.closeModal {
+    position: absolute;
+    top: 12px;
+    right: 20px; //rtl
+}
 /*#endregion */
 
 /*#region SVG */
@@ -95,7 +100,7 @@ img {
 .svg-close {
     width: 12px;
     height: 12px;
-    fill: #ccc;
+    fill: #fff;
 }
 .svg-fb {
     width: 14px;
@@ -113,6 +118,36 @@ img {
 }
 .svg-search {
     width: 19px;
+    height: 20px;
+    fill: @borderColor;
+}
+.svg-menu {
+    width: 23px;
+    height: 18px;
+    fill: #fff;
+    position: relative;
+    top: 3px;
+}
+.svg-quizInner{
+    width: 30px;
+    height: 39px;
+    fill: @color;
+}
+.svg-doc {
+    width: 38px;
+    height: 43px;
+    //position: static; //overrride
+}
+.svg-user, .svg-doc {
+    width: 19px;
+    height: 18px;
+    fill: #fff;
+    //position: absolute;
+    //left: 4px; //rtl
+    //top: 0;
+}
+.svg-right {
+    width: 10px;
     height: 20px;
     fill: @borderColor;
 }
@@ -415,32 +450,20 @@ and (orientation : landscape)
 }
 /*#endregion */
 
-/*#region Facebook Register */
-.fbRegister {
+/*#region Search */
+.searchForm {
+    position: relative;
     display: inline-block;
-    width: 88%;
-    font-size: 13px;
-    
-    h1 {
-        color: @textColor; //override
-        max-width: none; //override
-        letter-spacing: normal; //override
-        margin: 25px 0 0 0;
-    } 
-    form {
-        position: relative;
-        display: inline-block;
-        width: 92%;
-        height: 30px;
-        line-height: 30px;
-        border-radius: 15px;
-        margin-top: 15px;
-        //line-height: normal;
-        background: #fff;
-        border: 1px solid @borderColor;
-        text-align: left;
-        padding-left: 15px;
-    }
+    width: 92%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    margin-top: 15px;
+    //line-height: normal;
+    background: #fff;
+    border: 1px solid @borderColor;
+    text-align: left;
+    padding-left: 15px;
 }
 .searchInput {
     //padding-top: 7px;
@@ -460,6 +483,25 @@ and (orientation : landscape)
     font-size: 15px;
     margin: 50px 0;
 }
+/*#endregion */
+
+/*#region Facebook Register */
+.fbRegister {
+    display: inline-block;
+    width: 88%;
+    font-size: 13px;
+    
+    h1 {
+        color: @textColor; //override
+        max-width: none; //override
+        letter-spacing: normal; //override
+        margin: 25px 0 0 0;
+    } 
+    form {
+        
+    }
+}
+
 .recommended, .searchResults {
     li {
         height: 70px;
@@ -532,5 +574,60 @@ and (orientation : landscape)
             clear: both;
         }
     }
+}
+/*#endregion */
+
+/*#region Dashboard */
+.dashboard {
+    header {
+        background: @color;
+        //position: fixed;
+        width: 100%;
+        height: 36px;
+        top:0;
+
+    }
+    .svg-logo {
+        width: 108px;
+        height: 20px;
+        margin: 9px auto 0; //override
+        display: inline-block;
+    }
+    .search {
+        position: relative;
+        padding: 0 5%;
+        background: #282828;
+        //top:36px; //If the header is fixed
+        h1 {
+            font-size: 28px;
+            max-width: none;
+            letter-spacing: 0; //override
+            padding-top: 30px;
+        }
+    }
+    
+    h3 {
+        color: @color;
+        font-weight: normal;
+        font-size: 12px;
+    }
+}
+.menuBtn {
+    margin: 6px 10px 0;
+    position: relative;
+}
+.msgCounter {
+    position: absolute;
+    top: -3px;
+    left: 100%; //rtl
+    margin-left: -5px; //rtl
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+    background: #d1294d;
+    color: #fff;
+    font-size: 12px;
+    padding: 5%;
 }
 /*#endregion */

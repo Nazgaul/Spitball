@@ -12,6 +12,10 @@
 .inputText {
   padding: 0 8px 0 4px;
 }
+.closeModal {
+  left: 20px;
+  right: auto;
+}
 /*#endregion */
 /*#region SVG */
 svg.ltr {

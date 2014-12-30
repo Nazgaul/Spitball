@@ -1,1 +1,77 @@
-﻿
+﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+<section class="dashboard">
+    <header>
+        <button type="button" class="menuBtn lFloat">
+            @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+            <div class="msgCounter">5</div>
+        </button>
+        <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
+    </header>
+
+    <section class="search">
+        <h1>Welcome to Cloudents</h1>
+        <h3>@DashboardResources.FreeOnline</h3>
+
+        <form class="searchForm" ng-submit="fullSearch(newSearch.$valid)" novalidate>
+            <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
+                   ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+            <button class="searchBtn rFloat" type="submit" ng-disabled="newSearch.query.$invalid">
+                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            </button>
+        </form>
+        <div class="featureTxt">
+            @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+            <span>@DashboardResources.ShareFiles</span>
+        </div>
+        <div class="featureTxt">
+            @Html.Svg("~/Images/Defs.svg", "quizInner", new { @class = "svg-quizInner" })
+            <span>@DashboardResources.CreateQuizzes</span>
+        </div>
+        <button type="button" class="closeModal" ng-click="cancel()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+    </section>
+
+    <ul class="followedClasses">
+        <li>
+            <a href="#">
+                <img class="lFloat" width="40" height="40" src="http://placehold.it/40x40" />
+                <div class="details">
+                    <div class="courseName elps">test3</div>
+                    <span>7</span>&nbsp;Items
+                    |&nbsp;<span>2</span>&nbsp;Comments
+                </div>
+                @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
+            </a>
+        </li>
+    </ul>
+
+    <section class="recommendedClasses">
+        <h2>@DashboardResources.RecommendedCourses</h2>
+        <ul class="recommededList">
+            <li class="recommended" ng-repeat="course in ::recommendedCourses">
+                <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
+                    <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
+                        <div class="vCentered elps">
+                            <div class="courseName">{{course.name}}</div>
+                            <span class="prof elps">{{course.professor}}</span>
+                            <span class="courseId elps">{{course.courseCode}}</span>
+                        </div>
+                        <img alt="" width="48" height="48" ng-src="{{course.picture | defaultImage:'box'}}" />
+                    </div>
+                    <div class="rcStats">
+                        <div class="friends" data-friends-count="{{course.membersCount}}">
+                            @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
+                            <span>Friends</span>
+                        </div>
+                        <div class="files" data-files-count="{{course.itemCount}}">
+                            @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+                            <span>Files</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+    </section>
+</section>

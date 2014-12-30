@@ -429,10 +429,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
-      <DependentUpon>IndexResources.resx</DependentUpon>
+    <Compile Include="Views\Dashboard\Resources\DashboardResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>DashboardResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
       <DependentUpon>AboutUsResources.resx</DependentUpon>
@@ -1646,16 +1646,13 @@
       <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResources.ru.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.resx">
+    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.ar.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.he.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>DashboardResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ru.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.ar.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">
