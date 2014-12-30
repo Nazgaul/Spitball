@@ -89,8 +89,8 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/ajaxService.js"),
                         new JsFileWithCdn("~/js/shared/ajax/account.js"),
 
-
-
+                        new JsFileWithCdn("~/js/libs/hammer.min.js"),
+                        new JsFileWithCdn("~/js/libs/gestures.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js")
                         //new J
                     }

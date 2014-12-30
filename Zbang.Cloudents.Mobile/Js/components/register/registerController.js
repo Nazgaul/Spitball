@@ -24,7 +24,7 @@
             register.searching = true;
         };
 
-        register.searchBlur = function () {
+        register.searchOut = function () {
             register.searching = false;
         };
 
