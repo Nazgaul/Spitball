@@ -546,6 +546,9 @@
     <Content Include="Js\components\search\searchService.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\HomePage.js" />
+    <Content Include="Js\libs\gestures.js" />
+    <Content Include="Js\libs\hammer.js" />
+    <Content Include="Js\libs\hammer.min.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\Navigation2.js" />
@@ -1416,6 +1419,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
+    <Folder Include="Js\shared\events\" />
     <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
