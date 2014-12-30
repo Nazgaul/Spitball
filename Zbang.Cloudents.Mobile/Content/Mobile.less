@@ -25,6 +25,16 @@ body {
 .rFloat {
     float: right; //rtl
 }
+img {
+    border-radius: 50%;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 .inputText {
     background: #fff;
     padding: 0 4px 0 8px; //rtl
@@ -104,6 +114,7 @@ body {
 .svg-search {
     width: 19px;
     height: 20px;
+    fill: @borderColor;
 }
 /*#endregion */
 
@@ -114,6 +125,9 @@ body {
     height: 100%;
     position: relative;
     .boxSizing;
+    img {
+        border-radius: 0; //override
+    }
     &:after {
         .pseudo;
         width: 100%;
@@ -317,12 +331,16 @@ and (orientation : landscape)
     .bottom {
         width: 92%; //override
         text-align: left; //rtl //override
-        bottom: 0; //override
+        position: static;
     }
     .homeTxt1 {
         color: @textColor; //override
     }
+    .searchResults {
+        display: none; //TEMP ONLY!!!
+    }
 }
+
 .search {
     .topReg {
         opacity:0;
@@ -332,9 +350,12 @@ and (orientation : landscape)
     .bottom, .checkbox, .cbLabel {
         display: none;
     }
+    .searchResults {
+        display: block; //TEMP ONLY!!!
+    }
 }
 .topReg {
-    overflow: hidden; //to clear floats
+    //overflow: hidden; //to clear floats
     .transition(margin .3s);
     visibility: visible;
     opacity:1;
@@ -391,5 +412,125 @@ and (orientation : landscape)
 .ng-message-error.ng-leave.ng-leave-active {
     opacity:0;
     bottom:8px; 
+}
+/*#endregion */
+
+/*#region Facebook Register */
+.fbRegister {
+    display: inline-block;
+    width: 88%;
+    font-size: 13px;
+    
+    h1 {
+        color: @textColor; //override
+        max-width: none; //override
+        letter-spacing: normal; //override
+        margin: 25px 0 0 0;
+    } 
+    form {
+        position: relative;
+        display: inline-block;
+        width: 92%;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 15px;
+        margin-top: 15px;
+        //line-height: normal;
+        background: #fff;
+        border: 1px solid @borderColor;
+        text-align: left;
+        padding-left: 15px;
+    }
+}
+.searchInput {
+    //padding-top: 7px;
+}
+.searchBtn {
+    position: relative;
+    right: 10px;
+    top: 5px;
+}
+.noResults .emptySearch {
+    display: inline-block;
+}
+.emptySearch {
+    display: none;
+    position: relative;
+    text-align: center;
+    font-size: 15px;
+    margin: 50px 0;
+}
+.recommended, .searchResults {
+    li {
+        height: 70px;
+        position: relative;
+        text-align: left;
+        
+        &:before {
+            .pseudo;
+            width: 100%;
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            bottom: 0;
+            left:0;
+        }
+    }
+    .uniName, .btn1  {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .btn1 {
+        color: #fff;
+        background: @itemBlue;
+        width: auto;
+        height: auto;
+        line-height: normal;
+        padding: 3px 8px;
+        font-size: 13px;
+    }
+}
+.recommended {
+    li {
+        text-align: justify;
+        width: 100%;
+        &:after {
+            .pseudo;
+            width: 100%;
+        }
+    }  
+}
+.uniImg {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 8px;
+}
+.uniName {
+    max-width: 30%;
+    max-height: 31px;
+    overflow: hidden;
+}
+.userPics {
+    width: 56px;
+    display: inline-block;
+    vertical-align: middle;
+    &:after {
+        content: '+' attr(data-numusers);
+        display: inline-block;
+        float: right;
+        font-size: 12px;
+        position: relative;
+        top: -6px;
+    }
+    img {
+        display: inline-block;
+        margin: 1px;
+        top:0; //override
+        float: left;
+        &:nth-child(3) {
+            clear: both;
+        }
+    }
 }
 /*#endregion */

@@ -8,7 +8,6 @@
         </span>Log in with Facebook
     </button>
     <div class="splitHR">or by email</div>
-    @*<div class="splitHR"><span class="splitHRText">or by email</span></div>*@
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
         <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
@@ -28,7 +27,15 @@
         <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
         <input ng-disabled="disabled" class="btn1" type="submit" value="SignIn" ng-click="loginSubmitted = true">
     </form>
+    <div class="welcomeTxt1">
+        <span class="homeTxt1">Don't have an account?</span>
+        <a class="homeTxt2" href="#">Sign up now</a>
+    </div>
 </section>
+
+
+
+
 
     
 

@@ -4,7 +4,7 @@
 <section class="register" ng-class="{ search: register.searching }" hm-swipe-left="register.searchOut()">
     <form name="registerForm" ng-submit="register.submit(registerForm.$valid)" novalidate>
         <h1>Create an acccount</h1>
-        <div class="topReg">
+        <div class="topReg clearfix">
             <div class="regError" clear-on-input>{{register.registerServerError}}</div>
             <div class="ng-message-errors lFloat" ng-messages="registerSubmitted && registerForm.firstName.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
@@ -55,6 +55,22 @@
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
         <input type="search" class="inputText" placeholder="Search for your school" required ng-focus="register.searchFocus()" />
+
+        <ul class="searchResults">
+            <li>
+                <img class="uniImg" src="http://placehold.it/53x53" />
+                <div class="uniName">{university name here}</div>
+            </li>
+            <li>
+                <img class="uniImg" src="http://placehold.it/53x53" />
+                <div class="uniName">{university name here}</div>
+            </li>
+            <li>
+                <img class="uniImg" src="http://placehold.it/53x53" />
+                <div class="uniName">{university name here}</div>
+            </li>
+        </ul>
+
         <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
         <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
 
