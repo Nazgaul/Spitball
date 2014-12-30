@@ -60,5 +60,6 @@
             <div class="uniName">{university name here}</div>
         </li>
     </ul>
-    <div class="">No results were found</div>
+    @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+    <div class="emptySearch">No results were found</div>
 </section>

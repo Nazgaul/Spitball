@@ -23,6 +23,13 @@ body {
 img {
   border-radius: 50%;
 }
+.elps {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .clearfix:after {
   content: ".";
   display: block;
@@ -83,10 +90,20 @@ img {
   border-bottom: 1px solid #c2c2c2;
   z-index: -1;
 }
-.closeModal {
+.ghost:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.ghost .vCentered {
+  display: inline-block;
+  vertical-align: middle;
+}
+.closeBtn {
   position: absolute;
-  top: 12px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
 }
 /*#endregion */
 /*#region SVG */
@@ -97,8 +114,8 @@ img {
   margin: 26px auto 6px;
 }
 .svg-close {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   fill: #fff;
 }
 .svg-fb {
@@ -120,6 +137,12 @@ img {
   height: 20px;
   fill: #c2c2c2;
 }
+.svg-noResults {
+  width: 64px;
+  height: 61px;
+  fill: #282828;
+  display: none;
+}
 .svg-menu {
   width: 23px;
   height: 18px;
@@ -131,10 +154,6 @@ img {
   width: 30px;
   height: 39px;
   fill: #0f9d58;
-}
-.svg-doc {
-  width: 38px;
-  height: 43px;
 }
 .svg-user,
 .svg-doc {
@@ -434,7 +453,7 @@ option {
   height: 30px;
   line-height: 30px;
   border-radius: 15px;
-  margin-top: 15px;
+  margin: 15px 0;
   background: #fff;
   border: 1px solid #c2c2c2;
   text-align: left;
@@ -448,12 +467,15 @@ option {
 .noResults .emptySearch {
   display: inline-block;
 }
+.noResults .svg-noResults {
+  display: block;
+  margin: 25px auto 10px;
+}
 .emptySearch {
   display: none;
   position: relative;
   text-align: center;
   font-size: 15px;
-  margin: 50px 0;
 }
 /*#endregion */
 /*#region Facebook Register */
@@ -569,6 +591,12 @@ option {
   letter-spacing: 0;
   padding-top: 30px;
 }
+.dashboard .search.closed h1,
+.dashboard .search.closed h3,
+.dashboard .search.closed .featureTxt,
+.dashboard .search.closed .closeBtn {
+  display: none;
+}
 .dashboard h3 {
   color: #0f9d58;
   font-weight: normal;
@@ -583,12 +611,158 @@ option {
   top: -3px;
   left: 100%;
   margin-left: -5px;
-  min-width: 16px;
-  height: 16px;
-  line-height: 16px;
+  min-width: 6px;
+  height: 6px;
+  line-height: 6px;
   border-radius: 8px;
   background: #d1294d;
   color: #fff;
   font-size: 12px;
-  padding: 5%;
+  padding: 5px;
+}
+.featureTxt {
+  color: #fff;
+  display: table;
+  width: 50%;
+  margin: 0 auto;
+  padding: 11px 0 26px;
+}
+.featureTxt + .featureTxt {
+  padding-top: 0;
+}
+.featureTxt .svg-doc {
+  width: 38px;
+  height: 43px;
+  display: table-cell;
+  fill: #0f9d58;
+}
+.featureTxt span {
+  display: table-cell;
+  vertical-align: top;
+}
+/*#region Dashboard recommended courses */
+.recommendedClasses h2 {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: normal;
+  background: #eee;
+  margin: 5px 0 10px;
+}
+.recommendedList {
+  overflow: hidden;
+  text-align: left;
+}
+.recommendedItem {
+  height: 80px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 15px;
+  display: block;
+  margin-right: -12px;
+}
+.recommendedItem + .recommendedItem:after {
+  content: '';
+  display: inline-block;
+  width: calc(100% - 12px);
+  height: 1px;
+  background: #c2c2c2;
+  position: absolute;
+  top: 0;
+}
+.recommendedItem .courseLink {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  white-space: noWrap;
+  font-size: 13px;
+}
+.recommendedItem .courseLink .rcDetails {
+  margin-left: -110px;
+}
+.recommendedItem .rcDetails {
+  width: 100%;
+  height: 63px;
+  vertical-align: top;
+  padding: 15px 0 0 69px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #fff;
+  margin: 0;
+  -webkit-transition: margin 0.2s 0.5s;
+  -moz-transition: margin 0.2s 0.5s;
+  -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
+  position: relative;
+}
+.recommendedItem .rcDetails.rcFull .prof {
+  max-width: 130px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.recommendedItem .rcDetails.rcFull .courseId:before {
+  content: '\00a0' '|' '\00a0';
+  color: #383838;
+}
+.recommendedItem .rcStats {
+  width: 105px;
+  height: 60px;
+  display: inline-block;
+  background: #282828;
+  color: #fff;
+  margin-top: 9px;
+}
+.recommendedItem .rcStats svg {
+  position: absolute;
+  left: 4px;
+  top: 0;
+}
+.recommendedItem img {
+  position: absolute;
+  left: 8px;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
+}
+.recommendedItem .courseName {
+  color: #0f9d58;
+  font-size: 15px;
+  white-space: normal;
+  max-height: 34px;
+  overflow: hidden;
+  line-height: 16px;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.recommendedItem .prof {
+  font-size: 13px;
+}
+.recommendedItem .vCentered {
+  max-width: 200px;
+}
+.recommendedItem .friends,
+.recommendedItem .files {
+  position: relative;
+  padding-left: 26px;
+}
+.recommendedItem .friends:before,
+.recommendedItem .files:before {
+  content: attr(data-friends-count);
+  display: inline-block;
+}
+.recommendedItem .friends {
+  margin-top: 11px;
+}
+.recommendedItem .files {
+  margin-top: 7px;
+}
+.recommendedItem .files:before {
+  content: attr(data-files-count);
+}
+/*#endregion */
+.followedClasses {
+  display: none;
 }
