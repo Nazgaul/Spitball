@@ -75,47 +75,57 @@
 .searchContent li ~ li {
   border-top: 1px solid #c2c2c2;
 }
-.dashTabs {
+.tabs {
   display: table;
   table-layout: fixed;
   width: 100%;
   text-align: center;
   background: #282828;
 }
-.dashTabs.courseTab ~ .courseList {
+.tabs.courseTab ~ .courseList,
+.tabs.feedTab ~ .courseList,
+.tabs.courseTab ~ .feed,
+.tabs.feedTab ~ .feed {
   opacity: 1;
   visibility: visible;
   height: auto;
 }
-.dashTabs.courseTab .dashTab:nth-child(1) {
+.tabs.courseTab .tab:nth-child(1),
+.tabs.feedTab .tab:nth-child(1) {
   color: #0f9d58;
 }
-.dashTabs.courseTab .dashTab:nth-child(1):after {
+.tabs.courseTab .tab:nth-child(1):after,
+.tabs.feedTab .tab:nth-child(1):after {
   height: 5px;
 }
-.dashTabs.itemsTab ~ .itemsList {
+.tabs.itemsTab ~ .itemsList,
+.tabs.boxItemsTab ~ .itemsList,
+.tabs.itemsTab ~ .boxItems,
+.tabs.boxItemsTab ~ .boxItems {
   opacity: 1;
   visibility: visible;
   height: auto;
 }
-.dashTabs.itemsTab .dashTab:nth-child(2) {
+.tabs.itemsTab .tab:nth-child(2),
+.tabs.boxItemsTab .tab:nth-child(2) {
   color: #0f9d58;
 }
-.dashTabs.itemsTab .dashTab:nth-child(2):after {
+.tabs.itemsTab .tab:nth-child(2):after,
+.tabs.boxItemsTab .tab:nth-child(2):after {
   height: 5px;
 }
-.dashTabs.membersTab ~ .membersList {
+.tabs.membersTab ~ .membersList {
   opacity: 1;
   visibility: visible;
   height: auto;
 }
-.dashTabs.membersTab .dashTab:nth-child(3) {
+.tabs.membersTab .tab:nth-child(3) {
   color: #0f9d58;
 }
-.dashTabs.membersTab .dashTab:nth-child(3):after {
+.tabs.membersTab .tab:nth-child(3):after {
   height: 5px;
 }
-.dashTab {
+.tab {
   color: #a5a5a5;
   height: 36px;
   line-height: 36px;
@@ -132,7 +142,7 @@
         }
     }*/
 }
-.dashTab:after {
+.tab:after {
   content: '';
   display: inline-block;
   position: absolute;

@@ -77,34 +77,34 @@
         }
     }
 }
-.dashTabs {
+.tabs {
     display: table;
     table-layout: fixed;
     width: 100%;
     text-align: center; 
     background: #282828;   
-    &.courseTab {
-        ~ .courseList {
+    &.courseTab, &.feedTab {
+        ~ .courseList, ~ .feed {
             //display: block;
             opacity:1;
             visibility: visible;
             height: auto;
         }
-        .dashTab:nth-child(1) {
+        .tab:nth-child(1) {
             color: @color;
             &:after {
                 height: 5px;
             }
         }
     }
-    &.itemsTab {
-        ~ .itemsList {
+    &.itemsTab, &.boxItemsTab {
+        ~ .itemsList, ~ .boxItems  {
             //display: block;
             opacity:1;
             visibility: visible;
             height: auto;
         }
-        .dashTab:nth-child(2) {
+        .tab:nth-child(2) {
             color: @color;
             &:after {
                 height: 5px;
@@ -118,7 +118,7 @@
             visibility: visible;
             height: auto;
         }
-        .dashTab:nth-child(3) {
+        .tab:nth-child(3) {
             color: @color;
             &:after {
                 height: 5px;
@@ -126,7 +126,7 @@
         }
     }
 }
-.dashTab {
+.tab {
     color: #a5a5a5;
     height: 36px;
     line-height: 36px;
