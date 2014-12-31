@@ -1,25 +1,24 @@
-﻿
-@using Zbang.Cloudents.Mobile.Views.Account.Resources
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
 <div class="homepage">
     @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
     <h1>@AccountResources.SocialStudy</h1>
     <div class="bottom">
-        <button type="button" class="facebook" ng-click="facebookLogin()">
+        <button type="button" class="facebook" ng-click="account.facebookLogin()">
             <span class="fbImg">
                 @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
             </span>@AccountResources.FacebookSignUp
         </button>
 
-        <a href="#" class="emailBtn">
+        <a ui-sref="register" class="emailBtn">
             <span class="emailImg">
                 @Html.Svg("~/Images/Defs.svg", "emailIcon", new { @class = "svg-email" })
             </span>@AccountResources.EmailSignUp
         </a>
 
         <span class="homeTxt1">@AccountResources.AlreadyHave</span>
-        <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
+        <a class="homeTxt2" ui-sref="login">@AccountResources.LogIn</a>
 
         <div class="lang">
             <select class="langSelect" id="langSelect">

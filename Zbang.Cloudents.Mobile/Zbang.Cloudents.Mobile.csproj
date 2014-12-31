@@ -574,6 +574,7 @@
     <Content Include="Js\RT.js" />
     <Content Include="Js\libs\stacktrace.js" />
     <Content Include="Js\shared\ajax\ajaxService.js" />
+    <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />

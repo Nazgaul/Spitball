@@ -1,6 +1,6 @@
 ﻿angular.module('register')
     .service('registerService',
-    ['account', '$angularCacheFactory', '$analytics', function (account, $angularCacheFactory, $analytics) {
+    ['account', 'library', '$angularCacheFactory', '$analytics', function (account, library, $angularCacheFactory, $analytics) {
         var service = this,
             cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
 
@@ -15,7 +15,7 @@
                 formData: data
             }));
 
-            account.changeLanguage({ language: langauge }).then(function () {
+            account.changeLanguage({ language: register.langauge }).then(function () {
                 $window.location.reload();
             });
 
@@ -35,6 +35,10 @@
 
             return obj;
         };
+
+        service.registerUnis = function (term) {
+            return library.search({ term: term });
+        }
 
 
     }]
