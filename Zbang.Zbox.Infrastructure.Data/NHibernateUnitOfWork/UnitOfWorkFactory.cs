@@ -59,7 +59,11 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 #endif
                 });
                 m_Configuration.SetListener(ListenerType.Delete, new ZboxDeleteEventListener());
-                m_Configuration.SetListener(ListenerType.Save, new ZboxUpdateEventListener());
+                //m_Configuration.SetListener(ListenerType.Save, new ZboxUpdateEventListener());
+
+                m_Configuration.SetListener(ListenerType.PreInsert, new AuditEventListener());
+                m_Configuration.SetListener(ListenerType.PreUpdate, new AuditEventListener());
+
                 m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
                 m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
                 m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");

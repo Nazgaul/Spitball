@@ -79,6 +79,7 @@
     <Compile Include="Dapper\DapperConnection.cs" />
     <Compile Include="Dialect\ZboxDialect.cs" />
     <Compile Include="Driver\ZboxDriver.cs" />
+    <Compile Include="Events\AuditEventListener.cs" />
     <Compile Include="NHibernateUnitOfWork\GenericTransaction.cs" />
     <Compile Include="NHibernateUnitOfWork\Local.cs" />
     <Compile Include="NHibernateUnitOfWork\UnitOfWork.cs" />
