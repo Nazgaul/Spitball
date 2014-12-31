@@ -18,6 +18,13 @@
 }
 /*#endregion */
 /*#region SVG */
+svg.rtl {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
 svg.ltr {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -63,7 +70,7 @@ svg.ltr {
   right: auto;
 }
 /*#endregion */
-/*#region Welcome */
+/*#region Registration */
 .register .bottom {
   text-align: right;
 }
