@@ -1,0 +1,263 @@
+﻿@import "varsAndMixins";
+
+/*#region Dashboard */
+.dashboard {
+    header {
+        background: @color;
+        //position: fixed;
+        width: 100%;
+        height: 36px;
+        top:0;
+    }
+    .svg-logo {
+        width: 108px;
+        height: 20px;
+        margin: 9px auto 0; //override
+        display: inline-block;
+    }
+
+    h3 {
+        color: @color;
+        font-weight: normal;
+        font-size: 12px;
+    }
+}
+.welcome {
+    position: relative;
+    padding: 0 5%;
+    background: #282828;
+    //top:36px; //If the header is fixed
+    h1 {
+        font-size: 28px;
+        max-width: none;
+        letter-spacing: 0; //override
+        padding-top: 30px;
+    }
+    &.closed {
+        h1, h3, .featureTxt, .closeBtn {
+            display: none;
+        }
+    }
+}
+.menuBtn {
+    margin: 6px 10px 0;
+    position: relative;
+}
+.msgCounter {
+    position: absolute;
+    top: -3px;
+    left: 100%; //rtl
+    margin-left: -5px; //rtl
+    min-width: 6px;
+    height: 6px;
+    line-height: 6px;
+    border-radius: 8px;
+    background: #d1294d;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+}
+.featureTxt {
+    color: #fff;
+    display: table;
+    width: 50%;
+    margin: 0 auto;
+    padding: 11px 0 26px;
+    + .featureTxt {
+        padding-top: 0; //override
+    }
+    .svg-doc {
+        width: 38px;
+        height: 43px;
+        display: table-cell;
+        fill: @color;
+    }
+    span {
+        display: table-cell;
+        vertical-align: top;
+    }
+}
+.searchLink {
+    .svg-search {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}
+.searchLinkTxt {
+    color: @borderColor;
+    font-size: 13px;
+}
+/*#region Dashboard recommended courses */
+.recommendedClasses {
+    h2 {
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+        font-weight: normal;
+        background: #eee;
+        margin: 5px 0 10px;
+    }
+}
+.recommendedList {
+    overflow: hidden;
+    text-align: left;
+}
+.recommendedItem {
+    height: 80px;
+    .boxSizing;
+    position: relative;
+    font-size: 15px;
+    display: block;
+    margin-right: -12px; //rtl
+    + .recommendedItem {
+        &:after {
+            .pseudo;
+            width: ~'calc(100% - 12px)';
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    .courseLink {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        white-space: noWrap;
+        font-size: 13px;
+        .rcDetails {
+            margin-left: -110px; //rtl
+        }
+    }
+
+    .rcDetails {
+        width: 100%;
+        height: 63px;
+        vertical-align: top;
+        padding: 15px 0 0 69px; //rtl
+        .boxSizing;
+        display: inline-block;
+        background: #fff;
+        margin: 0;
+        .transition(margin .2s .5s);
+        position: relative; //img to move on hover
+        &.rcFull {
+            .prof{
+                max-width: 130px; 
+                display: inline-block;
+                vertical-align: bottom;
+            }
+            .courseId {
+                &:before {
+                    content: '\00a0' '|' '\00a0';
+                    color: @textColor;
+                }
+            }
+        }
+    }
+
+    .rcStats {
+        width: 105px;
+        height: 60px;
+        display: inline-block;
+        background: #282828;
+        color: #fff;
+        margin-top: 9px;
+        svg {
+            position: absolute;
+            left: 4px; //rtl
+            top: 0;
+        }
+    }
+
+    img {
+        position: absolute;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid @borderColor;
+    }
+
+    .courseName {
+        color: #0f9d58;
+        font-size: 15px;
+        white-space: normal;
+        max-height: 34px;
+        overflow: hidden;
+        line-height: 16px;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        
+    }
+
+    .prof {
+        font-size: 13px;
+    }
+    .vCentered {
+        max-width: 200px;
+    }
+    .friends, .files {
+        position: relative;
+        padding-left: 26px; //rtl
+        &:before {
+            content: attr(data-friends-count);
+            display: inline-block;
+        }
+    }
+
+    .friends {
+        margin-top: 11px;
+    }
+
+    .files {
+        margin-top: 7px;
+
+        &:before {
+            content: attr(data-files-count);
+        }
+    }
+}
+
+
+/*#endregion */
+
+/*#region Dashboard followed courses */
+.followedClasses {
+    text-align: left; //rtl
+    li {
+        height: 60px;
+        position: relative;
+        ~ li {
+            border-top: 1px solid @borderColor;
+        }
+    }
+    .svg-right {
+        position: absolute;
+        top:0;bottom:0;
+        right: 14px;
+        margin: auto;
+    }
+    img {
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid @borderColor;
+    }
+    .details {
+        padding-left: 56px;
+        font-size: 13px;
+    }
+    .courseName {
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+
+/*#endregion */
+
+
+/*#endregion */

@@ -476,24 +476,17 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
-    <Content Include="Content\ItemMobile.css">
-      <DependentUpon>ItemMobile.less</DependentUpon>
+    <Content Include="Content\Dashboard.css">
+      <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
-    <Content Include="Content\ItemMobileRtl.css">
-      <DependentUpon>ItemMobileRtl.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ItemRtl.css">
-      <DependentUpon>ItemRtl.less</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
-    <Content Include="Content\Mobile.css">
-      <DependentUpon>Mobile.less</DependentUpon>
+    <Content Include="Content\Home.css">
+      <DependentUpon>Home.less</DependentUpon>
     </Content>
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
@@ -501,11 +494,8 @@
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>
-    <Content Include="Content\SiteMobile.css">
-      <DependentUpon>SiteMobile.less</DependentUpon>
-    </Content>
-    <Content Include="Content\SiteMobileRtl.css">
-      <DependentUpon>SiteMobileRtl.less</DependentUpon>
+    <Content Include="Content\Search.css">
+      <DependentUpon>Search.less</DependentUpon>
     </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
@@ -580,22 +570,21 @@
     <Content Include="Js\Utils.js" />
     <Content Include="Js\Welcome.js" />
     <Content Include="Js\Logon.js" />
-    <Content Include="Content\Mobile.less" />
+    <Content Include="Content\Home.less" />
     <Content Include="Content\MobileRtl.less" />
-    <Content Include="Content\SiteMobile.less" />
-    <Content Include="Content\SiteMobileRtl.less" />
     <Content Include="Content\varsAndMixins.less" />
     <Content Include="Content\Animations.less" />
     <Content Include="Content\lang.ru-RU.less" />
-    <Content Include="Content\ItemMobile.less" />
-    <Content Include="Content\ItemMobileRtl.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Content\ItemRtl.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Js\shared\ajax\account.js" />
+    <Content Include="Content\Dashboard.less" />
+    <Content Include="Content\Search.less" />
+    <Content Include="Content\Box.less" />
+    <Content Include="Content\Feed.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
