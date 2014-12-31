@@ -1419,7 +1419,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="Js\shared\events\" />
     <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />

@@ -21,12 +21,6 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
-        [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
-        //the new version doesn't get the resource
-        [Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
-        public string ConfirmEmail { get; set; }
-
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
@@ -45,11 +39,7 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         public bool MarketEmail { get; set; }
 
 
-        public long? UniversityId { get; set; }
-
-        public string ReturnUrl { get; set; }
-
-        public long? BoxId { get; set; }
+        public long UniversityId { get; set; }
 
 
         public override string ToString()

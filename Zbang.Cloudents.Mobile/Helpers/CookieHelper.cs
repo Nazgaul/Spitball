@@ -2,7 +2,7 @@
 using System.Web;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class CookieHelper
     {
@@ -21,7 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             var cookie = new HttpCookie(cookieName)
             {
                 HttpOnly = true,
-                Value = SerializeData(cookieData)
+                Value = SerializeData(cookieData),
+                Expires = DateTime.Now.AddDays(1)
             };
             m_HttpContext.Response.Cookies.Add(cookie);
         }
@@ -58,10 +59,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         private string SerializeData<T>(T data) where T : class
         {
-            var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
+            var pFormatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
 
-            var bdata = pformatter.SerializeData(data);
-            return HttpServerUtility.UrlTokenEncode(bdata);
+            var bData = pFormatter.SerializeData(data);
+            return HttpServerUtility.UrlTokenEncode(bData);
 
         }
 
