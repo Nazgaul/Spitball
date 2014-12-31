@@ -63,6 +63,8 @@
                 <div class="uniName">{{::university.name}}</div>
             </li>            
         </ul>
+        @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+        <div class="emptySearch">No results were found</div>
 
         <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
         <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>

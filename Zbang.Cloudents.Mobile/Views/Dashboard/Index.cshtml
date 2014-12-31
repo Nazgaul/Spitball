@@ -7,7 +7,7 @@
         </button>
         <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
     </header>
-
+    @*Guy: Please add class 'closed' here when closeBtn is clicked*@
     <section class="search">
         <h1>Welcome to Cloudents</h1>
         <h3>@DashboardResources.FreeOnline</h3>
@@ -27,20 +27,42 @@
             @Html.Svg("~/Images/Defs.svg", "quizInner", new { @class = "svg-quizInner" })
             <span>@DashboardResources.CreateQuizzes</span>
         </div>
-        <button type="button" class="closeModal" ng-click="cancel()">
+        <button type="button" class="closeBtn" ng-click="cancel()">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </button>
     </section>
 
     <ul class="followedClasses">
         <li>
-            <a href="#">
-                <img class="lFloat" width="40" height="40" src="http://placehold.it/40x40" />
-                <div class="details">
+            <a href="#" class="ghost">
+                <div class="details vCentered">
                     <div class="courseName elps">test3</div>
-                    <span>7</span>&nbsp;Items
-                    |&nbsp;<span>2</span>&nbsp;Comments
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
                 </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+                @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="courseName elps">test3</div>
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
+                </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+                @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="courseName elps">test3</div>
+                    <span>7 Items</span>
+                    <span>2 Comments</span>
+                </div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
                 @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
             </a>
         </li>
@@ -48,8 +70,8 @@
 
     <section class="recommendedClasses">
         <h2>@DashboardResources.RecommendedCourses</h2>
-        <ul class="recommededList">
-            <li class="recommended" ng-repeat="course in ::recommendedCourses">
+        <ul class="recommendedList">
+            <li class="recommendedItem">
                 <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
                     <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
                         <div class="vCentered elps">
@@ -72,6 +94,5 @@
                 </a>
             </li>
         </ul>
-
     </section>
 </section>
