@@ -1,0 +1,94 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Zbox.Infrastructure.Culture
+
+<section class="register" ng-class="{ search: register.searching }">
+    <form name="registerForm" novalidate ng-submit="register.submit(registerForm.$valid)">
+        <h1>Create an acccount</h1>
+        <div class="topReg clearfix">
+            <div class="regError" clear-on-input>{{register.serverError}}</div>
+            <div class="ng-message-errors lFloat" ng-messages="register.submitted && registerForm.firstName.$error">
+                <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            </div>
+            <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="FirstName"
+                   ng-class="{error: register.submitted && loginForm.firstName.$error}"
+                   ng-model="register.formData.firstName" required />
+            <div class="ng-message-errors rFloat" ng-messages="register.submitted && registerForm.lastName.$error">
+                <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            </div>
+            <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="LastName"
+                   ng-class="{error: register.submitted && loginForm.lastName.$error}"
+                   ng-model="register.formData.lastName" required />
+            <div class="ng-message-errors" ng-messages="register.submitted && registerForm.newEmail.$error">
+                <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+                <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
+            </div>
+            <input type="email" class="inputText" name="newEmail" placeholder="Email"
+                   ng-class="{error: register.submitted && loginForm.newEmail.$error}"
+                   ng-model="register.formData.newEmail" required
+                   ng-pattern="register.pattern" />
+            <div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
+                <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+                <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
+            </div>
+            <input type="password" class="inputText" name="password" placeholder="Password" ng-minlength="6"
+                   ng-class="{error: register.submitted && loginForm.password.$error}"
+                   ng-model="register.formData.password" required />
+            <div class="lFloat radioWpr">
+                <div class="ng-message-errors" ng-messages="register.submitted && registerForm.isMale.$error">
+                    <span class="ng-message-error" ng-message="required">@AccountResources.GenderRequired</span>
+                </div>
+                <input id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
+                <label class="genderLabel first" for="maleRadio">Male</label>
+                <input id="femaleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="false" required>
+                <label class="genderLabel" for="femaleRadio">Female</label>
+            </div>
+            <select class="inputText rFloat" ng-change="register.changeLanguage()" ng-model="register.language" ng-init="register.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
+                <option value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
+                <option value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
+                <option value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
+                <option value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
+                <option value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
+                <option value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
+            </select>
+        </div>
+        <div class="ng-message-errors" ng-messages="">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+        </div>
+        <form>
+            <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" />
+        </form>
+        <ul class="searchResults">
+            <li hm-touch="register.selectUniversity(university)" ng-repeat="university in register.universities">
+                <img class="uniImg" ng-src="::university.image" />
+                <div class="uniName">{{::university.name}}</div>
+            </li>            
+        </ul>
+<<<<<<< HEAD
+        @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+=======
+        @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+>>>>>>> a728c0f5d75ac50c8388bd6d691d8a7f4d364d17
+        <div class="emptySearch">No results were found</div>
+
+        <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
+        <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
+
+        <div class="bottom">
+
+            <span class="acceptTerms">
+                @AccountResources.IAgree
+                <!--
+                -->
+                <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@AccountResources.TermsOfServices&nbsp;</a>@AccountResources.And&nbsp;
+                <!--
+                -->
+                <a target="_blank" href="@Url.Action("Privacy", "Home")">@AccountResources.PrivacyPolicy</a>
+            </span>
+            <input ng-disabled="register.disabled" class="btn1" type="submit" tabindex=15 value="@AccountResources.SignUp" />
+            <div class="welcomeTxt1">
+                <span class="homeTxt1">@AccountResources.AlreadyHave</span>
+                <a class="homeTxt2" ui-sref="login">@AccountResources.LogIn</a>
+            </div>
+        </div>
+    </form>
+</section>

@@ -574,7 +574,12 @@
     <Content Include="Js\RT.js" />
     <Content Include="Js\libs\stacktrace.js" />
     <Content Include="Js\shared\ajax\ajaxService.js" />
+    <Content Include="Js\shared\ajax\box.js" />
+    <Content Include="Js\shared\ajax\dashboard.js" />
+    <Content Include="Js\shared\ajax\feed.js" />
     <Content Include="Js\shared\ajax\library.js" />
+    <Content Include="Js\shared\ajax\search.js" />
+    <Content Include="Js\shared\social\facebook.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />
@@ -609,6 +614,9 @@
     <Content Include="Scripts\angular-cache-2.4.1.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-touch.js" />
+    <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -1411,6 +1419,7 @@
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Views\Account\_FbRegister.cshtml" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

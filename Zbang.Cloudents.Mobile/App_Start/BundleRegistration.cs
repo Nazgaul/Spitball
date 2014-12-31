@@ -44,12 +44,13 @@ namespace Zbang.Cloudents.Mobile
              {
                     "angular", new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery.min.js",
-                        "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),                        
+                        //new JsFileWithCdn("~/scripts/jquery.min.js",
+                        //"https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),                        
                         new JsFileWithCdn("~/scripts/angular.min.js",
                         "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"),
                         new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angular-touch.js"),
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                         "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"),
@@ -89,6 +90,12 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/ajaxService.js"),
                         new JsFileWithCdn("~/js/shared/ajax/account.js"),
                         new JsFileWithCdn("~/js/shared/ajax/library.js"),
+                        new JsFileWithCdn("~/js/shared/ajax/dashboard.js"),
+                        new JsFileWithCdn("~/js/shared/ajax/search.js"),
+                        new JsFileWithCdn("~/js/shared/ajax/feed.js"),
+                        new JsFileWithCdn("~/js/shared/ajax/box.js"),
+
+                        new JsFileWithCdn("~/js/shared/social/facebook.js"),
 
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),

@@ -1,4 +1,4 @@
-﻿angular.module('login', ['ajax']).
+﻿angular.module('login', ['ajax','social']).
     controller('LoginController',
     ['loginService', function (loginService) {
         "use strict";
