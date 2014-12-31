@@ -2,7 +2,7 @@
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
 using Zbang.Zbox.Domain.Common;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
+namespace Zbang.Cloudents.Mobile.Models.Account
 {
     public class LogOn
     {
@@ -10,9 +10,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         {
             RememberMe = true;
         }
-        /*[DisplayName("User name")]
-        [Required]
-        public string UserName { get; set; }*/
 
         [DataType(DataType.EmailAddress)]
         [Display(ResourceType = typeof(LogOnResources), Name = "EmailAddress")]

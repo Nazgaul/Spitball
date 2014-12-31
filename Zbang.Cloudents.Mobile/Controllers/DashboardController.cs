@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -21,24 +22,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [NoUniversity]
     public class DashboardController : BaseController
     {
-        //this is for mobile only
-        //[NoCache]
-        //public async Task<ActionResult> Index()
-        //{
-        //    var userDetail = FormsAuthenticationService.GetUserData();
-        //    // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-        //    var universityWrapper = userDetail.UniversityId.Value;
 
-        //    var query = new GetDashboardQuery(universityWrapper);
-        //    var model = await ZboxReadService.GetMyData(query);
-        //    if (model == null) return RedirectToAction("Choose", "Library");
-
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        return PartialView("Index2", model);
-        //    }
-        //    return View("Index2", model);
-        //}
 
 
         [HttpGet]
@@ -48,23 +32,22 @@ namespace Zbang.Cloudents.Mobile.Controllers
            )]
         public ActionResult IndexPartial()
         {
-            return PartialView("Index2");
+            return PartialView("Index");
         }
 
         [HttpGet]
-        public async Task<JsonResult> BoxList()
+        public async Task<JsonResult> BoxList(int page)
         {
-            var userid = User.GetUserId();
             try
             {
-                var query = new GetBoxesQuery(userid);
+                var query = new GetBoxesQuery(User.GetUserId(), page, 15);
                 var data = await ZboxReadService.GetUserBoxes(query);
 
-                return JsonOk(data);
+                return JsonOk(data.Select(s => new { s.Name, s.BoxPicture, s.Url, s.ItemCount, s.CommentCount }));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
+                TraceLog.WriteError(string.Format("BoxList user: {0}", User.GetUserId()), ex);
                 return JsonError();
             }
         }
@@ -129,36 +112,36 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return JsonOk(result);
         }
 
-        [HttpGet]
-        [Route("dashboard/CreateBox")]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult CreateBox()
-        {
-            try
-            {
-                return PartialView("_CreateBoxWizard");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("PrivateBoxPartial ", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[Route("dashboard/CreateBox")]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult CreateBox()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_CreateBoxWizard");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("PrivateBoxPartial ", ex);
+        //        return JsonError();
+        //    }
+        //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult SocialInvitePartial()
-        {
-            try
-            {
-                return PartialView("_Invite");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Invite", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult SocialInvitePartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Invite");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Invite", ex);
+        //        return JsonError();
+        //    }
+        //}
 
     }
 }

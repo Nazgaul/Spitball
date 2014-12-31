@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
 using Zbang.Cloudents.Mobile.Models.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Common;
 
@@ -20,12 +20,6 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
         [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
-
-        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
-        [Display(ResourceType = typeof(RegisterResources), Name = "ConfirmEmail")]
-        //the new version doesn't get the resource
-        [Compare("NewEmail", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmEmailCompare")]
-        public string ConfirmEmail { get; set; }
 
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
@@ -45,11 +39,7 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         public bool MarketEmail { get; set; }
 
 
-        public long? UniversityId { get; set; }
-
-        public string ReturnUrl { get; set; }
-
-        public long? BoxId { get; set; }
+        public long UniversityId { get; set; }
 
 
         public override string ToString()

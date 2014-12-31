@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Infrastructure.Consts;

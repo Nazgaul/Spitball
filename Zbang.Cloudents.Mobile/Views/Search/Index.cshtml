@@ -1,1 +1,87 @@
-﻿
+﻿<div class="searchWpr">
+    <button type="button" class="backBtn lFloat" ng-click="cancel()">
+        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+    </button>
+
+    <form class="searchForm rFloat" ng-submit="fullSearch(newSearch.$valid)" novalidate>
+        <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
+               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+    </form>
+</div>
+<div class="searchContent">
+    <div class="dashTabs">
+        <span class="dashTab">Courses</span>
+        <span class="dashTab">Items</span>
+        <span class="dashTab">Members</span>
+    </div>
+
+    <ul class="courseList">
+        <li>
+            <a href="#" class="ghost">
+                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+    </ul>
+    <ul class="itemsList">
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="filename elps">blablabla.doc</div>
+                    <div class="elps">{Owner name here}</div>
+                </div>
+                <img width="64" height="78" src="http://placehold.it/64x78" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="filename elps">blablabla.doc</div>
+                    <div class="elps">{Owner name here}</div>
+                </div>
+                <img width="64" height="78" src="http://placehold.it/64x78" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="details vCentered">
+                    <div class="filename elps">blablabla.doc</div>
+                    <div class="elps">{Owner name here}</div>
+                </div>
+                <img width="64" height="78" src="http://placehold.it/64x78" />
+            </a>
+        </li>
+    </ul>
+    <ul class="membersList">
+        <li>
+            <a href="#" class="ghost">
+                <div class="userName vCentered">{Username should go here}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="userName vCentered">{Username should go here}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+        <li>
+            <a href="#" class="ghost">
+                <div class="userName vCentered">{Username should go here}</div>
+                <img width="40" height="40" src="http://placehold.it/40x40" />
+            </a>
+        </li>
+    </ul>
+</div>

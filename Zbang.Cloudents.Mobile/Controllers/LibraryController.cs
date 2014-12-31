@@ -2,7 +2,6 @@
 using System.Web.SessionState;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {

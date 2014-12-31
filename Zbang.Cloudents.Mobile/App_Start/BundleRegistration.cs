@@ -19,20 +19,15 @@ namespace Zbang.Cloudents.Mobile
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
 
             };
-            //cssDictionary.Add("siteMobile", new[] {
-            //    "~/Content/Normalize.css", 
-            //    "~/Content/General.css",
-            //    "~/Content/SiteMobile.css"});
-            //cssDictionary.Add("siteMobileRtl", new[] {
-            //    "~/Content/GeneralRtl.css",
-            //    "~/Content/SiteMobileRtl.css"
-            //    });
-
-            //cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
-            //cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
 
             cssDictionary.Add("mobile", new[] {
-                "~/Content/Normalize.css", "~/Content/Mobile.css"});
+                "~/Content/Normalize.css",
+                "~/Content/SVG.css",
+                "~/Content/Home.css",
+                "~/Content/Dashboard.css",
+                "~/Content/Search.css",
+                "~/Content/Box.css",
+                "~/Content/Feed.css"});
             cssDictionary.Add("mobileRtl", new[] { "~/Content/MobileRtl.css" });
             return cssDictionary;
         }
@@ -137,7 +132,6 @@ namespace Zbang.Cloudents.Mobile
             //  new JsFileWithCdn("~/Js/Mobile/Logon.js"),
             //  new JsFileWithCdn("~/Js/Mobile/Welcome.js")
             //});
-
 
 
             //jsDictionary.Add("mobile", new[] {

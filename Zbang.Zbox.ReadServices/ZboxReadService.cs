@@ -42,9 +42,10 @@ namespace Zbang.Zbox.ReadServices
         /// <returns></returns>
         public async Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<BoxDto>(Sql.Sql.UserBoxes, new { query.UserId });
+                return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxes,
+                    new { query.UserId, query.RowsPerPage, query.PageNumber });
             }
 
         }
@@ -389,7 +390,7 @@ namespace Zbang.Zbox.ReadServices
                     var questions = grid.Read<Qna.QuestionDto>().ToList();
                     var answers = grid.Read<Qna.AnswerDto>().ToList();
                     var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
-                    
+
 
                     foreach (var answer in answers)
                     {
@@ -595,7 +596,7 @@ namespace Zbang.Zbox.ReadServices
                         conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
                             new { query.UserId });
                 var user = retVal.FirstOrDefault();
-                if (user == null )
+                if (user == null)
                 {
                     throw new UserNotFoundException("user is null");
                 }

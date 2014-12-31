@@ -290,7 +290,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var seoItems = await ZboxReadService.GetSeoItems(index);
-            nodes.AddRange(seoItems.Select(box => new SitemapNode(box, requestContext)));
+            nodes.AddRange(seoItems.Where(w=>!string.IsNullOrEmpty(w))
+                .Select(s => new SitemapNode(s, requestContext)));
 
             return nodes;
         }

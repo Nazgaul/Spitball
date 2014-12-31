@@ -1,43 +1,19 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Zbang.Zbox.Infrastructure.Query;
-
 namespace Zbang.Zbox.ViewModel.Queries.Boxes
 {
-    public class GetBoxesQuery : QueryBase//, IQueryCache
+    public class GetBoxesQuery : IUserQuery, IPagedQuery
     {
-        public GetBoxesQuery(long id)
-            : base(id)
+        public GetBoxesQuery(long userId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
-
+            RowsPerPage = rowsPerPage;
+            PageNumber = pageNumber;
+            UserId = userId;
         }
 
+        public int PageNumber { get; private set; }
 
+        public int RowsPerPage { get; private set; }
 
-
-
-        //public string CacheKey
-        //{
-        //    get { return UserId.ToString(CultureInfo.InvariantCulture); }
-        //}
-
-        //public string CacheRegion
-        //{
-        //    get { return "Boxes"; }
-        //}
-
-        //public List<string> CacheTags
-        //{
-        //    get { return null; }
-        //}
-
-        //public TimeSpan Expiration
-        //{
-        //    get { return TimeSpan.FromMinutes(5); }
-        //}
+        public long UserId { get; private set; }
     }
-
-
 }
