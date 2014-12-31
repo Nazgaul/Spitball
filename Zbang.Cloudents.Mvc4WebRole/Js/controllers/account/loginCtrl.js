@@ -99,7 +99,7 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
                     }
 
                     if (routeName === 'account') {
-                        window.location.href = '/library/choose/';
+                        window.location.href = '/dashboard/';
                     }
                     //for now we do postback all the time
                     //else {

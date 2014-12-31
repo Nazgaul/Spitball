@@ -36,18 +36,4 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
         }
         
     }
-
-    [Serializable]
-    class ZboxUpdateEventListener : DefaultSaveEventListener
-    {
-        protected override object PerformSaveOrUpdate(NHibernate.Event.SaveOrUpdateEvent @event)
-        {
-            var dirty = @event.Entity as IDirty;
-            if (dirty != null)
-            {
-                dirty.IsDirty = true;
-            } 
-            return base.PerformSaveOrUpdate(@event);
-        }  
-    }
 }
