@@ -127,7 +127,6 @@ namespace Zbang.Cloudents.Mobile
             //});
 
 
-
             //jsDictionary.Add("mobile", new[] {
             //      new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
             //    new JsFileWithCdn("~/Scripts/jquery.validate.min.js"),
