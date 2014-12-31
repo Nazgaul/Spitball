@@ -61,6 +61,7 @@ img {
         width: 48%;
     }
 }
+
 .btn1 {
     background: @color;
     color: #fff;
@@ -110,6 +111,9 @@ img {
 /*#endregion */
 
 /*#region SVG */
+svg.rtl {
+    .flipH; //rtl
+}
 .svg-logo {
     width: 183px;
     height: 31px;
@@ -167,6 +171,12 @@ img {
     width: 10px;
     height: 20px;
     fill: @borderColor;
+}
+.svg-back {
+    width: 21px;
+    height: 19px;
+    //display: inline-block;
+    fill: @color;
 }
 /*#endregion */
 
@@ -367,7 +377,7 @@ and (orientation : landscape)
 }
 /*#endregion */
 
-/*#region Welcome */
+/*#region Registration */
 
 .register, .signIn {
     display: inline-block;
@@ -464,46 +474,6 @@ and (orientation : landscape)
 .ng-message-error.ng-leave.ng-leave-active {
     opacity:0;
     bottom:8px; 
-}
-/*#endregion */
-
-/*#region Search */
-.searchForm {
-    position: relative;
-    display: inline-block;
-    width: 92%;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 15px;
-    margin: 15px 0;
-    //line-height: normal;
-    background: #fff;
-    border: 1px solid @borderColor;
-    text-align: left;
-    padding-left: 15px;
-}
-.searchInput {
-    //padding-top: 7px;
-}
-.searchBtn {
-    position: relative;
-    right: 10px;
-    top: 5px;
-}
-.noResults {
-    .emptySearch {
-        display: inline-block;
-    }
-    .svg-noResults {
-        display: block;
-        margin: 25px auto 10px;
-    }     
-}
-.emptySearch {
-    display: none;
-    position: relative;
-    text-align: center;
-    font-size: 15px;
 }
 /*#endregion */
 
@@ -615,28 +585,29 @@ and (orientation : landscape)
         margin: 9px auto 0; //override
         display: inline-block;
     }
-    .search {
-        position: relative;
-        padding: 0 5%;
-        background: #282828;
-        //top:36px; //If the header is fixed
-        h1 {
-            font-size: 28px;
-            max-width: none;
-            letter-spacing: 0; //override
-            padding-top: 30px;
-        }
-        &.closed {
-            h1, h3, .featureTxt, .closeBtn {
-                display: none;
-            }
-        }
-    }
+    
     
     h3 {
         color: @color;
         font-weight: normal;
         font-size: 12px;
+    }
+}
+.welcome {
+    position: relative;
+    padding: 0 5%;
+    background: #282828;
+    //top:36px; //If the header is fixed
+    h1 {
+        font-size: 28px;
+        max-width: none;
+        letter-spacing: 0; //override
+        padding-top: 30px;
+    }
+    &.closed {
+        h1, h3, .featureTxt, .closeBtn {
+            display: none;
+        }
     }
 }
 .menuBtn {
@@ -676,6 +647,17 @@ and (orientation : landscape)
         display: table-cell;
         vertical-align: top;
     }
+}
+.searchLink {
+    .svg-search {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}
+.searchLinkTxt {
+    color: @borderColor;
+    font-size: 13px;
 }
 /*#region Dashboard recommended courses */
 .recommendedClasses {
@@ -848,5 +830,207 @@ and (orientation : landscape)
 
 /*#endregion */
 
+
+/*#endregion */
+
+/*#region Search Page */
+
+.searchInput {
+    //padding-top: 7px;
+}
+.searchBtn {
+    position: relative;
+    right: 10px;
+    top: 5px;
+}
+.noResults {
+    .emptySearch {
+        display: inline-block;
+    }
+    .svg-noResults {
+        display: block;
+        margin: 25px auto 10px;
+    }     
+}
+.emptySearch {
+    display: none;
+    position: relative;
+    text-align: center;
+    font-size: 15px;
+}
+.searchWpr {
+    background: #282828;
+    overflow: hidden; //clear float
+}
+.searchForm, .searchLink {
+    position: relative;
+    display: inline-block;
+    margin-left: 40px;
+    width: 78%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    margin: 15px 0;
+    background: #fff;
+    border: 1px solid @borderColor;
+    text-align: left;
+    padding-left: 15px;
+}
+.searchForm {
+    margin-right: 10px;
+}
+.backBtn {
+    display: inline-block;
+    margin: 20px 0 0 10px;
+}
+.searchContent {
+    img {
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        border-radius: 8px;
+    }
+    .ghost {
+        display: block;
+        height: 100%;
+    }
+    ul {
+        text-align: left;
+        //display: none;
+        opacity:0;
+        visibility: hidden;
+        height:0;
+        .transition(opacity .5s);
+    }
+    li {
+        font-size: 13px;
+        position: relative;
+        ~ li {
+            border-top: 1px solid @borderColor;
+        }
+    }
+}
+.dashTabs {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    text-align: center; 
+    background: #282828;   
+    &.courseTab {
+        ~ .courseList {
+            //display: block;
+            opacity:1;
+            visibility: visible;
+            height: auto;
+        }
+        .dashTab:nth-child(1) {
+            color: @color;
+            &:after {
+                height: 5px;
+            }
+        }
+    }
+    &.itemsTab {
+        ~ .itemsList {
+            //display: block;
+            opacity:1;
+            visibility: visible;
+            height: auto;
+        }
+        .dashTab:nth-child(2) {
+            color: @color;
+            &:after {
+                height: 5px;
+            }
+        }
+    }
+    &.membersTab {
+        ~ .membersList {
+            //display: block;
+            opacity:1;
+            visibility: visible;
+            height: auto;
+        }
+        .dashTab:nth-child(3) {
+            color: @color;
+            &:after {
+                height: 5px;
+            }
+        }
+    }
+}
+.dashTab {
+    color: #a5a5a5;
+    height: 36px;
+    line-height: 36px;
+    display: table-cell;
+    position: relative;
+    .transition(color .3s);
+    &:after {
+        .pseudo;
+        position: absolute;
+        bottom:0;
+        left:0;
+        width: 100%;
+        height:0;
+        background: @color;
+        .transition(height .3s);
+    }
+    /*&.active {
+        color: @color;
+        &:after {
+            height: 5px;
+        }
+    }*/
+}
+.courseList {
+    li {
+        height: 70px;
+    }
+    .courseName {
+        width: 40%;
+        max-height: 31px; // 2lines
+        padding-left: 60px;
+        overflow: hidden;
+    }
+    img {
+        height: 40px;
+        left: 10px;
+    }
+}
+.itemsList {
+    li {
+        height: 104px;
+    }
+    .details {
+        width: 60%;
+        max-height: 33px; // 2lines
+        padding-left: 90px;
+        overflow: hidden;
+    }
+    .fileName {
+        font-size: 15px;
+    }
+    img {
+        height: 78px;
+        left: 16px;
+    }
+}
+.membersList {
+    li {
+        height: 56px;
+    }
+    .userName {
+        width: 50%;
+        max-height: 31px; // 2lines
+        padding-left: 60px;
+        overflow: hidden;
+    }
+    img {
+        height: 40px;
+        left: 10px;
+        border-radius: 50%;
+    }
+}
 
 /*#endregion */

@@ -8,17 +8,14 @@
         <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
     </header>
     @*Guy: Please add class 'closed' here when closeBtn is clicked*@
-    <section class="search">
+    <section class="welcome">
         <h1>Welcome to Cloudents</h1>
         <h3>@DashboardResources.FreeOnline</h3>
 
-        <form class="searchForm" ng-submit="fullSearch(newSearch.$valid)" novalidate>
-            <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
-                   ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
-            <button class="searchBtn rFloat" type="submit" ng-disabled="newSearch.query.$invalid">
-                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
-            </button>
-        </form>
+        <a class="searchLink" href="#">
+            <span class="searchLinkTxt">Search courses,files and friends</span>
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+        </a>
         <div class="featureTxt">
             @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
             <span>@DashboardResources.ShareFiles</span>
