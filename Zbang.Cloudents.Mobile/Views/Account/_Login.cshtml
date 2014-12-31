@@ -2,33 +2,33 @@
 
 <section class="signIn">
     <h1>Log in</h1>
-    <button type="button" class="facebook" ng-click="facebookLogin()">
+    <button type="button" class="facebook" hm-touch="login.facebook()">
         <span class="fbImg">
             @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
         </span>Log in with Facebook
     </button>
     <div class="splitHR">or by email</div>
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
-        <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
-        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
+        <div class="loginError" clear-on-input>{{login.serverError}}</div>
+        <div class="ng-message-errors" ng-messages="login.submitted && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
         </div>
-        <input type="text" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}"
-               name="email" placeholder="EmailAddress" required ng-model="formData.login.email"
+        <input type="text" class="inputText" ng-class="{error: login.submitted && loginForm.email.$error}"
+               name="email" placeholder="EmailAddress" required ng-model="login.formData.email"
                ng-pattern="params.pattern" />
-        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.password.$touched) && loginForm.password.$error">
+        <div class="ng-message-errors" ng-messages="login.submitted && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
-        <input name="password" type="password" ng-class="{error: (loginSubmitted || loginForm.password.$touched) && loginForm.password.$error}"
-               class="inputText" tabindex="2" placeholder="Password" required ng-model="formData.login.password" />
+        <input name="password" type="password" ng-class="{error: login.submitted && loginForm.password.$error}"
+               class="inputText" tabindex="2" placeholder="Password" required ng-model="login.formData.password" />
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">ForgotYourPassword</a>
-        <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe"  ng-model="formData.login.rememberMe" />
+        <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
-        <input ng-disabled="disabled" class="btn1" type="submit" value="SignIn" ng-click="loginSubmitted = true">
+        <input ng-disabled="disabled" class="btn1" type="submit" value="SignIn">
     </form>
     <div>
         <span class="loginTxt1">Don't have an account?</span>
-        <a class="loginTxt2" href="#">Sign up now</a>
+        <a class="homeTxt2" ui-sref="register">Sign up now</a>
     </div>
 </section>

@@ -1,40 +1,40 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
-<section class="register" ng-class="{ search: register.searching }" hm-swipe-left="register.searchOut()">
-    <form name="registerForm" ng-submit="register.submit(registerForm.$valid)" novalidate>
+<section class="register" ng-class="{ search: register.searching }">
+    <form name="registerForm" novalidate ng-submit="register.submit(registerForm.$valid)">
         <h1>Create an acccount</h1>
         <div class="topReg clearfix">
-            <div class="regError" clear-on-input>{{register.registerServerError}}</div>
-            <div class="ng-message-errors lFloat" ng-messages="registerSubmitted && registerForm.firstName.$error">
+            <div class="regError" clear-on-input>{{register.serverError}}</div>
+            <div class="ng-message-errors lFloat" ng-messages="register.submitted && registerForm.firstName.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             </div>
             <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="FirstName"
-                   ng-class="{error: registerSubmitted && loginForm.firstName.$error}"
+                   ng-class="{error: register.submitted && loginForm.firstName.$error}"
                    ng-model="register.formData.firstName" required />
-            <div class="ng-message-errors rFloat" ng-messages="registerSubmitted && registerForm.lastName.$error">
+            <div class="ng-message-errors rFloat" ng-messages="register.submitted && registerForm.lastName.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             </div>
             <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="LastName"
-                   ng-class="{error: registerSubmitted && loginForm.lastName.$error}"
+                   ng-class="{error: register.submitted && loginForm.lastName.$error}"
                    ng-model="register.formData.lastName" required />
-            <div class="ng-message-errors" ng-messages="registerSubmitted && registerForm.newEmail.$error">
+            <div class="ng-message-errors" ng-messages="register.submitted && registerForm.newEmail.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
                 <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
             </div>
             <input type="email" class="inputText" name="newEmail" placeholder="Email"
-                   ng-class="{error: registerSubmitted && loginForm.newEmail.$error}"
+                   ng-class="{error: register.submitted && loginForm.newEmail.$error}"
                    ng-model="register.formData.newEmail" required
                    ng-pattern="register.pattern" />
-            <div class="ng-message-errors" ng-messages="registerSubmitted && registerForm.password.$error">
+            <div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
                 <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
             </div>
             <input type="password" class="inputText" name="password" placeholder="Password" ng-minlength="6"
-                   ng-class="{error: registerSubmitted && loginForm.password.$error}"
+                   ng-class="{error: register.submitted && loginForm.password.$error}"
                    ng-model="register.formData.password" required />
             <div class="lFloat radioWpr">
-                <div class="ng-message-errors" ng-messages="registerSubmitted && registerForm.isMale.$error">
+                <div class="ng-message-errors" ng-messages="register.submitted && registerForm.isMale.$error">
                     <span class="ng-message-error" ng-message="required">@AccountResources.GenderRequired</span>
                 </div>
                 <input id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
@@ -54,21 +54,14 @@
         <div class="ng-message-errors" ng-messages="">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
-        <input type="search" class="inputText" placeholder="Search for your school" required ng-focus="register.searchFocus()" />
-
+        <form>
+            <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" />
+        </form>
         <ul class="searchResults">
-            <li>
-                <img class="uniImg" src="http://placehold.it/53x53" />
-                <div class="uniName">{university name here}</div>
-            </li>
-            <li>
-                <img class="uniImg" src="http://placehold.it/53x53" />
-                <div class="uniName">{university name here}</div>
-            </li>
-            <li>
-                <img class="uniImg" src="http://placehold.it/53x53" />
-                <div class="uniName">{university name here}</div>
-            </li>
+            <li hm-touch="register.selectUniversity(university)" ng-repeat="university in register.universities">
+                <img class="uniImg" ng-src="::university.image" />
+                <div class="uniName">{{::university.name}}</div>
+            </li>            
         </ul>
         @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
         <div class="emptySearch">No results were found</div>
@@ -87,10 +80,10 @@
                 -->
                 <a target="_blank" href="@Url.Action("Privacy", "Home")">@AccountResources.PrivacyPolicy</a>
             </span>
-            <input ng-disabled="register.disabled" class="btn1" type="submit" tabindex=15 value="@AccountResources.SignUp" ng-click="registerSubmitted = true" />
+            <input ng-disabled="register.disabled" class="btn1" type="submit" tabindex=15 value="@AccountResources.SignUp" />
             <div class="welcomeTxt1">
                 <span class="homeTxt1">@AccountResources.AlreadyHave</span>
-                <a class="homeTxt2" href="#">@AccountResources.LogIn</a>
+                <a class="homeTxt2" ui-sref="login">@AccountResources.LogIn</a>
             </div>
         </div>
     </form>
