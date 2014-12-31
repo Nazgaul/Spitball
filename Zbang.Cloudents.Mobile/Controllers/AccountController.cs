@@ -456,8 +456,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
         //[HttpPost]
-        //[ZboxAuthorize]
-        //[RequireHttps]
         //public ActionResult ChangeLanguage(Mvc4WebRole.Models.Account.Settings.UserLanguage model)
         //{
         //    if (!ModelState.IsValid)
@@ -471,12 +469,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //    return JsonOk();
         //}
 
-        //public ActionResult ChangeLocale(string lang)
-        //{
-        //    var cookie = new CookieHelper(HttpContext);
-        //    cookie.InjectCookie(Mvc4WebRole.Helpers.UserLanguage.cookieName, new Language { Lang = lang });
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        public ActionResult ChangeLocale(string lang)
+        {
+            var cookie = new CookieHelper(HttpContext);
+            cookie.InjectCookie(UserLanguage.cookieName, new Language { Lang = lang });
+            return JsonOk();
+        }
 
 
         //#endregion
