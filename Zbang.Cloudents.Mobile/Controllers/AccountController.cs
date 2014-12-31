@@ -5,11 +5,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mobile.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Zbox.Domain.Commands;
@@ -193,14 +193,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
-        private string CheckIfToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return returnUrl;
-            }
-            return string.Empty;
-        }
 
         //TODO: do a post on log out
         [RemoveBoxCookie]

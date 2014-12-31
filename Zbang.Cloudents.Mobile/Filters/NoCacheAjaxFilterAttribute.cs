@@ -1,8 +1,7 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Filters
+namespace Zbang.Cloudents.Mobile.Filters
 {
     /// <summary>
     /// Global Filter to pervent ajax request from being cached by the browser

@@ -9,7 +9,6 @@ using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Models.Tabs;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
