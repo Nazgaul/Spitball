@@ -19,17 +19,6 @@ namespace Zbang.Cloudents.Mobile
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
 
             };
-            //cssDictionary.Add("siteMobile", new[] {
-            //    "~/Content/Normalize.css", 
-            //    "~/Content/General.css",
-            //    "~/Content/SiteMobile.css"});
-            //cssDictionary.Add("siteMobileRtl", new[] {
-            //    "~/Content/GeneralRtl.css",
-            //    "~/Content/SiteMobileRtl.css"
-            //    });
-
-            //cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
-            //cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
 
             cssDictionary.Add("mobile", new[] {
                 "~/Content/Normalize.css",
