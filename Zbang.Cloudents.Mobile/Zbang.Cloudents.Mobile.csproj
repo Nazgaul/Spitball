@@ -476,8 +476,14 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
+    <Content Include="Content\Box.css">
+      <DependentUpon>Box.less</DependentUpon>
+    </Content>
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Feed.css">
+      <DependentUpon>Feed.less</DependentUpon>
     </Content>
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>

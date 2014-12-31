@@ -1,13 +1,13 @@
 ﻿angular.module('account')
     .service('accountService',
-    ['$window', '$q', 'account', function ($window, account) {
+    ['$window', '$q', 'account', function ($window, $q, account) {
         "use strict";
         var service = this;
 
         service.facebookLogin = function () {
             var dfd = $q.defer();
 
-            
+
             facebook.getToken();
 
             account.facebookLogin({ token: token }).then(function () {
