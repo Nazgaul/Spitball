@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace TestingApp
 {
@@ -50,7 +51,7 @@ namespace TestingApp
             var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await luceneRead.SearchUniversity(textBox1.Text);
+            var retVal = await luceneRead.SearchUniversity(new UniversitySearchQuery(textBox1.Text));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

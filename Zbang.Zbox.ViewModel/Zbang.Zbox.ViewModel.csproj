@@ -187,6 +187,7 @@
     <Compile Include="Queries\RecommendedCoursesQuery.cs" />
     <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\GroupSearchQuery.cs" />
+    <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Box.cs" />

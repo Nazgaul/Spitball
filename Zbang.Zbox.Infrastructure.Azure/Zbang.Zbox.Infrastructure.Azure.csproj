@@ -104,11 +104,9 @@
     <Compile Include="Queue\QueueProvider.cs" />
     <Compile Include="Search\IUniversityReadSearchProvider.cs" />
     <Compile Include="Search\IUniversityWriteSearchProvider.cs" />
-    <Compile Include="Search\ReadSearchUniversityProvider.cs" />
     <Compile Include="Search\SearchIndex.cs" />
     <Compile Include="Search\SearchUniversity.cs" />
     <Compile Include="Search\UniversitySearchProvider.cs" />
-    <Compile Include="Search\WriteSearchUniversityProvider.cs" />
     <Compile Include="Search\University.cs" />
     <Compile Include="Storage\LocalStorageProvider.cs" />
     <Compile Include="Storage\StorageProvider.cs" />
