@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                       Skip = query.RowsPerPage * query.PageNumber
                   });
             var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
-            if (query.Term.Length >= 3)
+            if (query.Term.Length >= 3 && query.PageNumber == 0)
             {
                 suggestTask = m_ReadClient.SuggestAsync(IndexName,
                     new SuggestionQuery(query.Term)
