@@ -2,7 +2,7 @@
     ['$stateProvider', '$locationProvider', '$urlRouterProvider',
     function ($stateProvider, $locationProvider, $urlRouterProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
-
+        
         $stateProvider
             .state('account', {
                 url: '/account/',
@@ -40,13 +40,13 @@
                 url: '/course/:uniName/:boxId/:boxName/',
                 templateUrl: '/box/indexpartial/',
                 controller: 'BoxController as box'
-            }).
-             state('search', {
-                 url: '/search/',
-                 templateUrl: '/search/indexpartail/',
-                 controller: 'SearchController as search'
-             });
+            })
+             //state('search', {
+             //    url: '/search/',
+             //    templateUrl: '/search/indexpartail/',
+             //    controller: 'SearchController as search'
+             //});
 
-        $urlRouterProvider.otherwise('/list/');
+        $urlRouterProvider.otherwise('/dashboard/');
     }
     ]);

@@ -39,8 +39,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
-                await m_ZboxWriteSearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
-                await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync();
+                var isSuccess = await m_ZboxWriteSearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
+                if (isSuccess)
+                {
+                    await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync();
+                }
             }
 
 

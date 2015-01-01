@@ -10,7 +10,6 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(SessionStateBehavior.Disabled)]
-    [ZboxAuthorize]
     public class LibraryController : BaseController
     {
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
