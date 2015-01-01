@@ -9,8 +9,8 @@
             accountService.facebookLogin();
         };
 
-        account.changeLanguage = function (language) {
-            accountService.changeLanguage(language);
+        account.changeLanguage = function () {
+            accountService.changeLanguage(account.language);
         };
     }]
 );

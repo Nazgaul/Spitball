@@ -1,4 +1,4 @@
-﻿angular.module('ajax').factory('account',
+﻿angular.module('ajax').factory('search',
     ['ajaxService',
     function (ajaxService) {
         function buildPath(path) {
