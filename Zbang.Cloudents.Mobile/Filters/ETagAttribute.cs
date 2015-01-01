@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 
 namespace Zbang.Cloudents.Mobile.Filters
 {

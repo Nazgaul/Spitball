@@ -1,12 +1,12 @@
 ﻿using System.Globalization;
 using System.Linq;
+using System.Net.Mime;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.Net.Mime;
-using System.Text;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public class BlobFileStream : FileResult
     {
@@ -27,12 +27,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             response.Clear();
             if (m_IsDownload)
             {
-                string headerValue = ContentDispositionUtil.GetHeaderValue(m_FileName);
+                string headerValue = ContentDispositionUtilities.GetHeaderValue(m_FileName);
                 response.AddHeader("Content-Disposition", headerValue);
-
-                //response.AddHeader("Content-Disposition", "attachment; filename="
-                //    + HttpUtility.UrlEncode(m_FileName.Replace(" ", "_").Replace(",", "_"),System.Text.Encoding.UTF8));
-                    //+ HttpUtility.UrlPathEncode(m_FileName.Replace(" ", "_").Replace(",", "_"))); // for chrome        
             }
             else
             {
@@ -43,11 +39,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
             m_Blob.FetchAttributes();
             response.AddHeader("Content-Length", m_Blob.Properties.Length.ToString(CultureInfo.InvariantCulture));
-            //response.AddHeader("Content-Encoding", "gzip");
             m_Blob.DownloadToStream(response.OutputStream);
         }
 
-        private static class ContentDispositionUtil
+        private static class ContentDispositionUtilities
         {
             private const string HexDigits = "0123456789ABCDEF";
 

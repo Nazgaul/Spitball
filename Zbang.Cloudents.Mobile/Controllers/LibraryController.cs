@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using System.Web.SessionState;
 using Zbang.Cloudents.Mobile.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
@@ -10,10 +13,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [ZboxAuthorize]
     public class LibraryController : BaseController
     {
+        private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
 
-        public ActionResult DepartmentRedirect()
+        public LibraryController(Lazy<IUniversityReadSearchProvider> universitySearch)
         {
-            return RedirectToRoutePermanent("Default", new { controller = "Library", Action = "Index" });
+            m_UniversitySearch = universitySearch;
         }
 
         //[UserNavNWelcome]
@@ -25,10 +29,24 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         }
 
-
-        public ActionResult ChoosePartial()
+        [HttpGet]
+        public async Task<JsonResult> SearchUniversity(string term, int page)
         {
-            return PartialView("ss");
+            if (string.IsNullOrEmpty(term))
+            {
+                return JsonError();
+            }
+            try
+            {
+                var retVal = await m_UniversitySearch.Value.SearchUniversity(new UniversitySearchQuery(term, 20, page));
+                return JsonOk(retVal);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("SeachUniversity term:  " + term, ex);
+                return JsonError();
+            }
         }
+
     }
 }

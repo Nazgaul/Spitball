@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.Mobile.Extensions;
+using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
 

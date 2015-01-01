@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Filters
+namespace Zbang.Cloudents.Mobile.Filters
 {
     /// <summary>
     /// Like Authorize attribute only when user is not in role redirect to verify email

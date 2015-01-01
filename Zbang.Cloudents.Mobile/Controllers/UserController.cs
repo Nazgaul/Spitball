@@ -1,13 +1,12 @@
-﻿using DevTrends.MvcDonutCaching;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mobile.Extensions;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
@@ -15,7 +14,7 @@ using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     [ZboxAuthorize]

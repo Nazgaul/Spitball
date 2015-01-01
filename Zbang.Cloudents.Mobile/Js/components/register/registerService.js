@@ -1,45 +1,56 @@
 ﻿angular.module('register')
     .service('registerService',
-    ['account', 'library', '$angularCacheFactory', '$analytics', function (account, library, $angularCacheFactory, $analytics) {
-        var service = this,
-            cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
-
-        service.changeLanguage = function (language, data) {
-            $analytics.eventTrack('Language Change', {
-                category: 'Register',
-                label: 'User changed language to ' + language
-            });
+    ['account', 'library', '$angularCacheFactory', '$analytics', '$state',
+        function (account, library, $angularCacheFactory, $analytics, $state) {
+            "use strict";
+            var service = this,
+                cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
 
 
-            cache.put('formData', JSON.stringify({
-                formData: data
-            }));
+            service.signup = function (data) {
+                return account.register(data).then(function (response) {
+                    $state.go('libChoose');
+                                        
+                });
+            };
 
-            account.changeLanguage({ language: register.langauge }).then(function () {
-                $window.location.reload();
-            });
 
-        };
+            service.changeLanguage = function (language, data) {
+                $analytics.eventTrack('Language Change', {
+                    category: 'Register',
+                    label: 'User changed language to ' + language
+                });
 
-        service.getLangugeChangeForm = function () {
 
-            obj = cache.get('formData');
+                cache.put('formData', JSON.stringify({
+                    formData: data
+                }));
 
-            if (!obj) {
-                return {};
+                account.changeLanguage({ language: register.langauge }).then(function () {
+                    $window.location.reload();
+                });
+
+            };
+
+            service.getLangugeChangeForm = function () {
+
+                obj = cache.get('formData');
+
+                if (!obj) {
+                    return {};
+                }
+
+                obj = JSON.parse(obj);
+
+                cache.destroy();
+
+                return obj;
+            };
+
+            service.registerUnis = function (term) {
+                return library.search({ term: term });
             }
 
-            obj = JSON.parse(obj);
 
-            cache.destroy();
-
-            return obj;
-        };
-
-        service.registerUnis = function (term) {
-            return library.search({ term: term });
-        }
-
-
-    }]
+        }]
 );

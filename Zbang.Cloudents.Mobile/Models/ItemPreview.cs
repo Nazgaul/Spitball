@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models
+namespace Zbang.Cloudents.Mobile.Models
 {
     public class ItemPreview
     {

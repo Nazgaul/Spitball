@@ -27,7 +27,7 @@ function ($scope, $timeout, sAccount,
         //$angularCacheFactory.get('htmlCache').removeAll();
 
         $analytics.eventTrack('Language Change', {
-            category: 'Register Popup',
+            category: 'Home page',
             label: 'User changed language to ' + lang
         });
 

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Filters
+namespace Zbang.Cloudents.Mobile.Filters
 {
     /// <summary>
     /// This is no cache - it should disable the back button as well from caching

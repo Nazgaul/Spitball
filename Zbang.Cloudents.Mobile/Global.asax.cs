@@ -5,10 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
+using Zbang.Cloudents.Mobile.Controllers;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;

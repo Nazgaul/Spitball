@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Domain.Commands;
+using Zbang.Cloudents.Mobile.Extensions;
+using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.Mobile.Models;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -205,123 +202,118 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
-        [HttpGet, ZboxAuthorize]
-        public ActionResult Rename()
-        {
+        //[HttpGet, ZboxAuthorize]
+        //public ActionResult Rename()
+        //{
 
-            try
-            {
-                return PartialView("Rename");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Rename ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //    try
+        //    {
+        //        return PartialView("Rename");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("Rename ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         /// <summary>
         /// Used to rename file name - item name cannot be changed
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult Rename(Rename model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult Rename(Rename model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
 
-            var userId = User.GetUserId();
-            try
-            {
-                var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
-                var result = ZboxWriteService.ChangeFileName(command);
-                return Json(new JsonResponse(true, new
-                {
-                    name = result.Name,
-                    url = result.Url
-                    //queryString = UrlBuilder.NameToQueryString(result.Name)
-                }));
-            }
+        //    var userId = User.GetUserId();
+        //    try
+        //    {
+        //        var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
+        //        var result = ZboxWriteService.ChangeFileName(command);
+        //        return Json(new JsonResponse(true, new
+        //        {
+        //            name = result.Name,
+        //            url = result.Url
+        //            //queryString = UrlBuilder.NameToQueryString(result.Name)
+        //        }));
+        //    }
 
-            catch (UnauthorizedAccessException)
-            {
-                return Json(new JsonResponse(false, "You need to follow this box in order to change file name"));
-            }
-            catch (ArgumentException ex)
-            {
-                return Json(new JsonResponse(false, ex.Message));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
-                return Json(new JsonResponse(false, "Error"));
-            }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        return Json(new JsonResponse(false, "You need to follow this box in order to change file name"));
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return Json(new JsonResponse(false, ex.Message));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
+        //        return Json(new JsonResponse(false, "Error"));
+        //    }
 
 
-        }
+        //}
 
-        /// <summary>
-        /// Print selected file
-        /// </summary>
-        /// <param name="boxId"></param>
-        /// <param name="itemId"></param>
-        /// <returns>View with no layout and print command in javascript</returns>
-        [ZboxAuthorize]
-        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/print", Name = "ItemPrint")]
-        [BoxPermission("boxId")]
-        public async Task<ActionResult> Print(long boxId, long itemId)
-        {
+        
+        //[ZboxAuthorize]
+        //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/print", Name = "ItemPrint")]
+        //[BoxPermission("boxId")]
+        //public async Task<ActionResult> Print(long boxId, long itemId)
+        //{
 
-            var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
+        //    var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
 
-            var item = ZboxReadService.GetItem(query);
+        //    var item = ZboxReadService.GetItem(query);
 
 
 
-            var filedto = item as FileWithDetailDto;
-            if (filedto != null)
-            {
-                var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
+        //    var filedto = item as FileWithDetailDto;
+        //    if (filedto != null)
+        //    {
+        //        var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
 
 
 
-                IEnumerable<string> retVal = null;
+        //        IEnumerable<string> retVal = null;
 
 
-                var processor = m_FileProcessorFactory.GetProcessor(uri);
-                if (processor != null)
-                {
-                    var result = await processor.ConvertFileToWebSitePreview(uri, int.MaxValue, int.MaxValue, 0);
-                    retVal = result.Content;
+        //        var processor = m_FileProcessorFactory.GetProcessor(uri);
+        //        if (processor != null)
+        //        {
+        //            var result = await processor.ConvertFileToWebSitePreview(uri, int.MaxValue, int.MaxValue, 0);
+        //            retVal = result.Content;
 
-                }
-                return View(retVal);
-            }
-            return Redirect(item.Blob);
+        //        }
+        //        return View(retVal);
+        //    }
+        //    return Redirect(item.Blob);
 
-        }
+        //}
 
 
-        [ZboxAuthorize]
-        [HttpPost]
-        public async Task<JsonResult> Delete(long itemId, long boxId)
-        {
-            try
-            {
-                var command = new DeleteItemCommand(itemId, User.GetUserId(), boxId);
-                await ZboxWriteService.DeleteItemAsync(command);
-                return JsonOk(itemId);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", User.GetUserId(), boxId, itemId), ex);
-                return JsonError();
-            }
-        }
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public async Task<JsonResult> Delete(long itemId, long boxId)
+        //{
+        //    try
+        //    {
+        //        var command = new DeleteItemCommand(itemId, User.GetUserId(), boxId);
+        //        await ZboxWriteService.DeleteItemAsync(command);
+        //        return JsonOk(itemId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("DeleteItem user: {0} boxid: {1} itemId {2}", User.GetUserId(), boxId, itemId), ex);
+        //        return JsonError();
+        //    }
+        //}
 
 
 
@@ -402,19 +394,19 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult ItemRegisterPartial()
-        {
-            try
-            {
-                return PartialView("_ItemRegister");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_ItemRegister", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult ItemRegisterPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_ItemRegister");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_ItemRegister", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
     }
 }

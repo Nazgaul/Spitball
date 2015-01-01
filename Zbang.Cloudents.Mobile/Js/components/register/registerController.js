@@ -10,14 +10,19 @@
         register.formData = {};
 
         register.submit = function (event,isValid) {
+            if (register.searching) {
+                event.preventDefault();
+                return;
+            }
 
-            register.submitted = true
+            register.disabled = register.submitted = true            
             if (!isValid) {
                 return;
             }
 
-            registerService.signup(register.formData);
-
+            register.signup(register.formData).then(null,null, function () {
+                register.disabled = false;
+            });
         };
 
         register.changeLanguage = function () {

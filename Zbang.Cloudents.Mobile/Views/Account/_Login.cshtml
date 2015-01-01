@@ -8,7 +8,7 @@
         </span>Log in with Facebook
     </button>
     <div class="splitHR">or by email</div>
-    <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
+    <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{login.serverError}}</div>
         <div class="ng-message-errors" ng-messages="login.submitted && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
@@ -23,9 +23,9 @@
         <input name="password" type="password" ng-class="{error: login.submitted && loginForm.password.$error}"
                class="inputText" tabindex="2" placeholder="Password" required ng-model="login.formData.password" />
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">ForgotYourPassword</a>
-        <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" />
+        <input type="checkbox" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" />
         <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
-        <input ng-disabled="disabled" class="btn1" type="submit" value="SignIn">
+        <input ng-disabled="login.disabled" class="btn1" type="submit" value="SignIn">
     </form>
     <div>
         <span class="loginTxt1">Don't have an account?</span>

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Filters
+namespace Zbang.Cloudents.Mobile.Filters
 {
 
     public class CacheFilterAttribute : ActionFilterAttribute

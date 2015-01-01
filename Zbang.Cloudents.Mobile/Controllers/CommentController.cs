@@ -1,8 +1,6 @@
-﻿
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-
-namespace Zbang.Cloudents.Mvc4WebRole.Controllers
+namespace Zbang.Cloudents.Mobile.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class CommentController : BaseController

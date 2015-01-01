@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
-using Zbang.Cloudents.Mobile.Models.Tabs;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
+using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.Mobile.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Dto;
-using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mobile.Controllers
@@ -120,15 +111,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        [HttpGet]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> SideBar(long id)
-        {
-            var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-            var result = await ZboxReadService.GetBoxSideBar(query);
-            return Json(new JsonResponse(true, result));
-        }
+        //[HttpGet]
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[BoxPermission("id")]
+        //public async Task<JsonResult> SideBar(long id)
+        //{
+        //    var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
+        //    var result = await ZboxReadService.GetBoxSideBar(query);
+        //    return Json(new JsonResponse(true, result));
+        //}
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -150,7 +141,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
-        //TODO: change to box permission with dapper
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
@@ -174,28 +164,26 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> Quizes(long id)
-        {
-            var userId = User.GetUserId(false);// not really needs it
-            try
-            {
-                var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = await ZboxReadService.GetBoxQuizes(query);
+        //[HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[BoxPermission("id")]
+        //public async Task<JsonResult> Quizes(long id)
+        //{
+        //    var userId = User.GetUserId(false);// not really needs it
+        //    try
+        //    {
+        //        var query = new GetBoxItemsPagedQuery(id, userId);
+        //        var result = await ZboxReadService.GetBoxQuizes(query);
 
-                var quizDtos = result as QuizDto[] ?? result.ToArray();
-                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
-                return Json(new JsonResponse(true, quizDtos.Except(remove)));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-
-
+        //        var quizDtos = result as QuizDto[] ?? result.ToArray();
+        //        var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
+        //        return Json(new JsonResponse(true, quizDtos.Except(remove)));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
 
@@ -203,41 +191,38 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [HttpGet]
-        [BoxPermission("boxId")]
-
-        public async Task<JsonResult> Members(long boxId)
-        {
-            var userId = User.GetUserId(false);
-            var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
-            return Json(new JsonResponse(true, result));
-        }
 
 
-        /// <summary>
-        /// Used in mobile - box settings page
-        /// </summary>
-        /// <param name="boxUid"></param>
-        /// <returns></returns>
-        [ZboxAuthorize]
-        public ActionResult Settings(long boxUid)
-        {
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[HttpGet]
+        //[BoxPermission("boxId")]
 
-            var userId = User.GetUserId();
+        //public async Task<JsonResult> Members(long boxId)
+        //{
+        //    var userId = User.GetUserId(false);
+        //    var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
+        //    return Json(new JsonResponse(true, result));
+        //}
 
-            var query = new GetBoxQuery(boxUid, userId);
-            var result = ZboxReadService.GetBoxSetting(query);
 
-            var model = new BoxSetting
-              {
-                  Name = result.Name,
-                  Notification = result.NotificationSetting,
-                  Privacy = result.PrivacySetting,
-                  UserType = result.UserType
-              };
-            return View(model);
-        }
+        //[ZboxAuthorize]
+        //public ActionResult Settings(long boxUid)
+        //{
+
+        //    var userId = User.GetUserId();
+
+        //    var query = new GetBoxQuery(boxUid, userId);
+        //    var result = ZboxReadService.GetBoxSetting(query);
+
+        //    var model = new BoxSetting
+        //      {
+        //          Name = result.Name,
+        //          Notification = result.NotificationSetting,
+        //          Privacy = result.PrivacySetting,
+        //          UserType = result.UserType
+        //      };
+        //    return View(model);
+        //}
 
 
 
@@ -274,53 +259,44 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        [ZboxAuthorize]
-        [HttpGet]
-        public JsonResult GetNotification(long boxId)
-        {
-            var userId = User.GetUserId();
+        //[ZboxAuthorize]
+        //[HttpGet]
+        //public JsonResult GetNotification(long boxId)
+        //{
+        //    var userId = User.GetUserId();
 
-            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
-            return Json(new JsonResponse(true, result.ToString("g")));
-        }
+        //    var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
+        //    return Json(new JsonResponse(true, result.ToString("g")));
+        //}
 
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult ChangeNotification(long boxId, NotificationSettings notification)
-        {
-            var userId = User.GetUserId();
-            var command = new ChangeNotificationSettingsCommand(boxId, userId, notification);
-            ZboxWriteService.ChangeNotificationSettings(command);
-            return Json(new JsonResponse(true));
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult ChangeNotification(long boxId, NotificationSettings notification)
+        //{
+        //    var userId = User.GetUserId();
+        //    var command = new ChangeNotificationSettingsCommand(boxId, userId, notification);
+        //    ZboxWriteService.ChangeNotificationSettings(command);
+        //    return Json(new JsonResponse(true));
 
-        }
+        //}
 
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult SettingsPartial()
-        {
-            try
-            {
-                return PartialView("_BoxSettings");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_BoxSettings", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult SettingsPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_BoxSettings");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_BoxSettings", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         #region DeleteBox
-        [HttpPost]
-        [ZboxAuthorize]
-        [Obsolete]
-        public JsonResult Delete(long boxUid)
-        {
-            return Delete2(boxUid);
-
-
-        }
 
         [HttpPost]
         [ZboxAuthorize]
@@ -369,86 +345,86 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        #region Tab
+        //#region Tab
 
 
-        [HttpPost, ZboxAuthorize]
-        public JsonResult CreateTab(CreateBoxItemTab model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            try
-            {
-                var userId = User.GetUserId();
-                var guid = Guid.NewGuid();
-                var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
-                ZboxWriteService.CreateBoxItemTab(command);
-                var result = new TabDto { Id = guid, Name = model.Name };
-                return Json(new JsonResponse(true, result));
-            }
-            catch (ArgumentException ex)
-            {
-                return Json(new JsonResponse(false, ex.Message));
-            }
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult CreateTab(CreateBoxItemTab model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    try
+        //    {
+        //        var userId = User.GetUserId();
+        //        var guid = Guid.NewGuid();
+        //        var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
+        //        ZboxWriteService.CreateBoxItemTab(command);
+        //        var result = new TabDto { Id = guid, Name = model.Name };
+        //        return Json(new JsonResponse(true, result));
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return Json(new JsonResponse(false, ex.Message));
+        //    }
 
-        }
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        public JsonResult AddItemToTab(AssignItemToTab model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            model.ItemId = model.ItemId ?? new long[0];
-            var userId = User.GetUserId();
-            var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
-            ZboxWriteService.AssignBoxItemToTab(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult AddItemToTab(AssignItemToTab model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    model.ItemId = model.ItemId ?? new long[0];
+        //    var userId = User.GetUserId();
+        //    var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
+        //    ZboxWriteService.AssignBoxItemToTab(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        public JsonResult RenameTab(ChangeBoxItemTabName model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            var userId = User.GetUserId();
-            var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
-            ZboxWriteService.RenameBoxItemTab(command);
-            return Json(new JsonResponse(true));
-        }
-        [HttpPost, ZboxAuthorize]
-        public JsonResult DeleteTab(DeleteBoxItemTab model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            var userId = User.GetUserId();
-            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
-            ZboxWriteService.DeleteBoxItemTab(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult RenameTab(ChangeBoxItemTabName model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    var userId = User.GetUserId();
+        //    var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
+        //    ZboxWriteService.RenameBoxItemTab(command);
+        //    return Json(new JsonResponse(true));
+        //}
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult DeleteTab(DeleteBoxItemTab model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    var userId = User.GetUserId();
+        //    var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
+        //    ZboxWriteService.DeleteBoxItemTab(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult CreateTabPartial()
-        {
-            try
-            {
-                return PartialView("_CreateTab");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_CreateTab ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-        #endregion
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult CreateTabPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_CreateTab");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_CreateTab ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
+        //#endregion
 
         [ZboxAuthorize]
         [HttpPost]
@@ -460,54 +436,54 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return Json(new JsonResponse(true));
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
-        public ActionResult UploadPartial()
-        {
-            try
-            {
-                return PartialView("_UploadDialog");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_UploadDialog ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //public ActionResult UploadPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_UploadDialog");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_UploadDialog ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-
-
-        public ActionResult UploadLinkPartial()
-        {
-            try
-            {
-                return PartialView("_UploadAddLink");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_UploadAddLink", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult SocialInvitePartial()
-        {
-            try
-            {
-                return PartialView("_Invite");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Invite", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //public ActionResult UploadLinkPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_UploadAddLink");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_UploadAddLink", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
+
+
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult SocialInvitePartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Invite");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Invite", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
 

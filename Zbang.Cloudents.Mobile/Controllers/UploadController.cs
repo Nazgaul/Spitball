@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Data;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Extensions;
+using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.Mobile.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Cloudents.Mobile.Controllers
@@ -24,17 +19,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
     public class UploadController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IProfilePictureProvider m_ProfilePicture;
-        private readonly Lazy<IQueueProvider> m_QueueProvider;
 
         public UploadController(
-            IBlobProvider blobProvider,
-            Lazy<IQueueProvider> queueProvider,
-            IProfilePictureProvider profilePicture)
+            IBlobProvider blobProvider
+            )
         {
             m_BlobProvider = blobProvider;
-            m_ProfilePicture = profilePicture;
-            m_QueueProvider = queueProvider;
         }
 
 
@@ -174,132 +164,132 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize]
-        public ActionResult ProfilePicture()
-        {
-            //const int ImageSize = 50;
-            //const int LargeImageSize = 100;
-            try
-            {
-                if (HttpContext.Request.Files.Count == 0)
-                {
-                    throw new Exception("No files");
-                }
-                var result = m_ProfilePicture.UploadProfilePictures(HttpContext.Request.Files[0].InputStream);
-                return Json(new { Success = true, urlSmall = result.Image.AbsoluteUri, urlLarge = result.LargeImage.AbsoluteUri });
-            }
-            catch (Exception)
-            {
-                return Json(new { Success = false });
-            }
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult ProfilePicture()
+        //{
+        //    //const int ImageSize = 50;
+        //    //const int LargeImageSize = 100;
+        //    try
+        //    {
+        //        if (HttpContext.Request.Files.Count == 0)
+        //        {
+        //            throw new Exception("No files");
+        //        }
+        //        var result = m_ProfilePicture.UploadProfilePictures(HttpContext.Request.Files[0].InputStream);
+        //        return Json(new { Success = true, urlSmall = result.Image.AbsoluteUri, urlLarge = result.LargeImage.AbsoluteUri });
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(new { Success = false });
+        //    }
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<ActionResult> Link(AddLink model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetModelStateErrors());
-            }
-            try
-            {
-                var userid = User.GetUserId();
+        //[HttpPost, ZboxAuthorize]
+        //[RemoveBoxCookie]
+        //public async Task<ActionResult> Link(AddLink model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(GetModelStateErrors());
+        //    }
+        //    try
+        //    {
+        //        var userid = User.GetUserId();
 
-                var helper = new UrlTitleBringer();
-                var title = model.Name;
-                if (string.IsNullOrEmpty(title))
-                {
-                    try
-                    {
-                        title = await helper.BringTitle(model.FileUrl);
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
+        //        var helper = new UrlTitleBringer();
+        //        var title = model.Name;
+        //        if (string.IsNullOrEmpty(title))
+        //        {
+        //            try
+        //            {
+        //                title = await helper.BringTitle(model.FileUrl);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
 
-                    }
-                }
-                if (string.IsNullOrWhiteSpace(title))
-                {
-                    title = model.Name;
-                }
+        //            }
+        //        }
+        //        if (string.IsNullOrWhiteSpace(title))
+        //        {
+        //            title = model.Name;
+        //        }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
-                var result = await ZboxWriteService.AddItemToBoxAsync(command);
-                var result2 = result as AddLinkToBoxCommandResult;
-                if (result2 == null)
-                {
-                    throw new NullReferenceException("result2");
-                }
-                var item = new LinkDto(result2.Link.Id, result2.Link.Name,
-                    result2.Link.Uploader.Id,
-                    result2.Link.Uploader.Url,
-                    m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
-                    0, 0, false, result2.Link.Uploader.Name, result2.Link.ItemContentUrl, DateTime.UtcNow, result2.Link.Url)
-                 {
-                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
-                 };
-                return JsonOk(item);
-            }
-            catch (DuplicateNameException)
-            {
-                return JsonError(BoxControllerResources.LinkExists);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.FileUrl), ex);
-                return JsonError(BoxControllerResources.ProblemUrl);
-            }
-        }
+        //        var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
+        //        var result = await ZboxWriteService.AddItemToBoxAsync(command);
+        //        var result2 = result as AddLinkToBoxCommandResult;
+        //        if (result2 == null)
+        //        {
+        //            throw new NullReferenceException("result2");
+        //        }
+        //        var item = new LinkDto(result2.Link.Id, result2.Link.Name,
+        //            result2.Link.Uploader.Id,
+        //            result2.Link.Uploader.Url,
+        //            m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
+        //            0, 0, false, result2.Link.Uploader.Name, result2.Link.ItemContentUrl, DateTime.UtcNow, result2.Link.Url)
+        //         {
+        //             DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
+        //         };
+        //        return JsonOk(item);
+        //    }
+        //    catch (DuplicateNameException)
+        //    {
+        //        return JsonError(BoxControllerResources.LinkExists);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.FileUrl), ex);
+        //        return JsonError(BoxControllerResources.ProblemUrl);
+        //    }
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId)
-        {
+        //[HttpPost, ZboxAuthorize]
+        //[RemoveBoxCookie]
+        //public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId)
+        //{
 
-            var userId = User.GetUserId();
-
-
-            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(name).ToLower();
-
-            var size = 0L;
-            bool notUploaded;
-            try
-            {
-                size = await m_BlobProvider.UploadFromLinkAsync(fileUrl, blobAddressUri);
-                notUploaded = false;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                notUploaded = true;
-            }
-            if (notUploaded)
-            {
-                await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
-                return JsonOk();
-            }
-            var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
-               name,
-                size, tabId, false);
-            var result = await ZboxWriteService.AddItemToBoxAsync(command);
-            var result2 = result as AddFileToBoxCommandResult;
-            if (result2 == null)
-            {
-                throw new NullReferenceException("result2");
-            }
-
-            var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
-                result2.File.Uploader.Url,
-                result2.File.ThumbnailUrl,
-                string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result2.File.Url)
-            {
-                DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result2.File.Id })
-            };
-            return JsonOk(fileDto);
+        //    var userId = User.GetUserId();
 
 
-        }
+        //    var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(name).ToLower();
+
+        //    var size = 0L;
+        //    bool notUploaded;
+        //    try
+        //    {
+        //        size = await m_BlobProvider.UploadFromLinkAsync(fileUrl, blobAddressUri);
+        //        notUploaded = false;
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        notUploaded = true;
+        //    }
+        //    if (notUploaded)
+        //    {
+        //        await m_QueueProvider.Value.InsertMessageToDownloadAsync(
+        //            new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
+        //        return JsonOk();
+        //    }
+        //    var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
+        //       name,
+        //        size, tabId, false);
+        //    var result = await ZboxWriteService.AddItemToBoxAsync(command);
+        //    var result2 = result as AddFileToBoxCommandResult;
+        //    if (result2 == null)
+        //    {
+        //        throw new NullReferenceException("result2");
+        //    }
+
+        //    var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
+        //        result2.File.Uploader.Url,
+        //        result2.File.ThumbnailUrl,
+        //        string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result2.File.Url)
+        //    {
+        //        DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result2.File.Id })
+        //    };
+        //    return JsonOk(fileDto);
+
+
+        //}
     }
 }

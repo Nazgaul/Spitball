@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.FAQ
+namespace Zbang.Cloudents.Mobile.Models.FAQ
 {
     [Serializable]
     public class Category

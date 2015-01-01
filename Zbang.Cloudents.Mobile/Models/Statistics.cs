@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models
+namespace Zbang.Cloudents.Mobile.Models
 {
     public class Statistics
     {
