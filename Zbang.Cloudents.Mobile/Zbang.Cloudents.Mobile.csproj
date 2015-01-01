@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Extensions\GetVsPostRouteConstraint.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\JsonNetSerializer.cs" />
     <Compile Include="Extensions\PrincipalExtension.cs" />
