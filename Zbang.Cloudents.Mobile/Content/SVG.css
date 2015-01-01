@@ -70,7 +70,17 @@ svg.rtl {
   fill: #c2c2c2;
 }
 .svg-back {
-  width: 21px;
-  height: 19px;
+  width: 16px;
+  height: 13px;
   fill: #0f9d58;
+}
+.svg-invite {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+.svg-attachment {
+  width: 19px;
+  height: 16px;
+  fill: #282828;
 }
