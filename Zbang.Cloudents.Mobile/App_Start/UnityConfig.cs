@@ -1,11 +1,10 @@
 using System;
 using Microsoft.Practices.Unity;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.

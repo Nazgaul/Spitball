@@ -1,4 +1,4 @@
-﻿namespace Zbang.Cloudents.Mvc4WebRole.Models.FAQ
+﻿namespace Zbang.Cloudents.Mobile.Models.FAQ
 {
     public class QnA
     {

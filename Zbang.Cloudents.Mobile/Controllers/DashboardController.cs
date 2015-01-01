@@ -3,17 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
-using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
-using Zbang.Zbox.ViewModel.Queries.User;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
@@ -52,52 +46,52 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<JsonResult> SideBar()
-        {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityId.Value;
+        //[HttpGet]
+        //public async Task<JsonResult> SideBar()
+        //{
+        //    var userDetail = FormsAuthenticationService.GetUserData();
+        //    // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+        //    var universityWrapper = userDetail.UniversityId.Value;
 
-            var query = new GetDashboardQuery(universityWrapper);
-            var model = await ZboxReadService.GetDashboardSideBar(query);
+        //    var query = new GetDashboardQuery(universityWrapper);
+        //    var model = await ZboxReadService.GetDashboardSideBar(query);
 
-            return JsonOk(model);
+        //    return JsonOk(model);
 
-        }
+        //}
 
-        #region CreateBox
+        //#region CreateBox
 
-        [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateBox model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetModelStateErrors());
-            }
-            try
-            {
-                var userId = User.GetUserId();
-                var command = new CreateBoxCommand(userId, model.BoxName);
-                var result = ZboxWriteService.CreateBox(command);
-                return JsonOk(new { result.Url, result.Id });
+        //[HttpPost]
+        //// [ValidateAntiForgeryToken]
+        //public ActionResult Create(CreateBox model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(GetModelStateErrors());
+        //    }
+        //    try
+        //    {
+        //        var userId = User.GetUserId();
+        //        var command = new CreateBoxCommand(userId, model.BoxName);
+        //        var result = ZboxWriteService.CreateBox(command);
+        //        return JsonOk(new { result.Url, result.Id });
 
-            }
-            catch (BoxNameAlreadyExistsException)
-            {
-                ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
-                return JsonError(GetModelStateErrors());
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
-                return JsonError(GetModelStateErrors());
-            }
-        }
+        //    }
+        //    catch (BoxNameAlreadyExistsException)
+        //    {
+        //        ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
+        //        return JsonError(GetModelStateErrors());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
+        //        ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
+        //        return JsonError(GetModelStateErrors());
+        //    }
+        //}
 
-        #endregion
+        //#endregion
 
 
         [HttpGet]

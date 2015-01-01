@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models
+namespace Zbang.Cloudents.Mobile.Models
 {
     public class RenameLibraryNode
     {

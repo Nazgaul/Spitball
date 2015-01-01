@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure.Consts;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class UrlBuilder
     {

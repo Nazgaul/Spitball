@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Common;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
+namespace Zbang.Cloudents.Mobile.Models.Account.Settings
 {
     public class AccountSettings
     {

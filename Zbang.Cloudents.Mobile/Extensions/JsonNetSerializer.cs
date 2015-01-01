@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public class JsonNetSerializer
     {

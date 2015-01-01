@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Web.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public class JsonNetResult : JsonResult
     {

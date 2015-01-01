@@ -1,4 +1,4 @@
-﻿namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
+﻿namespace Zbang.Cloudents.Mobile.Models.Account
 {
     public class Language
     {

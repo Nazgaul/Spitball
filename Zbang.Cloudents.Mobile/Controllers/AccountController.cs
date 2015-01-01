@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mobile.Models.Account;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models.Account;
+using Zbang.Cloudents.Mobile.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -19,6 +18,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
+
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
@@ -40,8 +40,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
-           // m_QueueProvider = queueProvider;
-           // m_EncryptObject = encryptObject;
+            // m_QueueProvider = queueProvider;
+            // m_EncryptObject = encryptObject;
         }
 
 
@@ -385,59 +385,62 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //        return JsonError(new { error = "User doesn't exists" });
         //    }
         //}
-        //[HttpPost, ZboxAuthorize]
-        //public async Task<ActionResult> UpdateUniversity(University model)
-        //{
-        //    var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-        //    if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-        //    {
-        //        return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
-        //    }
-        //    var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-        //    if (needId && string.IsNullOrEmpty(model.studentID))
-        //    {
-        //        return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
-        //    }
+        [HttpPost, ZboxAuthorize]
+        public async Task<ActionResult> UpdateUniversity(University model)
+        {
+            var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
+            if (retVal.Count() != 0 /*&& !model.DepartmentId.HasValue*/)
+            {
+                return JsonError("select department");
+                //return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
+            }
+            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            if (needId /*&& string.IsNullOrEmpty(model.StudentId)*/)
+            {
+                return JsonError("insert id");
+                //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
+            }
 
-        //    var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-        //    if (needCode && string.IsNullOrEmpty(model.Code))
-        //    {
-        //        return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
-        //    }
+            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            if (needCode /*&& string.IsNullOrEmpty(model.Code)*/)
+            {
+                return JsonError("insert code");
+                //return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(new { error = GetModelStateErrors() });
-        //    }
+            if (!ModelState.IsValid)
+            {
+                return JsonError(new { error = GetModelStateErrors() });
+            }
 
-        //    try
-        //    {
-        //        var id = User.GetUserId();
-        //        var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
-        //            model.GroupNumber, model.RegisterNumber, model.studentID);
-        //        ZboxWriteService.UpdateUserUniversity(command);
-        //        FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
-        //        return JsonOk();
-        //    }
-        //    catch (ArgumentException)
-        //    {
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
+            try
+            {
+                var id = User.GetUserId();
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
+                    null, null, null);
+                ZboxWriteService.UpdateUserUniversity(command);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
+                return JsonOk();
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
 
-        //    }
-        //    catch (NullReferenceException)
-        //    {
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
+            }
+            catch (NullReferenceException)
+            {
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("update university model " + model, ex);
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("update university model " + model, ex);
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
+            }
+        }
 
 
         //[HttpPost]
@@ -473,7 +476,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public ActionResult ChangeLocale(string lang)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(UserLanguage.cookieName, new Language { Lang = lang });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = lang });
             return JsonOk();
         }
 
@@ -708,7 +711,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonOk();
             }
             var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-            return JsonOk(retVal);
+            return JsonOk(new { retVal.UniversityId, retVal.Name, retVal.Image, retVal.IsAdmin });
 
         }
 

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public static class UrlHelperExtension
     {
@@ -46,15 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             {
                 throw new NullReferenceException("url");
             }
-            foreach (var item in dictionary)
-            {
-                if (item.Value == null)
-                {
-                    continue;
-                }
-                url = url.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
-            }
-            return url;
+            return dictionary.Where(item => item.Value != null).Aggregate(url, (current, item) => current.Replace(item.Value.ToString().ToLower(), item.Value.ToString()));
         }
 
         public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, string controller, object routeValue)
@@ -65,15 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             {
                 throw new NullReferenceException("url");
             }
-            foreach (var item in dictionary)
-            {
-                if (item.Value == null)
-                {
-                    continue;
-                }
-                url = url.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
-            }
-            return url;
+            return dictionary.Where(item => item.Value != null).Aggregate(url, (current, item) => current.Replace(item.Value.ToString().ToLower(), item.Value.ToString()));
         }
     }
 }

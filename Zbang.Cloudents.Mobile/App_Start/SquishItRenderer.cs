@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Zbang.Zbox.Infrastructure.Storage;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     public class SquishItRenderer : SquishIt.Framework.Renderers.IRenderer
     {

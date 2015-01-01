@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Zbang.Zbox.ViewModel.Dto.UserDtos
+﻿namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserDetailDto 
     {

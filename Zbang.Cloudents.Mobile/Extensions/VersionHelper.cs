@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public static class VersionHelper
     {

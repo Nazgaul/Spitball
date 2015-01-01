@@ -2,7 +2,7 @@
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
+namespace Zbang.Cloudents.Mobile.Models.Account
 {
     public class NewPassword
     {

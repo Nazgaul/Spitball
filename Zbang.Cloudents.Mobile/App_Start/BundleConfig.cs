@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
 
-namespace Zbang.Cloudents.Mvc4WebRole
+namespace Zbang.Cloudents.Mobile
 {
     public static class BundleConfig
     {
