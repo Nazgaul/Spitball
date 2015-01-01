@@ -51,7 +51,7 @@
                 $http.post(url, data).success(function (response) {
                     trackTime(startTime, url, data, 'post');
                     if (!disableClearCache) {
-                        _.forEach(ttls, function (ttl) {
+                        angular.forEach(ttls, function (ttl) {
                             ttl.removeAll();
                         });
                     }

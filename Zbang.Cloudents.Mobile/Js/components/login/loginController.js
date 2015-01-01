@@ -1,21 +1,25 @@
-﻿angular.module('login', ['ajax','social']).
+﻿angular.module('login', ['ajax', 'social']).
     controller('LoginController',
     ['loginService', function (loginService) {
         "use strict";
 
         var login = this;
 
-        login.formData = {};
+        login.formData = {
+            rememberMe: true
+        };
 
         login.submit = function (isValid) {
 
-            login.submitted = true
+            login.disabled = login.submitted = true
 
             if (!isValid) {
                 return;
             }
 
-            loginService.login(login.formData);
+            loginService.login(login.formData).then(null, function () {
+                login.disabled = false;
+            });
 
         };
 

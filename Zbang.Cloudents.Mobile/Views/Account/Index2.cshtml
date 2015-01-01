@@ -21,7 +21,7 @@
         <a class="homeTxt2" ui-sref="login">@AccountResources.LogIn</a>
 
         <div class="lang">
-            <select class="langSelect" id="langSelect" ng-model="account.language" ng-init="account.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
+            <select class="langSelect" ng-change="account.changeLanguage()" ng-model="account.language" ng-init="account.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
                 <option value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
                 <option value="@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture">@Languages.EnglishGbName</option>
                 <option value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>

@@ -1,6 +1,6 @@
 ﻿angular.module('account')
     .service('accountService',
-    ['$window', '$q', 'account', function ($window, $q, account) {
+    ['$window', '$q', '$analytics', 'account', function ($window, $q, $analytics, account) {
         "use strict";
         var service = this;
 
@@ -21,7 +21,7 @@
                 label: 'User changed language to ' + language
             });
 
-            sAccount.changeLocale({ language: language }).then(function () {
+            account.changeLocale({ lang: language }).then(function () {
                 $window.location.reload();
             });
         }

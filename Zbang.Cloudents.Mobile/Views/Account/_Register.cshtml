@@ -1,8 +1,7 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @using Zbang.Zbox.Infrastructure.Culture
-
 <section class="register" ng-class="{ search: register.searching }">
-    <form name="registerForm" novalidate ng-submit="register.submit(registerForm.$valid)">
+    <form name="registerForm" novalidate ng-submit="register.submit($event,registerForm.$valid)">
         <h1>Create an acccount</h1>
         <div class="topReg clearfix">
             <div class="regError" clear-on-input>{{register.serverError}}</div>
@@ -53,24 +52,19 @@
         </div>
         <div class="ng-message-errors" ng-messages="">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-        </div>
-        <form>
-            <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" />
-        </form>
+        </div>        
+            <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" />        
         <ul class="searchResults">
             <li hm-touch="register.selectUniversity(university)" ng-repeat="university in register.universities">
                 <img class="uniImg" ng-src="::university.image" />
                 <div class="uniName">{{::university.name}}</div>
-            </li>            
+            </li>
         </ul>
         @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
         <div class="emptySearch">No results were found</div>
-
         <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
         <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
-
         <div class="bottom">
-
             <span class="acceptTerms">
                 @AccountResources.IAgree
                 <!--
