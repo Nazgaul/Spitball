@@ -2,17 +2,16 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
-using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models.Account;
+using Zbang.Cloudents.Mobile.Models.Account;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public static class UserLanguage
     {
-        public const string cookieName = "lang";
+        public const string CookieName = "lang";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
 
@@ -33,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return;
             }
             var cookie = new CookieHelper(context);
-            var lang = cookie.ReadCookie<Language>(cookieName);
+            var lang = cookie.ReadCookie<Language>(CookieName);
             if (lang == null)
             {
                 var country = GetCountryByIp(context);
@@ -42,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(cookieName, new Language {Lang = culture.Name});
+                cookie.InjectCookie(CookieName, new Language {Lang = culture.Name});
                 ChangeThreadCulture(culture);
                 return;
             }

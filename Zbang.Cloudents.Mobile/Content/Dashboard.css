@@ -3,19 +3,22 @@
 /*#region mixins */
 /*#endregion */
 /*#region Dashboard */
-.dashboard header {
+.dashboard header,
+.box header {
   background: #0f9d58;
   width: 100%;
   height: 36px;
   top: 0;
 }
-.dashboard .svg-logo {
+.dashboard .svg-logo,
+.box .svg-logo {
   width: 108px;
   height: 20px;
   margin: 9px auto 0;
   display: inline-block;
 }
-.dashboard h3 {
+.dashboard h3,
+.box h3 {
   color: #0f9d58;
   font-weight: normal;
   font-size: 12px;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
+namespace Zbang.Cloudents.Mobile.Models.Share
 {
     public class InviteToBoxFromFacebook
     {

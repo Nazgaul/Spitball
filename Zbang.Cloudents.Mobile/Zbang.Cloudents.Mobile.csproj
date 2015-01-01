@@ -223,7 +223,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -255,7 +254,7 @@
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extensions\GetVsPostRouteConstraint.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\JsonNetSerializer.cs" />
     <Compile Include="Extensions\PrincipalExtension.cs" />
@@ -342,13 +341,11 @@
     <Compile Include="Models\DeleteItemCommentReply.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
-    <Compile Include="Models\FlagBadItem.cs" />
     <Compile Include="Models\BoxSetting.cs" />
     <Compile Include="Models\CreateAcademicBox.cs" />
     <Compile Include="Models\CreateBox.cs" />
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
-    <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
@@ -361,9 +358,6 @@
     <Compile Include="Models\Quiz\UpdateAnswer.cs" />
     <Compile Include="Models\Quiz\UpdateQuestion.cs" />
     <Compile Include="Models\Quiz\UpdateQuiz.cs" />
-    <Compile Include="Models\RateModel.cs" />
-    <Compile Include="Models\Rename.cs" />
-    <Compile Include="Models\ReplyItemComment.cs" />
     <Compile Include="Models\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -374,11 +368,9 @@
     <Compile Include="Models\Share\InviteToBoxFromFacebook.cs" />
     <Compile Include="Models\Share\InviteSystem.cs" />
     <Compile Include="Models\Share\Message.cs" />
-    <Compile Include="Models\NewAnnotation.cs" />
     <Compile Include="Models\NewComment.cs" />
     <Compile Include="Models\QnA\Answer.cs" />
     <Compile Include="Models\QnA\Question.cs" />
-    <Compile Include="Models\RenameLibraryNode.cs" />
     <Compile Include="Models\Resources\AddLinkResources.Designer.cs">
       <DependentUpon>AddLinkResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -414,7 +406,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
     <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />
@@ -427,6 +418,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Box\Resources\BoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard\Resources\DashboardResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1405,8 +1401,6 @@
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
-    <Content Include="Views\Home\Help.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
@@ -1424,7 +1418,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Js\shared\events\" />
-    <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
@@ -1654,6 +1647,13 @@
       <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResources.ru.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.he.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.he.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.resx">

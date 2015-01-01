@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Cloudents.Mobile.Models.Resources;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
+namespace Zbang.Cloudents.Mobile.Models.Share
 {
     public class Invite
     {

@@ -1,7 +1,7 @@
 ﻿
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+namespace Zbang.Cloudents.Mobile.Helpers
 {
     public class TrimModelBinder : DefaultModelBinder
     {

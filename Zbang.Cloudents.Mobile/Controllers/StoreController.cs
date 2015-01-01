@@ -1,14 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {

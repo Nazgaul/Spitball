@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Web.Mvc;
 
-namespace Zbang.Cloudents.Mvc4WebRole.Extensions
+namespace Zbang.Cloudents.Mobile.Extensions
 {
     public static class HtmlHelperExtension
     {
@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static MvcHtmlString CssCulture(this HtmlHelper html, string key)
         {
-            var cssLinks = BundleConfig.CssLink(key + "." + System.Threading.Thread.CurrentThread.CurrentCulture);
+            var cssLinks = BundleConfig.CssLink(key + "." + Thread.CurrentThread.CurrentCulture);
             if (string.IsNullOrEmpty(cssLinks))
             {
                 return MvcHtmlString.Empty;
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
         {
-            if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
             {
                 var cssLinks = BundleConfig.CssLink(key);
                 return MvcHtmlString.Create(cssLinks);

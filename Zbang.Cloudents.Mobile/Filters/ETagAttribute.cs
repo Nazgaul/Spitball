@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing;
 using Zbang.Cloudents.Mobile.Helpers;
 
 namespace Zbang.Cloudents.Mobile.Filters
@@ -22,7 +23,7 @@ namespace Zbang.Cloudents.Mobile.Filters
 
 
             var headerSend = filterContext.HttpContext.Items[HTTPItemConsts.HeaderSend];
-            if (headerSend != null && (bool) headerSend)
+            if (headerSend != null && (bool)headerSend)
             {
                 return;
             }
@@ -116,5 +117,8 @@ namespace Zbang.Cloudents.Mobile.Filters
             base.Flush();
         }
     }
+
+
+   
 
 }

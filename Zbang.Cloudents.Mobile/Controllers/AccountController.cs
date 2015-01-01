@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
+using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mobile.Models.Account;
-using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models.Account;
+using Zbang.Cloudents.Mobile.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
+
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
@@ -27,21 +30,21 @@ namespace Zbang.Cloudents.Mobile.Controllers
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
         private readonly Lazy<IFacebookService> m_FacebookService;
-        //private readonly Lazy<IQueueProvider> m_QueueProvider;
-        //private readonly Lazy<IEncryptObject> m_EncryptObject;
+        private readonly Lazy<IQueueProvider> m_QueueProvider;
+        private readonly Lazy<IEncryptObject> m_EncryptObject;
 
         // private const string InvId = "invId";
         public AccountController(
             Lazy<IMembershipService> membershipService,
-            Lazy<IFacebookService> facebookService
-            //Lazy<IQueueProvider> queueProvider,
-            //Lazy<IEncryptObject> encryptObject
+            Lazy<IFacebookService> facebookService,
+            Lazy<IQueueProvider> queueProvider,
+            Lazy<IEncryptObject> encryptObject
             )
         {
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
-           // m_QueueProvider = queueProvider;
-           // m_EncryptObject = encryptObject;
+             m_QueueProvider = queueProvider;
+             m_EncryptObject = encryptObject;
         }
 
 
@@ -386,59 +389,62 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //        return JsonError(new { error = "User doesn't exists" });
         //    }
         //}
-        //[HttpPost, ZboxAuthorize]
-        //public async Task<ActionResult> UpdateUniversity(University model)
-        //{
-        //    var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-        //    if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-        //    {
-        //        return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
-        //    }
-        //    var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-        //    if (needId && string.IsNullOrEmpty(model.studentID))
-        //    {
-        //        return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
-        //    }
+        [HttpPost, ZboxAuthorize]
+        public async Task<ActionResult> UpdateUniversity(University model)
+        {
+            var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
+            if (retVal.Count() != 0 /*&& !model.DepartmentId.HasValue*/)
+            {
+                return JsonError("select department");
+                //return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
+            }
+            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            if (needId /*&& string.IsNullOrEmpty(model.StudentId)*/)
+            {
+                return JsonError("insert id");
+                //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
+            }
 
-        //    var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-        //    if (needCode && string.IsNullOrEmpty(model.Code))
-        //    {
-        //        return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
-        //    }
+            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            if (needCode /*&& string.IsNullOrEmpty(model.Code)*/)
+            {
+                return JsonError("insert code");
+                //return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(new { error = GetModelStateErrors() });
-        //    }
+            if (!ModelState.IsValid)
+            {
+                return JsonError(new { error = GetModelStateErrors() });
+            }
 
-        //    try
-        //    {
-        //        var id = User.GetUserId();
-        //        var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
-        //            model.GroupNumber, model.RegisterNumber, model.studentID);
-        //        ZboxWriteService.UpdateUserUniversity(command);
-        //        FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
-        //        return JsonOk();
-        //    }
-        //    catch (ArgumentException)
-        //    {
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
+            try
+            {
+                var id = User.GetUserId();
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
+                    null, null, null);
+                ZboxWriteService.UpdateUserUniversity(command);
+                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
+                return JsonOk();
+            }
+            catch (ArgumentException)
+            {
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
 
-        //    }
-        //    catch (NullReferenceException)
-        //    {
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
+            }
+            catch (NullReferenceException)
+            {
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("update university model " + model, ex);
-        //        ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("update university model " + model, ex);
+                ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
+                return JsonError(GetModelStateErrors());
+            }
+        }
 
 
         //[HttpPost]
@@ -474,202 +480,202 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public ActionResult ChangeLocale(string lang)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(UserLanguage.cookieName, new Language { Lang = lang });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = lang });
             return JsonOk();
         }
 
 
         //#endregion
-        //#region passwordReset
-        //private const string SessionResetPassword = "SResetPassword";
-        //private const string ResetPasswordCrypticPropose = "reset password";
-        //[HttpGet]
-        //public ActionResult ResetPassword()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
+        #region passwordReset
+        private const string SessionResetPassword = "SResetPassword";
+        private const string ResetPasswordCrypticPropose = "reset password";
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToRoute("dashboardLink");
+            }
+            return View();
+        }
 
-        //    return View();
-        //}
-
-        //[HttpPost, ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    try
-        //    {
-        //        Guid membershipUserId;
-        //        if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
-        //        {
-        //            ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-        //            return View(model);
-        //        }
-        //        var query = new GetUserByMembershipQuery(membershipUserId);
-        //        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-        //        var code = RandomString(10);
-
-
-        //        var data = new ForgotPasswordLinkData(membershipUserId, 1);
-
-        //        var linkData = CrypticElement(data);
-        //        Session[SessionResetPassword] = data;
-        //        await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
-
-        //        TempData["key"] = System.Web.Helpers.Crypto.HashPassword(code);
-
-        //        return RedirectToAction("Confirmation");
-
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
-        //        ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
-        //    }
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToRoute("dashboardLink");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                Guid membershipUserId;
+                if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
+                {
+                    ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
+                    return View(model);
+                }
+                var query = new GetUserByMembershipQuery(membershipUserId);
+                var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
+                var code = RandomString(10);
 
 
+                var data = new ForgotPasswordLinkData(membershipUserId, 1);
 
-        //    return View(model);
-        //}
+                var linkData = CrypticElement(data);
+                Session[SessionResetPassword] = data;
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
-        //[HttpGet, NoCache]
-        //public ActionResult Confirmation()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    if (TempData["key"] == null)
-        //    {
-        //        return RedirectToAction("ResetPassword");
-        //    }
-        //    var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
-        //    if (userData == null)
-        //    {
-        //        return RedirectToAction("ResetPassword");
-        //    }
-        //    return View(new Confirmation { Key = TempData["key"].ToString() });
-        //}
+                TempData["key"] = System.Web.Helpers.Crypto.HashPassword(code);
 
-        //[HttpPost, ValidateAntiForgeryToken]
-        //[RequireHttps]
-        //public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+                return RedirectToAction("Confirmation");
 
-        //    if (userData == null)
-        //    {
-        //        return RedirectToAction("ResetPassword");
-        //    }
-        //    if (System.Web.Helpers.Crypto.VerifyHashedPassword(model.Key, model.Code))
-        //    {
-        //        userData.Step = 2;
-        //        var key = CrypticElement(userData);
-        //        return RedirectToAction("PasswordUpdate", new { key });
-        //    }
-        //    ModelState.AddModelError(string.Empty, "This is not the correct code");
-        //    return View(model);
+            }
 
-        //}
-
-        //[RequireHttps, HttpGet]
-        //public ActionResult PasswordUpdate(string key)
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    if (string.IsNullOrWhiteSpace(key))
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //    var data = UnEncryptElement<ForgotPasswordLinkData>(key);
-        //    if (data == null)
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //    if (data.Date.AddHours(1) < DateTime.UtcNow)
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //    return View(new NewPassword());
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[RequireHttps]
-        //public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    if (string.IsNullOrWhiteSpace(key))
-        //    {
-        //        return View(model);
-        //    }
-        //    var data = UnEncryptElement<ForgotPasswordLinkData>(key);
-        //    if (data == null)
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //    if (data.Date.AddHours(1) < DateTime.UtcNow)
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //    m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
-
-        //    var query = new GetUserByMembershipQuery(data.MembershipUserId);
-        //    var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-        //    Session.Abandon();
-        //    FormsAuthenticationService.SignIn(result.Id, false,
-        //        new UserDetail(
-        //            result.Culture,
-        //            result.UniversityId,
-        //            result.UniversityData
-        //            ));
-
-        //    return RedirectToAction("Index", "Dashboard");
-
-        //}
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
+                ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
+            }
 
 
-        //[NonAction]
-        //private string RandomString(int size)
-        //{
-        //    var random = new Random();
-        //    const string input = "0123456789";
-        //    var chars = Enumerable.Range(0, size)
-        //                           .Select(x => input[random.Next(0, input.Length)]);
-        //    return new string(chars.ToArray());
-        //    //return "12345";
-        //}
-        //[NonAction]
-        //private string CrypticElement<T>(T obj) where T : class
-        //{
-        //    return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
 
-        //}
-        //[NonAction]
-        //private T UnEncryptElement<T>(string str) where T : class
-        //{
-        //    return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
+            return View(model);
+        }
 
-        //}
-        //#endregion
+        [HttpGet, NoCache]
+        public ActionResult Confirmation()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToRoute("dashboardLink");
+            }
+            if (TempData["key"] == null)
+            {
+                return RedirectToAction("ResetPassword");
+            }
+            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+            if (userData == null)
+            {
+                return RedirectToAction("ResetPassword");
+            }
+            return View(new Confirmation { Key = TempData["key"].ToString() });
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        [RequireHttps]
+        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+
+            if (userData == null)
+            {
+                return RedirectToAction("ResetPassword");
+            }
+            if (System.Web.Helpers.Crypto.VerifyHashedPassword(model.Key, model.Code))
+            {
+                userData.Step = 2;
+                var key = CrypticElement(userData);
+                return RedirectToAction("PasswordUpdate", new { key });
+            }
+            ModelState.AddModelError(string.Empty, "This is not the correct code");
+            return View(model);
+
+        }
+
+        [RequireHttps, HttpGet]
+        public ActionResult PasswordUpdate(string key)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToRoute("dashboardLink");
+            }
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                return RedirectToRoute("accountLink");
+                
+            }
+            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            if (data == null)
+            {
+                return RedirectToRoute("accountLink");
+            }
+            if (data.Date.AddHours(1) < DateTime.UtcNow)
+            {
+                return RedirectToRoute("accountLink");
+            }
+            return View(new NewPassword());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [RequireHttps]
+        public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                return View(model);
+            }
+            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            if (data == null)
+            {
+                return RedirectToRoute("accountLink");
+            }
+            if (data.Date.AddHours(1) < DateTime.UtcNow)
+            {
+                return RedirectToRoute("accountLink");
+            }
+            m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
+
+            var query = new GetUserByMembershipQuery(data.MembershipUserId);
+            var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
+            Session.Abandon();
+            FormsAuthenticationService.SignIn(result.Id, false,
+                new UserDetail(
+                    result.Culture,
+                    result.UniversityId,
+                    result.UniversityData
+                    ));
+
+            return RedirectToRoute("dashboardLink");
+
+        }
+
+
+        [NonAction]
+        private string RandomString(int size)
+        {
+            var random = new Random();
+            const string input = "0123456789";
+            var chars = Enumerable.Range(0, size)
+                                   .Select(x => input[random.Next(0, input.Length)]);
+            return new string(chars.ToArray());
+            //return "12345";
+        }
+        [NonAction]
+        private string CrypticElement<T>(T obj) where T : class
+        {
+            return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
+
+        }
+        [NonAction]
+        private T UnEncryptElement<T>(string str) where T : class
+        {
+            return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
+
+        }
+        #endregion
 
 
 
@@ -709,7 +715,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonOk();
             }
             var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-            return JsonOk(retVal);
+            return JsonOk(new { retVal.UniversityId, retVal.Name, retVal.Image, retVal.IsAdmin });
 
         }
 
