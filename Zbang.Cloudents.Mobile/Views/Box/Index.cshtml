@@ -1,1 +1,23 @@
-﻿
+﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
+<section class="box">
+    <header>
+        <button type="button" class="inviteBtn rFloat">
+            @Html.Svg("~/Images/Defs.svg", "invite", new { @class = "svg-invite" })
+        </button>
+        <button type="button" class="backBtn lFloat">
+            @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+        </button>
+        <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
+    </header>
+    <div class="tabs feedTab">
+        <span class="tab">Feed</span>
+        <span class="tab">Items</span>
+    </div>
+
+    <div class="feed">
+        Feed here
+    </div>
+    <div class="boxItems">
+        Box items here
+    </div>
+</section>

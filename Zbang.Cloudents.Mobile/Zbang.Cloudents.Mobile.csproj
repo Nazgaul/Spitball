@@ -419,6 +419,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Box\Resources\BoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\Resources\DashboardResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1412,7 +1417,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Js\shared\events\" />
-    <Folder Include="Views\Box\Resources\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
@@ -1642,6 +1646,13 @@
       <LastGenOutput>AccountResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResources.ru.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ar.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.he.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.he.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResources.resx">
