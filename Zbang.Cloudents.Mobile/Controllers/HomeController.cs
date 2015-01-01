@@ -57,7 +57,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [Route("account/register")]
         [Route("library/choose")]
         [Route("dashboard")]
-        [Route("dashboard")]
         [Route("box/my/{boxId:long}/{boxName}")] // todo:add more validation
         [Route("course/{uniName}/{boxId:long}/{boxName}")] // todo:add more validation
         [Route("search")]

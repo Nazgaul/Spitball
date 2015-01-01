@@ -17,6 +17,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Library;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -85,24 +86,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return PartialView("_SelectUni");
         }
-        
+
 
         [HttpGet]
         public async Task<JsonResult> SearchUniversity(string term)
         {
             if (string.IsNullOrEmpty(term))
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversity(term);
-                return Json(new JsonResponse(true, retVal));
+                var retVal = await m_UniversitySearch.Value.SearchUniversity(new UniversitySearchQuery(term));
+                return JsonOk(retVal);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("SeachUniversity term:  " + term, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -160,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, result));
 
         }
-        
+
 
         #region DeleteNode
         [HttpPost]
@@ -342,7 +343,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-       
+
         #endregion
 
         [HttpGet]
@@ -352,7 +353,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        
+
         public JsonResult CreateUniversity(CreateUniversity model)
         {
             if (!ModelState.IsValid)
@@ -440,7 +441,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true, retVal));
         }
 
-        
+
 
         [HttpPost]
         public JsonResult Verify(string code)

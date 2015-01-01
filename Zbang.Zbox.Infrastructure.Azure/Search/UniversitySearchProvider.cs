@@ -8,6 +8,7 @@ using RedDog.Search.Http;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -23,9 +24,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 ConfigFetcher.Fetch("AzureSeachServiceName"),
                 ConfigFetcher.Fetch("AzureSearchKey")
                 );
-
-            //m_ReadClient = new IndexQueryClient(m_Connection);
-
         }
 
         private async Task BuildIndex()
@@ -66,10 +64,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(string term)
+        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query)
         {
 
-            if (string.IsNullOrEmpty(term))
+            if (string.IsNullOrEmpty(query.Term))
             {
                 return null;
             }
@@ -78,15 +76,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 m_ReadClient = new IndexQueryClient(m_Connection);
             }
             var searchTask = m_ReadClient.SearchAsync(IndexName,
-                  new SearchQuery(term + "*")
+                  new SearchQuery(query.Term + "*")
                   {
-                      Select = "id,name,imageField"
+                      Select = "id,name,imageField",
+                      Top = query.RowsPerPage,
+                      Skip = query.RowsPerPage * query.PageNumber
                   });
             var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
-            if (term.Length >= 3)
+            if (query.Term.Length >= 3)
             {
                 suggestTask = m_ReadClient.SuggestAsync(IndexName,
-                    new SuggestionQuery(term)
+                    new SuggestionQuery(query.Term)
                     {
                         Fuzzy = true,
                         Select = "id,name,imageField"
