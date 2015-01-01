@@ -7,6 +7,7 @@ using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -114,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         }
 
 
-        public async Task UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
+        public async Task<bool> UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
             await BuildIndex();
 
@@ -149,8 +150,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 {
                     m_IndexClient = new IndexManagementClient(m_Connection);
                 }
-                await m_IndexClient.PopulateAsync(IndexName, listOfCommands.ToArray());
+                var retVal = await m_IndexClient.PopulateAsync(IndexName, listOfCommands.ToArray());
+                if (!retVal.IsSuccess)
+                {
+                    TraceLog.WriteError("On update search" + retVal.Error.Message);
+                }
+                return retVal.IsSuccess;
             }
+            return true;
         }
 
         private Index GetUniversityIndex()

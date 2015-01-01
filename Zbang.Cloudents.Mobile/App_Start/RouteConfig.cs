@@ -29,6 +29,27 @@ namespace Zbang.Cloudents.Mobile
                new { controller = "Home", action = "IndexEmpty" },
                new { isget = new GetVsPostRouteConstraint("get") });
 
+            routes.MapRoute("accountLink"
+               , "account",
+               new { controller = "Home", action = "IndexEmpty" });
+            routes.MapRoute("libraryChoose"
+               , "library/choose",
+               new { controller = "Home", action = "IndexEmpty" });
+            routes.MapRoute("dashboardLink"
+               , "dashboard",
+               new { controller = "Home", action = "IndexEmpty" });
+            routes.MapRoute("box"
+               , "box/my/{boxId}/{boxName}",
+               new { controller = "Home", action = "IndexEmpty" });
+            routes.MapRoute("course"
+               , "course/{uniName}/{boxId}/{boxName}",
+               new { controller = "Home", action = "IndexEmpty" });
+            routes.MapRoute("search"
+               , "search",
+               new { controller = "Home", action = "IndexEmpty" });
+
+
+
 
             //    routes.MapRoute("AccountLanguage",
             //        "account/{lang}",

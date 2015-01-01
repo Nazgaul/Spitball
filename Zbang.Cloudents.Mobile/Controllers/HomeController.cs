@@ -28,12 +28,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         //TODO: output cache
         [HttpGet]
-        [Route("account",Name="accountLink")]
-        [Route("library/choose")]
-        [Route("dashboard",Name="dashboardLink")]
-        [Route("box/my/{boxId:long}/{boxName}")] // todo:add more validation
-        [Route("course/{uniName}/{boxId:long}/{boxName}")] // todo:add more validation
-        [Route("search")]
+        //[Route("account",Name="accountLink")]
+        //[Route("library/choose")]
+        //[Route("dashboard",Name="dashboardLink")]
+        //[Route("box/my/{boxId:long}/{boxName}")] // todo:add more validation
+        //[Route("course/{uniName}/{boxId:long}/{boxName}")] // todo:add more validation
+        //[Route("search")]
         public ActionResult IndexEmpty()
         {
             return View("Empty");
