@@ -52,11 +52,11 @@
         </div>
         <div class="ng-message-errors" ng-messages="">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-        </div>        
-            <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" />        
-        <ul class="searchResults">
+        </div>
+        <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn()" hm-swipe-down="register.searchOut($event)" ng-model="register.universityName" ng-change="register.searchUnis()" ng-model-options="{deboucne:250}" scroll-paging on-scroll="register.testScroll()" />
+        <ul class="searchResults" ng-class="{noResults : register.noResults}">
             <li hm-touch="register.selectUniversity(university)" ng-repeat="university in register.universities">
-                <img class="uniImg" ng-src="::university.image" />
+                <img class="uniImg" ng-src="{{::university.image}}" />
                 <div class="uniName">{{::university.name}}</div>
             </li>
         </ul>

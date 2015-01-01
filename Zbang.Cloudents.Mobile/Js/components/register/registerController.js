@@ -7,26 +7,29 @@
 
         register.pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
+        register.page = 0;
+
         register.formData = {};
 
-        register.submit = function (event,isValid) {
+        register.submit = function (event, isValid) {
             if (register.searching) {
                 event.preventDefault();
                 return;
             }
 
-            register.disabled = register.submitted = true            
             if (!isValid) {
                 return;
             }
+            register.disabled = register.submitted = true
 
-            register.signup(register.formData).then(null,null, function () {
+
+            register.signup(register.formData).then(null, null, function () {
                 register.disabled = false;
             });
         };
 
         register.changeLanguage = function () {
-            registerService.changeLanguage(register.language,register.formData);
+            registerService.changeLanguage(register.language, register.formData);
         };
 
         register.searchIn = function () {
@@ -44,8 +47,43 @@
             register.searching = false;
         };
 
-        register.searchUnis = function () {
-            registerService.searchUnis(register.universityName);
+        register.searchUnis = function (isAppend) {
+            register.noResults = false;
+
+            if (!isAppend) {
+                register.page = 0;
+                get();
+                return;
+            }
+
+            if (noResults) {
+                return;
+            }
+
+            register.page++;
+            get();
+
+            function get() {
+                registerService.searchUnis(register.universityName, register.page).then(function (response) {
+                    if (!isAppend) {
+                        register.universities = response;
+                        register.noResults = true;
+                        return;
+                    }
+
+                    if (!response.length) {
+                        noResulsts = true;
+                    }
+                    register.universities = register.universities.concat(response);
+
+                });
+            }
+
+        };
+
+        register.testScroll = function () {
+
+            register.searchUnis(true);
         };
 
     }]

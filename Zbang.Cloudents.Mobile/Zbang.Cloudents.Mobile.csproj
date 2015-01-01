@@ -574,6 +574,7 @@
     <Content Include="Js\shared\ajax\feed.js" />
     <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\shared\ajax\search.js" />
+    <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\social\facebook.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />

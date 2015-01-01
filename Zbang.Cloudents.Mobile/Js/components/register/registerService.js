@@ -10,7 +10,7 @@
             service.signup = function (data) {
                 return account.register(data).then(function (response) {
                     $state.go('libChoose');
-                                        
+
                 });
             };
 
@@ -47,8 +47,8 @@
                 return obj;
             };
 
-            service.registerUnis = function (term) {
-                return library.search({ term: term });
+            service.searchUnis = function (term, page) {
+                return library.search({ term: term, page: page });
             }
 
 
