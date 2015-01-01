@@ -18,7 +18,7 @@
             login.disabled = login.submitted = true
 
 
-            loginService.login(login.formData).then(null, function () {
+            loginService.login(login.formData).catch(function () {
                 login.disabled = false;
             });
 

@@ -3,11 +3,14 @@
     ['registerService', function (registerService) {
         "use strict";
 
-        var register = this;
+        var register = this,
+            noResults = false,
+            isFetching = false;
 
         register.pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
         register.page = 0;
+
 
         register.formData = {};
 
@@ -23,7 +26,7 @@
             register.disabled = register.submitted = true
 
 
-            register.signup(register.formData).then(null, null, function () {
+            register.signup(register.formData).catch(function () {
                 register.disabled = false;
             });
         };
@@ -48,9 +51,16 @@
         };
 
         register.searchUnis = function (isAppend) {
+
+            if (!register.universityName) {
+                register.universities = [];
+                return;
+            }
+
             register.noResults = false;
 
             if (!isAppend) {
+                noResults = false;
                 register.page = 0;
                 get();
                 return;
@@ -59,32 +69,41 @@
             if (noResults) {
                 return;
             }
-
-            register.page++;
+            
             get();
 
             function get() {
+
+                if (isFetching) {
+                    return;
+                }
+
+                isFetching = true;
+
                 registerService.searchUnis(register.universityName, register.page).then(function (response) {
+                    response = response || [];
+
+                    register.page++;
+
                     if (!isAppend) {
                         register.universities = response;
-                        register.noResults = true;
+                        register.noResults = true;                        
                         return;
                     }
 
+                    
+
+
                     if (!response.length) {
-                        noResulsts = true;
+                        noResults = true;
                     }
                     register.universities = register.universities.concat(response);
 
+                }).finally(function () {
+                    isFetching = false;
                 });
             }
 
         };
-
-        register.testScroll = function () {
-
-            register.searchUnis(true);
-        };
-
     }]
 );
