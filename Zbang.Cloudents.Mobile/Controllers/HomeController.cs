@@ -27,11 +27,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
         //TODO: output cache
-        [Route("account")]
+        [Route("account",Name="accountLink")]
         [Route("account/login")]
         [Route("account/register")]
         [Route("library/choose")]
-        [Route("dashboard")]
+        [Route("dashboard",Name="dashboardLink")]
         [Route("box/my/{boxId:long}/{boxName}")] // todo:add more validation
         [Route("course/{uniName}/{boxId:long}/{boxName}")] // todo:add more validation
         [Route("search")]
