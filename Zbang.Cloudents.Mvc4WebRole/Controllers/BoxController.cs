@@ -170,23 +170,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public JsonResult Items(long id)
+        public async Task<JsonResult> Items(long id)
         {
-            var userId = User.GetUserId(false);// not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxItemsPaged2(query).ToList();
+                var query = new GetBoxItemsPagedQuery(id);
+                var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 foreach (var item in result)
                 {
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
-                return Json(new JsonResponse(false));
+                TraceLog.WriteError(string.Format("Box Items BoxId {0}", id), ex);
+                return JsonError();
             }
         }
 
@@ -194,20 +193,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("id")]
         public async Task<JsonResult> Quizes(long id)
         {
-            var userId = User.GetUserId(false);// not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, userId);
+                var query = new GetBoxItemsPagedQuery(id);
                 var result = await ZboxReadService.GetBoxQuizes(query);
 
                 var quizDtos = result as QuizDto[] ?? result.ToArray();
                 var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
-                return Json(new JsonResponse(true, quizDtos.Except(remove)));
+                return JsonOk(quizDtos.Except(remove));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
-                return Json(new JsonResponse(false));
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} ", id), ex);
+                return JsonError();
             }
         }
 

@@ -34,8 +34,7 @@ namespace Zbang.Zbox.ReadServices
         Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query);
         Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
 
-        //PagedDto<ItemDto> GetBoxItemsPaged(GetBoxItemsPagedQuery query);
-        IEnumerable<IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query);
+        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query);
 
         Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query);

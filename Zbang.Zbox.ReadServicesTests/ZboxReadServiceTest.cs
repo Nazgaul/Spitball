@@ -61,7 +61,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        
+
 
         [TestMethod]
         public void GetRecommendedCourses_Query_ReturnResult()
@@ -216,7 +216,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxQuizes_Query_ReturnResult()
         {
-            var query = new GetBoxItemsPagedQuery(1, 1);
+            var query = new GetBoxItemsPagedQuery(3732);
             try
             {
                 var x = await m_ZboxReadService.GetBoxQuizes(query);
@@ -541,12 +541,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetBoxItemsPaged2_Query_ReturnResult()
+        public async Task GetBoxItemsPaged2_Query_ReturnResult()
         {
-            var query = new GetBoxItemsPagedQuery(1, 1);
+            var query = new GetBoxItemsPagedQuery(3732);
             try
             {
-                m_ZboxReadService.GetBoxItemsPaged2(query);
+                var x = await m_ZboxReadService.GetBoxItemsPagedAsync(query);
             }
             catch (Exception ex)
             {

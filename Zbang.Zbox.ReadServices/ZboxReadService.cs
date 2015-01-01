@@ -264,17 +264,29 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Item.IItemDto> GetBoxItemsPaged2(GetBoxItemsPagedQuery query)
+        public async Task<IEnumerable<Item.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-
-                var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
-                queryBoxItem.SetInt64("BoxId", query.BoxId);
-                queryBoxItem.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileDto), typeof(Item.LinkDto)));
-                var fitems = queryBoxItem.Future<Item.ItemDto>();
-                return fitems.ToList();
+               return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
+                {
+                    query.BoxId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage
+                });
             }
+            //using (UnitOfWork.Start())
+            //{
+
+            //    var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
+            //    queryBoxItem.SetInt64("BoxId", query.BoxId);
+            //    queryBoxItem.SetResultTransformer(
+            //        ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer
+            //        (typeof(Item.FileDto),
+            //        typeof(Item.LinkDto)));
+            //    var fitems = queryBoxItem.Future<Item.ItemDto>();
+            //    return fitems.ToList();
+            //}
 
         }
 
