@@ -3,7 +3,8 @@
 /*#region mixins */
 /*#endregion */
 html,
-body {
+body,
+main {
   height: 100%;
 }
 body {

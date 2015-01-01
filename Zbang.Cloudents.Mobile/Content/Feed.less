@@ -1,1 +1,267 @@
 ﻿@import "varsAndMixins";
+
+.feed {
+    color: @textColor;
+    display: inline-block;
+    padding-left: 2%;
+    margin-top: 15px;
+    .boxSizing;
+    > .feedForm {
+        .feedTA {
+            border-color: #282828;
+        }
+    }   
+}
+
+.feedForm {
+    position: relative;
+    clear: both;
+    overflow: hidden;
+    .btn1 {
+        margin: 8px 8px 0 0; //rtl
+    }
+    &.feedOpen {
+        .feedTA {
+            min-height: 169px;
+            max-height: 250px;
+            overflow: auto;
+            padding: 9px 12px 2px 12px;
+            border-radius: 3px 3px 0 0;
+            border-bottom: none;
+            margin-bottom: 35px;
+            border-color: #282828;
+            direction: ltr !important; //rtl - override Guy's code to fix bug 2606 mozilla problem
+            ~ .bottomTA {
+                display: block;
+            }
+            ~ .attachBtn {
+                bottom: 2px;
+                left: 70px; //rtl
+                top: auto;
+                right: auto;
+            }
+        }
+        .svg-attachment {
+            fill: #282828;
+        }
+        .attachedList {
+            display: block;
+        }
+    }
+    .attachedList {
+        display: none;
+    }
+}
+
+.feedImg {
+    margin-right: 10px; //rtl
+    border: 1px solid @borderColor;
+    .boxSizing;
+    //position: relative;
+    //top: -2px;
+}
+
+.feedTA {
+    //width: 436px;
+    //width: 543px;
+    border-radius: 3px;
+    border: 1px solid #282828;
+    //margin-top: 2px;
+    padding: 0 30px 0 8px; //rtl
+    min-height: 24px;
+    height: 24px;
+    .boxSizing;
+    font-size: 15px;
+    .transition(min-height .3s ease-in);
+    resize:none;
+    width: 90%;
+    width: ~'calc(93% - 40px)';
+    float: right;
+    margin-right: 6%;
+    margin-top: 2px;
+}
+.attachBtn {
+    position: absolute;
+    top: 6px;
+    right: 24px;
+}
+
+.svg-trash {
+    width: 14px;
+    height: 20px;
+    fill: #aaa;
+}
+.bottomTA {
+    display: none;
+    height: 40px;
+    position: absolute;
+    bottom: 1px;
+    left: 55px; //rtl
+    //width: 543px;
+    width: 90%;
+    width: ~'calc(93% - 40px)';
+
+    background: #eee;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid #282828;
+    border-top: none;
+    .boxSizing;
+}
+.feed-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.feed-enter.feed-enter-active {
+	opacity: 1;
+}
+.boxFeedList {
+    overflow: hidden;
+    > li {
+        clear: both;
+        margin-top: 15px;
+        position: relative;
+        .animation (fadeinGrow, 2s, 0, ease);
+        overflow: hidden;
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            left: 41px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 14px 7px 0; //rtl
+            border-color: transparent #eeeeee transparent transparent; //rtl
+        }
+    }
+    .svg-attachment {
+        fill: @borderColor;
+    }
+    .feedForm {
+        padding-top: 15px;
+        /*display: none;*/
+        .feedImg {
+            margin: 0 0 0 15px; //rtl override
+        }
+        &.show {
+            display: block;
+        }
+    }
+    .feedTA {
+        //width: 487px;
+        width: 90%;
+        width: ~'calc(93% - 40px)';
+        height: 38px;
+        margin-left: 55px; //rtl
+    }
+    .bottomTA {
+        //width: 487px;
+        width: 90%;
+        width: ~'calc(93% - 40px)';
+    }
+    .attachBtn {
+        top: 24px;
+        right: 70px; //rtl
+    }
+    /*&:empty {
+        ~ .emptyFeed {
+            display: block;
+        }
+    }*/
+}
+.feedWpr {
+    //width: 431px;
+    background: #eee;
+    padding: 8px 15px;
+    display: block;
+    vertical-align: top;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden; //fill remaining width
+    .boxSizing;
+    .userName {
+        color: @itemBlue;
+        max-width: 300px;
+        font-size: 16px;
+    }
+    .createTime {
+        color: #999;
+        font-size: 16px;
+    }
+    .feedContent {
+        margin-top: 15px;
+        font-size: 16px;
+        white-space:normal;
+    }
+    .commentBtn {
+        &:after {
+            content: '\00a0' '|' '\00a0';
+        }
+    }
+    .commentBtn, .shareBtn {
+        display: inline-block;
+        color: @itemBlue;
+        margin:0; //override
+        font-size: 12px;
+    }
+    .trash {
+        position: absolute;
+        bottom: 8px;
+        right: 15px; //rtl
+        display: none;
+    }
+}
+
+.feedReplies {
+    //width: 543px;
+    width: 90%;
+    width: ~'calc(93% - 40px)';
+    > li {
+        margin-top: 15px;
+        position: relative;
+        .animation (fadeinGrow, 2s, 0, ease);
+        &:before {
+            .pseudo;
+            position: absolute;
+            top: 15px;
+            right: 41px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 0 7px 14px; //rtl
+            border-color: transparent transparent transparent @borderColor; //rtl
+        }
+        &:after {
+            .pseudo;
+            position: absolute;
+            top: 16px;
+            right: 44px; //rtl
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 12px; //rtl
+            border-color: transparent transparent transparent #fff; //rtl
+            z-index: 1;
+        }
+    }
+    .feedImg {
+        margin: 0 0 0 15px; //rtl override
+    }
+    .userName {
+        color: @color;
+    }
+    .feedWpr {
+        background: none;
+        border: 1px solid @borderColor;
+    }
+    ~ .feedForm {
+        .attachedList {
+            //width: 487px;
+            //width: 465px;
+            width: 90%;
+            width: ~'calc(93% - 40px)';
+        }
+    }
+}
