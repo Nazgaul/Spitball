@@ -64,6 +64,13 @@
         };
 
         register.searchUnis = function (isAppend) {
+            if (isFetching) {
+                return;
+            }
+
+            if (register.formData.universityName.length < 3) {
+                return;
+            }
 
             if (!register.formData.universityName) {
                 register.universities = [];
@@ -85,11 +92,7 @@
             
             get();
 
-            function get() {
-
-                if (isFetching) {
-                    return;
-                }
+            function get() {           
 
                 isFetching = true;
 

@@ -8,16 +8,16 @@
         <input class="searchInput" placeholder="Search for your school" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
     </form>
 </div>
-<div class="searchContent">
+<div class="searchContent" scroll-paging on-scroll="search.query(true)">
     <div class="tabs">
-        <button type="button" class="tab" ng-click="search.setCurrentTab('courses')">Courses</button>
-        <button type="button" class="tab" ng-click="search.setCurrentTab('items')">Items</button>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">Courses</button>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">Items</button>
         @*<span class="tab">Members</span>*@
     </div>
 
     <div ng-switch="search.currentTab">
         <ul class="courseList" ng-switch-when="courses">
-            <li ng-repeat="course in search.courses track by course.id">
+            <li ng-repeat="course in search.courses">
                 <a href="{{::course.url}}" class="ghost">
                     <div class="courseName vCentered">{{::course.name}}</div>
                     <img width="40" height="40" ng-src="{{::course.image}}" />
@@ -25,7 +25,7 @@
             </li>
         </ul>
         <ul class="itemsList" ng-switch-when="items">
-            <li ng-repeat="item in search.items track by item.id">
+            <li ng-repeat="item in search.items">
                 <a href="{{::item.url}}" class="ghost">
                     <div class="details vCentered">
                         <div class="filename elps">{{::item.name}}</div>
