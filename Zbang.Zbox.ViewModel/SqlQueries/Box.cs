@@ -56,7 +56,7 @@ order by name;";
       ,a.CreationTime as creationTime
       FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
       where a.boxid = @BoxId
-      order by MarkAnswer desc, id;";
+      order by id;";
 
         public const string GetBoxQnAItem = @"  select
     i.itemid as Id,

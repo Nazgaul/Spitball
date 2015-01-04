@@ -397,7 +397,7 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Box.GetBoxQnAItem,
                     Sql.Box.GetBoxQnaQuiz
                     ),
-                    new { query.BoxId, query.UserId }))
+                    new { query.BoxId }))
                 {
                     var questions = grid.Read<Qna.QuestionDto>().ToList();
                     var answers = grid.Read<Qna.AnswerDto>().ToList();

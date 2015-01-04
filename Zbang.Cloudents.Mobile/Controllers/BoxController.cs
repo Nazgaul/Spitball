@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
@@ -20,7 +21,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
-        
+
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage",
@@ -96,7 +97,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var query = new GetBoxItemsPagedQuery(id, page, 10);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
-                return JsonOk(result);
+                return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
             }
             catch (Exception ex)
             {

@@ -36,10 +36,8 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                //UpdateIdOfQuestion(); // this can only be one time
-                //AddItemsToFeedDbi(); // this can work
-                //UpdateReputation(); // this can work
-                UpdateAllUrlsInSystem();
+                AddItemsToFeedDbi(); // this can work
+                //UpdateAllUrlsInSystem();
             }
         }
 
@@ -90,7 +88,6 @@ namespace Zbang.Zbox.Domain.Services
                  .Where(w => w.IsDeleted == false)
                  .And(w => w.Comment == null)
                  .And(w => w.Answer == null)
-                 .And(w => w.Box.Id == 5062L)
                  .OrderBy(w => w.DateTimeUser.CreationTime).Asc
                  .List();
             foreach (var item in items)
