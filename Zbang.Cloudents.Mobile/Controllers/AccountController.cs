@@ -211,7 +211,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
             if (!ModelState.IsValid)

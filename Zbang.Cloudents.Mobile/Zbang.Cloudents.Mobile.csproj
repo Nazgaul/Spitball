@@ -574,6 +574,7 @@
     <Content Include="Js\shared\ajax\feed.js" />
     <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\shared\ajax\search.js" />
+    <Content Include="Js\shared\events\events.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\social\facebook.js" />
     <Content Include="Js\staticShim.js" />
@@ -1421,7 +1422,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Js\shared\events\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
