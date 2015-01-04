@@ -6,7 +6,7 @@
     	}
     	return {
     		details: function (data) {
-    			return ajaxService.get(buildPath('userDetails'), data);
+    			return ajaxService.get(buildPath('details'), data);
     		},
     		changeLanguage: function (data) {
     			return ajaxService.post(buildPath('changelanguage'), data);
