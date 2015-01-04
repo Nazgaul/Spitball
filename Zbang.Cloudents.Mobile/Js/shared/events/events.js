@@ -35,7 +35,7 @@
                        return;
                    }
 
-                   if (Math.abs(curPosX - posX) >= 110) {
+                   if (Math.abs(curPosX - posX) >= 115) {
                        return;
                    }
 
