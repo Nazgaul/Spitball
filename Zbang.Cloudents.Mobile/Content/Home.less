@@ -8,6 +8,21 @@ body {
     color: @textColor; 
     font-family: Arial; 
 }
+.loader {
+    position: fixed;
+    top: 50%;
+    //display: inline-block;
+    -moz-transform: scale(5);
+    -ms-transform: scale(5);
+    -o-transform: scale(5);
+    -webkit-transform: scale(5);
+    transform: scale(5);
+    display: none;
+
+    rect {
+        fill: @itemBlue;
+    }
+}
 
 /*#region mixins */
 

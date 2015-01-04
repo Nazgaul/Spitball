@@ -12,6 +12,19 @@ body {
   color: #383838;
   font-family: Arial;
 }
+.loader {
+  position: fixed;
+  top: 50%;
+  -moz-transform: scale(5);
+  -ms-transform: scale(5);
+  -o-transform: scale(5);
+  -webkit-transform: scale(5);
+  transform: scale(5);
+  display: none;
+}
+.loader rect {
+  fill: #3399ff;
+}
 /*#region mixins */
 /*#endregion */
 /*#region helper classes */

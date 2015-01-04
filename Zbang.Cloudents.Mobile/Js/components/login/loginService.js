@@ -6,7 +6,7 @@
 
         service.login = function (data) {
             return account.login(data).then(function (response) {
-                $state.go('dashboard');
+                $state.go('root.dashboard');
             });
         };
 

@@ -110,6 +110,7 @@
     font-size: 15px;
     display: block;
     margin-right: -12px; //rtl
+    white-space: nowrap;
     + .recommendedItem {
         &:after {
             .pseudo;
@@ -122,18 +123,14 @@
     }
 
     .courseLink {
-        display: block;
+        display: inline-block;
+        width: 100%;
         height: 100%;
         overflow: hidden;
-        white-space: noWrap;
         font-size: 13px;
-        .rcDetails {
-            margin-left: -110px; //rtl
-        }
     }
 
     .rcDetails {
-        width: 100%;
         height: 63px;
         vertical-align: top;
         padding: 15px 0 0 69px; //rtl
@@ -141,7 +138,6 @@
         display: inline-block;
         background: #fff;
         margin: 0;
-        .transition(margin .2s .5s);
         position: relative; //img to move on hover
         &.rcFull {
             .prof{
@@ -159,12 +155,13 @@
     }
 
     .rcStats {
-        width: 105px;
+        width: 115px;
         height: 60px;
         display: inline-block;
         background: #282828;
         color: #fff;
-        margin-top: 9px;
+        position: relative;
+        top: -20px;
         svg {
             position: absolute;
             left: 4px; //rtl

@@ -19,15 +19,14 @@
 
         //#region box list
         dashboard.getBoxList = function (isAppend) {
-            isFetching = true;
-
-            if (endResult) {
+            if (isFetching || endResult) {
                 return;
             }
+            isFetching = true;
 
             dashboardService.getBoxList(page).then(function (boxes) {
-                page++;
-        
+                page++;       
+
                 if (!boxes.length) {
                     endResult = true;
                     return;
@@ -54,9 +53,12 @@
 
         //#region recommended boxes
 
-        //dashboardService.getRecommendedBoxesList().then(function (recommndedBoxes) {
-        //    dashboard.recommndedBoxes = recommndedBoxes;
-        //});
+        dashboardService.getRecommendedBoxesList().then(function (recommendedBoxes) {
+            dashboard.recommendedBoxes = recommendedBoxes;
+        });
 
+        dashboard.test = function (e) {
+            console.log(e);
+        };
     }]
-);
+);  
