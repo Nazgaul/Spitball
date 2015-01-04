@@ -8,6 +8,7 @@
                 abstract: true,
                 controller: ['user', function (user) {
                     var root = this;
+                    root.user = user;
                 }],
                 controllerAs: 'root',
                 template: '<div ui-view></div>',
