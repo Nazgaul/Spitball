@@ -101,7 +101,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = userDetail.UniversityDataId.Value;
 
-            var query = new RecommendedCoursesQuery(universityWrapper);
+            var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
             return JsonOk(result);
         }

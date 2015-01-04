@@ -135,12 +135,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     });
                 }
 
-                return Json(new JsonResponse(true, suggestedUniversity));
+                return JsonOk(suggestedUniversity);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Library Get friends authkey=" + authToken, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 

@@ -55,16 +55,14 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
                     Sql.Sql.DashboardInfo,
-                    Sql.Sql.RecommendedCourses,
                     Sql.Sql.UniversityLeaderBoard),
                     new { query.UniversityId }))
                 {
                     var retVal = new DashboardDto
                     {
                         Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
-                        Recommended = await grid.ReadAsync<Box.RecommendBoxDto>(),
                         LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
 
                     };
@@ -75,7 +73,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
         /// <summary>
-        /// Used in empty state dashboard
+        /// Used in dashboard
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -83,7 +81,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses, new { query.UniversityId });
+                return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
+                    new { query.UniversityId, UserId = query.UserId });
             }
         }
 
@@ -268,12 +267,12 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-               return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
-                {
-                    query.BoxId,
-                    pageNumber = query.PageNumber,
-                    rowsperpage = query.RowsPerPage
-                });
+                return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
+                 {
+                     query.BoxId,
+                     pageNumber = query.PageNumber,
+                     rowsperpage = query.RowsPerPage
+                 });
             }
             //using (UnitOfWork.Start())
             //{
@@ -422,7 +421,46 @@ namespace Zbang.Zbox.ReadServices
 
 
 
+        public async Task<IEnumerable<SearchBoxes>> SearchBoxes(GroupSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
+                   Sql.Search.OwnedSubscribedBoxes,
+                   Sql.Search.UniversityBoxes),
+                   new
+                   {
+                       query = query.Query,
+                       universityId = query.UniversityId,
+                       userId = query.UserId,
+                       query.PageNumber,
+                       query.RowsPerPage
+                   }))
+                {
+                    var ownedBoxes = await grid.ReadAsync<SearchBoxes>();
+                    var universityBoxes = await grid.ReadAsync<SearchBoxes>();
+                    return ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.RowsPerPage);
+                }
+            }
+        }
 
+        public async Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+
+                return await conn.QueryAsync<SearchItems>(Sql.Search.Items,
+                    new
+                    {
+                        query = query.Query,
+                        universityId = query.UniversityId,
+                        userId = query.UserId,
+                        query.PageNumber,
+                        query.RowsPerPage
+                    });
+
+            }
+        }
 
         /// <summary>
         /// Performs a search, returning the results grouped by category 
@@ -447,8 +485,8 @@ namespace Zbang.Zbox.ReadServices
                          query = query.Query,
                          universityId = query.UniversityId,
                          userId = query.UserId,
-                         offsetV = query.Offset,
-                         pageSize = query.PageSize
+                         query.PageNumber,
+                         query.RowsPerPage
                      }))
                 {
                     var ownedBoxes = grid.Read<SearchBoxes>();
@@ -457,7 +495,7 @@ namespace Zbang.Zbox.ReadServices
                     retVal.Items = grid.Read<SearchItems>();
 
 
-                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.PageSize);
+                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.RowsPerPage);
                 }
                 if (retVal.Items.Any()) return retVal;
                 retVal.OtherItems = await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
@@ -466,8 +504,8 @@ namespace Zbang.Zbox.ReadServices
                         query = query.Query,
                         universityId = query.UniversityId,
                         userId = query.UserId,
-                        offsetV = query.Offset,
-                        pageSize = query.PageSize
+                        query.PageNumber,
+                        query.RowsPerPage
                     });
                 retVal.OtherItems = retVal.OtherItems;
             }
@@ -484,8 +522,8 @@ namespace Zbang.Zbox.ReadServices
                            query = query.Query,
                            universityId = query.UniversityId,
                            userId = query.UserId,
-                           offsetV = query.Offset,
-                           pageSize = query.PageSize
+                           query.PageNumber,
+                           query.RowsPerPage
                        });
             }
         }
@@ -576,7 +614,8 @@ namespace Zbang.Zbox.ReadServices
             {
                 //we can only use 2100 in statement
                 using (var grid = await conn.QueryMultipleAsync(
-                     string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds, Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
+                     string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds,
+                     Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
                     new { FriendsIds = friendsIds.Take(2099) }
                      ))
                 {

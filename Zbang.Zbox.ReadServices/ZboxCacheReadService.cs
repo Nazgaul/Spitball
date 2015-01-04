@@ -343,8 +343,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
         {
-            return m_Cache.QueryAsync
-                (m_ReadService.GetRecommendedCourses, query);
+            return m_ReadService.GetRecommendedCourses(query);
         }
 
 
@@ -388,6 +387,17 @@ namespace Zbang.Zbox.ReadServices
         public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
         {
             return m_ReadService.GetUserDataAsync(query);
+        }
+
+
+        public Task<IEnumerable<SearchBoxes>> SearchBoxes(GroupSearchQuery query)
+        {
+            return m_ReadService.SearchBoxes(query);
+        }
+
+        public Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
+        {
+            return m_ReadService.SearchItems(query);
         }
     }
 }
