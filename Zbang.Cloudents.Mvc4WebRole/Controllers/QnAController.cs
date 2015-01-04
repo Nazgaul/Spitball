@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -86,7 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), User.GetUserId()), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
         [ZboxAuthorize]
@@ -102,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -113,18 +112,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
-                        User.GetUserId(false)));
-
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
                 return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
             catch (BoxDoesntExistException)
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 

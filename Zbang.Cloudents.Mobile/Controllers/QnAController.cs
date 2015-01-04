@@ -1,9 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.Mobile.Models.QnA;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
@@ -11,52 +16,57 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
     public class QnAController : BaseController
     {
+        private readonly Lazy<IIdGenerator> m_IdGenerator;
+        public QnAController(
+            Lazy<IIdGenerator> idGenerator)
+        {
+            m_IdGenerator = idGenerator;
+        }
 
+        [ZboxAuthorize]
+        [HttpPost]
+        public async Task<JsonResult> AddQuestion(Question model)
+        {
+            if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+            }
 
-        //[ZboxAuthorize]
-        //[HttpPost]
-        //public async Task<JsonResult> AddQuestion(Question model)
-        //{
-        //    if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
-        //    {
-        //        ModelState.AddModelError(string.Empty, "You need to write something or post files");
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetErrorsFromModelState()));
-        //    }
+            var questionId = m_IdGenerator.Value.GetId();
+            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
+            await ZboxWriteService.AddQuestionAsync(command);
+            return Json(new JsonResponse(true, questionId));
+        }
 
-        //    var questionId = m_IdGenerator.Value.GetId();
-        //    var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
-        //    await ZboxWriteService.AddQuestionAsync(command);
-        //    return Json(new JsonResponse(true, questionId));
-        //}
-
-        //[ZboxAuthorize]
-        //[HttpPost]
-        //public async Task<JsonResult> AddAnswer(Answer model)
-        //{
-        //    if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
-        //    {
-        //        ModelState.AddModelError(string.Empty, "You need to write something or post files");
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetErrorsFromModelState()));
-        //    }
-        //    try
-        //    {
-        //        var answerId = m_IdGenerator.Value.GetId();
-        //        var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
-        //        await ZboxWriteService.AddAnswerAsync(command);
-        //        return Json(new JsonResponse(true, answerId));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("Add answer model: " + model, ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
+        [ZboxAuthorize]
+        [HttpPost]
+        public async Task<JsonResult> AddAnswer(Answer model)
+        {
+            if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            try
+            {
+                var answerId = m_IdGenerator.Value.GetId();
+                var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
+                await ZboxWriteService.AddAnswerAsync(command);
+                return Json(new JsonResponse(true, answerId));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("Add answer model: " + model, ex);
+                return Json(new JsonResponse(false));
+            }
+        }
        
 
         //[ZboxAuthorize]
@@ -95,14 +105,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), 
         BoxPermission("boxId")]
-        public async Task<JsonResult> Index(long boxId)
+        public async Task<JsonResult> Index(long boxId, int page)
         {
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
-                        User.GetUserId(false)));
-
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,page,20));
                 return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)

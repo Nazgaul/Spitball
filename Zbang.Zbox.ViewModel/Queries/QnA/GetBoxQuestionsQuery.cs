@@ -2,8 +2,7 @@
 {
     public class GetBoxQuestionsQuery : IPagedQuery
     {
-        public GetBoxQuestionsQuery(long boxId, int pageNumber, int rowsPerPage)
-
+        public GetBoxQuestionsQuery(long boxId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
             RowsPerPage = rowsPerPage;
             PageNumber = pageNumber;
