@@ -238,4 +238,6 @@
 .followedClasses .courseName {
   font-size: 14px;
   font-weight: bold;
+  max-width: 220px;
+  max-width: 70vw;
 }
