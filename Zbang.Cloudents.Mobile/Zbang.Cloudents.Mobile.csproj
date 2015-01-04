@@ -575,7 +575,6 @@
     <Content Include="cdn\gzip\Web.config" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
-    <Content Include="ApplicationInsights.config" />
     <Content Include="Js\shared\ajax\account.js" />
     <Content Include="Content\Dashboard.less" />
     <Content Include="Content\Search.less" />
