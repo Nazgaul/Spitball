@@ -81,12 +81,12 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
         [TestMethod]
-        public void Search_Query_ReturnResult()
+        public async Task Search_Query_ReturnResult()
         {
-            var query = new GroupSearchQuery("1", 14, 1, false);
+            var query = new GroupSearchQuery("1", 920, 1, 0, 50);
             try
             {
-                var x = m_ZboxReadService.Search(query).Result;
+                var x = await m_ZboxReadService.Search(query);
             }
             catch (Exception ex)
             {
@@ -95,12 +95,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void OtherUniversities_Query_ReturnResult()
+        public async Task OtherUniversities_Query_ReturnResult()
         {
-            var query = new GroupSearchQuery("1", 14, 1, false);
+            var query = new GroupSearchQuery("1", 920, 1, 0, 50);
             try
             {
-                var x = m_ZboxReadService.OtherUniversities(query).Result;
+                var x = await m_ZboxReadService.OtherUniversities(query);
             }
             catch (Exception ex)
             {

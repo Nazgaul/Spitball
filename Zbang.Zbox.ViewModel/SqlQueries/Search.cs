@@ -4,7 +4,7 @@
     {
         public const string OwnedSubscribedBoxes = @"select  b.pictureurl as image,
  b.BoxName as name,
- b.ProfessorName as proffessor,
+ b.ProfessorName as professor,
  b.CourseCode as courseCode,
  b.BoxId as id ,
 b.Url as url
@@ -15,33 +15,32 @@ where b.IsDeleted = 0
 	or b.CourseCode like '%' + @query + '%'
 	or b.ProfessorName like '%' + @query + '%')
 order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, len(b.boxName)
-offset @offsetV rows
-fetch next @pageSize rows only; ";
+offset @pageNumber*@rowsperpage rows
+fetch next @rowsperpage rows only; ";
 
         public const string UniversityBoxes = @"select b.pictureurl as image,
  b.BoxName as name,
- b.ProfessorName as proffessor,
+ b.ProfessorName as professor,
  b.CourseCode as courseCode,
  b.BoxId as id ,
 b.Url as url
 from zbox.box b
 where b.IsDeleted = 0
 and b.University = @universityId
-and b.Discriminator = 2
 and (b.BoxName like '%' + @query + '%'
 	or b.CourseCode like '%' + @query + '%'
 	or b.ProfessorName like '%' + @query + '%')
 order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, len(b.boxName)
-offset @offsetV rows
-fetch next @pageSize rows only;";
+offset @pageNumber*@rowsperpage rows
+fetch next @rowsperpage rows only;";
 
         public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
 from zbox.users u
 where u.UniversityId = @universityId
 and u.username like '%' +@query + '%'
 order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
-offset @offsetV rows
-fetch next @pageSize rows only;";
+offset @pageNumber*@rowsperpage rows
+fetch next @rowsperpage rows only;";
 
         public const string Items = @"select 
 i.thumbnailurl as image,
@@ -61,8 +60,8 @@ and b.University = @universityId
 and b.Discriminator = 2
 and (i.Name like '%' +@query + '%')
 order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
-offset @offsetV rows
-fetch next @pageSize rows only;";
+offset @pageNumber*@rowsperpage rows
+fetch next @rowsperpage rows only;";
 
         public const string ItemFromOtherUniversities = @"
 select i.thumbnailurl as image,
@@ -89,7 +88,7 @@ and u.Id != @universityid
 and b.Discriminator = 2
 and (i.Name like '%' +@query + '%')
 order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc, uniName
-offset @offsetV rows
-fetch next @pageSize rows only;";
+offset @pageNumber*@rowsperpage rows
+fetch next @rowsperpage rows only;";
     }
 }
