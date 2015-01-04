@@ -65,7 +65,6 @@
             </a>
         </li>
     </ul>
-
     <section class="recommendedClasses">
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
@@ -77,7 +76,7 @@
                             <span class="prof elps">{{course.professor}}</span>
                             <span class="courseId elps">{{course.courseCode}}</span>
                         </div>
-                        <img alt="" width="48" height="48" ng-src="{{course.picture | defaultImage:'box'}}" />
+                        <img alt="" width="48" height="48" ng-src="{{course.picture}}" />
                     </div>
                     <div class="rcStats">
                         <div class="friends" data-friends-count="{{course.membersCount}}">

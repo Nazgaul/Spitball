@@ -1,7 +1,7 @@
 ﻿angular.module('register')
     .service('registerService',
-    ['account', 'library', '$angularCacheFactory', '$analytics', '$state',
-        function (account, library, $angularCacheFactory, $analytics, $state) {
+    ['account', 'library', '$angularCacheFactory', '$analytics', '$state', '$window',
+        function (account, library, $angularCacheFactory, $analytics, $state, $window) {
             "use strict";
             var service = this,
                 cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
@@ -9,8 +9,11 @@
 
             service.signup = function (data) {
                 return account.register(data).then(function (response) {
+                    if (data.universityId) {
+                        $state.go('dashboard');
+                        return;
+                    }
                     $state.go('libChoose');
-
                 });
             };
 
@@ -19,22 +22,22 @@
                 $analytics.eventTrack('Language Change', {
                     category: 'Register',
                     label: 'User changed language to ' + language
-                });
-
-
-                cache.put('formData', JSON.stringify({
-                    formData: data
-                }));
-
-                account.changeLanguage({ language: register.langauge }).then(function () {
-                    $window.location.reload();
-                });
-
+                });             
+           
+                if (Object.keys(data).length) {
+                    cache.put('formData', JSON.stringify({
+                        formData: data
+                    }));
+                }
+                
+                    account.changeLocale({ lang: language }).then(function () {
+                        $window.location.reload();
+                    });
             };
 
             service.getLangugeChangeForm = function () {
 
-                obj = cache.get('formData');
+                var obj = cache.get('formData');
 
                 if (!obj) {
                     return {};
@@ -42,9 +45,9 @@
 
                 obj = JSON.parse(obj);
 
-                cache.destroy();
+                cache.removeAll();
 
-                return obj;
+                return obj.formData;
             };
 
             service.searchUnis = function (term, page) {

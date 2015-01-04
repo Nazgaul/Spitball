@@ -87,13 +87,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new NullReferenceException("result2");
                 }
 
-                var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
-                    result2.File.Uploader.Url,
-                    result2.File.ThumbnailUrl,
-                    string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0,
-                    DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
-                    result2.File.Url)
+                var fileDto = new ItemDto
                 {
+                    Id = result2.File.Id,
+                    Name = result2.File.Name,
+                    OwnerId = result2.File.Uploader.Id,
+                    UserUrl = result2.File.Uploader.Url,
+                    Thumbnail = result2.File.ThumbnailUrl,
+                    Owner = result2.File.Uploader.Name,
+                    Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
+                    Url = result2.File.Url,
                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
                 };
                 cookie.RemoveCookie("upload");
@@ -232,14 +235,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new NullReferenceException("result2");
                 }
 
-                var item = new LinkDto(result2.Link.Id, result2.Link.Name,
-                    result2.Link.Uploader.Id,
-                    result2.Link.Uploader.Url,
-                    m_BlobProvider.GetThumbnailLinkUrl(), string.Empty,
-                    0, 0, false, result2.Link.Uploader.Name, result2.Link.ItemContentUrl, DateTime.UtcNow, result2.Link.Url)
-                 {
-                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
-                 };
+                var item = new ItemDto
+                {
+                    Id = result2.Link.Id,
+                    Name = result2.Link.Name,
+                    OwnerId = result2.Link.Uploader.Id,
+                    UserUrl = result2.Link.Uploader.Url,
+                    Thumbnail = m_BlobProvider.GetThumbnailLinkUrl(),
+                    Owner = result2.Link.Uploader.Name,
+                    Date = DateTime.UtcNow,
+                    Url = result2.Link.Url,
+                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
+                };
                 return JsonOk(item);
             }
             catch (DuplicateNameException)
@@ -289,12 +296,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new NullReferenceException("result2");
             }
-
-            var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
-                result2.File.Uploader.Url,
-                result2.File.ThumbnailUrl,
-                string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0, DateTime.UtcNow, 0, result2.File.Url)
+            var fileDto = new ItemDto
             {
+                Id = result2.File.Id,
+                Name = result2.File.Name,
+                OwnerId = result2.File.Uploader.Id,
+                UserUrl = result2.File.Uploader.Url,
+                Thumbnail = result2.File.ThumbnailUrl,
+                Owner = result2.File.Uploader.Name,
+                Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
+                Url = result2.File.Url,
                 DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result2.File.Id })
             };
             return JsonOk(fileDto);

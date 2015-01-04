@@ -1,6 +1,8 @@
 ﻿angular.module('dashboard', ['ajax']).
     controller('DashboardController',
-    ['dashboardService', function (dashboardService) {
+    ['dashboardService', 'user', function (dashboardService, user) {
         var dashboard = this;
+
+        console.log(user);
     }]
 );

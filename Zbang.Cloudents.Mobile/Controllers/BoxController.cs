@@ -21,57 +21,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[NoCache]
-        //[BoxPermission("boxId")]
-        //[PreserveQueryString]
-        //public async Task<ActionResult> IndexDesktop(long boxId)
-        //{
-        //    var userId = User.GetUserId(false);
-        //    try
-        //    {
-        //        var query = new GetBoxSeoQuery(boxId, userId);
-        //        var model = await ZboxReadService.GetBoxSeo(query);
-        //        if (model == null)
-        //        {
-        //            throw new BoxDoesntExistException("model is null");
-        //        }
-        //        if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-        //        {
-        //            throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
-        //        }
-        //        if (model.BoxType == BoxType.Box)
-        //        {
-        //            ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
-        //            return View("Empty");
-        //        }
-        //        BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
-        //        ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, model.Name,
-        //            model.UniversityName, BaseControllerResources.Cloudents);
-        //        ViewBag.metaDescription = Regex.Replace(string.Format(
-        //            BaseControllerResources.MetaDescription, model.Name,
-        //            string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
-        //            string.IsNullOrWhiteSpace(model.Professor)
-        //                ? string.Empty
-        //                : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
-        //            @"\s+", " ");
-        //        return View("Empty");
-        //    }
-        //    catch (BoxAccessDeniedException)
-        //    {
-        //        return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
-        //            : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
-        //    }
-        //    catch (BoxDoesntExistException)
-        //    {
-        //        return RedirectToAction("Index", "Error");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
-        //        return RedirectToAction("Index", "Error");
-        //    }
-        //}
+
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage",
@@ -94,7 +44,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var query = new GetBoxQuery(id, userId);
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
-                return Json(new JsonResponse(true, result));
+                return JsonOk(new
+                {
+                    result.Name,
+                    result.BoxType,
+                    result.UserType,
+                    result.ProfessorName,
+                    result.CourseId
+                });
             }
             catch (BoxAccessDeniedException)
             {
@@ -107,19 +64,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Index id {0} userid {1}", id, userId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
-
-        //[HttpGet]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[BoxPermission("id")]
-        //public async Task<JsonResult> SideBar(long id)
-        //{
-        //    var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-        //    var result = await ZboxReadService.GetBoxSideBar(query);
-        //    return Json(new JsonResponse(true, result));
-        //}
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -144,23 +91,18 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public JsonResult Items(long id)
+        public async Task<JsonResult> Items(long id, int page)
         {
-            var userId = User.GetUserId(false);// not really needs it
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, userId);
-                var result = ZboxReadService.GetBoxItemsPaged2(query).ToList();
-                foreach (var item in result)
-                {
-                    item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
-                }
-                return Json(new JsonResponse(true, result));
+                var query = new GetBoxItemsPagedQuery(id, page, 10);
+                var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
+                return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0} userId {1}", id, userId), ex);
-                return Json(new JsonResponse(false));
+                TraceLog.WriteError(string.Format("Box Items BoxId {0} page {1}", id, page), ex);
+                return JsonError();
             }
         }
 

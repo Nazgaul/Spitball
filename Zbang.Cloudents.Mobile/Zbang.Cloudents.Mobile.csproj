@@ -338,13 +338,10 @@
     <Compile Include="Models\Account\Settings\Storage.cs" />
     <Compile Include="Models\Account\Settings\University.cs" />
     <Compile Include="Models\Account\Settings\UserLanguage.cs" />
-    <Compile Include="Models\AddLink.cs" />
     <Compile Include="Models\ChooseDepartment.cs" />
     <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteItemComment.cs" />
     <Compile Include="Models\DeleteItemCommentReply.cs" />
-    <Compile Include="Models\FAQ\Category.cs" />
-    <Compile Include="Models\FAQ\QnA.cs" />
     <Compile Include="Models\BoxSetting.cs" />
     <Compile Include="Models\CreateAcademicBox.cs" />
     <Compile Include="Models\CreateBox.cs" />
@@ -352,16 +349,6 @@
     <Compile Include="Models\CreateUniversity.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
-    <Compile Include="Models\Quiz\Answer.cs" />
-    <Compile Include="Models\Quiz\Discussion.cs" />
-    <Compile Include="Models\Quiz\MarkAnswer.cs" />
-    <Compile Include="Models\Quiz\Question.cs" />
-    <Compile Include="Models\Quiz\Quiz.cs" />
-    <Compile Include="Models\Quiz\SaveQuiz.cs" />
-    <Compile Include="Models\Quiz\SaveUserAnswers.cs" />
-    <Compile Include="Models\Quiz\UpdateAnswer.cs" />
-    <Compile Include="Models\Quiz\UpdateQuestion.cs" />
-    <Compile Include="Models\Quiz\UpdateQuiz.cs" />
     <Compile Include="Models\Resources\StoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -411,10 +398,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Models\Statistics.cs" />
-    <Compile Include="Models\Tabs\AssignItemToTab.cs" />
-    <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />
-    <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
-    <Compile Include="Models\Tabs\DeleteBoxItemTab.cs" />
     <Compile Include="Models\UpdateBoxInfo.cs" />
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -574,6 +557,7 @@
     <Content Include="Js\shared\ajax\feed.js" />
     <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\shared\ajax\search.js" />
+    <Content Include="Js\shared\events\events.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\social\facebook.js" />
     <Content Include="Js\staticShim.js" />
@@ -1421,7 +1405,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Js\shared\events\" />
     <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
