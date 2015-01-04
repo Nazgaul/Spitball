@@ -6,5 +6,13 @@
         service.goBack = function () {
             $window.history.back();
         };
+
+        service.queryItems = function (term, page) {
+            return search.items();
+        };
+
+        service.queryCourses = function (term, page) {
+            return search.boxes();
+        };
     }]
 );

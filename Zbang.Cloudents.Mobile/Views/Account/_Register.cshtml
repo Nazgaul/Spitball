@@ -56,7 +56,7 @@
         </div>
         <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn($event)"
                 hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
-                ng-model-options="{debounce:300}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end/>
+                ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end/>
         <ul class="searchResults" ng-class="{noResults : register.noResults}">
             <li ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
                 <img class="uniImg" ng-src="{{::university.image}}" />
