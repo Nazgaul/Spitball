@@ -64,16 +64,13 @@
 
                         </li>
                     </ul>
-                    <div>
-                        <button class="commentBtn" type="button" ng-click="displayComment(question)">Comment</button>
-                        <div class="shareBtn">
-                            <label for="boxShare" class="iconTop">Share</label>
-                        </div>
-                    </div>
 
-                    <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
+                    <button class="commentBtn" type="button" ng-click="displayComment(question)">Comment</button>
+
+
+                    @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
                         @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                    </button>
+                    </button>*@
                 </div>
                 <ul class="feedReplies rFloat">
                     <li ng-repeat="answer in question.answers track by answer.id">
@@ -83,18 +80,19 @@
                             <div class="userName elps">{{::answer.userName}}</div>
                             <div class="feedContent" ng-bind-html="answer.content"></div>
                             <ul class="qaAttach">
-                                <li class="qaAttachItem" ng-repeat="file in answer.files">
-                                    <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
-                                    <div class="attachActions">
-                                        <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                        <button class="attachDelete" type="button" ng-if="::file.isVisible" ng-click="removeAttachmentA(question,answer,file)"></button>
-                                        <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
-                                    </div>
-                                </li>
+                                <!-- ngRepeat: file in question.files -->
+                                <li class="qaAttachItem">
+                                    <a ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"><img ng-src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg" alt="" width="100" height="125" src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg"></a>
+                                    @*<div class="attachActions">
+                                        <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
+                                        <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
+                                    </div>*@
+                                </li><!-- end ngRepeat: file in question.files -->
+                                <!-- ngRepeat: file in question.quizes -->
                             </ul>
-                            <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
+                            @*<button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
                                 @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                            </button>
+                            </button>*@
                         </div>
                     </li>
                 </ul>
@@ -104,7 +102,7 @@
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                             <span class="attachName elps">{{::file.name}}</span>
-                            <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
+                            @*<button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>*@
                         </li>
                     </ul>
                     <div class="bottomTA">
