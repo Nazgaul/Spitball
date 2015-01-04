@@ -109,6 +109,7 @@
   font-size: 15px;
   display: block;
   margin-right: -12px;
+  white-space: nowrap;
 }
 .recommendedItem + .recommendedItem:after {
   content: '';
@@ -124,11 +125,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  white-space: noWrap;
   font-size: 13px;
-}
-.recommendedItem .courseLink .rcDetails {
-  /*margin-left: -110px; //rtl*/
 }
 .recommendedItem .rcDetails {
   height: 63px;
