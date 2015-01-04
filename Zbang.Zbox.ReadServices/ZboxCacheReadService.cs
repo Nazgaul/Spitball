@@ -388,5 +388,16 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserDataAsync(query);
         }
+
+
+        public Task<IEnumerable<SearchBoxes>> SearchBoxes(GroupSearchQuery query)
+        {
+            return m_ReadService.SearchBoxes(query);
+        }
+
+        public Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
+        {
+            return m_ReadService.SearchItems(query);
+        }
     }
 }

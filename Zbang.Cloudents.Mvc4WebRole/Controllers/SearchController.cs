@@ -70,7 +70,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId != null)
             {
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), allResult, page);
+                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), page,
+                    allResult ? 50 : 6);
                 var result = await ZboxReadService.Search(query);
                 return result;
             }
@@ -90,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var userDetail = FormsAuthenticationService.GetUserData();
                 if (userDetail.UniversityId == null) return JsonError("need university");
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), true, page);
+                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), page, 50);
                 var result = await ZboxReadService.OtherUniversities(query);
                 return JsonOk(result);
             }

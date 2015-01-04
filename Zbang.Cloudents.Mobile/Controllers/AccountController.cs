@@ -714,7 +714,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonOk();
             }
             var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-            return JsonOk(new { retVal.UniversityId, retVal.Name, retVal.Image, retVal.IsAdmin });
+            return JsonOk(new { retVal.UniversityId, retVal.Name, retVal.Image, retVal.IsAdmin, retVal.FirstTimeDashboard });
 
         }
 
