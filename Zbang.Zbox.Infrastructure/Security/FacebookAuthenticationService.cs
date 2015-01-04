@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 //}
 
 
-                using (var sr = await client.GetStreamAsync("https://graph.facebook.com/me?access_token=" + token))
+                using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.2/me?access_token=" + token))
                 {
                     
                     var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData2));
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             using (var client = new HttpClient())
             {
                 // we can only use 2100 in an in statement in sql
-                var str = await client.GetStringAsync("https://graph.facebook.com/v1.0/me/friends?fields=picture.height(32).width(32),name&limit=2100&access_token=" + authToken);
+                var str = await client.GetStringAsync("https://graph.facebook.com/v2.2/me/friends?fields=picture.height(32).width(32),name&limit=2100&access_token=" + authToken);
 
                 dynamic o = JObject.Parse(str);
                 var list = new List<FacebookFriendData>();
@@ -85,9 +85,6 @@ namespace Zbang.Zbox.Infrastructure.Security
                         Name = friend.name
                     });
                 }
-                var sb = new StringBuilder();
-                list.ForEach(s => sb.AppendLine(s.ToString()));
-                TraceLog.WriteInfo(sb.ToString());
                 return list;
             }
         }

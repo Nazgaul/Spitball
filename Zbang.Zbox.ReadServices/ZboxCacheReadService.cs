@@ -343,8 +343,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
         {
-            return m_Cache.QueryAsync
-                (m_ReadService.GetRecommendedCourses, query);
+            return m_ReadService.GetRecommendedCourses(query);
         }
 
 

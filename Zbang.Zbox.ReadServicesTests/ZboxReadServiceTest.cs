@@ -64,12 +64,12 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
         [TestMethod]
-        public void GetRecommendedCourses_Query_ReturnResult()
+        public async Task GetRecommendedCourses_Query_ReturnResult()
         {
-            var query = new RecommendedCoursesQuery(920);
+            var query = new RecommendedCoursesQuery(920, 1);
             try
             {
-                var x = m_ZboxReadService.GetRecommendedCourses(query).Result;
+                var x = await m_ZboxReadService.GetRecommendedCourses(query);
             }
             catch (Exception ex)
             {
