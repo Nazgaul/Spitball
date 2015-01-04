@@ -127,7 +127,7 @@
   font-size: 13px;
 }
 .recommendedItem .courseLink .rcDetails {
-  margin-left: -110px;
+  /*margin-left: -110px; //rtl*/
 }
 .recommendedItem .rcDetails {
   width: 100%;

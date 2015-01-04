@@ -47,21 +47,21 @@
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">
-                <a href="{{recommendedBox.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
-                    <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
+                <a href="{{::recommendedBox.url}}" drag-view class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
+                    <div class="rcDetails ghost" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }">
                         <div class="vCentered elps">
-                            <div class="courseName">{{recommendedBox.name}}</div>
-                            <span class="prof elps">{{recommendedBox.professor}}</span>
-                            <span class="courseId elps">{{recommendedBox.courseCode}}</span>
+                            <div class="courseName">{{::recommendedBox.name}}</div>
+                            <span class="prof elps">{{::recommendedBox.professor}}</span>
+                            <span class="courseId elps">{{::recommendedBox.courseCode}}</span>
                         </div>
-                        <img alt="" width="48" height="48" ng-src="{{recommendedBox.boxPicture}}" />
+                        <img alt="" width="48" height="48" ng-src="{{::recommendedBox.picture}}" />
                     </div>
                     <div class="rcStats">
-                        <div class="friends" data-friends-count="{{recommendedBox.friendsCount}}">
+                        <div class="friends" data-friends-count="{{::recommendedBox.membersCount}}">
                             @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
                             <span>Friends</span>
                         </div>
-                        <div class="files" data-files-count="{{recommendedBox.filesCount}}">
+                        <div class="files" data-files-count="{{::recommendedBox.itemCount}}">
                             @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
                             <span>Files</span>
                         </div>

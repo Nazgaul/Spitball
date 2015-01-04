@@ -9,7 +9,7 @@
                 return ajaxService.get(buildPath('boxList'), data);
             },
             recommendedBoxes: function () {
-                return ajaxService.get(buildPath('recommended'), null);
+                return ajaxService.get(buildPath('RecommendedCourses'), null);
             }
         };
 
