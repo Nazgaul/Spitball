@@ -30,7 +30,7 @@
         </button>
     </section>
 
-    @*<ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
+   <ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
         <li ng-repeat="box in dashboard.boxes">
             <a href="{{::box.url}}" class="ghost">
                 <div class="details vCentered">
@@ -42,7 +42,7 @@
                 @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })
             </a>
         </li>
-    </ul>*@
+    </ul>
     <section class="recommendedClasses">
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
