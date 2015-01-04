@@ -1,31 +1,16 @@
-﻿using System;
-using System.Globalization;
-using Zbang.Zbox.Infrastructure.Query;
-
+﻿
 namespace Zbang.Zbox.ViewModel.Queries
 {
-   public class RecommendedCoursesQuery : IQueryCache
+    public class RecommendedCoursesQuery : IUserQuery
     {
-       public RecommendedCoursesQuery(long universityId)
-       {
-           UniversityId = universityId;
-       }
+        public RecommendedCoursesQuery(long universityId, long userId)
+        {
+            UserId = userId;
+            UniversityId = universityId;
+        }
 
-       public long UniversityId { get; private set; }
+        public long UniversityId { get; private set; }
 
-       public string CacheKey
-       {
-           get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
-       }
-
-       public string CacheRegion
-       {
-           get { return "RecommendedCourses"; }
-       }
-
-       public TimeSpan Expiration
-       {
-           get { return TimeSpan.FromHours(1); }
-       }
+        public long UserId { get; private set; }
     }
 }
