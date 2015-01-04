@@ -57,12 +57,12 @@
                 url: '/course/:uniName/:boxId/:boxName/',
                 templateUrl: '/box/indexpartial/',
                 controller: 'BoxController as box'
-            })
-        //state('search', {
-        //    url: '/search/',
-        //    templateUrl: '/search/indexpartail/',
-        //    controller: 'SearchController as search'
-        //});
+            }).
+            state('root.search', {
+                url: '/search/',
+                templateUrl: '/search/indexpartial/',
+                controller: 'SearchController as search'
+            });
 
         $urlRouterProvider.otherwise('/dashboard/');
     }

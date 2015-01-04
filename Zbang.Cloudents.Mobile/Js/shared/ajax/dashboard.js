@@ -6,10 +6,10 @@
         }
         return {           
             boxList: function (data) {
-                return ajaxService.get(buildPath('login'), data);
+                return ajaxService.get(buildPath('boxList'), data);
             },
-            recommendedBoxes: function (data) {
-                return ajaxService.get(buildPath('recommended'), data);
+            recommendedBoxes: function () {
+                return ajaxService.get(buildPath('recommended'), null);
             }
         };
 

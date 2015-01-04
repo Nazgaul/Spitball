@@ -1,6 +1,10 @@
 ﻿angular.module('search')
     .service('searchService',
-    ['ajaxService', function (ajaxService) {
-        //this.
+    ['search', '$window', function (search, $window) {
+        var service = this;
+
+        service.goBack = function () {
+            $window.history.back();
+        };
     }]
 );
