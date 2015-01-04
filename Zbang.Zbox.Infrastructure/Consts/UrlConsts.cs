@@ -184,7 +184,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
                     case '"':
                     case '#':
                     case '\'':
-
+                    case '(':
+                    case ')':
                         continue;
                     case ' ':
                     case '_':
