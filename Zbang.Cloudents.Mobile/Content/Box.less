@@ -1,1 +1,83 @@
 ﻿@import "varsAndMixins";
+
+.box {
+    .backBtn {
+        margin: 12px 0 0 10px;
+    }
+    .svg-back {
+        fill: #fff;
+    }
+    select {
+        border: none;
+        margin-top: 15px;
+    }
+}
+.inviteBtn {
+    margin: 8px 10px 0 0;
+}
+.boxDetails {
+    background: #282828;
+    padding: 0 10%;
+    h2 {
+        font-size: 16px;
+        color: #fff;
+        padding-top: 10px;
+    }
+}
+.boxDetail {
+    color: #a5a5a5;
+    font-size: 13px;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+.boxItems {
+    margin: 0 2%;
+}
+.boxList {
+    overflow: auto;
+    li {
+        padding: 12px 0 10px;
+        border-bottom: 1px solid @borderColor;
+        width: 48%;
+        font-size: 14px;
+        float: left; //for odd items
+        margin-right: 4%; //for odd items
+        clear: both; //for odd items
+        &:nth-child(even) {
+            float: right;
+            margin: 0;
+            clear: none;
+        }
+        a {
+
+        }
+    }
+}
+.boxLink {
+    margin-bottom: 10px;
+    position: relative;
+    display: block;
+    &:after {
+        .pseudo;
+        padding-top: 126.3%;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 5px; //override
+        border: 1px solid @borderColor;
+        .boxSizing;
+    }
+}
+.itemName {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 14px;
+    height: 29px;
+    overflow: hidden;
+}

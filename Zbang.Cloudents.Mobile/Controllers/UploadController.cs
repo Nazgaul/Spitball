@@ -78,15 +78,19 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     throw new NullReferenceException("result2");
                 }
 
-                var fileDto = new FileDto(result2.File.Id, result2.File.Name, result2.File.Uploader.Id,
-                    result2.File.Uploader.Url,
-                    result2.File.ThumbnailUrl,
-                    string.Empty, 0, 0, false, result2.File.Uploader.Name, string.Empty, 0,
-                    DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), 0,
-                    result2.File.Url)
+                var fileDto = new ItemDto
                 {
+                    Id = result2.File.Id,
+                    Name = result2.File.Name,
+                    OwnerId = result2.File.Uploader.Id,
+                    UserUrl = result2.File.Uploader.Url,
+                    Thumbnail = result2.File.ThumbnailUrl,
+                    Owner = result2.File.Uploader.Name,
+                    Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
+                    Url = result2.File.Url,
                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
                 };
+
                 cookie.RemoveCookie("upload");
                 return JsonOk(new { fileDto, boxId = model.BoxId });
 

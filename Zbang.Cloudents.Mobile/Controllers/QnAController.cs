@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
-using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
+using Zbang.Cloudents.Mobile.Models.QnA;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -22,7 +22,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             m_IdGenerator = idGenerator;
         }
-
 
         [ZboxAuthorize]
         [HttpPost]
@@ -70,58 +69,57 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
        
 
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult DeleteQuestion(Guid questionId)
-        {
-            try
-            {
-                var command = new DeleteCommentCommand(questionId, User.GetUserId());
-                ZboxWriteService.DeleteComment(command);
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), User.GetUserId()), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
-        [ZboxAuthorize]
-        [HttpPost]
-        public JsonResult DeleteAnswer(Guid answerId)
-        {
-            try
-            {
-                var command = new DeleteReplyCommand(answerId, User.GetUserId());
-                ZboxWriteService.DeleteAnswer(command);
-                return Json(new JsonResponse(true));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult DeleteQuestion(Guid questionId)
+        //{
+        //    try
+        //    {
+        //        var command = new DeleteCommentCommand(questionId, User.GetUserId());
+        //        ZboxWriteService.DeleteComment(command);
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), User.GetUserId()), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
+        //[ZboxAuthorize]
+        //[HttpPost]
+        //public JsonResult DeleteAnswer(Guid answerId)
+        //{
+        //    try
+        //    {
+        //        var command = new DeleteReplyCommand(answerId, User.GetUserId());
+        //        ZboxWriteService.DeleteAnswer(command);
+        //        return Json(new JsonResponse(true));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("boxId")]
-        public async Task<JsonResult> Index(long boxId)
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), 
+        BoxPermission("boxId")]
+        public async Task<JsonResult> Index(long boxId, int page)
         {
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,
-                        User.GetUserId(false)));
-
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,page,20));
                 return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
             catch (BoxDoesntExistException)
             {
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 

@@ -156,6 +156,16 @@
   -o-transition: height 0.3s;
   transition: height 0.3s;
 }
+.courseList,
+.itemsList,
+.membersList,
+.feed,
+.boxItems {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  text-align: left;
+}
 .courseList li {
   height: 70px;
 }

@@ -56,7 +56,7 @@ order by name;";
       ,a.CreationTime as creationTime
       FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
       where a.boxid = @BoxId
-      order by MarkAnswer desc, id;";
+      order by id;";
 
         public const string GetBoxQnAItem = @"  select
     i.itemid as Id,
@@ -119,5 +119,32 @@ union
 	   and m.userboxrelid is null
        and m.isused = 0
 	   order by userStatus desc;";
+
+
+        public const string Items = @"
+    select
+    i.itemid as Id,
+    i.Name as Name,
+    i.userid as OwnerId,
+    u.UserName as Owner,
+    u.Url as UserUrl,
+    i.thumbnailurl as Thumbnail,
+    i.Discriminator as Discriminator,
+    i.ItemTabId as TabId,
+	  i.NumberOfViews as NumOfViews,
+    i.rate as Rate,
+    i.sponsored as Sponsored,
+    i.content as Description,
+    i.BlobName as BlobName,
+    i.NumberOfDownloads as NumOfDownloads,
+    i.creationTime as Date,
+		i.numberofcomments as commentsCount,
+    i.Url as Url
+    from zbox.item i join zbox.users u on i.UserId = u.UserId
+    where i.IsDeleted = 0
+    and i.BoxId = @BoxId
+    order by i.itemid desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
     }
 }
