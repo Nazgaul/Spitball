@@ -120,7 +120,8 @@
   top: 0;
 }
 .recommendedItem .courseLink {
-  display: block;
+  display: inline-block;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   white-space: noWrap;
@@ -130,7 +131,6 @@
   /*margin-left: -110px; //rtl*/
 }
 .recommendedItem .rcDetails {
-  width: 100%;
   height: 63px;
   vertical-align: top;
   padding: 15px 0 0 69px;
@@ -140,10 +140,6 @@
   display: inline-block;
   background: #fff;
   margin: 0;
-  -webkit-transition: margin 0.2s 0.5s;
-  -moz-transition: margin 0.2s 0.5s;
-  -o-transition: margin 0.2s 0.5s;
-  transition: margin 0.2s 0.5s;
   position: relative;
 }
 .recommendedItem .rcDetails.rcFull .prof {
@@ -156,12 +152,13 @@
   color: #383838;
 }
 .recommendedItem .rcStats {
-  width: 105px;
+  width: 115px;
   height: 60px;
   display: inline-block;
   background: #282828;
   color: #fff;
-  margin-top: 9px;
+  position: relative;
+  top: -20px;
 }
 .recommendedItem .rcStats svg {
   position: absolute;
