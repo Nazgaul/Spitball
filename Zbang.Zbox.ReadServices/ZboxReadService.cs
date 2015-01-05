@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Diagnostics;
+using Dapper;
 using NHibernate;
 using NHibernate.Transform;
 using System;
@@ -10,6 +11,7 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -396,17 +398,15 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Box.GetBoxQnAItem,
                     Sql.Box.GetBoxQnaQuiz
                     ),
-                    new { query.BoxId }))
+                    new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
                     var questions = grid.Read<Qna.QuestionDto>().ToList();
                     var answers = grid.Read<Qna.AnswerDto>().ToList();
                     var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
 
-
                     foreach (var answer in answers)
                     {
                         answer.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == answer.Id));
-
                     }
                     foreach (var question in questions)
                     {

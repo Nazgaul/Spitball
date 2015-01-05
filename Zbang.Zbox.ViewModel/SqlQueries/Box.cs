@@ -44,10 +44,12 @@ order by name;";
     ,q.CreationTime as creationTime
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
-    order by id desc;";
+    order by q.[QuestionId] desc
+    offset @pageNumber*@rowsperpage ROWS
+	FETCH NEXT @rowsperpage ROWS ONLY;";
 
-        public const string GetBoxAnswers = @" SELECT a.[AnswerId] as id
-	    ,u.[UserName] as UserName
+        public const string GetBoxAnswers = @"  SELECT a.[AnswerId] as id
+	  ,u.[UserName] as UserName
       ,u.UserImage as UserImage
       ,u.userid as UserId
       ,u.Url as Url
@@ -55,8 +57,13 @@ order by name;";
       ,[QuestionId] as questionId
       ,a.CreationTime as creationTime
       FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
-      where a.boxid = @BoxId
-      order by id;";
+	  where a.boxid = @BoxId
+	  and  a.questionid in 
+            (select questionid from zbox.question where boxid = @boxid
+	            order by questionid desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY)
+	  order by id;";
 
         public const string GetBoxQnAItem = @"  select
     i.itemid as Id,
@@ -69,7 +76,11 @@ order by name;";
     from zbox.item i
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
-    and (QuestionId is not null or AnswerId is not null);";
+    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid
+	            order by questionid desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY)
+				or AnswerId is not null);";
 
 
         public const string GetBoxQnaQuiz = @"	select
@@ -81,7 +92,10 @@ order by name;";
     from zbox.Quiz i
     where i.Publish = 1
     and i.BoxId = @BoxId
-    and i.QuestionId is not null;";
+    and QuestionId in  (select questionid from zbox.question where boxid = @boxid
+	            order by questionid desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY);";
 
         public const string RecommendedCourses = @"
 select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
