@@ -61,13 +61,6 @@
 }
 .searchContent ul {
   text-align: left;
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
-  -webkit-transition: opacity 0.5s;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  transition: opacity 0.5s;
 }
 .searchContent li {
   font-size: 13px;
@@ -87,9 +80,9 @@
 .tabs.feedTab ~ .courseList,
 .tabs.courseTab ~ .feed,
 .tabs.feedTab ~ .feed {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
+  /*opacity:1;
+            visibility: visible;
+            height: auto;*/
 }
 .tabs.courseTab .tab:nth-child(1),
 .tabs.feedTab .tab:nth-child(1) {
@@ -103,9 +96,9 @@
 .tabs.boxItemsTab ~ .itemsList,
 .tabs.itemsTab ~ .boxItems,
 .tabs.boxItemsTab ~ .boxItems {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
+  /*opacity:1;
+            visibility: visible;
+            height: auto;*/
 }
 .tabs.itemsTab .tab:nth-child(2),
 .tabs.boxItemsTab .tab:nth-child(2) {
@@ -116,9 +109,9 @@
   height: 5px;
 }
 .tabs.membersTab ~ .membersList {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
+  /*opacity:1;
+            visibility: visible;
+            height: auto;*/
 }
 .tabs.membersTab .tab:nth-child(3) {
   color: #0f9d58;
@@ -162,9 +155,9 @@
 .membersList,
 .feed,
 .boxItems {
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
+  /*opacity:0;
+    visibility: hidden;
+    height: 0;*/
   text-align: left;
 }
 .courseList li {

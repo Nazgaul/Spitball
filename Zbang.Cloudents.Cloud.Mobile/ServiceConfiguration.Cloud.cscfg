@@ -14,9 +14,9 @@
       <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
-      <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
-      <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
       <Setting name="DesktopWebSite" value="https://dev.cloudents.com" />
+      <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
+      <Setting name="AzureSeachServiceName" value="cloudents" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="7445B098ADE3A229DBC6208A87094754C06C4A60" thumbprintAlgorithm="sha1" />

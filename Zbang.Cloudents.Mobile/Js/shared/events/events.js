@@ -16,7 +16,7 @@
 
 
     ).directive('dragView',
-   [function () {
+   function () {
 
        return {
            restrict: "A",
@@ -55,4 +55,4 @@
 
            }
        }
-   }]);
+   });

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
@@ -22,7 +23,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
             if (userDetail.UniversityId == null) return JsonError("need university");
             var query = new GroupSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
             var retVal = await ZboxReadService.SearchBoxes(query);
-            return JsonOk(retVal);
+            return JsonOk(retVal.Select(s => new
+            {
+                s.Url,
+                s.Image,
+                s.Name
+            }));
         }
         public async Task<JsonResult> Items(string term, int page)
         {
@@ -30,7 +36,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
             if (userDetail.UniversityId == null) return JsonError("need university");
             var query = new GroupSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
             var retVal = await ZboxReadService.SearchItems(query);
-            return JsonOk(retVal);
+            return JsonOk(retVal.Select(s => new
+            {
+                s.Image,
+                s.Name,
+                s.Url
+            }));
         }
     }
 }

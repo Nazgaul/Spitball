@@ -13,9 +13,9 @@
                 controllerAs: 'root',
                 template: '<div ui-view></div>',
                 resolve: {
-                    user: function (account) {
+                    user: ['account', function (account) {
                         return account.details();
-                    }
+                    }]
                 }
             })
             .state('root.account', {
@@ -42,9 +42,6 @@
                 url: '/dashboard/',
                 templateUrl: '/dashboard/indexpartial/',
                 controller: 'DashboardController as dashboard',
-                onEnter: function (account) {
-                    console.log(account);
-                }
             }).
 
 

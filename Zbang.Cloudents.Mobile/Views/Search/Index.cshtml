@@ -4,85 +4,45 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
 
-    <form class="searchForm rFloat" ng-submit="fullSearch(newSearch.$valid)" novalidate>
-        <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
-               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+    <form class="searchForm rFloat">
+        <input class="searchInput" placeholder="Search for your school" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
     </form>
 </div>
-<div class="searchContent">
+<div class="searchContent" scroll-paging on-scroll="search.query(true)">
     <div class="tabs">
-        <span class="tab">Courses</span>
-        <span class="tab">Items</span>
-        <span class="tab">Members</span>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">Courses</button>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">Items</button>
+        @*<span class="tab">Members</span>*@
     </div>
 
-    <ul class="courseList">
-        <li>
-            <a href="#" class="ghost">
-                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="courseName vCentered">{Coursename should go here in this spot}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-    </ul>
-    <ul class="itemsList">
-        <li>
-            <a href="#" class="ghost">
-                <div class="details vCentered">
-                    <div class="filename elps">blablabla.doc</div>
-                    <div class="elps">{Owner name here}</div>
-                </div>
-                <img width="64" height="78" src="http://placehold.it/64x78" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="details vCentered">
-                    <div class="filename elps">blablabla.doc</div>
-                    <div class="elps">{Owner name here}</div>
-                </div>
-                <img width="64" height="78" src="http://placehold.it/64x78" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="details vCentered">
-                    <div class="filename elps">blablabla.doc</div>
-                    <div class="elps">{Owner name here}</div>
-                </div>
-                <img width="64" height="78" src="http://placehold.it/64x78" />
-            </a>
-        </li>
-    </ul>
-    <ul class="membersList">
-        <li>
-            <a href="#" class="ghost">
-                <div class="userName vCentered">{Username should go here}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="userName vCentered">{Username should go here}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-        <li>
-            <a href="#" class="ghost">
-                <div class="userName vCentered">{Username should go here}</div>
-                <img width="40" height="40" src="http://placehold.it/40x40" />
-            </a>
-        </li>
-    </ul>
+    <div ng-switch="search.currentTab">
+        <ul class="courseList" ng-switch-when="courses">
+            <li ng-repeat="course in search.courses">
+                <a href="{{::course.url}}" class="ghost">
+                    <div class="courseName vCentered">{{::course.name}}</div>
+                    <img width="40" height="40" ng-src="{{::course.image}}" />
+                </a>
+            </li>
+        </ul>
+        <ul class="itemsList" ng-switch-when="items">
+            <li ng-repeat="item in search.items">
+                <a href="{{::item.url}}" class="ghost">
+                    <div class="details vCentered">
+                        <div class="filename elps">{{::item.name}}</div>
+                        <div class="elps">To be disscused</div>
+                    </div>
+                    <img width="64" height="78" ng-src="{{::item.image}}" />
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    @*<ul class="membersList">
+            <li>
+                <a href="#" class="ghost">
+                    <div class="userName vCentered">{Username should go here}</div>
+                    <img width="40" height="40" src="http://placehold.it/40x40" />
+                </a>
+            </li>
+        </ul>*@
 </div>

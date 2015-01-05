@@ -9,7 +9,7 @@
                 return ajaxService.get(buildPath('boxes'), data);
             },
             items: function (data) {
-                return ajaxService.post(buildPath('items'), data);
+                return ajaxService.get(buildPath('items'), data);
             }//,
             //members: function (data) {
             //    return ajaxService.post(buildPath('members'), data);
