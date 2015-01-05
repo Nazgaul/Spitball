@@ -1,19 +1,31 @@
 ﻿angular.module('libChoose')
     .service('libChooseService',
-    ['library', 'facebook', function (library, facebook) {
+    ['$state', 'account', 'library', 'facebook', function ($state, account, library, facebook) {
         var service = this;
 
         service.facebookSuggestions = function () {
             var defer = $q.defer();
             facebook.getToken({ token: token }).then(function (token) {
                 library.facebookSuggestions({}).then(function (response) {
-                    return parseResults(response);
+                    defer.resolve(parseResults(response));
+                    return;
                 });
             }).catch(function () {
-
+                defer.reject();
+                return;
             });
 
             return defer.promise;
-        }
+        };
+
+        service.searchUnis = function (term, page) {
+            return library.search({ term: term, page: page });
+        };
+
+        service.selectUniversity = function (universityId) {
+            account.selectUniversity().then(function () {
+                $state.go('root.dashboard');
+            });
+        };
     }]
 );

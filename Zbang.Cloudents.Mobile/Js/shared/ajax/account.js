@@ -25,7 +25,11 @@
     		},
     		register: function (data) {
     			return ajaxService.post(buildPath('register'), data);
-    		}//,
+    		},
+    		selectUniversity: function (data) {
+    		    return ajaxService.post(buildPath('choose'), data);
+    		},
+    	    //,
     		//disableFirstTime: function (data) {
     		//	return ajaxService.post('/account/firsttime/', data);
     		//}

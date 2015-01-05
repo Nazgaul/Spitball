@@ -10,10 +10,7 @@
             },
             facebookSuggestions: function (data) {
                 return ajaxService.get(buildPath('facebookSuggest'), data);
-            },
-            chooseUniversity: function (data) {
-                return ajaxService.post(buildPath('choose'), data);
-            },
+            }       
         };
 
 
