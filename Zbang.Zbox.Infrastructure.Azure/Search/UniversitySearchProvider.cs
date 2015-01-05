@@ -3,67 +3,31 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
-using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class UniversitySearchProvider : IUniversityReadSearchProvider, IDisposable, IUniversityWriteSearchProvider2
+    public class UniversitySearchProvider : IUniversityReadSearchProvider, IUniversityWriteSearchProvider2
     {
         private const string IndexName = "universities2";
-        private readonly ApiConnection m_Connection;
-        private IndexQueryClient m_ReadClient;
-        private IndexManagementClient m_IndexClient;
-        public UniversitySearchProvider()
-        {
-            m_Connection = ApiConnection.Create(
-                ConfigFetcher.Fetch("AzureSeachServiceName"),
-                ConfigFetcher.Fetch("AzureSearchKey")
-                );
-        }
+        
 
         private async Task BuildIndex()
         {
-            if (m_IndexClient == null)
-            {
-                m_IndexClient = new IndexManagementClient(m_Connection);
-            }
-            var response = await m_IndexClient.GetIndexAsync(IndexName);
+            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(IndexName);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                await m_IndexClient.CreateIndexAsync(GetUniversityIndex());
+                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetUniversityIndex());
             }
 
         }
 
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-
-        }
-
-        private void Dispose(bool p)
-        {
-            if (m_ReadClient != null)
-            {
-                m_ReadClient.Dispose(p);
-            }
-            if (m_IndexClient != null)
-            {
-                m_IndexClient.Dispose(p);
-            }
-            if (m_Connection != null)
-            {
-                m_Connection.Dispose(p);
-            }
-        }
+       
 
         public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query)
         {
@@ -72,11 +36,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-            if (m_ReadClient == null)
-            {
-                m_ReadClient = new IndexQueryClient(m_Connection);
-            }
-            var searchTask = m_ReadClient.SearchAsync(IndexName,
+
+            var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
                   new SearchQuery(query.Term + "*")
                   {
                       Select = "id,name,imageField",
@@ -86,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
             if (query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                suggestTask = m_ReadClient.SuggestAsync(IndexName,
+                suggestTask = SeachConnection.Instance.IndexQuery.SuggestAsync(IndexName,
                     new SuggestionQuery(query.Term)
                     {
                         Fuzzy = true,
@@ -146,11 +107,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var commands = listOfCommands.ToArray();
             if (commands.Length > 0)
             {
-                if (m_IndexClient == null)
-                {
-                    m_IndexClient = new IndexManagementClient(m_Connection);
-                }
-                var retVal = await m_IndexClient.PopulateAsync(IndexName, listOfCommands.ToArray());
+
+                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);

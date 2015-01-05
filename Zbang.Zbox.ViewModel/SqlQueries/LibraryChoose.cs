@@ -34,7 +34,8 @@
 //)
 //select userid as id,universityname as name, userimage as image  from university_cte u;";
 
-        public const string GetUniversityByFriendIds = @"select top(3) u.id as id, u.universityname as name, u.largeimage as [ image] ,count(*)
+        public const string GetUniversityByFriendIds = @"
+select top(3) u.id as id, u.universityname as name, u.largeimage as image ,count(*)
 from zbox.university u join zbox.users u2 on u.id = u2.universityid
 where u2.facebookuserid in  @FriendsIds
 group by u.Id, u.universityname,u.LargeImage

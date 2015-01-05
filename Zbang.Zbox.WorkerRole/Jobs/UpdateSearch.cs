@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.ReadServices;
@@ -42,7 +41,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var isSuccess = await m_ZboxWriteSearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
                 if (isSuccess)
                 {
-                    await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync();
+                    await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync(
+                        new UpdateDirtyToRegularCommand(updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s=>s.Id))));
                 }
             }
 
