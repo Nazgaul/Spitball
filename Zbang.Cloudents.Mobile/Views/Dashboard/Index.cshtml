@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 @using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <section class="dashboard">
     <header>
         <button type="button" class="menuBtn lFloat">
@@ -10,11 +11,11 @@
     </header>
     @*Guy: Please add class 'closed' here when closeBtn is clicked*@
     <section class="welcome" ng-class="::{closed : dashboard.welcomeClosed }">
-        <h1>Welcome to Cloudents</h1>
+        <h1>@SharedResources.WelcomeCloudents</h1>
         <h3>@DashboardResources.FreeOnline</h3>
 
         <a class="searchLink" ui-sref="root.search">
-            <span class="searchLinkTxt">Search courses,files and friends</span>
+            <span class="searchLinkTxt">@SharedResources.FindClasses</span>
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </a>
         <div class="featureTxt">
@@ -60,11 +61,11 @@
                 <div class="rcStats">
                     <div class="friends" data-friends-count="{{::recommendedBox.membersCount}}">
                         @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
-                        <span>Friends</span>
+                        <span>@SharedResources.Friends</span>
                     </div>
                     <div class="files" data-files-count="{{::recommendedBox.itemCount}}">
                         @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-                        <span>Files</span>
+                        <span>@SharedResources.Files</span>
                     </div>
                 </div>
             </li>

@@ -84,7 +84,7 @@ namespace Zbang.Zbox.ReadServices
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Box.RecommendBoxDto>(Sql.Sql.RecommendedCourses,
-                    new { query.UniversityId, UserId = query.UserId });
+                    new { query.UniversityId, query.UserId });
             }
         }
 
@@ -175,53 +175,13 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        /// <summary>
-        /// Used in box page - give the box detail
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [Obsolete("Use Get box 2")]
-        public ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery boxQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBox");
-                boxQuery.SetInt64("BoxId", query.BoxId);
-                boxQuery.SetResultTransformer(Transformers.AliasToBean<ViewModel.Dto.BoxDtos.BoxDto>());
-
-
-                IQuery membersQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxSubscribers");
-                membersQuery.SetInt64("BoxId", query.BoxId);
-                membersQuery.SetResultTransformer(Transformers.AliasToBean<User.UserDto>());
-                membersQuery.SetMaxResults(7);
-
-                IQuery tabsQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxTabs");
-                tabsQuery.SetInt64("BoxId", query.BoxId);
-                tabsQuery.SetResultTransformer(Transformers.AliasToBean<TabDto>());
-
-                var fBox = boxQuery.FutureValue<ViewModel.Dto.BoxDtos.BoxDto>();
-                var fMembers = membersQuery.Future<User.UserDto>();
-                var fTab = tabsQuery.Future<TabDto>();
-                //var fParent = boxLibQuery.FutureValue<NodeDto>();
-
-                var userType = CheckIfUserAllowedToSee(query.BoxId, query.UserId);
-                var box = fBox.Value;
-
-                if (box == null)
-                    throw new BoxDoesntExistException();
-                box.Subscribers = fMembers.ToList();
-                box.Tabs = fTab.ToList();
-                box.UserType = userType;
-                // box.Parent = fParent.Value;
-                return box;
-            }
-        }
+        
 
         public async Task<Box.BoxDto2> GetBox2(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var data = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId, query.UserId });
+                var data = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
                 var retVal = data.FirstOrDefault();
                 if (retVal == null)
                 {
@@ -247,13 +207,13 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query)
+        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId)
         {
             using (UnitOfWork.Start())
             {
                 IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxNotificationByUser");
                 dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetInt64("UserId", query.UserId);
+                dbQuery.SetInt64("UserId", userId);
 
                 return dbQuery.UniqueResult<NotificationSettings>();
                 //dbQuery.SetResultTransformer(Transformers.AliasToBean<NotificationSettings>());
@@ -676,13 +636,13 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public BoxSettingsDto GetBoxSetting(GetBoxQuery query)
+        public BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId)
         {
             using (UnitOfWork.Start())
             {
                 IQuery boxSettingQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxSettingsDtoById");
                 boxSettingQuery.SetParameter("Id", query.BoxId);
-                boxSettingQuery.SetParameter("Userid", query.UserId);
+                boxSettingQuery.SetParameter("Userid", userId);
                 boxSettingQuery.SetResultTransformer(Transformers.AliasToBean<BoxSettingsDto>());
                 return boxSettingQuery.UniqueResult<BoxSettingsDto>();
             }
@@ -1069,10 +1029,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
-
-
-
-
 
 
     }

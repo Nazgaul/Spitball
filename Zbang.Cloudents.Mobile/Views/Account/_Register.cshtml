@@ -1,28 +1,29 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 @using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 <section class="register" ng-class="{ search: register.searching }">
     <form name="registerForm" novalidate ng-submit="register.submit($event,registerForm.$valid)">
-        <h1>Create an acccount</h1>
+        <h1>@AccountResources.CreateAccount</h1>
         <div class="topReg clearfix">
             <div class="regError" clear-on-input>{{register.serverError}}</div>
             <div class="ng-message-errors lFloat" ng-messages="register.submitted && registerForm.firstName.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             </div>
-            <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="FirstName"
+            <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@AccountResources.FirstName"
                    ng-class="{error: register.submitted && loginForm.firstName.$error}"
                    ng-model="register.formData.firstName" required />
             <div class="ng-message-errors rFloat" ng-messages="register.submitted && registerForm.lastName.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             </div>
-            <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="LastName"
+            <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@AccountResources.LastName"
                    ng-class="{error: register.submitted && loginForm.lastName.$error}"
                    ng-model="register.formData.lastName" required />
             <div class="ng-message-errors" ng-messages="register.submitted && registerForm.newEmail.$error">
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
                 <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
             </div>
-            <input type="email" class="inputText" name="newEmail" placeholder="Email"
+            <input type="email" class="inputText" name="newEmail" placeholder="@AccountResources.Email"
                    ng-class="{error: register.submitted && loginForm.newEmail.$error}"
                    ng-model="register.formData.newEmail" required
                    ng-pattern="register.pattern" />
@@ -30,17 +31,17 @@
                 <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
                 <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
             </div>
-            <input type="password" class="inputText" name="password" placeholder="Password" ng-minlength="6"
+            <input type="password" class="inputText" name="password" placeholder="@AccountResources.Password" ng-minlength="6"
                    ng-class="{error: register.submitted && loginForm.password.$error}"
                    ng-model="register.formData.password" required />
             <div class="lFloat radioWpr">
                 <div class="ng-message-errors" ng-messages="register.submitted && registerForm.isMale.$error">
                     <span class="ng-message-error" ng-message="required">@AccountResources.GenderRequired</span>
                 </div>
-                <input id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
-                <label class="genderLabel first" for="maleRadio">Male</label>
-                <input id="femaleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="false" required>
-                <label class="genderLabel" for="femaleRadio">Female</label>
+                <input class="radio" id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
+                <label class="genderLabel first" for="maleRadio">@AccountResources.Male</label>
+                <input class="radio" id="femaleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="false" required>
+                <label class="genderLabel" for="femaleRadio">@AccountResources.Female</label>
             </div>
             <select class="inputText rFloat" ng-change="register.changeLanguage()" ng-model="register.language" ng-init="register.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
                 <option value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
@@ -54,17 +55,23 @@
         <div class="ng-message-errors" ng-messages="">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
-        <input type="text" class="inputText" placeholder="Search for your school" required ng-focus="register.searchIn($event)"
-                hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
-                ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end/>
+        <div class="searchWpr">
+            <input type="text" class="inputText" placeholder="@SharedResources.SearchFor" required ng-focus="register.searchIn($event)"
+                   hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
+                   ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end />
+            <div class="searchBtn rFloat">
+                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            </div>
+        </div>
+        
         <ul class="searchResults" ng-class="{noResults : register.noResults}">
-            <li ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
-                <img class="uniImg" ng-src="{{::university.image}}" />
-                <div class="uniName">{{::university.name}}</div>
+            <li class="ghost" ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
+                <img class="uniImg" ng-src="{{::university.image}}" width="52" height="52" />
+                <div class="uniName vCentered">{{::university.name}}</div>
             </li>
         </ul>
         @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
-        <div class="emptySearch">No results were found</div>
+        <div class="emptySearch">@SharedResources.NoResults</div>
         <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
         <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
         <div class="bottom">

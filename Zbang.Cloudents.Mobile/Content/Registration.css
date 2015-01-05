@@ -22,8 +22,13 @@
 .register .homeTxt1 {
   color: #383838;
 }
-.register .searchResults {
-  display: none;
+.register .searchWpr {
+  overflow: visible;
+  background: none;
+  position: relative;
+}
+.register .searchBtn {
+  position: absolute;
 }
 .search .topReg {
   opacity: 0;
@@ -35,8 +40,8 @@
 .search .cbLabel {
   display: none;
 }
-.search .searchResults {
-  display: block;
+.search .inputText {
+  margin-top: 2px;
 }
 .topReg {
   -webkit-transition: margin 0.3s;

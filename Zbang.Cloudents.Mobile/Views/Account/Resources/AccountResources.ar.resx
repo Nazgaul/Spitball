@@ -120,16 +120,86 @@
   <data name="AlreadyHave" xml:space="preserve">
     <value>ألديك حساب مسبقاُ؟</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>و</value>
+  </data>
+  <data name="ByEmail" xml:space="preserve">
+    <value>او عن طريق البريد الالكتروني</value>
+  </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>يرجى إكمال التسجيل عن طريق اختيار المدرسة الحالية</value>
+  </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>كلمة المرور غير ملائمة</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>لا يوجد لديك حساب ؟</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>عنوان البريد الكتروني</value>
+  </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>تسجيل الدخول بالبريد الإلكتروني </value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>عبر فيسبوك</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>التسجيل عبر الفيس بوك</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>أنثى </value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>هذا الحقل مطلوب</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول 
+</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>نسيت كلمة المرور ؟</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>الرجاء اختيار نوع الجنس</value>
+  </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>انا موافق , للتسجل للموقع</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>بريد الكتروني غير صالح</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
   </data>
+  <data name="Male" xml:space="preserve">
+    <value>ذكر </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة مرور</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>تعليمات وقواعد الخصوصية</value>
+  </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>يجب ان يكون 6 احرف على الاقل </value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>تذكر بياناتي</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>إنها أكثر من مجرد دراسة، إنها دراسة اجتماعية</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>شروط الخدمة</value>
   </data>
 </root>

@@ -59,5 +59,52 @@ namespace Zbang.Cloudents.Mobile.Views.Box.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All items.
+        /// </summary>
+        public static string AllItems {
+            get {
+                return ResourceManager.GetString("AllItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feed.
+        /// </summary>
+        public static string Feed {
+            get {
+                return ResourceManager.GetString("Feed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The art and science of 
+        ///asking questions is the source
+        ///of all knowledge..
+        /// </summary>
+        public static string FeedEmpty {
+            get {
+                return ResourceManager.GetString("FeedEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post.
+        /// </summary>
+        public static string Post {
+            get {
+                return ResourceManager.GetString("Post", resourceCulture);
+            }
+        }
     }
 }

@@ -12,7 +12,8 @@
 .noResults ~ .emptySearch {
   display: inline-block;
 }
-.noResults .svg-noResults {
+.noResults .svg-noResults,
+.noResults ~ .svg-noResults {
   display: block;
   margin: 25px auto 10px;
 }

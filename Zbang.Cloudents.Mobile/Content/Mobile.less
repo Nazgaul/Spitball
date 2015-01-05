@@ -1,6 +1,6 @@
 ﻿@import "varsAndMixins";
 
-html, body, main {
+html, body, [ui-view] {
     height: 100%;
 } 
 body {
@@ -123,5 +123,29 @@ img {
     position: absolute;
     top: 10px;
     right: 10px; //rtl
+}
+.radio {
+    display: none;
+    + label {
+        margin-right:3px;
+        &:before {
+            .pseudo;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            position: relative;
+            top: 2px;
+            margin-right: 3px;
+        }
+    }
+    &:checked {
+        + label {
+            &:before {
+                background: #666;
+                box-shadow: inset 0 0 0 2px #fff;
+            }
+        }
+    }
 }
 /*#endregion */

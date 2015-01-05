@@ -47,7 +47,6 @@ namespace Zbang.Zbox.ReadServices
 
        // IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 
-        ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query);
         Task<BoxDto2> GetBox2(GetBoxQuery query);
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
@@ -62,13 +61,13 @@ namespace Zbang.Zbox.ReadServices
 
         UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query);
         IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
-        NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query);
+        NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId);
 
         //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query);
         //IEnumerable<string> GetUniversityByPrefix(GetUniversityQuery query);
         
 
-        BoxSettingsDto GetBoxSetting(GetBoxQuery query);
+        BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembers(GetBoxQuery query);
 
