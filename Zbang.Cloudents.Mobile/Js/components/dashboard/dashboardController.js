@@ -1,6 +1,6 @@
 ﻿angular.module('dashboard', ['ajax']).
     controller('DashboardController',
-    ['dashboardService', 'user', function (dashboardService) {
+    ['dashboardService', 'userDetails', function (dashboardService, userDetails) {
         var dashboard = this;
 
 
@@ -9,8 +9,9 @@
             endResult;
 
 
-
-        dashboard.welcomeClosed = true;
+        if (!userDetails.isFirstTimeDashboard()) {
+            dashboard.welcomeClosed = true;
+        }
 
         dashboard.closeWelcome = function () {
             dashboard.welcomeClosed = true;
@@ -25,16 +26,14 @@
             isFetching = true;
 
             dashboardService.getBoxList(page).then(function (boxes) {
-                page++;       
+                page++;
 
                 if (!boxes.length) {
                     endResult = true;
                     return;
-                } else {
-                    dashboard.welcomeClosed = true;
                 }
 
-                
+
                 if (!isAppend) {
                     dashboard.boxes = boxes;
                     return;
@@ -61,4 +60,4 @@
             console.log(e);
         };
     }]
-);  
+);

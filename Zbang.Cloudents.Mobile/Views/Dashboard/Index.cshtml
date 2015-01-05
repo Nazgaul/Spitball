@@ -10,7 +10,7 @@
         <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
     </header>
     @*Guy: Please add class 'closed' here when closeBtn is clicked*@
-    <section class="welcome" ng-class="::{closed : dashboard.welcomeClosed }">
+    <section class="welcome" ng-class="{closed : dashboard.welcomeClosed }">
         <h1>@SharedResources.WelcomeCloudents</h1>
         <h3>@DashboardResources.FreeOnline</h3>
 

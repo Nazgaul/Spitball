@@ -23,27 +23,25 @@
            link: function (scope, element, attr) {
                var posX;
 
-               element.on('touchstart', function (e) {
-                   e.preventDefault();
+               element.on('touchstart', function (e) {                   
                    posX = e.touches[0].clientX;
                });
                element.on('touchmove', function (e) {
-                   e.preventDefault();
+                   
                    var curPosX = e.touches[0].clientX;
 
                    if (curPosX > posX) {
                        return;
                    }
 
-                   if (Math.abs(curPosX - posX) >= 115) {
+                   if (Math.abs(curPosX - posX) >= 135) {
                        return;
                    }
 
                    element.css({ marginLeft: curPosX - posX + 'px' });
 
                });
-               element.on('touchend', function (e) {
-                   e.preventDefault();
+               element.on('touchend', function (e) {                   
                    element.css({ marginLeft: 0 });
                });
 
@@ -72,6 +70,11 @@
                        firstInvalid.focus();
                    }
                });
+
+               scope.$on('$destroy', function () {
+                   elem.off('submit');
+               });
+
            }
        };
    }).directive('closeKeyboard', function () {
@@ -85,6 +88,10 @@
                    elem[0].querySelector('input[type="search"]').blur(); //hack to close keyboard
 
                });
+
+               scope.$on('$destroy', function () {
+                   elem.off('submit');
+               })
            }
        };
    });
