@@ -14,9 +14,9 @@
       <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
-      <Setting name="AzureSearchApiKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
-      <Setting name="AzureSeachApiUrl" value="cloudents.search.windows.net" />
       <Setting name="DesktopWebSite" value="https://develop.cloudents.com" />
+      <Setting name="AzureSearchKey" value="01A18C794B6F9BD3EE2D26CB7BD5C43F" />
+      <Setting name="AzureSeachServiceName" value="cloudentssearch" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="7445B098ADE3A229DBC6208A87094754C06C4A60" thumbprintAlgorithm="sha1" />
