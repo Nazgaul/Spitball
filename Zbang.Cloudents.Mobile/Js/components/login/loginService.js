@@ -5,8 +5,9 @@
         var service = this;
 
         service.login = function (data) {
-            return account.login(data).then(function (response) {
-                $state.go('root.dashboard');
+            return account.login(data).then(function (response) {                
+                $state.go('root.dashboard', {}, { reload: true });
+
             });
         };
 

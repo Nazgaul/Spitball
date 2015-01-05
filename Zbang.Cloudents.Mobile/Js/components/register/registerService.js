@@ -10,10 +10,10 @@
             service.signup = function (data) {
                 return account.register(data).then(function (response) {
                     if (data.universityId) {
-                        $state.go('root.dashboard');
+                        $state.go('root.dashboard', {}, { reload: true });                        
                         return;
                     }
-                    $state.go('root.libChoose');
+                    $state.go('root.libChoose', {}, { reload: true });                    
                 });
             };
 
