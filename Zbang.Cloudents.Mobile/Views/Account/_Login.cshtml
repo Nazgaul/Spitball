@@ -1,17 +1,12 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 
 <section class="signIn">
-<<<<<<< HEAD
-    <h1>Log in</h1>
-    <button type="button" class="facebook" ng-click="login.facebook()">
-=======
     <h1>@AccountResources.LogIn</h1>
-    <button type="button" class="facebook" hm-touch="login.facebook()">
->>>>>>> e12671fd12d76daae501dcc6dae962731d605ff5
+    <button type="button" class="facebook" ng-click="login.facebook()">
+    <h1>@AccountResources.LogIn</h1>    
         <span class="fbImg">
             @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
         </span>@AccountResources.Facebook
-
     </button>
     <div class="splitHR">@AccountResources.ByEmail</div>
     <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
