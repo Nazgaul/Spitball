@@ -8,7 +8,8 @@
   right: 10px;
   top: 5px;
 }
-.noResults .emptySearch {
+.noResults .emptySearch,
+.noResults ~ .emptySearch {
   display: inline-block;
 }
 .noResults .svg-noResults {
