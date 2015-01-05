@@ -1,12 +1,14 @@
 ﻿angular.module('search', ['ajax']).
     controller('SearchController',
-    ['searchService', function (searchService) {
+    ['searchService', '$location', function (searchService, $location) {
         var search = this;
 
         var coursesPage = 0,
-            itemsPage = 0,          
+            itemsPage = 0,
             coursesEndResult,
             itemsEndResult;
+
+        search.formData = {};
 
         search.goBack = function () {
             searchService.goBack();
@@ -15,6 +17,18 @@
         search.setCurrentTab = function (tab) {
             page = 0;
             search.currentTab = tab;
+
+            var term = search.formData.query;
+            if (term && term.length > 1) {
+                switch (tab) {
+                    case 'courses':
+                        getCourses();
+                        break;
+                    case 'items':
+                        getItems();
+                        break;
+                }
+            }
         };
 
 
@@ -29,22 +43,11 @@
                 return;
             }
 
+            //if (!isAppend) {
+            //    $location.search('q', term);
+            //}
+
             search.isSearching = true;
-
-            if (!isAppend) {
-                coursesPage = itemsPage = 0;
-
-                searchService.queryAll(term).then(function (data) {
-                    search.courses = data[0];
-                    search.items = data[1];
-                    coursesPage++;
-                    itemsPage++;
-                }).finally(function () {
-                    search.isSearching = false;
-                });
-
-                return;
-            }
 
             switch (search.currentTab) {
                 case 'courses':
@@ -56,9 +59,16 @@
             }
         };
 
+
+        search.setCurrentTab('courses');
+
         //TODO: merge functions
-        function getCourses() {
+        function getCourses(isAppend) {
             var term = search.formData.query;
+
+            if (!isAppend) {
+                coursesPage = 0;
+            }
             searchService.queryCourses(term, coursesPage).then(function (courses) {
                 if (!courses.length) {
                     coursesEndResult = true;
@@ -66,17 +76,28 @@
                 }
 
                 coursesPage++;
+
+                if (!isAppend) {
+                    search.courses = courses;
+                    return;
+                }
+
                 search.courses = search.courses.concat(courses);
-                
+
             }).finally(function () {
                 search.isSearching = false;
             });
         }
 
-        search.setCurrentTab('courses');
 
-        function getItems() {
+
+        function getItems(isAppend) {
             var term = search.formData.query;
+
+            if (!isAppend) {
+                itemsPage = 0;
+            }
+
             searchService.queryItems(term, itemsPage).then(function (items) {
                 if (!items.length) {
                     itemsEndResult = true;
@@ -84,12 +105,19 @@
                 }
 
                 itemsPage++;
+
+                if (!isAppend) {
+                    search.items = items;
+                    return;
+                }
+
                 search.items = search.items.concat(items);
+
             }).finally(function () {
                 search.isSearching = false;
             });
         }
 
-        
+
     }]
 );

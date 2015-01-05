@@ -7,9 +7,6 @@
             $window.history.back();
         };
 
-        service.queryAll = function (term) {
-            return $q.all([service.queryCourses(term, 0), service.queryItems(term, 0)]);
-        };
         service.queryItems = function (term, page) {
             return search.items({ term: term, page: page });
         };
