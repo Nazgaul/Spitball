@@ -90,5 +90,18 @@ and (i.Name like '%' +@query + '%')
 order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc, uniName
 offset @pageNumber*@rowsperpage rows
 fetch next @rowsperpage rows only;";
+
+        public const string GetBoxToUploadToSearch =
+            @"select top 500 b.boxid  as Id,b.PictureUrl as Image,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode, b.Url as Url, b.University as UniversityId
+  from zbox.box b
+  where isdirty = 1 and isdeleted = 0 and b.PrivacySetting = 3
+  order by b.BoxId;";
+
+        public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
+select top 500 b.boxid  from zbox.box b
+  where isdirty = 1 and isdeleted = 0 and b.PrivacySetting = 3
+  order by b.BoxId)";
     }
+
+    
 }

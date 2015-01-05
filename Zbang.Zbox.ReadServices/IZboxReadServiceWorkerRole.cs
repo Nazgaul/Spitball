@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -22,5 +23,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail();
 
         Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates();
+        Task<IEnumerable<BoxSearchDto>> GetBoxDirtyUpdates();
     }
 }

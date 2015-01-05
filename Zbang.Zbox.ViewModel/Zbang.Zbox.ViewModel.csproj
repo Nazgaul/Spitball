@@ -73,6 +73,7 @@
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
+    <Compile Include="Dto\BoxDtos\BoxSearchDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxToFriendDto.cs" />
     <Compile Include="Dto\BoxDtos\RecommendBoxDto.cs" />

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Dapper;
+﻿using Dapper;
 using NHibernate;
 using NHibernate.Transform;
 using System;
@@ -11,7 +10,6 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -206,6 +204,7 @@ namespace Zbang.Zbox.ReadServices
         /// Get user notification to the box in question - notification pop up
         /// </summary>
         /// <param name="query"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId)
         {
@@ -635,6 +634,7 @@ namespace Zbang.Zbox.ReadServices
         /// Get box settings data for ajax request
         /// </summary>
         /// <param name="query"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         public BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId)
         {

@@ -35,6 +35,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
+            var boxUpdates = await m_ZboxReadService.GetBoxDirtyUpdates();
+
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -208,7 +209,28 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
 
                 }
-               
+
+            }
+        }
+
+        public async Task<IEnumerable<BoxSearchDto>> GetBoxDirtyUpdates()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+
+                using (var grid = await conn.QueryMultipleAsync(Search.GetBoxToUploadToSearch + Search.GetBoxUsersToUploadToSearch))
+                {
+                    var boxes = await grid.ReadAsync<BoxSearchDto>();
+                    var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
+
+                    foreach (var box in boxes)
+                    {
+                        box.UserIds = usersInBoxes.Where(w => w.BoxId == box.Id).Select(s => s.UserId);
+                    }
+
+                    return boxes;
+                }
+
             }
         }
 
