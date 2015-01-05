@@ -1,10 +1,9 @@
 ﻿namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetBoxQuery : QueryBase
+    public class GetBoxQuery 
     {
 
-        public GetBoxQuery(long boxId, long userId)
-            : base(userId)
+        public GetBoxQuery(long boxId)
         {
             BoxId = boxId;
 

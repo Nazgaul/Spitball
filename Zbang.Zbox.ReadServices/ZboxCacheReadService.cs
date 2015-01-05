@@ -76,19 +76,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItem2(query);
         }
 
-
-
-        //public IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query)
-        //{
-        //    return m_ReadService.GetBoxComments(query);
-        //}
-
-
-
-        public ViewModel.Dto.BoxDtos.BoxDto GetBox(GetBoxQuery query)
-        {
-            return m_ReadService.GetBox(query);
-        }
         public Task<BoxDto2> GetBox2(GetBoxQuery query)
         {
             return m_ReadService.GetBox2(query);
@@ -124,15 +111,15 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesNotification(query);
         }
 
-        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query)
+        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId)
         {
-            return m_ReadService.GetUserBoxNotificationSettings(query);
+            return m_ReadService.GetUserBoxNotificationSettings(query, userId);
         }
 
 
-        public BoxSettingsDto GetBoxSetting(GetBoxQuery query)
+        public BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId)
         {
-            return m_ReadService.GetBoxSetting(query);
+            return m_ReadService.GetBoxSetting(query, userId);
         }
 
         public Task<IEnumerable<UserMemberDto>> GetBoxMembers(GetBoxQuery query)
@@ -399,5 +386,8 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.SearchItems(query);
         }
+
+
+
     }
 }

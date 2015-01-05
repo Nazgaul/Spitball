@@ -19,9 +19,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                                 b.Discriminator as boxType,
 								b.Url as Url
                                   from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
-                                  where 
-                                  b.IsDeleted = 0   
-                                  and ub.UserId = @UserId
+                                  where ub.UserId = @UserId
                                   and ub.usertype in (2,3)
                                   ORDER BY ub.UserBoxRelId desc
                       offset @pageNumber*@rowsperpage ROWS

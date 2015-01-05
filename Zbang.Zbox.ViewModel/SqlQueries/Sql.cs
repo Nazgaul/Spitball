@@ -155,7 +155,6 @@ b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,
 b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
 from zbox.Box b
 where b.isdeleted = 0
-and b.discriminator = 2
 and b.boxid not in (select boxid from zbox.UserBoxRel ub where userid = @UserId)
 and b.University = @UniversityId
 order by rank desc";
