@@ -64,15 +64,18 @@
         };
         
         register.searchUnis = function (isAppend) {
+            var term = register.formData.universityName;
+
+
             if (isSearching) {
                 return;
             }
 
-            if (register.formData.universityName.length < 2) {
+            if (term && term.length < 2) {
                 return;
             }
 
-            if (!register.formData.universityName) {
+            if (!term) {
                 register.universities = [];
                 return;
             }
@@ -93,10 +96,11 @@
             get();
 
             function get() {           
-
+                
+;
                 isSearching = true;
 
-                registerService.searchUnis(register.formData.universityName, register.page).then(function (response) {
+                registerService.searchUnis(term, register.page).then(function (response) {
                     response = response || [];
 
                     register.page++;
@@ -108,10 +112,7 @@
 
                         }
                         return;
-                    }
-
-                    
-
+                    }                    
 
                     if (!response.length) {
                         noResults = true;

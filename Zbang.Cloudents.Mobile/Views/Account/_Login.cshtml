@@ -8,7 +8,7 @@
         </span>@AccountResources.Facebook
     </button>
     <div class="splitHR">@AccountResources.ByEmail</div>
-    <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
+    <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate focus-invalid>
         <div class="loginError" clear-on-input>{{login.serverError}}</div>
         <div class="ng-message-errors" ng-messages="login.submitted && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>

@@ -30,7 +30,7 @@
                element.on('touchmove', function (e) {
                    e.preventDefault();
                    var curPosX = e.touches[0].clientX;
-                   
+
                    if (curPosX > posX) {
                        return;
                    }
@@ -55,4 +55,36 @@
 
            }
        }
+   }).directive('focusInvalid', function () {
+       return {
+           restrict: "A",
+           link: function (scope, elem) {
+
+               // set up event handler on the form element
+               elem.on('submit', function () {
+
+                   // find the first invalid element
+                   var firstInvalid = elem[0].querySelector('.ng-invalid');
+
+
+                   // if we find one, set focus
+                   if (firstInvalid) {
+                       firstInvalid.focus();
+                   }
+               });
+           }
+       };
+   }).directive('closeKeyboard', function () {
+       return {
+           restrict: "A",
+           link: function (scope, elem) {
+
+               // set up event handler on the form element
+               elem.on('submit', function () {
+
+                   elem[0].querySelector('input[type="search"]').blur(); //hack to close keyboard
+
+               });
+           }
+       };
    });

@@ -13,7 +13,7 @@
                         $state.go('root.dashboard', {}, { reload: true });                        
                         return;
                     }
-                    $state.go('root.libChoose', {}, { reload: true });                    
+                    $state.go('root.libChoose', {}, { reload: true });
                 });
             };
 

@@ -3,7 +3,7 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 <section class="register" ng-class="{ search: register.searching }">
-    <form name="registerForm" novalidate ng-submit="register.submit($event,registerForm.$valid)">
+    <form name="registerForm" novalidate ng-submit="register.submit($event,registerForm.$valid)" focus-invalid close-keyboard>
         <h1>@AccountResources.CreateAccount</h1>
         <div class="topReg clearfix">
             <div class="regError" clear-on-input>{{register.serverError}}</div>
@@ -56,14 +56,14 @@
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
         <div class="searchWpr">
-            <input type="text" class="inputText" placeholder="@SharedResources.SearchFor" required ng-focus="register.searchIn($event)"
+            <input type="search" class="inputText" placeholder="@SharedResources.SearchFor" required ng-focus="register.searchIn($event)"
                    hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
                    ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end />
             <div class="searchBtn rFloat">
                 @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
             </div>
         </div>
-        
+
         <ul class="searchResults" ng-class="{noResults : register.noResults}">
             <li class="ghost" ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
                 <img class="uniImg" ng-src="{{::university.image}}" width="52" height="52" />
