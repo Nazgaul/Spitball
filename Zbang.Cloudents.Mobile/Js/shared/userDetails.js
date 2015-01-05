@@ -9,10 +9,14 @@
             userData = data || {};
 
             //TODO: remove name
-            if (userData.id || userData.name) {
+            if (userData.id) {
                 isAuthenticated = true;
             }
         });        
+    };
+
+    service.getId = function () {
+        return userData.id;
     };
 
     service.isAuthenticated = function () {
