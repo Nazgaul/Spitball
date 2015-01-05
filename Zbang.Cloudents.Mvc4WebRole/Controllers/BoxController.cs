@@ -112,10 +112,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("id")]
         public async Task<ActionResult> Data(long id)
         {
-            var userId = User.GetUserId(false);
             try
             {
-                var query = new GetBoxQuery(id, userId);
+                var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
                 result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
@@ -131,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Index id {0} userid {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Index id {0}", id), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -151,16 +150,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("id")]
         public async Task<JsonResult> Tabs(long id)
         {
-            var userId = User.GetUserId(false);
             try
             {
-                var query = new GetBoxQuery(id, userId);
+                var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBoxTabs(query);
                 return Json(new JsonResponse(true, result));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Tabs id {0} userid {1}", id, userId), ex);
+                TraceLog.WriteError(string.Format("Box Tabs id {0}", id), ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -223,9 +221,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public async Task<JsonResult> Members(long boxId)
         {
-            var userId = User.GetUserId(false);
-            var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId, userId));
-            return Json(new JsonResponse(true, result));
+            var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId));
+            return JsonOk(result);
         }
 
 
@@ -270,8 +267,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = User.GetUserId();
 
-            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId, userId));
-            return Json(new JsonResponse(true, result.ToString("g")));
+            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId), userId);
+            return JsonOk(result.ToString("g"));
         }
 
         [ZboxAuthorize]

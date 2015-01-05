@@ -174,23 +174,11 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public void GetBox_Query_ReturnResult()
-        {
-            var query = new GetBoxQuery(60130, 1);
-            try
-            {
-                m_ZboxReadService.GetBox(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        
         [TestMethod]
         public void GetBox2_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(4, 3);
+            var query = new GetBoxQuery(4);
             try
             {
                 var x = m_ZboxReadService.GetBox2(query).Result;
@@ -203,7 +191,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxTabs_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(1, 1);
+            var query = new GetBoxQuery(1);
             try
             {
                 var x = m_ZboxReadService.GetBoxTabs(query).Result;
@@ -377,10 +365,10 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUserBoxNotificationSettings_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(1, 1);
+            var query = new GetBoxQuery(1);
             try
             {
-                m_ZboxReadService.GetUserBoxNotificationSettings(query);
+                m_ZboxReadService.GetUserBoxNotificationSettings(query,1);
             }
             catch (Exception ex)
             {
@@ -649,10 +637,10 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxSetting_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(1, 1);
+            var query = new GetBoxQuery(1);
             try
             {
-                m_ZboxReadService.GetBoxSetting(query);
+                m_ZboxReadService.GetBoxSetting(query,1);
             }
             catch (Exception ex)
             {
@@ -688,7 +676,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxMembers_Query_ReturnResult()
         {
-            var query = new GetBoxQuery(1, 1);
+            var query = new GetBoxQuery(1);
             try
             {
                 m_ZboxReadService.GetBoxMembers(query);
