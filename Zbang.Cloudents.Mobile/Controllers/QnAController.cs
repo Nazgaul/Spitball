@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
-                return JsonOk(retVal.Skip(page * 20).Take(20));
+                return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)
             {
