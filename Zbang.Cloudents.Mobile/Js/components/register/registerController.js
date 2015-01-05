@@ -5,7 +5,7 @@
 
         var register = this,
             noResults = false,
-            isFetching = false;
+            isSearching = false;
 
         register.pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
@@ -64,11 +64,11 @@
         };
 
         register.searchUnis = function (isAppend) {
-            if (isFetching) {
+            if (isSearching) {
                 return;
             }
 
-            if (register.formData.universityName.length < 3) {
+            if (register.formData.universityName.length < 2) {
                 return;
             }
 
@@ -94,7 +94,7 @@
 
             function get() {           
 
-                isFetching = true;
+                isSearching = true;
 
                 registerService.searchUnis(register.formData.universityName, register.page).then(function (response) {
                     response = response || [];
@@ -116,7 +116,7 @@
                     register.universities = register.universities.concat(response);
 
                 }).finally(function () {
-                    isFetching = false;
+                    isSearching = false;
                 });
             }
 
