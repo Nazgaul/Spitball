@@ -411,7 +411,7 @@ namespace Zbang.Zbox.ReadServices
                     foreach (var question in questions)
                     {
                         question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
-                        question.Answers.AddRange(answers.WhereSorted(s => s.QuestionId == question.Id));
+                        question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
                     }
 
                     return questions;
