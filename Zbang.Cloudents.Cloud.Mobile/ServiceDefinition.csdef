@@ -24,9 +24,9 @@
       <Setting name="ZBox" />
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
-      <Setting name="AzureSearchApiKey" />
-      <Setting name="AzureSeachApiUrl" />
-      <Setting name="DesktopWebSite"/>
+      <Setting name="DesktopWebSite" />
+      <Setting name="AzureSearchKey" />
+      <Setting name="AzureSeachServiceName" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="CloudDents" storeLocation="LocalMachine" storeName="My" />
@@ -38,7 +38,7 @@
       <LocalStorage name="DiagnosticStore" sizeInMB="20000" cleanOnRoleRecycle="false" />
     </LocalResources>
     <Startup>
-      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple"/>
+      <Task commandLine="startup/disableTimeout.cmd" executionContext="elevated" taskType="simple" />
     </Startup>
   </WebRole>
 </ServiceDefinition>
