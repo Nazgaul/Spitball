@@ -462,6 +462,9 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
+    <Content Include="Content\ChooseSchool.css">
+      <DependentUpon>ChooseSchool.less</DependentUpon>
+    </Content>
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
@@ -477,11 +480,17 @@
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
+    <Content Include="Content\Mobile.css">
+      <DependentUpon>Mobile.less</DependentUpon>
+    </Content>
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Registration.css">
+      <DependentUpon>Registration.less</DependentUpon>
     </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
@@ -580,6 +589,9 @@
     <Content Include="Content\Search.less" />
     <Content Include="Content\Box.less" />
     <Content Include="Content\Feed.less" />
+    <Content Include="Content\ChooseSchool.less" />
+    <Content Include="Content\Mobile.less" />
+    <Content Include="Content\Registration.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1394,7 +1406,6 @@
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
-    <Content Include="Views\Account\_FbRegister.cshtml" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Views\Library\ChoosePartial.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />

@@ -1,0 +1,127 @@
+﻿@import "varsAndMixins";
+
+html, body, main {
+    height: 100%;
+} 
+body {
+    text-align: center;
+    color: @textColor; 
+    font-family: Arial; 
+}
+.loader {
+    position: fixed;
+    top: 50%;
+    
+    -moz-transform: scale(3);
+    -ms-transform: scale(3);
+    -o-transform: scale(3);
+    -webkit-transform: scale(3);
+    transform: scale(3);
+    //display: none;
+    display: inline-block;
+
+    rect {
+        fill: @itemBlue;
+    }
+}
+
+/*#region mixins */
+
+.backgroundSize(@prop)
+{
+    -webkit-background-size: @prop;
+    background-size: @prop;
+}
+/*#endregion */
+
+/*#region helper classes */
+.lFloat {
+    float:left; //rtl
+}
+.rFloat {
+    float: right; //rtl
+}
+img {
+    border-radius: 50%;
+}
+// When used on inline elements: need to add display:inline-block and width for it to work
+.elps {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.inputText {
+    background: #fff;
+    padding: 0 4px 0 8px; //rtl
+    height: 30px;
+    color: @textColor;
+    border: 1px solid @borderColor;
+    border-radius: 3px;
+    .boxSizing;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    &:focus {
+        border: 1px solid @textColor;
+    }
+    &.firstName, &.rFloat, &.radioWpr {
+        width: 48%;
+    }
+}
+
+.btn1 {
+    background: @color;
+    color: #fff;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 5px;
+    &:disabled {
+        background: #a5a5a5;
+    }
+}
+.splitHR {
+    display: inline-block;
+    background: #fff;
+    padding: 0 10px;
+    margin: 10px 0;
+    &:before {
+        content: '';
+        display: block;
+        width: 92%;
+        height: 20px;
+        position: absolute;
+        left: 0;right:0;
+        margin: -9px auto 0;
+        border-bottom: 1px solid #c2c2c2;
+        z-index: -1;
+    }
+}
+.ghost {
+    &:before {
+        .pseudo;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .vCentered {
+        display: inline-block;
+         vertical-align: middle;
+    }
+}
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px; //rtl
+}
+/*#endregion */
