@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
                 result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (BoxAccessDeniedException)
             {
@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Index id {0}", id), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
             var result = await ZboxReadService.GetBoxSideBar(query);
-            return Json(new JsonResponse(true, result));
+            return JsonOk(result);
         }
 
         [HttpGet]
@@ -154,12 +154,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBoxTabs(query);
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Tabs id {0}", id), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -243,21 +243,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
-                return Json(new JsonResponse(true, new { queryString = UrlBuilder.NameToQueryString(model.Name) }));
+                return JsonOk(new { queryString = UrlBuilder.NameToQueryString(model.Name) });
             }
             catch (UnauthorizedAccessException)
             {
-                return Json(new JsonResponse(false, "You don't have permission"));
+                return JsonError("You don't have permission");
             }
             catch (ArgumentException)
             {
                 ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, User.GetUserId()), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -278,7 +278,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
             var command = new ChangeNotificationSettingsCommand(boxId, userId, notification);
             ZboxWriteService.ChangeNotificationSettings(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
 
         }
 
@@ -294,7 +294,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_BoxSettings", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -309,7 +309,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_LeavePrompt", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -338,12 +338,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.DeleteUserFromBox(command);
 
                 //Check
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", User.GetUserId(), boxId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -372,7 +372,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             try
             {
@@ -381,11 +381,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
                 ZboxWriteService.CreateBoxItemTab(command);
                 var result = new TabDto { Id = guid, Name = model.Name };
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (ArgumentException ex)
             {
-                return Json(new JsonResponse(false, ex.Message));
+                return JsonError(ex.Message);
             }
 
         }
@@ -395,13 +395,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             model.ItemId = model.ItemId ?? new long[0];
             var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
             ZboxWriteService.AssignBoxItemToTab(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
         [HttpPost, ZboxAuthorize]
@@ -409,24 +409,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             var userId = User.GetUserId();
             var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
             ZboxWriteService.RenameBoxItemTab(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
         [HttpPost, ZboxAuthorize]
         public JsonResult DeleteTab(DeleteBoxItemTab model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetModelStateErrors());
             }
             var userId = User.GetUserId();
             var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
         [HttpGet]
@@ -440,7 +440,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_CreateTab ", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
         #endregion
@@ -452,7 +452,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
             var command = new DeleteUpdatesCommand(userId, boxId);
             ZboxWriteService.DeleteUpdates(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
         [HttpGet]
@@ -467,7 +467,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_UploadDialog ", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -484,7 +484,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_UploadAddLink", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -500,7 +500,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("_Invite", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
