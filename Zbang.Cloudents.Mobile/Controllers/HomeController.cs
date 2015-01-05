@@ -19,10 +19,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [NoUniversity]
         [NoCache]
         [PreserveQueryString]
-        public ActionResult Index(long? universityId)
+        public ActionResult Index()
         {
 
-            return RedirectToActionPermanent("IndexEmpty");
+            return RedirectToRoutePermanent("accountLink");
 
         }
 

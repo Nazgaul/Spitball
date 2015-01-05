@@ -193,10 +193,10 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql =
-                    @"select id as Id,UniversityName as Name,LargeImage as Image,extra as Extra from zbox.University
-                        where isdirty = 1 and ( isdeleted = 0 or isdeleted is null);";
+                    @"select top 500 id as Id,UniversityName as Name,LargeImage as Image,extra as Extra from zbox.University
+                        where isdirty = 1 and isdeleted = 0;";
                 const string sqlToDelete =
-                    @"select id from zbox.University
+                    @"select top 500 id from zbox.University
                     where isdirty = 1 and isdeleted = 1";
                 using (var grid = await conn.QueryMultipleAsync(sql + sqlToDelete))
                 {

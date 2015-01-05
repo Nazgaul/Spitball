@@ -122,6 +122,7 @@
     <Compile Include="Store\AddCategoriesCommand.cs" />
     <Compile Include="Store\AddProductsToStoreCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
+    <Compile Include="UpdateDirtyToRegularCommand.cs" />
     <Compile Include="UpdateQuotaCommand.cs" />
     <Compile Include="UpdateReputationCommand.cs" />
     <Compile Include="UpdateStatisticsCommand.cs" />

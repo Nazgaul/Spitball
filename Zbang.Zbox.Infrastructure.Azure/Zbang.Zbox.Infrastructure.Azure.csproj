@@ -102,8 +102,10 @@
     <Compile Include="MediaServices\MediaSevicesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\QueueProvider.cs" />
+    <Compile Include="Search\BoxSearchProvider.cs" />
     <Compile Include="Search\IUniversityReadSearchProvider.cs" />
     <Compile Include="Search\IUniversityWriteSearchProvider.cs" />
+    <Compile Include="Search\SeachConnection.cs" />
     <Compile Include="Search\SearchIndex.cs" />
     <Compile Include="Search\SearchUniversity.cs" />
     <Compile Include="Search\UniversitySearchProvider.cs" />

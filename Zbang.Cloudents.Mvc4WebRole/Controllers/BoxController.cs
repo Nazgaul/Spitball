@@ -164,7 +164,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //TODO: change to box permission with dapper
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
