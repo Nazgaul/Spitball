@@ -1,1 +1,32 @@
-﻿
+﻿@using Zbang.Cloudents.Mobile.Extensions
+<section class="choose">
+    <h1>Welcome to Cloudents</h1>
+    <div>Please complete registration by filling in the following information</div>
+
+    <form class="searchForm">
+        <input class="searchInput" placeholder="Search for your school" ng-change="libChoose.search()" type="search" required ng-model="libChoose.query" ng-model-options="{debounce:250}" />
+        <div class="searchBtn rFloat">
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+        </div>
+    </form>
+
+    <ul class="recommended" ng-if="libChoose.facebookSuggestions.length">
+        <li ng-repeat="suggestion in libChoose.facebookSuggestions">
+            <img class="uniImg" ng-src="{{::suggestion.image}}" />
+            <span class="uniName">{{::suggestion.name}}</span>
+            <div class="userPics" data-numusers="{{suggestion.friends.length}}">
+                <img ng-repeat="friend in suggestions.friends.slice(0,4)" ng-src="{{::friend.image}}" />
+            </div>
+            <button class="btn1" type="button" ng-click="libChoose.selectUniversity(suggestion.id)">Choose</button>
+        </li>
+    </ul>
+
+    <ul class="searchResults" ng-class="{ noResults : libChoose.noResults}" scroll-paging on-scroll="libChoose.search(true)">
+        <li ng-repeat="university in libChoose.universities" ng-click="libChoose.selectUniversity(university.id)">
+            <img class="uniImg" ng-src="{{::university.image}}" />
+            <div class="uniName">{{::university.name}}</div>
+        </li>
+    </ul>
+    @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+    <div class="emptySearch">No results were found</div>
+</section>

@@ -23,8 +23,10 @@
         };
 
         service.selectUniversity = function (universityId) {
-            account.selectUniversity().then(function () {
+            return account.selectUniversity().then(function () {
                 $state.go('root.dashboard');
+            }).catch(function (response) {
+                alert(response);
             });
         };
     }]
