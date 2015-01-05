@@ -3,10 +3,9 @@
     <h1>Welcome to Cloudents</h1>
     <div>Please complete registration by filling in the following information</div>
 
-    <form class="searchForm" ng-submit="fullSearch(newSearch.$valid)" novalidate>
-        <input class="searchInput" placeholder="Search for your school" ng-keyup="search()"
-               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
-        <button class="searchBtn rFloat" type="submit" ng-disabled="newSearch.query.$invalid">
+    <form class="searchForm">
+        <input class="searchInput" placeholder="Search for your school" ng-change="libChoose.search()" type="search" required ng-model="formData.query" />
+        <button class="searchBtn rFloat" type="submit">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </button>
     </form>

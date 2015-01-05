@@ -43,8 +43,6 @@
                 templateUrl: '/dashboard/indexpartial/',
                 controller: 'DashboardController as dashboard',
             }).
-
-
             state('root.box', {
                 url: '/box/my/:boxId/:boxName/',
                 templateUrl: '/box/indexpartial/',
@@ -61,6 +59,19 @@
                 controller: 'SearchController as search'
             });
 
-        $urlRouterProvider.otherwise('/dashboard/');
+        $urlRouterProvider.otherwise('/dashboard/').
+
+        rule(function ($injector, $location) {
+
+            var path = $location.path();
+            var hasTrailingSlash = path[path.length - 1] === '/';
+
+            if (!hasTrailingSlash) {
+                //if last charcter is a slash, return the same url without the slash  
+                var newPath = path + '/';
+                return newPath;
+            }
+
+        });
     }
     ]);
