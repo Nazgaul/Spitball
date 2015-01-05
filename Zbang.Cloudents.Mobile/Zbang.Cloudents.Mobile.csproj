@@ -1407,6 +1407,7 @@
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Views\Library\ChoosePartial.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

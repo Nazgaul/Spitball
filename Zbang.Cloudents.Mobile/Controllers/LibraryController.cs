@@ -35,6 +35,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
         [HttpGet]
+        public PartialViewResult ChoosePartial()
+        {
+            return PartialView();
+        }
+
+        [HttpGet]
         public async Task<JsonResult> SearchUniversity(string term, int page)
         {
             if (string.IsNullOrEmpty(term))
