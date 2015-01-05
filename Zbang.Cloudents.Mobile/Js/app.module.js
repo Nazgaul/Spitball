@@ -1,12 +1,13 @@
 ﻿"use strict";
-angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics', 'angular-gestures', 'ngTouch', 'scroll', 'app.events',
+angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics', 'angular-gestures', 'ngTouch', 'facebook', 'scroll', 'app.events',
     'account', 'register', 'login', 'box', 'dashboard', 'libChoose', 'search',
     'angulartics.google.analytics', 'ngAnimate', 'stackTrace']).
 config([
    '$httpProvider',
    '$provide',
    '$angularCacheFactoryProvider',
-   function ($httpProvider, $provide, $angularCacheFactoryProvider) {
+   'FacebookProvider',
+   function ($httpProvider, $provide, $angularCacheFactoryProvider, FacebookProvider) {
        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
        $angularCacheFactoryProvider.setCacheDefaults({
@@ -15,6 +16,14 @@ config([
            recycleFreq: 30000,
            storageMode: 'sessionStorage'
        });
+
+       FacebookProvider.setAppId(450314258355338);
+       FacebookProvider.setCookie(true);
+       FacebookProvider.setXfbml(true);
+       FacebookProvider.setStatus(true);
+       FacebookProvider.setSdkVersion('v2.2');
+       FacebookProvider.setLoadSDK(true);
+
 
        $provide.factory('requestinterceptor', [function () {
 
@@ -68,8 +77,6 @@ config([
 
        $httpProvider.interceptors.push('requestinterceptor');
 
-
-
        //#region log js errors 
        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
            return function (exception, cause) {
@@ -103,6 +110,7 @@ config([
    }
 ]).
 run([function () {
+
     //analytics
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

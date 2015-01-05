@@ -97,9 +97,14 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/events/events.js"),
                         new JsFileWithCdn("~/js/shared/scroll/scroll.js"),
 
+                        new JsFileWithCdn("~/js/shared/userDetails.js"),
+
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),
-                        new JsFileWithCdn("~/js/libs/stacktrace.js")
+                        new JsFileWithCdn("~/js/libs/stacktrace.js"),
+                        new JsFileWithCdn("~/js/libs/angular-facebook.js")
+
+
                         //new J
                     }
                     }

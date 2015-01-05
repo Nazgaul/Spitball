@@ -52,8 +52,7 @@
 
             service.searchUnis = function (term, page) {
                 return library.search({ term: term, page: page });
-            }
-
+            };
 
         }]
 );

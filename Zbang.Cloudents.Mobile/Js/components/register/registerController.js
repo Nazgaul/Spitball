@@ -62,7 +62,7 @@
             register.formData.universityName = university.name;
             register.searching = false;
         };
-
+        
         register.searchUnis = function (isAppend) {
             if (isSearching) {
                 return;
@@ -103,7 +103,10 @@
 
                     if (!isAppend) {
                         register.universities = response;
-                        register.noResults = true;                        
+                        if (!response.length) {
+                            register.noResults = true;
+
+                        }
                         return;
                     }
 
@@ -121,5 +124,7 @@
             }
 
         };
+
+
     }]
 );

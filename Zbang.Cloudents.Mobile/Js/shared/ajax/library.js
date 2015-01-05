@@ -9,7 +9,7 @@
                 return ajaxService.get(buildPath('searchuniversity'), data);
             },
             facebookSuggestions: function (data) {
-                return ajaxService.get(buildPath('facebookSuggest'), data);
+                return ajaxService.get(buildPath('getfriends'), data);
             }       
         };
 

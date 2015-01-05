@@ -1,11 +1,10 @@
-﻿angular.module('account', ['ajax', 'social']).
+﻿angular.module('account', ['ajax']).
     controller('AccountController',
     ['accountService', function (accountService) {
         "use strict";
         var account = this;
 
-        account.facebookLogin = function () {
-            alert('asd');
+        account.facebookLogin = function () {            
             accountService.facebookLogin();
         };
 

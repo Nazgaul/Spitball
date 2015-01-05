@@ -1,4 +1,4 @@
-﻿angular.module('libChoose', ['ajax', 'social']).
+﻿angular.module('libChoose', ['ajax']).
     controller('LibChooseController',
     ['libChooseService', function (libChooseService) {
         var libChoose = this;
@@ -7,6 +7,10 @@
             isChosen,
             isSearching,
             endResult;
+
+        libChooseService.facebookSuggestions().then(function (response) {
+            libChoose.facebookSuggestions = response;
+        });
 
         libChoose.selectUniversity = function (universityId) {
             isChosen = true;

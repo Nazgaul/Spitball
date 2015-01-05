@@ -1,4 +1,4 @@
-﻿angular.module('login', ['ajax', 'social']).
+﻿angular.module('login', ['ajax']).
     controller('LoginController',
     ['loginService', function (loginService) {
         "use strict";
@@ -34,7 +34,6 @@
 
         login.facebook = function () {
             loginService.facebookLogin();
-
         };
     }]
 );

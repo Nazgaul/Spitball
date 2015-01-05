@@ -533,6 +533,7 @@
     <Content Include="Js\components\search\searchService.js" />
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\HomePage.js" />
+    <Content Include="Js\libs\angular-facebook.js" />
     <Content Include="Js\libs\gestures.js" />
     <Content Include="Js\libs\hammer.js" />
     <Content Include="Js\libs\hammer.min.js" />
@@ -569,6 +570,7 @@
     <Content Include="Js\shared\events\events.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\social\facebook.js" />
+    <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Utils2.js" />

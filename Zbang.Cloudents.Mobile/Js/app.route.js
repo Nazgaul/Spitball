@@ -1,6 +1,32 @@
 ﻿angular.module('app').config(
     ['$stateProvider', '$locationProvider', '$urlRouterProvider',
     function ($stateProvider, $locationProvider, $urlRouterProvider) {
+
+        var accountRedirect = ['$state', 'userDetails', function ($state, userDetails) {
+            if (userDetails.isAuthenticated()) {
+                var uniId = userDetails.getUniversityId();
+                if (!uniId) {
+                    $state.go('root.libChoose');
+                    return;
+                }
+
+                $state.go('root.dashboard');
+            }
+        }];
+
+        var dashboardRedirect = ['$state', 'userDetails', function ($state, userDetails) {
+            if (!userDetails.isAuthenticated()) {
+                $state.go('root.account');
+                return;
+            }
+
+            var uniId = userDetails.getUniversityId();
+            if (!uniId) {
+                $state.go('root.libChoose');
+                return;
+            }
+        }];
+
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         $stateProvider
@@ -13,25 +39,29 @@
                 controllerAs: 'root',
                 template: '<div ui-view></div>',
                 resolve: {
-                    user: ['account', function (account) {
-                        return account.details();
+                    user: ['userDetails', function (userDetails) {
+                        return userDetails.init();
                     }]
                 }
             })
             .state('root.account', {
                 url: '/account/',
                 templateUrl: '/account/indexpartial/',
-                controller: 'AccountController as account'
+                controller: 'AccountController as account',
+                onEnter: accountRedirect
             }).
             state('root.login', {
                 url: '/account/login/',
                 templateUrl: '/account/loginpartial/',
-                controller: 'LoginController as login'
+                controller: 'LoginController as login',
+                onEnter: accountRedirect
+
             }).
             state('root.register', {
                 url: '/account/register/',
                 templateUrl: '/account/registerpartial/',
-                controller: 'RegisterController as register'
+                controller: 'RegisterController as register',
+                onEnter: accountRedirect
             }).
             state('root.libChoose', {
                 url: '/library/choose/',
@@ -42,6 +72,7 @@
                 url: '/dashboard/',
                 templateUrl: '/dashboard/indexpartial/',
                 controller: 'DashboardController as dashboard',
+                onEnter: dashboardRedirect
             }).
             state('root.box', {
                 url: '/box/my/:boxId/:boxName/',
@@ -71,7 +102,32 @@
                 var newPath = path + '/';
                 return newPath;
             }
-
         });
+
+        var accountRedirect = ['$state', 'userDetails', function ($state, userDetails) {
+            if (userDetails.isAuthenticated()) {
+                var uniId = userDetails.getUniversityId();
+                if (!uniId) {
+                    $state.go('root.libChoose');
+                    return;
+                }
+
+                $state.go('root.dashboard');
+            }
+        }];
+
+        var dashboardRedirect = ['$state', 'userDetails', function ($state, userDetails) {
+            if (!userDetails.isAuthenticated()) {
+                $state.go('root.account');
+                return;
+            }
+
+            var uniId = userDetails.getUniversityId();
+            if (!uniId) {
+                $state.go('root.libChoose');
+                return;
+            }
+        }];
+
     }
     ]);

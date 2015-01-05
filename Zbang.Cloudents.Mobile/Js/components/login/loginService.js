@@ -1,6 +1,6 @@
 ﻿angular.module('login')
     .service('loginService',
-    ['$state', 'account', 'facebook', function ($state, account, facebook) {
+    ['$state', 'account', 'Facebook', function ($state, account, facebook) {
         "use strict";
         var service = this;
 
@@ -11,7 +11,13 @@
         };
 
         service.facebookLogin = function () {
-            facebook.login();
+            facebook.login(function (response) {
+                if (response.authResponse) {
+                    account.facebookLogin({ token: response.authResponse.accessToken }).then(function (fbResposne) {
+                        $state.go($state.current, {}, { reload: true });
+                    });
+                }
+            }, { scope: 'email,user_education_history,user_friends' });
         };
     }]
 );

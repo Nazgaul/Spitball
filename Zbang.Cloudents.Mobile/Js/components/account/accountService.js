@@ -1,19 +1,8 @@
 ﻿angular.module('account')
     .service('accountService',
-    ['$window', '$q', '$analytics', 'account', function ($window, $q, $analytics, account) {
+    ['$window', '$q','$state', '$analytics', 'account', 'Facebook', function ($window, $q,$state, $analytics, account, facebook) {
         "use strict";
         var service = this;
-
-        service.facebookLogin = function () {
-            var dfd = $q.defer();
-
-
-            facebook.getToken();
-
-            account.facebookLogin({ token: token }).then(function () {
-
-            });
-        };
 
         service.changeLanguage = function (language) {
             $analytics.eventTrack('Language Change', {
@@ -24,7 +13,17 @@
             account.changeLocale({ lang: language }).then(function () {
                 $window.location.reload();
             });
-        }
+        };
+
+        service.facebookLogin = function () {
+            facebook.login(function (response) {
+                if (response.authResponse) {
+                    account.facebookLogin({ token: response.authResponse.accessToken }).then(function (fbResposne) {
+                        $state.go($state.current, {}, { reload: true });
+                    });
+                }
+            }, { scope: 'email,user_education_history,user_friends' });
+        };
 
     }]
 );
