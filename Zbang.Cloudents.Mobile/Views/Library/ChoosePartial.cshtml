@@ -14,7 +14,7 @@
 
     <ul class="recommended" ng-if="libChoose.facebookSuggestions.length">
         <li ng-repeat="suggestion in libChoose.facebookSuggestions">
-            <img class="uniImg" ng-src="{{::suggestion.image}}" />
+            <img class="uniImg" ng-src="{{::suggestion.image}}" width="52" height="52" />
             <span class="uniName">{{::suggestion.name}}</span>
             <div class="userPics" data-numusers="{{suggestion.friends.length}}">
                 <img ng-repeat="friend in suggestions.friends.slice(0,4)" ng-src="{{::friend.image}}" />
@@ -25,7 +25,7 @@
 
     <ul class="searchResults" ng-class="{ noResults : libChoose.noResults}" scroll-paging on-scroll="libChoose.search(true)">
         <li ng-repeat="university in libChoose.universities" ng-click="libChoose.selectUniversity(university.id)">
-            <img class="uniImg" ng-src="{{::university.image}}" />
+            <img class="uniImg" ng-src="{{::university.image}}" width="52" height="52" />
             <div class="uniName">{{::university.name}}</div>
         </li>
     </ul>

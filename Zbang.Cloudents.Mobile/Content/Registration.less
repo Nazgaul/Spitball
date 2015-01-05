@@ -19,8 +19,14 @@
     .homeTxt1 {
         color: @textColor; //override
     }
-    .searchResults {
-        display: none; //TEMP ONLY!!!
+    .searchWpr {
+        overflow: visible; //override;
+        background: none; //override
+        position: relative;
+
+    }
+    .searchBtn {
+        position: absolute;
     }
 }
 
@@ -33,8 +39,8 @@
     .bottom, .checkbox, .cbLabel {
         display: none;
     }
-    .searchResults {
-        display: block; //TEMP ONLY!!!
+    .inputText {
+        margin-top: 2px;
     }
 }
 .topReg {

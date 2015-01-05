@@ -38,9 +38,9 @@
                 <div class="ng-message-errors" ng-messages="register.submitted && registerForm.isMale.$error">
                     <span class="ng-message-error" ng-message="required">@AccountResources.GenderRequired</span>
                 </div>
-                <input id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
+                <input class="radio" id="maleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="true" required />
                 <label class="genderLabel first" for="maleRadio">@AccountResources.Male</label>
-                <input id="femaleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="false" required>
+                <input class="radio" id="femaleRadio" name="isMale" type="radio" ng-model="register.formData.isMale" value="false" required>
                 <label class="genderLabel" for="femaleRadio">@AccountResources.Female</label>
             </div>
             <select class="inputText rFloat" ng-change="register.changeLanguage()" ng-model="register.language" ng-init="register.language ='@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)'">
@@ -55,13 +55,19 @@
         <div class="ng-message-errors" ng-messages="">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
-        <input type="text" class="inputText" placeholder="@SharedResources.SearchFor" required ng-focus="register.searchIn($event)"
-               hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
-               ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end />
+        <div class="searchWpr">
+            <input type="text" class="inputText" placeholder="@SharedResources.SearchFor" required ng-focus="register.searchIn($event)"
+                   hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
+                   ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end />
+            <div class="searchBtn rFloat">
+                @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            </div>
+        </div>
+        
         <ul class="searchResults" ng-class="{noResults : register.noResults}">
-            <li ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
-                <img class="uniImg" ng-src="{{::university.image}}" />
-                <div class="uniName">{{::university.name}}</div>
+            <li class="ghost" ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
+                <img class="uniImg" ng-src="{{::university.image}}" width="52" height="52" />
+                <div class="uniName vCentered">{{::university.name}}</div>
             </li>
         </ul>
         @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
