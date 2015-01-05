@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Box : ISoftDeletable
+    public class Box : IDirty
     {
         public const int NameLength = 120;
         protected Box()
@@ -302,5 +302,7 @@ namespace Zbang.Zbox.Domain
             }
             CalculateMembers();
         }
+
+        public bool IsDirty { get; set; }
     }
 }
