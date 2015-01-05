@@ -1,0 +1,90 @@
+﻿@import "varsAndMixins";
+
+/*#region Choose School */
+.choose {
+    display: inline-block;
+    width: 88%;
+    font-size: 13px;
+    
+    h1 {
+        color: @textColor; //override
+        max-width: none; //override
+        letter-spacing: normal; //override
+        margin: 25px 0 0 0;
+    } 
+}
+
+.recommended, .searchResults {
+    li {
+        height: 70px;
+        position: relative;
+        text-align: left;
+        
+        &:before {
+            .pseudo;
+            width: 100%;
+            height: 1px;
+            background: @borderColor;
+            position: absolute;
+            bottom: 0;
+            left:0;
+        }
+    }
+    .uniName, .btn1  {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .btn1 {
+        color: #fff;
+        background: @itemBlue;
+        width: auto;
+        height: auto;
+        line-height: normal;
+        padding: 3px 8px;
+        font-size: 13px;
+    }
+}
+.recommended {
+    li {
+        text-align: justify;
+        width: 100%;
+        &:after {
+            .pseudo;
+            width: 100%;
+        }
+    }  
+}
+.uniImg {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 8px;
+}
+.uniName {
+    max-width: 30%;
+    max-height: 31px;
+    overflow: hidden;
+}
+.userPics {
+    width: 56px;
+    display: inline-block;
+    vertical-align: middle;
+    &:after {
+        content: '+' attr(data-numusers);
+        display: inline-block;
+        float: right;
+        font-size: 12px;
+        position: relative;
+        top: -6px;
+    }
+    img {
+        display: inline-block;
+        margin: 1px;
+        top:0; //override
+        float: left;
+        &:nth-child(3) {
+            clear: both;
+        }
+    }
+}
+/*#endregion */
