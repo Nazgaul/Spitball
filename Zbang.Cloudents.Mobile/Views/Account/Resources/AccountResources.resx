@@ -123,8 +123,20 @@
   <data name="And" xml:space="preserve">
     <value>and</value>
   </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>Please complete registration by filing in the following information</value>
+  </data>
   <data name="ConfirmEmailCompare" xml:space="preserve">
     <value>Emails don't match</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Sign up with email</value>
@@ -132,8 +144,17 @@
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Sign up with Facebook</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>This field is required</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
   </data>
   <data name="GenderRequired" xml:space="preserve">
     <value>Please select gender</value>
@@ -144,8 +165,20 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid email address</value>
   </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Log in now</value>
+    <value>Log in</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>No results were found</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy</value>
@@ -153,7 +186,16 @@
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>Password must contain at least 6 characters</value>
   </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for your school</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="SignUp1" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">

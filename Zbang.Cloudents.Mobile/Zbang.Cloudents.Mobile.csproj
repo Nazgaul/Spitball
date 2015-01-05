@@ -431,11 +431,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WelcomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Resources\CountryResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CountryResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
       <DependentUpon>SharedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1687,10 +1682,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\CountryResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CountryResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1704,7 +1695,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.zh.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ar.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.he.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.resx">

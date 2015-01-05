@@ -120,16 +120,88 @@
   <data name="AlreadyHave" xml:space="preserve">
     <value>כבר יש לך חשבון?</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChooseSchool" xml:space="preserve">
+    <value>לסיום תהליך ההרשמה אנא בחר את השדה המתאים</value>
+  </data>
+  <data name="ConfirmEmailCompare" xml:space="preserve">
+    <value>המיילים אינם תואמים</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>צור חשבון</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>עדיין אין לך חשבון?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>דוא"ל</value>
+  </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>הרשם דרך אימייל</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>הרשם דרך פייסבוק</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>נקבה</value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>חובה למלא שדה זה</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>שם פרטי</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>שכחת את הסיסמה שלך?</value>
+  </data>
+  <data name="GenderRequired" xml:space="preserve">
+    <value>אנא בחר מגדר</value>
+  </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>בהרשמה, אני מסכים   </value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>כתובת דוא"ל זו אינה חוקית</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>שם משפחה</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>התחבר</value>
   </data>
+  <data name="Male" xml:space="preserve">
+    <value>זכר</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>סיסמא</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>ומדיניות פרטיות</value>
+  </data>
+  <data name="PwdAtLeast6Chars" xml:space="preserve">
+    <value>סיסמא צריכה להכיל לפחות 6 תווים</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>זכור אותי</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>הקלד את מוסד הלימודים שלך </value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>הירשם</value>
+  </data>
+  <data name="SignUp1" xml:space="preserve">
+    <value>הרשם</value>
+  </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>כשלומדים יחד, לומדים טוב יותר</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>לתנאי שירות</value>
   </data>
 </root>
