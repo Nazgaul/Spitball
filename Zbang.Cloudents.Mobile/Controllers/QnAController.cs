@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Extensions;
@@ -67,7 +68,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return Json(new JsonResponse(false));
             }
         }
-       
+
 
         //[ZboxAuthorize]
         //[HttpPost]
@@ -103,15 +104,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //}
 
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), 
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false),
         BoxPermission("boxId")]
         public async Task<JsonResult> Index(long boxId, int page)
         {
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId,page,20));
-                return JsonOk(retVal);
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
+                return JsonOk(retVal.Skip(page * 20).Take(20));
             }
             catch (BoxAccessDeniedException)
             {

@@ -1396,6 +1396,7 @@
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Views\Account\_FbRegister.cshtml" />
     <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Views\Library\ChoosePartial.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

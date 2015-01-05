@@ -9,9 +9,7 @@
             BoxId = boxId;
         }
 
-
         public long BoxId { get; private set; }
-
 
         public int PageNumber { get; private set; }
 
