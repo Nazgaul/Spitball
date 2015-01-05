@@ -123,6 +123,9 @@
   <data name="And" xml:space="preserve">
     <value />
   </data>
+  <data name="ByEmail" xml:space="preserve">
+    <value>או באמצאות דוא"ל</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>לסיום תהליך ההרשמה אנא בחר את השדה המתאים</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>הרשם דרך אימייל</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>התחבר עם פייסבוק</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>הרשם דרך פייסבוק</value>
@@ -174,9 +180,6 @@
   <data name="Male" xml:space="preserve">
     <value>זכר</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>לא נמצאו תוצאות</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>סיסמא</value>
   </data>
@@ -189,14 +192,8 @@
   <data name="RememberMe" xml:space="preserve">
     <value>זכור אותי</value>
   </data>
-  <data name="SearchFor" xml:space="preserve">
-    <value>הקלד את מוסד הלימודים שלך </value>
-  </data>
   <data name="SignUp" xml:space="preserve">
     <value>הירשם</value>
-  </data>
-  <data name="SignUp1" xml:space="preserve">
-    <value>הרשם</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>כשלומדים יחד, לומדים טוב יותר</value>

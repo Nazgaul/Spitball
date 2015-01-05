@@ -126,4 +126,10 @@
   <data name="Feed" xml:space="preserve">
     <value>التغذية</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>إن فن وعلم طرح الأسئلة هو مصدر كل المعرفة.</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>نشر</value>
+  </data>
 </root>

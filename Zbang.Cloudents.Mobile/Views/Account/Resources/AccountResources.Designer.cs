@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Or by email.
+        /// </summary>
+        public static string ByEmail {
+            get {
+                return ResourceManager.GetString("ByEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please complete registration by filing in the following information.
         /// </summary>
         public static string ChooseSchool {
@@ -129,6 +138,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         public static string EmailSignUp {
             get {
                 return ResourceManager.GetString("EmailSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in with Facebook.
+        /// </summary>
+        public static string Facebook {
+            get {
+                return ResourceManager.GetString("Facebook", resourceCulture);
             }
         }
         
@@ -232,15 +250,6 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No results were found.
-        /// </summary>
-        public static string NoResults {
-            get {
-                return ResourceManager.GetString("NoResults", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -277,29 +286,11 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for your school.
-        /// </summary>
-        public static string SearchFor {
-            get {
-                return ResourceManager.GetString("SearchFor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up.
-        /// </summary>
-        public static string SignUp1 {
-            get {
-                return ResourceManager.GetString("SignUp1", resourceCulture);
             }
         }
         

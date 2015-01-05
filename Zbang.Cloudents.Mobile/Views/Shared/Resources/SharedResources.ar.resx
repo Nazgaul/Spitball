@@ -139,6 +139,12 @@
   <data name="Members" xml:space="preserve">
     <value>اعضاء </value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>لا توجد نتائج</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>البحث عن مدرستك</value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>مشاركة</value>
   </data>

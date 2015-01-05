@@ -126,4 +126,10 @@
   <data name="Feed" xml:space="preserve">
     <value>Лента</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>Искусство и наука задавать вопросы — это источник всех знаний.</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <section class="box">
     <header>
         <button type="button" class="inviteBtn rFloat">
@@ -16,8 +17,8 @@
     </div>
 
     <div class="tabs feedTab">
-        <span class="tab">Feed</span>
-        <span class="tab">Items</span>
+        <span class="tab">@BoxResources.Feed</span>
+        <span class="tab">@SharedResources.Items</span>
     </div>
 
     <div class="feed">
@@ -34,7 +35,7 @@
                 </li>
             </ul>
             <div class="bottomTA">
-                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">Post</button>
+                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@BoxResources.Post</button>
             </div>
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
@@ -65,7 +66,7 @@
                         </li>
                     </ul>
 
-                    <button class="commentBtn" type="button" ng-click="displayComment(question)">Comment</button>
+                    <button class="commentBtn" type="button" ng-click="displayComment(question)">@BoxResources.Comment</button>
 
 
                     @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
@@ -106,7 +107,7 @@
                         </li>
                     </ul>
                     <div class="bottomTA">
-                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">Post</button>
+                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@BoxResources.Post</button>
                     </div>
                     <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
                         @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
@@ -116,12 +117,12 @@
 
         </ul>
 
-        <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">FeedEmpty</span></div>
+        <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
     </div>
 
     <div class="boxItems">
         <select>
-            <option>All items</option>
+            <option>@BoxResources.AllItems</option>
         </select>
         <ul class="boxList">
             <li>

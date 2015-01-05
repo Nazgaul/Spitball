@@ -126,4 +126,11 @@
   <data name="Feed" xml:space="preserve">
     <value>עידכונים</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>לשאול שאלות הוא המקור
+של כל הידע.</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
 </root>

@@ -126,4 +126,12 @@
   <data name="Feed" xml:space="preserve">
     <value>Feed</value>
   </data>
+  <data name="FeedEmpty" xml:space="preserve">
+    <value>The art and science of 
+asking questions is the source
+of all knowledge.</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Post</value>
+  </data>
 </root>

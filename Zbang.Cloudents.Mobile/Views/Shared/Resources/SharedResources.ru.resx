@@ -138,6 +138,12 @@
   <data name="Members" xml:space="preserve">
     <value>участники</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Искать вашу школу</value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>Поделиться</value>
   </data>

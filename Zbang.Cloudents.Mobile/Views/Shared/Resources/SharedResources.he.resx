@@ -138,6 +138,12 @@
   <data name="Members" xml:space="preserve">
     <value>חברים</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>הקלד את מוסד הלימודים שלך </value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>שתף</value>
   </data>

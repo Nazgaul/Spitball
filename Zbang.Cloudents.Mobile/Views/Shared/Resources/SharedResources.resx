@@ -138,6 +138,12 @@
   <data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>No results were found</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for your school</value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
   </data>

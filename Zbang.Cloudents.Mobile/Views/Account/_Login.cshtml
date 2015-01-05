@@ -1,13 +1,14 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 
 <section class="signIn">
-    <h1>Log in</h1>
+    <h1>@AccountResources.LogIn</h1>
     <button type="button" class="facebook" hm-touch="login.facebook()">
         <span class="fbImg">
             @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
-        </span>Log in with Facebook
+        </span>@AccountResources.Facebook
+
     </button>
-    <div class="splitHR">or by email</div>
+    <div class="splitHR">@AccountResources.ByEmail</div>
     <form name="loginForm" ng-submit="login.submit(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{login.serverError}}</div>
         <div class="ng-message-errors" ng-messages="login.submitted && loginForm.email.$error">
@@ -15,21 +16,21 @@
             <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
         </div>
         <input type="text" class="inputText" ng-class="{error: login.submitted && loginForm.email.$error}"
-               name="email" placeholder="EmailAddress" required ng-model="login.formData.email"
+               name="email" placeholder="@AccountResources.Email" required ng-model="login.formData.email"
                ng-pattern="params.pattern" />
         <div class="ng-message-errors" ng-messages="login.submitted && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
         <input name="password" type="password" ng-class="{error: login.submitted && loginForm.password.$error}"
-               class="inputText" tabindex="2" placeholder="Password" required ng-model="login.formData.password" />
-        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">ForgotYourPassword</a>
+               class="inputText" tabindex="2" placeholder="@AccountResources.Password" required ng-model="login.formData.password" />
+        <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")">@AccountResources.ForgotPassword</a>
         <input type="checkbox" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" />
-        <label class="cbLabel lFloat" for="RememberMe">RememberMe</label>
-        <input ng-disabled="login.disabled" class="btn1" type="submit" value="SignIn">
+        <label class="cbLabel lFloat" for="RememberMe">@AccountResources.RememberMe</label>
+        <input ng-disabled="login.disabled" class="btn1" type="submit" value="@AccountResources.LogIn">
     </form>
     <div>
-        <span class="loginTxt1">Don't have an account?</span>
-        <a class="loginTxt2" ui-sref="root.register">Sign up now</a>
+        <span class="loginTxt1">@AccountResources.DontHaveAnAccount</span>
+        <a class="loginTxt2" ui-sref="root.register">@AccountResources.SignUp</a>
     </div>
 </section>
 

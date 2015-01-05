@@ -123,6 +123,9 @@
   <data name="And" xml:space="preserve">
     <value>and</value>
   </data>
+  <data name="ByEmail" xml:space="preserve">
+    <value>Or by email</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>Please complete registration by filing in the following information</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Sign up with email</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Log in with Facebook</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Sign up with Facebook</value>
@@ -174,9 +180,6 @@
   <data name="Male" xml:space="preserve">
     <value>Male</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>No results were found</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -189,13 +192,7 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
-  <data name="SearchFor" xml:space="preserve">
-    <value>Search for your school</value>
-  </data>
   <data name="SignUp" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="SignUp1" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">

@@ -1,17 +1,18 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <div class="searchWpr">
     <button type="button" class="backBtn lFloat" ng-click="search.goBack()">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
 
     <form class="searchForm rFloat">
-        <input class="searchInput" placeholder="Search for your school" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
     </form>
 </div>
 <div class="searchContent" scroll-paging on-scroll="search.query(true)">
     <div class="tabs">
-        <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">Courses</button>
-        <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">Items</button>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">@SharedResources.Courses</button>
+        <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">@SharedResources.Items</button>
         @*<span class="tab">Members</span>*@
     </div>
 

@@ -123,6 +123,9 @@
   <data name="And" xml:space="preserve">
     <value>и</value>
   </data>
+  <data name="ByEmail" xml:space="preserve">
+    <value>Или по электронной почте</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>Пожалуйста завершите регистрацию с помощью заполнения следующей информации</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Присоединится через эл. почту</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value> через Facebook</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Присоединится через Facebook</value>
@@ -174,9 +180,6 @@
   <data name="Male" xml:space="preserve">
     <value>Мужской </value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>Ничего не найдено</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
@@ -189,14 +192,8 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня</value>
   </data>
-  <data name="SearchFor" xml:space="preserve">
-    <value>Искать вашу школу</value>
-  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Присоединиться</value>
-  </data>
-  <data name="SignUp1" xml:space="preserve">
-    <value>Зарегистрироваться</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>Это больше, чем просто обучение, это социальное обучение</value>

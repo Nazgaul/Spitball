@@ -1,10 +1,12 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <section class="choose">
-    <h1>Welcome to Cloudents</h1>
-    <div>Please complete registration by filling in the following information</div>
+    <h1>@SharedResources.WelcomeCloudents</h1>
+    <div>@AccountResources.ChooseSchool</div>
 
     <form class="searchForm">
-        <input class="searchInput" placeholder="Search for your school" ng-change="libChoose.search()" type="search" required ng-model="libChoose.query" ng-model-options="{debounce:250}" />
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="libChoose.search()" type="search" required ng-model="libChoose.query" ng-model-options="{debounce:250}" />
         <div class="searchBtn rFloat">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </div>
@@ -28,5 +30,5 @@
         </li>
     </ul>
     @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
-    <div class="emptySearch">No results were found</div>
+    <div class="emptySearch">@SharedResources.NoResults</div>
 </section>
