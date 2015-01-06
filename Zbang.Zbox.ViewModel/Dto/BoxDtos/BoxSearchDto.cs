@@ -31,4 +31,11 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public long UserId { get; set; }
         public long BoxId { get; set; }
     }
+
+    public class BoxToUpdateSearchDto
+    {
+        public IEnumerable<BoxSearchDto> BoxesToUpdate { get; set; }
+
+        public IEnumerable<long> BoxesToDelete { get; set; }
+    }
 }
