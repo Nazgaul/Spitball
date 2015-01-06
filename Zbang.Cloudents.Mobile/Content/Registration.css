@@ -30,6 +30,10 @@
 .register .searchBtn {
   position: absolute;
 }
+.register .emptySearch.emptySearch,
+.register .svg-noResults.svg-noResults {
+  display: none;
+}
 .search .topReg {
   opacity: 0;
   visibility: hidden;
@@ -42,6 +46,15 @@
 }
 .search .inputText {
   margin-top: 2px;
+}
+.search .searchResults {
+  display: block;
+}
+.search .noResults ~ .emptySearch {
+  display: inline-block;
+}
+.search .noResults ~ .svg-noResults {
+  display: block;
 }
 .topReg {
   -webkit-transition: margin 0.3s;
