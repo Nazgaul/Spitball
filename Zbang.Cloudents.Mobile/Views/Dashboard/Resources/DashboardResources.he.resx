@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>מי אנחנו</value>
+  </data>
   <data name="CreateQuizzes" xml:space="preserve">
     <value>יצירת מבחנים לשיפור הלמידה</value>
   </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>פלטפורמת הלימודים החברתית המובילה ברשת  </value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>התנתק</value>
+  </data>
   <data name="RecommendedCourses" xml:space="preserve">
     <value>קורסים מומלצים</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>הגדרות</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
     <value>שיתוף קבצים עם החברים באוניברסיטה</value>

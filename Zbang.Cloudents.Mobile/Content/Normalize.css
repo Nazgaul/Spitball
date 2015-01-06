@@ -92,7 +92,6 @@ a {
   outline: none;
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 a:focus {
   outline: none;
@@ -261,16 +260,14 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: none;
-  cursor: pointer;
-  /* 3 */
 }
 /**
  * Re-set default cursor for disabled elements.
  */
-button[disabled],
+/*button[disabled],
 html input[disabled] {
-  cursor: default;
-}
+  //cursor: default;
+}*/
 /**
  * Remove inner padding and border in Firefox 4+.
  */

@@ -160,6 +160,15 @@ namespace Zbang.Cloudents.Mobile.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Terms of Services.
+        /// </summary>
+        public static string TermsOfServices {
+            get {
+                return ResourceManager.GetString("TermsOfServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to Cloudents.
         /// </summary>
         public static string WelcomeCloudents {
