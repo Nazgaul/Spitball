@@ -13,7 +13,10 @@ mDashboard.factory('sDashboard',
              },             
              sideBar: function () {
                  return ajaxService.get(buildPath('sidebar'));
-             }             
+             },
+             recommendedCourses: function () {
+                 return ajaxService.get(buildPath('recommendedcourses'));
+         }             
          }
      }
     ]);
