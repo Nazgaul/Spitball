@@ -1,4 +1,4 @@
-﻿angular.module('box')
+﻿angular.module('feed')
     .service('feedService',
     ['feed', function (feed) {
         var service = this;

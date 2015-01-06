@@ -533,6 +533,7 @@
     <Content Include="Js\DataContext2.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\libs\angular-facebook.js" />
+    <Content Include="Js\libs\msdelastic.js" />
     <Content Include="Js\libs\gestures.js" />
     <Content Include="Js\libs\hammer.js" />
     <Content Include="Js\libs\hammer.min.js" />

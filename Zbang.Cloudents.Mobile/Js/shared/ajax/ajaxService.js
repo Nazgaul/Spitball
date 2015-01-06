@@ -84,17 +84,12 @@
                 payload: payload
             };
 
-            $.ajax({
-                type: 'POST',
-                url: '/error/jslog/',
-                contentType: 'application/json',
-                data: angular.toJson({
-                    errorUrl: url,
-                    errorMessage: JSON.stringify(log),
-                    cause: 'ajaxRequest',
-                    stackTrace: ''
-                })
-            });
+            $http.post('/error/jslog/', angular.toJson({
+                errorUrl: url,
+                errorMessage: JSON.stringify(log),
+                cause: 'ajaxRequest',
+                stackTrace: ''
+            }));
         }
         function trackTime(startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;

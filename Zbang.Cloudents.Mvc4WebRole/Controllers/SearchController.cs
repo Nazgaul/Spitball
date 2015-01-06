@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -16,6 +16,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
+        private readonly IBoxReadSearchProvider m_BoxSearchService;
+
+        public SearchController(IBoxReadSearchProvider boxSearchService)
+        {
+            m_BoxSearchService = boxSearchService;
+        }
+
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage",
            Options = OutputCacheOptions.IgnoreQueryString
@@ -72,8 +79,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), page,
                     allResult ? 50 : 6);
-                var result = await ZboxReadService.Search(query);
-                return result;
+
+               var t1 =  m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(), userDetail.UniversityId.Value, page,
+                    allResult ? 50 : 6));
+
+                var t2 = ZboxReadService.Search(query);
+                await Task.WhenAll(t1, t2);
+                t2.Result.Boxes = t1.Result;
+                return t2.Result;
             }
             return null;
         }

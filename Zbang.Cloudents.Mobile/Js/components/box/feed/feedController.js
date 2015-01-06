@@ -1,4 +1,4 @@
-﻿angular.module('box').
+﻿angular.module('feed',['ajax','monospaced.elastic']).
     controller('FeedController',
     ['feedService', '$stateParams', function (feedService, $stateParams) {
         var feed = this;
