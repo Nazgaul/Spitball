@@ -522,6 +522,7 @@
     <Content Include="Js\components\dashboard\dashboardController.js" />
     <Content Include="Js\components\dashboard\dashboardService.js" />
     <Content Include="Js\components\account\accountController.js" />
+    <Content Include="Js\components\dashboard\menu\close.js" />
     <Content Include="Js\components\libChoose\libChooseController.js" />
     <Content Include="Js\components\libChoose\libChooseService.js" />
     <Content Include="Js\components\login\loginController.js" />

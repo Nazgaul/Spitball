@@ -17,7 +17,6 @@
             dashboard.welcomeClosed = true;
         };
 
-
         //#region box list
         dashboard.getBoxList = function (isAppend) {
             if (isFetching || endResult) {
@@ -55,9 +54,9 @@
         dashboardService.getRecommendedBoxesList().then(function (recommendedBoxes) {
             dashboard.recommendedBoxes = recommendedBoxes;
         });
+        //#endregion
 
-        dashboard.test = function (e) {
-            console.log(e);
-        };
+
+    
     }]
 );
