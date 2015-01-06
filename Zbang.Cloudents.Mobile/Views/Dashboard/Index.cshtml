@@ -1,6 +1,8 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 @using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+@*Guy: please add the class menuOpen on the dashboard when user clicks settings button*@
 <section class="dashboard">
     <header>
         <button type="button" class="menuBtn lFloat">
@@ -71,4 +73,39 @@
             </li>
         </ul>
     </section>
+</section>
+
+<section class="menu">
+    <h2>Settings</h2>
+    <div class="userDetailsWpr">
+        <img class="lFloat" src="http://lorempixel.com/52/52/food" width="52" height="52">
+        <div class="userDetails">
+            <div>{User name here}</div>
+            <div>{User points here}</div>
+        </div>
+    </div>
+    
+    <ul class="menuItems">
+        <li>
+            <a href="#">
+                @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
+                Terms of use
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
+                About us
+            </a>
+        </li>
+        <li>
+            <button type="button">
+                @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
+                Log out
+            </button>
+        </li>
+    </ul>
+    <button type="button" class="closeBtn" ng-click="dashboard.closeWelcome()">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
 </section>
