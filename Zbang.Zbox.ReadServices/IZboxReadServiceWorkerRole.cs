@@ -23,6 +23,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail();
 
         Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates();
-        Task<IEnumerable<BoxSearchDto>> GetBoxDirtyUpdates();
+        Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates();
     }
 }

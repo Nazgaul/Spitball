@@ -68,16 +68,22 @@ namespace TestingApp
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var x = new UniversitySearchProvider();
-            await x.UpdateData(new[]
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var read = iocFactory.Resolve<IBoxReadSearchProvider>();
+            var sw = new Stopwatch();
+            sw.Start();
+            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 1, 920));
+            sw.Stop();
+            textBox2.Text = string.Empty;
+            textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
+            if (retVal != null)
             {
-                new UniversitySearchDto
+                foreach (var item in retVal)
                 {
-                    Id = 920,
-                    Name = "Ram Open University",
-                    Image = "https://az32006.vo.msecnd.net/universities/920.jpg"
+                    textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
+                    textBox2.Text += "\r\n";
                 }
-            }, null);
+            }
 
         }
 

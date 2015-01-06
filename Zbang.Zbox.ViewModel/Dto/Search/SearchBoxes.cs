@@ -2,7 +2,21 @@
 {
     public class SearchBoxes
     {
-        public string Image {get;set;}
+        public SearchBoxes()
+        {
+
+        }
+
+        public SearchBoxes(long id, string name, string image, string professor, string courseCode, string url)
+        {
+            Id = id;
+            Name = name;
+            Image = image;
+            Professor = professor;
+            CourseCode = courseCode;
+            Url = url;
+        }
+        public string Image { get; set; }
         public string Name { get; set; }
         public string Professor { get; set; }
         public string CourseCode { get; set; }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
@@ -18,10 +15,11 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public string Professor { get; set; }
         public string CourseCode { get; set; }
 
-
         public string Url { get; set; }
 
         public long UniversityId { get; set; }
+
+        public Infrastructure.Enums.BoxPrivacySettings PrivacySettings { get; set; }
 
         public IEnumerable<long> UserIds { get; set; }
     }
@@ -30,5 +28,12 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     {
         public long UserId { get; set; }
         public long BoxId { get; set; }
+    }
+
+    public class BoxToUpdateSearchDto
+    {
+        public IEnumerable<BoxSearchDto> BoxesToUpdate { get; set; }
+
+        public IEnumerable<long> BoxesToDelete { get; set; }
     }
 }

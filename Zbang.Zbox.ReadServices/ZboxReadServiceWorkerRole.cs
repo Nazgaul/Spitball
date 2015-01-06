@@ -213,22 +213,29 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<BoxSearchDto>> GetBoxDirtyUpdates()
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 
-                using (var grid = await conn.QueryMultipleAsync(Search.GetBoxToUploadToSearch + Search.GetBoxUsersToUploadToSearch))
+                using (var grid = await conn.QueryMultipleAsync
+                    (Search.GetBoxToUploadToSearch +
+                    Search.GetBoxUsersToUploadToSearch +
+                    Search.GetBoxToDeleteToSearch))
                 {
-                    var boxes = await grid.ReadAsync<BoxSearchDto>();
+                    var retVal = new BoxToUpdateSearchDto
+                    {
+                        BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
+                    };
                     var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
 
-                    foreach (var box in boxes)
+
+                    foreach (var box in retVal.BoxesToUpdate)
                     {
                         box.UserIds = usersInBoxes.Where(w => w.BoxId == box.Id).Select(s => s.UserId);
                     }
-
-                    return boxes;
+                    retVal.BoxesToDelete = await grid.ReadAsync<long>();
+                    return retVal;
                 }
 
             }

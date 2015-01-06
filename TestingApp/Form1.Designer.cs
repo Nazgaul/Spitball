@@ -70,11 +70,12 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(10, 109);
+            this.textBox2.Location = new System.Drawing.Point(11, 177);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(173, 133);
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(558, 338);
             this.textBox2.TabIndex = 3;
             // 
             // button3
@@ -84,7 +85,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(181, 19);
             this.button3.TabIndex = 4;
-            this.button3.Text = "Search University";
+            this.button3.Text = "Search Box";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
