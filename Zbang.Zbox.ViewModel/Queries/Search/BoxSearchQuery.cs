@@ -4,8 +4,9 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class BoxSearchQuery : IPagedQuery, IUserQuery
     {
-        public BoxSearchQuery(string term, long userId, int pageNumber = 0, int rowsPerPage = 50)
+        public BoxSearchQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50)
         {
+            UniversityId = universityId;
             Term = term;
             RowsPerPage = rowsPerPage;
             PageNumber = pageNumber;
@@ -13,6 +14,8 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         }
 
         public long UserId { get; private set; }
+
+        public long UniversityId { get; private set; }
 
         public int PageNumber { get; private set; }
 

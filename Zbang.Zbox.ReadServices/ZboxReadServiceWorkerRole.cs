@@ -218,7 +218,10 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 
-                using (var grid = await conn.QueryMultipleAsync(Search.GetBoxToUploadToSearch + Search.GetBoxUsersToUploadToSearch))
+                using (var grid = await conn.QueryMultipleAsync
+                    (Search.GetBoxToUploadToSearch +
+                    Search.GetBoxUsersToUploadToSearch +
+                    Search.GetBoxToDeleteToSearch))
                 {
                     var retVal = new BoxToUpdateSearchDto
                     {
@@ -231,7 +234,7 @@ namespace Zbang.Zbox.ReadServices
                     {
                         box.UserIds = usersInBoxes.Where(w => w.BoxId == box.Id).Select(s => s.UserId);
                     }
-
+                    retVal.BoxesToDelete = await grid.ReadAsync<long>();
                     return retVal;
                 }
 

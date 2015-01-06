@@ -61,9 +61,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)
                 {
-                    //await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync(
-                    //    new UpdateDirtyToRegularCommand(
-                    //        updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
+                    await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(
+                        new UpdateDirtyToRegularCommand(
+                            updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
                 }
             }
             return updates.BoxesToUpdate.Count() == NumberToReSyncWithoutWait
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
                 if (isSuccess)
                 {
-                    await m_ZboxWriteService.UpdateSearchDirtyToRegularAsync(
+                    await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
                         new UpdateDirtyToRegularCommand(
                             updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
                 }

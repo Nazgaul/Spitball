@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
-using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -24,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string UrlField = "url";
         private const string UniversityidField = "universityid";
         private const string UseridsField = "userids";
+        private const string PrivacySettingsField = "PrivacySettings";
 
         private Index GetUniversityIndex()
         {
@@ -48,7 +47,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithField(UniversityidField, "Edm.Int64", f => f
                     .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
-                    .IsFilterable());
+                    .IsFilterable())
+                .WithIntegerField(PrivacySettingsField, f => f.IsFilterable());
 
         }
 
@@ -66,14 +66,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
                     .WithProperty(UniversityidField, s.UniversityId)
+                    .WithProperty(PrivacySettingsField, (int)s.PrivacySettings)
                     .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }
-            //if (boxToDelete != null)
-            //{
-            //    listOfCommands.AddRange(universityToDelete.Select(s =>
-            //        new IndexOperation(IndexOperationType.Delete, "id", s.ToString(CultureInfo.InvariantCulture))
-            //        ));
-            //}
+            if (boxToDelete != null)
+            {
+                listOfCommands.AddRange(boxToDelete.Select(s =>
+                    new IndexOperation(IndexOperationType.Delete, IdField, s.ToString(CultureInfo.InvariantCulture))
+                    ));
+            }
             var commands = listOfCommands.ToArray();
             if (commands.Length > 0)
             {
@@ -99,32 +100,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query)
         {
+            
             if (string.IsNullOrEmpty(query.Term))
             {
                 return null;
             }
 
-            var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
+            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
                 new SearchQuery(query.Term + "*")
                 {
-                    Filter = UniversityidField + " eq 920 or " + UseridsField + "/any(t: t eq '86')"
+                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
+                    Top = query.RowsPerPage,
+                    Skip = query.RowsPerPage * query.PageNumber
                 });
 
-            //var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
-            //if (query.Term.Length >= 3 && query.PageNumber == 0)
-            //{
-            //    suggestTask = SeachConnection.Instance.IndexQuery.SuggestAsync(IndexName,
-            //        new SuggestionQuery(query.Term)
-            //        {
-            //            Fuzzy = true,
-            //            Select = "id,name,imageField"
-            //        });
-            //}
-            await Task.WhenAll(searchTask);
-            
-            if (searchTask.Result.Body.Records.Any())
+
+            if (searchResult.Body.Records.Any())
             {
-                return searchTask.Result.Body.Records.Select(s => new SearchBoxes(
+                return searchResult.Body.Records.Select(s => new SearchBoxes(
                     Convert.ToInt64(s.Properties[IdField]),
                     s.Properties[NameField].ToString(),
                     s.Properties[ImageField].ToString(),
@@ -132,14 +125,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     s.Properties[CourseField] != null ? s.Properties[CourseField].ToString() : null,
                     s.Properties[UrlField].ToString()));
             }
-            //if (suggestTask.Result != null)
-            //{
-            //    return suggestTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
-            //        s.Properties["name"].ToString(),
-            //        s.Properties["imageField"].ToString(),
-            //        Convert.ToInt64(s.Properties["id"])
-            //        ));
-            //}
+
             return null;
         }
     }

@@ -380,28 +380,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBoxes(GroupSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
-                   Sql.Search.OwnedSubscribedBoxes,
-                   Sql.Search.UniversityBoxes),
-                   new
-                   {
-                       query = query.Query,
-                       universityId = query.UniversityId,
-                       userId = query.UserId,
-                       query.PageNumber,
-                       query.RowsPerPage
-                   }))
-                {
-                    var ownedBoxes = await grid.ReadAsync<SearchBoxes>();
-                    var universityBoxes = await grid.ReadAsync<SearchBoxes>();
-                    return ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.RowsPerPage);
-                }
-            }
-        }
+       
 
         public async Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
         {
@@ -433,9 +412,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
-                     Sql.Search.OwnedSubscribedBoxes,
-                     Sql.Search.UniversityBoxes,
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} ",
                      Sql.Search.Users,
                      Sql.Search.Items
                      ),
@@ -448,13 +425,8 @@ namespace Zbang.Zbox.ReadServices
                          query.RowsPerPage
                      }))
                 {
-                    var ownedBoxes = grid.Read<SearchBoxes>();
-                    var universityBoxes = grid.Read<SearchBoxes>();
                     retVal.Users = grid.Read<SearchUsers>();
                     retVal.Items = grid.Read<SearchItems>();
-
-
-                    retVal.Boxes = ownedBoxes.Union(universityBoxes, new SearchBoxesComparer()).Take(query.RowsPerPage);
                 }
                 if (retVal.Items.Any()) return retVal;
                 retVal.OtherItems = await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,

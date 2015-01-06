@@ -306,11 +306,20 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public async Task UpdateSearchDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
+        public async Task UpdateSearchUniversityDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql = "update zbox.University set isdirty = 0 where id in @Ids";
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+            }
+        }
+
+        public async Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "update zbox.Box set isdirty = 0 where boxid in @Ids";
                 await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
             }
         }
