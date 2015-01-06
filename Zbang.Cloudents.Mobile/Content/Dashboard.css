@@ -47,7 +47,10 @@
   z-index: 0;
 }
 .dashboard.menuOpen ~ .menu {
-  left: 0;
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .welcome {
   position: relative;
@@ -275,14 +278,17 @@
   width: 67%;
   height: 100%;
   top: 0;
-  left: -67%;
+  left: 0;
   color: #fff;
   background: #fff;
   box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.9);
-  -webkit-transition: left 0.3s;
-  -moz-transition: left 0.3s;
-  -o-transition: left 0.3s;
-  transition: left 0.3s;
+  -moz-transform: translate3d(-100%, 0, 0);
+  -ms-transform: translate3d(-100%, 0, 0);
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+  -moz-transition: transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s;
 }
 .menu:before {
   content: '';
