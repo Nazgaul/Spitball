@@ -1413,6 +1413,7 @@
     <Content Include="Views\Library\ChoosePartial.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
