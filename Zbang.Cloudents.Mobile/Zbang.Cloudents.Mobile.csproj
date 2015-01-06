@@ -457,9 +457,11 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
+    <Content Include="Content\Box.rtl.css" />
     <Content Include="Content\ChooseSchool.css">
       <DependentUpon>ChooseSchool.less</DependentUpon>
     </Content>
+    <Content Include="Content\ChooseSchool.rtl.css" />
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
@@ -467,6 +469,8 @@
     <Content Include="Content\Feed.css">
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
+    <Content Include="Content\Feed.rtl.css" />
+    <Content Include="Content\Home.rtl.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>

@@ -1,0 +1,103 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region Choose School */
+.choose {
+  display: inline-block;
+  width: 88%;
+  font-size: 13px;
+}
+.choose h1 {
+  color: #383838;
+  max-width: none;
+  letter-spacing: normal;
+  margin: 25px 0 0 0;
+}
+.recommended li,
+.searchResults li {
+  height: 70px;
+  position: relative;
+  text-align: right;
+}
+.recommended li:after,
+.searchResults li:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 1px;
+  background: #c2c2c2;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 0 4%;
+  margin: 0 -4%;
+}
+.recommended .uniName,
+.searchResults .uniName,
+.recommended .btn1,
+.searchResults .btn1 {
+  display: inline-block;
+  vertical-align: middle;
+}
+.recommended .btn1,
+.searchResults .btn1 {
+  color: #fff;
+  background: #3399ff;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  padding: 3px 8px;
+  font-size: 13px;
+}
+.searchResults,
+.emptySearch {
+  display: none;
+}
+.recommended li {
+  text-align: justify;
+  width: 100%;
+}
+.recommended li:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+.uniImg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  border: 1px solid #c2c2c2;
+}
+.uniName {
+  max-width: 60%;
+  max-height: 31px;
+  overflow: hidden;
+  font-size: 13px;
+  padding-right: 60px;
+}
+.userPics {
+  width: 56px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.userPics:after {
+  content: '+' attr(data-numusers);
+  display: inline-block;
+  float: left;
+  font-size: 12px;
+  position: relative;
+  top: -6px;
+}
+.userPics img {
+  display: inline-block;
+  margin: 1px;
+  top: 0;
+  float: right;
+}
+.userPics img:nth-child(3) {
+  clear: both;
+}
