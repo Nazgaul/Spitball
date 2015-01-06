@@ -1,4 +1,4 @@
-﻿angular.module('box').
+﻿angular.module('boxItems',['ajax']).
     controller('ItemsController',
     ['itemsService', '$stateParams', function (itemsService, $stateParams) {
         var boxItems = this;
@@ -12,8 +12,8 @@
         getItemsPage();
         getTabs();
 
-        boxItems.getItems = function () {
-            getItemsPage(true);
+        boxItems.getItems = function (isAppend) {
+            getItemsPage(isAppend);
         };
 
         function getItemsPage(isAppend) {
@@ -23,7 +23,7 @@
 
             isFetching = true;
 
-            itemsService.getItems(boxId, page).then(function (items) {
+            itemsService.getItems(boxId, page,boxItems.currentTabId).then(function (items) {
                 items = items || [];
 
                 if (!items.length) {
@@ -40,9 +40,8 @@
         }
 
         function getTabs() {
-            itemsService.getTabs(boxId).then(function (tabs) {
-                boxItems.tabs = [{ id: null, name: boxItems.AllItems }];
-                boxItems.tabs.push(tabs);
+            itemsService.getTabs(boxId).then(function (tabs) {                
+                boxItems.tabs = tabs;          
             });
 
         }
