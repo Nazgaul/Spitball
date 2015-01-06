@@ -22,9 +22,7 @@
                    if (isDescendant(menu, e.target)) {
                        return false;
                    }
-
-                   e.preventDefault();
-
+                   
                    $dashboard.removeClass('menuOpen');
                });
 
@@ -37,9 +35,7 @@
                function toggleMenu(e) {
                    e.preventDefault();
                    e.stopPropagation();
-                   scope.$apply(function () {
-                       $dashboard.toggleClass('menuOpen');
-                   });
+                   $dashboard.toggleClass('menuOpen');
                }
 
                function isDescendant(parent, child) {

@@ -42,7 +42,7 @@
                     };
                 }],
                 controllerAs: 'root',
-                template: '<div ui-view></div>',
+                template: '<div ui-view autoscroll="true"></div>',
                 resolve: {
                     user: ['userDetails', function (userDetails) {
                         return userDetails.init();
@@ -108,31 +108,5 @@
                 return newPath;
             }
         });
-
-        var accountRedirect = ['$state', 'userDetails', function ($state, userDetails) {
-            if (userDetails.isAuthenticated()) {
-                var uniId = userDetails.getUniversityId();
-                if (!uniId) {
-                    $state.go('root.libChoose');
-                    return;
-                }
-
-                $state.go('root.dashboard');
-            }
-        }];
-
-        var dashboardRedirect = ['$state', 'userDetails', function ($state, userDetails) {
-            if (!userDetails.isAuthenticated()) {
-                $state.go('root.account');
-                return;
-            }
-
-            var uniId = userDetails.getUniversityId();
-            if (!uniId) {
-                $state.go('root.libChoose');
-                return;
-            }
-        }];
-
     }
     ]);
