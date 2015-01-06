@@ -74,6 +74,10 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/components/box/boxController.js"),
                         new JsFileWithCdn("~/js/components/box/boxService.js"),
+                        new JsFileWithCdn("~/js/components/box/feed/feedController.js"),
+                        new JsFileWithCdn("~/js/components/box/feed/feedService.js"),
+                        new JsFileWithCdn("~/js/components/box/items/itemsController.js"),
+                        new JsFileWithCdn("~/js/components/box/items/itemsService.js"),
 
                         new JsFileWithCdn("~/js/components/dashboard/dashboardController.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboardService.js"),
