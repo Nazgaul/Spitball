@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mobile.Controllers
@@ -12,6 +15,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
+        private readonly IBoxReadSearchProvider m_BoxSearchService;
+
+        public SearchController(IBoxReadSearchProvider boxSearchService)
+        {
+            m_BoxSearchService = boxSearchService;
+        }
+
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
@@ -21,8 +31,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId == null) return JsonError("need university");
-            var query = new GroupSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
-            var retVal = await ZboxReadService.SearchBoxes(query);
+            var query = new BoxSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
+            var retVal = await m_BoxSearchService.SearchBox(query) ?? new List<SearchBoxes>();
             return JsonOk(retVal.Select(s => new
             {
                 s.Url,

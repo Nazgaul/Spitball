@@ -100,6 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query)
         {
+            
             if (string.IsNullOrEmpty(query.Term))
             {
                 return null;
@@ -108,7 +109,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
                 new SearchQuery(query.Term + "*")
                 {
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId)
+                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
+                    Top = query.RowsPerPage,
+                    Skip = query.RowsPerPage * query.PageNumber
                 });
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -89,7 +90,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, page, 10);
-                var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
+                var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
                 return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
             }
             catch (Exception ex)
