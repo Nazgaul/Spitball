@@ -319,7 +319,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql = "update zbox.Box set isdirty = 0 where id in @Ids";
+                const string sql = "update zbox.Box set isdirty = 0 where boxid in @Ids";
                 await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
             }
         }
