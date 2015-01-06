@@ -49,6 +49,7 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angular-touch.js"),
+                        new JsFileWithCdn("~/scripts/angular-sanitize.js"),
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                         "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"),
