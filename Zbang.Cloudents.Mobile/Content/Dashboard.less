@@ -28,17 +28,19 @@
         /*position: fixed;*/
         width: 100%;
         height: 100%;
-        background: #111;
         opacity: 0;
         top:0;
         left:0;
         .transition(opacity .3s);
+        z-index: -1;
     }
     &.menuOpen {
         overflow: hidden;
         height: 100%;
         &:after {
             opacity: .7;
+            background: #111;
+            z-index: 0;
         }
         ~ .menu {
             left: 0;
