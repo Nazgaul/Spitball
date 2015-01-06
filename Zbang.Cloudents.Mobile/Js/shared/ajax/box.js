@@ -10,6 +10,9 @@
             },
             items: function (data) {
                 return ajaxService.get(buildPath('items'), data);
+            },
+            tabs: function (data) {
+                return ajaxService.get(buildPath('tabs'), data);
             }
         };
 

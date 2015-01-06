@@ -2,164 +2,165 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <section class="box">
     <header>
-        <button type="button" class="inviteBtn rFloat">
+        @*<button type="button" class="inviteBtn rFloat">
             @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
-        </button>
-        <button type="button" class="backBtn lFloat">
+        </button>*@
+        <button type="button" class="backBtn lFloat" ng-click="box.goBack()">
             @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
         </button>
         <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
     </header>
-    <div class="boxDetails ">
-        <h2>{Box name here}</h2>
-        <span class="boxDetail">{Professor name here}</span>
-        <span class="boxDetail">{Course Id here}</span>
+    <div class="boxDetails">
+        <h2>{{::box.name}}</h2>
+        <span class="boxDetail">{{::box.professorName}}</span>
+        <span class="boxDetail">{{::box.courseId}}</span>
     </div>
 
-    <div class="tabs feedTab">
-        <span class="tab">@BoxResources.Feed</span>
-        <span class="tab">@SharedResources.Items</span>
+    <div class="tabs">
+        <span class="tab" ng-click="box.setCurrentTab('feed')" ng-class="active : box.currentTab === 'feed'">@BoxResources.Feed</span>
+        <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="active : box.currentTab === 'items'">@SharedResources.Items</span>
     </div>
+    <div ng-switch="search.currentTab">
+        <div class="feed" ng-switch-when="feed" ng-controller="FeedController">
+            <form class="feedForm" name="qnaQform" focus-form="feedOpen"
+                  ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-    <div class="feed">
-        <form class="feedForm" name="qnaQform" focus-form="feedOpen"
-              ng-submit="postQuestion(qnaQform.$valid)" novalidate>
-
-            <img ng-src="{{::data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="27" height="27" />
-            <textarea text-direction name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="qFormData.content"
-                      ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
-            <ul class="attachedList">
-                <li class="attachedItem" ng-repeat="file in qFormData.files">
-                    <span class="attachName elps">{{::file.name}}</span>
-                    <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-                </li>
-            </ul>
-            <div class="bottomTA">
-                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@BoxResources.Post</button>
-            </div>
-            <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
-                @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
-            </button>
-        </form>
-
-        <ul class="boxFeedList">
-            <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{::question.userId}}" />
-
-                <div class="feedWpr">
-                    <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
-                    <div class="userName elps">{{::question.userName}}</div>
-
-                    <div class="feedContent" ng-bind-html="question.content"></div>
-                    <ul class="qaAttach">
-                        <li class="qaAttachItem" ng-repeat="file in question.files">
-                            <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
-                            <div class="attachActions">
-                                <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachmentQ(question,file)"></button>
-                                <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
-                            </div>
-                        </li>
-                        <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
-                            <a ng-href="{{::file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
-
-                        </li>
-                    </ul>
-
-                    <button class="commentBtn" type="button" ng-click="displayComment(question)">@BoxResources.Comment</button>
-
-
-                    @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                        @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                    </button>*@
-                </div>
-                <ul class="feedReplies rFloat">
-                    <li ng-repeat="answer in question.answers track by answer.id">
-                        <img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-src="{{::answer.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
-                        <div class="feedWpr">
-                            <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
-                            <div class="userName elps">{{::answer.userName}}</div>
-                            <div class="feedContent" ng-bind-html="answer.content"></div>
-                            <ul class="qaAttach">
-                                <!-- ngRepeat: file in question.files -->
-                                <li class="qaAttachItem">
-                                    <a ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"><img ng-src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg" alt="" width="100" height="125" src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg"></a>
-                                    @*<div class="attachActions">
-                                        <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
-                                        <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
-                                    </div>*@
-                                </li><!-- end ngRepeat: file in question.files -->
-                                <!-- ngRepeat: file in question.quizes -->
-                            </ul>
-                            @*<button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                            </button>*@
-                        </div>
+                <img ng-src="{{::data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="27" height="27" />
+                <textarea text-direction name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="qFormData.content"
+                          ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
+                <ul class="attachedList">
+                    <li class="attachedItem" ng-repeat="file in qFormData.files">
+                        <span class="attachName elps">{{::file.name}}</span>
+                        <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
                     </li>
                 </ul>
-                <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    <img class="feedImg rFloat" ng-src="{{::data.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
-                    <textarea text-direction name="content" class="feedTA" ng-placeholder="WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" focus-on="{{'answer' + $index}}"></textarea>
-                    <ul class="attachedList">
-                        <li class="attachedItem" ng-repeat="file in question.aFormData.files">
-                            <span class="attachName elps">{{::file.name}}</span>
-                            @*<button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>*@
+                <div class="bottomTA">
+                    <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@BoxResources.Post</button>
+                </div>
+                <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
+                    @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
+                </button>
+            </form>
+
+            <ul class="boxFeedList">
+                <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
+                    <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{::question.userId}}" />
+
+                    <div class="feedWpr">
+                        <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
+                        <div class="userName elps">{{::question.userName}}</div>
+
+                        <div class="feedContent" ng-bind-html="question.content"></div>
+                        <ul class="qaAttach">
+                            <li class="qaAttachItem" ng-repeat="file in question.files">
+                                <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                <div class="attachActions">
+                                    <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
+                                    <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachmentQ(question,file)"></button>
+                                    <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
+                                </div>
+                            </li>
+                            <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
+                                <a ng-href="{{::file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
+
+                            </li>
+                        </ul>
+
+                        <button class="commentBtn" type="button" ng-click="displayComment(question)">@BoxResources.Comment</button>
+
+
+                        @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
+                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                        </button>*@
+                    </div>
+                    <ul class="feedReplies rFloat">
+                        <li ng-repeat="answer in question.answers track by answer.id">
+                            <img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-src="{{::answer.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
+                            <div class="feedWpr">
+                                <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
+                                <div class="userName elps">{{::answer.userName}}</div>
+                                <div class="feedContent" ng-bind-html="answer.content"></div>
+                                <ul class="qaAttach">
+                                    <!-- ngRepeat: file in question.files -->
+                                    <li class="qaAttachItem">
+                                        <a ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"><img ng-src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg" alt="" width="100" height="125" src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg"></a>
+                                        @*<div class="attachActions">
+                                            <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
+                                            <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
+                                        </div>*@
+                                    </li><!-- end ngRepeat: file in question.files -->
+                                    <!-- ngRepeat: file in question.quizes -->
+                                </ul>
+                                @*<button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
+                                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                                </button>*@
+                            </div>
                         </li>
                     </ul>
-                    <div class="bottomTA">
-                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@BoxResources.Post</button>
-                    </div>
-                    <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
-                        @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
-                    </button>
-                </form>
-            </li>
+                    <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
+                        <img class="feedImg rFloat" ng-src="{{::data.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
+                        <textarea text-direction name="content" class="feedTA" ng-placeholder="WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" focus-on="{{'answer' + $index}}"></textarea>
+                        <ul class="attachedList">
+                            <li class="attachedItem" ng-repeat="file in question.aFormData.files">
+                                <span class="attachName elps">{{::file.name}}</span>
+                                @*<button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>*@
+                            </li>
+                        </ul>
+                        <div class="bottomTA">
+                            <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@BoxResources.Post</button>
+                        </div>
+                        <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
+                            @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
+                        </button>
+                    </form>
+                </li>
 
-        </ul>
+            </ul>
 
-        <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
+            <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
+        </div>
+        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController">
+            <select>
+                <option>@BoxResources.AllItems</option>
+            </select>
+            <ul class="boxList">
+                <li>
+                    <a class="boxLink" href="#">
+                        <img src="http://placehold.it/350x550">
+                    </a>
+                    <div class="itemName" data-bind="text: name">hello.png</div>
+                    <div class="elps" data-bind="text: uploader">daniel</div>
+                </li>
+                <li>
+                    <a class="boxLink" href="#">
+                        <img src="http://placehold.it/350x550">
+                    </a>
+                    <div class="itemName" data-bind="text: name">hefvb sdbvsd bvsadbv sdbv sadb asd ba sdb sadb sad bllo.png</div>
+                    <div class="elps" data-bind="text: uploader">daniel</div>
+                </li>
+                <li>
+                    <a class="boxLink" href="#">
+                        <img src="http://placehold.it/350x550">
+                    </a>
+                    <div class="itemName" data-bind="text: name">hello.png</div>
+                    <div class="elps" data-bind="text: uploader">danvf sdv sdv sd v sdav sad vsd aviel</div>
+                </li>
+                <li>
+                    <a class="boxLink" href="#">
+                        <img src="http://placehold.it/350x550">
+                    </a>
+                    <div class="itemName" data-bind="text: name">hello.png</div>
+                    <div class="elps" data-bind="text: uploader">daniel</div>
+                </li>
+                <li>
+                    <a class="boxLink" href="#">
+                        <img src="http://placehold.it/350x550">
+                    </a>
+                    <div class="itemName" data-bind="text: name">hello.png</div>
+                    <div class="elps" data-bind="text: uploader">daniel</div>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <div class="boxItems">
-        <select>
-            <option>@BoxResources.AllItems</option>
-        </select>
-        <ul class="boxList">
-            <li>
-                <a class="boxLink" href="#">
-                    <img src="http://placehold.it/350x550">
-                </a>
-                <div class="itemName" data-bind="text: name">hello.png</div>
-                <div class="elps" data-bind="text: uploader">daniel</div>
-            </li>
-            <li>
-                <a class="boxLink" href="#">
-                    <img src="http://placehold.it/350x550">
-                </a>
-                <div class="itemName" data-bind="text: name">hefvb sdbvsd bvsadbv sdbv sadb asd ba sdb sadb sad bllo.png</div>
-                <div class="elps" data-bind="text: uploader">daniel</div>
-            </li>
-            <li>
-                <a class="boxLink" href="#">
-                    <img src="http://placehold.it/350x550">
-                </a>
-                <div class="itemName" data-bind="text: name">hello.png</div>
-                <div class="elps" data-bind="text: uploader">danvf sdv sdv sd v sdav sad vsd aviel</div>
-            </li>
-            <li>
-                <a class="boxLink" href="#">
-                    <img src="http://placehold.it/350x550">
-                </a>
-                <div class="itemName" data-bind="text: name">hello.png</div>
-                <div class="elps" data-bind="text: uploader">daniel</div>
-            </li>
-            <li>
-                <a class="boxLink" href="#">
-                    <img src="http://placehold.it/350x550">
-                </a>
-                <div class="itemName" data-bind="text: name">hello.png</div>
-                <div class="elps" data-bind="text: uploader">daniel</div>
-            </li>
-        </ul>
-    </div>
+ 
 </section>
