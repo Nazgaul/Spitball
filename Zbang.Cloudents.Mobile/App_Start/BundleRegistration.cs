@@ -104,6 +104,7 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),
+                        new JsFileWithCdn("~/js/libs/msdelastic.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js"),
                         new JsFileWithCdn("~/js/libs/angular-facebook.js")
 

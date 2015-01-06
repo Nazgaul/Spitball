@@ -59,10 +59,11 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
             thirdExist: !_.isUndefined(sideBar.leaderBoard[2]),
             length: sideBar.leaderBoard.length
         };
-
-        $scope.recommendedCourses = sideBar.recommended;
         //$analytics.setVariable('dimension1', sideBar.info.uniName);
+    });
 
+    sDashboard.recommendedCourses().then(function (courses) {
+        $scope.recommendedCourses = courses;
     });
 
     sDashboard.boxList().then(function (boxList) {
@@ -74,6 +75,8 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
         });
 
     });
+
+
 
 
 

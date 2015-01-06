@@ -111,10 +111,6 @@ config([
 ]).
 run(['$rootScope', '$window', function ($rootScope, $window) {
 
-    $rootScope.$on('$stateChangeStart', function () {
-        $window.scrollTo(0, 0);
-    });
-
     //analytics
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

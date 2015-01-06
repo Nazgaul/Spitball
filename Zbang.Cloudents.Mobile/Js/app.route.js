@@ -32,9 +32,14 @@
         $stateProvider
             .state('root', {
                 abstract: true,
-                controller: ['user', function (user) {
+                controller: ['userDetails', function (userDetails) {
                     var root = this;
-                    root.user = user;
+                    root.user = {
+                        name: userDetails.getName(),
+                        image: userDetails.getImage(),
+                        isAuthenticated: userDetails.isAuthenticated(),
+                        isAdmin: userDetails.isAdmin()
+                    };
                 }],
                 controllerAs: 'root',
                 template: '<div ui-view></div>',

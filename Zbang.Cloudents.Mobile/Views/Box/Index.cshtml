@@ -3,8 +3,8 @@
 <section class="box">
     <header>
         @*<button type="button" class="inviteBtn rFloat">
-            @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
-        </button>*@
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
+            </button>*@
         <button type="button" class="backBtn lFloat" ng-click="box.goBack()">
             @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
         </button>
@@ -21,13 +21,12 @@
         <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
     <div ng-switch="box.currentTab">
-        <div class="feed" ng-switch-when="feed" ng-controller="FeedController">
+        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed">
             <form class="feedForm" name="qnaQform" focus-form="feedOpen"
                   ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-                <img ng-src="{{::data.userImage}}" class="feedImg lFloat" alt="" width="27" height="27" />
-                <textarea text-direction name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="qFormData.content"
-                          ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
+                <img ng-src="{{root.user.image}}" class="feedImg lFloat" alt="" width="27" height="27" />
+                <textarea text-direction name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="qFormData.content" msd-elastic></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in qFormData.files">
                         <span class="attachName elps">{{::file.name}}</span>
@@ -70,8 +69,8 @@
 
 
                         @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                        </button>*@
+                                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                            </button>*@
                     </div>
                     <ul class="feedReplies rFloat">
                         <li ng-repeat="answer in question.answers track by answer.id">
@@ -85,15 +84,15 @@
                                     <li class="qaAttachItem">
                                         <a ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"><img ng-src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg" alt="" width="100" height="125" src="https://az32006.vo.msecnd.net/zboxthumbnail/af1366a0-8010-48fd-9bd6-1aff9775dcca.thumbnailV4.jpg"></a>
                                         @*<div class="attachActions">
-                                            <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
-                                            <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
-                                        </div>*@
+                                                <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
+                                                <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
+                                            </div>*@
                                     </li><!-- end ngRepeat: file in question.files -->
                                     <!-- ngRepeat: file in question.quizes -->
                                 </ul>
                                 @*<button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                                    @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                                </button>*@
+                                        @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+                                    </button>*@
                             </div>
                         </li>
                     </ul>
@@ -119,46 +118,20 @@
 
             <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
-        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController" ng-init="boxItems.AllItems = '@BoxResources.AllItems'">
-            <select ng-options="tab.id as tab.name for tab in boxItems.tabs"></select>
+        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController as boxItems">
+            <select ng-model="boxItems.currentTabId" ng-change="boxItems.getItems(false)">
+                <option value="">@BoxResources.AllItems</option>
+                <option ng-repeat="tab in boxItems.tabs" value="{{tab.id}}">{{tab.name}}</option>
+            </select>
             <ul class="boxList">
-                <li>
-                    <a class="boxLink" href="#">
-                        <img src="http://placehold.it/350x550">
+                <li ng-repeat="item in boxItems.items">
+                    <a class="boxLink" href="{{::item.url}}">
+                        <img ng-src="{{::item.thumbnail}}" />
                     </a>
-                    <div class="itemName" data-bind="text: name">hello.png</div>
-                    <div class="elps" data-bind="text: uploader">daniel</div>
-                </li>
-                <li>
-                    <a class="boxLink" href="#">
-                        <img src="http://placehold.it/350x550">
-                    </a>
-                    <div class="itemName" data-bind="text: name">hefvb sdbvsd bvsadbv sdbv sadb asd ba sdb sadb sad bllo.png</div>
-                    <div class="elps" data-bind="text: uploader">daniel</div>
-                </li>
-                <li>
-                    <a class="boxLink" href="#">
-                        <img src="http://placehold.it/350x550">
-                    </a>
-                    <div class="itemName" data-bind="text: name">hello.png</div>
-                    <div class="elps" data-bind="text: uploader">danvf sdv sdv sd v sdav sad vsd aviel</div>
-                </li>
-                <li>
-                    <a class="boxLink" href="#">
-                        <img src="http://placehold.it/350x550">
-                    </a>
-                    <div class="itemName" data-bind="text: name">hello.png</div>
-                    <div class="elps" data-bind="text: uploader">daniel</div>
-                </li>
-                <li>
-                    <a class="boxLink" href="#">
-                        <img src="http://placehold.it/350x550">
-                    </a>
-                    <div class="itemName" data-bind="text: name">hello.png</div>
-                    <div class="elps" data-bind="text: uploader">daniel</div>
+                    <div class="itemName">{{::item.name}}</div>
+                    <div class="elps">{{::item.owner}}</div>
                 </li>
             </ul>
         </div>
-    </div>
- 
+    </div>    
 </section>
