@@ -171,7 +171,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id);
+                var query = new GetBoxItemsPagedQuery(id, null);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 foreach (var item in result)
                 {
@@ -192,7 +192,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id);
+                var query = new GetBoxQuizesPagedQuery(id);
                 var result = await ZboxReadService.GetBoxQuizes(query);
 
                 var quizDtos = result as QuizDto[] ?? result.ToArray();

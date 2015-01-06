@@ -25,7 +25,7 @@
 .dashboard:after {
   content: '';
   display: inline-block;
-  /*position: fixed;*/
+  position: fixed;
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -319,14 +319,9 @@
   top: 16px;
   left: 28px;
 }
-.menuItems a,
-.menuItems button {
+.menuItems a {
   padding-left: 70px;
   height: 50px;
   line-height: 50px;
   display: block;
-  text-align: left;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }

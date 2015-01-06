@@ -87,22 +87,22 @@
     
     <ul class="menuItems">
         <li>
-            <a href="#">
+            <a href="~/home/termsofservice" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
                 Terms of use
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="~/home/aboutus" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
                 About us
             </a>
         </li>
         <li>
-            <button type="button">
+            <a href="#" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
                 Log out
-            </button>
+            </a>
         </li>
     </ul>
     <button type="button" class="closeBtn" ng-click="dashboard.closeWelcome()">

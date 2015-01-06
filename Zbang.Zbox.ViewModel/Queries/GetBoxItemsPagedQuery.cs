@@ -1,10 +1,13 @@
 ﻿
+using System;
+
 namespace Zbang.Zbox.ViewModel.Queries
 {
     public class GetBoxItemsPagedQuery : IPagedQuery
     {
-        public GetBoxItemsPagedQuery(long boxId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
+        public GetBoxItemsPagedQuery(long boxId, Guid? tabId, int pageNumber = 0, int rowsPerPage = int.MaxValue)
         {
+            TabId = tabId;
             RowsPerPage = rowsPerPage;
             PageNumber = pageNumber;
             BoxId = boxId;
@@ -15,6 +18,22 @@ namespace Zbang.Zbox.ViewModel.Queries
         public int PageNumber { get; private set; }
 
         public int RowsPerPage { get; private set; }
+
+        public Guid? TabId { get; private set; }
+
+    }
+
+    public class GetBoxQuizesPagedQuery 
+    {
+        public GetBoxQuizesPagedQuery(long boxId)
+        {
+         
+            BoxId = boxId;
+        }
+
+        public long BoxId { get; private set; }
+
+    
 
     }
 }
