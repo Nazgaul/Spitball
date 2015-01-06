@@ -98,12 +98,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //        System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         //}
-        //[DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-        //    + CustomCacheKeys.Lang)]
-        //public ActionResult AboutUs()
-        //{
-        //    return View();
-        //}
+        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+            + CustomCacheKeys.Lang)]
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
 
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
