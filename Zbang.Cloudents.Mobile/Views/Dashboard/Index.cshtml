@@ -3,15 +3,14 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 
 @*Guy: please add the class menuOpen on the dashboard when user clicks settings button*@
-<section class="dashboard">
+<section class="dashboard" id="dashboard">
     <header>
-        <button type="button" class="menuBtn lFloat">
+        <button type="button" class="menuBtn lFloat" id="menuBtn">
             @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
             <div class="msgCounter">5</div>
         </button>
         <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
     </header>
-    @*Guy: Please add class 'closed' here when closeBtn is clicked*@
     <section class="welcome" ng-class="{closed : dashboard.welcomeClosed }">
         <h1>@SharedResources.WelcomeCloudents</h1>
         <h3>@DashboardResources.FreeOnline</h3>
@@ -33,7 +32,7 @@
         </button>
     </section>
 
-   <ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
+    <ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
         <li ng-repeat="box in dashboard.boxes">
             <a href="{{::box.url}}" class="ghost">
                 <div class="details vCentered">
@@ -75,37 +74,36 @@
     </section>
 </section>
 
-<section class="menu">
-    <h2>Settings</h2>
+<section class="menu" id="sidemenu" toggle-menu>
+    <h2>@DashboardResources.Settings</h2>
     <div class="userDetailsWpr">
-        <img class="lFloat" src="http://lorempixel.com/52/52/food" width="52" height="52">
+        <img class="lFloat" ng-src="{{::root.user.image}}" width="52" height="52">
         <div class="userDetails">
-            <div>{User name here}</div>
-            <div>{User points here}</div>
+            <div>{{::root.user.name}}</div>
+            <div>{{::root.user.points}}</div>
         </div>
     </div>
-    
     <ul class="menuItems">
         <li>
             <a href="~/home/termsofservice" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
-                Terms of use
+                @SharedResources.TermsOfServices
             </a>
         </li>
         <li>
             <a href="~/home/aboutus" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
-                About us
+                @DashboardResources.AboutUs
             </a>
         </li>
         <li>
             <a href="#" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
-                Log out
+                @DashboardResources.LogOut
             </a>
         </li>
     </ul>
-    <button type="button" class="closeBtn" ng-click="dashboard.closeWelcome()">
+    <button type="button" class="closeBtn" id="closeMenuBtn">
         @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
     </button>
 </section>

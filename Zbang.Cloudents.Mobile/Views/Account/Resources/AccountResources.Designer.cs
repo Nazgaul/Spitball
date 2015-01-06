@@ -302,14 +302,5 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
                 return ResourceManager.GetString("SocialStudy", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Terms of Services.
-        /// </summary>
-        public static string TermsOfServices {
-            get {
-                return ResourceManager.GetString("TermsOfServices", resourceCulture);
-            }
-        }
     }
 }

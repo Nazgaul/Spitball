@@ -150,6 +150,9 @@
   <data name="Share" xml:space="preserve">
     <value>Поделиться</value>
   </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>Условия предоставления услуг</value>
+  </data>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>Добро пожаловать в Cloudents</value>
   </data>
