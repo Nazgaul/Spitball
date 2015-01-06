@@ -1,7 +1,7 @@
-﻿angular.module('box', ['ajax']).
-    controller('FeedController',
-    ['feedService', '$stateParams', function (feedService, $stateParams) {
-        var feed = this;
+﻿angular.module('box').
+    controller('ItemsController',
+    ['itemsService', '$stateParams', function (itemsService, $stateParams) {
+        var boxItems = this;
 
         var page = 0,
             endResult,
@@ -9,46 +9,42 @@
             boxId = $stateParams.boxId;
 
 
-        getFeedPage();
+        getItemsPage();
+        getTabs();
 
-        feed.getFeedPage = function () {
-            getFeedPage(true);
+        boxItems.getItems = function () {
+            getItemsPage(true);
         };
 
-        feed.addQuestion = function () {
-            feedService.addQuestion(boxId, content/*,files*/);
-            //add question to list
-
-        };
-
-        feed.addAnswer = function (question) {
-            feedService.addAnswer(boxId, question.id, content/*files*/).then(function () {
-                //add answer to question list
-            });
-        }
-
-
-        function getFeedPage(isAppend) {
+        function getItemsPage(isAppend) {
             if (isFetching) {
                 return;
             }
 
             isFetching = true;
 
-            feedService.getFeedPage(boxId, page).then(function (feedPage) {
-                feedPage = feedPage || [];
+            itemsService.getItems(boxId, page).then(function (items) {
+                items = items || [];
 
-                if (!feedPage) {
+                if (!items.length) {
                     endResult = true;
                     return;
                 }
 
-                feed.list = feedPage;
+                boxItems.items = items;
                 page++;
 
             }).finally(function () {
                 isFetching = false;
             });
+        }
+
+        function getTabs() {
+            itemsService.getTabs(boxId).then(function (tabs) {
+                boxItems.tabs = [{ id: null, name: boxItems.AllItems }];
+                boxItems.tabs.push(tabs);
+            });
+
         }
 
     }]);

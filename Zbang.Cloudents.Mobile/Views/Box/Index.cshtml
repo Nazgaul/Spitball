@@ -17,15 +17,15 @@
     </div>
 
     <div class="tabs">
-        <span class="tab" ng-click="box.setCurrentTab('feed')" ng-class="active : box.currentTab === 'feed'">@BoxResources.Feed</span>
-        <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="active : box.currentTab === 'items'">@SharedResources.Items</span>
+        <span class="tab" ng-click="box.setCurrentTab('feed')" ng-class="{active : box.currentTab === 'feed'}">@BoxResources.Feed</span>
+        <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
-    <div ng-switch="search.currentTab">
+    <div ng-switch="box.currentTab">
         <div class="feed" ng-switch-when="feed" ng-controller="FeedController">
             <form class="feedForm" name="qnaQform" focus-form="feedOpen"
                   ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-                <img ng-src="{{::data.userImage | defaultImage:'user'}}" class="feedImg lFloat" alt="" width="27" height="27" />
+                <img ng-src="{{::data.userImage}}" class="feedImg lFloat" alt="" width="27" height="27" />
                 <textarea text-direction name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="qFormData.content"
                           ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
                 <ul class="attachedList">
@@ -44,7 +44,7 @@
 
             <ul class="boxFeedList">
                 <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                    <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage | defaultImage:'user'}}" user-tooltip-popup="{{::question.userId}}" />
+                    <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage}}" user-tooltip-popup="{{::question.userId}}" />
 
                     <div class="feedWpr">
                         <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
@@ -75,7 +75,7 @@
                     </div>
                     <ul class="feedReplies rFloat">
                         <li ng-repeat="answer in question.answers track by answer.id">
-                            <img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-src="{{::answer.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
+                            <img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-src="{{::answer.userImage}}" alt="" width="27" height="27" />
                             <div class="feedWpr">
                                 <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
                                 <div class="userName elps">{{::answer.userName}}</div>
@@ -98,7 +98,7 @@
                         </li>
                     </ul>
                     <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                        <img class="feedImg rFloat" ng-src="{{::data.userImage | defaultImage:'user'}}" alt="" width="27" height="27" />
+                        <img class="feedImg rFloat" ng-src="{{::data.userImage}}" alt="" width="27" height="27" />
                         <textarea text-direction name="content" class="feedTA" ng-placeholder="WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" focus-on="{{'answer' + $index}}"></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in question.aFormData.files">
@@ -119,10 +119,8 @@
 
             <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
-        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController">
-            <select>
-                <option>@BoxResources.AllItems</option>
-            </select>
+        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController" ng-init="boxItems.AllItems = '@BoxResources.AllItems'">
+            <select ng-options="tab.id as tab.name for tab in boxItems.tabs"></select>
             <ul class="boxList">
                 <li>
                     <a class="boxLink" href="#">

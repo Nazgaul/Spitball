@@ -4,16 +4,7 @@
         var box = this;  
 
         box.setCurrentTab = function (tab) {
-            box.currentTab = tab;
-
-            switch (tab) {
-                case 'feed':
-                    getFeed();
-                    break;
-                case 'items':
-                    getItems();
-                    break;
-            }
+            box.currentTab = tab;           
         };
 
         box.goBack = function () {
