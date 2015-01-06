@@ -1,6 +1,6 @@
 ﻿angular.module('search')
     .service('searchService',
-    ['search', '$window', '$q', function (search, $window, $q) {
+    ['search', '$window', '$q', '$rootScope', function (search, $window, $q, $rootScope) {
         var service = this;
 
         service.goBack = function () {
@@ -13,6 +13,10 @@
 
         service.queryCourses = function (term, page) {
             return search.boxes({ term: term, page: page });
+        };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
         };
     }]
 );

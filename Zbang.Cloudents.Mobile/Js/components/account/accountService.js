@@ -1,6 +1,6 @@
 ﻿angular.module('account')
     .service('accountService',
-    ['$window', '$q','$state', '$analytics', 'account', 'Facebook', function ($window, $q,$state, $analytics, account, facebook) {
+    ['$rootScope', '$window', '$q', '$state', '$analytics', 'account', 'Facebook', function ($rootScope, $window, $q, $state, $analytics, account, facebook) {
         "use strict";
         var service = this;
 
@@ -23,6 +23,10 @@
                     });
                 }
             }, { scope: 'email,user_education_history,user_friends' });
+        };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
         };
 
     }]

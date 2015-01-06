@@ -42,7 +42,7 @@
                     };
                 }],
                 controllerAs: 'root',
-                template: '<div ui-view"></div>',
+                template: '<div ui-view></div>',
                 resolve: {
                     user: ['userDetails', function (userDetails) {
                         return userDetails.init();

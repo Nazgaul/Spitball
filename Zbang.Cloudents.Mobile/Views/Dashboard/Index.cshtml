@@ -45,7 +45,7 @@
             </a>
         </li>
     </ul>
-    <section class="recommendedClasses">
+    <section class="recommendedClasses" ng-if="dashboard.showRecommended">
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">

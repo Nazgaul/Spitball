@@ -3,6 +3,9 @@
     ['registerService', function (registerService) {
         "use strict";
 
+        registerService.doneLoad();
+
+
         var register = this,
             noResults = false,
             isSearching = false;

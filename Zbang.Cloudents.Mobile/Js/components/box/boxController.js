@@ -10,6 +10,8 @@
             box.name = data.name;
             box.professorName = data.professorName;
             box.courseId = data.courseId;
+
+            boxService.doneLoad();
         });
 
         box.setCurrentTab = function (tab) {

@@ -28,17 +28,22 @@
                 page++;
 
                 if (!boxes.length) {
+                    getRecommended();
                     endResult = true;
                     return;
                 }
 
 
+
                 if (!isAppend) {
                     dashboard.boxes = boxes;
+                    dashboardService.doneLoad();
                     return;
                 }
 
                 dashboard.boxes = dashboard.boxes.concat(boxes);
+
+               
 
             }).finally(function () {
                 isFetching = false;
@@ -51,9 +56,13 @@
 
         //#region recommended boxes
 
-        dashboardService.getRecommendedBoxesList().then(function (recommendedBoxes) {
-            dashboard.recommendedBoxes = recommendedBoxes;
-        });
+        function getRecommended() {
+            dashboard.showRecommended = true;
+            dashboardService.getRecommendedBoxesList().then(function (recommendedBoxes) {
+                dashboard.recommendedBoxes = recommendedBoxes;                
+            });
+        }
+        
         //#endregion
 
 

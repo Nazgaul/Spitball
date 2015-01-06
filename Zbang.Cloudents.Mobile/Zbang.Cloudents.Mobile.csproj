@@ -570,6 +570,7 @@
     <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\shared\ajax\search.js" />
     <Content Include="Js\shared\events\events.js" />
+    <Content Include="Js\shared\loader\loader.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\staticShim.js" />

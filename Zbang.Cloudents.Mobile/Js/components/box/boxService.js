@@ -1,6 +1,6 @@
 ﻿angular.module('box')
     .service('boxService',
-    ['$window', 'box', function ($window, box) {
+    ['$rootScope', '$window', 'box', function ($rootScope, $window, box) {
         var service = this;
 
         service.getData = function (boxId) {
@@ -9,6 +9,10 @@
 
         service.goBack = function () {
             $window.history.back();
+        };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
         };
     }]
 );

@@ -19,16 +19,18 @@
             search.currentTab = tab;
 
             var term = search.formData.query;
-            if (term && term.length > 1) {
-                switch (tab) {
-                    case 'courses':
-                        getCourses();
-                        break;
-                    case 'items':
-                        getItems();
-                        break;
-                }
+            if (!term) {
+                return;
             }
+            switch (tab) {
+                case 'courses':
+                    getCourses();
+                    break;
+                case 'items':
+                    getItems();
+                    break;
+            }
+
         };
 
 
@@ -59,7 +61,7 @@
             }
         };
 
-
+        searchService.doneLoad();
         search.setCurrentTab('courses');
 
         //TODO: merge functions
