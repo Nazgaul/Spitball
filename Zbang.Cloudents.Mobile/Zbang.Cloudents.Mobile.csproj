@@ -463,6 +463,7 @@
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
+    <Content Include="Content\Dashboard.rtl.css" />
     <Content Include="Content\Feed.css">
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
