@@ -46,7 +46,8 @@ namespace Zbang.Zbox.Domain.Common
         #region ZboxWorkerRoleService
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
         void AddNewUpdate(AddNewUpdatesCommand command);
-        Task UpdateSearchDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
+        Task UpdateSearchUniversityDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
+        Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
         #endregion
 
 

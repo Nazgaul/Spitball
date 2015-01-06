@@ -72,7 +72,7 @@ namespace TestingApp
             var read = iocFactory.Resolve<IBoxReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 1));
+            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 1, 920));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

@@ -92,15 +92,22 @@ offset @pageNumber*@rowsperpage rows
 fetch next @rowsperpage rows only;";
 
         public const string GetBoxToUploadToSearch =
-            @"select top 500 b.boxid  as Id,b.PictureUrl as Image,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode, b.Url as Url, b.University as UniversityId
+            @"select top 500 b.boxid  as Id,b.PictureUrl as Image
+,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
+, b.Url as Url, b.University as UniversityId , b.PrivacySetting as PrivacySetting
   from zbox.box b
-  where isdirty = 1 and isdeleted = 0 and b.PrivacySetting = 3
+  where isdirty = 1 and isdeleted = 0
   order by b.BoxId;";
 
         public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 500 b.boxid  from zbox.box b
-  where isdirty = 1 and isdeleted = 0 and b.PrivacySetting = 3
-  order by b.BoxId)";
+  where isdirty = 1 and isdeleted = 0 
+  order by b.BoxId);";
+
+
+        public const string GetBoxToDeleteToSearch = @"
+        select top 500 boxid as id from zbox.box
+        where isdirty = 1 and isdeleted = 1;";
     }
 
     
