@@ -75,7 +75,7 @@
 </section>
 
 <section class="menu" id="sidemenu" toggle-menu>
-    <h2>Settings</h2>
+    <h2>@DashboardResources.Settings</h2>
     <div class="userDetailsWpr">
         <img class="lFloat" ng-src="{{::root.user.image}}" width="52" height="52">
         <div class="userDetails">
@@ -87,19 +87,19 @@
         <li>
             <a href="~/home/termsofservice" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
-                Terms of use
+                @SharedResources.TermsOfServices
             </a>
         </li>
         <li>
             <a href="~/home/aboutus" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
-                About us
+                @DashboardResources.AboutUs
             </a>
         </li>
         <li>
             <a href="#" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
-                Log out
+                @DashboardResources.LogOut
             </a>
         </li>
     </ul>

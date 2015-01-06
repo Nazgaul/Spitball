@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mobile.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About us.
+        /// </summary>
+        public static string AboutUs {
+            get {
+                return ResourceManager.GetString("AboutUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create your own quizzes.
         /// </summary>
         public static string CreateQuizzes {
@@ -79,11 +88,29 @@ namespace Zbang.Cloudents.Mobile.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recommended classes.
         /// </summary>
         public static string RecommendedCourses {
             get {
                 return ResourceManager.GetString("RecommendedCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         
