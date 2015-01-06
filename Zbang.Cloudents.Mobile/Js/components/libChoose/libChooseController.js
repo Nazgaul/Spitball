@@ -10,6 +10,7 @@
 
         libChooseService.facebookSuggestions().then(function (response) {
             libChoose.facebookSuggestions = response;
+            libChooseService.doneLoad();
         });
 
         libChoose.selectUniversity = function (universityId) {

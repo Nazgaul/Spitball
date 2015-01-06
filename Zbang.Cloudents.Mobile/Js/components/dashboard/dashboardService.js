@@ -1,6 +1,6 @@
 ﻿angular.module('dashboard')
     .service('dashboardService',
-    ['dashboard', function (dashboard) {
+    ['$rootScope', 'dashboard', function ($rootScope ,dashboard) {
         var service = this;
 
         service.getBoxList = function (page) {
@@ -9,6 +9,10 @@
 
         service.getRecommendedBoxesList = function () {
             return dashboard.recommendedBoxes();
+        };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
         };
     }]
 );

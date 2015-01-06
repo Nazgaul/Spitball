@@ -574,6 +574,7 @@
     <Content Include="Js\shared\ajax\library.js" />
     <Content Include="Js\shared\ajax\search.js" />
     <Content Include="Js\shared\events\events.js" />
+    <Content Include="Js\shared\loader\loader.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\staticShim.js" />
@@ -1411,7 +1412,6 @@
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
@@ -1743,9 +1743,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\TermsOfService.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />

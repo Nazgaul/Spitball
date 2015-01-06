@@ -1,7 +1,7 @@
 ﻿angular.module('register')
     .service('registerService',
-    ['account', 'library', '$angularCacheFactory', '$analytics', '$state', '$window',
-        function (account, library, $angularCacheFactory, $analytics, $state, $window) {
+    ['account', 'library', '$angularCacheFactory', '$analytics', '$state', '$window', '$rootScope',
+        function (account, library, $angularCacheFactory, $analytics, $state, $window, $rootScope) {
             "use strict";
             var service = this,
                 cache = $angularCacheFactory.get('changeLanguage') || $angularCacheFactory('changeLanguage');
@@ -10,7 +10,7 @@
             service.signup = function (data) {
                 return account.register(data).then(function (response) {
                     if (data.universityId) {
-                        $state.go('root.dashboard', {}, { reload: true });                        
+                        $state.go('root.dashboard', {}, { reload: true });
                         return;
                     }
                     $state.go('root.libChoose', {}, { reload: true });
@@ -22,17 +22,17 @@
                 $analytics.eventTrack('Language Change', {
                     category: 'Register',
                     label: 'User changed language to ' + language
-                });             
-           
+                });
+
                 if (Object.keys(data).length) {
                     cache.put('formData', JSON.stringify({
                         formData: data
                     }));
                 }
-                
-                    account.changeLocale({ lang: language }).then(function () {
-                        $window.location.reload();
-                    });
+
+                account.changeLocale({ lang: language }).then(function () {
+                    $window.location.reload();
+                });
             };
 
             service.getLangugeChangeForm = function () {
@@ -54,5 +54,8 @@
                 return library.search({ term: term, page: page });
             };
 
+            service.doneLoad = function () {
+                $rootScope.$broadcast('$stateLoaded');
+            };
         }]
 );

@@ -45,7 +45,7 @@
             </a>
         </li>
     </ul>
-    <section class="recommendedClasses">
+    <section class="recommendedClasses" ng-if="dashboard.showRecommended">
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">
@@ -85,19 +85,19 @@
     </div>
     <ul class="menuItems">
         <li>
-            <a href="~/home/termsofservice" target="_self">
+            <a href="@Url.Action("TermsOfService", "Home")" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
                 @SharedResources.TermsOfServices
             </a>
         </li>
         <li>
-            <a href="~/home/aboutus" target="_self">
+            <a href="@Url.Action("AboutUs","home")" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
                 @DashboardResources.AboutUs
             </a>
         </li>
         <li>
-            <a href="#" target="_self">
+            <a href="@Url.Action("LogOff","Account")" target="_self">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
                 @DashboardResources.LogOut
             </a>

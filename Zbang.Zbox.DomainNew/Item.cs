@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public abstract class Item : ISoftDeletable
+    public abstract class Item : IDirty
     {
         public const int NameLength = 120;
         protected Item()
@@ -123,6 +123,8 @@ namespace Zbang.Zbox.Domain
             ItemComments.Clear();
             ItemReplies.Clear();
         }
+
+        public bool IsDirty { get; set; }
     }
 
     public class Link : Item

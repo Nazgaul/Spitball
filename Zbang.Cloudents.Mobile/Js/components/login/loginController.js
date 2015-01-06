@@ -5,6 +5,8 @@
 
         var login = this;
 
+        loginService.doneLoad();
+
         login.formData = {
             rememberMe: true
         };

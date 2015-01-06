@@ -1,6 +1,6 @@
 ﻿angular.module('libChoose')
     .service('libChooseService',
-    ['$state', '$q', 'account', 'library', 'Facebook', function ($state, $q, account, library, facebook) {
+    ['$rootScope', '$state', '$q', 'account', 'library', 'Facebook', function ($rootScope, $state, $q, account, library, facebook) {
         var service = this;
 
         service.facebookSuggestions = function () {
@@ -27,6 +27,10 @@
             }).catch(function (response) {
                 alert(response);
             });
+        };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
         };
     }]
 );

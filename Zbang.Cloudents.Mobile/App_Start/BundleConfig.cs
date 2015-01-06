@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mobile
 {
     public static class BundleConfig
     {
+        public const string Rtl = ".rtl";
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
 
         private static readonly string CdnLocation = GetValueFromCloudConfig();
+
 
         public static string CssLink(string key)
         {
@@ -55,6 +59,9 @@ namespace Zbang.Cloudents.Mobile
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s =>
+                        string.Format("{0}.rtl.css",
+                       s.Replace(Path.GetExtension(s), string.Empty))));
                 }
             }
             if (registeredJsBundles != null)
@@ -87,6 +94,11 @@ namespace Zbang.Cloudents.Mobile
             cssBundle.WithReleaseFileRenderer(new SquishItRenderer());
             foreach (var cssFile in cssFiles)
             {
+                if (!File.Exists(HttpContext.Current.Server.MapPath(cssFile)))
+                {
+                    TraceLog.WriteError(cssFile + "doesn't exits");
+                    continue;
+                }
                 cssBundle.Add(cssFile);
             }
 
@@ -198,7 +210,7 @@ namespace Zbang.Cloudents.Mobile
             }
         }
 
-        
+
 
     }
     public class JsFileWithCdn

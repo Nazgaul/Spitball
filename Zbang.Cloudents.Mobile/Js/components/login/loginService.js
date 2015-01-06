@@ -20,5 +20,9 @@
                 }
             }, { scope: 'email,user_education_history,user_friends' });
         };
+
+        service.doneLoad = function () {
+            $rootScope.$broadcast('$stateLoaded');
+        };
     }]
 );

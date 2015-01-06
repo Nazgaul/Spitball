@@ -11,5 +11,7 @@
         account.changeLanguage = function () {
             accountService.changeLanguage(account.language);
         };
+
+        accountService.doneLoad();
     }]
 );

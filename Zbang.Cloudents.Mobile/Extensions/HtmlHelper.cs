@@ -11,8 +11,8 @@ namespace Zbang.Cloudents.Mobile.Extensions
             var helper = new UrlHelper(html.ViewContext.RequestContext);
             var svgTag = new TagBuilder("svg");
             var useTag = new TagBuilder("use");
-            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name), 
-                hash, 
+            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name),
+                hash,
                 VersionHelper.CurrentVersion(false)));
             svgTag.InnerHtml = useTag.ToString(TagRenderMode.SelfClosing);
             if (htmlAttributes != null)
@@ -42,6 +42,10 @@ namespace Zbang.Cloudents.Mobile.Extensions
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                key = key + BundleConfig.Rtl;
+            }
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);
         }
@@ -55,17 +59,5 @@ namespace Zbang.Cloudents.Mobile.Extensions
             }
             return MvcHtmlString.Create(cssLinks);
         }
-
-        public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
-        {
-            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
-            {
-                var cssLinks = BundleConfig.CssLink(key);
-                return MvcHtmlString.Create(cssLinks);
-            }
-            return MvcHtmlString.Empty;
-        }
-        
-
     }
 }
