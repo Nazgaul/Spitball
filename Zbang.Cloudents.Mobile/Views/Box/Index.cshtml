@@ -114,7 +114,7 @@
                 <option value="">@BoxResources.AllItems</option>
                 <option ng-repeat="tab in boxItems.tabs" value="{{tab.id}}">{{tab.name}}</option>
             </select>
-            <ul class="boxList">
+            <ul class="boxList" scroll-paging on-scroll="boxItems.getItems(true)">
                 <li ng-repeat="item in boxItems.items">
                     <a class="boxLink" href="{{::item.url}}">
                         <img ng-src="{{::item.thumbnail}}" />
