@@ -63,7 +63,6 @@
     }
     ul {
         text-align: left;
-        //display: none;
     }
     li {
         font-size: 13px;
@@ -79,12 +78,9 @@
     width: 100%;
     text-align: center; 
     background: #282828;   
-    &.courseTab, &.feedTab {
+    /*&.courseTab, &.feedTab {
         ~ .courseList, ~ .feed {
-            //display: block;
-            /*opacity:1;
-            visibility: visible;
-            height: auto;*/
+
         }
         .tab:nth-child(1) {
             color: @color;
@@ -95,10 +91,7 @@
     }
     &.itemsTab, &.boxItemsTab {
         ~ .itemsList, ~ .boxItems  {
-            //display: block;
-            /*opacity:1;
-            visibility: visible;
-            height: auto;*/
+
         }
         .tab:nth-child(2) {
             color: @color;
@@ -109,10 +102,7 @@
     }
     &.membersTab {
         ~ .membersList {
-            //display: block;
-            /*opacity:1;
-            visibility: visible;
-            height: auto;*/
+
         }
         .tab:nth-child(3) {
             color: @color;
@@ -120,7 +110,7 @@
                 height: 5px;
             }
         }
-    }
+    }*/
 }
 .tab {
     color: #a5a5a5;
@@ -139,17 +129,14 @@
         background: @color;
         .transition(height .3s);
     }
-    /*&.active {
+    &.active {
         color: @color;
         &:after {
             height: 5px;
         }
-    }*/
+    }
 }
 .courseList, .itemsList, .membersList, .feed, .boxItems {
-    /*opacity:0;
-    visibility: hidden;
-    height: 0;*/
     text-align: left;
 }
 .courseList {

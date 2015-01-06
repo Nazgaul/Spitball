@@ -51,6 +51,10 @@
   padding: 3px 8px;
   font-size: 13px;
 }
+.searchResults,
+.emptySearch {
+  display: none;
+}
 .recommended li {
   text-align: justify;
   width: 100%;

@@ -28,6 +28,9 @@
     .searchBtn {
         position: absolute;
     }
+    .emptySearch.emptySearch, .svg-noResults.svg-noResults {
+        display: none;
+    }
 }
 
 .search {
@@ -41,6 +44,17 @@
     }
     .inputText {
         margin-top: 2px;
+    }
+    .searchResults {
+        display: block;
+    }
+    .noResults {
+        ~ .emptySearch {
+            display: inline-block;
+        }
+         ~ .svg-noResults {
+            display: block;
+        }     
     }
 }
 .topReg {

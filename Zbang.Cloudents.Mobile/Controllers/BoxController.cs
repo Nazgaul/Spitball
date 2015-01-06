@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id, int page)
+        public async Task<JsonResult> Items(long id, int page, Guid? tabId)
         {
             try
             {
