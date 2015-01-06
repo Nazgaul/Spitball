@@ -6,7 +6,7 @@
         }
         return {
             list: function (data) {
-                return ajaxService.get(buildPath('list'), data);
+                return ajaxService.get(buildPath('index'), data);
             },
             addQuestion: function (data) {
                 return ajaxService.post(buildPath('addQuestion'), data);
