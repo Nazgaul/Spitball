@@ -89,7 +89,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, page, 10);
+                var query = new GetBoxItemsPagedQuery(id, tabId, page, 10);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
                 return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
             }

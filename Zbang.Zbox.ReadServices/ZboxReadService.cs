@@ -232,7 +232,8 @@ namespace Zbang.Zbox.ReadServices
                  {
                      query.BoxId,
                      pageNumber = query.PageNumber,
-                     rowsperpage = query.RowsPerPage
+                     rowsperpage = query.RowsPerPage,
+                     query.TabId
                  });
             }
             //using (UnitOfWork.Start())
@@ -250,7 +251,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query)
+        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
