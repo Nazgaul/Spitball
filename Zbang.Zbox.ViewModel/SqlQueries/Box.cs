@@ -157,6 +157,7 @@ union
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
+    AND (@TabId IS null OR i.ItemTabId = @tabid)
     order by i.itemid desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";

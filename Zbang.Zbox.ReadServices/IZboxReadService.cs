@@ -35,7 +35,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
-        Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxItemsPagedQuery query);
+        Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query);
 
         Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query);
         
