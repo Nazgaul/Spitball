@@ -119,7 +119,10 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
         }
 
-
+        public virtual string GetUniversityName()
+        {
+            return null;
+        }
 
         public virtual File AddFile(string fileName,
             User user,

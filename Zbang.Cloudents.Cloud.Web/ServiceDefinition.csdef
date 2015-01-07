@@ -24,8 +24,8 @@
       <Setting name="ZBox" />
       <Setting name="CacheUse" />
       <Setting name="StorageCdnEndpoint" />
-      <Setting name="AzureSearchApiKey" />
-      <Setting name="AzureSeachApiUrl" />
+      <Setting name="AzureSeachServiceName" />
+      <Setting name="AzureSearchKey" />
       <Setting name="MobileWebSite" />
     </ConfigurationSettings>
     <Certificates>

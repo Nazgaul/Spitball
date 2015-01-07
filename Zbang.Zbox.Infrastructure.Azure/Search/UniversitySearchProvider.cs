@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -13,12 +14,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class UniversitySearchProvider : IUniversityReadSearchProvider, IUniversityWriteSearchProvider2
     {
-        private const string IndexName = "universities2";
-        
+        private readonly string m_IndexName = "universities2";
+
+        public UniversitySearchProvider()
+        {
+            if (!RoleEnvironment.IsAvailable)
+            {
+                m_IndexName = m_IndexName + "-dev";
+                return;
+            }
+            if (RoleEnvironment.IsEmulated)
+            {
+                m_IndexName = m_IndexName + "-dev";
+            }
+        }
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(IndexName);
+            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetUniversityIndex());
@@ -37,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 return null;
             }
 
-            var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
+            var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                   new SearchQuery(query.Term + "*")
                   {
                       Select = "id,name,imageField",
@@ -47,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
             if (query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                suggestTask = SeachConnection.Instance.IndexQuery.SuggestAsync(IndexName,
+                suggestTask = SeachConnection.Instance.IndexQuery.SuggestAsync(m_IndexName,
                     new SuggestionQuery(query.Term)
                     {
                         Fuzzy = true,
@@ -108,7 +121,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(IndexName, listOfCommands.ToArray());
+                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);
@@ -120,7 +133,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private Index GetUniversityIndex()
         {
-            return new Index(IndexName)
+            return new Index(m_IndexName)
                    .WithStringField("id", f => f
                        .IsKey()
                        .IsRetrievable()

@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain
             {
                 return;
             }
-            var universityName = Box.Owner.GetUniversityName() ?? "my";
+            var universityName = Box.GetUniversityName() ?? "my";
             Url = UrlConsts.BuildQuizUrl(Box.Id, Box.Name, Id, Name, universityName);
         }
 

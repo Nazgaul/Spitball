@@ -112,5 +112,25 @@ namespace TestingApp
             textBox2.Text = v.ToString();
         }
 
+        private async void button6_Click(object sender, EventArgs e)
+        {
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var read = iocFactory.Resolve<IItemReadSearchProvider>();
+            var sw = new Stopwatch();
+            sw.Start();
+            var retVal = await read.SearchItem(new ItemSearchQuery(textBox1.Text, 12, 920));
+            sw.Stop();
+            textBox2.Text = string.Empty;
+            textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
+            if (retVal != null)
+            {
+                foreach (var item in retVal)
+                {
+                    textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
+                    textBox2.Text += "\r\n";
+                }
+            }
+        }
+
     }
 }
