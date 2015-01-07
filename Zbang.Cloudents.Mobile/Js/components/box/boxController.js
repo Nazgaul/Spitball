@@ -7,6 +7,7 @@
         
         boxService.getData($stateParams.boxId).then(function (data) {
             boxData = data;
+            box.id = 
             box.name = data.name;
             box.professorName = data.professorName;
             box.courseId = data.courseId;

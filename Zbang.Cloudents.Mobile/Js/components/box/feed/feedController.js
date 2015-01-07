@@ -1,6 +1,6 @@
-﻿angular.module('feed', ['ajax', 'monospaced.elastic']).
+﻿angular.module('feed', ['ajax', 'monospaced.elastic','plupload']).
     controller('FeedController',
-    ['feedService', '$stateParams', 'userDetails', function (feedService, $stateParams, userDetails) {
+    ['$scope','feedService', '$stateParams', 'userDetails', function ($scope,feedService, $stateParams, userDetails) {
         var feed = this;
 
         var page = 0,
@@ -55,7 +55,13 @@
             });            
         };
 
+        feed.uploadFile = function () {
+            console.log('asdsad');
+        };
 
+        $scope.$on('uploadComplete', function (e, data) {
+            console.log('co');
+        });
 
         function getFeedPage(isAppend) {
             if (isFetching) {

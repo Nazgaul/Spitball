@@ -21,7 +21,8 @@
         <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
     <div ng-switch="box.currentTab">
-        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed">
+        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
+            <span id="plFakeBtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate>
                 <img ng-src="{{root.user.image}}" class="feedImg lFloat" alt="" width="27" height="27" />
                 <textarea name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic></textarea>
@@ -32,7 +33,7 @@
                     </li>
                 </ul>
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="lFloat">P</button>
-                <button ng-if="!feed.questionFormData.content.length" type=" button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
+                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
                     @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                 </button>
             </form>
@@ -48,7 +49,7 @@
                         <div class="feedContent" ng-bind-html="::question.content"></div>
                         <ul class="qaAttach">
                             <li class="qaAttachItem" ng-repeat="file in question.files">
-                                <a href="{{::file.url}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             </li>
                             @*<li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
                                     <a ng-href="{{::file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
@@ -72,7 +73,7 @@
                                 <div class="feedContent" ng-bind-html="::answer.content"></div>
                                 <ul class="qaAttach">
                                     <li class="qaAttachItem" ng-repeat="file in answer.files">
-                                        <a href="{{file.url}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
+                                        <a href="{{file.url}}" target="_self"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
                                         @*<div class="attachActions">
                                                 <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
                                                 <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
@@ -94,7 +95,7 @@
                             </li>
                         </ul>
                         <button ng-if="question.aFormData.content.length" class="lFloat" type="submit">P</button>
-                        <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
+                        <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
                             @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                         </button>
 
@@ -114,7 +115,7 @@
             </select>
             <ul class="boxList" scroll-paging on-scroll="boxItems.getItems(true)">
                 <li ng-repeat="item in boxItems.items">
-                    <a class="boxLink" href="{{::item.url}}">
+                    <a class="boxLink" href="{{::item.url}}" target="_self">
                         <img ng-src="{{::item.thumbnail}}" />
                     </a>
                     <div class="itemName">{{::item.name}}</div>
