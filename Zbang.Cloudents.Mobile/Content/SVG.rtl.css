@@ -1,0 +1,98 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region SVG */
+svg.rtl {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.svg-logo {
+  width: 183px;
+  height: 31px;
+  fill: #fff;
+  margin: 26px auto 6px;
+}
+.svg-close {
+  width: 10px;
+  height: 10px;
+  fill: #fff;
+}
+.svg-fb {
+  width: 14px;
+  height: 25px;
+  fill: #fff;
+  position: relative;
+  top: 0;
+}
+.svg-email {
+  width: 28px;
+  height: 22px;
+  fill: silver;
+  position: relative;
+  top: -1px;
+}
+.svg-search {
+  width: 19px;
+  height: 20px;
+  fill: #c2c2c2;
+}
+.svg-noResults {
+  width: 64px;
+  height: 61px;
+  fill: #282828;
+  display: none;
+}
+.svg-menu {
+  width: 23px;
+  height: 18px;
+  fill: #fff;
+  position: relative;
+  top: 3px;
+}
+.svg-quizInner {
+  width: 30px;
+  height: 39px;
+  fill: #0f9d58;
+}
+.svg-user,
+.svg-doc {
+  width: 19px;
+  height: 18px;
+  fill: #fff;
+}
+.svg-right {
+  width: 10px;
+  height: 20px;
+  fill: #c2c2c2;
+}
+.svg-back {
+  width: 16px;
+  height: 13px;
+  fill: #0f9d58;
+}
+.svg-invite {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+.svg-attachment {
+  width: 19px;
+  height: 16px;
+  fill: #282828;
+}
+.svg-file {
+  width: 16px;
+  height: 20px;
+}
+.svg-info {
+  width: 20px;
+  height: 20px;
+}
+.svg-arrow {
+  width: 20px;
+  height: 18px;
+}

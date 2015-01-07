@@ -457,9 +457,11 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
+    <Content Include="Content\Box.rtl.css" />
     <Content Include="Content\ChooseSchool.css">
       <DependentUpon>ChooseSchool.less</DependentUpon>
     </Content>
+    <Content Include="Content\ChooseSchool.rtl.css" />
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
@@ -467,6 +469,8 @@
     <Content Include="Content\Feed.css">
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
+    <Content Include="Content\Feed.rtl.css" />
+    <Content Include="Content\Home.rtl.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -479,21 +483,26 @@
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
+    <Content Include="Content\Mobile.rtl.css" />
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>
+    <Content Include="Content\Normalize.rtl.css" />
     <Content Include="Content\Registration.css">
       <DependentUpon>Registration.less</DependentUpon>
     </Content>
+    <Content Include="Content\Registration.rtl.css" />
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
     </Content>
+    <Content Include="Content\Search.rtl.css" />
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
     </Content>
+    <Content Include="Content\SVG.rtl.css" />
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
