@@ -128,7 +128,7 @@ select top 500 b.boxid  from zbox.box b
   b.BoxId as boxid
    from zbox.item i 
    join zbox.box b on i.BoxId = b.BoxId
-   left join zbox.University u on b.University = b.University
+   left join zbox.University u on b.University = u.id
   where  (i.isdirty = 1 )
    and i.IsDeleted = 0";
 

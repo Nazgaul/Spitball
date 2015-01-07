@@ -21,8 +21,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [PreserveQueryString]
         public ActionResult Index()
         {
-
-            return RedirectToRoutePermanent("accountLink");
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToRoute("dashboardLink");
+            }
+            return RedirectToRoute("accountLink");
 
         }
 

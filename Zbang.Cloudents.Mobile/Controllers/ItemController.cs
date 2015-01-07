@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         [NoCache]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
+        [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}", Name = "Item")]
         public ActionResult Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
             try
