@@ -562,6 +562,7 @@
     <Content Include="Js\libs\gestures.js" />
     <Content Include="Js\libs\hammer.js" />
     <Content Include="Js\libs\hammer.min.js" />
+    <Content Include="Js\libs\plupload.js" />
     <Content Include="Js\Mobile\Logon.js" />
     <Content Include="Js\Mobile\Welcome.js" />
     <Content Include="Js\Navigation2.js" />

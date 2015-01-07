@@ -21,7 +21,8 @@
         <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
     <div ng-switch="box.currentTab">
-        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed">
+        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>            
+            <span id="plFakeBtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate>
                 <img ng-src="{{root.user.image}}" class="feedImg lFloat" alt="" width="27" height="27" />
                 <textarea name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic></textarea>
@@ -32,7 +33,7 @@
                     </li>
                 </ul>
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="lFloat">P</button>
-                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
+                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
                     @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                 </button>
             </form>
@@ -49,6 +50,7 @@
                         <ul class="qaAttach">
                             <li class="qaAttachItem" ng-repeat="file in question.files">
                                 <a target="_self" href="{{::file.url}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             </li>
                         </ul>
                         <button type="button" ng-click="feed.toggleComment(question)">@BoxResources.Comment</button>
@@ -77,12 +79,13 @@
                             </li>
                         </ul>
                         <button ng-if="question.aFormData.content.length" class="lFloat" type="submit">P</button>
-                        <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
+                        <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
                             @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                         </button>
                     </form>
                 </li>
             </ul>
+                
             <div ng-show="!feed.list.length" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
 
@@ -94,7 +97,7 @@
             </select>
             <ul class="boxList" scroll-paging on-scroll="boxItems.getItems(true)">
                 <li ng-repeat="item in boxItems.items">
-                    <a target="_self" class="boxLink" href="{{::item.url}}">
+                    <a class="boxLink" href="{{::item.url}}" target="_self">
                         <img ng-src="{{::item.thumbnail}}" />
                     </a>
                     <div class="itemName">{{::item.name}}</div>
@@ -102,5 +105,26 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <div ng-if="box.uploading" style="position:fixed; top:0; left:0; background:#fff;width:100%;height:100%;z-index:2;">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+        <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+        <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+        <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+              </svg>
+        Uploading
     </div>
 </section>

@@ -1,4 +1,4 @@
-﻿angular.module('feed', ['ajax', 'monospaced.elastic']).
+﻿angular.module('feed', ['ajax', 'monospaced.elastic', 'plupload']).
     controller('FeedController',
     ['feedService', '$stateParams', 'userDetails', function (feedService, $stateParams, userDetails) {
         var feed = this;
@@ -28,9 +28,9 @@
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
                 question.id = questionId;
 
-            });            
+            });
         };
-        
+
         feed.toggleComment = function (question) {
             question.displayComment = !question.displayComment;
         };
@@ -48,13 +48,12 @@
             question.answers.unshift(answer);
             question.aFormData = null;
             question.displayComment = false;
-            
+
             feedService.addAnswer(boxId, question.id, answer.content).then(function (answer) {
                 answer.id = answerId;
 
-            });            
+            });
         };
-
 
 
         function getFeedPage(isAppend) {
