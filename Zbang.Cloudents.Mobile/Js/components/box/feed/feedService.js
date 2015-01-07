@@ -12,7 +12,7 @@
         };
 
         service.addAnswer = function (boxId, questionId, content, files) {
-            return feed.addQuestion({
+            return feed.addAnswer({
                 boxId: boxId,
                 questionId: questionId,
                 content: content,
