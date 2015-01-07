@@ -7,8 +7,7 @@
             endResult,
             isFetching,
             boxId = $stateParams.boxId;
-
-
+       
         getItemsPage();
         getTabs();
 
@@ -30,11 +29,13 @@
                 return;
             }
 
+            boxItems.loading = true;
             isFetching = true;
 
 
             itemsService.getItems(boxId, page, boxItems.currentTabId).then(function (items) {
                 items = items || [];
+                boxItems.loading = false;
 
                 page++;
 

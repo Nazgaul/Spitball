@@ -100,9 +100,11 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/box.js"),
 
                         new JsFileWithCdn("~/js/shared/loader/loader.js"),
+                        new JsFileWithCdn("~/js/shared/loader/innerLoader.js"),
 
                         new JsFileWithCdn("~/js/shared/events/events.js"),
                         new JsFileWithCdn("~/js/shared/scroll/scroll.js"),
+                        
 
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
 
