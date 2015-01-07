@@ -49,6 +49,7 @@
             //    $location.search('q', term);
             //}
 
+            search.loading = true;
             search.isSearching = true;
 
             switch (search.currentTab) {
@@ -88,6 +89,7 @@
 
             }).finally(function () {
                 search.isSearching = false;
+                search.loading = false;
             });
         }
 
@@ -117,6 +119,7 @@
 
             }).finally(function () {
                 search.isSearching = false;
+                search.loading = false;
             });
         }
 

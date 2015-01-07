@@ -66,7 +66,7 @@
             feedService.getFeedPage(boxId, page).then(function (feedPage) {
                 feedPage = feedPage || [];
 
-                feed.loading = false;
+                
 
                 if (!feedPage) {
                     endResult = true;
@@ -78,6 +78,7 @@
 
             }).finally(function () {
                 isFetching = false;
+                feed.loading = false;
             });
         }
 

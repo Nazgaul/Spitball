@@ -35,7 +35,6 @@
 
             itemsService.getItems(boxId, page, boxItems.currentTabId).then(function (items) {
                 items = items || [];
-                boxItems.loading = false;
 
                 page++;
 
@@ -58,6 +57,8 @@
 
             }).finally(function () {
                 isFetching = false;
+                boxItems.loading = false;
+
             });
         }
 
