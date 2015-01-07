@@ -323,6 +323,14 @@ namespace Zbang.Zbox.Domain.Services
                 await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
             }
         }
+        public async Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "update zbox.Item set isdirty = 0 where itemid in @Ids";
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+            }
+        }
 
 
     }

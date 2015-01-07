@@ -31,6 +31,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IBoxWriteSearchProvider, BoxSearchProvider>();
             ioc.RegisterType<IBoxReadSearchProvider, BoxSearchProvider>();
 
+            ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider>();
+            ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider>();
+
 
         }
     }

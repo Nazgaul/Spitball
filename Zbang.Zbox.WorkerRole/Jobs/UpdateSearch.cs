@@ -11,21 +11,22 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateSearch : IJob
     {
-        private const int NumberToReSyncWithoutWait = 500;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
+        private readonly IItemWriteSearchProvider m_ItemSearchProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
 
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
-            IZboxWriteService zboxWriteService, IBoxWriteSearchProvider boxSearchProvider)
+            IZboxWriteService zboxWriteService, IBoxWriteSearchProvider boxSearchProvider, IItemWriteSearchProvider itemSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BoxSearchProvider = boxSearchProvider;
+            m_ItemSearchProvider = itemSearchProvider;
         }
 
         public void Run()
@@ -33,29 +34,44 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
-                var t = ExecuteAsync();
-                t.Wait();
-                if (!t.Result)
-                {
-                    Thread.Sleep(TimeSpan.FromSeconds(30));
-                }
+                ExecuteAsync().Wait();
+                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
         }
 
-        private async Task<bool> ExecuteAsync()
+        private async Task ExecuteAsync()
         {
-            var boxUpdates = await UpdateBox();
-            var needToReSyncImmediately = await UpdateUniversity();
+            await UpdateItem();
+            await UpdateBox();
+            await UpdateUniversity();
 
-            return boxUpdates || needToReSyncImmediately;
         }
 
-        private async Task<bool> UpdateBox()
+        private async Task UpdateItem()
+        {
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
+            while (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
+            {
+                var isSuccess =
+                    await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                if (isSuccess)
+                {
+                    await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                        new UpdateDirtyToRegularCommand(
+                            updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
+                }
+                else
+                {
+                    break;
+                }
+                updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
+            }
+        }
+
+        private async Task UpdateBox()
         {
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates();
-
-
-            if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
+            while (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
@@ -65,15 +81,21 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         new UpdateDirtyToRegularCommand(
                             updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
                 }
+                else
+                {
+                    break;
+                }
+                updates = await m_ZboxReadService.GetBoxDirtyUpdates();
             }
-            return updates.BoxesToUpdate.Count() == NumberToReSyncWithoutWait
-                || updates.BoxesToDelete.Count() == NumberToReSyncWithoutWait;
+
         }
 
-        private async Task<bool> UpdateUniversity()
+
+
+        private async Task UpdateUniversity()
         {
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
-            if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
+            while (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
                 var isSuccess =
                     await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
@@ -83,9 +105,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         new UpdateDirtyToRegularCommand(
                             updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
                 }
+                else
+                {
+                    break;
+                }
+                updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             }
-            return updates.UniversitiesToUpdate.Count() == NumberToReSyncWithoutWait
-                || updates.UniversitiesToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
         public void Stop()

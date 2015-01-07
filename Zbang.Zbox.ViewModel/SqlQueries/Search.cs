@@ -108,6 +108,36 @@ select top 500 b.boxid  from zbox.box b
         public const string GetBoxToDeleteToSearch = @"
         select top 500 boxid as id from zbox.box
         where isdirty = 1 and isdeleted = 1;";
+
+        public const string GetItemToDeleteToSearch = @"
+        select top 500 itemid as id from zbox.item
+        where isdirty = 1 and isdeleted = 1;";
+
+        public const string GetItemsToUploadToSearch =
+            @" select top 500
+  i.ItemId as id,
+  i.Name as name,
+  i.ThumbnailUrl as image,
+  b.BoxName as boxname,
+  i.Content as content,
+  i.Rate as rate,
+  i.NumberOfViews as views,
+  i.Url as url,
+  u.UniversityName as universityName,
+  u.id as universityid,
+  b.BoxId as boxid
+   from zbox.item i 
+   join zbox.box b on i.BoxId = b.BoxId
+   left join zbox.University u on b.University = b.University
+  where  (i.isdirty = 1 )
+   and i.IsDeleted = 0";
+
+        public const string GetItemUsersToUploadToSearch =
+            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
+select top 500 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
+   left join zbox.University u on b.University = b.University
+  where (i.isdirty = 1 ) and i.isdeleted = 0 
+  order by i.ItemId)";
     }
 
     

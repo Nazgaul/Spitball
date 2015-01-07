@@ -48,6 +48,7 @@ namespace Zbang.Zbox.Domain.Common
         void AddNewUpdate(AddNewUpdatesCommand command);
         Task UpdateSearchUniversityDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
         Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
+        Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
         #endregion
 
 

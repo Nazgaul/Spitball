@@ -81,5 +81,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 m_Connection.Dispose(p);
             }
         }
+
+        public static T ConvertToType<T>(object b)
+        {
+            if (b == null)
+            {
+                return default(T);
+            }
+            b = Convert.ChangeType(b, typeof (T));
+            return (T)b;
+        }
     }
 }
