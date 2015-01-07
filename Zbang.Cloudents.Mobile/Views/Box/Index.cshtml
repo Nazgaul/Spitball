@@ -32,7 +32,7 @@
                     </li>
                 </ul>
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="lFloat">P</button>
-                <button ng-if="!feed.questionFormData.content.length" type=" button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
+                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
                     @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                 </button>
             </form>
@@ -48,20 +48,10 @@
                         <div class="feedContent" ng-bind-html="::question.content"></div>
                         <ul class="qaAttach">
                             <li class="qaAttachItem" ng-repeat="file in question.files">
-                                <a href="{{::file.url}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                                <a target="_self" href="{{::file.url}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             </li>
-                            @*<li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
-                                    <a ng-href="{{::file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
-
-                                </li>*@
                         </ul>
-
                         <button type="button" ng-click="feed.toggleComment(question)">@BoxResources.Comment</button>
-
-
-                        @*<button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                            </button>*@
                     </div>
                     <ul class="feedReplies rFloat">
                         <li ng-repeat="answer in question.answers">
@@ -72,16 +62,9 @@
                                 <div class="feedContent" ng-bind-html="::answer.content"></div>
                                 <ul class="qaAttach">
                                     <li class="qaAttachItem" ng-repeat="file in answer.files">
-                                        <a href="{{file.url}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
-                                        @*<div class="attachActions">
-                                                <a class="attachFull" ng-href="/item/my/61212/open-university/172645/6971.png/" href="/item/my/61212/open-university/172645/6971.png/"></a>
-                                                <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="/item/my/61212/open-university/172645/6971.png/download/" href="/item/my/61212/open-university/172645/6971.png/download/"></a>
-                                            </div>*@
+                                        <a target="_self" href="{{file.url}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
                                     </li>
                                 </ul>
-                                @*<button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                                        @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                                    </button>*@
                             </div>
                         </li>
                     </ul>
@@ -97,12 +80,9 @@
                         <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()">
                             @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
                         </button>
-
                     </form>
                 </li>
-
             </ul>
-
             <div ng-show="!feed.list.length" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
 
@@ -114,7 +94,7 @@
             </select>
             <ul class="boxList" scroll-paging on-scroll="boxItems.getItems(true)">
                 <li ng-repeat="item in boxItems.items">
-                    <a class="boxLink" href="{{::item.url}}">
+                    <a target="_self" class="boxLink" href="{{::item.url}}">
                         <img ng-src="{{::item.thumbnail}}" />
                     </a>
                     <div class="itemName">{{::item.name}}</div>
