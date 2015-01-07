@@ -15,6 +15,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class ItemSearchProvider : IItemReadSearchProvider, IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item";
+        private bool CheckIndexExists = false;
+
 
         public ItemSearchProvider()
         {
@@ -81,11 +83,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 var response2 = await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
             }
+            CheckIndexExists = true;
         }
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
-            await BuildIndex();
+            if (!CheckIndexExists)
+            {
+                await BuildIndex();
+            }
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)
             {

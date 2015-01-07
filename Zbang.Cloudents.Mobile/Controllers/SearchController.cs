@@ -16,10 +16,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
     public class SearchController : BaseController
     {
         private readonly IBoxReadSearchProvider m_BoxSearchService;
+        private readonly IItemReadSearchProvider m_ItemSearchService;
 
-        public SearchController(IBoxReadSearchProvider boxSearchService)
+        public SearchController(IBoxReadSearchProvider boxSearchService, IItemReadSearchProvider itemSearchService)
         {
             m_BoxSearchService = boxSearchService;
+            m_ItemSearchService = itemSearchService;
         }
 
         public ActionResult IndexPartial()
@@ -44,8 +46,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId == null) return JsonError("need university");
-            var query = new GroupSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
-            var retVal = await ZboxReadService.SearchItems(query);
+
+            var query = new ItemSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
+            var retVal = await m_ItemSearchService.SearchItem(query) ?? new List<SearchItems>();
             return JsonOk(retVal.Select(s => new
             {
                 s.Image,

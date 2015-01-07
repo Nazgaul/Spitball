@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class UniversitySearchProvider : IUniversityReadSearchProvider, IUniversityWriteSearchProvider2
     {
         private readonly string m_IndexName = "universities2";
+        private bool m_CheckIndexExists = false;
 
         public UniversitySearchProvider()
         {
@@ -36,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetUniversityIndex());
             }
-
+            m_CheckIndexExists = true;
         }
 
 
@@ -91,7 +92,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<bool> UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
-            await BuildIndex();
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndex();
+            }
 
             var listOfCommands = new List<IndexOperation>();
             if (universityToUpload != null)

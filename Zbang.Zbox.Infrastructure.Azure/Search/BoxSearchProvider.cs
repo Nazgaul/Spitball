@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
 
         private readonly string m_IndexName = "box";
+        private bool m_CheckIndexExists = false;
 
         public BoxSearchProvider()
         {
@@ -70,7 +71,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<bool> UpdateData(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
-            await BuildIndex();
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndex();
+            }
             var listOfCommands = new List<IndexOperation>();
             if (boxToUpload != null)
             {
@@ -112,6 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
             }
+            m_CheckIndexExists = true;
         }
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query)
@@ -130,7 +135,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Skip = query.RowsPerPage * query.PageNumber
                 });
 
-
+            if (!searchResult.IsSuccess)
+            {
+                TraceLog.WriteError(searchResult.Error.Message);
+                return null;
+            }
             if (searchResult.Body.Records.Any())
             {
                 return searchResult.Body.Records.Select(s => new SearchBoxes(

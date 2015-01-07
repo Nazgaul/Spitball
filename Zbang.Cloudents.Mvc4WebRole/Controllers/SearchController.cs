@@ -17,10 +17,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class SearchController : BaseController
     {
         private readonly IBoxReadSearchProvider m_BoxSearchService;
+        private readonly IItemReadSearchProvider m_ItemSearchService;
 
-        public SearchController(IBoxReadSearchProvider boxSearchService)
+        public SearchController(IBoxReadSearchProvider boxSearchService, IItemReadSearchProvider itemSearchService)
         {
             m_BoxSearchService = boxSearchService;
+            m_ItemSearchService = itemSearchService;
         }
 
         [HttpGet]
@@ -75,18 +77,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private async Task<SearchDto> PerformSearch(string q, bool allResult, int page)
         {
             var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail.UniversityId != null)
+            if (userDetail.UniversityDataId != null)
             {
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), page,
+                var query = new GroupSearchQuery(q, userDetail.UniversityDataId.Value, User.GetUserId(), page,
                     allResult ? 50 : 6);
 
-               var t1 =  m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(), userDetail.UniversityId.Value, page,
-                    allResult ? 50 : 6));
-
-                var t2 = ZboxReadService.Search(query);
-                await Task.WhenAll(t1, t2);
-                t2.Result.Boxes = t1.Result;
-                return t2.Result;
+                var t1 = m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(),
+                    userDetail.UniversityDataId.Value, page,
+                     allResult ? 50 : 6));
+                var t2 =
+                    m_ItemSearchService.SearchItem(new ItemSearchQuery(q, User.GetUserId(),
+                    userDetail.UniversityDataId.Value, page,
+                        allResult ? 50 : 6));
+                var t3 = ZboxReadService.Search(query);
+                await Task.WhenAll(t1, t2, t3);
+                t3.Result.Boxes = t1.Result;
+                t3.Result.Items = t2.Result;
+                return t3.Result;
             }
             return null;
         }

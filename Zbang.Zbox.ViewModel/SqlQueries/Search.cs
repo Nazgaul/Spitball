@@ -129,14 +129,14 @@ select top 500 b.boxid  from zbox.box b
    from zbox.item i 
    join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = b.University
-  where  (i.isdirty = 1 or b.isdirty = 1 or u.isdirty = 1)
+  where  (i.isdirty = 1 )
    and i.IsDeleted = 0";
 
         public const string GetItemUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 500 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = b.University
-  where (i.isdirty = 1 or b.isdirty = 1 or u.isdirty = 1) and i.isdeleted = 0 
+  where (i.isdirty = 1 ) and i.isdeleted = 0 
   order by i.ItemId)";
     }
 
