@@ -4,7 +4,7 @@
         directive('plUploader', function () {
             return {
                 restrict: 'A',
-                controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+                controller: ['$rootScope', '$stateParams', '$angularCacheFactory', function ($rootScope, $stateParams, $angularCacheFactory) {
                     var uploader,
                         plUpload = this,
                         boxId = $stateParams.boxId;
@@ -12,7 +12,9 @@
                     init();
 
                     plUpload.addFiles = function (files) {
-                        uploader.addFile(files);
+                        angular.forEach(files, function (file) {
+                            uploader.addFile(file);
+                        });
                     };
 
                     function init() {
@@ -34,23 +36,32 @@
                         uploader.bind('Error', uploadError);
                         uploader.bind('FilesAdded', filesAdded);
                         uploader.bind('BeforeUpload', beforeUpload);
-                        uploader.bind('UploadComplete', beforeUpload);
+                        uploader.bind('UploadComplete', uploadComplete);
                         boxId = boxId;
                     };
 
 
                     function filesAdded(up, files) {
                         up.start();
+                        $rootScope.$apply(function () {
+                            $rootScope.$broadcast('uploadStart');
+                        });
                     }
 
-                    function beforeUpload(up, files) {
+                    function beforeUpload(up, file) {
                         up.settings.multipart_params = {
+                            fileName: file.name,
+                            fileSize: file.size,
                             boxId: boxId
                         };
                     }
 
                     function uploadComplete(up, file, res) {
-                        $scope.$emit('uploadComplete');
+                        $angularCacheFactory.clearAll();
+                        $rootScope.$apply(function () {
+                            $rootScope.$broadcast('uploadComplete');
+                        });
+
                     }
 
                     function uploadError(up, err) {

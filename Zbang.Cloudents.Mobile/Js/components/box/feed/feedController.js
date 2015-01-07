@@ -1,6 +1,6 @@
-﻿angular.module('feed', ['ajax', 'monospaced.elastic','plupload']).
+﻿angular.module('feed', ['ajax', 'monospaced.elastic', 'plupload']).
     controller('FeedController',
-    ['$scope','feedService', '$stateParams', 'userDetails', function ($scope,feedService, $stateParams, userDetails) {
+    ['feedService', '$stateParams', 'userDetails', function (feedService, $stateParams, userDetails) {
         var feed = this;
 
         var page = 0,
@@ -28,9 +28,9 @@
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
                 question.id = questionId;
 
-            });            
+            });
         };
-        
+
         feed.toggleComment = function (question) {
             question.displayComment = !question.displayComment;
         };
@@ -48,20 +48,13 @@
             question.answers.unshift(answer);
             question.aFormData = null;
             question.displayComment = false;
-            
+
             feedService.addAnswer(boxId, question.id, answer.content).then(function (answer) {
                 answer.id = answerId;
 
-            });            
+            });
         };
 
-        feed.uploadFile = function () {
-            console.log('asdsad');
-        };
-
-        $scope.$on('uploadComplete', function (e, data) {
-            console.log('co');
-        });
 
         function getFeedPage(isAppend) {
             if (isFetching) {
