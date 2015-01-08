@@ -24,7 +24,6 @@
         <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader inner-scroll="{{feed.loading}}">
             <span id="plfakebtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate>
-                <img ng-src="{{root.user.image}}" class="feedImg lFloat" alt="" width="27" height="27" />
                 <textarea name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
@@ -32,9 +31,9 @@
                         <button class="removeAttach" ng-click="feed.removeQuestionAttachment(file)"></button>
                     </li>
                 </ul>
-                <button ng-if="feed.questionFormData.content.length" type="submit" class="lFloat">P</button>
-                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
-                    @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
+                <button ng-if="feed.questionFormData.content.length" type="submit" class="rFloat">P</button>
+                <button ng-if="!feed.questionFormData.content.length" type="button" class="attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
+                    @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                 </button>
             </form>
 

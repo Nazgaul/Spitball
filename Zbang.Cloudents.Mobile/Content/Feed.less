@@ -1,6 +1,55 @@
 ﻿@import "varsAndMixins";
 
 .feed {
+    background: #eee;
+}
+
+.feedForm {
+    width: 100%;
+    height: 38px;
+    border-bottom: 1px solid @borderColor;
+    position: relative;
+    background: #fff;
+    &.sticky {
+        position: fixed;
+        top: 0;
+        .boxFeedList {
+            margin-top: 50px;
+        }
+    }
+}
+.feedTA {
+    //border-radius: 3px;
+    border: none;
+    padding: 0 45px 0 8px; //rtl
+    min-height: 38px;
+    width: 100%;
+    height: 38px;
+    .boxSizing;
+    font-size: 15px;
+    //.transition(min-height .3s ease-in);
+    resize:none;
+    //width: 95%;
+    //width: ~'calc(100% - 40px)';
+    //float: right; //rtl
+    //margin-top: 2px;
+    //max-height:87px;
+}
+.boxFeedList {
+    /*width: 100%;
+    padding: 12px;
+    .boxSizing;*/
+    color: @textColor;
+    display: inline-block;
+    width: 96%;
+    margin-top: 15px;
+}
+.attachBtn {
+    position: absolute;
+    top: 9px;
+    right: 10px; //rtl
+}
+/*.feed {
     color: @textColor;
     display: inline-block;
     width: 96%;
@@ -98,7 +147,7 @@
     .boxSizing;
 }
 .feed-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
+	-webkit-transition: 1s linear all;
 	transition: 1s linear all;
 	opacity: 0;
 }
@@ -152,11 +201,6 @@
         top: 24px;
         right: 70px; //rtl
     }
-    /*&:empty {
-        ~ .emptyFeed {
-            display: block;
-        }
-    }*/
 }
 .feedWpr {
     background: #eee;
@@ -180,11 +224,11 @@
         font-size: 16px;
         white-space:normal;
     }
-    /*.commentBtn {
-        &:after {
-            content: '\00a0' '|' '\00a0';
-        }
-    }*/
+    //.commentBtn {
+      //  &:after {
+        //    content: '\00a0' '|' '\00a0';
+      //  }
+    //}
     .commentBtn {
         display: inline-block;
         color: @itemBlue;
@@ -271,4 +315,17 @@
         height:125px;
         stroke: #0f9d58;
     }
+}*/
+.emptyFeed {
+    width: 80%;
+    //height: ~'-webkit-calc(100vh - 205px)';
+    //height: ~'calc(100vh - 205px)';
+    margin: 100px auto 0;
+    padding: 10px;
+    color: @borderColor;
+    border: 3px dotted @borderColor;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+    .boxSizing;
 }
