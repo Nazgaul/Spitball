@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public static class UserLanguage
     {
-        public const string CookieName = "lang";
+        public const string CookieName = "l";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
 
