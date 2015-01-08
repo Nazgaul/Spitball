@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Hour * 1, VaryByParam = "boxId",
+           Duration = TimeConsts.Day, VaryByParam = "boxId",
            Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
         [PreserveQueryString(Order = 2)]
