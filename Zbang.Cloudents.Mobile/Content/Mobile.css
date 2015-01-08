@@ -140,3 +140,9 @@ img {
   background: #666;
   box-shadow: inset 0 0 0 2px #fff;
 }
+/*#endregion */
+/*#region 'static' pages */
+.aboutUs,
+.terms {
+  text-align: left;
+}
