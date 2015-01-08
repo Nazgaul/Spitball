@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType? feedType = null)
+        public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType)
         {
             if (user == null)
             {
@@ -35,14 +35,10 @@ namespace Zbang.Zbox.Domain
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        private string ExtractCommentText(FeedType? feedType, string text, User user)
+        private string ExtractCommentText(FeedType feedType, string text, User user)
         {
             if (user == null) throw new ArgumentNullException("user");
-            if (feedType.HasValue && !string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("feedtype cant be not null and text not null");
-            }
-            if (!feedType.HasValue) return string.IsNullOrEmpty(text) ? null : text.Trim();
+            if (feedType == Infrastructure.Enums.FeedType.None) return string.IsNullOrEmpty(text) ? null : text.Trim();
             return feedType.GetEnumDescription(Languages.GetCultureBaseOnCountry(user.University.Country));
         }
         public virtual Guid Id { get; set; }
