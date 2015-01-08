@@ -61,6 +61,9 @@
                 label: 'User searched for ' + query
             });
             sSearch.dropdown({ q: query }).then(function (data) {
+                data.boxes = data.boxes || [];
+                data.items = data.items || [];
+                data.users = data.users || [];
                 parseData(data);
                 if ($scope.params.preventDropDown) {
                     $scope.params.preventDropDown = false;
@@ -149,6 +152,7 @@
 
 
         function parseData(data) {
+
             if (!lastResultCount) {
                 lastResultCount = $scope.resultCount();
                 appendData();
