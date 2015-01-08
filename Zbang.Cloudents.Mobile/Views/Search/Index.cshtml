@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <div class="searchWpr">
-    <button type="button" class="backBtn lFloat" ng-click="search.goBack()">
+    <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
 
@@ -9,7 +9,7 @@
         <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
     </form>
 </div>
-<div class="searchContent" scroll-paging on-scroll="search.query(true)">
+<div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">
     <div class="tabs">
         <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">@SharedResources.Courses</button>
         <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">@SharedResources.Items</button>
@@ -27,7 +27,7 @@
         </ul>
         <ul class="itemsList" ng-switch-when="items">
             <li ng-repeat="item in search.items">
-                <a href="{{::item.url}}" class="ghost">
+                <a href="{{::item.url}}" class="ghost" target="_self">
                     <div class="details vCentered">
                         <div class="filename elps">{{::item.name}}</div>
                         <div class="elps">To be disscused</div>
@@ -37,7 +37,6 @@
             </li>
         </ul>
     </div>
-
     @*<ul class="membersList">
             <li>
                 <a href="#" class="ghost">

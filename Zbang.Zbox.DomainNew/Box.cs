@@ -119,7 +119,10 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
         }
 
-
+        public virtual string GetUniversityName()
+        {
+            return null;
+        }
 
         public virtual File AddFile(string fileName,
             User user,
@@ -148,14 +151,16 @@ namespace Zbang.Zbox.Domain
             //Need to put in here unique item name check per box
             Items.Add(item);
             UpdateItemCount();
+            UserTime.UpdateUserTime(item.Uploader.Email);
             return item;
         }
 
-        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType? feedType)
+        public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType feedType)
         {
             var comment = new Comment(user, text, this, id, items, feedType);
             Comments.Add(comment);
             UpdateCommentsCount();
+            UserTime.UpdateUserTime(user.Email);
             return comment;
         }
 

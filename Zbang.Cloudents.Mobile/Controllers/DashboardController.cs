@@ -34,7 +34,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var query = new GetBoxesQuery(User.GetUserId(), page, 15);
                 var data = await ZboxReadService.GetUserBoxes(query);
 
-                return JsonOk(data.Select(s => new { s.Name, s.BoxPicture, s.Url, s.ItemCount, s.CommentCount }));
+                return JsonOk(data.Select(s => new
+                {
+                    s.Name,
+                    s.BoxPicture,
+                    s.Url,
+                    s.ItemCount,
+                    s.CommentCount
+                }));
             }
             catch (Exception ex)
             {

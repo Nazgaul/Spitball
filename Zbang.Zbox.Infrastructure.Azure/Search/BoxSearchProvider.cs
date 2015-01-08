@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
@@ -13,7 +14,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class BoxSearchProvider : IBoxReadSearchProvider, IBoxWriteSearchProvider
     {
-        private const string IndexName = "box";
+
+        private readonly string m_IndexName = "box";
+        private bool m_CheckIndexExists = false;
+
+        public BoxSearchProvider()
+        {
+            if (!RoleEnvironment.IsAvailable)
+            {
+                m_IndexName = m_IndexName + "-dev";
+                return;
+            }
+            if (RoleEnvironment.IsEmulated)
+            {
+                m_IndexName = m_IndexName + "-dev";
+            }
+        }
+
         private const string IdField = "id";
         private const string NameField = "name";
         private const string ImageField = "image";
@@ -24,9 +41,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string UseridsField = "userids";
         private const string PrivacySettingsField = "PrivacySettings";
 
-        private Index GetUniversityIndex()
+        private Index GetBoxIndex()
         {
-            return new Index(IndexName)
+            return new Index(m_IndexName)
                 .WithStringField(IdField, f => f
                     .IsKey()
                     .IsRetrievable()
@@ -54,7 +71,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<bool> UpdateData(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
-            await BuildIndex();
+            if (!m_CheckIndexExists)
+            {
+                await BuildIndex();
+            }
             var listOfCommands = new List<IndexOperation>();
             if (boxToUpload != null)
             {
@@ -79,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(IndexName, listOfCommands.ToArray());
+                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);
@@ -91,22 +111,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(IndexName);
+            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetUniversityIndex());
+                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
             }
+            m_CheckIndexExists = true;
         }
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query)
         {
-            
+
             if (string.IsNullOrEmpty(query.Term))
             {
                 return null;
             }
 
-            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(IndexName,
+            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
@@ -114,7 +135,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Skip = query.RowsPerPage * query.PageNumber
                 });
 
-
+            if (!searchResult.IsSuccess)
+            {
+                TraceLog.WriteError(searchResult.Error.Message);
+                return null;
+            }
             if (searchResult.Body.Records.Any())
             {
                 return searchResult.Body.Records.Select(s => new SearchBoxes(

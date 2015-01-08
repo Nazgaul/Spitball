@@ -32,6 +32,10 @@ namespace Zbang.Cloudents.Mobile
                 "~/Content/Box.css",
                 "~/Content/Feed.css"});
             cssDictionary.Add("mobileRtl", new[] { "~/Content/MobileRtl.css" });
+
+            cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
+            cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
+
             return cssDictionary;
         }
 
@@ -100,14 +104,17 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/box.js"),
 
                         new JsFileWithCdn("~/js/shared/loader/loader.js"),
+                        new JsFileWithCdn("~/js/shared/loader/innerLoader.js"),
 
                         new JsFileWithCdn("~/js/shared/events/events.js"),
                         new JsFileWithCdn("~/js/shared/scroll/scroll.js"),
+                        
 
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
 
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),
+                        new JsFileWithCdn("~/js/libs/plupload.js"),
                         new JsFileWithCdn("~/js/libs/msdelastic.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js"),
                         new JsFileWithCdn("~/js/libs/angular-facebook.js")

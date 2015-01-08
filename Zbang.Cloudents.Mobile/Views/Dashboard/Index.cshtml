@@ -3,13 +3,13 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 
 @*Guy: please add the class menuOpen on the dashboard when user clicks settings button*@
-<section class="dashboard" id="dashboard">
+<section class="dashboard" id="dashboard" inner-scroll="{{dashboard.loading}}">
     <header>
         <button type="button" class="menuBtn lFloat" id="menuBtn">
             @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
             <div class="msgCounter">5</div>
         </button>
-        <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
+        <a ui-sref="root.dashboard"><h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1></a>
     </header>
     <section class="welcome" ng-class="{closed : dashboard.welcomeClosed }">
         <h1>@SharedResources.WelcomeCloudents</h1>

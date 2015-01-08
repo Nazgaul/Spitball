@@ -7,6 +7,7 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 using Zbang.Zbox.ViewModel.SqlQueries;
@@ -238,6 +239,33 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
                 }
 
+            }
+        }
+
+        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync
+                    (Search.GetItemsToUploadToSearch +
+                    Search.GetItemUsersToUploadToSearch +
+                    Search.GetItemToDeleteToSearch
+                    ))
+                {
+                    var retVal = new ItemToUpdateSearchDto
+                    {
+                        ItemsToUpdate = await grid.ReadAsync<ItemSearchDto>()
+                    };
+                    var usersInItems = grid.Read<UsersInBoxSearchDto>().ToList();
+
+
+                    foreach (var Item in retVal.ItemsToUpdate)
+                    {
+                        Item.UserIds = usersInItems.Where(w => w.BoxId == Item.BoxId).Select(s => s.UserId);
+                    }
+                    retVal.ItemsToDelete = await grid.ReadAsync<long>();
+                    return retVal;
+                }
             }
         }
 

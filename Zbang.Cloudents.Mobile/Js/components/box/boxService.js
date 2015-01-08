@@ -1,14 +1,10 @@
 ﻿angular.module('box')
     .service('boxService',
-    ['$rootScope', '$window', 'box', function ($rootScope, $window, box) {
+    ['$rootScope', 'box', function ($rootScope, box) {
         var service = this;
 
         service.getData = function (boxId) {
             return box.data({ id: boxId });
-        };
-
-        service.goBack = function () {
-            $window.history.back();
         };
 
         service.doneLoad = function () {

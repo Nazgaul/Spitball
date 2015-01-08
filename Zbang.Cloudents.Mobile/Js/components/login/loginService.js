@@ -1,11 +1,11 @@
 ﻿angular.module('login')
     .service('loginService',
-    ['$state', 'account', 'Facebook', function ($state, account, facebook) {
+    ['$state', 'account', 'Facebook','$rootScope',  function ($state, account, facebook, $rootScope) {
         "use strict";
         var service = this;
 
         service.login = function (data) {
-            return account.login(data).then(function (response) {                
+            return account.login(data).then(function (response) {
                 $state.go('root.dashboard', {}, { reload: true });
 
             });

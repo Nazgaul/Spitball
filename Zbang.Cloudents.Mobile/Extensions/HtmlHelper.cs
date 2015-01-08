@@ -42,10 +42,10 @@ namespace Zbang.Cloudents.Mobile.Extensions
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {
-            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
-            {
-                key = key + BundleConfig.Rtl;
-            }
+            //if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            //{
+            //    key = key + BundleConfig.Rtl;
+            //}
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);
         }
@@ -58,6 +58,16 @@ namespace Zbang.Cloudents.Mobile.Extensions
                 return MvcHtmlString.Empty;
             }
             return MvcHtmlString.Create(cssLinks);
+        }
+
+        public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
+        {
+            if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                var cssLinks = BundleConfig.CssLink(key);
+                return MvcHtmlString.Create(cssLinks);
+            }
+            return MvcHtmlString.Empty;
         }
     }
 }

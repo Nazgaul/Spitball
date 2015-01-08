@@ -7,8 +7,7 @@
             endResult,
             isFetching,
             boxId = $stateParams.boxId;
-
-
+       
         getItemsPage();
         getTabs();
 
@@ -30,6 +29,7 @@
                 return;
             }
 
+            boxItems.loading = true;
             isFetching = true;
 
 
@@ -57,6 +57,8 @@
 
             }).finally(function () {
                 isFetching = false;
+                boxItems.loading = false;
+
             });
         }
 

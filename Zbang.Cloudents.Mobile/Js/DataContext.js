@@ -66,7 +66,7 @@
         definition.updateUniversity = new definitionobj({ url: cAccount + "UpdateUniversity" });
 
         definition.getBox = new definitionobj({ url: cBOX + "Data", type: get });
-        definition.getItems = new definitionobj({ url: cBOX + "Items", type: get });
+        definition.getItems = new definitionobj({ url: cBOX + "Items2", type: get });
        // definition.boxComments = new definitionobj({ url: "/Comment", type: get });
         definition.commentAdd = new definitionobj({ url: comment + "Add", isJson: true });
         definition.commentRemove = new definitionobj({ url: comment + "Delete" });

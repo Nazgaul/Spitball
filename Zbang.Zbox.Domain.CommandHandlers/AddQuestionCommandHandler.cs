@@ -48,20 +48,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //Decode the comment to html friendly
             var text = TextManipulation.EncodeComment(message.Text);
 
-            
+
             var files = new List<Item>();
             if (message.FilesIds != null)
             {
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-            var comment = box.AddComment(user, text, message.Id, files, null);
-            //var comment = new Comment(user, text, box, message.Id, files, false);
+            var comment = box.AddComment(user, text, message.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, comment.Id));
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
             return Task.WhenAll(t1, t2);
