@@ -23,7 +23,7 @@ select count(*)*100 as answerScore from zbox.Answer a where a.UserId = @userid
 ),
 question as
 (
-select count(*)*50 as questionScore from zbox.Question a where a.UserId = @userid
+select count(*)*50 as questionScore from zbox.Question a where a.UserId = @userid and issystemgenerated = 0
 ),
 rate as 
 (
