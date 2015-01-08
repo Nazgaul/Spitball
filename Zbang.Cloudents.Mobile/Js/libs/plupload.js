@@ -16,11 +16,7 @@
                             uploader.addFile(file);
                         });
                     };
-
-                    $scope.$on('$destroy', function () {
-                        uploader.destroy();
-                    });
-
+                    
 
                     function init() {
                         var options = {
@@ -63,6 +59,8 @@
 
                     function uploadComplete(up, file, res) {
                         $angularCacheFactory.clearAll();
+                        uploader.destroy();
+
                         $rootScope.$apply(function () {
                             $rootScope.$broadcast('uploadComplete');
                         });
