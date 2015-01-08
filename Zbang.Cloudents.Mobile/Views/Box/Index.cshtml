@@ -49,7 +49,6 @@
                     <div class="feedContent" ng-bind-html="::question.content"></div>
                     <ul class="qaAttach">
                         <li class="qaAttachItem" ng-repeat="file in question.files">
-                            <a target="_self" href="{{::file.url}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                         </li>
                     </ul>
