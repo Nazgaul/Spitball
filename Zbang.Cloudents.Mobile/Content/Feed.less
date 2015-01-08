@@ -1,23 +1,14 @@
 ﻿@import "varsAndMixins";
 
-.feed.feed {
+.feed {
     background: #eee;
-    text-align: center; //overrride
 }
 
 .feedForm {
     width: 100%;
-    //min-height: 38px;
     border-bottom: 1px solid @borderColor;
     position: relative;
     background: #fff;
-    &.sticky {
-        position: fixed;
-        top: 0;
-        .boxFeedList {
-            margin-top: 50px;
-        }
-    }
 }
 .feedTA {
     border: none;
@@ -39,19 +30,56 @@
 }
 
 .boxFeedList {
-    /*width: 100%;
-    padding: 12px;
-    .boxSizing;*/
     color: @textColor;
     display: inline-block;
-    width: 96%;
+    width: 92%;
     margin-top: 15px;
 }
 
 .feedWpr {
-    padding: 6px;
+    padding: 8px 10px;
     .boxSizing;
     background: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 2px @borderColor; //rtl
+    text-align: left; //rtl
+    font-size: 13px;
+    position: relative;
+    .userName {
+        color: @itemBlue;
+        padding: 0 5px;
+        .boxSizing;
+    }
+}
+.feedTop {
+    height: 27px;
+    line-height: 27px;
+}
+.createTime {
+    color: #999;
+}
+.commentBtn {
+    display: inline-block;
+    color: @itemBlue;
+    margin:0; //override
+    font-size: 12px;
+}
+.feedContent {
+    margin-top: 15px;
+    font-size: 15px;
+    white-space:normal;
+}
+.feedReplies {
+    .feedWpr {
+        padding: 8px 42px 8px 10px; //rtl
+        text-align: right; //rtl
+    }
+    .feedImg {
+        position: absolute;
+        right: 8px;
+        top: 6px; //rtl
+    }
 }
 .emptyFeed {
     width: 80%;
@@ -68,12 +96,7 @@
     display: none;
 }
 
-.commentBtn {
-    display: inline-block;
-    color: @itemBlue;
-    margin:0; //override
-    font-size: 12px;
-}
+
 /*.feed {
     color: @textColor;
     display: inline-block;

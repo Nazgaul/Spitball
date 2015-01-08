@@ -2,22 +2,14 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.feed.feed {
+.feed {
   background: #eee;
-  text-align: center;
 }
 .feedForm {
   width: 100%;
   border-bottom: 1px solid #c2c2c2;
   position: relative;
   background: #fff;
-}
-.feedForm.sticky {
-  position: fixed;
-  top: 0;
-}
-.feedForm.sticky .boxFeedList {
-  margin-top: 50px;
 }
 .feedTA {
   border: none;
@@ -40,20 +32,57 @@
   top: 7px;
 }
 .boxFeedList {
-  /*width: 100%;
-    padding: 12px;
-    .boxSizing;*/
   color: #383838;
   display: inline-block;
-  width: 96%;
+  width: 92%;
   margin-top: 15px;
 }
 .feedWpr {
-  padding: 6px;
+  padding: 8px 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 2px #c2c2c2;
+  text-align: left;
+  font-size: 13px;
+  position: relative;
+}
+.feedWpr .userName {
+  color: #3399ff;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.feedTop {
+  height: 27px;
+  line-height: 27px;
+}
+.createTime {
+  color: #999;
+}
+.commentBtn {
+  display: inline-block;
+  color: #3399ff;
+  margin: 0;
+  font-size: 12px;
+}
+.feedContent {
+  margin-top: 15px;
+  font-size: 15px;
+  white-space: normal;
+}
+.feedReplies .feedWpr {
+  padding: 8px 42px 8px 10px;
+  text-align: right;
+}
+.feedReplies .feedImg {
+  position: absolute;
+  right: 8px;
+  top: 6px;
 }
 .emptyFeed {
   width: 80%;
@@ -68,12 +97,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: none;
-}
-.commentBtn {
-  display: inline-block;
-  color: #3399ff;
-  margin: 0;
-  font-size: 12px;
 }
 /*.feed {
     color: @textColor;
