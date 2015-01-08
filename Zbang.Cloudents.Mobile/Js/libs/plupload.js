@@ -4,7 +4,7 @@
         directive('plUploader', function () {
             return {
                 restrict: 'A',
-                controller: ['$rootScope', '$stateParams', '$angularCacheFactory', function ($rootScope, $stateParams, $angularCacheFactory) {
+                controller: ['$scope', '$rootScope', '$stateParams', '$angularCacheFactory', function ($scope,$rootScope, $stateParams, $angularCacheFactory) {
                     var uploader,
                         plUpload = this,
                         boxId = $stateParams.boxId;
@@ -17,11 +17,16 @@
                         });
                     };
 
+                    $scope.$on('$destroy', function () {
+                        uploader.destroy();
+                    });
+
+
                     function init() {
                         var options = {
                             runtimes: 'html5',
                             multi_selection: true,
-                            browse_button: 'plFakeBtn',
+                            browse_button: 'plfakebtn',
                             chunk_size: '3mb',
                             url: '/Upload/File/',
                             headers: {
