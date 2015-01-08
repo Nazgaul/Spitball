@@ -10,3 +10,15 @@
   left: 10px;
   right: auto;
 }
+.feedWpr {
+  box-shadow: -1px 1px 2px #c2c2c2;
+  text-align: right;
+}
+.feedReplies .feedWpr {
+  padding: 8px 10px 8px 42px;
+  text-align: left;
+}
+.feedReplies .feedImg {
+  left: 8px;
+  right: auto;
+}

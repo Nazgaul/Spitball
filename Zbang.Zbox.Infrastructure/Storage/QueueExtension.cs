@@ -1,6 +1,8 @@
 ﻿//using Microsoft.WindowsAzure.StorageClient;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.IO;
 using System.Threading.Tasks;
@@ -40,6 +42,21 @@ namespace Zbang.Zbox.Infrastructure.Storage
                 cloudQueue.AddMessage(new CloudQueueMessage(m.ToArray()));
 
             }
+        }
+
+        public static Task DeleteMessagesAsync(this CloudQueue cloudQueue, IEnumerable<CloudQueueMessage> messages)
+        {
+            if (messages == null)
+            {
+                return Task.FromResult(false);
+            }
+            var cloudQueueMessages = messages as CloudQueueMessage[] ?? messages.ToArray();
+            if (!cloudQueueMessages.Any())
+            {
+                return Task.FromResult(false);
+            }
+            var list = cloudQueueMessages.Select(cloudQueue.DeleteMessageAsync).ToList();
+            return Task.WhenAll(list);
         }
 
         public static Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class

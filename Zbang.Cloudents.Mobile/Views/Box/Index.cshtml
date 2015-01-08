@@ -54,15 +54,15 @@
                                 <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             </li>
                         </ul>
-                        <button type="button" ng-click="feed.toggleComment(question)" focus-comment>@BoxResources.Comment</button>
+                        <button class="commentBtn" type="button" ng-click="feed.toggleComment(question)" focus-comment>@BoxResources.Comment</button>
                     </div>
 
                     <ul class="feedReplies">
                         <li ng-repeat="answer in question.answers">
                             <div class="feedWpr">
                                 <div class="feedTop">
+                                    <time class="createTime lFloat" display-time="{{::answer.creationTime}}"></time>
                                     <div class="userName elps">{{::answer.userName}}</div>
-                                    <time class="createTime rFloat" display-time="{{::answer.creationTime}}"></time>
                                 </div>
 
                                 <div class="feedContent" ng-bind-html="::answer.content"></div>
