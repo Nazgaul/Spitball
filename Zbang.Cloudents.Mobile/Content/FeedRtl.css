@@ -3,9 +3,10 @@
 /*#region mixins */
 /*#endregion */
 .feedTA {
-  padding: 0 8px 0 45px;
+  padding: 10px 8px 10px 45px;
 }
-.attachBtn {
+.attachBtn,
+.postBtn {
   left: 10px;
   right: auto;
 }

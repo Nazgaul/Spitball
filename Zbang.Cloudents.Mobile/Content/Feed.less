@@ -6,7 +6,7 @@
 
 .feedForm {
     width: 100%;
-    height: 38px;
+    //min-height: 38px;
     border-bottom: 1px solid @borderColor;
     position: relative;
     background: #fff;
@@ -19,21 +19,13 @@
     }
 }
 .feedTA {
-    //border-radius: 3px;
     border: none;
-    padding: 0 45px 0 8px; //rtl
-    min-height: 38px;
+    padding: 10px 45px 10px 8px; //rtl
+    height: 31px;
     width: 100%;
-    height: 38px;
     .boxSizing;
     font-size: 15px;
-    //.transition(min-height .3s ease-in);
     resize:none;
-    //width: 95%;
-    //width: ~'calc(100% - 40px)';
-    //float: right; //rtl
-    //margin-top: 2px;
-    //max-height:87px;
 }
 .boxFeedList {
     /*width: 100%;
@@ -44,10 +36,13 @@
     width: 96%;
     margin-top: 15px;
 }
-.attachBtn {
+.attachBtn, .postBtn {
     position: absolute;
-    top: 9px;
+    top: 8px;
     right: 10px; //rtl
+}
+.postBtn {
+    top: 7px;
 }
 /*.feed {
     color: @textColor;

@@ -7,7 +7,6 @@
 }
 .feedForm {
   width: 100%;
-  height: 38px;
   border-bottom: 1px solid #c2c2c2;
   position: relative;
   background: #fff;
@@ -21,10 +20,9 @@
 }
 .feedTA {
   border: none;
-  padding: 0 45px 0 8px;
-  min-height: 38px;
+  padding: 10px 45px 10px 8px;
+  height: 31px;
   width: 100%;
-  height: 38px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -40,10 +38,14 @@
   width: 96%;
   margin-top: 15px;
 }
-.attachBtn {
+.attachBtn,
+.postBtn {
   position: absolute;
-  top: 9px;
+  top: 8px;
   right: 10px;
+}
+.postBtn {
+  top: 7px;
 }
 /*.feed {
     color: @textColor;
