@@ -41,30 +41,35 @@
 
             <ul class="boxFeedList" scroll-paging on-scroll="feed.getFeedPage()">
                 <li ng-repeat="question in feed.list">
-                    <div class="feedTop">
-                        <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
-                        <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage}}" />
-                        <div class="userName elps">{{::question.userName}}</div>
+                    <div class="feedWpr">
+                        <div class="feedTop">
+                            <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
+                            <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage}}" />
+                            <div class="userName elps">{{::question.userName}}</div>
+                        </div>
+                        <div class="feedContent" ng-bind-html="::question.content"></div>
+                        <ul class="qaAttach">
+                            <li class="qaAttachItem" ng-repeat="file in question.files">
+                                <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                            </li>
+                        </ul>
+                        <button type="button" ng-click="feed.toggleComment(question)">@BoxResources.Comment</button>
                     </div>
-                    <div class="feedContent" ng-bind-html="::question.content"></div>
-                    <ul class="qaAttach">
-                        <li class="qaAttachItem" ng-repeat="file in question.files">
-                            <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
-                        </li>
-                    </ul>
-                    <button type="button" ng-click="feed.toggleComment(question)">@BoxResources.Comment</button>
                 <ul class="feedReplies">
                     <li ng-repeat="answer in question.answers">
-                        <img class="feedImg rFloat" ng-src="{{::answer.userImage}}" alt="" width="27" height="27" />
                         <div class="feedWpr">
-                            <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
-                            <div class="userName elps">{{::answer.userName}}</div>
+                            <div class="feedTop">
+                                <div class="userName elps">{{::answer.userName}}</div>
+                                <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
+                            </div>
+
                             <div class="feedContent" ng-bind-html="::answer.content"></div>
                             <ul class="qaAttach">
                                 <li class="qaAttachItem" ng-repeat="file in answer.files">
                                     <a target="_self" href="{{file.url}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
                                 </li>
                             </ul>
+                            <img class="feedImg rFloat" ng-src="{{::answer.userImage}}" alt="" width="27" height="27" />
                         </div>
                     </li>
                 </ul>
