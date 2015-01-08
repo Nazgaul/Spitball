@@ -39,19 +39,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_QueueProvider = queueProvider;
         }
 
+        public ActionResult Index()
+        {
+            return RedirectToAction("Index", User.Identity.IsAuthenticated ? "Dashboard" : "Account");
+        }
+
         //don't put in here route attribute
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         //this is for search,library choose,account settings home page
-        public ActionResult Index()
+        public ActionResult IndexEmpty()
         {
-            return View("Empty");// RedirectToActionPermanent("Index", "Dashboard");
+            return View("Empty");
         }
 
-        public ActionResult Redirect()
-        {
-            return RedirectToAction("Index", User.Identity.IsAuthenticated ? "Dashboard" : "Account");
-        }
+        //public ActionResult Redirect()
+        //{
+        //    return RedirectToAction("Index", User.Identity.IsAuthenticated ? "Dashboard" : "Account");
+        //}
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]

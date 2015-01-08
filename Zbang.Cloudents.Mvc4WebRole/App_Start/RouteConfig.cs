@@ -103,29 +103,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             routes.MapRoute("LibraryDesktop",
                 "library",
-                new { controller = "Home", action = "Index" }
+                new { controller = "Home", action = "IndexEmpty" }
             );
             routes.MapRoute("LibraryDesktop2",
                 "library/{LibId}/{LibName}",
-                new { controller = "Home", action = "Index" }
+                new { controller = "Home", action = "IndexEmpty" }
             );
             routes.MapRoute("User",
                "user/{userId}/{userName}",
-               new { controller = "Home", action = "Index" },
+               new { controller = "Home", action = "IndexEmpty" },
                new { userId = new LongRouteConstraint() }
            );
             routes.MapRoute("Search",
               "search",
-              new { controller = "Home", action = "Index" }
+              new { controller = "Home", action = "IndexEmpty" }
           );
 
             routes.MapRoute("AccountSettings",
              "account/settings",
-             new { controller = "Home", action = "Index" }
+             new { controller = "Home", action = "IndexEmpty" }
          );
-            routes.MapRoute("EmptyRedirectToDashboard",
-                "",
-                new { controller = "Home", action = "Redirect" });
+            //routes.MapRoute("EmptyRedirectToDashboard",
+            //    "",
+            //    new { controller = "Home", action = "Redirect" });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
