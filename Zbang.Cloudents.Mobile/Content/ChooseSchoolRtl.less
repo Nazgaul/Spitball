@@ -1,0 +1,22 @@
+﻿@import "varsAndMixins";
+
+.recommended, .searchResults {
+    li {
+        text-align: right; //rtl
+    }
+}
+.uniImg {
+    right:0; //rtl
+    left: auto;
+}
+.uniName {
+    padding: 0 60px 0 0; //rtl
+}
+.userPics {
+    &:after {
+        float: left; //rtl
+    }
+    img {
+        float: right; //rtl
+    }
+}

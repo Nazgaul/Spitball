@@ -31,12 +31,11 @@
 .searchLink {
   position: relative;
   display: inline-block;
-  margin-left: 40px;
   width: 78%;
   height: 30px;
   line-height: 30px;
   border-radius: 15px;
-  margin: 15px 0;
+  margin: 15px 0 15px 40px;
   background: #fff;
   border: 1px solid #c2c2c2;
   text-align: left;
@@ -76,39 +75,6 @@
   width: 100%;
   text-align: center;
   background: #282828;
-  /*&.courseTab, &.feedTab {
-        ~ .courseList, ~ .feed {
-
-        }
-        .tab:nth-child(1) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.itemsTab, &.boxItemsTab {
-        ~ .itemsList, ~ .boxItems  {
-
-        }
-        .tab:nth-child(2) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.membersTab {
-        ~ .membersList {
-
-        }
-        .tab:nth-child(3) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }*/
 }
 .tab {
   color: #a5a5a5;

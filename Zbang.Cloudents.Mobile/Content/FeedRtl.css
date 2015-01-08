@@ -1,0 +1,12 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.feedTA {
+  padding: 10px 8px 10px 45px;
+}
+.attachBtn,
+.postBtn {
+  left: 10px;
+  right: auto;
+}

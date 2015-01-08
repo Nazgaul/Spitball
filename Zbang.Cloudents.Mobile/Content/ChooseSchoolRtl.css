@@ -1,0 +1,21 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.recommended li,
+.searchResults li {
+  text-align: right;
+}
+.uniImg {
+  right: 0;
+  left: auto;
+}
+.uniName {
+  padding: 0 60px 0 0;
+}
+.userPics:after {
+  float: left;
+}
+.userPics img {
+  float: right;
+}

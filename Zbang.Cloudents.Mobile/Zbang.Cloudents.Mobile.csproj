@@ -460,18 +460,33 @@
       <DependentUpon>Box.less</DependentUpon>
     </Content>
     <Content Include="Content\Box.rtl.css" />
+    <Content Include="Content\BoxRtl.css">
+      <DependentUpon>BoxRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\ChooseSchool.css">
       <DependentUpon>ChooseSchool.less</DependentUpon>
     </Content>
     <Content Include="Content\ChooseSchool.rtl.css" />
+    <Content Include="Content\ChooseSchoolRtl.css">
+      <DependentUpon>ChooseSchoolRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\DashboardRtl.css">
+      <DependentUpon>DashboardRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Dashboard.css">
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
     <Content Include="Content\Dashboard.rtl.css" />
+    <Content Include="Content\FeedRtl.css">
+      <DependentUpon>FeedRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Feed.css">
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
     <Content Include="Content\Feed.rtl.css" />
+    <Content Include="Content\HomeRtl.css">
+      <DependentUpon>HomeRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Home.rtl.css" />
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
@@ -505,10 +520,16 @@
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>
     <Content Include="Content\Normalize.rtl.css" />
+    <Content Include="Content\RegistrationRtl.css">
+      <DependentUpon>RegistrationRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Registration.css">
       <DependentUpon>Registration.less</DependentUpon>
     </Content>
     <Content Include="Content\Registration.rtl.css" />
+    <Content Include="Content\SearchRtl.css">
+      <DependentUpon>SearchRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
     </Content>
@@ -625,6 +646,13 @@
     <Content Include="Content\Registration.less" />
     <Content Include="Content\ItemMobile.less" />
     <Content Include="Content\ItemMobileRtl.less" />
+    <Content Include="Content\BoxRtl.less" />
+    <Content Include="Content\ChooseSchoolRtl.less" />
+    <Content Include="Content\DashboardRtl.less" />
+    <Content Include="Content\FeedRtl.less" />
+    <Content Include="Content\HomeRtl.less" />
+    <Content Include="Content\RegistrationRtl.less" />
+    <Content Include="Content\SearchRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

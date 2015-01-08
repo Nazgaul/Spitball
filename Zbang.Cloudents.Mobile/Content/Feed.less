@@ -1,6 +1,50 @@
 ﻿@import "varsAndMixins";
 
 .feed {
+    background: #eee;
+}
+
+.feedForm {
+    width: 100%;
+    //min-height: 38px;
+    border-bottom: 1px solid @borderColor;
+    position: relative;
+    background: #fff;
+    &.sticky {
+        position: fixed;
+        top: 0;
+        .boxFeedList {
+            margin-top: 50px;
+        }
+    }
+}
+.feedTA {
+    border: none;
+    padding: 10px 45px 10px 8px; //rtl
+    height: 31px;
+    width: 100%;
+    .boxSizing;
+    font-size: 15px;
+    resize:none;
+}
+.boxFeedList {
+    /*width: 100%;
+    padding: 12px;
+    .boxSizing;*/
+    color: @textColor;
+    display: inline-block;
+    width: 96%;
+    margin-top: 15px;
+}
+.attachBtn, .postBtn {
+    position: absolute;
+    top: 8px;
+    right: 10px; //rtl
+}
+.postBtn {
+    top: 7px;
+}
+/*.feed {
     color: @textColor;
     display: inline-block;
     width: 96%;
@@ -72,21 +116,16 @@
     resize:none;
     width: 95%;
     width: ~'calc(100% - 40px)';
-    float: right;
+    float: right; //rtl
     margin-top: 2px;
     max-height:87px;
 }
 .attachBtn {
     position: absolute;
     top: 9px;
-    right: 6px;
+    right: 6px; //rtl
 }
 
-/*.svg-trash {
-    width: 14px;
-    height: 20px;
-    fill: #aaa;
-}*/
 .bottomTA {
     display: none;
     height: 40px;
@@ -103,7 +142,7 @@
     .boxSizing;
 }
 .feed-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
+	-webkit-transition: 1s linear all;
 	transition: 1s linear all;
 	opacity: 0;
 }
@@ -157,11 +196,6 @@
         top: 24px;
         right: 70px; //rtl
     }
-    /*&:empty {
-        ~ .emptyFeed {
-            display: block;
-        }
-    }*/
 }
 .feedWpr {
     background: #eee;
@@ -185,23 +219,17 @@
         font-size: 16px;
         white-space:normal;
     }
-    /*.commentBtn {
-        &:after {
-            content: '\00a0' '|' '\00a0';
-        }
-    }*/
+    //.commentBtn {
+      //  &:after {
+        //    content: '\00a0' '|' '\00a0';
+      //  }
+    //}
     .commentBtn {
         display: inline-block;
         color: @itemBlue;
         margin:0; //override
         font-size: 12px;
     }
-    /*.trash {
-        position: absolute;
-        bottom: 8px;
-        right: 15px; //rtl
-        display: none;
-    }*/
 }
 
 .feedReplies {
@@ -282,4 +310,17 @@
         height:125px;
         stroke: #0f9d58;
     }
+}*/
+.emptyFeed {
+    width: 80%;
+    //height: ~'-webkit-calc(100vh - 205px)';
+    //height: ~'calc(100vh - 205px)';
+    margin: 100px auto 0;
+    padding: 10px;
+    color: @borderColor;
+    border: 3px dotted @borderColor;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+    .boxSizing;
 }

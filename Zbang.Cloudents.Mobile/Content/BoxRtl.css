@@ -1,0 +1,17 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.box .backBtn {
+  margin: 12px 10px 0 0;
+}
+.inviteBtn {
+  margin: 8px 0 0 10px;
+}
+.boxList li {
+  float: right;
+  margin: 0 0 0 4%;
+}
+.boxList li:nth-child(even) {
+  float: left;
+}
