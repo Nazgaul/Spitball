@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_DigestEmailHourBack = hourForEmailDigest;
             m_ZboxReadService = zboxService;
             m_MailComponent = mailComponent;
-            m_TimeToSleepAfterExecuting = m_DigestEmailHourBack == NotificationSettings.OnEveryChange ? TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMInutes) : TimeSpan.FromHours(1);
+            m_TimeToSleepAfterExecuting = m_DigestEmailHourBack == NotificationSettings.OnEveryChange ? TimeSpan.FromMinutes(BaseDigestLastUpdateQuery.OnEveryChangeTimeToQueryInMinutes) : TimeSpan.FromHours(1);
 
         }
         public void Run()

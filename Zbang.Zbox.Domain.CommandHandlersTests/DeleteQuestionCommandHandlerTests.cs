@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             user.GetType().GetProperty("Id").SetValue(user, userId);
             var ownerBox = new User("some email1", " some small image1", "some largeImage1", "some first name1", "some middle name1", "some last name1", true, false, "en-US");
             var box = new Box("some box", ownerBox, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var question = new Comment(user, "some text", box, questionId, null);
+            var question = new Comment(user, "some text", box, questionId, null, FeedType.None);
 
             m_StubQuestionRepository.Stub(x => x.Load(questionId)).Return(question);
 

@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 {
     public abstract class BaseDigestLastUpdateQuery
     {
-        public const int OnEveryChangeTimeToQueryInMInutes = 15;
+        public const int OnEveryChangeTimeToQueryInMinutes = 15;
         protected BaseDigestLastUpdateQuery(NotificationSettings notificationSettings)
         {
             NotificationSettings = notificationSettings;
@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
             {
                 if (NotificationSettings == NotificationSettings.OnEveryChange)
                 {
-                    return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMInutes).TotalMinutes;
+                    return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMinutes).TotalMinutes;
                 }
                 return (int)NotificationSettings * (int)TimeSpan.FromHours(1).TotalMinutes;
             }

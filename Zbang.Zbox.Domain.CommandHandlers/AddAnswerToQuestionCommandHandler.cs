@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //Decode the comment to html friendly
             var text = TextManipulation.EncodeComment(message.Text);
 
-           
+
             var files = new List<Item>();
             if (message.FilesIds != null)
             {
@@ -58,10 +58,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
-
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, null, null, answer.Id));
+            box.UserTime.UpdateUserTime(user.Email);
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
-            
+
+            m_BoxRepository.Save(box);
             m_ReputationRepository.Save(reputation);
             m_AnswerRepository.Save(answer);
             m_UserRepository.Save(user);
