@@ -89,6 +89,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             foreach (var box in boxes.Select(s =>
             {
                 s.Url = UrlConsts.AppendCloudentsUrl(s.Url);
+                s.BoxPicture = UrlConsts.AppendCloudentsUrl(s.BoxPicture);
                 return s;
             }))
             {
