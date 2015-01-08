@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class UnFollowBoxCommand: ICommand
+    public class UnFollowBoxCommand: ICommandAsync
     {
         public UnFollowBoxCommand(long boxId, long userId, bool shouldDelete)
         {

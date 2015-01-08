@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
@@ -15,17 +15,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
 
-            if (context.User != null && context.User.Identity.IsAuthenticated)
-            {
-                var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
-                var userData = formsAuthenticationService.GetUserData();
-                if (userData != null)
-                {
-                    ChangeThreadLanguage(userData.Language);
-                    return;
-                }
-            }
-
             if (context.Request.QueryString["lang"] != null)
             {
                 ChangeThreadLanguage(context.Request.QueryString["lang"]);
@@ -35,6 +24,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             var lang = cookie.ReadCookie<Language>(CookieName);
             if (lang == null)
             {
+                if (context.User != null && context.User.Identity.IsAuthenticated)
+                {
+                    var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
+                    var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
+                    cookie.InjectCookie(CookieName, new Language { Lang = userData.Culture });
+                    ChangeThreadLanguage(userData.Culture);
+                    return;
+                }
                 var country = GetCountryByIp(context);
                 if (country.ToLower() == "nl")
                 {

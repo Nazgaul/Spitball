@@ -35,7 +35,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             while (m_KeepRunning)
             {
                 ExecuteAsync().Wait();
-                Thread.Sleep(TimeSpan.FromMinutes(1));
             }
         }
 
@@ -44,6 +43,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             await UpdateItem();
             await UpdateBox();
             await UpdateUniversity();
+
+            await Task.Delay(TimeSpan.FromMinutes(1));
 
         }
 

@@ -93,4 +93,4 @@
             }
         };
     });
-})(angular)
+})(window.angular)

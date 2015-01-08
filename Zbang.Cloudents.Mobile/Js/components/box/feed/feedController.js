@@ -1,4 +1,4 @@
-﻿angular.module('feed', ['ajax', 'monospaced.elastic', 'plupload']).
+﻿angular.module('feed', ['ajax', 'monospaced.elastic', 'plupload', 'textDirection', 'displayTime']).
     controller('FeedController',
     ['feedService', '$stateParams', 'userDetails', function (feedService, $stateParams, userDetails) {
         var feed = this;
@@ -12,7 +12,7 @@
 
         getFeedPage();
 
-        feed.getFeedPage = function () {            
+        feed.getFeedPage = function () {
             getFeedPage(true);
         };
 
@@ -59,6 +59,10 @@
             if (isFetching) {
                 return;
             }
+            
+            if (endResult) {
+                return;
+            }
 
             isFetching = true;
             feed.loading = true;
@@ -66,15 +70,15 @@
             feedService.getFeedPage(boxId, page).then(function (feedPage) {
                 feedPage = feedPage || [];
 
-                
+                page++;
 
-                if (!feedPage) {
+
+                if (!feedPage.length) {
                     endResult = true;
                     return;
                 }
 
                 feed.list = feedPage;
-                page++;
 
             }).finally(function () {
                 isFetching = false;

@@ -1,14 +1,10 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace Zbang.Zbox.Infrastructure.Repositories
 {
     public interface ISoftDeletable
     {
         bool IsDeleted { get; set; }
         void DeleteAssociation();
-    }
-
-    public interface IDirty : ISoftDeletable
-    {
-        bool IsDirty { get; set; }
     }
 }

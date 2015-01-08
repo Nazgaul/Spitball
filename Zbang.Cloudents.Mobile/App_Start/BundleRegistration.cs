@@ -125,6 +125,8 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/libs/plupload.js"),
                         new JsFileWithCdn("~/js/libs/msdelastic.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js"),
+                        new JsFileWithCdn("~/js/libs/displayTime.js"),
+                        new JsFileWithCdn("~/js/libs/textDirection.js"),
                         new JsFileWithCdn("~/js/libs/angular-facebook.js")
 
 

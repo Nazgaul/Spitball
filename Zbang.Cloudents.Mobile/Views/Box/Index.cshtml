@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
 <section class="box">
     <header>
         @*<button type="button" class="inviteBtn rFloat">
@@ -23,7 +24,7 @@
     <div ng-switch="box.currentTab">
         <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader inner-scroll="{{feed.loading}}">
             <span id="plfakebtn" style="display:none;"></span>
-            <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate>
+            <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
                 <textarea name="content" class="feedTA" ng-placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
@@ -32,6 +33,7 @@
                     </li>
                 </ul>
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn">
+                <button ng-if="!feed.questionFormData.content.length" type="button" class="lFloat attachBtn" pl-fileinput>
                     @Html.Svg("~/Images/Defs.svg", "post", new { @class = "svg-post ltr" })
                 </button>
                 <button ng-if="!feed.questionFormData.content.length" type="button" class="attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
@@ -41,6 +43,7 @@
 
             <ul class="boxFeedList" scroll-paging on-scroll="feed.getFeedPage()">
                 <li ng-repeat="question in feed.list">
+<<<<<<< HEAD
                     <div class="feedWpr">
                         <div class="feedTop">
                             <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
@@ -79,13 +82,51 @@
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                             <span class="attachName elps">{{::file.name}}</span>
+=======
+                    <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage}}" />
+                    <div class="feedTop">
+                    <div class="feedWpr">
+                        <time class="createTime rFloat" display-time="{{::question.creationTime}}"></time>
+                        <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage}}" />
+                        <div class="userName elps">{{::question.userName}}</div>
+                    </div>
+                        <div class="feedContent" ng-bind-html="::question.content"></div>
+                        <ul class="qaAttach">
+                            <li class="qaAttachItem" ng-repeat="file in question.files">
+                                <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
+                            </li>
+                        </ul>
+                        <button type="button" ng-click="feed.toggleComment(question)" focus-comment>@BoxResources.Comment</button>
+                    </div>
+                    <ul class="feedReplies rFloat">
+                        <li ng-repeat="answer in question.answers">
+                            <img class="feedImg rFloat" ng-src="{{::answer.userImage}}" alt="" width="27" height="27" />
+                            <div class="feedWpr">
+                                <time class="createTime rFloat" display-time="{{::answer.creationTime}}"></time>
+                                <div class="userName elps">{{::answer.userName}}</div>
+                                <div class="feedContent" ng-bind-html="::answer.content"></div>
+                                <ul class="qaAttach">
+                                    <li class="qaAttachItem" ng-repeat="file in answer.files">
+                                        <a target="_self" href="{{file.url}}"><img ng-src="{{file.thumbnail}}" alt="" width="100" height="125"></a>
+                                    </li>
+                                </ul>
+                            </div>
+>>>>>>> 8a19b97414aae5c7d4dd468f0c599e9a246e48b4
                         </li>
                     </ul>
-                    <button ng-if="question.aFormData.content.length" class="lFloat" type="submit">P</button>
-                    <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" ng-click="feed.uploadFile()" pl-fileinput>
-                        @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
-                    </button>
-                </form>
+                    <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
+                        <img class="feedImg rFloat" ng-src="{{::root.user.image}}" alt="" width="27" height="27" />
+                        <textarea name="content" class="feedTA" ng-placeholder="WriteComment" ng-model="question.aFormData.content"></textarea>
+                        <ul class="attachedList">
+                            <li class="attachedItem" ng-repeat="file in question.aFormData.files">
+                                <span class="attachName elps">{{::file.name}}</span>
+                            </li>
+                        </ul>
+                        <button ng-if="question.aFormData.content.length" class="lFloat" type="submit">P</button>
+                        <button ng-if="!question.aFormData.content" type="button" class="lFloat attachBtn" pl-fileinput>
+                            @Html.Svg("~/Images/Defs.svg", "camera", new { @class = "svg-attachment" })
+                        </button>
+                    </form>
                 </li>
             </ul>
 

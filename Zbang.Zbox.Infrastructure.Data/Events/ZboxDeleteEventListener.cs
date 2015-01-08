@@ -17,7 +17,10 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var dirty = entity as IDirty;
             if (dirty != null)
             {
-                dirty.IsDirty = true;
+                if (dirty.ShouldMakeDirty())
+                {
+                    dirty.IsDirty = true;
+                }
             }
             var deletable = entity as ISoftDeletable;
             if (deletable != null)
