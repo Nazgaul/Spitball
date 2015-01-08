@@ -59,5 +59,15 @@ namespace Zbang.Cloudents.Mobile.Extensions
             }
             return MvcHtmlString.Create(cssLinks);
         }
+
+        public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
+        {
+            if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                var cssLinks = BundleConfig.CssLink(key);
+                return MvcHtmlString.Create(cssLinks);
+            }
+            return MvcHtmlString.Empty;
+        }
     }
 }

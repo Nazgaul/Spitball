@@ -85,7 +85,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id, int page, Guid? tabId)
+        public async Task<JsonResult> Items(long id, Guid? tabId, int page)
         {
             try
             {
@@ -96,6 +96,30 @@ namespace Zbang.Cloudents.Mobile.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Box Items BoxId {0} page {1}", id, page), ex);
+                return JsonError();
+            }
+        }
+
+        /// <summary>
+        /// Used for old item view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tabId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
+        public async Task<JsonResult> Items2(long id, Guid? tabId)
+        {
+            try
+            {
+                var query = new GetBoxItemsPagedQuery(id, null);
+                var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
+                return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Items BoxId {0}", id), ex);
                 return JsonError();
             }
         }

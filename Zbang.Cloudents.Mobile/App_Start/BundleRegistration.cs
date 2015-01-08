@@ -32,6 +32,10 @@ namespace Zbang.Cloudents.Mobile
                 "~/Content/Box.css",
                 "~/Content/Feed.css"});
             cssDictionary.Add("mobileRtl", new[] { "~/Content/MobileRtl.css" });
+
+            cssDictionary.Add("itemMobile", new[] { "~/Content/ItemMobile.css" });
+            cssDictionary.Add("itemMobileRtl", new[] { "~/Content/ItemMobileRtl.css" });
+
             return cssDictionary;
         }
 

@@ -431,6 +431,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WelcomeResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs" />
+    <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs" />
     <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
       <DependentUpon>SharedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -471,6 +473,18 @@
     </Content>
     <Content Include="Content\Feed.rtl.css" />
     <Content Include="Content\Home.rtl.css" />
+    <Content Include="Content\ItemMobile.css">
+      <DependentUpon>ItemMobile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemMobile.min.css">
+      <DependentUpon>ItemMobile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemMobileRtl.css">
+      <DependentUpon>ItemMobileRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemMobileRtl.min.css">
+      <DependentUpon>ItemMobileRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -607,6 +621,8 @@
     <Content Include="Content\ChooseSchool.less" />
     <Content Include="Content\Mobile.less" />
     <Content Include="Content\Registration.less" />
+    <Content Include="Content\ItemMobile.less" />
+    <Content Include="Content\ItemMobileRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1427,6 +1443,13 @@
     <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Item\_PreviewFailed.cshtml" />
+    <Content Include="Views\Item\_PreviewImage.cshtml" />
+    <Content Include="Views\Item\_PreviewLink.cshtml" />
+    <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
+    <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
+    <Content Include="Views\Item\_PreviewSvg.cshtml" />
+    <Content Include="Views\Item\_PreviewText.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1435,7 +1458,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Item\Resources\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>
@@ -1705,6 +1727,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.zh.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ru.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.zh.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ru.resx" />
+    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
