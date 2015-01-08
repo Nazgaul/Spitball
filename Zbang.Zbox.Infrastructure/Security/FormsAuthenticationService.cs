@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                     return null;
                 }
                 var v = ident.Ticket.UserData;
-                userData = UserDetail.Deserialize(v);
+                userData = UserDetail.DeSerialize(v);
 
                 HttpContext.Current.Items[itemInex] = userData;
             }
@@ -54,23 +54,23 @@ namespace Zbang.Zbox.Infrastructure.Security
         }
 
        
-        public void ChangeLanguage(string newLanguage)
-        {
-            if (string.IsNullOrEmpty(newLanguage))
-            {
-                throw new ArgumentNullException("newLanguage");
-            }
-            var ident = (FormsIdentity)HttpContext.Current.User.Identity;
-            var ticket = ident.Ticket;
-            var userDetail = UserDetail.Deserialize(ticket.UserData);
-            userDetail.Language = newLanguage;
-            SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
-        }
+        //public void ChangeLanguage(string newLanguage)
+        //{
+        //    if (string.IsNullOrEmpty(newLanguage))
+        //    {
+        //        throw new ArgumentNullException("newLanguage");
+        //    }
+        //    var ident = (FormsIdentity)HttpContext.Current.User.Identity;
+        //    var ticket = ident.Ticket;
+        //    var userDetail = UserDetail.DeSerialize(ticket.UserData);
+        //    userDetail.Language = newLanguage;
+        //    SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);
+        //}
         public void ChangeUniversity(long? universityId, long? universityDataId)
         {
             var ident = (FormsIdentity)HttpContext.Current.User.Identity;
             var ticket = ident.Ticket;
-            var userDetail = UserDetail.Deserialize(ticket.UserData);
+            var userDetail = UserDetail.DeSerialize(ticket.UserData);
             userDetail.UniversityId = universityId;
             userDetail.UniversityDataId = universityDataId;
             SignIn(Convert.ToInt64(ident.Name), ident.Ticket.IsPersistent, userDetail);

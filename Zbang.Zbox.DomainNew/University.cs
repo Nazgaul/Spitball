@@ -86,5 +86,14 @@ namespace Zbang.Zbox.Domain
         public void DeleteAssociation()
         {
         }
+
+
+        public Func<bool> ShouldMakeDirty
+        {
+            get
+            {
+                return () => true;
+            }
+        }
     }
 }

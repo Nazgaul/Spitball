@@ -158,6 +158,7 @@ namespace Zbang.Zbox.Domain
         public virtual Comment AddComment(User user, string text, Guid id, IList<Item> items, FeedType feedType)
         {
             var comment = new Comment(user, text, this, id, items, feedType);
+            ShouldMakeDirty = () => false;
             Comments.Add(comment);
             UpdateCommentsCount();
             UserTime.UpdateUserTime(user.Email);
@@ -172,9 +173,6 @@ namespace Zbang.Zbox.Domain
         public virtual IEnumerable<long> DeleteComment(Comment comment)
         {
             var usersAffectedByDeleteComment = comment.AnswersReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
-            //var reputation = comment.AnswersReadOnly.Select(answer => answer.User.AddReputation(ReputationAction.DeleteAnswer)).ToList();
-            //reputation.Add(comment.User.AddReputation
-            //    (ReputationAction.DeleteQuestion));
             Comments.Remove(comment);
             UpdateCommentsCount();
             return usersAffectedByDeleteComment;
@@ -309,5 +307,10 @@ namespace Zbang.Zbox.Domain
         }
 
         public bool IsDirty { get; set; }
+
+
+        public Func<bool> ShouldMakeDirty {get;set;}
+
+
     }
 }

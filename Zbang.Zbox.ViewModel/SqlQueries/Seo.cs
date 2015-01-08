@@ -8,7 +8,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Seo")]
         public const string GetSeoItemsByPage = @"select b.Url as url
 from zbox.box b 
-where University in (select userid from zbox.users where usertype =1 and needcode = 0)
+where University in (select v.id from zbox.University v where needcode = 0)
 and Discriminator = 2
 and IsDeleted = 0
 union all

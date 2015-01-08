@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.Common
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
-        void UnFollowBox(UnFollowBoxCommand command);
+        Task UnFollowBoxAsync(UnFollowBoxCommand command);
 
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
 

@@ -318,11 +318,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public JsonResult Delete2(long id, bool delete = false)
+        public async Task<JsonResult> Delete2(long id, bool delete = false)
         {
             var userId = User.GetUserId();
             var command = new UnFollowBoxCommand(id, userId, delete);
-            ZboxWriteService.UnFollowBox(command);
+            await ZboxWriteService.UnFollowBoxAsync(command);
             return JsonOk();
         }
 

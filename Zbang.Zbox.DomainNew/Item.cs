@@ -125,6 +125,15 @@ namespace Zbang.Zbox.Domain
         }
 
         public bool IsDirty { get; set; }
+
+
+        public Func<bool> ShouldMakeDirty
+        {
+            get
+            {
+                return () => true;
+            }
+        }
     }
 
     public class Link : Item
