@@ -9,7 +9,7 @@
         <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
     </form>
 </div>
-<div class="searchContent" scroll-paging on-scroll="search.query(true)">
+<div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">
     <div class="tabs">
         <button type="button" class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">@SharedResources.Courses</button>
         <button type="button" class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">@SharedResources.Items</button>

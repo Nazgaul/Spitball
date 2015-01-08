@@ -8,12 +8,11 @@
             isFetching,
             boxId = $stateParams.boxId;
 
-
         feed.questionFormData = {};
 
         getFeedPage();
 
-        feed.getFeedPage = function () {
+        feed.getFeedPage = function () {            
             getFeedPage(true);
         };
 
@@ -62,9 +61,12 @@
             }
 
             isFetching = true;
+            feed.loading = true;
 
             feedService.getFeedPage(boxId, page).then(function (feedPage) {
                 feedPage = feedPage || [];
+
+                
 
                 if (!feedPage) {
                     endResult = true;
@@ -76,6 +78,7 @@
 
             }).finally(function () {
                 isFetching = false;
+                feed.loading = false;
             });
         }
 

@@ -9,6 +9,8 @@
             endResult;
 
 
+        dashboardService.doneLoad();       
+
         if (!userDetails.isFirstTimeDashboard()) {
             dashboard.welcomeClosed = true;
         }
@@ -23,7 +25,7 @@
                 return;
             }
             isFetching = true;
-
+            dashboard.loading = true;
             dashboardService.getBoxList(page).then(function (boxes) {
                 page++;
 
@@ -36,8 +38,7 @@
 
 
                 if (!isAppend) {
-                    dashboard.boxes = boxes;
-                    dashboardService.doneLoad();
+                    dashboard.boxes = boxes;                    
                     return;
                 }
 
@@ -47,6 +48,7 @@
 
             }).finally(function () {
                 isFetching = false;
+                dashboard.loading = false;
             });
         };
 
