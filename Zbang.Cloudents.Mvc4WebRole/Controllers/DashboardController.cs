@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [RedirectToMobile]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Hour * 1,
+           Duration = TimeConsts.Day,
            Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
