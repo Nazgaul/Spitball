@@ -120,9 +120,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         Score = commandResult.User.Reputation
                     };
                 }
-
+                cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = user.Culture });
                 FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
-                    user.Culture,
+                    //user.Culture,
                     user.UniversityId,
                     user.UniversityData
                     ));
@@ -169,10 +169,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     {
                         var query = new GetUserByMembershipQuery(membershipUserId);
                         var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-
+                        cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
                         FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
-                                result.Culture,
+                                //result.Culture,
                                 result.UniversityId,
                                 result.UniversityData));
                         return JsonOk();
@@ -239,10 +239,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null);
                     var result = await ZboxWriteService.CreateUserAsync(command);
-
+                    cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.User.Culture });
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
-                            result.User.Culture,
+                            //result.User.Culture,
                             result.UniversityId,
                             result.UniversityData));
                     cookie.RemoveCookie(Invite.CookieName);
@@ -265,129 +265,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
         #endregion
 
-        //#region AccountSettings
-        //[ZboxAuthorize, NoUniversity]
-        //[NoCache]
-        //public ActionResult Settings()
-        //{
-        //    var userId = User.GetUserId();
-        //    var query = new GetUserDetailsQuery(userId);
-
-        //    var user = ZboxReadService.GetUserAccountDetails(query);
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        return PartialView(user);
-        //    }
-        //    return View(user);
-        //}
-
-        //[ZboxAuthorize, NoUniversity]
-        //[NoCache]
-        //public ActionResult SettingsDesktop()
-        //{
-        //    return View("Empty");
-        //}
-
-        //[ZboxAuthorize, NoUniversity]
-        //public JsonResult SettingsData()
-        //{
-        //    var userId = User.GetUserId();
-        //    var query = new GetUserDetailsQuery(userId);
-
-        //    var user = ZboxReadService.GetUserAccountDetails(query);
-        //    return JsonOk(user);
-        //}
-
-        //[DonutOutputCache(Duration = TimeConsts.Minute * 5,
-        //   Location = OutputCacheLocation.ServerAndClient,
-        //   VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
-        //[ZboxAuthorize, NoUniversity]
-        //public PartialViewResult SettingPartial()
-        //{
-        //    return PartialView("Settings");
-        //}
-
-        //const string SessionKey = "UserVerificationCode";
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public JsonResult EnterCode(long? code)
-        //{
-        //    if (!code.HasValue)
-        //    {
-        //        return JsonError(AccountControllerResources.ChangeEmailCodeError);
-        //    }
-        //    var model = Session[SessionKey] as ChangeMail;
-        //    if (model == null)
-        //    {
-        //        return JsonError(AccountControllerResources.ChangeEmailCodeError);
-        //    }
-        //    if (code != model.Code)
-        //    {
-        //        return JsonError(AccountControllerResources.ChangeEmailCodeError);
-        //    }
-        //    var id = User.GetUserId();
-        //    try
-        //    {
-        //        var command = new UpdateUserEmailCommand(id, model.Email);
-        //        ZboxWriteService.UpdateUserEmail(command);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return JsonError(ex.Message);
-        //    }
-
-        //    Session.Remove(SessionKey);
-        //    return JsonOk(model.Email);
-        //}
-
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public async Task<JsonResult> ChangeEmail(ChangeMail model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    try
-        //    {
-        //        var rand = new Random();
-        //        var generatedCode = rand.Next(10000, 99999);
-        //        model.Code = generatedCode;
-        //        Session[SessionKey] = model;
-
-        //        await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
-        //             model.Email, Thread.CurrentThread.CurrentCulture.Name));
-        //        return JsonOk(new { code = true });
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return JsonError(new { error = ex.Message });
-        //    }
-        //}
-
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult ChangeProfile([ModelBinder(typeof(TrimModelBinder))]Profile model)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return JsonError(new { error = GetModelStateErrors() });
-        //        }
-        //        var id = User.GetUserId();
-        //        var profilePics = new ProfileImages(model.Image, model.LargeImage);
-
-        //        var command = new UpdateUserProfileCommand(id, profilePics.Image,
-        //            profilePics.LargeImage, model.FirstName, model.MiddleName, model.LastName);
-        //        ZboxWriteService.UpdateUserProfile(command);
-        //        return JsonOk();
-        //    }
-        //    catch (UserNotFoundException)
-        //    {
-        //        return JsonError(new { error = "User doesn't exists" });
-        //    }
-        //}
+        
         [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
@@ -446,34 +324,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult ChangePassword(Password model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    var id = User.GetUserId();
-        //    var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
-        //    var commandResult = ZboxWriteService.UpdateUserPassword(command);
-        //    return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
-        //}
-
-
-        //[HttpPost]
-        //public ActionResult ChangeLanguage(Mvc4WebRole.Models.Account.Settings.UserLanguage model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    var id = User.GetUserId();
-        //    var command = new UpdateUserLanguageCommand(id, model.Language);
-        //    ZboxWriteService.UpdateUserLanguage(command);
-        //    FormsAuthenticationService.ChangeLanguage(model.Language);
-        //    return JsonOk();
-        //}
 
         [HttpPost]
         public ActionResult ChangeLocale(string lang)
@@ -640,9 +490,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
             Session.Abandon();
+            var cookie = new CookieHelper(HttpContext);
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
-                    result.Culture,
+                    //result.Culture,
                     result.UniversityId,
                     result.UniversityData
                     ));

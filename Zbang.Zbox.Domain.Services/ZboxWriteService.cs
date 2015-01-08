@@ -107,19 +107,12 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        //public void DeleteBox(DeleteBoxCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-        public void UnFollowBox(UnFollowBoxCommand command)
+        
+        public async Task UnFollowBoxAsync(UnFollowBoxCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

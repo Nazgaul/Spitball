@@ -13,9 +13,16 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var dirty = @event.Entity as IDirty;
             if (dirty != null)
             {
-                dirty.IsDirty = true;
-                Set(@event.Persister, @event.State, "IsDirty", true);
-            } 
+                if (dirty.ShouldMakeDirty == null)
+                {
+                    MakeDirty(@event, @event.State, dirty);
+                    return false;
+                }
+                if (dirty.ShouldMakeDirty())
+                {
+                    MakeDirty(@event, @event.State, dirty);
+                }
+            }
             return false;
         }
 
@@ -24,14 +31,28 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var dirty = @event.Entity as IDirty;
             if (dirty != null)
             {
-                dirty.IsDirty = true;
-                Set(@event.Persister, @event.State, "IsDirty", true);
+                if (dirty.ShouldMakeDirty == null)
+                {
+                    MakeDirty(@event, @event.State, dirty);
+                    return false;
+                }
+                if (dirty.ShouldMakeDirty())
+                {
+                    MakeDirty(@event, @event.State, dirty);
+                }
             }
 
-          
+
 
             return false;
         }
+
+        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
+        {
+            dirty.IsDirty = true;
+            Set(@event.Persister, state, "IsDirty", true);
+        }
+
         private void Set(IEntityPersister persister, object[] state, string propertyName, object value)
         {
             var index = Array.IndexOf(persister.PropertyNames, propertyName);

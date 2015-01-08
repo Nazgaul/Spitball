@@ -6,10 +6,11 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using System.Text;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class User
+    public class User : IDirty
     {
         protected User()
         {
@@ -258,5 +259,15 @@ namespace Zbang.Zbox.Domain
         }
         #endregion
 
+
+        public bool IsDirty {get;set;}
+
+        public Func<bool> ShouldMakeDirty { get; set; }
+
+        public bool IsDeleted {get;set;}
+
+        public void DeleteAssociation()
+        {
+        }
     }
 }

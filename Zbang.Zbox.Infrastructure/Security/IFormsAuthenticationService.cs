@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         //void VerifyEmail();
         //void ChangeNameAndEmail(long? universityId);
-        void ChangeLanguage(string newLanguage);
+        //void ChangeLanguage(string newLanguage);
 
         //void ChangeUniversity(long universityId);
         void ChangeUniversity(long? universityId, long? universityDataId);

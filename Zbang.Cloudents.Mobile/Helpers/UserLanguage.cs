@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
+using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Models.Account;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
@@ -14,18 +15,6 @@ namespace Zbang.Cloudents.Mobile.Helpers
         public const string CookieName = "lang";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
-
-            if (context.User != null && context.User.Identity.IsAuthenticated)
-            {
-                var formsAuthenticationService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFormsAuthenticationService>();
-                var userData = formsAuthenticationService.GetUserData();
-                if (userData != null)
-                {
-                    ChangeThreadLanguage(userData.Language);
-                    return;
-                }
-            }
-
             if (context.Request.QueryString["lang"] != null)
             {
                 ChangeThreadLanguage(context.Request.QueryString["lang"]);
@@ -35,46 +24,25 @@ namespace Zbang.Cloudents.Mobile.Helpers
             var lang = cookie.ReadCookie<Language>(CookieName);
             if (lang == null)
             {
+                if (context.User != null && context.User.Identity.IsAuthenticated)
+                {
+                    var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
+                    var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
+                    cookie.InjectCookie(CookieName, new Language { Lang = userData.Culture });
+                    ChangeThreadLanguage(userData.Culture);
+                    return;
+                }
                 var country = GetCountryByIp(context);
                 if (country.ToLower() == "nl")
                 {
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(CookieName, new Language {Lang = culture.Name});
+                cookie.InjectCookie(CookieName, new Language { Lang = culture.Name });
                 ChangeThreadCulture(culture);
                 return;
             }
-            //if (context.Request.Cookies["lang"] != null)
-            //{
-            //    var value = server.HtmlEncode(context.Request.Cookies["lang"].Value);
             ChangeThreadLanguage(lang.Lang);
-            //    return;
-            //}
-            //var country = GetCountryByIp(context);
-            //if (country.ToLower() == "nl")
-            //{
-            //    country = "gb";
-            //}
-            //var culture = Languages.GetCultureBaseOnCountry(country);
-            //ChangeThreadCulture(culture);
-
-            //if (context.Request.UserLanguages == null) return;
-            //foreach (var languageWithRating in context.Request.UserLanguages)
-            //{
-            //    if (string.IsNullOrEmpty(languageWithRating))
-            //    {
-            //        continue;
-            //    }
-            //    var userLanguage = languageWithRating.Split(';')[0];
-            //    if (userLanguage.StartsWith("nl"))
-            //    {
-            //        userLanguage = "en-GB";
-            //    }
-            //    if (!Languages.CheckIfLanguageIsSupported(userLanguage)) continue;
-            //    ChangeThreadLanguage(userLanguage);
-            //    break;
-            //}
         }
         private static void ChangeThreadLanguage(string language)
         {
