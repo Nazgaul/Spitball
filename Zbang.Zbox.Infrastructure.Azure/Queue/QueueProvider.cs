@@ -45,22 +45,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
         }
 
-        //public void InsertMessageToCache(FileProcessData message)
-        //{
-        //    var queue = GetCacheQueue();
-        //    queue.InsertToQueueProto(message);
-        //}
-
         public Task InsertMessageToCacheAsync(FileProcessData message)
         {
             var queue = GetCacheQueue();
             return queue.InsertToQueueProtoAsync(message);
         }
 
-        //public void InsertMessageToMailNew(BaseMailData message)
-        //{
-        //    GetMailQueueNew().InsertToQueueProto(message);
-        //}
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
             return GetMailQueueNew().InsertToQueueProtoAsync(message);
@@ -99,7 +89,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
             if (messages == null)
             {
-                //SleepAndIncreaseInterval();
                 return false;
             }
             var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
@@ -108,14 +97,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             {
                 try
                 {
-                    //m_Interval = m_MinInterval;
-
                     if (msg.DequeueCount < deQueueCount)
                     {
                         if (await func.Invoke(msg))
                         {
                             listToWait.Add(queue.DeleteMessageAsync(msg));
-                            
                         }
                     }
                     else
@@ -132,6 +118,28 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                     TraceLog.WriteError("Queue: " + queue.Name + " run " + msg.Id + " DeQueue count: " + msg.DequeueCount, ex);
                 }
             }
+            await Task.WhenAll(listToWait);
+            return cloudQueueMessages.Any();
+        }
+
+        public async Task<bool> RunQueueMultiple(QueueName queueName,
+            Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
+          TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
+        {
+            if (queueName == null) throw new ArgumentNullException("queueName");
+            if (func == null) throw new ArgumentNullException("func");
+            var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
+            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
+            if (messages == null)
+            {
+                return false;
+            }
+            var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
+            var listToWait = new List<Task>();
+
+            listToWait.Add(queue.DeleteMessagesAsync(cloudQueueMessages.Where(w => w.DequeueCount < deQueueCount)));
+            var messagesToDelete = await func.Invoke(cloudQueueMessages);
+            listToWait.Add(queue.DeleteMessagesAsync(messagesToDelete));
             await Task.WhenAll(listToWait);
             return cloudQueueMessages.Any();
         }
