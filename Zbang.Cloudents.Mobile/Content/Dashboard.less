@@ -58,6 +58,7 @@
     position: relative;
     padding: 0 5%;
     background: #282828;
+    .boxSizing;
     //top:36px; //If the header is fixed
     h1 {
         font-size: 28px;
@@ -69,6 +70,10 @@
         h1, h3, .featureTxt, .closeBtn {
             display: none;
         }
+    }
+    .searchLink {
+        margin: 15px auto;
+        width: 96%;
     }
 }
 .menuBtn {
@@ -253,6 +258,10 @@
 /*#region Dashboard followed courses */
 .followedClasses {
     text-align: left; //rtl
+    a {
+        display: block;
+        height: 100%;
+    }
     li {
         height: 60px;
         position: relative;
@@ -297,7 +306,7 @@
     width: 67%;
     height: 100%;
     top: 0;
-    left:0; //rtl
+    left: -5px; //rtl to account for box-shadow
     //left: -67%;
     color: #fff;
     background: #fff;
@@ -309,6 +318,7 @@
     -moz-transition: transform 0.3s;
     -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
+
 
     &:before {
         .pseudo;

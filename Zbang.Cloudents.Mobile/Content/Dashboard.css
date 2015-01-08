@@ -56,6 +56,9 @@
   position: relative;
   padding: 0 5%;
   background: #282828;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .welcome h1 {
   font-size: 28px;
@@ -68,6 +71,10 @@
 .welcome.closed .featureTxt,
 .welcome.closed .closeBtn {
   display: none;
+}
+.welcome .searchLink {
+  margin: 15px auto;
+  width: 96%;
 }
 .menuBtn {
   margin: 6px 10px 0;
@@ -237,6 +244,10 @@
 .followedClasses {
   text-align: left;
 }
+.followedClasses a {
+  display: block;
+  height: 100%;
+}
 .followedClasses li {
   height: 60px;
   position: relative;
@@ -278,7 +289,7 @@
   width: 67%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: -5px;
   color: #fff;
   background: #fff;
   box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.9);
