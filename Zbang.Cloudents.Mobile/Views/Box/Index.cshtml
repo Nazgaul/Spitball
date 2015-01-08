@@ -95,7 +95,6 @@
             <div ng-show="!feed.list.length" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
 
-
         <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController as boxItems" inner-scroll="{{boxItems.loading}}">
             <select ng-model="boxItems.currentTabId" ng-change="boxItems.getItems(false)">
                 <option value="">@BoxResources.AllItems</option>
@@ -112,6 +111,7 @@
             </ul>
         </div>
     </div>
+
     <div ng-if="box.uploading" style="position:fixed; top:0; left:0; background:#fff;width:100%;height:100%;z-index:2;">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">

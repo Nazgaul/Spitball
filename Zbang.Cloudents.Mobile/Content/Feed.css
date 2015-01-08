@@ -4,6 +4,10 @@
 /*#endregion */
 .feed {
   background: #eee;
+  -webkit-animation: slideright 0.5s 0 ease;
+  -moz-animation: slideright 0.5s 0 ease;
+  -o-animation: slideright 0.5s 0 ease;
+  animation: slideright 0.5s 0 ease;
 }
 .feedForm {
   width: 100%;
