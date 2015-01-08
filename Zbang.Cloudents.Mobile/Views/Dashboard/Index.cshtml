@@ -37,8 +37,8 @@
             <a href="{{::box.url}}" class="ghost">
                 <div class="details vCentered">
                     <div class="courseName elps">{{::box.name}}</div>
-                    <span>{{::box.itemCount}}</span>
-                    <span>{{::box.commentCount}}</span>
+                    <span>{{::box.itemCount}} @SharedResources.Items</span>
+                    <span>{{::box.commentCount}} @SharedResources.Comments</span>
                 </div>
                 <img width="40" height="40" ng-src="{{::box.boxPicture}}" />
                 @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right" })

@@ -76,39 +76,6 @@
   width: 100%;
   text-align: center;
   background: #282828;
-  /*&.courseTab, &.feedTab {
-        ~ .courseList, ~ .feed {
-
-        }
-        .tab:nth-child(1) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.itemsTab, &.boxItemsTab {
-        ~ .itemsList, ~ .boxItems  {
-
-        }
-        .tab:nth-child(2) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.membersTab {
-        ~ .membersList {
-
-        }
-        .tab:nth-child(3) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }*/
 }
 .tab {
   color: #a5a5a5;

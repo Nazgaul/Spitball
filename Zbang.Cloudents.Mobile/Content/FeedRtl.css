@@ -84,6 +84,11 @@
   top: 9px;
   right: 6px;
 }
+/*.svg-trash {
+    width: 14px;
+    height: 20px;
+    fill: #aaa;
+}*/
 .bottomTA {
   display: none;
   height: 40px;
@@ -180,6 +185,12 @@
         &:after {
             content: '\00a0' '|' '\00a0';
         }
+    }*/
+  /*.trash {
+        position: absolute;
+        bottom: 8px;
+        right: 15px; //rtl
+        display: none;
     }*/
 }
 .feedWpr .userName {

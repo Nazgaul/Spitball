@@ -30,7 +30,7 @@
         height: 100%;
         opacity: 0;
         top: 0;
-        left: 0;
+        left: 0; //rtl
         .transition(opacity .3s);
         z-index: -1;
     }
@@ -112,7 +112,7 @@
 .searchLink {
     .svg-search {
         position: absolute;
-        right: 10px;
+        right: 10px; //rtl
         top: 5px;
     }
 }
@@ -133,7 +133,7 @@
 }
 .recommendedList {
     overflow: hidden;
-    text-align: left;
+    text-align: left; //rtl
 }
 .recommendedItem {
     height: 80px;
@@ -263,7 +263,7 @@
     .svg-right {
         position: absolute;
         top:0;bottom:0;
-        right: 14px;
+        right: 14px; //rtl
         margin: auto;
     }
     img {
@@ -275,7 +275,7 @@
         border: 1px solid @borderColor;
     }
     .details {
-        padding-left: 56px;
+        padding-left: 56px; //rtl
         font-size: 13px;
     }
     .courseName {
@@ -297,15 +297,15 @@
     width: 67%;
     height: 100%;
     top: 0;
-    left:0;
+    left:0; //rtl
     //left: -67%;
     color: #fff;
     background: #fff;
-    box-shadow: 5px 0 10px 0 rgba(0,0,0,0.9);
+    box-shadow: 5px 0 10px 0 rgba(0,0,0,0.9); //rtl
     -moz-transform: translate3d(-100%,0,0);
     -ms-transform: translate3d(-100%,0,0);
     -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0); //rtl
     -moz-transition: transform 0.3s;
     -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
@@ -316,7 +316,7 @@
         height: 90px;
         position: absolute;
         top: 0;
-        left: 0;
+        left: 0; //rtl
         background: #282828;
         z-index: -1;
     }
@@ -332,7 +332,7 @@
     font-size: 15px;
     clear: both;
     color: @textColor;
-    text-align: left;
+    text-align: left; //rtl
     li {
         position: relative;
         
@@ -344,15 +344,13 @@
         fill: @color;
         position: absolute;
         top: 16px;
-        left: 28px;
+        left: 28px; //rtl
     }
     a {
-        padding-left: 70px;
+        padding-left: 70px; //rtl
         height: 50px;
         line-height: 50px;
         display: block;
-        //text-align: left;
-        //.boxSizing;
     }
 }
 

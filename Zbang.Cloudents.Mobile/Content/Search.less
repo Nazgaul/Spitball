@@ -7,7 +7,7 @@
 }
 .searchBtn {
     position: relative;
-    right: 10px;
+    right: 10px; //rtl
     top: 5px;
 }
 .noResults {
@@ -32,7 +32,7 @@
 .searchForm, .searchLink {
     position: relative;
     display: inline-block;
-    margin-left: 40px;
+    margin-left: 40px; //rtl
     width: 78%;
     height: 30px;
     line-height: 30px;
@@ -40,11 +40,11 @@
     margin: 15px 0;
     background: #fff;
     border: 1px solid @borderColor;
-    text-align: left;
-    padding-left: 15px;
+    text-align: left; //rtl
+    padding-left: 15px; //rtl
 }
 .searchForm {
-    margin-right: 10px;
+    margin-right: 10px; //rtl
 }
 .backBtn {
     display: inline-block;
@@ -62,7 +62,7 @@
         height: 100%;
     }
     ul {
-        text-align: left;
+        text-align: left; //rtl
     }
     li {
         font-size: 13px;
@@ -78,39 +78,6 @@
     width: 100%;
     text-align: center; 
     background: #282828;   
-    /*&.courseTab, &.feedTab {
-        ~ .courseList, ~ .feed {
-
-        }
-        .tab:nth-child(1) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.itemsTab, &.boxItemsTab {
-        ~ .itemsList, ~ .boxItems  {
-
-        }
-        .tab:nth-child(2) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.membersTab {
-        ~ .membersList {
-
-        }
-        .tab:nth-child(3) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }*/
 }
 .tab {
     color: #a5a5a5;
@@ -123,7 +90,7 @@
         .pseudo;
         position: absolute;
         bottom:0;
-        left:0;
+        left:0; //rtl
         width: 100%;
         height:0;
         background: @color;
@@ -137,7 +104,7 @@
     }
 }
 .courseList, .itemsList, .membersList, .feed, .boxItems {
-    text-align: left;
+    text-align: left; //rtl
 }
 .courseList {
     li {
@@ -146,12 +113,12 @@
     .courseName {
         width: 40%;
         max-height: 31px; // 2lines
-        padding-left: 60px;
+        padding-left: 60px; //rtl
         overflow: hidden;
     }
     img {
         height: 40px;
-        left: 10px;
+        left: 10px; //rtl
     }
 }
 .itemsList {
@@ -161,7 +128,7 @@
     .details {
         width: 60%;
         max-height: 33px; // 2lines
-        padding-left: 90px;
+        padding-left: 90px; //rtl
         overflow: hidden;
     }
     .fileName {
@@ -169,7 +136,7 @@
     }
     img {
         height: 78px;
-        left: 16px;
+        left: 16px; //rtl
     }
 }
 .membersList {
@@ -179,12 +146,12 @@
     .userName {
         width: 50%;
         max-height: 31px; // 2lines
-        padding-left: 60px;
+        padding-left: 60px; //rtl
         overflow: hidden;
     }
     img {
         height: 40px;
-        left: 10px;
+        left: 10px; //rtl
         border-radius: 50%;
     }
 }

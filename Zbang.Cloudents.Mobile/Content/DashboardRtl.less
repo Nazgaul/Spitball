@@ -1,0 +1,95 @@
+﻿@import "varsAndMixins";
+
+.dashboard {
+    &:after { //used for the menu
+        right: 0; //rtl
+        left: auto;
+    }
+}
+
+.msgCounter {
+    right: 100%; //rtl
+    left: auto;
+    margin: 0 -5px 0 0; //rtl
+}
+.searchLink {
+    .svg-search {
+        left: 10px; //rtl
+        right: auto;
+    }
+}
+
+/*#region Dashboard recommended courses */
+
+.recommendedList {
+    text-align: right; //rtl
+}
+.recommendedItem {
+    margin: 0 0 0 -12px; //rtl
+
+    .rcDetails {
+        padding: 15px 69px 0 0; //rtl
+    }
+
+    .rcStats {
+        svg {
+            right: 4px; //rtl
+            left: auto;
+        }
+    }
+
+    img {
+        right: 8px; //rtl
+        left: auto;
+    }
+    .friends, .files {
+        padding: 0 26px 0 0; //rtl
+    }
+}
+/*#endregion */
+
+/*#region Dashboard followed courses */
+.followedClasses {
+    text-align: right; //rtl
+    .svg-right {
+        left: 14px; //rtl
+        right: auto;
+    }
+    img {
+        right: 8px; //rtl
+        left: auto;
+    }
+    .details {
+        padding: 0 56px 0 0; //rtl
+    }
+}
+/*#endregion */
+
+/*#region menu */
+
+.menu {
+    right:0; //rtl
+    left: auto;
+    box-shadow: -5px 0 10px 0 rgba(0,0,0,0.9); //rtl
+    -moz-transform: translate3d(100%,0,0);
+    -ms-transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0); //rtl
+
+    &:before {
+        right: 0; //rtl
+        left: auto;
+    }
+}
+.menuItems {
+    text-align: right; //rtl
+    svg {
+        right: 28px; //rtl
+        left: auto;
+    }
+    a {
+        padding: 0 70px 0 0; //rtl
+    }
+}
+
+/*#endregion */
