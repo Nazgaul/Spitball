@@ -211,9 +211,11 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
     }
 
     function parseData(data) {
+        data.boxes = data.boxes || [];
+        data.items = data.items || [];
+        data.users = data.users || [];
+
         $scope.data.boxes = $scope.data.boxes ? $scope.data.boxes.concat(data.boxes) : data.boxes;
-
-
         $scope.data.items = $scope.data.items ? $scope.data.items.concat(data.items) : data.items;
         $scope.data.users = $scope.data.users ? $scope.data.users.concat(data.users) : data.users;
 

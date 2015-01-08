@@ -1,11 +1,11 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 
-<section class="box">
+<section class="box" ng-swipe-right="box.setCurrentTab('feed')" ng-swipe-left="box.setCurrentTab('items')">
     <header>
         @*<button type="button" class="inviteBtn rFloat">
-            @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
-        </button>*@
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
+            </button>*@
         <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
             @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
         </button>
@@ -54,9 +54,9 @@
                                 <a href="{{::file.url}}" target="_self"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
                             </li>
                         </ul>
-                        <button class="commentBtn" type="button" ng-click="feed.toggleComment(question)">@BoxResources.Comment</button>
+                        <button class="commentBtn" type="button" ng-click="feed.toggleComment(question)" focus-comment>@BoxResources.Comment</button>
                     </div>
-                
+
                     <ul class="feedReplies">
                         <li ng-repeat="answer in question.answers">
                             <div class="feedWpr">

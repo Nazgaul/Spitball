@@ -6,7 +6,7 @@
     </button>
 
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" />
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" autofocus/>
     </form>
 </div>
 <div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">

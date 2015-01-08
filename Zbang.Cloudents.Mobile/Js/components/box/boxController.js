@@ -16,6 +16,7 @@
         });
 
         box.setCurrentTab = function (tab) {
+            window.scrollTo(0, 0);
             box.currentTab = tab;
         };
 
