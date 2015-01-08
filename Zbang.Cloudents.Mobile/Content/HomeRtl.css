@@ -1,0 +1,36 @@
+﻿/*#region home */
+.homepage:after {
+  right: 0;
+  left: auto;
+}
+.facebook,
+.emailBtn {
+  padding: 0 55px 0 15px;
+  /*rtl*/
+}
+.fbImg,
+.emailImg {
+  right: 16px;
+  /*rtl*/
+  left: auto;
+}
+.fbImg:after,
+.emailImg:after {
+  right: 12px;
+  left: auto;
+}
+.emailImg {
+  right: 8px;
+  left: auto;
+}
+.emailImg:after {
+  right: 6px;
+  left: auto;
+}
+.lang {
+  text-align: right;
+}
+.lang:after {
+  left: 0;
+  right: auto;
+}

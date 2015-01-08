@@ -18,7 +18,7 @@
     li {
         height: 70px;
         position: relative;
-        text-align: left;
+        text-align: left; //rtl
         
         &:after {
             .pseudo;
@@ -66,7 +66,7 @@
     //top: 8px;
     position: absolute;
     top:0;bottom:0;
-    left:0;
+    left:0; //rtl
     margin: auto;
     border: 1px solid @borderColor;
 }
@@ -75,7 +75,7 @@
     max-height: 31px;
     overflow: hidden;
     font-size: 13px;
-    padding-left: 60px;
+    padding-left: 60px; //rtl
 }
 .userPics {
     width: 56px;
@@ -84,7 +84,7 @@
     &:after {
         content: '+' attr(data-numusers);
         display: inline-block;
-        float: right;
+        float: right; //rtl
         font-size: 12px;
         position: relative;
         top: -6px;
@@ -93,7 +93,7 @@
         display: inline-block;
         margin: 1px;
         top:0; //override
-        float: left;
+        float: left; //rtl
         &:nth-child(3) {
             clear: both;
         }

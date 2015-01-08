@@ -79,9 +79,10 @@ svg.rtl {
   height: 20px;
   fill: #fff;
 }
-.svg-attachment {
-  width: 19px;
-  height: 16px;
+.svg-attachment,
+.svg-post {
+  width: 30px;
+  height: 23px;
   fill: #282828;
 }
 .svg-file {

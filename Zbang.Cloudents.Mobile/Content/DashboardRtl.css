@@ -1,0 +1,80 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.dashboard:after {
+  right: 0;
+  left: auto;
+}
+/*.msgCounter {
+    left: 100%; //rtl
+    right: auto;
+    margin: 0 0 0 -5px; //rtl
+}*/
+.searchLink .svg-search {
+  left: 10px;
+  right: auto;
+}
+/*#region Dashboard recommended courses */
+.recommendedList {
+  text-align: right;
+}
+.recommendedItem {
+  margin: 0 0 0 -12px;
+}
+.recommendedItem .rcDetails {
+  padding: 15px 69px 0 0;
+}
+.recommendedItem .rcStats svg {
+  right: 4px;
+  left: auto;
+}
+.recommendedItem img {
+  right: 8px;
+  left: auto;
+}
+.recommendedItem .friends,
+.recommendedItem .files {
+  padding: 0 26px 0 0;
+}
+/*#endregion */
+/*#region Dashboard followed courses */
+.followedClasses {
+  text-align: right;
+}
+.followedClasses .svg-right {
+  left: 14px;
+  right: auto;
+}
+.followedClasses img {
+  right: 8px;
+  left: auto;
+}
+.followedClasses .details {
+  padding: 0 56px 0 0;
+}
+/*#endregion */
+/*#region menu */
+.menu {
+  right: -5px;
+  left: auto;
+  box-shadow: -5px 0 10px 0 rgba(0, 0, 0, 0.9);
+  -moz-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+.menu:before {
+  right: 0;
+  left: auto;
+}
+.menuItems {
+  text-align: right;
+}
+.menuItems svg {
+  right: 28px;
+  left: auto;
+}
+.menuItems a {
+  padding: 0 70px 0 0;
+}

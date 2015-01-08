@@ -56,6 +56,9 @@
   position: relative;
   padding: 0 5%;
   background: #282828;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .welcome h1 {
   font-size: 28px;
@@ -69,24 +72,28 @@
 .welcome.closed .closeBtn {
   display: none;
 }
+.welcome .searchLink {
+  margin: 15px auto;
+  width: 96%;
+}
 .menuBtn {
   margin: 6px 10px 0;
   position: relative;
 }
-.msgCounter {
-  position: absolute;
-  top: -3px;
-  left: 100%;
-  margin-left: -5px;
-  min-width: 6px;
-  height: 6px;
-  line-height: 6px;
-  border-radius: 8px;
-  background: #d1294d;
-  color: #fff;
-  font-size: 12px;
-  padding: 5px;
-}
+/*.msgCounter {
+    position: absolute;
+    top: -3px;
+    right: 100%; //rtl
+    margin-right: -5px; //rtl
+    min-width: 6px;
+    height: 6px;
+    line-height: 6px;
+    border-radius: 8px;
+    background: #d1294d;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+}*/
 .featureTxt {
   color: #fff;
   display: table;
@@ -237,6 +244,10 @@
 .followedClasses {
   text-align: left;
 }
+.followedClasses a {
+  display: block;
+  height: 100%;
+}
 .followedClasses li {
   height: 60px;
   position: relative;
@@ -275,10 +286,10 @@
 .menu {
   font-size: 13px;
   position: fixed;
-  width: 67%;
+  width: 80%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: -5px;
   color: #fff;
   background: #fff;
   box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.9);

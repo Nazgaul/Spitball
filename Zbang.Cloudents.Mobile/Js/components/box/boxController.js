@@ -19,10 +19,6 @@
             box.currentTab = tab;
         };
 
-        box.goBack = function () {
-            boxService.goBack();
-        };
-
         $scope.$on('uploadStart', function () {
             box.uploading = true;
             box.setCurrentTab(null);

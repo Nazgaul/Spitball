@@ -1,0 +1,20 @@
+﻿@import "varsAndMixins";
+
+.box {
+    .backBtn {
+        margin: 12px 10px 0 0; //rtl
+    }
+}
+.inviteBtn {
+    margin: 8px 0 0 10px; //rtl
+}
+
+.boxList {
+    li {
+        float: right; //rtl //for odd items
+        margin: 0 0 0 4%; //rtl //for odd items
+        &:nth-child(even) {
+            float: left; //rtl
+        }
+    }
+}
