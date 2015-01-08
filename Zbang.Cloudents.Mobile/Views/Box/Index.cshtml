@@ -5,10 +5,10 @@
         @*<button type="button" class="inviteBtn rFloat">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
             </button>*@
-        <button type="button" class="backBtn lFloat" ng-click="box.goBack()">
+        <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
             @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
         </button>
-        <h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1>
+        <a ui-sref="root.dashboard"><h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1></a>
     </header>
     <div class="boxDetails">
         <h2>{{::box.name}}</h2>

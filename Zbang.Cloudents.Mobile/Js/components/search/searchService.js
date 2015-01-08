@@ -1,11 +1,7 @@
 ﻿angular.module('search')
     .service('searchService',
-    ['search', '$window', '$q', '$rootScope', function (search, $window, $q, $rootScope) {
+    ['search', '$q', '$rootScope', function (search, $q, $rootScope) {
         var service = this;
-
-        service.goBack = function () {
-            $window.history.back();
-        };
 
         service.queryItems = function (term, page) {
             return search.items({ term: term, page: page });

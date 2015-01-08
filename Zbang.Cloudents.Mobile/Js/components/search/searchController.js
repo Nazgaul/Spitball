@@ -9,11 +9,7 @@
             itemsEndResult;
 
         search.formData = {};
-
-        search.goBack = function () {
-            searchService.goBack();
-        };
-
+        
         search.setCurrentTab = function (tab) {
             page = 0;
             search.currentTab = tab;
@@ -84,7 +80,6 @@
                     search.courses = courses;
                     return;
                 }
-
 
                 search.courses = search.courses.concat(courses);
 
