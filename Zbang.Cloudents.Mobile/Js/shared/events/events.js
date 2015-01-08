@@ -96,17 +96,22 @@
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                var $win = angular.element($window);
+                var $win = angular.element($window),
+                    stickPosition;
 
                 $win.on('scroll', function () {
                     var rectObj = element[0].getBoundingClientRect();
-                    if (rectObj.top <= 0) {
-                        element.addClass('sticky')
+                    console.log(stickPosition);
+                    if ($window.pageYOffset < stickPosition) {
+                        element.removeClass('sticky')
+                        stickPosition = null;
                         return;
                     }
 
-                    element.removeClass('sticky')
-
+                    if (rectObj.top <= 0 && !stickPosition) {
+                        element.addClass('sticky');
+                        stickPosition = $window.pageYOffset;                        
+                    }                    
                 });
 
 
