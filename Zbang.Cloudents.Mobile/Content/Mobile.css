@@ -12,18 +12,36 @@ body {
   color: #383838;
   font-family: Arial;
 }
+.loaderWpr {
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
 .loader {
   position: fixed;
-  top: 50%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
   -moz-transform: scale(3);
   -ms-transform: scale(3);
   -o-transform: scale(3);
   -webkit-transform: scale(3);
   transform: scale(3);
   display: inline-block;
+  height: 34px;
 }
 .loader rect {
   fill: #3399ff;
+}
+.loader:before {
+  content: '';
+  display: inline-block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: #fff;
 }
 /*#region mixins */
 /*#endregion */

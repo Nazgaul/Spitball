@@ -92,47 +92,49 @@
             }
         };
     }).
-    directive('stickyForm', ['$window', function ($window) {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var $win = angular.element($window),
-                    stickPosition;
+    //directive('stickyForm', ['$window', function ($window) {
+    //    return {
+    //        restrict: 'A',
+    //        link: function (scope, element, attrs) {
+    //            var $win = angular.element($window),
+    //                stickPosition;
 
-                $win.on('scroll', function () {
-                    var rectObj = element[0].getBoundingClientRect();
-                    console.log(stickPosition);
-                    if ($window.pageYOffset < stickPosition) {
-                        element.removeClass('sticky')
-                        stickPosition = null;
-                        return;
-                    }
+    //            $win.on('scroll', function () {
+    //                var rectObj = element[0].getBoundingClientRect();
+    //                console.log(stickPosition);
+    //                if ($window.pageYOffset < stickPosition) {
+    //                    element.removeClass('sticky')
+    //                    stickPosition = null;
+    //                    return;
+    //                }
 
-                    if (rectObj.top <= 0 && !stickPosition) {
-                        element.addClass('sticky');
-                        stickPosition = $window.pageYOffset;                        
-                    }                    
-                });
+    //                if (rectObj.top <= 0 && !stickPosition) {
+    //                    element.addClass('sticky');
+    //                    stickPosition = $window.pageYOffset;
+    //                }
+    //            });
 
 
-                scope.$on('destroy', function () {
-                    $win.off('scroll');
-                });
-            }
-        };
-    }]).
+    //            scope.$on('destroy', function () {
+    //                $win.off('scroll');
+    //            });
+    //        }
+    //    };
+    //}]).
     directive('focusComment', function () {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                element.on('click',function(){                    
+                element.on('click', function () {
                     var parentElement = element[0].parentElement;
                     while (parentElement.nodeName !== 'LI') {
                         parentElement = parentElement.parentElement;
                     }
 
                     var textarea = parentElement.querySelector('textarea');
-                    textarea.focus();
+                    if (textarea) {
+                        textarea.focus();
+                    }
                 });
 
                 scope.$on('destroy', function () {

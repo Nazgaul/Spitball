@@ -19,6 +19,12 @@ body {
   left: 10px;
   right: auto;
 }
+.radio + label {
+  margin: 0 0 0 3px;
+}
+.radio + label:before {
+  margin: 0 0 0 3px;
+}
 /*#endregion */
 /*#region SVG */
 svg.rtl {

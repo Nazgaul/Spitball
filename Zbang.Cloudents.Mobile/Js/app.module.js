@@ -77,17 +77,7 @@ config([
 
        $httpProvider.interceptors.push('requestinterceptor');
 
-
-       //$provide.decorator('$uiViewScroll', function ($delegate) {
-       //    return function (uiViewElement) {
-       //        setTimeout(function () {
-       //            window.scrollTo(0, 0);
-       //        }, 0);
-                
-       //    };
-       //});
-
-       //#region log js errors 
+      //#region log js errors 
        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
            return function (exception, cause) {
                $delegate(exception, cause);
@@ -120,6 +110,15 @@ config([
    }
 ]).
 run(['$rootScope', '$window', function ($rootScope, $window) {
+
+
+    angular.element($window).on('beforeunload', function () {
+        $window.scrollTo(0, 0);
+    });
+
+    $rootScope.$on('$stateChangeStart', function () {
+        setTimeout(function () { window.scrollTo(0, 0); }, 0);
+    });
 
     //analytics
     (function (i, s, o, g, r, a, m) {
