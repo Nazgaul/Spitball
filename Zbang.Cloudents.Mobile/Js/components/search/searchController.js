@@ -17,7 +17,6 @@
         search.setCurrentTab = function (tab) {
             page = 0;
             search.currentTab = tab;
-
             var term = search.formData.query;
             if (!term) {
                 return;
@@ -40,10 +39,12 @@
             if (search.isSearching) {
                 return;
             }
-
+            
             if (term.length < 2) {
+                search.courses = search.items = [];
                 return;
             }
+
 
             //if (!isAppend) {
             //    $location.search('q', term);
@@ -54,10 +55,10 @@
 
             switch (search.currentTab) {
                 case 'courses':
-                    getCourses();
+                    getCourses(isAppend);
                     break;
                 case 'items':
-                    getItems();
+                    getItems(isAppend);
                     break;
             }
         };
@@ -72,11 +73,10 @@
             if (!isAppend) {
                 coursesPage = 0;
             }
-            searchService.queryCourses(term, coursesPage).then(function (courses) {
-                if (!courses.length) {
-                    coursesEndResult = true;
-                    return;
-                }
+            search.loading = true;
+
+
+            searchService.queryCourses(term, coursesPage).then(function (courses) {                
 
                 coursesPage++;
 
@@ -85,7 +85,12 @@
                     return;
                 }
 
+
                 search.courses = search.courses.concat(courses);
+
+                if (!courses.length) {
+                    coursesEndResult = true;                 
+                }
 
             }).finally(function () {
                 search.isSearching = false;
@@ -102,16 +107,20 @@
                 itemsPage = 0;
             }
 
+            search.loading = true;
+
             searchService.queryItems(term, itemsPage).then(function (items) {
-                if (!items.length) {
-                    itemsEndResult = true;
-                    return;
-                }
+                
 
                 itemsPage++;
 
                 if (!isAppend) {
                     search.items = items;
+                    return;
+                }
+
+                if (!items.length) {
+                    itemsEndResult = true;
                     return;
                 }
 
