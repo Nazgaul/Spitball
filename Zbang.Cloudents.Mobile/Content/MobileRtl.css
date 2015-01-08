@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+body {
+  direction: rtl;
+}
 /*#region helper classes */
 .lFloat {
   float: right;

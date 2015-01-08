@@ -5,9 +5,9 @@
 @*Guy: please add the class menuOpen on the dashboard when user clicks settings button*@
 <section class="dashboard" id="dashboard" inner-scroll="{{dashboard.loading}}">
     <header>
-        <button type="button" class="menuBtn lFloat" id="menuBtn">
+        <button type="button" class="menuBtn rFloat" id="menuBtn">
             @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
-            <div class="msgCounter">5</div>
+            @*<div class="msgCounter">5</div>*@
         </button>
         <a ui-sref="root.dashboard"><h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1></a>
     </header>
@@ -37,8 +37,8 @@
             <a href="{{::box.url}}" class="ghost">
                 <div class="details vCentered">
                     <div class="courseName elps">{{::box.name}}</div>
-                    <span>{{::box.itemCount}} @SharedResources.Items</span>
-                    <span>{{::box.commentCount}} @SharedResources.Comments</span>
+                    <span>{{::box.itemCount}}&nbsp;@SharedResources.Items</span>
+                    <span>{{::box.commentCount}}&nbsp;@SharedResources.Comments</span>
                 </div>
                 <img width="40" height="40" ng-src="{{::box.boxPicture}}" />
                 @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right ltr" })
@@ -98,7 +98,7 @@
         </li>
         <li>
             <a href="@Url.Action("LogOff","Account")" target="_self">
-                @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow" })
+                @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow ltr" })
                 @DashboardResources.LogOut
             </a>
         </li>
