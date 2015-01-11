@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId == null) return JsonError("need university");
-            var query = new BoxSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
+            var query = new BoxSearchQuery(term, User.GetUserId(), userDetail.UniversityId.Value, page, 20);
             var retVal = await m_BoxSearchService.SearchBox(query) ?? new List<SearchBoxes>();
             return JsonOk(retVal.Select(s => new
             {
@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             var userDetail = FormsAuthenticationService.GetUserData();
             if (userDetail.UniversityId == null) return JsonError("need university");
 
-            var query = new ItemSearchQuery(term, userDetail.UniversityId.Value, User.GetUserId(), page, 20);
+            var query = new ItemSearchQuery(term, User.GetUserId(), userDetail.UniversityId.Value, page, 20);
             var retVal = await m_ItemSearchService.SearchItem(query) ?? new List<SearchItems>();
             return JsonOk(retVal.Select(s => new
             {
