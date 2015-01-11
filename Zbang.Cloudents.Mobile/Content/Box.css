@@ -35,10 +35,6 @@
 }
 .boxItems {
   margin: 0 2%;
-  -webkit-animation: slideleft 0.5s 0 ease;
-  -moz-animation: slideleft 0.5s 0 ease;
-  -o-animation: slideleft 0.5s 0 ease;
-  animation: slideleft 0.5s 0 ease;
   position: relative;
 }
 .boxList {

@@ -12,6 +12,11 @@ body {
   color: #383838;
   font-family: Arial;
 }
+header {
+  background: #0f9d58;
+  width: 100%;
+  height: 36px;
+}
 .loaderWpr {
   width: 100%;
   height: 100%;
@@ -159,8 +164,35 @@ img {
   box-shadow: inset 0 0 0 2px #fff;
 }
 /*#endregion */
-/*#region 'static' pages */
-.aboutUs,
-.terms {
+/*#region 'static' pages (No RTL) */
+.static {
   text-align: left;
+  direction: ltr;
+  font-size: 14px;
+}
+.static .backBtn {
+  margin: 0;
+  position: absolute;
+  left: 10px;
+  top: 12px;
+}
+.static .svg-back {
+  fill: #fff;
+}
+.static .content {
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.static h1 {
+  font-size: 16px;
+  text-align: center;
+  line-height: 36px;
+}
+.static h3 {
+  font-size: 18px;
+}
+.static p {
+  padding-bottom: 20px;
 }
