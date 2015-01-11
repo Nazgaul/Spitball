@@ -9,7 +9,7 @@
             userData = data || {};
 
             ga('create', 'UA-9850006-3', {
-                'userId': data.id,
+                'userId': userData.id,
                 'siteSpeedSampleRate': 70,
                 'cookieDomain': 'cloudents.com',
                 'alwaysSendReferrer': true
