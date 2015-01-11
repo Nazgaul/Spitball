@@ -29,7 +29,6 @@
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
                         <span class="attachName elps">{{::file.name}}</span>
-                        <button class="removeAttach" ng-click="feed.removeQuestionAttachment(file)"></button>
                     </li>
                 </ul>
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn" pl-fileinput>
