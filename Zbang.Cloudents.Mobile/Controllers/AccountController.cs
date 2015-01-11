@@ -573,7 +573,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 retVal.Image,
                 retVal.IsAdmin, 
                 retVal.FirstTimeDashboard,
-                retVal.Score
+                retVal.Score,
+                retVal.UniversityCountry,
+                retVal.UniversityName
             });
 
         }
