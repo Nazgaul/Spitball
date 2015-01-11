@@ -31,7 +31,7 @@
                         <span class="attachName elps">{{::file.name}}</span>
                     </li>
                 </ul>
-                <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn" pl-fileinput>
+                <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn">
                     @Html.Svg("~/Images/Defs.svg", "post", new { @class = "svg-post ltr" })
                 </button>
                 <button ng-if="!feed.questionFormData.content.length" type="button" class="attachBtn" pl-fileinput>
