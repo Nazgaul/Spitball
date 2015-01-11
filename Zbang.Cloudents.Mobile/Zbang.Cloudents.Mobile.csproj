@@ -552,6 +552,7 @@
     <Content Include="Images\EmptyState\my_default3.png" />
     <Content Include="Images\EmptyState\S50X50userpic2.jpg" />
     <Content Include="Images\EmptyState\user-pic.png" />
+    <Content Include="Images\EmptyState\user.svg" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\Bindings.js" />

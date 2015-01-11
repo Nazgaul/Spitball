@@ -44,7 +44,7 @@
                     <div class="feedWpr">
                         <div class="feedTop">
                             <time class="createTime rFloat" display-time="{{::question.creationTime}}"></time>
-                            <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage || 'images/user.svg'}}" />
+                            <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage || '/images/emptystate/user.svg'}}" />
                             <div class="userName elps">{{::question.userName}}</div>
                         </div>
                         <div class="feedContent" ng-bind-html="::question.content"></div>
@@ -76,7 +76,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <img class="feedImg rFloat" ng-src="{{::answer.userImage || '/images/user.svg'}}" alt="" width="27" height="27" />
+                                <img class="feedImg rFloat" ng-src="{{::answer.userImage || '/images/emptystate/user.svg'}}" alt="" width="27" height="27" />
                             </div>
                         </li>
                     </ul>

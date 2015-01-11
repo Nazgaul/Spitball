@@ -21,7 +21,7 @@
             }
 
             isAuthenticated = true;
-            userData.image = userData.image || '/images/user.svg';
+            userData.image = userData.image || '/images/emptystate/user.svg';
 
             ga('set', 'dimension1', userData.universityName);
             ga('set', 'dimension2', userData.universityCountry);
