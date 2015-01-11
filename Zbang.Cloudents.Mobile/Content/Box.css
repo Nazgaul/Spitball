@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.box {
+  overflow: hidden;
+}
 .box .backBtn {
   margin: 12px 0 0 10px;
 }
@@ -36,6 +39,7 @@
   -moz-animation: slideleft 0.5s 0 ease;
   -o-animation: slideleft 0.5s 0 ease;
   animation: slideleft 0.5s 0 ease;
+  position: relative;
 }
 .boxList {
   overflow: auto;

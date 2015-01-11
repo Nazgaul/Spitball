@@ -23,6 +23,7 @@ namespace Zbang.Cloudents.Mobile
             cssDictionary.Add("mobile", new[] {
                 "~/Content/Normalize.css",
                 "~/Content/Mobile.css",
+                "~/Content/Animations.css",
                 "~/Content/Registration.css",
                 "~/Content/SVG.css",
                 "~/Content/Home.css",
