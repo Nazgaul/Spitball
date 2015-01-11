@@ -9,7 +9,7 @@
             userData = data || {};
 
             ga('create', 'UA-9850006-3', {
-                'userId': userData.id,
+                'userId': data.id,
                 'siteSpeedSampleRate': 70,
                 'cookieDomain': 'cloudents.com',
                 'alwaysSendReferrer': true
@@ -21,6 +21,7 @@
             }
 
             isAuthenticated = true;
+            userData.image = userData.image || '/images/user.svg';
 
             ga('set', 'dimension1', userData.universityName);
             ga('set', 'dimension2', userData.universityCountry);
