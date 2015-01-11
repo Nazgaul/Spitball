@@ -1,8 +1,11 @@
 ﻿@import "varsAndMixins";
 
-html, body, [ui-view] {
+html, body {
     height: 100%;
 } 
+[ui-view] {
+    height: 100%;
+}
 body {
     text-align: center;
     color: @textColor; 
@@ -15,18 +18,20 @@ header {
     height: 36px;
 }
 .loaderWpr {
-    //position: fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
     top:0;
-    //background: #fff;
+    background: #fff;
     //z-index: 1;
+    display: none;
 }
 .loader {
     position: fixed;
     position: absolute;
     margin: auto;
     top:0;bottom:0;
+    left: 0;right:0;
     -moz-transform: scale(3);
     -ms-transform: scale(3);
     -o-transform: scale(3);
@@ -37,15 +42,6 @@ header {
 
     rect {
         fill: @itemBlue;
-    }
-    &:before {
-        .pseudo;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top:0;
-        background: #fff;
-        //z-index: 1;
     }
 }
 

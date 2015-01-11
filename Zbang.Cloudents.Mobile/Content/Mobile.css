@@ -3,7 +3,9 @@
 /*#region mixins */
 /*#endregion */
 html,
-body,
+body {
+  height: 100%;
+}
 [ui-view] {
   height: 100%;
 }
@@ -18,9 +20,12 @@ header {
   height: 36px;
 }
 .loaderWpr {
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
+  background: #fff;
+  display: none;
 }
 .loader {
   position: fixed;
@@ -28,6 +33,8 @@ header {
   margin: auto;
   top: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
   -moz-transform: scale(3);
   -ms-transform: scale(3);
   -o-transform: scale(3);
@@ -38,15 +45,6 @@ header {
 }
 .loader rect {
   fill: #3399ff;
-}
-.loader:before {
-  content: '';
-  display: inline-block;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  background: #fff;
 }
 /*#region mixins */
 /*#endregion */
