@@ -71,9 +71,9 @@
             }
             search.loading = true;
 
+            searchService.trackSearch(term,'box');
 
-            searchService.queryCourses(term, coursesPage).then(function (courses) {                
-
+            searchService.queryCourses(term, coursesPage).then(function (courses) {                                
                 coursesPage++;
 
                 if (!isAppend) {
@@ -103,6 +103,8 @@
             }
 
             search.loading = true;
+
+            searchService.trackSearch(term, 'item');
 
             searchService.queryItems(term, itemsPage).then(function (items) {
                 

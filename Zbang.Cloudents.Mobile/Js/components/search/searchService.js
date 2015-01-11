@@ -1,6 +1,6 @@
 ﻿angular.module('search')
     .service('searchService',
-    ['search', '$q', '$rootScope', function (search, $q, $rootScope) {
+    ['search', '$q', '$rootScope', '$analytics', function (search, $q, $rootScope, $analytics) {
         var service = this;
 
         service.queryItems = function (term, page) {
@@ -14,5 +14,10 @@
         service.doneLoad = function () {
             $rootScope.$broadcast('$stateLoaded');
         };
+
+        service.trackSearch = function (term, value) {
+            $analytics.searchTrack(term, 'items');
+        };
+
     }]
 );

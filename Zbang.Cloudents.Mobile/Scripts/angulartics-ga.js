@@ -79,5 +79,9 @@ angular.module('angulartics.google.analytics', ['angulartics'])
       ga('set', variable, value);
   });
 
+  $analyticsProvider.registerSearchTrack(function (term, category) {
+      ga('send', 'pageview', '/search_results.php?q=' + term + '&t=' + category);
+  });
+
 }]);
 })(angular);
