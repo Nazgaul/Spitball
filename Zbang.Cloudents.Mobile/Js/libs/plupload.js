@@ -4,7 +4,7 @@
         directive('plUploader', function () {
             return {
                 restrict: 'A',
-                controller: ['$scope', '$rootScope', '$stateParams', '$angularCacheFactory', function ($scope,$rootScope, $stateParams, $angularCacheFactory) {
+                controller: ['$scope', '$rootScope', '$stateParams', '$angularCacheFactory', '$analytics', function ($scope, $rootScope, $stateParams, $angularCacheFactory, $analytics) {
                     var uploader,
                         plUpload = this,
                         boxId = $stateParams.boxId;
@@ -16,7 +16,7 @@
                             uploader.addFile(file);
                         });
                     };
-                    
+
 
                     function init() {
                         var options = {
@@ -43,6 +43,10 @@
 
 
                     function filesAdded(up, files) {
+                        $analytics.eventTrack('Upload Start', {
+                            category: 'Box page',
+                            label: 'User start to upload files'
+                        });
                         up.start();
                         $rootScope.$apply(function () {
                             $rootScope.$broadcast('uploadStart');
@@ -59,7 +63,11 @@
 
                     function uploadComplete(up, file, res) {
                         $angularCacheFactory.clearAll();
-                        uploader.destroy();
+                        uploader.destroy();                  
+                        $analytics.eventTrack('Upload finished', {
+                            category: 'Box page',
+                            label: 'User finished to upload files'
+                        });
 
                         $rootScope.$apply(function () {
                             $rootScope.$broadcast('uploadComplete');

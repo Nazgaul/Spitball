@@ -71,8 +71,6 @@
             }
             search.loading = true;
 
-            searchService.trackSearch(term,'box');
-
             searchService.queryCourses(term, coursesPage).then(function (courses) {                                
                 coursesPage++;
 
@@ -103,8 +101,6 @@
             }
 
             search.loading = true;
-
-            searchService.trackSearch(term, 'item');
 
             searchService.queryItems(term, itemsPage).then(function (items) {
                 

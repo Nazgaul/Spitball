@@ -8,23 +8,25 @@
         return account.details().then(function (data) {
             userData = data || {};
 
-            //TODO: remove name
-            if (!userData.id) {
-                isAuthenticated = false;
-                return;
-            }
-
-            isAuthenticated = true;
-
             ga('create', 'UA-9850006-3', {
                 'userId': data.id,
                 'siteSpeedSampleRate': 70,
                 'cookieDomain': 'cloudents.com',
                 'alwaysSendReferrer': true
             });
+
+            if (!userData.id) {
+                isAuthenticated = false;
+                return;
+            }
+
+            isAuthenticated = true;
+            userData.image = userData.image || '/images/user.svg';
+
             ga('set', 'dimension1', userData.universityName);
             ga('set', 'dimension2', userData.universityCountry);
             ga('set', 'dimension3', userData.id);
+        
         });
     };
 

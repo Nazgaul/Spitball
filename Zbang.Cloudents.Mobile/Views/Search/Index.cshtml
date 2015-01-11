@@ -5,7 +5,7 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" autofocus/>
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" autofocus />
     </form>
 </div>
 <div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">
@@ -18,7 +18,8 @@
     <div ng-switch="search.currentTab">
         <ul class="courseList" ng-switch-when="courses">
             <li ng-repeat="course in search.courses">
-                <a href="{{::course.url}}" class="ghost">
+                <a href="{{::course.url}}" class="ghost"
+                   analytics-on analytics-event="Click on box" analytics-category="Search page" analytics-label="User clicked on a box">
                     <div class="courseName vCentered">{{::course.name}}</div>
                     <img width="40" height="40" ng-src="{{::course.image}}" />
                 </a>
@@ -26,7 +27,8 @@
         </ul>
         <ul class="itemsList" ng-switch-when="items">
             <li ng-repeat="item in search.items">
-                <a href="{{::item.url}}" class="ghost" target="_self">
+                <a href="{{::item.url}}" class="ghost" target="_self"
+                   analytics-on analytics-event="Click on item" analytics-category="Search page" analytics-label="User clicked on a item">
                     <div class="details vCentered">
                         <div class="filename elps">{{::item.name}}</div>
                         <div class="elps">To be disscused</div>
@@ -36,9 +38,10 @@
             </li>
         </ul>
     </div>
-    @*<ul class="membersList">
+        @*<ul class="membersList">
             <li>
-                <a href="#" class="ghost">
+                <a href="#" class="ghost"
+                analytics-on analytics-event="Click on member" analytics-category="Search page" analytics-label="User clicked on a member">
                     <div class="userName vCentered">{Username should go here}</div>
                     <img width="40" height="40" src="http://placehold.it/40x40" />
                 </a>
