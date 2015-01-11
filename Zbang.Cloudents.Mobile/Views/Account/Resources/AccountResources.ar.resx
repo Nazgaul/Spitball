@@ -126,11 +126,23 @@
   <data name="ByEmail" xml:space="preserve">
     <value>او عن طريق البريد الالكتروني</value>
   </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>تحقق من بريدك الإلكتروني</value>
+  </data>
+  <data name="ChoosePwd" xml:space="preserve">
+    <value>اختيار كلمة مرور جديدة</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>يرجى إكمال التسجيل عن طريق اختيار المدرسة الحالية</value>
   </data>
   <data name="ConfirmEmailCompare" xml:space="preserve">
     <value>كلمة المرور غير ملائمة</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>مواصلة</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>إنشاء حساب</value>
@@ -143,6 +155,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>تسجيل الدخول بالبريد الإلكتروني </value>
+  </data>
+  <data name="EnterBelow" xml:space="preserve">
+    <value>أدخل رمز التأكيد الذي قدمنا أدناه واستمر في إعادة تعيين كلمة مرورك أو اتبع الرابط في البريد الإلكتروني.</value>
   </data>
   <data name="Facebook" xml:space="preserve">
     <value>عبر فيسبوك</value>
@@ -172,8 +187,14 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>بريد الكتروني غير صالح</value>
   </data>
+  <data name="JustEnter" xml:space="preserve">
+    <value>فقط أدخل عنوان البريد الإلكتروني الذي استخدمته لإنشاء حسابك.</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>اسم العائلة</value>
+  </data>
+  <data name="LocateAccount" xml:space="preserve">
+    <value>نحن سوف نقوم بتحديد حسابك ونرسل لك رسالة بالبريد الالكتروني تحتوي على  رابط لإعادة تعيين كلمة مرورك.</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
@@ -198,5 +219,8 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>إنها أكثر من مجرد دراسة، إنها دراسة اجتماعية</value>
+  </data>
+  <data name="WeEmailed" xml:space="preserve">
+    <value>لقد أرسلنا لك عبر البريد الالكتروني تعليمات إعادة تعيين كلمة المرور.</value>
   </data>
 </root>

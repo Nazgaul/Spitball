@@ -108,6 +108,7 @@ img {
 }
 .btn1:disabled {
   background: #a5a5a5;
+  color: #383838;
 }
 .splitHR {
   display: inline-block;
@@ -195,4 +196,41 @@ img {
 }
 .static p {
   padding-bottom: 20px;
+}
+.forgotPwd,
+.checkEmail,
+.choosePwd {
+  padding: 15px 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.forgotPwd h1,
+.checkEmail h1,
+.choosePwd h1 {
+  font-size: 20px;
+  color: #383838;
+  margin: 6px auto 15px;
+}
+.forgotPwd p,
+.checkEmail p,
+.choosePwd p,
+.forgotPwd .inputText,
+.checkEmail .inputText,
+.choosePwd .inputText,
+.forgotPwd .btn1,
+.checkEmail .btn1,
+.choosePwd .btn1 {
+  margin-bottom: 20px;
+}
+.forgotPwd .inputText,
+.checkEmail .inputText,
+.choosePwd .inputText {
+  height: 36px;
+}
+.forgotPwd .btn1,
+.checkEmail .btn1,
+.choosePwd .btn1 {
+  height: 36px;
+  line-height: 36px;
 }
