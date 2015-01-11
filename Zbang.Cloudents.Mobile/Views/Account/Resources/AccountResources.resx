@@ -126,11 +126,23 @@
   <data name="ByEmail" xml:space="preserve">
     <value>Or by email</value>
   </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="ChoosePwd" xml:space="preserve">
+    <value>Choose a new password</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>Please complete registration by filing in the following information</value>
   </data>
   <data name="ConfirmEmailCompare" xml:space="preserve">
     <value>Emails don't match</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
@@ -143,6 +155,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Sign up with email</value>
+  </data>
+  <data name="EnterBelow" xml:space="preserve">
+    <value>Enter the confirmation code we provided below and continue to reset your password or follow the link in the email.</value>
   </data>
   <data name="Facebook" xml:space="preserve">
     <value>Log in with Facebook</value>
@@ -171,8 +186,14 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid email address</value>
   </data>
+  <data name="JustEnter" xml:space="preserve">
+    <value>Just enter the email address you used to create your account.</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last name</value>
+  </data>
+  <data name="LocateAccount" xml:space="preserve">
+    <value>We will locate your account and send you an email with a link to reset your password.</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
@@ -192,10 +213,16 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>It's more than just studying, it's social studying</value>
+  </data>
+  <data name="WeEmailed" xml:space="preserve">
+    <value>We've emailed you password reset instructions.</value>
   </data>
 </root>

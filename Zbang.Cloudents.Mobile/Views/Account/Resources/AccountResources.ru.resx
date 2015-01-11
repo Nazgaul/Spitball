@@ -126,11 +126,23 @@
   <data name="ByEmail" xml:space="preserve">
     <value>Или по электронной почте</value>
   </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>Проверьте свою электронную почту</value>
+  </data>
+  <data name="ChoosePwd" xml:space="preserve">
+    <value>Выбрать новый пароль</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>Пожалуйста завершите регистрацию с помощью заполнения следующей информации</value>
   </data>
   <data name="ConfirmEmailCompare" xml:space="preserve">
     <value>это неправильный адрес эл. почты</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Продолжить</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Создать учетную запись</value>
@@ -143,6 +155,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Присоединится через эл. почту</value>
+  </data>
+  <data name="EnterBelow" xml:space="preserve">
+    <value>Введите ниже предоставленный код подтверждения и продолжите операцию смены пароля или перейдите по ссылке в электронной почте.</value>
   </data>
   <data name="Facebook" xml:space="preserve">
     <value> через Facebook</value>
@@ -171,8 +186,14 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>это неправильный адрес эл. почты</value>
   </data>
+  <data name="JustEnter" xml:space="preserve">
+    <value>Введите адрес электронной почты, который вы использовали при создании учетной записи.</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Фамилия</value>
+  </data>
+  <data name="LocateAccount" xml:space="preserve">
+    <value>Мы найдем вашу учетную запись и отправим вам электронное письмо со ссылкой для смены пароля.</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Войти </value>
@@ -197,5 +218,8 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>Это больше, чем просто обучение, это социальное обучение</value>
+  </data>
+  <data name="WeEmailed" xml:space="preserve">
+    <value>Мы отправили вам инструкции по смене пароля.</value>
   </data>
 </root>

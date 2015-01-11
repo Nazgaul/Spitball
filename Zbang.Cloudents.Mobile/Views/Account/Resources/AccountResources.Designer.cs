@@ -88,6 +88,24 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check your email.
+        /// </summary>
+        public static string CheckEmail {
+            get {
+                return ResourceManager.GetString("CheckEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a new password.
+        /// </summary>
+        public static string ChoosePwd {
+            get {
+                return ResourceManager.GetString("ChoosePwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please complete registration by filing in the following information.
         /// </summary>
         public static string ChooseSchool {
@@ -102,6 +120,24 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         public static string ConfirmEmailCompare {
             get {
                 return ResourceManager.GetString("ConfirmEmailCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -138,6 +174,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         public static string EmailSignUp {
             get {
                 return ResourceManager.GetString("EmailSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the confirmation code we provided below and continue to reset your password or follow the link in the email..
+        /// </summary>
+        public static string EnterBelow {
+            get {
+                return ResourceManager.GetString("EnterBelow", resourceCulture);
             }
         }
         
@@ -223,11 +268,29 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Just enter the email address you used to create your account..
+        /// </summary>
+        public static string JustEnter {
+            get {
+                return ResourceManager.GetString("JustEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We will locate your account and send you an email with a link to reset your password..
+        /// </summary>
+        public static string LocateAccount {
+            get {
+                return ResourceManager.GetString("LocateAccount", resourceCulture);
             }
         }
         
@@ -286,6 +349,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {
@@ -300,6 +372,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         public static string SocialStudy {
             get {
                 return ResourceManager.GetString("SocialStudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;ve emailed you password reset instructions..
+        /// </summary>
+        public static string WeEmailed {
+            get {
+                return ResourceManager.GetString("WeEmailed", resourceCulture);
             }
         }
     }

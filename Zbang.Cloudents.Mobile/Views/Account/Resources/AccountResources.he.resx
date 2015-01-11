@@ -126,11 +126,23 @@
   <data name="ByEmail" xml:space="preserve">
     <value>או באמצאות דוא"ל</value>
   </data>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>בדוק את האימייל שלך</value>
+  </data>
+  <data name="ChoosePwd" xml:space="preserve">
+    <value>בחר סיסמה חדשה</value>
+  </data>
   <data name="ChooseSchool" xml:space="preserve">
     <value>לסיום תהליך ההרשמה אנא בחר את השדה המתאים</value>
   </data>
   <data name="ConfirmEmailCompare" xml:space="preserve">
     <value>המיילים אינם תואמים</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>אשר סיסמא</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>המשך</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>צור חשבון</value>
@@ -143,6 +155,9 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>הרשם דרך אימייל</value>
+  </data>
+  <data name="EnterBelow" xml:space="preserve">
+    <value>הכנס את קוד האימות שנשלח לך באימייל והמשך לשחזור הסיסמה שלך או חזור אל מייל שחזור הסיסמה שקיבלת  ולחץ על הלינק המצורף אליו</value>
   </data>
   <data name="Facebook" xml:space="preserve">
     <value>התחבר עם פייסבוק</value>
@@ -171,8 +186,14 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>כתובת דוא"ל זו אינה חוקית</value>
   </data>
+  <data name="JustEnter" xml:space="preserve">
+    <value>הכנס את כתובת האימייל שאיתה נרשמת למערכת</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>שם משפחה</value>
+  </data>
+  <data name="LocateAccount" xml:space="preserve">
+    <value>אנחנו נאתר את החשבון שלך ונשלח לך אימייל עם קישור לשחזור הסיסמה</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>התחבר</value>
@@ -197,5 +218,8 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>כשלומדים יחד, לומדים טוב יותר</value>
+  </data>
+  <data name="WeEmailed" xml:space="preserve">
+    <value>סיסמה חדשה נשלחה לאימייל שלך עם הוראות לשינוי הסיסמה</value>
   </data>
 </root>
