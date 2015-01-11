@@ -25,6 +25,10 @@ body {
 .radio + label:before {
   margin: 0 0 0 3px;
 }
+.checkbox:checked ~ .cbLabel .svg-checked {
+  right: 3px;
+  left: auto;
+}
 /*#endregion */
 /*#region SVG */
 svg.rtl {

@@ -48,18 +48,27 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public Task<bool> AddToCacheAsync<T>(string key, T value, TimeSpan expiration, string region) where T : class
         {
-            if (!m_IsCacheAvailable)
+            try
             {
-                return Task.FromResult(false);
+                if (!m_IsCacheAvailable)
+                {
+                    return Task.FromResult(false);
+                }
+                if (!IsAppFabricCache())
+                {
+                    m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                        expiration);
+                    return Task.FromResult(true);
+                }
+                var newKey = BuildCacheKey(key, region);
+                var db = Connection.GetDatabase( /*region.GetHashCode()*/);
+                return db.SetAsync(newKey, value, expiration);
             }
-            if (!IsAppFabricCache())
+            catch (Exception ex)
             {
-                m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expiration);
-                return Task.FromResult(true);
+                Trace.TraceLog.WriteError(string.Format("AddToCacheAsync key {0} region {1}", key, region), ex);
+                return Task.FromResult(false); ;
             }
-            var newKey = BuildCacheKey(key, region);
-            var db = Connection.GetDatabase(/*region.GetHashCode()*/);
-            return db.SetAsync(newKey, value, expiration);
         }
 
         private string BuildCacheKey(string key, string region)
@@ -69,19 +78,28 @@ namespace Zbang.Zbox.Infrastructure.Cache
         }
         public bool AddToCache<T>(string key, T value, TimeSpan expiration, string region) where T : class
         {
-            if (!m_IsCacheAvailable)
+            try
             {
-                return false;
-            }
-            if (!IsAppFabricCache())
-            {
-                m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expiration);
+                if (!m_IsCacheAvailable)
+                {
+                    return false;
+                }
+                if (!IsAppFabricCache())
+                {
+                    m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                        expiration);
+                    return true;
+                }
+                var newKey = BuildCacheKey(key, region);
+                var db = Connection.GetDatabase( /*region.GetHashCode()*/);
+                db.Set(newKey, value, expiration);
                 return true;
             }
-            var newKey = BuildCacheKey(key, region);
-            var db = Connection.GetDatabase(/*region.GetHashCode()*/);
-            db.Set(newKey, value, expiration);
-            return true;
+            catch (Exception ex)
+            {
+                Trace.TraceLog.WriteError(string.Format("AddToCache key {0} region {1}", key, region), ex);
+                return false;
+            }
         }
 
         public bool RemoveFromCache(string region)
@@ -165,7 +183,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
             var x = RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
-            Trace.TraceLog.WriteInfo("IsAppFabricCache: " + x);
             return x;
         }
 

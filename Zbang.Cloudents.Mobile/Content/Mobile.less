@@ -1,8 +1,11 @@
 ﻿@import "varsAndMixins";
 
-html, body, [ui-view] {
+html, body {
     height: 100%;
 } 
+[ui-view] {
+    height: 100%;
+}
 body {
     text-align: center;
     color: @textColor; 
@@ -15,18 +18,23 @@ header {
     height: 36px;
 }
 .loaderWpr {
-    //position: fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
     top:0;
-    //background: #fff;
+    left:0;
+    right:0;
+    margin: auto;
+    background: #fff;
     //z-index: 1;
+    display: none;
 }
 .loader {
     position: fixed;
     position: absolute;
     margin: auto;
     top:0;bottom:0;
+    left: 0;right:0;
     -moz-transform: scale(3);
     -ms-transform: scale(3);
     -o-transform: scale(3);
@@ -37,15 +45,6 @@ header {
 
     rect {
         fill: @itemBlue;
-    }
-    &:before {
-        .pseudo;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top:0;
-        background: #fff;
-        //z-index: 1;
     }
 }
 
@@ -169,6 +168,33 @@ img {
             &:before {
                 background: #666;
                 box-shadow: inset 0 0 0 2px #fff;
+            }
+        }
+    }
+}
+.checkbox {
+    display: none;
+    ~ .cbLabel {
+        position: relative;
+        top: -4px;
+        margin-bottom: 6px;
+        &:before {
+            .pseudo;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid @borderColor;
+            position: relative;
+            top: 4px;
+        }
+    }
+    &:checked {
+        ~ .cbLabel {
+            .svg-checked {
+                display: inline-block;
+                position: absolute;
+                left: 3px; //rtl
+                top: 7px;
             }
         }
     }

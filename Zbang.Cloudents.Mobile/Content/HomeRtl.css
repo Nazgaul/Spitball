@@ -20,14 +20,19 @@
   left: auto;
 }
 .emailImg {
-  right: 8px;
+  right: 11px;
   left: auto;
 }
 .emailImg:after {
   right: 6px;
   left: auto;
 }
+.emailImg .svg-email {
+  right: 1px;
+  left: auto;
+}
 .lang {
+  width: 60px;
   text-align: right;
 }
 .lang:after {

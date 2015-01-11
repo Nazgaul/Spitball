@@ -37,17 +37,16 @@
 }
 h1 {
   color: #fff;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: normal;
-  max-width: 85%;
+  max-width: 87%;
   margin: 0 auto;
-  letter-spacing: 1px;
 }
 .bottom {
   position: absolute;
   bottom: 8px;
   z-index: 1;
-  width: 83%;
+  width: 87%;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -99,21 +98,25 @@ h1 {
   opacity: .5;
 }
 .emailImg {
-  left: 8px;
+  left: 11px;
 }
 .emailImg:after {
   background: #676767;
   top: 5px;
   left: 6px;
 }
+.emailImg .svg-email {
+  left: 1px;
+}
 .lang {
   display: block;
   margin: 25px auto 0;
-  width: 110px;
+  width: 90px;
   color: #fff;
   text-align: left;
   overflow: hidden;
   position: relative;
+  font-size: 13px;
 }
 .lang:after {
   content: '';
@@ -133,7 +136,7 @@ h1 {
   color: #fff;
   border: none;
   outline: none;
-  width: 130px;
+  width: 110px;
 }
 option {
   background: #000;
