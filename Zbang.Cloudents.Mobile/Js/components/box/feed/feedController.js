@@ -16,7 +16,7 @@
             getFeedPage(true);
         };
 
-        feed.addQuestion = function () {
+        feed.addQuestion = function () {         
             var question = {
                 content: feed.questionFormData.content,
             };
@@ -35,8 +35,7 @@
         };
 
 
-        feed.addAnswer = function (question) {
-
+        feed.addAnswer = function (question) {    
             var answer = {
                 content: question.aFormData.content,
             };
@@ -59,7 +58,7 @@
             if (isFetching) {
                 return;
             }
-            
+
             if (endResult) {
                 return;
             }

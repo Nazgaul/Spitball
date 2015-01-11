@@ -6,12 +6,22 @@
 
         service.login = function (data) {
             return account.login(data).then(function (response) {
-                $state.go('root.dashboard', {}, { reload: true });
+                $analytics.eventTrack('Login', {
+                    category: 'Login page',
+                    label: 'User logged in with email'
+                });
 
+                $state.go('root.dashboard', {}, { reload: true });
             });
         };
 
         service.facebookLogin = function () {
+
+            $analytics.eventTrack('Login', {
+                category: 'Login page',
+                label: 'User logged in with facebook'
+            });
+
             facebook.login(function (response) {
                 if (response.authResponse) {
                     account.facebookLogin({ token: response.authResponse.accessToken }).then(function (fbResposne) {

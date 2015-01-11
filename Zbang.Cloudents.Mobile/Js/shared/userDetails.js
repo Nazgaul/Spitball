@@ -8,7 +8,13 @@
         return account.details().then(function (data) {
             userData = data || {};
 
-            //TODO: remove name
+            ga('create', 'UA-9850006-3', {
+                'userId': userData.id,
+                'siteSpeedSampleRate': 70,
+                'cookieDomain': 'cloudents.com',
+                'alwaysSendReferrer': true
+            });
+
             if (!userData.id) {
                 isAuthenticated = false;
                 return;
@@ -16,15 +22,10 @@
 
             isAuthenticated = true;
 
-            ga('create', 'UA-9850006-3', {
-                'userId': data.id,
-                'siteSpeedSampleRate': 70,
-                'cookieDomain': 'cloudents.com',
-                'alwaysSendReferrer': true
-            });
             ga('set', 'dimension1', userData.universityName);
             ga('set', 'dimension2', userData.universityCountry);
             ga('set', 'dimension3', userData.id);
+        
         });
     };
 

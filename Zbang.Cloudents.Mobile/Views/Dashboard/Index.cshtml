@@ -33,7 +33,7 @@
 
     <ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
         <li ng-repeat="box in dashboard.boxes">
-            <a href="{{::box.url}}" class="ghost">
+            <a href="{{::box.url}}" class="ghost" analytics-on analytics-event="Click on box" analytics-category="Dashboard page" analytics-label="User clicked on a box">                
                 <div class="details vCentered">
                     <div class="courseName elps">{{::box.name}}</div>
                     <span>{{::box.itemCount}}&nbsp;@SharedResources.Items</span>
@@ -48,7 +48,7 @@
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">
-                <a drag-view href="{{::recommendedBox.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
+                <a drag-view href="{{::recommendedBox.url}}" class="courseLink" analytics-event="Click on Box" analytics-category="Dashboard" analytics-label="User clicked on a recommneded box">
                     <div class="rcDetails ghost" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }">
                         <div class="vCentered elps">
                             <div class="courseName">{{::recommendedBox.name}}</div>
@@ -84,19 +84,22 @@
     </div>
     <ul class="menuItems">
         <li>
-            <a href="@Url.Action("TermsOfService", "Home")" target="_self">
+            <a href="@Url.Action("TermsOfService", "Home")" target="_self"
+               analytics-on analytics-event="Click on term of service" analytics-category="Dashboard sidebar">                
                 @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
                 @SharedResources.TermsOfServices
             </a>
         </li>
         <li>
-            <a href="@Url.Action("AboutUs","home")" target="_self">
+            <a href="@Url.Action("AboutUs","home")" target="_self"
+               analytics-on analytics-event="Click on about us" analytics-category="Dashboard sidebar">
                 @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
                 @DashboardResources.AboutUs
             </a>
         </li>
         <li>
-            <a href="@Url.Action("LogOff","Account")" target="_self">
+            <a href="@Url.Action("LogOff","Account")" target="_self"
+               analytics-on analytics-event="Click on logout" analytics-category="Dashboard sidebar">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow ltr" })
                 @DashboardResources.LogOut
             </a>

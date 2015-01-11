@@ -1,6 +1,6 @@
 ﻿angular.module('libChoose')
     .service('libChooseService',
-    ['$rootScope', '$state', '$q', 'account', 'library', 'Facebook', function ($rootScope, $state, $q, account, library, facebook) {
+    ['$rootScope', '$state', '$q', 'account', 'library', 'Facebook', '$analytics', function ($rootScope, $state, $q, account, library, facebook, $analytics) {
         var service = this;
 
         service.facebookSuggestions = function () {
@@ -18,10 +18,19 @@
         };
 
         service.searchUnis = function (term, page) {
+            $analytics.searchTrack($state.current.name, term, 'unis');
+
             return library.search({ term: term, page: page });
         };
 
         service.selectUniversity = function (universityId) {
+
+            $analytics.eventTrack('Select university', {
+                category: 'Library choose page',
+                label: 'User selected a university'
+            });
+
+
             return account.selectUniversity({ universityId: universityId }).then(function () {
                 $state.go('root.dashboard');
             }).catch(function (response) {
