@@ -27,6 +27,16 @@ body {
         }
     }
 }
+.checkbox {
+    &:checked {
+        ~ .cbLabel {
+            .svg-checked {
+                right: 3px; //rtl
+                left: auto;
+            }
+        }
+    }
+}
 /*#endregion */
 
 /*#region SVG */

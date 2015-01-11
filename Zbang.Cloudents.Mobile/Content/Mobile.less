@@ -173,6 +173,33 @@ img {
         }
     }
 }
+.checkbox {
+    display: none;
+    ~ .cbLabel {
+        position: relative;
+        top: -4px;
+        margin-bottom: 6px;
+        &:before {
+            .pseudo;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid @borderColor;
+            position: relative;
+            top: 4px;
+        }
+    }
+    &:checked {
+        ~ .cbLabel {
+            .svg-checked {
+                display: inline-block;
+                position: absolute;
+                left: 3px; //rtl
+                top: 7px;
+            }
+        }
+    }
+}
 /*#endregion */
 
 /*#region 'static' pages (No RTL) */
