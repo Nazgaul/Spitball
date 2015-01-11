@@ -1,6 +1,7 @@
 ﻿@import "varsAndMixins";
 
 .box {
+    overflow: hidden; //for tab swipe animation
     .backBtn {
         margin: 12px 0 0 10px; //rtl
     }
@@ -32,7 +33,8 @@
 }
 .boxItems {
     margin: 0 2%;
-    .animation(slideleft);
+    //.animation(slideleft);
+    position: relative;  //for tab swipe animation 
 }
 .boxList {
     overflow: auto;

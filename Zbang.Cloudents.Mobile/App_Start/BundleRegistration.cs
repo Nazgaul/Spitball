@@ -24,6 +24,7 @@ namespace Zbang.Cloudents.Mobile
                 "~/Content/Normalize.css",
                 "~/Content/Animations.css",
                 "~/Content/Mobile.css",
+                "~/Content/Animations.css",
                 "~/Content/Registration.css",
                 "~/Content/SVG.css",
                 "~/Content/Home.css",

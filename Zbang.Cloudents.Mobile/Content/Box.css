@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.box {
+  overflow: hidden;
+}
 .box .backBtn {
   margin: 12px 0 0 10px;
 }
@@ -32,10 +35,7 @@
 }
 .boxItems {
   margin: 0 2%;
-  -webkit-animation: slideleft 0.5s 0 ease;
-  -moz-animation: slideleft 0.5s 0 ease;
-  -o-animation: slideleft 0.5s 0 ease;
-  animation: slideleft 0.5s 0 ease;
+  position: relative;
 }
 .boxList {
   overflow: auto;
