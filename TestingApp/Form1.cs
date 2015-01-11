@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -68,11 +69,11 @@ namespace TestingApp
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-            var read = iocFactory.Resolve<IBoxReadSearchProvider>();
+            var iocFactory = IocFactory.Unity;
+            var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 1, 920));
+            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 2, 1160));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

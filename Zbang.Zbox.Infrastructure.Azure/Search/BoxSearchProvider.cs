@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
 
         private readonly string m_IndexName = "box";
-        private bool m_CheckIndexExists = false;
+        private bool m_CheckIndexExists;
 
         public BoxSearchProvider()
         {
