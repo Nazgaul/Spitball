@@ -36,7 +36,7 @@
                 return;
             }
             
-            if (term.length < 2) {
+            if (!term) {
                 search.courses = search.items = [];
                 return;
             }

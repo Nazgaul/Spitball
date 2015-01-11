@@ -77,7 +77,7 @@ config([
 
        $httpProvider.interceptors.push('requestinterceptor');
 
-      //#region log js errors 
+       //#region log js errors 
        $provide.decorator('$exceptionHandler', ['$delegate', '$log', 'stackTraceService', function ($delegate, $log, stackTraceService) {
            return function (exception, cause) {
                $delegate(exception, cause);
@@ -109,8 +109,10 @@ config([
        //#endregion
    }
 ]).
-run(['$rootScope', '$window', function ($rootScope, $window) {
+run(['$rootScope', '$window', 'sVerChecker', function ($rootScope, $window, sVerChecker) {
 
+
+    sVerChecker.checkVersion();
 
     angular.element($window).on('beforeunload', function () {
         $window.scrollTo(0, 0);
