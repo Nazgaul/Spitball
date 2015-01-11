@@ -4,7 +4,13 @@
     <h1>@AccountResources.CheckEmail</h1>
     <p>@AccountResources.WeEmailed</p>
     <p>@AccountResources.EnterBelow</p>
-    <input type="text" class="inputText" placeholder="@AccountResources.Email" />
-    <button type="button" class="btn1">@AccountResources.Continue</button>
-    <button type="button" class="btn1" disabled>@SharedResources.Cancel</button>
+    <form>
+        <div class="ng-message-errors" ng-messages="register.submitted && registerForm.newEmail.$error">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
+        </div>
+        <input type="email" class="inputText" placeholder="@AccountResources.Email" />
+        <button type="submit" class="btn1">@AccountResources.Continue</button>
+        <button type="button" class="btn1" disabled>@SharedResources.Cancel</button>
+    </form>
 </section>
