@@ -7,9 +7,13 @@
         <div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
-            <span class="ng-message-error" ng-message="compare"></span>
         </div>
         <input type="password" class="inputText" placeholder="@AccountResources.Password" />
+        <div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
+            <span class="ng-message-error" ng-message="compare"></span>
+        </div>
         <input type="password" class="inputText" placeholder="@AccountResources.ConfirmPassword" />
         <button type="submit" class="btn1">@AccountResources.Continue</button>
         <button type="button" class="btn1" disabled>@SharedResources.Cancel</button>
