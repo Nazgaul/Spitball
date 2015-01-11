@@ -41,6 +41,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             Lazy<IEncryptObject> encryptObject
             )
         {
+
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
              m_QueueProvider = queueProvider;
@@ -572,7 +573,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 retVal.Image,
                 retVal.IsAdmin, 
                 retVal.FirstTimeDashboard,
-                retVal.Score
+                retVal.Score,
+                retVal.UniversityCountry,
+                retVal.UniversityName
             });
 
         }

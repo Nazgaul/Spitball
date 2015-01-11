@@ -113,6 +113,7 @@ img {
     border-radius: 5px;
     &:disabled {
         background: #a5a5a5;
+        color: @textColor;
     }
 }
 .splitHR {
@@ -203,6 +204,26 @@ img {
     }
     p {
         padding-bottom: 20px;
+    }
+}
+.forgotPwd , .checkEmail, .choosePwd {
+    padding: 15px 10px;
+    .boxSizing;
+    h1 {
+        font-size: 20px;
+        color: @textColor;
+        margin: 6px auto 15px;
+    }
+    p , .inputText, .btn1 {
+        margin-bottom: 20px;
+    } 
+    .inputText {
+        height: 36px;
+        
+    }
+    .btn1 {
+        height: 36px;
+        line-height: 36px;
     }
 }
 /*#endregion */

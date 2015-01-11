@@ -1,1 +1,17 @@
 ﻿
+@using Zbang.Cloudents.Mobile.Views.Account.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+<section class="forgotPwd">
+    <h1>@AccountResources.ForgotPassword</h1>
+    <p>@AccountResources.JustEnter</p>
+    <p>@AccountResources.LocateAccount</p>
+    <form>
+        <div class="ng-message-errors" ng-messages="">
+            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
+            <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
+        </div>
+        <input type="email" class="inputText" placeholder="@AccountResources.Email" />
+        <button type="submit" class="btn1">@AccountResources.Reset</button>
+        <button type="button" class="btn1" disabled>@SharedResources.Cancel</button>
+    </form>
+</section>

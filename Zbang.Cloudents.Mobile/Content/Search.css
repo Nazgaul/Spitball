@@ -42,11 +42,11 @@
   padding-left: 15px;
 }
 .searchForm {
-  margin-right: 10px;
+  margin: 15px 10px 15px 0;
 }
 .backBtn {
   display: inline-block;
-  margin: 20px 0 0 10px;
+  margin: 24px 0 0 10px;
 }
 .searchContent img {
   position: absolute;
