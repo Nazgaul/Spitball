@@ -41,6 +41,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             Lazy<IEncryptObject> encryptObject
             )
         {
+
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
              m_QueueProvider = queueProvider;
