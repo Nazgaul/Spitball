@@ -71,6 +71,8 @@
                      return;
                  }
 
+                 $analytics.searchTrack('/library/choose/', query, 'unis');
+
                  sLibrary.searchUniversities({ term: query }).then(function (data) {
                      data = data || [];
                      $scope.display.search = true;

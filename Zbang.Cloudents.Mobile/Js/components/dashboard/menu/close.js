@@ -1,5 +1,5 @@
 ﻿angular.module('dashboard').directive('toggleMenu',
-   ['$analytis', function ($analytics) {
+   ['$analytics', function ($analytics) {
 
        return {
            restrict: "A",
