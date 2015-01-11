@@ -68,6 +68,16 @@
   right: 0;
   left: auto;
 }
+.menu h2 {
+  margin: 12px 12px 0 0;
+}
+.menu img {
+  margin: 0 8px 0 0;
+}
+.userDetails {
+  text-align: right;
+  padding: 0 70px 0 0;
+}
 .menuItems {
   text-align: right;
 }
