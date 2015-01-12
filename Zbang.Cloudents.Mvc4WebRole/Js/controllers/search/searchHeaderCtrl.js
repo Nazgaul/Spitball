@@ -55,7 +55,9 @@
             }
 
             lastQuery = query;
-
+            
+            $analytics.searchTrack('search', query, 'search header');
+            
             $analytics.eventTrack('Search Header', {
                 category: 'Search',
                 label: 'User searched for ' + query

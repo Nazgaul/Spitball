@@ -184,6 +184,11 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
             label: 'User searched for ' + query
         });
 
+
+        if ($scope.params.currentPage === 0) {
+            $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page')
+        }
+
         $timeout(function () {
             sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
                 parseData(data);

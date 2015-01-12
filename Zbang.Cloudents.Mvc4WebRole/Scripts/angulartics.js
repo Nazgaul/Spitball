@@ -42,6 +42,7 @@ angular.module('angulartics', [])
   var knownHandlers = [
     'pageTrack',
     'eventTrack',
+    'searchTrack',
     'setVariable',
     'socialTrack',
     'timingTrack',
