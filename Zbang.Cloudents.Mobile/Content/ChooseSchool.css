@@ -11,8 +11,12 @@
 .choose h1 {
   color: #383838;
   max-width: none;
-  letter-spacing: normal;
-  margin: 25px 0 0 0;
+  font-size: 22px;
+  margin: 25px 0 5px;
+}
+.choose .searchForm {
+  margin: 30px 0 15px;
+  width: 94%;
 }
 .recommended li,
 .searchResults li {

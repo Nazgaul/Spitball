@@ -120,6 +120,28 @@
     font-size: 13px;
 }
 /*#region Dashboard recommended courses */
+.recommendedClasses, .followedClasses {
+    .vCentered {
+        &:before {
+            content:attr(data-letter);
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: tomato;
+            color: #fff;
+            display: inline-block;
+            text-align:center;
+            text-transform: capitalize;
+            position: absolute;
+            top:0;bottom:0;
+            margin: auto;
+            left: 8px; //rtl
+            font-size: 25px;
+        }
+    }
+}
+
 .recommendedClasses {
     h2 {
         height: 30px;
@@ -200,12 +222,12 @@
         }
     }
 
-    img {
+    /*img {
         position: absolute;
         left: 8px; //rtl
         border-radius: 5px;
         border: 1px solid @borderColor;
-    }
+    }*/
 
     .courseName {
         color: #0f9d58;
@@ -269,14 +291,14 @@
         right: 14px; //rtl
         margin: auto;
     }
-    img {
+    /*img {
         position: absolute;
         top:0;bottom:0;
         margin: auto;
         left: 8px; //rtl
         border-radius: 5px;
         border: 1px solid @borderColor;
-    }
+    }*/
     .details {
         padding-left: 56px; //rtl
         font-size: 13px;
