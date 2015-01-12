@@ -17,13 +17,14 @@ namespace Zbang.Cloudents.Mobile.Filters
                 base.OnActionExecuting(filterContext);
                 return;
             }
-            bool skipNoCache = filterContext.ActionDescriptor.IsDefined(typeof(DonutOutputCacheAttribute), inherit: true)
-                                    || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(DonutOutputCacheAttribute), inherit: true);
-            if (skipNoCache)
-            {
-                base.OnActionExecuting(filterContext);
-                return;
-            }
+            //its no good because we change language
+            //bool skipNoCache = filterContext.ActionDescriptor.IsDefined(typeof(DonutOutputCacheAttribute), inherit: true)
+            //                        || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(DonutOutputCacheAttribute), inherit: true);
+            //if (skipNoCache)
+            //{
+            //    base.OnActionExecuting(filterContext);
+            //    return;
+            //}
             HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
             cache.SetCacheability(HttpCacheability.NoCache);
             cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
