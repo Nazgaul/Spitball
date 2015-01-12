@@ -98,7 +98,7 @@ img {
   width: 48%;
 }
 .radioWpr + .inputText {
-  width: 45%;
+  width: 43%;
 }
 .btn1 {
   background: #0f9d58;
@@ -106,9 +106,10 @@ img {
   width: 100%;
   display: block;
   margin: 0 auto;
-  height: 46px;
-  line-height: 46px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 5px;
+  font-size: 17px;
 }
 .btn1:disabled {
   background: #a5a5a5;
@@ -151,7 +152,8 @@ img {
   display: none;
 }
 .radio + label {
-  margin-right: 3px;
+  margin-right: 10px;
+  font-size: 13px;
 }
 .radio + label:before {
   content: '';
@@ -174,7 +176,7 @@ img {
 .checkbox ~ .cbLabel {
   position: relative;
   top: -4px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .checkbox ~ .cbLabel:before {
   content: '';
@@ -191,6 +193,9 @@ img {
   position: absolute;
   left: 3px;
   top: 7px;
+}
+.checkbox:checked ~ .marketLabel .svg-checked {
+  left: -2px;
 }
 /*#endregion */
 /*#region 'static' pages (No RTL) */

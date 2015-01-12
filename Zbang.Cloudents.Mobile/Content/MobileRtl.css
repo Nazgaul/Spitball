@@ -20,13 +20,17 @@ body {
   right: auto;
 }
 .radio + label {
-  margin: 0 0 0 3px;
+  margin: 0 0 0 10px;
 }
 .radio + label:before {
   margin: 0 0 0 3px;
 }
 .checkbox:checked ~ .cbLabel .svg-checked {
   right: 3px;
+  left: auto;
+}
+.checkbox:checked ~ .marketLabel .svg-checked {
+  right: -2px;
   left: auto;
 }
 /*#endregion */
