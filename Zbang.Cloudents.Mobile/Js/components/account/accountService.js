@@ -11,7 +11,7 @@
             });
 
             account.changeLocale({ lang: language }).then(function () {
-                $window.location.reload();
+                window.location.reload(true);
             });
         };
 

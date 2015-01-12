@@ -160,32 +160,49 @@
             }],
             link: function (scope, elem, attrs, controller) {
 
+                var elements = $();
+
                 controller.init(attrs.plDropzoneUploader);
                 var $main = angular.element('#main');
                 if (!attrs.dropElement) {
-                    $main.on('dragenter', toggle);
-                    $main.on('dragleave', toggle);
+                    $main.on('dragenter', toggleEnter);
+                    $main.on('dragleave', toggleLeave);
                     $main.on('drop', toggleOff);
                     return;
                 }
-                $main.on('dragenter', '[dropzone-element]', toggle);
-                $main.on('dragleave', '[dropzone-element]', toggle);
+                $main.on('dragenter', '[dropzone-element]', toggleEnter);
+                $main.on('dragleave', '[dropzone-element]', toggleLeave);
                 $main.on('drop', '[dropzone-element]', toggleOff);
 
 
-                function toggle() {
-                    $(this).toggleClass('upload');
-                    if ($(this).hasClass('upload')) {
+                function toggleEnter(event) {                    
+                    if (elements.size() === 0) {
+                        $main.addClass('upload');
                         $analytics.eventTrack(attrs.plDropzoneUploader, {
                             category: 'Drag Enter'
                         });
-                        return;
-
                     }
+                    elements = elements.add(event.target);
 
-                    $analytics.eventTrack(attrs.plDropzoneUploader, {
-                        category: 'Drag Leave'
-                    });
+                }
+
+
+                function toggleLeave(event) {
+
+                    setTimeout(function () {
+                        elements = elements.not(event.target);                       
+                        if (elements.size() === 0) {
+                            if (event.target.nodeType == 3) {
+                                return;
+                            }
+                            $main.removeClass('upload');
+                            $analytics.eventTrack(attrs.plDropzoneUploader, {
+                                category: 'Drag Leave'
+                            });
+                        }
+                    }, 1);
+
+                    
                 }
                 function toggleOff() {
                     $(this).removeClass('upload');

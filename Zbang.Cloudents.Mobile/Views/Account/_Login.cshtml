@@ -14,16 +14,16 @@
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
             <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
         </div>
-        <input type="text" class="inputText" ng-class="{error: login.submitted && loginForm.email.$error}"
+        <input type="email" class="inputText" ng-class="{error: login.submitted && loginForm.email.$error}"
                name="email" placeholder="@AccountResources.Email" required ng-model="login.formData.email"
-               ng-pattern="params.pattern" />
+               ng-pattern="params.pattern" tabindex="1" />
         <div class="ng-message-errors" ng-messages="login.submitted && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
         <input name="password" type="password" ng-class="{error: login.submitted && loginForm.password.$error}"
                class="inputText" tabindex="2" placeholder="@AccountResources.Password" required ng-model="login.formData.password" />
         <a class="forgot rFloat" target="_self" href="@Url.Action("ResetPassword","Account")">@AccountResources.ForgotPassword</a>
-        <input type="checkbox" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" />
+        <input type="checkbox" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" tabindex="2" />
         <label class="cbLabel lFloat" for="RememberMe">
             @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-checked" })
             @AccountResources.RememberMe
