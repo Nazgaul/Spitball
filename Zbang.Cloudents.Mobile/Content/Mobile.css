@@ -29,6 +29,7 @@ header {
   right: 0;
   margin: auto;
   background: #fff;
+  z-index: 10;
   display: none;
 }
 .loader {
@@ -267,12 +268,6 @@ img {
 .checkEmail .inputText:focus ~ .cancel,
 .choosePwd .inputText:focus ~ .cancel {
   display: none;
-}
-.forgotPwd .btn1,
-.checkEmail .btn1,
-.choosePwd .btn1 {
-  height: 36px;
-  line-height: 36px;
 }
 .forgotPwd .cancel,
 .checkEmail .cancel,

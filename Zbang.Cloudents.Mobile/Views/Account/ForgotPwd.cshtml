@@ -13,9 +13,9 @@
             <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
         </div>*@
         @Html.ValidationSummary()
-        @Html.TextBoxFor(m => m.Email, new { type = "email", @class = "inputText", autofocus = "autofocus", placeholder = AccountResources.Email })
+        @Html.TextBoxFor(m => m.Email, new { type = "email", @class = "inputText", placeholder = AccountResources.Email })
         <button type="submit" class="btn1">@AccountResources.Reset</button>
-        <button type="button" class="btn1 cancel">@SharedResources.Cancel</button>
-        
+        <a target="_self" href="@Url.Action("login", "Account")" class="btn1 cancel">@SharedResources.Cancel</a>
+
     }
 </section>
