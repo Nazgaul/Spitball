@@ -37,7 +37,8 @@ namespace Zbang.Zbox.Domain
         }
 
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture)
+            string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture
+            ,bool isMobile)
             : this()
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
@@ -58,6 +59,7 @@ namespace Zbang.Zbox.Domain
             MarketEmail = marketEmail;
             UpdateLanguage(culture);
             AddReputation(ReputationAction.Register);
+            UserTime.CreatedUser += isMobile ? "_mobile" : string.Empty;
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()

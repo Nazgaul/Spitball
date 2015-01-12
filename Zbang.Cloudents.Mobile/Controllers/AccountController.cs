@@ -108,7 +108,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale, invId, null);
+                        false, facebookUserData.locale, invId, null, true);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -238,7 +238,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
                         model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null);
+                        model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null, true);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.User.Culture });
                     FormsAuthenticationService.SignIn(result.User.Id, false,
