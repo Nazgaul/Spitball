@@ -1,4 +1,9 @@
 ﻿/*#region Registration */
+.register, .signIn {
+    h1 {
+        margin: 15px 0; //diff rtl
+    }
+}
 .register {
     .bottom {
         text-align: right; //rtl //override
@@ -6,6 +11,11 @@
 }
 .marketLabel {
     text-align: right; //rtl
+    margin: 0 6px 0 0;
+    &:before {
+        left: 6px; //rtl
+        right: auto;
+    }
 }
 .ng-message-errors {
     clear: left;  //rtl

@@ -98,7 +98,7 @@ img {
   width: 48%;
 }
 .radioWpr + .inputText {
-  width: 45%;
+  width: 43%;
 }
 .btn1 {
   background: #0f9d58;
@@ -176,7 +176,7 @@ img {
 .checkbox ~ .cbLabel {
   position: relative;
   top: -4px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .checkbox ~ .cbLabel:before {
   content: '';
@@ -193,6 +193,9 @@ img {
   position: absolute;
   left: 3px;
   top: 7px;
+}
+.checkbox:checked ~ .marketLabel .svg-checked {
+  left: -2px;
 }
 /*#endregion */
 /*#region 'static' pages (No RTL) */

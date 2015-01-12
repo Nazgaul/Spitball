@@ -135,6 +135,16 @@ option {
     color: @color;
     font-size: 14px;
     font-weight: bold;
+    position: relative;
+    &:before { //so make the clickable area larger
+        .pseudo;
+        width: 100%;
+        position: absolute;
+        left: 0; //rtl
+        top: -7px;
+        padding: 18px;
+        .boxSizing;
+    }
 }
 
 /*#region home media queries */

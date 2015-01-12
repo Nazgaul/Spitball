@@ -29,6 +29,10 @@ body {
   right: 3px;
   left: auto;
 }
+.checkbox:checked ~ .marketLabel .svg-checked {
+  right: -2px;
+  left: auto;
+}
 /*#endregion */
 /*#region SVG */
 svg.rtl {

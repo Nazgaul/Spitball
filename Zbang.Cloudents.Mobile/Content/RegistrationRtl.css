@@ -1,9 +1,18 @@
 ﻿/*#region Registration */
+.register h1,
+.signIn h1 {
+  margin: 15px 0;
+}
 .register .bottom {
   text-align: right;
 }
 .marketLabel {
   text-align: right;
+  margin: 0 6px 0 0;
+}
+.marketLabel:before {
+  left: 6px;
+  right: auto;
 }
 .ng-message-errors {
   clear: left;
