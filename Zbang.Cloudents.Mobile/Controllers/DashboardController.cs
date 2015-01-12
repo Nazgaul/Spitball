@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonOk(data.Select(s => new
                 {
                     s.Name,
-                    s.BoxPicture,
                     s.Url,
                     s.ItemCount,
                     s.CommentCount
@@ -59,7 +58,16 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
             var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
-            return JsonOk(result);
+            return JsonOk(result.Select(s => new
+            {
+                s.Url,
+                s.Professor,
+                s.CourseCode,
+                s.Name,
+                s.MembersCount,
+                s.ItemCount
+
+            }));
         }
     }
 }
