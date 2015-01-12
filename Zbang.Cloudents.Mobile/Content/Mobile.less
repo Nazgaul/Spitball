@@ -103,7 +103,7 @@ img {
 }
 .radioWpr  {
     + .inputText {
-        width: 45%;
+        width: 43%;
     }   
 }
 .btn1 {
@@ -112,9 +112,10 @@ img {
     width: 100%;
     display: block;
     margin: 0 auto;
-    height: 46px;
-    line-height: 46px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 5px;
+    font-size: 17px;
     &:disabled {
         background: #a5a5a5;
         color: @textColor;
@@ -129,7 +130,7 @@ img {
         content: '';
         display: block;
         width: 92%;
-        height: 20px;
+        height: 17px;
         position: absolute;
         left: 0;right:0;
         margin: -9px auto 0;
@@ -156,7 +157,8 @@ img {
 .radio {
     display: none;
     + label {
-        margin-right:3px; //rtl
+        margin-right:10px; //rtl
+        font-size: 13px;
         &:before {
             .pseudo;
             width: 12px;
@@ -182,7 +184,7 @@ img {
     ~ .cbLabel {
         position: relative;
         top: -4px;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
         &:before {
             .pseudo;
             width: 16px;
@@ -200,6 +202,11 @@ img {
                 position: absolute;
                 left: 3px; //rtl
                 top: 7px;
+            }
+        }
+        ~ .marketLabel {
+            .svg-checked {
+                left: -2px; //rtl
             }
         }
     }
@@ -237,8 +244,11 @@ img {
         padding-bottom: 20px;
     }
 }
+/*#endregion */
+
+/*#region forgot password */
 .forgotPwd , .checkEmail, .choosePwd {
-    padding: 15px 10px;
+    padding: 15px 3%;
     .boxSizing;
     h1 {
         font-size: 20px;
@@ -250,11 +260,30 @@ img {
     } 
     .inputText {
         height: 36px;
-        
+        &:focus {
+            ~ .cancel {
+                display: none;
+            }
+        }
     }
     .btn1 {
         height: 36px;
         line-height: 36px;
     }
+    .cancel {
+        margin-bottom: 0;
+    }
 }
+.cancel {
+    padding:0;
+    .boxSizing;
+    background: @textColor;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    left: 0;right: 0;
+    margin: auto;
+    width: 94%; //fallback
+}
+
 /*#endregion */

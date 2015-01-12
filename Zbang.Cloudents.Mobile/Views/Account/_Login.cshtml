@@ -22,7 +22,7 @@
         </div>
         <input name="password" type="password" ng-class="{error: login.submitted && loginForm.password.$error}"
                class="inputText" tabindex="2" placeholder="@AccountResources.Password" required ng-model="login.formData.password" />
-        <a class="forgot rFloat" target="_self" href="@Url.Action("ResetPassword","Account")">@AccountResources.ForgotPassword</a>
+        <a class="forgotLink rFloat" target="_self" href="@Url.Action("ResetPassword","Account")">@AccountResources.ForgotPassword</a>
         <input type="checkbox" class="checkbox" id="RememberMe" name="RememberMe" ng-model="login.formData.rememberMe" tabindex="2" />
         <label class="cbLabel lFloat" for="RememberMe">
             @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-checked" })

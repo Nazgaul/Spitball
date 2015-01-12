@@ -15,11 +15,18 @@
   margin: 25px 0;
   font-size: 22px;
 }
+.register .btn1,
+.signIn .btn1 {
+  margin-top: 5px;
+}
 .signIn .inputText {
   margin: 15px 0 20px;
 }
+.signIn .splitHR {
+  margin: 17px 0 4px;
+}
 .register .bottom {
-  width: 92%;
+  width: 100%;
   text-align: left;
   position: static;
 }
@@ -37,6 +44,9 @@
 .register .emptySearch.emptySearch,
 .register .svg-noResults.svg-noResults {
   display: none;
+}
+.forgotLink {
+  color: #0f9d58;
 }
 .search .topReg {
   opacity: 0;
@@ -76,13 +86,17 @@
 .marketLabel {
   display: none;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
+  margin-left: 6px;
+}
+.marketLabel:before {
+  right: 6px;
 }
 [data-culture="he-IL"] .marketLabel {
   display: block;
 }
 .acceptTerms {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 15px;
   display: inline-block;
 }
@@ -95,6 +109,12 @@
   font-size: 13px;
   text-align: center;
   margin: 10px 0;
+}
+.validation-summary-errors {
+  color: #d1294d;
+  text-align: left;
+  position: relative;
+  top: -2px;
 }
 .ng-message-errors {
   position: relative;

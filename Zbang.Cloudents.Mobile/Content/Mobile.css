@@ -98,7 +98,7 @@ img {
   width: 48%;
 }
 .radioWpr + .inputText {
-  width: 45%;
+  width: 43%;
 }
 .btn1 {
   background: #0f9d58;
@@ -106,9 +106,10 @@ img {
   width: 100%;
   display: block;
   margin: 0 auto;
-  height: 46px;
-  line-height: 46px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 5px;
+  font-size: 17px;
 }
 .btn1:disabled {
   background: #a5a5a5;
@@ -124,7 +125,7 @@ img {
   content: '';
   display: block;
   width: 92%;
-  height: 20px;
+  height: 17px;
   position: absolute;
   left: 0;
   right: 0;
@@ -151,7 +152,8 @@ img {
   display: none;
 }
 .radio + label {
-  margin-right: 3px;
+  margin-right: 10px;
+  font-size: 13px;
 }
 .radio + label:before {
   content: '';
@@ -174,7 +176,7 @@ img {
 .checkbox ~ .cbLabel {
   position: relative;
   top: -4px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .checkbox ~ .cbLabel:before {
   content: '';
@@ -191,6 +193,9 @@ img {
   position: absolute;
   left: 3px;
   top: 7px;
+}
+.checkbox:checked ~ .marketLabel .svg-checked {
+  left: -2px;
 }
 /*#endregion */
 /*#region 'static' pages (No RTL) */
@@ -225,10 +230,12 @@ img {
 .static p {
   padding-bottom: 20px;
 }
+/*#endregion */
+/*#region forgot password */
 .forgotPwd,
 .checkEmail,
 .choosePwd {
-  padding: 15px 10px;
+  padding: 15px 3%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -256,9 +263,33 @@ img {
 .choosePwd .inputText {
   height: 36px;
 }
+.forgotPwd .inputText:focus ~ .cancel,
+.checkEmail .inputText:focus ~ .cancel,
+.choosePwd .inputText:focus ~ .cancel {
+  display: none;
+}
 .forgotPwd .btn1,
 .checkEmail .btn1,
 .choosePwd .btn1 {
   height: 36px;
   line-height: 36px;
+}
+.forgotPwd .cancel,
+.checkEmail .cancel,
+.choosePwd .cancel {
+  margin-bottom: 0;
+}
+.cancel {
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #383838;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 94%;
 }

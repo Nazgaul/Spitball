@@ -153,6 +153,19 @@ option {
   color: #0f9d58;
   font-size: 14px;
   font-weight: bold;
+  position: relative;
+}
+.homeTxt2:before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: -7px;
+  padding: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*#region home media queries */
 /* 1 dpr */

@@ -21,7 +21,7 @@ body {
 
 .radio {
     + label {
-        margin: 0 0 0 3px; //rtl
+        margin: 0 0 0 10px; //rtl
         &:before {
             margin: 0 0 0 3px; //rtl
         }
@@ -32,6 +32,12 @@ body {
         ~ .cbLabel {
             .svg-checked {
                 right: 3px; //rtl
+                left: auto;
+            }
+        }
+        ~ .marketLabel {
+            .svg-checked {
+                right: -2px; //rtl
                 left: auto;
             }
         }
