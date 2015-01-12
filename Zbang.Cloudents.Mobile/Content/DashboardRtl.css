@@ -16,6 +16,11 @@
   right: auto;
 }
 /*#region Dashboard recommended courses */
+.recommendedClasses .vCentered:before,
+.followedClasses .vCentered:before {
+  right: 8px;
+  left: auto;
+}
 .recommendedList {
   text-align: right;
 }

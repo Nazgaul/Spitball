@@ -120,6 +120,25 @@
   font-size: 13px;
 }
 /*#region Dashboard recommended courses */
+.recommendedClasses .vCentered:before,
+.followedClasses .vCentered:before {
+  content: attr(data-letter);
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: tomato;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 8px;
+  font-size: 25px;
+}
 .recommendedClasses h2 {
   height: 30px;
   line-height: 30px;
@@ -142,6 +161,12 @@
   display: block;
   margin-right: -12px;
   white-space: nowrap;
+  /*img {
+        position: absolute;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid @borderColor;
+    }*/
 }
 .recommendedItem + .recommendedItem:after {
   content: '';
@@ -194,12 +219,6 @@
   left: 4px;
   top: 0;
 }
-.recommendedItem img {
-  position: absolute;
-  left: 8px;
-  border-radius: 5px;
-  border: 1px solid #c2c2c2;
-}
 .recommendedItem .courseName {
   color: #0f9d58;
   font-size: 15px;
@@ -239,6 +258,14 @@
 /*#region Dashboard followed courses */
 .followedClasses {
   text-align: left;
+  /*img {
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        left: 8px; //rtl
+        border-radius: 5px;
+        border: 1px solid @borderColor;
+    }*/
 }
 .followedClasses a {
   display: block;
@@ -257,15 +284,6 @@
   bottom: 0;
   right: 14px;
   margin: auto;
-}
-.followedClasses img {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 8px;
-  border-radius: 5px;
-  border: 1px solid #c2c2c2;
 }
 .followedClasses .details {
   padding-left: 56px;

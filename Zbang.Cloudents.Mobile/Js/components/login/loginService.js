@@ -1,6 +1,6 @@
 ﻿angular.module('login')
     .service('loginService',
-    ['$state', 'account', 'Facebook','$rootScope',  function ($state, account, facebook, $rootScope) {
+    ['$state', 'account', 'Facebook', '$rootScope', '$analytics', function ($state, account, facebook, $rootScope, $analytics) {
         "use strict";
         var service = this;
 
