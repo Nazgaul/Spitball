@@ -51,16 +51,16 @@
             };
         }
         ]).filter('displayTimeFilter',
-        [function () {
+        ['$filter', function ($filter) {
             return function (date) {
 
                 var date = new Date(date),
                    oneDay = 86400000,
                    today = new Date(),
-                   dateDifference = calculateDayDifference(),
-                   months = ['January', 'February', 'March', 'April',
-                       'May', 'June', 'July', 'August',
-                       'September', 'October', 'November', 'December'];
+                   dateDifference = calculateDayDifference();//,
+                   //months = ['January', 'February', 'March', 'April',
+                   //    'May', 'June', 'July', 'August',
+                   //    'September', 'October', 'November', 'December'];
                 //months = [jsResources.January, jsResources.February, jsResources.March, jsResources.April,
                 //    jsResources.May, jsResources.June, jsResources.July, jsResources.August,
                 //    jsResources.September, jsResources.October, jsResources.November, jsResources.December];
@@ -83,13 +83,12 @@
                     default:
                         var dateMonth = date.getMonth() + 1,
                             todayMonth = today.getMonth() + 1;
-
                         if (dateMonth < todayMonth) {
-                            return date.getDate() + ' ' + months[dateMonth - 1];
+                            return $filter('date')(date,'d, MMMM');
                         } else if (dateMonth > todayMonth) {
-                            return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
+                            return $filter('date')(date, 'longDate',null);
                         } else if (today.getYear() > date.getYear()) {
-                            return date.getDate() + ' ' + months[dateMonth - 1] + ', ' + date.getFullYear();
+                            return $filter('date')(date, 'longDate',null);
                         } else {
                             return dateDifference + ' days ago';
                         }

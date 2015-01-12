@@ -1,6 +1,5 @@
 ﻿angular.module('dashboard').directive('toggleMenu',
    ['$analytics', function ($analytics) {
-
        return {
            restrict: "A",
            scope: false,

@@ -38,10 +38,7 @@
 
                 page++;
 
-                if (!items.length) {
-                    if (boxItems.currentTabId && boxItems.currentTabId.length) {
-                        boxItems.items = items;
-                    }
+                if (!items.length) {                
                     endResult = true;
                     return;
                 }
