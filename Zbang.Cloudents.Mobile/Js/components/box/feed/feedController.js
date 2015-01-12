@@ -26,7 +26,7 @@
 
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
                 question.id = questionId;
-
+                feed.questionFormData.content = null;
             });
         };
 
@@ -49,7 +49,7 @@
 
             feedService.addAnswer(boxId, question.id, answer.content).then(function (answer) {
                 answer.id = answerId;
-
+                question.aFormData.content = null;
             });
         };
 
@@ -88,7 +88,7 @@
         function setPostDetails(post) {
             post.userName = userDetails.getName();
             post.userImage = userDetails.getImage();
-            post.creationTIme = new Date().toISOString();
+            post.creationTime = new Date().toISOString();
 
             return post;
         }
