@@ -9,6 +9,11 @@
 
             service.signup = function (data) {
                 return account.register(data).then(function (response) {
+                    $analytics.eventTrack('Sign up', {
+                        category: 'Register',
+                        label: 'User signed up with email'
+                    });
+
                     if (data.universityId) {
                         $state.go('root.dashboard', {}, { reload: true });
                         return;
@@ -20,7 +25,7 @@
 
             service.changeLanguage = function (language, data) {
                 $analytics.eventTrack('Language Change', {
-                    category: 'Register',
+                    category: 'Register page',
                     label: 'User changed language to ' + language
                 });
 
@@ -51,6 +56,9 @@
             };
 
             service.searchUnis = function (term, page) {
+
+                $analytics.searchTrack($state.current.name, term, 'unis');
+
                 return library.search({ term: term, page: page });
             };
 

@@ -16,6 +16,12 @@
         };
 
         service.facebookLogin = function () {
+
+            $analytics.eventTrack('Facebook login', {
+                category: 'Homepage',
+                label: 'User click facebook login'
+            });
+
             facebook.login(function (response) {
                 if (response.authResponse) {
                     account.facebookLogin({ token: response.authResponse.accessToken }).then(function (fbResposne) {

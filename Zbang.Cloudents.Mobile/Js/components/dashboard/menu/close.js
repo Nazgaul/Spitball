@@ -1,5 +1,5 @@
 ﻿angular.module('dashboard').directive('toggleMenu',
-   [function () {
+   ['$analytics', function ($analytics) {
 
        return {
            restrict: "A",
@@ -22,7 +22,11 @@
                    if (isDescendant(menu, e.target)) {
                        return false;
                    }
-                   
+
+                   $analytics.eventTrack('Open sidebar', {
+                       category: 'Dashboard page'
+                   });
+
                    $dashboard.removeClass('menuOpen');
                });
 
@@ -35,6 +39,11 @@
                function toggleMenu(e) {
                    e.preventDefault();
                    e.stopPropagation();
+
+                   $analytics.eventTrack($dashboard.hasClass('menuOpen') ? 'Open' : 'Closed' + ' sidebar', {
+                       category: 'Dashboard page'
+                   });
+
                    $dashboard.toggleClass('menuOpen');
                }
 

@@ -44,8 +44,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
             m_MembershipService = membershipService;
             m_FacebookService = facebookService;
-             m_QueueProvider = queueProvider;
-             m_EncryptObject = encryptObject;
+            m_QueueProvider = queueProvider;
+            m_EncryptObject = encryptObject;
         }
 
 
@@ -148,7 +148,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        
+
         //[ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<JsonResult> Login([ModelBinder(typeof(TrimModelBinder))]LogOn model)
@@ -173,7 +173,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
                         FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
-                                //result.Culture,
+                            //result.Culture,
                                 result.UniversityId,
                                 result.UniversityData));
                         return JsonOk();
@@ -243,7 +243,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.User.Culture });
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
-                            //result.User.Culture,
+                        //result.User.Culture,
                             result.UniversityId,
                             result.UniversityData));
                     cookie.RemoveCookie(Invite.CookieName);
@@ -266,7 +266,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
         #endregion
 
-        
+
         [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
@@ -346,10 +346,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("dashboardLink");
             }
-            return View();
+            return View("ForgotPwd");
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
@@ -358,7 +358,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("ForgotPwd", model);
             }
             try
             {
@@ -366,7 +366,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                    return View(model);
+                    return View("ForgotPwd", model);
                 }
                 var query = new GetUserByMembershipQuery(membershipUserId);
                 var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
@@ -393,7 +393,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-            return View(model);
+            return View("ForgotPwd", model);
         }
 
         [HttpGet, NoCache]
@@ -412,16 +412,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToAction("ResetPassword");
             }
-            return View(new Confirmation { Key = TempData["key"].ToString() });
+            return View("CheckEmail", new Confirmation { Key = TempData["key"].ToString() });
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
-        [RequireHttps]
+        [HttpPost]
         public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("CheckEmail", model);
             }
             var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
 
@@ -436,11 +435,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return RedirectToAction("PasswordUpdate", new { key });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
-            return View(model);
-
+            return View("CheckEmail", model);
         }
 
-        [RequireHttps, HttpGet]
+        [HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
             if (User.Identity.IsAuthenticated)
@@ -450,7 +448,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             if (string.IsNullOrWhiteSpace(key))
             {
                 return RedirectToRoute("accountLink");
-                
+
             }
             var data = UnEncryptElement<ForgotPasswordLinkData>(key);
             if (data == null)
@@ -461,21 +459,19 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("accountLink");
             }
-            return View(new NewPassword());
+            return View("ChoosePwd", new NewPassword());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [RequireHttps]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("ChoosePwd", model);
             }
             if (string.IsNullOrWhiteSpace(key))
             {
-                return View(model);
+                return View("ChoosePwd", model);
             }
             var data = UnEncryptElement<ForgotPasswordLinkData>(key);
             if (data == null)
@@ -495,7 +491,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
-                    //result.Culture,
+                //result.Culture,
                     result.UniversityId,
                     result.UniversityData
                     ));
@@ -567,11 +563,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonOk();
             }
             var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-            return JsonOk(new { retVal.Id,
+            return JsonOk(new
+            {
+                retVal.Id,
                 retVal.UniversityId,
-                retVal.Name, 
+                retVal.Name,
                 retVal.Image,
-                retVal.IsAdmin, 
+                retVal.IsAdmin,
                 retVal.FirstTimeDashboard,
                 retVal.Score,
                 retVal.UniversityCountry,
