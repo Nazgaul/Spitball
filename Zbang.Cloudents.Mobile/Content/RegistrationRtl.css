@@ -2,6 +2,9 @@
 .register .bottom {
   text-align: right;
 }
+.marketLabel {
+  text-align: right;
+}
 .ng-message-errors {
   clear: left;
 }

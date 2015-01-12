@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 <!DOCTYPE html>
 
-<html ng-app="app">
+<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
@@ -10,12 +10,11 @@
     @Html.CssRtl("mobileRtl")
     @Html.CssCulture("lang")
     <title>@ViewBag.Title</title>
-    
+
     <base href="/">
 </head>
 <body data-version="@VersionHelper.CurrentVersion(true)">
     @RenderBody()
-    @*@{Html.RenderPartial("_FbRegister");}*@
     @RenderSection("scripts", false)
 </body>
 </html>
