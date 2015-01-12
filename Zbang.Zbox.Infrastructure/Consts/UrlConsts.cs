@@ -40,7 +40,12 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         public static string AppendCloudentsUrl(string relativeUrl)
         {
+            if (relativeUrl.StartsWith(Uri.UriSchemeHttps, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return relativeUrl;
+            }
             return HttpUtility.UrlPathEncode(CloudentsUrl + relativeUrl);
+            
         }
 
 
