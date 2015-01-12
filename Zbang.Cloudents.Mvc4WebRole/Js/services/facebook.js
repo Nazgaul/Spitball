@@ -315,6 +315,13 @@
                                this.postFeed(text, 'https://www.cloudents.com');
                            });
 
+
+                           var cache = $angularCacheFactory('points', {
+                               maxAge: 600000
+                           });
+
+                           cache.put('register', true);
+
                            $analytics.pageTrack('facebook/register/success');
 
 
