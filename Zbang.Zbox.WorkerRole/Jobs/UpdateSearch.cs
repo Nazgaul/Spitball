@@ -11,6 +11,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateSearch : IJob
     {
+        private const int NumberToReSyncWithoutWait = 500;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -40,18 +41,21 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-            await UpdateItem();
-            await UpdateBox();
-            await UpdateUniversity();
+            var itemUpdate = await UpdateItem();
+            var boxUpdate = await UpdateBox();
+            var universityUpdate = await UpdateUniversity();
 
+            if (itemUpdate || boxUpdate || universityUpdate)
+            {
+                return;
+            }
             await Task.Delay(TimeSpan.FromMinutes(1));
-
         }
 
-        private async Task UpdateItem()
+        private async Task<bool> UpdateItem()
         {
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
-            while (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
+            if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
                 var isSuccess =
                     await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
@@ -61,18 +65,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         new UpdateDirtyToRegularCommand(
                             updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
                 }
-                else
-                {
-                    break;
-                }
-                updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
             }
+            return updates.ItemsToUpdate.Count() == NumberToReSyncWithoutWait
+              || updates.ItemsToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
-        private async Task UpdateBox()
+        private async Task<bool> UpdateBox()
         {
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates();
-            while (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
+            if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
@@ -82,21 +83,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         new UpdateDirtyToRegularCommand(
                             updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
                 }
-                else
-                {
-                    break;
-                }
-                updates = await m_ZboxReadService.GetBoxDirtyUpdates();
             }
+            return updates.BoxesToUpdate.Count() == NumberToReSyncWithoutWait
+               || updates.BoxesToDelete.Count() == NumberToReSyncWithoutWait;
 
         }
 
 
 
-        private async Task UpdateUniversity()
+        private async Task<bool> UpdateUniversity()
         {
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
-            while (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
+            if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
                 var isSuccess =
                     await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
@@ -106,12 +104,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         new UpdateDirtyToRegularCommand(
                             updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
                 }
-                else
-                {
-                    break;
-                }
-                updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             }
+            return updates.UniversitiesToDelete.Count() == NumberToReSyncWithoutWait
+                || updates.UniversitiesToUpdate.Count() == NumberToReSyncWithoutWait;
         }
 
         public void Stop()
