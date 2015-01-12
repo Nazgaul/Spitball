@@ -90,11 +90,10 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
                     var cache = $angularCacheFactory('points', {
                         maxAge: 600000
                     });
+                 
+                    cache.put('register', true);
 
                     $analytics.pageTrack('hp/register/success');
-
-
-                    cache.put('register', true);
 
                     if ($routeParams.boxId) {
                         $window.location.reload();

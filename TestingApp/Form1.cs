@@ -73,7 +73,8 @@ namespace TestingApp
             var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, 2, 1160));
+            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+                Convert.ToInt64(textBoxUniversityName.Text)));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
@@ -119,7 +120,8 @@ namespace TestingApp
             var read = iocFactory.Resolve<IItemReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchItem(new ItemSearchQuery(textBox1.Text, 12, 920));
+            var retVal = await read.SearchItem(new ItemSearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+                Convert.ToInt64(textBoxUniversityName.Text)));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

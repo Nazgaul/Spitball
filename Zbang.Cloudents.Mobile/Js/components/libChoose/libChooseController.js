@@ -21,6 +21,7 @@
         };
 
         libChoose.search = function (isAppend) {
+
             if (isSearching) {
                 return;
             }
@@ -28,6 +29,8 @@
             if (isAppend && endResult) {
                 return;
             }
+
+            libChoose.noResults = false;
 
             if (libChoose.query && libChoose.query.length < 2) {
                 return;
@@ -37,8 +40,7 @@
                 libChoose.universities = [];
                 return;
             }
-
-            libChoose.noResults = false;
+          
             isSearching = true;
 
             if (!isAppend) {
