@@ -259,9 +259,9 @@ namespace Zbang.Zbox.ReadServices
                     var usersInItems = grid.Read<UsersInBoxSearchDto>().ToList();
 
 
-                    foreach (var Item in retVal.ItemsToUpdate)
+                    foreach (var item in retVal.ItemsToUpdate)
                     {
-                        Item.UserIds = usersInItems.Where(w => w.BoxId == Item.BoxId).Select(s => s.UserId);
+                        item.UserIds = usersInItems.Where(w => w.BoxId == item.BoxId).Select(s => s.UserId);
                     }
                     retVal.ItemsToDelete = await grid.ReadAsync<long>();
                     return retVal;
