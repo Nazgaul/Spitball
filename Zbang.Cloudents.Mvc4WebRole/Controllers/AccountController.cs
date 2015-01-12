@@ -123,7 +123,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale, invId, model.BoxId);
+                        false, facebookUserData.locale, invId, model.BoxId, false);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -200,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
                 }
-              
+
             }
             catch (Exception ex)
             {
@@ -266,7 +266,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         model.NewEmail, model.UniversityId,
                         model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, lang, invId, model.BoxId);
+                        model.MarketEmail, lang, invId, model.BoxId, false);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.User.Culture });
                     FormsAuthenticationService.SignIn(result.User.Id, false,

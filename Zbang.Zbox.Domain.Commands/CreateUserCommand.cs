@@ -5,9 +5,10 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommandAsync
     {
-        protected CreateUserCommand(string emailId, long? universityId, string firstName,  string lastName, bool sex,
-            bool marketEmail, string culture, Guid? inviteId, long? boxId)
+        protected CreateUserCommand(string emailId, long? universityId, string firstName, string lastName, bool sex,
+            bool marketEmail, string culture, Guid? inviteId, long? boxId, bool isMobile)
         {
+            IsMobile = isMobile;
             BoxId = boxId;
             InviteId = inviteId;
             Culture = culture;
@@ -15,7 +16,7 @@ namespace Zbang.Zbox.Domain.Commands
             if (universityId.HasValue && universityId.Value == 19878)
             {
                 universityId = null;
-                
+
             }
             UniversityId = universityId;
             FirstName = firstName;
@@ -28,20 +29,22 @@ namespace Zbang.Zbox.Domain.Commands
 
         //public string UserName { get; private set; }
         public string FirstName { get; private set; }
-        
+
         public string LastName { get; private set; }
         public bool Sex { get; private set; }
 
         public bool MarketEmail { get; private set; }
 
-        public long?  UniversityId { get; private set; }
+        public long? UniversityId { get; private set; }
 
-        public long? BoxId { get; private set; }    
+        public long? BoxId { get; private set; }
 
         public string Culture { get; private set; }
 
         public abstract string CommandResolveName { get; }
 
         public Guid? InviteId { get; private set; }
+
+        public bool IsMobile { get; private set; }
     }
 }

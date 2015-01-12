@@ -75,12 +75,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected User CreateUser(string email, string image, string largeImage,
             string firstName, string middleName, string lastName,
-            bool sex, bool marketEmail, string culture)
+            bool sex, bool marketEmail, string culture,bool isMobile)
         {
             return new User(email, image, largeImage,
                    firstName,
                    middleName,
-                   lastName, sex, this.marketEmail(marketEmail), culture);
+                   lastName, sex, this.marketEmail(marketEmail), culture, isMobile);
         }
 
         protected bool IsUserRegistered(User user)
