@@ -41,8 +41,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task ExecuteAsync()
         {
             await UpdateItem();
-            await UpdateBox();
-            await UpdateUniversity();
+            //await UpdateBox();
+            //await UpdateUniversity();
 
             await Task.Delay(TimeSpan.FromMinutes(1));
 

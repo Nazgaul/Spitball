@@ -37,6 +37,9 @@
             this.button5 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
+            this.textBoxUserId = new System.Windows.Forms.TextBox();
+            this.textBoxUniversityName = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -128,11 +131,35 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // textBoxUserId
+            // 
+            this.textBoxUserId.Location = new System.Drawing.Point(313, 15);
+            this.textBoxUserId.Name = "textBoxUserId";
+            this.textBoxUserId.Size = new System.Drawing.Size(53, 20);
+            this.textBoxUserId.TabIndex = 7;
+            // 
+            // textBoxUniversityName
+            // 
+            this.textBoxUniversityName.Location = new System.Drawing.Point(372, 15);
+            this.textBoxUniversityName.Name = "textBoxUniversityName";
+            this.textBoxUniversityName.Size = new System.Drawing.Size(63, 20);
+            this.textBoxUniversityName.TabIndex = 7;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(472, -97);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(10, 20);
+            this.textBox6.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 526);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBoxUniversityName);
+            this.Controls.Add(this.textBoxUserId);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -161,6 +188,9 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBoxUserId;
+        private System.Windows.Forms.TextBox textBoxUniversityName;
+        private System.Windows.Forms.TextBox textBox6;
     }
 }
 
