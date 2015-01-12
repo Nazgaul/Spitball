@@ -106,9 +106,10 @@ img {
   width: 100%;
   display: block;
   margin: 0 auto;
-  height: 46px;
-  line-height: 46px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 5px;
+  font-size: 17px;
 }
 .btn1:disabled {
   background: #a5a5a5;
@@ -151,7 +152,8 @@ img {
   display: none;
 }
 .radio + label {
-  margin-right: 3px;
+  margin-right: 10px;
+  font-size: 13px;
 }
 .radio + label:before {
   content: '';

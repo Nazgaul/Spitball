@@ -20,7 +20,7 @@ body {
   right: auto;
 }
 .radio + label {
-  margin: 0 0 0 3px;
+  margin: 0 0 0 10px;
 }
 .radio + label:before {
   margin: 0 0 0 3px;
