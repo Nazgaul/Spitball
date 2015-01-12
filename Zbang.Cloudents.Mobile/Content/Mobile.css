@@ -13,6 +13,7 @@ body {
   text-align: center;
   color: #383838;
   font-family: Arial;
+  font-size: 14px;
 }
 header {
   background: #0f9d58;
@@ -93,9 +94,11 @@ img {
   border: 1px solid #383838;
 }
 .inputText.firstName,
-.inputText.rFloat,
-.inputText.radioWpr {
+.inputText.rFloat {
   width: 48%;
+}
+.radioWpr + .inputText {
+  width: 45%;
 }
 .btn1 {
   background: #0f9d58;
@@ -155,7 +158,7 @@ img {
   display: inline-block;
   width: 12px;
   height: 12px;
-  border: 2px solid #666;
+  border: 1px solid #383838;
   border-radius: 50%;
   position: relative;
   top: 2px;

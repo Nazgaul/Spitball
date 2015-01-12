@@ -8,6 +8,7 @@
         max-width: none; //override
         letter-spacing: normal; //override
         margin: 25px 0;
+        font-size: 22px;
     } 
 }
 .register {
@@ -39,7 +40,7 @@
         visibility: hidden;
         margin-top: -220px;
     }
-    .bottom, .checkbox, .cbLabel {
+    .bottom, .checkbox, .cbLabel, .marketLabel.marketLabel {
         display: none;
     }
     .inputText {
@@ -67,10 +68,25 @@
 .radioWpr {
     margin-top: 6px;
 }
+.marketLabel {
+    display: none;
+    text-align: left; //rtl
+    font-size: 14px;
+}
+[data-culture="he-IL"] {
+    .marketLabel {
+        display: block;
+    }
+}
 .acceptTerms {
     font-size: 11px;
     line-height: 15px;
     display: inline-block;
+}
+.loginTxt {
+    margin-top: 10px;
+    display: inline-block;
+    color: @color;
 }
 .welcomeTxt1 {
     font-size: 13px;

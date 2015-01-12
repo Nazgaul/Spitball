@@ -13,6 +13,7 @@
   max-width: none;
   letter-spacing: normal;
   margin: 25px 0;
+  font-size: 22px;
 }
 .register .bottom {
   width: 92%;
@@ -41,7 +42,8 @@
 }
 .search .bottom,
 .search .checkbox,
-.search .cbLabel {
+.search .cbLabel,
+.search .marketLabel.marketLabel {
   display: none;
 }
 .search .inputText {
@@ -68,10 +70,23 @@
 .radioWpr {
   margin-top: 6px;
 }
+.marketLabel {
+  display: none;
+  text-align: left;
+  font-size: 14px;
+}
+[data-culture="he-IL"] .marketLabel {
+  display: block;
+}
 .acceptTerms {
   font-size: 11px;
   line-height: 15px;
   display: inline-block;
+}
+.loginTxt {
+  margin-top: 10px;
+  display: inline-block;
+  color: #0f9d58;
 }
 .welcomeTxt1 {
   font-size: 13px;
