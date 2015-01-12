@@ -487,6 +487,8 @@
                         }
                         d = d.replace(matches[i], "<a target=\"_blank\" href=\"" + url + "\">" + matches[i] + "</a>");
                     }
+
+                    return d;
                 }
 
             }
