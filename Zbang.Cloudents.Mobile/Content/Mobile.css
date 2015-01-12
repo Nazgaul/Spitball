@@ -125,7 +125,7 @@ img {
   content: '';
   display: block;
   width: 92%;
-  height: 20px;
+  height: 17px;
   position: absolute;
   left: 0;
   right: 0;
@@ -230,10 +230,12 @@ img {
 .static p {
   padding-bottom: 20px;
 }
+/*#endregion */
+/*#region forgot password */
 .forgotPwd,
 .checkEmail,
 .choosePwd {
-  padding: 15px 10px;
+  padding: 15px 3%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -261,9 +263,33 @@ img {
 .choosePwd .inputText {
   height: 36px;
 }
+.forgotPwd .inputText:focus ~ .cancel,
+.checkEmail .inputText:focus ~ .cancel,
+.choosePwd .inputText:focus ~ .cancel {
+  display: none;
+}
 .forgotPwd .btn1,
 .checkEmail .btn1,
 .choosePwd .btn1 {
   height: 36px;
   line-height: 36px;
+}
+.forgotPwd .cancel,
+.checkEmail .cancel,
+.choosePwd .cancel {
+  margin-bottom: 0;
+}
+.cancel {
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #383838;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 94%;
 }

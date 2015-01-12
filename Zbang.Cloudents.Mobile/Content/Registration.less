@@ -18,6 +18,9 @@
     .inputText {
         margin: 15px 0 20px;  
     }
+    .splitHR {
+        margin: 17px 0 4px;
+    }
 }
 .register {
     .bottom {
@@ -41,7 +44,9 @@
         display: none;
     }
 }
-
+.forgotLink {
+    color: @color;
+}
 .search {
     .topReg {
         opacity:0;
@@ -104,6 +109,12 @@
     font-size: 13px;
     text-align: center;
     margin: 10px 0;
+}
+.validation-summary-errors {
+    color: @errorColor;
+    text-align:left; //rtl
+    position:relative;
+    top: -2px;
 }
 .ng-message-errors {
     position:relative;

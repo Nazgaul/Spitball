@@ -130,7 +130,7 @@ img {
         content: '';
         display: block;
         width: 92%;
-        height: 20px;
+        height: 17px;
         position: absolute;
         left: 0;right:0;
         margin: -9px auto 0;
@@ -244,8 +244,11 @@ img {
         padding-bottom: 20px;
     }
 }
+/*#endregion */
+
+/*#region forgot password */
 .forgotPwd , .checkEmail, .choosePwd {
-    padding: 15px 10px;
+    padding: 15px 3%;
     .boxSizing;
     h1 {
         font-size: 20px;
@@ -257,11 +260,30 @@ img {
     } 
     .inputText {
         height: 36px;
-        
+        &:focus {
+            ~ .cancel {
+                display: none;
+            }
+        }
     }
     .btn1 {
         height: 36px;
         line-height: 36px;
     }
+    .cancel {
+        margin-bottom: 0;
+    }
 }
+.cancel {
+    padding:0;
+    .boxSizing;
+    background: @textColor;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    left: 0;right: 0;
+    margin: auto;
+    width: 94%; //fallback
+}
+
 /*#endregion */
