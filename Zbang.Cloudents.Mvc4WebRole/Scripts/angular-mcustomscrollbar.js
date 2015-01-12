@@ -68,21 +68,22 @@
                     setHeight: height,
                     theme: "dark",
                     advanced: { updateOnContentResize: false },
-                    callbacks: {
-                        onTotalScrollOffset: 600,
-                        onTotalScroll: function () {
-                            $scope.$apply(function () {
-                                $scope.addItems();
-                            });
-                            
-                        },
+                    callbacks: {                        
                         whileScrolling: function () {
 
                             if (this.mcs.topPct === 0) {
                                 $elem.removeClass($attr.mCustomScrollbarClass);
                                 return;
                             }
+
                             $elem.addClass($attr.mCustomScrollbarClass);
+
+                            if (this.mcs.topPct < 80) {
+                                return;
+                            }
+                            $scope.$evalAsync(function () {
+                                $scope.addItems();
+                            });
                         }
                     }
                 });

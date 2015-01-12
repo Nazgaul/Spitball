@@ -44,7 +44,7 @@ function ($scope, $timeout, sAccount,
         $scope.data = {
             state :2 //login
         };
-        $scope.params.showLogin = true;
+        $scope.params.showLogin = true;        
     };
 
     $scope.register= function () {
@@ -52,6 +52,9 @@ function ($scope, $timeout, sAccount,
             state: 1 //register
         };
         $scope.params.showLogin = true;
+
+        $analytics.pageTrack('hp/register');
+
     };    
 }
 ]);

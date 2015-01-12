@@ -91,6 +91,9 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
                         maxAge: 600000
                     });
 
+                    $analytics.pageTrack('hp/register/success');
+
+
                     cache.put('register', true);
 
                     if ($routeParams.boxId) {
@@ -109,7 +112,7 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount, $analytics
 
 
                 }, function (response) {
-                    
+                    $analytics.pageTrack('hp/register/failed');
                     $scope.params.registerServerError = response[0].value[0];
                     $scope.disabled = false;
                 });
