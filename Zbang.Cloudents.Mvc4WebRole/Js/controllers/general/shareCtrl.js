@@ -105,7 +105,7 @@
                 return {
                     id: contact.uid,
                     name: contact.name,
-                    image: contact.image,
+                    image: contact.largeImage || '/images/user.svg',
                     cloudents: true
                 }
             });

@@ -255,14 +255,25 @@
                    nl: 'Check Cloudents! Een plek om samen te werken aan opdrachten, studiemateriaal te vinden, proeftentamens te doen of ideeën en teksten te bespreken.'
                };
 
+
+               $analytics.pageTrack('facebook/register');
+
                var dfd = $q.defer();
 
                FB.login(function (response) {
+                   if (!response.authResponse) {
+                       $analytics.pageTrack('facebook/register/noauth');
+                       dfd.reject();
+                       return;
+                   }
+
                    accessToken = response.authResponse.accessToken;
+
                    FB.api('/me/permissions', function (response2) {
                        var perms = response2.data[0];
 
                        if (perms.email) {
+                           $analytics.pageTrack('facebook/register/auth');
                            login();
                            // User has permission
                            $analytics.eventTrack('Facebook Signup', {
@@ -270,6 +281,8 @@
                                label: 'Successfull login using facebook'
                            });
                        } else {
+                           $analytics.pageTrack('facebook/register/noemail');
+
                            alert('you need to give email permission');
                            $analytics.eventTrack('Facebook Signup', {
                                category: 'Connect Popup',
@@ -302,6 +315,8 @@
                                this.postFeed(text, 'https://www.cloudents.com');
                            });
 
+                           $analytics.pageTrack('facebook/register/success');
+
 
                            if (data.boxId) {
                                $window.location.reload();
@@ -325,6 +340,9 @@
 
 
                        dfd.resolve();
+                   }).catch(function () {
+                       $analytics.pageTrack('facebook/register/failed');
+
                    });
                }
            },

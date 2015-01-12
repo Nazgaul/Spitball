@@ -180,7 +180,7 @@
                                if (entry.link[0].gd$etag) {
                                    contact.image = decodeURIComponent(entry.link[0].href) + '&access_token=' + access_token;
                                } else {
-                                   contact.image = '/Images/user-gmail-pic.jpg';
+                                   contact.image = '/images/user.svg';
                                }
 
                                contact.google = true;

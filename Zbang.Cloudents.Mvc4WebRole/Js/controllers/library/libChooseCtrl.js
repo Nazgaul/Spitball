@@ -71,7 +71,9 @@
                      return;
                  }
 
-                 $analytics.searchTrack('/library/choose/', query, 'unis');
+                 $analytics.searchTrack('library/choose', query, 'unis');
+                 $analytics.pageTrack('library/search/term/' + encodeURIComponent(query));
+
 
                  sLibrary.searchUniversities({ term: query }).then(function (data) {
                      data = data || [];
@@ -105,6 +107,8 @@
                      return;
                  }
 
+                 $analytics.pageTrack('library/create/search/term/' + encodeURIComponent(query));
+
                  sLibrary.searchUniversities({ term: query }).then(function (data) {
                      $scope.createUniversities = data;
                  });
@@ -117,6 +121,8 @@
                          //$scope.display.searchUniversity = $scope.display.search = $scope.display.facebook = false;
                          //$scope.display.choose = true;
                          $analytics.setVariable('dimension1', university.name);
+                         $analytics.pageTrack('library/choose/selected');
+
                          if (isFacebook) {
                              $analytics.eventTrack('Facebook choose', {
                                  category: 'Select university',
@@ -150,6 +156,8 @@
 
 
              $scope.createUniversity = function () {
+                 $analytics.pageTrack('library/choose/create');
+
                  $scope.display.createUniversity = true;
                  $scope.display.search = $scope.display.searchUniversity = $scope.display.facebook
                       = false;
@@ -168,7 +176,7 @@
                  sLibrary.createUniversity($scope.formData.createUniversity).then(function () {
                      window.open('/dashboard/', '_self');
 
-
+                     $analytics.pageTrack('library/choose/created');
                      $analytics.eventTrack('Choose University', {
                          category: 'Create University'
                      });
