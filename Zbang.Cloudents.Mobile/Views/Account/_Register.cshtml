@@ -63,7 +63,6 @@
                 @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
             </div>
         </div>
-
         <ul class="searchResults" ng-class="{noResults : register.noResults}">
             <li class="ghost" ng-click="register.selectUniversity(university)" ng-repeat="university in register.universities track by university.id">
                 <img class="uniImg" ng-src="{{::university.image}}" width="52" height="52" />
@@ -73,7 +72,10 @@
         @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
         <div class="emptySearch">@SharedResources.NoResults</div>
         <input ng-checked="true" class="checkbox" id="marketEmail" name="marketEmail" type="checkbox" value="true" ng-model="register.formData.marketEmail" />
-        <label class="cbLabel" for="marketEmail">מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית</label>
+        <label class="cbLabel marketLabel" for="marketEmail">
+            @Html.Svg("~/Images/Defs.svg", "tick", new { @class = "svg-checked" })
+            מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית
+        </label>
         <div class="bottom">
             <span class="acceptTerms">
                 @AccountResources.IAgree
