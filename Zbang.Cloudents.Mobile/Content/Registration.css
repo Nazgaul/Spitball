@@ -110,7 +110,8 @@
   text-align: center;
   margin: 10px 0;
 }
-.validation-summary-errors {
+.validation-summary-errors,
+.regError {
   color: #d1294d;
   text-align: left;
   position: relative;
