@@ -109,13 +109,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items2(long id, Guid? tabId)
+        public async Task<JsonResult> Items2(long id)
         {
             try
             {
                 var query = new GetBoxItemsPagedQuery(id, null);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
-                return JsonOk(result.Select(s => new { s.Name, s.Thumbnail, s.Owner, s.Url }));
+                return JsonOk(result.Select(s => new { s.Id }));
             }
             catch (Exception ex)
             {
