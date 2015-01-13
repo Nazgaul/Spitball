@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
@@ -151,6 +152,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
+        [Filters.ValidateAntiForgeryToken]
         public async Task<JsonResult> Login([ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)
@@ -558,9 +560,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         public ActionResult Details()
         {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            var token = formToken;
+
+            var cookieHelper = new CookieHelper(HttpContext);
+            cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
             if (!User.Identity.IsAuthenticated)
             {
-                return JsonOk();
+                return JsonOk(new { token});
             }
             var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
             return JsonOk(new
@@ -573,7 +581,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 retVal.FirstTimeDashboard,
                 retVal.Score,
                 retVal.UniversityCountry,
-                retVal.UniversityName
+                retVal.UniversityName,
+                token
             });
 
         }

@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using Microsoft.Web.Redis;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class CloudentsOutsputCacheProvider : System.Web.Caching.OutputCacheProvider
     {
-        readonly Microsoft.Web.Redis.RedisOutputCacheProvider m_Cache
-            = new Microsoft.Web.Redis.RedisOutputCacheProvider();
+        readonly RedisOutputCacheProvider m_Cache
+            = new RedisOutputCacheProvider();
 
-        readonly string m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version
-            + ConfigurationManager.AppSettings["DataCache"];
+        private readonly string m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version
+                                                + ConfigFetcher.Fetch("DataCache");
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {

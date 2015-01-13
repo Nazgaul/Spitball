@@ -1,5 +1,7 @@
 ﻿using System.Threading;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mobile.Helpers;
 
 namespace Zbang.Cloudents.Mobile.Extensions
 {
@@ -65,12 +67,29 @@ namespace Zbang.Cloudents.Mobile.Extensions
 
         public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
         {
-            if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
             {
                 var cssLinks = BundleConfig.CssLink(key);
                 return MvcHtmlString.Create(cssLinks);
             }
             return MvcHtmlString.Empty;
         }
+
+        //public static MvcHtmlString AngularAntiForgeryToken(this HtmlHelper html)
+        //{
+        //    string cookieToken, formToken;
+        //    AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        //    var token = formToken;
+
+        //    var cookieHelper = new CookieHelper(html.ViewContext.HttpContext);
+        //    cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
+
+        //    var inputBuilder = new TagBuilder("input");
+        //    inputBuilder.MergeAttribute("data-ng-model", "antiForgeryToken");
+        //    inputBuilder.MergeAttribute("data-ng-init", string.Format("antiForgeryToken='{0}'", token));
+        //    inputBuilder.MergeAttribute("type", "hidden");
+        //    return MvcHtmlString.Create(inputBuilder.ToString(TagRenderMode.SelfClosing));
+
+        //}
     }
 }

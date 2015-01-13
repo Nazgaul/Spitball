@@ -1,5 +1,5 @@
 ﻿"use strict";
-angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics', 'angular-gestures', 'ngTouch', 'facebook', 'scroll', 'app.events','ngLocale',
+angular.module('app', ['ui.router', 'jmdobry.angular-cache', 'angulartics', 'angular-gestures', 'ngTouch', 'facebook', 'scroll', 'app.events', 'ngLocale',
     'account', 'register', 'login', 'box', 'dashboard', 'libChoose', 'search', 'app.resources',
     'angulartics.google.analytics', 'ngAnimate', 'ngSanitize', 'stackTrace']).
 config([
@@ -29,7 +29,9 @@ config([
 
            return {
                'request': function (config) {
-
+                  // config.headers["RequestVerificationToken"] = ....
+                  // console.log(config.headers);
+                   //userDetails.getToken();
                    return config;
                },
                // optional method
