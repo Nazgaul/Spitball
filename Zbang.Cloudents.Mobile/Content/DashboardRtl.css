@@ -18,7 +18,8 @@
 /*#region Dashboard recommended courses */
 .recommendedClasses,
 .followedClasses,
-.courseList {
+.courseList,
+.itemsList {
   text-align: right;
 }
 .recommendedClasses .vCentered,

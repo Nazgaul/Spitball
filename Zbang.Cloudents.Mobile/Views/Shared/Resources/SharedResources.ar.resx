@@ -134,8 +134,7 @@
     <value>ملفات </value>
   </data>
   <data name="FindClasses" xml:space="preserve">
-    <value>البحث عن الطبقات، والوثائق والأصدقاء
-</value>
+    <value>البحث عن الطبقات، والوثائق</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>اعضاء</value>
@@ -148,6 +147,9 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>لا توجد نتائج</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث </value>
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>البحث عن مدرستك</value>

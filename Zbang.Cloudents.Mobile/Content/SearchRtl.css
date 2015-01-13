@@ -19,9 +19,6 @@
   display: inline-block;
   margin: 24px 10px 0 0;
 }
-.searchContent ul {
-  text-align: right;
-}
 .tab:after {
   right: 0;
   left: auto;

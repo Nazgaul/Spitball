@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mobile.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find classes, documents and friends.
+        ///   Looks up a localized string similar to Find classes and documents.
         /// </summary>
         public static string FindClasses {
             get {
@@ -147,6 +147,15 @@ namespace Zbang.Cloudents.Mobile.Views.Shared.Resources {
         public static string NoResults {
             get {
                 return ResourceManager.GetString("NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

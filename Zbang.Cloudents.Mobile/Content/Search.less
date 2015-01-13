@@ -2,7 +2,7 @@
 
 /*#region Search Page */
 .searchInput {
-    //padding-top: 7px;
+    font-size: 16px;
 }
 .searchBtn {
     position: relative;
@@ -39,6 +39,8 @@
     position: relative;
     display: inline-block;
     width: 78%;
+    width: ~'-webkit-calc(100% - 50px)';
+    width: ~'calc(100% - 50px)';
     height: 30px;
     line-height: 30px;
     border-radius: 15px;
@@ -47,14 +49,12 @@
     border: 1px solid @borderColor;
     text-align: left; //rtl
     padding-left: 15px; //rtl
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    .boxSizing;
 }
 .searchForm {
     margin: 15px 10px 10px 0; //rtl
 }
+
 .backBtn {
     display: inline-block;
     margin: 24px 0 0 10px; //rtl
@@ -65,20 +65,7 @@
         top:0;bottom:0;
         margin: auto;
         border-radius: 8px;
-    }
-    .ghost {
-        display: block;
-        height: 100%;
-    }
-    ul {
-        text-align: left; //rtl
-    }
-    li {
-        font-size: 13px;
-        position: relative;
-        ~ li {
-            border-top: 1px solid @borderColor;
-        }
+        border: 1px solid @borderColor;
     }
 }
 .tabs {
@@ -130,7 +117,8 @@
         overflow: hidden;
     }
     .fileName {
-        font-size: 15px;
+        font-size: 16px;
+        font-weight: bold;
     }
     img {
         height: 78px;

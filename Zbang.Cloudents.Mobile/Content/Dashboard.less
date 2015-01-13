@@ -126,24 +126,28 @@
     font-size: 13px;
 }
 /*#region Dashboard recommended courses */
-
-.recommendedClasses, .followedClasses, .courseList {
+.recommendedClasses, .followedClasses, .courseList, .itemsList {
     text-align: left; //rtl
     a {
         display: block;
         height: 100%;
     }
     li {
-        height: 80px;
         position: relative;
         ~ li {
             border-top: 1px solid #eee;
         }
     }
+}
+.recommendedClasses, .followedClasses, .courseList {   
+    li {
+        height: 80px;
+    }
     .courseName {
         font-weight: bold;
         max-width: 220px; //fallback
         max-width: 70vw;
+        //max-height: 17px;
         //max-height: 34px;
         font-size: 16px;
         overflow: hidden;
