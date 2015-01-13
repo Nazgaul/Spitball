@@ -11,7 +11,7 @@
 
                attr.$observe('innerScroll', function () {
                    if (attr.innerScroll === 'true') {
-                       loader.css({ display: 'block' });
+                       element.css({ display: 'block' });
                        if (window.pageYOffset > 0) {
                            loader.css({ position: 'fixed', top: 0 });
                        }
@@ -20,8 +20,6 @@
                    //loader.css({ display: 'none' });
                });
 
-               scope.$on('$destroy', function () {
-               });
            }
        }
    }]);
