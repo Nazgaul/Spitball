@@ -2,6 +2,8 @@
 
 .box {
     overflow: hidden; //for tab swipe animation
+    min-height:100%;
+    background:#bbc3cc;
     .backBtn {
         margin: 12px 0 0 10px; //rtl
     }
@@ -9,8 +11,11 @@
         fill: #fff;
     }
     select {
-        border: none;
-        margin-top: 15px;
+        border-radius: 5px;
+        width: 100px;
+        height: 25px;
+        padding-left: 2px;
+        margin-top:5px;
     }
 }
 .inviteBtn {
@@ -32,9 +37,13 @@
     padding-bottom: 15px;
 }
 .boxItems {
-    margin: 0 2%;
+    padding: 0 2%;
+    background:#bbc3cc;
     //.animation(slideleft);
     position: relative;  //for tab swipe animation 
+    select{
+        background:#fff;
+    }
 }
 .boxList {
     overflow: auto;
@@ -82,4 +91,7 @@
     line-height: 14px;
     height: 29px;
     overflow: hidden;
+}
+.itemOwner {
+    font-size:13px;
 }

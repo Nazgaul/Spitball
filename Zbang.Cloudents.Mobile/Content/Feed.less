@@ -1,7 +1,8 @@
 ﻿@import "varsAndMixins";
 
 .feed {
-    background: #eee;
+    background: #bbc3cc;
+    
     //.animation(slideright);
 }
 
@@ -14,10 +15,10 @@
 .feedTA {
     border: none;
     padding: 10px 45px 10px 8px; //rtl
-    height: 31px;
+    height: 40px;
     width: 100%;
     .boxSizing;
-    font-size: 15px;
+    font-size: 16px;
     resize:none;
 }
 
@@ -35,6 +36,14 @@
     display: inline-block;
     width: 92%;
     margin-top: 15px;
+    .feedForm {
+        margin:0 0 10px 0;
+        background:transparent;
+        .feedTA{
+                    border-radius:5px;
+
+        }
+    }
 }
 
 .feedWpr {
@@ -48,9 +57,11 @@
     font-size: 13px;
     position: relative;
     .userName {
-        color: @itemBlue;
+        color: #0f9d58;
+        font-weight:700;
         padding: 0 5px;
         .boxSizing;
+        font-size:14px;
     }
 }
 .feedTop {
@@ -70,9 +81,15 @@
     margin-top: 15px;
     font-size: 15px;
     white-space:normal;
+    a{
+        color:#07c;
+    }
 }
 .feedReplies {
+    width:90%;
+    margin-left:10%;
     .feedWpr {
+        background:#eee;
         padding: 8px 42px 8px 10px; //rtl
         text-align: right; //rtl
     }
