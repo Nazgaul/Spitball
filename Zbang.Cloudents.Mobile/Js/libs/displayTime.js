@@ -51,16 +51,16 @@
             };
         }
         ]).filter('displayTimeFilter',
-        ['$filter', function ($filter) {
+        ['$filter', 'resService', function ($filter,resService) {
             return function (date) {
 
                 var date = new Date(date),
                    oneDay = 86400000,
                    today = new Date(),
                    dateDifference = calculateDayDifference();//,
-                   //months = ['January', 'February', 'March', 'April',
-                   //    'May', 'June', 'July', 'August',
-                   //    'September', 'October', 'November', 'December'];
+                //months = ['January', 'February', 'March', 'April',
+                //    'May', 'June', 'July', 'August',
+                //    'September', 'October', 'November', 'December'];
                 //months = [jsResources.January, jsResources.February, jsResources.March, jsResources.April,
                 //    jsResources.May, jsResources.June, jsResources.July, jsResources.August,
                 //    jsResources.September, jsResources.October, jsResources.November, jsResources.December];
@@ -70,15 +70,15 @@
                     case 0:
                         var timeObj = calculateSecondsDifferece();
                         if (timeObj.hours >= 1) {
-                            return Math.round(timeObj.hours) + ' Hours ago';
+                            return resService.translateFormat('HoursAgo', Math.round(timeObj.hours));
                         }
                         if (timeObj.minutes >= 1) {
-                            return Math.round(timeObj.minutes) + ' min ago';
+                            return resService.translateFormat('MinAgo', Math.round(timeObj.minutes));
                         }
 
-                        return 'Just now';
+                        return resService.translate('JustNow');
                     case 1:
-                        return 'Yesterday';
+                        return resService.translate('Yesterday');
 
                     default:
                         var dateMonth = date.getMonth() + 1,
@@ -90,7 +90,7 @@
                         } else if (today.getYear() > date.getYear()) {
                             return $filter('date')(date, 'longDate',null);
                         } else {
-                            return dateDifference + ' days ago';
+                            return resService.translateFormat('DaysAgo', dateDifference);                            
                         }
                 }
 

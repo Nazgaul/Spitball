@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/search.js"),
                         new JsFileWithCdn("~/js/shared/ajax/feed.js"),
                         new JsFileWithCdn("~/js/shared/ajax/box.js"),
-
+                        
                         new JsFileWithCdn("~/js/shared/loader/loader.js"),
                         new JsFileWithCdn("~/js/shared/loader/innerLoader.js"),
 
@@ -125,9 +125,10 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
 
+                        new JsFileWithCdn("~/js/libs/stringFormat.js"),
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),
-                        new JsFileWithCdn("~/js/libs/plupload.js"),
+                        new JsFileWithCdn("~/js/libs/plupload.js"),                        
                         new JsFileWithCdn("~/js/libs/msdelastic.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js"),
                         new JsFileWithCdn("~/js/libs/displayTime.js"),

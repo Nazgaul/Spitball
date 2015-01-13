@@ -623,6 +623,7 @@
     <Content Include="Js\shared\loader\innerLoader.js" />
     <Content Include="Js\shared\loader\loader.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
+    <Content Include="Js\libs\stringFormat.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\shared\version\versionChecker.js" />
     <Content Include="Js\staticShim.js" />
