@@ -8,6 +8,8 @@
         <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}"  />
         <div class="searchBtn rFloat">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+        </div>
+        <div class="searchBtn rFloat">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </div>
     </form>
