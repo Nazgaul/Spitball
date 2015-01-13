@@ -127,25 +127,30 @@
 }
 /*#region Dashboard recommended courses */
 .recommendedClasses,
-.followedClasses {
+.followedClasses,
+.courseList {
   text-align: left;
 }
 .recommendedClasses a,
-.followedClasses a {
+.followedClasses a,
+.courseList a {
   display: block;
   height: 100%;
 }
 .recommendedClasses li,
-.followedClasses li {
+.followedClasses li,
+.courseList li {
   height: 80px;
   position: relative;
 }
 .recommendedClasses li ~ li,
-.followedClasses li ~ li {
+.followedClasses li ~ li,
+.courseList li ~ li {
   border-top: 1px solid #eee;
 }
 .recommendedClasses .vCentered:before,
-.followedClasses .vCentered:before {
+.followedClasses .vCentered:before,
+.courseList .vCentered:before {
   content: attr(data-box-letter);
   width: 46px;
   height: 46px;
@@ -163,7 +168,8 @@
   font-size: 25px;
 }
 .recommendedClasses .courseName,
-.followedClasses .courseName {
+.followedClasses .courseName,
+.courseList .courseName {
   font-size: 16px;
 }
 .color1:before {
@@ -300,7 +306,6 @@
 /*#endregion */
 /*#region menu */
 .menu {
-  display: none;
   font-size: 13px;
   position: fixed;
   width: 80%;
