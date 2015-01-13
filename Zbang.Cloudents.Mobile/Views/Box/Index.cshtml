@@ -22,8 +22,7 @@
         <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
     <div ng-switch="box.currentTab">
-        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
-            <div inner-scroll="{{feed.loading}}"></div>
+        <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader inner-scroll="{{feed.loading}}">
             <span id="plfakebtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
                 <textarea name="content" class="feedTA" placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
@@ -102,8 +101,7 @@
             <div ng-show="!feed.list.length" class="emptyFeed ghost"><span class="vCentered">@BoxResources.FeedEmpty</span></div>
         </div>
 
-        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController as boxItems">
-            <div inner-scroll="{{boxItems.loading}}"></div>
+        <div class="boxItems" ng-switch-when="items" ng-controller="ItemsController as boxItems" inner-scroll="{{boxItems.loading}}">
             <select ng-model="boxItems.currentTabId" ng-change="boxItems.getItems(false)">
                 <option value="">@BoxResources.AllItems</option>
                 <option ng-repeat="tab in boxItems.tabs" value="{{tab.id}}">{{tab.name}}</option>
