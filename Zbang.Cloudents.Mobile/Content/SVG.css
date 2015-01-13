@@ -103,3 +103,8 @@ svg.rtl {
   width: 20px;
   height: 18px;
 }
+.svg-loading {
+  width: 40%;
+  height: 40px;
+  fill: #0f9d58;
+}
