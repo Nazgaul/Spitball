@@ -5,7 +5,11 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" autofocus />
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}"  />
+        <div class="searchBtn rFloat">
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </div>
     </form>
 </div>
 <div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">

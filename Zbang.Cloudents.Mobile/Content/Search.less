@@ -9,6 +9,13 @@
     position: relative;
     right: 10px; //rtl
     top: 5px;
+    .svg-close {
+        fill: #282828;
+        width: 14px;
+        height: 14px;
+        position: relative;
+        top: -2px;
+    }
 }
 .noResults {
     .emptySearch, ~ .emptySearch {
@@ -41,9 +48,10 @@
     border: 1px solid @borderColor;
     text-align: left; //rtl
     padding-left: 15px; //rtl
+    overflow: hidden;
 }
 .searchForm {
-    margin: 15px 10px 15px 0; //rtl
+    margin: 15px 10px 10px 0; //rtl
 }
 .backBtn {
     display: inline-block;
@@ -76,7 +84,9 @@
     table-layout: fixed;
     width: 100%;
     text-align: center; 
-    background: #282828;   
+    background: #282828; 
+    font-size: 16px;
+    text-transform: capitalize;  
 }
 .tab {
     color: #a5a5a5;
@@ -85,6 +95,7 @@
     display: table-cell;
     position: relative;
     .transition(color .3s);
+    padding-bottom: 5px;
     &:after {
         .pseudo;
         position: absolute;

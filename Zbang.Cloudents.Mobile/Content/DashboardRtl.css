@@ -16,26 +16,23 @@
   right: auto;
 }
 /*#region Dashboard recommended courses */
+.recommendedClasses,
+.followedClasses {
+  text-align: right;
+}
 .recommendedClasses .vCentered:before,
 .followedClasses .vCentered:before {
   right: 8px;
   left: auto;
 }
-.recommendedList {
-  text-align: right;
-}
 .recommendedItem {
   margin: 0 0 0 -12px;
 }
 .recommendedItem .rcDetails {
-  padding: 15px 69px 0 0;
+  padding: 0 69px 0 0;
 }
 .recommendedItem .rcStats svg {
   right: 4px;
-  left: auto;
-}
-.recommendedItem img {
-  right: 8px;
   left: auto;
 }
 .recommendedItem .friends,
@@ -44,19 +41,8 @@
 }
 /*#endregion */
 /*#region Dashboard followed courses */
-.followedClasses {
-  text-align: right;
-  /*img {
-        right: 8px; //rtl
-        left: auto;
-    }*/
-}
-.followedClasses .svg-right {
-  left: 14px;
-  right: auto;
-}
 .followedClasses .details {
-  padding: 0 56px 0 0;
+  padding: 0 63px 0 0;
 }
 /*#endregion */
 /*#region menu */

@@ -8,6 +8,13 @@
   right: 10px;
   top: 5px;
 }
+.searchBtn .svg-close {
+  fill: #282828;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -2px;
+}
 .noResults .emptySearch,
 .noResults ~ .emptySearch {
   display: inline-block;
@@ -40,9 +47,10 @@
   border: 1px solid #c2c2c2;
   text-align: left;
   padding-left: 15px;
+  overflow: hidden;
 }
 .searchForm {
-  margin: 15px 10px 15px 0;
+  margin: 15px 10px 10px 0;
 }
 .backBtn {
   display: inline-block;
@@ -75,6 +83,8 @@
   width: 100%;
   text-align: center;
   background: #282828;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 .tab {
   color: #a5a5a5;
@@ -86,6 +96,7 @@
   -moz-transition: color 0.3s;
   -o-transition: color 0.3s;
   transition: color 0.3s;
+  padding-bottom: 5px;
 }
 .tab:after {
   content: '';

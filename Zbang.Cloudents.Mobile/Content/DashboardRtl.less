@@ -21,6 +21,7 @@
 
 /*#region Dashboard recommended courses */
 .recommendedClasses, .followedClasses {
+    text-align: right; //rtl
     .vCentered {
         &:before {
             right: 8px; //rtl
@@ -29,13 +30,13 @@
     }
 }
 .recommendedList {
-    text-align: right; //rtl
+    //text-align: right; //rtl
 }
 .recommendedItem {
     margin: 0 0 0 -12px; //rtl
 
     .rcDetails {
-        padding: 15px 69px 0 0; //rtl
+        padding: 0 69px 0 0; //rtl
     }
 
     .rcStats {
@@ -45,10 +46,6 @@
         }
     }
 
-    img {
-        right: 8px; //rtl
-        left: auto;
-    }
     .friends, .files {
         padding: 0 26px 0 0; //rtl
     }
@@ -57,17 +54,9 @@
 
 /*#region Dashboard followed courses */
 .followedClasses {
-    text-align: right; //rtl
-    .svg-right {
-        left: 14px; //rtl
-        right: auto;
-    }
-    /*img {
-        right: 8px; //rtl
-        left: auto;
-    }*/
+    
     .details {
-        padding: 0 56px 0 0; //rtl
+        padding: 0 63px 0 0; //rtl
     }
 }
 /*#endregion */

@@ -39,8 +39,6 @@
                     <span>{{::box.itemCount}}&nbsp;@SharedResources.Items</span>
                     <span>{{::box.commentCount}}&nbsp;@SharedResources.Comments</span>
                 </div>
-                @*<img width="40" height="40" ng-src="{{::box.boxPicture}}" />
-                    @Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-right ltr" })*@
             </a>
         </li>
     </ul>
@@ -48,14 +46,11 @@
         <h2>@DashboardResources.RecommendedCourses</h2>
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">
-                <a drag-view href="{{::recommendedBox.url}}" class="courseLink" analytics-event="Click on Box" analytics-category="Dashboard" analytics-label="User clicked on a recommneded box">
-                    <div class="rcDetails ghost" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }">
-                        <div class="vCentered elps" data-box-letter>
-                            <div class="courseName">{{::recommendedBox.name}}</div>
-                            <span class="prof elps">{{::recommendedBox.professor}}</span>
-                            <span class="courseId elps">{{::recommendedBox.courseCode}}</span>
-                        </div>
-                        @*<img alt="" width="48" height="48" ng-src="{{::recommendedBox.picture}}" />*@
+                <a drag-view href="{{::recommendedBox.url}}" class="courseLink ghost" analytics-event="Click on Box" analytics-category="Dashboard" analytics-label="User clicked on a recommneded box">
+                    <div class="rcDetails vCentered" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }" data-box-letter>
+                        <div class="courseName elps">{{::recommendedBox.name}}</div>
+                        <span class="prof elps">{{::recommendedBox.professor}}</span>
+                        <span class="courseId elps">{{::recommendedBox.courseCode}}</span>
                     </div>
                 </a>
                 <div class="rcStats">

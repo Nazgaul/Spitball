@@ -64,6 +64,9 @@
         h1, h3, .featureTxt, .closeBtn {
             display: none;
         }
+        .searchLink {
+            width: 96%;
+        }
     }
     .searchLink {
         margin: 15px auto;
@@ -115,6 +118,7 @@
         position: absolute;
         right: 10px; //rtl
         top: 5px;
+        z-index: 1;
     }
 }
 .searchLinkTxt {
@@ -123,16 +127,24 @@
 }
 /*#region Dashboard recommended courses */
 .recommendedClasses, .followedClasses {
+    text-align: left; //rtl
+    a {
+        display: block;
+        height: 100%;
+    }
     li {
         height: 80px;
         position: relative;
+        ~ li {
+            border-top: 1px solid #eee;
+        }
     }
     .vCentered {
         &:before {
             content:attr(data-box-letter);
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
+            width: 46px;
+            height: 46px;
+            line-height: 46px;
             border-radius: 50%;
             color: #fff;
             display: inline-block;
@@ -144,6 +156,9 @@
             left: 8px; //rtl
             font-size: 25px;
         }
+    }
+    .courseName {
+        font-size: 16px;
     }
 }
 .color1 {
@@ -188,36 +203,26 @@
 }
 .recommendedClasses {
     h2 {
-        height: 30px;
-        line-height: 30px;
+        height: 34px;
+        line-height: 34px;
         font-size: 16px;
         font-weight: normal;
         background: #eee;
         margin: 5px 0 10px;
+        text-align: center;
     }
 }
 .recommendedList {
     overflow: hidden;
-    text-align: left; //rtl
+    //text-align: left; //rtl
 }
 .recommendedItem {
-    height: 80px;
     .boxSizing;
     position: relative;
     font-size: 15px;
     display: block;
     margin-right: -12px; //rtl
     white-space: nowrap;
-    + .recommendedItem {
-        &:after {
-            .pseudo;
-            width: ~'calc(100% - 12px)';
-            height: 1px;
-            background: @borderColor;
-            position: absolute;
-            top: 0;
-        }
-    }
 
     .courseLink {
         display: inline-block;
@@ -228,9 +233,7 @@
     }
 
     .rcDetails {
-        height: 63px;
-        vertical-align: top;
-        padding: 15px 0 0 69px; //rtl
+        padding-left: 69px; //rtl
         .boxSizing;
         display: inline-block;
         background: #fff;
@@ -265,17 +268,8 @@
             top: 0;
         }
     }
-
-    /*img {
-        position: absolute;
-        left: 8px; //rtl
-        border-radius: 5px;
-        border: 1px solid @borderColor;
-    }*/
-
     .courseName {
-        color: #0f9d58;
-        font-size: 15px;
+        color: @color;
         white-space: normal;
         max-height: 34px;
         overflow: hidden;
@@ -317,36 +311,13 @@
 
 /*#region Dashboard followed courses */
 .followedClasses {
-    text-align: left; //rtl
-    a {
-        display: block;
-        height: 100%;
-    }
-    li {
-        ~ li {
-            border-top: 1px solid #eee;
-        }
-    }
-    .svg-right {
-        position: absolute;
-        top:0;bottom:0;
-        right: 14px; //rtl
-        margin: auto;
-    }
-    /*img {
-        position: absolute;
-        top:0;bottom:0;
-        margin: auto;
-        left: 8px; //rtl
-        border-radius: 5px;
-        border: 1px solid @borderColor;
-    }*/
+    
+
     .details {
-        padding-left: 56px; //rtl
+        padding-left: 63px; //rtl
         font-size: 13px;
     }
     .courseName {
-        font-size: 14px;
         font-weight: bold;
         max-width: 220px; //fallback
         max-width: 70vw;
@@ -359,6 +330,7 @@
 /*#region menu */
 
 .menu {
+    display: none;
     font-size: 13px;
     position: fixed;
     width: 80%;
