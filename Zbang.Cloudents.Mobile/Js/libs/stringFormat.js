@@ -3,7 +3,7 @@
         'use strict';
         var service = this;
 
-        service.translate = getString();
+        service.translate = getString;
 
         service.translateFormat = formatString;
 
