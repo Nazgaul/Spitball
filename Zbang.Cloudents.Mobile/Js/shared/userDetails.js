@@ -1,4 +1,4 @@
-﻿angular.module('app').service('userDetails', ['account', function (account) {
+﻿angular.module('app').service('userDetails', ['account', '$http', function (account, $http) {
     var service = this;
 
     var isAuthenticated,
@@ -7,7 +7,7 @@
     service.init = function (data) {
         return account.details().then(function (data) {
             userData = data || {};
-
+            $http.defaults.headers.common["RequestVerificationToken"] = userData.token;
             ga('create', 'UA-9850006-3', {
                 'userId': userData.id,
                 'siteSpeedSampleRate': 70,
@@ -26,7 +26,7 @@
             ga('set', 'dimension1', userData.universityName);
             ga('set', 'dimension2', userData.universityCountry);
             ga('set', 'dimension3', userData.id);
-        
+
         });
     };
 

@@ -1082,6 +1082,11 @@ aside.sideBar .last {
   box-sizing: border-box;
   width: 100%;
 }
+@media only screen and (max-height: 730px) {
+  .popupWrppr.welcome {
+    top: 0;
+  }
+}
 .modal2 {
   background: rgba(17, 17, 17, 0.5);
   width: 100%;

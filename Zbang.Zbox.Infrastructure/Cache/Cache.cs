@@ -30,7 +30,9 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             try
             {
-                m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version + ConfigurationManager.AppSettings[AppKey];
+                m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version +
+
+                    ConfigurationManager.AppSettings[AppKey];
                 if (HttpContext.Current == null)
                 {
                     m_IsCacheAvailable = false;
