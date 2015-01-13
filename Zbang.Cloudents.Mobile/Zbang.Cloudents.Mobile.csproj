@@ -275,6 +275,7 @@
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RedirectToDesktopSiteAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
+    <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />

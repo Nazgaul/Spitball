@@ -18,7 +18,7 @@
             if (!isValid) {
                 return;
             }
-            login.disabled = true
+            login.disabled = true;
 
 
             loginService.login(login.formData).catch(function (response) {
