@@ -118,7 +118,7 @@
         position: absolute;
         right: 10px; //rtl
         top: 5px;
-        z-index: 1;
+        //z-index: 1;//TODO: Why?
     }
 }
 .searchLinkTxt {
@@ -147,8 +147,6 @@
         font-weight: bold;
         max-width: 220px; //fallback
         max-width: 70vw;
-        //max-height: 17px;
-        //max-height: 34px;
         font-size: 16px;
         overflow: hidden;
         -ms-word-break: break-word;
@@ -315,6 +313,8 @@
 /*#region menu */
 
 .menu {
+    padding-left: 10px; //rtl
+    .boxSizing;
     font-size: 13px;
     position: fixed;
     width: 80%;
