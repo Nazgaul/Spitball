@@ -14,7 +14,8 @@
   left: 6px;
   right: auto;
 }
-.validation-summary-errors {
+.validation-summary-errors,
+.regError {
   text-align: right;
 }
 .ng-message-errors {

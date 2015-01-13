@@ -46,14 +46,14 @@
 /*#region Dashboard followed courses */
 .followedClasses {
   text-align: right;
+  /*img {
+        right: 8px; //rtl
+        left: auto;
+    }*/
 }
 .followedClasses .svg-right {
   left: 14px;
   right: auto;
-}
-.followedClasses img {
-  right: 8px;
-  left: auto;
 }
 .followedClasses .details {
   padding: 0 56px 0 0;

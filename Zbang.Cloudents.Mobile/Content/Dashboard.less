@@ -67,7 +67,9 @@
     }
     .searchLink {
         margin: 15px auto;
-        width: 96%;
+        width: 270px;
+        height: 27px;
+        line-height: 27px;
     }
 }
 .menuBtn {
@@ -98,8 +100,8 @@
         padding-top: 0; //override
     }
     .svg-doc {
-        width: 38px;
-        height: 43px;
+        width: 44px;
+        height: 46px;
         display: table-cell;
         fill: @color;
     }
@@ -121,6 +123,10 @@
 }
 /*#region Dashboard recommended courses */
 .recommendedClasses, .followedClasses {
+    li {
+        height: 80px;
+        position: relative;
+    }
     .vCentered {
         &:before {
             content:attr(data-box-letter);
@@ -317,10 +323,8 @@
         height: 100%;
     }
     li {
-        height: 60px;
-        position: relative;
         ~ li {
-            border-top: 1px solid @borderColor;
+            border-top: 1px solid #eee;
         }
     }
     .svg-right {

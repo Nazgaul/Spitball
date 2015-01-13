@@ -77,7 +77,13 @@
                     return;
                 }
 
-                feed.list = feedPage;
+                if (!isAppend) {
+                    feed.list = feedPage;
+                }
+
+                feed.list.concat(feedPage);
+
+
 
             }).finally(function () {
                 isFetching = false;
