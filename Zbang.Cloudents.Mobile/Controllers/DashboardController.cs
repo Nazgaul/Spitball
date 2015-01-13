@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         public async Task<JsonResult> BoxList(int page)
         {
-            System.Threading.Thread.Sleep(5000);
             try
             {
                 var query = new GetBoxesQuery(User.GetUserId(), page, 15);
