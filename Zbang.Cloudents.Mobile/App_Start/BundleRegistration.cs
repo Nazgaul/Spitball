@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/components/dashboard/dashboardController.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboardService.js"),
                         new JsFileWithCdn("~/js/components/dashboard/menu/close.js"),
-                        new JsFileWithCdn("~/js/components/dashboard/boxLetter/boxLetter.js"),
+        
 
                         new JsFileWithCdn("~/js/components/libChoose/libChooseController.js"),
                         new JsFileWithCdn("~/js/components/libChoose/libChooseService.js"),
@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.Mobile
                         
                         new JsFileWithCdn("~/js/shared/loader/loader.js"),
                         new JsFileWithCdn("~/js/shared/loader/innerLoader.js"),
-
+                        new JsFileWithCdn("~/js/shared/boxLetter/boxLetter.js"),
                         new JsFileWithCdn("~/js/shared/events/events.js"),
                         new JsFileWithCdn("~/js/shared/scroll/scroll.js"),
                         

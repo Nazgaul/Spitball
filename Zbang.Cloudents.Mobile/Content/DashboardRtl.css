@@ -17,11 +17,13 @@
 }
 /*#region Dashboard recommended courses */
 .recommendedClasses,
-.followedClasses {
+.followedClasses,
+.courseList {
   text-align: right;
 }
 .recommendedClasses .vCentered:before,
-.followedClasses .vCentered:before {
+.followedClasses .vCentered:before,
+.courseList .vCentered:before {
   right: 8px;
   left: auto;
 }
