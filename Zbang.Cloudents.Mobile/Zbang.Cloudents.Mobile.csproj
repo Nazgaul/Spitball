@@ -307,7 +307,6 @@
     <Compile Include="Models\Account\ForgotPassword.cs" />
     <Compile Include="Models\Account\ForgotPasswordLinkData.cs" />
     <Compile Include="Models\Account\Invite.cs" />
-    <Compile Include="Models\Account\Language.cs" />
     <Compile Include="Models\Account\LogOn.cs" />
     <Compile Include="Models\Account\LogOnRegister.cs" />
     <Compile Include="Models\Account\NewPassword.cs" />
@@ -461,9 +460,15 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
+    <Content Include="Content\Box.min.css">
+      <DependentUpon>Box.css</DependentUpon>
+    </Content>
     <Content Include="Content\Box.rtl.css" />
     <Content Include="Content\BoxRtl.css">
       <DependentUpon>BoxRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\BoxRtl.min.css">
+      <DependentUpon>BoxRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\ChooseSchool.css">
       <DependentUpon>ChooseSchool.less</DependentUpon>
@@ -479,6 +484,9 @@
       <DependentUpon>Dashboard.less</DependentUpon>
     </Content>
     <Content Include="Content\Dashboard.rtl.css" />
+    <Content Include="Content\Feed.min.css">
+      <DependentUpon>Feed.css</DependentUpon>
+    </Content>
     <Content Include="Content\FeedRtl.css">
       <DependentUpon>FeedRtl.less</DependentUpon>
     </Content>
@@ -486,6 +494,9 @@
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
     <Content Include="Content\Feed.rtl.css" />
+    <Content Include="Content\FeedRtl.min.css">
+      <DependentUpon>FeedRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>

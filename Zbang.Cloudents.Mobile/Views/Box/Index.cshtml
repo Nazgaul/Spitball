@@ -26,7 +26,7 @@
             <div inner-scroll="{{feed.loading}}"></div>
             <span id="plfakebtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
-                <textarea name="content" class="feedTA" placeholder="OnYourMind" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
+                <textarea name="content" class="feedTA" placeholder="What on your mind?" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
                         <span class="attachName elps">{{::file.name}}</span>
@@ -83,7 +83,7 @@
                     </ul>
 
                     <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
-                        <textarea name="content" class="feedTA" placeholder="WriteComment" ng-model="question.aFormData.content" text-direction></textarea>
+                        <textarea name="content" class="feedTA" placeholder="What on your mind" ng-model="question.aFormData.content" text-direction></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                                 <span class="attachName elps">{{::file.name}}</span>
@@ -115,7 +115,7 @@
                         <img ng-src="{{::item.thumbnail}}" />
                     </a>
                     <div class="itemName">{{::item.name}}</div>
-                    <div class="elps">{{::item.owner}}</div>
+                    <div class="elps itemOwner">{{::item.owner}}</div>
                 </li>
             </ul>
         </div>

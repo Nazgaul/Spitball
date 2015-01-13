@@ -5,6 +5,10 @@
 .box .backBtn {
   margin: 12px 10px 0 0;
 }
+.box select {
+  padding-left: 0;
+  padding-right: 2px;
+}
 .inviteBtn {
   margin: 8px 0 0 10px;
 }
