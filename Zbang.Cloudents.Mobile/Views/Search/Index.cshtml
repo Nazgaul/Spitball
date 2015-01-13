@@ -5,11 +5,11 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}"  />
-        <div class="searchBtn rFloat">
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search />
+        <div class="searchBtn rFloat" ng-if="!search.formData.query">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </div>
-        <div class="searchBtn rFloat">
+        <div class="searchBtn rFloat" ng-if="search.formData.query.length > 0" ng-click="search.clearInput()">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </div>
     </form>
@@ -42,7 +42,7 @@
             </li>
         </ul>
     </div>
-        @*<ul class="membersList">
+    @*<ul class="membersList">
             <li>
                 <a href="#" class="ghost"
                 analytics-on analytics-event="Click on member" analytics-category="Search page" analytics-label="User clicked on a member">

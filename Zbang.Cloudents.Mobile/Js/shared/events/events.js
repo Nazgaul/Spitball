@@ -142,4 +142,21 @@
                 });
             }
         };
-    });
+    }).
+ directive('focusSearch', function () {
+     return {
+         restrict: 'A',
+         link: function (scope, element, attrs) {
+             var unbind = scope.$on('clearInput', function () {
+                 setTimeout(function () {
+                     element[0].focus();
+                 }, 10);
+             });
+             
+
+             scope.$on('destroy', function () {
+                 unbind();
+             });
+         }
+     };
+ });

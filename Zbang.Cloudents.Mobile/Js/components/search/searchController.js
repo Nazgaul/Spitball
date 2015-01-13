@@ -1,6 +1,6 @@
 ﻿angular.module('search', ['ajax']).
     controller('SearchController',
-    ['searchService', '$location', function (searchService, $location) {
+    ['$scope', 'searchService', '$location', function ($scope, searchService, $location) {
         var search = this;
 
         var coursesPage = 0,
@@ -9,7 +9,7 @@
             itemsEndResult;
 
         search.formData = {};
-        
+
         search.setCurrentTab = function (tab) {
             page = 0;
             search.currentTab = tab;
@@ -28,6 +28,12 @@
 
         };
 
+        search.clearInput = function (e) {
+            $scope.$broadcast('clearInput');
+            search.formData.query = null;
+
+        };
+
 
         search.query = function (isAppend) {
             var term = search.formData.query;
@@ -35,7 +41,7 @@
             if (search.isSearching) {
                 return;
             }
-            
+
             if (!term) {
                 search.courses = search.items = [];
                 return;
@@ -71,7 +77,7 @@
             }
             search.loading = true;
 
-            searchService.queryCourses(term, coursesPage).then(function (courses) {                                
+            searchService.queryCourses(term, coursesPage).then(function (courses) {
                 coursesPage++;
 
                 if (!isAppend) {
@@ -82,7 +88,7 @@
                 search.courses = search.courses.concat(courses);
 
                 if (!courses.length) {
-                    coursesEndResult = true;                 
+                    coursesEndResult = true;
                 }
 
             }).finally(function () {
@@ -103,7 +109,7 @@
             search.loading = true;
 
             searchService.queryItems(term, itemsPage).then(function (items) {
-                
+
 
                 itemsPage++;
 
