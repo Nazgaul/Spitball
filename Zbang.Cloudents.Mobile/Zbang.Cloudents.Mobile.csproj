@@ -477,6 +477,9 @@
     <Content Include="Content\ChooseSchoolRtl.css">
       <DependentUpon>ChooseSchoolRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\Dashboard.min.css">
+      <DependentUpon>Dashboard.css</DependentUpon>
+    </Content>
     <Content Include="Content\DashboardRtl.css">
       <DependentUpon>DashboardRtl.less</DependentUpon>
     </Content>
@@ -549,6 +552,9 @@
     <Content Include="Content\Search.rtl.css" />
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SVG.min.css">
+      <DependentUpon>SVG.css</DependentUpon>
     </Content>
     <Content Include="Content\SVG.rtl.css" />
     <Content Include="Content\varsAndMixins.css">
