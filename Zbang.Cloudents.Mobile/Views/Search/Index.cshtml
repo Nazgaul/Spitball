@@ -5,7 +5,7 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search />
+        <input class="searchInput" placeholder="@SharedResources.Search" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search minlength="2" />
         <div class="searchBtn rFloat" ng-if="!search.formData.query">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
         </div>
@@ -26,11 +26,7 @@
             <li ng-repeat="course in search.courses">
                 <a href="{{::course.url}}" class="ghost"
                    analytics-on analytics-event="Click on box" analytics-category="Search page" analytics-label="User clicked on a box">
-                    <div class="details vCentered" data-box-letter="{{::course.name[0]}}">
-                        <div class="courseName elps">{{::course.name}}</div>
-                        <span>{{::course.itemCount}}&nbsp;@SharedResources.Items</span>
-                        <span>{{::course.commentCount}}&nbsp;@SharedResources.Comments</span>
-                    </div>
+                    <div class="courseName elps vCentered" data-box-letter="{{::course.name[0]}}">{{::course.name}}</div>
                 </a>
             </li>
         </ul>
@@ -39,7 +35,7 @@
                 <a href="{{::item.url}}" class="ghost" target="_self"
                    analytics-on analytics-event="Click on item" analytics-category="Search page" analytics-label="User clicked on a item">
                     <div class="details vCentered">
-                        <div class="filename elps">{{::item.name}}</div>
+                        <div class="fileName elps">{{::item.name}}</div>
                     </div>
                     <img width="64" height="78" ng-src="{{::item.image}}" />
                 </a>

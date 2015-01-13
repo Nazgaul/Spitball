@@ -150,7 +150,7 @@
              var unbind = scope.$on('clearInput', function () {
                  setTimeout(function () {
                      element[0].focus();
-                 }, 10);
+                 }, 50);
              });
              
 

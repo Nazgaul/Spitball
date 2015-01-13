@@ -44,11 +44,15 @@
             }
             var query = $scope.formData.query;
 
-            if (!query) {
+            if (!query) {                
                 $scope.params.showDropdown = false;
                 lastQuery = null;
                 return;
             }
+            if (query.length < 2) {
+                return;
+            }
+
 
             if (query === lastQuery) {
                 return;
@@ -79,6 +83,12 @@
 
         $scope.fullSearch = function (isValid) {
             if (!isValid) {
+                return;
+            }
+
+            var query = $scope.formData.query;
+
+            if (query.length < 2) {
                 return;
             }
 

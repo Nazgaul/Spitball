@@ -133,7 +133,7 @@
     <value>files</value>
   </data>
   <data name="FindClasses" xml:space="preserve">
-    <value>Find classes, documents and friends</value>
+    <value>Find classes and documents</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>No results were found</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>Search for your school</value>
