@@ -47,6 +47,7 @@
 /*#endregion */
 /*#region menu */
 .menu {
+  padding: 0 10px 0 0;
   right: -5px;
   left: auto;
   box-shadow: -5px 0 10px 0 rgba(0, 0, 0, 0.9);

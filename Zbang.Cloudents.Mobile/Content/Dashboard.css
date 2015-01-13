@@ -119,7 +119,6 @@
   position: absolute;
   right: 10px;
   top: 5px;
-  z-index: 1;
 }
 .searchLinkTxt {
   color: #c2c2c2;
@@ -307,6 +306,10 @@
 /*#endregion */
 /*#region menu */
 .menu {
+  padding-left: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 13px;
   position: fixed;
   width: 80%;
