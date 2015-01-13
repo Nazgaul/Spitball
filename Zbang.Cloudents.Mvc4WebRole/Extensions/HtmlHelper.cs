@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var helper = new UrlHelper(html.ViewContext.RequestContext);
             var svgTag = new TagBuilder("svg");
             var useTag = new TagBuilder("use");
-            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name), 
+            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name.ToLower()), 
                 hash, 
                 VersionHelper.CurrentVersion(false)));
             svgTag.InnerHtml = useTag.ToString(TagRenderMode.SelfClosing);
@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static MvcHtmlString CssCulture(this HtmlHelper html, string key)
         {
-            var cssLinks = BundleConfig.CssLink(key + "." + System.Threading.Thread.CurrentThread.CurrentCulture);
+            var cssLinks = BundleConfig.CssLink(key + "." + Thread.CurrentThread.CurrentCulture);
             if (string.IsNullOrEmpty(cssLinks))
             {
                 return MvcHtmlString.Empty;
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
         {
-            if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
             {
                 var cssLinks = BundleConfig.CssLink(key);
                 return MvcHtmlString.Create(cssLinks);

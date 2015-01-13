@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
+using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mobile
@@ -59,9 +62,6 @@ namespace Zbang.Cloudents.Mobile
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
-                    //RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s =>
-                    //    string.Format("{0}.rtl.css",
-                    //   s.Replace(Path.GetExtension(s), string.Empty))));
                 }
             }
             if (registeredJsBundles != null)
@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mobile
                 {
                     RegisterJsRegular(registeredJsBundle.Key, registeredJsBundle.Value);
                 }
+            }
+
+            foreach (var language in Languages.SupportedCultures)
+            {
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language.Culture);
+                var angularResource = string.Format("{0}_{1}.js", HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale"),
+                                        Thread.CurrentThread.CurrentUICulture.Name);
+
+                RegisterLocaleJs(File.ReadAllText(angularResource), JsResourceHelper.BuildResourceObject(), language.Culture);
             }
 
 
@@ -115,6 +124,24 @@ namespace Zbang.Cloudents.Mobile
             }
 
 
+        }
+
+        private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
+        {
+            var bundler = SquishIt.Framework.Bundle.JavaScript();
+            bundler.WithReleaseFileRenderer(new SquishItRenderer());
+            bundler.AddString(angularPath);
+            bundler.AddString(jsResourceString);
+            var cdnUrl = CdnLocation;
+
+            if (!string.IsNullOrWhiteSpace(cdnUrl))
+            {
+                bundler.WithOutputBaseHref(cdnUrl);
+                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
+
+                JsBundles.Add("langText", bundler.Render("~/gzip/j#.js"));
+            }
+            JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
         }
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
