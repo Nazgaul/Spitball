@@ -27,8 +27,10 @@
                        
                        return;
                    }
-                   element.empty().css({ display: 'none' });
-                   element.append(loader);
+                   setTimeout(function () {
+                       element.empty().css({ display: 'none' });
+                   }, 50);
+                   
                });
 
            }

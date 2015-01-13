@@ -89,7 +89,7 @@
         dataContext.getItem({
             data: { BoxId: boxid, itemId: itemid, uniName: location.pathname.split('/')[2] },
             success: function (data) {
-                document.getElementById('backToBox').setAttribute('href', data.boxUrl);
+                document.getElementById('backToBox').setAttribute('href', data.boxUrl + '#items');
                 blobName = data.blob;
                     loaded = true;
                     getPreview();

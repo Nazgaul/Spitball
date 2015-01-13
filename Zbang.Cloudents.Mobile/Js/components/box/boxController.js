@@ -1,6 +1,6 @@
 ﻿angular.module('box', ['ajax', 'feed', 'boxItems']).
     controller('BoxController',
-    ['$scope', '$stateParams', 'boxService', function ($scope, $stateParams, boxService) {
+    ['$scope', '$stateParams', 'boxService', '$location', function ($scope, $stateParams, boxService, $location) {
         var box = this;
 
         var boxData;
@@ -18,19 +18,21 @@
         box.setCurrentTab = function (tab) {
             window.scrollTo(0, 0);
             box.currentTab = tab;
+            $location.hash(tab);
         };
 
-        $scope.$on('uploadStart', function () {         
+        $scope.$on('uploadStart', function () {
             box.uploading = true;
             box.setCurrentTab(null);
         });
 
 
-        $scope.$on('uploadComplete', function () {      
+        $scope.$on('uploadComplete', function () {
             box.uploading = false;
-            box.setCurrentTab('feed');            
+            box.setCurrentTab('feed');
         });
 
-        box.setCurrentTab('feed');
+        box.setCurrentTab($location.hash() || 'feed');
+
     }]
 );
