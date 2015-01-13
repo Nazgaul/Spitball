@@ -133,7 +133,7 @@
     <value>файлы</value>
   </data>
   <data name="FindClasses" xml:space="preserve">
-    <value>Найти классы, документы и друзей</value>
+    <value>Найти классы, документы</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Друзья</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>Ничего не найдено</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>Искать вашу школу</value>

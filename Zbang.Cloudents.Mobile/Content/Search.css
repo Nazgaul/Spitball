@@ -3,6 +3,9 @@
 /*#region mixins */
 /*#endregion */
 /*#region Search Page */
+.searchInput {
+  font-size: 16px;
+}
 .searchBtn {
   position: relative;
   right: 10px;
@@ -39,6 +42,8 @@
   position: relative;
   display: inline-block;
   width: 78%;
+  width: -webkit-calc(100% - 50px);
+  width: calc(100% - 50px);
   height: 30px;
   line-height: 30px;
   border-radius: 15px;
@@ -47,10 +52,9 @@
   border: 1px solid #c2c2c2;
   text-align: left;
   padding-left: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .searchForm {
   margin: 15px 10px 10px 0;
@@ -65,20 +69,7 @@
   bottom: 0;
   margin: auto;
   border-radius: 8px;
-}
-.searchContent .ghost {
-  display: block;
-  height: 100%;
-}
-.searchContent ul {
-  text-align: left;
-}
-.searchContent li {
-  font-size: 13px;
-  position: relative;
-}
-.searchContent li ~ li {
-  border-top: 1px solid #c2c2c2;
+  border: 1px solid #c2c2c2;
 }
 .tabs {
   display: table;
@@ -137,7 +128,8 @@
   overflow: hidden;
 }
 .itemsList .fileName {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: bold;
 }
 .itemsList img {
   height: 78px;

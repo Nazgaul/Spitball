@@ -128,25 +128,33 @@
 /*#region Dashboard recommended courses */
 .recommendedClasses,
 .followedClasses,
-.courseList {
+.courseList,
+.itemsList {
   text-align: left;
 }
 .recommendedClasses a,
 .followedClasses a,
-.courseList a {
+.courseList a,
+.itemsList a {
   display: block;
   height: 100%;
 }
 .recommendedClasses li,
 .followedClasses li,
-.courseList li {
-  height: 80px;
+.courseList li,
+.itemsList li {
   position: relative;
 }
 .recommendedClasses li ~ li,
 .followedClasses li ~ li,
-.courseList li ~ li {
+.courseList li ~ li,
+.itemsList li ~ li {
   border-top: 1px solid #eee;
+}
+.recommendedClasses li,
+.followedClasses li,
+.courseList li {
+  height: 80px;
 }
 .recommendedClasses .courseName,
 .followedClasses .courseName,

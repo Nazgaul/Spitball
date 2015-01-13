@@ -6,7 +6,7 @@
 
            link: function (scope, element, attr) {
 
-               var loader = angular.element('<div style="display:none;">Loading</div>');
+               var loader = angular.element('<svg class="svg-loading"><use xlink:href="#loading" /></svg>');
                element.append(loader);
 
                attr.$observe('innerScroll', function () {

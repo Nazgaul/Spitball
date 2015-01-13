@@ -133,7 +133,7 @@
     <value>קבצים</value>
   </data>
   <data name="FindClasses" xml:space="preserve">
-    <value>מצא קורסים, מסמכים וחברים</value>
+    <value>מצא קורסים ומסמכים</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>חברים</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>חיפוש</value>
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>הקלד את מוסד הלימודים שלך </value>
