@@ -78,6 +78,7 @@
 .menuBtn {
     margin: 6px 10px 0;
     position: relative;
+  
 }
 /*.msgCounter {
     position: absolute;
@@ -337,7 +338,7 @@
     &:before {
         .pseudo;
         width: 100%;
-        height: 90px;
+        height: 38px;
         position: absolute;
         top: 0;
         left: 0; //rtl
@@ -355,7 +356,7 @@
     }
 }
 .userDetailsWpr {
-    margin: 62px 0 25px;
+    margin: 11px 0 25px;
 }
 .userDetails {
     text-align: left; //rtl
@@ -370,16 +371,25 @@
     text-align: left; //rtl
     li {
         position: relative;
+        position: relative;
+        top: 10px;
         
         &:last-child {
             border-top: 1px solid @borderColor;
+            bottom: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: auto;
         }
     }
     svg {
         fill: @color;
         position: absolute;
-        top: 16px;
+        top: 14px;
         left: 28px; //rtl
+        width:25px;
+        height:25px;
     }
     a {
         padding-left: 70px; //rtl
