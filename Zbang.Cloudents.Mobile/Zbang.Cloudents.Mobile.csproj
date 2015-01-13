@@ -566,7 +566,7 @@
     <Content Include="Js\components\box\feed\feedController.js" />
     <Content Include="Js\components\box\items\itemsService.js" />
     <Content Include="Js\components\box\items\itemsController.js" />
-    <Content Include="Js\components\dashboard\boxLetter\boxLetter.js" />
+    <Content Include="Js\shared\boxLetter\boxLetter.js" />
     <Content Include="Js\components\dashboard\dashboardController.js" />
     <Content Include="Js\components\dashboard\dashboardService.js" />
     <Content Include="Js\components\account\accountController.js" />
@@ -623,6 +623,7 @@
     <Content Include="Js\shared\loader\innerLoader.js" />
     <Content Include="Js\shared\loader\loader.js" />
     <Content Include="Js\shared\scroll\scroll.js" />
+    <Content Include="Js\libs\stringFormat.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\shared\version\versionChecker.js" />
     <Content Include="Js\staticShim.js" />

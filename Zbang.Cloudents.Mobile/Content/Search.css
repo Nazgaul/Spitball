@@ -47,7 +47,10 @@
   border: 1px solid #c2c2c2;
   text-align: left;
   padding-left: 15px;
-  overflow: hidden;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 .searchForm {
   margin: 15px 10px 10px 0;
@@ -123,19 +126,6 @@
 .membersList,
 .boxItems {
   text-align: left;
-}
-.courseList li {
-  height: 70px;
-}
-.courseList .courseName {
-  width: 40%;
-  max-height: 31px;
-  padding-left: 60px;
-  overflow: hidden;
-}
-.courseList img {
-  height: 40px;
-  left: 10px;
 }
 .itemsList li {
   height: 104px;

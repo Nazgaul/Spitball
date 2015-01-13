@@ -72,7 +72,6 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/scripts/stacktrace.js"),                                                                                                                                                
                         new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
-                        new JsFileWithCdn("~/scripts/plupload2/angular-plupload.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
 
                         new JsFileWithCdn("~/js/app.module.js"),
@@ -97,7 +96,7 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/components/dashboard/dashboardController.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboardService.js"),
                         new JsFileWithCdn("~/js/components/dashboard/menu/close.js"),
-                        new JsFileWithCdn("~/js/components/dashboard/boxLetter/boxLetter.js"),
+        
 
                         new JsFileWithCdn("~/js/components/libChoose/libChooseController.js"),
                         new JsFileWithCdn("~/js/components/libChoose/libChooseService.js"),
@@ -113,10 +112,10 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/js/shared/ajax/search.js"),
                         new JsFileWithCdn("~/js/shared/ajax/feed.js"),
                         new JsFileWithCdn("~/js/shared/ajax/box.js"),
-
+                        
                         new JsFileWithCdn("~/js/shared/loader/loader.js"),
                         new JsFileWithCdn("~/js/shared/loader/innerLoader.js"),
-
+                        new JsFileWithCdn("~/js/shared/boxLetter/boxLetter.js"),
                         new JsFileWithCdn("~/js/shared/events/events.js"),
                         new JsFileWithCdn("~/js/shared/scroll/scroll.js"),
                         
@@ -125,9 +124,10 @@ namespace Zbang.Cloudents.Mobile
 
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
 
+                        new JsFileWithCdn("~/js/libs/stringFormat.js"),
                         new JsFileWithCdn("~/js/libs/hammer.js"),
                         new JsFileWithCdn("~/js/libs/gestures.js"),
-                        new JsFileWithCdn("~/js/libs/plupload.js"),
+                        new JsFileWithCdn("~/js/libs/plupload.js"),                        
                         new JsFileWithCdn("~/js/libs/msdelastic.js"),
                         new JsFileWithCdn("~/js/libs/stacktrace.js"),
                         new JsFileWithCdn("~/js/libs/displayTime.js"),

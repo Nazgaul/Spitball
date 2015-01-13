@@ -5,9 +5,11 @@
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}"  />
-        <div class="searchBtn rFloat">
+        <input class="searchInput" placeholder="@SharedResources.SearchFor" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search />
+        <div class="searchBtn rFloat" ng-if="!search.formData.query">
             @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+        </div>
+        <div class="searchBtn rFloat" ng-if="search.formData.query.length > 0" ng-click="search.clearInput()">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </div>
     </form>
@@ -24,8 +26,11 @@
             <li ng-repeat="course in search.courses">
                 <a href="{{::course.url}}" class="ghost"
                    analytics-on analytics-event="Click on box" analytics-category="Search page" analytics-label="User clicked on a box">
-                    <div class="courseName vCentered">{{::course.name}}</div>
-                    <img width="40" height="40" ng-src="{{::course.image}}" />
+                    <div class="details vCentered" data-box-letter="{{::course.name[0]}}">
+                        <div class="courseName elps">{{::course.name}}</div>
+                        <span>{{::course.itemCount}}&nbsp;@SharedResources.Items</span>
+                        <span>{{::course.commentCount}}&nbsp;@SharedResources.Comments</span>
+                    </div>
                 </a>
             </li>
         </ul>
@@ -41,7 +46,7 @@
             </li>
         </ul>
     </div>
-        @*<ul class="membersList">
+    @*<ul class="membersList">
             <li>
                 <a href="#" class="ghost"
                 analytics-on analytics-event="Click on member" analytics-category="Search page" analytics-label="User clicked on a member">
