@@ -10,6 +10,7 @@
 
         libChooseService.facebookSuggestions().then(function (response) {
             libChoose.facebookSuggestions = response;
+        }).finally(function () {
             libChooseService.doneLoad();
         });
 

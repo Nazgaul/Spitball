@@ -10,9 +10,16 @@
                     var token = response.authResponse.accessToken;
                     library.facebookSuggestions({ authToken: token }).then(function (response) {
                         defer.resolve(response);
+                    }).catch(function () {
+                        defer.reject();
                     });
+                    return;
                 }
+
+                defer.reject();
             });
+
+
 
             return defer.promise;
         };
