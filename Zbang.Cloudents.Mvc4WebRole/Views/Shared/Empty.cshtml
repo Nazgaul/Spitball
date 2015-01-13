@@ -6,7 +6,7 @@
 </div>
 @section scripts 
 {
-    <script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>
+    @*<script type="text/javascript" src="@Url.Action("jsresources", "Home" )"></script>*@
     @Html.Script2("angular")
     @Html.AngularLocale()
     @if (!string.IsNullOrEmpty(Request.QueryString["new"]))

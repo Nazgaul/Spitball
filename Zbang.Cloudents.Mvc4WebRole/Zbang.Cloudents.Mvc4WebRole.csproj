@@ -298,6 +298,7 @@
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
+    <Compile Include="Helpers\JsResourceHelper.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
     <Compile Include="Helpers\NullGuidConstrait.cs" />
