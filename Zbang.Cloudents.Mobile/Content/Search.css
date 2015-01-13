@@ -127,19 +127,6 @@
 .boxItems {
   text-align: left;
 }
-.courseList li {
-  height: 70px;
-}
-.courseList .courseName {
-  width: 40%;
-  max-height: 31px;
-  padding-left: 60px;
-  overflow: hidden;
-}
-.courseList img {
-  height: 40px;
-  left: 10px;
-}
 .itemsList li {
   height: 104px;
 }

@@ -32,13 +32,6 @@
 .boxItems {
   text-align: right;
 }
-.courseList .courseName {
-  padding: 0 60px 0 0;
-}
-.courseList img {
-  right: 10px;
-  left: auto;
-}
 .itemsList .details {
   padding: 0 90px 0 0;
 }

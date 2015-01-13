@@ -148,6 +148,26 @@
 .courseList li ~ li {
   border-top: 1px solid #eee;
 }
+.recommendedClasses .courseName,
+.followedClasses .courseName,
+.courseList .courseName {
+  font-weight: bold;
+  max-width: 220px;
+  max-width: 70vw;
+  max-height: 34px;
+  line-height: 16px;
+  white-space: normal;
+  font-size: 16px;
+  overflow: hidden;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.recommendedClasses .vCentered,
+.followedClasses .vCentered,
+.courseList .vCentered {
+  padding-left: 62px;
+  font-size: 13px;
+}
 .recommendedClasses .vCentered:before,
 .followedClasses .vCentered:before,
 .courseList .vCentered:before {
@@ -166,11 +186,6 @@
   margin: auto;
   left: 8px;
   font-size: 25px;
-}
-.recommendedClasses .courseName,
-.followedClasses .courseName,
-.courseList .courseName {
-  font-size: 16px;
 }
 .color1:before {
   background: #00bfa5;
@@ -225,8 +240,10 @@
   overflow: hidden;
   font-size: 13px;
 }
+.recommendedItem .courseName {
+  color: #0f9d58;
+}
 .recommendedItem .rcDetails {
-  padding-left: 69px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -258,15 +275,6 @@
   left: 4px;
   top: 0;
 }
-.recommendedItem .courseName {
-  color: #0f9d58;
-  white-space: normal;
-  max-height: 34px;
-  overflow: hidden;
-  line-height: 16px;
-  -ms-word-break: break-word;
-  word-break: break-word;
-}
 .recommendedItem .prof {
   font-size: 13px;
 }
@@ -291,17 +299,6 @@
 }
 .recommendedItem .files:before {
   content: attr(data-files-count);
-}
-/*#endregion */
-/*#region Dashboard followed courses */
-.followedClasses .details {
-  padding-left: 63px;
-  font-size: 13px;
-}
-.followedClasses .courseName {
-  font-weight: bold;
-  max-width: 220px;
-  max-width: 70vw;
 }
 /*#endregion */
 /*#region menu */

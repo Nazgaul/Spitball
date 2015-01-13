@@ -5,7 +5,7 @@
            link: function (scope, element, attrs) {
                var random = Math.floor(Math.random() * 7) + 1;
 
-               var char = attrs.letter.toUpperCase();                                                
+               var char = attrs.boxLetter.toUpperCase();                                                
                code = char.charCodeAt(0).toString(),
                sum = 0;
                for (var i = 0; i < code.length; i++) {
@@ -16,8 +16,6 @@
                if (sum == 0) {
                    sum = 1;
                }
-
-               attrs.$set('dataBoxLetter', char);
                element.addClass('color' + sum);
            }
        };

@@ -140,7 +140,21 @@
             border-top: 1px solid #eee;
         }
     }
+    .courseName {
+        font-weight: bold;
+        max-width: 220px; //fallback
+        max-width: 70vw;
+        max-height: 34px;
+        line-height: 16px;
+        white-space: normal;
+        font-size: 16px;
+        overflow: hidden;
+        -ms-word-break: break-word;
+        word-break: break-word;       
+    }
     .vCentered {
+        padding-left: 62px; //rtl
+        font-size: 13px;
         &:before {
             content:attr(data-box-letter);
             width: 46px;
@@ -157,9 +171,6 @@
             left: 8px; //rtl
             font-size: 25px;
         }
-    }
-    .courseName {
-        font-size: 16px;
     }
 }
 .color1 {
@@ -215,7 +226,6 @@
 }
 .recommendedList {
     overflow: hidden;
-    //text-align: left; //rtl
 }
 .recommendedItem {
     .boxSizing;
@@ -232,9 +242,10 @@
         overflow: hidden;
         font-size: 13px;
     }
-
+    .courseName {
+        color: @color;
+    }
     .rcDetails {
-        padding-left: 69px; //rtl
         .boxSizing;
         display: inline-block;
         background: #fff;
@@ -269,16 +280,6 @@
             top: 0;
         }
     }
-    .courseName {
-        color: @color;
-        white-space: normal;
-        max-height: 34px;
-        overflow: hidden;
-        line-height: 16px;
-        -ms-word-break: break-word;
-        word-break: break-word;       
-    }
-
     .prof {
         font-size: 13px;
     }
@@ -304,24 +305,6 @@
         &:before {
             content: attr(data-files-count);
         }
-    }
-}
-
-
-/*#endregion */
-
-/*#region Dashboard followed courses */
-.followedClasses {
-    
-
-    .details {
-        padding-left: 63px; //rtl
-        font-size: 13px;
-    }
-    .courseName {
-        font-weight: bold;
-        max-width: 220px; //fallback
-        max-width: 70vw;
     }
 }
 

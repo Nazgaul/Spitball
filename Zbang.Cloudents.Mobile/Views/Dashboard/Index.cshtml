@@ -34,7 +34,7 @@
     <ul class="followedClasses" scroll-paging on-scroll="dashboard.getBoxList(true)">
         <li ng-repeat="box in dashboard.boxes">
             <a href="{{::box.url}}" class="ghost" analytics-on analytics-event="Click on box" analytics-category="Dashboard page" analytics-label="User clicked on a box">                
-                <div class="details vCentered" data-box-letter letter="{{::box.name[0]}}">
+                <div class="details vCentered" data-box-letter="{{::box.name[0]}}">
                     <div class="courseName elps">{{::box.name}}</div>
                     <span>{{::box.itemCount}}&nbsp;@SharedResources.Items</span>
                     <span>{{::box.commentCount}}&nbsp;@SharedResources.Comments</span>
@@ -47,7 +47,7 @@
         <ul class="recommendedList">
             <li class="recommendedItem" ng-repeat="recommendedBox in dashboard.recommendedBoxes">
                 <a drag-view href="{{::recommendedBox.url}}" class="courseLink ghost" analytics-event="Click on Box" analytics-category="Dashboard" analytics-label="User clicked on a recommneded box">
-                    <div class="rcDetails vCentered" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }" data-box-letter letter="{{::recommendedBox.name[0]}}">
+                    <div class="rcDetails vCentered" ng-class="::{ rcFull : recommendedBox.professor && recommendedBox.courseCode }" data-box-letter="{{::recommendedBox.name[0]}}">
                         <div class="courseName elps">{{::recommendedBox.name}}</div>
                         <span class="prof elps">{{::recommendedBox.professor}}</span>
                         <span class="courseId elps">{{::recommendedBox.courseCode}}</span>

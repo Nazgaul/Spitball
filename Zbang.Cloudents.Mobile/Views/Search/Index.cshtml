@@ -24,8 +24,7 @@
             <li ng-repeat="course in search.courses">
                 <a href="{{::course.url}}" class="ghost"
                    analytics-on analytics-event="Click on box" analytics-category="Search page" analytics-label="User clicked on a box">
-                    <div class="courseName vCentered" data-box-letter letter="{{::course.name[0]}}">{{::course.name}}</div>
-                    @*<img width="40" height="40" ng-src="{{::course.image}}" />*@
+                    <div class="courseName vCentered" data-box-letter="{{::course.name[0]}}">{{::course.name}}</div>
                 </a>
             </li>
         </ul>
