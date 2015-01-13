@@ -154,9 +154,6 @@
   font-weight: bold;
   max-width: 220px;
   max-width: 70vw;
-  max-height: 34px;
-  line-height: 16px;
-  white-space: normal;
   font-size: 16px;
   overflow: hidden;
   -ms-word-break: break-word;
@@ -166,7 +163,6 @@
 .followedClasses .vCentered,
 .courseList .vCentered {
   padding-left: 62px;
-  font-size: 13px;
 }
 .recommendedClasses .vCentered:before,
 .followedClasses .vCentered:before,
