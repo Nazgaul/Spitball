@@ -21,18 +21,18 @@
             $location.hash(tab);
         };
 
-        $scope.$on('uploadStart', function () {         
+        $scope.$on('uploadStart', function () {
             box.uploading = true;
             box.setCurrentTab(null);
         });
 
 
-        $scope.$on('uploadComplete', function () {      
+        $scope.$on('uploadComplete', function () {
             box.uploading = false;
-            box.setCurrentTab('feed');            
+            box.setCurrentTab('feed');
         });
 
-        box.setCurrentTab($location.hash());
-        
+        box.setCurrentTab($location.hash() || 'feed');
+
     }]
 );
