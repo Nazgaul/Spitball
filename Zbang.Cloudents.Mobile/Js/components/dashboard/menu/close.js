@@ -5,13 +5,11 @@
            scope: false,
            link: function (scope, element, attr) {
                var $body = angular.element(document.body),
-                   $menuBtn = angular.element(document.getElementById('menuBtn')),
-                   $closeBtn = angular.element(document.getElementById('closeMenuBtn')),
+                   $menuBtn = angular.element(document.getElementById('menuBtn')),                   
                    $dashboard = angular.element(document.getElementById('dashboard')),
                    menu = document.getElementById('sidemenu');
 
-               $menuBtn.on('click', toggleMenu);
-               $closeBtn.on('click', toggleMenu);
+               $menuBtn.on('click', toggleMenu);               
 
                $body.on('click', function (e) {
                    if (e.target === menu) {
@@ -31,8 +29,7 @@
 
                scope.$on('$destroy', function () {
                    $body.off('click');
-                   $menuBtn.off('click');
-                   $closeBtn.off('click');
+                   $menuBtn.off('click');                   ;
                });
 
                function toggleMenu(e) {
