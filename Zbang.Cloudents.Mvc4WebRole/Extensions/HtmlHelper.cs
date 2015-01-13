@@ -32,13 +32,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static MvcHtmlString AngularLocale(this HtmlHelper html)
         {
-            var helper = new UrlHelper(html.ViewContext.RequestContext);
-            var pathName = string.Format("{0}_{1}.js", helper.Content("/Scripts/i18n/angular-locale"),
-                Thread.CurrentThread.CurrentUICulture.Name);
+            var jsLinks = BundleConfig.JsLink("langText." + Thread.CurrentThread.CurrentUICulture.Name);
+            return MvcHtmlString.Create(jsLinks);
+            //var helper = new UrlHelper(html.ViewContext.RequestContext);
+            //var pathName = string.Format("{0}_{1}.js", helper.Content("/Scripts/i18n/angular-locale"),
+            //    Thread.CurrentThread.CurrentUICulture.Name);
 
-            var jsTag = new TagBuilder("script");
-            jsTag.MergeAttribute("src", pathName);
-            return MvcHtmlString.Create(jsTag.ToString());
+            //var jsTag = new TagBuilder("script");
+            //jsTag.MergeAttribute("src", pathName);
+            //return MvcHtmlString.Create(jsTag.ToString());
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {
