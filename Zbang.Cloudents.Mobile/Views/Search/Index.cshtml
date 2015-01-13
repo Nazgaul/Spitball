@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mobile.Extensions
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
-<div class="searchWpr">
+<div class="searchWpr" inner-scroll="{{search.loading}}">
     <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
@@ -14,7 +14,7 @@
         </div>
     </form>
 </div>
-<div class="searchContent" scroll-paging on-scroll="search.query(true)" inner-scroll="{{search.loading}}">
+<div class="searchContent" scroll-paging on-scroll="search.query(true)">
     <div class="tabs">
         <span class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">@SharedResources.Courses</span>
         <span class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">@SharedResources.Items</span>
