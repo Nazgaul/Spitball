@@ -213,9 +213,9 @@
                 }
 
                 scope.$on('$destroy', function () {
-                    $main.off('dragenter', toggle);
-                    $main.off('dragleave', toggle);
-                    $main.off('drop', toggleOff);
+                    $main.off('dragenter');
+                    $main.off('dragleave');
+                    $main.off('drop');
                 });
             }
         };

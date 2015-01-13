@@ -20,7 +20,7 @@ controller('SearchCtrl',
 'sSearch',
 'textDirectionService',
 'constants',
-function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService, constants) {
+function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService, constants) {
     "use strict";
     $scope.params = {
         currentPage: 0,
@@ -65,12 +65,12 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
         $analytics.eventTrack('Search', {
             category: 'Show More',
             label: 'Show more from other universities'
-        });        
+        });
 
     };
 
     $scope.setCurrentTab = function (tab) {
-        var length, tabName ='';
+        var length, tabName = '';
         $scope.params.currentTab = tab;
         switch (tab) {
             case constants.tabs.boxes:
@@ -88,7 +88,7 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
         }
         $analytics.eventTrack('Search', {
             category: 'Select Tab',
-            label:'User clicked the ' + tabName  + 'tab'
+            label: 'User clicked the ' + tabName + 'tab'
         });
         $scope.params.noResults = (length === 0);
     };
@@ -159,7 +159,7 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
                 $scope.params.usersLoading = false;
 
 
-            }, function () {
+            }).finally(function () {
                 $scope.params.itemsLoading = false;
                 $scope.params.boxesLoading = false;
                 $scope.params.usersLoading = false;
@@ -174,8 +174,7 @@ function ($scope, $timeout, $location,$analytics, sSearch, textDirectionService,
     });
 
     function search() {
-        var query = $scope.params.query;
-
+        var query = $scope.params.query;        
         $scope.data.loading = true;
         $scope.params.noResults = false;
 
