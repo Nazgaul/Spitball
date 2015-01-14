@@ -143,7 +143,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     SetLicense();
                     var excel = new Workbook(stream);

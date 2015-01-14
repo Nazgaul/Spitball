@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using System.Threading.Tasks;
+using System.Runtime;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
@@ -49,11 +50,11 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 422;
+                int index = 898;
                 bool cont = true;
                 while (cont)
                 {
-                    TraceLog.WriteInfo("processing now index" + index);
+                    TraceLog.WriteInfo("processing now index " + index);
                     var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index).Result;
                     if (!items.Any())
                     {
@@ -69,6 +70,8 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
                             TraceLog.WriteInfo("processing now " + blob.Uri + " id: " + blobname.itemid);
                             UpdateFile2(blob.Uri, blobname.itemid);
+                            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+                            GC.Collect();
                         }
                         catch (StorageException)
                         {
@@ -102,7 +105,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 try
                 {
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(3));
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(1));
                     //some long running method requiring synchronization
                     var retVal = await processor.PreProcessFile(blobUri, tokenSource.Token);
                     if (retVal == null)
@@ -121,15 +124,18 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(3));
+            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(1));
             if (!signal)
             {
                 work.Abort();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+                GC.Collect();
                 TraceLog.WriteError("blob url aborting process");
 
 
             }
-            
+
+
 
         }
 

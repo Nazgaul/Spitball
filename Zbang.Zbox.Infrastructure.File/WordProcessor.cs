@@ -17,9 +17,10 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class WordProcessor : FileProcessor
+    public class WordProcessor : FileProcessor 
     {
         const string VersionCache = "V6";
+
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -40,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var word = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     return new Document(sr);
                 }
@@ -109,7 +110,6 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 Document word;
-
                 using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     SetLicense();
@@ -137,7 +137,9 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         ImageBuilder.Current.Build(ms, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
+                        await
+                            BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
+                                cancelToken);
                         return new PreProcessFileResult
                         {
                             ThumbnailName = thumbnailBlobAddressUri,
@@ -175,8 +177,5 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return ThumbnailProvider.WordFileTypePicture;
         }
-
-
-
     }
 }

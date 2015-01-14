@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class BlobProvider : IBlobProvider, IBlobProductProvider
     {
-        private const int CacheContainerItemAvaibleInMinutes = 30;
+        private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
 
         //public const string BlobMetadataUseridKey = "Userid";
@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public const string AzureProductContainer = "zboxProductImages";
         public const string AzureProfilePicContainer = "zboxprofilepic";
         public const string AzureThumbnailContainer = "zboxThumbnail";
-        public const string AzureFaQContainer = "zboxhelp";
+        public const string AzureFaqContainer = "zboxhelp";
 
 
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
@@ -273,106 +273,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        #region MimeType
-        //public string FetchBlobMimeType(string fileName)
-        //{
-        //    var blob = GetFile(fileName);
-        //    blob.FetchAttributes();
-        //    var mimeType = blob.Properties.ContentType;
-        //    if (HaveNoCategory(mimeType))
-        //    {
-        //        m_ExtensionToMimeType.TryGetValue(Path.GetExtension(blob.Name.ToLower()), out mimeType);
-        //        if (string.IsNullOrEmpty(mimeType))
-        //        {
-        //            mimeType = "application/octet-stream";
-        //            TraceLog.WriteError("Trying to get mime type to " + blob.Name.ToLower());
-        //        }
-        //        blob.Properties.ContentType = mimeType;
-        //        blob.SetProperties();
-        //    }
-        //    return mimeType.ToLower();
-
-        //}
-
-        //private bool HaveNoCategory(string mimeType)
-        //{
-        //    return string.IsNullOrWhiteSpace(mimeType) || mimeType == "application/octet-stream";
-        //}
-
-
-        //private readonly Dictionary<string, string> m_ExtensionToMimeType = new Dictionary<string, string>
-        //                                                     {
-        //    //image
-        //    {".gif","image/gif"},
-        //    {".jpg","image/jpeg"},
-        //    {".png","image/png"},
-        //    {".tiff","image/tiff"},
-        //    {".bmp","image/bmp"},
-        //    {".psd","image/photoshop"},
-        //    //audio
-        //    {".mp3","audio/mpeg"},
-        //    {".wav","audio/x-wav"},
-        //    {".dvf","audio/x-dvf"},
-        //    //video
-        //    {".mp4","video/mp4"},
-        //    {".mpeg","video/mpeg"},
-        //    {".ogg","video/ogg"},
-        //    {".webm","video/webm"},
-        //    {".avi","video/avi"},
-        //    {".wmv","video/x-ms-wmv"},
-        //    {".mov","video/quicktime"},
-        //    {".wma","video/x-ms-asf"},
-        //    //pdf
-        //    {".pdf","application/pdf"},
-        //    //text
-        //    {".abc","text/vnd.abc"},
-        //    {".acgi","text/html"},
-        //    {".htm","text/html"},
-        //    {".html","text/html"},
-        //    {".aip","text/x-audiosoft-intra"},
-        //    {".asm","text/x-asm"},
-        //    {".asp","text/asp"},
-        //    {".c","text/plain"},
-        //    {".h","text/plain"},
-        //    {".cs","text/plain"},
-        //    {".c++","text/plain"},
-        //    {".cc","text/plain"},
-        //    {".conf","text/plain"},
-        //    {".cpp","text/x-c"},
-        //    {".csh","text/x-script.csh"},
-        //    {".css","text/css"},
-        //    {".cxx","text/plain"},
-        //    {".txt","text/plain"},
-        //    {".java","text/plain"},
-        //    {".rtf","text/rtf"},
-
-        //    //office extension
-        //    {".doc","application/msword"},
-        //    {".xlsx","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-        //    {".xltx","application/vnd.openxmlformats-officedocument.spreadsheetml.template"},
-        //    {".potx","application/vnd.openxmlformats-officedocument.presentationml.template"},
-        //    {".ppsx","application/vnd.openxmlformats-officedocument.presentationml.slideshow"},
-        //    {".pptx","application/vnd.openxmlformats-officedocument.presentationml.presentation"},
-        //    {".sldx","application/vnd.openxmlformats-officedocument.presentationml.slide"},
-        //    {".docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
-        //    {".dotx","application/vnd.openxmlformats-officedocument.wordprocessingml.template"},
-        //    {".xlam","application/vnd.ms-excel.addin.macroEnabled.12"},
-        //    {".xlsb","application/vnd.ms-excel.sheet.binary.macroEnabled.12"},
-        //    {".mdb","application/vnd.ms-access"},
-        //    {".ppt","application/mspowerpoint"},
-
-        //    //compress
-        //    {".rar","application/x-rar-compressed"},
-        //    {".zip","application/zip"},
-
-        //    //others
-        //    {".ai","application/postscript"}
-
-
-
-
-        //};
-        #endregion
+       
 
 
         #region Cache
@@ -388,10 +289,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 cacheblob.Properties.ContentEncoding = "gzip";
             }
 
-            cacheblob.Properties.CacheControl = "private, max-age=" + TimeConsts.Minute * CacheContainerItemAvaibleInMinutes;
+            cacheblob.Properties.CacheControl = "private, max-age=" + TimeConsts.Minute * CacheContainerItemAvailableInMinutes;
             cacheblob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
             await cacheblob.UploadFromStreamAsync(fileContent);
-            fileContent.Dispose();
 
             //await Task.Factory.FromAsync(cacheblob.BeginUploadFromStream, (async) =>
             //{
@@ -403,56 +303,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             //cacheblob.UploadFromStream(fileContent);
 
-            return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvaibleInMinutes);// GenerateSharedAccessReadPermissionBlobFiles(cacheblob, CacheContainerItemAvaibleInMinutes);
+            return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);// GenerateSharedAccessReadPermissionBlobFiles(cacheblob, CacheContainerItemAvailableInMinutes);
 
         }
         public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
             //we don't need to dispose because we dispose it later in the function
-            var ms = new MemoryStream(fileContent);
-            return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            using (var ms = new MemoryStream(fileContent))
+            {
+                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+            }
         }
 
-        //public bool CheckIfFileExistsInCache(string blobName)
-        //{
-        //    var blob = CacheFile(blobName);
-
-        //    return blob.Exists();
-        //}
-        //public string GetFileUrlInCahce(string blobName)
-        //{
-        //    var blob = CacheFile(blobName);
-
-        //    blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-        //    blob.SetMetadataAsync();
-        //    //blob.BeginSetMetadata((async) =>
-        //    //{
-
-        //    //}, null);
-        //    return GenerateSharedAccessReadPermissionBlobFiles(blob, CacheContainerItemAvaibleInMinutes);
-        //}
-        //public void CheckIfFileExists()
-        //{
-        //    const int daysObjectInCache = 30;
-
-        //    var blobContainer = CacheContainer();
-        //    var blobList = blobContainer.ListBlobs(null, true, BlobListingDetails.Metadata);
-        //    //var blobList = blobContainer.ListBlobs(new BlobRequestOptions { BlobListingDetails = BlobListingDetails.Metadata, UseFlatBlobListing = true });
-        //    foreach (var blobelement in blobList)
-        //    {
-
-        //        var lastDateAccess = DateTime.UtcNow.AddMonths(-1);
-        //        var blob = blobContainer.GetBlockBlobReference(blobelement.Uri.ToString());
-        //        blob.FetchAttributes();
-        //        string lastAccessDate = blob.Metadata[LastAccessTimeMetaDataKey];
-        //        DateTime.TryParse(lastAccessDate, out lastDateAccess);
-
-        //        if (DateTime.UtcNow - lastDateAccess > TimeSpan.FromDays(daysObjectInCache))
-        //        {
-        //            blob.Delete();
-        //        }
-        //    }
-        //}
+       
         #endregion
 
         #region UploadFile
@@ -585,7 +448,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType)
         {
-           return UploadFileThumbnailAsync(fileName, ms, mimeType, new CancellationToken());
+            return UploadFileThumbnailAsync(fileName, ms, mimeType, new CancellationToken());
         }
 
         public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token)
@@ -610,51 +473,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         #endregion
 
         #region files
-        public void DeleteFile(string fileName)
-        {
-            CloudBlockBlob blob = GetFile(fileName);
-
-            //var options = new BlobRequestOptions
-            //{
-
-            //    DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots,
-            //};
-
-
-            blob.BeginDeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots,
-                null,
-                new BlobRequestOptions()
-                                , new OperationContext(),
-                async => blob.EndDeleteIfExists(async), null);
-
-            //blob.BeginDeleteIfExists(options, async => blob.EndDeleteIfExists(async), null);
-
-        }
-
-        /// <summary>
-        /// Download file from storage
-        /// </summary>
-        /// <param name="fileName">The blob name</param>
-        /// <param name="aheadSize">Size to be read by the stream - if you want all the blob don't pass this parameter</param>
-        /// <returns>Stream of the blob</returns>
-        public Stream DownloadFile(string fileName, long? aheadSize)
-        {
-            CloudBlockBlob blob = GetFile(fileName);
-
-            var sr = blob.OpenRead();
-            //if (aheadSize.HasValue)
-            //{
-            //    sr.ReadAheadSize = aheadSize.Value; // ensure all blob will be 
-            //}
-            return sr;
-        }
-
-
 
         public Stream DownloadFile(string fileName)
         {
             CloudBlockBlob blob = GetFile(fileName);
-
             var ms = new MemoryStream();
             blob.DownloadToStream(ms);
             ms.Seek(0, SeekOrigin.Begin);
@@ -663,7 +485,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task<Stream> DownloadFileAsync(string fileName)
         {
-            return DownloadFileAsync(fileName, new CancellationToken());
+            return DownloadFileAsync(fileName, CancellationToken.None);
         }
 
         public async Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken)
@@ -673,6 +495,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.DownloadToStreamAsync(ms, cancelToken);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
+            
         }
 
 
@@ -684,7 +507,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             try
             {
-                var blob = m_BlobClient.GetContainerReference(AzureFaQContainer).GetBlockBlobReference("help.xml");
+                var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("help.xml");
                 return await blob.OpenReadAsync();
             }
             catch (StorageException)
@@ -693,6 +516,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
         #endregion
+
+
+
 
 
 

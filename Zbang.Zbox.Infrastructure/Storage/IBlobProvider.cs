@@ -40,9 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         bool CheckIfFileThumbnailExists(string blobName);
 
         CloudBlockBlob GetFile(string blobName);
-        void DeleteFile(string fileName);
 
-        Stream DownloadFile(string fileName, long? aheadSize);
         Stream DownloadFile(string fileName);
 
         Task<Stream> DownloadFileAsync(string fileName);
