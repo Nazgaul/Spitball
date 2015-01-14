@@ -8,20 +8,31 @@
             facebook.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
                     var token = response.authResponse.accessToken;
-                    library.facebookSuggestions({ authToken: token }).then(function (response) {
-                        defer.resolve(response);
-                    }).catch(function () {
-                        defer.reject();
-                    });
-                    return;
-                }
+                    getFriends(token);
+                } else {
+                    FB.login(function (response) {
+                        if (response.status === 'connected') {
+                            var token = response.authResponse.accessToken;
+                            getFriends(token);
+                            return;
+                        }
 
-                defer.reject();
+                        dfd.reject();
+                    });
+                }                
             });
 
-
-
             return defer.promise;
+
+            function getFriends(token) {
+                library.facebookSuggestions({ authToken: token }).then(function (response) {
+                    defer.resolve(response);
+                }).catch(function () {
+                    defer.reject();
+                });
+            }
+
+           
         };
 
         service.searchUnis = function (term, page) {
