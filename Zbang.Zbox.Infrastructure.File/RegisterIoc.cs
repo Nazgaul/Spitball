@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, ExcelProcessor>("excel");
             ioc.RegisterType<IContentProcessor, ImageProcessor>("image");
             ioc.RegisterType<IContentProcessor, PdfProcessor>("pdf");
-            ioc.RegisterType<IContentProcessor, PowerPoing2007Processor>("powerpoint2007");
+            ioc.RegisterType<IContentProcessor, PowerPoint2007Processor>("powerpoint2007");
             //ioc.RegisterType<IContentProcessor, PowerPointProsessor>("powerpoint");
             ioc.RegisterType<IContentProcessor, TiffProcessor>("tiff");
             ioc.RegisterType<IContentProcessor, YoutubeProcessor>("youtube");

@@ -1,6 +1,5 @@
 ﻿@import "varsAndMixins";
 
-/*#region Choose School */
 .choose {
     display: inline-block;
     width: 88%;
@@ -19,58 +18,25 @@
 }
 
 .recommended, .searchResults {
+    margin: 0 -6%;
     li {
         height: 70px;
         position: relative;
         text-align: left; //rtl
-        
-        &:after {
-            .pseudo;
-            width: 100%;
-            height: 1px;
-            background: @borderColor;
-            position: absolute;
-            bottom: 0;
-            left:0;right:0;
-            padding: 0 4%;
-            margin: 0 -4%;
+        padding: 0 6%;
+        .boxSizing;
+        + li {
+            border-top: 1px solid #eee;
         }
-    }
-    .uniName, .btn1  {
-        display: inline-block;
-        vertical-align: middle;
-    }
-    .btn1 {
-        color: #fff;
-        background: @itemBlue;
-        width: auto;
-        height: auto;
-        line-height: normal;
-        padding: 3px 8px;
-        font-size: 13px;
     }
 }
 .searchResults, .emptySearch {
     display: none;
 }
-.recommended {
-    li {
-        text-align: justify;
-        width: 100%;
-        &:after {
-            .pseudo;
-            width: 100%;
-        }
-    }  
-}
 .uniImg {
-    //display: inline-block;
-    //vertical-align: middle;
-    //position: relative;
-    //top: 8px;
     position: absolute;
     top:0;bottom:0;
-    left:0; //rtl
+    left:6%; //rtl
     margin: auto;
     border: 1px solid @borderColor;
 }
@@ -79,28 +45,35 @@
     max-height: 31px;
     overflow: hidden;
     font-size: 13px;
-    padding-left: 60px; //rtl
+    padding-left: 65px;
 }
 .userPics {
-    width: 56px;
+    max-width: 56px;
     display: inline-block;
-    vertical-align: middle;
+    position: absolute;
+    right: 8%; //rtl
+    top: 0;
+    bottom: 0;
+    margin: auto;
     &:after {
         content: '+' attr(data-numusers);
         display: inline-block;
-        float: right; //rtl
+        height: 15px;
         font-size: 12px;
-        position: relative;
-        top: -6px;
+        position: absolute;
+        top:0;bottom:0;
+        right: -18px; //rtl
+        margin: auto;
     }
     img {
         display: inline-block;
         margin: 1px;
         top:0; //override
         float: left; //rtl
+        width: 20px;
+        height: 20px;
         &:nth-child(3) {
             clear: both;
         }
     }
 }
-/*#endregion */

@@ -78,7 +78,7 @@
     <Compile Include="IFileProcessorFactory.cs" />
     <Compile Include="LinkProcessor.cs" />
     <Compile Include="PdfProcessor.cs" />
-    <Compile Include="PowerPoing2007Processor.cs">
+    <Compile Include="PowerPoint2007Processor.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PreProcessFileResult.cs" />

@@ -16,10 +16,11 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class PdfProcessor : FileProcessor
+    public class PdfProcessor : FileProcessor 
     {
 
         const string CacheVersion = "V4";
+
         public PdfProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -127,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     using (var pdfDocument = new Document(stream))
                     {
@@ -136,7 +137,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             jpegDevice.Process(pdfDocument.Pages[1], ms);
                             var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg");
+                            await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg", cancelToken);
 
                             return new PreProcessFileResult
                             {
@@ -179,5 +180,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return ThumbnailProvider.PdfFileTypePicture;
         }
+
+       
     }
 }

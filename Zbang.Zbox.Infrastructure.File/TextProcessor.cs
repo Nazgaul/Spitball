@@ -21,12 +21,11 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
-
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
                 var content = await stream.ReadToEndAsync();
                 content = WebUtility.HtmlEncode(content);
-                content =   content.Substring(0, Math.Min(400, content.Length));
+                content = content.Substring(0, Math.Min(400, content.Length));
                 await UploadFileToCache(stream.BaseStream, CreateCacheFileName(blobName));
                 return new PreProcessFileResult
                 {
@@ -34,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     FileTextContent = content
                 };
             }
-            
+
         }
 
         public override string GetDefaultThumbnailPicture()
