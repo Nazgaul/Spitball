@@ -105,6 +105,6 @@ svg.rtl {
 }*/
 .svg-loading {
   width: 100%;
-  height: 30px;
+  display: block;
   fill: #3399ff;
 }

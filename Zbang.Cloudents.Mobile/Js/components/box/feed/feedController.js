@@ -79,9 +79,10 @@
 
                 if (!isAppend) {
                     feed.list = feedPage;
+                    return;
                 }
 
-                feed.list.concat(feedPage);
+                feed.list =  feed.list.concat(feedPage);
 
 
 

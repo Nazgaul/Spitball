@@ -23,7 +23,6 @@
     </div>
     <div ng-switch="box.currentTab">
         <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
-            <div inner-scroll="{{feed.loading}}"></div>
             <span id="plfakebtn" style="display:none;"></span>
             <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
                 <textarea name="content" class="feedTA" placeholder="What on your mind?" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
@@ -35,11 +34,11 @@
                 <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn">
                     @Html.Svg("~/Images/Defs.svg", "post", new { @class = "svg-post ltr" })
                 </button>
-                <button ng-if="!feed.questionFormData.content.length" type="button" class="attachBtn" pl-fileinput>
+                <button ng-if="!feed.questionFormData.content" type="button" class="attachBtn" pl-fileinput>
                     @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
                 </button>
             </form>
-
+            <div inner-scroll="{{feed.loading}}"></div>
             <ul class="boxFeedList" scroll-paging on-scroll="feed.getFeedPage()">
                 <li ng-repeat="question in feed.list">
                     <div class="feedWpr">
@@ -83,7 +82,7 @@
                     </ul>
 
                     <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
-                        <textarea name="content" class="feedTA" placeholder="What on your mind" ng-model="question.aFormData.content" text-direction></textarea>
+                        <textarea name="content" class="feedTA" placeholder="What on your mind" ng-model="question.aFormData.content" text-direction msd-elastic></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                                 <span class="attachName elps">{{::file.name}}</span>
