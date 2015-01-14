@@ -7,14 +7,19 @@
   text-align: right;
 }
 .uniImg {
-  right: 0;
+  right: 6%;
   left: auto;
 }
 .uniName {
-  padding: 0 60px 0 0;
+  padding: 0 65px 0 0;
+}
+.userPics {
+  left: 8%;
+  right: auto;
 }
 .userPics:after {
-  float: left;
+  left: -18px;
+  right: auto;
 }
 .userPics img {
   float: right;
