@@ -2,7 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region Choose School */
 .choose {
   display: inline-block;
   width: 88%;
@@ -18,61 +17,33 @@
   margin: 30px 0 15px;
   width: 94%;
 }
+.recommended,
+.searchResults {
+  margin: 0 -6%;
+}
 .recommended li,
 .searchResults li {
   height: 70px;
   position: relative;
   text-align: left;
+  padding: 0 6%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.recommended li:after,
-.searchResults li:after {
-  content: '';
-  display: inline-block;
-  width: 100%;
-  height: 1px;
-  background: #c2c2c2;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0 4%;
-  margin: 0 -4%;
-}
-.recommended .uniName,
-.searchResults .uniName,
-.recommended .btn1,
-.searchResults .btn1 {
-  display: inline-block;
-  vertical-align: middle;
-}
-.recommended .btn1,
-.searchResults .btn1 {
-  color: #fff;
-  background: #3399ff;
-  width: auto;
-  height: auto;
-  line-height: normal;
-  padding: 3px 8px;
-  font-size: 13px;
+.recommended li + li,
+.searchResults li + li {
+  border-top: 1px solid #eee;
 }
 .searchResults,
 .emptySearch {
   display: none;
 }
-.recommended li {
-  text-align: justify;
-  width: 100%;
-}
-.recommended li:after {
-  content: '';
-  display: inline-block;
-  width: 100%;
-}
 .uniImg {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 6%;
   margin: auto;
   border: 1px solid #c2c2c2;
 }
@@ -81,26 +52,35 @@
   max-height: 31px;
   overflow: hidden;
   font-size: 13px;
-  padding-left: 60px;
+  padding-left: 65px;
 }
 .userPics {
-  width: 56px;
+  max-width: 56px;
   display: inline-block;
-  vertical-align: middle;
+  position: absolute;
+  right: 8%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .userPics:after {
   content: '+' attr(data-numusers);
   display: inline-block;
-  float: right;
+  height: 15px;
   font-size: 12px;
-  position: relative;
-  top: -6px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -18px;
+  margin: auto;
 }
 .userPics img {
   display: inline-block;
   margin: 1px;
   top: 0;
   float: left;
+  width: 20px;
+  height: 20px;
 }
 .userPics img:nth-child(3) {
   clear: both;
