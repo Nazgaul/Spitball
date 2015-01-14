@@ -42,7 +42,7 @@
                     };
 
 
-                    function filesAdded(up, files) {
+                    function filesAdded(up, files) {                     
                         $analytics.eventTrack('Upload Start', {
                             category: 'Box page',
                             label: 'User start to upload files'
@@ -54,6 +54,7 @@
                     }
 
                     function beforeUpload(up, file) {
+                        $angularCacheFactory.clearAll();
                         up.settings.multipart_params = {
                             fileName: file.name,
                             fileSize: file.size,
@@ -61,8 +62,7 @@
                         };
                     }
 
-                    function uploadComplete(up, file, res) {
-                        $angularCacheFactory.clearAll();
+                    function uploadComplete(up, file, res) {                        
                         uploader.destroy();                  
                         $analytics.eventTrack('Upload finished', {
                             category: 'Box page',
