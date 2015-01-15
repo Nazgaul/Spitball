@@ -4,7 +4,8 @@
         directive('plUploader', function () {
             return {
                 restrict: 'A',
-                controller: ['$scope', '$rootScope', '$stateParams', '$angularCacheFactory', '$analytics', function ($scope, $rootScope, $stateParams, $angularCacheFactory, $analytics) {
+                controller: ['$scope', '$rootScope', '$stateParams', '$angularCacheFactory', '$analytics','userDetails',
+                    function ($scope, $rootScope, $stateParams, $angularCacheFactory, $analytics, userDetails) {
                     var uploader,
                         plUpload = this,
                         boxId = $stateParams.boxId;
@@ -12,6 +13,9 @@
                     init();
 
                     plUpload.addFiles = function (files) {
+                        if (userDetails.isAuthenticated()) {
+                            alert('you need to register');
+                        }
                         angular.forEach(files, function (file) {
                             uploader.addFile(file);
                         });

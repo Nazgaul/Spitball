@@ -16,7 +16,10 @@
             getFeedPage(true);
         };
 
-        feed.addQuestion = function () {         
+        feed.addQuestion = function () {
+            if (userDetails.isAuthenticated()) {
+                alert('you need to register');
+            }
             var question = {
                 content: feed.questionFormData.content,
             };
@@ -31,11 +34,14 @@
         };
 
         feed.toggleComment = function (question) {
-            question.displayComment = !question.displayComment;
+            question.displayComment = true;// !question.displayComment;
         };
 
 
-        feed.addAnswer = function (question) {    
+        feed.addAnswer = function (question) {
+            if (userDetails.isAuthenticated()) {
+                alert('you need to register');
+            }
             var answer = {
                 content: question.aFormData.content,
             };
