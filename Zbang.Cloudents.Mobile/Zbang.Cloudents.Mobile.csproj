@@ -572,7 +572,6 @@
     <Content Include="Images\EmptyState\user.svg" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
-    <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\components\account\accountService.js" />
@@ -1622,7 +1621,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
-    <EmbeddedResource Include="Js\Resources\JsResources.zh.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />

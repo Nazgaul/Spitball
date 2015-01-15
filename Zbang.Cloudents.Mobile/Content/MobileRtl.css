@@ -25,6 +25,10 @@ body {
 .radio + label:before {
   margin: 0 0 0 3px;
 }
+.checkbox ~ .cbLabel .svg-checked {
+  left: auto;
+  right: -50px;
+}
 .checkbox:checked ~ .cbLabel .svg-checked {
   right: 3px;
   left: auto;

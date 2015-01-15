@@ -110,11 +110,15 @@
     text-align: center;
     margin: 10px 0;
 }
-.validation-summary-errors, .regError {
+.validation-summary-errors, .regError, .loginError {
     color: @errorColor;
+    font-size: 13px;
     text-align:left; //rtl
     position:relative;
     top: -2px;
+}
+.loginError {
+    top: 10px;
 }
 .ng-message-errors {
     position:relative;
