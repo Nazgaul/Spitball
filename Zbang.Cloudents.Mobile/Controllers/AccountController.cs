@@ -558,7 +558,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         //}
 
         [HttpGet]
-        public ActionResult Details()
+        public async Task<JsonResult> Details()
         {
             string cookieToken, formToken;
             AntiForgery.GetTokens(null, out cookieToken, out formToken);
@@ -568,9 +568,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
             cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
             if (!User.Identity.IsAuthenticated)
             {
-                return JsonOk(new { token });
+                return JsonOk(new { token, Culture = CultureInfo.CurrentCulture.Name });
             }
-            var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
+            var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+            retVal.Token = token;
             return JsonOk(new
             {
                 retVal.Id,
@@ -582,7 +583,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 retVal.Score,
                 retVal.UniversityCountry,
                 retVal.UniversityName,
-                token
+                retVal.Token
             });
 
         }

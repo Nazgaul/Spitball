@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
@@ -516,7 +517,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
@@ -582,7 +583,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View(new Confirmation { Key = TempData["key"].ToString() });
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         [RequireHttps]
         public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
         {
@@ -631,7 +632,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [System.Web.Mvc.ValidateAntiForgeryToken]
         [RequireHttps]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
@@ -725,11 +726,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> Details()
         {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            var token = formToken;
+
+            var cookieHelper = new CookieHelper(HttpContext);
+            cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
+
             if (!User.Identity.IsAuthenticated)
             {
-                return JsonOk(new { Culture = CultureInfo.CurrentCulture.Name });
+                return JsonOk(new { token, Culture = CultureInfo.CurrentCulture.Name });
             }
             var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+            retVal.Token = token;
             return JsonOk(retVal);
 
         }
