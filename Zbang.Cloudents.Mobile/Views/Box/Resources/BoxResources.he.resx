@@ -120,6 +120,11 @@
   <data name="AllItems" xml:space="preserve">
     <value>כל הפריטים</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value> ריק כאן, לעת עתה.
+תהיה הראשון לשתף חומרי לימוד.
+</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>הגב</value>
   </data>
@@ -129,6 +134,9 @@
   <data name="FeedEmpty" xml:space="preserve">
     <value>לשאול שאלות הוא המקור
 של כל הידע.</value>
+  </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>מה אתה חושב?</value>
   </data>
   <data name="Post" xml:space="preserve">
     <value>פרסם</value>

@@ -214,6 +214,9 @@
   <data name="RememberMe" xml:space="preserve">
     <value>تذكر بياناتي</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>تسجيل</value>
   </data>

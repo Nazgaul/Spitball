@@ -120,6 +120,9 @@
   <data name="AllItems" xml:space="preserve">
     <value>جميع البنود</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>لا يوجد شيء للمشاهدة هنا، حتى الآن. كن أول من يقوم بتحميل المواد الدراسية ..</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>تعليق</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="FeedEmpty" xml:space="preserve">
     <value>إن فن وعلم طرح الأسئلة هو مصدر كل المعرفة.</value>
+  </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>ما الذي يدور في ذهنك؟</value>
   </data>
   <data name="Post" xml:space="preserve">
     <value>نشر</value>
