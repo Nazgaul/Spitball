@@ -2,15 +2,15 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <div class="searchWpr">
     <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
-        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+        @Html.Svg("~/images/defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
         <input class="searchInput" placeholder="@SharedResources.Search" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search minlength="2" />
         <div class="searchBtn rFloat" ng-if="!search.formData.query">
-            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            @Html.Svg("~/Images/defs.svg", "search", new { @class = "svg-search ltr" })
         </div>
         <div class="searchBtn rFloat" ng-if="search.formData.query.length > 0" ng-click="search.clearInput()">
-            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+            @Html.Svg("~/images/defs.svg", "close", new { @class = "svg-close" })
         </div>
     </form>
 </div>
