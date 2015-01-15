@@ -131,10 +131,12 @@
 
 .list {   
     a {
-        display: block;
+        display: table;
         height: 100%;
     }
     li {
+        width: 100%;
+overflow-x: hidden;
         height: 80px;
         position: relative;
         ~ li {
@@ -146,11 +148,12 @@
         max-width: 220px; //fallback
         max-width: 70vw;
         font-size: 16px;
-        overflow: hidden;
         -ms-word-break: break-word;
         word-break: break-word;       
     }
     .vCentered {
+        display:table-cell;
+        vertical-align:middle;
         padding-left: 62px; //rtl
         &:before {
             content:attr(data-box-letter);
