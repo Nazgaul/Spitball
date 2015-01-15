@@ -129,7 +129,13 @@
   <data name="FeedEmpty" xml:space="preserve">
     <value>Искусство и наука задавать вопросы — это источник всех знаний.</value>
   </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>О чем вы думаете?</value>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>Опубликовать</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Написать комментарий</value>
   </data>
 </root>

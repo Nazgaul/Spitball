@@ -130,7 +130,13 @@
     <value>לשאול שאלות הוא המקור
 של כל הידע.</value>
   </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>מה אתה חושב?</value>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>פרסם</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>כתוב תגובה ...</value>
   </data>
 </root>
