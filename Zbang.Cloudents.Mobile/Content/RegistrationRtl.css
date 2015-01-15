@@ -15,7 +15,8 @@
   right: auto;
 }
 .validation-summary-errors,
-.regError {
+.regError,
+.loginError {
   text-align: right;
 }
 .ng-message-errors {
