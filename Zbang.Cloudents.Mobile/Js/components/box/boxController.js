@@ -18,7 +18,10 @@
         box.setCurrentTab = function (tab) {
             window.scrollTo(0, 0);
             box.currentTab = tab;
-            $location.hash(tab);
+            if (tab) { //dont want to change hash if there is no tab selected for upload
+                $location.hash(tab);
+            }
+            
         };
 
         $scope.$on('uploadStart', function () {
