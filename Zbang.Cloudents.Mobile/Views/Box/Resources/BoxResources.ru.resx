@@ -141,4 +141,7 @@
   <data name="Post" xml:space="preserve">
     <value>Опубликовать</value>
   </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Написать комментарий</value>
+  </data>
 </root>

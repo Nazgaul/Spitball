@@ -141,4 +141,7 @@ of all knowledge.</value>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
   </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Write a comment</value>
+  </data>
 </root>

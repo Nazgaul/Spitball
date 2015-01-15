@@ -84,7 +84,7 @@
                     </ul>
 
                     <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
-                        <textarea name="content" class="feedTA" placeholder="What on your mind" ng-model="question.aFormData.content" text-direction msd-elastic></textarea>
+                        <textarea name="content" class="feedTA" placeholder="@BoxResources.WriteComment" ng-model="question.aFormData.content" text-direction msd-elastic></textarea>
                         <ul class="attachedList">
                             <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                                 <span class="attachName elps">{{::file.name}}</span>

@@ -141,4 +141,7 @@
   <data name="Post" xml:space="preserve">
     <value>פרסם</value>
   </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>כתוב תגובה ...</value>
+  </data>
 </root>
