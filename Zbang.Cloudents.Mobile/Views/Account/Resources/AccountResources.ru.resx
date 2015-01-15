@@ -213,6 +213,10 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сброс
+</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Присоединиться</value>
   </data>

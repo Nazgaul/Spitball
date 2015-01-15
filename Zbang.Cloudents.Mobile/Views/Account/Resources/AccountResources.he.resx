@@ -213,6 +213,9 @@
   <data name="RememberMe" xml:space="preserve">
     <value>זכור אותי</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>איפוס</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>הירשם</value>
   </data>

@@ -120,6 +120,12 @@
   <data name="AllItems" xml:space="preserve">
     <value>Все элементы</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>
+Здесь еще ничего
+нет. Загрузите первым учебный материал...
+</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Комментарии</value>
   </data>

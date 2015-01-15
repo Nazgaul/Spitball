@@ -120,6 +120,9 @@
   <data name="AllItems" xml:space="preserve">
     <value>جميع البنود</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>لا يوجد شيء للمشاهدة هنا، حتى الآن. كن أول من يقوم بتحميل المواد الدراسية ..</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>تعليق</value>
   </data>

@@ -120,6 +120,10 @@
   <data name="AllItems" xml:space="preserve">
     <value>All items</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>Nothing to see here, yet.
+Be the first to upload study material...</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
