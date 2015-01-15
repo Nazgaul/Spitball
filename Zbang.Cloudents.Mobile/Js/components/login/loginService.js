@@ -5,13 +5,14 @@
         var service = this;
 
         service.login = function (data) {
-            return account.login(data).then(function (response) {
+            return account.login(data).then(function () {
                 $analytics.eventTrack('Login', {
                     category: 'Login page',
                     label: 'User logged in with email'
                 });
-
-                $state.go('root.dashboard', {}, { reload: true });
+                //we have an issue - we need to resubmit culture to the dom so we need a refresh
+                window.open('dashboard', '_self');
+                //$state.go('root.dashboard', {}, { reload: true });
             });
         };
 
@@ -24,8 +25,10 @@
 
             facebook.login(function (response) {
                 if (response.authResponse) {
-                    account.facebookLogin({ token: response.authResponse.accessToken }).then(function (fbResposne) {
-                        $state.go($state.current, {}, { reload: true });
+                    account.facebookLogin({ token: response.authResponse.accessToken }).then(function () {
+                        //we have an issue - we need to resubmit culture to the dom so we need a refresh
+                        window.open('dashboard', '_self');
+                        //$state.go($state.current, {}, { reload: true });
                     });
                 }
             }, { scope: 'email,user_education_history,user_friends' });

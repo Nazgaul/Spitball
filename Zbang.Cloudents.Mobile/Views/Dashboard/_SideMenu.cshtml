@@ -1,0 +1,35 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+<section class="menu" id="sidemenu" toggle-menu>
+    <div class="userDetailsWpr">
+        <img class="lFloat" ng-src="{{::root.user.image}}" width="52" height="52">
+        <div class="userDetails">
+            <div class="elps">{{::root.user.name}}</div>
+            <div>{{::root.user.points}}</div>
+        </div>
+    </div>
+    <ul class="menuItems">
+        <li>
+            <a href="@Url.Action("TermsOfService", "Home")" target="_self"
+               analytics-on analytics-event="Click on term of service" analytics-category="Dashboard sidebar">
+                @Html.Svg("~/Images/Defs.svg", "file", new { @class = "svg-file" })
+                @SharedResources.TermsOfServices
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("AboutUs","home")" target="_self"
+               analytics-on analytics-event="Click on about us" analytics-category="Dashboard sidebar">
+                @Html.Svg("~/Images/Defs.svg", "info", new { @class = "svg-info" })
+                @DashboardResources.AboutUs
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("LogOff","Account")" target="_self"
+               analytics-on analytics-event="Click on logout" analytics-category="Dashboard sidebar">
+                @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow ltr" })
+                @DashboardResources.LogOut
+            </a>
+        </li>
+    </ul>
+</section>
+

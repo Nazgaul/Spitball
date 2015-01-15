@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
            Duration = TimeConsts.Day,
-           Location = OutputCacheLocation.Any)]
+           Location = OutputCacheLocation.Server)]
         public ActionResult IndexEmpty()
         {
             return View("Empty");
