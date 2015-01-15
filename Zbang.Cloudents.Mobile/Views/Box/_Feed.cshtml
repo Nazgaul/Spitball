@@ -1,0 +1,80 @@
+﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
+
+<div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
+    <span id="plfakebtn" style="display:none;"></span>
+    <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
+        <textarea name="content" class="feedTA" placeholder="@BoxResources.OnYourMind" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
+        <ul class="attachedList">
+            <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
+                <span class="attachName elps">{{::file.name}}</span>
+            </li>
+        </ul>
+        <button ng-if="feed.questionFormData.content.length" type="submit" class="postBtn">
+            @Html.Svg("~/Images/Defs.svg", "post", new { @class = "svg-post ltr" })
+        </button>
+        <button ng-if="!feed.questionFormData.content" type="button" class="attachBtn" pl-fileinput>
+            @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
+        </button>
+    </form>
+    <div inner-scroll="{{feed.loading}}"></div>
+    <ul class="boxFeedList" scroll-paging on-scroll="feed.getFeedPage()">
+        <li ng-repeat="question in feed.list">
+            <div class="feedWpr">
+                <div class="feedTop">
+                    <time class="createTime rFloat" display-time="{{::question.creationTime}}"></time>
+                    <img class="feedImg lFloat" alt="" width="27" height="27" ng-src="{{::question.userImage || '/images/emptystate/user.svg'}}" />
+                    <div class="userName elps">{{::question.userName}}</div>
+                </div>
+                <div class="feedContent" ng-bind-html="::question.content"></div>
+                <ul class="qaAttach">
+                    <li class="qaAttachItem" ng-repeat="file in question.files">
+                        <a href="{{::file.url}}" target="_self"
+                           analytics-on analytics-event="Click on file" analytics-category="Feed page" analytics-label="User clicked on a question file">
+                            <img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" />
+                        </a>
+                    </li>
+                </ul>
+                <button class="commentBtn" type="button" ng-click="feed.toggleComment(question)" focus-comment>@BoxResources.Comment</button>
+            </div>
+
+            <ul class="feedReplies">
+                <li ng-repeat="answer in question.answers">
+                    <div class="feedWpr">
+                        <div class="feedTop">
+                            <time class="createTime lFloat" display-time="{{::answer.creationTime}}"></time>
+                            <div class="userName elps">{{::answer.userName}}</div>
+                        </div>
+
+                        <div class="feedContent" ng-bind-html="::answer.content"></div>
+                        <ul class="qaAttach">
+                            <li class="qaAttachItem" ng-repeat="file in answer.files">
+                                <a target="_self" href="{{file.url}}"
+                                   analytics-on analytics-event="Click on file" analytics-category="Feed page" analytics-label="User clicked on a question file">
+                                    <img ng-src="{{file.thumbnail}}" alt="" width="100" height="125">
+                                </a>
+                            </li>
+                        </ul>
+                        <img class="feedImg rFloat" ng-src="{{::answer.userImage || '/images/emptystate/user.svg'}}" alt="" width="27" height="27" />
+                    </div>
+                </li>
+            </ul>
+
+            <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
+                <textarea name="content" class="feedTA" placeholder="@BoxResources.WriteComment" ng-model="question.aFormData.content" text-direction msd-elastic></textarea>
+                <ul class="attachedList">
+                    <li class="attachedItem" ng-repeat="file in question.aFormData.files">
+                        <span class="attachName elps">{{::file.name}}</span>
+                    </li>
+                </ul>
+                <button ng-if="question.aFormData.content.length" class="postBtn" type="submit">
+                    @Html.Svg("~/Images/Defs.svg", "post", new { @class = "svg-post ltr" })
+                </button>
+                <button ng-if="!question.aFormData.content" type="button" class="attachBtn" pl-fileinput>
+                    @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
+                </button>
+            </form>
+        </li>
+    </ul>
+
+    <div ng-show="!feed.list.length" class="emptyFeed">@BoxResources.FeedEmpty</div>
+</div>
