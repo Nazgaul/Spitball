@@ -23,7 +23,7 @@
     <div inner-scroll="{{search.loading}}" style="display:none;"></div>
 
     <div ng-switch="search.currentTab">
-        <ul class="courseList" ng-switch-when="courses">
+        <ul class="courseList list" ng-switch-when="courses">
             <li ng-repeat="course in search.courses">
                 <a href="{{::course.url}}" class="ghost"
                    analytics-on analytics-event="Click on box" analytics-category="Search page" analytics-label="User clicked on a box">
@@ -31,7 +31,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="itemsList" ng-switch-when="items">
+        <ul class="itemsList list" ng-switch-when="items">
             <li ng-repeat="item in search.items">
                 <a href="{{::item.url}}" class="ghost" target="_self"
                    analytics-on analytics-event="Click on item" analytics-category="Search page" analytics-label="User clicked on a item">

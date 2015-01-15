@@ -1621,7 +1621,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
-    <EmbeddedResource Include="Js\Resources\JsResources.zh.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />
