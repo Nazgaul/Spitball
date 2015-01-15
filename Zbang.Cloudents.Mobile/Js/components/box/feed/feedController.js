@@ -53,7 +53,7 @@
             question.aFormData = null;
             question.displayComment = false;
 
-            feedService.addAnswer(boxId, question.id, answer.content).then(function (answer) {
+            feedService.addAnswer(boxId, question.id, answer.content).then(function (answerId) {
                 answer.id = answerId;
                 question.aFormData.content = null;
             });
