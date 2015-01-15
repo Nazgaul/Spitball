@@ -500,6 +500,9 @@
     <Content Include="Content\FeedRtl.min.css">
       <DependentUpon>FeedRtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Home.min.css">
+      <DependentUpon>Home.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>
@@ -566,11 +569,6 @@
     <Content Include="Images\bg%403x.jpg" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\Defs.svg" />
-    <Content Include="Images\EmptyState\my_default.png" />
-    <Content Include="Images\EmptyState\my_default2.png" />
-    <Content Include="Images\EmptyState\my_default3.png" />
-    <Content Include="Images\EmptyState\S50X50userpic2.jpg" />
-    <Content Include="Images\EmptyState\user-pic.png" />
     <Content Include="Images\EmptyState\user.svg" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
