@@ -50,9 +50,7 @@ namespace Zbang.Cloudents.Mobile
             TraceLog.WriteInfo("Application ending");
         }
 
-
-        //for output cache
-        protected void Application_AcquireRequestState()
+        protected void Application_BeginRequest()
         {
             try
             {
@@ -64,6 +62,21 @@ namespace Zbang.Cloudents.Mobile
                 TraceLog.WriteError("initialize", ex);
             }
         }
+
+
+        //for output cache
+        //protected void Application_AcquireRequestState()
+        //{
+        //    try
+        //    {
+        //        UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
+        //            new HttpServerUtilityWrapper(HttpContext.Current.Server));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("initialize", ex);
+        //    }
+        //}
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {

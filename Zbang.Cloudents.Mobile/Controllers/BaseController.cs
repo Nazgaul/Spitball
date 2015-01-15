@@ -113,35 +113,35 @@ namespace Zbang.Cloudents.Mobile.Controllers
             base.Initialize(requestContext);
 
             TempDataProvider = new CookieTempDataProvider(HttpContext);
-            try
-            {
-                if (!ControllerContext.IsChildAction)
-                {
-                    UserLanguage.ChangeLanguage(HttpContext, Server);
-                }
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("initialize", ex);
-            }
+            //try
+            //{
+            //    if (!ControllerContext.IsChildAction)
+            //    {
+            //        UserLanguage.ChangeLanguage(HttpContext, Server);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError("initialize", ex);
+            //}
         }
-        protected void ChangeThreadLanguage(string language)
-        {
-            if (!Languages.CheckIfLanguageIsSupported(language))
-            {
-                return;
-            }
-            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
-            try
-            {
-                var cultureInfo = new CultureInfo(language);
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-            }
-            catch (CultureNotFoundException)
-            {
-            }
-        }
+        //protected void ChangeThreadLanguage(string language)
+        //{
+        //    if (!Languages.CheckIfLanguageIsSupported(language))
+        //    {
+        //        return;
+        //    }
+        //    if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+        //    try
+        //    {
+        //        var cultureInfo = new CultureInfo(language);
+        //        Thread.CurrentThread.CurrentUICulture = cultureInfo;
+        //        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
+        //    }
+        //    catch (CultureNotFoundException)
+        //    {
+        //    }
+        //}
 
         #endregion
     }
