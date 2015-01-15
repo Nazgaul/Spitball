@@ -118,7 +118,9 @@
 .searchLink .svg-search {
   position: absolute;
   right: 10px;
-  top: 5px;
+  top: 4px;
+  width: 17px;
+  height: 17px;
 }
 .searchLinkTxt {
   color: #c2c2c2;
