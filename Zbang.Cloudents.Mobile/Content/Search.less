@@ -13,7 +13,7 @@
         width: 14px;
         height: 14px;
         position: relative;
-        top: -2px;
+        top: -4px;
     }
 }
 .noResults {
@@ -102,7 +102,7 @@
         }
     }
 }
-.courseList, .itemsList, .membersList, .boxItems {
+.list, .boxItems {
     text-align: left; //rtl
 }
 
@@ -110,11 +110,14 @@
     li {
         height: 104px;
     }
-    .details {
-        width: 60%;
-        max-height: 33px; // 2lines
-        padding-left: 90px; //rtl
+    .vCentered {
+        max-width: 20px; //fallback
+        max-width: 65vw;
+        padding-left: 90px; //rtl override
         overflow: hidden;
+        &:before {
+            display: none; //override
+        }
     }
     .fileName {
         font-size: 16px;
@@ -125,7 +128,7 @@
         left: 16px; //rtl
     }
 }
-.membersList {
+/*.membersList {
     li {
         height: 56px;
     }
@@ -140,6 +143,6 @@
         left: 10px; //rtl
         border-radius: 50%;
     }
-}
+}*/
 
 /*#endregion */

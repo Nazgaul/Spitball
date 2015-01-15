@@ -127,39 +127,18 @@
   font-size: 13px;
 }
 /*#region Dashboard recommended courses */
-.recommendedClasses,
-.followedClasses,
-.courseList,
-.itemsList {
-  text-align: left;
-}
-.recommendedClasses a,
-.followedClasses a,
-.courseList a,
-.itemsList a {
+.list a {
   display: block;
   height: 100%;
 }
-.recommendedClasses li,
-.followedClasses li,
-.courseList li,
-.itemsList li {
+.list li {
+  height: 80px;
   position: relative;
 }
-.recommendedClasses li ~ li,
-.followedClasses li ~ li,
-.courseList li ~ li,
-.itemsList li ~ li {
+.list li ~ li {
   border-top: 1px solid #eee;
 }
-.recommendedClasses li,
-.followedClasses li,
-.courseList li {
-  height: 80px;
-}
-.recommendedClasses .courseName,
-.followedClasses .courseName,
-.courseList .courseName {
+.list .courseName {
   font-weight: bold;
   max-width: 220px;
   max-width: 70vw;
@@ -168,14 +147,10 @@
   -ms-word-break: break-word;
   word-break: break-word;
 }
-.recommendedClasses .vCentered,
-.followedClasses .vCentered,
-.courseList .vCentered {
+.list .vCentered {
   padding-left: 62px;
 }
-.recommendedClasses .vCentered:before,
-.followedClasses .vCentered:before,
-.courseList .vCentered:before {
+.list .vCentered:before {
   content: attr(data-box-letter);
   width: 46px;
   height: 46px;
@@ -222,7 +197,6 @@
   font-size: 16px;
   font-weight: normal;
   background: #eee;
-  text-align: center;
 }
 .recommendedList {
   overflow: hidden;

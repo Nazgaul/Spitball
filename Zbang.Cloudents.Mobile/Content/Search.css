@@ -16,7 +16,7 @@
   width: 14px;
   height: 14px;
   position: relative;
-  top: -2px;
+  top: -4px;
 }
 .noResults .emptySearch,
 .noResults ~ .emptySearch {
@@ -112,20 +112,21 @@
 .tab.active:after {
   height: 5px;
 }
-.courseList,
-.itemsList,
-.membersList,
+.list,
 .boxItems {
   text-align: left;
 }
 .itemsList li {
   height: 104px;
 }
-.itemsList .details {
-  width: 60%;
-  max-height: 33px;
+.itemsList .vCentered {
+  max-width: 20px;
+  max-width: 65vw;
   padding-left: 90px;
   overflow: hidden;
+}
+.itemsList .vCentered:before {
+  display: none;
 }
 .itemsList .fileName {
   font-size: 16px;
@@ -134,18 +135,4 @@
 .itemsList img {
   height: 78px;
   left: 16px;
-}
-.membersList li {
-  height: 56px;
-}
-.membersList .userName {
-  width: 50%;
-  max-height: 31px;
-  padding-left: 60px;
-  overflow: hidden;
-}
-.membersList img {
-  height: 40px;
-  left: 10px;
-  border-radius: 50%;
 }

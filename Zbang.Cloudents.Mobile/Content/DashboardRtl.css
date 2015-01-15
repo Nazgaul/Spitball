@@ -16,20 +16,10 @@
   right: auto;
 }
 /*#region Dashboard recommended courses */
-.recommendedClasses,
-.followedClasses,
-.courseList,
-.itemsList {
-  text-align: right;
-}
-.recommendedClasses .vCentered,
-.followedClasses .vCentered,
-.courseList .vCentered {
+.list .vCentered {
   padding: 0 62px 0 0;
 }
-.recommendedClasses .vCentered:before,
-.followedClasses .vCentered:before,
-.courseList .vCentered:before {
+.list .vCentered:before {
   right: 8px;
   left: auto;
 }
