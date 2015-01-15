@@ -138,6 +138,9 @@
   <data name="Post" xml:space="preserve">
     <value>نشر</value>
   </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>تحميل الملفات</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>اكتب تعليق</value>
   </data>

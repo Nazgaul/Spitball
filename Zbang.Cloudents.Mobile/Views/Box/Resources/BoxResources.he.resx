@@ -141,6 +141,9 @@
   <data name="Post" xml:space="preserve">
     <value>פרסם</value>
   </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>העלה קבצים</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>כתוב תגובה ...</value>
   </data>
