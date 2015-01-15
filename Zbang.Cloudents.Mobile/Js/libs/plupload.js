@@ -42,7 +42,7 @@
                     };
 
 
-                    function filesAdded(up, files) {                     
+                    function filesAdded(up, files) {
                         $analytics.eventTrack('Upload Start', {
                             category: 'Box page',
                             label: 'User start to upload files'
@@ -62,7 +62,7 @@
                         };
                     }
 
-                    function uploadComplete(up, file, res) {                        
+                    function uploadComplete(up, file, res) {
                         uploader.destroy();                  
                         $analytics.eventTrack('Upload finished', {
                             category: 'Box page',

@@ -572,7 +572,6 @@
     <Content Include="Images\EmptyState\user.svg" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
-    <Content Include="Js\Bindings.js" />
     <Content Include="Js\Cache.js" />
     <Content Include="Js\Cache2.js" />
     <Content Include="Js\components\account\accountService.js" />

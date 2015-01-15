@@ -44,7 +44,7 @@ namespace Zbang.Cloudents.Mobile.Helpers
             }
             ChangeThreadLanguage(lang);
         }
-        private static void ChangeThreadLanguage(string language)
+        public static void ChangeThreadLanguage(string language)
         {
             if (!Languages.CheckIfLanguageIsSupported(language))
             {
