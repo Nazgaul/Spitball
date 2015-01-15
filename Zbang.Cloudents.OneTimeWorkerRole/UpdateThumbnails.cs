@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 898;
+                int index = 1004;
                 bool cont = true;
                 while (cont)
                 {
@@ -70,8 +70,6 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
                             TraceLog.WriteInfo("processing now " + blob.Uri + " id: " + blobname.itemid);
                             UpdateFile2(blob.Uri, blobname.itemid);
-                            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
-                            GC.Collect();
                         }
                         catch (StorageException)
                         {
