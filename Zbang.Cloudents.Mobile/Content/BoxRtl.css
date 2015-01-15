@@ -19,3 +19,10 @@
 .boxList li:nth-child(even) {
   float: left;
 }
+.uploadBtn {
+  padding: 0 44px 0 10px;
+}
+.uploadBtn .svg-attachment {
+  right: 10px;
+  left: auto;
+}

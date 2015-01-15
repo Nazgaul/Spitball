@@ -11,6 +11,7 @@
         </button>
         <a ui-sref="root.dashboard"><h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1></a>
     </header>
+
     <div class="boxDetails">
         <h2>{{::box.name}}</h2>
         <span class="boxDetail">{{::box.professorName}}</span>
@@ -21,6 +22,7 @@
         <span class="tab" ng-click="box.setCurrentTab('feed')" ng-class="{active : box.currentTab === 'feed'}">@BoxResources.Feed</span>
         <span class="tab" ng-click="box.setCurrentTab('items')" ng-class="{active : box.currentTab === 'items'}">@SharedResources.Items</span>
     </div>
+
     <div ng-switch="box.currentTab">
         <div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
             <span id="plfakebtn" style="display:none;"></span>
@@ -117,6 +119,13 @@
                     <div class="elps itemOwner">{{::item.owner}}</div>
                 </li>
             </ul>
+            <div class="emptyBox">
+                <div>@BoxResources.BoxEmpty</div>
+                <button type="button" class="uploadBtn" pl-fileinput>
+                    Upload files
+                    @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
+                </button>
+            </div>
         </div>
     </div>
 
@@ -127,18 +136,18 @@
         <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
-                </rect>
+                    </rect>
         <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
         <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
-                </rect>
+                    </rect>
         <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
         <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
         <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
-                </rect>
-              </svg>
+                    </rect>
+                  </svg>
         Uploading
     </div>
 </section>
