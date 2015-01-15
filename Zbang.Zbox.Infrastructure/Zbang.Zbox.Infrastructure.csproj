@@ -126,6 +126,7 @@
     <Compile Include="Culture\Languages.cs" />
     <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
+    <Compile Include="Enums\FeedType.cs" />
     <Compile Include="Enums\FirstTime.cs" />
     <Compile Include="Enums\ImageSize.cs" />
     <Compile Include="Enums\LogInStatus.cs" />
