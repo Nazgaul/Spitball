@@ -181,7 +181,13 @@ img {
 }
 .checkbox {
     display: none;
+    //this is due to webkit browser - the change of attirubute position and display is ignored
     ~ .cbLabel {
+        .svg-checked{
+            position:absolute;
+            display:inline-block;
+            left:-50px;
+        }
         position: relative;
         top: -4px;
         margin-bottom: 10px;
@@ -198,8 +204,7 @@ img {
     &:checked {
         ~ .cbLabel {
             .svg-checked {
-                display: inline-block;
-                position: absolute;
+                //display: inline-block;
                 left: 3px; //rtl
                 top: 7px;
             }
@@ -211,6 +216,7 @@ img {
         }
     }
 }
+        
 /*#endregion */
 
 /*#region 'static' pages (No RTL) */

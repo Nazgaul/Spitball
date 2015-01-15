@@ -179,6 +179,11 @@ img {
   top: -4px;
   margin-bottom: 10px;
 }
+.checkbox ~ .cbLabel .svg-checked {
+  position: absolute;
+  display: inline-block;
+  left: -50px;
+}
 .checkbox ~ .cbLabel:before {
   content: '';
   display: inline-block;
@@ -190,8 +195,6 @@ img {
   top: 4px;
 }
 .checkbox:checked ~ .cbLabel .svg-checked {
-  display: inline-block;
-  position: absolute;
   left: 3px;
   top: 7px;
 }
