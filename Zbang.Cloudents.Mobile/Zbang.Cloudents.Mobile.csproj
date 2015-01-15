@@ -531,6 +531,9 @@
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
     </Content>
+    <Content Include="Content\Mobile.min.css">
+      <DependentUpon>Mobile.css</DependentUpon>
+    </Content>
     <Content Include="Content\Mobile.rtl.css" />
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
