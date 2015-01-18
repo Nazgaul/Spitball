@@ -7,7 +7,6 @@
 
         boxService.getData($stateParams.boxId).then(function (data) {
             boxData = data;
-            box.id =
             box.name = data.name;
             box.professorName = data.professorName;
             box.courseId = data.courseId;
@@ -21,10 +20,11 @@
             if (tab) { //dont want to change hash if there is no tab selected for upload
                 $location.hash(tab);
             }
-            
+
         };
 
         $scope.$on('uploadStart', function () {
+            follow();
             box.uploading = true;
             box.setCurrentTab(null);
         });
@@ -37,5 +37,12 @@
 
         box.setCurrentTab($location.hash() || 'feed');
 
+
+        $scope.$on('followBox', follow);
+
+
+        function follow() {
+            boxData.userType = 'owner';
+        }
     }]
 );
