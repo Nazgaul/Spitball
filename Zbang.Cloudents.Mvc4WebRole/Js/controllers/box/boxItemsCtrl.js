@@ -76,26 +76,19 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         if (data.boxId !== $scope.boxId) {
             return;
         }
-
         $scope.followBox(true);
-
-        sFacebook.postFeed(resManager.getParsed('IUploaded', [data.itemDto.name]), $scope.info.url);
-
         if ($scope.iOptions.currentTab && ($scope.iOptions.currentTab.id !== data.tabId)) {
             return;
         }
-
         if (data.tabId) {
             sTabCount.notifyAdd(data.tabId);
         }
-
         $scope.info.itemsLength++;
         $scope.info.feedLength++;
         $scope.items.unshift(data.itemDto);
         $scope.filteredItems.unshift(data.itemDto);
         $scope.items.sort(sortItems);
         $scope.filteredItems.sort(sortItems);
-
     });
 
     //#endregion
