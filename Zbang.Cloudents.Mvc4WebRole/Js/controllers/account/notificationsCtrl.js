@@ -54,7 +54,9 @@
                 $scope.$broadcast('update-scroll');
             }
 
-            $scope.delete = function (notification) {
+            $scope.delete = function (notification, event) {
+                event.stopImmediatePropagation();
+                event.stopPropagation();
                 sNotification.remove(notification.msgId);
                 getDetails();
             };
