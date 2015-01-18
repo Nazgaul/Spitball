@@ -21,16 +21,12 @@
             @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
             <span>@DashboardResources.ShareFiles</span>
         </div>
-        @*<div class="featureTxt">
-            @Html.Svg("~/Images/Defs.svg", "quizInner", new { @class = "svg-quizInner" })
-            <span>@DashboardResources.CreateQuizzes</span>
-        </div>*@
         <button type="button" class="closeBtn" ng-click="dashboard.closeWelcome()">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </button>
     </section>     
     <div inner-scroll="{{dashboard.loading}}"></div>
-    <ul class="followedClasses list" scroll-paging on-scroll="dashboard.getBoxList(true)">
+    <ul class="list" scroll-paging on-scroll="dashboard.getBoxList(true)">
         <li ng-repeat="box in dashboard.boxes">
             <a href="{{::box.url}}" analytics-on analytics-event="Click on box" analytics-category="Dashboard page" analytics-label="User clicked on a box">                
                 <div class="details vCentered" data-box-letter="{{::box.name[0]}}">
