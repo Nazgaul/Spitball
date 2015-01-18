@@ -16,7 +16,7 @@
             <div class="elps itemOwner">{{::item.owner}}</div>
         </li>
     </ul>
-    <div class="emptyBox">
+    <div class="emptyBox" ng-if="boxItems.noResults">
         <div>@BoxResources.BoxEmpty</div>
         <button type="button" class="uploadBtn" pl-fileinput>
             @BoxResources.UploadFiles

@@ -1,6 +1,6 @@
 ﻿angular.module('feed', ['ajax', 'monospaced.elastic', 'plupload', 'textDirection', 'displayTime']).
     controller('FeedController',
-    ['feedService', '$stateParams', 'userDetails', function (feedService, $stateParams, userDetails) {
+    ['$scope', 'feedService', '$stateParams', 'userDetails', function ($scope, feedService, $stateParams, userDetails) {
         var feed = this;
 
         var page = 0,
@@ -16,18 +16,16 @@
             getFeedPage(true);
         };
 
-        feed.addQuestion = function () {
-            if (!userDetails.isAuthenticated()) {
-                alert('you need to register');
-            }
+        feed.addQuestion = function () {     
             var question = {
                 content: feed.questionFormData.content,
             };
             setPostDetails(question);
 
             feed.list.unshift(question);
-
+            feed.empty = false;
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
+                $scope.emit('followBox');
                 question.id = questionId;
                 feed.questionFormData.content = null;
             });
@@ -39,26 +37,29 @@
 
 
         feed.addAnswer = function (question) {
-            if (!userDetails.isAuthenticated()) {
-                alert('you need to register');
-            }
             var answer = {
                 content: question.aFormData.content,
             };
 
             setPostDetails(answer);
 
-
+            feed.empty = false;
             question.answers.unshift(answer);
             question.aFormData = null;
             question.displayComment = false;
 
             feedService.addAnswer(boxId, question.id, answer.content).then(function (answerId) {
+                $scope.emit('followBox');
                 answer.id = answerId;
                 question.aFormData.content = null;
             });
         };
 
+        feed.checkLogin = function () {
+            if (!userDetails.isAuthenticated()) {
+                alert('Please register');
+            }
+        }
 
         function getFeedPage(isAppend) {
             if (isFetching) {
@@ -79,6 +80,10 @@
 
 
                 if (!feedPage.length) {
+                    if (!isAppend) {
+                        feed.empty = true;
+                        return;
+                    }
                     endResult = true;
                     return;
                 }
@@ -88,7 +93,7 @@
                     return;
                 }
 
-                feed.list =  feed.list.concat(feedPage);
+                feed.list = feed.list.concat(feedPage);
 
 
 
@@ -96,7 +101,7 @@
                 isFetching = false;
                 feed.loading = false;
             });
-        }
+        }            
 
         function setPostDetails(post) {
             post.userName = userDetails.getName();

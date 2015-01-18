@@ -2,6 +2,14 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.dashboard {
+  /*&.menuOpen {
+        ~ .menu {
+            right: 0; //rtl
+            left: auto;
+        }
+    }*/
+}
 .dashboard:after {
   right: 0;
   left: auto;

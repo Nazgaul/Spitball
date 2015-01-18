@@ -3,7 +3,9 @@
 /*#region mixins */
 /*#endregion */
 html,
-body,
+body {
+  height: 100%;
+}
 [ui-view] {
   height: 100%;
 }
@@ -11,20 +13,66 @@ body {
   text-align: center;
   color: #383838;
   font-family: Arial;
+  font-size: 14px;
+}
+header {
+  background: #0f9d58;
+  width: 100%;
+  height: 36px;
+}
+.loaderWpr {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  background: #fff;
+  z-index: 10;
+  display: none;
 }
 .loader {
   position: fixed;
-  top: 50%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   -moz-transform: scale(3);
   -ms-transform: scale(3);
   -o-transform: scale(3);
   -webkit-transform: scale(3);
   transform: scale(3);
   display: inline-block;
+  height: 34px;
 }
 .loader rect {
   fill: #3399ff;
 }
+.logoHeader .backBtn {
+  margin: 11px 4% 0 0;
+}
+.logoHeader .svg-back {
+  fill: #fff;
+}
+/*#region SVG */
+svg.ltr {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+svg.rtl {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+/*#endregion */
 /*#region mixins */
 /*#endregion */
 /*#region helper classes */
@@ -69,9 +117,11 @@ img {
   border: 1px solid #383838;
 }
 .inputText.firstName,
-.inputText.rFloat,
-.inputText.radioWpr {
+.inputText.rFloat {
   width: 48%;
+}
+.radioWpr + .inputText {
+  width: 43%;
 }
 .btn1 {
   background: #0f9d58;
@@ -79,12 +129,14 @@ img {
   width: 100%;
   display: block;
   margin: 0 auto;
-  height: 46px;
-  line-height: 46px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 5px;
+  font-size: 17px;
 }
 .btn1:disabled {
   background: #a5a5a5;
+  color: #383838;
 }
 .splitHR {
   display: inline-block;
@@ -96,7 +148,7 @@ img {
   content: '';
   display: block;
   width: 92%;
-  height: 20px;
+  height: 17px;
   position: absolute;
   right: 0;
   left: 0;
@@ -123,14 +175,15 @@ img {
   display: none;
 }
 .radio + label {
-  margin-left: 3px;
+  margin-left: 10px;
+  font-size: 13px;
 }
 .radio + label:before {
   content: '';
   display: inline-block;
   width: 12px;
   height: 12px;
-  border: 2px solid #666;
+  border: 1px solid #383838;
   border-radius: 50%;
   position: relative;
   top: 2px;
@@ -138,5 +191,125 @@ img {
 }
 .radio:checked + label:before {
   background: #666;
-  box-shadow: inset 0 2px 0 0 #fff;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+.checkbox {
+  display: none;
+}
+.checkbox ~ .cbLabel {
+  position: relative;
+  top: -4px;
+  margin-bottom: 10px;
+}
+.checkbox ~ .cbLabel .svg-checked {
+  position: absolute;
+  display: inline-block;
+  right: -50px;
+}
+.checkbox ~ .cbLabel:before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #c2c2c2;
+  position: relative;
+  top: 4px;
+}
+.checkbox:checked ~ .cbLabel .svg-checked {
+  right: 3px;
+  top: 7px;
+}
+.checkbox:checked ~ .marketLabel .svg-checked {
+  right: -2px;
+}
+/*#endregion */
+/*#region 'static' pages (No RTL) */
+.static {
+  text-align: right;
+  direction: rtl;
+  font-size: 14px;
+}
+.static .backBtn {
+  margin: 0;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
+.static .svg-back {
+  fill: #fff;
+}
+.static .content {
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.static h1 {
+  font-size: 16px;
+  text-align: center;
+  line-height: 36px;
+}
+.static h3 {
+  font-size: 18px;
+}
+.static p {
+  padding-bottom: 20px;
+}
+/*#endregion */
+/*#region forgot password */
+.forgotPwd,
+.checkEmail,
+.choosePwd {
+  padding: 15px 3%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.forgotPwd h1,
+.checkEmail h1,
+.choosePwd h1 {
+  font-size: 20px;
+  color: #383838;
+  margin: 6px auto 15px;
+}
+.forgotPwd p,
+.checkEmail p,
+.choosePwd p,
+.forgotPwd .inputText,
+.checkEmail .inputText,
+.choosePwd .inputText,
+.forgotPwd .btn1,
+.checkEmail .btn1,
+.choosePwd .btn1 {
+  margin-bottom: 20px;
+}
+.forgotPwd .inputText,
+.checkEmail .inputText,
+.choosePwd .inputText {
+  height: 36px;
+}
+.forgotPwd .inputText:focus ~ .cancel,
+.checkEmail .inputText:focus ~ .cancel,
+.choosePwd .inputText:focus ~ .cancel {
+  display: none;
+}
+.forgotPwd .cancel,
+.checkEmail .cancel,
+.choosePwd .cancel {
+  margin-bottom: 0;
+}
+.cancel {
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #383838;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 94%;
 }

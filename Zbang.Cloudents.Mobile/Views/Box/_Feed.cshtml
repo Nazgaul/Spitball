@@ -1,9 +1,9 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
 
-<div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed" pl-uploader>
+<div class="feed" ng-switch-when="feed" ng-controller="FeedController as feed">
     <span id="plfakebtn" style="display:none;"></span>
     <form class="feedForm" name="addQuestionForm" ng-submit="feed.addQuestion()" novalidate sticky-form>
-        <textarea name="content" class="feedTA" placeholder="@BoxResources.OnYourMind" ng-model="feed.questionFormData.content" msd-elastic text-direction></textarea>
+        <textarea name="content" class="feedTA" placeholder="@BoxResources.OnYourMind" ng-model="feed.questionFormData.content" msd-elastic text-direction ng-focus="feed.checkLogin()"></textarea>
         <ul class="attachedList">
             <li class="attachedItem" ng-repeat="file in feed.questionFormData.files">
                 <span class="attachName elps">{{::file.name}}</span>
@@ -44,7 +44,6 @@
                             <time class="createTime lFloat" display-time="{{::answer.creationTime}}"></time>
                             <div class="userName elps">{{::answer.userName}}</div>
                         </div>
-
                         <div class="feedContent" ng-bind-html="::answer.content"></div>
                         <ul class="qaAttach">
                             <li class="qaAttachItem" ng-repeat="file in answer.files">
@@ -61,7 +60,7 @@
 
             <form ng-if="question.displayComment" name="answerForm" class="feedForm" ng-submit="feed.addAnswer(question)" novalidate>
                 <textarea name="content" class="feedTA" placeholder="@BoxResources.WriteComment"
-                           ng-model="question.aFormData.content" text-direction msd-elastic></textarea>
+                          ng-model="question.aFormData.content" text-direction msd-elastic ng-focus="feed.checkLogin()"></textarea>
                 <ul class="attachedList">
                     <li class="attachedItem" ng-repeat="file in question.aFormData.files">
                         <span class="attachName elps">{{::file.name}}</span>
@@ -76,6 +75,5 @@
             </form>
         </li>
     </ul>
-
-    <div ng-show="!feed.list.length" class="emptyFeed">@BoxResources.FeedEmpty</div>
+    <div ng-if="feed.empty" class="emptyFeed">@BoxResources.FeedEmpty</div>
 </div>

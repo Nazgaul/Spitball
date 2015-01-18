@@ -59,7 +59,12 @@
         getItem();
     };
     downloadItem.onclick = function () {
-        downloadItem.setAttribute('href', '/d/' +  boxid + '/' + itemid);
+        downloadItem.setAttribute('href', '/d/' + boxid + '/' + itemid);
+        dataContext.subscribeBox({
+            data: {
+                boxId: boxid
+            }
+        });
     };
 
     var lastScrollLeft = 0;
