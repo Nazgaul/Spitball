@@ -77,6 +77,22 @@
 
         };
 
+        libChoose.showSuggestions = function () {
+            if (!libChoose.facebookSuggestions) {
+                return false;
+            }
+
+            if (!libChoose.facebookSuggestions.length) {
+                return false;
+            }
+
+            if (libChoose.query && libChoose.query.length) {
+                return false;
+            }
+
+            return true;           
+        }
+
 
 
     }]

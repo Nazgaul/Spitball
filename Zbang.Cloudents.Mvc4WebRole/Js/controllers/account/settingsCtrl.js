@@ -220,6 +220,8 @@
                     });
                 }, function (response) {
                     $scope.params.passwordError = response;
+                }).finally(function () {
+                    $scope.params.passwordError = null;
                 });
             };
 
