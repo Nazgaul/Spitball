@@ -152,7 +152,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
-        [Filters.ValidateAntiForgeryToken]
+        //[Filters.ValidateAntiForgeryToken]
         public async Task<JsonResult> Login([ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)

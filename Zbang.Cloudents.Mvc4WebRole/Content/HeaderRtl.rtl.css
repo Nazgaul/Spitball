@@ -1,0 +1,70 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.siteHeader.headerBox {
+  /*TEMP: UNDO NEW SEARCH*/
+  /*.shareBtn {
+            right: 730px; //rtl
+            left: auto;
+        }*/
+}
+.siteHeader.headerBox .backWpr {
+  margin: 8px 0 0 25px;
+}
+.siteLogo {
+  padding: 0 0 0 30px;
+}
+.userNav .userName {
+  text-align: left;
+  margin: 6px 0 0 40px;
+}
+.userPts {
+  margin: 0 0 0 40px
+  /*rtl*/
+}
+.headerRightWpr .userSection {
+  margin: 0 0 0 20px
+  /*rtl*/
+}
+/*#region search */
+.searchBtn {
+  right: 10px;
+  left: auto;
+}
+.dashLibSearchInput {
+  padding: 0 40px 0 10px;
+}
+/*#endregion */
+.dashHeader.setup .dashLibSearchInput ~ button {
+  float: right;
+}
+.dashHeader.setup .svg-search {
+  right: 13px;
+  left: auto;
+}
+.dashHeader.setup .barActions {
+  right: 28px;
+  left: auto;
+}
+/*#region notifications */
+.notifyWpr {
+  right: 40px;
+  left: auto;
+}
+.notifyList {
+  margin: 0 -15px 0 0;
+}
+.notifyItem a {
+  padding: 15px 15px 0 100px
+  /*rtl*/
+}
+.notifyItem .trash {
+  right: 20px;
+  left: auto;
+}
+.notifyImg {
+  left: 20px;
+  /*rtl*/
+  right: auto;
+}

@@ -46,8 +46,8 @@
 
                     scope.$watch(attrs.ngModel, function (v) {
                         if (!v) {
-                            if (attrs.ngPlaceholder) {
-                                v = attrs.ngPlaceholder;
+                            if (element[0].placeholder) {
+                                v = element[0].placeholder;
                             } else {
                                 v = '';
                             }

@@ -1,0 +1,81 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region library empty state */
+.libEmpty {
+  text-align: left
+  /*rtl*/
+}
+.uniWpr .inputText {
+  padding: 0 0 0 25px
+  /*rtl*/
+}
+/*#endregion */
+/*#region School List */
+.uniWpr:after {
+  right: 9px;
+  /*rtl*/
+  left: auto;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1)
+  /*rtl*/
+}
+.uniWpr .inputText {
+  padding: 0 30px 0 10px
+  /*rtl*/
+}
+.uniList {
+  text-align: left
+  /*rtl*/
+}
+.schoolItem {
+  padding: 5px 0 8px 8px
+  /*rtl*/
+}
+.uniDetails {
+  padding: 10px 5px 0 8px
+  /*rtl*/
+}
+/*#endregion */
+/*#region Create new school */
+.createSchool .top:before {
+  left: 15px;
+  right: auto;
+}
+.createSchool .top:after {
+  left: 28px;
+  right: auto;
+}
+.createSchool,
+.completeRegistration {
+  left: -49px;
+  right: auto;
+}
+.createSchool .top,
+.completeRegistration .top {
+  padding: 15px 15px 0 95px;
+}
+.createSchool .btn1,
+.completeRegistration .btn1 {
+  margin: 28px 0 0 15px;
+}
+/*#endregion */
+/*#region Choose/Create Department */
+.completeRegistration .uniImg {
+  left: 15px;
+  right: auto;
+}
+/*#endregion */
+/*#region FB friends List */
+.fbUniList .uniDetails {
+  padding: 10px 0 0 8px
+  /*rtl*/
+}
+.fbFriendsList .imgBorder {
+  margin: 0 5px 5px 0
+  /*rtl*/
+}

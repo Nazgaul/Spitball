@@ -3,10 +3,21 @@
 /*#region mixins */
 /*#endregion */
 /*#region Search Page */
+.searchInput {
+  font-size: 16px;
+  direction: rtl;
+}
 .searchBtn {
   position: relative;
   left: 10px;
   top: 5px;
+}
+.searchBtn .svg-close {
+  fill: #282828;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -4px;
 }
 .noResults .emptySearch,
 .noResults ~ .emptySearch {
@@ -31,23 +42,27 @@
 .searchLink {
   position: relative;
   display: inline-block;
-  margin-right: 40px;
   width: 78%;
+  width: -webkit-calc(100% - 50px);
+  width: calc(100% - 50px);
   height: 30px;
   line-height: 30px;
   border-radius: 15px;
-  margin: 15px 0;
+  margin: 15px 40px 15px 0;
   background: #fff;
   border: 1px solid #c2c2c2;
   text-align: right;
   padding-right: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .searchForm {
-  margin-left: 10px;
+  margin: 15px 0 10px 10px;
 }
 .backBtn {
   display: inline-block;
-  margin: 20px 10px 0 0;
+  margin: 24px 10px 0 0;
 }
 .searchContent img {
   position: absolute;
@@ -55,20 +70,7 @@
   bottom: 0;
   margin: auto;
   border-radius: 8px;
-}
-.searchContent .ghost {
-  display: block;
-  height: 100%;
-}
-.searchContent ul {
-  text-align: right;
-}
-.searchContent li {
-  font-size: 13px;
-  position: relative;
-}
-.searchContent li ~ li {
-  border-top: 1px solid #c2c2c2;
+  border: 1px solid #c2c2c2;
 }
 .tabs {
   display: table;
@@ -76,39 +78,8 @@
   width: 100%;
   text-align: center;
   background: #282828;
-  /*&.courseTab, &.feedTab {
-        ~ .courseList, ~ .feed {
-
-        }
-        .tab:nth-child(1) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.itemsTab, &.boxItemsTab {
-        ~ .itemsList, ~ .boxItems  {
-
-        }
-        .tab:nth-child(2) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }
-    &.membersTab {
-        ~ .membersList {
-
-        }
-        .tab:nth-child(3) {
-            color: @color;
-            &:after {
-                height: 5px;
-            }
-        }
-    }*/
+  font-size: 16px;
+  text-transform: capitalize;
 }
 .tab {
   color: #a5a5a5;
@@ -120,6 +91,7 @@
   -moz-transition: color 0.3s;
   -o-transition: color 0.3s;
   transition: color 0.3s;
+  padding-bottom: 5px;
 }
 .tab:after {
   content: '';
@@ -141,53 +113,27 @@
 .tab.active:after {
   height: 5px;
 }
-.courseList,
-.itemsList,
-.membersList,
-.feed,
+.list,
 .boxItems {
   text-align: right;
-}
-.courseList li {
-  height: 70px;
-}
-.courseList .courseName {
-  width: 40%;
-  max-height: 31px;
-  padding-right: 60px;
-  overflow: hidden;
-}
-.courseList img {
-  height: 40px;
-  right: 10px;
 }
 .itemsList li {
   height: 104px;
 }
-.itemsList .details {
-  width: 60%;
-  max-height: 33px;
+.itemsList .vCentered {
+  max-width: 20px;
+  max-width: 65vw;
   padding-right: 90px;
   overflow: hidden;
 }
+.itemsList .vCentered:before {
+  display: none;
+}
 .itemsList .fileName {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: bold;
 }
 .itemsList img {
   height: 78px;
   right: 16px;
-}
-.membersList li {
-  height: 56px;
-}
-.membersList .userName {
-  width: 50%;
-  max-height: 31px;
-  padding-right: 60px;
-  overflow: hidden;
-}
-.membersList img {
-  height: 40px;
-  right: 10px;
-  border-radius: 50%;
 }

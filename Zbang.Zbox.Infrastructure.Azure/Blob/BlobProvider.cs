@@ -33,10 +33,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
 
-        public BlobProvider()
+        private readonly ILocalStorageProvider m_LocalStorageProvider;
+
+        public BlobProvider(ILocalStorageProvider localStorageProvider)
         {
+            m_LocalStorageProvider = localStorageProvider;
             InitStorage();
         }
+
         private void InitStorage()
         {
 
@@ -497,6 +501,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return ms;
             
         }
+
+        public Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken)
+        {
+            CloudBlockBlob blob = GetFile(fileName);
+            return blob.OpenReadAsync(cancelToken);
+        }
+
+        //public Task<string> DownloadFileToSystemAsync(string fileName)
+        //{
+        //    CloudBlockBlob blob = GetFile(fileName);
+        //    //m_LocalStorageProvider.
+        //    return blob.DownloadToFileAsync(systemLocation, FileMode.Create);
+        //}
 
 
         #endregion

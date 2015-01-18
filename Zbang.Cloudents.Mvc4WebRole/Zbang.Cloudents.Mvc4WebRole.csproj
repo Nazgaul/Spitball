@@ -598,17 +598,32 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
+    <Content Include="Content\Animations.rtl.css">
+      <DependentUpon>Animations.css</DependentUpon>
+    </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Box3.rtl.css">
+      <DependentUpon>Box3.css</DependentUpon>
     </Content>
     <Content Include="Content\BoxFeed.css">
       <DependentUpon>BoxFeed.less</DependentUpon>
     </Content>
+    <Content Include="Content\BoxFeed.rtl.css">
+      <DependentUpon>BoxFeed.css</DependentUpon>
+    </Content>
     <Content Include="Content\BoxFeedRtl.css">
       <DependentUpon>BoxFeedRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\BoxFeedRtl.rtl.css">
+      <DependentUpon>BoxFeedRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
+    </Content>
+    <Content Include="Content\DashLib.rtl.css">
+      <DependentUpon>DashLib.css</DependentUpon>
     </Content>
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
@@ -616,45 +631,87 @@
     <Content Include="Content\General.min.css">
       <DependentUpon>General.css</DependentUpon>
     </Content>
+    <Content Include="Content\General.rtl.css">
+      <DependentUpon>General.css</DependentUpon>
+    </Content>
     <Content Include="Content\GeneralRtl.css">
       <DependentUpon>GeneralRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\GeneralRtl.rtl.css">
+      <DependentUpon>GeneralRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Header.css">
       <DependentUpon>Header.less</DependentUpon>
     </Content>
+    <Content Include="Content\Header.rtl.css">
+      <DependentUpon>Header.css</DependentUpon>
+    </Content>
     <Content Include="Content\HeaderRtl.css">
       <DependentUpon>HeaderRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HeaderRtl.rtl.css">
+      <DependentUpon>HeaderRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
+    <Content Include="Content\Home.rtl.css">
+      <DependentUpon>Home.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HomeRtl.rtl.css">
+      <DependentUpon>HomeRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
+    <Content Include="Content\Invite.rtl.css">
+      <DependentUpon>Invite.css</DependentUpon>
+    </Content>
     <Content Include="Content\Item.css">
       <DependentUpon>Item.less</DependentUpon>
     </Content>
+    <Content Include="Content\Item.rtl.css">
+      <DependentUpon>Item.css</DependentUpon>
+    </Content>
     <Content Include="Content\ItemRtl.css">
       <DependentUpon>ItemRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemRtl.rtl.css">
+      <DependentUpon>ItemRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
+    <Content Include="Content\lang.he-IL.rtl.css">
+      <DependentUpon>lang.he-IL.css</DependentUpon>
+    </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ru-RU.rtl.css">
+      <DependentUpon>lang.ru-RU.css</DependentUpon>
     </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
+    <Content Include="Content\Modal.rtl.css">
+      <DependentUpon>Modal.css</DependentUpon>
+    </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>
+    <Content Include="Content\Normalize.rtl.css">
+      <DependentUpon>Normalize.css</DependentUpon>
+    </Content>
     <Content Include="Content\Quiz.css">
       <DependentUpon>Quiz.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Quiz.rtl.css">
+      <DependentUpon>Quiz.css</DependentUpon>
     </Content>
     <Content Include="Content\RTL3.css">
       <DependentUpon>RTL3.less</DependentUpon>
@@ -662,17 +719,44 @@
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
     </Content>
+    <Content Include="Content\Search.rtl.css">
+      <DependentUpon>Search.css</DependentUpon>
+    </Content>
     <Content Include="Content\Settings.css">
       <DependentUpon>Settings.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Settings.rtl.css">
+      <DependentUpon>Settings.css</DependentUpon>
     </Content>
     <Content Include="Content\SetupSchool.css">
       <DependentUpon>SetupSchool.less</DependentUpon>
     </Content>
+    <Content Include="Content\SetupSchool.rtl.css">
+      <DependentUpon>SetupSchool.css</DependentUpon>
+    </Content>
     <Content Include="Content\SetupSchoolRtl.css">
       <DependentUpon>SetupSchoolRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\SetupSchoolRtl.rtl.css">
+      <DependentUpon>SetupSchoolRtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Sidebar.rtl.css">
+      <DependentUpon>Sidebar.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site3.rtl.css">
+      <DependentUpon>Site3.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Static.rtl.css">
+      <DependentUpon>Static.css</DependentUpon>
+    </Content>
+    <Content Include="Content\StaticRtl.rtl.css">
+      <DependentUpon>StaticRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Store.css">
       <DependentUpon>Store.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Store.rtl.css">
+      <DependentUpon>Store.css</DependentUpon>
     </Content>
     <Content Include="Content\StoreRtl.css">
       <DependentUpon>StoreRtl.less</DependentUpon>
@@ -689,14 +773,26 @@
     <Content Include="Content\StaticRtl.css">
       <DependentUpon>StaticRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\StoreRtl.rtl.css">
+      <DependentUpon>StoreRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SVG.rtl.css">
+      <DependentUpon>SVG.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
+    <Content Include="Content\Upload.rtl.css">
+      <DependentUpon>Upload.css</DependentUpon>
+    </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\UserPage.rtl.css">
+      <DependentUpon>UserPage.css</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
@@ -704,8 +800,14 @@
     <Content Include="Content\Welcome.css">
       <DependentUpon>Welcome.less</DependentUpon>
     </Content>
+    <Content Include="Content\Welcome.rtl.css">
+      <DependentUpon>Welcome.css</DependentUpon>
+    </Content>
     <Content Include="Content\WelcomeRtl.css">
       <DependentUpon>WelcomeRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\WelcomeRtl.rtl.css">
+      <DependentUpon>WelcomeRtl.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

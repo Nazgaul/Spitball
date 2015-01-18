@@ -47,10 +47,10 @@ namespace Zbang.Cloudents.Mobile.Extensions
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {
-            //if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
-            //{
-            //    key = key + BundleConfig.Rtl;
-            //}
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                key = key + BundleConfig.Rtl;
+            }
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);
         }
