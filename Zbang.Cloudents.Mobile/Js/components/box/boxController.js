@@ -3,7 +3,8 @@
     ['$scope', '$stateParams', 'boxService', '$location', function ($scope, $stateParams, boxService, $location) {
         var box = this;
 
-        var boxData;
+        var boxData,
+            lastTab;
 
         boxService.getData($stateParams.boxId).then(function (data) {
             boxData = data;
@@ -26,13 +27,14 @@
         $scope.$on('uploadStart', function () {
             follow();
             box.uploading = true;
+            lastTab = box.currentTab;
             box.setCurrentTab(null);
         });
 
 
         $scope.$on('uploadComplete', function () {
             box.uploading = false;
-            box.setCurrentTab('feed');
+            box.setCurrentTab(lastTab);
         });
 
         box.setCurrentTab($location.hash() || 'feed');

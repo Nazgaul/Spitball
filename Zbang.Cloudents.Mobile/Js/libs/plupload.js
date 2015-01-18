@@ -13,15 +13,11 @@
 
                         init();
 
-                        plUpload.addFiles = function (files) {
-                        if (userDetails.isAuthenticated()) {
-                            alert('you need to register');
-                        }
+                        plUpload.addFiles = function (files) {                        
                             angular.forEach(files, function (file) {
                                 uploader.addFile(file);
                             });
                         };
-
 
                         function init() {
                             var options = {
@@ -44,7 +40,7 @@
                             uploader.bind('BeforeUpload', beforeUpload);
                             uploader.bind('UploadComplete', uploadComplete);
                             boxId = boxId;
-                        };
+                        }
 
 
                         function filesAdded(up, files) {
@@ -93,7 +89,7 @@
             require: '^plUploader',
             link: function (scope, element, attrs, controller) {
 
-                if (!userDetails.isAuthenticated) {
+                if (!userDetails.isAuthenticated()) {
                     alert('Please register');
                     return;
                 }
@@ -110,5 +106,5 @@
                 fileinput.init();
             }
         };
-    });
+    }]);
 })(window.angular)

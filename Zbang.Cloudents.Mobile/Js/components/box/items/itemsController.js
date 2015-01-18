@@ -38,7 +38,11 @@
 
                 page++;
 
-                if (!items.length) {                
+                if (!items.length) {
+                    if (!isAppend) {
+                        boxItems.noResults = true;
+                        return;
+                    }
                     endResult = true;
                     return;
                 }
