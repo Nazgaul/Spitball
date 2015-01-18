@@ -14,6 +14,7 @@ body {
   color: #383838;
   font-family: Arial;
   font-size: 14px;
+  direction: ltr;
 }
 header {
   background: #0f9d58;
@@ -227,7 +228,6 @@ img {
 /*#region 'static' pages (No RTL) */
 .static {
   text-align: left;
-  direction: ltr;
   font-size: 14px;
 }
 .static .backBtn {
