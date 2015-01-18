@@ -17,7 +17,7 @@
         };
 
         feed.addQuestion = function () {
-            if (userDetails.isAuthenticated()) {
+            if (!userDetails.isAuthenticated()) {
                 alert('you need to register');
             }
             var question = {
@@ -39,7 +39,7 @@
 
 
         feed.addAnswer = function (question) {
-            if (userDetails.isAuthenticated()) {
+            if (!userDetails.isAuthenticated()) {
                 alert('you need to register');
             }
             var answer = {
