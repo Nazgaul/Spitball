@@ -9,7 +9,7 @@
      function setDetails(data) {
          data = data || {};
 
-         $http.defaults.headers.post['X-CSRFToken'] = data.token;
+         $http.defaults.headers.common["RequestVerificationToken"] = data.token;
 
          if (!_.isUndefined(data.id)) {
              isAuthenticated = true;
