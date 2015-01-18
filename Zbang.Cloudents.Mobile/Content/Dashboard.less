@@ -39,7 +39,7 @@
         }
 
         ~ .menu {
-            //left: 0;
+            //left: 0; //rtl
             -moz-transform: translate3d(0,0,0);
             -ms-transform: translate3d(0,0,0);
             -webkit-transform: translate3d(0,0,0);
@@ -319,8 +319,6 @@ overflow-x: hidden;
     width: 80%;
     height: 100%;
     top: 0;
-    left: -5px; //rtl to account for box-shadow
-    //left: -67%;
     color: #fff;
     background: #fff;
     box-shadow: 5px 0 10px 0 rgba(0,0,0,0.9); //rtl
@@ -331,6 +329,11 @@ overflow-x: hidden;
     -moz-transition: transform 0.3s;
     -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
+    left: -5px; //rtl to account for box-shadow
+    //margin-left: -5px; //rtl to account for box-shadow
+    //left: -80%;
+    //.transition(left .3s);
+    //margin-left: -5px;
 
 
     &:before {
@@ -368,7 +371,6 @@ overflow-x: hidden;
     color: @textColor;
     text-align: left; //rtl
     li {
-        position: relative;
         position: relative;
         top: 10px;
         
