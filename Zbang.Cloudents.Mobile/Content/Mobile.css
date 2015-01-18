@@ -51,6 +51,28 @@ header {
 .loader rect {
   fill: #3399ff;
 }
+.logoHeader .backBtn {
+  margin: 11px 0 0 4%;
+}
+.logoHeader .svg-back {
+  fill: #fff;
+}
+/*#region SVG */
+svg.rtl {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+svg.ltr {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+/*#endregion */
 /*#region mixins */
 /*#endregion */
 /*#region helper classes */

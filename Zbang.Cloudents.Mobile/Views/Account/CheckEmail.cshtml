@@ -1,6 +1,13 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @model Zbang.Cloudents.Mobile.Models.Account.Confirmation
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
+
+<header class="logoHeader">
+    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
+        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back ltr" })
+    </a>
+    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+</header>
 <section class="checkEmail">
     <h1>@AccountResources.CheckEmail</h1>
     <p>@AccountResources.WeEmailed</p>

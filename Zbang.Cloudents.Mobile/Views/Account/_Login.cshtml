@@ -1,5 +1,11 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 
+<header class="logoHeader">
+    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
+        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back ltr" })
+    </a>
+    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+</header>
 <section class="signIn">
     <h1>@AccountResources.LogIn</h1>
     <button type="button" class="facebook" ng-click="login.facebook()">        
