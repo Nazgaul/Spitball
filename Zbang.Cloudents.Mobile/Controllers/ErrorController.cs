@@ -29,9 +29,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             if (string.IsNullOrEmpty(returnUrl))
             {
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToRoute("dashboardLink");
             }
-            return View("MembersOnly");
+            return View("error");
+            //return View("MembersOnly");
         }
 
         [HttpPost]
