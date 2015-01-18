@@ -535,6 +535,9 @@
     <Content Include="Content\MobileRtl.css">
       <DependentUpon>MobileRtl.less</DependentUpon>
     </Content>
+    <Content Include="Content\MobileRtl.rtl.css">
+      <DependentUpon>MobileRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>

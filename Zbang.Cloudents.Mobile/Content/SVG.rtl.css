@@ -3,7 +3,7 @@
 /*#region mixins */
 /*#endregion */
 /*#region SVG */
-svg.rtl {
+svg.ltr {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
@@ -11,10 +11,11 @@ svg.rtl {
   transform: scaleX(-1);
 }
 .svg-logo {
-  width: 183px;
-  height: 31px;
+  width: 108px;
+  height: 20px;
+  display: inline-block;
   fill: #fff;
-  margin: 26px auto 6px;
+  margin: 9px auto 0;
 }
 .svg-close {
   width: 10px;
@@ -29,11 +30,16 @@ svg.rtl {
   top: 0;
 }
 .svg-email {
-  width: 28px;
-  height: 22px;
-  fill: silver;
+  width: 25px;
+  height: 18px;
+  fill: #676767;
   position: relative;
-  top: -1px;
+  top: -3px;
+}
+.svg-checked {
+  width: 11px;
+  height: 11px;
+  fill: #383838;
 }
 .svg-search {
   width: 19px;
@@ -64,7 +70,7 @@ svg.rtl {
   height: 18px;
   fill: #fff;
 }
-.svg-right {
+.svg-left {
   width: 10px;
   height: 20px;
   fill: #c2c2c2;
@@ -79,20 +85,26 @@ svg.rtl {
   height: 20px;
   fill: #fff;
 }
-.svg-attachment {
-  width: 19px;
-  height: 16px;
+.svg-attachment,
+.svg-post {
+  width: 30px;
+  height: 23px;
   fill: #282828;
 }
-.svg-file {
-  width: 16px;
-  height: 20px;
-}
-.svg-info {
-  width: 20px;
-  height: 20px;
-}
-.svg-arrow {
-  width: 20px;
-  height: 18px;
+/*.svg-file {
+    width: 16px;
+    height: 20px;
+}*/
+/*.svg-info {
+    width: 20px;
+    height: 20px;
+}*/
+/*.svg-arrow {
+    width: 20px;
+    height: 18px;
+}*/
+.svg-loading {
+  width: 100%;
+  display: block;
+  fill: #3399ff;
 }

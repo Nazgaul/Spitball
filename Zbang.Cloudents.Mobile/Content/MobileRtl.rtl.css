@@ -3,53 +3,53 @@
 /*#region mixins */
 /*#endregion */
 body {
-  direction: rtl;
+  direction: ltr;
 }
 .logoHeader .backBtn {
-  margin: 11px 4% 0 0;
+  margin: 11px 0 0 4%;
 }
 /*#region helper classes */
 .lFloat {
-  float: right;
-}
-.rFloat {
   float: left;
 }
+.rFloat {
+  float: right;
+}
 .inputText {
-  padding: 0 8px 0 4px;
+  padding: 0 4px 0 8px;
 }
 .closeBtn {
-  left: 10px;
-  right: auto;
+  right: 10px;
+  left: auto;
 }
 .radio + label {
-  margin: 0 0 0 10px;
+  margin: 0 10px 0 0;
 }
 .radio + label:before {
-  margin: 0 0 0 3px;
+  margin: 0 3px 0 0;
 }
 .checkbox ~ .cbLabel .svg-checked {
-  left: auto;
-  right: -50px;
+  right: auto;
+  left: -50px;
 }
 .checkbox:checked ~ .cbLabel .svg-checked {
-  right: 3px;
-  left: auto;
+  left: 3px;
+  right: auto;
 }
 .checkbox:checked ~ .marketLabel .svg-checked {
-  right: -2px;
-  left: auto;
+  left: -2px;
+  right: auto;
 }
 /*#endregion */
 /*#region SVG */
-svg.rtl {
+svg.ltr {
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
   -o-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-svg.ltr {
+svg.rtl {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
