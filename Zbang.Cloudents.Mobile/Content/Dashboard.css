@@ -64,6 +64,9 @@
 .welcome.closed .searchLink {
   width: 96%;
 }
+.welcome.closed ~ .recommendedClasses h2 {
+  margin-top: 0;
+}
 .welcome .searchLink {
   margin: 15px auto;
   width: 270px;
@@ -194,6 +197,7 @@
   font-size: 16px;
   font-weight: normal;
   background: #eee;
+  margin-top: 14px;
 }
 .recommendedList {
   overflow: hidden;
