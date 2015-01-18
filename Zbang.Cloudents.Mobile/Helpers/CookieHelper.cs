@@ -48,6 +48,10 @@ namespace Zbang.Cloudents.Mobile.Helpers
                return x;
             }
             var obj2 = DeSerialize<T>(cookie.Value);
+            if (obj2 == null)
+            {
+                RemoveCookie(cookieName);
+            }
 
             return obj2 as T;
         }

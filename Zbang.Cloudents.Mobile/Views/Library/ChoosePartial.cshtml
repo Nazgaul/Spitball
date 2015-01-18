@@ -13,12 +13,12 @@
         </div>
     </form>
 
-    <ul class="recommended" ng-if="libChoose.facebookSuggestions.length">
+    <ul class="recommended" ng-if="libChoose.showSuggestions()">
         <li class="ghost" ng-repeat="suggestion in libChoose.facebookSuggestions" ng-click="libChoose.selectUniversity(suggestion.id)">
             @*<div class="vCentered">
 
-            </div>*@
-            
+                </div>*@
+
             <span class="uniName vCentered">{{::suggestion.name}}</span>
             <span class="userPics ghost" data-numusers="{{suggestion.friends.length}}">
                 <div class="vCentered">

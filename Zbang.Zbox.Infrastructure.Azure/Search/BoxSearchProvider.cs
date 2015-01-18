@@ -143,12 +143,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             if (searchResult.Body.Records.Any())
             {
                 return searchResult.Body.Records.Select(s => new SearchBoxes(
-                    Convert.ToInt64(s.Properties[IdField]),
-                    s.Properties[NameField].ToString(),
-                    s.Properties[ImageField].ToString(),
-                    s.Properties[ProfessorField] != null ? s.Properties[ProfessorField].ToString() : null,
-                    s.Properties[CourseField] != null ? s.Properties[CourseField].ToString() : null,
-                    s.Properties[UrlField].ToString()));
+                    SeachConnection.ConvertToType<long>(s.Properties[IdField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[ProfessorField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[CourseField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
             }
 
             return null;

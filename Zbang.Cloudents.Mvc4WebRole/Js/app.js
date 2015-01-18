@@ -412,7 +412,7 @@
                     switch (previous.$$route.params.type) {
                         case 'user':
                             $rootScope.back.title = previous.pathParams.userName;
-                            $rootScope.back.url = previous.loadedTemplateUrl;
+                            $rootScope.back.url = '/user/' + previous.params.userId + '/' + previous.params.userName + '/';
                             break;
                         case 'department':
                             $rootScope.back.title = previous.params.libraryName;
