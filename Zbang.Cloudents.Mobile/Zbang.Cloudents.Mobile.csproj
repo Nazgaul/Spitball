@@ -460,9 +460,6 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
-    <Content Include="Content\Box.min.css">
-      <DependentUpon>Box.css</DependentUpon>
-    </Content>
     <Content Include="Content\Box.rtl.css" />
     <Content Include="Content\BoxRtl.css">
       <DependentUpon>BoxRtl.less</DependentUpon>

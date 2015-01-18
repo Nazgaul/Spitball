@@ -43,7 +43,7 @@
     };
 
     service.isAdmin = function () {
-        return userData.isAdmin
+        return userData.isAdmin;
     };
 
     service.getName = function () {

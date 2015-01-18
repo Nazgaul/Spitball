@@ -26,6 +26,7 @@
     <div ng-switch="box.currentTab">
         @{Html.RenderPartial("_Feed");}
         @{Html.RenderPartial("_Items");}        
+        <span id="plfakebtn" style="display:none;"></span>
     </div>
 
     <div ng-if="box.uploading" style="position:fixed; top:0; left:0; background:#fff;width:100%;height:100%;z-index:2;">

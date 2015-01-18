@@ -179,12 +179,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var command = new SubscribeToSharedBoxCommand(userid, boxId);
                 await ZboxWriteService.SubscribeToSharedBoxAsync(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxId), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
 
         }
