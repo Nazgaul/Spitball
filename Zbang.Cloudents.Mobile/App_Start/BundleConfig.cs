@@ -62,7 +62,11 @@ namespace Zbang.Cloudents.Mobile
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s =>
+                        string.Format("{0}.rtl.css",
+                        s.Replace(Path.GetExtension(s), string.Empty))));
                 }
+               
             }
             if (registeredJsBundles != null)
             {

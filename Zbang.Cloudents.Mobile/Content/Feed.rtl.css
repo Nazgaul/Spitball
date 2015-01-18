@@ -3,265 +3,115 @@
 /*#region mixins */
 /*#endregion */
 .feed {
-  color: #383838;
-  display: inline-block;
-  width: 96%;
-  margin-top: 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.feed > .feedForm .feedTA {
-  border-color: #282828;
+  background: #bbc3cc;
 }
 .feedForm {
+  width: 100%;
+  border-bottom: 1px solid #c2c2c2;
   position: relative;
-  clear: both;
-  overflow: hidden;
-}
-.feedForm .btn1 {
-  margin: 8px 0 0 8px;
-}
-.feedForm.feedOpen .feedTA {
-  min-height: 169px;
-  max-height: 250px;
-  overflow: auto;
-  padding: 9px 12px 2px 12px;
-  border-radius: 3px 0 0 3px;
-  border-bottom: none;
-  margin-bottom: 35px;
-  border-color: #282828;
-  direction: ltr !important;
-}
-.feedForm.feedOpen .feedTA ~ .bottomTA {
-  display: block;
-}
-.feedForm.feedOpen .feedTA ~ .attachBtn {
-  bottom: 2px;
-  right: 70px;
-  top: auto;
-  left: auto;
-}
-.feedForm.feedOpen .svg-attachment {
-  fill: #282828;
-}
-.feedForm.feedOpen .attachedList {
-  display: block;
-}
-.feedForm .attachedList {
-  display: none;
-}
-.feedImg {
-  margin-left: 10px;
-  border: 1px solid #c2c2c2;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  background: #fff;
 }
 .feedTA {
-  border-radius: 3px;
-  border: 1px solid #282828;
-  padding: 0 8px 0 30px;
-  min-height: 28px;
-  height: 28px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 15px;
-  -webkit-transition: min-height 0.3s ease-in;
-  -moz-transition: min-height 0.3s ease-in;
-  -o-transition: min-height 0.3s ease-in;
-  transition: min-height 0.3s ease-in;
-  resize: none;
-  width: 95%;
-  width: calc(100% - 40px);
-  float: left;
-  margin-top: 2px;
-  max-height: 87px;
-}
-.attachBtn {
-  position: absolute;
-  top: 9px;
-  left: 6px;
-}
-/*.svg-trash {
-    width: 14px;
-    height: 20px;
-    fill: #aaa;
-}*/
-.bottomTA {
-  display: none;
+  border: none;
+  padding: 10px 8px 10px 45px;
   height: 40px;
-  position: absolute;
-  bottom: 1px;
-  right: 55px;
-  width: 90%;
-  width: calc(100% - 40px);
-  background: #eee;
-  border-radius: 0 3px 3px 0;
-  border: 1px solid #282828;
-  border-top: none;
+  width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-size: 16px;
+  resize: none;
 }
-.feed-enter {
-  -webkit-transition: 1s linear all;
-  /* Chrome */
-  transition: 1s linear all;
-  opacity: 0;
-}
-.feed-enter.feed-enter-active {
-  opacity: 1;
-}
-.boxFeedList {
-  overflow: hidden;
-  /*&:empty {
-        ~ .emptyFeed {
-            display: block;
-        }
-    }*/
-}
-.boxFeedList > li {
-  clear: both;
-  margin-top: 15px;
-  position: relative;
-  -webkit-animation: fadeinGrow 2s 0 ease;
-  -moz-animation: fadeinGrow 2s 0 ease;
-  -o-animation: fadeinGrow 2s 0 ease;
-  animation: fadeinGrow 2s 0 ease;
-  overflow: hidden;
-}
-.boxFeedList > li:before {
-  content: '';
-  display: inline-block;
+.attachBtn,
+.postBtn {
   position: absolute;
   top: 8px;
-  right: 28px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 7px 0 7px 14px;
-  border-color: transparent transparent transparent #eeeeee;
+  left: 10px;
 }
-.boxFeedList .svg-attachment {
-  fill: #c2c2c2;
+.postBtn {
+  top: 7px;
+}
+.boxFeedList {
+  color: #383838;
+  display: inline-block;
+  width: 92%;
+  margin-top: 15px;
 }
 .boxFeedList .feedForm {
-  padding-top: 15px;
+  margin: 0 0 10px 0;
+  background: transparent;
 }
-.boxFeedList .feedForm .feedImg {
-  margin: 0 15px 0 0;
-}
-.boxFeedList .feedForm.show {
-  display: block;
-}
-.boxFeedList .feedTA {
-  width: 90%;
-  width: calc(100% - 40px);
-  height: 38px;
-  margin-right: 55px;
-}
-.boxFeedList .bottomTA {
-  width: 90%;
-  width: calc(100% - 40px);
-}
-.boxFeedList .attachBtn {
-  top: 24px;
-  left: 70px;
+.boxFeedList .feedForm .feedTA {
+  border-radius: 5px;
 }
 .feedWpr {
-  background: #eee;
-  padding: 8px 15px;
-  display: block;
-  vertical-align: top;
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
+  padding: 8px 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*.commentBtn {
-        &:after {
-            content: '\00a0' '|' '\00a0';
-        }
-    }*/
-  /*.trash {
-        position: absolute;
-        bottom: 8px;
-        right: 15px; //rtl
-        display: none;
-    }*/
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: -1px 1px 2px #c2c2c2;
+  text-align: right;
+  font-size: 13px;
+  position: relative;
 }
 .feedWpr .userName {
-  color: #3399ff;
-  font-size: 16px;
+  color: #0f9d58;
+  font-weight: 700;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
 }
-.feedWpr .createTime {
+.feedTop {
+  height: 27px;
+  line-height: 27px;
+}
+.createTime {
   color: #999;
-  font-size: 16px;
+  direction: rtl;
 }
-.feedWpr .feedContent {
-  margin-top: 15px;
-  font-size: 16px;
-  white-space: normal;
-}
-.feedWpr .commentBtn {
+.commentBtn {
   display: inline-block;
   color: #3399ff;
   margin: 0;
   font-size: 12px;
 }
+.feedContent {
+  margin-top: 15px;
+  font-size: 15px;
+  white-space: normal;
+}
+.feedContent a {
+  color: #07c;
+}
 .feedReplies {
   width: 90%;
-  width: calc(100% - 40px);
-}
-.feedReplies > li {
-  margin-top: 15px;
-  position: relative;
-  -webkit-animation: fadeinGrow 2s 0 ease;
-  -moz-animation: fadeinGrow 2s 0 ease;
-  -o-animation: fadeinGrow 2s 0 ease;
-  animation: fadeinGrow 2s 0 ease;
-}
-.feedReplies > li:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 9px;
-  left: 32px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 7px 14px 7px 0;
-  border-color: transparent #c2c2c2 transparent transparent;
-}
-.feedReplies > li:after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 34px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 6px 12px 6px 0;
-  border-color: transparent #fff transparent transparent;
-  z-index: 1;
-}
-.feedReplies .feedImg {
-  margin: 0 15px 0 0;
-}
-.feedReplies .userName {
-  color: #0f9d58;
+  margin-right: 10%;
 }
 .feedReplies .feedWpr {
-  background: none;
-  border: 1px solid #c2c2c2;
+  background: #eee;
+  padding: 8px 10px 8px 42px;
+  text-align: left;
 }
-.feedReplies ~ .feedForm .attachedList {
-  width: 90%;
-  width: calc(100% - 40px);
+.feedReplies .feedImg {
+  position: absolute;
+  left: 8px;
+  top: 6px;
+}
+.emptyFeed {
+  width: 80%;
+  margin: 100px auto 0;
+  padding: 10px;
+  color: #383838;
+  font-size: 18px;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .qaAttach {
   white-space: nowrap;
@@ -278,16 +128,4 @@
   display: inline-block;
   height: 125px;
   position: relative;
-}
-.qaAttachItem:hover .attachActions {
-  visibility: visible;
-  bottom: 0;
-}
-.qaAttchQuiz {
-  border: none;
-}
-.qaAttchQuiz .svg-quizBg {
-  width: 100px;
-  height: 125px;
-  stroke: #0f9d58;
 }

@@ -17,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class WordProcessor : FileProcessor 
+    public class WordProcessor : FileProcessor
     {
         const string VersionCache = "V6";
 
@@ -104,47 +104,45 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, 
+            CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                Document word;
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
                 {
                     SetLicense();
-                    word = new Document(sr);
-
-                }
-
-                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-                {
-                    JpegQuality = 80,
-                };
-                var settings = new ResizeSettings
-                {
-                    Width = ThumbnailWidth,
-                    Height = ThumbnailHeight,
-                    Quality = 80,
-                    Format = "jpg"
-                };
-
-                using (var ms = new MemoryStream())
-                {
-                    word.Save(ms, imgOptions);
-                    ms.Seek(0, SeekOrigin.Begin);
-                    using (var output = new MemoryStream())
+                    var word = new Document(sr);
+                    
+                    var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
-                        ImageBuilder.Current.Build(ms, output, settings);
-                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        await
-                            BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
-                                cancelToken);
-                        return new PreProcessFileResult
+                        JpegQuality = 80,
+                    };
+                    var settings = new ResizeSettings
+                    {
+                        Width = ThumbnailWidth,
+                        Height = ThumbnailHeight,
+                        Quality = 80,
+                        Format = "jpg"
+                    };
+                    using (var ms = new MemoryStream())
+                    {
+                        word.Save(ms, imgOptions);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        using (var output = new MemoryStream())
                         {
-                            ThumbnailName = thumbnailBlobAddressUri,
-                            FileTextContent = ExtractDocumentText(word)
-                        };
+                            ImageBuilder.Current.Build(ms, output, settings);
+                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                            await
+                                BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
+                                    cancelToken);
+                            return new PreProcessFileResult
+                            {
+                                ThumbnailName = thumbnailBlobAddressUri,
+                                FileTextContent = ExtractDocumentText(word)
+                            };
+                        }
                     }
                 }
             }

@@ -128,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var stream = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
                 {
                     using (var pdfDocument = new Document(stream))
                     {

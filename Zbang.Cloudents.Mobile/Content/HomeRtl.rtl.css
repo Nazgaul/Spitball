@@ -1,0 +1,41 @@
+﻿/*#region home */
+.homepage:after {
+  left: 0;
+  right: auto;
+}
+.facebook,
+.emailBtn {
+  padding: 0 15px 0 48px
+  /*rtl*/
+}
+.fbImg,
+.emailImg {
+  left: 16px;
+  /*rtl*/
+  right: auto;
+}
+.fbImg:after,
+.emailImg:after {
+  left: 12px;
+  right: auto;
+}
+.emailImg {
+  left: 11px;
+  right: auto;
+}
+.emailImg:after {
+  left: 6px;
+  right: auto;
+}
+.emailImg .svg-email {
+  left: 1px;
+  right: auto;
+}
+.lang {
+  width: 60px;
+  text-align: left;
+}
+.lang:after {
+  right: 0;
+  left: auto;
+}

@@ -72,6 +72,7 @@
 }
 .createTime {
   color: #999;
+  direction: ltr;
 }
 .commentBtn {
   display: inline-block;

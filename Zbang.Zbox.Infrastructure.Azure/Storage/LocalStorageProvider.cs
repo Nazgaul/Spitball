@@ -12,13 +12,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
     {
         private readonly string m_LocalResourceLocation;
         private readonly long m_LocalResourceSize;
-        private long m_DirectorySize;
+        //private long m_DirectorySize;
 
         public LocalStorageProvider()
         {
             m_LocalResourceLocation = StorageProvider.LocalResource.LocalResourcePath;
             m_LocalResourceSize = StorageProvider.LocalResource.LocalResourceSizeInMegaBytes * 1024 * 1024;
-            m_DirectorySize = CalculateInitSize();
         }
 
 
@@ -28,34 +27,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             if (streamArray == null) throw new ArgumentNullException("streamArray");
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
-            //if (File.Exists(fileNameWithPath))
-            //{
-            //    var file = new FileInfo(fileNameWithPath);
-            //    if (file.Length == streamArray.Length)
-            //    {
-            //        return fileNameWithPath;
-            //    }
-            //}
-            //m_DirectorySize += streamArray.Length;
+            if (File.Exists(fileNameWithPath))
+            {
+                var file = new FileInfo(fileNameWithPath);
+                if (file.Length == streamArray.Length)
+                {
+                    return fileNameWithPath;
+                }
+            }
             try
             {
                 File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
+                DeleteOldFiles();
                 TraceLog.WriteError("on writing in storage" + ex);
             }
-            //if (CheckIsDeleteRequired())
-            //{
-            //    try
-            //    {
-            //        DeleteOldFiles();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        TraceLog.WriteError("Problem with delete old file from local storage", ex);
-            //    }
-            //}
+            File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
             return fileNameWithPath;
         }
 
@@ -67,21 +56,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             return File.ReadAllBytes(fileNameWithPath);
         }
 
-        public DateTime GetFileLastModified(string fileName)
-        {
-            var fileInfo = new FileInfo(CombineDirectoryWithFileName(fileName));
-            return fileInfo.LastWriteTime;
-        }
+       
 
-        private bool CheckIsDeleteRequired()
-        {
-            if (m_DirectorySize > m_LocalResourceSize * 0.8)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        
 
 
         private string CombineDirectoryWithFileName(string fileName)
@@ -89,17 +66,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             return Path.Combine(m_LocalResourceLocation, fileName);
         }
 
-        private void DeleteOldFiles()
+        public void DeleteOldFiles()
         {
-            DateTime[] timesOfFileDeleteing = { DateTime.UtcNow.AddMonths(-1), DateTime.UtcNow.AddDays(-7), DateTime.UtcNow.AddDays(-1), DateTime.UtcNow.AddHours(-12), DateTime.UtcNow.AddHours(-1), DateTime.UtcNow };
+            DateTime[] timesOfFileDeleting = { DateTime.UtcNow.AddMonths(-1), DateTime.UtcNow.AddDays(-7), DateTime.UtcNow.AddDays(-1), DateTime.UtcNow.AddHours(-12), DateTime.UtcNow.AddHours(-1), DateTime.UtcNow };
 
             int i = 0;
-            while (m_DirectorySize > m_LocalResourceSize * 0.6)
+            while (CalculateInitSize() > m_LocalResourceSize * 0.6)
             {
-                var oldFiles = GetOldFiles(timesOfFileDeleteing[i++]);
+                var oldFiles = GetOldFiles(timesOfFileDeleting[i++]);
                 Parallel.ForEach(oldFiles, s => s.Delete());
-                m_DirectorySize = CalculateInitSize();
-                if (i > timesOfFileDeleteing.Length - 1)
+                if (i > timesOfFileDeleting.Length - 1)
                 {
                     break;
                 }

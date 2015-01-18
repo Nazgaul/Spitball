@@ -1,0 +1,9 @@
+﻿@media only screen and (max-width: 353px) {
+  .emailBtn {
+    font-size: 16px;
+  }
+}
+q {
+  quotes: '\00AB' '\00BB' '\201E' '\201C';
+  font-weight: normal;
+}
