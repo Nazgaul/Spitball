@@ -12,7 +12,7 @@
       <Setting name="StorageCdnEndpoint" />
     </ConfigurationSettings>
     <LocalResources>
-      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="1" />
     </LocalResources>
   </WorkerRole>
 </ServiceDefinition>
