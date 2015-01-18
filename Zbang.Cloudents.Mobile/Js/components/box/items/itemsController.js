@@ -14,6 +14,7 @@
         boxItems.getItems = function (isAppend) {
             if (!isAppend) {
                 page = 0;
+                boxItems.items = [];
                 endResult = false;
             }
 

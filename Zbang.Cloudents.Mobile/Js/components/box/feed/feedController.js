@@ -23,7 +23,7 @@
             setPostDetails(question);
 
             feed.list.unshift(question);
-
+            feed.empty = false;
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
                 $scope.emit('followBox');
                 question.id = questionId;
@@ -43,7 +43,7 @@
 
             setPostDetails(answer);
 
-
+            feed.empty = false;
             question.answers.unshift(answer);
             question.aFormData = null;
             question.displayComment = false;
@@ -80,6 +80,10 @@
 
 
                 if (!feedPage.length) {
+                    if (!isAppend) {
+                        feed.empty = true;
+                        return;
+                    }
                     endResult = true;
                     return;
                 }

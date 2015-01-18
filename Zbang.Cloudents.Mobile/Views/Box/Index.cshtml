@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mobile.Views.Box.Resources
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 
-<section class="box">
+<section class="box" pl-uploader>
     <header>
         @*<button type="button" class="inviteBtn rFloat">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
@@ -25,7 +25,7 @@
 
     <div ng-switch="box.currentTab">
         @{Html.RenderPartial("_Feed");}
-        @{Html.RenderPartial("_Items");}        
+        @{Html.RenderPartial("_Items");}
         <span id="plfakebtn" style="display:none;"></span>
     </div>
 
