@@ -16,10 +16,7 @@
             getFeedPage(true);
         };
 
-        feed.addQuestion = function () {  
-            if (!userDetails.isAuthenticated()) {
-                alert('you need to register');
-            }
+        feed.addQuestion = function () {     
             var question = {
                 content: feed.questionFormData.content,
             };
@@ -40,9 +37,6 @@
 
 
         feed.addAnswer = function (question) {
-            if (!userDetails.isAuthenticated()) {
-                alert('you need to register');
-            }
             var answer = {
                 content: question.aFormData.content,
             };
