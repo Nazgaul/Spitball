@@ -1,0 +1,36 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.searchBtn {
+  right: 10px;
+  left: auto;
+}
+.searchForm,
+.searchLink {
+  margin: 15px 0 15px 40px;
+  text-align: left;
+  padding: 0 0 0 15px;
+}
+.searchForm {
+  margin: 15px 10px 15px 0;
+}
+.backBtn {
+  display: inline-block;
+  margin: 24px 0 0 10px;
+}
+.tab:after {
+  left: 0;
+  right: auto;
+}
+.list,
+.boxItems {
+  text-align: left;
+}
+.itemsList .details {
+  padding: 0 0 0 90px;
+}
+.itemsList img {
+  left: 16px;
+  right: auto;
+}

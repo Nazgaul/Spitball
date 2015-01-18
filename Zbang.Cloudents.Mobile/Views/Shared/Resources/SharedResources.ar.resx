@@ -139,6 +139,12 @@
   <data name="Friends" xml:space="preserve">
     <value>اعضاء</value>
   </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>عودة إلى</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>خصصوصية</value>
   </data>
@@ -147,6 +153,12 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>لا توجد نتائج</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>يبدو أن الصفحة التي تبحث عنها غير موجودة.</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>عفوا</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>بحث </value>

@@ -1,0 +1,217 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+/*#region header */
+header h1 {
+  margin: 0 0 0 265px
+  /*rtl*/
+}
+/*#endregion */
+/*#region carousel */
+.widget.big .banner {
+  border: none;
+  border-right: 1px solid #39434a;
+}
+.widget.big .banner img {
+  left: 1px;
+  right: auto;
+}
+.widget .banner {
+  margin: 0 0 0 -1px;
+}
+.carousel.reverse .ng-hide-add.ng-hide-add-active {
+  left: 100%;
+  right: auto;
+}
+.carousel.reverse .ng-hide {
+  left: -100%;
+  right: auto;
+}
+.carouselBtns button {
+  margin: 0 4px 0 0;
+}
+.slide {
+  left: 0;
+  right: auto;
+}
+.slide.ng-hide-add.ng-hide-add-active {
+  left: -100%;
+  right: auto;
+}
+.slide.ng-hide {
+  left: 100%;
+  right: auto;
+}
+/*#endregion */
+/*#region products drop down */
+.categoryDD {
+  /*&:before {
+        //right: 260px; 
+        right: 267px; 
+        left: auto;
+    }*/
+}
+.categoryDD:after {
+  right: 0;
+  left: auto;
+}
+.categoryList ul {
+  left: 0;
+  /*rtl*/
+  right: auto;
+  margin: 0 0 0 -1px;
+  /*rtl*/
+  padding: 8px 0 0 12px;
+  /*rtl*/
+  text-align: left;
+}
+.categoryList > li {
+  border-right: 1px solid #fff;
+  /*rtl*/
+  border-left: none;
+}
+.categoryList > li:nth-child(6n + 1) ul {
+  margin: 0 0 0 -18px
+  /*rtl*/
+}
+.categoryList > li:nth-child(6n) {
+  border-right: none
+  /*rtl*/
+  /*ul {
+                margin: 0 0 0 -18px; //rtl
+            }*/
+}
+/*#endregion */
+/*#region product list with hover */
+.productsList li:hover .desc {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
+.productsList a:before {
+  margin: 0 -0.25em 0 0
+  /*rtl*/
+  /* Adjusts for spacing */
+}
+.productsList .desc {
+  text-align: left
+  /*rtl*/
+}
+.productsList .desc + .lFloat {
+  border-right: 1px solid #39434a;
+  /*rtl*/
+  border-left: none;
+}
+.productsList table {
+  text-align: left
+  /*rtl*/
+  /*&:before {
+            right: 16px; 
+            left: auto;
+        }*/
+}
+.productHover {
+  left: 0;
+  /*rtl*/
+  right: auto;
+}
+.productHover .moreDetailsWpr {
+  left: 15px;
+  /*rtl*/
+  right: auto;
+}
+.productHover .sale {
+  border-left: 1px solid #0f9d58;
+  /*rtl*/
+  border-right: none;
+}
+/*#endregion */
+/*#region product page */
+.productWpr .left {
+  padding: 0 10px 0 0
+  /*rtl*/
+}
+.productWpr .right {
+  padding: 0 0 0 10px
+  /*rtl*/
+}
+.productPrice {
+  text-align: left
+  /*rtl*/
+}
+.productPrice:before {
+  left: 16px;
+  /*rtl*/
+  right: auto;
+}
+.productPrice td:nth-child(3) {
+  padding: 0 0 0 4px
+  /*rtl*/
+}
+.productDetails {
+  text-align: left
+  /*rtl*/
+}
+.moreProductsList li:first-child {
+  margin: 0 0 0 -300%
+  /*rtl*/
+}
+/*#endregion */
+/*#region Checkout */
+.userHelp {
+  margin: 2px 0 0 7px
+  /*rtl*/
+}
+.helpPopup:before {
+  right: 24px;
+  /*rtl*/
+  left: auto;
+}
+.orderTable tr:nth-of-type(5) .rFloat {
+  padding: 0 35px 0 0
+  /*rtl*/
+}
+.orderTable td,
+.orderTable th {
+  text-align: left
+  /*rtl*/
+}
+.orderTable td:first-child,
+.orderTable th:first-child {
+  padding: 15px 25px 15px 10px
+  /*rtl*/
+}
+.orderTable td:nth-child(2),
+.orderTable th:nth-child(2) {
+  padding: 15px 60px 15px 0
+  /*rtl*/
+}
+.invoice li span:nth-child(1) {
+  padding: 0 0 0 10px
+  /*rtl*/
+}
+.invoice li span:nth-child(3) {
+  padding: 0 10px 0 3px
+  /*rtl*/
+}
+.cardHover {
+  right: 0;
+  /*rtl*/
+  left: auto;
+}
+.cardHover:after {
+  right: 20px;
+  /*rtl*/
+  left: auto;
+}
+/*#endregion */
+/*#region footer */
+.storeWpr footer {
+  text-align: left
+  /*rtl*/
+}
+.bottom ul {
+  padding: 0 0 0 212px
+  /*rtl*/
+}

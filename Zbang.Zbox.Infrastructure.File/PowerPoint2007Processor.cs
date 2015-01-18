@@ -128,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
 
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var stream = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
                 {
                     SetLicense();
                     using (var pptx = new Presentation(stream))

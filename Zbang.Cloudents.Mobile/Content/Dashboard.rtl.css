@@ -149,6 +149,7 @@
   display: table-cell;
   vertical-align: middle;
   padding-right: 62px;
+  direction: rtl;
 }
 .list .vCentered:before {
   content: attr(data-box-letter);

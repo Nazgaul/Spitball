@@ -45,6 +45,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<Stream> DownloadFileAsync(string fileName);
         Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken);
+        Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken);
+        //Task DownloadFileToSystemAsync(string fileName, string systemLocation);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);

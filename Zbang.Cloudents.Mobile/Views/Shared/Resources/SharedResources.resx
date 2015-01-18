@@ -138,6 +138,13 @@
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
   </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Return to the</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value> home page</value>
+    <comment>has whitespace before</comment>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>Items</value>
   </data>
@@ -146,6 +153,12 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>No results were found</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>The page you're looking for doesn't exist.</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Oops</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
