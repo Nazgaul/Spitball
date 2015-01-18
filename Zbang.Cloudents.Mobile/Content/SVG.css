@@ -108,3 +108,6 @@ svg.rtl {
   display: block;
   fill: #3399ff;
 }
+.svg-error {
+  width: 50%;
+}

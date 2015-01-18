@@ -124,6 +124,24 @@ namespace Zbang.Cloudents.Mobile.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Return to the.
+        /// </summary>
+        public static string GoBack {
+            get {
+                return ResourceManager.GetString("GoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  home page.
+        /// </summary>
+        public static string HomePage {
+            get {
+                return ResourceManager.GetString("HomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Items {
@@ -147,6 +165,24 @@ namespace Zbang.Cloudents.Mobile.Views.Shared.Resources {
         public static string NoResults {
             get {
                 return ResourceManager.GetString("NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page you&apos;re looking for doesn&apos;t exist..
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops.
+        /// </summary>
+        public static string Oops {
+            get {
+                return ResourceManager.GetString("Oops", resourceCulture);
             }
         }
         

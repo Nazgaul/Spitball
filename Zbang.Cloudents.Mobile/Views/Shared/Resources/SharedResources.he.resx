@@ -138,6 +138,12 @@
   <data name="Friends" xml:space="preserve">
     <value>חברים</value>
   </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>חזור ל</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
   </data>
@@ -146,6 +152,12 @@
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>הדף שאתה מחפש לא קיים.</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>אופס</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>חיפוש</value>

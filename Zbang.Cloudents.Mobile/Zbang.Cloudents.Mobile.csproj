@@ -1510,6 +1510,7 @@
     <Content Include="Views\Dashboard\_SideMenu.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Box\_Items.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
