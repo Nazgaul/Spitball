@@ -10,15 +10,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
     public class LocalStorageProvider : ILocalStorageProvider
     {
-        private readonly string m_LocalResouceLocation;
+        private readonly string m_LocalResourceLocation;
         private readonly long m_LocalResourceSize;
         private long m_DirectorySize;
 
         public LocalStorageProvider()
         {
-            m_LocalResouceLocation = StorageProvider.LocalResource.LocalResourcePath;
+            m_LocalResourceLocation = StorageProvider.LocalResource.LocalResourcePath;
             m_LocalResourceSize = StorageProvider.LocalResource.LocalResourceSizeInMegaBytes * 1024 * 1024;
-
             m_DirectorySize = CalculateInitSize();
         }
 
@@ -29,28 +28,34 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             if (streamArray == null) throw new ArgumentNullException("streamArray");
             var fileNameWithPath = CombineDirectoryWithFileName(fileName);
 
-            if (File.Exists(fileNameWithPath))
+            //if (File.Exists(fileNameWithPath))
+            //{
+            //    var file = new FileInfo(fileNameWithPath);
+            //    if (file.Length == streamArray.Length)
+            //    {
+            //        return fileNameWithPath;
+            //    }
+            //}
+            //m_DirectorySize += streamArray.Length;
+            try
             {
-                var file = new FileInfo(fileNameWithPath);
-                if (file.Length == streamArray.Length)
-                {
-                    return fileNameWithPath;
-                }
+                File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
             }
-            m_DirectorySize += streamArray.Length;
-
-            File.WriteAllBytes(fileNameWithPath, streamArray.ConvertToByteArray());
-            if (CheckIsDeleteRquired())
+            catch (Exception ex)
             {
-                try
-                {
-                    DeleteOldFiles();
-                }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("Problem with delete old file from local storage", ex);
-                }
+                TraceLog.WriteError("on writing in storage" + ex);
             }
+            //if (CheckIsDeleteRequired())
+            //{
+            //    try
+            //    {
+            //        DeleteOldFiles();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        TraceLog.WriteError("Problem with delete old file from local storage", ex);
+            //    }
+            //}
             return fileNameWithPath;
         }
 
@@ -68,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             return fileInfo.LastWriteTime;
         }
 
-        private bool CheckIsDeleteRquired()
+        private bool CheckIsDeleteRequired()
         {
             if (m_DirectorySize > m_LocalResourceSize * 0.8)
             {
@@ -81,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private string CombineDirectoryWithFileName(string fileName)
         {
-            return Path.Combine(m_LocalResouceLocation, fileName);
+            return Path.Combine(m_LocalResourceLocation, fileName);
         }
 
         private void DeleteOldFiles()
@@ -104,14 +109,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private IEnumerable<FileInfo> GetOldFiles(DateTime oldTimeToDeleteFile)
         {
-            var files = Directory.EnumerateFiles(m_LocalResouceLocation);
+            var files = Directory.EnumerateFiles(m_LocalResourceLocation);
             var oldFiles = from file in files let fileInfo = new FileInfo(file) where fileInfo.LastAccessTimeUtc < oldTimeToDeleteFile select fileInfo;
             return oldFiles;
         }
 
         private long CalculateInitSize()
         {
-            var files = Directory.EnumerateFiles(m_LocalResouceLocation);
+            var files = Directory.EnumerateFiles(m_LocalResourceLocation);
             return (from file in files let fileInfo = new FileInfo(file) select fileInfo.Length).Sum();
         }
     }
