@@ -70,6 +70,16 @@ namespace Zbang.Cloudents.Mobile.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing to see here, yet.
+        ///Be the first to upload study material....
+        /// </summary>
+        public static string BoxEmpty {
+            get {
+                return ResourceManager.GetString("BoxEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {
@@ -99,11 +109,38 @@ namespace Zbang.Cloudents.Mobile.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What&apos;s on your mind?.
+        /// </summary>
+        public static string OnYourMind {
+            get {
+                return ResourceManager.GetString("OnYourMind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         public static string Post {
             get {
                 return ResourceManager.GetString("Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload files.
+        /// </summary>
+        public static string UploadFiles {
+            get {
+                return ResourceManager.GetString("UploadFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a comment.
+        /// </summary>
+        public static string WriteComment {
+            get {
+                return ResourceManager.GetString("WriteComment", resourceCulture);
             }
         }
     }

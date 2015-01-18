@@ -18,10 +18,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public void InjectCookie<T>(string cookieName, T cookieData) where T : class
         {
+            string value;
+            if (typeof(T) == typeof(string))
+            {
+                value = cookieData.ToString();
+            }
+            else
+            {
+                value = SerializeData(cookieData);
+            }
             var cookie = new HttpCookie(cookieName)
             {
                 HttpOnly = true,
-                Value = SerializeData(cookieData)
+                Value = value,
+                Expires = DateTime.Now.AddDays(1)
             };
             m_HttpContext.Response.Cookies.Add(cookie);
         }
@@ -32,9 +42,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return default(T);
             }
-            var obj = DeSerialize<T>(cookie.Value);
+            if (typeof(T) == typeof(string))
+            {
+                var x = cookie.Value as T;
+                return x;
+            }
+            var obj2 = DeSerialize<T>(cookie.Value);
 
-            return obj as T;
+            return obj2 as T;
         }
 
         public void RemoveCookie(string cookieName)
@@ -58,10 +73,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         private string SerializeData<T>(T data) where T : class
         {
-            var pformatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
+            var pFormatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
 
-            var bdata = pformatter.SerializeData(data);
-            return HttpServerUtility.UrlTokenEncode(bdata);
+            var bData = pFormatter.SerializeData(data);
+            return HttpServerUtility.UrlTokenEncode(bData);
 
         }
 

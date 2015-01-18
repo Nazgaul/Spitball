@@ -17,6 +17,9 @@
         };
 
         feed.addQuestion = function () {  
+            if (!userDetails.isAuthenticated()) {
+                alert('you need to register');
+            }
             var question = {
                 content: feed.questionFormData.content,
             };
@@ -32,11 +35,14 @@
         };
 
         feed.toggleComment = function (question) {
-            question.displayComment = !question.displayComment;
+            question.displayComment = true;// !question.displayComment;
         };
 
 
-        feed.addAnswer = function (question) {    
+        feed.addAnswer = function (question) {
+            if (!userDetails.isAuthenticated()) {
+                alert('you need to register');
+            }
             var answer = {
                 content: question.aFormData.content,
             };
@@ -48,7 +54,7 @@
             question.aFormData = null;
             question.displayComment = false;
 
-            feedService.addAnswer(boxId, question.id, answer.content).then(function (answer) {
+            feedService.addAnswer(boxId, question.id, answer.content).then(function (answerId) {
                 $scope.emit('followBox');
                 answer.id = answerId;
                 question.aFormData.content = null;

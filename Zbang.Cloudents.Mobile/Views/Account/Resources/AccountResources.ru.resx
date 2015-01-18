@@ -154,7 +154,7 @@
     <value>Электронная почта</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
-    <value>Присоединится через эл. почту</value>
+    <value>Присоединится по эл.почте</value>
   </data>
   <data name="EnterBelow" xml:space="preserve">
     <value>Введите ниже предоставленный код подтверждения и продолжите операцию смены пароля или перейдите по ссылке в электронной почте.</value>
@@ -212,6 +212,10 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сброс
+</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Присоединиться</value>

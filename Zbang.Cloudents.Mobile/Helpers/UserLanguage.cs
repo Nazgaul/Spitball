@@ -13,8 +13,14 @@ namespace Zbang.Cloudents.Mobile.Helpers
     public static class UserLanguage
     {
         public const string CookieName = "l1";
+        private const string CultureHttpItemsDone = "cultureDone";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
         {
+            if (HttpContext.Current.Items["CultureHttpItemsDone"] != null)
+            {
+                return;
+            }
+            HttpContext.Current.Items["CultureHttpItemsDone"] = true;
             if (context.Request.QueryString["lang"] != null)
             {
                 ChangeThreadLanguage(context.Request.QueryString["lang"]);
@@ -63,6 +69,7 @@ namespace Zbang.Cloudents.Mobile.Helpers
 
         private static void ChangeThreadCulture(CultureInfo cultureInfo)
         {
+            
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }

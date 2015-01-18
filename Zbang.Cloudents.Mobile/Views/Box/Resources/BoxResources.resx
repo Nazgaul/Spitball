@@ -120,6 +120,10 @@
   <data name="AllItems" xml:space="preserve">
     <value>All items</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>Nothing to see here, yet.
+Be the first to upload study material...</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -131,7 +135,16 @@
 asking questions is the source
 of all knowledge.</value>
   </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>What's on your mind?</value>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Write a comment</value>
   </data>
 </root>

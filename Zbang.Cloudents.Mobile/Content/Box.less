@@ -2,51 +2,61 @@
 
 .box {
     overflow: hidden; //for tab swipe animation
-    min-height:100%;
-    background:#bbc3cc;
+    min-height: 100%;
+    background: #bbc3cc;
+
     .backBtn {
         margin: 12px 0 0 10px; //rtl
     }
+
     .svg-back {
         fill: #fff;
     }
+
     select {
         border-radius: 5px;
-        width: 100px;
+        min-width: 100px;
         height: 25px;
         padding-left: 2px;
-        margin-top:5px;
+        margin-top: 5px;
     }
 }
+
 .inviteBtn {
     margin: 8px 10px 0 0; //rtl
 }
+
 .boxDetails {
     background: #282828;
     padding: 0 10%;
+
     h2 {
         font-size: 16px;
         color: #fff;
         padding-top: 10px;
     }
 }
+
 .boxDetail {
     color: #a5a5a5;
     font-size: 13px;
     display: inline-block;
     padding-bottom: 15px;
 }
+
 .boxItems {
     padding: 0 2%;
-    background:#bbc3cc;
+    background: #bbc3cc;
     //.animation(slideleft);
-    position: relative;  //for tab swipe animation 
-    select{
-        background:#fff;
+    position: relative; //for tab swipe animation
+    select {
+        background: #fff;
     }
 }
+
 .boxList {
     overflow: auto;
+
     li {
         padding: 12px 0 10px;
         width: 48%;
@@ -59,19 +69,22 @@
             margin: 0;
             clear: none;
         }
-        a {
 
+        a {
         }
     }
 }
+
 .boxLink {
     margin-bottom: 10px;
     position: relative;
     display: block;
+
     &:after {
         .pseudo;
         padding-top: 126.3%;
     }
+
     img {
         width: 100%;
         height: 100%;
@@ -85,6 +98,7 @@
         .boxSizing;
     }
 }
+
 .itemName {
     font-weight: bold;
     font-size: 15px;
@@ -92,6 +106,30 @@
     height: 29px;
     overflow: hidden;
 }
+
 .itemOwner {
-    font-size:13px;
+    font-size: 13px;
+}
+
+.emptyBox {
+    text-align: center;
+    font-size: 18px;
+    width: 80%;
+    margin: 60px auto 0 auto;
+}
+
+.uploadBtn {
+    background: #fff;
+    padding: 0 10px 0 44px; //rtl
+    height: 34px;
+    line-height: 34px;
+    border-radius: 10px;
+    margin-top: 20px;
+    position: relative;
+
+    .svg-attachment {
+        position: absolute;
+        left: 10px; //rtl
+        top: 7px;
+    }
 }

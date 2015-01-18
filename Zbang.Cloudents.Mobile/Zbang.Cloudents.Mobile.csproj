@@ -460,9 +460,6 @@
     <Content Include="Content\Box.css">
       <DependentUpon>Box.less</DependentUpon>
     </Content>
-    <Content Include="Content\Box.min.css">
-      <DependentUpon>Box.css</DependentUpon>
-    </Content>
     <Content Include="Content\Box.rtl.css" />
     <Content Include="Content\BoxRtl.css">
       <DependentUpon>BoxRtl.less</DependentUpon>
@@ -530,6 +527,9 @@
     </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.min.css">
+      <DependentUpon>Mobile.css</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.rtl.css" />
     <Content Include="Content\MobileRtl.css">
@@ -1504,6 +1504,8 @@
     <Content Include="Views\Account\ChoosePwd.cshtml" />
     <Content Include="Views\Account\CheckEmail.cshtml" />
     <Content Include="Views\Dashboard\_SideMenu.cshtml" />
+    <Content Include="Views\Box\_Feed.cshtml" />
+    <Content Include="Views\Box\_Items.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -57,9 +57,12 @@
         </div>
         <div class="searchWpr">
             <input type="search" class="inputText" name="university" placeholder="@SharedResources.SearchFor"
-                   required 
-                    ng-click="register.searchIn($event)"
-                   hm-swipe-down="register.searchOut($event)" ng-model="register.formData.universityName" ng-change="register.searchUnis()"
+                   required
+                   hm-tap="register.searchIn()"
+                   @*ng-click="register.searchIn($event)"*@
+                   hm-swipe-down="register.searchOut($event)"
+                   ng-model="register.formData.universityName"
+                   ng-change="register.searchUnis()"
                    ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end tabindex="6" />
             <div class="searchBtn rFloat">
                 @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })

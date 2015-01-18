@@ -15,7 +15,7 @@
 }
 .box select {
   border-radius: 5px;
-  width: 100px;
+  min-width: 100px;
   height: 25px;
   padding-left: 2px;
   margin-top: 5px;
@@ -95,4 +95,24 @@
 }
 .itemOwner {
   font-size: 13px;
+}
+.emptyBox {
+  text-align: center;
+  font-size: 18px;
+  width: 80%;
+  margin: 60px auto 0 auto;
+}
+.uploadBtn {
+  background: #fff;
+  padding: 0 10px 0 44px;
+  height: 34px;
+  line-height: 34px;
+  border-radius: 10px;
+  margin-top: 20px;
+  position: relative;
+}
+.uploadBtn .svg-attachment {
+  position: absolute;
+  left: 10px;
+  top: 7px;
 }

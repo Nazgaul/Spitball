@@ -2,15 +2,16 @@
 @using Zbang.Cloudents.Mobile.Views.Shared.Resources
 <div class="searchWpr">
     <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
-        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+        @Html.Svg("~/images/defs.svg", "back", new { @class = "svg-back rtl" })
     </button>
     <form class="searchForm rFloat" close-keyboard>
-        <input class="searchInput" placeholder="@SharedResources.Search" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" ng-model-options="{debounce:250}" focus-search minlength="2" />
+        <input class="searchInput" placeholder="@SharedResources.Search" ng-change="search.query()" type="search" name="query" ng-model="search.formData.query" 
+               ng-model-options="{debounce:250}" focus-search minlength="2" />
         <div class="searchBtn rFloat" ng-if="!search.formData.query">
-            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
+            @Html.Svg("~/Images/defs.svg", "search", new { @class = "svg-search ltr" })
         </div>
         <div class="searchBtn rFloat" ng-if="search.formData.query.length > 0" ng-click="search.clearInput()">
-            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+            @Html.Svg("~/images/defs.svg", "close", new { @class = "svg-close" })
         </div>
     </form>
 </div>
@@ -18,7 +19,6 @@
     <div class="tabs">
         <span class="tab" ng-click="search.setCurrentTab('courses')" ng-class="{ active : search.currentTab === 'courses'}">@SharedResources.Courses</span>
         <span class="tab" ng-click="search.setCurrentTab('items')" ng-class="{ active : search.currentTab === 'items'}">@SharedResources.Items</span>
-        @*<span class="tab">Members</span>*@
     </div>
     <div inner-scroll="{{search.loading}}" style="display:none;"></div>
 
@@ -43,13 +43,8 @@
             </li>
         </ul>
     </div>
-    @*<ul class="membersList">
-            <li>
-                <a href="#" class="ghost"
-                analytics-on analytics-event="Click on member" analytics-category="Search page" analytics-label="User clicked on a member">
-                    <div class="userName vCentered">{Username should go here}</div>
-                    <img width="40" height="40" src="http://placehold.it/40x40" />
-                </a>
-            </li>
-        </ul>*@
+</div>
+<div ng-class="{noResults:search.emptyResult }">
+    @Html.Svg("~/Images/Defs.svg", "noResults", new { @class = "svg-noResults" })
+    <div class="emptySearch">@SharedResources.NoResults</div>
 </div>

@@ -121,11 +121,12 @@
     //        }
     //    };
     //}]).
-    directive('focusComment', function () {
+    directive('focusComment',['$timeout' ,function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.on('click', function () {
+
                     var parentElement = element[0].parentElement;
                     while (parentElement.nodeName !== 'LI') {
                         parentElement = parentElement.parentElement;
@@ -133,22 +134,28 @@
 
                     var textarea = parentElement.querySelector('textarea');
                     if (textarea) {
-                        textarea.focus();
+                        $timeout(function() {
+                            textarea.focus();
+                        },50);
                     }
+
                 });
 
-                scope.$on('destroy', function () {
-                    element.off('click');
+                scope.$on('click', function () {
+                    element.off('touchstart');
                 });
             }
         };
-    }).
- directive('focusSearch', function () {
+    }]).
+ directive('focusSearch',['$timeout', function ($timeout) {
      return {
          restrict: 'A',
          link: function (scope, element, attrs) {
+             $timeout(function() {
+                 element[0].focus();
+             }, 50);
              var unbind = scope.$on('clearInput', function () {
-                 setTimeout(function () {
+                 $timeout(function () {
                      element[0].focus();
                  }, 50);
              });
@@ -159,4 +166,4 @@
              });
          }
      };
- });
+ }]);

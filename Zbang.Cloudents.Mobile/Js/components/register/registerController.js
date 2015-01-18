@@ -46,12 +46,11 @@
             registerService.changeLanguage(register.language, register.formData);
         };
 
-        register.searchIn = function (event) {
+        register.searchIn = function () {
             if (register.searching) {
                 return;
             }
             register.searching = true;
-            var target = event.target;                        
         };
 
         register.searchOut = function (event) {

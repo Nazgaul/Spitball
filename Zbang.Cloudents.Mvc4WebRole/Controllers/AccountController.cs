@@ -138,7 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     };
                     isNew = true;
                 }
-                cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = user.Culture });
+                cookie.InjectCookie(Helpers.UserLanguage.CookieName, user.Culture);
                 FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
                     user.UniversityId,
                     user.UniversityData
@@ -184,7 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         cookie.RemoveCookie(Invite.CookieName);
                         var query = new GetUserByMembershipQuery(membershipUserId);
                         var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                        cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
+                        cookie.InjectCookie(Helpers.UserLanguage.CookieName, result.Culture);
                         FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
                                 result.UniversityId,
@@ -258,7 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    var lang = cookie.ReadCookie<Language>(Helpers.UserLanguage.CookieName).Lang;
+                    var lang = cookie.ReadCookie<string>(Helpers.UserLanguage.CookieName);
                     if (!Languages.CheckIfLanguageIsSupported(lang))
                     {
                         lang = Thread.CurrentThread.CurrentCulture.Name;
@@ -269,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, lang, invId, model.BoxId, false);
                     var result = await ZboxWriteService.CreateUserAsync(command);
-                    cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.User.Culture });
+                    cookie.InjectCookie(Helpers.UserLanguage.CookieName, result.User.Culture);
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
                             result.UniversityId,
@@ -485,7 +485,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new UpdateUserLanguageCommand(id, model.Language);
             ZboxWriteService.UpdateUserLanguage(command);
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = model.Language });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, model.Language);
             return JsonOk();
         }
 
@@ -493,7 +493,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult ChangeLocale(string language)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = language });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, language);
             return JsonOk();
         }
 
@@ -659,7 +659,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
             Session.Abandon();
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.CookieName, new Language { Lang = result.Culture });
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, result.Culture);
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
                     result.UniversityId,

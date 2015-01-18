@@ -120,6 +120,12 @@
   <data name="AllItems" xml:space="preserve">
     <value>Все элементы</value>
   </data>
+  <data name="BoxEmpty" xml:space="preserve">
+    <value>
+Здесь еще ничего
+нет. Загрузите первым учебный материал...
+</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Комментарии</value>
   </data>
@@ -129,7 +135,16 @@
   <data name="FeedEmpty" xml:space="preserve">
     <value>Искусство и наука задавать вопросы — это источник всех знаний.</value>
   </data>
+  <data name="OnYourMind" xml:space="preserve">
+    <value>О чем вы думаете?</value>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>Опубликовать</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Загрузить ресурс</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Написать комментарий</value>
   </data>
 </root>

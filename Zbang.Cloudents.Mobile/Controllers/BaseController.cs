@@ -113,17 +113,17 @@ namespace Zbang.Cloudents.Mobile.Controllers
             base.Initialize(requestContext);
 
             TempDataProvider = new CookieTempDataProvider(HttpContext);
-            //try
-            //{
-            //    if (!ControllerContext.IsChildAction)
-            //    {
-            //        UserLanguage.ChangeLanguage(HttpContext, Server);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("initialize", ex);
-            //}
+            try
+            {
+                if (!ControllerContext.IsChildAction)
+                {
+                    UserLanguage.ChangeLanguage(HttpContext, Server);
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("initialize", ex);
+            }
         }
         //protected void ChangeThreadLanguage(string language)
         //{

@@ -14,6 +14,9 @@
                         init();
 
                         plUpload.addFiles = function (files) {
+                        if (userDetails.isAuthenticated()) {
+                            alert('you need to register');
+                        }
                             angular.forEach(files, function (file) {
                                 uploader.addFile(file);
                             });

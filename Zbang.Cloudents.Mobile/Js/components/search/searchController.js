@@ -1,13 +1,15 @@
 ﻿angular.module('search', ['ajax']).
     controller('SearchController',
-    ['$scope', 'searchService', '$location', function ($scope, searchService, $location) {
+    ['$scope', 'searchService', function ($scope, searchService) {
         var search = this;
 
         var coursesPage = 0,
             itemsPage = 0,
             coursesEndResult,
-            itemsEndResult;
+            itemsEndResult,
+            page;
 
+        search.emptyResult = false;
         search.formData = {};
 
         search.setCurrentTab = function (tab) {
@@ -28,7 +30,7 @@
 
         };
 
-        search.clearInput = function (e) {
+        search.clearInput = function () {
             $scope.$broadcast('clearInput');
             search.formData.query = null;
 
@@ -78,9 +80,14 @@
             search.loading = true;
 
             searchService.queryCourses(term, coursesPage).then(function (courses) {
+                
+                search.emptyResult = false;
+                if (!courses.length && coursesPage === 0) {
+                    search.emptyResult = true;
+                }
                 coursesPage++;
-
                 if (!isAppend) {
+                
                     search.courses = courses;
                     return;
                 }
@@ -90,6 +97,7 @@
                 if (!courses.length) {
                     coursesEndResult = true;
                 }
+                
 
             }).finally(function () {
                 search.isSearching = false;
@@ -109,14 +117,18 @@
             search.loading = true;
 
             searchService.queryItems(term, itemsPage).then(function (items) {
+                search.emptyResult = false;
+                if (!items.length && itemsPage === 0) {
+                    search.emptyResult = true;
 
-
+                }
                 itemsPage++;
-
                 if (!isAppend) {
+                    
                     search.items = items;
                     return;
                 }
+
 
                 if (!items.length) {
                     itemsEndResult = true;
@@ -124,6 +136,7 @@
                 }
 
                 search.items = search.items.concat(items);
+                
 
             }).finally(function () {
                 search.isSearching = false;
