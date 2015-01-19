@@ -25,7 +25,7 @@
             feed.list.unshift(question);
             feed.empty = false;
             feedService.addQuestion(boxId, question.content).then(function (questionId) {
-                $scope.emit('followBox');
+                $scope.$emit('followBox');
                 question.id = questionId;
                 feed.questionFormData.content = null;
             });
@@ -49,7 +49,7 @@
             question.displayComment = false;
 
             feedService.addAnswer(boxId, question.id, answer.content).then(function (answerId) {
-                $scope.emit('followBox');
+                $scope.$emit('followBox');
                 answer.id = answerId;
                 question.aFormData.content = null;
             });

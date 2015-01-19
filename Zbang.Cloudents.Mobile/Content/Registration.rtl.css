@@ -48,6 +48,9 @@
 .forgotLink {
   color: #0f9d58;
 }
+.searchResults {
+  display: none;
+}
 .search .topReg {
   opacity: 0;
   visibility: hidden;

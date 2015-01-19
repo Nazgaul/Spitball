@@ -30,11 +30,13 @@
                         return;
                     }
 
-                    if (Math.abs(curPosX - posX) >= 135) {
+                    if (Math.abs(curPosX - posX) >= 119) {
+                        element.css({ marginLeft: '-119px' });
+
                         return;
                     }
 
-                    element.css({ marginLeft: curPosX - posX + 'px' });
+                    element.css({ marginLeft: (curPosX - posX) * 1.05 + 'px' });
 
                 });
                 element.on('touchend', function (e) {
@@ -121,7 +123,7 @@
     //        }
     //    };
     //}]).
-    directive('focusComment',['$timeout' ,function ($timeout) {
+    directive('focusComment', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -134,9 +136,9 @@
 
                     var textarea = parentElement.querySelector('textarea');
                     if (textarea) {
-                        $timeout(function() {
+                        $timeout(function () {
                             textarea.focus();
-                        },50);
+                        }, 50);
                     }
 
                 });
@@ -147,11 +149,11 @@
             }
         };
     }]).
- directive('focusSearch',['$timeout', function ($timeout) {
+ directive('focusSearch', ['$timeout', function ($timeout) {
      return {
          restrict: 'A',
          link: function (scope, element, attrs) {
-             $timeout(function() {
+             $timeout(function () {
                  element[0].focus();
              }, 50);
              var unbind = scope.$on('clearInput', function () {
@@ -159,7 +161,7 @@
                      element[0].focus();
                  }, 50);
              });
-             
+
 
              scope.$on('destroy', function () {
                  unbind();
