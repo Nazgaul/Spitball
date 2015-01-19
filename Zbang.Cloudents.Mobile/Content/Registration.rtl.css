@@ -115,12 +115,16 @@
 }
 .validation-summary-errors,
 .regError,
-.loginError {
+.loginError,
+.field-validation-error {
   color: #d1294d;
   font-size: 13px;
   text-align: right;
   position: relative;
   top: -2px;
+}
+.field-validation-error {
+  display: block;
 }
 .loginError {
   top: 10px;
