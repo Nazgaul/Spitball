@@ -17,38 +17,63 @@
         return {
             restrict: "A",
             link: function (scope, element, attr) {
-                var posX;
+                var posX,
+                    direction = window.getComputedStyle(document.body).getPropertyValue('direction');
+
+
 
                 element.on('touchstart', function (e) {
                     posX = e.touches[0].clientX;
+                    console.log('s ' + posX);
                 });
-                element.on('touchmove', function (e) {
-
-                    var curPosX = e.touches[0].clientX;
-
-                    if (curPosX > posX) {
-                        return;
-                    }
-
-                    if (Math.abs(curPosX - posX) >= 119) {
-                        element.css({ marginLeft: '-119px' });
-
-                        return;
-                    }
-
-                    element.css({ marginLeft: (curPosX - posX) * 1.05 + 'px' });
-
-                });
-                element.on('touchend', function (e) {
-                    element.css({ marginLeft: 0 });
-                });
-
+                element.on('touchmove', direction === 'ltr' ? moveLtr : moveRtl);
+                element.on('touchend', direction === 'ltr' ? moveEndLtr : moveEndRtl)
                 scope.$on('$destroy', function () {
                     element.off('touchstart');
                     element.off('tocuhmove');
                     element.off('touchend');
                 });
 
+                function moveLtr(e) {
+                    e.preventDefault();
+                    var curPosX = e.touches[0].clientX;
+
+                    if (curPosX > posX) {
+                        return;
+                    }
+
+                    if (Math.abs(curPosX - posX) >= 109) {
+                        element.css({ marginLeft: '-109px' });
+
+                        return;
+                    }
+
+                    element.css({ marginLeft: (curPosX - posX) * 1.05 + 'px' });
+
+                }
+
+                function moveRtl(e) {
+                    e.preventDefault();
+                    var curPosX = e.touches[0].clientX;                    
+                    if (curPosX < posX) {
+                        return;
+                    }
+
+                    if (Math.abs(curPosX - posX) >= 109) {
+                        element.css({ marginRight: '-109px' });
+
+                        return;
+                    }
+
+                    element.css({ marginRight: (posX - curPosX) * 1.05 + 'px' });
+
+                }
+                function moveEndLtr() {
+                    element.css({ marginLeft: 0 });
+                }
+                function moveEndRtl() {
+                    element.css({ marginRight: 0 });
+                }
             }
         }
     }).
@@ -180,12 +205,12 @@
                  scope.$apply(function () {
                      scope.focusLibSearch();
                  });
-                 
+
                  //$timeout(function () {                     
                  //    element[0].focus();
                  //}, 50);
              });
-                          
+
              scope.$on('destroy', function () {
                  element.off('click');
              });
