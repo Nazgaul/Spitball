@@ -9,7 +9,7 @@
     };
 
     function cssFailCallback() {
-        var cssLoaded = document.getElementById('cssCheck').offsetLeft < 0, files;
+        var cssLoaded = document.getElementById('cssCheck').offsetTop < 0, files;
 
         if (!cssLoaded) {
             files = getCdnStylesheets();
