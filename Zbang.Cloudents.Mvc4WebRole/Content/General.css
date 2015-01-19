@@ -2230,5 +2230,5 @@ select.inputText {
 /*#region cssCheck*/
 #cssCheck {
   position: absolute;
-  left: -2000px;
+  top: -2000px;
 }
