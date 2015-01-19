@@ -103,6 +103,9 @@
   line-height: 15px;
   display: inline-block;
 }
+.acceptTerms a {
+  color: #0f9d58;
+}
 .loginTxt {
   margin-top: 10px;
   display: inline-block;
