@@ -4,9 +4,9 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <header class="logoHeader">
-    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
+    <button type="button" class="backBtn lFloat" ng-click="register.goBack()">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
-    </a>
+    </button>
     <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
 </header>
 <section class="register" ng-class="{ search: register.searching }">
@@ -62,15 +62,13 @@
         <div class="ng-message-errors" ng-messages="register.submitted && registerForm.university.$error">
             <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
         </div>
-        <div class="searchWpr">
+        <div class="searchWpr" scroll-paging on-scroll="register.searchUnis(true)">
             <input type="search" class="inputText" name="university" placeholder="@SharedResources.SearchFor"
                    required
-                   hm-tap="register.searchIn()"
-                   @*ng-click="register.searchIn($event)"*@
-                   hm-swipe-down="register.searchOut($event)"
+                   focus-lib-search="register.searchIn()"
                    ng-model="register.formData.universityName"
                    ng-change="register.searchUnis()"
-                   ng-model-options="{debounce:250}" scroll-paging on-scroll="register.searchUnis(true)" cursor-end tabindex="6" />
+                   ng-model-options="{debounce:250}" cursor-end tabindex="6" />
             <div class="searchBtn rFloat">
                 @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search ltr" })
             </div>

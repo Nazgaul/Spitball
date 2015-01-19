@@ -168,4 +168,27 @@
              });
          }
      };
+ }]).
+ directive('focusLibSearch', ['$timeout', function ($timeout) {
+     return {
+         restrict: 'A',
+         scope: {
+             focusLibSearch: '&'
+         },
+         link: function (scope, element, attrs) {
+             element.on('click', function () {
+                 scope.$apply(function () {
+                     scope.focusLibSearch();
+                 });
+                 
+                 //$timeout(function () {                     
+                 //    element[0].focus();
+                 //}, 50);
+             });
+                          
+             scope.$on('destroy', function () {
+                 element.off('click');
+             });
+         }
+     };
  }]);
