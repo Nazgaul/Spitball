@@ -1,17 +1,6 @@
-﻿var scriptLoaded = {
-    scripts: [],
-    isLoaded: function (script) {
-        if (this.scripts.indexOf(script) > -1) {
-            return true;
-        }
-
-        this.scripts.push(script);
-    }
-};
-
-(function () {
+﻿(function () {
     var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'vo.msecnd.net/',
+    cdnCdPath = 'az414807.vo.msecnd.net',
     cdnGooglePath = 'ajax.googleapis.com';
 
     window.onload = function () {
@@ -20,7 +9,7 @@
     };
 
     function cssFailCallback() {
-        var cssLoaded = document.getElementById('cssCheck').offsetLeft < 0, files;
+        var cssLoaded = document.getElementById('cssCheck').offsetTop < 0, files;
 
         if (!cssLoaded) {
             files = getCdnStylesheets();
@@ -31,21 +20,47 @@
     }
 
     function javascriptFailCallback() {
-        //because of old script we remove angular
-        if (window.jQuery /*&& window.angular*/) {
-            return;
+        var scripts, isBootstrap, count, interval;
+
+        if (!window.angular) {
+            scripts = getCdnScripts(cdnGooglePath);
+            load(scriptsPath);
         }
 
-      var  files = getCdnScripts();
-
-        for (var i = 0, l = files.google.length; i < l; i++) {
-            loadScript(scriptsPath + getFilename(files.google[i]));
+        if (!window.app) {
+            scripts = getCdnScripts(cdnCdPath);
+            load(cdnPath);
         }
 
-        for (var i = 0, l = files.cloudents.length; i < l; i++) {
-            loadScript(cdnPath + getFilename(files.cloudents[i]));
+
+        count = 0;
+        interval = setInterval(function () {
+            count++;
+            if (!window.angular) {
+                if (count == 500) {
+                    clearInterval(interval);
+                    window.location.reload();
+                    return;
+                }
+                return;
+            }
+
+            clearInterval(interval);
+
+
+            if (angular.element('app').injector()) {
+                return;
+            }
+
+            window.angular.bootstrap(document, ['app']);
+        }, 20);
+
+        function load(path) {
+            for (var i = 0, l = scripts.length; i < l; i++) {
+                loadScript(path + getFilename(scripts[i]));
+            }
         }
-     
+
     }
 
     function getCdnStylesheets() {
@@ -59,20 +74,17 @@
         return files;
     }
 
-    function getCdnScripts() {
-        var link, cloudents = [], google= [];
+    function getCdnScripts(path) {
+        var link, scripts = [];
         for (var i = 0, l = document.scripts.length ; i < l; i++) {
             link = document.scripts[i].getAttribute('src');
             if (link) {
-                if (link.indexOf(cdnCdPath) > -1) {
-                    cloudents.push(link);
-                } else if (link.indexOf(cdnGooglePath) > -1) {
-                    google.push(link);
+                if (link.indexOf(path) > -1) {
+                    scripts.push(link);
                 }
             }
         }
-
-        return { cloudents: cloudents, google: google };
+        return scripts;
     }
 
     function loadStylesheet(url) {
