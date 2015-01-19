@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure.Extensions;
 
@@ -13,9 +12,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             if (!filterContext.HttpContext.Request.Browser.IsMobileDevice) return;
             var urlToRedirect = ConfigFetcher.Fetch("MobileWebSite");
             var url = filterContext.HttpContext.Request.Url;
+            var path = string.Empty;
+            if (url != null)
+            {
+                path = url.PathAndQuery;
+            }
             urlToRedirect = VirtualPathUtility.RemoveTrailingSlash(urlToRedirect);
-            urlToRedirect = urlToRedirect + url.PathAndQuery;
-            filterContext.Result = new RedirectResult(urlToRedirect);
+            urlToRedirect = urlToRedirect + path;
+            filterContext.Result = new RedirectResult(urlToRedirect, true);
         }
     }
 }

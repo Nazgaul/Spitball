@@ -64,6 +64,7 @@
                         }
 
                         function uploadComplete(up, file, res) {
+
                             uploader.destroy();
                             $analytics.eventTrack('Upload finished', {
                                 category: 'Box page',
@@ -77,6 +78,7 @@
                         }
 
                         function uploadError(up, err) {
+                            console.log(err);
                             alert("Cannot upload, error: " + err.message + (err.file ? ", File: " + err.file.name : "") + "");
                         }
 
