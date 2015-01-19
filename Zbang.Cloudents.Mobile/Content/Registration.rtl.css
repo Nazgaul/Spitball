@@ -45,11 +45,11 @@
 .register .svg-noResults.svg-noResults {
   display: none;
 }
+.register .searchResults {
+  display: none;
+}
 .forgotLink {
   color: #0f9d58;
-}
-.searchResults {
-  display: none;
 }
 .search .topReg {
   opacity: 0;

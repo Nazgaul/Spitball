@@ -3,6 +3,7 @@
 .register, .signIn {
     display: inline-block;
     width: 92%;
+
     h1 {
         color: @textColor; //override
         max-width: none; //override
@@ -10,83 +11,100 @@
         margin: 25px 0; //diff rtl
         font-size: 22px;
     }
+
     .btn1 {
         margin-top: 5px;
-    } 
+    }
 }
+
 .signIn {
     .inputText {
-        margin: 15px 0 20px;  
+        margin: 15px 0 20px;
     }
+
     .splitHR {
         margin: 17px 0 4px;
     }
 }
+
 .register {
     .bottom {
         width: 100%; //override
         text-align: left; //rtl //override
         position: static;
     }
+
     .homeTxt1 {
         color: @textColor; //override
     }
+
     .searchWpr {
         overflow: visible; //override;
         background: none; //override
         position: relative;
-
     }
+
     .searchBtn {
         position: absolute;
     }
+
     .emptySearch.emptySearch, .svg-noResults.svg-noResults {
         display: none;
     }
+
+    .searchResults {
+        display: none;
+    }
 }
+
 .forgotLink {
     color: @color;
 }
 
-.searchResults {
-    display:none;
 
-}
 
 .search {
     .topReg {
-        opacity:0;
+        opacity: 0;
         visibility: hidden;
         margin-top: -220px;
     }
+
     .bottom, .checkbox, .cbLabel, .marketLabel.marketLabel {
         display: none;
     }
+
     .inputText {
         margin-top: 2px;
     }
+
     .searchResults {
         display: block;
     }
+
     .noResults {
         ~ .emptySearch {
             display: inline-block;
         }
-         ~ .svg-noResults {
+
+        ~ .svg-noResults {
             display: block;
-        }     
+        }
     }
 }
+
 .topReg {
     //overflow: hidden; //to clear floats
     .transition(margin .3s);
     visibility: visible;
-    opacity:1;
+    opacity: 1;
     top: 0;
 }
+
 .radioWpr {
     margin-top: 6px;
 }
+
 .marketLabel {
     display: none;
     text-align: left; //rtl
@@ -96,79 +114,89 @@
         right: 6px; //rtl
     }
 }
+
 [data-culture="he-IL"] {
     .marketLabel {
         display: block;
     }
 }
+
 .acceptTerms {
     font-size: 12px;
     line-height: 15px;
     display: inline-block;
-    a{
-        color:@color;
+
+    a {
+        color: @color;
     }
 }
+
 .loginTxt {
     margin-top: 10px;
     display: inline-block;
     color: @color;
 }
+
 .welcomeTxt1 {
     font-size: 13px;
     text-align: center;
     margin: 10px 0;
 }
+
 .validation-summary-errors, .regError, .loginError, .field-validation-error {
     color: @errorColor;
     font-size: 13px;
-    text-align:left; //rtl
-    position:relative;
+    text-align: left; //rtl
+    position: relative;
     top: -2px;
 }
+
 .field-validation-error {
     display: block;
 }
+
 .loginError {
     top: 10px;
 }
+
 .ng-message-errors {
-    position:relative;
+    position: relative;
     top: -2px;
-    width:100%;        
+    width: 100%;
     color: @errorColor;
-    clear: right;  //rtl
+    clear: right; //rtl
     &.rFloat, &.lFloat {
-        width:48%;
-        display:inline-block;
+        width: 48%;
+        display: inline-block;
     }
 }
 
 .ng-message-error {
     font-size: 13px;
-    position:absolute;
-    opacity:1;    
-    bottom:0;
-    left:0; //rtl
+    position: absolute;
+    opacity: 1;
+    bottom: 0;
+    left: 0; //rtl
     .transition(all .4s linear);
     line-height: 12px;
 }
+
 .ng-message-error.ng-enter.ng-enter-active {
-    opacity:1;
-    left:0; //rtl
+    opacity: 1;
+    left: 0; //rtl
 }
+
 .ng-message-error.ng-enter {
-    opacity:0;
-    left:-100%; //rtl
+    opacity: 0;
+    left: -100%; //rtl
 }
 
 .ng-message-error.ng-leave {
-    opacity:1;
-    left:0;
+    opacity: 1;
+    left: 0;
 }
 
 .ng-message-error.ng-leave.ng-leave-active {
-    opacity:0;
-    bottom:8px; 
+    opacity: 0;
+    bottom: 8px;
 }
-

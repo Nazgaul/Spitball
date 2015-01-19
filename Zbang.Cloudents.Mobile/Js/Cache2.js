@@ -1,8 +1,5 @@
 ﻿(function (pubsub, $, cd) {
 
-    if (window.scriptLoaded.isLoaded('c')) {
-        return;
-    }
 
     var cache = {},
     userid = cd.userDetail().id,

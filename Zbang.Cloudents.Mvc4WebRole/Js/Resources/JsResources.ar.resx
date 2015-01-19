@@ -682,4 +682,7 @@
   <data name="PwdAtLeast6Chars1" xml:space="preserve">
     <value>يجب ان يكون 6 احرف على الاقل </value>
   </data>
+  <data name="UsernameOr" xml:space="preserve">
+    <value>اسم مستخدم او البريد الالكتروني </value>
+  </data>
 </root>

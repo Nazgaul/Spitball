@@ -676,4 +676,7 @@ Sign up for FREE</value>
   <data name="PwdAtLeast6Chars1" xml:space="preserve">
     <value>Password must contain at least 6 characters</value>
   </data>
+  <data name="UsernameOr" xml:space="preserve">
+    <value>Username or email</value>
+  </data>
 </root>
