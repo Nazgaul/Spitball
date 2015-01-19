@@ -30,9 +30,9 @@
                 return ajaxService.post(buildPath('updateuniversity'), data);
             },
             //,
-            //disableFirstTime: function (data) {
-            //	return ajaxService.post('/account/firsttime/', data);
-            //}
+            disableFirstTime: function (data) {
+            	return ajaxService.post('/account/firsttime/', data);
+            }
         };
 
 

@@ -1,9 +1,12 @@
 ﻿@import "varsAndMixins";
 
-/*#region SVG */
 svg.rtl {
-    .flipH; //rtl
+    .flipH(-1); //rtl
 }
+svg.ltr {
+    .flipH(1);
+}
+
 .svg-logo {
     width: 108px;
     height: 20px;
@@ -105,6 +108,7 @@ svg.rtl {
 }
 .svg-error {
     width: 50%;
+    height:50%; // android webkit issue
 }
 /*#endregion */
 

@@ -139,7 +139,7 @@
     }
     li {
         width: 100%;
-overflow-x: hidden;
+        /*overflow-x: hidden;*/ //breaks drag view
         height: 80px;
         position: relative;
         ~ li {
@@ -158,7 +158,6 @@ overflow-x: hidden;
         display:table-cell;
         vertical-align:middle;
         padding-left: 62px; //rtl
-        direction:ltr;
         &:before {
             content:attr(data-box-letter);
             width: 46px;
@@ -224,7 +223,7 @@ overflow-x: hidden;
         font-size: 16px;
         font-weight: normal;
         background: #eee;
-        margin-top: 14px;
+        margin-top: 7px;
     }
 }
 .recommendedList {

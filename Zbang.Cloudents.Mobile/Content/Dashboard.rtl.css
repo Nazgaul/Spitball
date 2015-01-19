@@ -130,7 +130,7 @@
 }
 .list li {
   width: 100%;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   height: 80px;
   position: relative;
 }
@@ -149,7 +149,6 @@
   display: table-cell;
   vertical-align: middle;
   padding-right: 62px;
-  direction: rtl;
 }
 .list .vCentered:before {
   content: attr(data-box-letter);
@@ -198,7 +197,7 @@
   font-size: 16px;
   font-weight: normal;
   background: #eee;
-  margin-top: 14px;
+  margin-top: 7px;
 }
 .recommendedList {
   overflow: hidden;

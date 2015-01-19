@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.Mobile
             {
                 if (!File.Exists(HttpContext.Current.Server.MapPath(cssFile)))
                 {
-                    TraceLog.WriteError(cssFile + "doesn't exits");
+                    TraceLog.WriteInfo(cssFile + "doesn't exits");
                     continue;
                 }
                 cssBundle.Add(cssFile);
@@ -133,6 +133,7 @@ namespace Zbang.Cloudents.Mobile
         private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
         {
             var bundler = SquishIt.Framework.Bundle.JavaScript();
+            bundler.WithReleaseFileRenderer(new SquishItRenderer());
             bundler.AddString(angularPath);
             bundler.AddString(jsResourceString);
             var cdnUrl = CdnLocation;
@@ -141,10 +142,10 @@ namespace Zbang.Cloudents.Mobile
             {
                 bundler.WithOutputBaseHref(cdnUrl);
                 CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
-
-                JsBundles.Add("langText" + culture, bundler.Render("~/gzip/j#.js"));
+                JsBundles.Add("langText." + culture, bundler.Render("~/gzip/j1#.js"));
+                return;
             }
-            JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
+            JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j1#.js"));
         }
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)

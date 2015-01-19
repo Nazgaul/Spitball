@@ -14,9 +14,9 @@
         if (!userDetails.isFirstTimeDashboard()) {
             dashboard.welcomeClosed = true;
         }
-
         dashboard.closeWelcome = function () {
             dashboard.welcomeClosed = true;
+            dashboardService.disableFirstTime();
         };
 
         //#region box list

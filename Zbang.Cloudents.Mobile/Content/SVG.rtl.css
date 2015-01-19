@@ -2,13 +2,19 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region SVG */
 svg.ltr {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+svg.rtl {
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
 }
 .svg-logo {
   width: 108px;
@@ -110,4 +116,5 @@ svg.ltr {
 }
 .svg-error {
   width: 50%;
+  height: 50%;
 }
