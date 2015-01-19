@@ -589,15 +589,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
 
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult FirstTime(FirstTime firstTime)
-        //{
-        //    var userid = User.GetUserId();
-        //    var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
-        //    ZboxWriteService.UpdateUserFirstTimeStatus(command);
-
-        //    return JsonOk();
-        //}
+        [HttpPost, ZboxAuthorize]
+        public JsonResult FirstTime(FirstTime firstTime)
+        {
+            var userid = User.GetUserId();
+            var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
+            ZboxWriteService.UpdateUserFirstTimeStatus(command);
+            return JsonOk();
+        }
 
         //[HttpGet]
         //[OutputCache(CacheProfile = "PartialCache")]

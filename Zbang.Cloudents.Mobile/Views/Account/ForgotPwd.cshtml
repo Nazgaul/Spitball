@@ -1,13 +1,11 @@
-﻿
-@using Zbang.Cloudents.Mobile.Views.Account.Resources
-@using Zbang.Cloudents.Mobile.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mobile.Views.Account.Resources
 @model Zbang.Cloudents.Mobile.Models.Account.ForgotPassword
 
 <header class="logoHeader">
-    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
-        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat">
+        @Html.Svg("~/images/defs.svg", "back", new { @class = "svg-back rtl" })
     </a>
-    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+    <h1><a href="@Url.RouteUrl("accountLink")">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
 </header>
 <section class="forgotPwd">
     <h1>@AccountResources.ForgotPassword</h1>
@@ -15,13 +13,8 @@
     <p>@AccountResources.LocateAccount</p>
     @using (Html.BeginForm())
     {
-        @*<div class="ng-message-errors" ng-messages="">
-            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-            <span class="ng-message-error" ng-message="pattern">@AccountResources.InvalidEmail</span>
-        </div>*@
         @Html.ValidationSummary()
         @Html.TextBoxFor(m => m.Email, new { type = "email", @class = "inputText", placeholder = AccountResources.Email })
         <button type="submit" class="btn1">@AccountResources.Reset</button>
-        <a target="_self" href="@Url.Action("login", "Account")" class="btn1 cancel">@SharedResources.Cancel</a>
     }
 </section>

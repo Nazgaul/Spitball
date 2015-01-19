@@ -2,7 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*#region SVG */
 svg.ltr {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
