@@ -22,7 +22,7 @@
     function javascriptFailCallback() {
         var scripts, isBootstrap, count, interval;
 
-        if (!window.jQuery || window.angular) {
+        if (!window.jQuery || !window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
             load(scriptsPath);
         }
