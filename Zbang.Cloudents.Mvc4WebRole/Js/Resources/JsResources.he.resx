@@ -689,4 +689,7 @@
   <data name="PwdAtLeast6Chars1" xml:space="preserve">
     <value>סיסמא צריכה להכיל לפחות 6 תווים</value>
   </data>
+  <data name="UsernameOr" xml:space="preserve">
+    <value>שם משתמש או דוא"ל</value>
+  </data>
 </root>

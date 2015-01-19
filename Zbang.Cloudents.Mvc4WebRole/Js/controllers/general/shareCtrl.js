@@ -22,7 +22,7 @@
 
         $scope.formData = {
             emailList: [],
-            placeholder: 'Username or email'
+            placeholder: JsResources.UsernameOr
         };
 
         $scope.friends = [];
@@ -177,7 +177,7 @@
             sFocus('shareInput');
 
             if (!$scope.formData.emailList.length) {
-                $scope.formData.placeholder = 'Username or email';
+                $scope.formData.placeholder = JsResources.UsernameOr;
             }
             $analytics.eventTrack('Share Email', {
                 category: 'Remove email'

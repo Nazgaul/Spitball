@@ -693,4 +693,7 @@
   <data name="PwdAtLeast6Chars1" xml:space="preserve">
     <value>должен иметь не менее 6 символов</value>
   </data>
+  <data name="UsernameOr" xml:space="preserve">
+    <value>имя пользователя или электронную почту</value>
+  </data>
 </root>
