@@ -116,12 +116,15 @@
     text-align: center;
     margin: 10px 0;
 }
-.validation-summary-errors, .regError, .loginError {
+.validation-summary-errors, .regError, .loginError, .field-validation-error {
     color: @errorColor;
     font-size: 13px;
     text-align:left; //rtl
     position:relative;
     top: -2px;
+}
+.field-validation-error {
+    display: block;
 }
 .loginError {
     top: 10px;
