@@ -77,6 +77,9 @@
   display: inline-block;
   clear: both;
 }
+.myPage .upSidebar {
+  margin-top: 22px;
+}
 /*#region points section */
 .pointsWpr {
   width: 227px;
