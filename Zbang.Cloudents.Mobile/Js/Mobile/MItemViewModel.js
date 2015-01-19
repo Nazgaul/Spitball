@@ -1,8 +1,5 @@
 ﻿(function ($, dataContext) {
     "use strict";
-    if (window.scriptLoaded.isLoaded('mItvm')) {
-        return;
-    }
     if (!String.prototype.trim) {
         String.prototype.trim = function () {
             return this.replace(/^\s+|\s+$/g, '');
@@ -118,8 +115,8 @@
                    
                     for (var i = 0; i < $preview.length; i++) {
                         if ($preview[i].nodeType === Node.ELEMENT_NODE) {
-                            $preview[i].width = window.innerWidth;
-                            $preview[i].height = window.innerHeight - 50;
+                            //$preview[i].width = window.innerWidth;
+                            //$preview[i].height = window.innerHeight - 50;
                             html += $preview[i].outerHTML;
                         }
                     }
