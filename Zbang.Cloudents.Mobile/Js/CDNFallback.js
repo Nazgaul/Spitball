@@ -25,13 +25,18 @@
         if (!window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
             load(scriptsPath);
+            isBootstrap = true;
         }
 
         if (!window.app) {
             scripts = getCdnScripts(cdnCdPath);
             load(cdnPath);
+            isBootstrap = true;
         }
 
+        if (!isBootstrap) {
+            return;
+        }
 
         count = 0;
         interval = setInterval(function () {
@@ -48,7 +53,7 @@
             clearInterval(interval);
 
 
-            if (angular.element('app').injector()) {
+            if (angular.element(document.getElementsByTagName('html')).injector()) {
                 return;
             }
 
