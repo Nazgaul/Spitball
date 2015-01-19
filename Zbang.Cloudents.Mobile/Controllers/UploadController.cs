@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Win32;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
@@ -45,14 +46,21 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 {
                     return JsonError(BoxControllerResources.NoFilesReceived);
                 }
-                if (string.IsNullOrEmpty(Path.GetExtension(model.FileName)))
+                var uploadedfile = HttpContext.Request.Files[0];
+                if (uploadedfile == null)
                 {
                     return JsonError(BoxControllerResources.NoFilesReceived);
                 }
-                var uploadedfile = HttpContext.Request.Files[0];
-                if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
-
-
+                var fileExtension = Path.GetExtension(model.FileName);
+                if (string.IsNullOrEmpty(fileExtension))
+                {
+                    fileExtension = GetDefaultExtension(uploadedfile.ContentType);
+                    model.FileName = model.FileName + fileExtension;
+                }
+                if (string.IsNullOrEmpty(Path.GetExtension(model.FileName)))
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "Can't upload this file");
+                }
                 FileUploadDetails fileUploadedDetails = GetCookieUpload(model.FileSize, model.FileName, uploadedfile);
 
 
@@ -103,6 +111,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return JsonError(BoxControllerResources.Error);
             }
 
+        }
+
+        private static string GetDefaultExtension(string mimeType)
+        {
+            RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false);
+            object value = key != null ? key.GetValue("Extension", null) : null;
+            string result = value != null ? value.ToString() : string.Empty;
+
+            return result;
         }
 
 
