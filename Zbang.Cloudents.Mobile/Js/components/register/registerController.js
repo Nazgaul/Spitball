@@ -1,6 +1,6 @@
 ﻿angular.module('register', ['ajax', 'ngMessages']).
     controller('RegisterController',
-    ['registerService', function (registerService) {
+    ['$state', 'registerService', function ($state, registerService) {
         "use strict";
 
         registerService.doneLoad();
@@ -46,7 +46,17 @@
             registerService.changeLanguage(register.language, register.formData);
         };
 
-        register.searchIn = function () {
+        register.goBack = function () {
+            if (register.searching) {
+                register.searching = false;
+                register.formData.universityName = null;
+                return;
+            }
+
+            $state.go('root.account');
+        };
+
+        register.searchIn = function (event) {
             if (register.searching) {
                 return;
             }
@@ -64,7 +74,7 @@
             register.formData.universityName = university.name;
             register.searching = false;
         };
-        
+
         register.searchUnis = function (isAppend) {
             var term = register.formData.universityName;
 
@@ -94,12 +104,12 @@
             if (noResults) {
                 return;
             }
-            
+
             get();
 
-            function get() {           
-                
-;
+            function get() {
+
+                ;
                 isSearching = true;
 
                 registerService.searchUnis(term, register.page).then(function (response) {
@@ -114,7 +124,7 @@
 
                         }
                         return;
-                    }                    
+                    }
 
                     if (!response.length) {
                         noResults = true;

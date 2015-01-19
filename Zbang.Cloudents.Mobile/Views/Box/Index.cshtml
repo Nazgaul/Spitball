@@ -3,12 +3,9 @@
 
 <section class="box" pl-uploader>
     <header>
-        @*<button type="button" class="inviteBtn rFloat">
-                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-invite" })
-            </button>*@
-        <button type="button" class="backBtn lFloat" ui-sref="root.dashboard">
+        <a class="backBtn lFloat" ui-sref="root.dashboard">
             @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
-        </button>
+        </a>
         <a ui-sref="root.dashboard"><h1>@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</h1></a>
     </header>
 
