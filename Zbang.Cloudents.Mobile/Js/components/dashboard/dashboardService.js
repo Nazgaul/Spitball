@@ -1,6 +1,6 @@
 ﻿angular.module('dashboard')
     .service('dashboardService',
-    ['$rootScope', 'dashboard', function ($rootScope ,dashboard) {
+    ['$rootScope', 'dashboard','account', function ($rootScope ,dashboard,account) {
         var service = this;
 
         service.getBoxList = function (page) {
@@ -11,6 +11,9 @@
             return dashboard.recommendedBoxes();
         };
 
+        service.disableFirstTime = function () {
+            account.disableFirstTime({ firstTime: 'Library' });
+        };
         service.doneLoad = function () {
             $rootScope.$broadcast('$stateLoaded');
         };

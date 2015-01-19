@@ -13,6 +13,7 @@
 
         if (!userDetails.isFirstTimeDashboard()) {
             dashboard.welcomeClosed = true;
+            dashboardService.disableFirstTIme();
         }
 
         dashboard.closeWelcome = function () {
