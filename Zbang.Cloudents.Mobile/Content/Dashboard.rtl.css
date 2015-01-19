@@ -216,7 +216,6 @@
   display: inline-block;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   font-size: 13px;
 }
 .recommendedItem .courseName {
@@ -247,7 +246,7 @@
   background: #282828;
   color: #fff;
   position: relative;
-  top: -20px;
+  top: 10px;
 }
 .recommendedItem .rcStats svg {
   position: absolute;

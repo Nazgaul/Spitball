@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mobile
              {
                     "angular", new[]
                     {
-                        //new JsFileWithCdn("~/scripts/jquery.min.js",
+                        new JsFileWithCdn("~/js/cdnfallback.js"),
                         //"https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),                        
                         new JsFileWithCdn("~/scripts/angular.min.js",
                         "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"),
