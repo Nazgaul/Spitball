@@ -4,8 +4,8 @@ disallow: /dashboard/
 disallow: /library/
 disallow: /user/
 disallow: /invite/
-disallow: /Account/ChangeLanguage/
-disallow: /Account/ForgotPassword/
+disallow: /account/changelanguage/
+disallow: /account/forgotpassword/
 disallow: /account/resetpassword/
 disallow: /account/welcome/
 disallow: /store/
