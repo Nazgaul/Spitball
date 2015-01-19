@@ -2,10 +2,10 @@
 @model Zbang.Cloudents.Mobile.Models.Account.ForgotPassword
 
 <header class="logoHeader">
-    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
+    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat">
         @Html.Svg("~/images/defs.svg", "back", new { @class = "svg-back rtl" })
     </a>
-    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+    <h1><a href="@Url.RouteUrl("accountLink")">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
 </header>
 <section class="forgotPwd">
     <h1>@AccountResources.ForgotPassword</h1>

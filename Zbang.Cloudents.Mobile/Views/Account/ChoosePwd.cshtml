@@ -4,26 +4,19 @@
 @model Zbang.Cloudents.Mobile.Models.Account.NewPassword
 
 <header class="logoHeader">
-    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
+    <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </a>
-    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+    <h1><a href="@Url.RouteUrl("accountLink")">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
 </header>
 <section class="choosePwd">
     <h1>@AccountResources.ChoosePwd</h1>
     @using (Html.BeginForm("PasswordUpdate", "Account", new { key = Request.QueryString["key"] }))
     {
-        @*<div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
-            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-            <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
-        </div>*@
+       
         @Html.ValidationMessageFor(m => m.Password)
         @Html.PasswordFor(m => m.Password, new { @class = "inputText",placeholder=AccountResources.Password, autofocus = "autofocus", autocomplete = "off" });
-        @*<div class="ng-message-errors" ng-messages="register.submitted && registerForm.password.$error">
-            <span class="ng-message-error" ng-message="required">@AccountResources.FieldRequired</span>
-            <span class="ng-message-error" ng-message="minlength">@AccountResources.PwdAtLeast6Chars</span>
-            <span class="ng-message-error" ng-message="compare"></span>
-        </div>*@
+       
         @Html.ValidationMessageFor(m => m.ConfirmPassword)
         @Html.PasswordFor(m => m.ConfirmPassword, new
            {

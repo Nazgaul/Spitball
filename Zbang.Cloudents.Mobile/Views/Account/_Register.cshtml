@@ -7,7 +7,7 @@
     <a href="@Url.RouteUrl("accountLink")" class="backBtn lFloat" ui-sref="root.dashboard">
         @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
     </a>
-    <h1><a ui-sref="root.dashboard">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
+    <h1><a ui-sref="root.account">@Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })</a></h1>
 </header>
 <section class="register" ng-class="{ search: register.searching }">
     <form name="registerForm" novalidate ng-submit="register.submit($event,registerForm.$valid)" focus-invalid close-keyboard>
