@@ -13,11 +13,10 @@
 
         if (!userDetails.isFirstTimeDashboard()) {
             dashboard.welcomeClosed = true;
-            dashboardService.disableFirstTIme();
         }
-
         dashboard.closeWelcome = function () {
             dashboard.welcomeClosed = true;
+            dashboardService.disableFirstTime();
         };
 
         //#region box list

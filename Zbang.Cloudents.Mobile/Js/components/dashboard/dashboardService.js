@@ -12,7 +12,7 @@
         };
 
         service.disableFirstTime = function () {
-            account.disableFirstTime({ firstTime: 'Library' });
+            account.disableFirstTime({ firstTime: 'Dashboard' });
         };
         service.doneLoad = function () {
             $rootScope.$broadcast('$stateLoaded');
