@@ -18,16 +18,18 @@
 
         feed.addQuestion = function () {     
             var question = {
-                content: feed.questionFormData.content,
-            };
+                content: extractUrls(feed.questionFormData.content),
+            },
+            qText = feed.questionFormData.content;
+
             setPostDetails(question);
+            feed.questionFormData.content = null;
 
             feed.list.unshift(question);
             feed.empty = false;
-            feedService.addQuestion(boxId, question.content).then(function (questionId) {
+            feedService.addQuestion(boxId, qText).then(function (questionId) {
                 $scope.$emit('followBox');
                 question.id = questionId;
-                feed.questionFormData.content = null;
             });
         };
 
@@ -38,20 +40,22 @@
 
         feed.addAnswer = function (question) {
             var answer = {
-                content: question.aFormData.content,
-            };
+                content: extractUrls(question.aFormData.content),
+            },
+            aText = question.aFormData.content;
 
             setPostDetails(answer);
 
             feed.empty = false;
+            question.answers = question.answers || [];
             question.answers.unshift(answer);
-            question.aFormData = null;
             question.displayComment = false;
+            question.aFormData.content = null;
 
-            feedService.addAnswer(boxId, question.id, answer.content).then(function (answerId) {
+
+            feedService.addAnswer(boxId, question.id, aText).then(function (answerId) {
                 $scope.$emit('followBox');
                 answer.id = answerId;
-                question.aFormData.content = null;
             });
         };
 
@@ -109,6 +113,35 @@
             post.creationTime = new Date().toISOString();
 
             return post;
+        }
+
+        function extractUrls(d) {
+            if (!d) {
+                return;
+            }
+            var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
+
+            var array = d.match(urlex) || [];
+            var matches = [];
+            for (var i = 0, j = array.length; i < j; i++) {
+                if (matches.indexOf(array[i]) < 0)
+                    matches.push(array[i]);
+            }
+            if (!matches.length) {
+                return d;
+            }
+            for (var i = 0; i < matches.length; i++) {
+                var url = matches[i];
+                if (!url) {
+                    continue;
+                }
+                if (url.indexOf('http') !== 0) {
+                    url = 'http://' + url;
+                }
+                d = d.replace(matches[i], "<a target=\"_blank\" href=\"" + url + "\">" + matches[i] + "</a>");
+            }
+
+            return d;
         }
 
     }]);

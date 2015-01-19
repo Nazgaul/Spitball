@@ -256,6 +256,9 @@
 }
 .recommendedItem .prof {
   font-size: 13px;
+  max-width: 220px;
+  max-width: 70vw;
+  display: inline-block;
 }
 .recommendedItem .vCentered {
   max-width: 200px;
