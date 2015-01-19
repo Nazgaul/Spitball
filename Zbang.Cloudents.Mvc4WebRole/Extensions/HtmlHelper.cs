@@ -44,6 +44,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         }
         public static MvcHtmlString Css2(this HtmlHelper html, string key)
         {
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                key = key + BundleConfig.Rtl;
+            }
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);
         }

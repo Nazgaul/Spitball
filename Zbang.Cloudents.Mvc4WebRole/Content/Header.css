@@ -6,6 +6,7 @@
 html,
 body {
   height: 100%;
+  direction: ltr;
 }
 body {
   overflow-y: scroll;

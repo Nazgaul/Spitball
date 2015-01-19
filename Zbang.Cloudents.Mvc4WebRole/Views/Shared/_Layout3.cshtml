@@ -39,7 +39,7 @@
     <meta property="og:url" content="@Request.Url" />
     <base href="/">
     @Html.Css2("newcore3")
-    @Html.CssRtl("newrtl3")
+    @*@Html.CssRtl("newrtl3")*@
     @Html.CssCulture("lang")
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 </head>
@@ -175,7 +175,7 @@
         </a>
     </script>
 
-    <script>
+    @*<script>
     //check for iframe
     try {
         if (window.self !== window.top) {
@@ -186,11 +186,8 @@
         window.location.href = '/home/iframe/';
         window.iframe = true;
     }
-    </script>
+    </script>*@
     @RenderSection("scripts", false)
-    @*@if (User.Identity.IsAuthenticated)
-        {
-            <iframe id="fconnect" data-src="@System.Configuration.ConfigurationManager.AppSettings["pushUrl"]"></iframe>
-        }*@
+   
 </body>
 </html>

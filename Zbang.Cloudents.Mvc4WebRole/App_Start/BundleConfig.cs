@@ -13,6 +13,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 {
     public static class BundleConfig
     {
+        public const string Rtl = ".rtl";
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
 
@@ -60,6 +61,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s =>
+                       string.Format("{0}.rtl.css",
+                       s.Replace(Path.GetExtension(s), string.Empty))));
                 }
             }
             if (registeredJsBundles != null)
@@ -131,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 bundler.WithOutputBaseHref(cdnUrl);
                 CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
 
-                JsBundles.Add("langText", bundler.Render("~/gzip/j#.js"));
+                JsBundles.Add("langText.", bundler.Render("~/gzip/j1#.js"));
             }
             JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
         }
