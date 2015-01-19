@@ -22,16 +22,21 @@
     function javascriptFailCallback() {
         var scripts, isBootstrap, count, interval;
 
-        if (!window.jQuery || window.angular) {
+        if (!window.jQuery || !window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
             load(scriptsPath);
+            isBootstrap = true;
         }
 
         if (!window.app) {
             scripts = getCdnScripts(cdnCdPath);
             load(cdnPath);
+            isBootstrap = true;
         }
 
+        if (!isBootstrap) {
+            return;
+        }
 
         count = 0;
         interval = setInterval(function () {

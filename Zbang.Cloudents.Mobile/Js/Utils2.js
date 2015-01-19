@@ -1,8 +1,5 @@
 ﻿(function (cd, $, analytics, jsResources) {
 
-    if (window.scriptLoaded.isLoaded('u')) {
-        return;
-    }
 
     var notification = function (msg) {
         alert(msg);
