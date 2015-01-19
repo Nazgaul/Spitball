@@ -16,11 +16,6 @@ svg.ltr {
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-/*#endregion */
-/*#region SVG */
-/*svg.rtl {
-    .flipH; //rtl
-}*/
 .svg-logo {
   width: 108px;
   height: 20px;
@@ -122,4 +117,5 @@ svg.ltr {
 .svg-error {
   width: 50%;
   height: 50%;
+  max-height: 110px;
 }
