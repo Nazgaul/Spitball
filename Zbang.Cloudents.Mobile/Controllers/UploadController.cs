@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 }
                 if (string.IsNullOrEmpty(Path.GetExtension(model.FileName)))
                 {
+                    HttpContext.Response.TrySkipIisCustomErrors = true;
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "Can't upload this file");
                 }
                 FileUploadDetails fileUploadedDetails = GetCookieUpload(model.FileSize, model.FileName, uploadedfile);
