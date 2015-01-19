@@ -29,6 +29,7 @@
   font-size: 20px;
   display: block;
   font-weight: normal;
+  width: 100%;
 }
 .libEmptyTitle {
   font-size: 32px;
@@ -82,6 +83,9 @@
 .uniList .emptySearch:after {
   top: 6px;
 }
+.uniList .uniDetails {
+  width: 353px;
+}
 .schoolItem {
   overflow: hidden;
   white-space: nowrap;
@@ -124,19 +128,9 @@
   border-radius: 3px;
 }
 .uniDetails {
-  overflow: hidden;
   display: inline-block;
   padding: 10px 8px 0 5px
   /*rtl*/
-}
-.uniCount {
-  font-size: 13px;
-  position: relative;
-  top: -5px;
-}
-.uniCount:after {
-  content: '\00a0' attr(data-students);
-  display: inline-block;
 }
 .newUni.newUni {
   font-size: 15px;
@@ -208,9 +202,6 @@
 }
 .createSchool .uniList li:hover {
   background: #eee;
-}
-.createSchool .uniList .uniCount {
-  display: none;
 }
 .createSchool .uniList .uniDetails {
   padding: 0;

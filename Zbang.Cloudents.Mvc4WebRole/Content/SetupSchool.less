@@ -28,6 +28,7 @@
         font-size: 20px;
         display: block;
         font-weight: normal;
+        width: 100%; //for elps
     }
 }
 
@@ -79,6 +80,9 @@
     .emptySearch:after {
         top: 6px;
     }
+    .uniDetails {
+        width: 353px;
+    }
 }
 .schoolItem {
     overflow: hidden;
@@ -117,19 +121,9 @@
 }
 
 .uniDetails {
-    overflow: hidden;
+    //overflow: hidden;
     display: inline-block;
     padding: 10px 5px 0 8px; /*rtl*/
-}
-
-.uniCount {
-    font-size: 13px;
-    position: relative;
-    top: -5px;
-    &:after {
-        content: '\00a0' attr(data-students);
-        display: inline-block;
-    }
 }
 
 .newUni.newUni {
@@ -201,9 +195,6 @@
             &:hover {
                 background: #eee;
             }
-        }
-        .uniCount {
-            display: none;
         }
         .uniDetails {
             padding:0;

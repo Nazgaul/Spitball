@@ -20,7 +20,6 @@
             <li ng-repeat="university in createUniversities track by university.id" ng-click="selectUniversity(university)">
                 <span class="uniDetails">
                     <span class="uniName elps boldFont">{{::university.name}}</span>
-                    <span class="uniCount" @*data-students="@MainViewResources.Students" data-student="@MainViewResources.Student"*@>{{::university.membersCount}}</span>
                 </span>
             </li>
             <li class="emptySearch">@SharedResources.NoResults</li>
