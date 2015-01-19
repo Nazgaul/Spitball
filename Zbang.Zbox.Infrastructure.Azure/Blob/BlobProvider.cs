@@ -310,12 +310,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);// GenerateSharedAccessReadPermissionBlobFiles(cacheblob, CacheContainerItemAvailableInMinutes);
 
         }
-        public Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
+        public async Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
         {
             //we don't need to dispose because we dispose it later in the function
             using (var ms = new MemoryStream(fileContent))
             {
-                return UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+                return await UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
             }
         }
 

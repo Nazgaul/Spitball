@@ -11,6 +11,8 @@ body {
     color: @textColor; 
     font-family: Arial; 
     font-size: 14px;
+    direction:ltr;
+
     //font-size: 13px; //TODO: test this.
 }
 header {
@@ -56,14 +58,7 @@ header {
         fill: #fff;
     }
 }
-/*#region SVG */
-svg.rtl {
-    .flipH(1); //rtl
-}
-svg.ltr {
-    .flipH;
-}
-/*#endregion */
+
 /*#region mixins */
 
 .backgroundSize(@prop)
@@ -237,7 +232,6 @@ img {
 /*#region 'static' pages (No RTL) */
 .static {
     text-align: left;
-    direction: ltr;
     font-size: 14px;
 
     .backBtn {
