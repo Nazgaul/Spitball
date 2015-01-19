@@ -73,9 +73,12 @@
     width: 227px;
     height: 332px;
     border-radius: 5px;
-    margin: 28px 0 0 21px; /*rtl*/
+    margin: -47px 0 0 21px; /*rtl*/
     display: inline-block;
     clear: both;
+    .myPage & {
+        margin-top: 22px;
+    }
 }
 
 /*#region points section */
@@ -400,7 +403,7 @@
 
 .upTop {
     padding-left: 120px; /*rtl*/
-    margin-right: -20px; //rtl (fill up black background...because of 20px padding on wpr)
+    margin: 0 -20px 75px 0; //rtl (fill up black background...because of 20px padding on wpr)
     position: relative;
     height: 75px;
     background: #282828;
@@ -460,7 +463,6 @@
 }
 
 .upCourses {
-    margin-top: 75px;
     .coursesEmpty {
         height: 150px;
         line-height: 150px;
