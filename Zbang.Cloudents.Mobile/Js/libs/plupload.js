@@ -64,8 +64,6 @@
                         }
 
                         function uploadComplete(up, file, res) {
-
-                            uploader.destroy();
                             $analytics.eventTrack('Upload finished', {
                                 category: 'Box page',
                                 label: 'User finished to upload files'

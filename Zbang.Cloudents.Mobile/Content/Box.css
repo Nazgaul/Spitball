@@ -116,3 +116,31 @@
   left: 10px;
   top: 7px;
 }
+.uploadWrpr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.uploadWrpr .upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 15%;
+}
+.uploadWrpr svg {
+  margin-top: -7.5%;
+  width: 15%;
+  fill: #0f9d58;
+}
+.uploadWrpr .uploadText {
+  width: 100%;
+  font-size: 24px;
+}
