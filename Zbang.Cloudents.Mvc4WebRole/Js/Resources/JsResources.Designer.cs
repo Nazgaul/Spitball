@@ -1703,6 +1703,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username or email.
+        /// </summary>
+        public static string UsernameOr {
+            get {
+                return ResourceManager.GetString("UsernameOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What&apos;s new?.
         /// </summary>
         public static string WhatsNew {
