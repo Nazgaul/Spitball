@@ -11,7 +11,8 @@ svg.ltr {
   transform: scaleX(-1);
 }
 svg.rtl {
-  -moz-transform: scaleX(1);  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
   -o-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
@@ -121,4 +122,5 @@ svg.rtl {
 }
 .svg-error {
   width: 50%;
+  height: 50%;
 }

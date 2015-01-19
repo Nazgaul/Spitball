@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.Mobile
             {
                 if (!File.Exists(HttpContext.Current.Server.MapPath(cssFile)))
                 {
-                    TraceLog.WriteError(cssFile + "doesn't exits");
+                    TraceLog.WriteInfo(cssFile + "doesn't exits");
                     continue;
                 }
                 cssBundle.Add(cssFile);
