@@ -178,7 +178,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your own quizzes.
+        ///   Looks up a localized string similar to Create your own
+        ///quizzes.
         /// </summary>
         public static string CreateQuizzes {
             get {
@@ -530,7 +531,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share files with your classmates.
+        ///   Looks up a localized string similar to Share files with
+        ///your classmates.
         /// </summary>
         public static string ShareFiles {
             get {
@@ -557,7 +559,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Swap textbooks.
+        ///   Looks up a localized string similar to Swap
+        ///textbooks.
         /// </summary>
         public static string SwapBooks {
             get {

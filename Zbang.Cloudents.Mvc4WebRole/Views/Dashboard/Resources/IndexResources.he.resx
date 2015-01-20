@@ -244,7 +244,8 @@
     <value>צור קורס</value>
   </data>
   <data name="CreateQuizzes" xml:space="preserve">
-    <value>יצירת מבחנים לשיפור הלמידה</value>
+    <value>יצירת מבחנים
+לשיפור הלמידה</value>
   </data>
   <data name="FindFb" xml:space="preserve">
     <value>מצא חברים מחשבון הפייסבוק שלך</value>
@@ -278,10 +279,13 @@
     <value>חפש חברים מ-Gmail</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
-    <value>שיתוף קבצים עם החברים באוניברסיטה</value>
+    <value>שיתוף קבצים
+עם החברים
+באוניברסיטה</value>
   </data>
   <data name="SwapBooks" xml:space="preserve">
-    <value>החלפה ומסירה של ספרי לימוד</value>
+    <value>החלפה ומסירה
+של ספרי לימוד</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>ברוכים הבאים לקלאודנטס</value>
