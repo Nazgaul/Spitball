@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Proxy;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
@@ -14,6 +15,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Trace;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -36,125 +38,28 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                AddItemsToFeedDbi(); // this can work
-                //UpdateAllUrlsInSystem();
+                UpdateAllUrlsInSystem(); // this can work
             }
         }
 
-        public void UpdateIdOfQuestion()
-        {
-            var questions = UnitOfWork.CurrentSession.QueryOver<Comment>()
-                .Where(w => w.FeedType == FeedType.CreatedCourse)
-                .List();
-            foreach (var question in questions)
-            {
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var id = IdGenerator.GetGuid(question.DateTimeUser.CreationTime);
-                    if (question.Id == id)
-                    {
-                        continue;
-
-                    }
-                    var items = new List<Item>();
-                    items.AddRange(question.ItemsReadOnly);
-                    var question2 = new Comment(question.User, null, question.Box, id, items,
-                        FeedType.CreatedCourse);
-                    question2.DateTimeUser.CreationTime = question.DateTimeUser.CreationTime;
-                    UnitOfWork.CurrentSession.Save(question2);
-                    foreach (var answer in question.AnswersReadOnly)
-                    {
-                        answer.Question = question2;
-                        UnitOfWork.CurrentSession.Save(answer);
-                    }
-                    UnitOfWork.CurrentSession.Save(question2);
-                    //UnitOfWork.CurrentSession.Delete(question);
-                    tx.Commit();
-                }
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    UnitOfWork.CurrentSession.Delete(question);
-                    tx.Commit();
-                }
-
-
-            }
-        }
-
-        private void AddItemsToFeedDbi()
-        {
-            var commentRepository = Infrastructure.Ioc.IocFactory.Unity.Resolve<IRepository<Comment>>();
-            var items = UnitOfWork.CurrentSession.QueryOver<Item>()
-                 .Where(w => w.IsDeleted == false)
-                 .And(w => w.Comment == null)
-                 .And(w => w.Answer == null)
-                 .OrderBy(w => w.DateTimeUser.CreationTime).Asc
-                 .List();
-            foreach (var item in items)
-            {
-                using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
-                {
-                    var comment = GetPreviousCommentId(item.BoxId, item.UploaderId, item.DateTimeUser.CreationTime);
-                    if (comment == null)
-                    {
-
-                        comment = item.Box.AddComment(item.Uploader, null, IdGenerator.GetGuid(item.DateTimeUser.CreationTime),
-                               null, FeedType.AddedItems);
-                        comment.DateTimeUser.CreationTime = item.DateTimeUser.CreationTime;
-                    }
-                    comment.AddItem(item);
-                    commentRepository.Save(comment);
-                    tx.Commit();
-                }
-            }
-
-        }
-        private Comment GetPreviousCommentId(long box, long user, DateTime time)
-        {
-            time = time.AddHours(-1);
-            var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
-                .Where(w => w.DateTimeUser.CreationTime > time)
-                .And(w => w.IsDeleted == false)
-                .And(w => w.Box.Id == box)
-                .And(w => w.Uploader.Id == user)
-                .Select(s => s.Comment).Future<Comment>();
-
-            var questions2 = UnitOfWork.CurrentSession.QueryOver<Quiz>()
-                .Where(w => w.DateTimeUser.CreationTime > time)
-                .And(w => w.Box.Id == box)
-                .And(w => w.Owner.Id == user)
-                .Select(s => s.Comment).Future<Comment>();
-
-            return questions.Union(questions2)
-                .Where(w => w != null)
-                //.Where(w => w.Text == null)
-                .Where(w => w.FeedType == FeedType.AddedItems)
-                .OrderByDescending(o => o.DateTimeUser.CreationTime)
-                .FirstOrDefault();
-        }
-
-
-        private void UpdateReputation()
-        {
-            int i = 0;
-            var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc.Select(s => s.Id)
-                .Skip(i * 100).Take(100).List<long>();
-            do
-            {
-                var command = new UpdateReputationCommand(users);
-                m_CommandBus.Send(command);
-                i++;
-                users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc.Select(s => s.Id).Skip(i * 100).Take(100).List<long>();
-            } while (users.Count > 0);
-        }
 
         private void UpdateAllUrlsInSystem()
         {
             int i = 0;
-            var items = UnitOfWork.CurrentSession.QueryOver<Item>().OrderBy(o => o.Id).Asc
+            TraceLog.WriteInfo("starting on item");
+            var items = UnitOfWork.CurrentSession.QueryOver<Item>()
+                //.Where(Restrictions.Gt(Projections.SqlFunction("CHARINDEX",
+                //    NHibernateUtil.String,
+                //    Projections.Constant("("),
+                //    Projections.Property<Item>(p => p.Url)
+                //    ),
+                //    0))
+                .And(w=>w.IsDeleted == false)
+                .OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
             {
+                TraceLog.WriteInfo("item index " + i);
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     foreach (var item in items)
@@ -165,14 +70,20 @@ namespace Zbang.Zbox.Domain.Services
                     tx.Commit();
                     i++;
                 }
-                items = UnitOfWork.CurrentSession.QueryOver<Item>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+                items = UnitOfWork.CurrentSession.QueryOver<Item>()
+                    .Where(w => w.IsDeleted == false)
+                    .OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (items.Count > 0);
 
             i = 0;
-            var boxes = UnitOfWork.CurrentSession.QueryOver<Box>().OrderBy(o => o.Id).Asc
+            TraceLog.WriteInfo("starting on box");
+            var boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
+                .Where(w => w.IsDeleted == false)
+                .OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
             {
+                TraceLog.WriteInfo("box index " + i);
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     foreach (var item in boxes)
@@ -183,14 +94,18 @@ namespace Zbang.Zbox.Domain.Services
                     tx.Commit();
                     i++;
                 }
-                boxes = UnitOfWork.CurrentSession.QueryOver<Box>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+                boxes = UnitOfWork.CurrentSession.QueryOver<Box>()
+                    .Where(w => w.IsDeleted == false)
+                    .OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (boxes.Count > 0);
 
             i = 0;
+            TraceLog.WriteInfo("starting on quiz");
             var quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
             {
+                TraceLog.WriteInfo("quiz index " + i);
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     foreach (var item in quizzes)
@@ -204,11 +119,13 @@ namespace Zbang.Zbox.Domain.Services
                 quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (quizzes.Count > 0);
 
+            TraceLog.WriteInfo("starting on library");
             i = 0;
             var library = UnitOfWork.CurrentSession.QueryOver<Library>().OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
             {
+                TraceLog.WriteInfo("library index " + i);
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     foreach (var item in library)
@@ -222,10 +139,12 @@ namespace Zbang.Zbox.Domain.Services
                 library = UnitOfWork.CurrentSession.QueryOver<Library>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (library.Count > 0);
 
+            TraceLog.WriteInfo("starting on user");
             var users = UnitOfWork.CurrentSession.QueryOver<User>().OrderBy(o => o.Id).Asc
                .Skip(i * 100).Take(100).List();
             do
             {
+                TraceLog.WriteInfo("user index " + i);
                 using (ITransaction tx = UnitOfWork.CurrentSession.BeginTransaction())
                 {
                     foreach (var item in users)
