@@ -84,7 +84,7 @@
                 <div class="dhContent" ng-switch="info.isRootLevel">
                     <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
                     <a ng-switch-when="false" id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" ng-href="{{back.url}}">
-                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
+                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
                         <h2>{{back.title}}</h2>
                     </a>
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
