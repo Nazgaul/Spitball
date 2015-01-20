@@ -17,7 +17,11 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             var dirty = entity as IDirty;
             if (dirty != null)
             {
-                if (dirty.ShouldMakeDirty())
+                if (dirty.ShouldMakeDirty == null)
+                {
+                    dirty.IsDirty = true;
+                }
+                else if (dirty.ShouldMakeDirty())
                 {
                     dirty.IsDirty = true;
                 }
@@ -37,6 +41,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
                                   persister, transientEntities);
             }
         }
-        
+
     }
 }

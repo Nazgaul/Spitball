@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.Services
 
         private void UpdateAllUrlsInSystem()
         {
-            int i = 0;
+            int i = 151;
             TraceLog.WriteInfo("starting on item");
             var items = UnitOfWork.CurrentSession.QueryOver<Item>()
                 //.Where(Restrictions.Gt(Projections.SqlFunction("CHARINDEX",

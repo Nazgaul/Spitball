@@ -26,7 +26,6 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             catch (Exception ex)
             {
                 TraceLog.WriteError("On onetime dbi", ex);
-                Run();
             }
         }
     }
