@@ -1,15 +1,18 @@
-﻿using NHibernate.Dialect;
+﻿using NHibernate;
+using NHibernate.Dialect;
+using NHibernate.Dialect.Function;
 
 
 namespace Zbang.Zbox.Infrastructure.Data.Dialect
 {
-    public class ZboxDialect :  MsSqlAzure2008Dialect
+    public class ZboxDialect : MsSql2012Dialect
     {
-        //protected override void RegisterFunctions()
-        //{
-        //    base.RegisterFunctions();
-        //    //RegisterFunction("GetThumbnailUrl", new NoArgSQLFunction("Zbox.GetThumbnailUrl", NHibernateUtil.String, true));
-        //}
+        protected override void RegisterFunctions()
+        {
+            base.RegisterFunctions();
+            RegisterFunction("CHARINDEX", new StandardSQLFunction("CHARINDEX"));
+            //    //RegisterFunction("GetThumbnailUrl", new NoArgSQLFunction("Zbox.GetThumbnailUrl", NHibernateUtil.String, true));
+        }
 
         //get from MsSqlAzure2008Dialect
         public override string PrimaryKeyString
@@ -17,9 +20,10 @@ namespace Zbang.Zbox.Infrastructure.Data.Dialect
             get { return "primary key CLUSTERED"; }
         }
 
+
         //public override SqlString GetLimitString(SqlString querySqlString, SqlString offset, SqlString limit)
         //{
-            
+
         //    var tokenEnum = new NHibernate.SqlCommand.Parser.SqlTokenizer(querySqlString).GetEnumerator();
         //    if (!tokenEnum.TryParseUntilFirstMsSqlSelectColumn()) return null;
 
@@ -48,5 +52,5 @@ namespace Zbang.Zbox.Infrastructure.Data.Dialect
         //}
     }
 
-    
+
 }

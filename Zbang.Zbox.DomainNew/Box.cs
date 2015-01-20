@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain
             //Comments = new List<Comment>();
             Comments = new List<Comment>();
             PrivacySettings = new PrivacySettings();
+            ShouldMakeDirty = () => true;
         }
 
         public Box(string boxName, User user, BoxPrivacySettings privacySettings)
@@ -62,7 +63,7 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<Quiz> Quizzes { get; protected set; }
 
         // public IQueryable<Item> Items2 { get; set; }
-       
+
 
         //protected virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
@@ -297,7 +298,7 @@ namespace Zbang.Zbox.Domain
                 throw new InvalidOperationException("User does not have an active invite");
             }
             UserBoxRelationship.Remove(userBoxRel);
-            var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null &&  w.UserBoxRel.Id == userBoxRel.Id);
+            var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null && w.UserBoxRel.Id == userBoxRel.Id);
             if (invite != null)
             {
                 invite.RemoveAssociationWithUserBoxRel();
@@ -309,7 +310,7 @@ namespace Zbang.Zbox.Domain
         public bool IsDirty { get; set; }
 
 
-        public Func<bool> ShouldMakeDirty {get;set;}
+        public Func<bool> ShouldMakeDirty { get; set; }
 
 
     }

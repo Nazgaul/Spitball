@@ -116,11 +116,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         private static string GetDefaultExtension(string mimeType)
         {
-            RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false);
-            object value = key != null ? key.GetValue("Extension", null) : null;
-            string result = value != null ? value.ToString() : string.Empty;
+            using (RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false))
+            {
+                object value = key != null ? key.GetValue("Extension", null) : null;
+                string result = value != null ? value.ToString() : string.Empty;
 
-            return result;
+                return result;
+            }
         }
 
 
