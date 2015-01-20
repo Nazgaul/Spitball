@@ -29,6 +29,7 @@
             isFetching = true;
             dashboard.loading = true;
             dashboardService.getBoxList(page).then(function (boxes) {
+                boxes = boxes || [];
                 page++;
 
                 if (!boxes.length) {
