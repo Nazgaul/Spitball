@@ -37,6 +37,10 @@
                     return;
                 }
 
+                if (boxes.length < 20) {
+                    getRecommended();
+                }
+
 
 
                 if (!isAppend) {
