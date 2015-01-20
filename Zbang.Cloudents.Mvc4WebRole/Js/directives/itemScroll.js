@@ -11,7 +11,13 @@
                   return;
               }
 
-              $win.on('scroll', function (e) {
+              $win.on('scroll', scroll);
+
+              scope.$on('$destroy', function () {
+                  $win.off('scroll',scroll);
+              });
+
+              function scroll(e) {
                   if (!scrolled) {
 
                       if ($win.scrollTop() < ($win.height() * 1.5) / 2) {
