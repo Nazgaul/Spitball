@@ -57,7 +57,7 @@
   margin-right: 4%;
   clear: both;
 }
-.boxList li:nth-child(even) {
+.boxList li:nth-of-type(even) {
   float: right;
   margin: 0;
   clear: none;
