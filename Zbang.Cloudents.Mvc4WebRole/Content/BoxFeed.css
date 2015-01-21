@@ -67,6 +67,12 @@
 .boxSideBar .bestUserList .thirdUser .rep {
   margin-top: 10px;
 }
+.boxSideBar .bestUserList li:nth-child(n+4) {
+  margin: 0 -40px;
+}
+.boxSideBar .bestUserList .elps {
+  max-width: 200px;
+}
 .boxSideBar .friends {
   padding-top: 2px;
 }
