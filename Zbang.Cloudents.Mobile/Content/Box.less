@@ -59,37 +59,41 @@
 
     li {
         padding: 12px 0 10px;
-        width: 48%;
+        //width: 48%;
+        width:148px;
         font-size: 14px;
         float: left; //rtl //for odd items
         margin-right: 4%; //rtl //for odd items
-        clear: both; //for odd items
-        &:nth-of-type(even) {
-            float: right; //rtl
-            margin: 0;
-            clear: none;
-        }
+        //clear: both; //for odd items
+        
     }
 }
+@media only screen and (max-width: 353px) {
+    .boxList {
+        li{
+            margin-right:5px;
+        }
+    }
+    }
 
 .boxLink {
     margin-bottom: 10px;
     position: relative;
     display: block;
 
-    &:after {
+    /*&:after {
         .pseudo;
         padding-top: 126.3%;
-    }
+    }*/
 
     img {
         width: 100%;
-        height: 100%;
-        position: absolute;
+        height: 188px;
+        /*position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
-        left: 0;
+        left: 0;*/
         border-radius: 5px; //override
         border: 1px solid @borderColor;
         .boxSizing;
