@@ -42,8 +42,6 @@
                     getRecommended();
                 }
 
-
-
                 if (!isAppend) {
                     dashboard.boxes = boxes;                    
                     return;
@@ -72,9 +70,6 @@
             });
         }
         
-        //#endregion
-
-
-    
+        //#endregion    
     }]
 );

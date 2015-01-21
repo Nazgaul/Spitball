@@ -74,7 +74,8 @@
   line-height: 27px;
 }
 .menuBtn {
-  margin: 6px 10px 0;
+  height: 100%;
+  margin-right: 10px;
   position: relative;
 }
 /*.msgCounter {
