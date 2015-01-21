@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
+using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.ReadServices;
@@ -11,14 +12,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     public static class UserLanguage
     {
         public const string CookieName = "l1";
-        public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
+        public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server, RouteData route)
         {
-            if (context.Request.QueryString["lang"] != null)
+            var cookie = new CookieHelper(context);
+            if (route != null && route.Values["lang"] != null)
             {
-                ChangeThreadLanguage(context.Request.QueryString["lang"]);
+                var culture = ChangeThreadLanguage(route.Values["lang"].ToString());
+                cookie.InjectCookie(CookieName, culture);
                 return;
             }
-            var cookie = new CookieHelper(context);
+            if (context.Request.QueryString["lang"] != null)
+            {
+                var culture = ChangeThreadLanguage(context.Request.QueryString["lang"]);
+                cookie.InjectCookie(CookieName, culture);
+                return;
+            }
             var lang = cookie.ReadCookie<string>(CookieName);
             if (lang == null)
             {
@@ -42,13 +50,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             ChangeThreadLanguage(lang);
         }
-        public static void ChangeThreadLanguage(string language)
+        public static string ChangeThreadLanguage(string language)
         {
             if (!Languages.CheckIfLanguageIsSupported(language))
             {
-                return;
+                return Thread.CurrentThread.CurrentUICulture.Name;
             }
-            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+            if (Thread.CurrentThread.CurrentUICulture.Name == language)
+            {
+                return Thread.CurrentThread.CurrentUICulture.Name;
+            }
             try
             {
                 var cultureInfo = new CultureInfo(language);
@@ -56,7 +67,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             catch (CultureNotFoundException)
             {
+
             }
+            return Thread.CurrentThread.CurrentUICulture.Name;
         }
 
         private static void ChangeThreadCulture(CultureInfo cultureInfo)

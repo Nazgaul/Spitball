@@ -111,6 +111,13 @@
                 templateUrl: '/account/indexpartial/',
                 controller: 'AccountCtrl'
             }).
+            when('/account/:lang', {
+                params: {
+                    type: 'account'
+                },
+                templateUrl: '/account/indexpartial/',
+                controller: 'AccountCtrl'
+            }).
            when('/dashboard/', {
                params: {
                    type: 'dashboard'

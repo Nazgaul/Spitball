@@ -282,6 +282,7 @@
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RedirectToMobileAttribute.cs" />
+    <Compile Include="Filters\RemoveBoxCookieAttribute.cs" />
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />

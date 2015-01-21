@@ -89,14 +89,4 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             public UserRelationshipType UserType { get; set; }
         }
     }
-
-    public class RemoveBoxCookieAttribute : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            var cookieHelper = new CookieHelper(filterContext.HttpContext);
-            cookieHelper.RemoveCookie("p");
-            base.OnActionExecuting(filterContext);
-        }
-    }
 }

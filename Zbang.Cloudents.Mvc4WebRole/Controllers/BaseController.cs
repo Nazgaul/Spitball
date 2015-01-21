@@ -59,11 +59,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 HttpNotFound().ExecuteResult(ControllerContext);
                 return;
             }
-           // View("Error").ExecuteResult(ControllerContext);
+            // View("Error").ExecuteResult(ControllerContext);
             //base.HandleUnknownAction(actionName);
         }
 
-       
+
 
         protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
         {
@@ -117,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (!ControllerContext.IsChildAction)
                 {
-                    UserLanguage.ChangeLanguage(HttpContext, Server);
+                    UserLanguage.ChangeLanguage(requestContext.HttpContext, Server, requestContext.RouteData);
                 }
             }
             catch (Exception ex)
