@@ -614,7 +614,6 @@
   float: right;
   /*rtl*/
   height: 78px;
-  z-index: 1;
 }
 .upInviteItem:hover:after {
   content: '';
