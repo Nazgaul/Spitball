@@ -63,10 +63,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                if (itemName != UrlBuilder.NameToQueryString(item.Name))
-                {
-                    throw new ItemNotFoundException();
-                }
+                //if (itemName != UrlBuilder.NameToQueryString(item.Name))
+                //{
+                //    throw new ItemNotFoundException();
+                //}
 
                 if (!string.IsNullOrEmpty(item.Country))
                 {

@@ -378,14 +378,6 @@ body.quiz .modal-backdrop.in {
   text-align: center;
   margin: 0 auto;
 }
-.quizPreviewTop .svg-back,
-.quizTop .svg-back {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
 .quizPreviewScroll {
   height: 100%;
   overflow: auto;

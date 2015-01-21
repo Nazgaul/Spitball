@@ -290,6 +290,14 @@
   margin-left: 10px;
   vertical-align: middle;
 }
+.featureTxt1 span,
+.featureTxt2 span,
+.featureTxt3 span {
+  white-space: pre-line;
+  line-height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
 .featureTxt2 {
   border-right: 1px solid #0f9d58;
   border-left: 1px solid #0f9d58;
