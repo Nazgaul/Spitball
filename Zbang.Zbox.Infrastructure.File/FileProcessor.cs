@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Infrastructure.File
         protected const int NumberOfFilesInGroup = 20;
         protected const int ThumbnailWidth = 148;
         protected const int ThumbnailHeight = 187;
+        
 
         protected readonly IBlobProvider BlobProvider;
 

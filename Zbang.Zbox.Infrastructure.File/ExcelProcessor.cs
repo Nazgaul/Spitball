@@ -143,44 +143,41 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                SetLicense();
+                var excel = new Workbook(path);
+                var wb = excel.Worksheets[0];
+                //ScalePageSetupToFitPage(wb);
+
+                var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+
+                var sr = new SheetRender(wb, imgOptions);
+                var img = sr.ToImage(0);
+                if (img == null)
                 {
-                    SetLicense();
-                    var excel = new Workbook(stream);
-                    var wb = excel.Worksheets[0];
-                    //ScalePageSetupToFitPage(wb);
-
-                    var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-
-                    var sr = new SheetRender(wb, imgOptions);
-                    var img = sr.ToImage(0);
-                    if (img == null)
-                    {
-                        return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
-                    }
-                    var settings = new ResizeSettings
-                    {
-                        Scale = ScaleMode.UpscaleCanvas,
-                        Anchor = ContentAlignment.MiddleCenter,
-                        BackgroundColor = Color.White,
-                        Mode = FitMode.Crop,
-                        Width = ThumbnailWidth,
-                        Height = ThumbnailHeight,
-                        Quality = 80,
-                        Format = "jpg"
-                    };
-
-                    // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
-
-                    using (var output = new MemoryStream())
-                    {
-                        ImageBuilder.Current.Build(img, output, settings);
-                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                    }
-
+                    return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
                 }
+                var settings = new ResizeSettings
+                {
+                    Scale = ScaleMode.UpscaleCanvas,
+                    Anchor = ContentAlignment.MiddleCenter,
+                    BackgroundColor = Color.White,
+                    Mode = FitMode.Crop,
+                    Width = ThumbnailWidth,
+                    Height = ThumbnailHeight,
+                    Quality = 80,
+                    Format = "jpg"
+                };
+
+                using (var output = new MemoryStream())
+                {
+                    ImageBuilder.Current.Build(img, output, settings);
+                    var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                    await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
+                    return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
+                }
+
+
             }
             catch (Exception ex)
             {

@@ -125,7 +125,9 @@ namespace Zbang.Zbox.ReadServices
                 --'wordv4.jpg',
                 --'excelv4.jpg'
                 --)
-                and isdeleted = 0 order by itemid
+                and isdeleted = 0
+                and itemid > 121
+                order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100 });
 

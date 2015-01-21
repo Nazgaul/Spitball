@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Net;
+using System.Text;
 using System.Threading;
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
@@ -10,13 +11,15 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Aspose.Pdf.Text.TextOptions;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class PdfProcessor : FileProcessor 
+    public class PdfProcessor : FileProcessor
     {
 
         const string CacheVersion = "V4";
@@ -128,25 +131,29 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                using (var stream = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                using (var pdfDocument = new Document(path))
                 {
-                    using (var pdfDocument = new Document(stream))
+                    var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
+                    using (var ms = new MemoryStream())
                     {
-                        var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
-                        using (var ms = new MemoryStream())
-                        {
-                            jpegDevice.Process(pdfDocument.Pages[1], ms);
-                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg", cancelToken);
 
-                            return new PreProcessFileResult
-                            {
-                                ThumbnailName = thumbnailBlobAddressUri,
-                                FileTextContent = ExtractPdfText(pdfDocument)
-                            };
-                        }
+                        jpegDevice.Process(pdfDocument.Pages[1], ms);
+                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                        var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg", cancelToken);
+                        var textInDocument = ExtractPdfText(pdfDocument);
+                        var t2 = BlobProvider.SaveMetaDataToBlobAsync(blobName,
+                             new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, textInDocument } });
+
+                        await Task.WhenAll(t1, t2);
+                        return new PreProcessFileResult
+                        {
+                            ThumbnailName = thumbnailBlobAddressUri,
+                            FileTextContent = textInDocument
+                        };
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -155,20 +162,55 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
+
+
+
+        
+
         private string ExtractPdfText(Document doc)
         {
             try
             {
-                var textAbsorber = new TextAbsorber();
-                for (var i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
+                var builder = new StringBuilder();
+                //string to hold extracted text
+                string extractedText = "";
+                foreach (Page pdfPage in doc.Pages)
                 {
-                    doc.Pages[i].Accept(textAbsorber);
+
+                    using (var textStream = new MemoryStream())
+                    {
+                        //create text device
+                        var textDevice = new TextDevice();
+
+                        //set text extraction options - set text extraction mode (Raw or Pure)
+                        var textExtOptions = new
+                        TextExtractionOptions(TextExtractionOptions.TextFormattingMode.Pure);
+                        textDevice.ExtractionOptions = textExtOptions;
+
+                        //convert a particular page and save text to the stream
+                        textDevice.Process(pdfPage, textStream);
+
+                        //close memory stream
+                        textStream.Close();
+
+                        //get text from memory stream
+                        extractedText = Encoding.Unicode.GetString(textStream.ToArray());
+                        extractedText = Regex.Replace(extractedText, @"\s+", " ");
+                    }
+                    builder.Append(extractedText);
+                    if (builder.Length > 5000)
+                    {
+                        break;
+                    }
                 }
-                var str = textAbsorber.Text;
-                str = str.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                str = Regex.Replace(str, @"\s+", " ");
-                str = WebUtility.HtmlEncode(str);
-                return str.Substring(0, Math.Min(400, str.Length));
+                //var textAbsorber = new TextAbsorber();
+                //for (var i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
+                //{
+                //    doc.Pages[i].Accept(textAbsorber);
+                //}
+                //var str = textAbsorber.Text;
+                builder = builder.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
+                return builder.ToString();
             }
             catch (Exception ex)
             {
@@ -181,6 +223,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return ThumbnailProvider.PdfFileTypePicture;
         }
 
-       
+
     }
 }

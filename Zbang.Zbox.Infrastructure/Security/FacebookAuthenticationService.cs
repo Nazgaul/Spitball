@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                     //user can be without email if its not verified in facebook
                     if (string.IsNullOrEmpty(user.email))
                     {
-                        throw new NullReferenceException("email");
+                        user.email = string.Format("{0}@facebook.com", user.id);
                     }
                     user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
                     user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);

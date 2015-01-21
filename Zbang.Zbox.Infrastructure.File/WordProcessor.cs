@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -104,45 +105,49 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, 
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var sr = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                SetLicense();
+                var word = new Document(path);
+
+                var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                 {
-                    SetLicense();
-                    var word = new Document(sr);
-                    
-                    var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+                    JpegQuality = 80,
+                };
+                var settings = new ResizeSettings
+                {
+                    Width = ThumbnailWidth,
+                    Height = ThumbnailHeight,
+                    Quality = 80,
+                    Format = "jpg"
+                };
+                using (var ms = new MemoryStream())
+                {
+                    word.Save(ms, imgOptions);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    using (var output = new MemoryStream())
                     {
-                        JpegQuality = 80,
-                    };
-                    var settings = new ResizeSettings
-                    {
-                        Width = ThumbnailWidth,
-                        Height = ThumbnailHeight,
-                        Quality = 80,
-                        Format = "jpg"
-                    };
-                    using (var ms = new MemoryStream())
-                    {
-                        word.Save(ms, imgOptions);
-                        ms.Seek(0, SeekOrigin.Begin);
-                        using (var output = new MemoryStream())
+                        ImageBuilder.Current.Build(ms, output, settings);
+                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                        var textInDocument = ExtractDocumentText(word);
+                        var t1 = 
+                            BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
+                                cancelToken);
+
+                        var t2 = BlobProvider.SaveMetaDataToBlobAsync(blobName,
+                             new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, textInDocument.RemoveEndOfString(5000) } });
+
+                        await Task.WhenAll(t1, t2);
+                        return new PreProcessFileResult
                         {
-                            ImageBuilder.Current.Build(ms, output, settings);
-                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            await
-                                BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
-                                    cancelToken);
-                            return new PreProcessFileResult
-                            {
-                                ThumbnailName = thumbnailBlobAddressUri,
-                                FileTextContent = ExtractDocumentText(word)
-                            };
-                        }
+                            ThumbnailName = thumbnailBlobAddressUri,
+                            FileTextContent = textInDocument
+                        };
                     }
                 }
             }
@@ -161,8 +166,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 str = str.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
                 str = Regex.Replace(str, @"\s+", " ");
-                str = WebUtility.HtmlEncode(str);
-                return str.Substring(0, Math.Min(400, str.Length));
+                return str;
             }
             catch (Exception ex)
             {
