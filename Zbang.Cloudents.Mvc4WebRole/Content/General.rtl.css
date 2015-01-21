@@ -2010,12 +2010,15 @@ select.inputText {
   animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
 }
 /*#endregion */
-.mtouch .boxRename.boxRename,
-.mtouch .itemRenameBtn.itemRenameBtn,
-.mtouch .ratePopup.ratePopup .closeDialog,
-.mtouch .removeItem.removeItem {
-  display: inline-block;
-}
+/*.mtouch{   
+    // this applies to rename btn in library,box and item pages
+    //NB: display:block broke layout in library page.
+    .boxRename.boxRename, .itemRenameBtn.itemRenameBtn,
+    .ratePopup.ratePopup .closeDialog, .removeItem.removeItem 
+    {
+        display: inline-block; 
+    }
+}*/
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
   body input.radio[type="radio"]:checked + label:after {
