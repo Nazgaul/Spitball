@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.Services
 
         private void UpdateAllUrlsInSystem()
         {
-            int i = 151;
+            int i = 0;
             TraceLog.WriteInfo("starting on item");
             var items = UnitOfWork.CurrentSession.QueryOver<Item>()
                 //.Where(Restrictions.Gt(Projections.SqlFunction("CHARINDEX",
@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.Services
                 //    Projections.Property<Item>(p => p.Url)
                 //    ),
                 //    0))
-                .And(w=>w.IsDeleted == false)
+                .And(w => w.IsDeleted == false)
                 .OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
@@ -99,9 +99,11 @@ namespace Zbang.Zbox.Domain.Services
                     .OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (boxes.Count > 0);
 
-            i = 0;
+           i = 0;
             TraceLog.WriteInfo("starting on quiz");
-            var quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc
+            var quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                .Where(w=>w.Publish)
+                .OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
             {
@@ -116,7 +118,9 @@ namespace Zbang.Zbox.Domain.Services
                     tx.Commit();
                     i++;
                 }
-                quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>().OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
+                quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
+                    .Where(w => w.Publish)
+                    .OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (quizzes.Count > 0);
 
             TraceLog.WriteInfo("starting on library");

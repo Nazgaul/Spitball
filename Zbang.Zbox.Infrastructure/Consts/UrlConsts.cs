@@ -195,6 +195,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
                     case ' ':
                     case '_':
                     case '-':
+                    case (char)65288:
+                    case (char)65289:
                         if (previousChar != '-')
                         {
                             sb.Append('-');
