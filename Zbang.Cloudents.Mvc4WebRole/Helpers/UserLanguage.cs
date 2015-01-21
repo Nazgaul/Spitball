@@ -4,6 +4,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.ReadServices;
 
