@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {

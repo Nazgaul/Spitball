@@ -296,7 +296,6 @@
     <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsSessionStateStore.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
-    <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
@@ -2166,6 +2165,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zbang.Cloudents.SiteExtension\Zbang.Cloudents.SiteExtension.csproj">
+      <Project>{aba85231-d459-4c97-80e0-b6771e1c79a2}</Project>
+      <Name>Zbang.Cloudents.SiteExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
       <Project>{9ed04567-b2d0-4040-88a6-1ad752a3d83f}</Project>
       <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
