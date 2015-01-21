@@ -80,10 +80,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                //if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-                //{
-                //    throw new ItemNotFoundException();
-                //}
+                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                {
+                    throw new ItemNotFoundException();
+                }
                 if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
 

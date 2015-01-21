@@ -48,10 +48,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
-                //if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
-                //{
-                //    throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
-                //}
+                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                {
+                    throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
+                }
                 if (model.BoxType == BoxType.Box)
                 {
                     ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
