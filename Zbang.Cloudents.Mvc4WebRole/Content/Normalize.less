@@ -357,6 +357,13 @@ input::-moz-focus-inner {
   padding: 0;
 }
 
+//Remove red border in required form input (firefox) //mine (see bug 3203)
+input {
+    &:required, &:invalid {
+        box-shadow: none;
+    }
+}
+
 /**
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
