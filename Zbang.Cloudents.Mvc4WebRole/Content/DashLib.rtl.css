@@ -10,7 +10,6 @@
   height: 100%;
   vertical-align: top;
   min-width: 1058px;
-  overflow: auto;
 }
 .dashContent,
 .libraryContent {

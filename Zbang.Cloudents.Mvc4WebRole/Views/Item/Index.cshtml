@@ -59,7 +59,7 @@
             </h2>
             <div class="uploadInfo">
                 <span class="itemOwner elps" user-tooltip-popup="{{item.ownerId}}">{{item.owner}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <time>{{item.updateTime | date:'d MMM yyyy'}}</time>
+                <time>{{item.updateTime | date:'d.M.yy'}}</time>
             </div>
         </div>
         <div class="secondRow">
@@ -133,8 +133,8 @@
     </div>
     <div class="itemRight" load-spinner="load.contentLoading" load-spinner-type="init" load-spinner-time="1000">
         <div class="arrowsWpr">
-            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="rFloat navBtn" analytics-on="click" analytics-event="Navigate Previous Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next" })</a>
-            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="lFloat navBtn" analytics-on="click" analytics-event="Navigate Next Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev" })</a>
+            <a ng-show="item.navigation.previous" ng-if="canNavigate" ng-href="{{item.navigation.previous}}" class="rFloat navBtn" analytics-on="click" analytics-event="Navigate Previous Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-next ltr" })</a>
+            <a ng-show="item.navigation.next" ng-if="canNavigate" ng-href="{{item.navigation.next}}" class="lFloat navBtn" analytics-on="click" analytics-event="Navigate Next Item" analytics-category="Item">@Html.Svg("~/Images/Defs.svg", "right", new { @class = "svg-prev rtl" })</a>
         </div>
         <div class="itemPreview scrollEffect" ng-class="{fulscrn: fullScreen}">
             <div class="previewWrapper" ng-bind-html="preview" infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-immediate-check="false"></div>
