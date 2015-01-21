@@ -139,8 +139,7 @@ namespace Zbang.Zbox.Infrastructure.File
                             BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
                                 cancelToken);
 
-                        var t2 = BlobProvider.SaveMetaDataToBlobAsync(blobName,
-                             new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, textInDocument.RemoveEndOfString(5000) } });
+                        var t2 = UploadMetaData(textInDocument, blobName);
 
                         await Task.WhenAll(t1, t2);
                         return new PreProcessFileResult
@@ -163,9 +162,7 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var str = doc.ToString(SaveFormat.Text);
-
-                str = str.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                str = Regex.Replace(str, @"\s+", " ");
+                str = StripUnwantedChars(str); 
                 return str;
             }
             catch (Exception ex)

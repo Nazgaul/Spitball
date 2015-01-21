@@ -158,8 +158,7 @@ namespace Zbang.Zbox.Infrastructure.File
                             var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
                             var pptContent = ExtractStringFromPpt(pptx);
 
-                            var t2 = BlobProvider.SaveMetaDataToBlobAsync(blobName,
-                                new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, pptContent } });
+                            var t2 = UploadMetaData(pptContent, blobName);
 
                             await Task.WhenAll(t1, t2);
                             return new PreProcessFileResult
@@ -199,8 +198,8 @@ namespace Zbang.Zbox.Infrastructure.File
                             }
                         }
 
-                sb = sb.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                return Regex.Replace(sb.ToString(), @"\s+", " ");
+
+                return StripUnwantedChars(sb.ToString());
             }
             catch (Exception ex)
             {

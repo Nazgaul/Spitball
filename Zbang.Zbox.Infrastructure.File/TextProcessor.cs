@@ -33,10 +33,9 @@ namespace Zbang.Zbox.Infrastructure.File
                         break;
                     }
                 }
-
                 var content = sb.ToString();
-                await BlobProvider.SaveMetaDataToBlobAsync(blobName,
-                        new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, content } });
+                content = StripUnwantedChars(content);
+                await UploadMetaData(content, blobName);
                 return new PreProcessFileResult
                 {
                     ThumbnailName = GetDefaultThumbnailPicture(),

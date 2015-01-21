@@ -137,14 +137,13 @@ namespace Zbang.Zbox.Infrastructure.File
                     var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
                     using (var ms = new MemoryStream())
                     {
-
+                        var list = new List<Task>();
                         jpegDevice.Process(pdfDocument.Pages[1], ms);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg", cancelToken);
+                        var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg",
+                            cancelToken);
                         var textInDocument = ExtractPdfText(pdfDocument);
-                        var t2 = BlobProvider.SaveMetaDataToBlobAsync(blobName,
-                             new Dictionary<string, string> { { StorageConsts.ContentMetaDataKey, textInDocument } });
-
+                        var t2 = UploadMetaData(textInDocument, blobName);
                         await Task.WhenAll(t1, t2);
                         return new PreProcessFileResult
                         {
@@ -195,7 +194,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                         //get text from memory stream
                         extractedText = Encoding.Unicode.GetString(textStream.ToArray());
-                        extractedText = Regex.Replace(extractedText, @"\s+", " ");
+                        extractedText = StripUnwantedChars(extractedText);
                     }
                     builder.Append(extractedText);
                     if (builder.Length > 5000)
@@ -209,8 +208,8 @@ namespace Zbang.Zbox.Infrastructure.File
                 //    doc.Pages[i].Accept(textAbsorber);
                 //}
                 //var str = textAbsorber.Text;
-                builder = builder.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                return builder.ToString();
+                var str = StripUnwantedChars(builder.ToString());
+                return str;
             }
             catch (Exception ex)
             {
