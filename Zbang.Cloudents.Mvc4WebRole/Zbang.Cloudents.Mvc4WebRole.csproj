@@ -1048,6 +1048,7 @@
     <Content Include="Js\directives\boxItemTooltip.js" />
     <Content Include="Js\directives\dropZone.js" />
     <Content Include="Js\directives\fbBlock.js" />
+    <Content Include="Js\directives\fileReader.js" />
     <Content Include="Js\directives\focusForm.js" />
     <Content Include="Js\directives\itemScroll.js" />
     <Content Include="Js\directives\homePageScroll.js" />
