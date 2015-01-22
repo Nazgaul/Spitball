@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 
@@ -23,10 +24,18 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobName = GetBlobNameFromUri(blobUri);
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
-                var content = await stream.ReadToEndAsync();
-                content = WebUtility.HtmlEncode(content);
-                content = content.Substring(0, Math.Min(400, content.Length));
-                await UploadFileToCache(stream.BaseStream, CreateCacheFileName(blobName));
+                var sb = new StringBuilder();
+                while (stream.Peek() > 0)
+                {
+                    sb.AppendLine(await stream.ReadLineAsync());
+                    if (sb.Length > 5000)
+                    {
+                        break;
+                    }
+                }
+                var content = sb.ToString();
+                content = StripUnwantedChars(content);
+                await UploadMetaData(content, blobName);
                 return new PreProcessFileResult
                 {
                     ThumbnailName = GetDefaultThumbnailPicture(),

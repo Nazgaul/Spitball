@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 898;
+                int index = 0;
                 bool cont = true;
                 while (cont)
                 {
@@ -103,7 +103,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 try
                 {
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.PreProcessFile(blobUri, tokenSource.Token);
                     if (retVal == null)
@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(2));
+            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(10));
             if (!signal)
             {
                 work.Abort();

@@ -43,7 +43,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 command.FileContent = null;
             }
-            file.Content = command.FileContent;
+            else
+            {
+                file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(500);
+            }
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {
                 m_ItemRepository.Save(file);

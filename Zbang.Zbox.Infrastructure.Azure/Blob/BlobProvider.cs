@@ -156,13 +156,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return ThumbnailContainerUrl + blobName;
         }
 
-        string LinkThumbnailUrl
-        {
-            get { return GetThumbnailUrl("linkv2.jpg"); }
-        }
         public string GetThumbnailLinkUrl()
         {
-            return LinkThumbnailUrl;
+            return GetThumbnailUrl("linkv2.jpg"); ;
         }
 
         private CloudBlobClient m_BlobClient;
@@ -217,10 +213,62 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
-                //   System.Convert.ToBase64String(
-                blob.Metadata.Add(item.Key, item.Value);
+                blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower().RemoveEndOfString(4500)));
+                //blob.Metadata.Add(item.Key, StripElementForMetaData(item.Value.ToLower().RemoveEndOfString(5000)));
             }
             return blob.SetMetadataAsync();
+        }
+
+        private string StripElementForMetaData(string value)
+        {
+            var sb = new StringBuilder();
+            int crlf = 0;
+            for (int i = 0; i < value.Length; ++i)
+            {
+                char c = (char)(0x000000ff & (uint)value[i]);
+                sb.Append(value[i]);
+                switch (crlf)
+                {
+                    case 0:
+                        if (c == '\r')
+                        {
+                            crlf = 1;
+                        }
+                        else if (c == '\n')
+                        {
+                            // Technically this is bad HTTP.  But it would be a breaking change to throw here.
+                            // Is there an exploit?
+                            crlf = 2;
+                        }
+                        else if (c == 127 || (c < ' ' && c != '\t'))
+                        {
+                            sb.Remove(sb.Length - 1, 1);
+
+                        }
+                        break;
+
+                    case 1:
+                        if (c == '\n')
+                        {
+                            crlf = 2;
+                            break;
+                        }
+                        throw new ArgumentException();
+
+                    case 2:
+                        if (c == ' ' || c == '\t')
+                        {
+                            crlf = 0;
+                            break;
+                        }
+                        throw new ArgumentException();
+                }
+            }
+            if (crlf != 0)
+            {
+                throw new ArgumentException();
+            }
+            return sb.ToString();
         }
 
 
@@ -277,7 +325,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-       
+
 
 
         #region Cache
@@ -319,7 +367,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
 
-       
+
         #endregion
 
         #region UploadFile
@@ -499,7 +547,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.DownloadToStreamAsync(ms, cancelToken);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
-            
+
         }
 
         public Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken)
@@ -508,12 +556,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.OpenReadAsync(cancelToken);
         }
 
-        //public Task<string> DownloadFileToSystemAsync(string fileName)
-        //{
-        //    CloudBlockBlob blob = GetFile(fileName);
-        //    //m_LocalStorageProvider.
-        //    return blob.DownloadToFileAsync(systemLocation, FileMode.Create);
-        //}
+        public async Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)
+        {
+            var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, fileName);
+            CloudBlockBlob blob = GetFile(fileName);
+            try
+            {
+                await blob.DownloadToFileAsync(fileSystemLocation,
+                    FileMode.Create, cancelToken);
+                return fileSystemLocation;
+            }
+            catch (IOException)
+            {
+                m_LocalStorageProvider.DeleteOldFiles();
+            }
+            await blob.DownloadToFileAsync(fileSystemLocation,
+                    FileMode.Create, cancelToken);
+            return fileSystemLocation;
+
+        }
 
 
         #endregion

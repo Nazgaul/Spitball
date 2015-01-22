@@ -14,6 +14,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         byte[] ReadFileFromStorage(string fileName);
 
 
+        string LocalStorageLocation { get; }
+        void DeleteOldFiles();
 
         //DateTime GetFileLastModified(string fileName);
     }

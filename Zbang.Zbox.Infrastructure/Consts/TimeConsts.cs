@@ -11,4 +11,9 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int Month = Day * 30;
         public const int Year = Day * 365;
     }
+
+    public class StorageConsts
+    {
+        public const string ContentMetaDataKey = "content";
+    }
 }

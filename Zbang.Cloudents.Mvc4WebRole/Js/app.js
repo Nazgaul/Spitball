@@ -172,6 +172,12 @@
                reloadOnSearch: false
 
            }).
+           when('/quiz/create/', {
+               params: {
+                   type: 'quiz'
+               },
+               templateUrl: '/quiz/createpartial/'
+           }).
            when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
                params: {
                    type: 'quiz'

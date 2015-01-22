@@ -52,13 +52,13 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
 
-            using (var stream = await BlobProvider.DownloadFileAsync(blobName))
+            using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
             {
                 if (stream.Length == 0)
                 {
                     throw new ArgumentException("Stream is 0");
                 }
-                var settings = new ResizeSettings {Mode = FitMode.Max};
+                var settings = new ResizeSettings { Mode = FitMode.Max };
                 using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
                 {
                     var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
@@ -110,16 +110,11 @@ namespace Zbang.Zbox.Infrastructure.File
             return m_PreviewDimension[key];
         }
 
-        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg" , ".bmp" };
+        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
-            {
-                return ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-            }
-            return false;
-
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
@@ -127,33 +122,26 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName))
+                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     if (stream.Length == 0)
                     {
                         TraceLog.WriteError("image is empty" + blobName);
-                        return new PreProcessFileResult {ThumbnailName = GetDefaultThumbnailPicture()};
+                        return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
                     }
-                    //var settings = new ResizeSettings
-                    //{
-                    //    Scale = ScaleMode.UpscaleCanvas,
-                    //    Anchor = ContentAlignment.MiddleCenter,
-                    //    BackgroundColor = Color.White,
-                    //    Mode = FitMode.Crop
-                    //};
                     var settings = new ResizeSettings
                     {
-                        
+
                         Anchor = ContentAlignment.MiddleCenter,
                         BackgroundColor = Color.White,
-                       // Mode = FitMode.Crop,
+                        // Mode = FitMode.Crop,
                         Scale = ScaleMode.UpscaleCanvas
                     };
 
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
-                       await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg");
+                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg", cancelToken);
                         return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
                     }
 
