@@ -135,13 +135,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        //[HttpGet]
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //[BoxPermission("id")]
+        //public async Task<JsonResult> SideBar(long id)
+        //{
+        //    var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
+        //    var t1 = ZboxReadService.GetBoxRecommendedCourses(query);
+            
+        //    return JsonOk(result);
+        //}
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> SideBar(long id)
+        public async Task<JsonResult> Recommended(long id)
         {
             var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-            var result = await ZboxReadService.GetBoxSideBar(query);
+            var result = await ZboxReadService.GetBoxRecommendedCourses(query);
+            return JsonOk(result);
+        }
+        [HttpGet]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
+        public async Task<JsonResult> LeaderBoard(long id)
+        {
+            var query = new GetLeaderBoardQuery(id);
+            var result = await ZboxReadService.GetBoxLeaderBoard(query);
             return JsonOk(result);
         }
 

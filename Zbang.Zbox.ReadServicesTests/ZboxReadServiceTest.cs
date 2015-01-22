@@ -824,12 +824,26 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public async Task GetBoxSideBar_Query_ReturnResult()
+        public async Task GetBoxLeaderBoard_Query_ReturnResult()
         {
-            var query = new GetBoxSideBarQuery(60130, 1);
+            var query = new GetLeaderBoardQuery(60130);
             try
             {
-                var x = await m_ZboxReadService.GetBoxSideBar(query);
+                var x = await m_ZboxReadService.GetBoxLeaderBoard(query);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Expected no exception, but got: " + ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetBoxRecommendedCourses_Query_ReturnResult()
+        {
+            var query = new GetBoxSideBarQuery(60130,1);
+            try
+            {
+                var x = await m_ZboxReadService.GetBoxRecommendedCourses(query);
             }
             catch (Exception ex)
             {
