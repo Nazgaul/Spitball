@@ -127,6 +127,7 @@
     <Compile Include="UpdateReputationCommand.cs" />
     <Compile Include="UpdateStatisticsCommand.cs" />
     <Compile Include="UpdateThumbnailCommand.cs" />
+    <Compile Include="UpdateUniversityStatsCommand.cs" />
     <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />

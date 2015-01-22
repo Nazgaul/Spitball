@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserUniversityCommand>), typeof(UpdateUserUniversityCommandHandler));
 
 
-            //anotation
+            //annotation
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddAnnotationCommand>), typeof(AddAnnotationCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddReplyToAnnotationCommand>), typeof(AddReplyToAnnotationCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
@@ -70,6 +70,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
             //create university app
             ioc.RegisterType(typeof(ICommandHandler<CreateUniversityCommand>), typeof(CreateUniversityCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<UpdateUniversityStatsCommand>), typeof(UpdateUniversityStatsCommandHandler));
+            
 
             //QnA
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand>), typeof(AddQuestionCommandHandler));

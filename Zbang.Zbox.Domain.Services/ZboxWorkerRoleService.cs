@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using NHibernate.Proxy;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Commands.Store;
@@ -99,10 +100,10 @@ namespace Zbang.Zbox.Domain.Services
                     .OrderBy(o => o.Id).Asc.Skip(i * 100).Take(100).List();
             } while (boxes.Count > 0);
 
-           i = 0;
+            i = 0;
             TraceLog.WriteInfo("starting on quiz");
             var quizzes = UnitOfWork.CurrentSession.QueryOver<Quiz>()
-                .Where(w=>w.Publish)
+                .Where(w => w.Publish)
                 .OrderBy(o => o.Id).Asc
                 .Skip(i * 100).Take(100).List();
             do
@@ -165,30 +166,20 @@ namespace Zbang.Zbox.Domain.Services
 
         public bool Dbi(int index)
         {
-            UpdateAdminReputation();
+            UpdateUniversityStats();
             return false;
         }
 
-        private void UpdateAdminReputation()
+        private void UpdateUniversityStats()
         {
-            using (var conn = DapperConnection.OpenConnection())
+            using (UnitOfWork.Start())
             {
-                var universitiesIds = conn.Query("SELECT id FROM zbox.university");
-                foreach (var universitiesId in universitiesIds)
-                {
-                    const string sql = @"with topreputation as (
-                        select userreputation , ROW_NUMBER() OVER(ORDER BY userreputation DESC) AS Row
-                         from zbox.users u
-                        where universityid = @id
-                        )
-                        update zbox.University set AdminScore = (
-                        select  top 1 UserReputation  from topreputation 
-                        where Row <= (select AdminNoOfPeople from zbox.University where id = @id)
-                        order by Row desc)
-                        where id = @id;";
-
-                    conn.Execute(sql, new { universitiesId.id });
-                }
+                var universitiesIds = UnitOfWork.CurrentSession.Query<University>()
+                    .Where(s => s.IsDeleted == false)
+                    .Select(s => s.Id);
+                var command = new UpdateUniversityStatsCommand(universitiesIds);
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
             }
         }
 
