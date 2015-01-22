@@ -215,6 +215,12 @@ namespace Zbang.Zbox.Domain
            // Department = null;
         }
 
+        public virtual bool IsAdmin()
+        {
+            return UserType == UserType.TooHighScore ||
+                   Reputation >= University.AdminScore;
+        }
+
         public virtual void UpdateEmail(string email)
         {
             Email = email;

@@ -181,7 +181,7 @@ and userreputation > 0
      uu.UniversityName as UniversityName,
      uu.Country as UniversityCountry,
 	 uu.id as UniversityId,
-     case when u.UserReputation >= uu.AdminScore then 1 else 0 end as isAdmin
+     case when u.UserReputation >= uu.AdminScore or usertype = 1 then 1 else 0 end  as isAdmin
      from zbox.Users u 
 	 left join zbox.University uu on u.UniversityId = uu.Id
      where u.userid = @UserId";
