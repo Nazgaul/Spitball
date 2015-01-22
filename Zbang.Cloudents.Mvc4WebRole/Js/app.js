@@ -3,7 +3,7 @@
     "use strict";
     app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar',
         'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
-       'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard',
+       'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard', 'textAngular',
        'mBox', 'mItem', 'mLibrary', 'mQuiz', 'mUser', 'mSearch', 'debounce', 'angulartics',
        'angulartics.google.analytics']).
    config([
@@ -23,15 +23,82 @@
                maxAge: 45000, //45 seconds
                deleteOnExpire: 'aggressive',
                recycleFreq: 45000,
-               cacheFlushInterval:45000,
+               cacheFlushInterval: 45000,
                storageMode: 'sessionStorage'
            });
+
+
+           $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+               taRegisterTool('embedImage', {
+                   display: '<input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" />',
+                   action: function (imageLink) {
+                       if (angular.isString(imageLink)) {
+                           console.log(imageLink);
+                           this.$editor().wrapSelection('insertImage', imageLink);
+                       }
+                   }
+               });
+
+               var fontSize = 3;
+               taRegisterTool('font+', {
+                   display: '<button type="button" name="fontIncrease">+</button>',
+                   action: function () {
+                       if (fontSize < 7) {
+                           fontSize++;
+                       }
+                       
+                       return this.$editor().wrapSelection('fontsize', fontSize);
+                   }                   
+               });
+
+               taRegisterTool('font-', {
+                   display: '<button type="button">-</button>',
+                   action: function (imageLink) {
+                       if (fontSize > 1) {
+                           fontSize--;
+                       }
+                       return  this.$editor().wrapSelection('fontsize', fontSize);
+
+                   },
+               });
+
+               taOptions.toolbar = [
+                   ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
+               ];
+
+               if (Modernizr.inputtypes.color) {
+                   taRegisterTool('color', {
+                       display: '<input type="color" ng-model="color" ng-change="action(color)"/>',
+                       action: function (color) {
+                           if (color !== '') {
+
+
+                               console.log(color)
+                               this.$editor().wrapSelection('forecolor', color);
+                           }
+                       }
+                   });
+
+                   taOptions.toolbar[0].splice(5, 0, 'color');
+               }
+
+               taOptions.classes = {
+                   focussed: 'focused',
+                   toolbar: 'btn-toolbar',
+                   toolbarGroup: 'btn-group',
+                   toolbarButton: 'btn btn-default',
+                   toolbarButtonActive: 'active',
+                   disabled: 'disabled',
+                   textEditor: 'form-control',
+                   htmlEditor: 'form-control'
+               };
+               return taOptions;
+           }]);
 
            $provide.factory('requestinterceptor', [function () {
 
                return {
                    'request': function (config) {
-
                        return config;
                    },
                    // optional method
@@ -68,7 +135,7 @@
                                break;
                            default:
                                // somehow firefox in incognito crash and transfer to error page
-                            //   window.open('/error/', '_self');
+                               //   window.open('/error/', '_self');
                                break;
 
                        }
@@ -164,7 +231,7 @@
                templateUrl: '/item/indexpartial/',
                reloadOnSearch: false
 
-           }).
+           }).            
            when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
                params: {
                    type: 'quiz'
@@ -349,100 +416,100 @@
     app.run(['$rootScope', '$window', '$location', 'sUserDetails', 'sNewUpdates', 'sVerChecker', /*'htmlCache',*/
         function ($rootScope, $window, $location, sUserDetails, sNewUpdates, sVerChecker/*, htmlCache*/) {
 
-        //analytics
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            //analytics
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
 
 
 
-        sVerChecker.checkVersion();
-        $rootScope.$on('$routeChangeStart', function () {
-            $window.scrollTo(0, 0);
-        });
+            sVerChecker.checkVersion();
+            $rootScope.$on('$routeChangeStart', function () {
+                $window.scrollTo(0, 0);
+            });
 
-        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-            //htmlCache.checkState();
+            $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+                //htmlCache.checkState();
 
-            try {
-                if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
-                    event.preventDefault();
-                    $location.path('/library/choose/');
-                    return;
-                }
-                if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
-                    $location.path('/dashboard/');
-                    return;
-                }
-            }
-            catch (ex) {
-
-            }
-
-            //title 
-            if (!previous) { //no previous firsttime load        
                 try {
-
-
-
-                    if (current.$$route.params.type === 'box') {
-                        if (sUserDetails.isAuthenticated()) {
-                            sNewUpdates.removeUpdates(current.params.boxId);
-                        }
-
-                        setBackDashboard();
+                    if (sUserDetails.isAuthenticated() && !sUserDetails.getDetails().university.id) {
+                        event.preventDefault();
+                        $location.path('/library/choose/');
+                        return;
+                    }
+                    if (sUserDetails.isAuthenticated() && current.$$route.params.type === 'account') {
+                        $location.path('/dashboard/');
+                        return;
                     }
                 }
                 catch (ex) {
 
                 }
-                return;
-            }
 
-            try {
-                if (current.$$route.params.type === 'box') {
-                    if (sUserDetails.isAuthenticated()) {
-                        sNewUpdates.removeUpdates(current.params.boxId);
-                    }
+                //title 
+                if (!previous) { //no previous firsttime load        
+                    try {
 
-                    switch (previous.$$route.params.type) {
-                        case 'user':
-                            $rootScope.back.title = previous.pathParams.userName;
-                            $rootScope.back.url = '/user/' + previous.params.userId + '/' + previous.params.userName + '/';
-                            break;
-                        case 'department':
-                            $rootScope.back.title = previous.params.libraryName;
-                            $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
-                            break;
-                        case 'search':
-                            $rootScope.back.title = 'Search "' + previous.params.q + '"';
-                            $rootScope.back.url = previous.loadedTemplateUrl;
-                            break;
-                        default:
+
+
+                        if (current.$$route.params.type === 'box') {
+                            if (sUserDetails.isAuthenticated()) {
+                                sNewUpdates.removeUpdates(current.params.boxId);
+                            }
+
                             setBackDashboard();
-                            break;
+                        }
+                    }
+                    catch (ex) {
+
+                    }
+                    return;
+                }
+
+                try {
+                    if (current.$$route.params.type === 'box') {
+                        if (sUserDetails.isAuthenticated()) {
+                            sNewUpdates.removeUpdates(current.params.boxId);
+                        }
+
+                        switch (previous.$$route.params.type) {
+                            case 'user':
+                                $rootScope.back.title = previous.pathParams.userName;
+                                $rootScope.back.url = '/user/' + previous.params.userId + '/' + previous.params.userName + '/';
+                                break;
+                            case 'department':
+                                $rootScope.back.title = previous.params.libraryName;
+                                $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+                                break;
+                            case 'search':
+                                $rootScope.back.title = 'Search "' + previous.params.q + '"';
+                                $rootScope.back.url = previous.loadedTemplateUrl;
+                                break;
+                            default:
+                                setBackDashboard();
+                                break;
+                        }
+                    }
+
+                    if (current.$$route.params.type === 'department' && previous.$$route.params.type === 'department') {
+                        $rootScope.back.title = previous.params.libraryName;
+                        $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+
                     }
                 }
-
-                if (current.$$route.params.type === 'department' && previous.$$route.params.type === 'department') {
-                    $rootScope.back.title = previous.params.libraryName;
-                    $rootScope.back.url = '/library/' + previous.params.libraryId + '/' + previous.params.libraryName + '/';
+                catch (ex) {
 
                 }
+            });
+
+            function setBackDashboard() {
+                $rootScope.back.url = '/dashboard/';
+                $rootScope.back.title = 'Dashboard';
             }
-            catch (ex) {
 
-            }
-        });
-
-        function setBackDashboard() {
-            $rootScope.back.url = '/dashboard/';
-            $rootScope.back.title = 'Dashboard';
-        }
-
-    }]);
+        }]);
 }(window.angular));

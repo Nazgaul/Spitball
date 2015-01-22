@@ -53,7 +53,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/DashLib.css",
                         "~/Content/Store.css",
                         "~/Content/Home.css",
-                        "~/Content/jquery.mCustomScrollbar.css"
+                        "~/Content/jquery.mCustomScrollbar.css",
+                        "~/Content/textAngular.css",
+                        "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
                     }
                 },
                 {
@@ -99,11 +101,20 @@ namespace Zbang.Cloudents.Mvc4WebRole
                             new JsFileWithCdn("~/scripts/angular-messages.js"
                             //"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-messages.min.js"
                             ),
-                        new JsFileWithCdn("~/scripts/angular-sanitize.js"
-                            //"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-sanitize.min.js"
-                            ),
+                        //new JsFileWithCdn("~/scripts/angular-sanitize.js"
+                        //    //"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-sanitize.min.js"
+                        //    ),
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
+
+                            new JsFileWithCdn("~/scripts/angular-animate.js",
+                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
+
+                            new JsFileWithCdn("~/scripts/textAngular/textAngular-rangy.min.js"),
+                            new JsFileWithCdn("~/scripts/textAngular/textAngular-sanitize.js"),
+                            new JsFileWithCdn("~/scripts/textAngular/textAngular.js"),
+
+
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         //new JsFileWithCdn("~/scripts/angular-appinsights.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
