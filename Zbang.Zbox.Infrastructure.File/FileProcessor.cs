@@ -61,5 +61,11 @@ namespace Zbang.Zbox.Infrastructure.File
             return BlobProvider.SaveMetaDataToBlobAsync(blobName,
                 new Dictionary<string, string> {{StorageConsts.ContentMetaDataKey, fileContent}});
         }
+
+        //protected async Task UploadPreviewToAzure(string blobName, int startPage, int stopPage)
+        //{
+        //    var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+
+        //}
     }
 }
