@@ -20,7 +20,7 @@
         $scope.params = {
             loadCreateQuiz: false,
             showCreateQuiz: false,
-            minQuestions: 3,
+            minQuestions:1,
             minAnswers: 2,
             isDraft: false,
             focus: true
@@ -40,12 +40,10 @@
 
         $scope.reset();
 
-
-        $scope.$on('initQuiz', function (e, data) {
-            $scope.initQuiz(data);
-        });
-
         $scope.initQuiz = function (data) {
+            data = {
+                quiz: {}
+            };
             if ($scope.quiz.id) {
                 if ($scope.quiz.id === data.quizId) {
                     return;
@@ -53,8 +51,8 @@
                 $scope.reset();
                 $rootScope.$broadcast('update-scroll');
             }
-            $scope.quiz.courseId = data.boxId;
-            $scope.quiz.courseName = data.boxName;
+            $scope.quiz.courseId = 8643;
+            $scope.quiz.courseName = 'qa-rocks';
 
             if (!data.quizId) {
                 $scope.params.isDraft = false;
@@ -69,6 +67,8 @@
                 $rootScope.$broadcast('update-scroll');
                 return;
             }
+
+
 
             $scope.quiz.id = data.quizId;
 
@@ -95,6 +95,8 @@
                 $rootScope.$broadcast('update-scroll');
             });
         };
+
+
 
         $scope.closeQuiz = function (isValid) {
             if ($scope.isEmptyQuiz()) {
@@ -603,6 +605,9 @@
             $scope.quiz.showPreview = false;
         });
 
+        $scope.initQuiz();
+
+
     }]).directive('quizPreview', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return function (scope, element, attrs) {
             "use strict";
@@ -621,7 +626,7 @@
                   function showPreview() {
                       element[0].style.display = 'block';
                       $timeout(function () { //fix for animation
-                          $mainDiv.addClass('previewQuiz');
+                          $mainDiv.addClass('jsQuizPreview');
                       });
 
                       $timeout(function () { //fix for animationB                                                    
@@ -632,7 +637,7 @@
                   }
 
                   function hidePreview() {
-                      $mainDiv.removeClass('previewQuiz topBarFix');
+                      $mainDiv.removeClass('jsQuizPreview topBarFix');
                       element[0].style.display = 'none';
                       $('body').removeClass('jsDark');
                   }

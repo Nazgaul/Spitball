@@ -39,32 +39,31 @@ body {
 
 /*#region Create Quiz */
 .bodyContent{
-    &.noQuiz
-    {
-        .quizSideBar {
-            right: -390px; /*rtl*/
+    &.noQuiz {
+        /*.quizSideBar {
+            right: -390px;
         }
         
         .toggleQuiz{
-            right: -22px; /*rtl*/
-        }
+            right: -22px;
+        }*/
     }
-    &.previewQuiz
-    {
+    &.jsQuizPreview,  &.jsCreateQuiz {
         position: fixed; //remove the scroll from existing content of bodyContent
         width: 100%;
+        overflow: hidden; //remove scrollbars of content below
         &.topBarFix {
-            .quizPreview
-            {
+            .quizPreview, .createQuiz {
                 h2,.closePreview {
                     display: block;
                 }
             }
         }
-        .quizPreview
-        {
+        .quizPreview, .createQuiz {
             margin-top: 0; 
         }
+    }
+    &.jsQuizPreview {
         .quizTitle {
             margin: 20px auto;
             width: 800px;
@@ -72,6 +71,10 @@ body {
             max-width: none; //override
         }
     }
+    &.jsCreateQuiz {
+
+    }
+
 }
 .quizAnswer {
     .removeAnswer {
@@ -83,21 +86,87 @@ body {
         }
     }
 }
-.quizSideBar {
+.createQuiz, .quizPreview {
+    margin-top: 100%;
     position: fixed;
+    z-index: 14;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #282828;
+    //color: #fff;
+    .transition(margin .7s ease-in);
+
+    h2{
+        display: none;
+        font-size: 20px;
+        font-weight: normal;
+        padding: 7px 30px 0 30px;
+        .boxSizing;
+    }
+    .closePreview {
+        display:none;
+    }
+}
+//.quizSideBar {
+/*position: fixed;
     top: 50px;
-    right: 0; /*rtl*/
+    right: 0; 
     width: 386px;
     height: ~'-webkit-calc(100% - @{header-height})';
     height: ~'calc(100% - @{header-height})';
     background: #e4e4e4;
-    //z-index: 5;
      z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
     .boxSizing;
     padding: 0 14px;
-    border-left: 1px solid @borderColor; /*rtl*/
-    box-shadow: -4px 0 4px rgba(0,0,0,.15); /*rtl*/
-    .transition(right .4s); /*rtl*/
+    border-left: 1px solid @borderColor; 
+    box-shadow: -4px 0 4px rgba(0,0,0,.15); 
+    .transition(right .4s);
+    header {
+        height: 40px;
+        background: #517e9e;
+        color: #fff;
+        font-size: 17px;
+        margin: 0 -14px 0 -15px;  //left padding + 1px border
+        padding: 8px 0 0 14px; 
+        .boxSizing;
+        .closeDialog {
+            right: 20px;
+        }
+    }
+    section {
+        min-height: 100%;
+        //height: ~'calc(100% - 150px)';
+        //height: 300px;
+    }
+.toggleQuiz
+{
+    width: 22px;
+    height: 22px;
+    background: @common-sprite -294px -2px;
+    position: fixed;
+    right: 374px;
+    top: 78px;
+    z-index: 6;
+    .transition(all .4s);
+    cursor: pointer;
+}
+
+.checkbox:checked
+{
+    ~ .toggleQuiz
+    {
+        .flipH;
+        right: 3px; 
+    }
+    ~ .quizSideBar, ~ .quizSideBar .quizBottom
+    {
+        right: -372px; 
+    }
+}*/
+.createQuiz {
     .emptyQuiz {
         .quizName:not(.ng-valid) {
             border: 1px solid @errorColor;
@@ -178,21 +247,8 @@ body {
         }
     }
 
-    header {
-        height: 40px;
-        background: #517e9e;
-        color: #fff;
-        font-size: 17px;
-        margin: 0 -14px 0 -15px; /*rtl*/ //left padding + 1px border
-        padding: 8px 0 0 14px; /*rtl*/
-        .boxSizing;
-        .closeDialog {
-            right: 20px; /*rtl*/
-        }
-    }
-
     .inputText {
-        width: 270px;
+        width: 470px;
         .boxSizing;
         border-color: rgba(194,194,194,.5);
         &:focus {
@@ -214,13 +270,6 @@ body {
             line-height:19px;
         }
     }
-
-    section {
-        min-height: 100%;
-        //height: ~'calc(100% - 150px)';
-        //height: 300px;
-    }
-
     //issue with css priority
     .questionHolder {
         .error {
@@ -229,36 +278,11 @@ body {
         }
     }
      .error {
-            display: none;
-            color: @errorColor;
-        }
-}
-
-.toggleQuiz
-{
-    width: 22px;
-    height: 22px;
-    background: @common-sprite -294px -2px;
-    position: fixed;
-    right: 374px; /*rtl*/
-    top: 78px;
-    z-index: 6;
-    .transition(all .4s);
-    cursor: pointer;
-}
-
-.checkbox:checked
-{
-    ~ .toggleQuiz
-    {
-        .flipH;
-        right: 3px; /*rtl*/
-    }
-    ~ .quizSideBar, ~ .quizSideBar .quizBottom
-    {
-        right: -372px;  /*rtl*/
+        display: none;
+        color: @errorColor;
     }
 }
+
 .quizWpr
 {
     overflow:hidden;
@@ -285,6 +309,8 @@ body {
     margin-bottom: 10px;
     position: relative;
     padding: 12px;
+    border: 1px solid rgba(194, 194, 194, 0.5);
+    //border-color: rgba(194, 194, 194, 0.5);
     .boxSizing;
    
     &:hover {
@@ -345,16 +371,16 @@ body {
     list-style-type: lower-alpha;
     clear: both;
     padding-left: 16px; /*rtl*/
+    position: relative;
+    width: 550px;
 }
 
-.quizAddQuestion
-{
-    width: 100%;
+.quizAddQuestion {
     height: 40px;
     background: rgba(255,255,255,.5);
     text-align: left; /*rtl*/
     color: @attentionBlue;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
     padding: 0 12px;
     border-radius: 3px;
     .boxSizing;
@@ -367,17 +393,9 @@ body {
         fill: @itemBlue;
     }
 }
-.quizBottom
-{
-    background: #fff;
-    border-top: 1px solid @borderColor;
+.quizBottom {
     height: 42px;
     padding: 0 14px;
-    position: fixed;
-    bottom: 0;
-    right: 0; /*rtl*/
-    width: 385px;
-    .transition(right .4s); /*rtl*/
     .boxSizing;
     .error{
         margin: 10px;
@@ -395,42 +413,15 @@ body {
 /*#endregion */
 
 /*#region Quiz Preview  */
-.quizPreviewTop, .quizTop {
+.quizPreviewTop, .quizTop, .createQuizTop {
     height: 43px;
     color: @itemBlue;
     background: #0f0f0f;
     text-align: center;
     margin: 0 auto;
 }
-.quizPreviewScroll {
-    height: 100%; 
-    overflow: auto;
-    background: #282828;
-    color: #fff;
-}
-.quizPreview
-{
-    margin-top: 100%;
-    position: fixed;
-    z-index: 14;
-    left: 0; /*rtl*/
-    top: 0;
-    width: 100%;
-    height: 100%;
-    .transition(margin .7s ease-in);
 
-    h2{
-        display: none;
-        font-size: 20px;
-        font-weight: normal;
-        padding: 7px 30px 0 30px;
-        .boxSizing;
-    }
-    .closePreview {
-        //z-index: 1;
-        display:none;
-    }
-
+.quizPreview {
     .correct {
         background: rgba(3, 113, 200, 0.2);
         + li {
@@ -449,8 +440,7 @@ body {
     }
 }
 
-.quizPrevWpr
-{
+.quizPrevWpr, .createQuizWpr {
     width: 800px;
     margin: 20px auto 60px;
     background: #fff;
@@ -459,8 +449,6 @@ body {
     .boxSizing;
     letter-spacing: 0;
     color: @textColor;
-    //border: 2px solid @color;
-    //box-shadow: inset 0 0 3px @color;
 }
 .quizTitle{
     font-size: 18px;
@@ -488,34 +476,12 @@ body {
             margin-bottom: 20px;
         }
     }
-    /*.splitHR {
-
-        text-align: left; //rtl
-        padding: 10px 0 0 42px; //rtl
-        font-size: 13px;
-        margin: 0 -34px -4px -34px;
-    }
-    .splitHRText:before, .splitHRText:after {
-        border-color: @borderColor;
-    }*/
-
-    /*.iconTxt {
-        color: @attentionBlue;
-        &:before {
-            width: 15px;
-            height: 15px;
-            background-position: -55px -121px;
-        }
-    }*/
     ~ .btn1 {
-        //margin-top: 30px;
         margin-top: -25px;
         position: relative;
     }
 }
-/*.quizQuestion {
-    padding-right: 80px;
-}*/
+
 .askBtn {
     border-radius: 5px;
     background: @attentionBlue;
@@ -1081,8 +1047,8 @@ body {
     background: #282828;
 }
 /*#endregion */
-/*#region Quiz Dialog */
 
+/*#region Quiz Dialog */
 .modal {
     &.quizPopup .modal-dialog {
         width: 700px;

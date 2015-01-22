@@ -1,56 +1,99 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
+<<<<<<< HEAD
 
-<input id="quizToggle" type="checkbox" class="checkbox" />
-<label for="quizToggle" class="toggleQuiz"></label>
-<aside id="quizSideBar" class="quizSideBar">
-    <section class="quiz">
-        <header>
-            @QuizResources.CreateQuiz
-            <button type="button"  ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
-        </header>
+@*<input id="quizToggle" type="checkbox" class="checkbox" />
+    <label for="quizToggle" class="toggleQuiz"></label>
+    <aside id="quizSideBar" class="quizSideBar">
+        <section class="quiz">
+            <header>
+                @QuizResources.CreateQuiz
+                <button type="button"  ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
+            </header>
+            <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
+                <div m-custom-scrollbar class="quizWpr" bottom="40">
+                    <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
+                    <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
+                    <ul>
+                        <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
+                        answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
+                    </ul>
+                    <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
+                        @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
+                    </button>
+                </div>
+                <div class="quizBottom">
+                    <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
+                    <span class="error">@QuizResources.CheckQuiz</span>
+                    <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
+                </div>
+            </form>
+        </section>
+    </aside>*@
+
+<section class="createQuiz">
+    <div class="createQuizTop">
+        <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="previewQuiz()">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+        <h2>@QuizResources.CreateQuiz</h2>
+    </div>
+    <div class="createQuizWpr">
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
-            <div m-custom-scrollbar class="quizWpr" bottom="40">
-                <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-                <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
-                <ul>
-                    <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
+=======
+<section class="quiz">
+    <header>
+        @QuizResources.CreateQuiz
+        <button type="button" ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
+    </header>
+    <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
+>>>>>>> 5ea911f0e7af2b1c0f396721c6eeb8ed1a681dc1
+            <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
+            <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
+            <ul>
+                <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
                     answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
-                </ul>
-                <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
-                    @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
-                </button>
-            </div>
+            </ul>
+            <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
+                @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
+            </button>
+<<<<<<< HEAD
             <div class="quizBottom">
                 <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
                 <span class="error">@QuizResources.CheckQuiz</span>
                 <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
             </div>
         </form>
-    </section>
-</aside>
+    </div> 
+=======
+        <div class="quizBottom">
+            <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
+            <span class="error">@QuizResources.CheckQuiz</span>
+            <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
+        </div>
+    </form>
+>>>>>>> 5ea911f0e7af2b1c0f396721c6eeb8ed1a681dc1
+</section>
 
 <div ng-show="quiz.showPreview">
     <div class="quizPreview" quiz-preview show="quiz.showPreview">
-        <div class="quizPreviewScroll">
-            @*<div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>*@
-            <div class="quizPreviewTop">
-                <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="previewQuiz()">
-                    @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-                </button>
-                <h2 class="elps">{{quiz.name}}</h2>
-            </div>
-            <div class="quizPrevWpr">
-                <ul class="quizQList">
-                    <li ng-repeat="question in quiz.questions">
-                        <div class="qPreview">{{question.text}}</div>
-                        <ul class="quizAList">
-                            <li ng-repeat="answer in question.answers">
-                                <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        @*<div class="quizTitle" data-questioncount="{{quiz.questions.length}}">@QuizResources.MultipleChoice</div>*@
+        <div class="quizPreviewTop">
+            <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="previewQuiz()">
+                @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+            </button>
+            <h2 class="elps">{{quiz.name}}</h2>
+        </div>
+        <div class="quizPrevWpr">
+            <ul class="quizQList">
+                <li ng-repeat="question in quiz.questions">
+                    <div class="qPreview">{{question.text}}</div>
+                    <ul class="quizAList">
+                        <li ng-repeat="answer in question.answers">
+                            <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -58,7 +101,7 @@
 <script type="text/ng-template" id="quizMenuTemplate">
     <div class="modal-header">
         <h3 class="modal-title"><span>@QuizResources.LeaveQuiz</span></h3>
-    </div>    
+    </div>
     <div class="modal-body">
         <div class="quitQuizTxt">@QuizResources.NotFinished</div>
         <div>@QuizResources.ChooseDraft</div>
@@ -68,28 +111,27 @@
         <button class="closeDialog" ng-click="cancel()"></button>
 
     </div>
-    
+
 </script>
 <script type="text/ng-template" id="quizQuestionTemplate">
-    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
-    <textarea text-direction name="question" quiz-focus data-focus="{{question.focus}}" required class="inputText questionText" msd-elastic
-              ng-placeholder="@SharedResources.Question #{{$index + 1}}"
-              ng-blur="saveQuestion(question)" ng-model="question.text" ng-required="($index === 0) || (!questionForm.$pristine || params.isDraft)"></textarea>
-    <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-    <div class="lFloat answers">@SharedResources.Answers:</div>
-    <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
-    <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
-    <ul class="quizAnswersList">
-        <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
-        </li>
+    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>    
+    <div text-angular ng-model="htmlContent"></div>
+        <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
+        <div class="lFloat answers">@SharedResources.Answers:</div>
+        <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
+        <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
+        <ul class="quizAnswersList">
+            <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
+            </li>
 
-        <li class="quizAnswer disabled">
-            <textarea text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
-                      readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
-            <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-            <label></label>
-        </li>
-    </ul>
+            <li class="quizAnswer disabled">
+                <textarea text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
+                          readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
+                <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
+                <label></label>
+            </li>
+        </ul>
+    {{htmlContent}}
 </script>
 
 <script type="text/ng-template" id="quizAnswerTemplate">
