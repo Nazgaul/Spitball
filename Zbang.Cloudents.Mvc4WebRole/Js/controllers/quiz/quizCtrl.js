@@ -18,6 +18,7 @@ mQuiz.controller('QuizCtrl',
 
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
                 $scope.quiz = response.quiz;
+                $scope.quiz.createUrl = "/quiz/" + $routeParams.universityName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/create";
                 questions = angular.copy(response.quiz.questions, questions);
                 if (sUserDetails.isAuthenticated()) {
                     var savedSheet = $window.localStorage.getItem($scope.quiz.id);

@@ -39,14 +39,6 @@
     </div>
     <div class="createQuizWpr">
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
-=======
-<section class="quiz">
-    <header>
-        @QuizResources.CreateQuiz
-        <button type="button" ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
-    </header>
-    <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
->>>>>>> 5ea911f0e7af2b1c0f396721c6eeb8ed1a681dc1
             <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
             <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
             <ul>
@@ -56,7 +48,6 @@
             <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
                 @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
             </button>
-<<<<<<< HEAD
             <div class="quizBottom">
                 <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
                 <span class="error">@QuizResources.CheckQuiz</span>
@@ -64,14 +55,6 @@
             </div>
         </form>
     </div> 
-=======
-        <div class="quizBottom">
-            <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
-            <span class="error">@QuizResources.CheckQuiz</span>
-            <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
-        </div>
-    </form>
->>>>>>> 5ea911f0e7af2b1c0f396721c6eeb8ed1a681dc1
 </section>
 
 <div ng-show="quiz.showPreview">
