@@ -203,7 +203,7 @@
     margin-bottom: 20px;
 
     .itemOwner {
-        width: 160px;
+        max-width: 179px;
     }
 
     .itemOwner, time {
@@ -600,9 +600,9 @@
 }
 
 .divWrapper {
-    border: 1px solid @borderColor;
+    //border: 1px solid @borderColor;
     border-radius: 10px;
-    background: #fff;
+    //background: #fff;
     width: 800px;
     margin: 0 auto 10px;
     z-index: 0; //bug 581
@@ -619,10 +619,14 @@
     //bug 1982
     background: #fff;
     color: #fff;
+    box-shadow: 0 0 8px 5px rgba(0,0,0,.7);
 }
 
 .svgContent {
     height: 100%; //ie issue
+    background: #fff;
+    box-shadow: 0 0 8px 5px rgba(0,0,0,.7);
+    border-radius: 16px;
 }
 
 .txtContent {
@@ -635,13 +639,12 @@
 }
 
 .copyRightWarning {
-    background: #fff;
     font: 15px Arial;
     line-height: 15px;
-    color: #878788;
+    color: #5a5a5a;
     padding: 15px;
-    border-top: 1px solid #858585;
     border-radius: 0 0 10px 10px;
+    text-align: justify;
 }
 /*#endregion */
 

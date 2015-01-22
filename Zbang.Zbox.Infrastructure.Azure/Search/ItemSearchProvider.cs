@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -15,11 +17,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     public class ItemSearchProvider : IItemReadSearchProvider, IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item";
+        private readonly IBlobProvider m_BlobProvider;
         private bool m_CheckIndexExists = false;
 
 
-        public ItemSearchProvider()
+        public ItemSearchProvider(IBlobProvider blobProvider)
         {
+            m_BlobProvider = blobProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -86,6 +90,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_CheckIndexExists = true;
         }
 
+        public async Task<string> FetchContent(ItemSearchDto itemToUpload)
+        {
+            var metaData = await m_BlobProvider.FetechBlobMetaDataAsync(itemToUpload.BlobName);
+            string content = itemToUpload.Content;
+            if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
+            {
+                content = System.Net.WebUtility.UrlDecode(content);
+            }
+            return content;
+        }
+
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
             if (!m_CheckIndexExists)
@@ -95,19 +110,39 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)
             {
-                listOfCommands.AddRange(itemToUpload.Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
-                    s.Id.ToString(CultureInfo.InvariantCulture))
-                    .WithProperty(NameField, s.Name)
-                    .WithProperty(ImageField, s.Image)
-                    .WithProperty(BoxNameField, s.BoxName)
-                    .WithProperty(ContentField, s.Content)
-                    .WithProperty(ViewsField, s.Views)
-                    .WithProperty(RateField, s.Rate)
-                    .WithProperty(UniversityNameField, s.UniversityName)
-                    .WithProperty(UrlField, s.Url)
-                    .WithProperty(UniversityidField, s.UniversityId)
-                    .WithProperty(BoxidField, s.BoxId)
-                    .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
+                foreach (var item in itemToUpload)
+                {
+                    var content = await FetchContent(item);
+                    listOfCommands.Add(
+                        new IndexOperation(IndexOperationType.Upload, IdField,
+                            item.Id.ToString(CultureInfo.InvariantCulture))
+                            .WithProperty(NameField, item.Name)
+                            .WithProperty(ImageField, item.Image)
+                            .WithProperty(BoxNameField, item.BoxName)
+                            .WithProperty(ContentField, content)
+                            .WithProperty(ViewsField, item.Views)
+                            .WithProperty(RateField, item.Rate)
+                            .WithProperty(UniversityNameField, item.UniversityName)
+                            .WithProperty(UrlField, item.Url)
+                            .WithProperty(UniversityidField, item.UniversityId)
+                            .WithProperty(BoxidField, item.BoxId)
+                            .WithProperty(UseridsField,
+                                item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture))));
+                }
+                //listOfCommands.AddRange(itemToUpload.Select(async s => 
+                //   new IndexOperation(IndexOperationType.Upload, IdField,
+                //    s.Id.ToString(CultureInfo.InvariantCulture))
+                //    .WithProperty(NameField, s.Name)
+                //    .WithProperty(ImageField, s.Image)
+                //    .WithProperty(BoxNameField, s.BoxName)
+                //    .WithProperty(ContentField, await FetchContent(s))
+                //    .WithProperty(ViewsField, s.Views)
+                //    .WithProperty(RateField, s.Rate)
+                //    .WithProperty(UniversityNameField, s.UniversityName)
+                //    .WithProperty(UrlField, s.Url)
+                //    .WithProperty(UniversityidField, s.UniversityId)
+                //    .WithProperty(BoxidField, s.BoxId)
+                //    .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }
             if (itemToDelete != null)
             {

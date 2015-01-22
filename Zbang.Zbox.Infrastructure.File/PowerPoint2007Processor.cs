@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -127,43 +128,44 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-
-                using (var stream = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                SetLicense();
+                using (var pptx = new Presentation(path))
                 {
-                    SetLicense();
-                    using (var pptx = new Presentation(stream))
+
+                    using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                     {
 
-                        using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                        var settings = new ResizeSettings
                         {
+                            Scale = ScaleMode.UpscaleCanvas,
+                            Anchor = ContentAlignment.MiddleCenter,
+                            BackgroundColor = Color.White,
+                            Mode = FitMode.Crop,
+                            Width = ThumbnailWidth,
+                            Height = ThumbnailHeight,
+                            Quality = 80,
+                            Format = "jpg"
+                        };
 
-                            var settings = new ResizeSettings
+                        // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
+
+                        using (var output = new MemoryStream())
+                        {
+                            ImageBuilder.Current.Build(img, output, settings);
+                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) +
+                                                          ".thumbnailV3.jpg";
+                            var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
+                            var pptContent = ExtractStringFromPpt(pptx);
+
+                            var t2 = UploadMetaData(pptContent, blobName);
+
+                            await Task.WhenAll(t1, t2);
+                            return new PreProcessFileResult
                             {
-                                Scale = ScaleMode.UpscaleCanvas,
-                                Anchor = ContentAlignment.MiddleCenter,
-                                BackgroundColor = Color.White,
-                                Mode = FitMode.Crop,
-                                Width = ThumbnailWidth,
-                                Height = ThumbnailHeight,
-                                Quality = 80,
-                                Format = "jpg"
+                                ThumbnailName = thumbnailBlobAddressUri,
+                                FileTextContent = pptContent
                             };
-
-                            // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
-
-                            using (var output = new MemoryStream())
-                            {
-                                ImageBuilder.Current.Build(img, output, settings);
-                                var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) +
-                                                              ".thumbnailV3.jpg";
-                                await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
-                                var pptContent = ExtractStringFromPpt(pptx);
-                                return new PreProcessFileResult
-                                {
-                                    ThumbnailName = thumbnailBlobAddressUri,
-                                    FileTextContent = pptContent
-                                };
-                            }
                         }
                     }
                 }
@@ -190,12 +192,14 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             //Display text in the current portion
                             sb.Append(port.Text);
+                            if (sb.Length > 10000)
+                            {
+                                break;
+                            }
                         }
 
-                sb = sb.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                var str = Regex.Replace(sb.ToString(), @"\s+", " ");
-                str = WebUtility.HtmlEncode(str);
-                return str.Substring(0, Math.Min(400, str.Length));
+
+                return StripUnwantedChars(sb.ToString());
             }
             catch (Exception ex)
             {

@@ -43,16 +43,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Imaging.2.7.1\lib\net40\Aspose.Imaging.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Pdf, Version=9.9.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Pdf, Version=10.0.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Pdf.9.9.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+      <HintPath>..\packages\Aspose.Pdf.10.0.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Slides">
       <HintPath>..\packages\Aspose.Slides.NET.14.10.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Words, Version=14.11.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Words, Version=14.12.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Words.14.11.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
+      <HintPath>..\packages\Aspose.Words.14.12.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="AudioProcessor.cs" />
     <Compile Include="ContentProcessor.cs" />
+    <Compile Include="DocumentProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="ImageProcessor.cs" />
     <Compile Include="FileProcessor.cs" />

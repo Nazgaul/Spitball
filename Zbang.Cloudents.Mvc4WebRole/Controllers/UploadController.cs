@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -194,6 +195,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new { Success = false });
             }
+        }
+
+        [HttpPost, ZboxAuthorize]
+        public async Task<JsonResult> QuizImage(long boxId)
+        {
+
+            if (HttpContext.Request.Files == null)
+            {
+                return JsonError("No files");
+            }
+            if (HttpContext.Request.Files.Count == 0)
+            {
+                return JsonError("No files");
+            }
+            var file = HttpContext.Request.Files[0];
+            if (file == null)
+            {
+                return JsonError("No files");
+            }
+            var url = await m_BlobProvider.UploadQuizImage(file.InputStream, file.ContentType, boxId, file.FileName);
+            return JsonOk(url);
         }
 
         [HttpPost, ZboxAuthorize]

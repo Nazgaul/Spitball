@@ -113,19 +113,21 @@ namespace Zbang.Zbox.ReadServices
                 //
                 //
                 //");
+                // --thumbnailblobname in 
+                //--(
+                //--'filev4.jpg',
+                //--'imagev4.jpg',
+                //--'pdfv4.jpg',
+                //--'powerv4.jpg',
+                //--'wordv4.jpg',
+                //--'excelv4.jpg'
+                //--)
 
                 return await conn.QueryAsync(@"select itemid, blobname from zbox.item 
                 where  Discriminator = 'FILE'
-                --thumbnailblobname in 
-                --(
-                --'filev4.jpg',
-                --'imagev4.jpg',
-                --'pdfv4.jpg',
-                --'powerv4.jpg',
-                --'wordv4.jpg',
-                --'excelv4.jpg'
-                --)
-                and isdeleted = 0 order by itemid
+                and isdeleted = 0
+                and itemid > 1
+                order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100 });
 

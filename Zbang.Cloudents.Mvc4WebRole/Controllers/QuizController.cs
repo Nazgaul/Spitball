@@ -98,6 +98,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        [ZboxAuthorize]
+        [DonutOutputCache(CacheProfile = "PartialPage",
+             Options = OutputCacheOptions.IgnoreQueryString
+             )]
+        public ActionResult CreatePartial()
+        {
+            return PartialView("CreateQuiz");
+        }
+
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]

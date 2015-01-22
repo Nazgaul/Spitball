@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 898;
+                int index = 0;
                 bool cont = true;
                 while (cont)
                 {
@@ -88,9 +88,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
             TraceLog.WriteInfo("End process of changing Pic");
         }
-
+        private readonly TimeSpan timeToWaite = TimeSpan.FromMinutes(3);
         private void UpdateFile2(Uri blobUri, long itemId)
         {
+            
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
@@ -103,7 +104,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 try
                 {
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
+                    tokenSource.CancelAfter(timeToWaite);
                     //some long running method requiring synchronization
                     var retVal = await processor.PreProcessFile(blobUri, tokenSource.Token);
                     if (retVal == null)
@@ -122,7 +123,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(2));
+            Boolean signal = wait.WaitOne(timeToWaite);
             if (!signal)
             {
                 work.Abort();

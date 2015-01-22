@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> DownloadFileAsync(string fileName);
         Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken);
         Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken);
+        Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken);
         //Task DownloadFileToSystemAsync(string fileName, string systemLocation);
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
@@ -74,5 +75,15 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string GetBlobUrl(string blobName);
 
         void RenameBlob(string blobName, string newName, string newMimeType = null);
+
+        /// <summary>
+        /// Upload image to quiz in create quiz page
+        /// </summary>
+        /// <param name="content">the image itself</param>
+        /// <param name="mimeType">mime type of the image</param>
+        /// <param name="boxId">box id</param>
+        /// <param name="fileName">the image name received from client</param>
+        /// <returns>url to return to client</returns>
+        Task<string> UploadQuizImage(Stream content, string mimeType, long boxId, string fileName);
     }
 }

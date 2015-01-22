@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Net;
 using System.Threading;
 using Aspose.Words;
 using Aspose.Words.Saving;
@@ -8,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -17,7 +15,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class WordProcessor : FileProcessor
+    public class WordProcessor : DocumentProcessor
     {
         const string VersionCache = "V6";
 
@@ -47,51 +45,68 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
             });
 
-            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-
-            var blobsNamesInCache = new List<string>();
-            var parallelTask = new List<Task<string>>();
-            var tasks = new List<Task>();
-
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            {
-                string value;
-                var cacheblobName = CreateCacheFileName(blobName, pageIndex);
+            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+                 i => CreateCacheFileName(blobName, i),
+                 j => VersionCache + j,
+                 async z =>
+                 {
+                     svgOptions.PageIndex = z;
+                     var ms = new MemoryStream();
+                     var w = await word;
+                     w.Save(ms, svgOptions);
+                     return ms;
+                 }
+             );
 
-                var metaDataKey = VersionCache + pageIndex;
-                if (meta.TryGetValue(metaDataKey, out value))
-                {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
-                    continue;
-                }
-                svgOptions.PageIndex = pageIndex;
-                try
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        var w = await word;
-                        w.Save(ms, svgOptions);
-                        var compressor = new Compress();
-                        var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
-                    }
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    break;
-                }
 
-            }
-            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            tasks.AddRange(parallelTask);
-            tasks.Add(t);
-            await Task.WhenAll(tasks);
-            blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
 
-            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Svg" };
+
+            //var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+
+            //var blobsNamesInCache = new List<string>();
+            //var parallelTask = new List<Task<string>>();
+            //var tasks = new List<Task>();
+
+            ////var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
+            //for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            //{
+            //    string value;
+            //    var cacheblobName = CreateCacheFileName(blobName, pageIndex);
+
+            //    var metaDataKey = VersionCache + pageIndex;
+            //    if (meta.TryGetValue(metaDataKey, out value))
+            //    {
+            //        blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+            //        meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
+            //        continue;
+            //    }
+            //    svgOptions.PageIndex = pageIndex;
+            //    try
+            //    {
+            //        using (var ms = new MemoryStream())
+            //        {
+            //            var w = await word;
+            //            w.Save(ms, svgOptions);
+            //            var compressor = new Compress();
+            //            var sr = compressor.CompressToGzip(ms);
+            //            parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
+            //            meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
+            //        }
+            //    }
+            //    catch (ArgumentOutOfRangeException)
+            //    {
+            //        break;
+            //    }
+
+            //}
+            //var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            //tasks.AddRange(parallelTask);
+            //tasks.Add(t);
+            //await Task.WhenAll(tasks);
+            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+
+            return new PreviewResult { Content = retVal, ViewName = "Svg" };
         }
         protected string CreateCacheFileName(string blobName, int index)
         {
@@ -104,17 +119,19 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, 
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
+
                 var blobName = GetBlobNameFromUri(blobUri);
-                using (var sr = await BlobProvider.DownloadFileAsync2(blobName, cancelToken))
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                SetLicense();
+                var word = new Document(path);
+
+                return await ProcessFile(blobName, () =>
                 {
-                    SetLicense();
-                    var word = new Document(sr);
-                    
                     var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
                         JpegQuality = 80,
@@ -130,21 +147,48 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         word.Save(ms, imgOptions);
                         ms.Seek(0, SeekOrigin.Begin);
-                        using (var output = new MemoryStream())
-                        {
-                            ImageBuilder.Current.Build(ms, output, settings);
-                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                            await
-                                BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
-                                    cancelToken);
-                            return new PreProcessFileResult
-                            {
-                                ThumbnailName = thumbnailBlobAddressUri,
-                                FileTextContent = ExtractDocumentText(word)
-                            };
-                        }
+                        var output = new MemoryStream();
+                        ImageBuilder.Current.Build(ms, output, settings);
+                        return output;
+
                     }
-                }
+                }, () => ExtractDocumentText(word));
+
+
+                //var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+                //{
+                //    JpegQuality = 80,
+                //};
+                //var settings = new ResizeSettings
+                //{
+                //    Width = ThumbnailWidth,
+                //    Height = ThumbnailHeight,
+                //    Quality = 80,
+                //    Format = "jpg"
+                //};
+                //using (var ms = new MemoryStream())
+                //{
+                //    word.Save(ms, imgOptions);
+                //    ms.Seek(0, SeekOrigin.Begin);
+                //    using (var output = new MemoryStream())
+                //    {
+                //        ImageBuilder.Current.Build(ms, output, settings);
+                //        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                //        var textInDocument = ExtractDocumentText(word);
+                //        var t1 =
+                //            BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
+                //                cancelToken);
+
+                //        var t2 = UploadMetaData(textInDocument, blobName);
+
+                //        await Task.WhenAll(t1, t2);
+                //        return new PreProcessFileResult
+                //        {
+                //            ThumbnailName = thumbnailBlobAddressUri,
+                //            FileTextContent = textInDocument
+                //        };
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -158,11 +202,8 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
                 var str = doc.ToString(SaveFormat.Text);
-
-                str = str.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
-                str = Regex.Replace(str, @"\s+", " ");
-                str = WebUtility.HtmlEncode(str);
-                return str.Substring(0, Math.Min(400, str.Length));
+                str = StripUnwantedChars(str);
+                return str;
             }
             catch (Exception ex)
             {

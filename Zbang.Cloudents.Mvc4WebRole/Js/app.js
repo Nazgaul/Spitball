@@ -178,6 +178,13 @@
                 templateUrl: '/account/indexpartial/',
                 controller: 'AccountCtrl'
             }).
+            when('/account/:lang', {
+                params: {
+                    type: 'account'
+                },
+                templateUrl: '/account/indexpartial/',
+                controller: 'AccountCtrl'
+            }).
            when('/dashboard/', {
                params: {
                    type: 'dashboard'
@@ -231,6 +238,12 @@
                templateUrl: '/item/indexpartial/',
                reloadOnSearch: false
 
+           }).
+           when('/quiz/create/', {
+               params: {
+                   type: 'quiz'
+               },
+               templateUrl: '/quiz/createpartial/'
            }).            
            when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
                params: {

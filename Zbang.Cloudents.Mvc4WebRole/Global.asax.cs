@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             try
             {
                 UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
-                    new HttpServerUtilityWrapper(HttpContext.Current.Server));
+                    new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
             }
             catch (Exception ex)
             {

@@ -41,10 +41,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-            var universityUpdate = await UpdateUniversity();
             var itemUpdate = await UpdateItem();
+            var universityUpdate = await UpdateUniversity();
             var boxUpdate = await UpdateBox();
-            
 
             if (itemUpdate || boxUpdate || universityUpdate)
             {

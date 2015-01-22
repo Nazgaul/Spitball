@@ -20,6 +20,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             m_LocalResourceSize = StorageProvider.LocalResource.LocalResourceSizeInMegaBytes * 1024 * 1024;
         }
 
+        public string LocalStorageLocation
+        {
+            get { return m_LocalResourceLocation; }
+        }
 
 
         public string SaveFileToStorage(Stream streamArray, string fileName)
@@ -55,6 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             File.SetLastAccessTime(fileNameWithPath, DateTime.UtcNow);
             return File.ReadAllBytes(fileNameWithPath);
         }
+
 
        
 
