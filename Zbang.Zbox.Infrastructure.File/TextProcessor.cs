@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 while (stream.Peek() > 0)
                 {
                     sb.AppendLine(await stream.ReadLineAsync());
-                    if (sb.Length > 5000)
+                    if (sb.Length > 10000)
                     {
                         break;
                     }

@@ -783,6 +783,7 @@
     <Content Include="Content\SVG.rtl.css">
       <DependentUpon>SVG.css</DependentUpon>
     </Content>
+    <Content Include="Content\textAngular.css" />
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
@@ -1999,6 +2000,9 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\textAngular\textAngular-rangy.min.js" />
+    <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
+    <Content Include="Scripts\textAngular\textAngular.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.12.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
     <Content Include="Scripts\jquery.js" />

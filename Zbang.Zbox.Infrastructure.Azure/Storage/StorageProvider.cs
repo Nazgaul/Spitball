@@ -47,22 +47,26 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 if (string.IsNullOrEmpty(connectionString))
                 {
                     _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                    CreateStorage();
                     return;
                 }
                 _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
+                CreateStorage();
             }
             catch (ArgumentNullException ex)
             {
                 TraceLog.WriteError("on ConfigureStorageAccount", ex);
 
             }
+        }
 
-            // not need every time
-            //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+        private static void CreateStorage()
+        {
+            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
             //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
             //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
-
         }
+
         internal static LocalResource LocalResource
         {
             get
@@ -98,7 +102,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Off
                 });
             }
-
+            container = blobClient.GetContainerReference(BlobProvider.AzureQuizContainer.ToLower());
+            if (container.CreateIfNotExists())
+            {
+                container.SetPermissions(new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Blob
+                });
+            }
             container = blobClient.GetContainerReference(BlobProvider.AzureProfilePicContainer.ToLower());
             if (container.CreateIfNotExists())
             {

@@ -198,6 +198,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize]
+        public async Task<JsonResult> QuizImage(long boxId)
+        {
+
+            if (HttpContext.Request.Files == null)
+            {
+                return JsonError("No files");
+            }
+            if (HttpContext.Request.Files.Count == 0)
+            {
+                return JsonError("No files");
+            }
+            var file = HttpContext.Request.Files[0];
+            if (file == null)
+            {
+                return JsonError("No files");
+            }
+            var url = await m_BlobProvider.UploadQuizImage(file.InputStream, file.ContentType, boxId, file.FileName);
+            return JsonOk(url);
+        }
+
+        [HttpPost, ZboxAuthorize]
         [RemoveBoxCookie]
         public async Task<ActionResult> Link(AddLink model)
         {

@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     {
         private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
+        private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
         //public const string BlobMetadataUseridKey = "Userid";
         public const string AzureBlobContainer = "zboxfiles";
@@ -29,6 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public const string AzureProfilePicContainer = "zboxprofilepic";
         public const string AzureThumbnailContainer = "zboxThumbnail";
         public const string AzureFaqContainer = "zboxhelp";
+        public const string AzureQuizContainer = "zboxquestion";
 
 
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
@@ -53,9 +55,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-            string storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+            
 
-            if (string.IsNullOrEmpty(storageCdnEndpoint))
+            if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
             {
                 ThumbnailContainerUrl =
                     VirtualPathUtility.AppendTrailingSlash(
@@ -65,14 +67,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             else
             {
                 ThumbnailContainerUrl =
-                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(storageCdnEndpoint) +
+                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) +
                                                            AzureThumbnailContainer.ToLower());
                 ProfileContainerUrl =
-                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(storageCdnEndpoint) +
+                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) +
                                                            AzureProfilePicContainer.ToLower());
             }
 
         }
+        
 
         /// <summary>
         /// Upload Image of product to product container storage
@@ -213,63 +216,63 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
-                blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower().RemoveEndOfString(4500)));
+                blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000));
                 //blob.Metadata.Add(item.Key, StripElementForMetaData(item.Value.ToLower().RemoveEndOfString(5000)));
             }
             return blob.SetMetadataAsync();
         }
 
-        private string StripElementForMetaData(string value)
-        {
-            var sb = new StringBuilder();
-            int crlf = 0;
-            for (int i = 0; i < value.Length; ++i)
-            {
-                char c = (char)(0x000000ff & (uint)value[i]);
-                sb.Append(value[i]);
-                switch (crlf)
-                {
-                    case 0:
-                        if (c == '\r')
-                        {
-                            crlf = 1;
-                        }
-                        else if (c == '\n')
-                        {
-                            // Technically this is bad HTTP.  But it would be a breaking change to throw here.
-                            // Is there an exploit?
-                            crlf = 2;
-                        }
-                        else if (c == 127 || (c < ' ' && c != '\t'))
-                        {
-                            sb.Remove(sb.Length - 1, 1);
+        //private string StripElementForMetaData(string value)
+        //{
+        //    var sb = new StringBuilder();
+        //    int crlf = 0;
+        //    for (int i = 0; i < value.Length; ++i)
+        //    {
+        //        char c = (char)(0x000000ff & (uint)value[i]);
+        //        sb.Append(value[i]);
+        //        switch (crlf)
+        //        {
+        //            case 0:
+        //                if (c == '\r')
+        //                {
+        //                    crlf = 1;
+        //                }
+        //                else if (c == '\n')
+        //                {
+        //                    // Technically this is bad HTTP.  But it would be a breaking change to throw here.
+        //                    // Is there an exploit?
+        //                    crlf = 2;
+        //                }
+        //                else if (c == 127 || (c < ' ' && c != '\t'))
+        //                {
+        //                    sb.Remove(sb.Length - 1, 1);
 
-                        }
-                        break;
+        //                }
+        //                break;
 
-                    case 1:
-                        if (c == '\n')
-                        {
-                            crlf = 2;
-                            break;
-                        }
-                        throw new ArgumentException();
+        //            case 1:
+        //                if (c == '\n')
+        //                {
+        //                    crlf = 2;
+        //                    break;
+        //                }
+        //                throw new ArgumentException();
 
-                    case 2:
-                        if (c == ' ' || c == '\t')
-                        {
-                            crlf = 0;
-                            break;
-                        }
-                        throw new ArgumentException();
-                }
-            }
-            if (crlf != 0)
-            {
-                throw new ArgumentException();
-            }
-            return sb.ToString();
-        }
+        //            case 2:
+        //                if (c == ' ' || c == '\t')
+        //                {
+        //                    crlf = 0;
+        //                    break;
+        //                }
+        //                throw new ArgumentException();
+        //        }
+        //    }
+        //    if (crlf != 0)
+        //    {
+        //        throw new ArgumentException();
+        //    }
+        //    return sb.ToString();
+        //}
 
 
         public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
@@ -385,16 +388,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.ContentType = mimeType;
             await blob.SetPropertiesAsync();
         }
-        //public async Task RenameBlobAsync(string blobName, string newName, string newMimeType = null)
-        //{
-        //    var blob = GetFile(blobName);
-        //    var newBlob = GetFile(newName);
-        //    await newBlob.StartCopyFromBlobAsync(blob);
-        //    newBlob.Properties.ContentType = newMimeType ?? blob.Properties.ContentType;
-        //    var t1 = newBlob.SetPropertiesAsync();
-        //    var t2 = blob.DeleteAsync();
-        //    await Task.WhenAll(t1, t2);
-        //}
+
         public void RenameBlob(string blobName, string newName, string newMimeType = null)
         {
             var blob = GetFile(blobName);
@@ -484,6 +478,40 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
         #endregion
+
+        #region Quiz
+
+        public async Task<string> UploadQuizImage(Stream content, string mimeType, long boxId, string fileName)
+        {
+            if (content == null) throw new ArgumentNullException("content");
+            if (fileName == null) throw new ArgumentNullException("fileName");
+            if (!mimeType.ToLower().Contains("image"))
+            {
+                throw new ArgumentException("this is not an image");
+            }
+            var name = Guid.NewGuid();
+            var container = BlobClient.GetContainerReference(AzureQuizContainer.ToLower());
+            var directory = container.GetDirectoryReference(boxId.ToString(CultureInfo.InvariantCulture));
+            var blob = directory.GetBlockBlobReference(name + Path.GetExtension(fileName));
+
+            blob.Properties.ContentType = mimeType;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+
+           await blob.UploadFromStreamAsync(content);
+
+            return TransferToCdnEndpoint(blob.Uri);
+
+        }
+        #endregion
+
+        private string TransferToCdnEndpoint(Uri uri)
+        {
+            if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
+            {
+                return uri.AbsoluteUri;
+            }
+           return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + uri.PathAndQuery;
+        }
 
         #region Thumbnail
         public void UploadFileThumbnail(string fileName, Stream ms, string mimeType)

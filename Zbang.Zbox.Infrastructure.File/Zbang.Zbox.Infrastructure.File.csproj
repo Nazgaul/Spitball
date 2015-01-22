@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="AudioProcessor.cs" />
     <Compile Include="ContentProcessor.cs" />
+    <Compile Include="DocumentProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="ImageProcessor.cs" />
     <Compile Include="FileProcessor.cs" />
