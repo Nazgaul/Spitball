@@ -191,7 +191,7 @@
                },
                templateUrl: '/dashboard/indexpartial/'
            }).
-           when('/box/my/:boxId/:boxName/', {
+           when('/box/:uniName/:boxId/:boxName/', {
                params: {
                    type: 'box',
                    isPrivate: true
@@ -199,7 +199,7 @@
                templateUrl: '/box/indexpartial/',
                reloadOnSearch: false
            }).
-           when('/box/my/:boxId/:boxName/#:tab?', {
+           when('/box/:uniName/:boxId/:boxName/#:tab?', {
                params: {
                    type: 'box',
                    isPrivate: true
@@ -239,11 +239,12 @@
                reloadOnSearch: false
 
            }).
-           when('/quiz/create/', {
+           when('/quiz/:uniName/:boxId/:boxName/create/', {
                params: {
                    type: 'quiz'
                },
-               templateUrl: '/quiz/createpartial/'
+               templateUrl: '/quiz/createpartial/',
+               controller: 'QuizCreateCtrl'
            }).            
            when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
                params: {

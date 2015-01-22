@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify',
-        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify','$routeParams',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify, $routeParams) {
             "use strict";
             var consts = {
                 view: {
@@ -9,7 +9,7 @@
                 },
                 itemsLimit: 50
             };
-
+            $scope.createUrl = "/quiz/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/create";
             $scope.qOptions = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,

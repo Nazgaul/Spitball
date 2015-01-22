@@ -606,7 +606,9 @@
         });
 
         $scope.initQuiz();
-
+        $timeout(function () {
+            $rootScope.$broadcast('viewContentLoaded');
+        });
 
     }]).directive('quizPreview', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return function (scope, element, attrs) {

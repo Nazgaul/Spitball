@@ -38,16 +38,7 @@ body {
 }
 
 /*#region Create Quiz */
-.bodyContent{
-    &.noQuiz {
-        /*.quizSideBar {
-            right: -390px;
-        }
-        
-        .toggleQuiz{
-            right: -22px;
-        }*/
-    }
+/*.bodyContent{
     &.jsQuizPreview,  &.jsCreateQuiz {
         position: fixed; //remove the scroll from existing content of bodyContent
         width: 100%;
@@ -75,7 +66,7 @@ body {
 
     }
 
-}
+}*/
 .quizAnswer {
     .removeAnswer {
         display: none;
@@ -87,7 +78,7 @@ body {
     }
 }
 .createQuiz, .quizPreview {
-    margin-top: 100%;
+    //margin-top: 100%;
     position: fixed;
     z-index: 14;
     left: 0;
@@ -100,14 +91,14 @@ body {
     .transition(margin .7s ease-in);
 
     h2{
-        display: none;
+        //display: none;
         font-size: 20px;
         font-weight: normal;
         padding: 7px 30px 0 30px;
         .boxSizing;
     }
     .closePreview {
-        display:none;
+        //display:none;
     }
 }
 //.quizSideBar {
@@ -153,7 +144,6 @@ body {
     .transition(all .4s);
     cursor: pointer;
 }
-
 .checkbox:checked
 {
     ~ .toggleQuiz
@@ -165,7 +155,9 @@ body {
     {
         right: -372px; 
     }
-}*/
+}
+*/
+
 .createQuiz {
     .emptyQuiz {
         .quizName:not(.ng-valid) {
@@ -320,7 +312,7 @@ body {
     }
     .closeDialog{
         background-position: -87px -121px;
-        display: none;
+        //display: none;
         width: 20px;
         height: 19px;
         right: -1px; /*rtl*/
