@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <a ng-href="{{::quiz.url}}" class="btn1 lFloat quizBtn">@QuizResources.CreateQuiz</a>
+        <a ng-href="{{::quiz.createUrl}}" class="btn1 lFloat quizBtn">@QuizResources.CreateQuiz</a>
 
 
         <button type="button" ng-class="{ currentState : qOptions.currentView === 'list'}" class="listViewBtn rFloat" ng-click="changeView('list')" ng-show="quizzes.length > 0">
