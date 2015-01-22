@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             bool isAuthorize = userType == UserRelationshipType.Owner
                 || Equals(item.Uploader, user)
-                || user.Reputation >= user.University.AdminScore;
+                || user.IsAdmin();
 
             if (!isAuthorize)
             {

@@ -36,7 +36,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             bool isAuthorize = userType == UserRelationshipType.Owner
                || Equals(quiz.Owner.Id, message.UserId)
-               || quiz.Owner.Reputation >= quiz.Owner.University.AdminScore;
+
+               || quiz.Owner.IsAdmin();
 
             if (!isAuthorize)
             {
