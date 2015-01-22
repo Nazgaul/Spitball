@@ -7,6 +7,21 @@
             //    parseLeaderboard(data.leaderBoard);
 
             //});
+            sBox.recommended({ id: $scope.boxId }).then(function (data) {
+                data = data || [];
+                parseRecommendedCourses(data);
+            });
+
+            if ($scope.info.privacy === 'membersOnly') {
+                return;            
+            }
+
+            sBox.leaderboard({ id: $scope.boxId }).then(function (data) {
+                data = data || [];
+                parseLeaderboard(data);
+            });
+
+
 
             function parseRecommendedCourses(recommendedCourses) {
                 if (!recommendedCourses || recommendedCourses.length === 0) {

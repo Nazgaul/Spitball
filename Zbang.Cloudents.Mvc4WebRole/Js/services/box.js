@@ -40,7 +40,7 @@ mBox.factory('sBox',
             },
             members: function (data) {
                 return ajaxService.get(buildPath('members'), data);
-            },                    
+            },
             removeUser: function (data) {
                 return ajaxService.post(buildPath('removeuser'), data);
             },
@@ -60,10 +60,13 @@ mBox.factory('sBox',
                 return ajaxService.get(buildPath('tabs'), data);
             },
             deleteUpdates: function (data) {
-                return ajaxService.post(buildPath('deleteupdates'), data,true);
+                return ajaxService.post(buildPath('deleteupdates'), data, true);
             },
-            sideBar: function (data) {
-                return ajaxService.get(buildPath('sidebar'), data);
+            recommended: function (data) {
+                return ajaxService.get(buildPath('recommended'), data);
+            },
+            leaderboard: function (data) {
+                return ajaxService.get(buildPath('leaderBoard'), data);
             }
         };
     }
