@@ -971,6 +971,7 @@
     <Content Include="Images\students.png" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\table-bg1.png" />
+    <Content Include="Images\textEditor.svg" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
     <Content Include="Images\tv.png" />
