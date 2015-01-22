@@ -325,25 +325,20 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Qna.SideDto> GetBoxSideBar(GetBoxSideBarQuery query)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} ",
-                   Sql.Box.RecommendedCourses,
-                   Sql.Box.LeaderBoard
-                   ),
-                   new { query.BoxId, query.UserId }))
-                {
-                    var retVal = new Qna.SideDto
-                    {
-                        RecommendBoxes = await grid.ReadAsync<Box.RecommendBoxDto>(),
-                        LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
-                    };
-
-
-                    return retVal;
-                }
+               return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
+                   new {query.BoxId, query.UserId});
+            }
+        }
+        public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                return await con.QueryAsync<LeaderBoardDto>(Sql.Box.LeaderBoard,
+                    new { query.BoxId });
             }
         }
 

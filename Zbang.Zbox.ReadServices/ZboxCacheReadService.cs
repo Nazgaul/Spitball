@@ -355,12 +355,17 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-
-
-        public Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
         {
-            return m_ReadService.GetBoxSideBar(query);
+            return m_Cache.QueryAsync(GetBoxLeaderBoard, query);
         }
+
+        public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)
+        {
+            return m_ReadService.GetBoxRecommendedCourses(query);
+        }
+
+
 
 
 
@@ -376,7 +381,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserDataAsync(query);
         }
 
-       
+
 
         public Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
         {
