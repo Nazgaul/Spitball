@@ -54,8 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Store.css",
                         "~/Content/Home.css",
                         "~/Content/jquery.mCustomScrollbar.css",
-                        "~/Content/textAngular.css",
-                        "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+                        "~/Content/textAngular.css"
                     }
                 },
                 {

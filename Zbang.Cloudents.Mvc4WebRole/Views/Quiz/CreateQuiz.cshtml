@@ -1,34 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
-<<<<<<< HEAD
-
-@*<input id="quizToggle" type="checkbox" class="checkbox" />
-    <label for="quizToggle" class="toggleQuiz"></label>
-    <aside id="quizSideBar" class="quizSideBar">
-        <section class="quiz">
-            <header>
-                @QuizResources.CreateQuiz
-                <button type="button"  ng-click="closeQuiz(quizForm.$valid)" class="closeDialog"></button>
-            </header>
-            <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
-                <div m-custom-scrollbar class="quizWpr" bottom="40">
-                    <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-                    <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
-                    <ul>
-                        <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index" ng-class="{
-                        answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
-                    </ul>
-                    <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
-                        @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
-                    </button>
-                </div>
-                <div class="quizBottom">
-                    <button type="submit" class="saveQuiz btn1 lFloat" ng-disabled="!quiz.id">@QuizResources.Publish</button>
-                    <span class="error">@QuizResources.CheckQuiz</span>
-                    <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
-                </div>
-            </form>
-        </section>
-    </aside>*@
 
 <section class="createQuiz">
     <div class="createQuizTop">
@@ -97,10 +67,11 @@
 
 </script>
 <script type="text/ng-template" id="quizQuestionTemplate">
-    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>    
+    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
     <div text-angular ng-model="htmlContent"></div>
-        <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-        <div class="lFloat answers">@SharedResources.Answers:</div>
+    <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
+    <div class="lFloat answers">@SharedResources.Answers:</div>
+    <div class="answerWpr">
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
         <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
         <ul class="quizAnswersList">
@@ -114,6 +85,7 @@
                 <label></label>
             </li>
         </ul>
+    </div>
     {{htmlContent}}
 </script>
 

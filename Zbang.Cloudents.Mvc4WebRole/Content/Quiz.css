@@ -35,43 +35,35 @@ body.quiz .modal-backdrop.in {
   opacity: .7;
 }
 /*#region Create Quiz */
-.bodyContent.noQuiz {
-  /*.quizSideBar {
-            right: -390px;
+/*.bodyContent{
+    &.jsQuizPreview,  &.jsCreateQuiz {
+        position: fixed; //remove the scroll from existing content of bodyContent
+        width: 100%;
+        overflow: hidden; //remove scrollbars of content below
+        &.topBarFix {
+            .quizPreview, .createQuiz {
+                h2,.closePreview {
+                    display: block;
+                }
+            }
         }
-        
-        .toggleQuiz{
-            right: -22px;
-        }*/
-}
-.bodyContent.jsQuizPreview,
-.bodyContent.jsCreateQuiz {
-  position: fixed;
-  width: 100%;
-  overflow: hidden;
-}
-.bodyContent.jsQuizPreview.topBarFix .quizPreview h2,
-.bodyContent.jsCreateQuiz.topBarFix .quizPreview h2,
-.bodyContent.jsQuizPreview.topBarFix .createQuiz h2,
-.bodyContent.jsCreateQuiz.topBarFix .createQuiz h2,
-.bodyContent.jsQuizPreview.topBarFix .quizPreview .closePreview,
-.bodyContent.jsCreateQuiz.topBarFix .quizPreview .closePreview,
-.bodyContent.jsQuizPreview.topBarFix .createQuiz .closePreview,
-.bodyContent.jsCreateQuiz.topBarFix .createQuiz .closePreview {
-  display: block;
-}
-.bodyContent.jsQuizPreview .quizPreview,
-.bodyContent.jsCreateQuiz .quizPreview,
-.bodyContent.jsQuizPreview .createQuiz,
-.bodyContent.jsCreateQuiz .createQuiz {
-  margin-top: 0;
-}
-.bodyContent.jsQuizPreview .quizTitle {
-  margin: 20px auto;
-  width: 800px;
-  display: block;
-  max-width: none;
-}
+        .quizPreview, .createQuiz {
+            margin-top: 0; 
+        }
+    }
+    &.jsQuizPreview {
+        .quizTitle {
+            margin: 20px auto;
+            width: 800px;
+            display: block;
+            max-width: none; //override
+        }
+    }
+    &.jsCreateQuiz {
+
+    }
+
+}*/
 .quizAnswer .removeAnswer {
   display: none;
 }
@@ -80,7 +72,6 @@ body.quiz .modal-backdrop.in {
 }
 .createQuiz,
 .quizPreview {
-  margin-top: 100%;
   position: fixed;
   z-index: 14;
   left: 0;
@@ -96,17 +87,12 @@ body.quiz .modal-backdrop.in {
 }
 .createQuiz h2,
 .quizPreview h2 {
-  display: none;
   font-size: 20px;
   font-weight: normal;
   padding: 7px 30px 0 30px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.createQuiz .closePreview,
-.quizPreview .closePreview {
-  display: none;
 }
 /*position: fixed;
     top: 50px;
@@ -150,7 +136,6 @@ body.quiz .modal-backdrop.in {
     .transition(all .4s);
     cursor: pointer;
 }
-
 .checkbox:checked
 {
     ~ .toggleQuiz
@@ -162,7 +147,8 @@ body.quiz .modal-backdrop.in {
     {
         right: -372px; 
     }
-}*/
+}
+*/
 .createQuiz .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
@@ -281,7 +267,6 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder .closeDialog {
   background-position: -87px -121px;
-  display: none;
   width: 20px;
   height: 19px;
   right: -1px;
@@ -335,13 +320,15 @@ body.quiz .modal-backdrop.in {
 .questionHolder label:before {
   opacity: .5;
 }
+.answerWpr {
+  width: 550px;
+}
 .quizAnswersList {
   list-style-type: lower-alpha;
   clear: both;
   padding-left: 16px;
   /*rtl*/
   position: relative;
-  width: 550px;
 }
 .quizAddQuestion {
   height: 40px;
