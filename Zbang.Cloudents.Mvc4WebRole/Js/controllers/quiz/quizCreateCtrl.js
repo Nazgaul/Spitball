@@ -621,7 +621,7 @@
                   function showPreview() {
                       element[0].style.display = 'block';
                       $timeout(function () { //fix for animation
-                          $mainDiv.addClass('previewQuiz');
+                          $mainDiv.addClass('jsQuizPreview');
                       });
 
                       $timeout(function () { //fix for animationB                                                    
@@ -632,7 +632,7 @@
                   }
 
                   function hidePreview() {
-                      $mainDiv.removeClass('previewQuiz topBarFix');
+                      $mainDiv.removeClass('jsQuizPreview topBarFix');
                       element[0].style.display = 'none';
                       $('body').removeClass('jsDark');
                   }

@@ -35,26 +35,38 @@ body.quiz .modal-backdrop.in {
   opacity: .7;
 }
 /*#region Create Quiz */
-.bodyContent.noQuiz .quizSideBar {
-  left: -390px
-  /*rtl*/
+.bodyContent.noQuiz {
+  /*.quizSideBar {
+            right: -390px;
+        }
+        
+        .toggleQuiz{
+            right: -22px;
+        }*/
 }
-.bodyContent.noQuiz .toggleQuiz {
-  left: -22px
-  /*rtl*/
-}
-.bodyContent.previewQuiz {
+.bodyContent.jsQuizPreview,
+.bodyContent.jsCreateQuiz {
   position: fixed;
   width: 100%;
+  overflow: hidden;
 }
-.bodyContent.previewQuiz.topBarFix .quizPreview h2,
-.bodyContent.previewQuiz.topBarFix .quizPreview .closePreview {
+.bodyContent.jsQuizPreview.topBarFix .quizPreview h2,
+.bodyContent.jsCreateQuiz.topBarFix .quizPreview h2,
+.bodyContent.jsQuizPreview.topBarFix .createQuiz h2,
+.bodyContent.jsCreateQuiz.topBarFix .createQuiz h2,
+.bodyContent.jsQuizPreview.topBarFix .quizPreview .closePreview,
+.bodyContent.jsCreateQuiz.topBarFix .quizPreview .closePreview,
+.bodyContent.jsQuizPreview.topBarFix .createQuiz .closePreview,
+.bodyContent.jsCreateQuiz.topBarFix .createQuiz .closePreview {
   display: block;
 }
-.bodyContent.previewQuiz .quizPreview {
+.bodyContent.jsQuizPreview .quizPreview,
+.bodyContent.jsCreateQuiz .quizPreview,
+.bodyContent.jsQuizPreview .createQuiz,
+.bodyContent.jsCreateQuiz .createQuiz {
   margin-top: 0;
 }
-.bodyContent.previewQuiz .quizTitle {
+.bodyContent.jsQuizPreview .quizTitle {
   margin: 20px auto;
   width: 800px;
   display: block;
@@ -66,117 +78,161 @@ body.quiz .modal-backdrop.in {
 .quizAnswer:hover .removeAnswer {
   display: inline-block;
 }
-.quizSideBar {
+.createQuiz,
+.quizPreview {
+  margin-top: 100%;
   position: fixed;
-  top: 50px;
-  left: 0;
-  /*rtl*/
-  width: 386px;
-  height: -webkit-calc(100% - 50px);
-  height: calc(100% - 50px);
-  background: #e4e4e4;
-  z-index: 4;
+  z-index: 14;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #282828;
+  -webkit-transition: margin 0.7s ease-in;
+  -moz-transition: margin 0.7s ease-in;
+  -o-transition: margin 0.7s ease-in;
+  transition: margin 0.7s ease-in;
+}
+.createQuiz h2,
+.quizPreview h2 {
+  display: none;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 7px 30px 0 30px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 14px;
-  border-right: 1px solid #c2c2c2;
-  /*rtl*/
-  box-shadow: 4px 0 4px rgba(0, 0, 0, 0.15);
-  /*rtl*/
-  -webkit-transition: left 0.4s;
-  -moz-transition: left 0.4s;
-  -o-transition: left 0.4s;
-  transition: left 0.4s
-  /*rtl*/
 }
-.quizSideBar .emptyQuiz .quizName:not(.ng-valid) {
+.createQuiz .closePreview,
+.quizPreview .closePreview {
+  display: none;
+}
+/*position: fixed;
+    top: 50px;
+    right: 0; 
+    width: 386px;
+    height: ~'-webkit-calc(100% - @{header-height})';
+    height: ~'calc(100% - @{header-height})';
+    background: #e4e4e4;
+     z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
+    .boxSizing;
+    padding: 0 14px;
+    border-left: 1px solid @borderColor; 
+    box-shadow: -4px 0 4px rgba(0,0,0,.15); 
+    .transition(right .4s);
+    header {
+        height: 40px;
+        background: #517e9e;
+        color: #fff;
+        font-size: 17px;
+        margin: 0 -14px 0 -15px;  //left padding + 1px border
+        padding: 8px 0 0 14px; 
+        .boxSizing;
+        .closeDialog {
+            right: 20px;
+        }
+    }
+    section {
+        min-height: 100%;
+        //height: ~'calc(100% - 150px)';
+        //height: 300px;
+    }
+.toggleQuiz
+{
+    width: 22px;
+    height: 22px;
+    background: @common-sprite -294px -2px;
+    position: fixed;
+    right: 374px;
+    top: 78px;
+    z-index: 6;
+    .transition(all .4s);
+    cursor: pointer;
+}
+
+.checkbox:checked
+{
+    ~ .toggleQuiz
+    {
+        .flipH;
+        right: 3px; 
+    }
+    ~ .quizSideBar, ~ .quizSideBar .quizBottom
+    {
+        right: -372px; 
+    }
+}*/
+.createQuiz .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child[class*='Req'] {
+.createQuiz .emptyQuiz .questionHolder:first-child[class*='Req'] {
   border: 1px solid #d1294d;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child.answerReq .addAnswer {
+.createQuiz .emptyQuiz .questionHolder:first-child.answerReq .addAnswer {
   display: inline-block;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child.questionReq .addQuestion {
+.createQuiz .emptyQuiz .questionHolder:first-child.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
   left: 21px;
   /*rtl*/
   top: 15px;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child.correctReq .correct {
+.createQuiz .emptyQuiz .questionHolder:first-child.correctReq .correct {
   color: #d1294d;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer {
+.createQuiz .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer {
   border: 1px solid #d1294d;
 }
-.quizSideBar .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
+.createQuiz .emptyQuiz .questionHolder:first-child .quizAnswer:nth-child(-n+2) .questionAnswer.ng-dirty:not(.ng-invalid) {
   border: 1px solid #c2c2c2;
 }
-.quizSideBar .validated .quizName:not(.ng-valid) {
+.createQuiz .validated .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-invalid[class*='Req'] {
+.createQuiz .validated .questionHolder.ng-invalid[class*='Req'] {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-invalid.answerReq .addAnswer {
+.createQuiz .validated .questionHolder.ng-invalid.answerReq .addAnswer {
   display: inline-block;
 }
-.quizSideBar .validated .questionHolder.ng-invalid.answerReq .questionAnswer {
+.createQuiz .validated .questionHolder.ng-invalid.answerReq .questionAnswer {
   border: 1px solid #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-invalid.questionReq .addQuestion {
+.createQuiz .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
   left: 21px;
   /*rtl*/
   top: 15px;
 }
-.quizSideBar .validated .questionHolder.ng-invalid.correctReq .correct {
+.createQuiz .validated .questionHolder.ng-invalid.correctReq .correct {
   color: #d1294d;
 }
-.quizSideBar .validated .questionHolder.ng-invalid .questionAnswer.ng-invalid {
+.createQuiz .validated .questionHolder.ng-invalid .questionAnswer.ng-invalid {
   border: 1px solid #d1294d;
 }
-.quizSideBar.error .quizBottom .error {
+.createQuiz.error .quizBottom .error {
   display: inline-block;
 }
-.quizSideBar header {
-  height: 40px;
-  background: #517e9e;
-  color: #fff;
-  font-size: 17px;
-  margin: 0 -15px 0 -14px;
-  /*rtl*/
-  padding: 8px 14px 0 0;
-  /*rtl*/
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.quizSideBar header .closeDialog {
-  left: 20px
-  /*rtl*/
-}
-.quizSideBar .inputText {
-  width: 270px;
+.createQuiz .inputText {
+  width: 470px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-color: rgba(194, 194, 194, 0.5);
 }
-.quizSideBar .inputText:focus {
+.createQuiz .inputText:focus {
   border-color: #c2c2c2;
 }
-.quizSideBar .inputText.quizName {
+.createQuiz .inputText.quizName {
   width: 100%;
   margin: 10px 0 17px;
   height: 32px;
   font-size: 17px;
 }
-.quizSideBar .inputText.questionText {
+.createQuiz .inputText.questionText {
   min-height: 32px;
   padding: 3px 6px;
   width: 100%;
@@ -184,45 +240,13 @@ body.quiz .modal-backdrop.in {
   font-size: 17px;
   line-height: 19px;
 }
-.quizSideBar section {
-  min-height: 100%;
-}
-.quizSideBar .questionHolder .error {
+.createQuiz .questionHolder .error {
   display: none;
   color: #d1294d;
 }
-.quizSideBar .error {
+.createQuiz .error {
   display: none;
   color: #d1294d;
-}
-.toggleQuiz {
-  width: 22px;
-  height: 22px;
-  background: url(/Images/common17-sprite.png?v=4) -294px -2px;
-  position: fixed;
-  left: 374px;
-  /*rtl*/
-  top: 78px;
-  z-index: 6;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  transition: all 0.4s;
-  cursor: pointer;
-}
-.checkbox:checked ~ .toggleQuiz {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  left: 3px
-  /*rtl*/
-}
-.checkbox:checked ~ .quizSideBar,
-.checkbox:checked ~ .quizSideBar .quizBottom {
-  left: -372px
-  /*rtl*/
 }
 .quizWpr {
   overflow: hidden;
@@ -247,6 +271,7 @@ body.quiz .modal-backdrop.in {
   margin-bottom: 10px;
   position: relative;
   padding: 12px;
+  border: 1px solid rgba(194, 194, 194, 0.5);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -313,17 +338,18 @@ body.quiz .modal-backdrop.in {
 .quizAnswersList {
   list-style-type: lower-alpha;
   clear: both;
-  padding-right: 16px
+  padding-right: 16px;
   /*rtl*/
+  position: relative;
+  width: 550px;
 }
 .quizAddQuestion {
-  width: 100%;
   height: 40px;
   background: rgba(255, 255, 255, 0.5);
   text-align: right;
   /*rtl*/
   color: #0371c8;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   padding: 0 12px;
   border-radius: 3px;
   -webkit-box-sizing: border-box;
@@ -339,20 +365,8 @@ body.quiz .modal-backdrop.in {
   fill: #3399ff;
 }
 .quizBottom {
-  background: #fff;
-  border-top: 1px solid #c2c2c2;
   height: 42px;
   padding: 0 14px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  /*rtl*/
-  width: 385px;
-  -webkit-transition: left 0.4s;
-  -moz-transition: left 0.4s;
-  -o-transition: left 0.4s;
-  transition: left 0.4s;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -371,44 +385,13 @@ body.quiz .modal-backdrop.in {
 /*#endregion */
 /*#region Quiz Preview  */
 .quizPreviewTop,
-.quizTop {
+.quizTop,
+.createQuizTop {
   height: 43px;
   color: #3399ff;
   background: #0f0f0f;
   text-align: center;
   margin: 0 auto;
-}
-.quizPreviewScroll {
-  height: 100%;
-  overflow: auto;
-  background: #282828;
-  color: #fff;
-}
-.quizPreview {
-  margin-top: 100%;
-  position: fixed;
-  z-index: 14;
-  right: 0;
-  /*rtl*/
-  top: 0;
-  width: 100%;
-  height: 100%;
-  -webkit-transition: margin 0.7s ease-in;
-  -moz-transition: margin 0.7s ease-in;
-  -o-transition: margin 0.7s ease-in;
-  transition: margin 0.7s ease-in;
-}
-.quizPreview h2 {
-  display: none;
-  font-size: 20px;
-  font-weight: normal;
-  padding: 7px 30px 0 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.quizPreview .closePreview {
-  display: none;
 }
 .quizPreview .correct {
   background: rgba(3, 113, 200, 0.2);
@@ -426,7 +409,8 @@ body.quiz .modal-backdrop.in {
   top: -17px;
   position: relative;
 }
-.quizPrevWpr {
+.quizPrevWpr,
+.createQuizWpr {
   width: 800px;
   margin: 20px auto 60px;
   background: #fff;
@@ -451,25 +435,7 @@ body.quiz .modal-backdrop.in {
 .quizQList {
   list-style-type: decimal;
   font-size: 15px;
-  padding: 0 25px
-  /*.splitHR {
-
-        text-align: left; //rtl
-        padding: 10px 0 0 42px; //rtl
-        font-size: 13px;
-        margin: 0 -34px -4px -34px;
-    }
-    .splitHRText:before, .splitHRText:after {
-        border-color: @borderColor;
-    }*/
-  /*.iconTxt {
-        color: @attentionBlue;
-        &:before {
-            width: 15px;
-            height: 15px;
-            background-position: -55px -121px;
-        }
-    }*/
+  padding: 0 25px;
 }
 .quizQList > li {
   position: relative;
@@ -485,9 +451,6 @@ body.quiz .modal-backdrop.in {
   margin-top: -25px;
   position: relative;
 }
-/*.quizQuestion {
-    padding-right: 80px;
-}*/
 .askBtn {
   border-radius: 5px;
   background: #0371c8;
