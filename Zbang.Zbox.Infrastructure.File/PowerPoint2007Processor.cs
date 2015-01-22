@@ -192,7 +192,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             //Display text in the current portion
                             sb.Append(port.Text);
-                            if (sb.Length > 5000)
+                            if (sb.Length > 10000)
                             {
                                 break;
                             }

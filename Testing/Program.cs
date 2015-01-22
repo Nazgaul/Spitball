@@ -217,16 +217,20 @@ namespace Testing
 
             //m_ThumbnailProvider = iocFactory.Resolve<IThumbnailProvider>();
 
-            //            var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+            var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+            var file = File.ReadAllBytes(@"C:\Users\Ram\Pictures\bug1.png");
+            var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
+            t.Wait();
+            var z = t.Result;
             //            var x = m_BlobProvider.GetThumbnailUrl("sometest");
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
             var x = iocFactory.Resolve<IMailComponent>();
-            x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
-                     "failed connect to remove db " );
-            var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
-            t.Wait();
+            //x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+            //         "failed connect to remove db ");
+            //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
+            //t.Wait();
             //IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             // writeService.OneTimeDbi();

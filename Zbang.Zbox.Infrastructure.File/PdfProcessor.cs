@@ -236,7 +236,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         extractedText = StripUnwantedChars(extractedText);
                     }
                     builder.Append(extractedText);
-                    if (builder.Length > 5000)
+                    if (builder.Length > 10000)
                     {
                         break;
                     }
