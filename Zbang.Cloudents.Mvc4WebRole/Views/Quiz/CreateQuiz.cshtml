@@ -67,10 +67,11 @@
 
 </script>
 <script type="text/ng-template" id="quizQuestionTemplate">
-    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>    
+    <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
     <div text-angular ng-model="htmlContent"></div>
-        <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
-        <div class="lFloat answers">@SharedResources.Answers:</div>
+    <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
+    <div class="lFloat answers">@SharedResources.Answers:</div>
+    <div class="answerWpr">
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
         <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
         <ul class="quizAnswersList">
@@ -84,6 +85,7 @@
                 <label></label>
             </li>
         </ul>
+    </div>
     {{htmlContent}}
 </script>
 
