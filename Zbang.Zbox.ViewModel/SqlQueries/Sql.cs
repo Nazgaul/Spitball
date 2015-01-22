@@ -14,9 +14,8 @@
                             uWrap.YouTubeUrl,
                             uWrap.LetterUrl,
                             uWrap.NoOfBoxes as BoxesCount,
-                            (select sum(itemcount) from zbox.Box b 
-                            where b.University = uWrap.Id and b.Discriminator = 2 and b.IsDeleted = 0) as ItemCount,
-                            (select count(*) from zbox.Users u where u.UniversityId = uWrap.Id) as MemberCount
+							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
+                            uWrap.NoOfUsers as MemberCount
                             from zbox.University uWrap  
                             where 
                              uWrap.Id =@UniversityWrapper";

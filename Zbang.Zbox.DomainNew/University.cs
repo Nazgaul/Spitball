@@ -45,6 +45,9 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails UserTime { get; set; }
 
         public virtual int NoOfBoxes { get; private set; }
+        public virtual int NoOfItems { get; set; }
+        public virtual int NoOfQuizzes { get; set; }
+        public virtual int NoOfUsers { get; set; }
 
         public virtual ICollection<Library> Libraries { get; protected set; }
 
