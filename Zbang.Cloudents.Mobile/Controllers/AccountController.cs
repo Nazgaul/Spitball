@@ -205,8 +205,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
-
-            Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
+            if (Session != null)
+                Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
@@ -381,7 +381,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
-                TempData["key"] = System.Web.Helpers.Crypto.HashPassword(code);
+                TempData["key"] = Crypto.HashPassword(code);
 
                 return RedirectToAction("Confirmation");
 

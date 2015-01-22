@@ -93,7 +93,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             catch (Exception ex)
             {
                 TraceLog.WriteError("CloudentsSessionStateStore GetItem", ex);
-                throw;
+                TraceLog.WriteError("CloudentsSessionStateStore GetItemExclusive", ex);
+                locked = false;
+                lockAge = new TimeSpan(0);
+                lockId = null;
+                actions = SessionStateActions.None;
+                return m_AzureAppFabricCache.CreateNewStoreData(context, 20);
             }
         }
 
@@ -106,7 +111,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             catch (Exception ex)
             {
                 TraceLog.WriteError("CloudentsSessionStateStore GetItemExclusive", ex);
-                throw;
+                locked = false;
+                lockAge = new TimeSpan(0);
+                lockId = null;
+                actions = SessionStateActions.None;
+                return m_AzureAppFabricCache.CreateNewStoreData(context, 20);
+
+
             }
         }
 
