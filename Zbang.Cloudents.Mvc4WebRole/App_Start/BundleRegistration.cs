@@ -105,10 +105,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //    ),
                         new JsFileWithCdn("~/scripts/angular-animate.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
-
-                            new JsFileWithCdn("~/scripts/angular-animate.js",
-                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular-animate.min.js"),
-
                             new JsFileWithCdn("~/scripts/textAngular/textAngular-rangy.min.js"),
                             new JsFileWithCdn("~/scripts/textAngular/textAngular-sanitize.js"),
                             new JsFileWithCdn("~/scripts/textAngular/textAngular.js"),
