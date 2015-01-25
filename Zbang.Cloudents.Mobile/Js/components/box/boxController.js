@@ -4,7 +4,8 @@
         var box = this;
 
         var boxData,
-            lastTab;
+            lastTab,
+            firstTime = true;
 
         boxService.getData($stateParams.boxId).then(function (data) {
             boxData = data;
@@ -20,6 +21,10 @@
             box.currentTab = tab;
             if (tab) { //dont want to change hash if there is no tab selected for upload
                 $location.hash(tab);
+                if (firstTime) {
+                    $location.replace();
+                    firstTime = false;
+                }
             }
 
         };
