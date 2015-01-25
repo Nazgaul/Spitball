@@ -6,9 +6,6 @@
   font-style: normal;
 }
 
-input[type="color"] {
-    display:none;
-}
 
 input[type="color"]:before {
 

@@ -74,7 +74,7 @@
 
                if (Modernizr.inputtypes.color) {
                    taRegisterTool('color', {
-                       display: '<input type="color" ng-model="color" ng-change="action(color)"/>',
+                       display: '<span class="btn ta-color"><input type="color" ng-model="color" ng-change="action(color)"/></span>',
                        action: function (color) {
                            if (color !== '') {
                                return this.$editor().wrapSelection('forecolor', color);
