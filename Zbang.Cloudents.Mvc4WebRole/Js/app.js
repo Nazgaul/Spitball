@@ -41,7 +41,9 @@
 
                var fontSize = 3;
                taRegisterTool('font+', {
-                   display: '<button type="button" name="fontIncrease">+</button>',
+                   display: '<button type="button" name="fontIncrease"> \
+                            <svg class="svg-textIncrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textIncrease"></use></svg> \
+                            </button>',
                    action: function () {
                        if (fontSize < 7) {
                            fontSize++;
@@ -52,12 +54,13 @@
                });
 
                taRegisterTool('font-', {
-                   display: '<button type="button">-</button>',
-                   action: function (imageLink) {
+                   display: '<button type="button" name="fontIncrease"> \
+                            <svg class="svg-textDecrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textDecrease"></use></svg> \
+                            </button>', action: function (imageLink) {
                        if (fontSize > 1) {
                            fontSize--;
                        }
-                       return  this.$editor().wrapSelection('fontsize', fontSize);
+                       return this.$editor().wrapSelection('fontsize', fontSize);
 
                    },
                });
@@ -71,10 +74,7 @@
                        display: '<input type="color" ng-model="color" ng-change="action(color)"/>',
                        action: function (color) {
                            if (color !== '') {
-
-
-                               console.log(color)
-                               this.$editor().wrapSelection('forecolor', color);
+                               return this.$editor().wrapSelection('forecolor', color);
                            }
                        }
                    });
