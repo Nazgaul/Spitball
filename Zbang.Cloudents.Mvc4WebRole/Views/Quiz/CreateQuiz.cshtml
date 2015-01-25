@@ -73,7 +73,7 @@
     <div class="lFloat answers">@SharedResources.Answers:</div>
     <div class="answerWpr">
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
-        <div class="rFloat correct">@QuizResources.CorrectAnswer</div>
+        <div class="rFloat correct"><span class="correctTxt">@QuizResources.CorrectAnswer</span></div>
         <ul class="quizAnswersList">
             <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
             </li>
@@ -86,7 +86,6 @@
             </li>
         </ul>
     </div>
-    {{htmlContent}}
 </script>
 
 <script type="text/ng-template" id="quizAnswerTemplate">
