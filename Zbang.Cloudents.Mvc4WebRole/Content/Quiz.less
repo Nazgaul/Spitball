@@ -38,35 +38,7 @@ body {
 }
 
 /*#region Create Quiz */
-/*.bodyContent{
-    &.jsQuizPreview,  &.jsCreateQuiz {
-        position: fixed; //remove the scroll from existing content of bodyContent
-        width: 100%;
-        overflow: hidden; //remove scrollbars of content below
-        &.topBarFix {
-            .quizPreview, .createQuiz {
-                h2,.closePreview {
-                    display: block;
-                }
-            }
-        }
-        .quizPreview, .createQuiz {
-            margin-top: 0; 
-        }
-    }
-    &.jsQuizPreview {
-        .quizTitle {
-            margin: 20px auto;
-            width: 800px;
-            display: block;
-            max-width: none; //override
-        }
-    }
-    &.jsCreateQuiz {
 
-    }
-
-}*/
 .quizAnswer {
     .removeAnswer {
         display: none;
@@ -98,7 +70,12 @@ body {
         .boxSizing;
     }
     .closePreview {
-        //display:none;
+        position: absolute;
+        top: 12px;
+        right: 20px; //rtl
+        svg {
+            fill: #fff;
+        }
     }
 }
 //.quizSideBar {
@@ -361,25 +338,7 @@ body {
         }
     }
 }
-.ta-root {
-    border: 1px solid rgba(194, 194, 194, 0.5); 
-    margin-bottom: 12px;
-    border-radius: 3px;
-    ol {
-        list-style-type: decimal;
-        padding-left: 20px;
-    }
-    ul {
-        list-style-type: disc;
-        padding-left: 20px;
-    }
-}
-.ta-toolbar {
-    height: 32px;
-}
-.btn-group {
-    padding: 3px 0 0 2px;
-}
+
 .answerWpr {
     width: 550px;
 }
