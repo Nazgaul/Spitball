@@ -11,7 +11,7 @@
                     label: 'User logged in with email'
                 });
                 //we have an issue - we need to resubmit culture to the dom so we need a refresh
-                window.open('dashboard', '_self');
+                window.location.href = '/dashboard/';
                 //$state.go('root.dashboard', {}, { reload: true });
             });
         };
@@ -27,7 +27,7 @@
                 if (response.authResponse) {
                     account.facebookLogin({ token: response.authResponse.accessToken }).then(function () {
                         //we have an issue - we need to resubmit culture to the dom so we need a refresh
-                        window.open('dashboard', '_self');
+                        window.location.href = '/dashboard/';
                         //$state.go($state.current, {}, { reload: true });
                     });
                 }

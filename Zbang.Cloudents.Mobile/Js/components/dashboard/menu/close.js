@@ -6,7 +6,8 @@
            link: function (scope, element, attr) {
                var $menuBtn = angular.element(document.getElementById('menuBtn')),                   
                    $dashboard = angular.element(document.getElementById('dashboard')),
-                   menu = document.getElementById('sidemenu');
+                   menu = document.getElementById('sidemenu'),
+                   menuOpened= false;
 
                $menuBtn.on('click', toggleMenu);               
 
@@ -19,6 +20,10 @@
                        return false;
                    }
 
+                   if (menuOpened) {
+                       return;
+                   }
+
                    $analytics.eventTrack('Open sidebar', {
                        category: 'Dashboard page'
                    });
@@ -28,7 +33,8 @@
 
                scope.$on('$destroy', function () {
                    $dashboard.off('click');
-                   $menuBtn.off('click');                   ;
+                   $menuBtn.off('click');
+                   menuOpened = false;
                });
 
                function toggleMenu(e) {
@@ -40,6 +46,7 @@
                    });
 
                    $dashboard.toggleClass('menuOpen');
+                   menuOpened = !menuOpened;
                }
 
                function isDescendant(parent, child) {

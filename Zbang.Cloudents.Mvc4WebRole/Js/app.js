@@ -245,7 +245,7 @@
                reloadOnSearch: false
 
            }).
-           when('/quiz/:uniName/:boxId/:boxName/create/', {
+           when('/box/:uniName/:boxId/:boxName/quizcreate/', {
                params: {
                    type: 'quiz'
                },
