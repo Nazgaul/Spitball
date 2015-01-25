@@ -226,7 +226,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         textDevice.ExtractionOptions = textExtOptions;
 
                         //convert a particular page and save text to the stream
-                        textDevice.Process(pdfPage, textStream);
+                        if (pdfPage != null) textDevice.Process(pdfPage, textStream);
 
                         //close memory stream
                         textStream.Close();

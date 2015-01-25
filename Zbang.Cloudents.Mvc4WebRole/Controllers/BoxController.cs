@@ -213,9 +213,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxQuizesPagedQuery(id);
                 var result = await ZboxReadService.GetBoxQuizes(query);
-
+                var userid = User.GetUserId(false);
                 var quizDtos = result as QuizDto[] ?? result.ToArray();
-                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != User.GetUserId(false));
+                var remove = quizDtos.Where(w => !w.Publish && w.OwnerId != userid);
                 return JsonOk(quizDtos.Except(remove));
             }
             catch (Exception ex)

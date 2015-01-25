@@ -31,7 +31,9 @@
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
                var buttons;
                taRegisterTool('embedImage', {
-                   display: '<input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" />',
+                   display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
+                       <span class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#upload"></use></svg></span> \
+                       </span>',
                    action: function (imageLink) {
                        if (angular.isString(imageLink)) {
                            console.log(imageLink);
@@ -74,7 +76,9 @@
 
                if (Modernizr.inputtypes.color) {
                    taRegisterTool('color', {
-                       display: '<span class="btn ta-color"><input type="color" ng-model="color" ng-change="action(color)"/></span>',
+                       display: '<span class="btn ta-color"> \
+                                <span class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textColor"></use></svg></span> \
+                                <input type="color" ng-model="color" ng-change="action(color)" /></span>',
                        action: function (color) {
                            if (color !== '') {
                                return this.$editor().wrapSelection('forecolor', color);

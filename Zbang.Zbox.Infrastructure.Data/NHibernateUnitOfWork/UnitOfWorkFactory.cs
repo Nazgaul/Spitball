@@ -13,6 +13,7 @@ using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -91,24 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
         }
 
-        //private bool IsConfigurationFileValid()
-        //{
-        //    var storage = Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.ILocalStorageProvider>();
-        //    try
-        //    {
-        //        Assembly assembly = Assembly.GetExecutingAssembly();
-        //        FileInfo asmInfo = new FileInfo(assembly.Location);
-
-        //        //FileInfo configInfo = new FileInfo(SerializedConfiguration);
-        //        var fileDate = storage.GetFileLastModified(SerializationFile);
-        //        var asmblyDate = asmInfo.LastWriteTime;
-        //        return fileDate >= asmblyDate;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
+       
         private string GetConfigurationFileName()
         {
             var domain = Assembly.Load("Zbang.Zbox.Domain");
@@ -117,8 +101,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             var buildVersion = Assembly.GetExecutingAssembly().GetName().Version.Revision;
             var domainBuildVersion = domain.GetName().Version.Revision;
             var viewModelBuildVersion = viewModel.GetName().Version.Revision;
-            
-            return string.Format("{0}{1}{2}{3}", SerializationFile, buildVersion, domainBuildVersion, viewModelBuildVersion);
+            var fileInfo = string.Format("{0}{1}{2}{3}", SerializationFile, buildVersion, domainBuildVersion, viewModelBuildVersion);
+            TraceLog.WriteInfo("nhibernate file config is: " + fileInfo);
+            return fileInfo;
         }
 
         private Configuration LoadConfigurationFromFile()
