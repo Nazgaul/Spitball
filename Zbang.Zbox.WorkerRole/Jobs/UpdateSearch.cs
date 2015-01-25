@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
@@ -41,8 +42,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
+            TraceLog.WriteInfo("Updating item");
+
             var itemUpdate = await UpdateItem();
+            TraceLog.WriteInfo("Updating university");
             var universityUpdate = await UpdateUniversity();
+            TraceLog.WriteInfo("Updating box");
             var boxUpdate = await UpdateBox();
 
             if (itemUpdate || boxUpdate || universityUpdate)

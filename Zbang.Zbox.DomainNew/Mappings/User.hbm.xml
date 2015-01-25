@@ -99,10 +99,10 @@
     <property name="LetterUrl" />
     <property name="AdvertisementUrl" />
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
-    <property name="NoOfBoxes" />
-    <property name="NoOfItems" />
-    <property name="NoOfQuizzes" />
-    <property name="NoOfUsers" />
+    <property name="NoOfBoxes"  />
+    <property name="NoOfItems" not-null="false"/>
+    <property name="NoOfQuizzes" not-null="false"/>
+    <property name="NoOfUsers" not-null="false"/>
     
     <property name="FacebookUniId" />
     

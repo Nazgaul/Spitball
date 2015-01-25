@@ -5,7 +5,7 @@ using NHibernate.Dialect.Function;
 
 namespace Zbang.Zbox.Infrastructure.Data.Dialect
 {
-    public class ZboxDialect : MsSql2012Dialect
+    public class ZboxDialect : MsSqlAzure2008Dialect
     {
         protected override void RegisterFunctions()
         {
