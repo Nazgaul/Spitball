@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "IndexEmpty" });
 
             routes.MapRoute("Quiz",
-                "Quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+                "quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
                 new
                 {
                     controller = "Quiz",

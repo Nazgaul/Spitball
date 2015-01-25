@@ -501,8 +501,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-        private const string SessionResetPassword = "SResetPassword";
-        private const string ResetPasswordCrypticPropose = "reset password";
+        //private const string SessionResetPassword = "SResetPassword";
+        // ;
         [HttpGet]
         //issue with ie
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
@@ -545,12 +545,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var data = new ForgotPasswordLinkData(membershipUserId, 1);
 
                 var linkData = CrypticElement(data);
-                Session[SessionResetPassword] = data;
+                //Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
-                TempData["key"] = System.Web.Helpers.Crypto.HashPassword(code);
+                TempData["key"] = Crypto.HashPassword(code);
 
-                return RedirectToAction("Confirmation");
+                return RedirectToAction("Confirmation", new { @continue = linkData });
 
             }
 
@@ -566,7 +566,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, NoCache]
-        public ActionResult Confirmation()
+        public ActionResult Confirmation(string @continue)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -576,8 +576,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("ResetPassword");
             }
-            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
-            if (userData == null)
+            //var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+            if (@continue == null)
             {
                 return RedirectToAction("ResetPassword");
             }
@@ -586,19 +586,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         [RequireHttps]
-        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
+        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, string @continue)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+            var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
             if (userData == null)
             {
                 return RedirectToAction("ResetPassword");
             }
-            if (System.Web.Helpers.Crypto.VerifyHashedPassword(model.Key, model.Code))
+            if (Crypto.VerifyHashedPassword(model.Key, model.Code))
             {
                 userData.Step = 2;
                 var key = CrypticElement(userData);
@@ -658,7 +658,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            Session.Abandon();
             var cookie = new CookieHelper(HttpContext);
             cookie.InjectCookie(Helpers.UserLanguage.CookieName, result.Culture);
             FormsAuthenticationService.SignIn(result.Id, false,
@@ -682,6 +681,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return new string(chars.ToArray());
             //return "12345";
         }
+
+        private const string ResetPasswordCrypticPropose = "reset password";
         [NonAction]
         private string CrypticElement<T>(T obj) where T : class
         {
