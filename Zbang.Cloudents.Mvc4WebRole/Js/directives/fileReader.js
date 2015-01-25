@@ -1,4 +1,4 @@
-﻿app.directive('appFilereader', ['$routeParams', function ($routeParams) {    
+﻿app.directive('appFilereader', ['$routeParams', function ($routeParams) {
     return {
         restrict: 'A',
         scope: {
@@ -6,33 +6,36 @@
         },
         link: function (scope, element, attrs) {
             element.bind('change', function (e) {
+                e.preventDefault();
                 var element = e.target;
 
                 var files = Array.prototype.slice.call(element.files, 0);
                 files.map(uploadFile);
 
+                
+                return false;
 
                 function uploadFile(file) {
 
-                    var client = new XMLHttpRequest();                    
-                    /* Check the response status */
+                    var client = new XMLHttpRequest();
                     client.onreadystatechange = function () {
                         if (client.readyState == 4 && client.status == 200) {
-                            console.log(client);
+                            var response = JSON.parse(client.response);
+                            if (!response.success) {
+                                alert('Error');
+                                return;
+                            }
+
+                            scope.onChoose({ data: response.payload });
                         }
                     }
-                    upload();
 
-                    function upload() {
-                        /* Create a FormData instance */
-                        var formData = new FormData();
-                        /* Add the file */
-                        formData.append("upload", file);
-                        formData.append("boxId", $routeParams.boxId);
-                        client.open("post", "/upload/quizimage/", true);
-                        client.setRequestHeader("Content-Type", "multipart/form-data");
-                        client.send(formData);  /* Send to server */
-                    }                   
+                    var formData = new FormData();
+                    formData.append(file.name, file);
+                    formData.append("boxId", $routeParams.boxId);
+                    client.open("POST", "/upload/quizimage/", true);                    
+                    client.send(formData);
+
                 }
 
             });//change
