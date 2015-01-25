@@ -95,6 +95,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
+            if (processor is VideoProcessor)
+            {
+                return;
+            }
 
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
             var wait = new ManualResetEvent(false);
@@ -111,6 +115,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     {
                         return;
                     }
+                    
 
                     var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
                         retVal.FileTextContent);
