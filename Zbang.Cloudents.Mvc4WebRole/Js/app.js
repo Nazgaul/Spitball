@@ -39,6 +39,10 @@
                            console.log(imageLink);
                            this.$editor().wrapSelection('insertImage', imageLink);
                        }
+                   },
+                   onElementSelect: {
+                       element: 'img',
+                       action: window.imageResizeHack
                    }
                });
 
