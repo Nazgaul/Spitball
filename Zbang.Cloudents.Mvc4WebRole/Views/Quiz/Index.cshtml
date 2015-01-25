@@ -87,7 +87,7 @@
         <div class="quizPrevWpr">
             <ul class="quizQList">
                 <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">
-                    <div class="quizQuestion" ng-bind-html="::question.text"></div>
+                    <div class="quizQuestion" ng-bind-html="question.text"></div>
                     <ul class="quizAList">
                         <li ng-repeat="answer in question.answers" ng-class="{correct: answer.correct, wrong : answer.wrong}">
                             <input id="quizTestRadio{{$index + $parent.$index.toString()}}" ng-checked="answer.isChecked" type="radio" name="quizTestRadio{{$parent.$index}}" ng-click="markCorrect(question,answer)" ng-disabled="quiz.userDone || quiz.afraid" />
