@@ -29,6 +29,7 @@
 
 
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+               var buttons;
                taRegisterTool('embedImage', {
                    display: '<input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" />',
                    action: function (imageLink) {
@@ -36,6 +37,10 @@
                            console.log(imageLink);
                            this.$editor().wrapSelection('insertImage', imageLink);
                        }
+                   },
+                   onElementSelect: {
+                       element: 'img',
+                       action: window.imageResizeHack
                    }
                });
 
@@ -65,13 +70,11 @@
                    },
                });
 
-               taOptions.toolbar = [
-                   ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
-               ];
+               buttons = ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
 
                if (Modernizr.inputtypes.color) {
                    taRegisterTool('color', {
-                       display: '<input type="color" ng-model="color" ng-change="action(color)"/>',
+                       display: '<span class="btn ta-color"><input type="color" ng-model="color" ng-change="action(color)"/></span>',
                        action: function (color) {
                            if (color !== '') {
                                return this.$editor().wrapSelection('forecolor', color);
@@ -79,8 +82,13 @@
                        }
                    });
 
-                   taOptions.toolbar[0].splice(5, 0, 'color');
+                   buttons.splice(5, 0, 'color');
                }
+
+               taOptions.toolbar = [
+                   buttons
+               ];
+
 
                taOptions.classes = {
                    focussed: 'focused',
@@ -245,7 +253,7 @@
                reloadOnSearch: false
 
            }).
-           when('/quiz/:uniName/:boxId/:boxName/create/', {
+           when('/box/:uniName/:boxId/:boxName/quizcreate/', {
                params: {
                    type: 'quiz'
                },
