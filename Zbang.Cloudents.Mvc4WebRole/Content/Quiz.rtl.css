@@ -35,35 +35,6 @@ body.quiz .modal-backdrop.in {
   opacity: .7;
 }
 /*#region Create Quiz */
-/*.bodyContent{
-    &.jsQuizPreview,  &.jsCreateQuiz {
-        position: fixed; //remove the scroll from existing content of bodyContent
-        width: 100%;
-        overflow: hidden; //remove scrollbars of content below
-        &.topBarFix {
-            .quizPreview, .createQuiz {
-                h2,.closePreview {
-                    display: block;
-                }
-            }
-        }
-        .quizPreview, .createQuiz {
-            margin-top: 0; 
-        }
-    }
-    &.jsQuizPreview {
-        .quizTitle {
-            margin: 20px auto;
-            width: 800px;
-            display: block;
-            max-width: none; //override
-        }
-    }
-    &.jsCreateQuiz {
-
-    }
-
-}*/
 .quizAnswer .removeAnswer {
   display: none;
 }
@@ -72,6 +43,10 @@ body.quiz .modal-backdrop.in {
 }
 .createQuiz,
 .quizPreview {
+  -webkit-animation: slideUp 0.5s 0 ease;
+  -moz-animation: slideUp 0.5s 0 ease;
+  -o-animation: slideUp 0.5s 0 ease;
+  animation: slideUp 0.5s 0 ease;
   position: fixed;
   z-index: 14;
   right: 0;
@@ -80,10 +55,6 @@ body.quiz .modal-backdrop.in {
   height: 100%;
   overflow: auto;
   background: #282828;
-  -webkit-transition: margin 0.7s ease-in;
-  -moz-transition: margin 0.7s ease-in;
-  -o-transition: margin 0.7s ease-in;
-  transition: margin 0.7s ease-in;
 }
 .createQuiz h2,
 .quizPreview h2 {
@@ -93,6 +64,16 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.createQuiz .closePreview,
+.quizPreview .closePreview {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+}
+.createQuiz .closePreview svg,
+.quizPreview .closePreview svg {
+  fill: #fff;
 }
 /*position: fixed;
     top: 50px;
@@ -322,25 +303,6 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder label:before {
   opacity: .5;
-}
-.ta-root {
-  border: 1px solid rgba(194, 194, 194, 0.5);
-  margin-bottom: 12px;
-  border-radius: 3px;
-}
-.ta-root ol {
-  list-style-type: decimal;
-  padding-right: 20px;
-}
-.ta-root ul {
-  list-style-type: disc;
-  padding-right: 20px;
-}
-.ta-toolbar {
-  height: 32px;
-}
-.btn-group {
-  padding: 3px 2px 0 0;
 }
 .answerWpr {
   width: 550px;
