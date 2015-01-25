@@ -178,6 +178,12 @@
                 templateUrl: '/account/indexpartial/',
                 controller: 'AccountCtrl'
             }).
+            when('/account/settings', {
+                    params: {
+                        type: 'accountSettings'
+                    },
+                    templateUrl: '/account/SettingPartial'
+            }).
             when('/account/:lang', {
                 params: {
                     type: 'account'
@@ -283,12 +289,7 @@
                },
                templateUrl: '/user/indexpartial'
            }).
-           when('/account/settings', {
-               params: {
-                   type: 'accountSettings'
-               },
-               templateUrl: '/account/SettingPartial'
-           }).
+          
            //#endregion
            //#region store
                 when('/store/', {
