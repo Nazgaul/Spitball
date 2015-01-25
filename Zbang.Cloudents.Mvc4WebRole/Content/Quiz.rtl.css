@@ -43,6 +43,10 @@ body.quiz .modal-backdrop.in {
 }
 .createQuiz,
 .quizPreview {
+  -webkit-animation: slideUp 0.5s 0 ease;
+  -moz-animation: slideUp 0.5s 0 ease;
+  -o-animation: slideUp 0.5s 0 ease;
+  animation: slideUp 0.5s 0 ease;
   position: fixed;
   z-index: 14;
   right: 0;
@@ -51,10 +55,6 @@ body.quiz .modal-backdrop.in {
   height: 100%;
   overflow: auto;
   background: #282828;
-  -webkit-transition: margin 0.7s ease-in;
-  -moz-transition: margin 0.7s ease-in;
-  -o-transition: margin 0.7s ease-in;
-  transition: margin 0.7s ease-in;
 }
 .createQuiz h2,
 .quizPreview h2 {
