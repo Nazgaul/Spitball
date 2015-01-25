@@ -29,6 +29,7 @@
 
 
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+               var buttons;
                taRegisterTool('embedImage', {
                    display: '<input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" />',
                    action: function (imageLink) {
@@ -65,9 +66,7 @@
                    },
                });
 
-               taOptions.toolbar = [
-                   ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
-               ];
+               buttons = ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
 
                if (Modernizr.inputtypes.color) {
                    taRegisterTool('color', {
@@ -79,8 +78,13 @@
                        }
                    });
 
-                   taOptions.toolbar[0].splice(5, 0, 'color');
+                   buttons.splice(5, 0, 'color');
                }
+
+               taOptions.toolbar = [
+                   buttons
+               ];
+
 
                taOptions.classes = {
                    focussed: 'focused',

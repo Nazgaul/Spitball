@@ -9,7 +9,7 @@
                 },
                 itemsLimit: 50
             };
-            $scope.createUrl = "/quiz/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/create";
+            $scope.createUrl = "/box/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/quizcreate/";
             $scope.qOptions = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
