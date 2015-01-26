@@ -692,4 +692,13 @@
   <data name="UsernameOr" xml:space="preserve">
     <value>שם משתמש או דוא"ל</value>
   </data>
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>העלאת קובץ הושלמה</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>העלאה </value>
+  </data>
+  <data name="UploadingFiles" xml:space="preserve">
+    <value>מעלה קבצים</value>
+  </data>
 </root>

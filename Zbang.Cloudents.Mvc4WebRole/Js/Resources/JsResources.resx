@@ -679,4 +679,13 @@ Sign up for FREE</value>
   <data name="UsernameOr" xml:space="preserve">
     <value>Username or email</value>
   </data>
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>Uploaded files</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
+  <data name="UploadingFiles" xml:space="preserve">
+    <value>Uploading files</value>
+  </data>
 </root>
