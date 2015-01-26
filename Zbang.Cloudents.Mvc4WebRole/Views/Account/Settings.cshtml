@@ -5,7 +5,7 @@
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
-<div id="account" class="page" ng-controller="AccountSettingsCtrl">
+<div id="account" class="page">
     <div class="settingsMenu lFloat">
         <ul>
             <li ng-class="{selected : params.currentTab === 'profile'}" ng-click="selectTab('profile')">@AccountSettingsResources.ProfileInfo</li>

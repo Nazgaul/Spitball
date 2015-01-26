@@ -510,9 +510,9 @@ button.fileError {
   vertical-align: middle;
   width: 34px;
   height: 34px;
-  border: 1px solid #c2c2c2;
-  margin: 5px 0 0 6px
+  margin: 5px 0 0 6px;
   /*rtl*/
+  border-radius: 100%;
 }
 .eSingleName {
   display: inline-block;
