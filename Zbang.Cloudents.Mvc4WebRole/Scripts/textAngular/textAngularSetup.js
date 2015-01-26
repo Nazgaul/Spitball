@@ -245,8 +245,9 @@ angular.module('textAngularSetup', [])
     //});
     taRegisterTool('color', {
         display: '<span class="btn ta-color"> \
-                <span class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></span> \
-                <input type="color" ng-model="color" ng-change="action(color)" /></span>',
+                <input id="taColor" type="color" ng-model="color" ng-change="action(color)" /> \
+                <label for="taColor" class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></label> \
+                </span>',
         action: function (color) {
             if (color !== '') {
                 return this.$editor().wrapSelection('forecolor', color);
@@ -599,8 +600,8 @@ angular.module('textAngularSetup', [])
     };
 
     taRegisterTool('insertImage', {
-        display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
-                       <span class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
+        display: '<span class="btn ta-file"><input id="taFile" type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
+                       <label for="taFile" class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function (imageLink) {
