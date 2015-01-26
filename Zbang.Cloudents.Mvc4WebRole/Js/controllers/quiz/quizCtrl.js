@@ -15,7 +15,7 @@ mQuiz.controller('QuizCtrl',
                 answerSheet: []
             };
 
-            
+
             sQuiz.data({ quizId: $routeParams.quizId, quizName: $routeParams.quizName, boxId: $routeParams.boxId }).then(function (response) {
                 $scope.quiz = response.quiz;
                 questions = angular.copy(response.quiz.questions, questions);
@@ -65,9 +65,7 @@ mQuiz.controller('QuizCtrl',
                     $scope.$emit('viewContentLoaded');
                 });
 
-                if (!sUserDetails.isAuthenticated()) {
-                    sLogin.connect();
-                } else {
+                if (sUserDetails.isAuthenticated()) {
                     challengeTimeout = $timeout(function () {
 
 
