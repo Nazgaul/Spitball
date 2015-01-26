@@ -141,6 +141,9 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>تحميل الملفات</value>
   </data>
+  <data name="UploadingTo" xml:space="preserve">
+    <value>تحميل لCloudents</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>اكتب تعليق</value>
   </data>
