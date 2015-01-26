@@ -144,6 +144,9 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>העלה קבצים</value>
   </data>
+  <data name="UploadingTo" xml:space="preserve">
+    <value>מעלה לקלאודנטס</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>כתוב תגובה ...</value>
   </data>

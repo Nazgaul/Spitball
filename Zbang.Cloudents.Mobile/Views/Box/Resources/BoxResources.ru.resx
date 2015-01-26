@@ -144,6 +144,10 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>Загрузить ресурс</value>
   </data>
+  <data name="UploadingTo" xml:space="preserve">
+    <value>Загрузка в Cloudents
+</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>Написать комментарий</value>
   </data>
