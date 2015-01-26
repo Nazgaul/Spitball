@@ -22,8 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("User is not owner of quiz");
             }
-
-            question.UpdateText(TextManipulation.EncodeText(message.NewText));
+            question.UpdateText(TextManipulation.EncodeText(message.NewText, Question.AllowedHtmlTag));
             m_QuestionRepository.Save(question);
 
 

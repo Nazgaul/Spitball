@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ ViewBag.Description = ViewBag.Description ?? string.Empty;}
-<div class="page itemPage" ng-controller="ItemCtrl" ng-class="::{blur : unreg }" item-scroll>
+<div class="page itemPage" ng-class="::{blur : unreg }" item-scroll>
     <div class="topBar">
         <a title="@SharedResources.Close" class="closePreview rFloat" ng-href="{{item.boxUrl + '#items'}}" analytics-on="click" analytics-event="Back To Box" analytics-category="Item">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })

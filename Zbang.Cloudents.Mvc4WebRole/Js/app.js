@@ -30,10 +30,10 @@
 
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
                var buttons;
-                           
+
                buttons = ['fontUp', 'fontDown', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'insertImage', 'redo', 'undo']
 
-               if (Modernizr.inputtypes.color) {           
+               if (Modernizr.inputtypes.color) {
                    buttons.splice(5, 0, 'color');
                }
                taOptions.toolbar = [
@@ -128,6 +128,13 @@
                return originalWhen.call($routeProvider, path, route);
            };
            //#region routes
+           var boxRoutes = [
+               '/box/:uniName/:boxId/:boxName/',
+               '/box/:uniName/:boxId/:boxName/#:tab?',
+               '/course/:uniName/:boxId/:boxName/#:tab?',
+               '/course/:uniName/:boxId/:boxName/'
+
+           ]
            $routeProvider.
            //#region cloudents
             when('/account/', {
@@ -149,14 +156,14 @@
                     type: 'accountSettings'
                 },
                 templateUrl: '/account/SettingPartial',
-                controller:'AccountSettingsCtrl'
-            }).            
+                controller: 'AccountSettingsCtrl'
+            }).
            when('/dashboard/', {
                params: {
                    type: 'dashboard'
                },
                templateUrl: '/dashboard/indexpartial/',
-               //controller:
+               controller: 'DashboardCtrl'
 
            }).
            when('/box/:uniName/:boxId/:boxName/', {
@@ -166,7 +173,7 @@
                },
                templateUrl: '/box/indexpartial/',
                reloadOnSearch: false,
-               //controller:               
+               controller: 'BoxCtrl'
            }).
            when('/box/:uniName/:boxId/:boxName/#:tab?', {
                params: {
@@ -175,7 +182,7 @@
                },
                templateUrl: '/box/indexpartial/',
                reloadOnSearch: false,
-               //controller:
+               controller: 'BoxCtrl'
            }).
            when('/course/:uniName/:boxId/:boxName/#:tab?', {
                params: {
@@ -184,7 +191,7 @@
                },
                templateUrl: '/box/indexpartial/',
                reloadOnSearch: false,
-               //controller:
+               controller: 'BoxCtrl'
            }).
            when('/course/:uniName/:boxId/:boxName/', {
                params: {
@@ -193,7 +200,7 @@
                },
                templateUrl: '/box/indexpartial/',
                reloadOnSearch: false,
-               //controller:
+               controller: 'BoxCtrl'
            }).
            when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
                params: {
@@ -201,7 +208,7 @@
                },
                templateUrl: '/item/indexpartial/',
                reloadOnSearch: false,
-               //controller:
+               controller: 'ItemCtrl'
 
            }).
            when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
@@ -210,8 +217,7 @@
                },
                templateUrl: '/item/indexpartial/',
                reloadOnSearch: false,
-               //controller:
-
+               controller: 'ItemCtrl'
            }).
            when('/box/:uniName/:boxId/:boxName/quizcreate/', {
                params: {
@@ -231,28 +237,29 @@
                params: {
                    type: 'quiz'
                },
-               templateUrl: '/quiz/indexpartial/'
+               templateUrl: '/quiz/indexpartial/',
+               controller: 'QuizCtrl'
            }).
            when('/library/:libraryId/:libraryName/', {
                params: {
                    type: 'department'
                },
                templateUrl: '/library/indexpartial/',
-               //controller:
+               controller: 'LibraryCtrl'
            }).
            when('/library/choose/', {
                params: {
                    type: 'libraryChoose'
                },
                templateUrl: '/library/choosepartial/',
-               //controller:
+               controller: 'LibChooseCtrl'
            }).
            when('/library/', {
                params: {
                    type: 'library'
                },
                templateUrl: '/library/indexpartial/',
-               //controller:
+               controller: 'LibraryCtrl'
            }).
            when('/search/', {
                params: {
@@ -260,14 +267,14 @@
                },
                templateUrl: '/search/indexpartial/',
                reloadOnSearch: false,
-               //controller:
+               controller: 'SearchCtrl'
            }).
            when('/user/:userId/:userName/', {
                params: {
                    type: 'user'
                },
                templateUrl: '/user/indexpartial',
-               //controller:
+               controller: 'UserCtrl'
            }).
 
            //#endregion

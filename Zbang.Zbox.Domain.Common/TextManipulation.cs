@@ -22,11 +22,65 @@ namespace Zbang.Zbox.Domain.Common
 
         public static string EncodeText(string text)
         {
-            return HttpUtility.HtmlEncode(text);
+            return EncodeText(text, null);
+        }
+
+        public static string EncodeText(string text, params string[] allowElements)
+        {
+            var sb = new StringBuilder(
+                            HttpUtility.HtmlEncode(text));
+            if (allowElements != null)
+            {
+                foreach (var allowElement in allowElements)
+                {
+                    sb.Replace(string.Format("&lt;{0}&gt;", allowElement), string.Format("<{0}>", allowElement));
+                    sb.Replace(string.Format("&lt;/{0}&gt;", allowElement), string.Format("</{0}>", allowElement));
+
+                    var str = sb.ToString();
+                    var index = str.IndexOf(string.Format("&lt;{0}", allowElement), StringComparison.Ordinal);
+                    while (index > -1)
+                    {
+                        const string gt = "&gt;";
+                        var indexEnd = str.IndexOf(gt, index, StringComparison.Ordinal);
+                        var oldValue = str.Substring(index, indexEnd + gt.Length - index);
+                        var newValue = oldValue;
+
+                        newValue = newValue.Replace("&lt;", "<");
+                        newValue = newValue.Replace("&gt;", ">");
+                        newValue = newValue.Replace("&quot;", "\"");
+
+
+
+
+                        sb.Replace(oldValue, newValue);
+                        str = sb.ToString();
+                        index = str.IndexOf(string.Format("&lt;{0}", allowElement), StringComparison.Ordinal);
+                    }
+
+
+
+
+
+                    //var match = Regex.Match(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
+                    //while (match.Success)
+                    //{
+                    //    // var matches = Regex.Matches(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
+                    //    const string replace = "&lt;";
+                    //    var patternToReplace = string.Format("{1}{0}", allowElement, replace);
+                    //    sb.Replace(patternToReplace, string.Format("<{0}", allowElement),
+                    //        match.Index, patternToReplace.Length);
+                    //    var indexOfGt = sb.ToString().IndexOf("&gt;", match.Index, StringComparison.InvariantCulture);
+                    //    sb.Replace("&gt;", ">", indexOfGt, 4);
+                    //    match = Regex.Match(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
+                    //}
+
+                }
+            }
+            return sb.ToString();
         }
 
         public static readonly Regex UrlDetector = new Regex(@"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
-                                                               
+
 
         public static string DecodeUrls(string commentText)
         {
@@ -46,7 +100,7 @@ namespace Zbang.Zbox.Domain.Common
             }
             return sb.ToString();
         }
-      
+
         //public static string CombineUserServerComments(string userComment, string serverComment)
         //{
         //    if (string.IsNullOrEmpty(userComment))

@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Question
     {
+        public static readonly string[] AllowedHtmlTag = {"ul", "ol", "li", "font", "img", "p", "b", "u", "i"};
         protected Question()
         {
 

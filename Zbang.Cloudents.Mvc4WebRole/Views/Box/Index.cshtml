@@ -6,7 +6,7 @@
 @*<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>*@
-<div id="box" class="page boxPage" ng-controller="BoxCtrl" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
+<div id="box" class="page boxPage" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
             @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
