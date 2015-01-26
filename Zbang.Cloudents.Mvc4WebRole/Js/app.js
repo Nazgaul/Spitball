@@ -137,12 +137,6 @@
                 templateUrl: '/account/indexpartial/',
                 controller: 'AccountCtrl'
             }).
-            when('/account/settings', {
-                params: {
-                    type: 'accountSettings'
-                },
-                templateUrl: '/account/SettingPartial'
-            }).
             when('/account/:lang', {
                 params: {
                     type: 'account'
@@ -150,11 +144,20 @@
                 templateUrl: '/account/indexpartial/',
                 controller: 'AccountCtrl'
             }).
+            when('/account/settings', {
+                params: {
+                    type: 'accountSettings'
+                },
+                templateUrl: '/account/SettingPartial',
+                controller:'AccountSettingsCtrl'
+            }).            
            when('/dashboard/', {
                params: {
                    type: 'dashboard'
                },
-               templateUrl: '/dashboard/indexpartial/'
+               templateUrl: '/dashboard/indexpartial/',
+               //controller:
+
            }).
            when('/box/:uniName/:boxId/:boxName/', {
                params: {
@@ -162,7 +165,8 @@
                    isPrivate: true
                },
                templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:               
            }).
            when('/box/:uniName/:boxId/:boxName/#:tab?', {
                params: {
@@ -170,7 +174,8 @@
                    isPrivate: true
                },
                templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
            }).
            when('/course/:uniName/:boxId/:boxName/#:tab?', {
                params: {
@@ -178,7 +183,8 @@
                    isPrivate: false
                },
                templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
            }).
            when('/course/:uniName/:boxId/:boxName/', {
                params: {
@@ -186,14 +192,16 @@
                    isPrivate: false
                },
                templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
            }).
            when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
                params: {
                    type: 'item'
                },
                templateUrl: '/item/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
 
            }).
            when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
@@ -201,7 +209,8 @@
                    type: 'item'
                },
                templateUrl: '/item/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
 
            }).
            when('/box/:uniName/:boxId/:boxName/quizcreate/', {
@@ -228,32 +237,37 @@
                params: {
                    type: 'department'
                },
-               templateUrl: '/library/indexpartial/'
+               templateUrl: '/library/indexpartial/',
+               //controller:
            }).
            when('/library/choose/', {
                params: {
                    type: 'libraryChoose'
                },
-               templateUrl: '/library/choosepartial/'
+               templateUrl: '/library/choosepartial/',
+               //controller:
            }).
            when('/library/', {
                params: {
                    type: 'library'
                },
-               templateUrl: '/library/indexpartial/'
+               templateUrl: '/library/indexpartial/',
+               //controller:
            }).
            when('/search/', {
                params: {
                    type: 'search'
                },
                templateUrl: '/search/indexpartial/',
-               reloadOnSearch: false
+               reloadOnSearch: false,
+               //controller:
            }).
            when('/user/:userId/:userName/', {
                params: {
                    type: 'user'
                },
-               templateUrl: '/user/indexpartial'
+               templateUrl: '/user/indexpartial',
+               //controller:
            }).
 
            //#endregion
