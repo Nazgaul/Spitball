@@ -55,21 +55,21 @@
                        if (fontSize < 7) {
                            fontSize++;
                        }
-                       
+
                        return this.$editor().wrapSelection('fontsize', fontSize);
-                   }                   
+                   }
                });
 
                taRegisterTool('font-', {
                    display: '<button type="button" name="fontIncrease"> \
                             <svg class="svg-textDecrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textDecrease"></use></svg> \
                             </button>', action: function (imageLink) {
-                       if (fontSize > 1) {
-                           fontSize--;
-                       }
-                       return this.$editor().wrapSelection('fontsize', fontSize);
+                                if (fontSize > 1) {
+                                    fontSize--;
+                                }
+                                return this.$editor().wrapSelection('fontsize', fontSize);
 
-                   },
+                            },
                });
 
                buttons = ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
@@ -191,10 +191,10 @@
                 controller: 'AccountCtrl'
             }).
             when('/account/settings', {
-                    params: {
-                        type: 'accountSettings'
-                    },
-                    templateUrl: '/account/SettingPartial'
+                params: {
+                    type: 'accountSettings'
+                },
+                templateUrl: '/account/SettingPartial'
             }).
             when('/account/:lang', {
                 params: {
@@ -263,7 +263,14 @@
                },
                templateUrl: '/quiz/createpartial/',
                controller: 'QuizCreateCtrl'
-           }).            
+           }).
+            when('/course/:uniName/:boxId/:boxName/quizcreate/', {
+                params: {
+                    type: 'quiz'
+                },
+                templateUrl: '/quiz/createpartial/',
+                controller: 'QuizCreateCtrl'
+            }).
            when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
                params: {
                    type: 'quiz'
@@ -301,7 +308,7 @@
                },
                templateUrl: '/user/indexpartial'
            }).
-          
+
            //#endregion
            //#region store
                 when('/store/', {

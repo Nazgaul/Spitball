@@ -1,5 +1,5 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify','$routeParams',
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify', '$routeParams',
         function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify, $routeParams) {
             "use strict";
             var consts = {
@@ -9,7 +9,8 @@
                 },
                 itemsLimit: 50
             };
-            $scope.createUrl = "/box/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/quizcreate/";
+            $scope.createUrl = "/" + ($scope.info.boxType === 'private' ? 'box' : 'course') + "/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/quizcreate/";
+
             $scope.qOptions = {
                 currentView: consts.view.thumb,
                 itemsLimit: consts.itemsLimit,
@@ -49,7 +50,7 @@
                        ($scope.info.userType === 'owner' || item.ownerId === sUserDetails.getDetails().id || sUserDetails.getDetails().isAdmin);
             };
 
-            
+
             $scope.removeQuiz = function (quiz) {
                 sNotify.confirm(resManager.get('SureYouWantToDelete') + ' ' + (quiz.name || '') + "?").then(function () {
 
@@ -77,7 +78,7 @@
                         $rootScope.$broadcast('closeQuizCreate', quiz.id);
                     }
                     calcQuizCount();
-             
+
                     if ($scope.info.feedLength) {
                         $scope.info.feedLength--;
                     }

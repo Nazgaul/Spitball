@@ -15,7 +15,7 @@
       <Setting name="AzureSeachServiceName" />
     </ConfigurationSettings>
     <LocalResources>
-      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="500" />
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
     </LocalResources>
   </WorkerRole>
 </ServiceDefinition>

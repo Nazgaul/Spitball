@@ -1,18 +1,12 @@
-﻿using System.Globalization;
-using System.Net;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 using Aspose.Pdf;
 using Aspose.Pdf.Devices;
-using Aspose.Pdf.Text;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Aspose.Pdf.Text.TextOptions;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -171,25 +165,8 @@ namespace Zbang.Zbox.Infrastructure.File
                          return ms;
 
                      }, () => ExtractPdfText(pdfDocument)
-
                      );
-                    //var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
-                    //using (var ms = new MemoryStream())
-                    //{
-                    //    var list = new List<Task>();
-                    //    jpegDevice.Process(pdfDocument.Pages[1], ms);
-                    //    var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                    //    var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, ms, "image/jpeg",
-                    //        cancelToken);
-                    //    var textInDocument = ExtractPdfText(pdfDocument);
-                    //    var t2 = UploadMetaData(textInDocument, blobName);
-                    //    await Task.WhenAll(t1, t2);
-                    //    return new PreProcessFileResult
-                    //    {
-                    //        ThumbnailName = thumbnailBlobAddressUri,
-                    //        FileTextContent = textInDocument
-                    //    };
-                    //}
+                   
                 }
 
             }
@@ -226,7 +203,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         textDevice.ExtractionOptions = textExtOptions;
 
                         //convert a particular page and save text to the stream
-                        textDevice.Process(pdfPage, textStream);
+                        if (pdfPage != null) textDevice.Process(pdfPage, textStream);
 
                         //close memory stream
                         textStream.Close();
