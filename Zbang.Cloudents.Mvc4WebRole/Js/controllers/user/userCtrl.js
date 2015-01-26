@@ -141,7 +141,7 @@ mUser.controller('UserCtrl',
         };
 
         var lastQuery;
-        $scope.filterMembers = debounce(function () {
+        $scope.filterMembers = function () {
             if ($scope.admin.members.search === lastQuery) {
                 return;
             }
@@ -149,7 +149,7 @@ mUser.controller('UserCtrl',
             $scope.admin.members.limit = userConstants.admin.membersLimit;
             $scope.admin.members.list = $filter('orderByFilter')($scope.admin.members.fullList, 'name');
 
-        }, 150);
+        };
 
         $scope.sortByDeptartment = function () {
             var reverse;

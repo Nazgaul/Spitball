@@ -1,6 +1,6 @@
 ﻿app.controller('SearchHeaderCtrl',
-    ['$scope', '$timeout', '$location', 'debounce', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin', '$route',
-    function ($scope, $timeout, $location, debounce, sSearch, sUserDetails, textDirectionService, $analytics, sLogin, $route) {
+    ['$scope', '$timeout', '$location', 'sSearch', 'sUserDetails', 'textDirectionService', '$analytics', 'sLogin', '$route',
+    function ($scope, $timeout, $location, sSearch, sUserDetails, textDirectionService, $analytics, sLogin, $route) {
         "use strict";
 
         var routeName = $route.current.$$route.params.type,
@@ -38,7 +38,7 @@
 
 
         var lastQuery, lastResultCount;
-        $scope.search = debounce(function () {
+        $scope.search = function () {
             if (isSearchPage) {
                 return;
             }
@@ -79,7 +79,7 @@
                 $scope.params.showDropdown = true;
 
             });
-        }, 150);
+        };
 
         $scope.fullSearch = function (isValid) {
             if (!isValid) {
