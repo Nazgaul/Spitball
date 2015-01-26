@@ -12,19 +12,19 @@
 }
 .ta-root ol {
   list-style-type: decimal;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 .ta-root ul {
   list-style-type: disc;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 .btn-group {
-  padding: 3px 0 0 2px;
+  padding: 3px 2px 0 0;
 }
 .svgWpr {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -44,7 +44,7 @@ input[type="file"] {
   display: block;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
 }
@@ -71,13 +71,13 @@ input[type="file"] {
 .fa-italic:before {
   content: "\f033";
 }
-.fa-align-left:before {
+.fa-align-right:before {
   content: "\f036";
 }
 .fa-align-center:before {
   content: "\f037";
 }
-.fa-align-right:before {
+.fa-align-left:before {
   content: "\f038";
 }
 .fa-underline:before {
@@ -100,7 +100,7 @@ input[type="file"] {
 }
 .ta-toolbar {
   background-color: #eee;
-  margin-left: 0;
+  margin-right: 0;
   border: 1px solid #EEE;
   height: 32px;
 }
@@ -129,20 +129,20 @@ input[type="file"] {
   vertical-align: middle;
 }
 .btn-toolbar .btn-group {
-  float: left;
+  float: right;
   width: 100%;
 }
 .btn-group > .btn,
 .btn-group-vertical > .btn {
   position: relative;
-  float: left;
+  float: right;
 }
 .btn-group > .btn:first-child {
-  margin-left: 0;
+  margin-right: 0;
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 .btn {
   display: inline-block;
@@ -220,7 +220,7 @@ input[type="file"] {
 .ta-resizer-handle-overlay > .ta-resizer-handle-info {
   position: absolute;
   bottom: 16px;
-  right: 16px;
+  left: 16px;
   border: 1px solid black;
   background-color: #FFF;
   padding: 0 4px;
@@ -229,8 +229,8 @@ input[type="file"] {
 .ta-resizer-handle-overlay > .ta-resizer-handle-background {
   position: absolute;
   bottom: 5px;
-  right: 5px;
   left: 5px;
+  right: 5px;
   top: 5px;
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.2);
@@ -242,33 +242,33 @@ input[type="file"] {
 }
 .ta-resizer-handle-overlay > .ta-resizer-handle-corner-tl {
   top: 0;
-  left: 0;
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-}
-.ta-resizer-handle-overlay > .ta-resizer-handle-corner-tr {
-  top: 0;
   right: 0;
   border-right: 1px solid black;
   border-top: 1px solid black;
 }
-.ta-resizer-handle-overlay > .ta-resizer-handle-corner-bl {
-  bottom: 0;
+.ta-resizer-handle-overlay > .ta-resizer-handle-corner-tr {
+  top: 0;
   left: 0;
   border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+.ta-resizer-handle-overlay > .ta-resizer-handle-corner-bl {
+  bottom: 0;
+  right: 0;
+  border-right: 1px solid black;
   border-bottom: 1px solid black;
 }
 .ta-resizer-handle-overlay > .ta-resizer-handle-corner-br {
   bottom: 0;
-  right: 0;
+  left: 0;
   border: 1px solid black;
-  cursor: se-resize;
+  cursor: sw-resize;
   background-color: white;
 }
 .popover {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: 1060;
   display: none;
   max-width: 276px;
@@ -276,7 +276,7 @@ input[type="file"] {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
-  text-align: left;
+  text-align: right;
   white-space: normal;
   background-color: #fff;
   -webkit-background-clip: padding-box;
@@ -322,30 +322,30 @@ input[type="file"] {
 }
 .popover.top > .arrow {
   bottom: -11px;
-  left: 50%;
-  margin-left: -11px;
+  right: 50%;
+  margin-right: -11px;
   border-top-color: #999;
   border-top-color: rgba(0, 0, 0, 0.25);
   border-bottom-width: 0;
 }
 .popover.top > .arrow:after {
   bottom: 1px;
-  margin-left: -10px;
+  margin-right: -10px;
   content: " ";
   border-top-color: #fff;
   border-bottom-width: 0;
 }
 .popover.bottom > .arrow {
   top: -11px;
-  left: 50%;
-  margin-left: -11px;
+  right: 50%;
+  margin-right: -11px;
   border-top-width: 0;
   border-bottom-color: #999;
   border-bottom-color: rgba(0, 0, 0, 0.25);
 }
 .popover.bottom > .arrow:after {
   top: 1px;
-  margin-left: -10px;
+  margin-right: -10px;
   content: " ";
   border-top-width: 0;
   border-bottom-color: #fff;

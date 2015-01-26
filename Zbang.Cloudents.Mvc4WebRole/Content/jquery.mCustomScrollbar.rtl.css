@@ -20,7 +20,7 @@ CONTENTS:
 */
 .mCustomScrollbar {
   -ms-touch-action: none;
-  touch-action: none;
+  touch-action: none
   /* MSPointer events - direct all pointer events to js */
 }
 .mCustomScrollbar.mCS_no_scrollbar {
@@ -34,7 +34,7 @@ CONTENTS:
   height: 100%;
   max-width: 100%;
   outline: none;
-  direction: ltr;
+  direction: rtl;
 }
 .mCSB_container {
   /* contains the original content */
@@ -50,20 +50,20 @@ y-axis
 */
 /*.mCSB_inside > .mCSB_container{ margin-right: 30px; }*/
 .mCSB_inside > .mCSB_container {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
-  margin-right: 0;
+  margin-left: 0;
 }
 /* non-visible scrollbar */
 .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   /* RTL direction/left-side scrollbar */
-  margin-right: 0;
+  margin-left: 0;
   /*margin-left: 30px;*/
-  margin-left: 15px;
+  margin-right: 15px;
 }
 .mCS-dir-rtl > .mCSB_inside > .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
-  margin-left: 0;
+  margin-right: 0;
 }
 /* RTL direction/left-side scrollbar */
 .mCSB_scrollTools {
@@ -71,32 +71,32 @@ y-axis
   position: absolute;
   width: 16px;
   height: auto;
-  left: auto;
+  right: auto;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
 }
 .mCSB_outside + .mCSB_scrollTools {
-  right: -26px;
+  left: -26px;
 }
 /* scrollbar position: outside */
 .mCS-dir-rtl > .mCSB_inside > .mCSB_scrollTools,
 .mCS-dir-rtl > .mCSB_outside + .mCSB_scrollTools {
   /* RTL direction/left-side scrollbar */
-  right: auto;
-  left: 0;
+  left: auto;
+  right: 0;
 }
 .mCS-dir-rtl > .mCSB_outside + .mCSB_scrollTools {
-  left: -26px;
+  right: -26px;
 }
 /* RTL direction/left-side scrollbar (scrollbar position: outside) */
 .mCSB_scrollTools .mCSB_draggerContainer {
   /* contains the draggable element and dragger rail markup */
   position: absolute;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
   height: auto;
 }
 .mCSB_scrollTools a + .mCSB_draggerContainer {
@@ -131,12 +131,12 @@ y-axis
 }
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded .mCSB_dragger_bar,
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_dragger .mCSB_dragger_bar {
-  width: 12px;
+  width: 12px
   /* auto-expanded scrollbar */
 }
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded + .mCSB_draggerRail,
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail {
-  width: 8px;
+  width: 8px
   /* auto-expanded scrollbar */
 }
 .mCSB_scrollTools .mCSB_buttonUp,
@@ -159,7 +159,7 @@ x-axis
 ------------------------------------------------------------------------------------------------------------------------
 */
 .mCSB_horizontal.mCSB_inside > .mCSB_container {
-  margin-right: 0;
+  margin-left: 0;
   margin-bottom: 30px;
 }
 .mCSB_horizontal.mCSB_outside > .mCSB_container {
@@ -173,9 +173,9 @@ x-axis
   width: auto;
   height: 16px;
   top: auto;
-  right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
 }
 .mCustomScrollBox + .mCSB_scrollTools.mCSB_scrollTools_horizontal,
 .mCustomScrollBox + .mCSB_scrollTools + .mCSB_scrollTools.mCSB_scrollTools_horizontal {
@@ -194,7 +194,7 @@ x-axis
   width: 30px;
   /* minimum dragger width */
   height: 100%;
-  left: 0;
+  right: 0;
 }
 .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
   width: 100%;
@@ -224,10 +224,10 @@ x-axis
   cursor: pointer;
 }
 .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_buttonLeft {
-  left: 0;
+  right: 0;
 }
 .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_buttonRight {
-  right: 0;
+  left: 0;
 }
 /* 
 ------------------------------------------------------------------------------------------------------------------------
@@ -241,21 +241,21 @@ yx-axis
   width: auto;
   overflow: hidden;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   bottom: 0;
-  margin-right: 30px;
+  margin-left: 30px;
   margin-bottom: 30px;
 }
 .mCSB_container_wrapper > .mCSB_container {
-  padding-right: 30px;
+  padding-left: 30px;
   padding-bottom: 30px;
 }
 .mCSB_vertical_horizontal > .mCSB_scrollTools.mCSB_scrollTools_vertical {
   bottom: 20px;
 }
 .mCSB_vertical_horizontal > .mCSB_scrollTools.mCSB_scrollTools_horizontal {
-  right: 20px;
+  left: 20px;
 }
 /* non-visible horizontal scrollbar */
 .mCSB_container_wrapper.mCS_no_scrollbar_x.mCS_x_hidden + .mCSB_scrollTools.mCSB_scrollTools_vertical {
@@ -264,23 +264,23 @@ yx-axis
 /* non-visible vertical scrollbar/RTL direction/left-side scrollbar */
 .mCSB_container_wrapper.mCS_no_scrollbar_y.mCS_y_hidden + .mCSB_scrollTools ~ .mCSB_scrollTools.mCSB_scrollTools_horizontal,
 .mCS-dir-rtl > .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside > .mCSB_scrollTools.mCSB_scrollTools_horizontal {
-  right: 0;
+  left: 0;
 }
 /* RTL direction/left-side scrollbar */
 .mCS-dir-rtl > .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside > .mCSB_scrollTools.mCSB_scrollTools_horizontal {
-  left: 20px;
+  right: 20px;
 }
 /* non-visible scrollbar/RTL direction/left-side scrollbar */
 .mCS-dir-rtl > .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside > .mCSB_container_wrapper.mCS_no_scrollbar_y.mCS_y_hidden + .mCSB_scrollTools ~ .mCSB_scrollTools.mCSB_scrollTools_horizontal {
-  left: 0;
+  right: 0;
 }
 .mCS-dir-rtl > .mCSB_inside > .mCSB_container_wrapper {
   /* RTL direction/left-side scrollbar */
-  margin-right: 0;
-  margin-left: 30px;
+  margin-left: 0;
+  margin-right: 30px;
 }
 .mCSB_container_wrapper.mCS_no_scrollbar_y.mCS_y_hidden > .mCSB_container {
-  padding-right: 0;
+  padding-left: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -292,9 +292,9 @@ yx-axis
   box-sizing: border-box;
 }
 .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside > .mCSB_container_wrapper.mCS_no_scrollbar_y.mCS_y_hidden {
-  margin-right: 0;
-  /* non-visible scrollbar */
   margin-left: 0;
+  /* non-visible scrollbar */
+  margin-right: 0;
 }
 /* non-visible horizontal scrollbar */
 .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside > .mCSB_container_wrapper.mCS_no_scrollbar_x.mCS_x_hidden {
@@ -320,10 +320,10 @@ yx-axis
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail,
 .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar,
 .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail {
-  -webkit-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  -moz-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  -o-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -webkit-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -moz-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -o-transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s, margin-right 0.2s ease-out 0.2s, margin-left 0.2s ease-out 0.2s, margin-top 0.2s ease-out 0.2s, margin-bottom 0.2s ease-out 0.2s, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 /* 
 ------------------------------------------------------------------------------------------------------------------------
@@ -394,7 +394,7 @@ yx-axis
   -ms-filter: "alpha(opacity=40)";
 }
 .mCSB_scrollTools .mCSB_buttonUp {
-  background-position: 0 0;
+  background-position: 100% 0
   /* 
 		sprites locations 
 		light: 0 0, -16px 0, -32px 0, -48px 0, 0 -72px, -16px -72px, -32px -72px
@@ -402,7 +402,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonDown {
-  background-position: 0 -20px;
+  background-position: 100% -20px
   /* 
 		sprites locations
 		light: 0 -20px, -16px -20px, -32px -20px, -48px -20px, 0 -92px, -16px -92px, -32px -92px
@@ -410,7 +410,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonLeft {
-  background-position: 0 -40px;
+  background-position: 100% -40px
   /* 
 		sprites locations 
 		light: 0 -40px, -20px -40px, -40px -40px, -60px -40px, 0 -112px, -20px -112px, -40px -112px
@@ -418,7 +418,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonRight {
-  background-position: 0 -56px;
+  background-position: 100% -56px
   /* 
 		sprites locations 
 		light: 0 -56px, -20px -56px, -40px -56px, -60px -56px, 0 -128px, -20px -128px, -40px -128px
@@ -738,7 +738,7 @@ yx-axis
 .mCS-rounded.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail,
 .mCS-rounded-dark.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded + .mCSB_draggerRail,
 .mCS-rounded-dark.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail {
-  width: 4px;
+  width: 4px
   /* auto-expanded scrollbar */
 }
 .mCS-rounded.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded .mCSB_dragger_bar,
@@ -759,16 +759,16 @@ yx-axis
   margin: 6px 0;
 }
 .mCS-rounded.mCSB_scrollTools .mCSB_buttonUp {
-  background-position: 0 -72px;
+  background-position: 100% -72px;
 }
 .mCS-rounded.mCSB_scrollTools .mCSB_buttonDown {
-  background-position: 0 -92px;
+  background-position: 100% -92px;
 }
 .mCS-rounded.mCSB_scrollTools .mCSB_buttonLeft {
-  background-position: 0 -112px;
+  background-position: 100% -112px;
 }
 .mCS-rounded.mCSB_scrollTools .mCSB_buttonRight {
-  background-position: 0 -128px;
+  background-position: 100% -128px;
 }
 /* theme "rounded-dark", "rounded-dots-dark" */
 .mCS-rounded-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
@@ -865,12 +865,12 @@ yx-axis
 .mCS-3d-thick.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
   background-repeat: repeat-y;
-  background-image: -moz-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
-  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: -ms-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-gradient(linear, right top, left top, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -o-linear-gradient(right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
 }
 .mCS-3d.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar,
 .mCS-3d-dark.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar,
@@ -878,7 +878,7 @@ yx-axis
 .mCS-3d-thick-dark.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
   background-repeat: repeat-x;
   background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background-image: -webkit-gradient(linear, right top, right bottom, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
@@ -912,7 +912,7 @@ yx-axis
   width: 8px;
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.2);
-  box-shadow: inset 1px 0 1px rgba(0, 0, 0, 0.5), inset -1px 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.5), inset 1px 0 1px rgba(255, 255, 255, 0.2);
 }
 .mCS-3d.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
 .mCS-3d.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
@@ -957,7 +957,7 @@ yx-axis
 .mCS-3d-dark.mCSB_scrollTools .mCSB_draggerRail {
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.1);
-  box-shadow: inset 1px 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.1);
 }
 .mCS-3d-dark.mCSB_scrollTools_horizontal .mCSB_draggerRail {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -998,11 +998,11 @@ yx-axis
 }
 .mCSB_inside + .mCS-3d-thick.mCSB_scrollTools_vertical,
 .mCSB_inside + .mCS-3d-thick-dark.mCSB_scrollTools_vertical {
-  right: 1px;
+  left: 1px;
 }
 .mCS-3d-thick.mCSB_scrollTools_vertical,
 .mCS-3d-thick-dark.mCSB_scrollTools_vertical {
-  box-shadow: inset 1px 0 1px rgba(0, 0, 0, 0.1), inset 0 0 14px rgba(0, 0, 0, 0.5);
+  box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.1), inset 0 0 14px rgba(0, 0, 0, 0.5);
 }
 .mCS-3d-thick.mCSB_scrollTools_horizontal,
 .mCS-3d-thick-dark.mCSB_scrollTools_horizontal {
@@ -1011,15 +1011,15 @@ yx-axis
 }
 .mCS-3d-thick.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.4);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.4);
   width: 12px;
   margin: 2px;
   position: absolute;
   height: auto;
   top: 0;
   bottom: 0;
-  left: 0;
   right: 0;
+  left: 0;
 }
 .mCS-3d-thick.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar,
 .mCS-3d-thick-dark.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
@@ -1039,7 +1039,7 @@ yx-axis
 .mCS-3d-thick.mCSB_scrollTools .mCSB_draggerContainer {
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: inset 1px 1px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: inset -1px 1px 16px rgba(0, 0, 0, 0.1);
 }
 .mCS-3d-thick.mCSB_scrollTools .mCSB_draggerRail {
   background-color: transparent;
@@ -1064,7 +1064,7 @@ yx-axis
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 0 14px rgba(0, 0, 0, 0.2);
 }
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.4), inset -1px 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.4), inset 1px 0 0 rgba(0, 0, 0, 0.2);
 }
 .mCS-3d-thick-dark.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
@@ -1078,7 +1078,7 @@ yx-axis
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerContainer {
   background-color: #fff;
   background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: inset 1px 1px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: inset -1px 1px 16px rgba(0, 0, 0, 0.1);
 }
 .mCS-3d-thick-dark.mCSB_scrollTools .mCSB_draggerRail {
   background-color: transparent;
@@ -1099,7 +1099,7 @@ yx-axis
 /* theme: "minimal", "minimal-dark" */
 .mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical,
 .mCSB_outside + .mCS-minimal-dark.mCSB_scrollTools_vertical {
-  right: 0;
+  left: 0;
   margin: 12px 0;
 }
 .mCustomScrollBox.mCS-minimal + .mCSB_scrollTools.mCSB_scrollTools_horizontal,
@@ -1112,8 +1112,8 @@ yx-axis
 /* RTL direction/left-side scrollbar */
 .mCS-dir-rtl > .mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical,
 .mCS-dir-rtl > .mCSB_outside + .mCS-minimal-dark.mCSB_scrollTools_vertical {
-  left: 0;
-  right: auto;
+  right: 0;
+  left: auto;
 }
 .mCS-minimal.mCSB_scrollTools .mCSB_draggerRail,
 .mCS-minimal-dark.mCSB_scrollTools .mCSB_draggerRail {
@@ -1253,8 +1253,8 @@ yx-axis
   height: auto;
   top: 0;
   bottom: 0;
-  left: 0;
   right: 0;
+  left: 0;
 }
 .mCS-inset.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar,
 .mCS-inset-dark.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar,
@@ -1268,8 +1268,8 @@ yx-axis
   width: auto;
   top: 0;
   bottom: 0;
-  left: 0;
   right: 0;
+  left: 0;
 }
 .mCS-inset.mCSB_scrollTools_horizontal .mCSB_draggerRail,
 .mCS-inset-dark.mCSB_scrollTools_horizontal .mCSB_draggerRail,
