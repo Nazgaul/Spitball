@@ -9,9 +9,9 @@ app.controller('UploadListCtrl',
         var params = {
             progressMaxWidth: 75,
             title: {
-                uploaded: 'Uploaded Files',
-                uploadingFiles: 'Uploading Files',
-                uploading: 'Uploading '
+                uploaded: JsResources.UploadedFiles,
+                uploadingFiles: JsResources.UploadingFiles,
+                uploading: JsResources.Uploading
             }
         };
 

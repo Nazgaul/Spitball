@@ -31,7 +31,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
-
+    [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class AccountController : BaseController
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
@@ -226,8 +226,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
-            if (Session != null)
-                Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
+            //if (Session != null)
+                //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
@@ -331,8 +331,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
             }
-            var model = Session[SessionKey] as ChangeMail;
+            var httpCookie = new CookieHelper(HttpContext);
+            var model = httpCookie.ReadCookie<ChangeMail>(SessionKey);
+            //var model = TempData[SessionKey] as ChangeMail;
             if (model == null)
+            {
+                return JsonError(AccountControllerResources.ChangeEmailCodeError);
+            }
+            if (model.TimeOfExpire < DateTime.UtcNow)
             {
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
             }
@@ -350,8 +356,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(ex.Message);
             }
-
-            Session.Remove(SessionKey);
+            httpCookie.RemoveCookie(SessionKey);
+            //Session.Remove(SessionKey);
             return JsonOk(model.Email);
         }
 
@@ -368,7 +374,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var rand = new Random();
                 var generatedCode = rand.Next(10000, 99999);
                 model.Code = generatedCode;
-                Session[SessionKey] = model;
+                model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
+                var httpCookie = new CookieHelper(HttpContext);
+                httpCookie.InjectCookie(SessionKey, model);
+                //TempData[SessionKey] = model;
+                //Session[SessionKey] = model;
 
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));

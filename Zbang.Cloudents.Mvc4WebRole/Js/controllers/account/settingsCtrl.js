@@ -129,7 +129,7 @@
                         return;
                     }
 
-                    sAccount.submitCode({ code: code }).then(function () {
+                    sAccount.submitCode({ code: code }).then(function() {
                         $scope.params.changeEmailBtnText = resManager.get('ChangeEmail');
                         $scope.params.changingEmail = $scope.params.verifyCode = false;
                         $scope.data.email = $scope.emailForm.email;
@@ -143,41 +143,41 @@
                         });
 
 
-
-                    }, function (response) {
+                    }, function(response) {
                         sNotify.alert(response);
                     });
-                }
+                } else {
 
-                if (!$scope.params.changingEmail) {
-                    $scope.params.changingEmail = true;
-                    $scope.params.changeEmailBtnText = resManager.get('Change');
-                    return;
-                }
+                    if (!$scope.params.changingEmail) {
+                        $scope.params.changingEmail = true;
+                        $scope.params.changeEmailBtnText = resManager.get('Change');
+                        return;
+                    }
 
-                var email = $scope.emailForm.email.trim();
+                    var email = $scope.emailForm.email.trim();
 
 
-                if (!email) {
-                    $scope.params.changeEmailError = resManager.get('FieldRequired');
-                    return;
-                }
+                    if (!email) {
+                        $scope.params.changeEmailError = resManager.get('FieldRequired');
+                        return;
+                    }
 
-                if (!emailRegExp.test(email)) {
-                    $scope.params.changeEmailError = resManager.get('InvalidEmail');
-                    return;
-                }
+                    if (!emailRegExp.test(email)) {
+                        $scope.params.changeEmailError = resManager.get('InvalidEmail');
+                        return;
+                    }
 
-                sAccount.changeEmail({ email: email }).then(function () {
-                    $scope.params.verifyCode = true;
-                    $scope.params.changeEmailBtnText = resManager.get('Save');
-                    $analytics.eventTrack('Account settings', {
-                        category: 'Email Change',
-                        label: 'User started changing email proccess'
+                    sAccount.changeEmail({ email: email }).then(function() {
+                        $scope.params.verifyCode = true;
+                        $scope.params.changeEmailBtnText = resManager.get('Save');
+                        $analytics.eventTrack('Account settings', {
+                            category: 'Email Change',
+                            label: 'User started changing email proccess'
+                        });
+                    }, function(response) {
+                        sNotify.alert(response[0].value[0]);
                     });
-                }, function (response) {
-                    sNotify.alert(response[0].value[0]);
-                });
+                }
 
 
             };

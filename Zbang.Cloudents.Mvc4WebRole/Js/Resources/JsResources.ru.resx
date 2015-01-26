@@ -696,4 +696,13 @@
   <data name="UsernameOr" xml:space="preserve">
     <value>имя пользователя или электронную почту</value>
   </data>
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>Загруженные файлы</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="UploadingFiles" xml:space="preserve">
+    <value>Идет загрузка файлов</value>
+  </data>
 </root>

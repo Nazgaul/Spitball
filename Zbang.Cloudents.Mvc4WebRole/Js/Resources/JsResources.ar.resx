@@ -685,4 +685,13 @@
   <data name="UsernameOr" xml:space="preserve">
     <value>اسم مستخدم او البريد الالكتروني </value>
   </data>
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>الملفات التي تم تحميلها</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>التحميل</value>
+  </data>
+  <data name="UploadingFiles" xml:space="preserve">
+    <value>جاري تحميل الملفات</value>
+  </data>
 </root>

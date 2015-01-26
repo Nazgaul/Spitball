@@ -75,14 +75,25 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public async Task DeleteUnsubscribe(string email)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-            using (var client = new HttpClient())
+            try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+                using (var client = new HttpClient())
+                {
 
-                var content =
-                    new StringContent(string.Empty);
-                await client.PostAsync(string.Format("https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",SendGridUserName,SendGridPassword,email)
-                    ,content);
+                    var content =
+                        new StringContent(string.Empty);
+                    await
+                        client.PostAsync(
+                            string.Format(
+                                "https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",
+                                SendGridUserName, SendGridPassword, email)
+                            , content);
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on delete unsubscribe", ex);
             }
         }
 
