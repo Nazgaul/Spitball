@@ -3,14 +3,12 @@
             '$timeout',
             '$filter',
            'sModal',
-           '$location',
-           'debounce',
+           '$location',           
          'sLibrary',
          'sFacebook',
          'sUserDetails',
          '$analytics',
-         function ($scope, $timeout, $filter, sModal, $location, debounce,
-             sLibrary, sFacebook, sUserDetails, $analytics) {
+         function ($scope, $timeout, $filter, sModal, $location,sLibrary, sFacebook, sUserDetails, $analytics) {
              "use strict";
              $scope.formData = {};
              $scope.display = {
@@ -59,14 +57,14 @@
 
                 //}, 300);
 
-             $scope.selectSearch = debounce(function () {
+             $scope.selectSearch = function () {
 
                  var query = $scope.formData.searchInput || '';
 
                  if (query.length < 2) {
-                     $scope.display.search = false;                  
+                     $scope.display.search = false;
                      $scope.universities = null;
-                    $scope.display.facebook = true;
+                     $scope.display.facebook = true;
                      lastQuery = null;
                      return;
                  }
@@ -96,7 +94,7 @@
                          label: $scope.formData.searchInput
                      });
                  });
-             },300);
+             };
 
              $scope.createSearch = function () {
                  var query = $scope.formData.createUniversity.name || '';

@@ -15,7 +15,7 @@
 
         <div class="uniWpr" ng-style="{display: display.searchUniversity ? 'block' : 'none'}">
             <input type="text" class="inputText" ng-placeholder="@MainViewResources.SearchFor" autocomplete="off"
-                   ng-model="formData.searchInput" ng-keyup="selectSearch()" />
+                   ng-model="formData.searchInput" ng-model-options="{ debounce: 300 }"  ng-change="selectSearch()" />
         </div>
         <ul class="fbUniList" ng-style="{display: display.facebook ? 'block' : 'none'}">
             <li ng-repeat="university in FBUniversities">
