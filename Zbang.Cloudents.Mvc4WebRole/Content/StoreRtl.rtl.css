@@ -4,8 +4,7 @@
 /*#endregion */
 /*#region header */
 header h1 {
-  margin: 0 0 0 265px
-  /*rtl*/
+  margin: 0 0 0 265px;
 }
 /*#endregion */
 /*#region carousel */
@@ -58,26 +57,20 @@ header h1 {
 }
 .categoryList ul {
   left: 0;
-  /*rtl*/
   right: auto;
   margin: 0 0 0 -1px;
-  /*rtl*/
   padding: 8px 0 0 12px;
-  /*rtl*/
   text-align: left;
 }
 .categoryList > li {
   border-right: 1px solid #fff;
-  /*rtl*/
   border-left: none;
 }
 .categoryList > li:nth-child(6n + 1) ul {
-  margin: 0 0 0 -18px
-  /*rtl*/
+  margin: 0 0 0 -18px;
 }
 .categoryList > li:nth-child(6n) {
   border-right: none
-  /*rtl*/
   /*ul {
                 margin: 0 0 0 -18px; //rtl
             }*/
@@ -86,26 +79,21 @@ header h1 {
 /*#region product list with hover */
 .productsList li:hover .desc {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 .productsList a:before {
   margin: 0 -0.25em 0 0
-  /*rtl*/
   /* Adjusts for spacing */
 }
 .productsList .desc {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .productsList .desc + .lFloat {
   border-right: 1px solid #39434a;
-  /*rtl*/
   border-left: none;
 }
 .productsList table {
   text-align: left
-  /*rtl*/
   /*&:before {
             right: 16px; 
             left: auto;
@@ -113,105 +101,83 @@ header h1 {
 }
 .productHover {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 .productHover .moreDetailsWpr {
   left: 15px;
-  /*rtl*/
   right: auto;
 }
 .productHover .sale {
   border-left: 1px solid #0f9d58;
-  /*rtl*/
   border-right: none;
 }
 /*#endregion */
 /*#region product page */
 .productWpr .left {
-  padding: 0 10px 0 0
-  /*rtl*/
+  padding: 0 10px 0 0;
 }
 .productWpr .right {
-  padding: 0 0 0 10px
-  /*rtl*/
+  padding: 0 0 0 10px;
 }
 .productPrice {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .productPrice:before {
   left: 16px;
-  /*rtl*/
   right: auto;
 }
 .productPrice td:nth-child(3) {
-  padding: 0 0 0 4px
-  /*rtl*/
+  padding: 0 0 0 4px;
 }
 .productDetails {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .moreProductsList li:first-child {
-  margin: 0 0 0 -300%
-  /*rtl*/
+  margin: 0 0 0 -300%;
 }
 /*#endregion */
 /*#region Checkout */
 .userHelp {
-  margin: 2px 0 0 7px
-  /*rtl*/
+  margin: 2px 0 0 7px;
 }
 .helpPopup:before {
   right: 24px;
-  /*rtl*/
   left: auto;
 }
 .orderTable tr:nth-of-type(5) .rFloat {
-  padding: 0 35px 0 0
-  /*rtl*/
+  padding: 0 35px 0 0;
 }
 .orderTable td,
 .orderTable th {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .orderTable td:first-child,
 .orderTable th:first-child {
-  padding: 15px 25px 15px 10px
-  /*rtl*/
+  padding: 15px 25px 15px 10px;
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
-  padding: 15px 60px 15px 0
-  /*rtl*/
+  padding: 15px 60px 15px 0;
 }
 .invoice li span:nth-child(1) {
-  padding: 0 0 0 10px
-  /*rtl*/
+  padding: 0 0 0 10px;
 }
 .invoice li span:nth-child(3) {
-  padding: 0 10px 0 3px
-  /*rtl*/
+  padding: 0 10px 0 3px;
 }
 .cardHover {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 .cardHover:after {
   right: 20px;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
 /*#region footer */
 .storeWpr footer {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .bottom ul {
-  padding: 0 0 0 212px
-  /*rtl*/
+  padding: 0 0 0 212px;
 }

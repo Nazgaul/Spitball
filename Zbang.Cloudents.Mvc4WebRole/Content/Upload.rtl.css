@@ -9,14 +9,12 @@
   display: inline-block;
   border: 2px solid #bdbdbd;
   box-shadow: -2px 2px 2px #ddd8dc;
-  /*rtl*/
   margin-bottom: 30px
   /*fix for (chrome) bug 1856 */
 }
 .selectBox {
   background-position: 100% -247px;
-  margin-right: 38px
-  /*rtl*/
+  margin-right: 38px;
 }
 /*#endregion */
 .dragDropBox {
@@ -36,12 +34,10 @@
 .dragDropBox ul {
   display: none;
   text-align: right;
-  /*rtl*/
   overflow-x: hidden;
   overflow-y: auto;
   height: 160px;
   margin: 38px 5px 0 0;
-  /*rtl*/
   border-top: 1px solid #c2c2c2;
 }
 .dragDropBox li {
@@ -61,7 +57,6 @@
   height: 36px;
   position: absolute;
   right: 0;
-  /*rtl*/
   top: 1px;
   z-index: -1;
 }
@@ -73,16 +68,14 @@
   color: #74646e;
   font-size: 11px;
   background-color: transparent;
-  margin: 0 0 0 3px
-  /*rtl*/
+  margin: 0 0 0 3px;
 }
 .finished {
   display: none;
   width: 24px;
   height: 25px;
   background-position: -13px -1px;
-  margin: 0 0 0 3px
-  /*rtl*/
+  margin: 0 0 0 3px;
 }
 .chooseFrom {
   border-top: 1px solid #c7c7c7;
@@ -119,7 +112,6 @@
   font-size: 14px;
   color: #111;
   float: right;
-  /*rtl*/
   text-align: center;
 }
 .source .btn:hover,
@@ -162,7 +154,6 @@
   position: fixed;
   top: 89px;
   right: 290px;
-  /*rtl*/
   z-index: 60000;
   display: none;
 }
@@ -172,7 +163,6 @@
   position: fixed;
   top: 50px;
   right: 243px;
-  /*rtl*/
   z-index: 5;
   background: rgba(17, 17, 17, 0.7);
   color: #fff;
@@ -186,7 +176,6 @@
   top: 50%;
   right: 50%;
   margin-right: -290px;
-  /*rtl*/
   margin-top: -138px;
   pointer-events: none;
 }
@@ -205,7 +194,6 @@
   position: fixed;
   bottom: 0;
   left: 10px;
-  /*rtl*/
   z-index: 100;
 }
 .uploads button {
@@ -225,8 +213,7 @@
 .uploadProgress {
   position: absolute;
   top: 10px;
-  left: 10px
-  /*rtl*/
+  left: 10px;
 }
 .uploadTop {
   height: 32px;
@@ -326,14 +313,12 @@ button.fileError {
   background-position: -132px -101px;
 }
 .step3 {
-  text-align: right
-  /*rtl*/
+  text-align: right;
 }
 .dragDropTxtE {
   font-size: 18px;
   margin: 66px 0 15px;
-  font-weight: bold
-  /*rtl*/
+  font-weight: bold;
 }
 .addUrlHolder {
   position: relative;
@@ -358,7 +343,6 @@ button.fileError {
 }
 .emailUser.emailUser {
   padding: 4px 9px 6px 2px;
-  /*rtl*/
   margin-bottom: 6px;
   width: 100%;
   min-height: 32px;
@@ -399,8 +383,7 @@ button.fileError {
   color: #0371c8;
   padding-top: 3px;
   position: absolute;
-  left: 5px
-  /*rtl*/
+  left: 5px;
 }
 .gConnect:before {
   content: '';
@@ -409,8 +392,7 @@ button.fileError {
   width: 17px;
   height: 13px;
   background: url(/Images/common17-sprite.png?v=4) -73px -70px no-repeat;
-  margin: -1px 0 0 5px
-  /*rtl*/
+  margin: -1px 0 0 5px;
 }
 .inviteInput {
   vertical-align: top;
@@ -473,7 +455,6 @@ button.fileError {
   display: inline-block;
   padding: 0 10px;
   margin: 0 0 3px 3px;
-  /*rtl*/
   background: #ededed;
   height: 24px;
   line-height: 24px;
@@ -502,8 +483,7 @@ button.fileError {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #c2c2c2;
-  margin: 5px 0 0 10px
-  /*rtl*/
+  margin: 5px 0 0 10px;
 }
 .eSingleImg {
   display: inline-block;
@@ -511,7 +491,6 @@ button.fileError {
   width: 34px;
   height: 34px;
   margin: 5px 0 0 6px;
-  /*rtl*/
   border-radius: 100%;
 }
 .eSingleName {

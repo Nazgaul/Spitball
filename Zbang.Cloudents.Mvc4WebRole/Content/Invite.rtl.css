@@ -112,8 +112,7 @@
   margin-top: 15px;
   display: none;
   cursor: pointer;
-  margin-left: 4px
-  /*rtl*/
+  margin-left: 4px;
 }
 .connectMore:before {
   content: '';
@@ -153,8 +152,7 @@
 .invMain.invBox .invHeaderText:before {
   content: attr(data-invbox-header);
   display: inline-block;
-  margin-left: 4px
-  /*rtl*/
+  margin-left: 4px;
 }
 .invMain:not(.invBox) .cloudents {
   display: none;
@@ -167,7 +165,6 @@
   border-radius: 2px;
   position: absolute;
   right: 0;
-  /*rtl*/
   z-index: -1;
 }
 .invBox .invboxImg {
@@ -273,7 +270,6 @@
   height: 32px;
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 12px;
 }
 .notConnected .invContentTop {
@@ -305,8 +301,7 @@
     animation: fadein 600ms ease both;*/
 }
 .invItem:nth-child(2n + 1) {
-  margin-left: 82px
-  /*rtl*/
+  margin-left: 82px;
 }
 .invItem.progressInner {
   color: #383838;
@@ -319,14 +314,12 @@
   height: 21px;
   background: url(/Images/invite-sprite.png?v=1) -186px -11px no-repeat;
   vertical-align: middle;
-  margin-left: 5px
-  /*rtl*/
+  margin-left: 5px;
 }
 .invName {
   vertical-align: top;
   line-height: 34px;
   margin-right: 5px;
-  /*rtl*/
   max-width: 200px;
   display: inline-block;
   position: relative;
@@ -341,7 +334,6 @@
   color: #0371c8;
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 3px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -370,8 +362,7 @@
   height: 21px;
   background: url(/Images/invite-sprite.png?v=1) -186px -11px no-repeat;
   vertical-align: middle;
-  margin-left: 5px
-  /*rtl*/
+  margin-left: 5px;
 }
 .invBtn.member {
   color: #c2c2c2;

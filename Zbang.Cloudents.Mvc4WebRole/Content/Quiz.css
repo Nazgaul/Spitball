@@ -143,7 +143,6 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   position: absolute;
   right: 21px;
-  /*rtl*/
   top: 15px;
 }
 .createQuiz .emptyQuiz .questionHolder:first-child.correctReq .correct {
@@ -171,7 +170,6 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   position: absolute;
   right: 21px;
-  /*rtl*/
   top: 15px;
 }
 .createQuiz .validated .questionHolder.ng-invalid.correctReq .correct {
@@ -251,7 +249,6 @@ body.quiz .modal-backdrop.in {
   width: 20px;
   height: 19px;
   right: -1px;
-  /*rtl*/
   top: -10px;
   -webkit-transform: scale(0.85);
   -moz-transform: scale(0.85);
@@ -261,7 +258,6 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder .lFloat {
   margin: 3px 5px 0 0;
-  /*rtl*/
 }
 .questionHolder .answers {
   color: #9d9d9d;
@@ -299,7 +295,6 @@ body.quiz .modal-backdrop.in {
 .questionHolder label {
   position: absolute;
   right: 19px;
-  /*rtl*/
 }
 .questionHolder label:before {
   opacity: .5;
@@ -311,14 +306,12 @@ body.quiz .modal-backdrop.in {
   list-style-type: lower-alpha;
   clear: both;
   padding-left: 16px;
-  /*rtl*/
   position: relative;
 }
 .quizAddQuestion {
   height: 40px;
   background: rgba(255, 255, 255, 0.5);
   text-align: left;
-  /*rtl*/
   color: #0371c8;
   margin-bottom: 10px;
   padding: 0 12px;
@@ -441,7 +434,6 @@ body.quiz .modal-backdrop.in {
   display: none;
   background: #f1f1f1;
   padding-left: 10px;
-  /*rtl*/
   /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
@@ -452,21 +444,18 @@ body.quiz .modal-backdrop.in {
 .commentWpr .closeDialog {
   background-position: -68px -26px;
   right: 20px;
-  /*rtl*/
   top: 3px;
   display: none;
 }
 .commentWpr .imgBorder {
   position: absolute;
   left: 0;
-  /*rtl*/
   /*display: none;*/
 }
 .commentWpr .askBtn {
   padding: 6px 15px 7px;
   height: auto;
   margin: 0 12px 10px 0;
-  /*rtl*/
   display: block;
   width: 100px;
 }
@@ -492,7 +481,6 @@ body.quiz .modal-backdrop.in {
   font-size: 15px;
   margin: 10px 0;
   padding-right: 22px;
-  /*rtl*/
 }
 .cTextAreaWpr {
   margin-top: 10px;
@@ -501,12 +489,10 @@ body.quiz .modal-backdrop.in {
 }
 .cTextAreaWpr .imgBorder {
   left: 10px;
-  /*rtl*/
 }
 .cTextArea {
   width: 595px;
   margin-left: 42px;
-  /*rtl*/
   border-radius: 3px;
   font-size: 15px;
   resize: none;
@@ -526,7 +512,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizAList li {
   margin: 0 0 -26px 13px;
-  /*rtl*/
   list-style-position: inside;
   position: relative;
   white-space: pre-line;
@@ -539,7 +524,6 @@ body.quiz .modal-backdrop.in {
   content: '';
   display: inline-block;
   padding-left: 18px;
-  /*rtl*/
 }
 .quizAList li:last-child {
   margin-bottom: -40px;
@@ -548,13 +532,11 @@ body.quiz .modal-backdrop.in {
   position: relative;
   top: -36px;
   left: 5px;
-  /*rtl*/
   line-height: 20px;
 }
 .quizAList li label:before {
   position: absolute;
   left: -19px;
-  /*rtl*/
   top: 5px;
   /* diff rtl - need this! */
 }
@@ -579,7 +561,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .leftPanel.leftPanel {
   left: 0;
-  /*rtl*/
   top: 50px;
   height: 100%;
   background: none;
@@ -631,7 +612,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .itemRight {
   text-align: left;
-  /*rtl*/
   padding-left: 290px;
 }
 .quizPage .itemTop {
@@ -732,7 +712,6 @@ body.quiz .modal-backdrop.in {
   background: url(/Images/common17-sprite.png?v=4) -18px -121px no-repeat;
   opacity: 1 !important;
   margin: -5px 0 0 -3px;
-  /*rtl*/
 }
 .checkQuiz .wrong.wrong label:before,
 .afraid .wrong.wrong label:before {
@@ -749,7 +728,6 @@ body.quiz .modal-backdrop.in {
   position: absolute;
   top: 21px;
   right: -30px;
-  /*rtl*/
   color: #d1294d;
   background: #f5f5f5;
   padding: 3px 8px;
@@ -788,7 +766,6 @@ body.quiz .modal-backdrop.in {
   display: none;
   position: absolute;
   left: -45px;
-  /*rtl*/
   top: 0;
   width: 7px;
   height: 100%;

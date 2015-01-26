@@ -1,46 +1,46 @@
 ﻿.welcome > .btnPrev {
   left: 15px;
-  /*rtl*/
+ 
   right: auto;
   background-position: -37px 0
-  /*rtl*/
+ 
 }
 .welcome > .btnNext {
   right: 15px;
-  /*rtl*/
+ 
   left: auto;
   background-position: -1px 0
-  /*rtl*/
+ 
 }
 .popupWrppr.welcome > .step1 {
   margin: 34px 80px 0 92px
-  /*rtl*/
+ 
 }
 .popupWrppr.welcome > .step1:before {
   right: 75px;
-  /*rtl*/
+ 
   left: auto;
 }
 /*step2,3,4*/
 .section1 {
   border-right: 1px solid #e3e3e3;
-  /*rtl*/
+ 
   border-left: none;
   padding: 11px 41px 34px 6px;
   /*rtl (top & bottom padding for separator)*/
   margin: 41px 0 0 93px
-  /*rtl*/
+ 
 }
 .section2 {
   padding: 0 0 0 43px
-  /*rtl*/
+ 
 }
 .section1:after,
 .section2:after {
   background: url(/Images/firsttime_sprite_heb.png?v=1) -172px 0 no-repeat;
-  /*rtl*/
+ 
   margin: 16px 0 0 -6px
-  /*rtl*/
+ 
 }
 .follow:after {
   background-position: -435px 0;
@@ -67,15 +67,15 @@
 }
 .radioBtns {
   left: 340px;
-  /*rtl*/
+ 
   right: auto;
 }
 input[type="radio"]:checked + label:before {
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(17, 17, 17, 0.5)
-  /*rtl*/
+ 
 }
 .closeBtn {
   right: 21px;
-  /*rtl*/
+ 
   left: auto;
 }

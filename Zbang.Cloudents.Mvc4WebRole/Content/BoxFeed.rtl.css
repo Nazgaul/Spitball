@@ -446,10 +446,8 @@
   border-radius: 3px;
   border: 1px solid #c2c2c2;
   padding-right: 6px;
-  /*rtl*/
   display: inline-block;
-  margin: 3px 0 6px 5px
-  /*rtl*/
+  margin: 3px 0 6px 5px;
 }
 .attachName {
   display: inline-block;
@@ -471,7 +469,6 @@
   height: 22px;
   position: absolute;
   right: 0;
-  /*rtl*/
   top: 0;
 }
 .removeAttach:after {

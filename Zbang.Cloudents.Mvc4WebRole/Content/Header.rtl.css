@@ -79,10 +79,8 @@ body {
   min-width: 40px;
   display: inline-block;
   text-align: right;
-  /*rtl*/
   color: #fff;
   margin: 6px 40px 0 0;
-  /*rtl*/
   line-height: normal;
   vertical-align: top;
 }
@@ -126,7 +124,6 @@ body {
   color: #fff;
   line-height: normal;
   margin-right: 40px;
-  /*rtl*/
   position: relative;
   top: -24px;
 }

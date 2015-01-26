@@ -91,13 +91,10 @@
 }
 .attachedItem {
   padding: 0 6px 0 0;
-  /*rtl*/
   margin: 3px 0 3px 5px;
-  /*rtl*/
 }
 .removeAttach:before {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */

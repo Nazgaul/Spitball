@@ -6,14 +6,11 @@
 /*#region headeractions and menu */
 .sideBar {
   right: -200px;
-  /*rtl*/
   left: auto;
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .sideBar li {
-  float: left
-  /*rtl*/
+  float: left;
 }
 /*#endregion */
 /*#region forgot password; email sent; verify password */
@@ -22,43 +19,35 @@
   /* rtl */
 }
 .innerContent {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 /*#endregion */
 /*#region unsupported page */
 .firefox {
-  padding: 0 40px 0 30px
-  /*rtl*/
+  padding: 0 40px 0 30px;
 }
 /*#endregion */
 /*#region faq */
 .faq aside {
   margin: 55px 0 0 15px;
-  padding: 17px 8px 0 69px
-  /*rtl*/
+  padding: 17px 8px 0 69px;
 }
 .faq aside:before {
   left: 8px;
-  /*rtl*/
   right: auto;
 }
 .faq.staticPage {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .question {
-  padding: 0 18px 0 16px
-  /*rtl*/
+  padding: 0 18px 0 16px;
 }
 .question:after {
   right: 18px;
-  /*rtl*/
   left: auto;
 }
 .answer {
-  padding: 0 18px 0 16px
-  /*rtl*/
+  padding: 0 18px 0 16px;
 }
 /*#endregion */
 /*#region  static popup */

@@ -22,7 +22,6 @@ header h1 {
   z-index: -1;
   color: #fff;
   margin-left: 265px;
-  /*rtl*/
 }
 header h1.showStore {
   display: inline-block;
@@ -116,7 +115,6 @@ main {
   position: relative;
   overflow: hidden;
   border-right: 1px solid #39434a;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -145,7 +143,6 @@ main {
 }
 .widget .banner {
   margin-left: -1px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -267,7 +264,6 @@ main {
   position: fixed;
   top: 115px;
   left: 0;
-  /*rtl*/
   right: 0;
   margin: auto;
   background: #39434a;
@@ -311,7 +307,6 @@ main {
   -webkit-transition-delay: 0;
   transition-delay: 0;
   left: 0;
-  /*rtl*/
   top: 174px;
   background: #fff;
   color: #39434a;
@@ -320,9 +315,7 @@ main {
   height: 194px;
   width: 151px;
   margin-left: -1px;
-  /*rtl*/
   padding: 8px 0 0 12px;
-  /*rtl*/
   text-align: left;
 }
 .categoryList ul:after {
@@ -352,7 +345,6 @@ main {
   display: inline-block;
   border-bottom: 1px solid #fff;
   border-right: 1px solid #fff;
-  /*rtl*/
   padding: 10px 0 30px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -392,11 +384,9 @@ main {
 .categoryList > li:nth-child(6n + 1) ul {
   width: 168px;
   margin-left: -18px;
-  /*rtl*/
 }
 .categoryList > li:nth-child(6n) {
   border-right: none;
-  /*rtl*/
 }
 .categoryList > li:nth-child(6n) ul {
   width: 169px;
@@ -501,7 +491,6 @@ main {
   color: orange;
   top: -188px;
   left: 0;
-  /*rtl*/
   height: auto;
 }
 .productsList li:hover .productHover {
@@ -539,7 +528,6 @@ main {
   font-size: 18px;
   padding: 16px 18px 0;
   text-align: left;
-  /*rtl*/
   top: 0;
   line-height: 25px;
   height: 66px;
@@ -550,7 +538,6 @@ main {
 .productsList .desc + .lFloat {
   color: #0f9d58;
   border-right: 1px solid #39434a;
-  /*rtl*/
 }
 .productsList table {
   width: 100%;
@@ -561,7 +548,6 @@ main {
   box-sizing: border-box;
   position: relative;
   text-align: left;
-  /*rtl*/
   margin-top: 4px;
   /*&:before {
             .pseudo;
@@ -625,7 +611,6 @@ main {
   height: 100%;
   top: 350px;
   left: 0;
-  /*rtl*/
   background: #39434a;
   color: #fff;
   padding: 85px 20px 10px 20px;
@@ -653,7 +638,6 @@ main {
   border-radius: 5px;
   position: absolute;
   left: 15px;
-  /*rtl*/
   bottom: 14px;
 }
 .productHover .lFloat {
@@ -670,7 +654,6 @@ main {
 .productHover .sale {
   color: #0f9d58;
   border-left: 1px solid #0f9d58;
-  /*rtl*/
 }
 .hoverDesc {
   text-align: right;
@@ -713,11 +696,9 @@ main {
   text-align: center;
   position: relative;
   padding-right: 10px;
-  /*rtl*/
 }
 .productWpr .right {
   padding-left: 10px;
-  /*rtl*/
 }
 .productWpr .right h3 {
   font-size: 18px;
@@ -778,7 +759,6 @@ main {
   width: 100%;
   font-size: 22px;
   text-align: left;
-  /*rtl*/
   border-collapse: collapse;
 }
 .productPrice:before {
@@ -787,7 +767,6 @@ main {
   position: absolute;
   top: 8px;
   left: 16px;
-  /*rtl*/
   background: #999;
 }
 .productPrice td {
@@ -799,7 +778,6 @@ main {
 }
 .productPrice td:nth-child(3) {
   padding-left: 4px;
-  /*rtl*/
 }
 .productPrice tr:nth-child(1) td {
   color: #0f9d58;
@@ -813,7 +791,6 @@ main {
   background: #DBEBF7;
   padding: 10px 18px;
   text-align: left;
-  /*rtl*/
   width: 100%;
 }
 .productDetails td {
@@ -823,7 +800,6 @@ main {
 .productDetails td:first-child {
   font-weight: bold;
   padding-bottom: 8px;
-  /*rtl*/
 }
 .productDetails small {
   display: block;
@@ -853,7 +829,6 @@ main {
 }
 .moreProductsList li:first-child {
   margin-left: -300%;
-  /*rtl*/
 }
 /*#endregion */
 /*#region About Page */
@@ -971,7 +946,6 @@ main {
   box-sizing: border-box;
   padding-top: 5px;
   margin: 2px 0 0 7px;
-  /*rtl*/
   vertical-align: top;
 }
 .userHelp:hover ~ .helpPopup {
@@ -1003,7 +977,6 @@ main {
   border-color: transparent transparent #0371c8 transparent;
   position: absolute;
   right: 24px;
-  /*rtl*/
   top: -16px;
 }
 .couponBtn {
@@ -1131,7 +1104,6 @@ main {
 .orderTable td,
 .orderTable th {
   text-align: left;
-  /*rtl*/
   padding: 20px 0;
 }
 .orderTable td:first-child,
@@ -1141,7 +1113,6 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-right: 15px 25px 15px 10px;
-  /*rtl*/
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
@@ -1150,7 +1121,6 @@ main {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-right: 60px;
-  /*rtl*/
 }
 .orderTable td:nth-child(3),
 .orderTable th:nth-child(3) {
@@ -1179,7 +1149,6 @@ main {
 .invoice li span:nth-child(1) {
   width: 100%;
   padding-left: 10px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1189,7 +1158,6 @@ main {
 }
 .invoice li span:nth-child(3) {
   padding: 0 10px 0 3px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1343,7 +1311,6 @@ main {
   position: absolute;
   bottom: 100%;
   right: 0;
-  /*rtl*/
   margin-bottom: 20px;
   white-space: pre-wrap;
 }
@@ -1370,7 +1337,6 @@ main {
   position: absolute;
   bottom: -15px;
   right: 20px;
-  /*rtl*/
 }
 .cardHoverTxt {
   text-align: center;
@@ -1428,7 +1394,6 @@ main {
   height: auto;
   line-height: normal;
   text-align: left;
-  /*rtl*/
   margin-bottom: 20px;
 }
 .storeWpr footer > .wpr {
@@ -1460,7 +1425,6 @@ main {
 }
 .storeWpr footer .bottom ul {
   padding-left: 212px;
-  /*rtl*/
 }
 .storeWpr footer .bottom li,
 .storeWpr footer .bottom a {

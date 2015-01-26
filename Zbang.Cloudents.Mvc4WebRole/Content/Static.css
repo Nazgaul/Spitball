@@ -45,7 +45,6 @@ body {
   z-index: 1;
   top: 0;
   right: -200px;
-  /*rtl*/
   width: 200px;
   height: 100%;
   padding: 17px 12px 16px 12px;
@@ -54,7 +53,6 @@ body {
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
   text-align: left;
-  /*rtl*/
   font-size: 14px;
   color: #fff;
   -webkit-box-sizing: border-box;
@@ -65,7 +63,6 @@ body {
   line-height: 15px;
   display: inline-block;
   float: left;
-  /*rtl*/
   clear: both;
   opacity: 0.35;
   cursor: pointer;
@@ -243,7 +240,6 @@ body {
   width: 460px;
   display: inline-block;
   text-align: left;
-  /*rtl*/
 }
 .innerContent > .boldFont {
   margin-top: 40px;
@@ -317,7 +313,6 @@ body {
 }
 .firefox {
   padding: 0 40px 0 30px;
-  /*rtl*/
 }
 .firefox:before {
   width: 66px;
@@ -378,10 +373,8 @@ body {
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   margin: 55px 0 0 15px;
-  /*rtl*/
   display: inline-block;
   padding: 17px 8px 0 69px;
-  /*rtl*/
   background: #fff;
   position: relative;
   font-size: 15px;
@@ -395,12 +388,10 @@ body {
   background: url(/Images/common17-sprite.png?v=4) -239px -1px no-repeat;
   position: absolute;
   left: 8px;
-  /*rtl*/
   top: 7px;
 }
 .faq.staticPage {
   text-align: left;
-  /*rtl*/
   color: #383838;
   background: #eee;
   -webkit-box-sizing: border-box;
@@ -463,7 +454,6 @@ body {
   line-height: 52px;
   font-size: 15px;
   padding: 0 18px 0 16px;
-  /*rtl*/
   position: relative;
   color: #0371c8;
   cursor: pointer;
@@ -478,13 +468,11 @@ body {
   height: 7px;
   position: absolute;
   right: 18px;
-  /*rtl*/
   top: 25px;
   background: url(/Images/common17-sprite.png?v=4) -98px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;
-  /*rtl*/
   display: none;
   padding-top: 25px;
   padding-bottom: 30px;

@@ -9,8 +9,7 @@
 .itemPage .closePreview,
 .quizPage .closePreview,
 .quizPreview .closePreview {
-  margin: 12px 25px 0 0
-  /*rtl*/
+  margin: 12px 25px 0 0;
 }
 .itemPage .leftPart {
   left: 0;

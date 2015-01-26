@@ -7,7 +7,6 @@
   height: 100%;
   background: #fff;
   border-left: 1px solid #c2c2c2;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -265,12 +264,10 @@
   height: 34px;
   top: 5px;
   background: #c2c2c2;
-  right: -3px
-  /*rtl*/
+  right: -3px;
 }
 .courses:after {
   left: -3px;
-  /*rtl*/
   right: auto;
 }
 .libTopWpr {
@@ -316,7 +313,6 @@
   line-height: 56px;
   text-align: center;
   border-left: 1px solid #c2c2c2;
-  /*rtl*/
   display: table-cell;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

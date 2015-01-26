@@ -8,8 +8,7 @@
   font-size: 18px;
   width: 460px;
   margin: 70px auto 0;
-  text-align: right
-  /*rtl*/
+  text-align: right;
 }
 .libEmpty.libraryChoose {
   margin-top: 0;
@@ -50,7 +49,6 @@
   background: url(/Images/dash13-sprite.png?v=1) -214px -2px no-repeat;
   position: absolute;
   left: 9px;
-  /*rtl*/
   top: 8px;
 }
 .uniWpr .inputText {
@@ -59,7 +57,6 @@
   border: 1px solid #c2c2c2;
   font-size: 17px;
   padding: 0 10px 0 30px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -67,7 +64,6 @@
 .uniList {
   display: none;
   text-align: right;
-  /*rtl*/
   max-height: 500px;
   width: 100%;
   border-radius: 3px;
@@ -96,7 +92,6 @@
   color: #43392b;
   cursor: pointer;
   padding: 5px 8px 8px 0;
-  /*rtl*/
   margin: 0 8px 8px 8px;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
@@ -129,8 +124,7 @@
 }
 .uniDetails {
   display: inline-block;
-  padding: 10px 8px 0 5px
-  /*rtl*/
+  padding: 10px 8px 0 5px;
 }
 .newUni.newUni {
   font-size: 15px;
@@ -356,7 +350,6 @@
 }
 .fbUniList .uniDetails {
   padding: 10px 8px 0 0;
-  /*rtl*/
   display: block;
 }
 .fbUniList .uniDetails .btn3 {
@@ -384,8 +377,7 @@
   overflow: auto;
 }
 .fbFriendsList .imgBorder {
-  margin: 0 0 5px 5px
-  /*rtl*/
+  margin: 0 0 5px 5px;
 }
 .fbFriendsList li:nth-child(17) .imgBorder {
   margin-left: 0;

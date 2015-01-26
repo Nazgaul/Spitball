@@ -4,13 +4,11 @@
 /*#endregion */
 .topImg > .btn {
   padding: 0 35px 0 20px;
-  /*rtl*/
   text-transform: none
   /*rtl (remove uppercase)*/
 }
 .topImg > .btn:after {
   right: 15px;
-  /*rtl*/
   left: auto;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -26,8 +24,7 @@
   transform: scaleX(-1);
 }
 .headingTexts {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .headingTexts .facebook,
 .headingTexts .email {
@@ -36,73 +33,54 @@
 }
 .email {
   padding: 7px 15px 8px 53px;
-  /*rtl*/
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .homepage h1 {
   -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  /*rtl*/
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2)
-  /*rtl*/
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 .homepage h3 {
   font-size: 17px;
-  /*rtl*/
   -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   /*rtl*/
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2)
   /*rtl*/
 }
 .homepage h2 {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .homepage .sectionText {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .homepage .sectionWpr:before {
-  float: right
-  /*rtl*/
+  float: right;
 }
 .homepage .headerActions {
   right: 0;
-  /*rtl*/
   right: -webkit-calc(50% - 512px);
-  /*rtl*/
   right: calc(50% - 512px);
-  /*rtl*/
   left: auto;
 }
 .watch .sectionWpr:before {
-  margin: 35px 25px 0 0
-  /*rtl*/
+  margin: 35px 25px 0 0;
 }
 .logo {
-  background-position: -963px -215px
-  /*rtl*/
+  background-position: -963px -215px;
 }
 .videoWpr {
   left: -webkit-calc(50% - 512px);
-  /*rtl*/
   left: calc(50% - 512px);
-  /*rtl*/
   right: auto;
   top: 100px;
 }
 .videoWpr:before {
   left: 78px;
-  /*rtl*/
   right: auto;
   -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  /*rtl*/
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2)
-  /*rtl*/
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 .videoWpr:after {
   left: 0;
-  /*rtl*/
   right: auto;
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -112,34 +90,26 @@
 }
 .language button ~ button:before {
   left: -7px;
-  /*rtl*/
   right: auto;
 }
 .qna .sectionWpr:before {
   float: left;
-  /*rtl*/
-  margin: 35px 150px 0 0
-  /*rtl*/
+  margin: 35px 150px 0 0;
 }
 .unions li {
   float: left;
-  /*rtl*/
   border-right: 1px solid #fff;
-  /*rtl*/
   border-left: none;
 }
 .unions li.last {
-  border-right: none
-  /*rtl*/
+  border-right: none;
 }
 .stats > .cell {
   border-right: 1px solid #798085;
-  /*rtl*/
   border-left: none;
 }
 /*#region footer */
 footer {
   left: 0;
-  /*rtl*/
   right: auto;
 }
