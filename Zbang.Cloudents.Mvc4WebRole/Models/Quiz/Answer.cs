@@ -9,7 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
         [Required]
         public Guid QuestionId { get; set; }
         [Required]
-        [AllowHtml]
         public string Text { get; set; }
 
         //[Required]

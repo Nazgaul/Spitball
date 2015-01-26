@@ -35,41 +35,43 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public void GenerateAndSendEmail(string recipient, MailParameters parameters)
         {
-            Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
-
-            var sendGridMail = new SendGridMessage
+            try
             {
-                From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
-            };
+                Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
 
-            var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-            
-            mail.GenerateMail(sendGridMail, parameters);
+                var sendGridMail = new SendGridMessage
+                {
+                    From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
+                };
 
-            //sendGridMail.AddTo("yaari.ram@gmail.com");
-            sendGridMail.AddTo(recipient);
-            var embarkeData = new Dictionary<string, string>
+                var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
+
+                mail.GenerateMail(sendGridMail, parameters);
+
+                //sendGridMail.AddTo("yaari.ram@gmail.com");
+
+                sendGridMail.AddTo(recipient);
+                var embarkeData = new Dictionary<string, string>
+                {
+                    {"embarkeAppId", "3f61a514-0610-412e-9024-b4eb5670eb9d"},
+                    {"embarkeMsgId", Guid.NewGuid().ToString()}
+                };
+
+                sendGridMail.AddUniqueArgs(embarkeData);
+
+                sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
+                sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
+
+                sendGridMail.EnableClickTracking();
+                sendGridMail.EnableOpenTracking();
+                Send(sendGridMail);
+            }
+            catch (FormatException ex)
             {
-               { "embarkeAppId" , "3f61a514-0610-412e-9024-b4eb5670eb9d"},
-               { "embarkeMsgId" , Guid.NewGuid().ToString() }
-            };
-            //var embarkeDataTimeWindow = new Dictionary<string, string>()
-            //{
-            //    { "X-EMBARKEAPI" , "{\"sendDate\": \"" +DateTime.UtcNow.ToString("o") + "\", \"maxSendHours\": 0}"
-
-            //    }
-            //};
-            //sendGridMail.AddHeaders(embarkeDataTimeWindow);
-
-            sendGridMail.AddUniqueArgs(embarkeData);
-
-            sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-
-            sendGridMail.EnableClickTracking();
-            sendGridMail.EnableOpenTracking();
-            Send(sendGridMail);
+                TraceLog.WriteError("recipient: " + recipient + " on trying to send mail", ex);
+                throw;
+            }
 
         }
 
@@ -77,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                 using (var client = new HttpClient())
                 {
 
@@ -113,10 +115,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var sendGridMail = new SendGridMessage
             {
                 From = new MailAddress("hatavotDb@cloudents.com"),
-                To = recipients.Select(s=> new MailAddress(s)).ToArray(),
+                To = recipients.Select(s => new MailAddress(s)).ToArray(),
                 Text = mailContent,
                 Subject = "Error in db",
-                
+
             };
             Send(sendGridMail);
         }
