@@ -382,6 +382,12 @@
                            })
                        });
 
+                       ga('send', 'exception', {
+                           exDescription: errorMessage,
+                           exFatal: false,
+                           version: document.querySelector('[data-version]').getAttribute('data-version')
+                       });
+
                    }
                    catch (loggingError) {
                        $log.warn('Error logging failed');
