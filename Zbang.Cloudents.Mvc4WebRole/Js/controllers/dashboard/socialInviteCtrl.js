@@ -1,6 +1,6 @@
 ﻿mDashboard.controller('SocialInviteCtrl',
-    ['$scope', '$filter', '$location','$analytics', 'sUser', 'sGoogle', 'sFacebook',
-         function ($scope, $filter, $location, $analytics, sUser, sGoogle, sFacebook) {
+    ['$scope', '$filter', '$location', '$analytics', 'sUser', 'sGoogle', 'sFacebook', '$timeout',
+         function ($scope, $filter, $location, $analytics, sUser, sGoogle, sFacebook, $timeout) {
              "use strict";
              var states = {
                  google: 'go',
@@ -17,8 +17,8 @@
 
 
              $scope.params = {
-                 contactLimit: 35,
-                 contactPage: 35
+                 contactLimit: 21,
+                 contactPage: 21
              };
 
              $scope.selectState = function (state) {
@@ -32,6 +32,8 @@
                      category: 'Select State',
                      label: 'User selected to invite from ' + state
                  });
+                 $scope.$broadcast('update-scroll');
+
              }
 
              $scope.filterContacts = function () {
@@ -50,7 +52,7 @@
                  $scope.selectState(states.facebook);
              } else {
                  $scope.selectState(states.cloudents);
-             }            
+             }
 
              $scope.inviteContact = function (contact) {
 
@@ -80,7 +82,7 @@
                  if (currentState === states.facebook) {
                      sFacebook.loginFacebook().then(function () {
                          $analytics.eventTrack('Social Invite', {
-                             category: 'Facebook Connect'                             
+                             category: 'Facebook Connect'
                          });
                          $scope.selectState(states.facebook);
                      });
@@ -113,10 +115,14 @@
                              isConnected: true
                          };
 
-                         sUser.friends().then(function (data) {                             
+                         sUser.friends().then(function (data) {
                              currentUsers = angular.copy(data.my);
-                             $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
+                             $timeout(function () {
+                                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                                 $scope.$broadcast('update-scroll');
+
+                             });
+                             
                          });
 
                          return params;
@@ -136,8 +142,11 @@
 
                          sGoogle.contacts().then(function (response) {
                              currentUsers = angular.copy(response);
-                             $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
+                             $timeout(function () {
+                                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                                 $scope.$broadcast('update-scroll');
+
+                             });
 
                          });
 
@@ -156,9 +165,12 @@
                              return params;
                          }
                          sFacebook.contacts('id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)').then(function (response) {
-                             currentUsers= angular.copy(response);
-                             $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                             $scope.$broadcast('update-scroll');
+                             currentUsers = angular.copy(response);
+                             $timeout(function () {
+                                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                                 $scope.$broadcast('update-scroll');
+
+                             });
 
                          });
 
