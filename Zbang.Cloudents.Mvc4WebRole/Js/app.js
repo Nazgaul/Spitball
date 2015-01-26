@@ -36,8 +36,7 @@
                        </span>',
                    action: function (imageLink) {
                        if (angular.isString(imageLink)) {
-                           console.log(imageLink);
-                           this.$editor().wrapSelection('insertImage', imageLink);
+                           this.$editor().wrapSelection('insertImage', imageLink, true);
                        }
                    },
                    onElementSelect: {

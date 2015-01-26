@@ -132,4 +132,7 @@
   <data name="Yesterday" xml:space="preserve">
     <value>אתמול</value>
   </data>
+  <data name="MustRegister" xml:space="preserve">
+    <value>להורדת הפריט עליך להירשם או להתחבר</value>
+  </data>
 </root>
