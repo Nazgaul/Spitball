@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mobile.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To download this item you must first register or sign-in.
+        /// </summary>
+        public static string MustRegister {
+            get {
+                return ResourceManager.GetString("MustRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yesterday.
         /// </summary>
         public static string Yesterday {
