@@ -683,7 +683,13 @@
     <Content Include="Content\ItemRtl.rtl.css">
       <DependentUpon>ItemRtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.mCustomScrollbar.css" />
+    <None Include="Content\jquery.mCustomScrollbar.less" />
+    <Content Include="Content\jquery.mCustomScrollbar.css">
+      <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery.mCustomScrollbar.rtl.css">
+      <DependentUpon>jquery.mCustomScrollbar.css</DependentUpon>
+    </Content>
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -783,7 +789,12 @@
     <Content Include="Content\SVG.rtl.css">
       <DependentUpon>SVG.css</DependentUpon>
     </Content>
-    <Content Include="Content\textAngular.css" />
+    <Content Include="Content\textAngular.css">
+      <DependentUpon>textAngular.less</DependentUpon>
+    </Content>
+    <Content Include="Content\textAngular.rtl.css">
+      <DependentUpon>textAngular.css</DependentUpon>
+    </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
     </Content>
@@ -1212,6 +1223,7 @@
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
     <Content Include="51Degrees.config" />
+    <Content Include="Content\textAngular.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -241,7 +241,7 @@ angular.module('textAngularSetup', [])
     //});
     taRegisterTool('color', {
         display: '<span class="btn ta-color"> \
-                <span class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textColor"></use></svg></span> \
+                <span class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></span> \
                 <input type="color" ng-model="color" ng-change="action(color)" /></span>',
         action: function (color) {
             if (color !== '') {
@@ -369,7 +369,7 @@ angular.module('textAngularSetup', [])
     var fontSize = 3;
     taRegisterTool('fontUp', {
         display: '<button type="button" name="fontIncrease"> \
-                            <svg class="svg-textIncrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textIncrease"></use></svg> \
+                            <svg class="svg-textIncrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textIncrease"></use></svg> \
                             </button>',
         action: function () {
             if (fontSize < 7) {
@@ -580,7 +580,7 @@ angular.module('textAngularSetup', [])
 
     taRegisterTool('insertImage', {
         display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
-                       <span class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#upload"></use></svg></span> \
+                       <span class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function (imageLink) {
