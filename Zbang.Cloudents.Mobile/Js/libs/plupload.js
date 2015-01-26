@@ -88,12 +88,7 @@
             restrict: 'A',
             require: '^plUploader',
             link: function (scope, element, attrs, controller) {
-
-                if (!userDetails.isAuthenticated()) {
-                    alert('Please register');
-                    return;
-                }
-
+                
                 var fileinput = new mOxie.FileInput({
                     browse_button: element[0],
                     multiple: true
@@ -102,6 +97,15 @@
                 fileinput.onchange = function (event) {
                     controller.addFiles(fileinput.files); //dashboard
                 };
+
+                element[0].addEventListener('click', function () {
+                    if (userDetails.isAuthenticated()) {
+                        return;
+                    }
+                    
+                    fileinput.disable(true);
+                    alert('Please register');
+                });
 
                 fileinput.init();
             }

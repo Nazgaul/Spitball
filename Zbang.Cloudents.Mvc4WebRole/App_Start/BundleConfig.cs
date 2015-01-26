@@ -61,9 +61,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
-                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s =>
-                       string.Format("{0}.rtl.css",
-                       s.Replace(Path.GetExtension(s), string.Empty))));
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Where(w =>
+                    {
+                        var relativeLocation = string.Format("{0}.rtl.css",
+                            w.Replace(Path.GetExtension(w), string.Empty));
+                        var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
+                        if (File.Exists(physicalLocation))
+                        {
+                            return true;
+                        }
+                        return false;
+                        
+                    }).Select(s => string.Format("{0}.rtl.css", s.Replace(Path.GetExtension(s), string.Empty))
+                    ));
                 }
             }
             if (registeredJsBundles != null)
@@ -79,7 +89,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 var angularResource = string.Format("{0}_{1}.js", HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale"),
                                         Thread.CurrentThread.CurrentUICulture.Name);
 
-                RegisterLocaleJs(File.ReadAllText(angularResource), JsResourceHelper.BuildResourceObject(), language.Culture);
+                RegisterLocaleJs(File.ReadAllText(angularResource),
+                    JsResourceHelper.BuildResourceObject(), language.Culture);
             }
 
 
@@ -135,7 +146,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 bundler.WithOutputBaseHref(cdnUrl);
                 CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
 
-                JsBundles.Add("langText.", bundler.Render("~/gzip/j1#.js"));
+                JsBundles.Add("langText." + culture, bundler.Render("~/gzip/j1#.js"));
+                return;
             }
             JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
         }

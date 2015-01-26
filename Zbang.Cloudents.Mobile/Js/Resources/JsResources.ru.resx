@@ -132,4 +132,7 @@
   <data name="Yesterday" xml:space="preserve">
     <value>вчера</value>
   </data>
+  <data name="MustRegister" xml:space="preserve">
+    <value>Для загрузки этого файла вам надо зарегистрироваться или войти</value>
+  </data>
 </root>

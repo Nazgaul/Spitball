@@ -7,9 +7,9 @@
         link: function (scope, element, attrs) {
             element.bind('change', function (e) {
                 e.preventDefault();
-                var element = e.target;
+                var input = e.target;
 
-                var files = Array.prototype.slice.call(element.files, 0);
+                var files = Array.prototype.slice.call(input.files, 0);
                 files.map(uploadFile);
 
                 
@@ -27,6 +27,7 @@
                             }
 
                             scope.onChoose({ data: response.payload });
+                            element.val('');
                         }
                     }
 

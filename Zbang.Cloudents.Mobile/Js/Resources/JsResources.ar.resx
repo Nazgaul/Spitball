@@ -132,4 +132,7 @@
   <data name="Yesterday" xml:space="preserve">
     <value>البارحة </value>
   </data>
+  <data name="MustRegister" xml:space="preserve">
+    <value>لتحميل هذا البند يجب أولا التسجيل أو تسجيل الدخول</value>
+  </data>
 </root>

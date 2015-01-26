@@ -30,80 +30,27 @@
 
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
                var buttons;
-               taRegisterTool('embedImage', {
-                   display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
-                       <span class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#upload"></use></svg></span> \
-                       </span>',
-                   action: function (imageLink) {
-                       if (angular.isString(imageLink)) {
-                           console.log(imageLink);
-                           this.$editor().wrapSelection('insertImage', imageLink);
-                       }
-                   },
-                   onElementSelect: {
-                       element: 'img',
-                       action: window.imageResizeHack
-                   }
-               });
+                           
+               buttons = ['fontUp', 'fontDown', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'insertImage', 'redo', 'undo']
 
-               var fontSize = 3;
-               taRegisterTool('font+', {
-                   display: '<button type="button" name="fontIncrease"> \
-                            <svg class="svg-textIncrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textIncrease"></use></svg> \
-                            </button>',
-                   action: function () {
-                       if (fontSize < 7) {
-                           fontSize++;
-                       }
-
-                       return this.$editor().wrapSelection('fontsize', fontSize);
-                   }
-               });
-
-               taRegisterTool('font-', {
-                   display: '<button type="button" name="fontIncrease"> \
-                            <svg class="svg-textDecrease"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textDecrease"></use></svg> \
-                            </button>', action: function (imageLink) {
-                                if (fontSize > 1) {
-                                    fontSize--;
-                                }
-                                return this.$editor().wrapSelection('fontsize', fontSize);
-
-                            },
-               });
-
-               buttons = ['font+', 'font-', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'embedImage', 'redo', 'undo']
-
-               if (Modernizr.inputtypes.color) {
-                   taRegisterTool('color', {
-                       display: '<span class="btn ta-color"> \
-                                <span class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?25.0.0#textColor"></use></svg></span> \
-                                <input type="color" ng-model="color" ng-change="action(color)" /></span>',
-                       action: function (color) {
-                           if (color !== '') {
-                               return this.$editor().wrapSelection('forecolor', color);
-                           }
-                       }
-                   });
-
+               if (Modernizr.inputtypes.color) {           
                    buttons.splice(5, 0, 'color');
                }
-
                taOptions.toolbar = [
                    buttons
                ];
 
 
-               taOptions.classes = {
-                   focussed: 'focused',
-                   toolbar: 'btn-toolbar',
-                   toolbarGroup: 'btn-group',
-                   toolbarButton: 'btn btn-default',
-                   toolbarButtonActive: 'active',
-                   disabled: 'disabled',
-                   textEditor: 'form-control',
-                   htmlEditor: 'form-control'
-               };
+               //taOptions.classes = {
+               //    focussed: 'focused',
+               //    toolbar: 'btn-toolbar',
+               //    toolbarGroup: 'btn-group',
+               //    toolbarButton: 'btn btn-default',
+               //    toolbarButtonActive: 'active',
+               //    disabled: 'disabled',
+               //    textEditor: 'form-control',
+               //    htmlEditor: 'form-control'
+               //};
                return taOptions;
            }]);
 

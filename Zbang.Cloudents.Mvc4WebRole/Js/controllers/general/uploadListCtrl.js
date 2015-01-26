@@ -56,6 +56,7 @@ app.controller('UploadListCtrl',
         $scope.$on('UploadFileError', function (e, file) {
             var uFile = getFile(file.id);
             uFile.error = true;
+            stopUploadStatus();
 
         });
 
@@ -69,13 +70,12 @@ app.controller('UploadListCtrl',
 
             uFile.uploaded = true;
 
-            if (finishedUploading()) {
-                $scope.uploader.uploading = false;
-                $scope.uploader.title = params.title.uploaded;
-                $scope.uploader.currentFile = null;
-            }
 
             setCurrentFileUploading();
+
+            //this function will also check if the uploader is finished
+            stopUploadStatus();
+
         });
 
         $scope.cancelUpload = function (file) {
@@ -146,16 +146,14 @@ app.controller('UploadListCtrl',
             uLink.progressWidth = params.progressMaxWidth;
             $interval.cancel(uLink.interval);
 
-            if (finishedUploading()) {
-                $scope.uploader.uploading = false;
-                $scope.uploader.title = params.title.uploaded;
-                $scope.uploader.currentFile = null;
-            }
+            //this function will also check if the uploader is finished
+            stopUploadStatus();
         });
 
         $scope.$on('UploadLinkError', function (e, link) {
             var uLink = getFile(link.id);
             uLink.error = true;
+            stopUploadStatus();
 
         });
 
@@ -198,16 +196,14 @@ app.controller('UploadListCtrl',
             uDb.progressWidth = params.progressMaxWidth;
             $interval.cancel(uDb.interval);
 
-            if (finishedUploading()) {
-                $scope.uploader.uploading = false;
-                $scope.uploader.title = params.title.uploaded;
-                $scope.uploader.currentFile = null;
-            }
+            //this function will also check if the uploader is finished
+            stopUploadStatus();
         });
 
         $scope.$on('UploadDropboxError', function (e, db) {
             var uDb = getFile(db.id);
             uDb.error = true;
+            stopUploadStatus();
 
         });
 
@@ -286,6 +282,16 @@ app.controller('UploadListCtrl',
                 return !(file.error || file.uploaded);
             });
 
+        }
+
+        function enableCloseBtn() {
+            if (!finishedUploading()) {
+                return;
+            }
+
+            $scope.uploader.uploading = false;
+            $scope.uploader.title = params.title.uploaded;
+            $scope.uploader.currentFile = null;
         }
 
         //@*data-finish="@DialogResources.UploadedFiles" data-maintitle="@DialogResources.UploadingFiles" data-minimizetile="@DialogResources.Uploading"*@

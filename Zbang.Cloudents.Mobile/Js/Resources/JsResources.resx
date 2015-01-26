@@ -132,4 +132,7 @@
   <data name="MinAgo" xml:space="preserve">
     <value>{0} min. ago</value>
   </data>
+  <data name="MustRegister" xml:space="preserve">
+    <value>To download this item you must first register or sign-in</value>
+  </data>
 </root>

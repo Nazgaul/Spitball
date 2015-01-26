@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
     <form name="addUrlForm" class="addUrlHolder" novalidate role="form" ng-submit="add($isValid)">
-        <input type="text" class="inputText addUrl" ng-placeholder="@DialogResources.AddUrl" ng-model="formData.url" />
+        <input type="text" class="inputText addUrl" ng-placeholder="@DialogResources.AddUrl" ng-model="formData.url" autofocus/>
         @*TODO validation*@
         
         <button type="submit" class="btn1">@DialogResources.Add</button>
