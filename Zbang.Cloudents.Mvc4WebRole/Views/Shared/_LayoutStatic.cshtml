@@ -92,7 +92,7 @@
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
 
-    <script type="text/javascript" src="~/Js/CDNFallback.min.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    <script type="text/javascript" src="~/Js/staticCDNFallback.js?v=@VersionHelper.CurrentVersion(true)"></script>
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @RenderSection("scripts", false)
     @Html.Script2("static")
