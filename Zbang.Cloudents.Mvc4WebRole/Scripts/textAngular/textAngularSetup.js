@@ -216,7 +216,9 @@ angular.module('textAngularSetup', [])
     //    activeState: function () { return this.$editor().queryFormatBlockState('pre'); }
     //});
     taRegisterTool('ul', {
-        iconclass: 'fa fa-list-ul',
+        display: '<button type="button" class="btn btn-default" name="bullets"> \
+        <svg class="svg-bullets"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#bullets"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.ul.tooltip,
         action: function () {
             return this.$editor().wrapSelection("insertUnorderedList", null);
@@ -224,7 +226,9 @@ angular.module('textAngularSetup', [])
         activeState: function () { return this.$editor().queryCommandState('insertUnorderedList'); }
     });
     taRegisterTool('ol', {
-        iconclass: 'fa fa-list-ol',
+        display: '<button type="button" class="btn btn-default" name="numbered"> \
+        <svg class="svg-numbered"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#numbered"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.ol.tooltip,
         action: function () {
             return this.$editor().wrapSelection("insertOrderedList", null);
@@ -251,21 +255,27 @@ angular.module('textAngularSetup', [])
         tooltiptext: taTranslations.color.tooltip
     });
     taRegisterTool('undo', {
-        iconclass: 'fa fa-undo',
+        display: '<button type="button" class="btn btn-default" name="undo"> \
+        <svg class="svg-undo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#undo"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.undo.tooltip,
         action: function () {
             return this.$editor().wrapSelection("undo", null);
         }
     });
     taRegisterTool('redo', {
-        iconclass: 'fa fa-repeat',
+        display: '<button type="button" class="btn btn-default" name="redo"> \
+        <svg class="svg-redo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#redo"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.redo.tooltip,
         action: function () {
             return this.$editor().wrapSelection("redo", null);
         }
     });
     taRegisterTool('bold', {
-        iconclass: 'fa fa-bold',
+        display: '<button type="button" class="btn btn-default" name="bold"> \
+        <svg class="svg-bold"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#bold"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.bold.tooltip,
         action: function () {
             return this.$editor().wrapSelection("bold", null);
@@ -276,7 +286,9 @@ angular.module('textAngularSetup', [])
         commandKeyCode: 98
     });
     taRegisterTool('justifyLeft', {
-        iconclass: 'fa fa-align-left',
+        display: '<button type="button" class="btn btn-default" name="align left"> \
+        <svg class="svg-alignLeft"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignLeft"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.justifyLeft.tooltip,
         action: function () {
             return this.$editor().wrapSelection("justifyLeft", null);
@@ -298,7 +310,9 @@ angular.module('textAngularSetup', [])
         }
     });
     taRegisterTool('justifyRight', {
-        iconclass: 'fa fa-align-right',
+        display: '<button type="button" class="btn btn-default" name="align right" disabled> \
+        <svg class="svg-alignRight"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignRight"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.justifyRight.tooltip,
         action: function () {
             return this.$editor().wrapSelection("justifyRight", null);
@@ -311,7 +325,9 @@ angular.module('textAngularSetup', [])
         }
     });
     taRegisterTool('justifyCenter', {
-        iconclass: 'fa fa-align-center',
+        display: '<button type="button" class="btn btn-default" name="align center"> \
+        <svg class="svg-alignCenter"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignCenter"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.justifyCenter.tooltip,
         action: function () {
             return this.$editor().wrapSelection("justifyCenter", null);
@@ -344,7 +360,9 @@ angular.module('textAngularSetup', [])
     //    }
     //});
     taRegisterTool('italics', {
-        iconclass: 'fa fa-italic',
+        display: '<button type="button" class="btn btn-default" name="italic"> \
+        <svg class="svg-italic"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#italic"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.italic.tooltip,
         action: function () {
             return this.$editor().wrapSelection("italic", null);
@@ -355,7 +373,9 @@ angular.module('textAngularSetup', [])
         commandKeyCode: 105
     });
     taRegisterTool('underline', {
-        iconclass: 'fa fa-underline',
+        display: '<button type="button" class="btn btn-default" name="underline"> \
+        <svg class="svg-underline"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#underline"></use></svg> \
+        </button>',
         tooltiptext: taTranslations.underline.tooltip,
         action: function () {
             return this.$editor().wrapSelection("underline", null);
