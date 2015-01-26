@@ -1,5 +1,5 @@
-﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$timeout', '$q', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify', 'sGmfcnHandler',
-    function ($scope, $rootScope, $timeout, $q, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
+﻿mQuiz.controller('QuizCreateCtrl', ['$scope', '$rootScope', '$location', '$routeParams', '$timeout', '$q', 'sModal', 'sQuiz', 'sUserDetails', '$analytics', 'sNotify', 'sGmfcnHandler',
+    function ($scope, $rootScope, $location, $routeParams, $timeout, $q, sModal, sQuiz, sUserDetails, $analytics, sNotify, sGmfcnHandler) {
         "use strict";
         function Question(data) {
             data = data || {};
@@ -20,59 +20,34 @@
         $scope.params = {
             loadCreateQuiz: false,
             showCreateQuiz: false,
-            minQuestions:1,
+            minQuestions: 1,
             minAnswers: 2,
             isDraft: false,
             focus: true
         };
 
-        $scope.reset = function () {
-            $scope.quiz = {
-                id: null,
-                name: null,
-                questions: [],
-                courseId: null,
-                courseName: null
-            };
-
-            $scope.params.isDraft = false;
+        $scope.quiz = {
+            questions: []
         };
 
-        $scope.reset();
+        $scope.initQuiz = function () {
+            $scope.quiz.courseId = $routeParams.boxId;
+            $scope.quiz.courseName = $routeParams.boxName;
 
-        $scope.initQuiz = function (data) {
-            data = {
-                quiz: {}
-            };
-            if ($scope.quiz.id) {
-                if ($scope.quiz.id === data.quizId) {
-                    return;
-                }
-                $scope.reset();
-                $rootScope.$broadcast('update-scroll');
-            }
-            $scope.quiz.courseId = 8643;
-            $scope.quiz.courseName = 'qa-rocks';
-
-            if (!data.quizId) {
+            if (!$routeParams.quizId) {
                 $scope.params.isDraft = false;
 
                 for (var i = 0; i < $scope.params.minQuestions; i++) {
                     $scope.addQuestion(false);
                 }
 
-                $scope.params.loadCreateQuiz = true;
-                $scope.params.showCreateQuiz = true;
                 $scope.params.focus = true;
-                $rootScope.$broadcast('update-scroll');
                 return;
             }
 
+            $scope.quiz.id = $routeParams.quizId
 
-
-            $scope.quiz.id = data.quizId;
-
-            sQuiz.getDraft({ quizId: data.quizId }).then(function (draft) {
+            sQuiz.getDraft({ quizId: $scope.quiz.id }).then(function (draft) {
                 $scope.quiz.name = draft.name;
                 $scope.quiz.questions = draft.questions;
                 $scope.params.isDraft = true;
@@ -89,10 +64,7 @@
                     $scope.addQuestion(false);
                 }
 
-                $scope.params.loadCreateQuiz = true;
-                $scope.params.showCreateQuiz = true;
                 $scope.params.focus = true;
-                $rootScope.$broadcast('update-scroll');
             });
         };
 
@@ -100,8 +72,7 @@
 
         $scope.closeQuiz = function (isValid) {
             if ($scope.isEmptyQuiz()) {
-                $scope.params.showCreateQuiz = false;
-                $rootScope.options.quizOpen = false;
+                goToQuizzes();
                 return;
             }
 
@@ -134,16 +105,14 @@
                 return;
             }
 
-            sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name }).then(function () {
-                addItemToBox(false);
-            });
+            sQuiz.update({ id: $scope.quiz.id, name: $scope.quiz.name });
         };
 
         function publish(isValid) {
             $scope.params.focus = false;
             $scope.submit(isValid);
             //TODO analytics
-
+            goToQuizzes();
         }
 
         function deleteQuiz() {
@@ -155,14 +124,11 @@
             var quizId = $scope.quiz.id,
                 boxId = $scope.quiz.courseId;
 
-            $scope.reset();
-            $scope.params.focus = false;
-            $scope.params.showCreateQuiz = false;
 
             sQuiz.delete({
                 id: quizId
             }).then(function () {
-                $rootScope.$broadcast('QuizDeleted', { boxId: boxId, quizId: quizId });
+                goToQuizzes();
             });
 
             $analytics.eventTrack('Quiz Create', {
@@ -171,24 +137,11 @@
         }
 
         function saveDraft() {
-            $scope.params.showCreateQuiz = false;
-            $scope.params.focus = false;
 
             $analytics.eventTrack('Quiz Create', {
                 category: 'Save Draft'
             });
-            if ($scope.isEmptyQuiz()) {
-                if (!$scope.quiz.id) {
-                    return;
-                }
-                $scope.reset();
-
-                return;
-            }
-            $scope.reset();
-
-            $rootScope.$broadcast('QuizCreateClose');
-
+            goToQuizzes();
 
         }
 
@@ -203,7 +156,6 @@
             $analytics.eventTrack('Quiz Create', {
                 category: 'Add Question'
             });
-            $rootScope.$broadcast('update-scroll');
         };
         $scope.saveQuestion = function (question) {
             if (!$scope.quiz.id) {
@@ -238,7 +190,6 @@
             var question = $scope.quiz.questions[index];
 
             $scope.quiz.questions.splice(index, 1);
-            $rootScope.$broadcast('update-scroll');
 
             if (!question.id) {
                 var interval = setInterval(function () {
@@ -408,7 +359,6 @@
                 name: $scope.quiz.name
             }).then(function (data) {
                 $scope.quiz.id = data;
-                addItemToBox(false);
                 return data;
             }).finally(function () {
                 creatingQuiz = null;
@@ -508,37 +458,7 @@
         };
 
         //#endregion
-        function addItemToBox(isPublish, url) {
-            var quiz = {
-                id: $scope.quiz.id,
-                boxId: $scope.quiz.courseId,
-                name: $scope.quiz.name || '',
-                publish: isPublish,
-                description: isPublish && getContent(),
-                rate: 0,
-                ownerId: sUserDetails.getDetails().id,
-                owner: sUserDetails.getDetails().name,
-                userUrl: sUserDetails.getDetails().url,
-                type: 'sQuiz',
-                url: url,
-                date: new Date()
-            };
 
-            $rootScope.$broadcast('QuizAdded', quiz);
-
-            function getContent() {
-                var result = '',
-                    questions = $scope.quiz.questions;
-                for (var i = 0, l = questions.length; i < l; i++) {
-                    if (questions[i].text) {
-                        result += questions[i].text;
-                    }
-
-                }
-
-                return result;
-            }
-        }
         $scope.submit = function (isValid, event) {
 
             if (event) {
@@ -579,9 +499,7 @@
             }
             ).then(function (data) {
                 sGmfcnHandler.addPoints({ type: 'quiz' });
-                addItemToBox(true, data.url);
-                $scope.params.showCreateQuiz = false;
-                $rootScope.options.quizOpen = false;
+                goToQuizzes();
             }, function (data) {
                 sNotify.alert(data);
             });
@@ -594,18 +512,12 @@
             }
         };
 
-        $scope.$on('closeQuizCreate', function (e, quizId) {
-            if (quizId === $scope.quiz.id) {
-                $scope.params.showCreateQuiz = false;
-                $rootScope.options.quizOpen = false;
-            }
-        });
-
-        $scope.$on('$routeChangeStart', function () {
-            $scope.quiz.showPreview = false;
-        });
-
         $scope.initQuiz();
+
+        function goToQuizzes() {
+            window.history.back();
+        }
+
         $timeout(function () {
             $rootScope.$broadcast('viewContentLoaded');
         });
@@ -644,35 +556,63 @@
                       $('body').removeClass('jsDark');
                   }
 
+
               }, true);
         };
     }]).
-    directive('quizFocus', ['$timeout', function ($timeout) {
+    directive('bindTextarea', [function () {
         return {
-            restrict: 'A',
-            link: function (scope, element) {
-                scope.$watch(function () {
-                    return element.attr('data-focus');
-                }, function (newValue) {
-                    if (newValue === 'true') {
-                        $timeout(function () { element.focus(); }, 10);
-                    }
-
+            restrict: 'A',           
+            link: function (scope, element,attrs) {                
+                element.on('blur', function () {
+                    scope.$apply(attrs.onBlur);
                 });
+
+                scope.$on('$destory', function () {
+                    $textarea.off('blur');
+                });
+
             }
         };
     }]).
-    directive('requiredTwo', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, element) {
-                var watchFn = function () {
-                    return element[0].querySelectorAll('.quizAnswer:not(.disabled)').length;
-                }
-                scope.$watch(watchFn, function (newValue) {
-                    scope.questionForm.$setValidity('required', newValue > 1);
-                });
-
+directive('quizFocus', ['$timeout', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element) {
+            var input;
+            if (element.is('input:text')) {
+                input = element[0];
+            } else {
+                input = element[0].querySelector('textarea');
             }
-        };
-    });
+            var listener = scope.$watch(function () {
+                return element.attr('data-focus');
+            }, function (newValue) {
+                if (newValue === 'true') {
+                    $timeout(function () { input.focus(); }, 10);
+                }
+            });
+            
+            scope.$on('$destroy', function () {
+                listener();
+            });
+        }
+    };
+}]).
+directive('requiredTwo', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element) {
+            var watchFn = function () {
+                return element[0].querySelectorAll('.quizAnswer:not(.disabled)').length;
+            }
+            var listener = scope.$watch(watchFn, function (newValue) {
+                scope.questionForm.$setValidity('required', newValue > 1);
+            });
+
+            scope.$on('$destroy', function () {
+                listener();
+            });
+        }
+,    };
+});
