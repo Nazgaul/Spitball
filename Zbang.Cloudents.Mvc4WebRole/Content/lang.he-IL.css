@@ -18,7 +18,6 @@
 /*#endregion */
 .register .cbLabel {
   display: block;
-  /*rtl*/
 }
 .quizAnswersList {
   list-style-type: hebrew;

@@ -3,8 +3,8 @@
 body {
     font-size: 13px;
     /*-webkit-backface-visibility: hidden;*/
-    //font-family: 'Open Sans', sans-serif, Arial; /*rtl*/ //3,4,6,7 //for V. 12.0.
-    font-family: 'Open Sans', Arial; /*rtl*/ //3,4,6,7 //for V. 12.0.
+    //font-family: 'Open Sans', sans-serif, Arial; //3,4,6,7 //for V. 12.0.
+    font-family: 'Open Sans', Arial; //3,4,6,7 //for V. 12.0.
     &.jsDark {
         background:#282828;
         .bodyContent ~ .fade {
@@ -54,7 +54,7 @@ input[type="radio"] {
             height: 13px;
             background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=') /*/Images/radioBtn.png*/ -15px -1px no-repeat;
             vertical-align: middle;
-            margin: -2px 4px 0 0; /*rtl*/
+            margin: -2px 4px 0 0;
         }
     }
     &.radio { 
@@ -65,7 +65,7 @@ input[type="radio"] {
                 width: 20px;
                 height: 20px;
                 border: 1px solid @txtColor;
-                margin: -2px 8px 0 0; /*rtl*/
+                margin: -2px 8px 0 0;
                 border-radius: 100%;
                 background: none; //override
                 .boxSizing;
@@ -122,7 +122,7 @@ input[type="radio"] {
             display: inline-block;
             cursor: pointer;
             vertical-align: middle;
-            margin-right: 5px; /*rtl*/
+            margin-right: 5px;
             padding-top: 2px;
         }
     }
@@ -179,7 +179,7 @@ input[type="radio"] {
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    margin-left: 5px; /*rtl*/
+    margin-left: 5px;
     // added input. for extra specificity
     + input.inputText {
         border: 1px solid #dc3500;
@@ -199,7 +199,7 @@ input[type="radio"] {
         ~ li:before {
             content: '|';
             font-size: 10px;
-            padding: 0 3px 0 6px; /*rtl*/
+            padding: 0 3px 0 6px;
         }
     }
 }
@@ -279,7 +279,7 @@ input[type="radio"] {
 /*#region delete email 'x' */
 .removeItem, .closeItem {
     position: absolute;
-    right: 5px; /*rtl*/
+    right: 5px;
     top: 5px;
     width: 10px;
     height: 11px;
@@ -294,7 +294,7 @@ input[type="radio"] {
 .emailText {
     display: inline-block;
     cursor: default;
-    margin-right: 6px; /*rtl*/
+    margin-right: 6px;
     ~ .removeItem {
         display: inline-block; //override
         position: static; //override
@@ -580,7 +580,7 @@ input[type="radio"] {
     background: @common-sprite -79px -26px no-repeat;
     position: absolute;
     top: 15px;
-    right: 12px; /*rtl*/
+    right: 12px;
 }
 .closeModal {
     position: absolute;
@@ -598,7 +598,7 @@ input[type="radio"] {
 .requestSentDiv {
     font-size: 18px;
     //color: #111;
-    padding-left: 18px; /*rtl*/ // override poppwrrpr
+    padding-left: 18px; // override poppwrrpr
     width: 374px;
     white-space: pre-line;
 
@@ -651,12 +651,12 @@ input[type="radio"] {
     color: #676767;
     background: #FFF;
     border: 1px solid #fff;
-    padding: 7px 15px 8px 53px; /*rtl*/
+    padding: 7px 15px 8px 53px;
     cursor: pointer;
     font-size: 17px;
     border-radius: 5px;
     position: relative;
-    text-align: left; /*rtl*/
+    text-align: left;
     line-height: 25px;
     width: 100%;
     z-index: 1;
@@ -673,7 +673,7 @@ input[type="radio"] {
     color: @textColor;
     position: relative; //FF needs this in order to place the error msgs correctly
     .firstError {
-        left:0; /*rtl*/
+        left:0;
         position: relative;
         top: 17px;
     }
@@ -735,11 +735,11 @@ input[type="radio"] {
 .facebook {
     width: 100%;
     cursor: pointer;
-    padding: 8px 15px 9px 55px; /*rtl*/
+    padding: 8px 15px 9px 55px;
     font-size: 17px;
     border-radius: 5px;
     position: relative;
-    text-align: left; /*rtl*/
+    text-align: left;
     display: inline-block;
     line-height: 25px;
     background: #3b5998;
@@ -758,7 +758,7 @@ input[type="radio"] {
     bottom: 0;
     margin: auto;
     display: inline-block;
-    left: 16px; /*rtl*/
+    left: 16px;
     &:after {
         .pseudo;
         width: 1px;
@@ -781,7 +781,7 @@ input[type="radio"] {
     }
 }
 .signIn, .register {
-    text-align: left; /*rtl*/
+    text-align: left;
     display: inline-block;
     width: 100%;
     margin-bottom: 6px;
@@ -848,7 +848,7 @@ input[type="radio"] {
 
 .acceptTerms {
     display: inline-block;
-    text-align: left; /*rtl*/
+    text-align: left;
     line-height: 15px;
 
     .tos {
@@ -928,12 +928,12 @@ aside.sideBar {
     position: fixed;
     z-index: 1;
     top: 0;
-    right: -200px; /*rtl*/
+    right: -200px;
     width: 200px;
     height: 100%;
     padding: 17px 12px 16px 12px;
     .transition(all, .5s);
-    text-align: left; /*rtl*/
+    text-align: left;
     font-size: 14px;
     color: #fff;
     .boxSizing;
@@ -947,7 +947,7 @@ aside.sideBar {
     li {
         line-height: 15px;
         display: inline-block;
-        float: left; /*rtl*/
+        float: left;
         clear: both;
         opacity: 0.35;
         margin-bottom: 10px;
@@ -1032,7 +1032,7 @@ aside.sideBar {
         padding: 3px 5px;
         display: block;
         width: 100%;
-        text-align: left; /*rtl*/
+        text-align: left;
         cursor: pointer;
         font-size: 13px;
         &:hover {
@@ -1042,7 +1042,7 @@ aside.sideBar {
     }
     &.userMenu {
         width: 160px;
-        right: 0; /*rtl*/
+        right: 0;
         z-index: 10;
         top: @header-height;
         border: 1px solid #959595;
@@ -1056,7 +1056,7 @@ aside.sideBar {
         box-shadow: 0 0 3px rgba(0,0,0,.2);
         position: absolute;
         top: 100%!important;
-        left: 25px!important; /*rtl*/
+        left: 25px!important;
         display: none;
         overflow: hidden; // clip content to rounded corners
         margin-top: 5px;
@@ -1168,13 +1168,13 @@ aside.sideBar {
     .boxSizing;
     background: #fff;
     z-index: 7;
-    text-align: left; /*rtl*/
+    text-align: left;
     //overflow: hidden; //hide rounded-corner overflow
     &:before {
         .pseudo;
         width: 100%;
         position: absolute;
-        left: 0; /*rtl*/
+        left: 0;
         top: 0;
         border-bottom: 1px solid @borderColor;
     }
@@ -1261,7 +1261,7 @@ aside.sideBar {
     }
 
     li {
-        margin-left: 15px; /*rtl*/
+        margin-left: 15px;
         padding: 3px 0;
     }
 
@@ -1299,11 +1299,11 @@ aside.sideBar {
         width: 325px;
 
         .stepTip {
-            padding-left: 90px; /*rtl*/
+            padding-left: 90px;
             &:before {
                 .pseudo;
                 position: absolute;
-                left: 15px; /*rtl*/
+                left: 15px;
                 width: 85px;
                 height: 85px;
                 vertical-align: middle;
@@ -1379,8 +1379,8 @@ aside.sideBar {
         &:before {
             bottom: auto;
             top: 45%;
-            left: -@arrowHeight - 2; /*rtl*/
-            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
+            left: -@arrowHeight - 2;
+            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0;
             border-color: rgba(0, 0, 0, 0) @borderColor;
             margin: -2px 0 0 0; //override
         }
@@ -1388,8 +1388,8 @@ aside.sideBar {
         &:after {
             bottom: auto;
             top: 45%;
-            left: -@arrowHeight; /*rtl*/
-            border-width: (@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
+            left: -@arrowHeight;
+            border-width: (@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0;
             border-color: rgba(0, 0, 0, 0) #fff;
             margin: 0; //override
         }
@@ -1411,8 +1411,8 @@ aside.sideBar {
             bottom: auto;
             top: 45%;
             left: auto;
-            right: -@arrowHeight - 2; /*rtl*/
-            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
+            right: -@arrowHeight - 2;
+            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2);
             border-color: rgba(0, 0, 0, 0) @borderColor;
             margin: -2px 0 0 0; //override
         }
@@ -1421,8 +1421,8 @@ aside.sideBar {
             bottom: auto;
             top: 45%;
             left: auto;
-            right: -@arrowHeight; /*rtl*/
-            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
+            right: -@arrowHeight;
+            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight;
             border-color: rgba(0, 0, 0, 0) #fff;
             margin: 0; //override
         }
@@ -1434,7 +1434,7 @@ aside.sideBar {
     background: #ebebeb;
     position: absolute;
     bottom:0;
-    left:0; /*rtl*/
+    left:0;
     padding: 13px 20px 0 20px;
     border-radius: 0 0 3px 3px;
     .boxSizing;
@@ -1454,7 +1454,7 @@ aside.sideBar {
     border: 1px solid @borderColor;
     border-radius: 3px;
     overflow: hidden;
-    padding: 10px 10px 6px 110px; /*rtl*/
+    padding: 10px 10px 6px 110px;
     position: fixed;
     z-index: 13;
     background: #fff;
@@ -1484,7 +1484,7 @@ aside.sideBar {
 .ttImg {
     position: absolute;
     top: 0;
-    left: 0; /*rtl*/
+    left: 0;
     border-right: 1px solid @borderColor;
 }
 
@@ -1543,11 +1543,11 @@ aside.sideBar {
     font-weight: normal;
 
     &.right {
-        margin-left: 3px; /*rtl*/
+        margin-left: 3px;
         padding: 0 5px;
     }
     &.left {
-        margin-left: -3px; /*rtl*/
+        margin-left: -3px;
         padding: 0 5px;
     }
     &.top {
@@ -1563,18 +1563,18 @@ aside.sideBar {
         margin-top: 3px;
     }
     &.left-bottom {
-        left: 0!important; /*rtl*/
-        right: auto!important; /*rtl*/
+        left: 0!important;
+        right: auto!important;
         .tooltip-arrow {
-            left: 12px; /*rtl*/
+            left: 12px;
             right: auto;
         }
     }
     &.right-bottom {
-        right: 0!important; /*rtl*/
-        left: auto!important; /*rtl*/
+        right: 0!important;
+        left: auto!important;
         .tooltip-arrow {
-            right: 12px; /*rtl*/
+            right: 12px;
             left: auto;
         }
     }
@@ -1658,7 +1658,7 @@ aside.sideBar {
     position: absolute;
     z-index: 13;
     display: none;
-    text-align: left; /*rtl*/
+    text-align: left;
     background: #fff;
     .boxSizing;
     border: 1px solid @borderColor;
@@ -1674,15 +1674,15 @@ aside.sideBar {
     &.top {
         margin-top: -10px;
         > .arrow {
-            left: 50%; /*rtl*/
-            margin-left: -11px; /*rtl*/
+            left: 50%;
+            margin-left: -11px;
             bottom: -12px;
             border-width: 12px 12px 0 12px;
             border-top-color: @borderColor;
             
             &:after {
                 bottom: 2px;
-                margin-left: -10px; /*rtl*/
+                margin-left: -10px;
                 border-width: 10px 10px 0 10px;
                 border-top-color: #f5f5f5;
             }
@@ -1692,13 +1692,13 @@ aside.sideBar {
         margin-top: 10px;
         > .arrow {
             left: 50%;
-            margin-left: -11px; /*rtl*/
+            margin-left: -11px;
             border-width: 0 12px 12px 12px;
             border-bottom-color: @borderColor;
             top: -12px;
             &:after {
                 top: 2px;
-                margin-left: -10px; /*rtl*/
+                margin-left: -10px;
                 border-width: 0 10px 10px 10px;
                 border-bottom-color: #f5f5f5;
             }
@@ -1724,15 +1724,15 @@ aside.sideBar {
         margin-left: 10px;
         > .arrow {
             top: 50%;
-            left: -12px; /*rtl*/
+            left: -12px;
             margin-top: -11px;
-            border-width: 12px 12px 12px 0; /*rtl*/
-            border-right-color: @borderColor; /*rtl*/
+            border-width: 12px 12px 12px 0;
+            border-right-color: @borderColor;
             &:after {
-                left: 2px; /*rtl*/
+                left: 2px;
                 bottom: -10px;
-                border-width: 10px 10px 10px 0; /*rtl*/
-                border-right-color: #f5f5f5; /*rtl*/
+                border-width: 10px 10px 10px 0;
+                border-right-color: #f5f5f5;
             }
         }
     }
@@ -1781,11 +1781,11 @@ aside.sideBar {
 
 /*#region general helper classes */
 .lFloat {
-    float: left; /*rtl*/
+    float: left;
 }
 
 .rFloat {
-    float: right; /*rtl*/
+    float: right;
 }
 
 .regFont {
@@ -1838,7 +1838,7 @@ select.inputText {
 
 .inputText {
     background: #fff;
-    padding: 0 4px 0 8px; /*rtl*/
+    padding: 0 4px 0 8px;
     height: 28px;
     color: #464646;
     border: 1px solid @borderColor;
@@ -1857,15 +1857,15 @@ select.inputText {
     font-size: 13px;
     color: #383838;
     //border-bottom: 1px solid @borderColor;
-    text-align: left; /*rtl*/
-    padding: 0 45px 0 19px; /*rtl*/
+    text-align: left;
+    padding: 0 45px 0 19px;
     background: #fff;
     .boxSizing;
 }
 
 .scrolling {
     .barShadow {
-        box-shadow: 2px 3px 7px rgba(0,0,0,.15); /*rtl*/
+        box-shadow: 2px 3px 7px rgba(0,0,0,.15);
     }
 
     #dash_right:before {
@@ -1875,14 +1875,14 @@ select.inputText {
         top: 50px;
         height: 10px;
         width: 100%;
-        margin: -10px 0 0 -24px; /*rtl*/
+        margin: -10px 0 0 -24px;
         box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
         z-index: 1;
     }
 }
 
 .backWpr {
-    text-align: left; /*rtl*/
+    text-align: left;
     margin-top: 16px;
     display: inline-block;
     line-height: 16px;
@@ -1912,7 +1912,7 @@ select.inputText {
     border-top: 1px solid @borderColor;
     border-bottom: 1px solid @borderColor;
     //font-weight: normal;
-    font-weight: 600; //semi-bold /*rtl*/
+    font-weight: 600; //semi-bold
     background: #f8f8f8;
     clear: both;
 }
@@ -2039,10 +2039,10 @@ select.inputText {
     &:after {
         content: '';
         display: inline-block;
-        text-align: right; /*rtl*/
+        text-align: right;
         position: absolute;
         bottom: 0;
-        right: 0; /*rtl*/
+        right: 0;
         width: 23px;
         //height: 15px;
         height: 18px;
@@ -2103,7 +2103,7 @@ select.inputText {
     display: none;
     width: 224px;
     box-shadow: 0 0 3px rgba(0,0,0,.4);
-    left: ~'-webkit-calc(50% - 112px)'; /*rtl*/
+    left: ~'-webkit-calc(50% - 112px)';
     left: ~'calc(50% - 112px)'; /*rtl */
     &:before {
         content: attr(data-pts-before);
@@ -2113,7 +2113,7 @@ select.inputText {
     &:after {
         content: attr(data-pts-after);
         display: inline-block;
-        margin-left: 4px; /*rtl*/
+        margin-left: 4px;
     }
 }
 

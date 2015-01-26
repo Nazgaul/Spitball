@@ -24,22 +24,17 @@
 .welcome > .btnPrev {
   display: none;
   right: 15px;
-  /*rtl*/
-  background-position: -1px 0
-  /*rtl*/
+  background-position: -1px 0;
 }
 .welcome > .btnNext {
   left: 15px;
-  /*rtl*/
-  background-position: -37px 0
-  /*rtl*/
+  background-position: -37px 0;
 }
 .welcome + .modal2 {
   background: rgba(17, 17, 17, 0.8);
 }
 .popupWrppr.welcome > .step1 {
-  margin: 34px 92px 0 80px
-  /*rtl*/
+  margin: 34px 92px 0 80px;
 }
 .popupWrppr.welcome > .step1:before {
   content: '';
@@ -47,7 +42,6 @@
   position: absolute;
   bottom: 5px;
   left: 75px;
-  /*rtl*/
   width: 171px;
   height: 135px;
   background: url(/Images/firsttime_sprite.png?v=1) -1px -1px no-repeat;
@@ -85,15 +79,12 @@
 }
 .section1 {
   border-left: 1px solid #e3e3e3;
-  /*rtl*/
   padding: 11px 6px 34px 41px;
   /*rtl (top & bottom padding for separator)*/
-  margin: 41px 93px 0 0
-  /*rtl*/
+  margin: 41px 93px 0 0;
 }
 .section2 {
-  padding-right: 43px
-  /*rtl*/
+  padding-right: 43px;
 }
 .sectionDiv {
   color: #111;
@@ -105,10 +96,8 @@
   display: block;
   width: 260px;
   margin: 16px -6px 0 0;
-  /*rtl*/
   height: 174px;
-  background: url(/Images/firsttime_sprite.png?v=1) -172px 0 no-repeat
-  /*rtl*/
+  background: url(/Images/firsttime_sprite.png?v=1) -172px 0 no-repeat;
 }
 .follow:after {
   background-position: -435px 0;
@@ -128,8 +117,7 @@
 .radioBtns {
   position: absolute;
   bottom: -28px;
-  right: 340px
-  /*rtl*/
+  right: 340px;
 }
 .radioBtns > input {
   cursor: pointer;
@@ -156,8 +144,7 @@ input[type="radio"]:checked + label:before {
   width: 14px;
   height: 14px;
   border-radius: 7px;
-  box-shadow: inset -1px 1px 1px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(17, 17, 17, 0.5)
-  /*rtl*/
+  box-shadow: inset -1px 1px 1px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(17, 17, 17, 0.5);
 }
 .no-checked input[type="radio"] {
   display: inline-block;
@@ -176,7 +163,6 @@ input[type="radio"]:checked + label:before {
   font-size: 15px;
   position: absolute;
   left: 21px;
-  /*rtl*/
   bottom: 15px;
 }
 .btn2:hover {

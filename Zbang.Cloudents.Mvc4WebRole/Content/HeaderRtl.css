@@ -21,11 +21,9 @@
 }
 .userPts {
   margin: 0 40px 0 0;
-  /*rtl*/
 }
 .headerRightWpr .userSection {
   margin: 0 20px 0 0;
-  /*rtl*/
 }
 /*#region search */
 .searchBtn {
@@ -57,7 +55,6 @@
 }
 .notifyItem a {
   padding: 15px 100px 0 15px;
-  /*rtl*/
 }
 .notifyItem .trash {
   left: 20px;
@@ -65,6 +62,5 @@
 }
 .notifyImg {
   right: 20px;
-  /*rtl*/
   left: auto;
 }

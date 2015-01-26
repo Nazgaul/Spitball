@@ -6,7 +6,6 @@ body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
   font-family: 'Open Sans', Arial;
-  /*rtl*/
 }
 body.jsDark {
   background: #282828;
@@ -56,7 +55,6 @@ input[type="radio"] + .field-validation-error + label:before {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=') /*/Images/radioBtn.png*/ -15px -1px no-repeat;
   vertical-align: middle;
   margin: -2px 4px 0 0;
-  /*rtl*/
 }
 input[type="radio"].radio + label {
   margin: 0;
@@ -67,7 +65,6 @@ input[type="radio"].radio + label:before {
   height: 20px;
   border: 1px solid #39434a;
   margin: -2px 8px 0 0;
-  /*rtl*/
   border-radius: 100%;
   background: none;
   -webkit-box-sizing: border-box;
@@ -119,7 +116,6 @@ input[type="radio"][disabled] + label:before {
   cursor: pointer;
   vertical-align: middle;
   margin-right: 5px;
-  /*rtl*/
   padding-top: 2px;
 }
 .checkbox:checked ~ .cbLabel:before {
@@ -169,7 +165,6 @@ input[type="radio"][disabled] + label:before {
   -webkit-user-select: none;
   user-select: none;
   margin-left: 5px;
-  /*rtl*/
 }
 .field-validation-error + input.inputText,
 .validation-summary-errors + input.inputText {
@@ -186,7 +181,6 @@ input[type="radio"][disabled] + label:before {
   content: '|';
   font-size: 10px;
   padding: 0 3px 0 6px;
-  /*rtl*/
 }
 /*#endregion */
 /*#region Site buttons */
@@ -255,7 +249,6 @@ input[type="radio"][disabled] + label:before {
 .closeItem {
   position: absolute;
   right: 5px;
-  /*rtl*/
   top: 5px;
   width: 10px;
   height: 11px;
@@ -270,7 +263,6 @@ input[type="radio"][disabled] + label:before {
   display: inline-block;
   cursor: default;
   margin-right: 6px;
-  /*rtl*/
 }
 .emailText ~ .removeItem {
   display: inline-block;
@@ -554,7 +546,6 @@ input[type="radio"][disabled] + label:before {
   position: absolute;
   top: 15px;
   right: 12px;
-  /*rtl*/
 }
 .closeModal {
   position: absolute;
@@ -569,7 +560,6 @@ input[type="radio"][disabled] + label:before {
 .requestSentDiv {
   font-size: 18px;
   padding-left: 18px;
-  /*rtl*/
   width: 374px;
   white-space: pre-line;
 }
@@ -610,13 +600,11 @@ input[type="radio"][disabled] + label:before {
   background: #FFF;
   border: 1px solid #fff;
   padding: 7px 15px 8px 53px;
-  /*rtl*/
   cursor: pointer;
   font-size: 17px;
   border-radius: 5px;
   position: relative;
   text-align: left;
-  /*rtl*/
   line-height: 25px;
   width: 100%;
   z-index: 1;
@@ -633,7 +621,6 @@ input[type="radio"][disabled] + label:before {
 }
 .enterForm .firstError {
   left: 0;
-  /*rtl*/
   position: relative;
   top: 17px;
 }
@@ -689,12 +676,10 @@ input[type="radio"][disabled] + label:before {
   width: 100%;
   cursor: pointer;
   padding: 8px 15px 9px 55px;
-  /*rtl*/
   font-size: 17px;
   border-radius: 5px;
   position: relative;
   text-align: left;
-  /*rtl*/
   display: inline-block;
   line-height: 25px;
   background: #3b5998;
@@ -716,7 +701,6 @@ input[type="radio"][disabled] + label:before {
   margin: auto;
   display: inline-block;
   left: 16px;
-  /*rtl*/
 }
 .fbImg:after,
 .emailImg:after {
@@ -742,7 +726,6 @@ input[type="radio"][disabled] + label:before {
 .signIn,
 .register {
   text-align: left;
-  /*rtl*/
   display: inline-block;
   width: 100%;
   margin-bottom: 6px;
@@ -808,7 +791,6 @@ input[type="radio"][disabled] + label:before {
 .acceptTerms {
   display: inline-block;
   text-align: left;
-  /*rtl*/
   line-height: 15px;
 }
 .acceptTerms .tos {
@@ -875,7 +857,6 @@ aside.sideBar {
   z-index: 1;
   top: 0;
   right: -200px;
-  /*rtl*/
   width: 200px;
   height: 100%;
   padding: 17px 12px 16px 12px;
@@ -884,7 +865,6 @@ aside.sideBar {
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
   text-align: left;
-  /*rtl*/
   font-size: 14px;
   color: #fff;
   -webkit-box-sizing: border-box;
@@ -902,7 +882,6 @@ aside.sideBar li {
   line-height: 15px;
   display: inline-block;
   float: left;
-  /*rtl*/
   clear: both;
   opacity: 0.35;
   margin-bottom: 10px;
@@ -971,7 +950,6 @@ aside.sideBar .last {
   display: block;
   width: 100%;
   text-align: left;
-  /*rtl*/
   cursor: pointer;
   font-size: 13px;
 }
@@ -982,7 +960,6 @@ aside.sideBar .last {
 .dropdown-menu.userMenu {
   width: 160px;
   right: 0;
-  /*rtl*/
   z-index: 10;
   top: 50px;
   border: 1px solid #959595;
@@ -997,7 +974,6 @@ aside.sideBar .last {
   position: absolute;
   top: 100%!important;
   left: 25px!important;
-  /*rtl*/
   display: none;
   overflow: hidden;
   margin-top: 5px;
@@ -1117,7 +1093,6 @@ aside.sideBar .last {
   background: #fff;
   z-index: 7;
   text-align: left;
-  /*rtl*/
 }
 .dropDown:before {
   content: '';
@@ -1125,7 +1100,6 @@ aside.sideBar .last {
   width: 100%;
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 0;
   border-bottom: 1px solid #c2c2c2;
 }
@@ -1194,7 +1168,6 @@ aside.sideBar .last {
 }
 .tooltip1 li {
   margin-left: 15px;
-  /*rtl*/
   padding: 3px 0;
 }
 .tooltip1:last-child [data-done] {
@@ -1222,14 +1195,12 @@ aside.sideBar .last {
 }
 .tooltip1.icon .stepTip {
   padding-left: 90px;
-  /*rtl*/
 }
 .tooltip1.icon .stepTip:before {
   content: '';
   display: inline-block;
   position: absolute;
   left: 15px;
-  /*rtl*/
   width: 85px;
   height: 85px;
   vertical-align: middle;
@@ -1290,9 +1261,7 @@ aside.sideBar .last {
   bottom: auto;
   top: 45%;
   left: -10px;
-  /*rtl*/
   border-width: 8px 10px 8px 0;
-  /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
   margin: -2px 0 0 0;
 }
@@ -1300,9 +1269,7 @@ aside.sideBar .last {
   bottom: auto;
   top: 45%;
   left: -8px;
-  /*rtl*/
   border-width: 6px 8px 6px 0;
-  /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
   margin: 0;
 }
@@ -1318,9 +1285,7 @@ aside.sideBar .last {
   top: 45%;
   left: auto;
   right: -10px;
-  /*rtl*/
   border-width: 8px 0 8px 10px;
-  /*rtl*/
   border-color: rgba(0, 0, 0, 0) #c2c2c2;
   margin: -2px 0 0 0;
 }
@@ -1329,9 +1294,7 @@ aside.sideBar .last {
   top: 45%;
   left: auto;
   right: -8px;
-  /*rtl*/
   border-width: 6px 0 6px 8px;
-  /*rtl*/
   border-color: rgba(0, 0, 0, 0) #ffffff;
   margin: 0;
 }
@@ -1342,7 +1305,6 @@ aside.sideBar .last {
   position: absolute;
   bottom: 0;
   left: 0;
-  /*rtl*/
   padding: 13px 20px 0 20px;
   border-radius: 0 0 3px 3px;
   -webkit-box-sizing: border-box;
@@ -1363,7 +1325,6 @@ aside.sideBar .last {
   border-radius: 3px;
   overflow: hidden;
   padding: 10px 10px 6px 110px;
-  /*rtl*/
   position: fixed;
   z-index: 13;
   background: #fff;
@@ -1394,7 +1355,6 @@ aside.sideBar .last {
   position: absolute;
   top: 0;
   left: 0;
-  /*rtl*/
   border-right: 1px solid #c2c2c2;
 }
 .ttUsername {
@@ -1445,12 +1405,10 @@ aside.sideBar .last {
 }
 .tooltip.right {
   margin-left: 3px;
-  /*rtl*/
   padding: 0 5px;
 }
 .tooltip.left {
   margin-left: -3px;
-  /*rtl*/
   padding: 0 5px;
 }
 .tooltip.top {
@@ -1467,24 +1425,18 @@ aside.sideBar .last {
 }
 .tooltip.left-bottom {
   left: 0!important;
-  /*rtl*/
   right: auto!important;
-  /*rtl*/
 }
 .tooltip.left-bottom .tooltip-arrow {
   left: 12px;
-  /*rtl*/
   right: auto;
 }
 .tooltip.right-bottom {
   right: 0!important;
-  /*rtl*/
   left: auto!important;
-  /*rtl*/
 }
 .tooltip.right-bottom .tooltip-arrow {
   right: 12px;
-  /*rtl*/
   left: auto;
 }
 .tooltip-inner {
@@ -1566,7 +1518,6 @@ aside.sideBar .last {
   z-index: 13;
   display: none;
   text-align: left;
-  /*rtl*/
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1586,9 +1537,7 @@ aside.sideBar .last {
 }
 .popover.top > .arrow {
   left: 50%;
-  /*rtl*/
   margin-left: -11px;
-  /*rtl*/
   bottom: -12px;
   border-width: 12px 12px 0 12px;
   border-top-color: #c2c2c2;
@@ -1596,7 +1545,6 @@ aside.sideBar .last {
 .popover.top > .arrow:after {
   bottom: 2px;
   margin-left: -10px;
-  /*rtl*/
   border-width: 10px 10px 0 10px;
   border-top-color: #f5f5f5;
 }
@@ -1606,7 +1554,6 @@ aside.sideBar .last {
 .popover.bottom > .arrow {
   left: 50%;
   margin-left: -11px;
-  /*rtl*/
   border-width: 0 12px 12px 12px;
   border-bottom-color: #c2c2c2;
   top: -12px;
@@ -1614,7 +1561,6 @@ aside.sideBar .last {
 .popover.bottom > .arrow:after {
   top: 2px;
   margin-left: -10px;
-  /*rtl*/
   border-width: 0 10px 10px 10px;
   border-bottom-color: #f5f5f5;
 }
@@ -1640,21 +1586,15 @@ aside.sideBar .last {
 .popover.right > .arrow {
   top: 50%;
   left: -12px;
-  /*rtl*/
   margin-top: -11px;
   border-width: 12px 12px 12px 0;
-  /*rtl*/
   border-right-color: #c2c2c2;
-  /*rtl*/
 }
 .popover.right > .arrow:after {
   left: 2px;
-  /*rtl*/
   bottom: -10px;
   border-width: 10px 10px 10px 0;
-  /*rtl*/
   border-right-color: #f5f5f5;
-  /*rtl*/
 }
 .popover > .arrow,
 .popover > .arrow:after {
@@ -1692,11 +1632,9 @@ aside.sideBar .last {
 /*#region general helper classes */
 .lFloat {
   float: left;
-  /*rtl*/
 }
 .rFloat {
   float: right;
-  /*rtl*/
 }
 .regFont {
   font-weight: normal;
@@ -1742,7 +1680,6 @@ select.inputText {
 .inputText {
   background: #fff;
   padding: 0 4px 0 8px;
-  /*rtl*/
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -1758,9 +1695,7 @@ select.inputText {
   font-size: 13px;
   color: #383838;
   text-align: left;
-  /*rtl*/
   padding: 0 45px 0 19px;
-  /*rtl*/
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1768,7 +1703,6 @@ select.inputText {
 }
 .scrolling .barShadow {
   box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15);
-  /*rtl*/
 }
 .scrolling #dash_right:before {
   content: '';
@@ -1778,13 +1712,11 @@ select.inputText {
   height: 10px;
   width: 100%;
   margin: -10px 0 0 -24px;
-  /*rtl*/
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 .backWpr {
   text-align: left;
-  /*rtl*/
   margin-top: 16px;
   display: inline-block;
   line-height: 16px;
@@ -1914,11 +1846,9 @@ select.inputText {
   content: '';
   display: inline-block;
   text-align: right;
-  /*rtl*/
   position: absolute;
   bottom: 0;
   right: 0;
-  /*rtl*/
   width: 23px;
   height: 18px;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%);
@@ -1963,7 +1893,6 @@ select.inputText {
   width: 224px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   left: -webkit-calc(50% - 112px);
-  /*rtl*/
   left: calc(50% - 112px);
   /*rtl */
 }
@@ -1975,7 +1904,6 @@ select.inputText {
   content: attr(data-pts-after);
   display: inline-block;
   margin-left: 4px;
-  /*rtl*/
 }
 .digitWpr {
   direction: ltr;

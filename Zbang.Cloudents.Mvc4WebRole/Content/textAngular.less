@@ -1,26 +1,73 @@
-﻿@font-face {
-  font-family: 'FontAwesome';  
-   src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?v=4.2.0');
-  src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/fonts/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');  
-  font-weight: normal;
-  font-style: normal;
-}
+﻿@import "varsAndMixins";  
 .ta-root {
     border: 1px solid rgba(194, 194, 194, 0.5); 
     margin-bottom: 12px;
     border-radius: 3px;
+        ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+    }
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .btn {
+        display: inline-block;
+        //margin-left: 2px;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid #ccc;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 1.428571429;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none; 
+        .boxSizing;
+        &.active {
+            box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+        }
+        &[disabled] {
+            //cursor: not-allowed; //
+            pointer-events: none;
+            opacity: .65;
+            filter: alpha(opacity=65);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            cursor: default;
+        } 
+    }
 }
-.ta-root ol {
-    list-style-type: decimal;
-    padding-left: 20px;
-}
-.ta-root ul {
-    list-style-type: disc;
-    padding-left: 20px;
+.btn-group>.btn {
+    position: relative;
+    float: left;
 }
 
+/*.btn-group>.btn:first-child {
+    margin-left: 0;
+}*/
 .btn-group {
-    padding: 3px 0 0 2px;
+    .btn {
+        border-left: none;
+        &:first-child {
+            border-left:  1px solid #ccc;
+        }
+    }
+}
+.btn-group>.btn:first-child:not(.dropdown-toggle) {
+    border-radius: 4px 0 0 4px;
+}
+.btn-group>.btn:last-child:not(.dropdown-toggle) {
+    border-radius: 0 4px 4px 0;
+}
+.btn-group>.btn:only-child:not(.dropdown-toggle) {
+    border-radius: 4px;
 }
 .svgWpr {
     position: absolute;
@@ -29,9 +76,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    pointer-events: none;
-    background: #fff;
-    border-radius: 4px;
+    //pointer-events: none;
 }
 .svg-textColor {
     width: 15px;
@@ -49,130 +94,66 @@ input[type="color"], input[type="file"] {
     height: 100%;
 }
 .ta-color, .ta-file {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    input {
+        display: none;
+    }
 }
-.ta-root .ta-file.ta-file {
-    margin: 0 5px;
-}
-
-
 .ta-toolbar {
     background-color: #eee;    
     margin-left: 0;
     border: 1px solid #EEE;
     height: 32px;
+    svg {
+        height:15px;
+        width:15px;
+        margin-top: 3px;
+        /*-moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 4px;
+        width: 100%;
+        height: 100%;*/
+    }
+    
+    .svg-upload {
+        width: 18px;
+        height: 18px;
+        position: relative;
+        top: -2px;
+        pointer-events: none;
+        padding: 2px;
+    }
+    .btn-group {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle; 
+        padding: 3px 6px 0 0; 
+        float: left;  
+    }
 }
-
-.ta-toolbar svg {
-    height:15px;
-    width:15px;
-    margin-top: 3px;
-    /*-moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 4px;
-    width: 100%;
-    height: 100%;*/
-}
-.ta-toolbar .svg-upload {
-    width: 18px;
-    height: 18px;
-    position: relative;
-    top: -2px;
-    pointer-events: none;
-    padding: 2px;
-}
-.btn-toolbar:before {
-    content: " ";
-    display: table;
-}
-.btn-toolbar:after {
-    content: " ";
-    display: table;
-}
-
-.ta-toolbar .btn-group {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;    
-}
-
-.btn-toolbar .btn-group {
-    float: left;
-    width: 100%;
-
-}
-
-.btn-group>.btn, .btn-group-vertical>.btn {
-position: relative;
-float: left;
-}
-
-.btn-group>.btn:first-child {
-    margin-left: 0;
-}
-
-.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-}
-
-
-.btn {
-display: inline-block;
-margin-bottom: 0;
-font-weight: 400;
-text-align: center;
-vertical-align: middle;
-cursor: pointer;
-background-image: none;
-border: 1px solid transparent;
-white-space: nowrap;
-padding: 6px 12px;
-font-size: 14px;
-line-height: 1.428571429;
-border-radius: 4px;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
--o-user-select: none;
-user-select: none;
-    &.active {
-        box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+.btn-toolbar {
+    &:before, &:after {
+        content: " ";
+        display: table;
     }
 }
 
 
-.btn[disabled] {
-//cursor: not-allowed; //
-pointer-events: none;
-opacity: .65;
-filter: alpha(opacity=65);
--webkit-box-shadow: none;
-box-shadow: none;
-cursor: default;
-}
 
 .btn-default {
-color: #333;
-background-color: #fff;
-border-color: #ccc;
-height: 25px;
-width: 25px;
-margin:0;
-padding:0;
-
+    color: #333;
+    //background-color: #fff;
+    //border-color: #ccc;
+    height: 25px;
+    width: 25px;
+    margin:0;
+    padding:0;
 }
 
 .btn-default[disabled] {
     background-color: #fff;
     border-color: #ccc;
 }
-
-
-
 
 .ta-root.focused > .ta-scroll-window.form-control {
     border-color: #66afe9;

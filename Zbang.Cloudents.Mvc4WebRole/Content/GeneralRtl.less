@@ -13,13 +13,13 @@ body
 input[type="radio"] {
     + label, + .field-validation-error + label {
         &:before {
-            margin: -2px 0 0 4px; /*rtl*/
+            margin: -2px 0 0 4px;
         }
     }
     &.radio { 
         + label {
             &:before {
-                margin: -2px 0 0 8px; /*rtl*/
+                margin: -2px 0 0 8px;
             }
         }
         &:checked {
@@ -55,7 +55,7 @@ input[type="radio"] {
 /*#region validation errors */
 .field-validation-error,.validation-summary-errors
 {
-    margin: 0 5px 0 0; /*rtl*/
+    margin: 0 5px 0 0;
 }
 /*#endregion */
 
@@ -63,7 +63,7 @@ input[type="radio"] {
 .footer {
     li {
         ~ li:before {
-            padding: 0 6px 0 3px; /*rtl*/
+            padding: 0 6px 0 3px;
         }
     }
 }
@@ -72,11 +72,11 @@ input[type="radio"] {
 
 /*#region delete email 'x' */
 .removeItem, .closeItem {
-    left: 5px; /*rtl*/
+    left: 5px;
     right: auto;
 }
 .emailText {
-    margin: 0 0 0 6px; /*rtl*/
+    margin: 0 0 0 6px;
 }
 /*#endregion */
 
@@ -117,12 +117,12 @@ input[type="radio"] {
 {
     .field-validation-error, .validation-summary-errors 
     {
-        margin: 0 15px 0 0; /*rtl*/
+        margin: 0 15px 0 0;
     }
 }
 .closeDialog
 {
-    left: 12px; /*rtl*/
+    left: 12px;
     right: auto;
 }
 .closeModal {
@@ -132,14 +132,14 @@ input[type="radio"] {
 
 .requestSentDiv
 {
-    padding: 0 18px 0 0; /*rtl*/ // override poppwrrpr
+    padding: 0 18px 0 0; // override poppwrrpr
 }
 
 /*#endregion */
 
 /*#region connect and register pages */
 .fbImg, .emailImg {
-    right: 16px; /*rtl*/
+    right: 16px;
     left: auto;
     &:after {
         right: 12px; //rtl
@@ -150,29 +150,29 @@ input[type="radio"] {
     right: 8px;
     left: auto;
     &:after {
-        right: 6px; /*rtl*/
+        right: 6px;
         left: auto;
     }
 }
 
 .emailBtn {
-    padding: 7px 53px 8px 15px; /*rtl*/
-    text-align: right; /*rtl*/
+    padding: 7px 53px 8px 15px;
+    text-align: right;
 }
 .enterForm {
     .firstError {
-        right: 0; /*rtl*/
+        right: 0;
         left: auto;
     }
 }
 .facebook
 {
-    padding: 8px 55px 9px 15px; /*rtl*/
-    text-align: right; /*rtl*/
+    padding: 8px 55px 9px 15px;
+    text-align: right;
 }
 .signIn, .register
 {
-    text-align: right; /*rtl*/
+    text-align: right;
 }
 /*.register {
     .validation-summary-errors {
@@ -193,7 +193,7 @@ input[type="radio"] {
     }
 }
 .acceptTerms {
-    text-align: right; /*rtl*/
+    text-align: right;
 }
 
 /*#endregion */
@@ -220,15 +220,15 @@ input[type="radio"] {
     }
 }
 aside.sideBar {
-    left: -200px; /*rtl*/
+    left: -200px;
     right:auto;
-    text-align: right; /*rtl*/
+    text-align: right;
     .closeMenuBtn {
         left: 10px; //rtl
         right: auto;
     }
     li {
-        float: right; /*rtl*/
+        float: right;
     }
     
 
@@ -238,14 +238,14 @@ aside.sideBar {
 /*#region  dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu {
     button {
-        text-align: right; /*rtl*/
+        text-align: right;
     }
     &.userMenu {
-        left: 0; /*rtl*/
+        left: 0;
         right: auto;
     }
     .emailListWpr & {
-        right: 25px!important; /*rtl*/
+        right: 25px!important;
         left: auto !important;
     }
 }
@@ -253,10 +253,10 @@ aside.sideBar {
 
 /*#region dropdown */
 .dropDown{
-    text-align: right; /*rtl*/
+    text-align: right;
     &:before
     {
-        right:0; /*rtl*/
+        right:0;
         left: auto;
     }
 }
@@ -281,44 +281,44 @@ aside.sideBar {
 
 .tooltip1 {
     li {
-        margin: 0 15px 0 0; /*rtl*/
+        margin: 0 15px 0 0;
     }
     &.icon {
         .stepTip {
-            padding: 0 90px 0 0; /*rtl*/
+            padding: 0 90px 0 0;
             &:before {
-                right:15px; /*rtl*/
+                right:15px;
                 left: auto;
             }
         }
     }
     &.left {
         &:before {
-            right: -@arrowHeight - 2; /*rtl*/
+            right: -@arrowHeight - 2;
             left: auto;
-            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2); /*rtl*/
+            border-width: @arrowHeight 0 @arrowHeight (@arrowHeight + 2);
         }
         &:after {
-            right: -@arrowHeight; /*rtl*/
+            right: -@arrowHeight;
             left: auto;
-            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight; /*rtl*/
+            border-width: (@arrowHeight - 2) 0 (@arrowHeight - 2) @arrowHeight;
         }
     }
     &.right {
         &:before {
-            left: -@arrowHeight - 2; /*rtl*/
+            left: -@arrowHeight - 2;
             right: auto;
-            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0; /*rtl*/
+            border-width: @arrowHeight (@arrowHeight + 2) @arrowHeight 0;
         }
         &:after {
-            left: -@arrowHeight; /*rtl*/
+            left: -@arrowHeight;
             right: auto;
-            border-width:(@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0; /*rtl*/
+            border-width:(@arrowHeight - 2) @arrowHeight (@arrowHeight - 2) 0;
         }
     }
 }
 .ttBtns {
-    right:0; /*rtl*/
+    right:0;
     left: auto;
 }
 /*#endregion */
@@ -326,13 +326,13 @@ aside.sideBar {
 /*#region User tooltip */
 .userTooltip
 {
-    padding: 10px 110px 6px 10px; /*rtl*/
-    //padding: 17px 110px 6px 10px; /*rtl*/
+    padding: 10px 110px 6px 10px;
+    //padding: 17px 110px 6px 10px;
 }
 
 .ttImg
 {   
-    right:0; /*rtl*/
+    right:0;
     left: auto;
 }
 
@@ -343,24 +343,24 @@ aside.sideBar {
 /*#region tooltip */
 .tooltip{
     &.right {
-        margin: 0 3px 0 0; /*rtl*/
+        margin: 0 3px 0 0;
     }
     &.left {
-        margin: 0 -3px 0 0; /*rtl*/
+        margin: 0 -3px 0 0;
     }
     &.left-bottom {
-        right: 0!important; /*rtl*/
-        left: auto!important; /*rtl*/
+        right: 0!important;
+        left: auto!important;
         .tooltip-arrow {
-            right: 12px; /*rtl*/
+            right: 12px;
             left: auto;
         }
     }
     &.right-bottom {
-        left: 0!important; /*rtl*/
-        right: auto!important; /*rtl*/
+        left: 0!important;
+        right: auto!important;
         .tooltip-arrow {
-            left: 12px; /*rtl*/
+            left: 12px;
             right: auto;
         }
     }
@@ -369,29 +369,29 @@ aside.sideBar {
 
 /*#region popover */
 .popover {
-    text-align: right; /*rtl*/
+    text-align: right;
     /*.userTooltip {
         padding: 10px 110px 6px 10px;
     }*/
 
     &.top {
         > .arrow {
-            right: 50%; /*rtl*/ 
+            right: 50%; 
             left: auto;
-            margin: 0 -11px 0 0; /*rtl*/ 
+            margin: 0 -11px 0 0; 
             
             &:after {
-                margin: 0 -10px 0 0; /*rtl*/
+                margin: 0 -10px 0 0;
             }
         }
     }
     &.bottom {
         > .arrow {
-            right: 50%; /*rtl*/
+            right: 50%;
             left: auto;
-            margin: 0 -11px 0 0; /*rtl*/ 
+            margin: 0 -11px 0 0; 
             &:after {
-                margin: 0 -10px 0 0; /*rtl*/ 
+                margin: 0 -10px 0 0; 
             }
         }
     }
@@ -436,11 +436,11 @@ aside.sideBar {
 
 /*#region general helper classes */
 .lFloat {
-    float: right; /*rtl*/
+    float: right;
 }
 
 .rFloat {
-    float: left; /*rtl*/
+    float: left;
 }
 .semiFont{
     font-weight: normal;
@@ -453,22 +453,22 @@ aside.sideBar {
     padding: 0 8px 0 4px; /* rtl */
 }
 .topBar {
-    text-align: right; /*rtl*/
-    padding: 0 19px 0 45px; /*rtl*/
+    text-align: right;
+    padding: 0 19px 0 45px;
 }
 .scrolling
 {
     .barShadow {
-        box-shadow: -2px 3px 7px rgba(0,0,0,.15); /*rtl*/
+        box-shadow: -2px 3px 7px rgba(0,0,0,.15);
     }
     #dash_right:before
     {
-        margin: -10px -24px 0 0; /*rtl*/
+        margin: -10px -24px 0 0;
     }
 }
 .backWpr {
-    text-align: right; /*rtl*/
-    //padding: 0 40px 0 0; /*rtl*/
+    text-align: right;
+    //padding: 0 40px 0 0;
     //.flipH(1); //rtl
     /*&:before {
         .flipH;
@@ -517,8 +517,8 @@ aside.sideBar {
 }*/
 .ptsPopup
 {
-    right: ~'-webkit-calc(50% - 112px)'; /*rtl*/
-    right: ~'calc(50% - 112px)'; /*rtl*/
+    right: ~'-webkit-calc(50% - 112px)';
+    right: ~'calc(50% - 112px)';
     left: auto;
     &:before
     {

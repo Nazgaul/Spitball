@@ -15,11 +15,9 @@ body {
 input[type="radio"] + label:before,
 input[type="radio"] + .field-validation-error + label:before {
   margin: -2px 0 0 4px;
-  /*rtl*/
 }
 input[type="radio"].radio + label:before {
   margin: -2px 0 0 8px;
-  /*rtl*/
 }
 input[type="radio"].radio:checked + label:after {
   top: 3px;
@@ -41,25 +39,21 @@ input[type="radio"].radio:checked + label:after {
 .field-validation-error,
 .validation-summary-errors {
   margin: 0 5px 0 0;
-  /*rtl*/
 }
 /*#endregion */
 /*#region footer code */
 .footer li ~ li:before {
   padding: 0 6px 0 3px;
-  /*rtl*/
 }
 /*#endregion */
 /*#region delete email 'x' */
 .removeItem,
 .closeItem {
   left: 5px;
-  /*rtl*/
   right: auto;
 }
 .emailText {
   margin: 0 0 0 6px;
-  /*rtl*/
 }
 /*#endregion */
 /*#region popup */
@@ -86,11 +80,9 @@ input[type="radio"].radio:checked + label:after {
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
   margin: 0 15px 0 0;
-  /*rtl*/
 }
 .closeDialog {
   left: 12px;
-  /*rtl*/
   right: auto;
 }
 .closeModal {
@@ -99,14 +91,12 @@ input[type="radio"].radio:checked + label:after {
 }
 .requestSentDiv {
   padding: 0 18px 0 0;
-  /*rtl*/
 }
 /*#endregion */
 /*#region connect and register pages */
 .fbImg,
 .emailImg {
   right: 16px;
-  /*rtl*/
   left: auto;
 }
 .fbImg:after,
@@ -120,30 +110,23 @@ input[type="radio"].radio:checked + label:after {
 }
 .emailImg:after {
   right: 6px;
-  /*rtl*/
   left: auto;
 }
 .emailBtn {
   padding: 7px 53px 8px 15px;
-  /*rtl*/
   text-align: right;
-  /*rtl*/
 }
 .enterForm .firstError {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 .facebook {
   padding: 8px 55px 9px 15px;
-  /*rtl*/
   text-align: right;
-  /*rtl*/
 }
 .signIn,
 .register {
   text-align: right;
-  /*rtl*/
 }
 /*.register {
     .validation-summary-errors {
@@ -163,7 +146,6 @@ input[type="radio"].radio:checked + label:after {
 }
 .acceptTerms {
   text-align: right;
-  /*rtl*/
 }
 /*#endregion */
 /*#region general svgs */
@@ -187,10 +169,8 @@ input[type="radio"].radio:checked + label:after {
 }
 aside.sideBar {
   left: -200px;
-  /*rtl*/
   right: auto;
   text-align: right;
-  /*rtl*/
 }
 aside.sideBar .closeMenuBtn {
   left: 10px;
@@ -198,33 +178,27 @@ aside.sideBar .closeMenuBtn {
 }
 aside.sideBar li {
   float: right;
-  /*rtl*/
 }
 /*#endregion */
 /*#region  dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu button {
   text-align: right;
-  /*rtl*/
 }
 .dropdown-menu.userMenu {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 .emailListWpr .dropdown-menu {
   right: 25px!important;
-  /*rtl*/
   left: auto !important;
 }
 /*#endregion */
 /*#region dropdown */
 .dropDown {
   text-align: right;
-  /*rtl*/
 }
 .dropDown:before {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
@@ -241,59 +215,45 @@ aside.sideBar li {
 }*/
 .tooltip1 li {
   margin: 0 15px 0 0;
-  /*rtl*/
 }
 .tooltip1.icon .stepTip {
   padding: 0 90px 0 0;
-  /*rtl*/
 }
 .tooltip1.icon .stepTip:before {
   right: 15px;
-  /*rtl*/
   left: auto;
 }
 .tooltip1.left:before {
   right: -10px;
-  /*rtl*/
   left: auto;
   border-width: 8px 0 8px 10px;
-  /*rtl*/
 }
 .tooltip1.left:after {
   right: -8px;
-  /*rtl*/
   left: auto;
   border-width: 6px 0 6px 8px;
-  /*rtl*/
 }
 .tooltip1.right:before {
   left: -10px;
-  /*rtl*/
   right: auto;
   border-width: 8px 10px 8px 0;
-  /*rtl*/
 }
 .tooltip1.right:after {
   left: -8px;
-  /*rtl*/
   right: auto;
   border-width: 6px 8px 6px 0;
-  /*rtl*/
 }
 .ttBtns {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
 /*#region User tooltip */
 .userTooltip {
   padding: 10px 110px 6px 10px;
-  /*rtl*/
 }
 .ttImg {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
@@ -301,64 +261,49 @@ aside.sideBar li {
 /*#region tooltip */
 .tooltip.right {
   margin: 0 3px 0 0;
-  /*rtl*/
 }
 .tooltip.left {
   margin: 0 -3px 0 0;
-  /*rtl*/
 }
 .tooltip.left-bottom {
   right: 0!important;
-  /*rtl*/
   left: auto!important;
-  /*rtl*/
 }
 .tooltip.left-bottom .tooltip-arrow {
   right: 12px;
-  /*rtl*/
   left: auto;
 }
 .tooltip.right-bottom {
   left: 0!important;
-  /*rtl*/
   right: auto!important;
-  /*rtl*/
 }
 .tooltip.right-bottom .tooltip-arrow {
   left: 12px;
-  /*rtl*/
   right: auto;
 }
 /*#endregion */
 /*#region popover */
 .popover {
   text-align: right;
-  /*rtl*/
   /*.userTooltip {
         padding: 10px 110px 6px 10px;
     }*/
 }
 .popover.top > .arrow {
   right: 50%;
-  /*rtl*/
   left: auto;
   margin: 0 -11px 0 0;
-  /*rtl*/
 }
 .popover.top > .arrow:after {
   margin: 0 -10px 0 0;
-  /*rtl*/
 }
 .popover.bottom > .arrow {
   right: 50%;
-  /*rtl*/
   left: auto;
   margin: 0 -11px 0 0;
-  /*rtl*/
 }
 .popover.bottom > .arrow:after {
   margin: 0 -10px 0 0;
-  /*rtl*/
 }
 .popover.left {
   margin: 0 0 0 10px;
@@ -399,11 +344,9 @@ aside.sideBar li {
 /*#region general helper classes */
 .lFloat {
   float: right;
-  /*rtl*/
 }
 .rFloat {
   float: left;
-  /*rtl*/
 }
 .semiFont {
   font-weight: normal;
@@ -418,21 +361,16 @@ aside.sideBar li {
 }
 .topBar {
   text-align: right;
-  /*rtl*/
   padding: 0 19px 0 45px;
-  /*rtl*/
 }
 .scrolling .barShadow {
   box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);
-  /*rtl*/
 }
 .scrolling #dash_right:before {
   margin: -10px -24px 0 0;
-  /*rtl*/
 }
 .backWpr {
   text-align: right;
-  /*rtl*/
   /*&:before {
         .flipH;
         right: 0; //rtl
@@ -483,9 +421,7 @@ aside.sideBar li {
 }*/
 .ptsPopup {
   right: -webkit-calc(50% - 112px);
-  /*rtl*/
   right: calc(50% - 112px);
-  /*rtl*/
   left: auto;
 }
 .ptsPopup:before {

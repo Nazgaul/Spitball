@@ -14,12 +14,10 @@ body {
 /*#region radio input */
 input[type="radio"] + label:before,
 input[type="radio"] + .field-validation-error + label:before {
-  margin: -2px 4px 0 0
-  /*rtl*/
+  margin: -2px 4px 0 0;
 }
 input[type="radio"].radio + label:before {
-  margin: -2px 8px 0 0
-  /*rtl*/
+  margin: -2px 8px 0 0;
 }
 input[type="radio"].radio:checked + label:after {
   top: 3px;
@@ -40,26 +38,22 @@ input[type="radio"].radio:checked + label:after {
 /*#region validation errors */
 .field-validation-error,
 .validation-summary-errors {
-  margin: 0 0 0 5px
-  /*rtl*/
+  margin: 0 0 0 5px;
 }
 /*#endregion */
 /*#region footer code */
 .footer li ~ li:before {
-  padding: 0 3px 0 6px
-  /*rtl*/
+  padding: 0 3px 0 6px;
 }
 /*#endregion */
 /*#region delete email 'x' */
 .removeItem,
 .closeItem {
   right: 5px;
-  /*rtl*/
   left: auto;
 }
 .emailText {
-  margin: 0 6px 0 0
-  /*rtl*/
+  margin: 0 6px 0 0;
 }
 /*#endregion */
 /*#region popup */
@@ -85,12 +79,10 @@ input[type="radio"].radio:checked + label:after {
 /*#endregion */
 .popupForm .field-validation-error,
 .popupForm .validation-summary-errors {
-  margin: 0 0 0 15px
-  /*rtl*/
+  margin: 0 0 0 15px;
 }
 .closeDialog {
   right: 12px;
-  /*rtl*/
   left: auto;
 }
 .closeModal {
@@ -98,15 +90,13 @@ input[type="radio"].radio:checked + label:after {
   left: auto;
 }
 .requestSentDiv {
-  padding: 0 0 0 18px
-  /*rtl*/
+  padding: 0 0 0 18px;
 }
 /*#endregion */
 /*#region connect and register pages */
 .fbImg,
 .emailImg {
   left: 16px;
-  /*rtl*/
   right: auto;
 }
 .fbImg:after,
@@ -120,30 +110,23 @@ input[type="radio"].radio:checked + label:after {
 }
 .emailImg:after {
   left: 6px;
-  /*rtl*/
   right: auto;
 }
 .emailBtn {
   padding: 7px 15px 8px 53px;
-  /*rtl*/
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .enterForm .firstError {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 .facebook {
   padding: 8px 15px 9px 55px;
-  /*rtl*/
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .signIn,
 .register {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 /*.register {
     .validation-summary-errors {
@@ -162,8 +145,7 @@ input[type="radio"].radio:checked + label:after {
   margin: 6px 25px 6px 0;
 }
 .acceptTerms {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 /*#endregion */
 /*#region general svgs */
@@ -187,44 +169,36 @@ input[type="radio"].radio:checked + label:after {
 }
 aside.sideBar {
   right: -200px;
-  /*rtl*/
   left: auto;
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 aside.sideBar .closeMenuBtn {
   right: 10px;
   left: auto;
 }
 aside.sideBar li {
-  float: left
-  /*rtl*/
+  float: left;
 }
 /*#endregion */
 /*#region  dropdown-menu  (previously: editFolderMenu) */
 .dropdown-menu button {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .dropdown-menu.userMenu {
   right: 0;
-  /*rtl*/
   left: auto;
 }
 .emailListWpr .dropdown-menu {
   left: 25px!important;
-  /*rtl*/
   right: auto !important;
 }
 /*#endregion */
 /*#region dropdown */
 .dropDown {
-  text-align: left
-  /*rtl*/
+  text-align: left;
 }
 .dropDown:before {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 /*#endregion */
@@ -240,125 +214,96 @@ aside.sideBar li {
     }
 }*/
 .tooltip1 li {
-  margin: 0 0 0 15px
-  /*rtl*/
+  margin: 0 0 0 15px;
 }
 .tooltip1.icon .stepTip {
-  padding: 0 0 0 90px
-  /*rtl*/
+  padding: 0 0 0 90px;
 }
 .tooltip1.icon .stepTip:before {
   left: 15px;
-  /*rtl*/
   right: auto;
 }
 .tooltip1.left:before {
   left: -10px;
-  /*rtl*/
   right: auto;
-  border-width: 8px 10px 8px 0
-  /*rtl*/
+  border-width: 8px 10px 8px 0;
 }
 .tooltip1.left:after {
   left: -8px;
-  /*rtl*/
   right: auto;
-  border-width: 6px 8px 6px 0
-  /*rtl*/
+  border-width: 6px 8px 6px 0;
 }
 .tooltip1.right:before {
   right: -10px;
-  /*rtl*/
   left: auto;
-  border-width: 8px 0 8px 10px
-  /*rtl*/
+  border-width: 8px 0 8px 10px;
 }
 .tooltip1.right:after {
   right: -8px;
-  /*rtl*/
   left: auto;
-  border-width: 6px 0 6px 8px
-  /*rtl*/
+  border-width: 6px 0 6px 8px;
 }
 .ttBtns {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 /*#endregion */
 /*#region User tooltip */
 .userTooltip {
-  padding: 10px 10px 6px 110px
-  /*rtl*/
+  padding: 10px 10px 6px 110px;
 }
 .ttImg {
   left: 0;
-  /*rtl*/
   right: auto;
 }
 /*#endregion */
 /*#region Bootstrap classes */
 /*#region tooltip */
 .tooltip.right {
-  margin: 0 0 0 3px
-  /*rtl*/
+  margin: 0 0 0 3px;
 }
 .tooltip.left {
-  margin: 0 0 0 -3px
-  /*rtl*/
+  margin: 0 0 0 -3px;
 }
 .tooltip.left-bottom {
   left: 0!important;
-  /*rtl*/
-  right: auto!important
-  /*rtl*/
+  right: auto!important;
 }
 .tooltip.left-bottom .tooltip-arrow {
   left: 12px;
-  /*rtl*/
   right: auto;
 }
 .tooltip.right-bottom {
   right: 0!important;
-  /*rtl*/
-  left: auto!important
-  /*rtl*/
+  left: auto!important;
 }
 .tooltip.right-bottom .tooltip-arrow {
   right: 12px;
-  /*rtl*/
   left: auto;
 }
 /*#endregion */
 /*#region popover */
 .popover {
   text-align: left
-  /*rtl*/
   /*.userTooltip {
         padding: 10px 110px 6px 10px;
     }*/
 }
 .popover.top > .arrow {
   left: 50%;
-  /*rtl*/
   right: auto;
-  margin: 0 0 0 -11px
-  /*rtl*/
+  margin: 0 0 0 -11px;
 }
 .popover.top > .arrow:after {
-  margin: 0 0 0 -10px
-  /*rtl*/
+  margin: 0 0 0 -10px;
 }
 .popover.bottom > .arrow {
   left: 50%;
-  /*rtl*/
   right: auto;
-  margin: 0 0 0 -11px
-  /*rtl*/
+  margin: 0 0 0 -11px;
 }
 .popover.bottom > .arrow:after {
-  margin: 0 0 0 -10px
-  /*rtl*/
+  margin: 0 0 0 -10px;
 }
 .popover.left {
   margin: 0 10px 0 0;
@@ -398,12 +343,10 @@ aside.sideBar li {
 /*#endregion */
 /*#region general helper classes */
 .lFloat {
-  float: left
-  /*rtl*/
+  float: left;
 }
 .rFloat {
-  float: right
-  /*rtl*/
+  float: right;
 }
 .semiFont {
   font-weight: normal;
@@ -418,21 +361,16 @@ aside.sideBar li {
 }
 .topBar {
   text-align: left;
-  /*rtl*/
-  padding: 0 45px 0 19px
-  /*rtl*/
+  padding: 0 45px 0 19px;
 }
 .scrolling .barShadow {
-  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15)
-  /*rtl*/
+  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15);
 }
 .scrolling #dash_right:before {
-  margin: -10px 0 0 -24px
-  /*rtl*/
+  margin: -10px 0 0 -24px;
 }
 .backWpr {
   text-align: left
-  /*rtl*/
   /*&:before {
         .flipH;
         right: 0; //rtl
@@ -483,9 +421,7 @@ aside.sideBar li {
 }*/
 .ptsPopup {
   left: -webkit-calc(50% - 112px);
-  /*rtl*/
   left: calc(50% - 112px);
-  /*rtl*/
   right: auto;
 }
 .ptsPopup:before {

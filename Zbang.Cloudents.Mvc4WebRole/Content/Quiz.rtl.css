@@ -143,7 +143,6 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   position: absolute;
   left: 21px;
-  /*rtl*/
   top: 15px;
 }
 .createQuiz .emptyQuiz .questionHolder:first-child.correctReq .correct {
@@ -171,7 +170,6 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   position: absolute;
   left: 21px;
-  /*rtl*/
   top: 15px;
 }
 .createQuiz .validated .questionHolder.ng-invalid.correctReq .correct {
@@ -251,7 +249,6 @@ body.quiz .modal-backdrop.in {
   width: 20px;
   height: 19px;
   left: -1px;
-  /*rtl*/
   top: -10px;
   -webkit-transform: scale(0.85);
   -moz-transform: scale(0.85);
@@ -260,8 +257,7 @@ body.quiz .modal-backdrop.in {
   transform: scale(0.85);
 }
 .questionHolder .lFloat {
-  margin: 3px 0 0 5px
-  /*rtl*/
+  margin: 3px 0 0 5px;
 }
 .questionHolder .answers {
   color: #9d9d9d;
@@ -298,8 +294,7 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder label {
   position: absolute;
-  left: 19px
-  /*rtl*/
+  left: 19px;
 }
 .questionHolder label:before {
   opacity: .5;
@@ -311,14 +306,12 @@ body.quiz .modal-backdrop.in {
   list-style-type: lower-alpha;
   clear: both;
   padding-right: 16px;
-  /*rtl*/
   position: relative;
 }
 .quizAddQuestion {
   height: 40px;
   background: rgba(255, 255, 255, 0.5);
   text-align: right;
-  /*rtl*/
   color: #0371c8;
   margin-bottom: 10px;
   padding: 0 12px;
@@ -441,7 +434,6 @@ body.quiz .modal-backdrop.in {
   display: none;
   background: #f1f1f1;
   padding-right: 10px
-  /*rtl*/
   /*&.show {
         .quizComments, .imgBorder, .cTextAreaWpr {
             display: block;
@@ -452,21 +444,18 @@ body.quiz .modal-backdrop.in {
 .commentWpr .closeDialog {
   background-position: -68px -26px;
   left: 20px;
-  /*rtl*/
   top: 3px;
   display: none;
 }
 .commentWpr .imgBorder {
   position: absolute;
   right: 0
-  /*rtl*/
   /*display: none;*/
 }
 .commentWpr .askBtn {
   padding: 6px 15px 7px;
   height: auto;
   margin: 0 0 10px 12px;
-  /*rtl*/
   display: block;
   width: 100px;
 }
@@ -491,8 +480,7 @@ body.quiz .modal-backdrop.in {
 .commentTxt {
   font-size: 15px;
   margin: 10px 0;
-  padding-left: 22px
-  /*rtl*/
+  padding-left: 22px;
 }
 .cTextAreaWpr {
   margin-top: 10px;
@@ -500,13 +488,11 @@ body.quiz .modal-backdrop.in {
   overflow: hidden;
 }
 .cTextAreaWpr .imgBorder {
-  right: 10px
-  /*rtl*/
+  right: 10px;
 }
 .cTextArea {
   width: 595px;
   margin-right: 42px;
-  /*rtl*/
   border-radius: 3px;
   font-size: 15px;
   resize: none;
@@ -526,7 +512,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizAList li {
   margin: 0 13px -26px 0;
-  /*rtl*/
   list-style-position: inside;
   position: relative;
   white-space: pre-line;
@@ -538,8 +523,7 @@ body.quiz .modal-backdrop.in {
 .quizAList li:before {
   content: '';
   display: inline-block;
-  padding-right: 18px
-  /*rtl*/
+  padding-right: 18px;
 }
 .quizAList li:last-child {
   margin-bottom: -40px;
@@ -548,13 +532,11 @@ body.quiz .modal-backdrop.in {
   position: relative;
   top: -36px;
   right: 5px;
-  /*rtl*/
   line-height: 20px;
 }
 .quizAList li label:before {
   position: absolute;
   right: -19px;
-  /*rtl*/
   top: 5px
   /* diff rtl - need this! */
 }
@@ -579,7 +561,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .leftPanel.leftPanel {
   right: 0;
-  /*rtl*/
   top: 50px;
   height: 100%;
   background: none;
@@ -631,7 +612,6 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .itemRight {
   text-align: right;
-  /*rtl*/
   padding-right: 290px;
 }
 .quizPage .itemTop {
@@ -731,8 +711,7 @@ body.quiz .modal-backdrop.in {
   background-color: none;
   background: url(/Images/common17-sprite.png?v=4) -18px -121px no-repeat;
   opacity: 1 !important;
-  margin: -5px -3px 0 0
-  /*rtl*/
+  margin: -5px -3px 0 0;
 }
 .checkQuiz .wrong.wrong label:before,
 .afraid .wrong.wrong label:before {
@@ -749,7 +728,6 @@ body.quiz .modal-backdrop.in {
   position: absolute;
   top: 21px;
   left: -30px;
-  /*rtl*/
   color: #d1294d;
   background: #f5f5f5;
   padding: 3px 8px;
@@ -788,7 +766,6 @@ body.quiz .modal-backdrop.in {
   display: none;
   position: absolute;
   right: -45px;
-  /*rtl*/
   top: 0;
   width: 7px;
   height: 100%;

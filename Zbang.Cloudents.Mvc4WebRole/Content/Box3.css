@@ -11,7 +11,6 @@
   width: 243px;
   padding: 10px 25px 0 25px;
   border-right: 1px solid #c2c2c2;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -91,7 +90,6 @@
 .shareDD {
   padding: 20px 18px;
   right: -5px;
-  /*rtl*/
   top: 60px;
   width: 322px;
 }
@@ -106,7 +104,6 @@
 .shareDD h4 {
   padding-bottom: 7px;
   margin: -2px 10px 0 0;
-  /*rtl*/
 }
 .shareDD:before {
   height: 55px;
@@ -130,7 +127,6 @@
   display: block;
   top: 23px;
   right: 15px;
-  /*rtl*/
   cursor: pointer;
 }
 .shareDD .shareTxt {
@@ -146,14 +142,12 @@
   position: relative;
   top: -11px;
   right: 8px;
-  /*rtl*/
   z-index: -1;
 }
 .shareDD .shareArrow:before {
   width: 10px;
   height: 10px;
   right: -12px;
-  /*rtl*/
   bottom: 3px;
   background: #fff;
 }
@@ -163,12 +157,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-left: 6px;
-  /*rtl*/
   vertical-align: top;
 }
 .shareDD .shareItem:first-child {
   padding: 0 6px 0 0;
-  /*rtl*/
 }
 .shareDD .fbShare,
 .shareDD .emailShare {
@@ -188,7 +180,6 @@
   background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
   vertical-align: middle;
   margin-right: 6px;
-  /*rtl*/
 }
 .shareDD .emailShare {
   background: #0371c8;
@@ -230,7 +221,6 @@
   height: 19px;
   vertical-align: middle;
   margin-left: 8px;
-  /*rtl*/
 }
 .inviteBtn:hover:after {
   background-position: -90px -21px;
@@ -338,7 +328,6 @@
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
   font-size: 13px;
-  /*rtl*/
   text-transform: uppercase;
 }
 .boxFolders {
@@ -364,7 +353,6 @@
 .boxFolder.current,
 .createFolder.current {
   font-weight: 600;
-  /*rtl*/
   border-right: none;
   background: #fff;
 }
@@ -451,7 +439,6 @@
   background: url(/Images/box18-sprite.png?v=1) -58px 0 no-repeat;
   vertical-align: top;
   margin: 14px 6px 0 0;
-  /*rtl*/
 }
 .createFolderText:hover {
   color: #0f9d58;
@@ -460,7 +447,6 @@
   display: none;
   position: relative;
   margin: -2px 14px 0 0;
-  /*rtl*/
   cursor: pointer;
   height: 100%;
 }
@@ -517,7 +503,6 @@
   height: 19px;
   vertical-align: middle;
   margin-right: 8px;
-  /*rtl*/
 }
 /*#region boxItems */
 .thumbContent {
@@ -542,7 +527,6 @@
   max-width: 560px;
   padding: 15px 0 20px;
   font-weight: 600;
-  /*rtl*/
 }
 .boxEmpty .emptyBoxDrop {
   width: 64%;
@@ -670,7 +654,6 @@
   border-radius: 3px;
   font-size: 15px;
   padding: 20px 0 0 360px;
-  /*rtl*/
   margin-bottom: 14px;
 }
 .boxItemList.sponsored .listItem:first-child .imgBorder {
@@ -694,9 +677,7 @@
 }
 .boxItemList.sponsored .listItem:first-child .itemContent {
   max-height: 58px;
-  /*rtl*/
   margin: 0 15px 5px 0;
-  /*rtl*/
   line-height: 18px;
 }
 .boxItemList.sponsored .listItem:first-child .views {
@@ -711,7 +692,6 @@
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
   left: 132px;
-  /*rtl*/
   top: 47px;
 }
 .boxItemsHeader {
@@ -760,11 +740,8 @@
   color: #fff;
   display: inline-block;
   padding: 1px 12px 2px 6px;
-  /*rtl*/
   border-radius: 3px 0 3px 3px;
-  /*rtl*/
   margin-left: 11px;
-  /*rtl*/
   /*&:before {
         .pseudo;
         position: absolute;
@@ -798,17 +775,14 @@
   background: url(/Images/box18-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
   right: 1px;
-  /*rtl*/
 }
 .listItem {
   padding: 15px 0 15px 138px;
-  /*rtl*/
   position: relative;
   display: block;
   height: 143px;
   border-top: 1px solid #dbdbdb;
   text-align: left;
-  /*rtl*/
 }
 .listItem.quizItem .imgBorder {
   width: 112px;
@@ -835,9 +809,7 @@
   position: relative;
   top: 0;
   left: 15px;
-  /*rtl*/
   padding-left: 22px;
-  /*rtl*/
 }
 .listItem.draft .tag:before {
   content: '';
@@ -858,12 +830,10 @@
 .listItem .actionBtns {
   top: 10px;
   right: 0;
-  /*rtl*/
 }
 .listItem .imgBorder {
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 15px;
 }
 .listItem .boxName {
@@ -944,7 +914,6 @@
 }
 .thumbItem .boxName {
   margin: 5px 0 0 6px;
-  /*rtl*/
   overflow: hidden;
   line-height: 15px;
   color: #0f9d58;
@@ -954,7 +923,6 @@
   color: #b1b1b1;
   position: absolute;
   right: 4px;
-  /*rtl*/
   bottom: 3px;
   margin: 0;
 }
@@ -970,7 +938,6 @@
 .thumbItem .tag {
   position: absolute;
   left: -6px;
-  /*rtl*/
   top: 165px;
   color: #F0F8FF;
   z-index: 1;
@@ -1034,7 +1001,6 @@
 .thumbItem.quizItem .stars {
   position: absolute;
   left: 4px;
-  /*rtl*/
   bottom: 4px;
 }
 .thumbItem.quizItem .moreFilesThumb {
@@ -1145,19 +1111,16 @@
   content: attr(data-numdownload);
   display: inline-block;
   margin: 0 4px 0 20px;
-  /*rtl*/
 }
 .boxItemTt .ttTop > .ttDetail:last-child:before {
   content: attr(data-numcommment);
   margin: 0 4px 0 24px;
-  /*rtl*/
 }
 .boxItemTt .ttTop > .ttDetail:after {
   content: '';
   display: inline-block;
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 2px;
   width: 14px;
   height: 15px;
@@ -1171,7 +1134,6 @@
 .boxItemTt .moreFilesThumb {
   display: inline-block;
   float: left;
-  /*rtl*/
   margin-top: -12px;
   padding-top: 8px;
   -webkit-box-sizing: border-box;
@@ -1184,7 +1146,6 @@
   position: relative;
   top: -13px;
   left: 8px;
-  /*rtl*/
   width: 196px;
   margin-bottom: 6px;
 }
@@ -1223,7 +1184,6 @@
   height: 248px;
   width: 148px;
   margin: 0 20px 32px 0;
-  /*rtl*/
 }
 /*#endregion */
 .stars {
@@ -1232,14 +1192,12 @@
   position: relative;
   background: url(/Images/common17-sprite.png?v=4) -1px -41px no-repeat;
   margin-left: 5px;
-  /*rtl*/
   cursor: pointer;
 }
 .stars .full {
   position: absolute;
   top: 0;
   left: 0;
-  /*rtl*/
   height: 13px;
   background: url(/Images/common17-sprite.png?v=4) -1px -55px no-repeat;
 }
@@ -1267,7 +1225,6 @@
   position: absolute;
   top: 7px;
   right: 8px;
-  /*rtl*/
   text-align: center;
   cursor: pointer;
   border: 1px solid #c2c2c2;
@@ -1292,7 +1249,6 @@
 .actionBtns .downloadBtn,
 .actionBtns .editBtn {
   border-radius: 3px 0 0 3px;
-  /*rtl*/
 }
 .actionBtns .downloadBtn:before,
 .actionBtns .editBtn:before {
@@ -1300,9 +1256,7 @@
 }
 .actionBtns .deleteBtn {
   border-radius: 0 3px 3px 0;
-  /*rtl*/
   border-left: 1px solid #c2c2c2;
-  /*rtl*/
 }
 .actionBtns .deleteBtn:first-child {
   border: none;
@@ -1336,7 +1290,6 @@
   position: absolute;
   top: 6px;
   left: 6px;
-  /*rtl*/
 }
 .cbLabel:before {
   content: '';
@@ -1357,7 +1310,6 @@
   position: absolute;
   top: 1px;
   left: 1px;
-  /*rtl*/
 }
 .cbManage:checked + div {
   display: inline-block;
@@ -1366,7 +1318,6 @@
   position: absolute;
   top: -3px;
   left: -3px;
-  /*rtl*/
   z-index: -1;
   border: 2px solid #83B641;
   border-top: 4px solid #83B641;
@@ -1390,7 +1341,6 @@
 }
 .boxManage .btn1 {
   margin: 0 5px 0 10px;
-  /*rtl*/
 }
 .boxManage ~ .quizBtn {
   display: none;

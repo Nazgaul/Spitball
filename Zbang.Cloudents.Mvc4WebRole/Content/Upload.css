@@ -9,14 +9,12 @@
   display: inline-block;
   border: 2px solid #bdbdbd;
   box-shadow: 2px 2px 2px #ddd8dc;
-  /*rtl*/
   margin-bottom: 30px;
   /*fix for (chrome) bug 1856 */
 }
 .selectBox {
   background-position: 0 -247px;
   margin-left: 38px;
-  /*rtl*/
 }
 /*#endregion */
 .dragDropBox {
@@ -36,12 +34,10 @@
 .dragDropBox ul {
   display: none;
   text-align: left;
-  /*rtl*/
   overflow-x: hidden;
   overflow-y: auto;
   height: 160px;
   margin: 38px 0 0 5px;
-  /*rtl*/
   border-top: 1px solid #c2c2c2;
 }
 .dragDropBox li {
@@ -61,7 +57,6 @@
   height: 36px;
   position: absolute;
   left: 0;
-  /*rtl*/
   top: 1px;
   z-index: -1;
 }
@@ -74,7 +69,6 @@
   font-size: 11px;
   background-color: transparent;
   margin: 0 3px 0 0;
-  /*rtl*/
 }
 .finished {
   display: none;
@@ -82,7 +76,6 @@
   height: 25px;
   background-position: -13px -1px;
   margin: 0 3px 0 0;
-  /*rtl*/
 }
 .chooseFrom {
   border-top: 1px solid #c7c7c7;
@@ -119,7 +112,6 @@
   font-size: 14px;
   color: #111;
   float: left;
-  /*rtl*/
   text-align: center;
 }
 .source .btn:hover,
@@ -162,7 +154,6 @@
   position: fixed;
   top: 89px;
   left: 290px;
-  /*rtl*/
   z-index: 60000;
   display: none;
 }
@@ -172,7 +163,6 @@
   position: fixed;
   top: 50px;
   left: 243px;
-  /*rtl*/
   z-index: 5;
   background: rgba(17, 17, 17, 0.7);
   color: #fff;
@@ -186,7 +176,6 @@
   top: 50%;
   left: 50%;
   margin-left: -290px;
-  /*rtl*/
   margin-top: -138px;
   pointer-events: none;
 }
@@ -205,7 +194,6 @@
   position: fixed;
   bottom: 0;
   right: 10px;
-  /*rtl*/
   z-index: 100;
 }
 .uploads button {
@@ -226,7 +214,6 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  /*rtl*/
 }
 .uploadTop {
   height: 32px;
@@ -327,13 +314,11 @@ button.fileError {
 }
 .step3 {
   text-align: left;
-  /*rtl*/
 }
 .dragDropTxtE {
   font-size: 18px;
   margin: 66px 0 15px;
   font-weight: bold;
-  /*rtl*/
 }
 .addUrlHolder {
   position: relative;
@@ -358,7 +343,6 @@ button.fileError {
 }
 .emailUser.emailUser {
   padding: 4px 2px 6px 9px;
-  /*rtl*/
   margin-bottom: 6px;
   width: 100%;
   min-height: 32px;
@@ -400,7 +384,6 @@ button.fileError {
   padding-top: 3px;
   position: absolute;
   right: 5px;
-  /*rtl*/
 }
 .gConnect:before {
   content: '';
@@ -410,7 +393,6 @@ button.fileError {
   height: 13px;
   background: url(/Images/common17-sprite.png?v=4) -73px -70px no-repeat;
   margin: -1px 5px 0 0;
-  /*rtl*/
 }
 .inviteInput {
   vertical-align: top;
@@ -473,7 +455,6 @@ button.fileError {
   display: inline-block;
   padding: 0 10px;
   margin: 0 3px 3px 0;
-  /*rtl*/
   background: #ededed;
   height: 24px;
   line-height: 24px;
@@ -503,7 +484,6 @@ button.fileError {
   box-sizing: border-box;
   border: 1px solid #c2c2c2;
   margin: 5px 10px 0 0;
-  /*rtl*/
 }
 .eSingleImg {
   display: inline-block;
@@ -511,7 +491,6 @@ button.fileError {
   width: 34px;
   height: 34px;
   margin: 5px 6px 0 0;
-  /*rtl*/
   border-radius: 100%;
 }
 .eSingleName {

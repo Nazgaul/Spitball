@@ -31,14 +31,12 @@
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
                var buttons;
 
-               buttons = ['fontUp', 'fontDown', 'bold', 'italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'ol', 'ul', 'insertImage', 'redo', 'undo']
+               buttons = [['fontUp', 'fontDown'], ['bold', 'italics', 'underline'], ['justifyLeft', 'justifyCenter', 'justifyRight'], ['ol', 'ul'], ['insertImage'], ['redo', 'undo']]
 
                if (Modernizr.inputtypes.color) {
-                   buttons.splice(5, 0, 'color');
+                   buttons[1].push('color');
                }
-               taOptions.toolbar = [
-                   buttons
-               ];
+               taOptions.toolbar = buttons;
 
 
                //taOptions.classes = {

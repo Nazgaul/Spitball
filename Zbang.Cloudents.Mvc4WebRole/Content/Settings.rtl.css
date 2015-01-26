@@ -9,16 +9,14 @@
   position: fixed;
   top: 44px;
   bottom: 0;
-  right: 0
-  /*rtl*/
+  right: 0;
 }
 .settingsMenu .selected {
   color: #000;
   font-weight: 600;
 }
 .settingsMenu ul {
-  margin: 33px 23px 0 0
-  /*rtl*/
+  margin: 33px 23px 0 0;
 }
 .settingsMenu li {
   font-size: 15px;
@@ -32,7 +30,6 @@
 .settingsContent {
   width: 100%;
   text-align: right;
-  /*rtl*/
   padding: 30px 288px 0 20px;
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
@@ -77,7 +74,6 @@
 .profileInfo .inputText {
   width: 140px;
   margin: -6px 0 0 8px;
-  /*rtl*/
   height: 29px;
   font-size: 15px;
 }
@@ -86,7 +82,6 @@
   border-radius: 100%;
   padding: 3px;
   /*box-shadow: 2px 2px 2px rgba(0, 0, 0,0.4);*/
-  /*rtl*/
   display: inline-block;
   vertical-align: top;
   margin-bottom: 3px
@@ -95,7 +90,6 @@
 .profileInfo .photoBtn {
   display: inline-block;
   margin: 41px 5px 0 0;
-  /*rtl*/
   color: #0f9d58;
 }
 .profileInfo .changeUni {
@@ -138,14 +132,12 @@
 }
 .schoolWpr {
   padding-right: 44px;
-  /*rtl*/
   position: relative;
   display: inline-block;
 }
 .schoolWpr .imgBorder {
   position: absolute;
-  right: 0
-  /*rtl*/
+  right: 0;
 }
 /*#endregion */
 /*#region account settings */
@@ -195,10 +187,8 @@
 .checkMailMsg {
   position: absolute;
   right: 200px;
-  /*rtl*/
   top: 0;
   padding-right: 55px;
-  /*rtl*/
   line-height: 15px;
   white-space: nowrap;
   -webkit-transition: opacity 1s;
@@ -214,11 +204,9 @@
   width: 23px;
   height: 23px;
   margin-left: 5px;
-  /*rtl*/
   position: absolute;
   top: 4px;
-  right: 28px
-  /*rtl*/
+  right: 28px;
 }
 .checkMailMsg .checkMailTxt {
   color: #676767;
@@ -238,14 +226,12 @@
 }
 .changePwd.show ~ .btnTxt {
   margin-right: 143px;
-  /*rtl*/
   display: block;
 }
 .changePwd .inputText {
   width: 210px;
   height: 28px;
-  margin: 0 0 5px 5px
-  /*rtl*/
+  margin: 0 0 5px 5px;
 }
 .changePwd input:first-child {
   display: block;
@@ -267,8 +253,7 @@
 .storage .header {
   font-size: 15px;
   color: #383838;
-  margin: 2px -1px 11px 0
-  /*rtl*/
+  margin: 2px -1px 11px 0;
 }
 .storage .storageBar {
   width: 550px;
@@ -302,8 +287,7 @@
   width: 10px;
   height: 10px;
   background: #0f9d58;
-  margin-left: 10px
-  /*rtl*/
+  margin-left: 10px;
 }
 /*temporarily removed from markup*/
 /*.key .shared:before 
@@ -317,16 +301,14 @@
   border: 1px solid #c2c2c2;
 }
 .key .percent {
-  margin: 0 2px 0 27px
-  /*rtl*/
+  margin: 0 2px 0 27px;
 }
 /*#endregion */
 /*#region notifications */
 .notifications .settingsBox {
   display: inline-block;
   width: 310px;
-  margin: 3px 5px 0 0
-  /*rtl*/
+  margin: 3px 5px 0 0;
 }
 .notifications .select {
   display: inline-block;
@@ -350,8 +332,7 @@
   font-size: 13px;
   color: #43392b;
   display: inline;
-  margin-left: 6px
-  /*rtl*/
+  margin-left: 6px;
 }
 .notifications input {
   width: 214px;
@@ -361,7 +342,6 @@
 }
 .boxesList {
   margin: 6px 1px 39px 0;
-  /*rtl*/
   width: 815px;
 }
 .boxesList li {

@@ -11,7 +11,6 @@
   width: 243px;
   padding: 10px 25px 0 25px;
   border-left: 1px solid #c2c2c2;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -91,7 +90,6 @@
 .shareDD {
   padding: 20px 18px;
   left: -5px;
-  /*rtl*/
   top: 60px;
   width: 322px;
 }
@@ -105,8 +103,7 @@
 }
 .shareDD h4 {
   padding-bottom: 7px;
-  margin: -2px 0 0 10px
-  /*rtl*/
+  margin: -2px 0 0 10px;
 }
 .shareDD:before {
   height: 55px;
@@ -130,7 +127,6 @@
   display: block;
   top: 23px;
   left: 15px;
-  /*rtl*/
   cursor: pointer;
 }
 .shareDD .shareTxt {
@@ -146,14 +142,12 @@
   position: relative;
   top: -11px;
   left: 8px;
-  /*rtl*/
   z-index: -1;
 }
 .shareDD .shareArrow:before {
   width: 10px;
   height: 10px;
   left: -12px;
-  /*rtl*/
   bottom: 3px;
   background: #fff;
 }
@@ -163,12 +157,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-right: 6px;
-  /*rtl*/
   vertical-align: top;
 }
 .shareDD .shareItem:first-child {
-  padding: 0 0 0 6px
-  /*rtl*/
+  padding: 0 0 0 6px;
 }
 .shareDD .fbShare,
 .shareDD .emailShare {
@@ -187,8 +179,7 @@
   height: 22px;
   background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
   vertical-align: middle;
-  margin-left: 6px
-  /*rtl*/
+  margin-left: 6px;
 }
 .shareDD .emailShare {
   background: #0371c8;
@@ -229,8 +220,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  margin-right: 8px
-  /*rtl*/
+  margin-right: 8px;
 }
 .inviteBtn:hover:after {
   background-position: -90px -21px;
@@ -338,7 +328,6 @@
 .boxMembers .sectionHeader,
 .boxFolders .sectionHeader {
   font-size: 13px;
-  /*rtl*/
   text-transform: uppercase;
 }
 .boxFolders {
@@ -364,7 +353,6 @@
 .boxFolder.current,
 .createFolder.current {
   font-weight: 600;
-  /*rtl*/
   border-left: none;
   background: #fff;
 }
@@ -450,8 +438,7 @@
   height: 11px;
   background: url(/Images/box18-sprite.png?v=1) -58px 0 no-repeat;
   vertical-align: top;
-  margin: 14px 0 0 6px
-  /*rtl*/
+  margin: 14px 0 0 6px;
 }
 .createFolderText:hover {
   color: #0f9d58;
@@ -460,7 +447,6 @@
   display: none;
   position: relative;
   margin: -2px 0 0 14px;
-  /*rtl*/
   cursor: pointer;
   height: 100%;
 }
@@ -516,8 +502,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  margin-left: 8px
-  /*rtl*/
+  margin-left: 8px;
 }
 /*#region boxItems */
 .thumbContent {
@@ -541,8 +526,7 @@
   min-width: 290px;
   max-width: 560px;
   padding: 15px 0 20px;
-  font-weight: 600
-  /*rtl*/
+  font-weight: 600;
 }
 .boxEmpty .emptyBoxDrop {
   width: 64%;
@@ -670,7 +654,6 @@
   border-radius: 3px;
   font-size: 15px;
   padding: 20px 360px 0 0;
-  /*rtl*/
   margin-bottom: 14px;
 }
 .boxItemList.sponsored .listItem:first-child .imgBorder {
@@ -694,9 +677,7 @@
 }
 .boxItemList.sponsored .listItem:first-child .itemContent {
   max-height: 58px;
-  /*rtl*/
   margin: 0 0 5px 15px;
-  /*rtl*/
   line-height: 18px;
 }
 .boxItemList.sponsored .listItem:first-child .views {
@@ -711,7 +692,6 @@
 }
 .boxItemList.sponsored .listItem:first-child .boxLink:after {
   right: 132px;
-  /*rtl*/
   top: 47px;
 }
 .boxItemsHeader {
@@ -760,11 +740,8 @@
   color: #fff;
   display: inline-block;
   padding: 1px 6px 2px 12px;
-  /*rtl*/
   border-radius: 0 3px 3px 3px;
-  /*rtl*/
   margin-right: 11px
-  /*rtl*/
   /*&:before {
         .pseudo;
         position: absolute;
@@ -797,18 +774,15 @@
   height: 18px;
   background: url(/Images/box18-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
-  left: 1px
-  /*rtl*/
+  left: 1px;
 }
 .listItem {
   padding: 15px 138px 15px 0;
-  /*rtl*/
   position: relative;
   display: block;
   height: 143px;
   border-top: 1px solid #dbdbdb;
-  text-align: right
-  /*rtl*/
+  text-align: right;
 }
 .listItem.quizItem .imgBorder {
   width: 112px;
@@ -835,9 +809,7 @@
   position: relative;
   top: 0;
   right: 15px;
-  /*rtl*/
-  padding-right: 22px
-  /*rtl*/
+  padding-right: 22px;
 }
 .listItem.draft .tag:before {
   content: '';
@@ -857,13 +829,11 @@
 }
 .listItem .actionBtns {
   top: 10px;
-  left: 0
-  /*rtl*/
+  left: 0;
 }
 .listItem .imgBorder {
   position: absolute;
   right: 0;
-  /*rtl*/
   top: 15px;
 }
 .listItem .boxName {
@@ -944,7 +914,6 @@
 }
 .thumbItem .boxName {
   margin: 5px 6px 0 0;
-  /*rtl*/
   overflow: hidden;
   line-height: 15px;
   color: #0f9d58;
@@ -954,7 +923,6 @@
   color: #b1b1b1;
   position: absolute;
   left: 4px;
-  /*rtl*/
   bottom: 3px;
   margin: 0;
 }
@@ -970,7 +938,6 @@
 .thumbItem .tag {
   position: absolute;
   right: -6px;
-  /*rtl*/
   top: 165px;
   color: #F0F8FF;
   z-index: 1;
@@ -1034,7 +1001,6 @@
 .thumbItem.quizItem .stars {
   position: absolute;
   right: 4px;
-  /*rtl*/
   bottom: 4px;
 }
 .thumbItem.quizItem .moreFilesThumb {
@@ -1144,20 +1110,17 @@
 .boxItemTt .ttTop > .ttDetail:before {
   content: attr(data-numdownload);
   display: inline-block;
-  margin: 0 20px 0 4px
-  /*rtl*/
+  margin: 0 20px 0 4px;
 }
 .boxItemTt .ttTop > .ttDetail:last-child:before {
   content: attr(data-numcommment);
-  margin: 0 24px 0 4px
-  /*rtl*/
+  margin: 0 24px 0 4px;
 }
 .boxItemTt .ttTop > .ttDetail:after {
   content: '';
   display: inline-block;
   position: absolute;
   right: 0;
-  /*rtl*/
   top: 2px;
   width: 14px;
   height: 15px;
@@ -1171,7 +1134,6 @@
 .boxItemTt .moreFilesThumb {
   display: inline-block;
   float: right;
-  /*rtl*/
   margin-top: -12px;
   padding-top: 8px;
   -webkit-box-sizing: border-box;
@@ -1184,7 +1146,6 @@
   position: relative;
   top: -13px;
   right: 8px;
-  /*rtl*/
   width: 196px;
   margin-bottom: 6px;
 }
@@ -1222,8 +1183,7 @@
 .boxItems .thumbItem {
   height: 248px;
   width: 148px;
-  margin: 0 0 32px 20px
-  /*rtl*/
+  margin: 0 0 32px 20px;
 }
 /*#endregion */
 .stars {
@@ -1232,14 +1192,12 @@
   position: relative;
   background: url(/Images/common17-sprite.png?v=4) -1px -41px no-repeat;
   margin-right: 5px;
-  /*rtl*/
   cursor: pointer;
 }
 .stars .full {
   position: absolute;
   top: 0;
   right: 0;
-  /*rtl*/
   height: 13px;
   background: url(/Images/common17-sprite.png?v=4) -1px -55px no-repeat;
 }
@@ -1267,7 +1225,6 @@
   position: absolute;
   top: 7px;
   left: 8px;
-  /*rtl*/
   text-align: center;
   cursor: pointer;
   border: 1px solid #c2c2c2;
@@ -1291,8 +1248,7 @@
 }
 .actionBtns .downloadBtn,
 .actionBtns .editBtn {
-  border-radius: 0 3px 3px 0
-  /*rtl*/
+  border-radius: 0 3px 3px 0;
 }
 .actionBtns .downloadBtn:before,
 .actionBtns .editBtn:before {
@@ -1300,9 +1256,7 @@
 }
 .actionBtns .deleteBtn {
   border-radius: 3px 0 0 3px;
-  /*rtl*/
-  border-right: 1px solid #c2c2c2
-  /*rtl*/
+  border-right: 1px solid #c2c2c2;
 }
 .actionBtns .deleteBtn:first-child {
   border: none;
@@ -1335,8 +1289,7 @@
 .cbLabel {
   position: absolute;
   top: 6px;
-  right: 6px
-  /*rtl*/
+  right: 6px;
 }
 .cbLabel:before {
   content: '';
@@ -1356,8 +1309,7 @@
   height: 22px;
   position: absolute;
   top: 1px;
-  right: 1px
-  /*rtl*/
+  right: 1px;
 }
 .cbManage:checked + div {
   display: inline-block;
@@ -1366,7 +1318,6 @@
   position: absolute;
   top: -3px;
   right: -3px;
-  /*rtl*/
   z-index: -1;
   border: 2px solid #83B641;
   border-top: 4px solid #83B641;
@@ -1389,8 +1340,7 @@
   font-size: 15px;
 }
 .boxManage .btn1 {
-  margin: 0 10px 0 5px
-  /*rtl*/
+  margin: 0 10px 0 5px;
 }
 .boxManage ~ .quizBtn {
   display: none;

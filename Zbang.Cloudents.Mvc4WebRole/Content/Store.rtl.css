@@ -21,8 +21,7 @@ header h1 {
   top: -40px;
   z-index: -1;
   color: #fff;
-  margin-right: 265px
-  /*rtl*/
+  margin-right: 265px;
 }
 header h1.showStore {
   display: inline-block;
@@ -116,7 +115,6 @@ main {
   position: relative;
   overflow: hidden;
   border-left: 1px solid #39434a;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -145,7 +143,6 @@ main {
 }
 .widget .banner {
   margin-right: -1px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -267,7 +264,6 @@ main {
   position: fixed;
   top: 115px;
   right: 0;
-  /*rtl*/
   left: 0;
   margin: auto;
   background: #39434a;
@@ -311,7 +307,6 @@ main {
   -webkit-transition-delay: 0;
   transition-delay: 0;
   right: 0;
-  /*rtl*/
   top: 174px;
   background: #fff;
   color: #39434a;
@@ -320,9 +315,7 @@ main {
   height: 194px;
   width: 151px;
   margin-right: -1px;
-  /*rtl*/
   padding: 8px 12px 0 0;
-  /*rtl*/
   text-align: right;
 }
 .categoryList ul:after {
@@ -352,7 +345,6 @@ main {
   display: inline-block;
   border-bottom: 1px solid #fff;
   border-left: 1px solid #fff;
-  /*rtl*/
   padding: 10px 0 30px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -391,12 +383,10 @@ main {
 }
 .categoryList > li:nth-child(6n + 1) ul {
   width: 168px;
-  margin-right: -18px
-  /*rtl*/
+  margin-right: -18px;
 }
 .categoryList > li:nth-child(6n) {
-  border-left: none
-  /*rtl*/
+  border-left: none;
 }
 .categoryList > li:nth-child(6n) ul {
   width: 169px;
@@ -501,7 +491,6 @@ main {
   color: orange;
   top: -188px;
   right: 0;
-  /*rtl*/
   height: auto;
 }
 .productsList li:hover .productHover {
@@ -539,7 +528,6 @@ main {
   font-size: 18px;
   padding: 16px 18px 0;
   text-align: right;
-  /*rtl*/
   top: 0;
   line-height: 25px;
   height: 66px;
@@ -549,8 +537,7 @@ main {
 }
 .productsList .desc + .lFloat {
   color: #0f9d58;
-  border-left: 1px solid #39434a
-  /*rtl*/
+  border-left: 1px solid #39434a;
 }
 .productsList table {
   width: 100%;
@@ -561,7 +548,6 @@ main {
   box-sizing: border-box;
   position: relative;
   text-align: right;
-  /*rtl*/
   margin-top: 4px
   /*&:before {
             .pseudo;
@@ -625,7 +611,6 @@ main {
   height: 100%;
   top: 350px;
   right: 0;
-  /*rtl*/
   background: #39434a;
   color: #fff;
   padding: 85px 20px 10px 20px;
@@ -653,7 +638,6 @@ main {
   border-radius: 5px;
   position: absolute;
   right: 15px;
-  /*rtl*/
   bottom: 14px;
 }
 .productHover .lFloat {
@@ -669,8 +653,7 @@ main {
 }
 .productHover .sale {
   color: #0f9d58;
-  border-right: 1px solid #0f9d58
-  /*rtl*/
+  border-right: 1px solid #0f9d58;
 }
 .hoverDesc {
   text-align: left;
@@ -712,12 +695,10 @@ main {
 .productWpr .left {
   text-align: center;
   position: relative;
-  padding-left: 10px
-  /*rtl*/
+  padding-left: 10px;
 }
 .productWpr .right {
-  padding-right: 10px
-  /*rtl*/
+  padding-right: 10px;
 }
 .productWpr .left h3 {
   font-size: 18px;
@@ -778,7 +759,6 @@ main {
   width: 100%;
   font-size: 22px;
   text-align: right;
-  /*rtl*/
   border-collapse: collapse;
 }
 .productPrice:before {
@@ -787,7 +767,6 @@ main {
   position: absolute;
   top: 8px;
   right: 16px;
-  /*rtl*/
   background: #999;
 }
 .productPrice td {
@@ -798,8 +777,7 @@ main {
   width: 100%;
 }
 .productPrice td:nth-child(3) {
-  padding-right: 4px
-  /*rtl*/
+  padding-right: 4px;
 }
 .productPrice tr:nth-child(1) td {
   color: #0f9d58;
@@ -813,7 +791,6 @@ main {
   background: #DBEBF7;
   padding: 10px 18px;
   text-align: right;
-  /*rtl*/
   width: 100%;
 }
 .productDetails td {
@@ -822,8 +799,7 @@ main {
 }
 .productDetails td:first-child {
   font-weight: bold;
-  padding-bottom: 8px
-  /*rtl*/
+  padding-bottom: 8px;
 }
 .productDetails small {
   display: block;
@@ -852,8 +828,7 @@ main {
   padding: 0 10px;
 }
 .moreProductsList li:first-child {
-  margin-right: -300%
-  /*rtl*/
+  margin-right: -300%;
 }
 /*#endregion */
 /*#region About Page */
@@ -971,7 +946,6 @@ main {
   box-sizing: border-box;
   padding-top: 5px;
   margin: 2px 7px 0 0;
-  /*rtl*/
   vertical-align: top;
 }
 .userHelp:hover ~ .helpPopup {
@@ -1003,7 +977,6 @@ main {
   border-color: transparent transparent #0371c8 transparent;
   position: absolute;
   left: 24px;
-  /*rtl*/
   top: -16px;
 }
 .couponBtn {
@@ -1131,7 +1104,6 @@ main {
 .orderTable td,
 .orderTable th {
   text-align: right;
-  /*rtl*/
   padding: 20px 0;
 }
 .orderTable td:first-child,
@@ -1140,8 +1112,7 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-left: 15px 25px 15px 10px
-  /*rtl*/
+  padding-left: 15px 25px 15px 10px;
 }
 .orderTable td:nth-child(2),
 .orderTable th:nth-child(2) {
@@ -1149,8 +1120,7 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-left: 60px
-  /*rtl*/
+  padding-left: 60px;
 }
 .orderTable td:nth-child(3),
 .orderTable th:nth-child(3) {
@@ -1179,7 +1149,6 @@ main {
 .invoice li span:nth-child(1) {
   width: 100%;
   padding-right: 10px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1189,7 +1158,6 @@ main {
 }
 .invoice li span:nth-child(3) {
   padding: 0 3px 0 10px;
-  /*rtl*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1343,7 +1311,6 @@ main {
   position: absolute;
   bottom: 100%;
   left: 0;
-  /*rtl*/
   margin-bottom: 20px;
   white-space: pre-wrap;
 }
@@ -1369,8 +1336,7 @@ main {
   border-color: #0f9d58 transparent transparent transparent;
   position: absolute;
   bottom: -15px;
-  left: 20px
-  /*rtl*/
+  left: 20px;
 }
 .cardHoverTxt {
   text-align: center;
@@ -1428,7 +1394,6 @@ main {
   height: auto;
   line-height: normal;
   text-align: right;
-  /*rtl*/
   margin-bottom: 20px;
 }
 .storeWpr footer > .wpr {
@@ -1459,8 +1424,7 @@ main {
   position: relative;
 }
 .storeWpr footer .bottom ul {
-  padding-right: 212px
-  /*rtl*/
+  padding-right: 212px;
 }
 .storeWpr footer .bottom li,
 .storeWpr footer .bottom a {

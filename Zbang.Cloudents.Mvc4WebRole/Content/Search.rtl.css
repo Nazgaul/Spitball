@@ -425,8 +425,7 @@
   color: #fff;
 }
 .searchItem > .searchTitle {
-  margin-right: 56px
-  /*rtl*/
+  margin-right: 56px;
 }
 .searchItem .userImg {
   margin-right: 3px;
@@ -434,7 +433,6 @@
 .searchDetails {
   overflow: hidden;
   padding-right: 15px;
-  /*rtl*/
   line-height: 20px;
   margin-top: 12px;
 }
@@ -446,8 +444,7 @@
 .boxLoc:before {
   content: attr(data-search-in);
   display: inline-block;
-  margin-left: 4px
-  /*rtl*/
+  margin-left: 4px;
 }
 .allDetails:after {
   content: '|';
@@ -466,9 +463,7 @@
   background: url(/Images/common17-sprite.png?v=4) -241px -56px no-repeat;
   vertical-align: middle;
   float: right;
-  /*rtl*/
-  margin-left: 16px
-  /*rtl*/
+  margin-left: 16px;
 }
 .searchDetail,
 .otherUni {
@@ -478,14 +473,12 @@
   position: absolute;
   top: 3px;
   line-height: 13px;
-  right: 71px
-  /*rtl*/
+  right: 71px;
 }
 /*#endregion */
 /*#region Search page - 's' prefix stands for 'search' */
 .searchPage:after {
   right: 0;
-  /*rtl*/
   min-width: 1024px;
 }
 .searchPage h2 {
@@ -508,15 +501,13 @@
 }
 .searchPage .upArrow:before {
   right: 19px;
-  /*rtl*/
   left: auto;
   width: 12px;
   height: 12px;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
   -o-transition: right 0.5s;
-  transition: right 0.5s
-  /*rtl*/
+  transition: right 0.5s;
 }
 .searchPage .stars,
 .searchPage .views {
@@ -525,7 +516,6 @@
 }
 .searchPage .views {
   margin: -2px 16px 0 0;
-  /*rtl*/
   vertical-align: top;
 }
 .searchPage .userItem {
@@ -562,12 +552,10 @@
   color: #fff;
 }
 .sTabs.sTab2 ~ .upArrow:before {
-  right: 98px
-  /*rtl*/
+  right: 98px;
 }
 .sTabs.sTab3 ~ .upArrow:before {
-  right: 183px
-  /*rtl*/
+  right: 183px;
 }
 .sTab1 ~ .sTabContent .sCourses,
 .sTab2 ~ .sTabContent .sMaterials,
@@ -645,15 +633,13 @@
   line-height: 18px;
 }
 .box.sCourseItem:nth-child(odd) {
-  margin: 0 0 20px 20px
-  /*rtl*/
+  margin: 0 0 20px 20px;
 }
 .box.sCourseItem:hover {
   background: #f9f9f9;
 }
 .box.sCourseItem .boxImg {
   margin-left: 24px;
-  /*rtl*/
   position: static;
 }
 .sTitle {
@@ -669,14 +655,12 @@
 .sOtherUni {
   position: absolute;
   right: 100px;
-  /*rtl*/
   top: 15px;
   font-size: 13px;
   color: #676767;
 }
 .sMemberName {
   margin: 26px 104px 0 0;
-  /*rtl*/
   font-size: 15px;
 }
 .sMaterialsItem {
@@ -699,7 +683,6 @@
 }
 .sMaterialsItem .sOtherUni.dot {
   right: 136px;
-  /*rtl*/
   top: 0;
 }
 .sMaterialsItem .sOtherUni.dot:before {
@@ -716,8 +699,7 @@
   display: block;
 }
 .sMaterialImg {
-  margin-left: 26px
-  /*rtl*/
+  margin-left: 26px;
 }
 .sSnippet {
   margin: 8px 0 15px;

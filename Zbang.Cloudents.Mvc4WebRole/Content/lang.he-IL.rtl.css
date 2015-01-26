@@ -17,8 +17,7 @@
 }
 /*#endregion */
 .register .cbLabel {
-  display: block
-  /*rtl*/
+  display: block;
 }
 .quizAnswersList {
   list-style-type: hebrew;

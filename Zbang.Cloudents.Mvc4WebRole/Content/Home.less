@@ -34,17 +34,17 @@
         z-index: -2;
         //height: 725px;
     }
-    > .btn {
+    /*> .btn {
         color: #fff;
         background: @color;
         border-radius: 5px;
         height: 42px;//
         line-height: 42px;
-        padding: 0 35px 0 20px; /*rtl*/
+        padding: 0 35px 0 20px;
         display: inline-block;
         font-size: 16px;
         position: relative;
-        text-transform: uppercase; /*rtl (remove uppercase)*/
+        text-transform: uppercase;
         min-width: 320px;
         .boxSizing;
         margin-top: 70px;
@@ -52,7 +52,7 @@
             content: '';
             display: inline-block;
             position: absolute;
-            right: 15px; /*rtl*/
+            right: 15px;
             top: 15px;
             background: @homepage-sprite -949px -244px no-repeat;
             width: 11px;
@@ -62,7 +62,7 @@
         &:hover {
             background: @colorHover;
         }
-    }
+    }*/
 }
 
 .headerWpr
@@ -76,7 +76,7 @@
     width: 1024px;
     margin: 0 auto;
     color: #fff;
-    text-align: left; /*rtl*/
+    text-align: left;
     clear: both;
     position: relative;
     top: 65px;
@@ -117,13 +117,13 @@
     color: #676767;
     background: #fff;
     border: 1px solid #fff;
-    padding: 7px 15px 8px 53px; /*rtl*/
+    padding: 7px 15px 8px 53px;
     cursor: pointer;
     //margin: 25px 2px 8px;
     font-size: 15px;
     border-radius: 5px;
     position: relative;
-    text-align: left; /*rtl*/
+    text-align: left;
     display: block; //override
     line-height: 25px;
     &:hover {
@@ -140,15 +140,15 @@
         font-size: 45px;
         line-height: 48px;
         width: 620px;
-        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
-        text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
         font-weight: 600;
         white-space: pre-wrap;
         margin-bottom: 15px;
     }
 
     h3 {
-        font-size: 15px; /*rtl*/
+        font-size: 15px;
         font-weight: normal;
         -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);/*rtl*/
         text-shadow: 2px 2px 2px rgba(0,0,0,.2);/*rtl*/
@@ -165,12 +165,12 @@
         text-transform: uppercase;
         margin: 100px 0 20px;
         display: block;
-        text-align: left; /*rtl*/
+        text-align: left;
     }
 
     .sectionText {
         display: block;
-        text-align: left; /*rtl*/
+        text-align: left;
         white-space: pre-wrap;
     }
 
@@ -184,7 +184,7 @@
             width: 289px;
             height: 240px;
             background: @homepage-sprite -172px -1px no-repeat;
-            float: right; /*rtl*/
+            float: right;
             margin-top: 35px;
         }
     }
@@ -192,9 +192,9 @@
         margin-top: 2px;
         position: absolute;
         top: 20px;
-        right: 0; /*rtl*/ // calc fallback
-        right: ~'-webkit-calc(50% - 512px)'; /*rtl*/
-        right: ~'calc(50% - 512px)'; /*rtl*/
+        right: 0; // calc fallback
+        right: ~'-webkit-calc(50% - 512px)';
+        right: ~'calc(50% - 512px)';
         .transition(all, .5s);
 
         .btn {
@@ -214,37 +214,14 @@
             }
         }
     }
-    /*.modal-body {
-        display: none;
-        &:target {
-            display: block;
-        }
-    }*/
 }
 
 .logo {
     width: 190px;
     height: 52px;
-    background: @homepage-sprite -881px -271px no-repeat; /*rtl*/
+    background: @homepage-sprite -881px -271px no-repeat;
     margin-top: 20px; 
 }
-
-
-
-
-/*.signupText{
-    padding: 166px 0 15px;
-    font-size: 16px;
-}
-
-.signinText
-{
-    color: #676767;
-}*/
-/*.loginLink
-{
-    color: @color;
-}*/
 
 .videoWpr {
     width: 180px;
@@ -252,19 +229,19 @@
     position: relative;
     //top: 474px;
     top: 128px;
-    left: ~'-webkit-calc(50% - 512px)'; /*rtl*/
-    left: ~'calc(50% - 512px)'; /*rtl*/
+    left: ~'-webkit-calc(50% - 512px)';
+    left: ~'calc(50% - 512px)';
     margin: 0;
     color: #fff;
     &:before {
         content: attr(data-playtext);
         display: inline-block;
         position: absolute;
-        left: 78px; /*rtl*/
+        left: 78px;
         top: 22px;
         font-size: 18px;
-        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
-        text-shadow: 2px 2px 2px rgba(0,0,0,.2); /*rtl*/
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
     }
     &:after {
         .pseudo;
@@ -345,7 +322,7 @@
             &:before {
                 .pseudo;
                 position: absolute;
-                left: -7px; /*rtl*/
+                left: -7px;
                 top: 3px;
                 width: 1px;
                 height: 10px;
@@ -370,8 +347,8 @@
         background-position: -463px -1px;
         width: 249px;
         height: 240px;
-        float: left; /*rtl*/
-        margin-right: 150px; /*rtl*/
+        float: left;
+        margin-right: 150px;
     }
 }
 
@@ -379,7 +356,7 @@
     background-position: -718px 0;
     width: 242px;
     height: 240px;
-    margin: 35px 25px 0 0; /*rtl*/
+    margin: 35px 25px 0 0;
 }
 
 .unions {
@@ -456,8 +433,8 @@
      width: 174px;
     height: 166px;
     line-height: 166px;
-    float: left; /*rtl*/
-    border-right: 1px solid #fff; /*rtl*/
+    float: left;
+    border-right: 1px solid #fff;
     color: #fff;
 
     &.row1 {
@@ -465,7 +442,7 @@
     }
 
     &.last {
-        border-right: none; /*rtl*/
+        border-right: none;
     }
     &:before {
         .pseudo;
@@ -540,9 +517,6 @@
     text-transform: uppercase;
     margin: 45px 0 30px;
 }
-
-
-
 .statsWpr {
     height: 75px;
     line-height: 75px;
@@ -561,7 +535,7 @@
 
     > .cell {
         text-align: center;
-        border-right: 1px solid #798085; /*rtl*/
+        border-right: 1px solid #798085;
         display: table-cell;
         .boxSizing;
 
@@ -604,4 +578,12 @@ footer {
     }
 }
 /*#endregion */
+
+[data-culture="he-IL"] {
+    .topImg {
+        &:before {
+            .flipH;
+        }
+    }
+}
 
