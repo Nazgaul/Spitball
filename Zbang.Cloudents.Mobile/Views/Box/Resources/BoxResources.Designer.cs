@@ -136,6 +136,15 @@ namespace Zbang.Cloudents.Mobile.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploading to Cloudents.
+        /// </summary>
+        public static string UploadingTo {
+            get {
+                return ResourceManager.GetString("UploadingTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write a comment.
         /// </summary>
         public static string WriteComment {

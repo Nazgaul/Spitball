@@ -144,6 +144,9 @@ of all knowledge.</value>
   <data name="UploadFiles" xml:space="preserve">
     <value>Upload files</value>
   </data>
+  <data name="UploadingTo" xml:space="preserve">
+    <value>Uploading to Cloudents</value>
+  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>Write a comment</value>
   </data>
