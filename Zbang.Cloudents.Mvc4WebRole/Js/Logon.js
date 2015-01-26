@@ -1,7 +1,7 @@
 ﻿/// <reference path="../Views/Account/Index2.cshtml" />
 (function (document) {
     "use strict";
-
+    window.staticScript = true;
     var eById = document.getElementById.bind(document),
         registerPopup = eById('register'), registerForm = eById('registerForm'),
         //cancelPopup = eById('cancelRegisterPopup'),
