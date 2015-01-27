@@ -560,6 +560,9 @@ footer {
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+[data-culture="he-IL"] .pointsList {
+  direction: rtl;
+}
 [data-culture="he-IL"] .itemReg .modal-header h3 {
   line-height: 40px;
 }
