@@ -10,7 +10,6 @@ config([
    'FacebookProvider',
    function ($httpProvider, $provide, $angularCacheFactoryProvider, FacebookProvider) {
        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
        $angularCacheFactoryProvider.setCacheDefaults({
            maxAge: 1500000, //25 minutes
            deleteOnExpire: 'aggressive',
@@ -123,6 +122,7 @@ run(['$rootScope', '$window', 'sVerChecker', function ($rootScope, $window, sVer
 
 
     sVerChecker.checkVersion();
+    window.version = sVerChecker.currentVersion();
 
     angular.element($window).on('beforeunload', function () {
         $window.scrollTo(0, 0);
