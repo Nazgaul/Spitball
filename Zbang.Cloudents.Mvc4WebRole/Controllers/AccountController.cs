@@ -227,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult LogOff()
         {
             //if (Session != null)
-                //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
+            //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
@@ -504,7 +504,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult ChangeLocale(string language)
         {
             var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(Helpers.UserLanguage.CookieName, language);
+            cookie.InjectCookie(Helpers.UserLanguage.CookieName, language, false);
             return JsonOk();
         }
 
@@ -739,18 +739,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> Details()
         {
             string cookieToken, formToken;
-            AntiForgery.GetTokens(null, out cookieToken, out formToken);
-            var token = formToken;
+            //AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            //var token = formToken;
 
-            var cookieHelper = new CookieHelper(HttpContext);
-            cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
+            //var cookieHelper = new CookieHelper(HttpContext);
+            //cookieHelper.InjectCookie(AntiForgeryConfig.CookieName, cookieToken);
 
             if (!User.Identity.IsAuthenticated)
             {
-                return JsonOk(new { token, Culture = CultureInfo.CurrentCulture.Name });
+                return JsonOk(new { /*token,*/ Culture = CultureInfo.CurrentCulture.Name });
             }
             var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
-            retVal.Token = token;
+            //retVal.Token = token;
             return JsonOk(retVal);
 
         }

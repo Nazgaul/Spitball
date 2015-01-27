@@ -206,7 +206,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public async Task<ActionResult> GetDraft(long quizId)
         {
-            //TODO:add validation -- only draft
             var query = new GetQuizDraftQuery(quizId);
             var values = await ZboxReadService.GetDraftQuiz(query);
             if (values.Publish)

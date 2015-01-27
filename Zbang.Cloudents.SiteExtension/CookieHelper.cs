@@ -21,7 +21,7 @@ namespace Zbang.Cloudents.SiteExtension
             m_HttpContext = httpContext;
         }
 
-        public void InjectCookie<T>(string cookieName, T cookieData) where T : class
+        public void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class
         {
             string value;
             if (typeof(T) == typeof(string))
@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.SiteExtension
             }
             var cookie = new HttpCookie(cookieName)
             {
-                HttpOnly = false,
+                HttpOnly = httpOnly,
                 Value = value
                 //Expires = DateTime.Now.AddDays(1)
             };

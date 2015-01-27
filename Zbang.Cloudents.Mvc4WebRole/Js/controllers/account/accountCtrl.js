@@ -1,10 +1,10 @@
 ﻿mAccount.controller('AccountCtrl',
 ['$scope', '$timeout', 'sAccount',
     //'$angularCacheFactory',
-    '$window', '$analytics', '$location',
+    '$window', '$analytics', '$location','$route',
 function ($scope, $timeout, sAccount,
     //$angularCacheFactory,
-    $window, $analytics, $location) {
+    $window, $analytics, $location,$route) {
     "use strict";
 
     $scope.params = {};
@@ -32,7 +32,7 @@ function ($scope, $timeout, sAccount,
         });
 
         sAccount.changeLocale({ language: lang }).then(function () {
-            $window.location.reload();
+            location.href = '/account/'; // we need to do full refresh for css and js to reload
         });
     };
 

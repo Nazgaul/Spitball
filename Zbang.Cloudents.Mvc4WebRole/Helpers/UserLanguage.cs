@@ -12,20 +12,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public static class UserLanguage
     {
-        public const string CookieName = "l1";
+        public const string CookieName = "l2";
         public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server, RouteData route)
         {
             var cookie = new CookieHelper(context);
             if (route != null && route.Values["lang"] != null)
             {
                 var culture = ChangeThreadLanguage(route.Values["lang"].ToString());
-                cookie.InjectCookie(CookieName, culture);
+                cookie.InjectCookie(CookieName, culture, false);
                 return;
             }
             if (context.Request.QueryString["lang"] != null)
             {
                 var culture = ChangeThreadLanguage(context.Request.QueryString["lang"]);
-                cookie.InjectCookie(CookieName, culture);
+                cookie.InjectCookie(CookieName, culture, false);
                 return;
             }
             var lang = cookie.ReadCookie<string>(CookieName);
@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 {
                     var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
                     var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
-                    cookie.InjectCookie(CookieName, userData.Culture);
+                    cookie.InjectCookie(CookieName, userData.Culture, false);
                     ChangeThreadLanguage(userData.Culture);
                     return;
                 }
@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(CookieName, culture.Name);
+                cookie.InjectCookie(CookieName, culture.Name, false);
                 ChangeThreadCulture(culture);
                 return;
             }
