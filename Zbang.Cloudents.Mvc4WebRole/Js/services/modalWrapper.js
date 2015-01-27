@@ -57,7 +57,7 @@ app.factory('sModal',
                     return buildObj('quitQuiz', { url: 'quizMenuTemplate' }, 'QuizCloseCtrl', 'none', true);
                 },
                 quizChallenge: function (params) {
-                    return buildObj('quizPopup', { url: '/quiz/challengepartial/?quizid=' + params.data.quizId }, 'ChallengeCtrl', 'static', true, params.data);
+                    return buildObj('quizPopup', { url: '/quiz/challengepartial/' }, 'ChallengeCtrl', 'static', true, params.data);
                 },
                 coupon: function (params) {
                     return buildObj('couponPopup', { url: '/store/couponpartial/' }, 'CouponCtrl', 'none', true, params.data);
@@ -140,8 +140,11 @@ app.factory('sModal',
                     params.scope = scope;
                 }
 
-                if (template.url) {
+                if (template.url) {                    
                     params.templateUrl = template.url + '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
+                    if (resolveData.quizId) {
+                        params.templateUrl += '&quizId=' + resolveData.quizId;
+                    }
                 }
 
                 if (template.html) {
