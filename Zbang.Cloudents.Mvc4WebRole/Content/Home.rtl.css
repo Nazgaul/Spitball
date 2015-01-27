@@ -545,10 +545,94 @@ footer {
   text-decoration: underline;
 }
 /*#endregion */
+/*#region RTL inconsistencies (TODO: need to verify each one) */
+[data-culture="he-IL"] {
+  /*.headingTexts {
+        .facebook, .email {
+            width: 242px; // diff rtl (Hebrew css should override this)
+        }
+    }*/
+}
 [data-culture="he-IL"] .topImg:before {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+[data-culture="he-IL"] .itemReg .modal-header h3 {
+  line-height: 40px;
+}
+[data-culture="he-IL"] .deptSettings .alert:before,
+[data-culture="he-IL"] .leavePrompt .alert:before {
+  padding-top: 5px;
+}
+[data-culture="he-IL"] .join.next {
+  right: 165px;
+}
+[data-culture="he-IL"] .ptsAwarded {
+  top: 42px;
+}
+[data-culture="he-IL"] .congratsTxt0 {
+  letter-spacing: 0;
+  top: 0;
+}
+[data-culture="he-IL"] .congratsTxt1 {
+  top: 32px;
+}
+[data-culture="he-IL"] .congratsTxt2 {
+  top: 71px;
+}
+[data-culture="he-IL"] .socialList {
+  width: 635px;
+}
+[data-culture="he-IL"] .socialList li.jsInviteSent button:after {
+  top: 3px;
+}
+[data-culture="he-IL"] .boxMembers .sectionHeader,
+[data-culture="he-IL"] .boxFolders .sectionHeader {
+  font-size: 17px;
+}
+[data-culture="he-IL"] .tag:before {
+  width: 33px;
+}
+[data-culture="he-IL"] .tag:after {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+[data-culture="he-IL"] .listItem .itemContent {
+  max-height: 46px;
+}
+[data-culture="he-IL"] .boxItemTt .ttDetail {
+  width: 40px;
+}
+[data-culture="he-IL"] .boxItemTt .ttPreview {
+  max-height: 51px;
+}
+[data-culture="he-IL"] .inviteSources {
+  margin: 3px 30px 0 0;
+}
+[data-culture="he-IL"] .invTab {
+  height: 50px;
+}
+[data-culture="he-IL"] .upInviteItem .semiFont {
+  margin: 0 0 4px;
+}
+[data-culture="he-IL"] .searchPage .upArrow {
+  top: -14px;
+}
+[data-culture="he-IL"] .searchPage .upArrow:before {
+  left: 10px;
+}
+[data-culture="he-IL"] .sTabs.sTab2 ~ .upArrow:before {
+  left: 75px;
+}
+[data-culture="he-IL"] .sTabs.sTab3 ~ .upArrow:before {
+  left: 142px;
+}
+[data-culture="he-IL"] .quizPage .quizViews {
+  margin: 10px -5px 0 5px;
 }

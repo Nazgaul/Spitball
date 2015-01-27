@@ -579,11 +579,127 @@ footer {
 }
 /*#endregion */
 
+
+/*#region RTL inconsistencies (TODO: need to verify each one) */
 [data-culture="he-IL"] {
     .topImg {
         &:before {
             .flipH;
         }
     }
+    /*.headingTexts {
+        .facebook, .email {
+            width: 242px; // diff rtl (Hebrew css should override this)
+        }
+    }*/
+    .itemReg {
+        .modal-header {
+            h3 {
+                line-height: 40px; // diff rtl
+            }
+        }
+    }
+    .deptSettings, .leavePrompt {
+        .alert {
+            &:before {
+                padding-top: 5px; //diff rtl
+            }
+        }
+    }
+    .join.next {
+        left: 165px; //diff rtl
+    }
+    .ptsAwarded {   
+        top: 42px; //diff rtl
+    }
+    .congratsTxt0 {
+        letter-spacing: 0; //diff rtl
+        top: 0; //diff rtl
+    }
+    .congratsTxt1 {
+        top: 32px; //diff rtl
+    }
+    .congratsTxt2 {
+        top: 71px; //diff rtl
+    }
+    .socialList {
+        width: 635px; //diff rtl
+        li {
+            &.jsInviteSent {
+                button {
+                    &:after {
+                        top:3px; //diff rtl
+                    }
+                }
+            }
+        }
+    }
+    .boxMembers, .boxFolders {
+        .sectionHeader {
+            font-size: 17px; //diff rtl
+        }
+    }
+    .tag {
+        &:before {
+            width: 33px; //diff rtl
+        }
+
+        &:after {
+            .flipH;
+        }
+    }
+    .listItem {
+        .itemContent {
+            max-height: 46px; // diff rtl - 3 lines
+        }
+    }
+    .boxItemTt {
+        .ttDetail {
+            width: 40px; //diff rtl
+        }
+        .ttPreview {
+            max-height: 51px; // diff rtl - heb has 4 lines
+        }
+    }
+    .inviteSources {
+        margin: 3px 0 0 30px; //diff rtl
+    }
+
+    .invTab {
+        height: 50px; //diff rtl
+    }
+    .upInviteItem {
+        .semiFont {
+            margin: 0 0 4px; //diff rtl
+        }
+    }
+    .searchPage {
+        .upArrow {
+            top: -14px; //rtl (font issue)
+            &:before {
+                right: 10px; // diff rtl
+            }
+        }
+    }
+    .sTabs {
+        &.sTab2 {
+            ~ .upArrow:before {
+                right: 75px; // diff rtl
+            }
+        }
+
+        &.sTab3 {
+            ~ .upArrow:before {
+                right: 142px; // diff rtl
+            }
+        }
+    }
+    .quizPage {
+        .quizViews {
+            margin: 10px 5px 0 -5px; // diff rtl
+        }
+    }
 }
+/*#endregion */
+
 
