@@ -105,8 +105,6 @@
         background: #282828;
         color: #fff;
         margin-top: 9px;
-        //position: relative;
-        //top: 6px;
     }
 
     img {
@@ -133,10 +131,6 @@
     }
     .vCentered {
         max-width: 200px;
-    }
-    .courseId {
-        //width: 200px;
-        //display: inline-block;
     }
 
     .friends, .files {
@@ -233,22 +227,18 @@
         &:first-child {
             width: 80px; //if text is small make sure img is still left aligned
         }
+        &:last-child {
+            line-height: 19px;
+        }
     } 
 }
-/*.logoWpr {
-    width: 80px;
-    height: 80px;
-    background: #fff;
-    border: 1px solid @borderColor;
-    .boxSizing;
-    display: inline-block;
-    border-radius: 100%;
-    margin-top: 15px;
-}*/
+
 .uniLogo {
     border-radius: 50%;
     .boxSizing;
     padding: 5px;
+    border: 1px solid @borderColor;
+    background: #fff;
 }
 /*#region Lib Aside */
 
