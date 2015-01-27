@@ -654,7 +654,9 @@ footer {
         display: block;
     }
     .firstName+.field-validation-error {
-        margin: 13px 0 0 4%; //rtl
+        margin: 14px 0 0 4%; //rtl
+        width: 48%;
+        line-height: 13px;
     }
 }
 
@@ -664,32 +666,8 @@ footer {
         margin-top: -17px;
         &.firstError {
             margin-top: -3px;
-        }
-    }
-    .validation-summary-errors {
-        position: absolute;
-        margin-top: 5px;
-    }
-}
-/*#endregion */
-/*#region  static popup */
-
-.desktop {
-    .lastName+.field-validation-error {
-        margin-top: 72px;
-        display: block;
-    }
-    .firstName+.field-validation-error {
-        margin: 13px 0 0 4%; //rtl
-    }
-}
-
-.register {
-    .field-validation-error {
-        position: absolute;
-        margin-top: -17px;
-        &.firstError {
-            margin-top: -3px;
+            width: 48%;
+            line-height: 13px;
         }
     }
     .validation-summary-errors {

@@ -2171,6 +2171,9 @@ select.inputText {
             margin-top: -124px;
         }
     } 
+    [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after {
+        top: 4px; //diff rtl
+    }
 }
 /*#endregion */
 
@@ -2398,3 +2401,48 @@ select.inputText {
 //@media only screen and (max-device-width : 1023px) {
     
 //}
+
+/*#region RTL inconsistencies (TODO: need to verify each one) */
+[data-culture="he-IL"] {
+    input[type="radio"] {
+        &.radio { 
+            &:checked {
+                + label {
+                    &:after {
+                        top: 3px; //diff rtl
+                    }
+                }
+            }
+        }
+    }
+    .checkbox {
+        ~ .cbLabel2 {
+            svg {
+                top:0; //diff rtl
+            }
+        }
+    }
+    .popover {
+        &.left {
+            margin: 0 0 0 10px;  //diff rtl
+        }
+        &.right {
+            margin: 0 0 0 -10px; // diff rtl
+        }
+    }
+    .sectionHeader {
+        //font-weight: normal; //diff rtl - check font weight 600
+    }
+    .ptsPopup {
+        &:before {
+            margin: 0 0 0 4px; // diff rtl
+        }
+        &:after {
+            margin: 0; //diff rtl
+        }
+    }
+}
+/*#endregion */
+
+
+

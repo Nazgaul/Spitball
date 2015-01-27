@@ -40,13 +40,17 @@
 .uniWpr {
   position: relative;
   margin: 32px 0 8px;
+  /*&:after {
+        .pseudo();
+        width: 18px;
+        height: 20px;
+        background: @dashboard-sprite -214px -2px no-repeat;
+        position: absolute;
+        right: 9px;
+        top: 8px;
+    }*/
 }
-.uniWpr:after {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 20px;
-  background: url(/Images/dash13-sprite.png?v=1) -214px -2px no-repeat;
+.uniWpr .svg-search {
   position: absolute;
   right: 9px;
   top: 8px;

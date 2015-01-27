@@ -2,7 +2,7 @@
 <div class="barActions rFloat">
     <div dropdown ng-controller="NotificationsCtrl" on-toggle="updateState(open)">
         <button type="button" class="rFloat notificationBtn" title="@SharedResources.Notifications" dropdown-toggle ng-click="openNotifications()">
-            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+            @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification ltr" })
             <span class="invitesCounter" ng-class="{invitesCounterShow : params.newNotifications}">{{params.newNotifications}}</span>
         </button>
         <div class="notifyWpr dropdown-menu" role="menu">

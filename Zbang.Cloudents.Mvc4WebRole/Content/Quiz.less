@@ -331,13 +331,13 @@ body {
     input[type="radio"]:checked + label:before{
         opacity:1;
     }
-    label{
+    /*label{
         position: absolute;
         right: 19px;
         &:before {
             opacity: .5;
         }
-    }
+    }*/
 }
 
 .answerWpr {
@@ -562,8 +562,6 @@ body {
     padding: 18px 20px;
 
     li {
-        //margin: 0 0 -27px 13px; // compensate for list-style-position: inside + text-indent
-        //margin: 0 13px -26px 0; /*diff rtl for bottom*/
         margin: 0 0 -26px 13px; // compensate for list-style-position: inside + text-indent
         list-style-position: inside; //force left-align on the list style type
         position: relative; //TODO:not sure if this is necessary anymore
@@ -630,21 +628,6 @@ body {
         z-index: 1;
         padding-left: @leftSideBarWidth; //rtl
         .boxSizing;
-    }
-    .backWpr {
-        &:before {
-            //background: @site-sprite 0 0 no-repeat;
-            width: 43px;
-	        height: 42px;
-	        background: @site-sprite 0 -1602px no-repeat;
-            .flipH; //rtl
-        }
-        &:hover:before {
-            background-position: 0 -1602px;
-        }
-        h2 {
-            max-width: 120px; 
-        }
     }
     .shareBtnTxt {
         color: #fff;

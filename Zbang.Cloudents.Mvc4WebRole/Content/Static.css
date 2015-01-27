@@ -610,7 +610,9 @@ footer {
   display: block;
 }
 .desktop .firstName + .field-validation-error {
-  margin: 13px 0 0 4%;
+  margin: 14px 0 0 4%;
+  width: 48%;
+  line-height: 13px;
 }
 .register .field-validation-error {
   position: absolute;
@@ -618,26 +620,8 @@ footer {
 }
 .register .field-validation-error.firstError {
   margin-top: -3px;
-}
-.register .validation-summary-errors {
-  position: absolute;
-  margin-top: 5px;
-}
-/*#endregion */
-/*#region  static popup */
-.desktop .lastName + .field-validation-error {
-  margin-top: 72px;
-  display: block;
-}
-.desktop .firstName + .field-validation-error {
-  margin: 13px 0 0 4%;
-}
-.register .field-validation-error {
-  position: absolute;
-  margin-top: -17px;
-}
-.register .field-validation-error.firstError {
-  margin-top: -3px;
+  width: 48%;
+  line-height: 13px;
 }
 .register .validation-summary-errors {
   position: absolute;

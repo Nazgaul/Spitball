@@ -20,7 +20,7 @@
         $scope.params = {
             loadCreateQuiz: false,
             showCreateQuiz: false,
-            minQuestions: 1,
+            minQuestions: 2,
             minAnswers: 2,
             isDraft: false,
             focus: true
