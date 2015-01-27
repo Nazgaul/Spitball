@@ -79,6 +79,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                             TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
                         }
                     }
+                    TraceLog.WriteInfo("collecting gc");
+                    GC.Collect();
+                    TraceLog.WriteInfo("end collecting gc");
+
                 }
             }
             catch (Exception ex)
@@ -132,15 +136,9 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             if (!signal)
             {
                 work.Abort();
-                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect();
                 TraceLog.WriteError("blob url aborting process");
-
-
             }
-
-
-
         }
 
         //private void UpdateFile(Uri blobUri)
