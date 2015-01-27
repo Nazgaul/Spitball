@@ -578,22 +578,6 @@ body.quiz .modal-backdrop.in {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.quizPage .backWpr:before {
-  width: 43px;
-  height: 42px;
-  background: url(/Images/site.png?v=3) 100% -1602px no-repeat;
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-.quizPage .backWpr:hover:before {
-  background-position: 100% -1602px;
-}
-.quizPage .backWpr h2 {
-  max-width: 120px;
-}
 .quizPage .shareBtnTxt {
   color: #fff;
   padding: 22px 0 0 0;
