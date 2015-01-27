@@ -144,13 +144,17 @@
                 },
                 {
                     paths: [
+                        { url: '/account/settings' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('accountSettings', '/account/settingpartial/', 'AccountSettingsCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
                         { url: '/account/' },
-                        { url: '/account/en-us/' },
-                        { url: '/account/en-gb/' },
-                        { url: '/account/he-il/' },
-                        { url: '/account/ru-ru/' },
-                        { url: '/account/ar-ae/' },
-                        { url: '/account/zh-cn/' }
+                        { url: '/account/:lang/' }
                     ],
                     iterator: function (route) {
                         var obj = createRoute('account', '/account/indexpartial/', 'AccountCtrl');
@@ -229,15 +233,6 @@
                     ],
                     iterator: function (route) {
                         var obj = createRoute('quizCreate', '/quiz/createpartial/', 'QuizCreateCtrl');
-                        $routeProvider.when(route.url, obj);
-                    }
-                },
-                {
-                    paths: [
-                        { url: '/account/settings' }
-                    ],
-                    iterator: function (route) {
-                        var obj = createRoute('accountSettings', '/account/settingpartial/', 'AccountSettingsCtrl');
                         $routeProvider.when(route.url, obj);
                     }
                 }
