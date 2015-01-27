@@ -627,3 +627,14 @@ footer {
   position: absolute;
   margin-top: 5px;
 }
+/*#endregion */
+/*#region RTL inconsistencies */
+[data-culture="he-IL"] .policy,
+[data-culture="he-IL"] .terms,
+[data-culture="he-IL"] .aboutUs,
+[data-culture="he-IL"] .contactUs {
+  direction: ltr;
+  /*no rtl*/
+  text-align: left
+  /*no rtl*/
+}
