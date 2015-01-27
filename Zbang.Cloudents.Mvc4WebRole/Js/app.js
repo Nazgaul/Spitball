@@ -253,7 +253,7 @@
                        type: type
                    },
                    templateUrl: function () {
-                       return templateUrl + '?lang=' + getCookie('l1') + '&version=' + version;
+                       return templateUrl + '?lang=' + getCookie('l2') + '&version=' + version;
 
                        function getCookie(cname) {
                            var name = cname + "=";
