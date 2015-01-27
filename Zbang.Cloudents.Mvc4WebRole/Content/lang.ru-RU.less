@@ -157,9 +157,6 @@ q {
         button {
             font-size: 12px;
         }
-        /*.iconTxt {
-            margin-right: 3px;
-        }*/
     }
 }
 
@@ -231,11 +228,26 @@ q {
 /*#endregion */
 
 //Email Autocomplete
-.emailUser .inputLabel
-{
+.emailUser .inputLabel {
     width: 41px; //instead of 28px
 } 
-.gConnect
-{
+.gConnect {
     width: 118px; //instead of 80px
 }
+
+/*#region  static popup */
+
+.desktop {
+    .firstName+.field-validation-error {
+        top: -11px;
+    }
+}
+
+.register {
+    .field-validation-error {
+        &.firstError {
+            top: 5px;
+        }
+    }
+}
+/*#endregion */
