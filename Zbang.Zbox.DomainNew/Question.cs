@@ -5,7 +5,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Question
     {
-        public static readonly string[] AllowedHtmlTag = {"ul", "ol", "li", "font", "img", "p", "b", "u", "i"};
+        public static readonly string[] AllowedHtmlTag = { "ul", "ol", "li", "font", "img", "p", "b", "u", "i", "span" };
         protected Question()
         {
 
@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
             if (text != null)
             {
                 text = text.Trim();
-                
+
             }
 
             Text = text;
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Text { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual Answer RightAnswer { get; private set; }
-// ReSharper disable once UnusedAutoPropertyAccessor.Local
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         public virtual ICollection<Answer> Answers { get; protected set; }
 
         public virtual void UpdateCorrectAnswer(Answer answer)

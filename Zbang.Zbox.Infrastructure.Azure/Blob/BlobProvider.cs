@@ -210,69 +210,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-        public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
+        public async Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
         {
             if (metaData == null) throw new ArgumentNullException("metaData");
             var blob = GetFile(blobName);
+            await blob.FetchAttributesAsync();
             foreach (var item in metaData)
             {
-                blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000));
+                blob.Metadata[item.Key] = System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000);
+                //blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000));
                 //blob.Metadata.Add(item.Key, StripElementForMetaData(item.Value.ToLower().RemoveEndOfString(5000)));
             }
-            return blob.SetMetadataAsync();
+            await blob.SetMetadataAsync();
         }
-
-        //private string StripElementForMetaData(string value)
-        //{
-        //    var sb = new StringBuilder();
-        //    int crlf = 0;
-        //    for (int i = 0; i < value.Length; ++i)
-        //    {
-        //        char c = (char)(0x000000ff & (uint)value[i]);
-        //        sb.Append(value[i]);
-        //        switch (crlf)
-        //        {
-        //            case 0:
-        //                if (c == '\r')
-        //                {
-        //                    crlf = 1;
-        //                }
-        //                else if (c == '\n')
-        //                {
-        //                    // Technically this is bad HTTP.  But it would be a breaking change to throw here.
-        //                    // Is there an exploit?
-        //                    crlf = 2;
-        //                }
-        //                else if (c == 127 || (c < ' ' && c != '\t'))
-        //                {
-        //                    sb.Remove(sb.Length - 1, 1);
-
-        //                }
-        //                break;
-
-        //            case 1:
-        //                if (c == '\n')
-        //                {
-        //                    crlf = 2;
-        //                    break;
-        //                }
-        //                throw new ArgumentException();
-
-        //            case 2:
-        //                if (c == ' ' || c == '\t')
-        //                {
-        //                    crlf = 0;
-        //                    break;
-        //                }
-        //                throw new ArgumentException();
-        //        }
-        //    }
-        //    if (crlf != 0)
-        //    {
-        //        throw new ArgumentException();
-        //    }
-        //    return sb.ToString();
-        //}
+       
 
 
         public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)

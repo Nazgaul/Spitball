@@ -581,7 +581,7 @@ footer {
 
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-[data-culture="he-IL"] {
+[data-culture="he-IL"], [data-culture="ar-AE"] {
     .topImg {
         &:before {
             .flipH;
@@ -592,6 +592,15 @@ footer {
             width: 242px; // diff rtl (Hebrew css should override this)
         }
     }*/
+    .pointsList {
+        direction: rtl;
+    }
+    .thumbItem.quizItem  {
+        .actionBtns {
+            left: 8px; //no rtl
+            right: auto; //no rtl
+        }
+    }
     .itemReg {
         .modal-header {
             h3 {
@@ -607,7 +616,7 @@ footer {
         }
     }
     .join.next {
-        left: 165px; //diff rtl
+        right: 165px; //diff rtl
     }
     .ptsAwarded {   
         top: 42px; //diff rtl
@@ -662,7 +671,7 @@ footer {
         }
     }
     .inviteSources {
-        margin: 3px 0 0 30px; //diff rtl
+        margin: 3px 30px 0 0; //diff rtl
     }
 
     .invTab {
@@ -677,26 +686,26 @@ footer {
         .upArrow {
             top: -14px; //rtl (font issue)
             &:before {
-                right: 10px; // diff rtl
+                left: 10px; // diff rtl
             }
         }
     }
     .sTabs {
         &.sTab2 {
             ~ .upArrow:before {
-                right: 75px; // diff rtl
+                left: 75px; // diff rtl
             }
         }
 
         &.sTab3 {
             ~ .upArrow:before {
-                right: 142px; // diff rtl
+                left: 142px; // diff rtl
             }
         }
     }
     .quizPage {
         .quizViews {
-            margin: 10px 5px 0 -5px; // diff rtl
+            margin: 10px -5px 0 5px; // diff rtl
         }
     }
 }

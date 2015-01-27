@@ -242,7 +242,7 @@ body {
 /*#region forgot password; email sent; verify password */
 .inputText {
     background-color: #fff;
-    padding: 0 4px 0 8px; /* rtl */
+    padding: 0 4px 0 8px; 
     height: 28px;
     color: #464646;
     border: 1px solid @borderColor;
@@ -673,6 +673,15 @@ footer {
     .validation-summary-errors {
         position: absolute;
         margin-top: 5px;
+    }
+}
+/*#endregion */
+
+/*#region RTL inconsistencies */
+[data-culture="he-IL"], [data-culture="ar-AE"] {
+    .policy, .terms, .aboutUs, .contactUs {
+        direction: rtl; //no rtl
+        text-align: right; //no rtl
     }
 }
 /*#endregion */

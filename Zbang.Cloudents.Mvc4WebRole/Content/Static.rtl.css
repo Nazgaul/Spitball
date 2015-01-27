@@ -225,7 +225,6 @@ body {
 .inputText {
   background-color: #fff;
   padding: 0 8px 0 4px;
-  /* rtl */
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -626,4 +625,17 @@ footer {
 .register .validation-summary-errors {
   position: absolute;
   margin-top: 5px;
+}
+/*#endregion */
+/*#region RTL inconsistencies */
+[data-culture="he-IL"] .policy,
+[data-culture="ar-AE"] .policy,
+[data-culture="he-IL"] .terms,
+[data-culture="ar-AE"] .terms,
+[data-culture="he-IL"] .aboutUs,
+[data-culture="ar-AE"] .aboutUs,
+[data-culture="he-IL"] .contactUs,
+[data-culture="ar-AE"] .contactUs {
+  direction: ltr;
+  text-align: left;
 }

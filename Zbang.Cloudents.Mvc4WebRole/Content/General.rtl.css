@@ -1956,7 +1956,8 @@ select.inputText {
   .boxSideBar .thirdUser {
     margin-top: -124px;
   }
-  [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after {
+  [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after,
+  [data-culture="ar-AE"] input.radio[type="radio"]:checked + label:after {
     top: 4px;
   }
 }
@@ -2168,13 +2169,13 @@ select.inputText {
   top: 0;
 }
 [data-culture="he-IL"] .popover.left {
-  margin: 0 10px 0 0;
+  margin: 0 0 0 10px;
 }
 [data-culture="he-IL"] .popover.right {
-  margin: 0 -10px 0 0;
+  margin: 0 0 0 -10px;
 }
 [data-culture="he-IL"] .ptsPopup:before {
-  margin: 0 4px 0 0;
+  margin: 0 0 0 4px;
 }
 [data-culture="he-IL"] .ptsPopup:after {
   margin: 0;

@@ -2171,8 +2171,10 @@ select.inputText {
             margin-top: -124px;
         }
     } 
-    [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after {
-        top: 4px; //diff rtl
+    [data-culture="he-IL"], [data-culture="ar-AE"] {
+        input.radio[type="radio"]:checked + label:after {
+            top: 4px; //diff rtl
+        }
     }
 }
 /*#endregion */
@@ -2424,10 +2426,10 @@ select.inputText {
     }
     .popover {
         &.left {
-            margin: 0 0 0 10px;  //diff rtl
+            margin: 0 10px 0 0;  //diff rtl
         }
         &.right {
-            margin: 0 0 0 -10px; // diff rtl
+            margin: 0 -10px 0 0; // diff rtl
         }
     }
     .sectionHeader {
@@ -2435,7 +2437,7 @@ select.inputText {
     }
     .ptsPopup {
         &:before {
-            margin: 0 0 0 4px; // diff rtl
+            margin: 0 4px 0 0; // diff rtl
         }
         &:after {
             margin: 0; //diff rtl
