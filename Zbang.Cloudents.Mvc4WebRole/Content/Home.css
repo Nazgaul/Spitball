@@ -583,7 +583,7 @@ footer {
 }
 [data-culture="he-IL"] .join.next,
 [data-culture="ar-AE"] .join.next {
-  left: 165px;
+  right: 165px;
 }
 [data-culture="he-IL"] .ptsAwarded,
 [data-culture="ar-AE"] .ptsAwarded {
@@ -642,7 +642,7 @@ footer {
 }
 [data-culture="he-IL"] .inviteSources,
 [data-culture="ar-AE"] .inviteSources {
-  margin: 3px 0 0 30px;
+  margin: 3px 30px 0 0;
 }
 [data-culture="he-IL"] .invTab,
 [data-culture="ar-AE"] .invTab {
@@ -670,5 +670,5 @@ footer {
 }
 [data-culture="he-IL"] .quizPage .quizViews,
 [data-culture="ar-AE"] .quizPage .quizViews {
-  margin: 10px 5px 0 -5px;
+  margin: 10px -5px 0 5px;
 }
