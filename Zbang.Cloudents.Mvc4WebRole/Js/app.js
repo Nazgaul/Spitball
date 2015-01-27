@@ -1,5 +1,6 @@
 ﻿var app;
 (function (angular) {
+    var lang, version;
     "use strict";
     app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar',
         'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
@@ -116,10 +117,14 @@
 
            var originalWhen = $routeProvider.when;
 
+
            $routeProvider.when = function (path, route) {
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
-                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates);
+                       return sUserDetails.initDetails().then(sNewUpdates.loadUpdates).finally(function () {
+                           lang = sUserDetails.getDetails().culture;
+                           console.log(sUserDetails.getDetails().culture);
+                       });
                    }]
                };
 
@@ -181,9 +186,9 @@
                     }
                 },
                 {
-                paths: [
-                        { url: '/library/', type: 'library' },
-                        { url: '/library/:libraryId/:libraryName/', type: 'department' }
+                    paths: [
+                            { url: '/library/', type: 'library' },
+                            { url: '/library/:libraryId/:libraryName/', type: 'department' }
                     ],
                     iterator: function (route) {
                         var obj = createRoute(route.type, '/library/indexpartial/', 'LibraryCtrl');
@@ -236,7 +241,7 @@
                         $routeProvider.when(route.url, obj);
                     }
                 }
-            ];
+           ];
 
            angular.forEach(routes, function (route) {
                angular.forEach(route.paths, route.iterator)
@@ -247,7 +252,20 @@
                    params: {
                        type: type
                    },
-                   templateUrl: templateUrl,
+                   templateUrl: function () {
+                       return templateUrl + '?lang=' + getCookie('l1') + '&version=' + version;
+
+                       function getCookie(cname) {
+                           var name = cname + "=";
+                           var ca = document.cookie.split(';');
+                           for (var i = 0; i < ca.length; i++) {
+                               var c = ca[i];
+                               while (c.charAt(0) == ' ') c = c.substring(1);
+                               if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                           }
+                           return "";
+                       }
+                   },
                    controller: controller
                };
 
@@ -256,7 +274,7 @@
                }
 
                return obj;
-           }           
+           }
            //#endregion
            $routeProvider.
 
@@ -418,6 +436,8 @@
 
 
             sVerChecker.checkVersion();
+            version = sVerChecker.currentVersion();
+
             $rootScope.$on('$routeChangeStart', function () {
                 $window.scrollTo(0, 0);
             });
