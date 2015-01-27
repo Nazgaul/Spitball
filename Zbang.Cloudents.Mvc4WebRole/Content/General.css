@@ -1956,6 +1956,9 @@ select.inputText {
   .boxSideBar .thirdUser {
     margin-top: -124px;
   }
+  [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after {
+    top: 4px;
+  }
 }
 /*#endregion */
 /*#region IE only CSS */
@@ -2155,4 +2158,24 @@ select.inputText {
 #cssCheck {
   position: absolute;
   top: -2000px;
+}
+/*#endregion*/
+/*#region RTL inconsistencies (TODO: need to verify each one) */
+[data-culture="he-IL"] input[type="radio"].radio:checked + label:after {
+  top: 3px;
+}
+[data-culture="he-IL"] .checkbox ~ .cbLabel2 svg {
+  top: 0;
+}
+[data-culture="he-IL"] .popover.left {
+  margin: 0 0 0 10px;
+}
+[data-culture="he-IL"] .popover.right {
+  margin: 0 0 0 -10px;
+}
+[data-culture="he-IL"] .ptsPopup:before {
+  margin: 0 0 0 4px;
+}
+[data-culture="he-IL"] .ptsPopup:after {
+  margin: 0;
 }
