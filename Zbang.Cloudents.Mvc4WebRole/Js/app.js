@@ -126,156 +126,140 @@
                return originalWhen.call($routeProvider, path, route);
            };
            //#region routes
-           var boxRoutes = [
-               '/box/:uniName/:boxId/:boxName/',
-               '/box/:uniName/:boxId/:boxName/#:tab?',
-               '/course/:uniName/:boxId/:boxName/#:tab?',
-               '/course/:uniName/:boxId/:boxName/'
 
-           ]
-           $routeProvider.
            //#region cloudents
-            when('/account/', {
-                params: {
-                    type: 'account'
+           var routes = [
+                {
+                    paths: [
+                        { url: '/box/:uniName/:boxId/:boxName/', isPrivate: true },
+                        { url: '/box/:uniName/:boxId/:boxName/#:tab?', isPrivate: true },
+                        { url: '/course/:uniName/:boxId/:boxName/#:tab?', isPrivate: false },
+                        { url: '/course/:uniName/:boxId/:boxName/', isPrivate: false }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('box', '/box/indexpartial/', 'BoxCtrl', false);
+                        obj.params.isPrivate = route.isPrivate;
+                        $routeProvider.when(route.url, obj);
+                    }
                 },
-                templateUrl: '/account/indexpartial/',
-                controller: 'AccountCtrl'
-            }).
-            when('/account/:lang', {
-                params: {
-                    type: 'account'
+                {
+                    paths: [
+                        { url: '/account/settings' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('accountSettings', '/account/settingpartial/', 'AccountSettingsCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
                 },
-                templateUrl: '/account/indexpartial/',
-                controller: 'AccountCtrl'
-            }).
-            when('/account/settings', {
-                params: {
-                    type: 'accountSettings'
+                {
+                    paths: [
+                        { url: '/account/' },
+                        { url: '/account/:lang/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('account', '/account/indexpartial/', 'AccountCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
                 },
-                templateUrl: '/account/SettingPartial',
-                controller: 'AccountSettingsCtrl'
-            }).
-           when('/dashboard/', {
-               params: {
-                   type: 'dashboard'
-               },
-               templateUrl: '/dashboard/indexpartial/',
-               controller: 'DashboardCtrl'
+                {
+                    paths: [
+                        { url: '/dashboard/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('dashboard', '/dashboard/indexpartial/', 'DashboardCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                        { url: '/item/:uniName/:boxId/:boxName/:itemId/:itemName/' },
+                        { url: '/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('item', '/item/indexpartial/', 'ItemCtrl', false);
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                paths: [
+                        { url: '/library/', type: 'library' },
+                        { url: '/library/:libraryId/:libraryName/', type: 'department' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute(route.type, '/library/indexpartial/', 'LibraryCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                        { url: '/user/:userId/:userName/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('user', '/user/indexpartial/', 'UserCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                        { url: '/search/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('search', '/search/indexpartial/', 'SearchCtrl', false);
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                    { url: '/library/choose/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('libraryChoose', '/library/choosepartial/', 'LibChooseCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                        { url: '/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('quiz', '/quiz/indexpartial/', 'QuizCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                },
+                {
+                    paths: [
+                        { url: '/box/:uniName/:boxId/:boxName/quizcreate/' },
+                        { url: '/course/:uniName/:boxId/:boxName/quizcreate/' }
+                    ],
+                    iterator: function (route) {
+                        var obj = createRoute('quizCreate', '/quiz/createpartial/', 'QuizCreateCtrl');
+                        $routeProvider.when(route.url, obj);
+                    }
+                }
+            ];
 
-           }).
-           when('/box/:uniName/:boxId/:boxName/', {
-               params: {
-                   type: 'box',
-                   isPrivate: true
-               },
-               templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'BoxCtrl'
-           }).
-           when('/box/:uniName/:boxId/:boxName/#:tab?', {
-               params: {
-                   type: 'box',
-                   isPrivate: true
-               },
-               templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'BoxCtrl'
-           }).
-           when('/course/:uniName/:boxId/:boxName/#:tab?', {
-               params: {
-                   type: 'box',
-                   isPrivate: false
-               },
-               templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'BoxCtrl'
-           }).
-           when('/course/:uniName/:boxId/:boxName/', {
-               params: {
-                   type: 'box',
-                   isPrivate: false
-               },
-               templateUrl: '/box/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'BoxCtrl'
-           }).
-           when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/', {
-               params: {
-                   type: 'item'
-               },
-               templateUrl: '/item/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'ItemCtrl'
+           angular.forEach(routes, function (route) {
+               angular.forEach(route.paths, route.iterator)
+           });
 
-           }).
-           when('/item/:uniName/:boxId/:boxName/:itemId/:itemName/#fullscreen', {
-               params: {
-                   type: 'item'
-               },
-               templateUrl: '/item/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'ItemCtrl'
-           }).
-           when('/box/:uniName/:boxId/:boxName/quizcreate/', {
-               params: {
-                   type: 'quiz'
-               },
-               templateUrl: '/quiz/createpartial/',
-               controller: 'QuizCreateCtrl'
-           }).
-            when('/course/:uniName/:boxId/:boxName/quizcreate/', {
-                params: {
-                    type: 'quiz'
-                },
-                templateUrl: '/quiz/createpartial/',
-                controller: 'QuizCreateCtrl'
-            }).
-           when('/quiz/:uniName/:boxId/:boxName/:quizId/:quizName/', {
-               params: {
-                   type: 'quiz'
-               },
-               templateUrl: '/quiz/indexpartial/',
-               controller: 'QuizCtrl'
-           }).
-           when('/library/:libraryId/:libraryName/', {
-               params: {
-                   type: 'department'
-               },
-               templateUrl: '/library/indexpartial/',
-               controller: 'LibraryCtrl'
-           }).
-           when('/library/choose/', {
-               params: {
-                   type: 'libraryChoose'
-               },
-               templateUrl: '/library/choosepartial/',
-               controller: 'LibChooseCtrl'
-           }).
-           when('/library/', {
-               params: {
-                   type: 'library'
-               },
-               templateUrl: '/library/indexpartial/',
-               controller: 'LibraryCtrl'
-           }).
-           when('/search/', {
-               params: {
-                   type: 'search'
-               },
-               templateUrl: '/search/indexpartial/',
-               reloadOnSearch: false,
-               controller: 'SearchCtrl'
-           }).
-           when('/user/:userId/:userName/', {
-               params: {
-                   type: 'user'
-               },
-               templateUrl: '/user/indexpartial',
-               controller: 'UserCtrl'
-           }).
+           function createRoute(type, templateUrl, controller, reloadOnSearch) {
+               var obj = {
+                   params: {
+                       type: type
+                   },
+                   templateUrl: templateUrl,
+                   controller: controller
+               };
 
+               if (angular.isDefined(reloadOnSearch)) {
+                   obj.reloadOnSearch = reloadOnSearch;
+               }
+
+               return obj;
+           }           
            //#endregion
+           $routeProvider.
+
            //#region store
                 when('/store/', {
                     templateUrl: function (params) {
