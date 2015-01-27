@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.SiteExtension
             }
             var cookie = new HttpCookie(cookieName)
             {
-                HttpOnly = true,
+                HttpOnly = false,
                 Value = value
                 //Expires = DateTime.Now.AddDays(1)
             };
