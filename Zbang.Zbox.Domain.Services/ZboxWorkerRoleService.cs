@@ -37,10 +37,37 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
+            int i = 0;
+            IList<long> users;
+
+
             using (UnitOfWork.Start())
             {
-                UpdateAllUrlsInSystem(); // this can work
+                users = UnitOfWork.CurrentSession.QueryOver<User>()
+                    .Where(w => w.IsRegisterUser)
+                    .OrderBy(o => o.Id).Asc
+                    .Select(s => s.Id)
+                    .Skip(i * 100).Take(100)
+                    .List<long>();
             }
+            do
+            {
+                TraceLog.WriteInfo("index: " + i);
+                var command = new UpdateReputationCommand(users);
+                UpdateReputation(command);
+                i++;
+
+                using (UnitOfWork.Start())
+                {
+                    users = UnitOfWork.CurrentSession.QueryOver<User>()
+                        .Where(w => w.IsRegisterUser)
+                        .OrderBy(o => o.Id).Asc
+                        .Select(s => s.Id)
+                        .Skip(i * 100).Take(100)
+                        .List<long>();
+                }
+            } while (users.Count > 0);
+
         }
 
 

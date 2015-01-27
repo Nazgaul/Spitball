@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Configuration;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Store.Dto;
@@ -218,6 +219,15 @@ namespace Testing
             //m_ThumbnailProvider = iocFactory.Resolve<IThumbnailProvider>();
 
             var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+            var metaData = m_BlobProvider.FetechBlobMetaDataAsync("5c4b8f5a-87c0-40d8-8ab8-ffac3d676910.pdf").Result;
+            string content;
+            if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
+            {
+                content = System.Net.WebUtility.UrlDecode(content);
+            }
+            
+
+
             var file = File.ReadAllBytes(@"C:\Users\Ram\Pictures\bug1.png");
             var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
             t.Wait();
