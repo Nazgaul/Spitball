@@ -6,18 +6,18 @@
 <div class="signIn">
     <form name="loginForm" ng-submit="login(loginForm.$valid)" novalidate>
         <div class="loginError" clear-on-input>{{params.loginServerError}}</div>
-        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.email.$touched) && loginForm.email.$error">
+        <div class="ng-message-errors" ng-messages="loginSubmitted && loginForm.email.$error">
             <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
             <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
         </div>
-        <input type="email" class="inputText" ng-class="{error: (loginSubmitted || loginForm.email.$touched) && loginForm.email.$error}" 
+        <input type="email" class="inputText" ng-class="{error: loginSubmitted && loginForm.email.$error}"
                name="email" tabindex="1" placeholder="@SharedResources.EmailAddress" required ng-model="formData.login.email"
-               ng-pattern="params.pattern" />
+               ng-pattern="params.pattern" focus-on="logon.email" />
 
-        <div class="ng-message-errors" ng-messages="(loginSubmitted || loginForm.password.$touched) && loginForm.password.$error">
+        <div class="ng-message-errors" ng-messages="loginSubmitted && loginForm.password.$error">
             <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
         </div>        
-        <input name="password" type="password" ng-class="{error: (loginSubmitted || loginForm.password.$touched) && loginForm.password.$error}" 
+        <input name="password" type="password" ng-class="{error: loginSubmitted && loginForm.password.$error}" 
                class="inputText" tabindex="2" placeholder="@LogOnResources.Password" required ng-model="formData.login.password" />
         <a class="forgot rFloat" href="@Url.Action("ResetPassword","Account")" target="_self">@LogOnResources.ForgotYourPassword</a>
         <input type="checkbox" ng-checked="true" class="checkbox" id="RememberMe" name="RememberMe" tabindex="3" ng-model="formData.login.rememberMe" />

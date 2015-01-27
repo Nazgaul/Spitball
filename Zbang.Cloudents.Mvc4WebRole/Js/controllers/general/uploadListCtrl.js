@@ -284,7 +284,7 @@ app.controller('UploadListCtrl',
 
         }
 
-        function enableCloseBtn() {
+        function stopUploadStatus() {
             if (!finishedUploading()) {
                 return;
             }

@@ -240,6 +240,13 @@ body.quiz .modal-backdrop.in {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  /*label{
+        position: absolute;
+        right: 19px;
+        &:before {
+            opacity: .5;
+        }
+    }*/
 }
 .questionHolder:hover .closeDialog {
   display: block;
@@ -291,13 +298,6 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder input[type="radio"]:checked + label:before {
   opacity: 1;
-}
-.questionHolder label {
-  position: absolute;
-  right: 19px;
-}
-.questionHolder label:before {
-  opacity: .5;
 }
 .answerWpr {
   width: 550px;
