@@ -51,52 +51,68 @@
             })
             .state('root.account', {
                 url: '/account/',
-                templateUrl: '/account/indexpartial/',
+                templateUrl: function () {
+                    return buildUrlUrl('/account/indexpartial/');
+                },
                 controller: 'AccountController as account',
                 onEnter: accountRedirect
             }).
             state('root.login', {
                 url: '/account/login/',
-                templateUrl: '/account/loginpartial/',
+                templateUrl: function () {
+                    return buildUrlUrl('/account/loginpartial/');
+                },
                 controller: 'LoginController as login',
                 onEnter: accountRedirect
 
             }).
             state('root.register', {
                 url: '/account/register/',
-                templateUrl: '/account/registerpartial/',
+                templateUrl:function () {
+                    return buildUrlUrl('/account/registerpartial/');
+                },
                 controller: 'RegisterController as register',
                 onEnter: accountRedirect
             }).
             state('root.libChoose', {
                 url: '/library/choose/',
-                templateUrl: '/library/choosepartial/',
+                templateUrl:function () {
+                    return buildUrlUrl('/library/choosepartial/');
+                },
                 controller: 'LibChooseController as libChoose'
             }).
             state('root.dashboard', {
                 url: '/dashboard/',
-                templateUrl: '/dashboard/indexpartial/',
+                templateUrl: function () {
+                    return buildUrl('/dashboard/indexpartial/');
+                },
                 controller: 'DashboardController as dashboard',
                 onEnter: dashboardRedirect
             }).
             state('root.box', {
                 url: '/box/my/:boxId/:boxName/',
-                templateUrl: '/box/indexpartial/',
+                templateUrl: function () {
+                    return buildUrl('/box/indexpartial/');
+                },
                 controller: 'BoxController as box'
             }).
             state('root.course', {
                 url: '/course/:uniName/:boxId/:boxName/',
-                templateUrl: '/box/indexpartial/',
+                templateUrl: function () {
+                    return buildUrl('/box/indexpartial/');
+                },
                 controller: 'BoxController as box'
             }).
             state('root.search', {
                 url: '/search/',
-                templateUrl: '/search/indexpartial/',
+                templateUrl: function () {
+                    return buildUrl('/search/indexpartial/');
+                },
                 controller: 'SearchController as search'
             });
 
         $urlRouterProvider.otherwise('/dashboard/').
-
+        
         rule(function ($injector, $location) {
 
             var path = $location.path();
@@ -108,5 +124,20 @@
                 return newPath;
             }
         });
+
+        function buildUrl(path) {
+            return path + '?lang=' + getCookie('l1') + '&version=' + window.version;
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1);
+                    if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                }
+                return "";
+            }
+        }
     }
     ]);
