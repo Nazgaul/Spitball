@@ -1,6 +1,6 @@
 app.factory('sModal',
-    ['$rootScope', '$modal', '$modalStack','$route',
-        function ($rootScope, $modal, $modalStack,$route) {
+    ['$rootScope', '$modal', '$modalStack', '$route', 'sVerChecker',
+        function ($rootScope, $modal, $modalStack, $route, sVerChecker) {
             var modalList = {
                 shareEmail: function (params) {
                     return buildObj('invite', { url: '/share/messagepartial/' }, 'ShareCtrl', 'none', true, params.data);
@@ -141,7 +141,7 @@ app.factory('sModal',
                 }
 
                 if (template.url) {
-                    params.templateUrl = template.url;
+                    params.templateUrl = template.url + '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
                 }
 
                 if (template.html) {
