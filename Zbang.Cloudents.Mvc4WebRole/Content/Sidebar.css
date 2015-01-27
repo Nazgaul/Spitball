@@ -217,22 +217,17 @@
 .dashLibTop .vCentered:first-child {
   width: 80px;
 }
-/*.logoWpr {
-    width: 80px;
-    height: 80px;
-    background: #fff;
-    border: 1px solid @borderColor;
-    .boxSizing;
-    display: inline-block;
-    border-radius: 100%;
-    margin-top: 15px;
-}*/
+.dashLibTop .vCentered:last-child {
+  line-height: 19px;
+}
 .uniLogo {
   border-radius: 50%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 5px;
+  border: 1px solid #c2c2c2;
+  background: #fff;
 }
 /*#region Lib Aside */
 .unionStats {

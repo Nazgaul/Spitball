@@ -2171,8 +2171,10 @@ select.inputText {
             margin-top: -124px;
         }
     } 
-    [data-culture="he-IL"] input.radio[type="radio"]:checked + label:after {
-        top: 4px; //diff rtl
+    [data-culture="he-IL"], [data-culture="ar-AE"] {
+        input.radio[type="radio"]:checked + label:after {
+            top: 4px; //diff rtl
+        }
     }
 }
 /*#endregion */
