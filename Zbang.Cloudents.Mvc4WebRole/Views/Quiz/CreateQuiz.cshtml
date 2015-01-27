@@ -10,7 +10,7 @@
     <div class="createQuizWpr">
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-            <input type="text" class="inputText quizName" ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
+            <input type="text" class="inputText quizName" autofocus ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
             <ul>
                 <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index"
                     quiz-focus data-focus="{{question.focus}}" 
