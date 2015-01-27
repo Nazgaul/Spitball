@@ -658,15 +658,15 @@ footer {
 }
 [data-culture="he-IL"] .searchPage .upArrow:before,
 [data-culture="ar-AE"] .searchPage .upArrow:before {
-  left: 10px;
+  right: 10px;
 }
 [data-culture="he-IL"] .sTabs.sTab2 ~ .upArrow:before,
 [data-culture="ar-AE"] .sTabs.sTab2 ~ .upArrow:before {
-  left: 75px;
+  right: 75px;
 }
 [data-culture="he-IL"] .sTabs.sTab3 ~ .upArrow:before,
 [data-culture="ar-AE"] .sTabs.sTab3 ~ .upArrow:before {
-  left: 142px;
+  right: 142px;
 }
 [data-culture="he-IL"] .quizPage .quizViews,
 [data-culture="ar-AE"] .quizPage .quizViews {
