@@ -2169,13 +2169,13 @@ select.inputText {
   top: 0;
 }
 [data-culture="he-IL"] .popover.left {
-  margin: 0 0 0 10px;
+  margin: 0 10px 0 0;
 }
 [data-culture="he-IL"] .popover.right {
-  margin: 0 0 0 -10px;
+  margin: 0 -10px 0 0;
 }
 [data-culture="he-IL"] .ptsPopup:before {
-  margin: 0 0 0 4px;
+  margin: 0 4px 0 0;
 }
 [data-culture="he-IL"] .ptsPopup:after {
   margin: 0;
