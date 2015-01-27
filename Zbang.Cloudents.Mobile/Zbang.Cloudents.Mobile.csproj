@@ -709,6 +709,7 @@
     <Content Include="Content\HomeRtl.less" />
     <Content Include="Content\RegistrationRtl.less" />
     <Content Include="Content\SearchRtl.less" />
+    <Content Include="Images\Web.config" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
