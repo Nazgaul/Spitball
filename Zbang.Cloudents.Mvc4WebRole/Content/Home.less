@@ -581,7 +581,7 @@ footer {
 
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-[data-culture="he-IL"] {
+[data-culture="he-IL"], [data-culture="ar-AE"] {
     .topImg {
         &:before {
             .flipH;
@@ -594,6 +594,12 @@ footer {
     }*/
     .pointsList {
         direction: rtl;
+    }
+    .thumbItem.quizItem  {
+        .actionBtns {
+            left: 8px; //no rtl
+            right: auto; //no rtl
+        }
     }
     .itemReg {
         .modal-header {

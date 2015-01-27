@@ -880,10 +880,8 @@
 }
 .thumbItem {
   float: right;
-  /* rtl */
   background: #fff;
   text-align: right;
-  /* rtl */
   position: relative
   /* for manage state*/
 }

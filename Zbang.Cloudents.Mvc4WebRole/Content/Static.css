@@ -225,7 +225,6 @@ body {
 .inputText {
   background-color: #fff;
   padding: 0 4px 0 8px;
-  /* rtl */
   height: 28px;
   color: #464646;
   border: 1px solid #c2c2c2;
@@ -630,11 +629,13 @@ footer {
 /*#endregion */
 /*#region RTL inconsistencies */
 [data-culture="he-IL"] .policy,
+[data-culture="ar-AE"] .policy,
 [data-culture="he-IL"] .terms,
+[data-culture="ar-AE"] .terms,
 [data-culture="he-IL"] .aboutUs,
-[data-culture="he-IL"] .contactUs {
+[data-culture="ar-AE"] .aboutUs,
+[data-culture="he-IL"] .contactUs,
+[data-culture="ar-AE"] .contactUs {
   direction: rtl;
-  /*no rtl*/
   text-align: right;
-  /*no rtl*/
 }
