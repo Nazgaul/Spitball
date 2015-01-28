@@ -18,8 +18,8 @@
 
             $scope.updateNotification = function (box) {
                 sBox.changeNotification({ boxId: box.id, notification: box.notifications });
-                $analytics.eventTrack('Account settings', {
-                    category: 'Notifications',
+                $analytics.eventTrack('Update Notification', {
+                    category: 'Account settings',
                     label: 'User updated a notification'
                 });
             };

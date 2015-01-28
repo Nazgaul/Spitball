@@ -28,8 +28,8 @@
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
                  $scope.params.contacts = null;
-                 $analytics.eventTrack('Social Invite', {
-                     category: 'Select State',
+                 $analytics.eventTrack('Select State', {
+                     category: 'Social Invite',
                      label: 'User selected to invite from ' + state
                  });
                  $scope.$broadcast('update-scroll');
@@ -81,16 +81,16 @@
              $scope.socialConnect = function () {
                  if (currentState === states.facebook) {
                      sFacebook.loginFacebook().then(function () {
-                         $analytics.eventTrack('Social Invite', {
-                             category: 'Facebook Connect'
+                         $analytics.eventTrack('Facebook Connect', {
+                             category: 'Social Invite'
                          });
                          $scope.selectState(states.facebook);
                      });
                      return;
                  }
                  if (currentState === states.google) {
-                     $analytics.eventTrack('Social Invite', {
-                         category: 'Google Connect'
+                     $analytics.eventTrack( 'Google Connect', {
+                         category: 'Social Invite'
                      }); sGoogle.checkAuth(false).then(function () {
                          $scope.selectState(states.google);
                      });

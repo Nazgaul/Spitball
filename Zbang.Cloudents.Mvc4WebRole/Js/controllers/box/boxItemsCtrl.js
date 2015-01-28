@@ -58,8 +58,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             return;
         }
 
-        $analytics.eventTrack('Box Items', {
-            category: 'Upload',
+        $analytics.eventTrack('Upload', {
+            category: 'Box Items',
             label: 'User opened the upload popup'
         });
 
@@ -102,8 +102,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         $scope.iOptions.lastView = $scope.iOptions.currentView;
         $scope.iOptions.currentView = view;
 
-        $analytics.eventTrack('Box Items', {
-            category: 'Change view',
+        $analytics.eventTrack('Change view', {
+            category: 'Box Items',
             label: 'User changed view to ' + view
         });
     };
@@ -146,8 +146,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
                 sNotify.alert('error deleting this item'); //translate
             });
 
-            $analytics.eventTrack('Box Items', {
-                category: 'Delete'
+            $analytics.eventTrack('Delete', {
+                category: 'Box Items'
             });
         });
 
@@ -283,8 +283,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         saveItemsToTab(savedItems);
         resetLastView();
 
-        $analytics.eventTrack('Box Items', {
-            category: 'Manage Save',
+        $analytics.eventTrack('Manage Save', {
+            category: 'Box Items',
             label: 'User saved manage changes'
         });
     };
@@ -292,8 +292,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
     $scope.manageCancel = function () {
         resetLastView();
 
-        $analytics.eventTrack('Box Items', {
-            category: 'Manage Cancel',
+        $analytics.eventTrack('Manage Cancel', {
+            category: 'Box Items',
             label: 'User cancelled manage changes'
         });
     };

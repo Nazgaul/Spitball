@@ -284,9 +284,8 @@
                            $analytics.pageTrack('facebook/register/noemail');
 
                            alert('you need to give email permission');
-                           $analytics.eventTrack('Facebook Signup', {
-                               category: 'Connect Popup',
-                               label: 'Failed login using facebook'
+                           $analytics.eventTrack('Facebook Signup Fail', {
+                               category: 'Connect Popup'                               
                            });
 
                            dfd.reject();

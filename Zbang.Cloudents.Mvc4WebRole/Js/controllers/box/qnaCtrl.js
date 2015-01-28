@@ -133,8 +133,8 @@
                             return file.id;
                         });
                     }
-                    $analytics.eventTrack('Feed', {
-                        category: 'Add a question',
+                    $analytics.eventTrack('Add a question', {
+                        category: 'Box Feed',
                         label: 'User post a question in the feed'
                     });
 
@@ -172,8 +172,8 @@
 
                 $scope.postAnswer = function (question) {                  
 
-                    $analytics.eventTrack('Feed', {
-                        category: 'Add an answer',
+                    $analytics.eventTrack('Add an answer', {
+                        category: 'Box Feed',
                         label: 'User post an answer in the feed'
                     });
                     sGmfcnHandler.addPoints({ type: 'answer' });
@@ -227,8 +227,8 @@
 
                         sQnA.delete.question({ questionId: question.id });
 
-                        $analytics.eventTrack('Box Feed', {
-                            category: 'Remove Question'
+                        $analytics.eventTrack('Remove Question', {
+                            category: 'Box Feed'
                         });
 
                         if ($scope.info.feedLength) {
@@ -245,8 +245,8 @@
                         question.answers.splice(index, 1);
                         sQnA.delete.answer({ answerId: answer.id });
 
-                        $analytics.eventTrack('Box Feed', {
-                            category: 'Remove Answer'
+                        $analytics.eventTrack('Remove Answer', {
+                            category: 'Box Feed'
                         });
                     });
                 };
@@ -266,8 +266,9 @@
                     });
                     
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove question attachment'
+                    $analytics.eventTrack('Remove attachment', {
+                        category: 'Box Feed',
+                        label:'Question'
                     });
                 };
 
@@ -287,8 +288,9 @@
 
                     });
                     
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove answer attachment'
+                    $analytics.eventTrack('Remove attachment', {
+                        category: 'Box Feed',
+                        label:'Answer'
                     });
                 };
 
@@ -301,8 +303,8 @@
 
                     $scope.followBox();
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Download Item'
+                    $analytics.eventTrack( 'Download Item', {
+                        category:'Box Feed'
                     });
                 };
 
@@ -348,8 +350,9 @@
                         $scope.qFormData.files = [data.itemDto];
 
 
-                        $analytics.eventTrack('Box Feed', {
-                            category: 'Added Question Attachment'
+                        $analytics.eventTrack( 'Added attachment',{
+                            category: 'Box Feed',
+                            label:'Question'
                         });
 
 
@@ -374,11 +377,10 @@
 
                         question.aFormData.files = [data.itemDto];
 
-
-
-                        $analytics.eventTrack('Box Feed', {
-                            category: 'Added Answser Attachment'
-                        });
+                        $analytics.eventTrack('Added attachment', {
+                            category: 'Box Feed',
+                            label: 'Answser'
+                        });                        
                     }
                 });
 
@@ -396,8 +398,9 @@
 
                     openUpload(data);
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Add question upload popup'
+                    $analytics.eventTrack('Upload', {
+                        category: 'Box Feed',
+                        label:'Question'
                     });
                 };
 
@@ -408,7 +411,8 @@
                     }
 
                     $analytics.eventTrack('Box Feed', {
-                        category: 'Remove question attachment'
+                        category: 'Remove attachment',
+                        label:'Question'
                     });
                 }
 
@@ -425,8 +429,9 @@
                     };
 
                     openUpload(data);
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Add answer upload popup'
+                    $analytics.eventTrack('Upload', {
+                        category: 'Box Feed',
+                        label: 'Answer'
                     });
 
                 };
@@ -437,7 +442,8 @@
                     }
 
                     $analytics.eventTrack('Box Feed', {
-                        category: 'Remove question attachment'
+                        category: 'Remove attachment',
+                        label: 'Answer'
                     });
                 }
 

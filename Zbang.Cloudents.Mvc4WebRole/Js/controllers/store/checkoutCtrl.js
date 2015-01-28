@@ -118,8 +118,8 @@
                 return;
             }
 
-            $analytics.eventTrack('Store Checkout', {
-                category: 'Step two'
+            $analytics.eventTrack('Step two', {
+                category: 'Store Checkout'
             });
 
             $scope.page.step = 2;
@@ -138,8 +138,8 @@
                 return feature.id;
             });
 
-            $analytics.eventTrack('Store Checkout', {
-                category: 'Order'
+            $analytics.eventTrack('Order', {
+                category:'Store Checkout'
             });
 
 

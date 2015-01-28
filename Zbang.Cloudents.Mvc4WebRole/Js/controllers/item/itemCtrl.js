@@ -118,8 +118,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
                 }
             }
         });
-        $analytics.eventTrack('Item', {
-            category: 'Flag Item'
+        $analytics.eventTrack('Flag Item', {
+            category: 'Item'
         });
     };
 
@@ -142,8 +142,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             }
         });
 
-        $analytics.eventTrack('Item', {
-            category: 'Rename Popup'
+        $analytics.eventTrack('Rename Popup', {
+            category: 'Item'
         });
     };
     $scope.create = function (isValid) {
@@ -179,8 +179,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             $scope.commentp = false;
         });
 
-        $analytics.eventTrack('Item', {
-            category: 'Add Comment'
+        $analytics.eventTrack('Add Comment', {
+            category:'Item'
         });
     };
     $scope.deleteComment = function (comment) {
@@ -192,8 +192,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             sNotify.alert(response);
         });
 
-        $analytics.eventTrack('Item', {
-            category: 'Delete Comment'
+        $analytics.eventTrack('Delete Comment', {
+            category: 'Item'
         });
     };
     $scope.deleteReply = function (reply, comment) {
@@ -204,8 +204,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }, function (response) {
             sNotify.alert(response);
         });
-        $analytics.eventTrack('Item', {
-            category: 'Delete Reply'
+        $analytics.eventTrack('Delete Reply', {
+            category: 'Item'
         });
     };
     $scope.canDelete = function (id) {
@@ -251,8 +251,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             comment.replyp = false;
         });;
 
-        $analytics.eventTrack('Item', {
-            category: 'Add Reply'
+        $analytics.eventTrack('Add Reply', {
+            category: 'Item'
         });
     };
 
@@ -266,8 +266,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             null //picture
        );
 
-        $analytics.eventTrack('Item', {
-            category: 'Share Facebook'
+        $analytics.eventTrack('Share Facebook', {
+            category: 'Item'
         });
     };
 
@@ -275,8 +275,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         $scope.popup.share = false;
 
         sModal.open('shareEmail');
-        $analytics.eventTrack('Item', {
-            category: 'Share Email'
+        $analytics.eventTrack('Share Email', {
+            category: 'Item'
         });
     };
     $scope.rate = function (t) {
@@ -289,8 +289,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             ItemId: itemId, rate: t, BoxId: boxId
         });
 
-        $analytics.eventTrack('Item', {
-            category: 'Rate Item'
+        $analytics.eventTrack('Rate Item', {
+            category: 'Item'
         });
     };
 

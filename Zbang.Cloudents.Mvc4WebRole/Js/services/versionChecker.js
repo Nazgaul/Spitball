@@ -29,8 +29,8 @@
                         $angularCacheFactory.removeAll();
 
 
-                        $analytics.eventTrack('Version', {
-                            category: 'Change',
+                        $analytics.eventTrack('Change', {
+                            category: 'Version',
                             label: 'Version change mismatch popup'
                         });
 

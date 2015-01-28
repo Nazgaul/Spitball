@@ -13,16 +13,16 @@ mDashboard.controller('ChallengeCtrl',
 
              $scope.afraidTry = function () {
                  $modalInstance.close();
-                 $analytics.eventTrack('Quiz Chanllenge', {
-                     category: 'Afraid to try'
+                 $analytics.eventTrack('Afraid to try', {
+                     category: 'Quiz Chanllenge'
                  });
 
              };
 
              $scope.takeChance = function () {
                  $modalInstance.dismiss();
-                 $analytics.eventTrack('Quiz Chanllenge', {
-                     category: 'Take Chance'
+                 $analytics.eventTrack('Take Chance', {
+                     category: 'Quiz Chanllenge'
                  });
 
              };
