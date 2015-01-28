@@ -580,10 +580,39 @@ footer {
 
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
+// NB: 1) Here we are overriding with greater specificity!! (so resetting ltr property is necessary)
 .rtlFix {
     .topImg {
         &:before {
             .flipH;
+        }
+    }
+    .ta-toolbar .btn-group {
+        float: right;
+    }
+    .btn-group > .btn {
+        float: right;
+    }
+    .svgWpr {
+        border-radius: 4px 0 0 4px;
+    }
+    .btn-group>.btn:first-child:not(.dropdown-toggle) {
+        border-radius: 0 4px 4px 0;
+    }
+    .btn-group>.btn:last-child:not(.dropdown-toggle) {
+        
+        border-radius: 4px 0 0 4px;
+    }
+    .btn-group>.btn:only-child:not(.dropdown-toggle) {
+        border-radius: 4px; //this is necessary (so that above classes don't override class in textAngular less)
+    }
+    .btn-group {
+        .btn {
+            border: 1px solid #ccc; 
+            border-right: none;
+            &:first-child {
+                border-right:  1px solid #ccc;
+            }
         }
     }
     /*.headingTexts {
