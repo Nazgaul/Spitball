@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
         private readonly string m_IndexName = "item";
         private readonly IBlobProvider m_BlobProvider;
-        private bool m_CheckIndexExists = false;
+        private bool m_CheckIndexExists;
 
 
         public ItemSearchProvider(IBlobProvider blobProvider)
@@ -85,20 +85,28 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                var response2 = await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
+                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
             }
             m_CheckIndexExists = true;
         }
 
         public async Task<string> FetchContent(ItemSearchDto itemToUpload)
         {
-            var metaData = await m_BlobProvider.FetechBlobMetaDataAsync(itemToUpload.BlobName);
-            string content = itemToUpload.Content;
-            if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
+            try
             {
-                content = System.Net.WebUtility.UrlDecode(content);
+                var metaData = await m_BlobProvider.FetechBlobMetaDataAsync(itemToUpload.BlobName);
+                string content;
+                if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
+                {
+                    return System.Net.WebUtility.UrlDecode(content);
+                }
+                return itemToUpload.Content;
             }
-            return content;
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("problem with getting content of " + itemToUpload.Id, ex);
+                return itemToUpload.Content;
+            }
         }
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)

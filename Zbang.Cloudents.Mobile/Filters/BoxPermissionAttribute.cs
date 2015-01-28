@@ -2,8 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
-using Zbang.Cloudents.Mobile.Extensions;
-using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ReadServices;

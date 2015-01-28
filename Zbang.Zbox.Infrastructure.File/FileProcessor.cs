@@ -52,14 +52,19 @@ namespace Zbang.Zbox.Infrastructure.File
             return input;
         }
 
-        protected Task UploadMetaData(string fileContent, string blobName)
+        protected async Task UploadMetaData(string fileContent, string blobName)
         {
             if (string.IsNullOrEmpty(fileContent))
             {
-                return Task.FromResult<string>(null);
+                return;
             }
-            return BlobProvider.SaveMetaDataToBlobAsync(blobName,
-                new Dictionary<string, string> {{StorageConsts.ContentMetaDataKey, fileContent}});
+            var metaData =await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            if (metaData == null)
+            {
+                metaData = new Dictionary<string, string>();
+            }
+            metaData[StorageConsts.ContentMetaDataKey] = fileContent;
+            await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
 
         //protected async Task UploadPreviewToAzure(string blobName, int startPage, int stopPage)

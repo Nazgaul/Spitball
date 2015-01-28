@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -26,9 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-           Options = OutputCacheOptions.IgnoreQueryString
-           )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");

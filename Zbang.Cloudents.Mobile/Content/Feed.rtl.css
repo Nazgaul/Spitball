@@ -88,6 +88,10 @@
 .feedContent a {
   color: #07c;
 }
+.feedContent img {
+  border-radius: 0;
+  width: 100%;
+}
 .feedReplies {
   width: 90%;
   margin-right: 10%;

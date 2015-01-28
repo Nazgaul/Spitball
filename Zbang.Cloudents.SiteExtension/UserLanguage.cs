@@ -2,31 +2,39 @@
 using System.Globalization;
 using System.Threading;
 using System.Web;
-using Zbang.Cloudents.Mobile.Extensions;
-using Zbang.Cloudents.Mobile.Models.Account;
+using System.Web.Routing;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 
-namespace Zbang.Cloudents.Mobile.Helpers
+namespace Zbang.Cloudents.SiteExtension
 {
     public static class UserLanguage
     {
-        public const string CookieName = "l1";
+        public const string CookieName = "l2";
         private const string CultureHttpItemsDone = "cultureDone";
-        public static void ChangeLanguage(HttpContextBase context, HttpServerUtilityBase server)
+        public static void ChangeLanguage(HttpContextBase context,
+            HttpServerUtilityBase server,
+            RouteData route
+           )
         {
-            if (HttpContext.Current.Items["CultureHttpItemsDone"] != null)
+            if (HttpContext.Current.Items[CultureHttpItemsDone] != null)
             {
                 return;
             }
-            HttpContext.Current.Items["CultureHttpItemsDone"] = true;
+            HttpContext.Current.Items[CultureHttpItemsDone] = true;
+            var cookie = new CookieHelper(context);
+            if (route != null && route.Values["lang"] != null)
+            {
+                var culture = ChangeThreadLanguage(route.Values["lang"].ToString());
+                cookie.InjectCookie(CookieName, culture, false);
+                return;
+            }
             if (context.Request.QueryString["lang"] != null)
             {
-                ChangeThreadLanguage(context.Request.QueryString["lang"]);
+                var culture = ChangeThreadLanguage(context.Request.QueryString["lang"]);
+                cookie.InjectCookie(CookieName, culture, false);
                 return;
             }
-            var cookie = new CookieHelper(context);
             var lang = cookie.ReadCookie<string>(CookieName);
             if (lang == null)
             {
@@ -34,7 +42,7 @@ namespace Zbang.Cloudents.Mobile.Helpers
                 {
                     var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
                     var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
-                    cookie.InjectCookie(CookieName, userData.Culture);
+                    cookie.InjectCookie(CookieName, userData.Culture, false);
                     ChangeThreadLanguage(userData.Culture);
                     return;
                 }
@@ -44,19 +52,22 @@ namespace Zbang.Cloudents.Mobile.Helpers
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(CookieName, culture.Name );
+                cookie.InjectCookie(CookieName, culture.Name, false);
                 ChangeThreadCulture(culture);
                 return;
             }
             ChangeThreadLanguage(lang);
         }
-        public static void ChangeThreadLanguage(string language)
+        public static string ChangeThreadLanguage(string language)
         {
             if (!Languages.CheckIfLanguageIsSupported(language))
             {
-                return;
+                return Thread.CurrentThread.CurrentUICulture.Name;
             }
-            if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
+            if (Thread.CurrentThread.CurrentUICulture.Name == language)
+            {
+                return Thread.CurrentThread.CurrentUICulture.Name;
+            }
             try
             {
                 var cultureInfo = new CultureInfo(language);
@@ -64,12 +75,13 @@ namespace Zbang.Cloudents.Mobile.Helpers
             }
             catch (CultureNotFoundException)
             {
+
             }
+            return Thread.CurrentThread.CurrentUICulture.Name;
         }
 
         private static void ChangeThreadCulture(CultureInfo cultureInfo)
         {
-            
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }

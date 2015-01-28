@@ -22,7 +22,7 @@
                     }
                     
                     $analytics.eventTrack('Drag Enter', {
-                        category: 'Box Items'
+                        category: 'Upload'
                     });
                     elem.show();
                 }
@@ -39,7 +39,7 @@
                     if (collection.length === 0) {
                         elem.hide();
                         $analytics.eventTrack('Drag Leave', {
-                            category: 'Box Items'
+                            category: 'Upload'
                         });
                     }
                 }, 1);
@@ -51,7 +51,7 @@
                 elem.hide();
                 collection = $();
                 $analytics.eventTrack('Drag Drop', {
-                    category: 'Box Items'
+                    category: 'Upload'
                 });
             });
 

@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.WebPages;
 using Zbang.Cloudents.Mobile.Controllers;
 using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Trace;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;
@@ -50,7 +51,7 @@ namespace Zbang.Cloudents.Mobile
             TraceLog.WriteInfo("Application ending");
         }
 
-       
+
 
 
         //for output cache
@@ -59,7 +60,7 @@ namespace Zbang.Cloudents.Mobile
             try
             {
                 UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
-                    new HttpServerUtilityWrapper(HttpContext.Current.Server));
+                    new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
             }
             catch (Exception ex)
             {

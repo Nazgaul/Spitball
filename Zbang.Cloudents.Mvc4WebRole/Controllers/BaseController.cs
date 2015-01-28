@@ -8,6 +8,7 @@ using System.Threading;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
@@ -57,10 +58,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (Request.IsAjaxRequest())
             {
                 HttpNotFound().ExecuteResult(ControllerContext);
-                return;
             }
             // View("Error").ExecuteResult(ControllerContext);
-            //base.HandleUnknownAction(actionName);
+            base.HandleUnknownAction(actionName);
         }
 
 
