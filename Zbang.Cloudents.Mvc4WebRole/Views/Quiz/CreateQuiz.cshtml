@@ -69,7 +69,7 @@
 </script>
 <script type="text/ng-template" id="quizQuestionTemplate">
     <button type="button" class="closeDialog quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0"></button>
-    <div text-angular ng-model="question.text" required bind-textarea on-blur="saveQuestion(question)"></div>
+    <div app-file-paste text-angular ng-model="question.text" required bind-textarea on-blur="saveQuestion(question)"></div>
     <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
     <div class="lFloat answers">@SharedResources.Answers:</div>
     <div class="answerWpr">
