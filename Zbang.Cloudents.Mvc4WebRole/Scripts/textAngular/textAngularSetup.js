@@ -243,15 +243,19 @@ angular.module('textAngularSetup', [])
     //    },
     //    activeState: function () { return this.$editor().queryFormatBlockState('blockquote'); }
     //});
+    var textAngular, selection;
     taRegisterTool('color', {
         display: '<span class="btn ta-color"> \
                 <input id="taColor" type="color" ng-model="color" ng-change="action(color)" /> \
                 <label for="taColor" class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></label> \
                 </span>',
-        action: function (color) {
-            if (color !== '') {
-                return this.$editor().wrapSelection('forecolor', color);
-            }
+        action: function (color) {            
+            if (!_.isEmpty(color)) {
+                return this.$editor().wrapSelection('forecolor', color, true);
+            }            
+        },
+        setColor: function (color) {
+            textAngular.$editor().wrapSelection('forecolor', color, true);
         },
         tooltiptext: taTranslations.color.tooltip
     });

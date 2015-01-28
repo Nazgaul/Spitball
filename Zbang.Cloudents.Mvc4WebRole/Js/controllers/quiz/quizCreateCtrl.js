@@ -587,9 +587,13 @@ directive('quizFocus', [ function () {
             var listener = scope.$watch(function () {
                 return element.attr('data-focus');
             }, function (newValue) {
+
                 if (newValue === 'true') {
-                    setTimeout(function () {                        
-                        input.focus();
+                    setTimeout(function () {
+                        if (!input) {
+                            return;
+                        }
+                        input.focus();               
                     }, 10);
                 }
             });
@@ -602,6 +606,25 @@ directive('quizFocus', [ function () {
         }
     };
 }]).
+    directive('highlightBox', [function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                var input;
+                element.on('focus', '[contenteditable],[highlighter]',setHighlight);
+                
+                
+                scope.$on('$destroy', function () {
+                    element.off('focus',setHighlight);
+                });
+
+                function setHighlight() {
+                    angular.element('[highlight-box').removeClass('focus');
+                    element.addClass('focus');
+                }
+            }
+        };
+    }]).
 directive('requiredTwo', function () {
     return {
         restrict: 'A',

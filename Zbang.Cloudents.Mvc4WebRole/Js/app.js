@@ -145,8 +145,7 @@
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
                        return sUserDetails.initDetails().then(sNewUpdates.loadUpdates).finally(function () {
-                           lang = sUserDetails.getDetails().culture;
-                           console.log(sUserDetails.getDetails().culture);
+                           lang = sUserDetails.getDetails().culture;                           
                        });
                    }]
                };
