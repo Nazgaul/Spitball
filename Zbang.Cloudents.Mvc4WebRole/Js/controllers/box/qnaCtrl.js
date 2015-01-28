@@ -16,6 +16,9 @@
                     sNewUpdates.isNew($scope.boxId, 'questions', that.id, function (isNew) {
                         that.isNew = isNew;
                     });
+
+                 
+
                     that.answers = data.answers.map(function (answer) {
                         var answerObj = new Answer(answer);
                         if (answerObj.isNew) {
@@ -79,7 +82,11 @@
                     that.download = that.itemUrl + 'download/';
                 }
 
-
+               var tagsToReplace = {
+                                    '&': '&amp;',
+                                    '<': '&lt;',
+                                    '>': '&gt;'
+                                };
 
                 $scope.data = {
                     //$scope.boxId = we get this from parent scope no info
@@ -145,7 +152,7 @@
                             userImage: sUserDetails.getDetails().image,
                             userId: sUserDetails.getDetails().id,
                             userUrl: sUserDetails.getDetails().url,
-                            content: extractUrls($scope.qFormData.content),
+                            content: extractUrls($scope.qFormData.content.replace(/[&<>]/g, replaceTag)),
                             creationTime: new Date().toISOString(),
                             answers: [],
                             files: fileDisplay || []
@@ -199,7 +206,7 @@
                             userImage: sUserDetails.getDetails().image,
                             userId: sUserDetails.getDetails().id,
                             userUrl: sUserDetails.getDetails().url,
-                            content: extractUrls(question.aFormData.content),
+                            content: extractUrls(question.aFormData.content.replace(/[&<>]/g, replaceTag)),
                             rating: 0,
                             creationTime: new Date().toISOString(),
                             iRate: false,
@@ -466,6 +473,10 @@
                             }
                         }
                     });
+                }
+
+                function replaceTag(tag) {
+                    return tagsToReplace[tag] || tag;
                 }
 
                 function extractUrls(d) {
