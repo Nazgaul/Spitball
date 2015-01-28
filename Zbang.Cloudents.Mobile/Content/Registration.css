@@ -116,6 +116,9 @@
   text-align: center;
   margin: 10px 0;
 }
+.welcomeTxt1 .homeTxt2 {
+  color: #0f9d58;
+}
 .validation-summary-errors,
 .regError,
 .loginError,

@@ -43,6 +43,10 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateText(string newText)
         {
+            if (string.IsNullOrEmpty(newText))
+            {
+                newText = null;
+            }
             //Throw.OnNull(newText, "newText", false);
             if (newText != null)
             {

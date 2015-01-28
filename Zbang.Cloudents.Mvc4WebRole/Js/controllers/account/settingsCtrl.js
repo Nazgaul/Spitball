@@ -6,6 +6,8 @@
             "use strict";
 
             var emailRegExp = new RegExp(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/);
+            var analyticsCategory = 'Account Settings';
+
 
             $scope.formData = {};
             $scope.emailForm = {};
@@ -39,8 +41,8 @@
 
                 $scope.params.currentTab = tab;
 
-                $analytics.eventTrack('Account Settings', {
-                    category: 'Select Tab',
+                $analytics.eventTrack('Select Tab', {
+                    category: analyticsCategory,
                     label: 'User selected ' + tab
                 });
             };
@@ -57,9 +59,8 @@
                     sNotify.alert('Your settings are saved');
                     sUserDetails.setImage($scope.formData.image);
 
-                    $analytics.eventTrack('User Information', {
-                        category: 'Save Settings',
-                        label: 'User saved settings'
+                    $analytics.eventTrack('Save User Information', {
+                        category: analyticsCategory
                     });
                 });
             };
@@ -72,9 +73,8 @@
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
                 
-                $analytics.eventTrack('User Information', {
-                    category: 'Upload Image',
-                    label: 'User uploaded an image'
+                $analytics.eventTrack('Upload Image', {
+                    category: analyticsCategory
                 });
             };
 
@@ -137,9 +137,8 @@
                         $scope.emailForm = {};
 
                         sNotify.tAlert('EmailChanged');
-                        $analytics.eventTrack('Account settings', {
-                            category: 'Email Changed',
-                            label: 'User changed email'
+                        $analytics.eventTrack('Change Email Code', {
+                            category: analyticsCategory
                         });
 
 
@@ -170,9 +169,8 @@
                     sAccount.changeEmail({ email: email }).then(function() {
                         $scope.params.verifyCode = true;
                         $scope.params.changeEmailBtnText = resManager.get('Save');
-                        $analytics.eventTrack('Account settings', {
-                            category: 'Email Change',
-                            label: 'User started changing email proccess'
+                        $analytics.eventTrack('Change Email Complete', {
+                            category: analyticsCategory 
                         });
                     }, function(response) {
                         sNotify.alert(response[0].value[0]);
@@ -214,9 +212,8 @@
                     $scope.params.changingPassword = false;
                     $scope.passwordForm = {};
                     sNotify.tAlert('PwdChanged');
-                    $analytics.eventTrack('Account settings', {
-                        category: 'Password Change',
-                        label: 'User changed password'
+                    $analytics.eventTrack('Change Password', {
+                        category: analyticsCategory
                     });
                 }, function (response) {
                     $scope.params.passwordError = response;
@@ -232,8 +229,8 @@
 
                 //$angularCacheFactory.get('htmlCache').removeAll();
 
-                $analytics.eventTrack('Account settings', {
-                    category: 'Language Change',
+                $analytics.eventTrack('Change Language', {
+                    category: analyticsCategory,
                     label: 'User changed language to ' + $scope.languageForm.selected
                 });
 

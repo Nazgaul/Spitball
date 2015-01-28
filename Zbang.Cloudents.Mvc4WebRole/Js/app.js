@@ -29,7 +29,7 @@
            });
 
 
-           $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+           $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$q', '$routeParams', function (taRegisterTool, taOptions, $q, $routeParams) {
                var buttons;
 
                buttons = [['fontUp', 'fontDown'], ['bold', 'italics', 'underline'], ['justifyLeft', 'justifyCenter', 'justifyRight'], ['ol', 'ul'], ['insertImage'], ['redo', 'undo']]
@@ -40,6 +40,29 @@
                taOptions.toolbar = buttons;
 
 
+               taOptions.defaultFileDropHandler = function (file, insertAction) {
+                   var dfd = $q.defer();
+                   var client = new XMLHttpRequest();
+                   client.onreadystatechange = function () {
+                       if (client.readyState == 4 && client.status == 200) {
+                           var response = JSON.parse(client.response);
+                           if (!response.success) {
+                               alert('Error');
+                               return;
+                           }
+                           insertAction('insertImage', response.payload, true);
+                           dfd.resolve();
+                       }
+                   }
+
+                   var formData = new FormData();
+                   formData.append(file.name, file);
+                   formData.append("boxId", $routeParams.boxId);
+                   client.open("POST", "/upload/quizimage/", true);
+                   client.send(formData);
+
+                   return dfd.promise;
+               };
                //taOptions.classes = {
                //    focussed: 'focused',
                //    toolbar: 'btn-toolbar',
@@ -122,8 +145,7 @@
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
                        return sUserDetails.initDetails().then(sNewUpdates.loadUpdates).finally(function () {
-                           lang = sUserDetails.getDetails().culture;
-                           console.log(sUserDetails.getDetails().culture);
+                           lang = sUserDetails.getDetails().culture;                           
                        });
                    }]
                };
@@ -253,7 +275,7 @@
                        type: type
                    },
                    templateUrl: function () {
-                       return templateUrl + '?lang=' + getCookie('l2') + '&version=' + version;                       
+                       return templateUrl + '?lang=' + getCookie('l2') + '&version=' + version;
                    },
                    controller: controller
                };

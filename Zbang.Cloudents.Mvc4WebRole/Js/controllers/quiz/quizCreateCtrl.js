@@ -33,8 +33,8 @@
         $scope.initQuiz = function () {
             $scope.quiz.courseId = $routeParams.boxId;
             $scope.quiz.courseName = $routeParams.boxName;
-
-            if (!$routeParams.quizId) {
+            var quizId = $location.search().quizId;
+            if (!quizId) {
                 $scope.params.isDraft = false;
 
                 for (var i = 0; i < $scope.params.minQuestions; i++) {
@@ -45,7 +45,7 @@
                 return;
             }
 
-            $scope.quiz.id = $routeParams.quizId
+            $scope.quiz.id = quizId;
 
             sQuiz.getDraft({ quizId: $scope.quiz.id }).then(function (draft) {
                 $scope.quiz.name = draft.name;
@@ -157,21 +157,20 @@
                 category: 'Add Question'
             });
         };
-        $scope.saveQuestion = function (question) {
+        $scope.saveQuestion = function (question) {            
             if (!$scope.quiz.id) {
-                createQuiz().then(function () {
+                createQuiz().then(function () {               
                     createQuestion(question);
                 });
                 return;
-            }
+            }          
 
             if (!question.id) {
-                createQuestion(question).then(function () {
-                    sQuiz.question.update({ id: question.id, text: question.text });
-                });
+                createQuestion(question);
                 return;
             }
 
+            question.text = question.text || '';
             sQuiz.question.update({ id: question.id, text: question.text });
         };
 
@@ -575,30 +574,57 @@
             }
         };
     }]).
-directive('quizFocus', ['$timeout', function ($timeout) {
+directive('quizFocus', [ function () {
     return {
         restrict: 'A',
         link: function (scope, element) {
             var input;
-            if (element.is('input:text')) {
+            if (element.is('textarea') || element.is('input:text')) {
                 input = element[0];
             } else {
-                input = element[0].querySelector('textarea');
+                input = element[0].querySelector('[contenteditable]');
             }
             var listener = scope.$watch(function () {
                 return element.attr('data-focus');
             }, function (newValue) {
+
                 if (newValue === 'true') {
-                    $timeout(function () { input.focus(); }, 10);
+                    setTimeout(function () {
+                        if (!input) {
+                            return;
+                        }
+                        input.focus();               
+                    }, 10);
                 }
             });
             
+
+
             scope.$on('$destroy', function () {
                 listener();
             });
         }
     };
 }]).
+    directive('highlightBox', [function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                var input;
+                element.on('focus', '[contenteditable],[highlighter]',setHighlight);
+                
+                
+                scope.$on('$destroy', function () {
+                    element.off('focus',setHighlight);
+                });
+
+                function setHighlight() {
+                    angular.element('[highlight-box').removeClass('focus');
+                    element.addClass('focus');
+                }
+            }
+        };
+    }]).
 directive('requiredTwo', function () {
     return {
         restrict: 'A',

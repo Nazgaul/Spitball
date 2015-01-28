@@ -13,7 +13,7 @@
             <input type="text" class="inputText quizName" autofocus ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
             <ul>
                 <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index"
-                    quiz-focus data-focus="{{question.focus}}" 
+                    quiz-focus data-focus="{{question.focus}}" highlight-box
                     ng-class="{answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
             </ul>
             <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
@@ -80,7 +80,7 @@
             </li>
 
             <li class="quizAnswer disabled">
-                <textarea text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
+                <textarea highlighter text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
                           readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                 <label class="answerLabel"></label>

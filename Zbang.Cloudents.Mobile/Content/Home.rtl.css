@@ -152,12 +152,12 @@ option {
   outline: none;
 }
 .homeTxt1 {
-  color: #fff;
+  color: #c2c2c2;
   font-size: 14px;
   display: inline-block;
 }
 .homeTxt2 {
-  color: #0f9d58;
+  color: #fff;
   font-size: 14px;
   font-weight: bold;
   position: relative;
