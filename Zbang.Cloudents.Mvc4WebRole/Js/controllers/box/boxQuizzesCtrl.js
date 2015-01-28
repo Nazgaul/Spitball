@@ -1,6 +1,6 @@
 ﻿mBox.controller('BoxQuizzesCtrl',
-		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify', '$routeParams',
-        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify, $routeParams) {
+		['$scope', '$rootScope', '$timeout', '$analytics', 'sBox', 'sNewUpdates', 'sUserDetails', 'sQuiz', 'resManager', 'sLogin', 'sNotify', '$routeParams', '$location',
+        function ($scope, $rootScope, $timeout, $analytics, sBox, sNewUpdates, sUserDetails, sQuiz, resManager, sLogin, sNotify, $routeParams, $location) {
             "use strict";
             var consts = {
                 view: {
@@ -56,7 +56,8 @@
 
                     var data = {
                         id: quiz.id,
-                    }
+                    };
+
                     remove();
 
                     sQuiz.delete(data).then(null, function () {
@@ -91,20 +92,17 @@
                 }).publish || 0;
             }
 
-            $scope.selectQuiz = function (e, item) {
-                if (!item.publish) {
+            $scope.selectQuiz = function (e, quiz) {
+                if (!quiz.publish) {
                     $analytics.eventTrack('Box Quizzes', {
                         category: 'Edit Quiz'
                     });
-
-                    $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.boxName, quizId: item.id });
-                    $timeout(function () {
-                        $rootScope.options.quizOpen = true;
-                    });
+                    $location.path($scope.createUrl).search('quizId', quiz.id).hash(null);
+                    return;
                 }
 
-                item.isNew = false;
-                sNewUpdates.setOld($scope.boxId, 'quizzes', item.id);
+                quiz.isNew = false;
+                sNewUpdates.setOld($scope.boxId, 'quizzes', quiz.id);
             };
 
             //#region view

@@ -33,8 +33,8 @@
         $scope.initQuiz = function () {
             $scope.quiz.courseId = $routeParams.boxId;
             $scope.quiz.courseName = $routeParams.boxName;
-
-            if (!$routeParams.quizId) {
+            var quizId = $location.search().quizId;
+            if (!quizId) {
                 $scope.params.isDraft = false;
 
                 for (var i = 0; i < $scope.params.minQuestions; i++) {
@@ -45,7 +45,7 @@
                 return;
             }
 
-            $scope.quiz.id = $routeParams.quizId
+            $scope.quiz.id = quizId;
 
             sQuiz.getDraft({ quizId: $scope.quiz.id }).then(function (draft) {
                 $scope.quiz.name = draft.name;
@@ -575,24 +575,28 @@
             }
         };
     }]).
-directive('quizFocus', ['$timeout', function ($timeout) {
+directive('quizFocus', [ function () {
     return {
         restrict: 'A',
         link: function (scope, element) {
             var input;
-            if (element.is('input:text')) {
+            if (element.is('textarea')) {
                 input = element[0];
             } else {
-                input = element[0].querySelector('textarea');
+                input = element[0].querySelector('[contenteditable]');
             }
             var listener = scope.$watch(function () {
                 return element.attr('data-focus');
             }, function (newValue) {
                 if (newValue === 'true') {
-                    $timeout(function () { input.focus(); }, 10);
+                    setTimeout(function () {                        
+                        input.focus();
+                    }, 10);
                 }
             });
             
+
+
             scope.$on('$destroy', function () {
                 listener();
             });
