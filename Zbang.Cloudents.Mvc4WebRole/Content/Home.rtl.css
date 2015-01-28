@@ -560,6 +560,31 @@ footer {
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.rtlFix .ta-toolbar .btn-group {
+  float: left;
+}
+.rtlFix .btn-group > .btn {
+  float: left;
+}
+.rtlFix .svgWpr {
+  border-radius: 0 4px 4px 0;
+}
+.rtlFix .btn-group > .btn:first-child:not(.dropdown-toggle) {
+  border-radius: 4px 0 0 4px;
+}
+.rtlFix .btn-group > .btn:last-child:not(.dropdown-toggle) {
+  border-radius: 0 4px 4px 0;
+}
+.rtlFix .btn-group > .btn:only-child:not(.dropdown-toggle) {
+  border-radius: 4px;
+}
+.rtlFix .btn-group .btn {
+  border: 1px solid #ccc;
+  border-left: none;
+}
+.rtlFix .btn-group .btn:first-child {
+  border-left: 1px solid #ccc;
+}
 .rtlFix .pointsList {
   direction: ltr;
 }

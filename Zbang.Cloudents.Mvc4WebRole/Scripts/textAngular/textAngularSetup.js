@@ -243,11 +243,11 @@ angular.module('textAngularSetup', [])
     //    },
     //    activeState: function () { return this.$editor().queryFormatBlockState('blockquote'); }
     //});
-    var textAngular, selection;
+    var index
     taRegisterTool('color', {
         display: '<span class="btn ta-color"> \
-                <input id="taColor" type="color" ng-model="color" ng-change="action(color)" /> \
-                <label for="taColor" class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></label> \
+                <input type="color" ng-model="color" ng-change="action(color)" /> \
+                <label class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></label> \
                 </span>',
         action: function (color) {            
             if (!_.isEmpty(color)) {
@@ -604,8 +604,8 @@ angular.module('textAngularSetup', [])
     };
 
     taRegisterTool('insertImage', {
-        display: '<span class="btn ta-file"><input id="taFile" type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
-                       <label for="taFile" class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
+        display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
+                       <label class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function (imageLink) {
