@@ -26,13 +26,14 @@ namespace Zbang.Cloudents.SiteExtension
             if (route != null && route.Values["lang"] != null)
             {
                 var culture = ChangeThreadLanguage(route.Values["lang"].ToString());
-                cookie.InjectCookie(CookieName, culture, false);
+                InsertCookie(culture, context);
+                //cookie.InjectCookie(CookieName, culture, false);
                 return;
             }
             if (context.Request.QueryString["lang"] != null)
             {
                 var culture = ChangeThreadLanguage(context.Request.QueryString["lang"]);
-                cookie.InjectCookie(CookieName, culture, false);
+                InsertCookie(culture, context);
                 return;
             }
             var lang = cookie.ReadCookie<string>(CookieName);
@@ -42,7 +43,7 @@ namespace Zbang.Cloudents.SiteExtension
                 {
                     var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
                     var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
-                    cookie.InjectCookie(CookieName, userData.Culture, false);
+                    InsertCookie(userData.Culture, context);
                     ChangeThreadLanguage(userData.Culture);
                     return;
                 }
@@ -52,7 +53,7 @@ namespace Zbang.Cloudents.SiteExtension
                     country = "gb";
                 }
                 var culture = Languages.GetCultureBaseOnCountry(country);
-                cookie.InjectCookie(CookieName, culture.Name, false);
+                InsertCookie(culture.Name, context);
                 ChangeThreadCulture(culture);
                 return;
             }
@@ -117,6 +118,12 @@ namespace Zbang.Cloudents.SiteExtension
             return (long)num;
         }
 
+
+        public static void InsertCookie(string culture,HttpContextBase context)
+        {
+            var cookie = new CookieHelper(context);
+            cookie.InjectCookie(CookieName, culture, false);
+        }
 
     }
 }

@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         Score = commandResult.User.Reputation
                     };
                 }
-                cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, user.Culture);
+                SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
                 FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
                     //user.Culture,
                     user.UniversityId,
@@ -172,7 +172,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     {
                         var query = new GetUserByMembershipQuery(membershipUserId);
                         var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                        cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, result.Culture);
+                        SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
                         FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
                             new UserDetail(
                             //result.Culture,
@@ -240,7 +240,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null, true);
                     var result = await ZboxWriteService.CreateUserAsync(command);
-                    cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, result.User.Culture);
+                    SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
                     FormsAuthenticationService.SignIn(result.User.Id, false,
                         new UserDetail(
                         //result.User.Culture,
@@ -329,8 +329,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpPost]
         public ActionResult ChangeLocale(string lang)
         {
-            var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, lang);
+            SiteExtension.UserLanguage.InsertCookie(lang, HttpContext);
             return JsonOk();
         }
 
@@ -341,9 +340,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         // ;
         [HttpGet]
         //issue with ie
-        //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
-        //   + CustomCacheKeys.Lang + ";"
-        //   + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 15)]
         public ActionResult ResetPassword()
         {
             if (User.Identity.IsAuthenticated)
@@ -498,8 +494,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            var cookie = new CookieHelper(HttpContext);
-            cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, result.Culture);
+            SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
                     result.UniversityId,
