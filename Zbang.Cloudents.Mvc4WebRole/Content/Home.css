@@ -560,12 +560,90 @@ footer {
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.rtlFix .ta-toolbar .btn-group {
+  float: right;
+}
+.rtlFix .btn-group > .btn {
+  float: right;
+}
+.rtlFix .svgWpr {
+  border-radius: 4px 0 0 4px;
+}
+.rtlFix .btn-group > .btn:first-child:not(.dropdown-toggle) {
+  border-radius: 0 4px 4px 0;
+}
+.rtlFix .btn-group > .btn:last-child:not(.dropdown-toggle) {
+  border-radius: 4px 0 0 4px;
+}
+.rtlFix .btn-group > .btn:only-child:not(.dropdown-toggle) {
+  border-radius: 4px;
+}
+.rtlFix .btn-group .btn {
+  border: 1px solid #ccc;
+  border-right: none;
+}
+.rtlFix .btn-group .btn:first-child {
+  border-right: 1px solid #ccc;
+}
 .rtlFix .pointsList {
   direction: rtl;
+}
+.rtlFix .digitWpr {
+  direction: rtl;
+}
+.rtlFix .ptDigit:first-child {
+  margin: -4px 4px 0 0;
 }
 .rtlFix .thumbItem.quizItem .actionBtns {
   left: 8px;
   right: auto;
+}
+.rtlFix .socialList .contactName {
+  direction: rtl;
+}
+.rtlFix .modal.couponPopup .closeModal {
+  right: 120px;
+  left: auto;
+}
+.rtlFix .popover.left {
+  margin: 0 -10px 0 0;
+}
+.rtlFix .popover.left > .arrow {
+  left: -12px;
+  right: auto;
+  border-width: 12px 12px 12px 0;
+  border-right-color: #c2c2c2;
+}
+.rtlFix .popover.left > .arrow:after {
+  left: 2px;
+  right: auto;
+  border-width: 10px 10px 10px 0;
+  border-left-color: none;
+  border-right-color: #f5f5f5;
+}
+.rtlFix .popover.right {
+  margin: 0 10px 0 0;
+}
+.rtlFix .popover.right > .arrow {
+  left: -12px;
+  right: auto;
+  border-width: 12px 0 12px 12px;
+  border-right-color: none;
+  border-left-color: #c2c2c2;
+}
+.rtlFix .popover.right > .arrow:after {
+  right: 2px;
+  left: auto;
+  border-width: 10px 0 10px 10px;
+  border-right-color: none;
+  border-left-color: #f5f5f5;
+}
+.rtlFix .firstRow .tooltip-arrow {
+  border-left: none;
+  border-right: 1px solid #3399ff;
+}
+.rtlFix .draggable {
+  padding: 6px 15px 6px 4px;
 }
 .rtlFix .itemReg .modal-header h3 {
   line-height: 40px;

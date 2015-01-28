@@ -223,11 +223,11 @@
             };
 
             $scope.changeLanguage = function () {
-                if ($scope.languageForm.selected === $scope.data.language) {
-                    return;
-                }
+                //if ($scope.languageForm.selected === $scope.data.language) {
+                //    return;
+                //}
 
-                //$angularCacheFactory.get('htmlCache').removeAll();
+                ////$angularCacheFactory.get('htmlCache').removeAll();
 
                 $analytics.eventTrack('Change Language', {
                     category: analyticsCategory,

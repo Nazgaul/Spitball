@@ -178,8 +178,9 @@
                 function toggleEnter(event) {                    
                     if (elements.size() === 0) {
                         $main.addClass('upload');
-                        $analytics.eventTrack(attrs.plDropzoneUploader, {
-                            category: 'Drag Enter'
+                        $analytics.eventTrack('Drag Enter', {
+                            category: 'Upload',
+                            label:attrs.plDropzoneUploader
                         });
                     }
                     elements = elements.add(event.target);
@@ -196,8 +197,9 @@
                                 return;
                             }
                             $main.removeClass('upload');
-                            $analytics.eventTrack(attrs.plDropzoneUploader, {
-                                category: 'Drag Leave'
+                            $analytics.eventTrack('Drag Leave', {
+                                category: 'Upload',
+                                label: attrs.plDropzoneUploader
                             });
                         }
                     }, 1);

@@ -63,8 +63,8 @@
                                 $scope.formData.academicBox.departmentId = department.id;
                                 $scope.params.selectedDepartment = department;
 
-                                $analytics.eventTrack('Box Wizard', {
-                                    category: 'Create Department'
+                                $analytics.eventTrack('Create Department', {
+                                    category: 'Box Wizard'
                                 });
 
                             }, function (response) {
@@ -79,8 +79,8 @@
                 nodeHistory.push(department);
                 $scope.formData.academicBox.departmentId = department.id;
                 getNodes();
-                $analytics.eventTrack('Box Wizard', {
-                    category: 'Select Department'
+                $analytics.eventTrack('Select Department', {
+                    category: 'Box Wizard'
                 });
             };
 
@@ -88,8 +88,8 @@
                 $scope.params.selectedDepartment = $scope.formData.academicBox.departmentId = null;
                 nodeHistory.pop();
                 getNodes();
-                $analytics.eventTrack('Box Wizard', {
-                    category: 'Change Department'
+                $analytics.eventTrack('Change Department', {
+                    category: 'Box Wizard'
                 });
             };
 

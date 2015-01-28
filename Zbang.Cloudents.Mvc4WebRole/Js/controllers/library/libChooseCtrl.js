@@ -175,8 +175,8 @@
                      window.open('/dashboard/', '_self');
 
                      $analytics.pageTrack('library/choose/created');
-                     $analytics.eventTrack('Choose University', {
-                         category: 'Create University'
+                     $analytics.eventTrack('Create University', {
+                         category: 'Select University'
                      });
 
                  });

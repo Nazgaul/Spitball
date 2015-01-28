@@ -580,10 +580,39 @@ footer {
 
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
+// NB: 1) Here we are overriding with greater specificity!! (so resetting ltr property is necessary)
 .rtlFix {
     .topImg {
         &:before {
             .flipH;
+        }
+    }
+    .ta-toolbar .btn-group {
+        float: right;
+    }
+    .btn-group > .btn {
+        float: right;
+    }
+    .svgWpr {
+        border-radius: 4px 0 0 4px;
+    }
+    .btn-group>.btn:first-child:not(.dropdown-toggle) {
+        border-radius: 0 4px 4px 0;
+    }
+    .btn-group>.btn:last-child:not(.dropdown-toggle) {
+        
+        border-radius: 4px 0 0 4px;
+    }
+    .btn-group>.btn:only-child:not(.dropdown-toggle) {
+        border-radius: 4px; //this is necessary (so that above classes don't override class in textAngular less)
+    }
+    .btn-group {
+        .btn {
+            border: 1px solid #ccc; 
+            border-right: none;
+            &:first-child {
+                border-right:  1px solid #ccc;
+            }
         }
     }
     /*.headingTexts {
@@ -592,7 +621,15 @@ footer {
         }
     }*/
     .pointsList {
-        direction: rtl;
+        direction: rtl; //no rtl
+    }
+    .digitWpr {
+        direction: rtl; //no rtl
+    }
+    .ptDigit {
+        &:first-child {
+            margin: -4px 4px 0 0; // no rtl
+        }
     }
     .thumbItem.quizItem  {
         .actionBtns {
@@ -600,6 +637,63 @@ footer {
             right: auto; //no rtl
         }
     }
+    .socialList {
+        .contactName {
+            direction: rtl; //no rtl (this is to ensure you don't see end of email in rtl - see bug 2823)
+        }
+    }
+    .modal.couponPopup {
+        .closeModal {
+            right: 120px; //no rtl
+            left: auto;
+        }
+    }
+    .popover {
+        &.left {
+            margin: 0 -10px 0 0; // no rtl
+            > .arrow {
+                left: -12px; // no rtl
+                right: auto;
+                border-width: 12px 12px 12px 0; //no rtl
+                border-right-color: @borderColor; //no rtl
+                &:after {
+                    left: 2px; //rtl
+                    right: auto;
+                    border-width: 10px 10px 10px 0; // no rtl
+                    border-left-color: none;
+                    border-right-color: #f5f5f5; //no rtl
+                }
+            }
+        }
+        &.right {
+            margin: 0 10px 0 0;
+            > .arrow {
+                left: -12px;
+                right: auto;
+                border-width: 12px 0 12px 12px;
+                border-right-color: none; 
+                border-left-color: @borderColor;
+                &:after {
+                    right: 2px;
+                    left: auto;
+                    border-width: 10px 0 10px 10px;
+                    border-right-color: none;
+                    border-left-color: #f5f5f5;
+                }
+            }
+        }
+    }
+    
+    .firstRow {
+        .tooltip-arrow {
+            border-left: none;
+            border-right: 1px solid @blue; //no rtl
+        }
+    }
+    .draggable {
+        padding: 6px 15px 6px 4px; //no rtl
+    }
+
     .itemReg {
         .modal-header {
             h3 {

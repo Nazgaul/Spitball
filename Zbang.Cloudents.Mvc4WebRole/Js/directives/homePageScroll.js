@@ -9,7 +9,7 @@
               $win.on('scroll', function (e) {
                   if (!scrolled) {
                       $analytics.eventTrack('Scroll', {
-                          category: 'Home page'
+                          category: 'Account'
                       });
                       scrolled = true;
 
@@ -19,7 +19,7 @@
                   if (!scrolledBottom) {
                       if ($win.scrollTop() + $win.height() == $doc.height()) {
                           $analytics.eventTrack('Scroll bottom', {
-                              category: 'Home page'
+                              category: 'Account'
                           });
                           scrolledBottom = true;
                       }

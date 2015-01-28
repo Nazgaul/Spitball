@@ -10,8 +10,8 @@ mItem.controller('ItemFullScreenCtrl',
         $scope.closeFullScreen = function() {
             $modalInstance.close();
             $scope.$parent.fullScreen = false;
-            $analytics.eventTrack('Item Fullscreen', {
-                category: 'Close'
+            $analytics.eventTrack('Close fullscreen', {
+                category: 'Item'
             });
 
         };
