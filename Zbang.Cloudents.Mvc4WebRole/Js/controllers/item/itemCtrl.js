@@ -82,8 +82,8 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
         }
     };
     $scope.fullScreenWindow = function () {
-        $analytics.eventTrack('Item', {
-            category: 'Full Screen'
+        $analytics.eventTrack('Full Screen', {
+            category: 'Item'
         });
         $location.hash('fullscreen');
 

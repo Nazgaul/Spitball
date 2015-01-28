@@ -84,13 +84,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Invite);
-                var inviteToBoxExistingUser = new InviteToBox(id, sender, box, newInvite, null, null, recipientEmail);
+                var inviteToBoxExistingUser = new InviteToBox(id, 
+                    sender,
+                    box,
+                    newInvite, null, null, recipientEmail);
 
                 m_UserBoxRelRepository.Save(newInvite);
                 m_InviteRepository.Save(inviteToBoxExistingUser);
                 tasks.Add(SendInvite(sender.Name, box.Name,
                     id,
-                    recipientEmail, sender.Image, sender.Email, recipientUser.Culture, box.Url));
+                    recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url));
             }
             return Task.WhenAll(tasks);
         }
