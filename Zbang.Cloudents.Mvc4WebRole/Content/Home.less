@@ -621,7 +621,15 @@ footer {
         }
     }*/
     .pointsList {
-        direction: rtl;
+        direction: rtl; //no rtl
+    }
+    .digitWpr {
+        direction: rtl; //no rtl
+    }
+    .ptDigit {
+        &:first-child {
+            margin: -4px 4px 0 0; // no rtl
+        }
     }
     .thumbItem.quizItem  {
         .actionBtns {
@@ -675,11 +683,7 @@ footer {
             }
         }
     }
-    .ptDigit {
-        &:first-child {
-            margin: 0 4px 0 0; // no rtl
-        }
-    }
+    
     .firstRow {
         .tooltip-arrow {
             border-left: none;

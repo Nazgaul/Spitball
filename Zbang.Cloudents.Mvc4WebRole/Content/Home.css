@@ -588,6 +588,12 @@ footer {
 .rtlFix .pointsList {
   direction: rtl;
 }
+.rtlFix .digitWpr {
+  direction: rtl;
+}
+.rtlFix .ptDigit:first-child {
+  margin: -4px 4px 0 0;
+}
 .rtlFix .thumbItem.quizItem .actionBtns {
   left: 8px;
   right: auto;
@@ -631,9 +637,6 @@ footer {
   border-width: 10px 0 10px 10px;
   border-right-color: none;
   border-left-color: #f5f5f5;
-}
-.rtlFix .ptDigit:first-child {
-  margin: 0 4px 0 0;
 }
 .rtlFix .firstRow .tooltip-arrow {
   border-left: none;
