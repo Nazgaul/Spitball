@@ -27,6 +27,9 @@ namespace Zbang.Zbox.Domain.Common
 
         public static string EncodeText(string text, params string[] allowElements)
         {
+            if (string.IsNullOrEmpty(text)) {
+                return text;
+            }
             var sb = new StringBuilder(
                             HttpUtility.HtmlEncode(text));
             if (allowElements != null)

@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
-using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mobile.Models.Account;
@@ -27,7 +26,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {
-
+    [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class AccountController : BaseController
     {
         private readonly Lazy<IMembershipService> m_MembershipService;
@@ -206,8 +205,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
-            if (Session != null)
-                Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             FormsAuthenticationService.SignOut();
             return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
         }
@@ -340,19 +337,24 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         //#endregion
         #region passwordReset
-        private const string SessionResetPassword = "SResetPassword";
-        private const string ResetPasswordCrypticPropose = "reset password";
+        //private const string SessionResetPassword = "SResetPassword";
+        // ;
         [HttpGet]
+        //issue with ie
+        //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //   + CustomCacheKeys.Lang + ";"
+        //   + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 15)]
         public ActionResult ResetPassword()
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToRoute("dashboardLink");
             }
+
             return View("ForgotPwd");
         }
 
-        [HttpPost]
+        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
@@ -370,6 +372,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View("ForgotPwd", model);
+
                 }
                 var query = new GetUserByMembershipQuery(membershipUserId);
                 var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
@@ -379,12 +382,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var data = new ForgotPasswordLinkData(membershipUserId, 1);
 
                 var linkData = CrypticElement(data);
-                Session[SessionResetPassword] = data;
+                //Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
                 TempData["key"] = Crypto.HashPassword(code);
 
-                return RedirectToAction("Confirmation");
+                return RedirectToAction("Confirmation", new { @continue = linkData });
 
             }
 
@@ -393,14 +396,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
                 ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
             }
-
-
-
             return View("ForgotPwd", model);
+
         }
 
         [HttpGet, NoCache]
-        public ActionResult Confirmation()
+        public ActionResult Confirmation(string @continue)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -410,28 +411,30 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToAction("ResetPassword");
             }
-            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
-            if (userData == null)
+            //var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+            if (@continue == null)
             {
                 return RedirectToAction("ResetPassword");
             }
             return View("CheckEmail", new Confirmation { Key = TempData["key"].ToString() });
         }
 
-        [HttpPost]
-        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model)
+        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
+        [RequireHttps]
+        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, string @continue)
         {
             if (!ModelState.IsValid)
             {
                 return View("CheckEmail", model);
+
             }
-            var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
+            var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
             if (userData == null)
             {
                 return RedirectToAction("ResetPassword");
             }
-            if (System.Web.Helpers.Crypto.VerifyHashedPassword(model.Key, model.Code))
+            if (Crypto.VerifyHashedPassword(model.Key, model.Code))
             {
                 userData.Step = 2;
                 var key = CrypticElement(userData);
@@ -439,14 +442,17 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View("CheckEmail", model);
+
+
         }
 
-        [HttpGet]
+        [RequireHttps, HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToRoute("dashboardLink");
+
             }
             if (string.IsNullOrWhiteSpace(key))
             {
@@ -462,10 +468,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("accountLink");
             }
-            return View("ChoosePwd", new NewPassword());
+             return View("ChoosePwd", new NewPassword());
+
         }
 
         [HttpPost]
+        [System.Web.Mvc.ValidateAntiForgeryToken]
+        [RequireHttps]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
@@ -489,17 +498,16 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            Session.Abandon();
             var cookie = new CookieHelper(HttpContext);
             cookie.InjectCookie(SiteExtension.UserLanguage.CookieName, result.Culture);
             FormsAuthenticationService.SignIn(result.Id, false,
                 new UserDetail(
-                //result.Culture,
                     result.UniversityId,
                     result.UniversityData
                     ));
 
             return RedirectToRoute("dashboardLink");
+
 
         }
 
@@ -514,6 +522,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return new string(chars.ToArray());
             //return "12345";
         }
+
+        private const string ResetPasswordCrypticPropose = "reset password";
         [NonAction]
         private string CrypticElement<T>(T obj) where T : class
         {
@@ -527,36 +537,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         }
         #endregion
-
-
-
-        //[ChildActionOnly]
-        //public ActionResult GetUserDetail3()
-        //{
-        //    const string userDetailView = "_UserDetail4";
-        //    if (User == null || !(User.Identity.IsAuthenticated))
-        //    {
-        //        return PartialView(userDetailView);
-        //    }
-        //    try
-        //    {
-        //        var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-        //        //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-        //        var serializer = new JsonNetSerializer();
-        //        var jsonRetVal = serializer.Serialize(retVal);
-        //        ViewBag.userDetail = jsonRetVal;
-        //        return PartialView(userDetailView, retVal);
-        //    }
-        //    catch (UserNotFoundException)
-        //    {
-        //        return new EmptyResult();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("GetUserDetail user" + User.Identity.Name, ex);
-        //        return new EmptyResult();
-        //    }
-        //}
+        
 
         [HttpGet]
         public async Task<JsonResult> Details()
