@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -63,7 +61,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             //base.HandleUnknownAction(actionName);
         }
 
-       
+
 
         protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
         {
@@ -117,7 +115,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 if (!ControllerContext.IsChildAction)
                 {
-                    UserLanguage.ChangeLanguage(HttpContext, Server);
+                    UserLanguage.ChangeLanguage(HttpContext, Server, requestContext.RouteData);
                 }
             }
             catch (Exception ex)

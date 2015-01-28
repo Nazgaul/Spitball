@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-            
+
 
             if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
             {
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
 
         }
-        
+
 
         /// <summary>
         /// Upload Image of product to product container storage
@@ -118,28 +118,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             uriBuilder.Host = storeCdnUri.Host;
 
             return uriBuilder.Uri.AbsoluteUri;
-
-            //var blob = container.GetBlockBlobReference(fileName);
-
-
-
-
-
-            //if (blob.Exists())
-            //{
-            //    if (blob.Properties.Length == data.LongLength)
-            //    {
-            //        return uriBuilder.Uri.AbsoluteUri;
-            //    }
-
-            //}
-
-            //await blob.UploadFromByteArrayAsync(data, 0, data.Length);
-            //blob.Properties.ContentType = "image/jpeg";
-            //blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
-            //await blob.SetPropertiesAsync();
-
-            //return uriBuilder.Uri.AbsoluteUri;
         }
 
 
@@ -210,20 +188,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-        public async Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
+        public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
         {
             if (metaData == null) throw new ArgumentNullException("metaData");
             var blob = GetFile(blobName);
-            await blob.FetchAttributesAsync();
             foreach (var item in metaData)
             {
                 blob.Metadata[item.Key] = System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000);
-                //blob.Metadata.Add(item.Key, System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000));
-                //blob.Metadata.Add(item.Key, StripElementForMetaData(item.Value.ToLower().RemoveEndOfString(5000)));
             }
-            await blob.SetMetadataAsync();
+            return blob.SetMetadataAsync();
         }
-       
+
 
 
         public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
@@ -448,7 +423,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.ContentType = mimeType;
             blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
 
-           await blob.UploadFromStreamAsync(content);
+            await blob.UploadFromStreamAsync(content);
 
             return TransferToCdnEndpoint(blob.Uri);
 
@@ -461,7 +436,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             {
                 return uri.AbsoluteUri;
             }
-           return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + uri.PathAndQuery;
+            return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + uri.PathAndQuery;
         }
 
         #region Thumbnail

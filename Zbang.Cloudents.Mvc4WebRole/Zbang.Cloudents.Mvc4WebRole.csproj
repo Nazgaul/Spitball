@@ -270,7 +270,6 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\JsonNetSerializer.cs" />
-    <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
@@ -307,7 +306,6 @@
     <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\UrlTitleBringer.cs" />
-    <Compile Include="Helpers\UserLanguage.cs" />
     <Compile Include="Js\Resources\JsResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
