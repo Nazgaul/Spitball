@@ -126,7 +126,7 @@
         });
 
         function buildUrl(path) {
-            return path + '?lang=' + getCookie('l1') + '&version=' + window.version;
+            return path + '?lang=' + getCookie('l2') + '&version=' + window.version;
 
             function getCookie(cname) {
                 var name = cname + "=";
