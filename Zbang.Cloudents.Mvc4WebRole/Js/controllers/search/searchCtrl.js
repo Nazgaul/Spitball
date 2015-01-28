@@ -32,6 +32,7 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
         boxesLoading: false,
         usersLoading: false
     };
+    var analyticsCategory = 'Search';
 
     $scope.data = {};
 
@@ -62,8 +63,8 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
         getOtherUnisItems();
         $scope.params.showOtherUnis = false;
 
-        $analytics.eventTrack('Search', {
-            category: 'Show More',
+        $analytics.eventTrack('Show more', {
+            category: analyticsCategory,
             label: 'Show more from other universities'
         });
 
@@ -86,8 +87,8 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
                 tabName = 'users';
                 break;
         }
-        $analytics.eventTrack('Search', {
-            category: 'Select Tab',
+        $analytics.eventTrack('Switch tab', {
+            category: analyticsCategory,
             label: 'User clicked the ' + tabName + 'tab'
         });
         $scope.params.noResults = (length === 0);
@@ -179,13 +180,13 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
         $scope.params.noResults = false;
 
         $analytics.eventTrack('Search', {
-            category: 'Search',
+            category: analyticsCategory,
             label: 'User searched for ' + query
         });
 
 
         if ($scope.params.currentPage === 0) {
-            $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page')
+            $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
         }
 
         $timeout(function () {

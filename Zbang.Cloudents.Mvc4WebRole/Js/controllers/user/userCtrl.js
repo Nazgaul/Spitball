@@ -49,7 +49,7 @@ mUser.controller('UserCtrl',
     ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants','$analytics','sFacebook',
     function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics, sFacebook) {
         "use strict";
-
+        var analyticsCategory = 'User';
         $scope.params = {
             sortDirection: userConstants.sort.des
         };
@@ -77,8 +77,8 @@ mUser.controller('UserCtrl',
                 }
             });
 
-            $analytics.eventTrack('User', {
-                category: 'Send Message',
+            $analytics.eventTrack('Send Message', {
+                category: analyticsCategory, 
                 label: 'User send a message to another user'
             });
 
@@ -90,8 +90,8 @@ mUser.controller('UserCtrl',
         $scope.inviteCloudents = function () {
             sModal.open('cloudentsInvite');
 
-            $analytics.eventTrack('User', {
-                category: 'Invite Cloudents'                
+            $analytics.eventTrack('Invite Cloudents', {
+                category: analyticsCategory                 
             });
         };
 
@@ -135,8 +135,8 @@ mUser.controller('UserCtrl',
                 $scope.admin.members.selected = 0;
             }
 
-            $analytics.eventTrack('User Admin', {
-                category: 'Select All Members'                
+            $analytics.eventTrack('User Admin Select All Members', {
+                category: analyticsCategory                 
             });
         };
 
@@ -165,8 +165,8 @@ mUser.controller('UserCtrl',
 
             $scope.admin.members.list = array;
 
-            $analytics.eventTrack('User Admin', {
-                category: 'Sort Department'
+            $analytics.eventTrack('User Admin Sort Department', {
+                category: analyticsCategory
             });
         };
 
@@ -186,8 +186,8 @@ mUser.controller('UserCtrl',
             }
 
             sModal.open('shareEmail', { data: sendData });
-            $analytics.eventTrack('User Admin', {
-                category: 'Send message to users'
+            $analytics.eventTrack('User Admin Send message to users', {
+                category: analyticsCategory 
             });
         };
 
@@ -224,8 +224,8 @@ mUser.controller('UserCtrl',
 
             $scope.activity.currentTab = type;
 
-            $analytics.eventTrack('User Activity', {
-                category: 'Select Tab',
+            $analytics.eventTrack('User Activity Select Tab', {
+                category: analyticsCategory,
                 label: 'User selected the ' + type + ' tab'
             });
         }
@@ -247,8 +247,8 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
-                $analytics.eventTrack('User Boxes', {
-                    category: 'Show All'
+                $analytics.eventTrack('User Boxes Show All', {
+                    category: analyticsCategory
                 });
 
                 if (!$scope.boxes.showAll) {
@@ -262,8 +262,8 @@ mUser.controller('UserCtrl',
                 $scope.boxes.following.limit = userConstants.boxes.following.init;
             },
             followBox: function (box) {
-                $analytics.eventTrack('User Boxes', {
-                    category: 'Follow Box'
+                $analytics.eventTrack('User Boxes Follow Box', {
+                    category: analyticsCategory
                 });
 
                 sBox.follow({ boxId: box.id }).then(function () {
@@ -288,8 +288,8 @@ mUser.controller('UserCtrl',
                 list: []
             },
             toggleShowAll: function () {
-                $analytics.eventTrack('User Friends', {
-                    category: 'Show All'
+                $analytics.eventTrack('User Friends Show All', {
+                    category: analyticsCategory
                 });
                 if (!$scope.friends.showAll) {
                     $scope.friends.showAll = true;
@@ -319,8 +319,8 @@ mUser.controller('UserCtrl',
                     $scope.invites.limit = $scope.invites.list.length;
                     return;
                 }
-                $analytics.eventTrack('User Invites', {
-                    category: 'Show All'
+                $analytics.eventTrack('User Invites Show All', {
+                    category: analyticsCategory
                 });
 
                 $scope.invites.showAll = false;
@@ -348,8 +348,8 @@ mUser.controller('UserCtrl',
                             path: response.url,
                             to: invite.email
                         }).then(function () {
-                            $analytics.eventTrack('User', {
-                                category: 'Facebook ReInvite ' + invite.inviteType
+                            $analytics.eventTrack('Facebook ReInvite ' + invite.inviteType, {
+                                category: analyticsCategory 
                             });
 
                             invite.submitted = true;                            
