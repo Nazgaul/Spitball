@@ -246,7 +246,7 @@ angular.module('textAngularSetup', [])
     var index
     taRegisterTool('color', {
         display: '<span class="btn ta-color"> \
-                <input type="color" ng-model="color" ng-change="action(color)" /> \
+                <input tabindex="-1" type="color" ng-model="color" ng-change="action(color)" /> \
                 <label class="svgWpr"><svg class="svg-textColor"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#textColor"></use></svg></label> \
                 </span>',
         action: function (color) {            
@@ -604,7 +604,7 @@ angular.module('textAngularSetup', [])
     };
 
     taRegisterTool('insertImage', {
-        display: '<span class="btn ta-file"><input type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
+        display: '<span class="btn ta-file"><input tabindex="-1" type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \
                        <label class="svgWpr"><svg class="svg-upload"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#upload"></use></svg></span> \
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
