@@ -628,14 +628,10 @@ footer {
 }
 /*#endregion */
 /*#region RTL inconsistencies */
-[data-culture="he-IL"] .policy,
-[data-culture="ar-AE"] .policy,
-[data-culture="he-IL"] .terms,
-[data-culture="ar-AE"] .terms,
-[data-culture="he-IL"] .aboutUs,
-[data-culture="ar-AE"] .aboutUs,
-[data-culture="he-IL"] .contactUs,
-[data-culture="ar-AE"] .contactUs {
+.rtlFix .policy,
+.rtlFix .terms,
+.rtlFix .aboutUs,
+.rtlFix .contactUs {
   direction: ltr;
   text-align: left;
 }

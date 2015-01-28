@@ -52,6 +52,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Create(cssLinks);
         }
 
+        public static MvcHtmlString ClassOfRtl(this HtmlHelper html)
+        {
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                return MvcHtmlString.Create("rtlFix");
+            }
+            return MvcHtmlString.Empty;
+        }
+
         public static MvcHtmlString CssCulture(this HtmlHelper html, string key)
         {
             var cssLinks = BundleConfig.CssLink(key + "." + Thread.CurrentThread.CurrentCulture);

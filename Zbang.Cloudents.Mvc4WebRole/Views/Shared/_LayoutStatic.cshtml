@@ -33,7 +33,7 @@
     @*@Html.CssRtl("staticRtl")*@
     @Html.CssCulture("lang")
 </head>
-<body>
+<body class="@Html.ClassOfRtl()">
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {
