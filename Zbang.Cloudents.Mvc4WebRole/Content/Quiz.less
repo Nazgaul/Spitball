@@ -282,7 +282,9 @@ body {
     border: 1px solid rgba(194, 194, 194, 0.5);
     //border-color: rgba(194, 194, 194, 0.5);
     .boxSizing;
-   
+   &:focus {
+       border-color: @blue;
+   }
     &:hover {
         .closeDialog{
             display: block;
@@ -331,13 +333,13 @@ body {
     input[type="radio"]:checked + label:before{
         opacity:1;
     }
-    /*label{
+    .answerLabel {
         position: absolute;
-        right: 19px;
+        right: 22px;
         &:before {
             opacity: .5;
         }
-    }*/
+    }
 }
 
 .answerWpr {

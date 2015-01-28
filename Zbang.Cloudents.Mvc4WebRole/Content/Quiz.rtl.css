@@ -239,14 +239,10 @@ body.quiz .modal-backdrop.in {
   border: 1px solid rgba(194, 194, 194, 0.5);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box
-  /*label{
-        position: absolute;
-        right: 19px;
-        &:before {
-            opacity: .5;
-        }
-    }*/
+  box-sizing: border-box;
+}
+.questionHolder:focus {
+  border-color: #3399ff;
 }
 .questionHolder:hover .closeDialog {
   display: block;
@@ -298,6 +294,13 @@ body.quiz .modal-backdrop.in {
 }
 .questionHolder input[type="radio"]:checked + label:before {
   opacity: 1;
+}
+.questionHolder .answerLabel {
+  position: absolute;
+  left: 22px;
+}
+.questionHolder .answerLabel:before {
+  opacity: .5;
 }
 .answerWpr {
   width: 550px;

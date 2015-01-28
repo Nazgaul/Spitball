@@ -83,7 +83,7 @@
                 <textarea text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
                           readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
-                <label></label>
+                <label class="answerLabel"></label>
             </li>
         </ul>
     </div>
@@ -96,5 +96,5 @@
     <button tabindex="-1" type="button" class="removeAnswer" ng-click="removeAnswer(question,$index)">X</button>
     <input id="quizRadio{{$parent.$parent.$index + '' + $index}}" type="radio" class="correctAnswer" name="quizRadio{{$parent.$parent.$index}}"
            ng-disabled="isEmptyText(answer)" value="{{answer.id}}" ng-model="question.correctAnswer" ng-required="!questionForm.$pristine || params.isDraft" />
-    <label for="quizRadio{{$parent.$parent.$index + '' + $index}}" ng-click="markCorrect(question,answer)"></label>
+    <label class="answerLabel" for="quizRadio{{$parent.$parent.$index + '' + $index}}" ng-click="markCorrect(question,answer)"></label>
 </script>
