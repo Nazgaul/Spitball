@@ -157,21 +157,20 @@
                 category: 'Add Question'
             });
         };
-        $scope.saveQuestion = function (question) {
+        $scope.saveQuestion = function (question) {            
             if (!$scope.quiz.id) {
-                createQuiz().then(function () {
+                createQuiz().then(function () {               
                     createQuestion(question);
                 });
                 return;
-            }
+            }          
 
             if (!question.id) {
-                createQuestion(question).then(function () {
-                    sQuiz.question.update({ id: question.id, text: question.text });
-                });
+                createQuestion(question);
                 return;
             }
 
+            question.text = question.text || '';
             sQuiz.question.update({ id: question.id, text: question.text });
         };
 
@@ -580,7 +579,7 @@ directive('quizFocus', [ function () {
         restrict: 'A',
         link: function (scope, element) {
             var input;
-            if (element.is('textarea')) {
+            if (element.is('textarea') || element.is('input:text')) {
                 input = element[0];
             } else {
                 input = element[0].querySelector('[contenteditable]');
