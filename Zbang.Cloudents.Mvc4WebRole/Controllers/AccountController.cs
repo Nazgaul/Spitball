@@ -85,9 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-           Options = OutputCacheOptions.IgnoreQueryString
-           )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
@@ -313,9 +311,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(user);
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5,
-           Location = OutputCacheLocation.ServerAndClient,
-           VaryByCustom = CustomCacheKeys.Lang, Options = OutputCacheOptions.IgnoreQueryString, VaryByParam = "none")]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         [ZboxAuthorize, NoUniversity]
         public PartialViewResult SettingPartial()
         {

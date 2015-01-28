@@ -63,7 +63,7 @@
         <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
     </a>
     <div class="actionBtns" ng-if="isUserLoggedIn()">
-        <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="followBox()" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
+        <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="followBox()" analytics-on="click" analytics-event="Download" analytics-category="Box" analytics-label="User downloaded an item"></a>
         <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
             @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
         </button>
@@ -91,7 +91,7 @@
         <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
     </a>
         <div class="actionBtns" ng-if="isUserLoggedIn()">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(event,item)" analytics-on="click" analytics-event="Download" analytics-category="Box items" analytics-label="User downloaded an item"></a>
+            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(event,item)" analytics-on="click" analytics-event="Download" analytics-category="Box" analytics-label="User downloaded an item"></a>
             <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
                 @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
             </button>

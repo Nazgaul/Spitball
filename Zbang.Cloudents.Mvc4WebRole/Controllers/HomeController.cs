@@ -46,7 +46,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //don't put in here route attribute
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+        [DonutOutputCache(Duration = TimeConsts.Day,
+            VaryByParam = "None", 
+            VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         //this is for search,library choose,account settings home page
         public ActionResult IndexEmpty()

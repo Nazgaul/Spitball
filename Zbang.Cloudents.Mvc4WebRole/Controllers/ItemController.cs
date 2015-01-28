@@ -56,9 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-           Options = OutputCacheOptions.IgnoreQueryString
-           )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()
         {
             return PartialView("Index");

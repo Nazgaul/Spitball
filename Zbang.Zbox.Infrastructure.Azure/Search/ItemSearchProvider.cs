@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             catch (Exception ex)
             {
                 TraceLog.WriteError("problem with getting content of " + itemToUpload.Id, ex);
-                throw;
+                return itemToUpload.Content;
             }
         }
 

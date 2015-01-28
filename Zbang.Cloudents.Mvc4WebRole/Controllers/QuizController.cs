@@ -89,9 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-             Options = OutputCacheOptions.IgnoreQueryString
-             )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
@@ -99,9 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize]
-        [DonutOutputCache(CacheProfile = "PartialPage",
-             Options = OutputCacheOptions.IgnoreQueryString
-             )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult CreatePartial()
         {
             return PartialView("CreateQuiz");

@@ -21,9 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        [DonutOutputCache(CacheProfile = "PartialPage",
-            Options = OutputCacheOptions.IgnoreQueryString
-            )]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
             return PartialView("Index");
