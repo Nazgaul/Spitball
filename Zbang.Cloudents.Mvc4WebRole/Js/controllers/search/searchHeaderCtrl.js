@@ -62,8 +62,8 @@
             
             $analytics.searchTrack('search', query, 'search header');
             
-            $analytics.eventTrack('Search Header', {
-                category: 'Search',
+            $analytics.eventTrack('Search', {
+                category: 'Search Header',
                 label: 'User searched for ' + query
             });
             sSearch.dropdown({ q: query }).then(function (data) {
@@ -92,7 +92,7 @@
                 return;
             }
 
-            $analytics.eventTrack('Search', {
+            $analytics.eventTrack('Search Header', {
                 category: 'Full Search'
             });
 

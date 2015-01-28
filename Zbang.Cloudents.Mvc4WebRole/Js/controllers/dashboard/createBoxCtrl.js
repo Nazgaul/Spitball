@@ -20,8 +20,8 @@
                      $scope.box.url = data.url;
                      $scope.box.id = data.id;
                      $scope.next();
-                     $analytics.eventTrack('Box Wizard', {
-                         category: 'Create Private'
+                     $analytics.eventTrack( 'Create Private', {
+                         category: 'Box Wizard'
                      });
                  }, function (response) {
                      $scope.formData.error = response[0].value[0];

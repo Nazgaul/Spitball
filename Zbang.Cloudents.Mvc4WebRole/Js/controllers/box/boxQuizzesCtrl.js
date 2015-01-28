@@ -36,8 +36,8 @@
                     return;
                 }
 
-                $analytics.eventTrack('Box Quizzes', {
-                    category: 'Add Quiz'
+                $analytics.eventTrack('Add Quiz', {
+                    category: 'Box Quizzes'
                 });
 
                 $rootScope.$broadcast('initQuiz', { boxId: $scope.boxId, boxName: $scope.info.name });
@@ -63,8 +63,8 @@
                     sQuiz.delete(data).then(null, function () {
                         sNotify.alert('error deleting ' + quiz.name); //translate
                     });
-                    $analytics.eventTrack('Box Quizzes', {
-                        category: 'Remove Quiz'
+                    $analytics.eventTrack( 'Remove Quiz', {
+                        category:'Box Quizzes'
                     });
                 });
 
@@ -94,8 +94,8 @@
 
             $scope.selectQuiz = function (e, quiz) {
                 if (!quiz.publish) {
-                    $analytics.eventTrack('Box Quizzes', {
-                        category: 'Edit Quiz'
+                    $analytics.eventTrack('Edit Quiz', {
+                        category: 'Box Quizzes'
                     });
                     $location.path($scope.createUrl).search('quizId', quiz.id).hash(null);
                     return;
@@ -114,8 +114,8 @@
                 $scope.qOptions.lastView = $scope.qOptions.currentView;
                 $scope.qOptions.currentView = view;
 
-                $analytics.eventTrack('Box Quizzes', {
-                    category: 'Change View',
+                $analytics.eventTrack('Change View', {
+                    category: 'Box Quizzes',
                     label: 'User changed view to ' + view
                 });
             };

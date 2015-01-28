@@ -32,8 +32,8 @@
             $scope.cancel = function () {
                 if (!$scope.box.url) {
                     $modalInstance.dismiss();
-                    $analytics.eventTrack('Box Wizard', {
-                        category: 'Cancel'
+                    $analytics.eventTrack( 'Cancel', {
+                        category: 'Box Wizard'
                     });
                     return;
                 }
@@ -43,8 +43,8 @@
             };
 
             $scope.invite = function (contact) {
-                $analytics.eventTrack('Box Wizard', {
-                    category: 'Invite'
+                $analytics.eventTrack('Invite', {
+                    category: 'Box Wizard'
                 });
 
                 sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {
@@ -73,8 +73,8 @@
                         to: contact.id
                     }).then(function () {
                         dfd.resolve();
-                        $analytics.eventTrack('Box Wizard', {
-                            category: 'Facebook Invite'
+                        $analytics.eventTrack('Facebook Invite', {
+                            category: 'Box Wizard'
                         });
                     }, function () {
                         dfd.reject();
@@ -95,8 +95,8 @@
                     url: url,
                     isItems: items
                 });
-                $analytics.eventTrack('Box Wizard', {
-                    category: 'Finish'
+                $analytics.eventTrack('Finish', {
+                    category: 'Box Wizard'
                 });
             };
         }]

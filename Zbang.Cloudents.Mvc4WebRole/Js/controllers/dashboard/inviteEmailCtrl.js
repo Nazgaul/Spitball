@@ -30,8 +30,8 @@
 
 
              $scope.submit = function () {
-                 $analytics.eventTrack('Invite by email', {
-                     category: 'Invite',
+                 $analytics.eventTrack('Invite', {
+                     category: 'Invite by email',
                      label:'Social popup user invited by email'
                  });
 
@@ -75,8 +75,8 @@
 
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
-                 $analytics.eventTrack('Invite by email', {
-                     category: 'Remove',
+                 $analytics.eventTrack('Remove', {
+                     category:'Invite by email',
                      label: 'User removed an email'
                  });
              };
@@ -90,8 +90,8 @@
                  $scope.remove(email);
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
-                 $analytics.eventTrack('Invite by email', {
-                     category: 'Edit',
+                 $analytics.eventTrack('Edit', {
+                     category: 'Invite by email' ,
                      label: 'User edit an email'
                  });
              };

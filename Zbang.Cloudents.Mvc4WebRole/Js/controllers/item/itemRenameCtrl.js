@@ -13,7 +13,7 @@ function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {
         $scope.disable = true;
 
         $analytics.eventTrack('Rename Item', {
-            category: 'Item Renamed'
+            category: 'Item'
         });
 
         sItem.rename($scope.formdata).then(function (response) {
@@ -27,8 +27,8 @@ function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {
     };
 
     $scope.cancel = function () {
-        $analytics.eventTrack('Rename Item', {
-            category: 'Cancel Rename'
+        $analytics.eventTrack('Cancel Rename', {
+            category: 'Item'
         });
 
         $modalInstance.dismiss();

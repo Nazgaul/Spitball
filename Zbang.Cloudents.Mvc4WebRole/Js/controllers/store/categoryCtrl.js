@@ -123,8 +123,8 @@
             hideBanners = true;
             $location.search('q', $scope.params.search);
 
-            $analytics.eventTrack('Store Category', {
-                category: 'Search',
+            $analytics.eventTrack('Search', {
+                category: 'Store Category',
                 label: 'User searched for ' + query2
             });
 

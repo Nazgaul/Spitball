@@ -37,7 +37,7 @@
 
         $scope.saveLink = function () {
 
-            $analytics.eventTrack( 'Save Link', {
+            $analytics.eventTrack('Save Link', {
                 category: 'Upload'
             });
 
@@ -245,15 +245,15 @@ mBox.controller('UploadLinkCtrl',
         $scope.add = function () {
             $modalInstance.close($scope.formData.url);
 
-            $analytics.eventTrack('Link', {
-                category: 'Saved Link'
+            $analytics.eventTrack('Saved Link', {
+                category: 'Link popup'
             });
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
-            $analytics.eventTrack('Link', {
-                category: 'Cancel'
+            $analytics.eventTrack('Cancel', {
+                category: 'Link popup'
             });
         };
     }

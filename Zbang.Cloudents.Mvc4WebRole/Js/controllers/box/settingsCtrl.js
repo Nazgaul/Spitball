@@ -32,8 +32,8 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
         sBox.updateInfo($scope.formData).then(function (response) {
             $scope.formData.queryString = response.queryString;
             $modalInstance.close($scope.formData);
-            $analytics.eventTrack('Box Settings', {
-                category: 'Save Settings'
+            $analytics.eventTrack('Save Settings', {
+                category: 'Box Settings'
             });
 
         }, function (response) {
@@ -43,8 +43,8 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
 
     $scope.cancel = function () {
         $modalInstance.dismiss();
-        $analytics.eventTrack('Box Settings', {
-            category: 'Cancel'
+        $analytics.eventTrack('Cancel', {
+            category: 'Box Settings'
         });
     };
 
@@ -74,8 +74,8 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
         remove();
 
 
-        $analytics.eventTrack('Box Settings', {
-            category: 'Delete/Unfollow',
+        $analytics.eventTrack('Delete/Unfollow', {
+            category: 'Box Settings',
             label: 'User deleted or unfollowed a box'
         });
 
@@ -107,8 +107,8 @@ function ($scope, $modalInstance, $location, $analytics, sUserDetails, sBox, dat
             invite: true
         });
 
-        $analytics.eventTrack('Box Settings', {
-            category: 'Invite Friends'
+        $analytics.eventTrack('Invite Friends', {
+            category: 'Box Settings'
         });
     };
 }

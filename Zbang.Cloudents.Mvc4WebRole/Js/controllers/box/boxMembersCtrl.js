@@ -28,8 +28,8 @@
                     }
                 });
 
-                $analytics.eventTrack('Box Members', {
-                    category: 'Send Message',
+                $analytics.eventTrack('Send Message', {
+                    category: 'Box Members',
                     label: 'User sent a message to another member'
                 });
             };
@@ -56,8 +56,8 @@
                 //}
 
                 function remove() {
-                    $analytics.eventTrack('Box Members', {
-                        category: 'Remove User',
+                    $analytics.eventTrack( 'Remove User',{
+                        category:'Box Members', 
                         label: 'User removed a member or someone invited'
                     });
 
@@ -85,8 +85,8 @@
                     member.action = false;
                 });
 
-                $analytics.eventTrack('Box Members', {
-                    category: 'Reinvite'
+                $analytics.eventTrack('Reinvite', {
+                    category: 'Box Members'
                 });
 
             };

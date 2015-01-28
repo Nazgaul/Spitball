@@ -24,17 +24,15 @@ function ($scope, $modalInstance, data, $timeout, $analytics, sItem, sNotify) {
         });
 
         $analytics.eventTrack('Flag Item', {
-            category: 'Item was flagged ' + $scope.formdata.id
+            category: 'Item',
+            label: 'Item was flagged ' + $scope.formdata.id
         });
     }
     $scope.cancel = function () {
         if ($scope.secondStep) {
             $modalInstance.close();
         }
-        $modalInstance.dismiss();
-        $analytics.eventTrack('Flag Item', {
-            category: 'Cancel'
-        });
+        $modalInstance.dismiss();        
     };
 }
 ]);

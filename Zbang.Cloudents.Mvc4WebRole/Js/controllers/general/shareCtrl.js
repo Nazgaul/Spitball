@@ -145,8 +145,8 @@
         };
 
         $scope.loadGoogleContacts = function () {
-            $analytics.eventTrack('Share Email', {
-                category: 'Google Connect'
+            $analytics.eventTrack('Google Connect', {
+                category: 'Share Email'
             });
             sGoogle.checkAuth(false).then(function () {
                 getGoogleContacts();
@@ -179,8 +179,8 @@
             if (!$scope.formData.emailList.length) {
                 $scope.formData.placeholder = JsResources.UsernameOr;
             }
-            $analytics.eventTrack('Share Email', {
-                category: 'Remove email'
+            $analytics.eventTrack('Remove email', {
+                category: 'Share Email'
             });
         };
 
@@ -194,8 +194,8 @@
 
             $scope.$broadcast('itemChange');
             sFocus('shareInput');
-            $analytics.eventTrack('Share Email', {
-                category: 'Edit email'
+            $analytics.eventTrack('Edit email', {
+                category: 'Share Email'
             });
         };
 

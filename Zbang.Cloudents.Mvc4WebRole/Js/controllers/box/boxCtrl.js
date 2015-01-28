@@ -131,8 +131,8 @@
                      );
                 $scope.popup.share = false;
 
-                $analytics.eventTrack('Box', {
-                    category: 'Facebook Share',
+                $analytics.eventTrack('Facebook Share', {
+                    category: 'Box',
                     label: 'User shared a box on facebook ' + $scope.boxId + ' ' + $scope.info.name
                 });
             };
@@ -142,8 +142,8 @@
 
                 sModal.open('shareEmail');
 
-                $analytics.eventTrack('Box', {
-                    category: 'Email Share',
+                $analytics.eventTrack('Email Share', {
+                    category: 'Box',
                     label: 'User clicked on share by email'
                 });
             };
@@ -159,8 +159,8 @@
                     return;
                 }
 
-                $analytics.eventTrack('Box', {
-                    category: 'Invite Friends',
+                $analytics.eventTrack('Invite Friends', {
+                    category: 'Box',
                     label: 'User clicked on invite friends'
                 });
 
@@ -191,8 +191,8 @@
                     return;
                 }
 
-                $analytics.eventTrack('Box', {
-                    category: 'Settings',
+                $analytics.eventTrack( 'Settings', {
+                    category:'Box',
                     label: 'User clicked on box settings'
                 });
 
@@ -261,8 +261,8 @@
                     return;
                 }
 
-                $analytics.eventTrack('Box', {
-                    category: 'Follow',
+                $analytics.eventTrack('Follow', {
+                    category: 'Box',
                     label: 'User followd a box ' + $scope.boxId + ' ' + $scope.info.name
                 });
 

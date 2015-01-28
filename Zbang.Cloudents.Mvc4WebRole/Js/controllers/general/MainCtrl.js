@@ -113,8 +113,8 @@
                 }, 500);
 
 
-                $analytics.eventTrack('Site Header', {
-                    category: 'Logout'
+                $analytics.eventTrack('Logout', {
+                    category: 'Site Header'
                 });
             };
 

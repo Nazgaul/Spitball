@@ -19,8 +19,8 @@
                 return;
             }
 
-            $analytics.eventTrack('Store Contact', {
-                category: 'Submit Form'
+            $analytics.eventTrack('Submit Form', {
+                category: 'Store Contact'
             });
 
 

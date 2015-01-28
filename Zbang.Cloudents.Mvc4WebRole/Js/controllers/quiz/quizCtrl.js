@@ -118,8 +118,8 @@ mQuiz.controller('QuizCtrl',
 
             $scope.checkAnswers = function () {
                 checkAnswers();
-                $analytics.eventTrack('Quiz', {
-                    category: 'Check Answers'
+                $analytics.eventTrack('Check Answers', {
+                    category: 'Quiz'
                 });
                 $scope.$broadcast('timer-stop');
             };
@@ -127,8 +127,8 @@ mQuiz.controller('QuizCtrl',
             $scope.retakeQuiz = function () {
                 $timeout.cancel(challengeTimeout);
                 resetQuiz();
-                $analytics.eventTrack('Quiz', {
-                    category: 'Retake'
+                $analytics.eventTrack('Retake', {
+                    category: 'Quiz'
                 });
             };
 
@@ -293,23 +293,23 @@ mQuiz.controller('QuizCtrl',
                 if ($scope.quiz.testInProgress) {
                     pauseTimer();
 
-                    $analytics.eventTrack('Quiz', {
-                        category: 'Pause Quiz'
+                    $analytics.eventTrack('Pause Quiz', {
+                        category: 'Quiz'
                     }); return;
                 }
 
 
                 if ($scope.quiz.paused) {
-                    $analytics.eventTrack('Quiz', {
-                        category: 'Resume Quiz'
+                    $analytics.eventTrack('Resume Quiz', {
+                        category: 'Quiz'
                     });
                     resumeTimer();
                     return;
                 }
 
                 startTimer();
-                $analytics.eventTrack('Quiz', {
-                    category: 'Start Quiz'
+                $analytics.eventTrack('Start Quiz', {
+                    category: 'Quiz'
                 });
             };
 
@@ -370,8 +370,8 @@ mQuiz.controller('QuizCtrl',
                     comment.id = response;
                 });
 
-                $analytics.eventTrack('Quiz', {
-                    category: 'Create Comment'
+                $analytics.eventTrack('Create Comment', {
+                    category: 'Quiz'
                 });
             };
 
@@ -380,8 +380,8 @@ mQuiz.controller('QuizCtrl',
                 question.comments.splice(index, 1);
 
                 sQuiz.discussion.deleteDiscussion({ id: comment.id });
-                $analytics.eventTrack('Quiz', {
-                    category: 'Delete Comment'
+                $analytics.eventTrack('Delete Comment', {
+                    category: 'Quiz'
                 });
             };
             function getDiscussion() {

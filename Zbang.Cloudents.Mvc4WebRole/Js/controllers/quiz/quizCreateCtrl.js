@@ -131,15 +131,15 @@
                 goToQuizzes();
             });
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Deleted Quiz'
+            $analytics.eventTrack('Deleted Quiz', {
+                category: 'Quiz Create'
             });
         }
 
         function saveDraft() {
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Save Draft'
+            $analytics.eventTrack('Save Draft', {
+                category: 'Quiz Create'
             });
             goToQuizzes();
 
@@ -153,8 +153,11 @@
                 $scope.addAnswer(question, false);
             }
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Add Question'
+            if (!focus) {
+                return;
+            }
+            $analytics.eventTrack('Add Question', {
+                category: 'Quiz Create'
             });
         };
         $scope.saveQuestion = function (question) {            
@@ -182,8 +185,8 @@
                 return;  //don't want to remove the first question
             }
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Remove Question'
+            $analytics.eventTrack('Remove Question', {
+                category: 'Quiz Create'
             });
 
             var question = $scope.quiz.questions[index];
@@ -229,8 +232,8 @@
             answer.focus = focus;
             question.answers.push(answer);
             $rootScope.$broadcast('update-scroll');
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Add Answer'
+            $analytics.eventTrack('Add Answer', {
+                category: 'Quiz Create'
             });
 
         };
@@ -246,8 +249,8 @@
             $rootScope.$broadcast('update-scroll');
 
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Remove Answer'
+            $analytics.eventTrack('Remove Answer', {
+                category: 'Quiz Create'
             });
 
             if (question.correctAnswer === answer.id) {
@@ -333,8 +336,8 @@
                 return;
             }
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Mark Correct'
+            $analytics.eventTrack('Mark Correct', {
+                category: 'Quiz Create'
             });
 
             sQuiz.answer.markCorrect({ answerId: answer.id });
@@ -342,8 +345,8 @@
 
         $scope.previewQuiz = function () {
             $scope.quiz.showPreview = !$scope.quiz.showPreview;
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Preview Quiz'
+            $analytics.eventTrack('Preview Quiz', {
+                category: 'Quiz Create'
             });
         };
 
@@ -467,8 +470,8 @@
             if ($scope.isEmptyQuiz()) {
                 $scope.quiz.empty = true;
                 $scope.quiz.validated = false;
-                $analytics.eventTrack('Quiz Create', {
-                    category: 'Empty Quiz',
+                $analytics.eventTrack('Empty Quiz', {
+                    category: 'Quiz Create',
                     label: 'User tried to publish an empty quiz'
                 });
                 return;
@@ -479,8 +482,8 @@
 
             if (!isValid) {
 
-                $analytics.eventTrack('Quiz Create', {
-                    category: 'Invalid Quiz',
+                $analytics.eventTrack('Invalid Quiz', {
+                    category: 'Quiz Create',
                     label: 'User tried to publish an invalid quiz'
 
                 });
@@ -488,8 +491,8 @@
             }
 
 
-            $analytics.eventTrack('Quiz Create', {
-                category: 'Save Quiz',
+            $analytics.eventTrack('Save Quiz', {
+                category:'Quiz Create',
                 label: 'User publish a quiz'
             });
 
