@@ -15,17 +15,18 @@ namespace Zbang.Zbox.Infrastructure.File
             : base(blobProvider)
         { }
 
-        protected async Task<PreProcessFileResult> ProcessFile(string blobName, 
+        protected async Task<PreProcessFileResult> ProcessFile(string blobName,
             Func<Stream> thumbnailStream,
             Func<String> extractTextFromDocument,
-            Func<int> getPageCount)
+            Func<int> getPageCount,
+            String getCacheVersionPrefix)
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
             using (var ms = thumbnailStream())
             {
                 var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
-                var t2 = UploadMetaData( text, blobName, getPageCount());
+                var t2 = UploadMetaData(text, blobName, getPageCount(), getCacheVersionPrefix);
                 await Task.WhenAll(t1, t2);
             }
             return new PreProcessFileResult
@@ -38,19 +39,19 @@ namespace Zbang.Zbox.Infrastructure.File
         protected async Task<IEnumerable<string>> UploadPreviewToAzure(string blobName,
             int startPage,
             int stopPage,
-            Func<int, string> createCacheFileName,
             Func<int, string> pageMetaKey,
-            Func<int,Task<Stream>> convertPageToPreview
+            Func<int, Task<Stream>> convertPageToPreview, string cacheVersion
             )
         {
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
             var tasks = new List<Task>();
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            meta = RemoveOldMetaTags(meta, cacheVersion);
             for (var pageIndex = startPage; pageIndex < stopPage; pageIndex++)
             {
                 string value;
-                var cacheblobName = createCacheFileName(pageIndex);
+                var cacheblobName = cacheVersion + pageIndex;
 
                 var metaDataKey = pageMetaKey(pageIndex);
                 if (meta.TryGetValue(metaDataKey, out value))

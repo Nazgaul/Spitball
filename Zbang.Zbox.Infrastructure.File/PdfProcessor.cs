@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.File
     public class PdfProcessor : DocumentProcessor
     {
 
-        const string CacheVersion = "V4";
+        const string CacheVersion = CacheVersionPrefix + "4";
 
         public PdfProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -55,14 +55,13 @@ namespace Zbang.Zbox.Infrastructure.File
                 ++indexNum,
                 indexOfPageGenerate,
                 i => CreateCacheFileName(blobName, i),
-                j => CacheVersion + j,
                 async z =>
                 {
                     var ms = new MemoryStream();
                     var p = await pdf;
                     jpegDevice.Process(p.Pages[z], ms);
                     return ms;
-                });
+                }, CacheVersion);
 
             if (pdf.IsValueCreated && blobSr != null)
             {
@@ -111,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.File
                          return ms;
 
                      }, () => ExtractPdfText(pdfDocument),
-                     () => pdfDocument.Pages.Count
+                     () => pdfDocument.Pages.Count, CacheVersion
 
                      );
                    

@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class WordProcessor : DocumentProcessor
     {
-        const string VersionCache = "V6";
+        const string CacheVersion =  CacheVersionPrefix + "6";
 
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -48,7 +48,6 @@ namespace Zbang.Zbox.Infrastructure.File
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
             var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
                  i => CreateCacheFileName(blobName, i),
-                 j => VersionCache + j,
                  async z =>
                  {
                      svgOptions.PageIndex = z;
@@ -56,14 +55,14 @@ namespace Zbang.Zbox.Infrastructure.File
                      var w = await word;
                      w.Save(ms, svgOptions);
                      return ms;
-                 }
+                 },CacheVersion
              );
 
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
         }
         protected string CreateCacheFileName(string blobName, int index)
         {
-            return string.Format("{0}{3}_{2}_{1}.svg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, VersionCache);
+            return string.Format("{0}{3}_{2}_{1}.svg", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName), index, CacheVersion);
         }
 
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
@@ -105,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         return output;
 
                     }
-                }, () => ExtractDocumentText(word), () => word.PageCount);
+                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion);
 
 
                 //var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
@@ -154,7 +153,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-               
+
                 var str = doc.ToString(SaveFormat.Text);
                 str = StripUnwantedChars(str);
                 return str;
@@ -170,5 +169,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return ThumbnailProvider.WordFileTypePicture;
         }
+
+        
     }
 }
