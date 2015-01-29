@@ -768,21 +768,21 @@
     <Content Include="Images\404.png" />
     <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
-    <Content Include="Images\ball.png" />
+    <Content Include="Images\Store\ball.png" />
     <Content Include="Images\bg4.jpg" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\books.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
-    <Content Include="Images\cal.png" />
-    <Content Include="Images\category.png">
+    <Content Include="Images\Store\cal.png" />
+    <Content Include="Images\Store\category.png">
       <DependentUpon>category.sprite</DependentUpon>
     </Content>
-    <Content Include="Images\category.png.css">
+    <Content Include="Images\Store\category.png.css">
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\cb1.png" />
-    <Content Include="Images\chair.png" />
+    <Content Include="Images\Store\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
@@ -795,17 +795,17 @@
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
     <Content Include="Images\common17-sprite.png" />
-    <Content Include="Images\computer.png" />
+    <Content Include="Images\Store\computer.png" />
     <Content Include="Images\course.png" />
-    <Content Include="Images\covers.png" />
+    <Content Include="Images\Store\covers.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
     <Content Include="Images\department.png" />
-    <Content Include="Images\dic.png" />
+    <Content Include="Images\Store\dic.png" />
     <Content Include="Images\document.png" />
     <Content Include="Images\drive_upload.png" />
     <Content Include="Images\earth.png" />
-    <Content Include="Images\eco.png" />
+    <Content Include="Images\Store\eco.png" />
     <Content Include="Images\EmptyState\my_default.png" />
     <Content Include="Images\EmptyState\my_default2.png" />
     <Content Include="Images\EmptyState\my_default3.png" />
@@ -817,7 +817,7 @@
     <Content Include="Images\friends_facebook_blue.png" />
     <Content Include="Images\friends_gmail_black.png" />
     <Content Include="Images\friends_gmail_red.png" />
-    <Content Include="Images\house.png" />
+    <Content Include="Images\Store\house.png" />
     <Content Include="Images\hp18-sprite.png" />
     <Content Include="Images\icon_doc.png" />
     <Content Include="Images\icon_man.png" />
@@ -831,7 +831,7 @@
     <Content Include="Images\loader3.gif" />
     <Content Include="Images\loading-media.gif" />
     <Content Include="Images\loading-media.png" />
-    <Content Include="Images\martini.png" />
+    <Content Include="Images\Store\martini.png" />
     <Content Include="Images\members-only.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\nopreview_empty.png" />
@@ -839,7 +839,7 @@
     <Content Include="Images\placeholder_user_img.png" />
     <Content Include="Images\points-Bg.png" />
     <Content Include="Images\pointsBg.png" />
-    <Content Include="Images\printers.png" />
+    <Content Include="Images\Store\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
     <Content Include="Images\quiz-eye.png" />
@@ -869,7 +869,7 @@
     <Content Include="Images\site.png.css">
       <DependentUpon>site.png</DependentUpon>
     </Content>
-    <Content Include="Images\smartphone.png" />
+    <Content Include="Images\Store\smartphone.png" />
     <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\Store\close.png" />
     <Content Include="Images\Store\envelop.png" />
@@ -894,7 +894,7 @@
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
-    <Content Include="Images\tv.png" />
+    <Content Include="Images\Store\tv.png" />
     <Content Include="Images\uni_logo.png" />
     <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
@@ -1072,8 +1072,8 @@
     <Content Include="cdn\gzip\Web.config" />
     <Content Include="Content\Store.less" />
     <Content Include="Content\StoreRtl.less" />
-    <Content Include="Images\category.sprite" />
-    <Content Include="Images\category.png.map">
+    <Content Include="Images\Store\category.sprite" />
+    <Content Include="Images\Store\category.png.map">
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\social.sprite" />
@@ -1126,7 +1126,7 @@
     <None Include="Js\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Images\category.png.scss">
+    <Content Include="Images\Store\category.png.scss">
       <DependentUpon>category.png</DependentUpon>
     </Content>
     <Content Include="robots.txt" />

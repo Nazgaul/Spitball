@@ -22,17 +22,17 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
-    <file>/Images/ball.png</file>
-    <file>/Images/chair.png</file>
-    <file>/Images/computer.png</file>
-    <file>/Images/covers.png</file>
-    <file>/Images/dic.png</file>
-    <file>/Images/eco.png</file>
-    <file>/Images/house.png</file>
-    <file>/Images/smartphone.png</file>
-    <file>/Images/tv.png</file>
-    <file>/Images/printers.png</file>
-    <file>/Images/martini.png</file>
-    <file>/Images/cal.png</file>
+    <file>/Images/Store/ball.png</file>
+    <file>/Images/Store/chair.png</file>
+    <file>/Images/Store/computer.png</file>
+    <file>/Images/Store/covers.png</file>
+    <file>/Images/Store/dic.png</file>
+    <file>/Images/Store/eco.png</file>
+    <file>/Images/Store/house.png</file>
+    <file>/Images/Store/smartphone.png</file>
+    <file>/Images/Store/tv.png</file>
+    <file>/Images/Store/printers.png</file>
+    <file>/Images/Store/martini.png</file>
+    <file>/Images/Store/cal.png</file>
   </files>
 </sprite>
