@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     class TextProcessor : FileProcessor
     {
+        const string CacheVersion = CacheVersionPrefix + "1";
         public TextProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
                 var content = sb.ToString();
                 content = StripUnwantedChars(content);
-                await UploadMetaData(content, blobName, 1);
+                await UploadMetaData(content, blobName, 1, CacheVersion);
                 return new PreProcessFileResult
                 {
                     ThumbnailName = GetDefaultThumbnailPicture(),

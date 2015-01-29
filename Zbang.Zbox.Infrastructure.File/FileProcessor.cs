@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -13,6 +14,8 @@ namespace Zbang.Zbox.Infrastructure.File
         protected const int NumberOfFilesInGroup = 20;
         protected const int ThumbnailWidth = 148;
         protected const int ThumbnailHeight = 187;
+
+        protected const string CacheVersionPrefix = "V";
 
 
         protected readonly IBlobProvider BlobProvider;
@@ -52,7 +55,10 @@ namespace Zbang.Zbox.Infrastructure.File
             return input;
         }
 
-        protected async Task UploadMetaData(string fileContent, string blobName, int pageCount)
+        protected async Task UploadMetaData(string fileContent,
+            string blobName,
+            int pageCount,
+            string getCacheVersionPrefix)
         {
             if (string.IsNullOrEmpty(fileContent))
             {
@@ -65,14 +71,26 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return;
             }
-            var metaData =await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             if (metaData == null)
             {
                 metaData = new Dictionary<string, string>();
             }
-            var sizeToStrip = allowedChars - (sizeOfMetaPerPage*pageCount);
+            metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
+            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * pageCount);
             metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(fileContent.ToLower()).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
+        }
+
+        protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)
+        {
+            var oldElements = metaTags.Where(w =>
+                Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrfix)).Select(s => s.Key).ToList();
+            foreach (var oldElement in oldElements)
+            {
+                metaTags.Remove(oldElement);
+            }
+            return metaTags;
         }
 
         //protected async Task UploadPreviewToAzure(string blobName, int startPage, int stopPage)

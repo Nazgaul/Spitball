@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.File
     public class ExcelProcessor : DocumentProcessor
     {
 
-        const string CacheVersion = "V5";
+        const string CacheVersion = CacheVersionPrefix + "5";
         public ExcelProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -62,7 +62,6 @@ namespace Zbang.Zbox.Infrastructure.File
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
             var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
                 i => CreateCacheFileName(blobName, i),
-                j => CacheVersion + j,
                async z =>
                {
                    var p = await excel;
@@ -75,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    sr.ToImage(0, ms);
                    return ms;
-               }
+               }, CacheVersion
             );
             return new PreviewResult { Content = retVal, ViewName = "Image" };
             //var blobsNamesInCache = new List<string>();

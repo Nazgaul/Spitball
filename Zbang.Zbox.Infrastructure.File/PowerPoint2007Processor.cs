@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class PowerPoint2007Processor : DocumentProcessor
     {
-        const string CacheVersion = "V4";
+        const string CacheVersion = CacheVersionPrefix + "4";
         public PowerPoint2007Processor(IBlobProvider blobProvider)
             : base(blobProvider)
         {
@@ -51,7 +51,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
                 i => CreateCacheFileName(blobName, i),
-                j => CacheVersion + j,
                async z =>
                {
                    var p = await ppt;
@@ -61,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                    return ms;
-               }
+               }, CacheVersion
             );
             if (ppt.IsValueCreated)
             {
@@ -125,8 +124,8 @@ namespace Zbang.Zbox.Infrastructure.File
                             return output;
                         }
 
-                    }, () =>ExtractStringFromPpt(pptx)
-                    , () => pptx.Slides.Count);
+                    }, () => ExtractStringFromPpt(pptx)
+                    , () => pptx.Slides.Count, CacheVersion);
                     //using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                     //{
 
