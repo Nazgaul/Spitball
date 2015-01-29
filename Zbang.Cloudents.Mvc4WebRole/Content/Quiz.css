@@ -374,9 +374,9 @@ body.quiz .modal-backdrop.in {
 .quizPreview .quizAList li:last-child {
   margin-bottom: 0;
 }
-.quizPreview .quizAList li .ng-binding {
-  top: -17px;
+.quizPreview .qAnswer {
   position: relative;
+  top: -17px;
 }
 .quizPrevWpr,
 .createQuizWpr {

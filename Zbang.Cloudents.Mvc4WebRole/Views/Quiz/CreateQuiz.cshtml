@@ -43,7 +43,7 @@
                     <div class="qPreview" ng-bind-html="question.text"></div>
                     <ul class="quizAList">
                         <li ng-repeat="answer in question.answers">
-                            <span ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
+                            <span class="qAnswer" ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
                         </li>
                     </ul>
                 </li>
