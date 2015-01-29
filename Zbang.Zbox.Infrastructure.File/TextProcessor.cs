@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
                 var content = sb.ToString();
                 content = StripUnwantedChars(content);
-                await UploadMetaData(content, blobName);
+                await UploadMetaData(content, blobName, 1);
                 return new PreProcessFileResult
                 {
                     ThumbnailName = GetDefaultThumbnailPicture(),

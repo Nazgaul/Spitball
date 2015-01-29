@@ -17,14 +17,15 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected async Task<PreProcessFileResult> ProcessFile(string blobName, 
             Func<Stream> thumbnailStream,
-            Func<String> extractTextFromDocument)
+            Func<String> extractTextFromDocument,
+            Func<int> getPageCount)
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
             using (var ms = thumbnailStream())
             {
                 var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
-                var t2 = UploadMetaData(text, blobName);
+                var t2 = UploadMetaData( text, blobName, getPageCount());
                 await Task.WhenAll(t1, t2);
             }
             return new PreProcessFileResult
@@ -55,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
                     blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
+                    meta[metaDataKey] = DateTime.UtcNow.ToString("M-d-yy");
                     continue;
                 }
                 try
@@ -65,7 +66,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
+                        meta.Add(metaDataKey, DateTime.UtcNow.ToString("M-d-yy"));
                     }
                 }
                 catch (ArgumentOutOfRangeException)
