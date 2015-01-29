@@ -59,53 +59,6 @@ namespace Zbang.Zbox.Infrastructure.File
                  }
              );
 
-
-
-
-            //var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-
-            //var blobsNamesInCache = new List<string>();
-            //var parallelTask = new List<Task<string>>();
-            //var tasks = new List<Task>();
-
-            ////var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            //for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            //{
-            //    string value;
-            //    var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-
-            //    var metaDataKey = VersionCache + pageIndex;
-            //    if (meta.TryGetValue(metaDataKey, out value))
-            //    {
-            //        blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-            //        meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
-            //        continue;
-            //    }
-            //    svgOptions.PageIndex = pageIndex;
-            //    try
-            //    {
-            //        using (var ms = new MemoryStream())
-            //        {
-            //            var w = await word;
-            //            w.Save(ms, svgOptions);
-            //            var compressor = new Compress();
-            //            var sr = compressor.CompressToGzip(ms);
-            //            parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
-            //            meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
-            //        }
-            //    }
-            //    catch (ArgumentOutOfRangeException)
-            //    {
-            //        break;
-            //    }
-
-            //}
-            //var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            //tasks.AddRange(parallelTask);
-            //tasks.Add(t);
-            //await Task.WhenAll(tasks);
-            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
-
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
         }
         protected string CreateCacheFileName(string blobName, int index)
@@ -152,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         return output;
 
                     }
-                }, () => ExtractDocumentText(word));
+                }, () => ExtractDocumentText(word), () => word.PageCount);
 
 
                 //var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
@@ -201,6 +154,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
+               
                 var str = doc.ToString(SaveFormat.Text);
                 str = StripUnwantedChars(str);
                 return str;

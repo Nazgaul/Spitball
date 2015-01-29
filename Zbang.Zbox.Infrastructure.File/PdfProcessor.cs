@@ -64,60 +64,6 @@ namespace Zbang.Zbox.Infrastructure.File
                     return ms;
                 });
 
-            //Stream blobSr = null;
-
-            //var pdf = new Lazy<Document>(() =>
-            //{
-            //    SetLicense();
-            //    blobSr = BlobProvider.DownloadFile(blobName);
-            //    return new Document(blobSr);
-            //});
-            //var blobsNamesInCache = new List<string>();
-            //var parallelTask = new List<Task<string>>();
-            //var tasks = new List<Task>();
-
-
-            //var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-            //for (var pageIndex = ++indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            //{
-            //    string value;
-            //    var metaDataKey = CacheVersion + pageIndex;
-            //    var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-
-
-            //    if (meta.TryGetValue(metaDataKey, out value))
-            //    {
-            //        blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-            //        meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
-            //        continue;
-            //    }
-
-            //    try
-            //    {
-            //        //var resolution = new Resolution(150);
-            //        //var jpegDevice = new JpegDevice(resolution, 90);
-
-            //        using (var ms = new MemoryStream())
-            //        {
-            //            jpegDevice.Process(pdf.Value.Pages[pageIndex], ms);
-            //            var compressor = new Compress();
-            //            var sr = compressor.CompressToGzip(ms);
-            //            parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/jpg", true));
-            //            meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
-            //        }
-            //    }
-            //    catch (IndexOutOfRangeException)
-            //    {
-            //        break;
-            //    }
-            //}
-            //var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            //tasks.AddRange(parallelTask);
-            //tasks.Add(t);
-
-            //await Task.WhenAll(tasks);
-            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
-
             if (pdf.IsValueCreated && blobSr != null)
             {
                 blobSr.Dispose();
@@ -164,7 +110,9 @@ namespace Zbang.Zbox.Infrastructure.File
                          jpegDevice.Process(pdfDocument.Pages[1], ms);
                          return ms;
 
-                     }, () => ExtractPdfText(pdfDocument)
+                     }, () => ExtractPdfText(pdfDocument),
+                     () => pdfDocument.Pages.Count
+
                      );
                    
                 }

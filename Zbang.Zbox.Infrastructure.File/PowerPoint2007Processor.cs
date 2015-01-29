@@ -13,12 +13,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class PowerPoint2007Processor : FileProcessor
+    public class PowerPoint2007Processor : DocumentProcessor
     {
         const string CacheVersion = "V4";
         public PowerPoint2007Processor(IBlobProvider blobProvider)
@@ -35,71 +36,38 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
+
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
-            var ppt = new Lazy<Presentation>(() =>
+            var ppt = new AsyncLazy<Presentation>(async () =>
             {
                 SetLicense();
-                using (var sr = BlobProvider.DownloadFile(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     return new Presentation(sr);
                 }
             });
-            var blobsNamesInCache = new List<string>();
-            var parallelTask = new List<Task<string>>();
-            var tasks = new List<Task>();
 
-            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            {
-                string value;
-                var metaDataKey = CacheVersion + pageIndex;
-                var cacheblobName = CreateCacheFileName(blobName, pageIndex);
+            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+                i => CreateCacheFileName(blobName, i),
+                j => CacheVersion + j,
+               async z =>
+               {
+                   var p = await ppt;
 
-                if (meta.TryGetValue(metaDataKey, out value))
-                {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
-                    continue;
-                }
+                   var thumbnail = p.Slides[z].GetThumbnail(1f, 1f);
+                   var ms = new MemoryStream();
 
-                //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
-                //{
-                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-                //    continue;
-                //}
-                try
-                {
-
-                    var retVal = ppt.Value.Slides[pageIndex].GetThumbnail(1f, 1f);
-                    using (var ms = new MemoryStream())
-                    {
-                        retVal.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        var compressor = new Compress();
-                        var gzipSr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
-                        //blobsNamesInCache.Add(cacheName);
-                    }
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    break;
-                }
-
-            }
-            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            tasks.AddRange(parallelTask);
-            tasks.Add(t);
-            await Task.WhenAll(tasks);
-            blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+                   thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                   return ms;
+               }
+            );
             if (ppt.IsValueCreated)
             {
                 ppt.Value.Dispose();
             }
-            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
+            return new PreviewResult { Content = retVal, ViewName = "Image" };
         }
 
         protected string CreateCacheFileName(string blobName, int index)
@@ -132,42 +100,68 @@ namespace Zbang.Zbox.Infrastructure.File
                 SetLicense();
                 using (var pptx = new Presentation(path))
                 {
-
-                    using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                    return await ProcessFile(blobName, () =>
                     {
-
-                        var settings = new ResizeSettings
+                        using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                         {
-                            Scale = ScaleMode.UpscaleCanvas,
-                            Anchor = ContentAlignment.MiddleCenter,
-                            BackgroundColor = Color.White,
-                            Mode = FitMode.Crop,
-                            Width = ThumbnailWidth,
-                            Height = ThumbnailHeight,
-                            Quality = 80,
-                            Format = "jpg"
-                        };
 
-                        // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
-
-                        using (var output = new MemoryStream())
-                        {
-                            ImageBuilder.Current.Build(img, output, settings);
-                            var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) +
-                                                          ".thumbnailV3.jpg";
-                            var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
-                            var pptContent = ExtractStringFromPpt(pptx);
-
-                            var t2 = UploadMetaData(pptContent, blobName);
-
-                            await Task.WhenAll(t1, t2);
-                            return new PreProcessFileResult
+                            var settings = new ResizeSettings
                             {
-                                ThumbnailName = thumbnailBlobAddressUri,
-                                FileTextContent = pptContent
+                                Scale = ScaleMode.UpscaleCanvas,
+                                Anchor = ContentAlignment.MiddleCenter,
+                                BackgroundColor = Color.White,
+                                Mode = FitMode.Crop,
+                                Width = ThumbnailWidth,
+                                Height = ThumbnailHeight,
+                                Quality = 80,
+                                Format = "jpg"
                             };
+
+                            // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
+
+                            var output = new MemoryStream();
+
+                            ImageBuilder.Current.Build(img, output, settings);
+                            return output;
                         }
-                    }
+
+                    }, () =>ExtractStringFromPpt(pptx)
+                    , () => pptx.Slides.Count);
+                    //using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                    //{
+
+                    //    var settings = new ResizeSettings
+                    //    {
+                    //        Scale = ScaleMode.UpscaleCanvas,
+                    //        Anchor = ContentAlignment.MiddleCenter,
+                    //        BackgroundColor = Color.White,
+                    //        Mode = FitMode.Crop,
+                    //        Width = ThumbnailWidth,
+                    //        Height = ThumbnailHeight,
+                    //        Quality = 80,
+                    //        Format = "jpg"
+                    //    };
+
+                    //    // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
+
+                    //    using (var output = new MemoryStream())
+                    //    {
+                    //        ImageBuilder.Current.Build(img, output, settings);
+                    //        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) +
+                    //                                      ".thumbnailV3.jpg";
+                    //        var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
+                    //        var pptContent = ExtractStringFromPpt(pptx);
+
+                    //        var t2 = UploadMetaData(pptContent, blobName);
+
+                    //        await Task.WhenAll(t1, t2);
+                    //        return new PreProcessFileResult
+                    //        {
+                    //            ThumbnailName = thumbnailBlobAddressUri,
+                    //            FileTextContent = pptContent
+                    //        };
+                    //    }
+                    //}
                 }
             }
             catch (Exception ex)

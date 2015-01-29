@@ -10,13 +10,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class ExcelProcessor : FileProcessor
+    public class ExcelProcessor : DocumentProcessor
     {
 
         const string CacheVersion = "V5";
@@ -49,75 +50,94 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
-            var excel = new Lazy<Workbook>(() =>
+            var excel = new AsyncLazy<Workbook>(async () =>
             {
                 SetLicense();
-                using (var sr = BlobProvider.DownloadFile(blobName))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
                 {
                     return new Workbook(sr);
                 }
             });
 
-            var blobsNamesInCache = new List<string>();
-            var parallelTask = new List<Task<string>>();
-            var tasks = new List<Task>();
-
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+                i => CreateCacheFileName(blobName, i),
+                j => CacheVersion + j,
+               async z =>
+               {
+                   var p = await excel;
+                   var workSheet = p.Worksheets[z];
+                   ScalePageSetupToFitPage(workSheet);
 
-            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            {
-                string value;
-                var metaDataKey = CacheVersion + pageIndex;
-                var cacheblobName = CreateCacheFileName(blobName, pageIndex);
+                   var sr = new SheetRender(workSheet, imgOptions);
+                   //Render the image for the sheet
+                   var ms = new MemoryStream();
 
-                if (meta.TryGetValue(metaDataKey, out value))
-                {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
-                    continue;
-                }
-                //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
-                //{
-                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-                //    continue;
-                //}
-                try
-                {
+                   sr.ToImage(0, ms);
+                   return ms;
+               }
+            );
+            return new PreviewResult { Content = retVal, ViewName = "Image" };
+            //var blobsNamesInCache = new List<string>();
+            //var parallelTask = new List<Task<string>>();
+            //var tasks = new List<Task>();
 
-                    var workSheet = excel.Value.Worksheets[pageIndex];
-                    ScalePageSetupToFitPage(workSheet);
+            ////var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
-                    var sr = new SheetRender(workSheet, imgOptions);
-                    //Render the image for the sheet
-                    using (var ms = new MemoryStream())
-                    {
-                        sr.ToImage(0, ms);
-                        if (ms.Length == 0)
-                        {
-                            break;
-                        }
-                        var compressor = new Compress();
-                        var gzipSr = compressor.CompressToGzip(ms);
+            //var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            //for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            //{
+            //    string value;
+            //    var metaDataKey = CacheVersion + pageIndex;
+            //    var cacheblobName = CreateCacheFileName(blobName, pageIndex);
 
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
+            //    if (meta.TryGetValue(metaDataKey, out value))
+            //    {
+            //        blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+            //        meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
+            //        continue;
+            //    }
+            //    //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
+            //    //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+            //    //{
+            //    //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+            //    //    continue;
+            //    //}
+            //    try
+            //    {
 
-                    }
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    break;
-                }
-            }
-            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            tasks.AddRange(parallelTask);
-            tasks.Add(t);
-            await Task.WhenAll(tasks);
-            blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+            //        var workSheet = excel.Value.Worksheets[pageIndex];
+            //        ScalePageSetupToFitPage(workSheet);
 
-            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
+            //        var sr = new SheetRender(workSheet, imgOptions);
+            //        //Render the image for the sheet
+            //        using (var ms = new MemoryStream())
+            //        {
+            //            sr.ToImage(0, ms);
+            //            if (ms.Length == 0)
+            //            {
+            //                break;
+            //            }
+            //            var compressor = new Compress();
+            //            var gzipSr = compressor.CompressToGzip(ms);
+
+            //            parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+            //            meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
+
+            //        }
+            //    }
+            //    catch (ArgumentOutOfRangeException)
+            //    {
+            //        break;
+            //    }
+            //}
+            //var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            //tasks.AddRange(parallelTask);
+            //tasks.Add(t);
+            //await Task.WhenAll(tasks);
+            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+
+            //return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }
 
         protected string CreateCacheFileName(string blobName, int index)

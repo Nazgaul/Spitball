@@ -52,8 +52,15 @@ namespace Zbang.Zbox.Infrastructure.File
             return input;
         }
 
-        protected async Task UploadMetaData(string fileContent, string blobName)
+        protected async Task UploadMetaData(string fileContent, string blobName, int pageCount)
         {
+            if (string.IsNullOrEmpty(fileContent))
+            {
+                return;
+            }
+            const int allowedChars = 8000;
+            const int sizeOfMetaPerPage = 20;
+
             if (string.IsNullOrEmpty(fileContent))
             {
                 return;
@@ -63,7 +70,8 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 metaData = new Dictionary<string, string>();
             }
-            metaData[StorageConsts.ContentMetaDataKey] = fileContent;
+            var sizeToStrip = allowedChars - (sizeOfMetaPerPage*pageCount);
+            metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(fileContent.ToLower()).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
 

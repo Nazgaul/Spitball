@@ -194,7 +194,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
-                blob.Metadata[item.Key] = System.Net.WebUtility.UrlEncode(item.Value.ToLower()).RemoveEndOfString(7000);
+                blob.Metadata[item.Key] = item.Value;
             }
             return blob.SetMetadataAsync();
         }
