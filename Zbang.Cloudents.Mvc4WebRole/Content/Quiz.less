@@ -272,32 +272,35 @@ body {
         display: inline-block;
     }
 }
-.questionHolder
-{
+.questionHolder {
     background: #fff;
     border-radius: 3px;
     margin-bottom: 10px;
     position: relative;
     padding: 12px;
     border: 1px solid rgba(194, 194, 194, 0.5);
-    //border-color: rgba(194, 194, 194, 0.5);
     .boxSizing;
-   &:focus {
-       border-color: @blue;
-   }
+    &.focused {
+        border-color: @blue;
+    }
     &:hover {
         .closeDialog{
             display: block;
         }
     }
-    .closeDialog{
-        background-position: -87px -121px;
-        //display: none;
-        width: 20px;
+
+    .closeBtn {
+        right: -10px;
+        top: -9px;
+        width: 19px;
         height: 19px;
-        right: -1px;
-        top: -10px;
-        .scale(.85);
+        background: #555;
+        border-radius: 50%;
+    }
+    .svg-close {
+        fill: #fff;
+        width: 9px;
+        height: 9px;
     }
     .lFloat{
         margin: 3px 5px 0 0;
