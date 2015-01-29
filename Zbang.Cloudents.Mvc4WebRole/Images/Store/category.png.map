@@ -1,0 +1,88 @@
+{
+  "images": [
+    {
+      "name": "/Images/ball.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "/Images/chair.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 106
+    },
+    {
+      "name": "/Images/computer.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 212
+    },
+    {
+      "name": "/Images/covers.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 318
+    },
+    {
+      "name": "/Images/dic.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 424
+    },
+    {
+      "name": "/Images/eco.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 530
+    },
+    {
+      "name": "/Images/house.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 636
+    },
+    {
+      "name": "/Images/smartphone.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 742
+    },
+    {
+      "name": "/Images/tv.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 848
+    },
+    {
+      "name": "/Images/printers.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 954
+    },
+    {
+      "name": "/Images/martini.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 1060
+    },
+    {
+      "name": "/Images/cal.png",
+      "width": 108,
+      "height": 106,
+      "offsetX": 0,
+      "offsetY": 1166
+    }
+  ]
+}
