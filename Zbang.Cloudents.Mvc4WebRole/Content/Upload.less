@@ -199,13 +199,12 @@
     margin-left: -290px;
     margin-top: -138px;
     pointer-events:none;
-    &:before
-    {
+    &:before {
         content: '';
+        display: block;
         width: 130px;
         height: 113px;
-        background: @upload-sprite 0 -54px;
-        display: block;
+        background: @upload-sprite 0px -54px; //don't remove 'px' from '0px' - the rtl converts '0' to '100%' for some reason
         margin: 0 auto 22px;
     }
 }
