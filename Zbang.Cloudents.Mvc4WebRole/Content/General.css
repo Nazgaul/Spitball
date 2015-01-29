@@ -547,7 +547,8 @@ input[type="radio"][disabled] + label:before {
   top: 15px;
   right: 12px;
 }
-.closeModal {
+.closeModal,
+.closeBtn {
   position: absolute;
   top: 12px;
   right: 20px;
@@ -2004,7 +2005,6 @@ select.inputText {
         .boxPage .leftPanel {
             position: absolute;
         }
-
         .quizTitle, .quizPrevWpr {
             margin-left: 20px; //rtl
         }

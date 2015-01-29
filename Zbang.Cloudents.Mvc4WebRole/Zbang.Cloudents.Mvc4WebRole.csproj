@@ -763,12 +763,6 @@
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
-    <Content Include="Content\Welcome.css">
-      <DependentUpon>Welcome.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Welcome.rtl.css">
-      <DependentUpon>Welcome.css</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\404.png" />
@@ -778,11 +772,9 @@
     <Content Include="Images\bg4.jpg" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\books.png" />
-    <Content Include="Images\box17-sprite.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\cal.png" />
-    <Content Include="Images\callout-sprite.png" />
     <Content Include="Images\category.png">
       <DependentUpon>category.sprite</DependentUpon>
     </Content>
@@ -802,15 +794,12 @@
     <Content Include="Images\cloudents1-72x72.png" />
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
-    <Content Include="Images\comment-sprite.png" />
     <Content Include="Images\common17-sprite.png" />
     <Content Include="Images\computer.png" />
     <Content Include="Images\course.png" />
     <Content Include="Images\covers.png" />
-    <Content Include="Images\cursor.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
-    <Content Include="Images\dashLib-sprite.png" />
     <Content Include="Images\department.png" />
     <Content Include="Images\dic.png" />
     <Content Include="Images\document.png" />
@@ -822,18 +811,12 @@
     <Content Include="Images\EmptyState\my_default3.png" />
     <Content Include="Images\EmptyState\S50X50userpic2.jpg" />
     <Content Include="Images\EmptyState\user-pic.png" />
-    <Content Include="Images\empty_box.png" />
-    <Content Include="Images\fb-mob.png" />
-    <Content Include="Images\firsttime_sprite.png" />
-    <Content Include="Images\firsttime_sprite_heb.png" />
     <Content Include="Images\friends_cloudents_black.png" />
     <Content Include="Images\friends_cloudents_green.png" />
     <Content Include="Images\friends_facebook_black.png" />
     <Content Include="Images\friends_facebook_blue.png" />
     <Content Include="Images\friends_gmail_black.png" />
     <Content Include="Images\friends_gmail_red.png" />
-    <Content Include="Images\gray_jean80.png" />
-    <Content Include="Images\home-sprite.png" />
     <Content Include="Images\house.png" />
     <Content Include="Images\hp18-sprite.png" />
     <Content Include="Images\icon_doc.png" />
@@ -841,8 +824,6 @@
     <Content Include="Images\iframeBg.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
-    <Content Include="Images\jeanBkg.png" />
-    <Content Include="Images\lib_firsttime.png" />
     <Content Include="Images\loader.png" />
     <Content Include="Images\loader1.gif" />
     <Content Include="Images\loader1.png" />
@@ -850,25 +831,8 @@
     <Content Include="Images\loader3.gif" />
     <Content Include="Images\loading-media.gif" />
     <Content Include="Images\loading-media.png" />
-    <Content Include="Images\logo_white2.png" />
-    <Content Include="Images\m-box15-sprite.png" />
-    <Content Include="Images\m-box15-spriteX2.png" />
-    <Content Include="Images\m-dash15-sprite.png" />
-    <Content Include="Images\m-dash15-spriteX2.png" />
-    <Content Include="Images\m-home-bg%402x.jpg" />
-    <Content Include="Images\m-home-small%402x.jpg" />
-    <Content Include="Images\m-home-small.jpg" />
-    <Content Include="Images\m-item-sprite.png" />
-    <Content Include="Images\m-lib15-sprite.png" />
-    <Content Include="Images\m-lib15-spriteX2.png" />
-    <Content Include="Images\m-sprite-home%402x.png" />
-    <Content Include="Images\m-sprite-home.png" />
-    <Content Include="Images\mail-icons.png" />
     <Content Include="Images\martini.png" />
     <Content Include="Images\members-only.png" />
-    <Content Include="Images\misc-sprite.png" />
-    <Content Include="Images\multi2.png" />
-    <Content Include="Images\national-union-pic.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\nopreview_empty.png" />
     <Content Include="Images\no_results_icon.png" />
@@ -926,15 +890,11 @@
     <Content Include="Images\Store\yt-off.png" />
     <Content Include="Images\Store\yt-on.png" />
     <Content Include="Images\students.jpg" />
-    <Content Include="Images\students.png" />
     <Content Include="Images\studentUnion.png" />
-    <Content Include="Images\table-bg1.png" />
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
     <Content Include="Images\tv.png" />
-    <Content Include="Images\union3-sprite.png" />
-    <Content Include="Images\union4-sprite.png" />
     <Content Include="Images\uni_logo.png" />
     <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
@@ -947,7 +907,6 @@
     <Content Include="Images\userBg.png" />
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\web_upload.png" />
-    <Content Include="Images\welcome-sprite.png" />
     <Content Include="Js\app.js" />
     <Content Include="Js\staticCDNFallback.js" />
     <Content Include="Js\staticCDNFallback.min.js">
@@ -1103,7 +1062,6 @@
     <Content Include="Content\Sidebar.less" />
     <Content Include="Content\Static.less" />
     <Content Include="Content\Upload.less" />
-    <Content Include="Content\Welcome.less" />
     <Content Include="Content\Header.less" />
     <Content Include="Content\varsAndMixins.less" />
     <Content Include="Content\Animations.less" />
