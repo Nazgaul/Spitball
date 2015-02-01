@@ -609,9 +609,10 @@ angular.module('textAngularSetup', [])
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function (imageLink) {
-            if (angular.isString(imageLink)) {
-                this.$editor().wrapSelection('insertImage', imageLink, true);
+            if (angular.isString(imageLink)) {                
+                return this.$editor().wrapSelection('insertImage', imageLink, true);
             }
+            
         },
         onElementSelect: {
             element: 'img',
