@@ -241,7 +241,7 @@ body.quiz .modal-backdrop.in {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.questionHolder.focused {
+.questionHolder.focus {
   border-color: #3399ff;
 }
 .questionHolder:hover .closeDialog {
