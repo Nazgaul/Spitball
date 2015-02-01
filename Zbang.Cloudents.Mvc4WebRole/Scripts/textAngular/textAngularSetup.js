@@ -142,6 +142,9 @@ angular.module('textAngularSetup', [])
     color: {
         tooltip: 'Choose color'
     },
+    reset: {
+        tooltip: 'Reset'
+    },
     //indent: {
     //    tooltip: 'Increase indent'
     //},
