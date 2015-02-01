@@ -43,7 +43,10 @@
                     <span class="uniName elps boldFont">{{::university.name}}</span>
                 </span>
             </li>
-            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="emptySearch">
+                @Html.Svg("~/Images/Defs.svg", "noResults")
+                @SharedResources.NoResults
+            </li>
             <li class="newUni">
                 <span>@MainViewResources.CantFind</span>
                 <button type="button" class="createUni" ng-click="createUniversity()" analytics-on analytics-category="Select university" analytics-label="Create new university">@SharedResources.CreateNew</button>

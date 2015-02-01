@@ -99,39 +99,45 @@
 </div>
     <div class="productsListWpr">
         <ul class="productsList" @*infinite-scroll="addProducts()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false"*@>
-            <li ng-repeat="product in products">@*| limitTo: params.maxProducts*@
-                <a ng-href="{{product.url + urlQueryString()}}" href="">
-                    <img ng-src="{{::product.pictureUrl}}" alt="" />
-                    <div class="pContent">
-                        <div class="desc">
-                            <div>{{::product.name}}</div>
-                            <p class="hoverDesc">{{::product.extraDetails}}</p>
-                        </div>
-                        <table ng-if="product.salePrice > 0">
-                            <tr>
-                                <td>@StoreResources.RegPrice:</td>
-                                <td>{{(product.salePrice | currency:'').slice(0,-4)}}</td>
-                                <td>₪</td>
-                            </tr>
-                            <tr>
-                                <td>@StoreResources.StudentPrice:</td>
-                                <td>{{(product.salePrice - product.coupon | currency:'').slice(0,-4)}}</td>
-                                <td>₪</td>
-                            </tr>
-                        </table>
+            <li ng-repeat="product in products">
+                @*| limitTo: params.maxProducts*@
+            <a ng-href="{{product.url + urlQueryString()}}" href="">
+                <img ng-src="{{::product.pictureUrl}}" alt="" />
+                <div class="pContent">
+                    <div class="desc">
+                        <div>{{::product.name}}</div>
+                        <p class="hoverDesc">{{::product.extraDetails}}</p>
                     </div>
-                    <div class="productHover">
+                    <table ng-if="product.salePrice > 0">
+                        <tr>
+                            <td>@StoreResources.RegPrice:</td>
+                            <td>{{(product.salePrice | currency:'').slice(0,-4)}}</td>
+                            <td>₪</td>
+                        </tr>
+                        <tr>
+                            <td>@StoreResources.StudentPrice:</td>
+                            <td>{{(product.salePrice - product.coupon | currency:'').slice(0,-4)}}</td>
+                            <td>₪</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="productHover">
 
-                        <span class="lFloat" ng-if="product.salePrice > 0">{{::product.numberOfSales}} @StoreResources.Sold</span>
-                        <span class="lFloat sale" ng-if="product.salePrice > 0">{{::product.coupon / product.salePrice | percentage:0}} @StoreResources.Off</span> @*0 is the digits after the dot, % off is suffix*@
-                        <div class="moreDetailsWpr">
-                            @StoreResources.MoreDetails
-                        </div>
+                    <span class="lFloat" ng-if="product.salePrice > 0">{{::product.numberOfSales}} @StoreResources.Sold</span>
+                    <span class="lFloat sale" ng-if="product.salePrice > 0">{{::product.coupon / product.salePrice | percentage:0}} @StoreResources.Off</span> @*0 is the digits after the dot, % off is suffix*@
+                    <div class="moreDetailsWpr">
+                        @StoreResources.MoreDetails
                     </div>
-                </a>
-            </li>
-            <li class="noResults"><div class="emptySearch">@SharedResources.NoResults</div></li>
-        </ul>
+                </div>
+            </a>
+        </li>
+        <li class="noResults">
+            <div class="emptySearch">
+                @Html.Svg("~/Images/Defs.svg", "noResults")
+                @SharedResources.NoResults
+            </div>
+        </li>
+    </ul>
         @*@foreach (var banner in Model.Where(w => w.Location == Zbang.Zbox.Infrastructure.Enums.StoreBannerLocation.Center))
             {
                 <div class="placeholder">

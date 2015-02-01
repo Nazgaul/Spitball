@@ -22,7 +22,10 @@
                     <span class="uniName elps boldFont">{{::university.name}}</span>
                 </span>
             </li>
-            <li class="emptySearch">@SharedResources.NoResults</li>
+            <li class="emptySearch">
+                @Html.Svg("~/Images/Defs.svg", "noResults")
+                @SharedResources.NoResults
+            </li>
         </ul>
 
         <div class="lFloat countryWpr">

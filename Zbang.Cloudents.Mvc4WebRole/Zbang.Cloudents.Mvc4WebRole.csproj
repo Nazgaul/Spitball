@@ -1113,7 +1113,6 @@
       <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SetupSchool.less" />
-    <Content Include="App_Code\_ChooseDeptAC.cshtml" />
     <Content Include="Content\BoxFeed.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
@@ -2034,7 +2033,6 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
-    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Dashboard\_UploadFiles.cshtml" />

@@ -56,7 +56,7 @@
                         <span class="membersCount lFloat">{{::admin.members.fullList.length}} @SharedResources.Members</span>
                         <div class="inputWpr">
                             <input class="membersSearch" type="search" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources.IndexResources.SearchMember"
-                                    ng-change="filterMembers()" ng-model="admin.members.search" ng-model-options="{debounce:150}"/>
+                                   ng-change="filterMembers()" ng-model="admin.members.search" ng-model-options="{debounce:150}" />
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,10 @@
 
                     </li>
                 </ul>
-                <div class="emptySearch emptySearchAdmin">@SharedResources.NoResults</div>
+                <div class="emptySearch emptySearchAdmin">
+                    @Html.Svg("~/Images/Defs.svg", "noResults")
+                    @SharedResources.NoResults
+                </div>
             </div>
         </section>
 

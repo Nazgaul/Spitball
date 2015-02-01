@@ -46,7 +46,10 @@
                     </li>
                 </ul>
             </section>
-            <div class="emptySearch">@SharedResources.NoResults</div>
+            <div class="emptySearch">
+                @Html.Svg("~/Images/Defs.svg", "noResults")
+                @SharedResources.NoResults
+            </div>
         </div>
     </div>
 </div>
