@@ -408,7 +408,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (!mimeType.ToLower().Contains("image"))
             {
-                throw new ArgumentException("this is not an image");
+                throw new ArgumentException("this is not an image. mime type: " + mimeType);
             }
             var name = Guid.NewGuid();
             var container = BlobClient.GetContainerReference(AzureQuizContainer.ToLower());
@@ -431,7 +431,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             {
                 return uri.AbsoluteUri;
             }
-            return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + uri.PathAndQuery;
+            var path = uri.PathAndQuery;
+            if (path.StartsWith("/"))
+            {
+                path = path.Remove(0, 1);
+
+            }
+
+            return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + path;
         }
 
         #region Thumbnail

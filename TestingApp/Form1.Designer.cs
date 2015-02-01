@@ -137,6 +137,7 @@
             this.textBoxUserId.Name = "textBoxUserId";
             this.textBoxUserId.Size = new System.Drawing.Size(53, 20);
             this.textBoxUserId.TabIndex = 7;
+            this.textBoxUserId.Text = "1";
             // 
             // textBoxUniversityName
             // 
@@ -144,6 +145,7 @@
             this.textBoxUniversityName.Name = "textBoxUniversityName";
             this.textBoxUniversityName.Size = new System.Drawing.Size(63, 20);
             this.textBoxUniversityName.TabIndex = 7;
+            this.textBoxUniversityName.Text = "920";
             // 
             // textBox6
             // 

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Zbang.Zbox.Domain
 {
-    public class User 
+    public class User
     {
         protected User()
         {
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain
             FirstTime = new UserFirstTime();
             UserType = UserType.Regular;
         }
-        
+
 
         public User(string email, string smallImage, string largeImage)
             : this()
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain
 
         public User(string email, string smallImage, string largeImage,
             string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture
-            ,bool isMobile)
+            , bool isMobile)
             : this()
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Domain
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
-       // protected virtual ICollection<Invite> Invites { get; set; }
+        // protected virtual ICollection<Invite> Invites { get; set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string Image { get; set; }
@@ -122,7 +122,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual RussianDepartment RussianDepartment { get; set; }
 
-       // public virtual Library Department { get; set; }
+        // public virtual Library Department { get; set; }
 
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
@@ -130,7 +130,7 @@ namespace Zbang.Zbox.Domain
         public virtual bool MarketEmail { get; set; }
 
 
-       
+
 
         //public void RemoveInviteState(Box box)
         //{
@@ -153,7 +153,7 @@ namespace Zbang.Zbox.Domain
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)
         {
             //RemoveInviteState(box);
-            var userType = UserBoxRel.FirstOrDefault(w => Equals(w.Box, box));
+            var userType = UserBoxRel.FirstOrDefault(w => w.BoxId == box.Id);
             if (userType == null)
             {
                 userType = new UserBoxRel(this, box, UserRelationshipType.Subscribe);
@@ -212,7 +212,7 @@ namespace Zbang.Zbox.Domain
             RussianDepartment = department;
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
-           // Department = null;
+            // Department = null;
         }
 
         public virtual bool IsAdmin()

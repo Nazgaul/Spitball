@@ -12,14 +12,14 @@
         <div class="innerContent">
             <p class="firstP">@PasswordSentResources.WeEmailed</p>
             <p class="lastP">@PasswordSentResources.EnterBelow</p>
-            @using (Html.BeginForm("Confirmation", "Account", FormMethod.Post))
+            @using (Html.BeginForm("Confirmation", "Account", new { @continue = Request.QueryString["continue"] }, FormMethod.Post))
             {
                 Html.RenderAction("AntiForgeryToken", "Home", true);
                 @Html.ValidationSummary(true)
 
                 @Html.LabelFor(m => m.Code)
                 @Html.ValidationMessageFor(m=>m.Code)
-                @Html.TextBoxFor(m => m.Code, new { @class = "inputText", autofocus = "autofocus" })
+                @Html.TextBoxFor(m => m.Code, new { @class = "inputText", autofocus = "autofocus", autocomplete ="off"})
 
                 @Html.HiddenFor(m => m.Key)
                 
