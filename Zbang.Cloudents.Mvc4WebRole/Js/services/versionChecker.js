@@ -5,7 +5,7 @@
             currentVersion,
             timeInterval = 300000;//five minutes
 
-        setInterval(checkVersion, timeInterval);
+        //setInterval(checkVersion, timeInterval);
 
         return {
             checkVersion: checkVersion,

@@ -27,8 +27,8 @@
                     if ($scope.formData.tabId) {
                         sBox.renameTab($scope.formData).then(function () {
                             $modalInstance.close($scope.formData.name);
-                            $analytics.eventTrack('Renamed Tab', {
-                                category: 'Box Tabs'
+                            $analytics.eventTrack('Tabs - Renamed Tab', {
+                                category: 'Box'
                             });
                         }, function () {
                             sNotify.tAlert('RenameError');
@@ -41,8 +41,8 @@
 
                     sBox.createTab($scope.formData).then(function (tab) {
                         $modalInstance.close(tab);
-                        $analytics.eventTrack('Created Tab', {
-                            category: 'Box Tabs'
+                        $analytics.eventTrack('Tabs - Created Tab', {
+                            category: 'Box'
                         });
                     }, function (response) {
                         sNotify.alert(response);

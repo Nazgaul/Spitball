@@ -14,9 +14,10 @@
              $scope.display = {
                  searchUniversity: true
              };
-             if ($location.search()['new']) {
-                 console.log('h');
-                 $analytics.eventTrack('CompletedSignUpChooseLib', { category: 'Registration' });
+             if ($location.search()['new']) {                 
+                 $analytics.eventTrack('CompletedSignUpChooseLib', {
+                     category: 'Registration'
+                 });
              }
              sFacebook.getToken().then(function (token) {
                  if (!token) {
@@ -25,8 +26,8 @@
                  sLibrary.facebookFriends({ authToken: token }).then(function (data) {
                      $scope.FBUniversities = data;
                      if (!data.length) {
-                         $analytics.eventTrack('no facebook', {
-                             category: 'Select university'
+                         $analytics.eventTrack('No facebook', {
+                             category: 'Library Choose'
                          });
                      }
 
@@ -81,7 +82,7 @@
 
                      if (data.length) {
                          $analytics.eventTrack('search ' + $scope.formData.searchInput, {
-                             category: 'Select university',
+                             category: 'Library Choose',
                              label: _.map(data, function (university) {
                                  return university.name;
                              }).toString()
@@ -90,7 +91,7 @@
                      }
 
                      $analytics.eventTrack('empty search', {
-                         category: 'Select university',
+                         category: 'Library Choose',
                          label: $scope.formData.searchInput
                      });
                  });
@@ -123,7 +124,7 @@
 
                          if (isFacebook) {
                              $analytics.eventTrack('Facebook choose', {
-                                 category: 'Select university',
+                                 category: 'Library Choose',
                                  label: university.name
                              });
                          }
@@ -176,7 +177,7 @@
 
                      $analytics.pageTrack('library/choose/created');
                      $analytics.eventTrack('Create University', {
-                         category: 'Select University'
+                         category: 'Library Choose'
                      });
 
                  });

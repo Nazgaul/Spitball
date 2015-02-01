@@ -23,7 +23,7 @@ function ($scope, $modalInstance, data, $timeout, $analytics, sItem, sNotify) {
             $scope.disable = false;
         });
 
-        $analytics.eventTrack('Flag Item', {
+        $analytics.eventTrack('Flagged Item', {
             category: 'Item',
             label: 'Item was flagged ' + $scope.formdata.id
         });

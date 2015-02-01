@@ -76,8 +76,7 @@
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
                  $analytics.eventTrack('Remove', {
-                     category:'Invite by email',
-                     label: 'User removed an email'
+                     category:'Invite by email'
                  });
              };
 
@@ -91,9 +90,7 @@
                  sFocus('emailInput');
                  $scope.$broadcast('itemChange');
                  $analytics.eventTrack('Edit', {
-                     category: 'Invite by email' ,
-                     label: 'User edit an email'
-                 });
+                     category: 'Invite by email' ,                 });
              };
 
 

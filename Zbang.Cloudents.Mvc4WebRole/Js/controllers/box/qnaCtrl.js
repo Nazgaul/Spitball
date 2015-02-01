@@ -140,9 +140,8 @@
                             return file.id;
                         });
                     }
-                    $analytics.eventTrack('Add a question', {
-                        category: 'Box Feed',
-                        label: 'User post a question in the feed'
+                    $analytics.eventTrack('Feed - Add a question', {
+                        category: 'Box'
                     });
 
                     sQnA.post.question($scope.qFormData).then(function (questionId) {
@@ -179,9 +178,8 @@
 
                 $scope.postAnswer = function (question) {                  
 
-                    $analytics.eventTrack('Add an answer', {
-                        category: 'Box Feed',
-                        label: 'User post an answer in the feed'
+                    $analytics.eventTrack('Feed - Add an answer', {
+                        category: 'Box Feed'                       
                     });
                     sGmfcnHandler.addPoints({ type: 'answer' });
 
@@ -234,8 +232,8 @@
 
                         sQnA.delete.question({ questionId: question.id });
 
-                        $analytics.eventTrack('Remove Question', {
-                            category: 'Box Feed'
+                        $analytics.eventTrack('Feed - Remove Question', {
+                            category: 'Box'
                         });
 
                         if ($scope.info.feedLength) {
@@ -252,8 +250,8 @@
                         question.answers.splice(index, 1);
                         sQnA.delete.answer({ answerId: answer.id });
 
-                        $analytics.eventTrack('Remove Answer', {
-                            category: 'Box Feed'
+                        $analytics.eventTrack('Feed - Remove Answer', {
+                            category: 'Box'
                         });
                     });
                 };
@@ -273,9 +271,8 @@
                     });
                     
 
-                    $analytics.eventTrack('Remove attachment', {
-                        category: 'Box Feed',
-                        label:'Question'
+                    $analytics.eventTrack('Feed - Remove question attachment', {
+                        category: 'Box'
                     });
                 };
 
@@ -295,9 +292,8 @@
 
                     });
                     
-                    $analytics.eventTrack('Remove attachment', {
-                        category: 'Box Feed',
-                        label:'Answer'
+                    $analytics.eventTrack('Feed - Remove answer attachment', {
+                        category: 'Box'
                     });
                 };
 
@@ -310,8 +306,8 @@
 
                     $scope.followBox();
 
-                    $analytics.eventTrack( 'Download Item', {
-                        category:'Box Feed'
+                    $analytics.eventTrack('Feed - Download Item', {
+                        category:'Box'
                     });
                 };
 
@@ -357,9 +353,8 @@
                         $scope.qFormData.files = [data.itemDto];
 
 
-                        $analytics.eventTrack( 'Added attachment',{
-                            category: 'Box Feed',
-                            label:'Question'
+                        $analytics.eventTrack( 'Feed - Added question attachment',{
+                            category: 'Box'
                         });
 
 
@@ -384,9 +379,8 @@
 
                         question.aFormData.files = [data.itemDto];
 
-                        $analytics.eventTrack('Added attachment', {
-                            category: 'Box Feed',
-                            label: 'Answser'
+                        $analytics.eventTrack('Feed - Added answer attachment', {
+                            category: 'Box'                            
                         });                        
                     }
                 });
@@ -405,9 +399,8 @@
 
                     openUpload(data);
 
-                    $analytics.eventTrack('Upload', {
-                        category: 'Box Feed',
-                        label:'Question'
+                    $analytics.eventTrack('Feed - Question Upload', {
+                        category: 'Box'                        
                     });
                 };
 
@@ -417,9 +410,8 @@
                         $scope.qFormData.files.splice(index, 1);
                     }
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove attachment',
-                        label:'Question'
+                    $analytics.eventTrack('Feed - Remove question attachment', {
+                        category: 'Box'
                     });
                 }
 
@@ -436,9 +428,8 @@
                     };
 
                     openUpload(data);
-                    $analytics.eventTrack('Upload', {
-                        category: 'Box Feed',
-                        label: 'Answer'
+                    $analytics.eventTrack('Feed - Upload Answer', {
+                        category: 'Box'
                     });
 
                 };
@@ -448,9 +439,8 @@
                         question.aFormData.files.splice(index, 1);
                     }
 
-                    $analytics.eventTrack('Box Feed', {
-                        category: 'Remove attachment',
-                        label: 'Answer'
+                    $analytics.eventTrack('Feed - Remove answer attachment', {
+                        category: 'Box'
                     });
                 }
 
