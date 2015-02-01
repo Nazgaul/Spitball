@@ -36,8 +36,10 @@
             </ul>
         </section>
         <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}"
-           analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Show All"
-           >@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
-        <div class="emptySearch">@SharedResources.NoResults</div>
+           analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Show All">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <div class="emptySearch">
+            @Html.Svg("~/Images/Defs.svg", "noResults")
+            @SharedResources.NoResults
+        </div>
     </div>
 </div>

@@ -26,6 +26,11 @@
 
             function uploadFile(file) {
 
+                if (file.size > 20971520) {
+                    alert('Maximum 20MB');
+                    return;
+                }
+
                 var client = new XMLHttpRequest();
                 client.onreadystatechange = function () {
                     if (client.readyState == 4 && client.status == 200) {
@@ -62,7 +67,10 @@
                     return;
                 }
                 window.b = true;
-                textarea.onpaste = function(e) {
+                textarea.onpaste = function (e) {
+                    if (e.clipboardData.types.indexOf('text/plain') > -1) {
+                        return true;
+                    }
                     handlepaste(this, e);
                 }
 

@@ -1788,13 +1788,11 @@ select.inputText {
   margin: 50px 0;
   color: #464646;
 }
-.emptySearch:before {
-  content: '';
+.emptySearch svg {
   display: block;
   width: 108px;
   height: 98px;
-  background: url(/Images/site.png?v=3) 100% -1426px no-repeat;
-  margin: 0 auto;
+  margin: -10px auto 10px;
 }
 .emptySearchAdmin:after {
   top: 5px;

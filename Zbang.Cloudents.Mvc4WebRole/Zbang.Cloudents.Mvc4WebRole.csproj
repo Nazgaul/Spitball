@@ -765,7 +765,6 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\404.png" />
     <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
     <Content Include="Images\Store\ball.png" />
@@ -1114,7 +1113,6 @@
       <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SetupSchool.less" />
-    <Content Include="App_Code\_ChooseDeptAC.cshtml" />
     <Content Include="Content\BoxFeed.less" />
     <Content Include="Content\SVG.less" />
     <Content Include="Content\Normalize.less" />
@@ -1170,7 +1168,6 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1914,6 +1911,9 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\textAngular\textAngular-rangy.min.js" />
     <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
     <Content Include="Scripts\textAngular\textAngular.js" />
@@ -1928,7 +1928,7 @@
     <Content Include="Scripts\jquery.mousewheel.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\jquery.slimscroll.min.js.map">
       <DependentUpon>jquery.slimscroll.js</DependentUpon>
     </None>
@@ -2033,7 +2033,6 @@
     <Content Include="Views\Store\_CheckOutStep2.cshtml" />
     <Content Include="Views\Store\_Footer.cshtml" />
     <Content Include="Views\Store\_Navigation.cshtml" />
-    <Content Include="Views\Library\_ChooseDepartment.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Dashboard\_UploadFiles.cshtml" />

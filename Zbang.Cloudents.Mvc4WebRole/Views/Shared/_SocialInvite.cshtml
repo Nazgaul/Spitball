@@ -26,7 +26,10 @@
                     <div class="contactName">{{::contact.name}}</div>
                     <button data-sent-txt="@SharedResources.Sent" ng-disabled="user.invited" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
                 </li>
-                <li class="emptySearch">@SharedResources.NoResults</li>
+                <li class="emptySearch">
+                    @Html.Svg("~/Images/Defs.svg", "noResults")
+                    @SharedResources.NoResults
+                </li>
             </ul>
         </div>
         <div class="socialConnect">
