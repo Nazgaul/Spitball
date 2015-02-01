@@ -1100,21 +1100,21 @@
   background: #F5F5F5;
   margin-top: -32px;
 }
-.boxItemTt .ttTop > .ttDetail {
+.boxItemTt .ttTop > .ttDetail.ttDetail {
   width: auto;
   margin-top: -10px;
   position: relative;
 }
-.boxItemTt .ttTop > .ttDetail:before {
+.boxItemTt .ttTop > .ttDetail.ttDetail:before {
   content: attr(data-numdownload);
   display: inline-block;
   margin: 0 4px 0 20px;
 }
-.boxItemTt .ttTop > .ttDetail:last-child:before {
+.boxItemTt .ttTop > .ttDetail.ttDetail:last-child:before {
   content: attr(data-numcommment);
   margin: 0 4px 0 24px;
 }
-.boxItemTt .ttTop > .ttDetail:after {
+.boxItemTt .ttTop > .ttDetail.ttDetail:after {
   content: '';
   display: inline-block;
   position: absolute;
@@ -1124,7 +1124,7 @@
   height: 15px;
   background: url(/Images/item13-sprite.png?v=1) -19px -21px no-repeat;
 }
-.boxItemTt .ttTop > .ttDetail:last-child:after {
+.boxItemTt .ttTop > .ttDetail.ttDetail:last-child:after {
   width: 18px;
   height: 17px;
   background-position: -51px -21px;
