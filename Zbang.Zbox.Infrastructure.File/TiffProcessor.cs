@@ -18,7 +18,7 @@ using Image = Aspose.Imaging.Image;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    class TiffProcessor : FileProcessor
+    public class TiffProcessor : FileProcessor
     {
         public TiffProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-           // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
+            // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
             Stream blobStr = null;
             var tiff = new Lazy<TiffImage>(() =>
             {

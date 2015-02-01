@@ -60,11 +60,9 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             const int allowedChars = 8000;
             const int sizeOfMetaPerPage = 20;
+            const int sizeOfPageCount = 10;
 
-            if (string.IsNullOrEmpty(fileContent))
-            {
-                return;
-            }
+          
             var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             if (metaData == null)
             {
@@ -72,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
-            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + 4);
+            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + sizeOfPageCount);
             metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(fileContent.ToLower()).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
