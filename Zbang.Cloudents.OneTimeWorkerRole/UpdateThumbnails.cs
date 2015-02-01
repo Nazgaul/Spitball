@@ -95,18 +95,18 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         private readonly TimeSpan timeToWaite = TimeSpan.FromMinutes(3);
         private void UpdateFile2(Uri blobUri, long itemId)
         {
-            
+
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
-            if (processor is VideoProcessor || 
-                processor is AudioProcessor || 
+            if (processor is VideoProcessor ||
+                processor is AudioProcessor ||
                 processor is ImageProcessor ||
                 processor is TiffProcessor)
             {
                 return;
             }
-            
+
 
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
             var wait = new ManualResetEvent(false);
@@ -123,7 +123,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     {
                         return;
                     }
-                    
+
 
                     var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
                         retVal.FileTextContent);
@@ -132,7 +132,8 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(ex);
+
+                    TraceLog.WriteError("on itemid: " + itemId, ex);
                 }
             });
             work.Start();
@@ -140,8 +141,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             if (!signal)
             {
                 work.Abort();
-                GC.Collect();
-                TraceLog.WriteError("blob url aborting process");
+                TraceLog.WriteError("blob url aborting process. itemid: " + itemId);
             }
         }
 
