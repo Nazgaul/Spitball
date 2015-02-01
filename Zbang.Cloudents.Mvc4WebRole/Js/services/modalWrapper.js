@@ -149,7 +149,12 @@ app.factory('sModal',
                     }
                      
                     if (resolveData.quizId) {
-                        params.templateUrl += '&quizId=' + resolveData.quizId;
+                        var queryString = 'quizId=' + resolveData.quizId;
+                        if (template.url.indexOf('?')) {
+                            template.url += '&' + queryString;
+                        } else {
+                            template.url += '?' + queryString;
+                        }
                     }
                 }
 

@@ -2,7 +2,7 @@
 @license textAngular
 Author : Austin Anderson
 License : 2013 MIT
-Version 1.3.1
+Version 1.3.3
 
 See README.md or https://github.com/fraywing/textAngular/wiki for requirements and use.
 */
@@ -311,17 +311,22 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
             } catch (e) {
                 safe = oldsafe || '';
             }
+
+            // Do processing for <pre> tags, removing tabs and return carriages outside of them
+
             var _preTags = safe.match(/(<pre[^>]*>.*?<\/pre[^>]*>)/ig);
-            safe = safe.replace(/(&#(9|10);)*/ig, '');
-            var re = /<pre[^>]*>.*?<\/pre[^>]*>/i;
+            processedSafe = safe.replace(/(&#(9|10);)*/ig, '');
+            var re = /<pre[^>]*>.*?<\/pre[^>]*>/ig;
             var index = 0;
+            var lastIndex = 0;
             var origTag;
-            while ((origTag = re.exec(safe)) !== null && index < _preTags.length) {
-                safe = safe.substring(0, origTag.index) + _preTags[index] + safe.substring(origTag.index + origTag[0].length);
-                re.lastIndex = Math.max(0, re.lastIndex + _preTags[index].length - origTag[0].length);
+            safe = '';
+            while ((origTag = re.exec(processedSafe)) !== null && index < _preTags.length) {
+                safe += processedSafe.substring(lastIndex, origTag.index) + _preTags[index];
+                lastIndex = origTag.index + origTag[0].length;
                 index++;
             }
-            return safe;
+            return safe + processedSafe.substring(lastIndex);
         };
     }]).factory('taToolExecuteAction', ['$q', '$log', function ($q, $log) {
         // this must be called on a toolScope or instance
@@ -807,11 +812,20 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
         return function (_defaultTest) {
             return function (_blankVal) {
                 if (!_blankVal) return true;
-                // Don't do a global replace as that would be waaayy too long, just replace the first 4 occurences should be enough
-                _blankVal = _blankVal.toString().replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '');
-                var _firstTagIndex = _blankVal.indexOf('>');
-                if (_firstTagIndex === -1) return _blankVal.trim().length === 0;
+                // find first non-tag match - ie start of string or after tag that is not whitespace
+                var _firstMatch = /(^[^<]|>)[^<]/i.exec(_blankVal);
+                var _firstTagIndex;
+                if (!_firstMatch) {
+                    // find the end of the first tag removing all the 
+                    // Don't do a global replace as that would be waaayy too long, just replace the first 4 occurences should be enough
+                    _blankVal = _blankVal.toString().replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '').replace(/="[^"]*"/i, '');
+                    _firstTagIndex = _blankVal.indexOf('>');
+                } else {
+                    _firstTagIndex = _firstMatch.index;
+                }
                 _blankVal = _blankVal.trim().substring(_firstTagIndex, _firstTagIndex + 100);
+                // check for no tags entry
+                if (/^[^<>]+$/i.test(_blankVal)) return false;
                 // this regex is to match any number of whitespace only between two tags
                 if (_blankVal.length === 0 || _blankVal === _defaultTest || /^>(\s|&nbsp;)*<\/[^>]+>$/ig.test(_blankVal)) return true;
                     // this regex tests if there is a tag followed by some optional whitespace and some text after that
@@ -2601,4 +2615,4 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
             };
         }
     ]);
-})();
+})(); 
