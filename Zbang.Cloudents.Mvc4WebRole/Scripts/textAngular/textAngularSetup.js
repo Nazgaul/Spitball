@@ -142,9 +142,7 @@ angular.module('textAngularSetup', [])
     color: {
         tooltip: 'Choose color'
     },
-    reset: {
-        tooltip: 'Reset'
-    },
+    reset: 'Reset',
     //indent: {
     //    tooltip: 'Increase indent'
     //},
@@ -538,7 +536,7 @@ angular.module('textAngularSetup', [])
             });
             finishEdit();
         });
-        var resetButton = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1">Reset</button>');
+        var resetButton = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1">' + taTranslations.reset + '</button>');
         resetButton.on('click', function (event) {
             event.preventDefault();
             $element.css({
