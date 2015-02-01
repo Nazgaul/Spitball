@@ -144,16 +144,16 @@ app.factory('sModal',
 
                 if (template.url) {                    
                     params.templateUrl = template.url;
-                    if (template.url.indexOf('/') > -1) {
-                        template.url += '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
+                    if (params.templateUrl.indexOf('/') > -1) {
+                        params.templateUrl += '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
                     }
                      
                     if (resolveData.quizId) {
                         var queryString = 'quizId=' + resolveData.quizId;
-                        if (template.url.indexOf('?')) {
-                            template.url += '&' + queryString;
+                        if (params.templateUrl.indexOf('?')) {
+                            params.templateUrl += '&' + queryString;
                         } else {
-                            template.url += '?' + queryString;
+                            params.templateUrl += '?' + queryString;
                         }
                     }
                 }
