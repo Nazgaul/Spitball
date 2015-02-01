@@ -99,10 +99,14 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
-            if (processor is VideoProcessor)
+            if (processor is VideoProcessor || 
+                processor is AudioProcessor || 
+                processor is ImageProcessor ||
+                processor is TiffProcessor)
             {
                 return;
             }
+            
 
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
             var wait = new ManualResetEvent(false);
