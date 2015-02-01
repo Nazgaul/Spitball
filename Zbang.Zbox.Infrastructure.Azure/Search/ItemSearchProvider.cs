@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_BlobProvider = blobProvider;
             if (!RoleEnvironment.IsAvailable)
             {
-                m_IndexName = m_IndexName + "-dev";
+                m_IndexName = m_IndexName;// + "-dev";
                 return;
             }
             if (RoleEnvironment.IsEmulated)
@@ -98,7 +98,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string content;
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
-                    return System.Net.WebUtility.UrlDecode(content);
+                    var retVal = System.Net.WebUtility.UrlDecode(content);
+                    retVal = retVal.TrimEnd((char)65533, '%');
+                    return retVal;
                 }
                 return itemToUpload.Content;
             }
@@ -185,6 +187,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber
+                    //Highlight =  NameField + "," + ContentField
                 });
 
 

@@ -142,6 +142,9 @@ angular.module('textAngularSetup', [])
     color: {
         tooltip: 'Choose color'
     },
+    reset: {
+        tooltip: 'Reset'
+    },
     //indent: {
     //    tooltip: 'Increase indent'
     //},
@@ -504,7 +507,7 @@ angular.module('textAngularSetup', [])
             editorScope.hidePopover();
         };
         event.preventDefault();
-        editorScope.displayElements.popover.css('width', '375px');
+        editorScope.displayElements.popover.css('width', '353px');
         var container = editorScope.displayElements.popoverContainer;
         container.empty();
         var buttonGroup = angular.element('<div class="btn-group" style="padding-right: 6px;">');
@@ -550,8 +553,8 @@ angular.module('textAngularSetup', [])
         buttonGroup.append(resetButton);
         container.append(buttonGroup);
 
-        buttonGroup = angular.element('<div class="btn-group" style="padding-right: 6px;">');
-        var floatLeft = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="fa fa-align-left"></i></button>');
+        buttonGroup = angular.element('<div class="btn-group">');
+        var floatLeft = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><svg class="svg-alignLeft"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignLeft"></use></svg></button>');
         floatLeft.on('click', function (event) {
             event.preventDefault();
             // webkit
@@ -562,7 +565,7 @@ angular.module('textAngularSetup', [])
             $element.css('styleFloat', 'left');
             finishEdit();
         });
-        var floatRight = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="fa fa-align-right"></i></button>');
+        var floatRight = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><svg class="svg-alignRight"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignRight"></use></svg></button>');
         floatRight.on('click', function (event) {
             event.preventDefault();
             // webkit
@@ -573,7 +576,7 @@ angular.module('textAngularSetup', [])
             $element.css('styleFloat', 'right');
             finishEdit();
         });
-        var floatNone = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="fa fa-align-justify"></i></button>');
+        var floatNone = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><svg class="svg-alignCenter"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/textEditor.svg?26.0.0#alignCenter"></use></svg></button>');
         floatNone.on('click', function (event) {
             event.preventDefault();
             // webkit
@@ -590,7 +593,7 @@ angular.module('textAngularSetup', [])
         container.append(buttonGroup);
 
         buttonGroup = angular.element('<div class="btn-group">');
-        var remove = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><i class="fa fa-trash-o"></i></button>');
+        var remove = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><svg class="svg-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/Defs.svg?26.0.0#trash"></use></svg></button>');
         remove.on('click', function (event) {
             event.preventDefault();
             $element.remove();
@@ -609,10 +612,9 @@ angular.module('textAngularSetup', [])
                        </span>',
         tooltiptext: taTranslations.insertImage.tooltip,
         action: function (imageLink) {
-            if (angular.isString(imageLink)) {                
-                return this.$editor().wrapSelection('insertImage', imageLink, true);
+            if (angular.isString(imageLink)) {
+                this.$editor().wrapSelection('insertImage', imageLink, true);
             }
-            
         },
         onElementSelect: {
             element: 'img',

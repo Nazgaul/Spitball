@@ -46,7 +46,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(message.UserId);
             var box = m_BoxRepository.Load(message.BoxId);
             //Decode the comment to html friendly
-            var text = TextManipulation.EncodeComment(message.Text);
+            var text = message.Text;
+            if (message.ShouldEncode)
+            {
+                text = TextManipulation.EncodeComment(message.Text);
+            }
 
 
             var files = new List<Item>();

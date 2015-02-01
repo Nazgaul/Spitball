@@ -345,14 +345,10 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
             } catch (exc) {
                 $log.error(exc);
             }
-            if (!result) {
-                return;
-            }
-           if (result === undefined) {
+            if (result || result === undefined) {
                 // if true or undefined is returned then the action has finished. Otherwise the deferred action will be resolved manually.
-               return;
-           }
-           deferred.resolve();
+                deferred.resolve();
+            }
         };
     }]);
     angular.module('textAngular.DOM', ['textAngular.factories'])
@@ -1772,8 +1768,6 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
                             scope.displayElements.popover.css('display', '');
                             scope.displayElements.popoverContainer.attr('style', '');
                             scope.displayElements.popoverContainer.attr('class', 'popover-content');
-                            scope.displayElements.text[0].focus();
-
                         };
                         $q.when($animate.removeClass(scope.displayElements.popover, 'in', doneCb)).then(doneCb);
                     };

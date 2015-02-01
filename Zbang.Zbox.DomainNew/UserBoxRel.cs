@@ -38,8 +38,8 @@ namespace Zbang.Zbox.Domain
 
 
         //used for hashcode & equals
-        protected virtual long UserId { get; set; }
-        protected virtual long BoxId { get; set; }
+        public virtual long UserId { get; protected set; }
+        public virtual long BoxId { get; protected set; }
 
         public override bool Equals(object other)
         {

@@ -146,7 +146,7 @@
         }
 
         $scope.addQuestion = function (focus) {
-            var question = new Question();            
+            var question = new Question();
             question.focus = focus;
             $scope.quiz.questions.push(question);
             for (var i = 0; i < $scope.params.minAnswers; i++) {
@@ -626,7 +626,7 @@ directive('quizFocus', [function () {
                 });
 
                 function setHighlight() {
-                    angular.element('[highlight-box]').removeClass('focus');
+                    angular.element('[highlight-box').removeClass('focus');
                     element.addClass('focus');
                 }
             }

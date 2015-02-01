@@ -13,7 +13,7 @@
                 files.map(uploadFile);
 
 
-                return false;
+                return false;               
             });//change
 
             scope.$on('$destroy', function () {
@@ -40,7 +40,6 @@
                             return;
                         }
 
-
                         scope.onChoose({ data: response.payload });
                         element.val('');
                     }
@@ -59,46 +58,39 @@
     };//return
 
 }]).
-directive('appFilePaste', [function () {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            var textarea = element[0].querySelector('[contenteditable]');
-            if (window.b) {
-                return;
-            }
-            window.b = true;
-            textarea.onpaste = function (e) {
-                if (_.isArray(e.clipboardData.types)) {
+    directive('appFilePaste', [function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var textarea = element[0].querySelector('[contenteditable]');
+                if (window.b) {
+                    return;
+                }
+                window.b = true;
+                textarea.onpaste = function (e) {
                     if (e.clipboardData.types.indexOf('text/plain') > -1) {
                         return true;
                     }
+                    handlepaste(this, e);
                 }
-                if (_.isObject(e.clipboardData.types)) {
-                    if (e.clipboardData.types.contains('text/plain')) {
-                        return true;
+
+                function handlepaste(elem, e) {
+                    var savedcontent = elem.innerHTML;
+                    if (e && e.clipboardData && e.clipboardData.getData) {// Webkit - get data from clipboard, put into editdiv, cleanup, then cancel event                        
+                        var file = e.clipboardData.items[0].getAsFile();                                                
+                        scope.$broadcast('filePaste', file);
                     }
                 }
-                handlepaste(this, e);
-            }
 
-            function handlepaste(elem, e) {
-                var savedcontent = elem.innerHTML;
-                if (e && e.clipboardData && e.clipboardData.getData) {// Webkit - get data from clipboard, put into editdiv, cleanup, then cancel event                        
-                    var file = e.clipboardData.items[0].getAsFile();
-                    scope.$broadcast('filePaste', file);
-                }
-            }
+                scope.$on('$destroy', function () {
+                    textarea.onpaste = null;
+                });
 
-            scope.$on('$destroy', function () {
-                textarea.onpaste = null;
-            });
+            }//link
 
-        }//link
+        };//return
 
-    };//return
-
-}]);
+    }]);
 
 
 

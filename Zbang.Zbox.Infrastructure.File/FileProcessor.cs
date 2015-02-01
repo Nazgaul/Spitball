@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.File
             const int sizeOfMetaPerPage = 20;
             const int sizeOfPageCount = 10;
 
-          
+
             var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             if (metaData == null)
             {
@@ -77,13 +77,30 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)
         {
-            
+
+
             var oldElements = metaTags.Where(w =>
                 Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrfix)).Select(s => s.Key).ToList();
+
+
+
             foreach (var oldElement in oldElements)
             {
                 metaTags.Remove(oldElement);
             }
+
+            var z = metaTags.Select(s => s.Key).Where(w => w.StartsWith(cacheVersionPrfix)).Select(s =>
+            {
+                var number = s.Remove(0, cacheVersionPrfix.Length);
+                return Convert.ToInt32(number);
+            }).Where(p => p >= 15).ToList();
+
+            foreach (int i in z)
+            {
+                metaTags.Remove(cacheVersionPrfix + i);
+            }
+
+
             return metaTags;
         }
 
