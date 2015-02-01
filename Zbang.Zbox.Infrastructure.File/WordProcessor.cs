@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class WordProcessor : DocumentProcessor
     {
-        const string CacheVersion =  CacheVersionPrefix + "6";
+        const string CacheVersion = CacheVersionPrefix + "6";
 
         public WordProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
-            var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
+            //var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
             var word = new AsyncLazy<Document>(async () =>
             {
@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+            var retVal = await UploadPreviewToAzure(blobName, indexNum,
                  i => CreateCacheFileName(blobName, i),
                  async z =>
                  {
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.File
                      var w = await word;
                      w.Save(ms, svgOptions);
                      return ms;
-                 },CacheVersion
+                 }, CacheVersion, "image/svg+xml"
              );
 
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
@@ -170,6 +170,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return ThumbnailProvider.WordFileTypePicture;
         }
 
-        
+
     }
 }

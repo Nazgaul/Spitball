@@ -38,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
             var ppt = new AsyncLazy<Presentation>(async () =>
             {
@@ -49,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
             });
 
-            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+            var retVal = await UploadPreviewToAzure(blobName, indexNum, 
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -60,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                    return ms;
-               }, CacheVersion
+               }, CacheVersion,"image/jpg"
             );
             if (ppt.IsValueCreated)
             {

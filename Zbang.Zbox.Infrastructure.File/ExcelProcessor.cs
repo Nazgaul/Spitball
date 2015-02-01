@@ -1,11 +1,9 @@
 ﻿using System.Drawing.Imaging;
-using System.Globalization;
 using System.Threading;
 using Aspose.Cells;
 using Aspose.Cells.Rendering;
 using ImageResizer;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -48,7 +46,6 @@ namespace Zbang.Zbox.Infrastructure.File
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
             var excel = new AsyncLazy<Workbook>(async () =>
             {
@@ -60,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            var retVal = await UploadPreviewToAzure(blobName, indexNum, indexOfPageGenerate,
+            var retVal = await UploadPreviewToAzure(blobName, indexNum, 
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -74,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    sr.ToImage(0, ms);
                    return ms;
-               }, CacheVersion
+               }, CacheVersion,"image/jpg"
             );
             return new PreviewResult { Content = retVal, ViewName = "Image" };
             //var blobsNamesInCache = new List<string>();

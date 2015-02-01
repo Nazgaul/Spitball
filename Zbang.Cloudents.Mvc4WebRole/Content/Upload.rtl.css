@@ -181,10 +181,10 @@
 }
 .dropMsg:before {
   content: '';
+  display: block;
   width: 130px;
   height: 113px;
-  background: url(/Images/upload15-sprite.png?v=1) 100% -54px;
-  display: block;
+  background: url(/Images/upload15-sprite.png?v=1) 0px -54px;
   margin: 0 auto 22px;
 }
 .uploads {

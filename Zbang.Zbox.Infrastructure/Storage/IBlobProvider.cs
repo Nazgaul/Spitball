@@ -85,5 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// <param name="fileName">the image name received from client</param>
         /// <returns>url to return to client</returns>
         Task<string> UploadQuizImage(Stream content, string mimeType, long boxId, string fileName);
+
+        bool CacheBlobExists(string blobName);
     }
 }
