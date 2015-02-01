@@ -160,13 +160,13 @@
                 category: 'Quiz Create'
             });
         };
-        $scope.saveQuestion = function (question) {            
+        $scope.saveQuestion = function (question) {
             if (!$scope.quiz.id) {
-                createQuiz().then(function () {               
+                createQuiz().then(function () {
                     createQuestion(question);
                 });
                 return;
-            }          
+            }
 
             if (!question.id) {
                 createQuestion(question);
@@ -492,7 +492,7 @@
 
 
             $analytics.eventTrack('Save Quiz', {
-                category:'Quiz Create',
+                category: 'Quiz Create',
                 label: 'User publish a quiz'
             });
 
@@ -517,7 +517,11 @@
         $scope.initQuiz();
 
         function goToQuizzes() {
-            window.history.back();
+            var path = $location.path().slice(0, -1),
+                index = path.lastIndexOf('/');
+
+            path = path.substring(0, index) + '/';
+            $location.path(path).hash('quizzes');
         }
 
         $timeout(function () {
@@ -564,8 +568,8 @@
     }]).
     directive('bindTextarea', [function () {
         return {
-            restrict: 'A',           
-            link: function (scope, element,attrs) {                
+            restrict: 'A',
+            link: function (scope, element, attrs) {
                 element.on('blur', function () {
                     scope.$apply(attrs.onBlur);
                 });
@@ -577,7 +581,7 @@
             }
         };
     }]).
-directive('quizFocus', [ function () {
+directive('quizFocus', [function () {
     return {
         restrict: 'A',
         link: function (scope, element) {
@@ -596,11 +600,11 @@ directive('quizFocus', [ function () {
                         if (!input) {
                             return;
                         }
-                        input.focus();               
+                        input.focus();
                     }, 10);
                 }
             });
-            
+
 
 
             scope.$on('$destroy', function () {
@@ -614,11 +618,11 @@ directive('quizFocus', [ function () {
             restrict: 'A',
             link: function (scope, element) {
                 var input;
-                element.on('focus', '[contenteditable],[highlighter]',setHighlight);
-                
-                
+                element.on('focus', '[contenteditable],[highlighter]', setHighlight);
+
+
                 scope.$on('$destroy', function () {
-                    element.off('focus',setHighlight);
+                    element.off('focus', setHighlight);
                 });
 
                 function setHighlight() {
@@ -643,5 +647,6 @@ directive('requiredTwo', function () {
                 listener();
             });
         }
-,    };
+,
+    };
 });

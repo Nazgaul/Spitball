@@ -117,6 +117,8 @@ app.factory('sModal',
 
 
             function buildObj(windowClass, template, controller, backDrop, keyboard, resolveData, scope) {
+                resolveData = resolveData || {};
+
                 var params = {
                     windowClass: windowClass,
                     controller: controller,
@@ -141,7 +143,11 @@ app.factory('sModal',
                 }
 
                 if (template.url) {                    
-                    params.templateUrl = template.url + '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
+                    params.templateUrl = template.url;
+                    if (template.url.indexOf('/') > -1) {
+                        template.url += '?lang=' + getCookie('l2') + '&version=' + sVerChecker.currentVersion();
+                    }
+                     
                     if (resolveData.quizId) {
                         params.templateUrl += '&quizId=' + resolveData.quizId;
                     }

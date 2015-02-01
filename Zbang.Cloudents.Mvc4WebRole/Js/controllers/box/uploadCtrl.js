@@ -245,7 +245,7 @@ mBox.controller('UploadLinkCtrl',
         $scope.add = function () {
             $modalInstance.close($scope.formData.url);
 
-            $analytics.eventTrack('Saved Link', {
+            $analytics.eventTrack('Save', {
                 category: 'Link popup'
             });
         };

@@ -13,8 +13,8 @@
             };
 
             $scope.invite = function (contact) {
-                $analytics.eventTrack('Gmail/Cloudents', {
-                    category: 'Box Invite',
+                $analytics.eventTrack('Invite Gmail/Cloudents', {
+                    category: 'Box',
                     label: 'User invited a friend to box from google or cloudents'
                 });
 
@@ -46,8 +46,8 @@
                     }).then(function () {
                         dfd.resolve();
 
-                        $analytics.eventTrack('Facebook', {
-                            category: 'Box Invite',
+                        $analytics.eventTrack('Invite Facebook', {
+                            category: 'Box',
                             label: 'User invited a friend to box from facebook'
                         });
 

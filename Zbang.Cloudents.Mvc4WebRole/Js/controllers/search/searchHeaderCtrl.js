@@ -92,8 +92,8 @@
                 return;
             }
 
-            $analytics.eventTrack('Search Header', {
-                category: 'Full Search'
+            $analytics.eventTrack('Full Search', {
+                category: 'Search Header'
             });
 
             $location.url('/search/?q=' + $scope.formData.query);

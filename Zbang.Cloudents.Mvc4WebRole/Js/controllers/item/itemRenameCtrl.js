@@ -12,7 +12,7 @@ function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {
     $scope.renameItem = function () {
         $scope.disable = true;
 
-        $analytics.eventTrack('Rename Item', {
+        $analytics.eventTrack('Renamed', {
             category: 'Item'
         });
 
@@ -27,7 +27,7 @@ function ($scope, $modalInstance,$analytics, data, sItem,sNotify) {
     };
 
     $scope.cancel = function () {
-        $analytics.eventTrack('Cancel Rename', {
+        $analytics.eventTrack('Cancel', {
             category: 'Item'
         });
 

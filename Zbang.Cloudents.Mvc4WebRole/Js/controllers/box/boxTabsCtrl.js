@@ -34,8 +34,8 @@
             });
 
 
-            $analytics.eventTrack('Removed Tab', {
-                category: 'Box Tabs'
+            $analytics.eventTrack('Tabs - Removed Tab', {
+                category: 'Box'
             });
 
             var index = $scope.params.tabs.indexOf(tab);
@@ -59,8 +59,8 @@
                 }
             });
 
-            $analytics.eventTrack('Rename Tab', {
-                category: 'Box Tabs'
+            $analytics.eventTrack('Tabs - Rename Tab', {
+                category: 'Box'
             });
         };
 
@@ -91,15 +91,15 @@
                 }
             });
 
-            $analytics.eventTrack('Create Tab', {
-                category: 'Box Tabs'
+            $analytics.eventTrack('Tabs - Create Tab', {
+                category: 'Box'
             });
         };
 
         $scope.manageTab = function () {
             $rootScope.$broadcast('manageTab');
-            $analytics.eventTrack('Manage Tab', {
-                category: 'Box Tabs'
+            $analytics.eventTrack('Tabs - Manage Tab', {
+                category: 'Box'
             });
         };
 
@@ -114,8 +114,8 @@
         };
 
         $scope.addDraggedItem = function (item, tab) {
-            $analytics.eventTrack( 'Dragged Item', {
-                category:'Box Tabs',
+            $analytics.eventTrack('Tabs - Dragged Item', {
+                category:'Box',
                 label: 'User dragged an item to a tab'
             });
 

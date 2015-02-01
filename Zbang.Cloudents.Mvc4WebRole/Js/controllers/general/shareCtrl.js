@@ -179,7 +179,7 @@
             if (!$scope.formData.emailList.length) {
                 $scope.formData.placeholder = JsResources.UsernameOr;
             }
-            $analytics.eventTrack('Remove email', {
+            $analytics.eventTrack('Remove', {
                 category: 'Share Email'
             });
         };
@@ -194,7 +194,7 @@
 
             $scope.$broadcast('itemChange');
             sFocus('shareInput');
-            $analytics.eventTrack('Edit email', {
+            $analytics.eventTrack('Edit', {
                 category: 'Share Email'
             });
         };

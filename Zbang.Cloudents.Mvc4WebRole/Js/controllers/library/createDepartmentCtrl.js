@@ -11,7 +11,7 @@
                      return;
                  }
 
-                 $analytics.eventTrack('Department Created', {
+                 $analytics.eventTrack('Created', {
                      category: 'Create Department'
                  });
 
@@ -21,7 +21,7 @@
              $scope.cancel = function () {
                  $modalInstance.dismiss();
 
-                 $analytics.eventTrack('Cancel Create', {
+                 $analytics.eventTrack('Cancel', {
                      category: 'Create Department'
                  });
 

@@ -85,8 +85,8 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                 close: function (response) {
                     $rootScope.params.createBoxWizard = false;
 
-                    $analytics.eventTrack('Library', {
-                        category: 'Finish Wizard'
+                    $analytics.eventTrack('Finish Wizard', {
+                        category: 'Library'
                     });
 
                     if (response) {
@@ -126,8 +126,8 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                         sNotify.alert(response);
                     });
 
-                    $analytics.eventTrack('Library', {
-                        category: 'Create Department'
+                    $analytics.eventTrack('Create Department', {
+                        category: 'Library'
                     });
 
                 }
@@ -147,8 +147,8 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
         box.userType = 'subscribe';
         sBox.follow({ boxId: box.id });
 
-        $analytics.eventTrack('Library', {
-            category: 'Follow box'
+        $analytics.eventTrack('Follow box', {
+            category: 'Library'
         });
     };
 
@@ -191,12 +191,12 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
 
         function remove(isDelete) {
             var analytics = {
-                category: 'Leave Box'
+                category: 'Library'
             };
             sBox.remove({ id: box.id, 'delete': isDelete });
 
 
-            $analytics.eventTrack('Library', analytics);
+            $analytics.eventTrack('Leave Box', analytics);
 
             box.userType = 'none';
 
@@ -205,12 +205,10 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
                 if (index > -1) {
                     $scope.info.items.splice(index, 1);
                 }
-                analytics = {
-                    category: 'Delete Box'
-                };
+                $analytics.eventTrack('Delete Box', analytics);
             }
 
-            $analytics.eventTrack('Library', analytics);
+            
         }
 
 
