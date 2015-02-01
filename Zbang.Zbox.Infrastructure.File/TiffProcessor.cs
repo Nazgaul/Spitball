@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
+           // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
             Stream blobStr = null;
             var tiff = new Lazy<TiffImage>(() =>
             {
@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var jpgCreateOptions = new JpegOptions();
 
 
-            for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
+            for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
             {
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
                 var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);

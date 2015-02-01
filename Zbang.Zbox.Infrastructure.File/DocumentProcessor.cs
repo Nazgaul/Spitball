@@ -11,6 +11,11 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public abstract class DocumentProcessor : FileProcessor
     {
+        protected const int NumberOfFilesInGroup = 15;
+        protected const string DatePattern = "M-d-yy";
+
+
+
         protected DocumentProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
         { }
@@ -19,7 +24,8 @@ namespace Zbang.Zbox.Infrastructure.File
             Func<Stream> thumbnailStream,
             Func<String> extractTextFromDocument,
             Func<int> getPageCount,
-            String getCacheVersionPrefix)
+            String getCacheVersionPrefix
+            )
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
@@ -38,26 +44,28 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected async Task<IEnumerable<string>> UploadPreviewToAzure(string blobName,
             int startPage,
-            int stopPage,
-            Func<int, string> pageMetaKey,
-            Func<int, Task<Stream>> convertPageToPreview, string cacheVersion
+            Func<int, string> pageCacheBlobName,
+            Func<int, Task<Stream>> convertPageToPreview, string cacheVersion,
+            String mimeType
             )
         {
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
-            var tasks = new List<Task>();
+
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             meta = RemoveOldMetaTags(meta, cacheVersion);
-            for (var pageIndex = startPage; pageIndex < stopPage; pageIndex++)
+            string sPageCount;
+            int pageCount = int.MaxValue;
+            if (meta.TryGetValue(PagesInDocsMetaKey, out sPageCount))
             {
-                string value;
-                var cacheblobName = cacheVersion + pageIndex;
-
-                var metaDataKey = pageMetaKey(pageIndex);
-                if (meta.TryGetValue(metaDataKey, out value))
+                int.TryParse(sPageCount, out pageCount);
+            }
+            for (var pageIndex = startPage; pageIndex < Math.Min(startPage + NumberOfFilesInGroup, pageCount); pageIndex++)
+            {
+                var metaDataKey = cacheVersion + pageIndex;
+                var cacheblobName = pageCacheBlobName(pageIndex);
+                if (GetPrviewImage(pageIndex, metaDataKey, ref meta, ref blobsNamesInCache, cacheblobName))
                 {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-                    meta[metaDataKey] = DateTime.UtcNow.ToString("M-d-yy");
                     continue;
                 }
                 try
@@ -66,8 +74,8 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, "image/svg+xml", true));
-                        meta.Add(metaDataKey, DateTime.UtcNow.ToString("M-d-yy"));
+                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, mimeType, true));
+                        meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     }
                 }
                 catch (ArgumentOutOfRangeException)
@@ -81,11 +89,51 @@ namespace Zbang.Zbox.Infrastructure.File
 
             }
             var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var tasks = new List<Task>();
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
             blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
             return blobsNamesInCache;
         }
+
+        private bool GetPrviewImage(int pageIndex, string metaDataKey,
+            ref IDictionary<string, string> meta,
+            ref List<string> blobsNamesInCache,
+            string cacheblobName)
+        {
+            if (pageIndex > NumberOfFilesInGroup)
+            {
+                if (BlobProvider.CacheBlobExists(cacheblobName))
+                {
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    return true;
+                }
+            }
+            else
+            {
+                string value;
+                if (meta.TryGetValue(metaDataKey, out value))
+                {
+                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+        //protected int CalculateTillWhenToDrawPictures(int indexNum)
+        //{
+        //    var indexOfPageGenerate = NumberOfFilesInGroup;
+        //    if (indexNum > NumberOfFilesInGroup / 2)
+        //    {
+        //        indexOfPageGenerate = (indexNum / 10) * 10 + NumberOfFilesInGroup;
+        //    }
+        //    return indexOfPageGenerate;
+        //}
     }
 }

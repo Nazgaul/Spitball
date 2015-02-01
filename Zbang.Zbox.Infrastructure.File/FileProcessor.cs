@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,11 +12,12 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public abstract class FileProcessor : ContentProcessor, IContentProcessor
     {
-        protected const int NumberOfFilesInGroup = 20;
+
         protected const int ThumbnailWidth = 148;
         protected const int ThumbnailHeight = 187;
 
         protected const string CacheVersionPrefix = "V";
+        protected const string PagesInDocsMetaKey = "pageCount";
 
 
         protected readonly IBlobProvider BlobProvider;
@@ -25,15 +27,7 @@ namespace Zbang.Zbox.Infrastructure.File
             BlobProvider = blobProvider;
         }
 
-        protected int CalculateTillWhenToDrawPictures(int indexNum)
-        {
-            var indexOfPageGenerate = NumberOfFilesInGroup;
-            if (indexNum > NumberOfFilesInGroup / 2)
-            {
-                indexOfPageGenerate = (indexNum / 10) * 10 + NumberOfFilesInGroup;
-            }
-            return indexOfPageGenerate;
-        }
+
 
         protected string GetBlobNameFromUri(Uri blobUri)
         {
@@ -77,13 +71,15 @@ namespace Zbang.Zbox.Infrastructure.File
                 metaData = new Dictionary<string, string>();
             }
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
-            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * pageCount);
+            metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
+            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + 4);
             metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(fileContent.ToLower()).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
 
         protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)
         {
+            
             var oldElements = metaTags.Where(w =>
                 Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrfix)).Select(s => s.Key).ToList();
             foreach (var oldElement in oldElements)

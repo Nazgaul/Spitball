@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Infrastructure.File
         public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
 
             var resolution = new Resolution(150);
@@ -53,7 +52,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
             var retVal = await UploadPreviewToAzure(blobName,
                 ++indexNum,
-                indexOfPageGenerate,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
                 {
@@ -61,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     var p = await pdf;
                     jpegDevice.Process(p.Pages[z], ms);
                     return ms;
-                }, CacheVersion);
+                }, CacheVersion, "image/jpg");
 
             if (pdf.IsValueCreated && blobSr != null)
             {
