@@ -62,7 +62,10 @@
                     return;
                 }
                 window.b = true;
-                textarea.onpaste = function(e) {
+                textarea.onpaste = function (e) {
+                    if (e.clipboardData.files.length === 0) {
+                        return;
+                    }
                     handlepaste(this, e);
                 }
 
