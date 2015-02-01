@@ -80,11 +80,12 @@
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
         <div class="rFloat correct"><span class="correctTxt">@QuizResources.CorrectAnswer</span></div>
         <ul class="quizAnswersList">
-            <li class="quizAnswer" ng-repeat="answer in question.answers" ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
+            <li class="quizAnswer" ng-repeat="answer in question.answers" highlighter
+                ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
             </li>
 
             <li class="quizAnswer disabled">
-                <textarea highlighter text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
+                <textarea text-direction class="inputText questionAnswer" ng-placeholder="@QuizResources.AddAnswer"
                           readonly="readonly" ng-click="addAnswer(question,true)"></textarea>
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                 <label class="answerLabel"></label>
