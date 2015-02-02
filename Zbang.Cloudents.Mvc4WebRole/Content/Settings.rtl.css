@@ -96,7 +96,7 @@
   display: block;
   color: #0f9d58;
   cursor: pointer;
-  margin: -7px 0 25px;
+  margin-bottom: 25px;
 }
 .lastnameWpr,
 .nameWpr {
@@ -155,7 +155,6 @@
   display: block;
 }
 .propValue {
-  margin-bottom: 5px;
   font-size: 15px;
   color: #676767;
 }
@@ -168,14 +167,17 @@
 .btnTxt.checkMail ~ .checkMailMsg {
   opacity: 1;
 }
-.changeEmail > .btnTxt {
-  display: block;
-}
 .accountSettings .btn1 {
   margin-top: 30px;
 }
 .changeEmail {
   display: inline-block;
+}
+.changeEmail > .btnTxt {
+  display: block;
+}
+.changeEmail .propValue {
+  margin-bottom: 5px;
 }
 .newEmail {
   /*display: none;*/
