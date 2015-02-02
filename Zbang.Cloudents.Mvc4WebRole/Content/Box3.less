@@ -872,7 +872,19 @@
         right: 1px;
     }
 }
-
+.thumbItem, .listItem {
+    .views {
+        color: #b1b1b1;
+        margin: 0; // override .views class
+        .svg-eye {
+            width: 16px;
+            height: 11px;
+            fill: #b1b1b1;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
 .listItem {
     padding: 15px 0 15px 138px;
     position: relative;
@@ -973,7 +985,7 @@
         color: #b1b1b1;
         display: inline-block;
         vertical-align: top;
-        margin: 0 0 0 20px; //override 
+        margin: 2px 0 0 20px; //override 
     }
 
     .tag {
@@ -1035,24 +1047,6 @@
         color: @color;
         height: 32px;
     }
-
-    .views {
-        color: #b1b1b1;
-        position: absolute;
-        right: 4px;
-        bottom: 3px;
-        margin: 0; // override .views class
-        // before img from .views class.
-        &:before {
-            .pseudo;
-            width: 16px;
-            height: 11px;
-            margin-right: 5px; //rtl
-            vertical-align: middle;
-            background: url(/Images/item13-sprite.png?v=1) -121px -21px no-repeat;
-        }
-    }
-
     .tag {
         position: absolute;
         left: -6px;
@@ -1060,7 +1054,11 @@
         color: #F0F8FF;
         z-index: 1;
     }
-
+    .views {
+        position: absolute;
+        right: 4px;
+        bottom: 5px;
+    }
     &.quizItem {
         position: relative;
         border: none;
