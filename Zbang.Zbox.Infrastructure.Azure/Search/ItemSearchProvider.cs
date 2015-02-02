@@ -100,7 +100,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string content;
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
-                    var retVal = DecodeText(content, itemToUpload.Id);// System.Net.WebUtility.UrlDecode(content);;
+                    var retVal = DecodeText(content, itemToUpload.Id).Trim();
+
+                    if (string.IsNullOrEmpty(retVal))
+                    {
+                        return itemToUpload.Content;
+                    }
+                   
                     var x = new Regex("%.");
                     if (x.IsMatch(retVal, retVal.Length - 2))
                     {
@@ -119,23 +125,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        private string DecodeText(string val,long itemId)
+        private string DecodeText(string val, long itemId)
         {
+            var initVal = val;
             var i = 0;
             while (HttpUtility.UrlDecode(val) != val)
             {
-               
+
                 val = HttpUtility.UrlDecode(val);
                 i++;
             }
-            if (i > 2)
+            if (i > 1)
             {
-                TraceLog.WriteError("val is encoded couple of times itemid: " + itemId);
+                TraceLog.WriteInfo("val is encoded couple of times i: " + i + " itemid: " + itemId + " val " + initVal);
             }
 
             return val;
 
-        } 
+        }
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
@@ -212,8 +219,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
-                    Skip = query.RowsPerPage * query.PageNumber
-                    //Highlight =  NameField + "," + ContentField
+                    Skip = query.RowsPerPage * query.PageNumber,
+                    Highlight =  NameField + "," + ContentField
                 });
 
 
