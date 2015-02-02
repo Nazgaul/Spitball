@@ -100,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string content;
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
-                    var retVal = DecodeText(content);// System.Net.WebUtility.UrlDecode(content);;
+                    var retVal = DecodeText(content, itemToUpload.Id);// System.Net.WebUtility.UrlDecode(content);;
                     var x = new Regex("%.");
                     if (x.IsMatch(retVal, retVal.Length - 2))
                     {
@@ -108,7 +108,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     }
                     retVal = retVal.TrimEnd("&qu");
                     retVal = retVal.TrimEnd((char)65533, '%');
-                    TraceLog.WriteInfo("Itemid: " + itemToUpload.Id + " Going to upload to search content: " + retVal);
                     return retVal;
                 }
                 return itemToUpload.Content;
@@ -120,12 +119,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        private string DecodeText(string val)
+        private string DecodeText(string val,long itemId)
         {
+            var i = 0;
             while (HttpUtility.UrlDecode(val) != val)
             {
+               
                 val = HttpUtility.UrlDecode(val);
+                i++;
             }
+            if (i > 2)
+            {
+                TraceLog.WriteError("val is encoded couple of times itemid: " + itemId);
+            }
+
             return val;
 
         } 
