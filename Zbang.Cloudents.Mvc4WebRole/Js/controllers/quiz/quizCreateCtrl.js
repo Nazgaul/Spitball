@@ -72,7 +72,11 @@
 
         $scope.closeQuiz = function (isValid) {
             if ($scope.isEmptyQuiz()) {
-                goToQuizzes();
+                if (!$scope.quiz.id) {
+                    goToQuizzes();
+                    return;
+                }
+                deleteQuiz();
                 return;
             }
 
