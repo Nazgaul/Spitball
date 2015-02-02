@@ -16,6 +16,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
+                {"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
                 //{
                 //    "newrtl3", new[]
                 //    {

@@ -99,8 +99,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
                     var retVal = System.Net.WebUtility.UrlDecode(content);
-                    retVal = retVal.TrimEnd("%D");
+                    retVal = retVal.TrimEnd("%D","%9");
                     retVal = retVal.TrimEnd((char)65533, '%');
+                    TraceLog.WriteInfo("Itemid: " + itemToUpload.Id + " Going to upload to search content: " + retVal);
                     return retVal;
                 }
                 return itemToUpload.Content;
