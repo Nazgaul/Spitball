@@ -28,7 +28,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Store
             }
             foreach (var productStore in message.ProductStores.Distinct())
             {
-                TraceLog.WriteInfo("Process product id: " + productStore.Id);
                 var product = m_ProductRepository.Get(productStore.Id); //use get to get existence in db
 
                 if (product == null)
