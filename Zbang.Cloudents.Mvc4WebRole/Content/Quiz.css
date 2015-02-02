@@ -55,6 +55,7 @@ body.quiz .modal-backdrop.in {
   height: 100%;
   overflow: auto;
   background: #282828;
+  overflow-x: hidden;
 }
 .createQuiz h2,
 .quizPreview h2 {
@@ -169,8 +170,8 @@ body.quiz .modal-backdrop.in {
 .createQuiz .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
-  right: 21px;
-  top: 15px;
+  left: 21px;
+  top: 55px;
 }
 .createQuiz .validated .questionHolder.ng-invalid.correctReq .correct {
   color: #d1294d;
