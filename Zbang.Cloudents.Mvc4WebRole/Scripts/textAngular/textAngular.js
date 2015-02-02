@@ -1769,7 +1769,7 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
                             scope.displayElements.popoverContainer.attr('style', '');
                             scope.displayElements.popoverContainer.attr('class', 'popover-content');
                         };
-                        $q.when($animate.removeClass(scope.displayElements.popover, 'in', doneCb)).then(doneCb);
+                        doneCb();
                     };
 
                     // setup the resize overlay
