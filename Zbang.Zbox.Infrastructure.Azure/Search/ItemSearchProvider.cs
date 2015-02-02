@@ -99,6 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
                     var retVal = System.Net.WebUtility.UrlDecode(content);
+                    retVal = retVal.TrimEnd("%D");
                     retVal = retVal.TrimEnd((char)65533, '%');
                     return retVal;
                 }
