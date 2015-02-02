@@ -547,6 +547,9 @@ footer {
 /*#endregion */
 /*#region RTL inconsistencies (TODO: need to verify each one) */
 .rtlFix {
+  /*.profileInfo .changeUni {
+        margin: 0 0 25px; //remove negative top margin
+    }*/
   /*.headingTexts {
         .facebook, .email {
             width: 242px; // diff rtl (Hebrew css should override this)

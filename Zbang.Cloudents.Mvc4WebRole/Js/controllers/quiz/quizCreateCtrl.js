@@ -101,9 +101,6 @@
         };
 
         $scope.saveQuiz = function () {
-            if ($scope.isEmptyQuiz()) {
-                return;
-            }
             if (!$scope.quiz.id) {
                 createQuiz();
                 return;

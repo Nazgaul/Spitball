@@ -114,42 +114,42 @@
         }
     );
 
-    document.addEventListener('blur', function (e) {
-        var target = e.target;
+    //document.addEventListener('blur', function (e) {
+    //    var target = e.target;
 
-        if (!currentForm) {
-            return;
-        }
+    //    if (!currentForm) {
+    //        return;
+    //    }
 
-        if (target.nodeName !== 'INPUT') {
-            return;
-        }
-        if (target.type == 'submit') {
-            return;
-        }
+    //    if (target.nodeName !== 'INPUT') {
+    //        return;
+    //    }
+    //    if (target.type == 'submit') {
+    //        return;
+    //    }
 
-        var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
+    //    var errorElement = currentForm.querySelector('[data-valmsg-for="' + target.name + '"]');
 
-        if (!errorElement) {
-            return;
-        }
+    //    if (!errorElement) {
+    //        return;
+    //    }
 
-        resetError(errorElement);
+    //    resetError(errorElement);
 
-        if (validatinator.passes(currentForm.name)) {
-            return;
-        }
+    //    if (validatinator.passes(currentForm.name)) {
+    //        return;
+    //    }
 
-        var errorObj = validatinator.errors[currentForm.name][target.name];
-        if (!errorObj) {
-            return;
+    //    var errorObj = validatinator.errors[currentForm.name][target.name];
+    //    if (!errorObj) {
+    //        return;
 
-        }
+    //    }
 
-        var errorText = errorObj[Object.keys(errorObj)[0]];
-        appendError(target.name, errorElement, errorText);
+    //    var errorText = errorObj[Object.keys(errorObj)[0]];
+    //    appendError(target.name, errorElement, errorText);
 
-    }, true);
+    //}, true);
 
     document.addEventListener('input', function (e) {
         var target = e.target;
@@ -240,8 +240,8 @@
 
     connectForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        var submit2 = connectForm.querySelector('input[type="submit"]');
-        submit2.disabled = true;
+        //var submit2 = connectForm.querySelector('input[type="submit"]');
+        //submit2.disabled = true;
         if (validatinator.fails('loginForm')) {
             displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;
@@ -256,8 +256,8 @@
 
     registerForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        var submit2 = connectForm.querySelector('input[type="submit"]');
-        submit2.disabled = true;
+        //var submit2 = connectForm.querySelector('input[type="submit"]');
+        //submit2.disabled = true;
         if (validatinator.fails('registerForm')) {
             displayLocalErrors(currentForm, validatinator.errors[currentForm.name]);
             return;

@@ -60,6 +60,7 @@ body {
     height: 100%;
     overflow: auto;
     background: #282828;
+    overflow-x: hidden;
     //color: #fff;
     //.transition(margin .7s ease-in);
 
@@ -195,8 +196,8 @@ body {
                 .addQuestion{
                     display: inline-block;
                     position: absolute;
-                    right: 21px;
-                    top: 15px;
+                    left: 21px;
+                    top: 55px;
                 }
             }
             &.correctReq {
@@ -333,6 +334,9 @@ body {
             opacity:1;
         }
     }
+    [contenteditable] {
+        outline:none;
+    }
     input[type="radio"]:checked + label:before{
         opacity:1;
     }
@@ -342,6 +346,12 @@ body {
         &:before {
             opacity: .5;
         }
+    }
+    img {
+        //max-width: 708px;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
     }
 }
 
@@ -563,6 +573,8 @@ body {
 .qPreview, .quizQuestion {
     white-space: pre-line;
     line-height: 21px;
+    display: table;
+    margin-top: -18px;
     //font-size: 15px;
     img {
         max-width:100%;

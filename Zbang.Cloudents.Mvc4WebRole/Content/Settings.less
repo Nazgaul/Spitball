@@ -108,7 +108,7 @@
         display: block;
         color: @color;
         cursor: pointer;
-        margin: -7px 0 25px;
+        margin-bottom: 25px;
     }
 }
 
@@ -178,7 +178,6 @@
 }
 
 .propValue {
-    margin-bottom: 5px;
     font-size: 15px;
     color: #676767;
 }
@@ -195,16 +194,18 @@
     }
 }
 
-.changeEmail > .btnTxt {
-    display: block;
-}
-
 .accountSettings .btn1 {
     margin-top: 30px;
 }
 
 .changeEmail {
     display: inline-block;
+    > .btnTxt {
+        display: block;
+    }
+    .propValue {
+        margin-bottom: 5px;
+    }
 }
 
 .newEmail {
