@@ -293,6 +293,9 @@ body.quiz .modal-backdrop.in {
 .questionHolder .inputText:focus ~ label:before {
   opacity: 1;
 }
+.questionHolder [contenteditable] {
+  outline: none;
+}
 .questionHolder input[type="radio"]:checked + label:before {
   opacity: 1;
 }
