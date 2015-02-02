@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_BlobProvider = blobProvider;
             if (!RoleEnvironment.IsAvailable)
             {
-                m_IndexName = m_IndexName;// + "-dev";
+                m_IndexName = m_IndexName + "-dev";
                 return;
             }
             if (RoleEnvironment.IsEmulated)

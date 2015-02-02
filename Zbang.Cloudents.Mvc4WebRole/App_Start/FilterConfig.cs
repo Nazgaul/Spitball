@@ -8,6 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new ZboxHandleErrorAttribute());
+            filters.Add(new RedirectToWWW());
             filters.Add(new RequireHttpsWrapperAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
             filters.Add(new ETagAttribute());

@@ -26,7 +26,7 @@ namespace TestingApp
 
             Zbang.Zbox.ReadServices.RegisterIoc.Register();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
-            Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
+            //Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
         }

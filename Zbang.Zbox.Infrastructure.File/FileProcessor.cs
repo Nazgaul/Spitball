@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.File
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
             var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + sizeOfPageCount);
-            metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(fileContent.ToLower()).RemoveEndOfString(sizeToStrip);
+            metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(System.Net.WebUtility.HtmlEncode(fileContent.ToLower())).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
 

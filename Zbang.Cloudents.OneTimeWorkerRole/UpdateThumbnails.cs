@@ -42,7 +42,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
 
                 var blobClient = cloudStorageAccount.CreateCloudBlobClient();
-
+                var container = blobClient.GetContainerReference("deployn");
+                var blobId = container.GetBlockBlobReference("id.txt");
+                var txt = blobId.DownloadText();
+                var id = Convert.ToInt64(txt);
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
@@ -55,7 +58,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 while (cont)
                 {
                     TraceLog.WriteInfo("processing now index " + index);
-                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index).Result;
+                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index, id).Result;
                     if (!items.Any())
                     {
                         cont = false;
@@ -63,7 +66,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     index++;
                     foreach (var blobname in items)
                     {
-
+                        if (blobname.itemid < id)
+                        {
+                            continue;
+                        }
                         var blob = fileContainer.GetBlockBlobReference(blobname.blobname);
                         try
                         {
@@ -79,9 +85,9 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                             TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
                         }
                     }
-                    TraceLog.WriteInfo("collecting gc");
-                    GC.Collect();
-                    TraceLog.WriteInfo("end collecting gc");
+                    //TraceLog.WriteInfo("collecting gc");
+                    //GC.Collect();
+                    //TraceLog.WriteInfo("end collecting gc");
 
                 }
             }
