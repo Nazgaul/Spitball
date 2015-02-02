@@ -28,7 +28,8 @@
   font-size: 20px;
   display: block;
   font-weight: normal;
-  width: 100%;
+  line-height: 45px;
+  padding: 0 10px;
 }
 .libEmptyTitle {
   font-size: 32px;
