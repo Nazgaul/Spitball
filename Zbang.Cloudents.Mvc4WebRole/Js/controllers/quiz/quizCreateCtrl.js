@@ -626,7 +626,7 @@ directive('quizFocus', [function () {
                 });
 
                 function setHighlight() {
-                    angular.element('[highlight-box').removeClass('focus');
+                    angular.element('[highlight-box]').removeClass('focus');
                     element.addClass('focus');
                 }
             }
