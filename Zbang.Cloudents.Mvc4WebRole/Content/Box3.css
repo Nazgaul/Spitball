@@ -776,6 +776,19 @@
   position: absolute;
   right: 1px;
 }
+.thumbItem .views,
+.listItem .views {
+  color: #b1b1b1;
+  margin: 0;
+}
+.thumbItem .views .svg-eye,
+.listItem .views .svg-eye {
+  width: 16px;
+  height: 11px;
+  fill: #b1b1b1;
+  display: inline-block;
+  vertical-align: middle;
+}
 .listItem {
   padding: 15px 0 15px 138px;
   position: relative;
@@ -862,7 +875,7 @@
   color: #b1b1b1;
   display: inline-block;
   vertical-align: top;
-  margin: 0 0 0 20px;
+  margin: 2px 0 0 20px;
 }
 .listItem .tag {
   position: absolute;
@@ -917,28 +930,17 @@
   color: #0f9d58;
   height: 32px;
 }
-.thumbItem .views {
-  color: #b1b1b1;
-  position: absolute;
-  right: 4px;
-  bottom: 3px;
-  margin: 0;
-}
-.thumbItem .views:before {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 11px;
-  margin-right: 5px;
-  vertical-align: middle;
-  background: url(/Images/item13-sprite.png?v=1) -121px -21px no-repeat;
-}
 .thumbItem .tag {
   position: absolute;
   left: -6px;
   top: 165px;
   color: #F0F8FF;
   z-index: 1;
+}
+.thumbItem .views {
+  position: absolute;
+  right: 4px;
+  bottom: 5px;
 }
 .thumbItem.quizItem {
   position: relative;

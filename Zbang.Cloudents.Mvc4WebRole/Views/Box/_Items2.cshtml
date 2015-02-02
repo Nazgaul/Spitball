@@ -60,7 +60,10 @@
         <div class="stars">
             <div class="full" ng-style="{width: iOptions.starsWidth / iOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">
+            @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
+            {{item.numOfViews}}
+        </div>
     </a>
     <div class="actionBtns" ng-if="isUserLoggedIn()">
         <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="followBox()" analytics-on="click" analytics-event="Download" analytics-category="Box" analytics-label="User downloaded an item"></a>
@@ -68,7 +71,7 @@
             @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
         </button>
 
-    </div>    
+    </div>
 
     <span ng-if="iOptions.manageTab">
         <input id="{{'item_' + item.id}}" type="checkbox" class="cbManage" ng-checked="item.isCheck" ng-model="item.isCheck">
@@ -87,15 +90,18 @@
         <div class="stars">
             <div class="full" ng-style="{width: iOptions.starsWidth / iOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">
+            @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
+            {{item.numOfViews}}
+        </div>
         <span class="tag" ng-if="item.isNew">@SharedResources.New</span>
     </a>
-        <div class="actionBtns" ng-if="isUserLoggedIn()">
-            <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(event,item)" analytics-on="click" analytics-event="Download" analytics-category="Box" analytics-label="User downloaded an item"></a>
-            <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
-                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-            </button>
-        </div>
+    <div class="actionBtns" ng-if="isUserLoggedIn()">
+        <a class="lFloat downloadBtn" target="_blank" tooltip="@IndexResources.Download" ng-href="{{item.downloadUrl}}" ng-click="downloadItem(event,item)" analytics-on="click" analytics-event="Download" analytics-category="Box" analytics-label="User downloaded an item"></a>
+        <button ng-if="deleteAllow(item)" type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="deleteItem(item)">
+            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+        </button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="boxItemTooltip">
