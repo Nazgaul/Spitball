@@ -658,6 +658,12 @@
     <Content Include="Content\jquery.mCustomScrollbar.rtl.css">
       <DependentUpon>jquery.mCustomScrollbar.css</DependentUpon>
     </Content>
+    <Content Include="Content\lang.ar-AE.css">
+      <DependentUpon>lang.ar-AE.less</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ar-AE.rtl.css">
+      <DependentUpon>lang.ar-AE.css</DependentUpon>
+    </Content>
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
@@ -1118,6 +1124,7 @@
     <Content Include="Content\Normalize.less" />
     <Content Include="51Degrees.config" />
     <Content Include="Content\textAngular.less" />
+    <Content Include="Content\lang.ar-AE.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

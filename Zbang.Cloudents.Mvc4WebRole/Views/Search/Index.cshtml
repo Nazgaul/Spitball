@@ -19,9 +19,9 @@
                     <li class="box sCourseItem" ng-repeat="box in data.boxes">
                         <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to box">
                             <img class="lFloat boxImg" alt="" width="77" height="98" ng-src="{{::box.image | defaultImage:'box'}}">
-                            <div class="sTitle elps" ng-bind-html="::box.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
-                            <span class="sDetail" ng-class="::{allDetails: box.professor && box.courseCode}" ng-bind-html="::box.professor | highlight:params.query:false" dir="{{::params.textDirection}}"></span>
-                            <span class="sDetail" ng-bind-html="::box.courseCode | highlight:params.query:false" dir="{{::params.textDirection}}"></span>
+                            <div class="sTitle elps" ng-bind-html="::box.name" dir="{{::params.textDirection}}"></div>
+                            <span class="sDetail" ng-class="::{allDetails: box.professor && box.courseCode}" ng-bind-html="::box.professor" dir="{{::params.textDirection}}"></span>
+                            <span class="sDetail" ng-bind-html="::box.courseCode" dir="{{::params.textDirection}}"></span>
                         </a>
                     </li>
                 </ul>
@@ -42,7 +42,7 @@
                         <a ng-href="{{::user.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to user">
                             <img class="userItemImg" ng-src="{{::user.image | defaultImage:'user'}}" width="74" height="74" />
                         </a>
-                        <div class="userItemName" ng-bind-html="::user.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
+                        <div class="userItemName" ng-bind-html="::user.name" dir="{{::params.textDirection}}"></div>
                     </li>
                 </ul>
             </section>
@@ -58,8 +58,8 @@
     <a class="sMaterialLink" ng-href="{{::item.url}}" analytics-on="click" analytics-category="Search" analytics-event="Navigate to item">
         <div class="sOtherUni semiFont" ng-class="::{dot: item.uniName}">{{::item.uniName}}</div>
         <img class="lFloat imgBorder sMaterialImg" alt="" width="110" height="141" ng-src="{{::item.image}}">
-        <div class="sTitle elps" ng-bind-html="::item.name | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
-        <div class="sSnippet" ng-bind-html="::item.content | highlight:params.query:false" dir="{{::params.textDirection}}"></div>
+        <div class="sTitle elps" ng-bind-html="::item.name" dir="{{::params.textDirection}}"></div>
+        <div class="sSnippet" ng-bind-html="::item.content" dir="{{::params.textDirection}}"></div>
         <div class="stars">
             <div class="full" ng-style="::{width: itemRating(item.rate)}"></div>
         </div>

@@ -20,7 +20,8 @@ controller('SearchCtrl',
 'sSearch',
 'textDirectionService',
 'constants',
-function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService, constants) {
+'$filter',
+function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService, constants, $filter) {
     "use strict";
     $scope.params = {
         currentPage: 0,
@@ -175,7 +176,7 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
     });
 
     function search() {
-        var query = $scope.params.query;        
+        var query = $scope.params.query;
         $scope.data.loading = true;
         $scope.params.noResults = false;
 
@@ -219,6 +220,19 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
         data.boxes = data.boxes || [];
         data.items = data.items || [];
         data.users = data.users || [];
+        
+        _.forEach(data.boxes, function (box) {
+            box.name = highlight(box.name);
+            box.courseCode = highlight(box.courseCode);
+            box.professor = highlight(box.professor);
+        });
+        _.forEach(data.items, function (item) {
+            item.name = highlight(item.name);
+            item.content = highlight(item.content);
+        });
+        _.forEach(data.users, function (user) {
+            user.name = highlight(user.name);
+        });
 
         $scope.data.boxes = $scope.data.boxes ? $scope.data.boxes.concat(data.boxes) : data.boxes;
         $scope.data.items = $scope.data.items ? $scope.data.items.concat(data.items) : data.items;
@@ -231,6 +245,19 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
             }
 
             $scope.params.showOtherUnis = true;
+        }
+
+        function highlight(text) {
+            var result;
+            if (_.isUndefined(text)) {
+                return;
+            }
+
+            if (_.isEmpty(text)) {
+                return '';
+            }
+            
+            return $filter('highlight')(text, $scope.params.query, false);
         }
     }
 

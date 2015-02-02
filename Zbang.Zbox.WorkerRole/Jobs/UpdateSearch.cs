@@ -42,14 +42,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-            TraceLog.WriteInfo("Updating item");
 
             var itemUpdate = await UpdateItem();
-            TraceLog.WriteInfo("Updating university");
             var universityUpdate = await UpdateUniversity();
-            TraceLog.WriteInfo("Updating box");
             var boxUpdate = await UpdateBox();
-
             if (itemUpdate || boxUpdate || universityUpdate)
             {
                 return;
