@@ -11,6 +11,12 @@ body {
 body {
   overflow-y: scroll;
 }
+.pageHeading {
+  font-size: 13px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .bodyContent {
   padding-top: 50px;
   -webkit-box-sizing: border-box;
