@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -98,8 +100,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string content;
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
-                    var retVal = System.Net.WebUtility.UrlDecode(content);
-                    retVal = retVal.TrimEnd("%D","%9");
+                    var retVal = DecodeText(content);// System.Net.WebUtility.UrlDecode(content);;
+                    var x = new Regex("%.");
+                    if (x.IsMatch(retVal, retVal.Length - 2))
+                    {
+                        retVal = retVal.Substring(0, (retVal.Length - 2));
+                    }
+                    retVal = retVal.TrimEnd("&qu");
                     retVal = retVal.TrimEnd((char)65533, '%');
                     TraceLog.WriteInfo("Itemid: " + itemToUpload.Id + " Going to upload to search content: " + retVal);
                     return retVal;
@@ -112,6 +119,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 return itemToUpload.Content;
             }
         }
+
+        private string DecodeText(string val)
+        {
+            while (HttpUtility.UrlDecode(val) != val)
+            {
+                val = HttpUtility.UrlDecode(val);
+            }
+            return val;
+
+        } 
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {

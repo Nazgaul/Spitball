@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 
 // ReSharper disable once CheckNamespace -- this is extension
@@ -24,6 +25,9 @@ public static class StringExtensions
 
     public static string TrimEnd(this String s, params string[] remove)
     {
+        
+
+
 
         foreach (string item in remove)
             if (s.EndsWith(item))
