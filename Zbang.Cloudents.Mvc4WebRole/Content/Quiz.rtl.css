@@ -519,6 +519,10 @@ body.quiz .modal-backdrop.in {
   white-space: pre-line;
   line-height: 21px;
 }
+.qPreview img,
+.quizQuestion img {
+  max-width: 100%;
+}
 .quizAList {
   list-style-type: lower-latin;
   font-size: 15px;
