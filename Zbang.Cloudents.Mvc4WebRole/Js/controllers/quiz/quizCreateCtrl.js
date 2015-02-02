@@ -72,7 +72,11 @@
 
         $scope.closeQuiz = function (isValid) {
             if ($scope.isEmptyQuiz()) {
-                goToQuizzes();
+                if (!$scope.quiz.id) {
+                    goToQuizzes();
+                    return;
+                }
+                deleteQuiz();
                 return;
             }
 
@@ -626,7 +630,7 @@ directive('quizFocus', [function () {
                 });
 
                 function setHighlight() {
-                    angular.element('[highlight-box').removeClass('focus');
+                    angular.element('[highlight-box]').removeClass('focus');
                     element.addClass('focus');
                 }
             }
