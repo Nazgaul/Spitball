@@ -175,6 +175,18 @@
                 return;
             }
 
+            _.forEach(data.boxes, function (box) {
+                box.name = highlight(box.name);
+                box.courseCode = highlight(box.courseCode);
+                box.professor = highlight(box.professor);
+            });
+            _.forEach(data.items, function (item) {
+                item.name = highlight(item.name);
+            });
+            _.forEach(data.users, function (user) {
+                user.name = highlight(user.name);
+            });
+
             appendData();
 
             function appendData() {
@@ -213,6 +225,18 @@
                     return array.slice(0, maxItems);
 
                 }
+            }
+            function highlight(text) {
+                var result;
+                if (_.isUndefined(text)) {
+                    return;
+                }
+
+                if (_.isEmpty(text)) {
+                    return '';
+                }
+
+                return $filter('highlight')(text, $scope.params.query, false);
             }
 
         };

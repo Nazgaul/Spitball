@@ -156,9 +156,9 @@
         <a ng-href="{{::box.url}}" class="searchItem" analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Click on box">
             <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
-                <span class="searchDetail" ng-style="::{allDetails: box.professor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
-                <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
+                <div class="searchTitle semiFont elps" ng-bind-html="::box.name" dir="{{::params.textDirection}}"></div>
+                <span class="searchDetail" ng-style="::{allDetails: box.professor && box.courseCode}" ng-bind-html="::box.proffessor" dir="{{::params.textDirection}}"></span>
+                <span class="searchDetail" ng-bind-html="::box.courseCode"></span>
             </div>
         </a>
     </script>
@@ -167,7 +167,7 @@
             <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
             <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::item.image}}" alt="">
             <div class="searchDetails">
-                <div class="searchTitle semiFont elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
+                <div class="searchTitle semiFont elps" ng-bind-html="::item.name" dir="{{::params.textDirection}}"></div>
                 <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
             </div>
         </a>
@@ -175,7 +175,7 @@
     <script type="text/ng-template" id="personHeaderSearch">
         <a ng-href="{{::person.url}}" class="searchItem" analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Click on member">
             <img class="lFloat imgBorder userImg" ng-src="{{person.image | defaultImage:'user'}}" alt="" width="33" height="33" />
-            <div class="searchTitle semiFont elps" ng-bind-html="::person.name | highlight:formData.query:false" dir="{{::params.txetDirection}}"></div>
+            <div class="searchTitle semiFont elps" ng-bind-html="::person.name" dir="{{::params.txetDirection}}"></div>
         </a>
     </script>
 
