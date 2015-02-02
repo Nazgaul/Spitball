@@ -100,7 +100,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<dynamic>> GetMissingThumbnailBlobs(int index)
+        public async Task<IEnumerable<dynamic>> GetMissingThumbnailBlobs(int index, long start)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -126,10 +126,10 @@ namespace Zbang.Zbox.ReadServices
                 return await conn.QueryAsync(@"select itemid, blobname from zbox.item 
                 where  Discriminator = 'FILE'
                 and isdeleted = 0
-                and itemid >  12856
+                and itemid >  @start
                 order by itemid
                 OFFSET @Offset ROWS
-                FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100 });
+                FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
 
                 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
                 //(blobname like '%.jpg'

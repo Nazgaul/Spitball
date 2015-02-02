@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 
 // ReSharper disable once CheckNamespace -- this is extension
@@ -19,6 +20,26 @@ public static class StringExtensions
         }
         // Return char and concat substring.
         return char.ToUpper(s[0]) + s.Substring(1);
+    }
+
+    public static string TrimEnd(this String s, params string[] remove)
+    {
+
+        foreach (string item in remove)
+            if (s.EndsWith(item))
+            {
+                s = s.Substring(0, s.LastIndexOf(item, StringComparison.Ordinal));
+                break; //only allow one match at most
+            }
+        //if (!string.IsNullOrEmpty(value))
+        //{
+        //    while (!string.IsNullOrEmpty(s) && s.EndsWith(value, comparisonType))
+        //    {
+        //        s = s.Substring(0, (s.Length - value.Length));
+        //    }
+        //}
+
+        return s;
     }
 }
 

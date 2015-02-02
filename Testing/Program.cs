@@ -93,6 +93,8 @@ namespace Testing
             //var x = read.ReadData().Result;
         }
 
+
+
         static void HatavotWrite()
         {
             var write = new WriteService();
@@ -202,6 +204,8 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var t = IndexItemSearch(iocFactory);
+            t.Wait();
             //var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
             //lucenewire.BuildUniversityData();
 
@@ -218,20 +222,22 @@ namespace Testing
 
             //m_ThumbnailProvider = iocFactory.Resolve<IThumbnailProvider>();
 
-            var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
-            var metaData = m_BlobProvider.FetechBlobMetaDataAsync("5c4b8f5a-87c0-40d8-8ab8-ffac3d676910.pdf").Result;
-            string content;
-            if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
-            {
-                content = System.Net.WebUtility.UrlDecode(content);
-            }
-            
+            //var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
+            //var metaData = m_BlobProvider.FetechBlobMetaDataAsync("5c4b8f5a-87c0-40d8-8ab8-ffac3d676910.pdf").Result;
+            //string content;
+            //if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
+            //{
+            //    content = System.Net.WebUtility.UrlDecode(content);
+            //}
 
 
-            var file = File.ReadAllBytes(@"C:\Users\Ram\Pictures\bug1.png");
-            var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
-            t.Wait();
-            var z = t.Result;
+
+
+
+            //var file = File.ReadAllBytes(@"C:\Users\Ram\Pictures\bug1.png");
+            //var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
+            //t.Wait();
+            //var z = t.Result;
             //            var x = m_BlobProvider.GetThumbnailUrl("sometest");
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
@@ -479,6 +485,18 @@ namespace Testing
             //zboxService.GetBoxUpdate(new GetBoxUpdatesQuery(156, 3, DateTime.Now.AddDays(-1)));
             //var result = zboxService.GetBox(new GetBoxQuery(156,3));
             //var x = zboxService.GetBoxComments(new GetBoxCommentsQuery(156,3));
+        }
+
+        private static async Task IndexItemSearch(Zbang.Zbox.Infrastructure.Ioc.IocFactory iocFactory)
+        {
+            IZboxReadServiceWorkerRole m_ZboxReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
+            IItemWriteSearchProvider m_ItemSearchProvider = iocFactory.Resolve<IItemWriteSearchProvider>();
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
+            if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
+            {
+                var isSuccess =
+                    await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+            }
         }
 
         private async static Task<string> TestMediaServices()

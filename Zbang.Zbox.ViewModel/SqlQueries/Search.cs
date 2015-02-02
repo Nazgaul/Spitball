@@ -2,37 +2,6 @@
 {
     public static class Search
     {
-//        public const string OwnedSubscribedBoxes = @"select  b.pictureurl as image,
-// b.BoxName as name,
-// b.ProfessorName as professor,
-// b.CourseCode as courseCode,
-// b.BoxId as id ,
-//b.Url as url
-//from zbox.box b 
-//join zbox.UserBoxRel ub on ub.BoxId = b.BoxId and ub.UserId = @userId
-//where b.IsDeleted = 0
-// and (b.BoxName like '%' + @query + '%'
-//	or b.CourseCode like '%' + @query + '%'
-//	or b.ProfessorName like '%' + @query + '%')
-//order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, len(b.boxName)
-//offset @pageNumber*@rowsperpage rows
-//fetch next @rowsperpage rows only; ";
-
-//        public const string UniversityBoxes = @"select b.pictureurl as image,
-// b.BoxName as name,
-// b.ProfessorName as professor,
-// b.CourseCode as courseCode,
-// b.BoxId as id ,
-//b.Url as url
-//from zbox.box b
-//where b.IsDeleted = 0
-//and b.University = @universityId
-//and (b.BoxName like '%' + @query + '%'
-//	or b.CourseCode like '%' + @query + '%'
-//	or b.ProfessorName like '%' + @query + '%')
-//order by len(b.BoxName) - len(REPLACE(b.BoxName,@query,'')) / len(@query) asc, len(b.boxName)
-//offset @pageNumber*@rowsperpage rows
-//fetch next @rowsperpage rows only;";
 
         public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
 from zbox.users u
@@ -130,8 +99,7 @@ select top 500 b.boxid  from zbox.box b
    from zbox.item i 
    join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
-   --where i.isdirty =1 
-where i.itemid = 14989
+   where i.isdirty =1 
    and i.IsDeleted = 0
    and i.discriminator = 'File'
     order by i.ItemId";
@@ -140,8 +108,7 @@ where i.itemid = 14989
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 500 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
---  where i.isdirty = 1 
-where i.itemid = 14989
+  where i.isdirty = 1 
   and i.isdeleted = 0 
   and i.discriminator = 'File'
   order by i.ItemId)";
