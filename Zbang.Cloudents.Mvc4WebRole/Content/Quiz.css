@@ -307,6 +307,11 @@ body.quiz .modal-backdrop.in {
 .questionHolder .answerLabel:before {
   opacity: .5;
 }
+.questionHolder img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
 .answerWpr {
   width: 550px;
 }
@@ -514,6 +519,8 @@ body.quiz .modal-backdrop.in {
 .quizQuestion {
   white-space: pre-line;
   line-height: 21px;
+  display: table;
+  margin-top: -18px;
 }
 .qPreview img,
 .quizQuestion img {
