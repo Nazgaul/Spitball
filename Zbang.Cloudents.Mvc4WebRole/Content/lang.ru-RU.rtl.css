@@ -151,6 +151,9 @@
 .dateCol {
   width: 165px;
 }
+.upSectionWpr .box:hover .btn3 {
+  padding: 3px 8px;
+}
 /*#endregion */
 /*#region modal.less */
 .tabArrow:before {
