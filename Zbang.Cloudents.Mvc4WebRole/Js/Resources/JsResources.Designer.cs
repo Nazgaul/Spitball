@@ -88,6 +88,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Align text left.
+        /// </summary>
+        public static string AlignLeft {
+            get {
+                return ResourceManager.GetString("AlignLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align text right.
+        /// </summary>
+        public static string AlignRight {
+            get {
+                return ResourceManager.GetString("AlignRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to a min. ago.
         /// </summary>
         public static string AMinAgo {
@@ -151,6 +169,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bold.
+        /// </summary>
+        public static string Bold {
+            get {
+                return ResourceManager.GetString("Bold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This box already exists.
         /// </summary>
         public static string BoxExists {
@@ -205,6 +232,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        public static string Center {
+            get {
+                return ResourceManager.GetString("Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string Change {
@@ -228,6 +264,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string ChooseBox {
             get {
                 return ResourceManager.GetString("ChooseBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose color.
+        /// </summary>
+        public static string ChooseCOlor {
+            get {
+                return ResourceManager.GetString("ChooseCOlor", resourceCulture);
             }
         }
         
@@ -390,6 +435,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string Decline {
             get {
                 return ResourceManager.GetString("Decline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease Size.
+        /// </summary>
+        public static string DecreaseSize {
+            get {
+                return ResourceManager.GetString("DecreaseSize", resourceCulture);
             }
         }
         
@@ -748,6 +802,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Increase Size.
+        /// </summary>
+        public static string IncreaseSize {
+            get {
+                return ResourceManager.GetString("IncreaseSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert image.
+        /// </summary>
+        public static string InsertImage {
+            get {
+                return ResourceManager.GetString("InsertImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid email.
         /// </summary>
         public static string InvalidEmail {
@@ -825,6 +897,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string IShared {
             get {
                 return ResourceManager.GetString("IShared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italic.
+        /// </summary>
+        public static string Italic {
+            get {
+                return ResourceManager.GetString("Italic", resourceCulture);
             }
         }
         
@@ -1180,6 +1261,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ordered List.
+        /// </summary>
+        public static string OrderedList {
+            get {
+                return ResourceManager.GetString("OrderedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -1298,6 +1388,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        public static string Redo {
+            get {
+                return ResourceManager.GetString("Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to rename.
         /// </summary>
         public static string Rename {
@@ -1330,6 +1429,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string Reply {
             get {
                 return ResourceManager.GetString("Reply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
@@ -1667,6 +1775,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Underline.
+        /// </summary>
+        public static string Underline {
+            get {
+                return ResourceManager.GetString("Underline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        public static string Undo {
+            get {
+                return ResourceManager.GetString("Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unfollow.
         /// </summary>
         public static string Unfollow {
@@ -1690,6 +1816,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string Unlike {
             get {
                 return ResourceManager.GetString("Unlike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unordered List.
+        /// </summary>
+        public static string UnorderedList {
+            get {
+                return ResourceManager.GetString("UnorderedList", resourceCulture);
             }
         }
         

@@ -1,4 +1,8 @@
-﻿q {
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+q {
   quotes: '\00AB' '\00BB' '\201E' '\201C';
   font-weight: normal;
 }
@@ -171,6 +175,12 @@
 }
 .gConnect {
   width: 118px;
+}
+.inviteInput {
+  padding-right: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*#region  static popup */
 .desktop .firstName + .field-validation-error {
