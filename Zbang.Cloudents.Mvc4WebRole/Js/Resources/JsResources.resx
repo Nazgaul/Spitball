@@ -688,4 +688,49 @@ Sign up for FREE</value>
   <data name="UploadingFiles" xml:space="preserve">
     <value>Uploading files</value>
   </data>
+  <data name="AlignLeft" xml:space="preserve">
+    <value>Align text left</value>
+  </data>
+  <data name="AlignRight" xml:space="preserve">
+    <value>Align text right</value>
+  </data>
+  <data name="Bold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="ChooseCOlor" xml:space="preserve">
+    <value>Choose color</value>
+  </data>
+  <data name="DecreaseSize" xml:space="preserve">
+    <value>Decrease Size</value>
+  </data>
+  <data name="IncreaseSize" xml:space="preserve">
+    <value>Increase Size</value>
+  </data>
+  <data name="InsertImage" xml:space="preserve">
+    <value>Insert image</value>
+  </data>
+  <data name="Italic" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="OrderedList" xml:space="preserve">
+    <value>Ordered List</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Underline" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="UnorderedList" xml:space="preserve">
+    <value>Unordered List</value>
+  </data>
 </root>

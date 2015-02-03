@@ -98,51 +98,51 @@ angular.module('textAngularSetup', [])
     //    tooltip: 'Preformatted text'
     //},
     'fontUp': {
-        tooltip: 'Increase Size'
+        tooltip: JsResources.IncreaseSize
     },
     'fontDown': {
-        tooltip: 'Decrease Size'
+        tooltip: JsResources.DecreaseSize
     },
     ul: {
-        tooltip: 'Unordered List'
+        tooltip: JsResources.UnorderedList
     },
     ol: {
-        tooltip: 'Ordered List'
+        tooltip: JsResources.OrderedList
     },
     //quote: {
     //    tooltip: 'Quote/unqoute selection or paragraph'
     //},
     undo: {
-        tooltip: 'Undo'
+        tooltip: JsResources.Undo
     },
     redo: {
-        tooltip: 'Redo'
+        tooltip: JsResources.Redo
     },
     bold: {
-        tooltip: 'Bold'
+        tooltip: JsResources.Bold
     },
     italic: {
-        tooltip: 'Italic'
+        tooltip: JsResources.Italic
     },
     underline: {
-        tooltip: 'Underline'
+        tooltip: JsResources.Underline
     },
     //strikeThrough: {
     //    tooltip: 'Strikethrough'
     //}, 
     justifyLeft: {
-        tooltip: 'Align text left'
+        tooltip: JsResources.AlignLeft
     },
     justifyRight: {
-        tooltip: 'Align text right'
+        tooltip: JsResources.AlignRight
     },
     justifyCenter: {
-        tooltip: 'Center'
+        tooltip: JsResources.Center
     },
     color: {
-        tooltip: 'Choose color'
+        tooltip: JsResources.ChooseColor
     },
-    reset: 'Reset',
+    reset: JsResources.Reset,
     //indent: {
     //    tooltip: 'Increase indent'
     //},
@@ -154,7 +154,7 @@ angular.module('textAngularSetup', [])
     //},
     insertImage: {
         //dialogPrompt: 'Please enter an image URL to insert',
-        tooltip: 'Insert image'
+        tooltip: JsResources.InsertImage
         //hotkey: 'the - possibly language dependent hotkey ... for some future implementation'
     },
     //insertVideo: {

@@ -307,6 +307,11 @@ body.quiz .modal-backdrop.in {
 .questionHolder .answerLabel:before {
   opacity: .5;
 }
+.questionHolder img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
 .answerWpr {
   width: 550px;
 }
@@ -514,10 +519,13 @@ body.quiz .modal-backdrop.in {
 .quizQuestion {
   white-space: pre-line;
   line-height: 21px;
+  display: table;
+  margin-top: -18px;
 }
 .qPreview img,
 .quizQuestion img {
-  max-width: 100%;
+  max-width: 735px;
+  margin: 15px 0 10px;
 }
 .qPreview ul,
 .quizQuestion ul {
@@ -528,6 +536,10 @@ body.quiz .modal-backdrop.in {
 .quizQuestion ol {
   list-style-type: decimal;
   padding-left: 20px;
+}
+.qPreview p:first-child img,
+.quizQuestion p:first-child img {
+  margin-top: 0;
 }
 .quizAList {
   list-style-type: lower-latin;
@@ -684,16 +696,6 @@ body.quiz .modal-backdrop.in {
 .quizPage ~ .modal-backdrop.in {
   opacity: 0.8;
 }
-.checkQuiz .userCorrect .quizQuestion,
-.afraid .userCorrect .quizQuestion,
-.checkQuiz .userWrong .quizQuestion,
-.afraid .userWrong .quizQuestion,
-.checkQuiz .userCorrect .quizAList,
-.afraid .userCorrect .quizAList,
-.checkQuiz .userWrong .quizAList,
-.afraid .userWrong .quizAList {
-  padding-right: 80px;
-}
 .checkQuiz .userCorrect .quizQuestion:before,
 .afraid .userCorrect .quizQuestion:before,
 .checkQuiz .userWrong .quizQuestion:before,
@@ -729,18 +731,31 @@ body.quiz .modal-backdrop.in {
 .afraid .quizPrevWpr .btn1 {
   display: none;
 }
+.checkQuiz .quizQList .noAnswer:before,
+.afraid .quizQList .noAnswer:before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 11px 0 11px 9px;
+  border-color: transparent transparent transparent #d1294d;
+  margin-left: -58px;
+  position: relative;
+  top: 1px;
+}
 .checkQuiz .quizQList .noAnswer:after,
 .afraid .quizQList .noAnswer:after {
   content: attr(data-no-answer);
   display: inline-block;
   position: absolute;
   top: 21px;
-  right: -30px;
-  color: #d1294d;
-  background: #f5f5f5;
+  left: -58px;
+  background: #d1294d;
+  color: #fff;
   padding: 3px 8px;
-  border-radius: 8px;
   font-size: 13px;
+  transform: translateX(-100%);
 }
 .checkQuiz .resultsWpr,
 .checkQuiz .userScoreWpr,

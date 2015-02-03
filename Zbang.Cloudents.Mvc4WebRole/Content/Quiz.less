@@ -347,6 +347,12 @@ body {
             opacity: .5;
         }
     }
+    img {
+        //max-width: 708px;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 .answerWpr {
@@ -567,9 +573,13 @@ body {
 .qPreview, .quizQuestion {
     white-space: pre-line;
     line-height: 21px;
+    display: table;
+    margin-top: -18px;
     //font-size: 15px;
     img {
-        max-width:100%;
+        //max-width:100%; //IE doesn't obey this
+        max-width: 735px;
+        margin: 15px 0 10px;
     }
     ul {
         list-style-type: disc;
@@ -579,6 +589,13 @@ body {
     ol {
         list-style-type: decimal;
         padding-left: 20px;
+    }
+    p {
+        &:first-child {
+            img {
+                margin-top: 0;
+            }
+        }
     }
 }
 .quizAList {
@@ -742,12 +759,13 @@ body {
 .checkQuiz, .afraid {
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
-            padding-right: 80px; ////
+            //padding-right: 80px; ////
             &:before {
                 display: inline-block;
             }
         }
     }
+
     .commentWpr {
         display: block;
     }
@@ -772,17 +790,33 @@ body {
         display: none;
     }
 
-    .quizQList .noAnswer:after {
-        content: attr(data-no-answer);
-        display: inline-block;
-        position: absolute;
-        top: 21px;
-        right: -30px;
-        color: @errorColor;
-        background: #f5f5f5;
-        padding: 3px 8px;
-        border-radius: 8px;
-        font-size: 13px;
+    .quizQList .noAnswer {
+        &:before {
+            .pseudo;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 11px 0 11px 9px;
+            border-color: transparent transparent transparent @errorColor;
+            margin-left: -58px;
+            position: relative;
+            top: 1px;
+        }
+        &:after {
+            content: attr(data-no-answer);
+            display: inline-block;
+            position: absolute;
+            top: 21px;
+            left: -58px;
+            //color: @errorColor;
+            //background: #f5f5f5;
+            background: @errorColor;
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 13px;
+            transform: translateX(-100%);
+        }
+        
     }
 }
 .checkQuiz {
