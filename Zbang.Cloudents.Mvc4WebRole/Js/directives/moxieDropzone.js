@@ -201,13 +201,15 @@
                                 category: 'Upload',
                                 label: attrs.plDropzoneUploader
                             });
+                            elements = $();
                         }
                     }, 1);
 
                     
                 }
                 function toggleOff() {
-                    $(this).removeClass('upload');
+                    $main.removeClass('upload');
+                    elements = $();
 
                     $analytics.eventTrack(attrs.plDropzoneUploader, {
                         category: 'Drag Drop'
