@@ -87,13 +87,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         //[PreserveQueryString]
-        public async Task<RedirectResult> ShortUrl(string box62Id)
+        public async Task<ActionResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);
             var userId = User.GetUserId(false);
             var query = new GetBoxSeoQuery(base62.Value, userId);
-            var model = await ZboxReadService.GetBoxSeo(query);
-            return RedirectPermanent(model.Url);
+            try
+            {
+                var model = await ZboxReadService.GetBoxSeo(query);
+                return RedirectPermanent(model.Url);
+            }
+            catch (BoxDoesntExistException ex)
+            {
+                TraceLog.WriteError("base 62: " + box62Id + " id:" + base62.Value, ex);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
 
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -140,7 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //{
         //    var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
         //    var t1 = ZboxReadService.GetBoxRecommendedCourses(query);
-            
+
         //    return JsonOk(result);
         //}
         [HttpGet]

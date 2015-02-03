@@ -340,7 +340,6 @@
     <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteItemComment.cs" />
     <Compile Include="Models\DeleteItemCommentReply.cs" />
-    <Compile Include="Models\BoxSetting.cs" />
     <Compile Include="Models\CreateAcademicBox.cs" />
     <Compile Include="Models\CreateBox.cs" />
     <Compile Include="Models\CreateLibraryItem.cs" />
@@ -396,7 +395,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Models\Statistics.cs" />
-    <Compile Include="Models\UpdateBoxInfo.cs" />
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Account\Resources\AccountResources.Designer.cs">
