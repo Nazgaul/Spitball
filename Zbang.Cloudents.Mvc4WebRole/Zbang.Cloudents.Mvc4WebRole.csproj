@@ -2051,7 +2051,7 @@
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Library\Rename.cshtml" />
-    <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
+    <Content Include="Views\Shared\Partials\_BarSearch0.cshtml" />
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsAuth.cshtml" />
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
@@ -2066,6 +2066,7 @@
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
+    <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
