@@ -8,7 +8,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsMembersOnly")]
         MembersOnly = 2,
         [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
-        AnyoneWithUrl = 3
+        AnyoneWithUrl = 3,
+        PrivateUniversity = 4
 
     }
 }
