@@ -1015,7 +1015,7 @@
   background-color: none;
   border: none;
   border-radius: 0;
-  background: url(/Images/quizSprite.png?v=4) 100% -650px no-repeat;
+  background: url(/Images/quizSprite.png?v=4) 0px -650px no-repeat;
   position: relative;
   top: 2px;
 }

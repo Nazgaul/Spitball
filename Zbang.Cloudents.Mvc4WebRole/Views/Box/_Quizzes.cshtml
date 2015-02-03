@@ -45,7 +45,10 @@
         <div class="stars">
             <div class="full" ng-style="::{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{::item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">
+            @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
+            {{::item.numOfViews}}
+        </div>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
@@ -68,7 +71,10 @@
         <div class="stars">
             <div class="full" ng-style="::{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{::item.numOfView}}</div>
+        <div tooltip="@SharedResources.Views" class="views">
+            @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
+            {{::item.numOfViews}}
+        </div>
         <span class="tag" ng-if="::item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="::!item.publish">@SharedResources.Draft</span>
     </a>
@@ -83,8 +89,8 @@
     </li>
 </script>
 
-<script type="text/ng-template" id="boxQuizTooltip">    
- <div class="boxTt">
+<script type="text/ng-template" id="boxQuizTooltip">
+    <div class="boxTt">
         <div ng-class="::{noPreview : !item.description}" class="boxItemTt">
             <div class="itemName">{{::item.name}}</div>
             <div class="ttTop">
