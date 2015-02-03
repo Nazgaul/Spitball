@@ -37,15 +37,15 @@
 
 <script type="text/ng-template" id="quizThumbView">
     @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
-        <div class="boxName" ng-bind-html="item.name"></div>
-        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
-        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{::item.url}}">
+        <div class="boxName" ng-bind-html="::item.name"></div>
+        <span class="tag" ng-if="::item.publish && item.isNew">@SharedResources.New</span>
+        <span class="tag" ng-if="::!item.publish">@SharedResources.Draft</span>
         @*<div class="quizOwner" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>*@
         <div class="stars">
-            <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
+            <div class="full" ng-style="::{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfViews}}</div>
+        <div tooltip="@SharedResources.Views" class="views">{{::item.numOfViews}}</div>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
@@ -59,18 +59,18 @@
 </script>
 
 <script type="text/ng-template" id="quizListView">
-    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{::item.url}}">
         <div class="imgBorder"></div>
         <div class="boxName semiFont elps" ng-bind-html="item.name"></div>
 
-        <p class="itemContent">{{item.description}}</p>
-        <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">{{item.ownerName}}</div>
+        <p class="itemContent" ng-bind-html="::item.description"></p>
+        <div class="quizOwner elps" data-quiz-owner="@SharedResources.Owner:">{{::item.owner}}</div>
         <div class="stars">
-            <div class="full" ng-style="{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
+            <div class="full" ng-style="::{width: qOptions.starsWidth / qOptions.starsLength * item.rate + 'px'}"></div>
         </div>
-        <div tooltip="@SharedResources.Views" class="views">{{item.numOfView}}</div>
-        <span class="tag" ng-if="item.publish && item.isNew">@SharedResources.New</span>
-        <span class="tag" ng-if="!item.publish">@SharedResources.Draft</span>
+        <div tooltip="@SharedResources.Views" class="views">{{::item.numOfView}}</div>
+        <span class="tag" ng-if="::item.publish && item.isNew">@SharedResources.New</span>
+        <span class="tag" ng-if="::!item.publish">@SharedResources.Draft</span>
     </a>
     @if (User.Identity.IsAuthenticated)
     {
