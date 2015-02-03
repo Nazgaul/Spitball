@@ -101,7 +101,9 @@
                     <div class="lFloat ttDetail">@SharedResources.Created:</div>
                     <div>{{::item.date | displayTimeFilter}}</div>
                 </div>
-                <div class="lFloat ttDetail" data-numdownload="{{::item.numOfViews}}">@SharedResources.Views</div>
+                <div class="lFloat ttDetail" data-numviews="{{::item.numOfViews}}">
+                    @SharedResources.Views
+                </div>
                 <div class="rFloat ttDetail" data-numcommment="{{::item.commentsCount}}">@SharedResources.Comments</div>
             </div>
             <div class="ttPreview" ng-bind-html="::item.description"></div>

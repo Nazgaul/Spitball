@@ -1066,31 +1066,47 @@
 .boxItemTt .ttTop > .ttDetail.ttDetail {
   width: auto;
   margin-top: -10px;
-  position: relative;
+  position: relative
+  /*&:last-child:after {
+                width: 18px;
+                height: 17px;
+                background-position: -51px -21px;
+            }
+            .svg-eye {  //not necessary
+                width: 16px;
+                height: 11px;
+                fill: #b1b1b1;
+                display: inline-block;
+                vertical-align: middle;
+                position: absolute;
+                left: 0;
+                top: 3px;
+            }*/
 }
-.boxItemTt .ttTop > .ttDetail.ttDetail:before {
+.boxItemTt .ttTop > .ttDetail.ttDetail[data-numdownload] {
+  /*&:after {
+                    .pseudo;
+                    position: absolute;
+                    left: 0;
+                    top: 2px;
+                    width: 14px;
+                    height: 15px;
+                    background: @item-sprite1 -19px -21px no-repeat;
+                }*/
+}
+.boxItemTt .ttTop > .ttDetail.ttDetail[data-numdownload]:before {
   content: attr(data-numdownload);
   display: inline-block;
-  margin: 0 20px 0 4px;
+  margin-left: 4px;
+}
+.boxItemTt .ttTop > .ttDetail.ttDetail:before {
+  content: attr(data-numviews);
+  display: inline-block;
+  margin-left: 4px;
 }
 .boxItemTt .ttTop > .ttDetail.ttDetail:last-child:before {
   content: attr(data-numcommment);
-  margin: 0 24px 0 4px;
-}
-.boxItemTt .ttTop > .ttDetail.ttDetail:after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  right: 0;
-  top: 2px;
-  width: 14px;
-  height: 15px;
-  background: url(/Images/item13-sprite.png?v=1) -19px -21px no-repeat;
-}
-.boxItemTt .ttTop > .ttDetail.ttDetail:last-child:after {
-  width: 18px;
-  height: 17px;
-  background-position: -51px -21px;
+  margin-left: 4px;
 }
 .boxItemTt .moreFilesThumb {
   display: inline-block;
