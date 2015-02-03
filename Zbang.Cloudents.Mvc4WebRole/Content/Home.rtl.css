@@ -555,6 +555,15 @@ footer {
             width: 242px; // diff rtl (Hebrew css should override this)
         }
     }*/
+  /*.tag {
+        &:before {
+            width: 33px; //diff rtl
+        }
+
+        &:after {
+            .flipH;
+        }
+    }*/
 }
 .rtlFix .topImg:before {
   -moz-transform: scaleX(-1);
@@ -680,16 +689,6 @@ footer {
 .rtlFix .boxMembers .sectionHeader,
 .rtlFix .boxFolders .sectionHeader {
   font-size: 17px;
-}
-.rtlFix .tag:before {
-  width: 33px;
-}
-.rtlFix .tag:after {
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
 }
 .rtlFix .listItem .itemContent {
   max-height: 46px;

@@ -739,42 +739,39 @@
   position: relative;
   color: #fff;
   display: inline-block;
-  padding: 1px 12px 2px 6px;
+  padding: 2px 12px 3px 7px;
   border-radius: 3px 0 3px 3px;
   margin-left: 11px;
-  /*&:before {
-        .pseudo;
-        position: absolute;
-        top: 0;
-        right: 0; //rtl
-        border-width: 0 8px 7px 0; //rtl
-        border-style: solid;
-        border-color: #f1f1f1 #f1f1f1 #0e8249 #0e8249; //rtl
-        background: #0e8249;
-        display: block;
-        width: 0;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
-    }*/
+  background: #d1294d;
+  overflow: hidden;
 }
 .tag:before {
   content: '';
-  position: absolute;
-  display: block;
-  background: #d1294d;
-  width: 38px;
-  left: 0;
-  z-index: -1;
-  height: 18px;
-  border-radius: 3px 0 0 3px;
-}
-.tag:after {
-  content: '';
   display: inline-block;
-  width: 9px;
-  height: 18px;
-  background: url(/Images/box18-sprite.png?v=1) -8px -119px no-repeat;
   position: absolute;
-  right: 1px;
+  top: 0;
+  right: 0;
+  border-width: 4px;
+  border-style: solid;
+  border-color: #fff #fff transparent transparent;
+  background: #bc2545;
+  display: block;
+  width: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 0 3px;
+}
+.draft.draft .tag {
+  padding: 3px 20px;
+  border-radius: 10px;
+  color: #fff;
+  background: #e25c6a;
+  position: static;
+  font-size: 13px;
+  margin: 16px 0 0 0;
+}
+.draft.draft .tag:before,
+.draft.draft .tag:after {
+  display: none;
 }
 .thumbItem .views,
 .listItem .views {
@@ -796,6 +793,11 @@
   height: 143px;
   border-top: 1px solid #dbdbdb;
   text-align: left;
+  /*.tag {
+        position: absolute;
+        top: 125px;
+        left: 126px; //rtl
+    }*/
 }
 .listItem.quizItem .imgBorder {
   width: 112px;
@@ -818,23 +820,9 @@
   margin: 10px 0;
 }
 .listItem.draft .tag {
-  color: #d1294d;
-  position: relative;
-  top: 0;
-  left: 15px;
-  padding-left: 22px;
-}
-.listItem.draft .tag:before {
-  content: '';
-  display: inline-block;
-  width: 21px;
-  height: 16px;
-  background: url(/Images/box18-sprite.png?v=1) -105px -165px no-repeat;
-  vertical-align: middle;
-  margin-top: 2px;
-}
-.listItem.draft .tag:after {
-  display: none;
+  position: absolute;
+  top: 95px;
+  left: 134px;
 }
 .listItem .boxLink {
   height: 143px;
@@ -876,20 +864,6 @@
   display: inline-block;
   vertical-align: top;
   margin: 2px 0 0 20px;
-}
-.listItem .tag {
-  position: absolute;
-  top: 129px;
-  left: 140px;
-  padding: 1px 3px 2px 6px;
-  background: #d1294d;
-}
-.listItem .tag:before {
-  display: none;
-}
-.listItem .tag:after {
-  right: -7px;
-  top: 0;
 }
 .thumbItem {
   float: left;
@@ -933,7 +907,7 @@
 .thumbItem .tag {
   position: absolute;
   left: -6px;
-  top: 165px;
+  top: 164px;
   color: #F0F8FF;
   z-index: 1;
 }
@@ -1015,19 +989,6 @@
 }
 .thumbItem.draft .svg-quizBg {
   stroke: #c2c2c2;
-}
-.thumbItem.draft .tag {
-  padding: 3px 20px;
-  border-radius: 10px;
-  color: #fff;
-  background: #e25c6a;
-  position: static;
-  font-size: 13px;
-  margin: 16px 0 0 0;
-}
-.thumbItem.draft .tag:before,
-.thumbItem.draft .tag:after {
-  display: none;
 }
 .quizOwner:before {
   content: attr(data-quiz-owner) '\00a0';

@@ -220,10 +220,6 @@
   clear: both;
   margin-top: 15px;
   position: relative;
-  -webkit-animation: fadeinGrow 2s 0 ease;
-  -moz-animation: fadeinGrow 2s 0 ease;
-  -o-animation: fadeinGrow 2s 0 ease;
-  animation: fadeinGrow 2s 0 ease;
   overflow: hidden;
 }
 .boxFeedList > li:before {

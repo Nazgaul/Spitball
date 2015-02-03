@@ -834,42 +834,37 @@
     position: relative;
     color: #fff;
     display: inline-block;
-    padding: 1px 12px 2px 6px;
+    //padding: 1px 12px 2px 6px;
+    padding: 2px 12px 3px 7px;
     border-radius: 3px 0 3px 3px;
     margin-left: 11px;
-    /*&:before {
+    background: @errorColor;
+    overflow: hidden;
+    &:before {
         .pseudo;
         position: absolute;
         top: 0;
-        right: 0; //rtl
-        border-width: 0 8px 7px 0; //rtl
+        right: 0;
+        border-width: 4px;
         border-style: solid;
-        border-color: #f1f1f1 #f1f1f1 #0e8249 #0e8249; //rtl
-        background: #0e8249;
+        border-color: #fff #fff transparent transparent;
+        background: darken(@errorColor,5%);
         display: block;
         width: 0;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2); //rtl
-    }*/
-    &:before {
-        content: '';
-        position: absolute;
-        display: block;
-        background: @errorColor;
-        width: 38px;
-        left: 0; //rtl
-        z-index: -1;
-        height: 18px;
-        border-radius: 3px 0 0 3px; //rtl
+        box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+        border-radius: 0 0 0 3px;
     }
-
-    &:after {
-        .pseudo;
-        width: 9px;
-        height: 18px;
-        background: @boxSprite -8px -119px no-repeat;
-        position: absolute;
-        //right: 0; //rtl
-        right: 1px;
+    .draft.draft & { //repeated .draft for specificity
+        padding: 3px 20px;
+        border-radius: 10px;
+        color: #fff;
+        background: #e25c6a;
+        position: static; //override
+        font-size: 13px;
+        margin: 16px 0 0 0; //override
+        &:before, &:after {
+            display: none; //override
+        }
     }
 }
 .thumbItem, .listItem {
@@ -921,23 +916,9 @@
     }
 
     &.draft .tag {
-        color: @errorColor;
-        position: relative;
-        top: 0;
-        left: 15px;
-        padding-left: 22px;
-        &:before {
-            .pseudo;
-            width: 21px;
-            height: 16px;
-            background: @boxSprite -105px -165px no-repeat;
-            vertical-align: middle;
-            margin-top: 2px;
-        }
-
-        &:after {
-            display: none;
-        }
+        position: absolute;
+        top: 95px;
+        left: 134px;
     }
 
     .boxLink {
@@ -988,22 +969,11 @@
         margin: 2px 0 0 20px; //override 
     }
 
-    .tag {
+    /*.tag {
         position: absolute;
-        top: 129px;
-        left: 140px; //rtl
-        padding: 1px 3px 2px 6px; //rtl
-        background: #d1294d;
-
-        &:before {
-            display: none;
-        }
-
-        &:after {
-            right: -7px; //rtl
-            top: 0;
-        }
-    }
+        top: 125px;
+        left: 126px; //rtl
+    }*/
 }
 
 .thumbItem {
@@ -1050,7 +1020,7 @@
     .tag {
         position: absolute;
         left: -6px;
-        top: 165px;
+        top: 164px;
         color: #F0F8FF;
         z-index: 1;
     }
@@ -1140,19 +1110,6 @@
     &.draft {
         .svg-quizBg {
             stroke: @borderColor;
-        }
-
-        .tag {
-            padding: 3px 20px;
-            border-radius: 10px;
-            color: #fff;
-            background: #e25c6a;
-            position: static; //override
-            font-size: 13px;
-            margin: 16px 0 0 0; //override
-            &:before, &:after {
-                display: none; //override
-            }
         }
     }
 }
