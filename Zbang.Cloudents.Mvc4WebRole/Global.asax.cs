@@ -18,6 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         protected void Application_Start()
         {
+            UnityConfig.RegisterTypes();
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif

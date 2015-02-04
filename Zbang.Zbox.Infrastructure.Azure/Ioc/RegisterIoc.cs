@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             
             ioc.RegisterType<ITableProvider, TableProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>();
 
 
             ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);

@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.Unity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public class StoreCategoriesAttribute : ActionFilterAttribute
     {
-        [Dependency]
         public IZboxCacheReadService ZboxReadService { get; set; }
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {

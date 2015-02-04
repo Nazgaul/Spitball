@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity;
 using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.SiteExtension;
@@ -16,11 +15,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
 {
     public class BaseController : Controller
     {
-        [Dependency]
         protected IZboxWriteService ZboxWriteService { get; set; }
-        [Dependency]
         protected IZboxCacheReadService ZboxReadService { get; set; }
-        [Dependency]
         protected IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)

@@ -1,5 +1,7 @@
 using System;
-using Microsoft.Practices.Unity;
+//using Microsoft.Practices.Unity;
+using System.Web.Mvc;
+using Autofac.Integration.Mvc;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -11,29 +13,26 @@ namespace Zbang.Cloudents.Mobile
     /// </summary>
     public static class UnityConfig
     {
-        #region Unity Container
-        private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
-        {
-            var iocFactory = IocFactory.Unity;
-           // var container = new UnityContainer();
-            RegisterTypes(iocFactory);
-            return  iocFactory.UnityContainer;// container;
-        });
 
-        /// <summary>
-        /// Gets the configured Unity container.
-        /// </summary>
-        public static IUnityContainer GetConfiguredContainer()
-        {
-            return Container.Value;
-        }
-        #endregion
+        //#region Unity Container
+        //private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
+        //{
+        //    var iocFactory = IocFactory.Unity;
+        //   // var container = new UnityContainer();
+        //    RegisterTypes(iocFactory);
+        //    return  iocFactory.UnityContainer;// container;
+        //});
 
-        /// <summary>Registers the type mappings with the Unity container.</summary>
-        /// <param name="iocContainer">The unity container to configure.</param>
-        /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
-        /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
-        private static void RegisterTypes(IocFactory iocContainer)
+        ///// <summary>
+        ///// Gets the configured Unity container.
+        ///// </summary>
+        //public static IUnityContainer GetConfiguredContainer()
+        //{
+        //    return Container.Value;
+        //}
+        //#endregion
+
+        public static void RegisterTypes()
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
@@ -47,15 +46,19 @@ namespace Zbang.Cloudents.Mobile
 
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            IocFactory.Unity.BuilderContainer.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            IocFactory.Unity.BuilderContainer.RegisterFilterProvider();
 
+            var container = IocFactory.Unity.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             //iocContainer.RegisterType<IUserProfile, UserProfile>();
 
 
             //we need that for blob getting the blob container url
-            iocContainer.Resolve<IBlobProvider>();
-            iocContainer.Resolve<IAcademicBoxThumbnailProvider>();
+            DependencyResolver.Current.GetService<IBlobProvider>();
+            DependencyResolver.Current.GetService<IAcademicBoxThumbnailProvider>();
 
-            iocContainer.Resolve<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+            DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }
     }
 }

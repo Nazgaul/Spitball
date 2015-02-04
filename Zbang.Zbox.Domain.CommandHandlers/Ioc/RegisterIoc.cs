@@ -15,22 +15,39 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
         {
             var ioc = IocFactory.Unity;
 
-            ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateMembershipUserCommandHandler), "Membership");
-            ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateFacebookUserCommandHandler), "Facebook");
+            ioc
+                .RegisterType
+                <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateMembershipUserCommandHandler>(
+                    "Membership");
+            //ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateMembershipUserCommandHandler), "Membership");
+            ioc
+                .RegisterType
+                <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateFacebookUserCommandHandler>(
+                    "Facebook");
+            //ioc.RegisterType(typeof(ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>), typeof(CreateFacebookUserCommandHandler), "Facebook");
 
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>), typeof(UpdateUserPasswordCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>), typeof(UpdateUserProfileCommandHandler))
-            .RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateBoxCommandHandler), "CreateBoxCommand")
-            .RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateAcademicBoxCommandHandler), "CreateAcademicBoxCommand")
-            .RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
+            .RegisterType<ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>, CreateBoxCommandHandler>("CreateBoxCommand");
+            ioc.RegisterType<ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>, CreateAcademicBoxCommandHandler>("CreateAcademicBoxCommand");
+            //.RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateBoxCommandHandler), "CreateBoxCommand")
+            //.RegisterType(typeof(ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>), typeof(CreateAcademicBoxCommandHandler), "CreateAcademicBoxCommand")
+            ioc.RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
             .RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>), typeof(ChangeNotificationSettingsCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandlerAsync<UnFollowBoxCommand>), typeof(UnFollowBoxCommandHandler));
 
-
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddFileToBoxCommandHandler), AddItemToBoxCommand.FileResolver);
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler), AddItemToBoxCommand.LinkResolver);
+            ioc
+                .RegisterType
+                <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddFileToBoxCommandHandler>(
+                    AddItemToBoxCommand.FileResolver);
+            ioc
+                .RegisterType
+                <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddLinkToBoxCommandHandler>(
+                    AddItemToBoxCommand.LinkResolver);
+            //ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddFileToBoxCommandHandler), AddItemToBoxCommand.FileResolver);
+            //ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>), typeof(AddLinkToBoxCommandHandler), AddItemToBoxCommand.LinkResolver);
             ioc.RegisterType(typeof(ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>), typeof(ChangeFileNameCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateThumbnailCommand>), typeof(UpdateThumbnailCommandHandler));
 
@@ -71,7 +88,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //create university app
             ioc.RegisterType(typeof(ICommandHandler<CreateUniversityCommand>), typeof(CreateUniversityCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<UpdateUniversityStatsCommand>), typeof(UpdateUniversityStatsCommandHandler));
-            
+
 
             //QnA
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand>), typeof(AddQuestionCommandHandler));
@@ -94,7 +111,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //updates
             ioc.RegisterType(typeof(ICommandHandler<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUpdatesCommand>), typeof(DeleteUpdatesCommandHandler));
-            
+
             //quiz
             ioc.RegisterType(typeof(ICommandHandler<CreateQuizCommand>), typeof(CreateQuizCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateQuizCommand>), typeof(UpdateQuizCommandHandler))
@@ -111,12 +128,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<CreateAnswerCommand>), typeof(CreateAnswerCommandHandler))
             .RegisterType(typeof(ICommandHandler<MarkAnswerCorrectCommand>), typeof(MarkAnswerCorrectCommandHandler));
 
-            ioc.RegisterType(typeof (ICommandHandler<AddStudentCommand>), typeof (AddStudentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<AddStudentCommand>), typeof(AddStudentCommandHandler));
 
             //product
 
-            ioc.RegisterType(typeof (ICommandHandler<AddProductsToStoreCommand>),
-                typeof (AddProductsToStoreCommandHandler))
+            ioc.RegisterType(typeof(ICommandHandler<AddProductsToStoreCommand>),
+                typeof(AddProductsToStoreCommandHandler))
                 .RegisterType(typeof(ICommandHandler<AddCategoriesCommand>),
                     typeof(AddCategoriesCommandHandler))
                 .RegisterType(typeof(ICommandHandler<AddBannersCommand>),
@@ -124,7 +141,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //library
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),
                 typeof(AddNodeToLibraryCommandHandler));
-           
+
 
         }
     }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.Unity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -19,12 +18,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     public class BaseController : Controller
     {
-        [Dependency]
-        protected IZboxWriteService ZboxWriteService { get; set; }
-        [Dependency]
-        protected IZboxCacheReadService ZboxReadService { get; set; }
-        [Dependency]
-        protected IFormsAuthenticationService FormsAuthenticationService { get; set; }
+        public IZboxWriteService ZboxWriteService { get; set; }
+        public IZboxCacheReadService ZboxReadService { get; set; }
+        public IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {
