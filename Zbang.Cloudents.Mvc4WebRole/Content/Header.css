@@ -43,8 +43,9 @@ body {
 .siteHeader.headerBox .shareBtn {
   display: inline-block;
   margin: 0 15px;
-  position: relative;
-  top: 11px;
+  position: absolute;
+  top: 12px;
+  left: 730px;
 }
 .siteHeader.headerBox .siteLogo {
   height: 50px;

@@ -1,0 +1,44 @@
+﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="searchInputWpr" ng-controller="SearchHeaderCtrl">
+    <form name="newSearch" ng-submit="fullSearch(newSearch.$valid)" novalidate>
+        <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.FindClasses" ng-model-options="{debounce: 150}" ng-change="search()"
+               ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" />
+        <button class="searchBtn" type="submit" ng-disabled="newSearch.query.$invalid">
+            @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
+        </button>
+    </form>
+    <div class="searchDD allResults" ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}" ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
+        <section ng-if="searchResults.boxes.length">
+            <h3>@SharedResources.Courses / @SharedResources.GroupBoxes</h3>
+            <ul class="searchList boxes">
+                <li ng-repeat="box in searchResults.boxes" ng-include="'boxHeaderSearch'"></li>
+            </ul>
+        </section>
+        <section ng-if="searchResults.items.length">
+            <h3>@SharedResources.Materials</h3>
+            <ul class="searchList items">
+                <li ng-repeat="item in searchResults.items" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </section>
+        <section ng-if="searchResults.people.length">
+            <h3>@SharedResources.People</h3>
+            <ul class="searchList people">
+                <li ng-repeat="person in searchResults.people" ng-include="'personHeaderSearch'"></li>
+            </ul>
+        </section>
+        <section ng-if="searchResults.otherItems.length">
+            <h3>@SharedResources.ResultsOther</h3>
+            <ul class="searchList university">
+                <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
+            </ul>
+        </section>
+        <a class="showAll" ng-href="{{'/search/?q=' + formData.query}}"
+           analytics-on="click" analytics-event="Search Header" analytics-category="Search" analytics-label="Show All">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>
+        <div class="emptySearch">
+            @Html.Svg("~/Images/Defs.svg", "noResults")
+            @SharedResources.NoResults
+        </div>
+    </div>
+</div>

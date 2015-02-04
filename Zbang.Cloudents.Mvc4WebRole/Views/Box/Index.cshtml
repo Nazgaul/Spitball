@@ -3,9 +3,9 @@
 
 
 @*TEMP: UNDO NEW SEARCH*@
-@*<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
+<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
         @{Html.RenderPartial("_BarSearch");}
-    </div>*@
+    </div>
 <div id="box" class="page boxPage" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
@@ -17,13 +17,15 @@
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
             </a>
             @*TEMP: UNDO NEW SEARCH*@
-            @*<button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">*@
-
-            @*TEMP: OLD SEARCH (next 2 lines)*@
-            @{Html.RenderPartial("_BarSearch");}
-            <button class="inviteButton" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+            <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
+
+            @*TEMP: OLD SEARCH (next 2 lines)*@
+            @*@{Html.RenderPartial("_BarSearch");}
+            <button class="inviteButton" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+            </button>*@
             <section class="shareBtn">
                 <input class="checkbox" type="checkbox" id="boxShare" ng-model="popup.share" />
                 <label for="boxShare" tooltip="@SharedResources.Share" class="shareBtnTxt iconTop">
