@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -18,7 +20,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly QueueProcess m_QueueProcess;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
-        public ProcessFile(IQueueProvider queueProvider,
+        public ProcessFile(IQueueProviderExtract queueProvider,
             IFileProcessorFactory fileProcessorFactory,
             IZboxWriteService zboxService)
         {
@@ -50,7 +52,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var msgData = msg.FromMessageProto<FileProcessData>();
                 if (msgData == null)
                 {
-                    TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " + msg.Id);
+                    TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " );
                     return Task.FromResult(true);
 
                 }
@@ -87,7 +89,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 catch (ItemNotFoundException ex)
                 {
-                    TraceLog.WriteError("GenerateDocumentCache Cache storage exception run " + msg.Id, ex);
+                    TraceLog.WriteError("GenerateDocumentCache Cache storage exception run ", ex);
                     if (msg.DequeueCount > 3)
                     {
                         return Task.FromResult(true);
@@ -95,7 +97,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("GenerateDocumentCache run " + msg.Id, ex);
+                    TraceLog.WriteError("GenerateDocumentCache run ", ex);
                 }
                 return Task.FromResult(false);
             }, TimeSpan.FromHours(1), 10);

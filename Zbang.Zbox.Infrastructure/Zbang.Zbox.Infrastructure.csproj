@@ -73,10 +73,6 @@
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -88,10 +84,6 @@
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="SnowMaker, Version=1.0.0.46, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SnowMaker.1.0.0.46\lib\net40\SnowMaker.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -120,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Cache\RedisCacheExtensions.cs" />
     <Compile Include="Commands\ICommandResolver.cs" />
+    <Compile Include="Consts\IdContainer.cs" />
     <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
@@ -160,8 +153,8 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\RandomProvider.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
-    <Compile Include="IdGenerator\IdGenerator.cs" />
     <Compile Include="MediaServices\IMediaSevicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
@@ -183,14 +176,9 @@
     <Compile Include="Security\UserDetail.cs" />
     <Compile Include="Security\Validation.cs" />
     <Compile Include="Storage\Compress.cs" />
-    <Compile Include="Storage\Entities\FlagItem.cs" />
-    <Compile Include="Storage\Entities\NewUniversity.cs" />
-    <Compile Include="Storage\Entities\StemmerWordRemoval.cs" />
     <Compile Include="Storage\IBlobProductProvider.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
-    <Compile Include="Storage\ITableProvider.cs" />
-    <Compile Include="Storage\QueueExtension.cs" />
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="Thumbnail\IAcademicBoxThumbnailProvider.cs" />
     <Compile Include="Thumbnail\ImageResizer.cs" />

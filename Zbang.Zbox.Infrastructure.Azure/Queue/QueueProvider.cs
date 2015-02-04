@@ -11,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Queue
 {
-    public class QueueProvider : IQueueProvider
+    public class QueueProvider : IQueueProvider, IQueueProviderExtract
     {
 
         private CloudQueueClient m_QueueClient;

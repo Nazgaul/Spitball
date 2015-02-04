@@ -18,14 +18,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IInviteRepository m_InviteRepository;
         private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IFacebookService m_FacebookPictureService;
 
         public ShareBoxFacebookCommandHandler(
             IUserRepository userRepository,
             IRepository<Box> boxRepository,
             IInviteRepository inviteRepository,
-             IRepository<UserBoxRel> userBoxRelRepository, IFacebookService facebookPictureService, IIdGenerator idGenerator)
+             IRepository<UserBoxRel> userBoxRelRepository, IFacebookService facebookPictureService,
+            IGuidIdGenerator idGenerator)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;

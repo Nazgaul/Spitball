@@ -24,13 +24,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<InviteToBox> m_InviteRepository;
 
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
-            IIdGenerator idGenerator,
+            IGuidIdGenerator idGenerator,
             IRepository<InviteToBox> inviteRepository, IRepository<UserBoxRel> userBoxRelRepository)
         {
             m_BoxRepository = boxRepository;

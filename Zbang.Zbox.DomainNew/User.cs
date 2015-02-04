@@ -144,7 +144,7 @@ namespace Zbang.Zbox.Domain
 
         public Reputation AddReputation(ReputationAction action)
         {
-            var reputation = new Reputation(IdGenerator.GetGuid(), this, action);
+            var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
 
             Reputation += reputation.Score;
             return reputation;

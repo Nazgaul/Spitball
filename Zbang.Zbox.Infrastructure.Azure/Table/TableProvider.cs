@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Storage.Entities;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Table
 {
@@ -44,15 +40,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Table
             }
         }
 
-        public IEnumerable<string> GetFileterWored()
-        {
-            var table = TableClient.GetTableReference(FilterWords);
-
-            var rangeQuery = new TableQuery<StemmerWordRemoval>();
-
-            var excecuting = table.ExecuteQuery(rangeQuery);
-            return excecuting.Select(s => s.Word);
-        }
-
+        
     }
 }

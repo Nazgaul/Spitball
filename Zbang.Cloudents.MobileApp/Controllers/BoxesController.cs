@@ -18,13 +18,14 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         public async Task<HttpResponseMessage> Get(int page)
         {
+            
             var query = new GetBoxesQuery(1, page, 15);
             var data = await ZboxReadService.GetUserBoxes(query);
 
             return Request.CreateResponse(data.Select(s => new
               {
                   s.Name,
-                  s.Url,
+                  s.Id,
                   s.ItemCount,
                   s.CommentCount
               }));

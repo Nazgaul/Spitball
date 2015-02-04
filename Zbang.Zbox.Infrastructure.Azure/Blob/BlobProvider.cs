@@ -17,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
-    public class BlobProvider : IBlobProvider, IBlobProductProvider
+    public class BlobProvider : IBlobProvider, IBlobProductProvider, ICloudBlockProvider
     {
         private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";

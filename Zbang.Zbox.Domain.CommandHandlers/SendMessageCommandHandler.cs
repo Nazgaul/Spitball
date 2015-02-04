@@ -17,12 +17,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Message> m_MessageRepository;
 
         public SendMessageCommandHandler(IQueueProvider queueProvider,
             IUserRepository userRepository,
-            IIdGenerator idGenerator,
+            IGuidIdGenerator idGenerator,
         IRepository<Message> messageRepository
            )
         {

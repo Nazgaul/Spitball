@@ -21,11 +21,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<InviteToSystem> m_InviteToCloudents;
 
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
 
         public InviteToSystemCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
-            IIdGenerator idGenerator)
+            IGuidIdGenerator idGenerator)
         {
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;

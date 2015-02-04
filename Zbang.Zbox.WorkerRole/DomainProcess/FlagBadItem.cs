@@ -1,7 +1,7 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Entities;
 using Zbang.Zbox.Infrastructure.Mail;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Storage.Entities;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries.Emails;

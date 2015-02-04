@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
 
 
@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
             IFileProcessorFactory fileProcessorFactory,
-            IBlobProvider blobProvider, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
+            IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;

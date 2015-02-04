@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<Security.IMembershipService, Security.AccountMembershipService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Security.IFacebookService, Security.FacebookAuthenticationService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Security.IFormsAuthenticationService, Security.FormsAuthenticationService>();
-            ioc.RegisterType<IdGenerator.IIdGenerator, IdGenerator.IdGenerator>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IdGenerator.IGuidIdGenerator, IdGenerator.GuidIdGenerator>(LifeTimeManager.Singleton);
 
         }
     }

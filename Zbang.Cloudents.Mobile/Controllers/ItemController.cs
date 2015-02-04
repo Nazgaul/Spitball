@@ -12,6 +12,7 @@ using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.Mobile.Models;
 using Zbang.Cloudents.SiteExtension;
+using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -30,6 +31,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
     public class ItemController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
+        private readonly ICloudBlockProvider m_CloudBlobProvider; 
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
 
@@ -37,12 +39,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider
-            )
+            IQueueProvider queueProvider, ICloudBlockProvider cloudBlobProvider)
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
+            m_CloudBlobProvider = cloudBlobProvider;
         }
 
 
@@ -194,7 +196,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-            var blob = m_BlobProvider.GetFile(filedto.Blob);
+            var blob = m_CloudBlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
             {

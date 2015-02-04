@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain
             // Picture = picture;
             AddPicture(picture, pictureUrl);
             UserTime.CreatedUser = creator.Email;
-            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IGuidIdGenerator>();
 
 
             Comments.Add(new Comment(creator, null,

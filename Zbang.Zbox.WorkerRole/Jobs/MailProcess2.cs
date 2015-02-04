@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -14,7 +16,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         //private readonly IQueueProvider m_QueueProvider;
         private readonly QueueProcess m_QueueProcess;
 
-        public MailProcess2(IQueueProvider queueProvider)
+        public MailProcess2(IQueueProviderExtract queueProvider)
         {
             //m_QueueProvider = queueProvider;
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(5));

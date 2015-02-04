@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -24,7 +26,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
 
         public ProcessStoreOrder(
-            IQueueProvider queueProvider,
+            IQueueProviderExtract queueProvider,
             IWriteService writeService,
             IZboxReadService zboxReadService, IMailComponent mailComponent)
         {

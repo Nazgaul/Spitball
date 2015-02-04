@@ -16,11 +16,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
     public class QnAController : BaseController
     {
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
+        private readonly IGuidIdGenerator m_GuidGenerator;
         public QnAController(
-            Lazy<IIdGenerator> idGenerator)
+            IGuidIdGenerator guidGenerator)
         {
-            m_IdGenerator = idGenerator;
+            m_GuidGenerator = guidGenerator;
         }
 
         [ZboxAuthorize]
@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
 
-            var questionId = m_IdGenerator.Value.GetId();
+            var questionId = m_GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
             await ZboxWriteService.AddQuestionAsync(command);
             return Json(new JsonResponse(true, questionId));
@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             try
             {
-                var answerId = m_IdGenerator.Value.GetId();
+                var answerId = m_GuidGenerator.GetId();
                 var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
                 await ZboxWriteService.AddAnswerAsync(command);
                 return Json(new JsonResponse(true, answerId));

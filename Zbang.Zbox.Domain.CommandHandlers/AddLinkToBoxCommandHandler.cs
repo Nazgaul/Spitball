@@ -23,14 +23,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IItemRepository m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IBlobProvider m_BlobProvider;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
 
 
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
-            IBlobProvider blobProvider, IIdGenerator idGenerator, IRepository<Comment> commentRepository)
+            IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;

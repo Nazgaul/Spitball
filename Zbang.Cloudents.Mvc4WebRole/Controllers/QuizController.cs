@@ -25,13 +25,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class QuizController : BaseController
     {
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
+        private readonly IIdGenerator m_IdGenerator;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IGuidIdGenerator m_GuidGenerator;
 
-        public QuizController(Lazy<IIdGenerator> idGenerator, IQueueProvider queueProvider)
+        public QuizController(IIdGenerator idGenerator, IQueueProvider queueProvider, IGuidIdGenerator guidGenerator)
         {
             m_IdGenerator = idGenerator;
             m_QueueProvider = queueProvider;
+            m_GuidGenerator = guidGenerator;
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
@@ -225,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorsFromModelState());
             }
-            var id = m_IdGenerator.Value.GetId(IdGenerator.QuizScope);
+            var id = m_IdGenerator.GetId(IdContainer.QuizScope);
             var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
             await ZboxWriteService.CreateQuizAsync(command);
 
@@ -294,7 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
 
             }
-            var id = m_IdGenerator.Value.GetId();
+            var id = m_GuidGenerator.GetId();
             var command = new CreateQuestionCommand(model.Text, model.QuizId, User.GetUserId(), id);
             ZboxWriteService.CreateQuestion(command);
             return Json(new JsonResponse(true, id));
@@ -343,7 +345,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ModelState.AddModelError(string.Empty, @"No Question Given");
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var id = m_IdGenerator.Value.GetId();
+            var id = m_GuidGenerator.GetId();
             var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
             ZboxWriteService.CreateAnswer(command);
             return Json(new JsonResponse(true, id));
@@ -406,7 +408,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Json(new JsonResponse(false, GetErrorsFromModelState()));
             }
-            var id = m_IdGenerator.Value.GetId();
+            var id = m_GuidGenerator.GetId();
             var command = new CreateDiscussionCommand(User.GetUserId(), model.Text, model.QuestionId, id);
             ZboxWriteService.CreateItemInDiscussion(command);
             return Json(new JsonResponse(true, id));

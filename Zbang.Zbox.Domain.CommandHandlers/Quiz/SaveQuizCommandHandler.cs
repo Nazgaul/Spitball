@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IQueueProvider m_QueueProvider;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IItemRepository m_ItemRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Reputation> m_ReputationRepository
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IQueueProvider queueProvider,
             IBoxRepository boxRepository,
             IItemRepository itemRepository,
-            IIdGenerator idGenerator,
+            IGuidIdGenerator idGenerator,
             IRepository<Comment> commentRepository, IUserRepository userRepository, IRepository<Reputation> reputationRepository)
         {
             m_QuizRepository = quizRepository;

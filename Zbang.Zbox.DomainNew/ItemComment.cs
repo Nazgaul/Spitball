@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemComment(User author, Item item, string comment)
+        public ItemComment(User author, Item item, string comment, long id)
         {
             if (author == null)
             {
@@ -40,10 +40,9 @@ namespace Zbang.Zbox.Domain
             }
 
 
-            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
 
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Id = idGenerator.GetId(IdGenerator.ItemAnnotationScope);
+            Id = id;
 
             Author = author;
             Item = item;
@@ -68,7 +67,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemCommentReply(User author, Item item, string comment, ItemComment parent)
+        public ItemCommentReply(User author, Item item, string comment, ItemComment parent, long id)
         {
             if (author == null)
             {
@@ -92,7 +91,7 @@ namespace Zbang.Zbox.Domain
 
             var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Id = idGenerator.GetId(IdGenerator.ItemAnnotationReplyScope);
+            Id = id;//idGenerator.GetId(IdGenerator.ItemAnnotationReplyScope);
 
             Author = author;
             Item = item;

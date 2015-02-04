@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -15,23 +17,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<Box> m_BoxRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IQueueProvider m_QueueRepository;
+        private readonly IIdGenerator m_IdGenerator;
 
 
         public AddReplyToAnnotationCommandHandler(IUserRepository userRepository,
             IRepository<Item> itemRepository,
             IRepository<ItemComment> itemCommentRepository,
-            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<Box> boxRepository, IQueueProvider queueRepository)
+            IRepository<ItemCommentReply> itemCommentReplyRepository, IQueueProvider queueRepository, IIdGenerator idGenerator)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
-            m_BoxRepository = boxRepository;
             m_QueueRepository = queueRepository;
+            m_IdGenerator = idGenerator;
         }
         public Task HandleAsync(AddReplyToAnnotationCommand message)
         {
@@ -46,7 +48,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
-            var comment = new ItemCommentReply(user, item, message.Comment, itemComment);
+            var id = m_IdGenerator.GetId(IdContainer.ItemAnnotationReplyScope);
+            var comment = new ItemCommentReply(user, item, message.Comment, itemComment, id);
             m_ItemCommentReplyRepository.Save(comment);
             message.ReplyId = comment.Id;
             return m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(user.Id));

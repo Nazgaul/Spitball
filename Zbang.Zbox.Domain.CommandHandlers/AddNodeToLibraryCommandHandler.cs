@@ -11,10 +11,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IRepository<Library> m_LibraryRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IUserRepository m_UserRepository;
 
-        public AddNodeToLibraryCommandHandler(IRepository<University> universityRepository, IRepository<Library> libraryRepository, IIdGenerator idGenerator, IUserRepository userRepository)
+        public AddNodeToLibraryCommandHandler(IRepository<University> universityRepository, IRepository<Library> libraryRepository, IGuidIdGenerator idGenerator, IUserRepository userRepository)
         {
             m_LibraryRepository = libraryRepository;
             m_IdGenerator = idGenerator;

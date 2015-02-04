@@ -24,12 +24,13 @@ namespace Zbang.Cloudents.MobileApp
                 Zbox.Infrastructure.RegisterIoc.Register();
                 Zbox.Infrastructure.Data.RegisterIoc.Register();
                 Zbox.Infrastructure.File.RegisterIoc.Register();
-                Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
                 Zbox.Domain.Services.RegisterIoc.Register();
 
                 Zbox.ReadServices.RegisterIoc.Register();
                 Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             }));
+
+            config.SetIsHosted(true);
 
             // To display errors in the browser during development, uncomment the following
             // line. Comment it out again when you deploy your service for production use.

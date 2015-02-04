@@ -4,7 +4,9 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -17,14 +19,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
         private readonly IQueueProvider m_QueueRepository;
+        private readonly IIdGenerator m_IdGenerator;
 
         public AddAnnotationCommandHandler(IUserRepository userRepository, IRepository<Item> itemRepository,
-            IRepository<ItemComment> itemCommentRepository, IQueueProvider queueRepository)
+            IRepository<ItemComment> itemCommentRepository, IQueueProvider queueRepository, IIdGenerator idGenerator)
         {
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_ItemCommentRepository = itemCommentRepository;
             m_QueueRepository = queueRepository;
+            m_IdGenerator = idGenerator;
         }
         public Task HandleAsync(AddAnnotationCommand message)
         {
@@ -39,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
            
             var text = TextManipulation.EncodeText(message.Comment);
-            var comment = new ItemComment(user, item, text);
+            var comment = new ItemComment(user, item, text, m_IdGenerator.GetId(IdContainer.ItemAnnotationScope));
             item.IncreaseNumberOfComments();
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);

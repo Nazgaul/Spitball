@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -39,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         bool CheckIfFileThumbnailExists(string blobName);
 
-        CloudBlockBlob GetFile(string blobName);
 
         Stream DownloadFile(string fileName);
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -14,7 +16,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private bool m_KeepRunning;
 
 
-        public UpdateDomainProcess(IQueueProvider queueProvider)
+        public UpdateDomainProcess(IQueueProviderExtract queueProvider)
         {
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(15));
         }
@@ -49,20 +51,20 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                       var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                       if (msgData == null)
                       {
-                          TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess msgId:" + msg.Id);
+                          TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
                           return Task.FromResult(true);
                       }
                       var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
                       if (process == null)
                       {
-                          TraceLog.WriteError("UpdateDomainProcess run - process is null msgId:" + msg.Id + " msgData.ProcessResolver:" + msgData.ProcessResolver);
+                          TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                           return Task.FromResult(true);
                       }
                       return Task.FromResult(process.Execute(msgData));
                   }
                   catch (Exception ex)
                   {
-                      TraceLog.WriteError("UpdateDomainProcess run " + msg.Id, ex);
+                      TraceLog.WriteError("UpdateDomainProcess run", ex);
                   }
                   return Task.FromResult(false);
               }, TimeSpan.FromMinutes(1), 5);

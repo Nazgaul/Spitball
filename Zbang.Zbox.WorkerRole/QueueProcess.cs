@@ -2,14 +2,15 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.WorkerRole
 {
     public class QueueProcess
     {
-        private readonly IQueueProvider m_QueueProvider;
-        public QueueProcess(IQueueProvider queueProvider, TimeSpan timeToThreadToSleepWhenQueueIsEmpty)
+        private readonly IQueueProviderExtract m_QueueProvider;
+        public QueueProcess(IQueueProviderExtract queueProvider, TimeSpan timeToThreadToSleepWhenQueueIsEmpty)
         {
             m_MinInterval = (int)timeToThreadToSleepWhenQueueIsEmpty.TotalSeconds;
             m_Interval = m_MinInterval;

@@ -38,20 +38,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IBlobProvider m_BlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
-        private readonly Lazy<IIdGenerator> m_IdGenerator;
+        private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
 
 
         public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider,
-            Lazy<IIdGenerator> idGenerator
-            )
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator)
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
-            m_IdGenerator = idGenerator;
+            m_GuidGenerator = guidGenerator;
         }
 
 
@@ -209,14 +207,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-            var blob = m_BlobProvider.GetFile(filedto.Blob);
+            //var blob = m_BlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
-            await Task.WhenAll(t2);
-            if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
+
+            var t1 = m_BlobProvider.DownloadFileAsync(filedto.Blob);
+            //{
+            //    return new FileContentResult(ms.ConvertToByteArray(), defaultMimeType);
+            //}
+
+            await Task.WhenAll(t1,t2);
+            using (var ms = t1.Result)
             {
-                contentType = blob.Properties.ContentType;
+                return new FileContentResult(ms.ConvertToByteArray(), defaultMimeType);
             }
-            return new BlobFileStream(blob, contentType, item.Name, true);
+            //if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
+            //{
+            //    contentType = blob.Properties.ContentType;
+            //}
+            //return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
         [HttpGet, ZboxAuthorize]
@@ -350,7 +358,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var id = m_IdGenerator.Value.GetId();
+                var id = m_GuidGenerator.Value.GetId();
                 var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id, model.BoxId);
                 await ZboxWriteService.RateItemAsync(command);
 

@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
         private readonly IRepository<SolvedQuestion> m_SolvedQuestionRepository;
         private readonly IRepository<Answer> m_AnswerRepository;
-        private readonly IIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator m_IdGenerator;
 
         private readonly IUserRepository m_UserRepository;
 
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IRepository<SolvedQuiz> solvedQuizRepository,
             IRepository<SolvedQuestion> solvedQuestionRepository,
             IRepository<Answer> answerRepository,
-            IIdGenerator idGenerator
+            IGuidIdGenerator idGenerator
             )
         {
             m_QuizRepository = quizRepository;

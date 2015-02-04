@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Azure;
+using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -18,7 +20,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IZboxWriteService m_ZboxWriteService;
 
 
-        public AddFiles(IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IBlobProvider blobProvider)
+        public AddFiles(IQueueProviderExtract queueProvider, IZboxWriteService zboxWriteService, IBlobProvider blobProvider)
         {
             m_ZboxWriteService = zboxWriteService;
             m_BlobProvider = blobProvider;
