@@ -10,8 +10,8 @@ namespace Zbang.Zbox.Domain.Services
             var ioc = IocFactory.Unity;
             DataAccess.RegisterIoc.Register();
 
-            ioc.RegisterType<Common.IZboxWriteService, ZboxWriteService>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Common.IZboxServiceBootStrapper, ZboxWriteService>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<Common.IZboxWriteService, ZboxWriteService>();
+            ioc.RegisterType<Common.IZboxServiceBootStrapper, ZboxWriteService>();
         }
     }
 }

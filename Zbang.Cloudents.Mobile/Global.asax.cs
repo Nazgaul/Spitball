@@ -20,6 +20,7 @@ namespace Zbang.Cloudents.Mobile
     {
         protected void Application_Start()
         {
+            UnityConfig.RegisterTypes();
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif
@@ -37,7 +38,7 @@ namespace Zbang.Cloudents.Mobile
 
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            
             System.Web.Helpers.AntiForgeryConfig.RequireSsl = true;
             System.Web.Helpers.AntiForgeryConfig.CookieName = "cdVrfctn";
             System.Web.Helpers.AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
