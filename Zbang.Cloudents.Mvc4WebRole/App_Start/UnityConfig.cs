@@ -45,8 +45,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            IocFactory.Unity.BuilderContainer.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-            IocFactory.Unity.BuilderContainer.RegisterFilterProvider();
+            IocFactory.Unity.ContainerBuilder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            IocFactory.Unity.ContainerBuilder.RegisterFilterProvider();
             var container = IocFactory.Unity.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             //iocContainer.RegisterType<IUserProfile, UserProfile>();

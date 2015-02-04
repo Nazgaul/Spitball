@@ -15,9 +15,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
 {
     public class BaseController : Controller
     {
-        protected IZboxWriteService ZboxWriteService { get; set; }
-        protected IZboxCacheReadService ZboxReadService { get; set; }
-        protected IFormsAuthenticationService FormsAuthenticationService { get; set; }
+        public IZboxWriteService ZboxWriteService { get; set; }
+        public IZboxCacheReadService ZboxReadService { get; set; }
+        public IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {

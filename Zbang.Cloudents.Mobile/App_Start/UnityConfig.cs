@@ -14,30 +14,9 @@ namespace Zbang.Cloudents.Mobile
     public static class UnityConfig
     {
 
-        //#region Unity Container
-        //private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
-        //{
-        //    var iocFactory = IocFactory.Unity;
-        //   // var container = new UnityContainer();
-        //    RegisterTypes(iocFactory);
-        //    return  iocFactory.UnityContainer;// container;
-        //});
-
-        ///// <summary>
-        ///// Gets the configured Unity container.
-        ///// </summary>
-        //public static IUnityContainer GetConfiguredContainer()
-        //{
-        //    return Container.Value;
-        //}
-        //#endregion
-
         public static void RegisterTypes()
         {
-            // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
 
-            // container.RegisterType<IProductRepository, ProductRepository>();
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
@@ -46,8 +25,8 @@ namespace Zbang.Cloudents.Mobile
 
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
-            IocFactory.Unity.BuilderContainer.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-            IocFactory.Unity.BuilderContainer.RegisterFilterProvider();
+            IocFactory.Unity.ContainerBuilder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            IocFactory.Unity.ContainerBuilder.RegisterFilterProvider();
 
             var container = IocFactory.Unity.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
