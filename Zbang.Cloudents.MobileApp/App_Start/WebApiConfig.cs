@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.MobileApp
                 Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             }));
 
-            config.SetIsHosted(true);
+            //config.SetIsHosted(true);
 
             // To display errors in the browser during development, uncomment the following
             // line. Comment it out again when you deploy your service for production use.
@@ -39,24 +39,5 @@ namespace Zbang.Cloudents.MobileApp
             //Database.SetInitializer(new MobileServiceInitializer());
         }
     }
-
-    //public class MobileServiceInitializer : DropCreateDatabaseIfModelChanges<MobileServiceContext>
-    //{
-    //    protected override void Seed(MobileServiceContext context)
-    //    {
-    //        List<TodoItem> todoItems = new List<TodoItem>
-    //        {
-    //            new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-    //            new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
-    //        };
-
-    //        foreach (TodoItem todoItem in todoItems)
-    //        {
-    //            context.Set<TodoItem>().Add(todoItem);
-    //        }
-
-    //        base.Seed(context);
-    //    }
-    //}
 }
 
