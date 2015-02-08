@@ -202,6 +202,7 @@
     <Compile Include="DataObjects\Register.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
+    <Compile Include="Models\MySqlMembershipProvider.cs" />
     <Compile Include="ScheduledJobs\SampleJob.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -210,7 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -226,10 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\PublishProfiles\mobile-cloudents %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\mobile-cloudents.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
@@ -284,6 +283,9 @@
       <Project>{bc85a7bd-262d-43e0-8d9d-ee76c602bfaf}</Project>
       <Name>Zbang.Zbox.ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\mobile-cloudents.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

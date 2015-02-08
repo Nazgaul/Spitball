@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -33,7 +34,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
             }

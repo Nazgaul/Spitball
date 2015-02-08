@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             {
                 throw new ArgumentNullException("password");
             }
-
+            
             var userName = Membership.GetUserNameByEmail(email);
             if (string.IsNullOrEmpty(userName))
             {
