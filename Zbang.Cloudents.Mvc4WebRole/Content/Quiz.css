@@ -76,61 +76,6 @@ body.quiz .modal-backdrop.in {
 .quizPreview .closePreview svg {
   fill: #fff;
 }
-/*position: fixed;
-    top: 50px;
-    right: 0; 
-    width: 386px;
-    height: ~'-webkit-calc(100% - @{header-height})';
-    height: ~'calc(100% - @{header-height})';
-    background: #e4e4e4;
-     z-index: 4; //changed to 4 beasu changed z-index of header to 5 (without this quiz blocks settings drop down)
-    .boxSizing;
-    padding: 0 14px;
-    border-left: 1px solid @borderColor; 
-    box-shadow: -4px 0 4px rgba(0,0,0,.15); 
-    .transition(right .4s);
-    header {
-        height: 40px;
-        background: #517e9e;
-        color: #fff;
-        font-size: 17px;
-        margin: 0 -14px 0 -15px;  //left padding + 1px border
-        padding: 8px 0 0 14px; 
-        .boxSizing;
-        .closeDialog {
-            right: 20px;
-        }
-    }
-    section {
-        min-height: 100%;
-        //height: ~'calc(100% - 150px)';
-        //height: 300px;
-    }
-.toggleQuiz
-{
-    width: 22px;
-    height: 22px;
-    background: @common-sprite -294px -2px;
-    position: fixed;
-    right: 374px;
-    top: 78px;
-    z-index: 6;
-    .transition(all .4s);
-    cursor: pointer;
-}
-.checkbox:checked
-{
-    ~ .toggleQuiz
-    {
-        .flipH;
-        right: 3px; 
-    }
-    ~ .quizSideBar, ~ .quizSideBar .quizBottom
-    {
-        right: -372px; 
-    }
-}
-*/
 .createQuiz .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }

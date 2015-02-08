@@ -54,6 +54,9 @@
   top: 0;
   left: 0;
   border-radius: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .searchInputWpr.open ~ .siteHeader,
 .searchInputWpr.open ~ .dashboard,
@@ -69,8 +72,9 @@
   transform: translate3d(0, 3em, 0);
 }
 .searchInputWpr.open .dashLibSearchInput {
-  font-size: 3.6vw;
+  font-size: 5vw;
   padding: 0 10% 8px 0;
+  max-width: none;
 }
 .searchInputWpr.open .searchBtn {
   background: none;
@@ -79,8 +83,8 @@
   pointer-events: auto;
   width: 80px;
   height: 80px;
-  width: 6vw;
-  height: 6vw;
+  width: 3vw;
+  height: 3vw;
   -webkit-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
   transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
   -webkit-transition: -webkit-transform 0.3s;
@@ -91,8 +95,8 @@
 .searchInputWpr.open .searchBtn .svg-search {
   width: 80px;
   height: 80px;
-  width: 6vw;
-  height: 6vw;
+  width: 3vw;
+  height: 3vw;
 }
 .searchInputWpr.open .searchBtn .svg-search:hover {
   fill: #3399ff;
@@ -222,7 +226,7 @@
   fill: #3399ff;
 }
 .search-content {
-  color: #333;
+  color: #666;
   margin-top: 4.5em;
   width: 80%;
   height: 0;
@@ -233,6 +237,13 @@
   pointer-events: none;
   opacity: 0;
 }
+.search-content [data-box-letter]:before {
+  left: 13px;
+  background: purple;
+}
+.search-content .courseId {
+  margin-bottom: 5px;
+}
 .column {
   width: 30%;
   padding: 0 0 6em;
@@ -241,12 +252,13 @@
   transform: translateY(100px);
   -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
   transition: transform 0.5s, opacity 0.5s;
+  overflow: hidden;
 }
 .column:nth-child(2) {
   margin: 0 5%;
 }
 .column h2 {
-  font-size: 1em;
+  font-size: 18px;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 800;
@@ -256,25 +268,66 @@
 .round {
   border-radius: 50%;
 }
+.itemList .vCentered,
+.quizList .vCentered {
+  padding-left: 74px;
+}
+.itemList .searchImg,
+.quizList .searchImg {
+  width: 63px;
+  height: 88px;
+}
+.itemList .searchImg {
+  border: 1px solid #c2c2c2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.quizList [data-box-letter]:before {
+  content: attr(data-box-letter);
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  top: 22px;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  font-size: 18px;
+  background: orange;
+}
+.quizList .searchImg {
+  font-size: 10px;
+  text-align: center;
+}
+.quizList .boxName {
+  margin-top: -40px;
+}
 .searchLink {
-  height: 74px;
-  padding: 0.75em 0.75em 0.75em 70px;
-  display: block;
+  width: 100%;
+  height: 106px;
+  padding: 0.75em;
+  display: table;
   margin: 0.3em 0;
   cursor: pointer;
   border-radius: 5px;
   background: rgba(118, 117, 128, 0.1);
+  position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
 }
 .searchLink:hover,
 .searchLink:focus {
   background: rgba(118, 117, 128, 0.2);
 }
-.searchLink:hover h3 {
-  color: #3399ff;
+.searchLink svg {
+  width: 63px;
+  height: 88px;
+}
+.searchLink .searchImg {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 .searchLink img {
   position: absolute;
@@ -287,11 +340,15 @@
   vertical-align: middle;
   font-size: 1.2em;
   display: inline-block;
-  font-weight: 700;
   margin: 0;
-  color: rgba(145, 145, 145, 0.7);
+  padding: 5px 0;
+  color: #3399ff;
   max-width: 100%;
   font-weight: normal;
+}
+.searchLink .content {
+  margin-top: 8px;
+  max-height: 30px;
 }
 .searchLink mark {
   background: none;
@@ -299,9 +356,6 @@
 }
 .searchLink .userImg {
   border-radius: 50%;
-}
-.searchLink .vCentered {
-  max-width: 98%;
 }
 @media screen and (max-width: 53.125em) {
   .searchInputWpr.open {

@@ -5,7 +5,7 @@
 body {
   font-size: 13px;
   /*-webkit-backface-visibility: hidden;*/
-  font-family: 'Open Sans', Arial;
+  font-family: Arial;
 }
 body.jsDark {
   background: #282828;
@@ -1688,6 +1688,31 @@ select.inputText {
 }
 .inputText:focus {
   border: 1px solid #383838;
+}
+.vCentered {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 62px
+  /*&:before {
+        
+    }*/
+}
+[data-box-letter]:before {
+  content: attr(data-box-letter);
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 8px;
+  font-size: 25px;
 }
 .topBar {
   position: fixed;

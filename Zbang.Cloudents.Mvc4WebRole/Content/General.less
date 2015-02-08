@@ -4,7 +4,8 @@ body {
     font-size: 13px;
     /*-webkit-backface-visibility: hidden;*/
     //font-family: 'Open Sans', sans-serif, Arial; //3,4,6,7 //for V. 12.0.
-    font-family: 'Open Sans', Arial; //3,4,6,7 //for V. 12.0.
+    //font-family: 'Open Sans', Arial; //3,4,6,7 //for V. 12.0.
+    font-family: Arial; // V27
     &.jsDark {
         background:#282828;
         .bodyContent ~ .fade {
@@ -1848,7 +1849,30 @@ select.inputText {
         border: 1px solid @textColor;
     }
 }
-
+.vCentered {
+    display:table-cell;
+    vertical-align:middle;
+    padding-left: 62px; //rtl
+    /*&:before {
+        
+    }*/
+}
+[data-box-letter]:before {
+    content:attr(data-box-letter);
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    text-align:center;
+    text-transform: capitalize;
+    position: absolute;
+    top:0;bottom:0;
+    margin: auto;
+    left: 8px; //rtl
+    font-size: 25px;
+}
 .topBar {
     position: fixed;
     //z-index: 4;

@@ -54,6 +54,7 @@
 	    top: 0;
         left: 0; //rtl 
         border-radius:0;
+        .boxSizing;
         ~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
             display: none !important; //override js
         }
@@ -64,8 +65,9 @@
 	        transform: translate3d(0,3em,0);
         }
         .dashLibSearchInput {
-            font-size: 3.6vw;
+            font-size: 5vw;
             padding: 0 10% 8px 0; 
+            max-width: none; //override
         }
         .searchBtn {
             background: none; //override
@@ -73,8 +75,8 @@
             top: 50%;
 	        pointer-events: auto;
             width: 80px;height:80px; //fallback for old android
-            width: 6vw;
-            height: 6vw;
+            width: 3vw;
+            height: 3vw;
 	        -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
 	        -webkit-transition: -webkit-transform 0.3s;
@@ -83,8 +85,8 @@
 	        transition-delay: 0.5s;
             .svg-search {
                 width: 80px;height: 80px; //fallback for old android
-                width: 6vw;
-                height: 6vw;
+                width: 3vw;
+                height: 3vw;
                 &:hover {
                     fill: @blue;
                 }
@@ -214,7 +216,7 @@
 }
 
 .search-content {
-	color: #333;
+	color: #666;
 	margin-top: 4.5em;
 	width: 80%;
 	height: 0;
@@ -224,6 +226,13 @@
 	position: absolute;
 	pointer-events: none;
 	opacity: 0;
+    [data-box-letter]:before {
+        left: 13px;
+        background: purple; //TEMP!!!
+    }
+    .courseId {
+        margin-bottom: 5px;
+    }
 }
 
 .column {
@@ -234,12 +243,13 @@
 	transform: translateY(100px);
 	-webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
 	transition: transform 0.5s, opacity 0.5s;
+    overflow: hidden;
     &:nth-child(2) {
 	    margin: 0 5%;
     }
 
     h2 {
-	    font-size: 1em;
+	    font-size: 18px;
 	    letter-spacing: 1px;
 	    text-transform: uppercase;
 	    font-weight: 800;
@@ -251,24 +261,64 @@
 .round {
 	border-radius: 50%;
 }
-
+.itemList, .quizList {
+    .vCentered {
+        padding-left: 74px;
+    }
+    .searchImg {
+        width: 63px;
+        height: 88px;
+    }
+}
+.itemList {
+    .searchImg {
+        border: 1px solid @borderColor;
+        .boxSizing;
+    }
+}
+.quizList {
+    [data-box-letter]:before {
+        content:attr(data-box-letter);
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        top: 22px;
+        bottom: auto; //override
+        left: 0;right:0;
+        font-size: 18px;
+        background: orange; //TEMP!!!
+    }
+    .searchImg {
+        font-size: 10px;
+        text-align: center;
+    }
+    .boxName {
+        margin-top: -40px;
+    }
+}
 .searchLink {
-    height: 74px;
-	padding: 0.75em 0.75em 0.75em 70px; //rtl
-	display: block;
+    width: 100%;
+    height: 106px;
+	padding: 0.75em; //rtl
+	display: table;
 	margin: 0.3em 0;
 	cursor: pointer;
 	border-radius: 5px;
 	background: rgba(118,117,128,0.1);
     .boxSizing;
     position: relative;
+    .boxSizing;
     &:hover, &:focus {
         background: rgba(118,117,128,0.2);
     }
-    &:hover {
-        h3 {
-            color: @blue;
-        }
+    svg {
+        width: 63px;
+        height: 88px;
+    }
+    .searchImg {
+        position: absolute;
+        top: 10px;
+        left: 10px;
     }
     img {
         position: absolute;
@@ -280,11 +330,15 @@
         vertical-align: middle;
 	    font-size: 1.2em;
 	    display: inline-block;
-	    font-weight: 700;
 	    margin: 0;
-	    color: rgba(145,145,145,0.7);
+        padding: 5px 0;
+	    color: @blue;
         max-width: 100%; //needed to override the nowrap property on the elps
         font-weight: normal;
+    }
+    .content {
+        margin-top: 8px;
+        max-height: 30px;
     }
     mark {
         background: none;
@@ -294,7 +348,7 @@
         border-radius: 50%;
     }
     .vCentered {
-        max-width: 98%;
+        //max-width: 98%;
     }
     //&.noResults
     //{
