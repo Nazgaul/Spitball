@@ -245,7 +245,7 @@
     <line fill="none" stroke="#DEDDDD" stroke-miterlimit="10" x1="11.605" y1="97.543" x2="202.938" y2="97.543"/>
     <line fill="none" stroke="#DEDDDD" stroke-miterlimit="10" x1="84.272" y1="27.543" x2="202.938" y2="27.543"/>
     
-    <path class="penBorder" fill="none" stroke-width="4" stroke-linejoin="bevel" stroke-miterlimit="10" d="M71.916,114.584
+    <!--<path class="penBorder" fill="none" stroke-width="4" stroke-linejoin="bevel" stroke-miterlimit="10" d="M71.916,114.584
 	c0.01-19.526,15.846-35.351,35.374-35.34c19.526,0.01,35.347,15.848,35.339,35.377c-0.01,19.524-15.846,35.346-35.374,35.337
 	C87.727,149.95,71.905,134.112,71.916,114.584z"/>
     <path stroke="none" fill="#FFFFFF" d="M71.916,114.584c0.01-19.526,15.846-35.351,35.374-35.34c19.526,0.01,35.347,15.848,35.339,35.377
@@ -265,7 +265,7 @@
     </g>
     <path stroke="none" fill="#E25C6A" d="M120.432,100.998l1.665-3.898c0.662-1.543-0.058-3.332-1.601-3.99l-6.326-2.703
 	c-1.544-0.662-3.328,0.056-3.992,1.599l-1.665,3.899L120.432,100.998z"/>
-    <rect stroke="none" x="107.837" y="98.382" transform="matrix(-0.9196 -0.3929 0.3929 -0.9196 180.627 234.5439)" fill="#FFFFFF" width="12.964" height="0.806"/>
+    <rect stroke="none" x="107.837" y="98.382" transform="matrix(-0.9196 -0.3929 0.3929 -0.9196 180.627 234.5439)" fill="#FFFFFF" width="12.964" height="0.806"/>-->
   </symbol>
 
   <symbol id="upload" viewBox="46.316 93.342 407.869 317.715">
