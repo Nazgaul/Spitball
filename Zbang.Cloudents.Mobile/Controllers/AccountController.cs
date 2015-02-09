@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
 using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Helpers;
@@ -13,6 +18,7 @@ using Zbang.Cloudents.Mobile.Models.Account;
 using Zbang.Cloudents.Mobile.Models.Account.Settings;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
@@ -33,6 +39,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
+        private ApplicationSignInManager m_SignInManager;
+        private UserManager m_UserManager;
 
         // private const string InvId = "invId";
         public AccountController(
@@ -47,6 +55,49 @@ namespace Zbang.Cloudents.Mobile.Controllers
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
+        }
+
+        public AccountController(
+           Lazy<IMembershipService> membershipService,
+           Lazy<IFacebookService> facebookService,
+           Lazy<IQueueProvider> queueProvider,
+           Lazy<IEncryptObject> encryptObject,
+           UserManager userManager,
+           ApplicationSignInManager signInManager
+           )
+        {
+
+            m_MembershipService = membershipService;
+            m_FacebookService = facebookService;
+            m_QueueProvider = queueProvider;
+            m_EncryptObject = encryptObject;
+            m_SignInManager = signInManager;
+            m_UserManager = userManager;
+        }
+
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return m_SignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                m_SignInManager = value;
+            }
+        }
+
+        public UserManager UserManager
+        {
+            get
+            {
+                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
+            }
+            private set
+            {
+                m_UserManager = value;
+            }
         }
 
 
@@ -123,11 +174,27 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     };
                 }
                 SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
-                FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
-                    //user.Culture,
-                    user.UniversityId,
-                    user.UniversityData
-                    ));
+
+                var identity = new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
+                   
+                },
+                    "ApplicationCookie");
+                if (user.UniversityId.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                        user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+                }
+                if (user.UniversityData.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                        user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
+                }
+
+
+                AuthenticationManager.SignIn(identity);
+
                 cookie.RemoveCookie(Invite.CookieName);
                 return JsonOk();
             }
@@ -147,7 +214,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
 
         //[ValidateAntiForgeryToken]
@@ -161,24 +234,40 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             try
             {
-                Guid membershipUserId;
-                var cookie = new CookieHelper(HttpContext);
-                cookie.RemoveCookie(Invite.CookieName);
-                var loginStatus = m_MembershipService.Value
-                    .ValidateUser(model.Email, model.Password, out membershipUserId);
-                if (loginStatus == LogInStatus.Success)
+                var query = new GetUserByEmailQuery(model.Email);
+                var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
+                var tUserIdentity = UserManager.FindByEmailAsync(model.Email);
+
+                await Task.WhenAll(tSystemData, tUserIdentity);
+
+                var user = tUserIdentity.Result;
+                if (user == null)
+                {
+                    return JsonError();
+                }
+                var systemUser = tSystemData.Result;
+                if (systemUser == null)
+                {
+                    return JsonError();
+                }
+                user.UserId = systemUser.Id;
+                user.UniversityId = systemUser.UniversityId;
+                user.UniversityData = systemUser.UniversityData;
+
+
+
+                var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
+                if (loginStatus == SignInStatus.Success)
                 {
                     try
                     {
-                        var query = new GetUserByMembershipQuery(membershipUserId);
-                        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                        SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-                        FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
-                            new UserDetail(
-                            //result.Culture,
-                                result.UniversityId,
-                                result.UniversityData));
+                        var cookie = new CookieHelper(HttpContext);
+                        cookie.RemoveCookie(Invite.CookieName);
+                        SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
+
+                        
                         return JsonOk();
+
                     }
                     catch (UserNotFoundException)
                     {
@@ -205,8 +294,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
-            FormsAuthenticationService.SignOut();
-            return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
+            AuthenticationManager.SignOut();
+            return RedirectToRoute("accountLink");
         }
 
 
@@ -218,15 +307,20 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return JsonError(GetModelStateErrors());
             }
-            var userid = Guid.NewGuid().ToString();
             try
             {
                 var cookie = new CookieHelper(HttpContext);
                 var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
-                Guid userProviderKey;
-                var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
-                    out userProviderKey);
-                if (createStatus == MembershipCreateStatus.Success)
+                var user = new User
+                {
+                    UserName = model.NewEmail,
+                    Email = model.NewEmail,
+                    UniversityId = model.UniversityId,
+                    UniversityData = model.UniversityId
+                };
+                var createStatus = await UserManager.CreateAsync(user, model.Password);
+
+                if (createStatus.Succeeded)
                 {
 
                     Guid? invId = null;
@@ -235,23 +329,27 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         invId = inv.InviteId;
                     }
 
-                    CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
+                    CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null, true);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
-                    FormsAuthenticationService.SignIn(result.User.Id, false,
-                        new UserDetail(
-                        //result.User.Culture,
-                            result.UniversityId,
-                            result.UniversityData));
+
+                    user.UserId = result.User.Id;
+                    user.UniversityId = result.UniversityId;
+                    user.UniversityData = result.UniversityData;
+
+                    await SignInManager.PasswordSignInAsync(user.UserName, model.Password, false, false);
                     cookie.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk();
 
                 }
-                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
+                foreach (var error in createStatus.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
             }
             catch (ArgumentException ex)
             {
@@ -301,7 +399,25 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
                     null, null, null);
                 ZboxWriteService.UpdateUserUniversity(command);
-                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
+
+                var user = (ClaimsIdentity)User.Identity;
+                var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
+                var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
+
+                user.RemoveClaim(claimUniversity);
+                user.RemoveClaim(claimUniversityData);
+
+
+                user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                        command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+                user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                        command.UniversityDataId.HasValue ?
+                        command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
+                        : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+
+                AuthenticationManager.SignIn(user);
                 return JsonOk();
             }
             catch (ArgumentException)
@@ -495,11 +611,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
             SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-            FormsAuthenticationService.SignIn(result.Id, false,
-                new UserDetail(
-                    result.UniversityId,
-                    result.UniversityData
-                    ));
+            //FormsAuthenticationService.SignIn(result.Id, false,
+            //    new UserDetail(
+            //        result.UniversityId,
+            //        result.UniversityData
+            //        ));
 
             return RedirectToRoute("dashboardLink");
 

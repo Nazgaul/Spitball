@@ -1,28 +1,26 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Security;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
     public class NoUniversityAttribute : ActionFilterAttribute
     {
-        private readonly IFormsAuthenticationService m_FormsAuthenticationService;
 
-        public NoUniversityAttribute()
-        {
-            m_FormsAuthenticationService = DependencyResolver.Current.GetService<IFormsAuthenticationService>();
-        }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            var userData = m_FormsAuthenticationService.GetUserData();
-            if (userData == null)
-            {
-                base.OnActionExecuting(filterContext);
-                return;
-            }
-            if (userData.UniversityId.HasValue)
+           var universityId =  filterContext.HttpContext.User.GetUniversityId();
+
+            //var userData = m_FormsAuthenticationService.GetUserData();
+            //if (userData == null)
+            //{
+            //    base.OnActionExecuting(filterContext);
+            //    return;
+            //}
+           if (universityId.HasValue)
             {
                 base.OnActionExecuting(filterContext);
                 return;

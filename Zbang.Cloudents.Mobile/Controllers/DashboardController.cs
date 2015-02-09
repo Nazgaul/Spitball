@@ -52,11 +52,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [HttpGet]
         public async Task<JsonResult> RecommendedCourses()
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityDataId.Value;
+            //var userDetail = FormsAuthenticationService.GetUserData();
 
-            var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
+            var university = User.GetUniversityData();
+
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+            //var universityWrapper = userDetail.UniversityDataId.Value;
+
+            var query = new RecommendedCoursesQuery(university.Value, User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
             return JsonOk(result.Select(s => new
             {

@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public interface IMembershipService
     {
-        int MinPasswordLength { get; }
         LogInStatus ValidateUser(string email, string password, out Guid membershipId);
         //bool ValidateUser(string email, string password, out Guid membershipId);
         MembershipCreateStatus CreateUser(string userName, string password, string email, out Guid memberShipUserId);

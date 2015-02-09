@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<Profile.IProfilePictureProvider, Profile.ProfilePictureProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Security.IMembershipService, Security.AccountMembershipService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Security.IFacebookService, Security.FacebookAuthenticationService>(LifeTimeManager.PerHttpRequest);
-            ioc.RegisterType<Security.IFormsAuthenticationService, Security.FormsAuthenticationService>();
             ioc.RegisterType<IdGenerator.IGuidIdGenerator, IdGenerator.GuidIdGenerator>(LifeTimeManager.Singleton);
 
         }

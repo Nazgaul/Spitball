@@ -20,7 +20,8 @@ namespace Zbang.Cloudents.MobileApp.Models
             TokenLifetime = new TimeSpan(30, 0, 0, 0);
         }
 
-        public override void ConfigureMiddleware(Owin.IAppBuilder appBuilder, Microsoft.WindowsAzure.Mobile.Service.ServiceSettingsDictionary settings)
+        public override void ConfigureMiddleware(Owin.IAppBuilder appBuilder,
+            Microsoft.WindowsAzure.Mobile.Service.ServiceSettingsDictionary settings)
         {
             // Not Applicable - used for federated identity flows
             return;

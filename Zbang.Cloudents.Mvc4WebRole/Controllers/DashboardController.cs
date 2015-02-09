@@ -61,9 +61,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> SideBar()
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityId.Value;
+            var universityWrapper = User.GetUniversityId().Value;
 
             var query = new GetDashboardQuery(universityWrapper);
             var model = await ZboxReadService.GetDashboardSideBar(query);
@@ -108,9 +107,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> RecommendedCourses()
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = userDetail.UniversityDataId.Value;
+            var universityWrapper = User.GetUniversityId().Value;
 
             var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
