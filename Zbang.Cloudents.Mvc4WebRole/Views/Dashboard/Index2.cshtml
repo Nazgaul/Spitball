@@ -180,22 +180,29 @@
         </div>
         <script type="text/ng-template" id="dashBoxTemplate">
             <a ng-href="{{::box.url}}">
-                <div ng-if="box.numOfUpdates > 0" class="notify">{{::box.numOfUpdates}}</div>
-                <div>
-                    <img class="boxImg" ng-src="{{::box.boxPicture | defaultImage:'box'}}" alt="" width="77" height="98" />
-                    <ul class="boxHoverList">
-                        <li class="hoverItem itemImg">{{::box.itemCount}}</li>
-                        <li class="hoverItem memberImg">{{::box.membersCount}}</li>
-                        <li class="hoverItem commentImg">{{::box.commentCount}}</li>
-                    </ul>
+                <div class="boxStats rFloat">
+                    <div class="friends" data-friends-count="{{box.membersCount}}">
+                        @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
+                        <span>@SharedResources.Friends</span>
+                    </div>
+                    <div class="files" data-files-count="{{box.itemCount}}">
+                        @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
+                        <span>@SharedResources.Files</span>
+                    </div>
                 </div>
-                <div class="boxWpr clamp2">
-                    <span class="boxName">{{::box.name}}</span>
+                <div class="ghost">
+                    <div class="vCentered" data-box-letter="{{::box.name[0]}}">
+                        <h3 class="elps">{{::box.name}}</h3>
+                        <div class="courseId elps">{{::box.courseCode}}</div>
+                        <div class="elps">{{::box.professor}}</div>
+                    </div>
                 </div>
-                <span class="courseCode elps">{{::box.courseCode}}</span>
-                <span class="courseCode propName elps">{{::box.professor}}</span>
+                
             </a>
-            <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}"></button>
+            <div class="newCounter">4</div>
+            <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}">
+                @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+            </button>
         </script>
     </div>
 </div>

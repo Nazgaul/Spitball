@@ -283,7 +283,7 @@ body {
 }
 /*#endregion */
 /*#region notifications */
-.invitesCounter {
+.newCounter {
   display: none;
   background: #d1294d;
   border-radius: 10px;
@@ -296,7 +296,7 @@ body {
   text-align: center;
   padding: 4px;
 }
-.invitesCounterShow {
+.newCounterShow {
   display: inline;
 }
 .notificationBtn {

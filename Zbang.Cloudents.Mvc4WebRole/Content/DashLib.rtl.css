@@ -841,7 +841,7 @@
   content: '';
   display: block;
   width: 126px;
-  height: 98px;
+  height: 106px;
   background: url(/Images/site.png?v=3) 100% -1142px no-repeat;
   margin: 55px auto 20px;
 }
@@ -905,7 +905,6 @@
   padding-bottom: 100px;
 }
 .myAreaList .box:first-child {
-  border: 1px dashed #c2c2c2;
   box-shadow: none;
   font-size: 15px;
   color: #383838;
@@ -913,8 +912,13 @@
 }
 .myAreaList .box:first-child:hover {
   color: #0f9d58;
-  border-color: #7a7a7a;
   background: #fff;
+}
+.myAreaList .box:first-child .addBtn {
+  border: 1px dashed #c2c2c2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .libraryList {
   margin-top: 42px;
@@ -1064,40 +1068,87 @@
   color: #383838;
   vertical-align: top;
   float: right;
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
   position: relative;
   background-color: #fff;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
   transition: all 0.4s;
-  height: 98px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0 0 24px 18px;
-  width: 222px;
+  margin: 0 0 13px 14px;
+  width: 306px;
   font-size: 13px;
-  transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1)
+  /*.boxName {
+        line-height: 17px;
+        font-size: 15px;
+        width: 133px;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        overflow: hidden;
+    }
+
+    .boxImg {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 77px;
+        height: 96px;
+        border-radius: 3px 0 0 3px; //rtl
+        border-right: 1px solid #dedede;
+        .boxSizing;
+    }
+
+    .subscriber {
+        display: none;
+        pointer-events: none;
+        position: absolute;
+        font-size: 16px;
+        top: 70px;
+        width: 130px;
+        left: 84px;
+        color: #676767;
+
+        &:before {
+            .pseudo;
+            width: 18px;
+            height: 19px;
+            padding-top: 3px;
+            background-position: -103px -22px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+    }
+
+    .follow {
+        display: none;
+        position: absolute;
+        left: 84px;
+        top: 70px;
+        width: 130px;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 5px;
+        background: @attentionBlue;
+
+        &:hover {
+            background: @attentionBlueHover;
+        }
+
+        &:before {
+            background: none;
+            margin: 0;
+        }
+    }*/
 }
-.box:hover ul {
-  display: inline-block;
-  opacity: 1;
-}
-.box:hover .follow,
-.box:hover .subscriber,
 .box:hover .removeItem {
   display: block;
 }
-.box:hover .addBtn {
-  color: #0f9d58;
-}
-.box:hover .addBtn:before {
-  opacity: 1;
-}
 .box.libraryItem {
-  width: 222px;
+  width: 306px;
 }
 .box.upload {
   -webkit-transform: scale3d(1.08, 1.08, 1);
@@ -1106,74 +1157,136 @@
   -o-transform: scale3d(1.08, 1.08, 1);
   transform: scale3d(1.08, 1.08, 1);
 }
+.box .newCounter {
+  border-radius: 12px;
+  top: 17px;
+  right: 52px;
+  line-height: 14px;
+  border: 2px solid #fff;
+  display: block;
+}
+.box .removeItem {
+  right: 5px;
+  left: auto;
+  width: 12px;
+  height: 12px;
+}
 .box a,
 .box .addBtn {
-  display: inline-block;
   width: 100%;
-  height: 98px;
-}
-.box a:before,
-.box .addBtn:before {
-  opacity: .7;
-}
-.box .boxName {
-  line-height: 17px;
-  font-size: 15px;
-  width: 133px;
-  -ms-word-wrap: break-word;
-  word-wrap: break-word;
+  height: 106px;
+  display: block;
+  background: #EBEBEC;
+  position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 5px
+  /*&:before {
+            opacity: .7;
+        }*/
 }
-.box .boxImg {
+.box a:hover .vCentered,
+.box .addBtn:hover .vCentered {
+  margin-right: -76px;
+  max-width: 254px;
+}
+.box a:hover h3,
+.box .addBtn:hover h3 {
+  max-width: 154px;
+}
+.box a:hover .boxStats,
+.box .addBtn:hover .boxStats {
+  margin-left: 0;
+}
+.box a:hover .addBtn,
+.box .addBtn:hover .addBtn {
+  color: #0f9d58;
+}
+.box a:hover .addBtn:before,
+.box .addBtn:hover .addBtn:before {
+  opacity: 1;
+}
+.box .courseId {
+  margin-bottom: 5px;
+}
+.box [data-box-letter]:before {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  right: 11px;
+  font-size: 28px;
+  background: purple;
+}
+.box .boxStats {
+  width: 128px;
+  height: 106px;
   display: inline-block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 77px;
-  height: 96px;
-  border-radius: 0 3px 3px 0;
-  border-left: 1px solid #dedede;
+  background: #282828;
+  color: #fff;
+  font-size: 16px;
+  position: relative;
+  margin-left: -129px;
+  max-width: none;
+  -webkit-transition: margin 0.2s 0.5s;
+  -moz-transition: margin 0.2s 0.5s;
+  -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
+  padding: 23px 38px 0 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.box .subscriber {
-  display: none;
-  pointer-events: none;
-  position: absolute;
-  font-size: 16px;
-  top: 70px;
-  width: 130px;
-  right: 84px;
-  color: #676767;
+.box .svg-user {
+  right: -22px;
 }
-.box .subscriber:before {
-  content: '';
+.box .svg-doc {
+  right: -22px;
+}
+.box .friends,
+.box .files {
+  position: relative;
+  margin: 8px 0;
+}
+.box .friends:before,
+.box .files:before {
+  content: attr(data-friends-count);
   display: inline-block;
-  width: 18px;
-  height: 19px;
-  padding-top: 3px;
-  background-position: -103px -22px;
-  margin-left: 5px;
+}
+.box .files:before {
+  content: attr(data-files-count);
+}
+.box .ghost {
+  height: 106px;
+}
+.box .vCentered {
+  padding-right: 88px;
   vertical-align: middle;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  -webkit-transition: margin 0.2s 0.5s;
+  -moz-transition: margin 0.2s 0.5s;
+  -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
+  position: relative;
 }
-.box .follow {
-  display: none;
-  position: absolute;
-  right: 84px;
-  top: 70px;
-  width: 130px;
+.box h3 {
+  vertical-align: middle;
   font-size: 16px;
-  color: #fff;
-  border-radius: 5px;
-  background: #0371c8;
-}
-.box .follow:hover {
-  background: #0e68af;
-}
-.box .follow:before {
-  background: none;
+  display: inline-block;
   margin: 0;
+  padding: 5px 0;
+  color: #3399ff;
+  font-weight: normal;
+  max-width: 206px;
+  -moz-transition: max-width 0.2s 0.5s;
+  -o-transition: max-width 0.2s 0.5s;
+  -webkit-transition: max-width 0.2s 0.5s;
+  transition: max-width 0.2s 0.5s;
 }
 .notify {
   min-width: 9px;
@@ -1207,52 +1320,56 @@
 }
 /*#endregion */
 /*#region box hover list */
-.boxHoverList {
-  background: #19ae66;
-  color: #fff;
-  opacity: 0;
-  width: 76px;
-  height: 96px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  -webkit-transition: opacity 0.2s linear;
-  -moz-transition: opacity 0.2s linear;
-  -o-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear;
+/*.boxHoverList {
+    background: @colorHover;
+    color: #fff;
+    opacity: 0;
+    width: 76px;
+    //height: 98px;
+    height: 96px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .transition(opacity .2s linear);
 }
+
 .hoverItem {
-  font-size: 11px;
-  padding: 4px 5px 4px 0;
+    font-size: 11px;
+    padding: 4px 0 4px 5px;
+    &:before {
+        content: '';
+        display: inline-block;
+        background: url('data:image/png;base64,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') no-repeat;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    &.memberImg:before {
+        margin-right: 3px;
+    }
+
+    &.commentImg:before {
+        margin-right: 4px;
+    }
 }
-.hoverItem:before {
-  content: '';
-  display: inline-block;
-  background: url('data:image/png;base64,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') no-repeat;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-.hoverItem.memberImg:before {
-  margin-left: 3px;
-}
-.hoverItem.commentImg:before {
-  margin-left: 4px;
-}
+
 .itemImg:before {
-  background-position: -20px -77px;
-  width: 8px;
-  height: 11px;
+    background-position: -20px -77px;
+    width: 8px;
+    height: 11px;
 }
+
 .memberImg:before {
-  width: 10px;
-  height: 11px;
-  background-position: -29px -78px;
+    width: 10px;
+    height: 11px;
+    background-position: -29px -78px;
 }
+
 .commentImg:before {
-  width: 9px;
-  height: 8px;
-  background-position: -30px -90px;
-}
+    width: 9px;
+    height: 8px;
+    background-position: -30px -90px;
+}*/
 /*#endregion */
 /*#region DISABLE ADDBTN */
 .libraryList .addBtn {
@@ -1280,7 +1397,7 @@
   box-shadow: none;
   font-size: 18px;
   color: #bcbcbc;
-  width: 222px;
+  width: 306px;
 }
 .libraryItem.addDep:hover,
 .libraryItem.addCourse:hover,
