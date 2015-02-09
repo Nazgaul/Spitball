@@ -31,9 +31,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         public async Task<JsonResult> Boxes(string term, int page)
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail.UniversityId == null) return JsonError("need university");
-            var query = new BoxSearchQuery(term, User.GetUserId(), userDetail.UniversityId.Value, page, 20);
+            var universityId = User.GetUniversityId();
+            //var userDetail = FormsAuthenticationService.GetUserData();
+            if (!universityId.HasValue ) return JsonError("need university");
+            var query = new BoxSearchQuery(term, User.GetUserId(), universityId.Value, page, 20);
             var retVal = await m_BoxSearchService.SearchBox(query) ?? new List<SearchBoxes>();
             return JsonOk(retVal.Select(s => new
             {
@@ -44,10 +45,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
         public async Task<JsonResult> Items(string term, int page)
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail.UniversityId == null) return JsonError("need university");
+            var universityId = User.GetUniversityId();
+            if (!universityId.HasValue) return JsonError("need university");
 
-            var query = new ItemSearchQuery(term, User.GetUserId(), userDetail.UniversityId.Value, page, 20);
+            var query = new ItemSearchQuery(term, User.GetUserId(), universityId.Value, page, 20);
             var retVal = await m_ItemSearchService.SearchItem(query) ?? new List<SearchItems>();
             return JsonOk(retVal.Select(s => new
             {

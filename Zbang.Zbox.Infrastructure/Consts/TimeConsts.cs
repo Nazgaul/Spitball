@@ -16,4 +16,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
     {
         public const string ContentMetaDataKey = "content";
     }
+
+    public class ClaimConsts
+    {
+        public const string UserIdClaim = "userId";
+        public const string UniversityIdClaim = "universityId";
+        public const string UniversityDataClaim = "universityData";
+    }
 }

@@ -7,7 +7,6 @@ using Zbang.Cloudents.Mobile.Extensions;
 using Zbang.Cloudents.Mobile.Helpers;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 
@@ -17,7 +16,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
     {
         public IZboxWriteService ZboxWriteService { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
-        public IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {

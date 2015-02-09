@@ -8,6 +8,7 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
@@ -45,12 +46,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.viewport = false;
             if (!User.Identity.IsAuthenticated || universityId.HasValue) return View("Empty");
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (!userDetail.UniversityId.HasValue)
+            var userDetail = User.GetUniversityId();
+            if (!userDetail.HasValue)
             {
                 return View("Empty");
             }
-            var universityWrapper = userDetail.UniversityId.Value;
+            var universityWrapper = userDetail.Value;
             var storeUniversityId = await ZboxReadService.CloudentsUniversityToStoreUniversity(universityWrapper);
             if (storeUniversityId.HasValue && Request.Url != null)
             {

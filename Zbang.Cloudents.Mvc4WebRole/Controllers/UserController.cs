@@ -100,10 +100,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var userDetail = FormsAuthenticationService.GetUserData();
-
-                var universityId = userDetail.UniversityId.Value;
-                var query = new GetUserWithFriendQuery(universityId, userId);
+                var university = User.GetUniversityId();
+                if (!university.HasValue)
+                {
+                    TraceLog.WriteError("trying to access admin - userId: " + User.GetUserId());
+                    return JsonError();
+                }
+                var query = new GetUserWithFriendQuery(university.Value, userId);
                 var model = await ZboxReadService.GetUserWithFriendBoxes(query);
                 return JsonOk(model);
             }
@@ -116,10 +119,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> AdminFriends()
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-
-            var universityId = userDetail.UniversityId.Value;
-            var query = new GetAdminUsersQuery(universityId);
+            var university = User.GetUniversityId();
+            if (!university.HasValue)
+            {
+                TraceLog.WriteError("trying to access AdminFriends - userId: " + User.GetUserId());
+                return JsonError();
+            }
+            var query = new GetAdminUsersQuery(university.Value);
             var result = await ZboxReadService.GetUniversityUsers(query);
             return JsonOk(result);
         }

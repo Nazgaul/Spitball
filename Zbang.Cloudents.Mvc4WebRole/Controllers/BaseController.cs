@@ -10,7 +10,6 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 
@@ -20,7 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         public IZboxWriteService ZboxWriteService { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
-        public IFormsAuthenticationService FormsAuthenticationService { get; set; }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {

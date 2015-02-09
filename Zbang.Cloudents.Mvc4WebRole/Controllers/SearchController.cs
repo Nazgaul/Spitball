@@ -74,18 +74,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private async Task<SearchDto> PerformSearch(string q, bool allResult, int page)
         {
-            var userDetail = FormsAuthenticationService.GetUserData();
-            if (userDetail.UniversityDataId != null)
+            var universityDataId = User.GetUniversityData();
+            if (universityDataId.HasValue)
             {
-                var query = new GroupSearchQuery(q, userDetail.UniversityDataId.Value, User.GetUserId(), page,
+                var query = new GroupSearchQuery(q, universityDataId.Value, User.GetUserId(), page,
                     allResult ? 50 : 6);
 
                 var t1 = m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(),
-                    userDetail.UniversityDataId.Value, page,
+                    universityDataId.Value, page,
                      allResult ? 50 : 6));
                 var t2 =
                     m_ItemSearchService.SearchItem(new ItemSearchQuery(q, User.GetUserId(),
-                    userDetail.UniversityDataId.Value, page,
+                    universityDataId.Value, page,
                         allResult ? 50 : 6));
                 var t3 = ZboxReadService.Search(query);
                 await Task.WhenAll(t1, t2, t3);
@@ -107,9 +107,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError("need query");
                 }
-                var userDetail = FormsAuthenticationService.GetUserData();
-                if (userDetail.UniversityId == null) return JsonError("need university");
-                var query = new GroupSearchQuery(q, userDetail.UniversityId.Value, User.GetUserId(), page, 50);
+
+                var universityId = User.GetUniversityId();
+
+                if (!universityId.HasValue) return JsonError("need university");
+                var query = new GroupSearchQuery(q, universityId.Value, User.GetUserId(), page, 50);
                 var result = await ZboxReadService.OtherUniversities(query);
                 return JsonOk(result);
             }

@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -34,21 +39,58 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class AccountController : BaseController
     {
-        private readonly Lazy<IMembershipService> m_MembershipService;
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
+        private ApplicationSignInManager m_SignInManager;
+        private UserManager m_UserManager;
 
         public AccountController(
-            Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject)
         {
-            m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
+        }
+
+        public AccountController(
+           Lazy<IFacebookService> facebookService,
+           Lazy<IQueueProvider> queueProvider,
+           Lazy<IEncryptObject> encryptObject,
+           UserManager userManager,
+           ApplicationSignInManager signInManager)
+        {
+            m_FacebookService = facebookService;
+            m_QueueProvider = queueProvider;
+            m_EncryptObject = encryptObject;
+            m_SignInManager = signInManager;
+            m_UserManager = userManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return m_SignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                m_SignInManager = value;
+            }
+        }
+
+        public UserManager UserManager
+        {
+            get
+            {
+                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
+            }
+            private set
+            {
+                m_UserManager = value;
+            }
         }
 
 
@@ -138,10 +180,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     isNew = true;
                 }
                 SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
-                FormsAuthenticationService.SignIn(user.Id, false, new UserDetail(
-                    user.UniversityId,
-                    user.UniversityData
-                    ));
+
+                var identity = new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
+                   
+                },
+                    "ApplicationCookie");
+                if (user.UniversityId.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                        user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+                }
+                if (user.UniversityData.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                        user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
+                }
+
+
+                AuthenticationManager.SignIn(identity);
                 cookie.RemoveCookie(Invite.CookieName);
                 return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
             }
@@ -165,7 +223,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<JsonResult> LogIn([ModelBinder(typeof(TrimModelBinder))]LogOn model)
+        public async Task<JsonResult> LogIn(
+            [ModelBinder(typeof(TrimModelBinder))]LogOn model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -173,22 +232,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                Guid membershipUserId;
-                var loginStatus = m_MembershipService.Value.ValidateUser(model.Email, model.Password, out membershipUserId);
-                if (loginStatus == LogInStatus.Success)
+                var query = new GetUserByEmailQuery(model.Email);
+                var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
+                var tUserIdentity = UserManager.FindByEmailAsync(model.Email);
+
+                await Task.WhenAll(tSystemData, tUserIdentity);
+
+                var user = tUserIdentity.Result;
+                if (user == null)
+                {
+                    return JsonError();
+                }
+                var systemUser = tSystemData.Result;
+                if (systemUser == null)
+                {
+                    return JsonError();
+                }
+                user.UserId = systemUser.Id;
+                user.UniversityId = systemUser.UniversityId;
+                user.UniversityData = systemUser.UniversityData;
+
+
+
+                var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
+                if (loginStatus == SignInStatus.Success)
                 {
                     try
                     {
                         var cookie = new CookieHelper(HttpContext);
                         cookie.RemoveCookie(Invite.CookieName);
-                        var query = new GetUserByMembershipQuery(membershipUserId);
-                        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                        SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-                        FormsAuthenticationService.SignIn(result.Id, model.RememberMe,
-                            new UserDetail(
-                                result.UniversityId,
-                                result.UniversityData));
-                        var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
+                        SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
+
+                        var url = systemUser.UniversityId.HasValue
+                            ? Url.Action("Index", "Dashboard")
+                            : Url.Action("Choose", "Library");
                         return JsonOk(url);
                     }
                     catch (UserNotFoundException)
@@ -220,14 +297,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return string.Empty;
         }
 
+
+
         //TODO: do a post on log out
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
             //if (Session != null)
             //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
-            FormsAuthenticationService.SignOut();
-            return Redirect(FormsAuthentication.LoginUrl.ToLower());// RedirectToAction("Index");
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index");
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
 
 
@@ -241,15 +328,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetModelStateErrors());
             }
-            var userid = Guid.NewGuid().ToString();
             try
             {
                 var cookie = new CookieHelper(HttpContext);
                 var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
-                Guid userProviderKey;
-                var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
-                    out userProviderKey);
-                if (createStatus == MembershipCreateStatus.Success)
+                // Guid userProviderKey;
+
+                var user = new User
+                {
+                    UserName = model.NewEmail,
+                    Email = model.NewEmail,
+                    UniversityId = model.UniversityId,
+                    UniversityData = model.UniversityId
+                };
+                var createStatus = await UserManager.CreateAsync(user, model.Password);
+
+                //var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
+                //    out userProviderKey);
+                if (createStatus.Succeeded)
                 {
 
                     Guid? invId = null;
@@ -262,24 +358,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         lang = Thread.CurrentThread.CurrentCulture.Name;
                     }
-                    CreateUserCommand command = new CreateMembershipUserCommand(userProviderKey,
+                    CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId,
                         model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
                         model.MarketEmail, lang, invId, model.BoxId, false);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
-                    FormsAuthenticationService.SignIn(result.User.Id, false,
-                        new UserDetail(
-                            result.UniversityId,
-                            result.UniversityData));
+
+
+                    user.UserId = result.User.Id;
+                    user.UniversityId = result.UniversityId;
+                    user.UniversityData = result.UniversityData;
+
+                    await SignInManager.PasswordSignInAsync(user.UserName, model.Password, false, false);
+
                     cookie.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk(
                             Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
 
                 }
-                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
+                foreach (var error in createStatus.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
             }
             catch (ArgumentException ex)
             {
@@ -440,7 +543,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
-                FormsAuthenticationService.ChangeUniversity(command.UniversityId, command.UniversityDataId);
+
+                //FormsAuthenticationService.ChangeUniversity(command.UniversityId,
+                //command.UniversityDataId);
+
+
+                var user = (ClaimsIdentity)User.Identity;
+                var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
+                var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
+
+                user.RemoveClaim(claimUniversity);
+                user.RemoveClaim(claimUniversityData);
+
+
+                user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                        command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+                user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                        command.UniversityDataId.HasValue ? 
+                        command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
+                        : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+
+                AuthenticationManager.SignIn(user);
+
+
+
                 return JsonOk();
             }
             catch (ArgumentException)
@@ -535,24 +663,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                Guid membershipUserId;
-                if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
+                //Guid membershipUserId;
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View(model);
                 }
-                var query = new GetUserByMembershipQuery(membershipUserId);
+                var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
                 var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                var code = RandomString(10);
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code2 = RandomString(10);
 
 
-                var data = new ForgotPasswordLinkData(membershipUserId, 1);
+                //var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1);
 
-                var linkData = CrypticElement(data);
+                var linkData = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 //Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
-                TempData["key"] = Crypto.HashPassword(code);
+                TempData["key"] = Crypto.HashPassword(code2);
 
                 return RedirectToAction("Confirmation", new { @continue = linkData });
 
@@ -590,23 +720,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         [RequireHttps]
-        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, string @continue)
+        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, 
+            string @continue)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
+            //var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
-            if (userData == null)
-            {
-                return RedirectToAction("ResetPassword");
-            }
+            //if (userData == null)
+            //{
+            //    return RedirectToAction("ResetPassword");
+            //}
             if (Crypto.VerifyHashedPassword(model.Key, model.Code))
             {
-                userData.Step = 2;
-                var key = CrypticElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key });
+                //userData.Step = 2;
+                //var key = CrypticElement(userData);
+                return RedirectToAction("PasswordUpdate", new { key=@continue });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View(model);
@@ -624,15 +755,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("index");
             }
-            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
-            if (data == null)
-            {
-                return RedirectToAction("index");
-            }
-            if (data.Date.AddHours(1) < DateTime.UtcNow)
-            {
-                return RedirectToAction("index");
-            }
+            //var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            //if (data == null)
+            //{
+            //    return RedirectToAction("index");
+            //}
+            //if (data.Date.AddHours(1) < DateTime.UtcNow)
+            //{
+            //    return RedirectToAction("index");
+            //}
             return View(new NewPassword());
         }
 
@@ -649,25 +780,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return View(model);
             }
-            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
-            if (data == null)
-            {
-                return RedirectToAction("index");
-            }
-            if (data.Date.AddHours(1) < DateTime.UtcNow)
-            {
-                return RedirectToAction("index");
-            }
-            m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
+            //var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            //if (data == null)
+            //{
+            //    return RedirectToAction("index");
+            //}
+            //if (data.Date.AddHours(1) < DateTime.UtcNow)
+            //{
+            //    return RedirectToAction("index");
+            //}
+            await UserManager.ResetPasswordAsync("yaari.ram@gmail.com", key, model.Password);
+            //m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
 
-            var query = new GetUserByMembershipQuery(data.MembershipUserId);
-            var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-            FormsAuthenticationService.SignIn(result.Id, false,
-                new UserDetail(
-                    result.UniversityId,
-                    result.UniversityData
-                    ));
+            //var query = new GetUserByMembershipQuery(data.MembershipUserId);
+            //var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
+            //SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
+            //FormsAuthenticationService.SignIn(result.Id, false,
+            //    new UserDetail(
+            //        result.UniversityId,
+            //        result.UniversityData
+            //        ));
 
             return RedirectToAction("Index", "Dashboard");
 
@@ -685,19 +817,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //return "12345";
         }
 
-        private const string ResetPasswordCrypticPropose = "reset password";
-        [NonAction]
-        private string CrypticElement<T>(T obj) where T : class
-        {
-            return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
+        //private const string ResetPasswordCrypticPropose = "reset password";
+        //[NonAction]
+        //private string CrypticElement<T>(T obj) where T : class
+        //{
+        //    return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
 
-        }
-        [NonAction]
-        private T UnEncryptElement<T>(string str) where T : class
-        {
-            return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
+        //}
+        //[NonAction]
+        //private T UnEncryptElement<T>(string str) where T : class
+        //{
+        //    return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
 
-        }
+        //}
         #endregion
 
         [ChildActionOnly]
