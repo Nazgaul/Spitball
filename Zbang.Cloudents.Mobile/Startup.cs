@@ -12,7 +12,7 @@ namespace Zbang.Cloudents.Mobile
     {
         public void Configuration(IAppBuilder app)
         {
-            Zbox.Infrastructure.Security.Startup.ConfigureAuth(app);
+            Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
 
         }
     }

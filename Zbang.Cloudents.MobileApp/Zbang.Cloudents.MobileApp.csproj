@@ -124,14 +124,18 @@
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.Service">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.405\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.447\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Entity">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Entity.1.0.405\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Entity.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Entity.1.0.447\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Entity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Tables">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Tables.1.0.405\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Tables.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Tables, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Tables.1.0.447\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Tables.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -202,9 +206,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ServiceInitialize.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BoxesController.cs" />
-    <Compile Include="Controllers\CustomLoginController.cs" />
+    <Compile Include="Controllers\CustomLoginController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="Models\CustomLoginProvider.cs" />
@@ -241,10 +248,6 @@
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
-      <Project>{9ed04567-b2d0-4040-88a6-1ad752a3d83f}</Project>
-      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
       <Project>{0caee4f2-421b-4fa3-9a13-1402ea6fcda8}</Project>
       <Name>Zbang.Zbox.Domain.Commands</Name>
@@ -268,10 +271,6 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
       <Project>{a29aaa7a-e472-4661-a503-eb00fd43d2c3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
-      <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>
-      <Name>Zbang.Zbox.Infrastructure.File</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>

@@ -23,6 +23,7 @@ namespace Zbang.Cloudents.MobileApp.Models
         public override void ConfigureMiddleware(Owin.IAppBuilder appBuilder,
             Microsoft.WindowsAzure.Mobile.Service.ServiceSettingsDictionary settings)
         {
+            Zbox.Infrastructure.Security.Startup.ConfigureAuth(appBuilder, false);
             // Not Applicable - used for federated identity flows
             return;
         }
