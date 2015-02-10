@@ -51,7 +51,10 @@
             <div class="inviteEmailListWpr">
                 <ul class="emailList">
                     <li class="emailItem" ng-class="{invalidEmail: email.invalid}" ng-click="edit(email)" ng-repeat="email in formData.emailList">
-                        <span class="emailText">{{email.address}}</span><button type="button" class="removeItem" ng-click="remove(email)"></button>
+                        <span class="emailText">{{email.address}}</span>
+                        <button type="button" class="removeItem" ng-click="remove(email)">
+                            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+                        </button>
                     </li>
                 </ul>
                 <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"

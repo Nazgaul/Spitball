@@ -26,7 +26,9 @@
     </a>
     <span class="subscriber union-sprite" ng-if="item.userType === 'owner' || item.userType === 'subscribe'">@MainViewResources.Following</span>
     <button class="follow" ng-click="subscribe(item)" ng-if="item.userType === 'invite' || item.userType === 'none'">@MainViewResources.Follow</button>
-    <button type="button" class="removeItem" ng-click="unsubscribe(item)" ng-if="item.userType === 'owner' || item.userType === 'subscribe'"></button>
+    <button type="button" class="removeItem" ng-click="unsubscribe(item)" ng-if="item.userType === 'owner' || item.userType === 'subscribe'">
+        @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+    </button>
     
 </script>
 
