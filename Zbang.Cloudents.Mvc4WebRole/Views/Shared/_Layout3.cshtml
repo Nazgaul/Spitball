@@ -92,7 +92,8 @@
             </li>
         </ul>
     </div>
-
+    <div class="searchPopup" ng-if="$root.searchOpen">@{Html.RenderPartial("_BarSearch");}</div>
+    @{Html.RenderPartial("_DashLibItem");}
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>

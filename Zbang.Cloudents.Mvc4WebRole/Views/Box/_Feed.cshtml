@@ -169,12 +169,12 @@
                 <li class="recommended" ng-repeat="course in ::recommendedCourses">
                     <a ng-href="{{::course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Box Recommended" analytics-label="User choosed a box on recommneded">
                         <div class="rcDetails ghost">
-                            <div class="vCentered">
+                            <div class="vCentered" data-box-letter="{{::course.name[0]}}">
                                 <div class="courseName">{{::course.name}}</div>
                                 <span class="prof elps">{{::course.professor}}</span>
                                 <span class="elps">{{::course.courseCode}}</span>
                             </div>
-                            <img alt="" width="48" height="48" ng-src="{{::course.picture}}" />
+                            @*<img alt="" width="48" height="48" ng-src="{{::course.picture}}" />*@
                         </div>
                         <div class="rcStats">
                             <div class="friends" data-friends-count="{{::course.membersCount}}">
