@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             app.CreatePerOwinContext(DbContext.Create);
             app.CreatePerOwinContext<UserManager>(UserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
 
             // Enable the application to use a cookie to store information for the signed in user
