@@ -71,16 +71,14 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IMail2, InviteToCloudents>(BaseMailData.InviteToCloudentsResolver);
 
 
-            //Unity.RegisterType<IDomainProcess, AddFriend>(Zbang.Zbox.Infrastructure.Transport.DomainProcess.AddAFriendResolver);
             Unity.RegisterType<IDomainProcess, Statistics>(Infrastructure.Transport.DomainProcess.StatisticsResolver);
             Unity.RegisterType<IDomainProcess, FlagBadItem>(Infrastructure.Transport.DomainProcess.BadItemResolver);
             Unity.RegisterType<IDomainProcess, UpdatesProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
-            Unity.RegisterType<IDomainProcess, UpdateUniversitySearch>(Infrastructure.Transport.DomainProcess.UniversityResolver);
+            //Unity.RegisterType<IDomainProcess, UpdateUniversitySearch>(Infrastructure.Transport.DomainProcess.UniversityResolver);
             Unity.RegisterType<IDomainProcess, UpdateReputation>(
                 Infrastructure.Transport.DomainProcess.ReputationResolver);
             Unity.RegisterType<IDomainProcess, UpdateQuota>(
                 Infrastructure.Transport.DomainProcess.QuotaResolver);
-            //Unity.RegisterType<IUpdateThumbnails, UpdateThumbnails>();
 
         }
        

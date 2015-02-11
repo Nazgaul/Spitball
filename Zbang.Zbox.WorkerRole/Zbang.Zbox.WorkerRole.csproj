@@ -108,7 +108,6 @@
     <Compile Include="DomainProcess\UpdateQuota.cs" />
     <Compile Include="DomainProcess\UpdateReputation.cs" />
     <Compile Include="DomainProcess\UpdatesProcess.cs" />
-    <Compile Include="DomainProcess\UpdateUniversitySearch.cs" />
     <Compile Include="Jobs\AddFiles.cs" />
     <Compile Include="Jobs\DigestEmail2.cs" />
     <Compile Include="Jobs\PartnersEmail.cs" />

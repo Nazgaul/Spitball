@@ -78,22 +78,6 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
 
-
-
-        [TestMethod]
-        public async Task Search_Query_ReturnResult()
-        {
-            var query = new GroupSearchQuery("1", 920, 1, 0, 50);
-            try
-            {
-                var x = await m_ZboxReadService.Search(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-
         [TestMethod]
         public async Task OtherUniversities_Query_ReturnResult()
         {

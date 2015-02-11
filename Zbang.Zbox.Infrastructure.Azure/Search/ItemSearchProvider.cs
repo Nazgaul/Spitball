@@ -40,12 +40,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string IdField = "id";
         private const string NameField = "name";
         private const string ImageField = "image";
-        private const string BoxNameField = "boxname";
+        //private const string BoxNameField = "boxname";
         private const string ContentField = "content";
-        private const string RateField = "rate";
-        private const string ViewsField = "view";
+        //private const string RateField = "rate";
+        //private const string ViewsField = "view";
         private const string UrlField = "url";
-        private const string UniversityNameField = "universityname";
+        //private const string UniversityNameField = "universityname";
         private const string UniversityidField = "unidersityid";
         private const string BoxidField = "boxid";
         private const string UseridsField = "userids";
@@ -62,19 +62,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsSearchable())
                 .WithStringField(ImageField, f => f
                     .IsRetrievable())
-                .WithStringField(BoxNameField, f => f
-                    .IsRetrievable())
+                //.WithStringField(BoxNameField, f => f
+                //    .IsRetrievable())
                 .WithStringField(ContentField, f => f
                     .IsRetrievable()
                     .IsSearchable())
-                .WithDoubleField(RateField, f => f
-                    .IsRetrievable())
-                .WithIntegerField(ViewsField, f => f
-                    .IsRetrievable())
+                //.WithDoubleField(RateField, f => f
+                //    .IsRetrievable())
+                //.WithIntegerField(ViewsField, f => f
+                //    .IsRetrievable())
                 .WithStringField(UrlField, f => f
                     .IsRetrievable())
-                .WithStringField(UniversityNameField, f => f
-                    .IsRetrievable())
+                //.WithStringField(UniversityNameField, f => f
+                //    .IsRetrievable())
                 .WithField(UniversityidField, "Edm.Int64", f => f
                     .IsFilterable())
                 .WithField(BoxidField, "Edm.Int64", f => f
@@ -161,31 +161,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             item.Id.ToString(CultureInfo.InvariantCulture))
                             .WithProperty(NameField, item.Name)
                             .WithProperty(ImageField, item.Image)
-                            .WithProperty(BoxNameField, item.BoxName)
                             .WithProperty(ContentField, content)
-                            .WithProperty(ViewsField, item.Views)
-                            .WithProperty(RateField, item.Rate)
-                            .WithProperty(UniversityNameField, item.UniversityName)
                             .WithProperty(UrlField, item.Url)
                             .WithProperty(UniversityidField, item.UniversityId)
                             .WithProperty(BoxidField, item.BoxId)
                             .WithProperty(UseridsField,
                                 item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture))));
                 }
-                //listOfCommands.AddRange(itemToUpload.Select(async s => 
-                //   new IndexOperation(IndexOperationType.Upload, IdField,
-                //    s.Id.ToString(CultureInfo.InvariantCulture))
-                //    .WithProperty(NameField, s.Name)
-                //    .WithProperty(ImageField, s.Image)
-                //    .WithProperty(BoxNameField, s.BoxName)
-                //    .WithProperty(ContentField, await FetchContent(s))
-                //    .WithProperty(ViewsField, s.Views)
-                //    .WithProperty(RateField, s.Rate)
-                //    .WithProperty(UniversityNameField, s.UniversityName)
-                //    .WithProperty(UrlField, s.Url)
-                //    .WithProperty(UniversityidField, s.UniversityId)
-                //    .WithProperty(BoxidField, s.BoxId)
-                //    .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
+               
             }
             if (itemToDelete != null)
             {
@@ -217,10 +200,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
+                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", 
+                        UniversityidField, 
+                        UseridsField,
+                        query.UniversityId,
+                        query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight =  NameField + "," + ContentField
+                    Highlight =  ContentField
                 });
 
 
@@ -230,11 +217,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
                     SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                     SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[ContentField]),
-                    SeachConnection.ConvertToType<double>(s.Properties[RateField]),
-                    SeachConnection.ConvertToType<int>(s.Properties[ViewsField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
+
+                    SeachConnection.ConvertToType<string>(String.Join("...",s.Highlights[ContentField])),
+                    //SeachConnection.ConvertToType<double>(s.Properties[RateField]),
+                    //SeachConnection.ConvertToType<int>(s.Properties[ViewsField]),
+                    //SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
+                    //SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
 
             }

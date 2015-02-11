@@ -3,13 +3,13 @@
     public static class Search
     {
 
-        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
-from zbox.users u
-where u.UniversityId = @universityId
-and u.username like '%' +@query + '%'
-order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
-offset @pageNumber*@rowsperpage rows
-fetch next @rowsperpage rows only;";
+//        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
+//from zbox.users u
+//where u.UniversityId = @universityId
+//and u.username like '%' +@query + '%'
+//order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
+//offset @pageNumber*@rowsperpage rows
+//fetch next @rowsperpage rows only;";
 
         public const string Items = @"select 
 i.thumbnailurl as image,
@@ -87,13 +87,9 @@ select top 500 b.boxid  from zbox.box b
   i.ItemId as id,
   i.Name as name,
   i.ThumbnailUrl as image,
-  b.BoxName as boxname,
   i.Content as content,
   i.blobName as blobName,
-  i.Rate as rate,
-  i.NumberOfViews as views,
   i.Url as url,
-  u.UniversityName as universityName,
   u.id as universityid,
   b.BoxId as boxid
    from zbox.item i 
